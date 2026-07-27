@@ -44,6 +44,12 @@ export const HUMECTANTS = {
   DISODIUM_ACETYL_GLUCOSAMINE_PHOSPHATE: 'disodium-acetyl-glucosamine-phosphate', // INCI: Disodium Acetyl Glucosamine Phosphate | glucosamine derivative, hydrating, brightening
   ACETAMIDOETHOXYETHANOL: 'acetamidoethoxyethanol', // INCI: Acetamidoethoxyethanol (Hydromanil) | long-lasting biomimetic humectant
   SACCHARIDE_ISOMERATE: 'saccharide-isomerate', // INCI: Saccharide Isomerate | long-lasting plant humectant (Pentavitin)
+  HYDROLYZED_SODIUM_HYALURONATE: 'hydrolyzed-sodium-hyaluronate', // INCI: Hydrolyzed Sodium Hyaluronate | low-MW HA fragments, deeper stratum corneum penetration
+  SODIUM_ACETYL_HYALURONATE: 'sodium-acetyl-hyaluronate', // INCI: Sodium Acetyl Hyaluronate | acetylated HA salt, improved skin retention
+  MEL_EXTRACT: 'mel-extract', // INCI: Mel Extract | honey extract, humectant supporting filaggrin and aquaporins
+  SERICIN: 'sericin', // INCI: Sericin | silk glue protein, lowers TEWL, documented protein allergen
+  POLYGLYCERIN_3: 'polyglycerin-3', // INCI: Polyglycerin-3 | low-MW polyglycerol humectant
+  POLYQUATERNIUM_51: 'polyquaternium-51', // INCI: Polyquaternium-51 | phospholipid-mimetic MPC polymer, film-forming
 } as const
 
 export const BARRIERE_EMOLLIENTS_OCCLUSIFS = {
@@ -102,6 +108,42 @@ export const BARRIERE_EMOLLIENTS_OCCLUSIFS = {
   PASSIFLORA_EDULIS: 'passiflora-edulis', // INCI: Passiflora Edulis Seed Oil (Passioline) | linoleic-rich oil, antioxidant
   MYROTHAMNUS_FLABELLIFOLIA: 'myrothamnus-flabellifolia', // INCI: Myrothamnus Flabellifolia Leaf/Stem Extract (Myramaze) | resurrection plant
   SQUALENE: 'squalene', // INCI: Squalene | unsaturated emollient lipid, non-hydrogenated form of squalane
+  ORYZA_SATIVA_BRAN_OIL: 'oryza-sativa-bran-oil', // INCI: Oryza Sativa (Rice) Bran Oil | rice bran oil, emollient and antioxidant
+  LINOLENIC_ACID: 'linolenic-acid', // INCI: Linolenic Acid | omega-3 barrier lipid, soothing
+  CAMELLIA_OLEIFERA_SEED_OIL: 'camellia-oleifera-seed-oil', // INCI: Camellia Oleifera Seed Oil | tea seed oil, oleic-rich, moderately comedogenic
+  PUNICA_GRANATUM_SEED_OIL: 'punica-granatum-seed-oil', // INCI: Punica Granatum Seed Oil | pomegranate seed oil, punicic acid, antioxidant
+  OLEANOLIC_ACID: 'oleanolic-acid', // INCI: Oleanolic Acid | triterpene, PPAR-alpha barrier support, ceramide synthesis
+  RIBES_NIGRUM_SEED_OIL: 'ribes-nigrum-seed-oil', // INCI: Ribes Nigrum Seed Oil | blackcurrant seed oil, GLA-rich
+  VACCINIUM_MACROCARPON_SEED_OIL: 'vaccinium-macrocarpon-seed-oil', // INCI: Vaccinium Macrocarpon (Cranberry) Seed Oil | balanced omega-3/6/9, tocotrienol-rich
+  ELAEIS_GUINEENSIS_OIL: 'elaeis-guineensis-oil', // INCI: Elaeis Guineensis (Palm) Oil | palm oil, palmitic-rich emollient, comedogenic-leaning
+  BETULA_ALBA_BARK_EXTRACT: 'betula-alba-bark-extract', // INCI: Betula Alba Bark Extract | birch bark, betulin, barrier gene expression
+  GLYCERYL_OLEATE: 'glyceryl-oleate', // INCI: Glyceryl Oleate | oleate monoester, emulsifier, feeds Malassezia
+  GLYCERYL_LAURATE: 'glyceryl-laurate', // INCI: Glyceryl Laurate | laurate monoester, emulsifier, feeds Malassezia
+  HYDROGENATED_POLYDECENE: 'hydrogenated-polydecene', // INCI: Hydrogenated Polydecene | saturated hydrocarbon emollient, mineral oil replacement
+  MACADAMIA_INTEGRIFOLIA_SEED_OIL: 'macadamia-integrifolia-seed-oil', // INCI: Macadamia Integrifolia Seed Oil | palmitoleic-rich nut oil
+  PHYTOSTEROLS: 'phytosterols', // INCI: Phytosterols | plant sterol mixture, barrier support, very low allergenicity
+  LIMNANTHES_ALBA_SEED_OIL: 'limnanthes-alba-seed-oil', // INCI: Limnanthes Alba Seed Oil | meadowfoam oil, long-chain fatty acids, stable
+  DAUCUS_CAROTA_SEED_OIL: 'daucus-carota-seed-oil', // INCI: Daucus Carota Sativa (Carrot) Seed Oil | carrot seed oil, distinct from the root extract
+  ASTROCARYUM_MURUMURU_SEED_BUTTER: 'astrocaryum-murumuru-seed-butter', // INCI: Astrocaryum Murumuru Seed Butter | occlusive Amazonian butter, lauric and myristic rich
+  STEARIC_ACID: 'stearic-acid', // INCI: Stearic Acid | saturated C18 fatty acid, emulsion structurer
+  PALMITIC_ACID: 'palmitic-acid', // INCI: Palmitic Acid | saturated C16 fatty acid, emulsion structurer
+  MYRISTIC_ACID: 'myristic-acid', // INCI: Myristic Acid | saturated C14 fatty acid, soap-forming cleanser
+  GLYCINE_SOJA_OIL: 'glycine-soja-oil', // INCI: Glycine Soja Oil | soybean oil, oleic and linoleic rich
+  HYDROGENATED_VEGETABLE_OIL: 'hydrogenated-vegetable-oil', // INCI: Hydrogenated Vegetable Oil | hardened triglyceride blend, consistency agent
+  CETYL_PALMITATE: 'cetyl-palmitate', // INCI: Cetyl Palmitate | solid wax ester, spermaceti substitute
+  MYRISTYL_MYRISTATE: 'myristyl-myristate', // INCI: Myristyl Myristate | C14-C14 wax ester, opacifier
+  SESAMUM_INDICUM_SEED_OIL: 'sesamum-indicum-seed-oil', // INCI: Sesamum Indicum Seed Oil | sesame oil, balanced oleic and linoleic
+  ETHYLHEXYL_STEARATE: 'ethylhexyl-stearate', // INCI: Ethylhexyl Stearate | branched stearic ester, dry-touch emollient
+  LINUM_USITATISSIMUM_SEED_OIL: 'linum-usitatissimum-seed-oil', // INCI: Linum Usitatissimum Seed Oil | flax oil, alpha-linolenic rich, oxidation-prone
+  OLEYL_ALCOHOL: 'oleyl-alcohol', // INCI: Oleyl Alcohol | unsaturated C18:1 fatty alcohol, co-emulsifier
+  STEARYL_HEPTANOATE: 'stearyl-heptanoate', // INCI: Stearyl Heptanoate | branched ester, rich emollient
+  ISOSTEARYL_ISOSTEARATE: 'isostearyl-isostearate', // INCI: Isostearyl Isostearate | branched emollient ester, pigment binder
+  DECYL_OLEATE: 'decyl-oleate', // INCI: Decyl Oleate | fatty ester, light spreading emollient
+  ISOPROPYL_ISOSTEARATE: 'isopropyl-isostearate', // INCI: Isopropyl Isostearate | branched isostearic ester, pigment wetting
+  TRITICUM_VULGARE_GERM_OIL: 'triticum-vulgare-germ-oil', // INCI: Triticum Vulgare Germ Oil | wheat germ oil, vitamin E rich
+  LANOLIN: 'lanolin', // INCI: Lanolin | whole sheep wool wax, distinct from the oily fraction
+  SCLEROCARYA_BIRREA_SEED_OIL: 'sclerocarya-birrea-seed-oil', // INCI: Sclerocarya Birrea Seed Oil | marula oil, oleic-rich, clinically non-irritant
+  GENTIANA_LUTEA_ROOT_EXTRACT: 'gentiana-lutea-root-extract', // INCI: Gentiana Lutea Root Extract | yellow gentian, raises keratinocyte ceramide synthesis
 } as const
 
 export const EXFOLIANTS = {
@@ -116,9 +158,11 @@ export const EXFOLIANTS = {
   CAPRYLOYL_SALICYLIC_ACID: 'capryloyl-salicylic-acid', // INCI: Capryloyl Salicylic Acid | lipophilic BHA, mild exfoliant
   CITRUS_LIMON_FRUIT_WATER: 'citrus-limon-fruit-water', // INCI: Citrus Limon Fruit Water
   SUCCINIC_ACID: 'succinic-acid', // INCI: Succinic Acid | mild exfoliant, sebum regulator
-  AHA_ESTERS: 'aha-esters', // AHA esters (esterified hydroxy-carboxylic acids) | extended release
-  ESTER_ACIDE_MALIQUE: 'ester-acide-malique', // Malic acid ester | mild AHA with moderate release
   GLYCOLIDE: 'glycolide', // INCI: Glycolide | cyclic dimer of glycolic acid, time-release exfoliant
+  BETAINE_SALICYLATE: 'betaine-salicylate', // INCI: Betaine Salicylate | betaine salt of salicylic acid, gentler BHA
+  TARTARIC_ACID: 'tartaric-acid', // INCI: Tartaric Acid | grape-derived AHA, low irritation at 2-8 percent
+  CARICA_PAPAYA_FRUIT_EXTRACT: 'carica-papaya-fruit-extract', // INCI: Carica Papaya Fruit Extract | papain-bearing enzymatic exfoliant
+  ANANAS_SATIVUS_FRUIT_EXTRACT: 'ananas-sativus-fruit-extract', // INCI: Ananas Sativus Fruit Extract | bromelain-bearing enzymatic exfoliant
 } as const
 
 export const RETINOIDES = {
@@ -179,6 +223,7 @@ export const PEPTIDES = {
   ACETYL_TETRAPEPTIDE_15: 'acetyl-tetrapeptide-15', // INCI: Acetyl Tetrapeptide-15 | neuro-soothing peptide for sensitive skin
   ACETYL_HEXAPEPTIDE_51_AMIDE: 'acetyl-hexapeptide-51-amide', // INCI: Acetyl Hexapeptide-51 Amide | skin immune-modulating peptide
   COPPER_LYSINATE_PROLINATE: 'copper-lysinate-prolinate', // INCI: Copper Lysinate/Prolinate | copper salt of lysine+proline (Neodermyl), copper peptide family
+  HEXAPEPTIDE_9: 'hexapeptide-9', // INCI: Hexapeptide-9 | cyclized ECM-supporting peptide
 } as const
 
 export const ANTIOXYDANTS_VITAMINES = {
@@ -237,6 +282,40 @@ export const ANTIOXYDANTS_VITAMINES = {
   NARINGENIN: 'naringenin', // INCI: Naringenin | citrus flavonoid, anti-redness partner to azelaic acid
   GLUCOSYLRUTIN: 'glucosylrutin', // INCI: Glucosylrutin | stable glycosylated rutin
   RUTIN: 'rutin', // INCI: Rutin | quercetin glycoside, venotonic antioxidant
+  OLEA_EUROPAEA_LEAF_EXTRACT: 'olea-europaea-leaf-extract', // INCI: Olea Europaea (Olive) Leaf Extract | oleuropein-rich, distinct from olive fruit oil
+  TERMINALIA_FERDINANDIANA_FRUIT_EXTRACT: 'terminalia-ferdinandiana-fruit-extract', // INCI: Terminalia Ferdinandiana Fruit Extract | Kakadu plum, vitamin C and ellagitannins
+  GLYCINE_SOJA_SEED_EXTRACT: 'glycine-soja-seed-extract', // INCI: Glycine Soja (Soybean) Seed Extract | isoflavones and saponins, known allergen
+  COFFEA_ARABICA_SEED_EXTRACT: 'coffea-arabica-seed-extract', // INCI: Coffea Arabica Seed Extract | green coffee bean, restores filaggrin and claudin-1
+  // One slug for three organs: algo-derm holds a single record for the species and its own note
+  // says the supporting studies mix leaf, seed and stamen, so a per-organ split would be fiction.
+  NELUMBO_NUCIFERA: 'nelumbo-nucifera', // INCI: Nelumbo Nucifera Flower Extract / Nelumbo Nucifera Leaf Extract / Nelumbo Nucifera Root Extract | sacred lotus, tyrosinase-inhibiting
+  PROPYL_GALLATE: 'propyl-gallate', // INCI: Propyl Gallate | antioxidant preservative, most reported gallate sensitizer
+  SOY_ISOFLAVONES: 'soy-isoflavones', // INCI: Soy Isoflavones | genistein and daidzein, UVB photoprotective
+  ROSA_CANINA_FRUIT_EXTRACT: 'rosa-canina-fruit-extract', // INCI: Rosa Canina Fruit Extract | rosehip pseudo-fruit, distinct from the seed oil
+  CHRYSIN: 'chrysin', // INCI: Chrysin | antioxidant flavonoid, weak in vitro phototoxicity signal
+  EPIGALLOCATECHIN_GALLATE: 'epigallocatechin-gallate', // INCI: Epigallocatechin Gallate | green tea catechin, sebum-reducing at 5 percent
+  // The corpus spelling is `Flower/Leaf Extract`, which the slug-line parser reads as an alias
+  // separator and would mint a bare `LEONTOPODIUM ALPINUM FLOWER` key from. Declaring the two
+  // slash-free spellings instead; the combined one reaches this slug through the algo-derm bridge.
+  LEONTOPODIUM_ALPINUM_EXTRACT: 'leontopodium-alpinum-extract', // INCI: Leontopodium Alpinum Extract / Leontopodium Alpinum Callus Culture Extract | edelweiss, antioxidant and barrier support
+  CRITHMUM_MARITIMUM_EXTRACT: 'crithmum-maritimum-extract', // INCI: Crithmum Maritimum Extract | sea fennel, phenolic antioxidant
+  TOCOTRIENOLS: 'tocotrienols', // INCI: Tocotrienols | unsaturated vitamin E form, lipophilic antioxidant
+  ORYZANOL: 'oryzanol', // INCI: Oryzanol | rice bran ferulate esters, UV-absorbing but non-phototoxic
+  CAMELLIA_OLEIFERA_LEAF_EXTRACT: 'camellia-oleifera-leaf-extract', // INCI: Camellia Oleifera Leaf Extract | tea leaf, distinct from the seed oil
+  SOLANUM_MELONGENA_FRUIT_EXTRACT: 'solanum-melongena-fruit-extract', // INCI: Solanum Melongena Fruit Extract | eggplant anthocyanins
+  // Two spellings of the same cacao seed extract; algo-derm holds one record for both.
+  THEOBROMA_CACAO_EXTRACT: 'theobroma-cacao-extract', // INCI: Theobroma Cacao Seed Extract / Theobroma Cacao (Cocoa) Extract | cacao polyphenols and methylxanthines
+  // Same for the bare and the leaf-qualified false daisy spelling.
+  ECLIPTA_PROSTRATA_EXTRACT: 'eclipta-prostrata-extract', // INCI: Eclipta Prostrata Extract / Eclipta Prostrata Leaf Extract | false daisy, antioxidant
+  VANILLA_PLANIFOLIA_FRUIT_EXTRACT: 'vanilla-planifolia-fruit-extract', // INCI: Vanilla Planifolia Fruit Extract | vanillin, keratinocyte ROS protection
+  PAEONIA_SUFFRUTICOSA_ROOT_EXTRACT: 'paeonia-suffruticosa-root-extract', // INCI: Paeonia Suffruticosa Root Extract | tree peony, paeoniflorin
+  LEPIDIUM_SATIVUM_SPROUT_EXTRACT: 'lepidium-sativum-sprout-extract', // INCI: Lepidium Sativum Sprout Extract | sinapoyl malate, UV-filter booster
+  ZANTHOXYLUM_PIPERITUM_FRUIT_EXTRACT: 'zanthoxylum-piperitum-fruit-extract', // INCI: Zanthoxylum Piperitum Fruit Extract | Sichuan pepper, pungent constituents
+  CYSTEINE: 'cysteine', // INCI: Cysteine | glutathione precursor amino acid
+  SACCHAROMYCES_CEREVISIAE_EXTRACT: 'saccharomyces-cerevisiae-extract', // INCI: Saccharomyces Cerevisiae Extract | yeast beta-glucans
+  LAMINARIA_SACCHARINA_EXTRACT: 'laminaria-saccharina-extract', // INCI: Laminaria Saccharina Extract | sugar kelp, phenolic antioxidant
+  CHENOPODIUM_QUINOA_SEED_EXTRACT: 'chenopodium-quinoa-seed-extract', // INCI: Chenopodium Quinoa Seed Extract | quinoa saponins and phenolics
+  VIOLA_TRICOLOR_EXTRACT: 'viola-tricolor-extract', // INCI: Viola Tricolor Extract | heartsease, cyclotides
 } as const
 
 export const APAISANTS_ANTI_INFLAMMATOIRES = {
@@ -287,10 +366,30 @@ export const APAISANTS_ANTI_INFLAMMATOIRES = {
   METHYLHYDANTOIN_IMIDE: 'methylhydantoin-imide', // INCI: 1-Methylhydantoin-2-Imide | TRPV1 neuro-soothing active, sensory discomfort relief
   SWERTIA_CHIRATA: 'swertia-chirata', // INCI: Swertia Chirata Extract (swertiamarin) | soothing, Himalayan gentian
   SALICORNIA_HERBACEA: 'salicornia-herbacea', // INCI: Salicornia Herbacea Extract (Saliporine-8) | neurocosmetic soothing agent
+  MAGNOLIA_OFFICINALIS_BARK_EXTRACT: 'magnolia-officinalis-bark-extract', // INCI: Magnolia Officinalis Bark Extract | honokiol and magnolol, documented contact allergen
+  AMMONIUM_GLYCYRRHIZATE: 'ammonium-glycyrrhizate', // INCI: Ammonium Glycyrrhizate | licorice-derived salt of glycyrrhizic acid
+  ALTHAEA_OFFICINALIS_ROOT_EXTRACT: 'althaea-officinalis-root-extract', // INCI: Althaea Officinalis Root Extract | marshmallow mucilage, demulcent
+  HELICHRYSUM_ITALICUM_EXTRACT: 'helichrysum-italicum-extract', // INCI: Helichrysum Italicum Extract | immortelle, Asteraceae sensitization risk
+  ECHINACEA_PURPUREA_EXTRACT: 'echinacea-purpurea-extract', // INCI: Echinacea Purpurea Extract | Asteraceae, restores epidermal barrier lipids
+  ULMUS_DAVIDIANA_ROOT_EXTRACT: 'ulmus-davidiana-root-extract', // INCI: Ulmus Davidiana Root Extract | Korean elm root, K-beauty soothing
+  LAMINARIA_JAPONICA_EXTRACT: 'laminaria-japonica-extract', // INCI: Laminaria Japonica Extract | brown kelp polysaccharides
+  LAMINARIA_OCHROLEUCA_EXTRACT: 'laminaria-ochroleuca-extract', // INCI: Laminaria Ochroleuca Extract | golden kelp, profile close to L. japonica
+  PUERARIA_LOBATA_ROOT_EXTRACT: 'pueraria-lobata-root-extract', // INCI: Pueraria Lobata Root Extract | kudzu isoflavones, puerarin
+  LONICERA_JAPONICA_FLOWER_EXTRACT: 'lonicera-japonica-flower-extract', // INCI: Lonicera Japonica Flower Extract | honeysuckle, chlorogenic acid
+  CLADOSIPHON_OKAMURANUS_EXTRACT: 'cladosiphon-okamuranus-extract', // INCI: Cladosiphon Okamuranus Extract | mozuku fucoidan
+  PAEONIA_ALBIFLORA_ROOT_EXTRACT: 'paeonia-albiflora-root-extract', // INCI: Paeonia Albiflora Root Extract | white peony, benzoylpaeoniflorin
+  ANTHEMIS_NOBILIS_FLOWER_EXTRACT: 'anthemis-nobilis-flower-extract', // INCI: Anthemis Nobilis Flower Extract | Roman chamomile, Asteraceae sensitization caution
+  CENTELLA_ASIATICA_LEAF_WATER: 'centella-asiatica-leaf-water', // INCI: Centella Asiatica Leaf Water | botanical water, more dilute than the extract
+  MENTHOXYPROPANEDIOL: 'menthoxypropanediol', // INCI: Menthoxypropanediol | TRPM8 cooling agent
+  NASTURTIUM_OFFICINALE_EXTRACT: 'nasturtium-officinale-extract', // INCI: Nasturtium Officinale Extract | watercress, best-supported axis is soothing
 } as const
 
 export const ECLAIRCISSANTS_DEPIGMENTANTS = {
   ALPHA_ARBUTIN: 'alpha-arbutin', // INCI: Alpha-Arbutin | anti-dark-spot
+  ARBUTIN: 'arbutin', // INCI: Arbutin | beta form, tyrosinase inhibitor, distinct molecule from alpha-arbutin
+  TROPOLONE: 'tropolone', // INCI: Tropolone | copper-chelating tyrosinase inhibitor, RIFM photoirritant
+  GLYCYRRHIZA_URALENSIS_ROOT_EXTRACT: 'glycyrrhiza-uralensis-root-extract', // INCI: Glycyrrhiza Uralensis Root Extract | licorice glabridin and liquiritin
+  MORUS_NIGRA_FRUIT_EXTRACT: 'morus-nigra-fruit-extract', // INCI: Morus Nigra Fruit Extract | black mulberry, TMBC chalcone tyrosinase inhibitor
   KOJIC_ACID: 'kojic-acid', // INCI: Kojic Acid | tyrosinase inhibitor
   TRANEXAMIC_ACID: 'tranexamic-acid', // INCI: Tranexamic Acid | anti-spot, anti-inflammatory
   PHENYLETHYL_RESORCINOL: 'phenylethyl-resorcinol', // INCI: Phenylethyl Resorcinol | SymWhite 377
@@ -331,6 +430,9 @@ export const ANTI_ACNE_SEBUM = {
   AMMONIUM_LACTATE: 'ammonium-lactate', // INCI: Ammonium Lactate | mild keratolytic, anti-acne
   AZELAMIDE_MEA: 'azelamide-mea', // INCI: Azelamide MEA | amide derivative of azelaic acid, soluble anti-blemish
   AZELAMIDOPROPYL_DIMETHYL_AMINE: 'azelamidopropyl-dimethyl-amine', // INCI: Azelamidopropyl Dimethyl Amine (Epi-On) | amine derivative of azelaic acid
+  TRIETHYL_CITRATE: 'triethyl-citrate', // INCI: Triethyl Citrate | ester solvent, inhibits sebum-processing skin esterases
+  SERENOA_SERRULATA_FRUIT_EXTRACT: 'serenoa-serrulata-fruit-extract', // INCI: Serenoa Serrulata Fruit Extract | saw palmetto, 5-alpha-reductase inhibition
+  GARCINIA_MANGOSTANA_PEEL_EXTRACT: 'garcinia-mangostana-peel-extract', // INCI: Garcinia Mangostana Peel Extract | mangosteen xanthones
 } as const
 
 export const ANTI_ROSACEE_VASOCONSTRICTEURS = {
@@ -340,6 +442,7 @@ export const ANTI_ROSACEE_VASOCONSTRICTEURS = {
   METRONIDAZOLE: 'metronidazole', // INCI: Metronidazole | antibiotic / anti-inflammatory (Rozex®)
   ANGIOPAUSINE: 'angiopausine', // Rosamed-specific active | anti-vascular-redness
   ENDOTHELYOL: 'endothelyol', // Endothelyol® component | vascular protection / photoprotection
+  HYDROXYPHENYL_PROPAMIDOBENZOIC_ACID: 'hydroxyphenyl-propamidobenzoic-acid', // INCI: Hydroxyphenyl Propamidobenzoic Acid | anti-redness active (Symcalmin)
 } as const
 
 export const FILTRES_UV = {
@@ -384,6 +487,8 @@ export const PROBIOTIQUES_PREBIOTIQUES_POSTBIOTIQUES = {
   LACTOBACILLUS_FERMENT: 'lactobacillus-ferment', // INCI: Lactobacillus Ferment | probiotic ferment, soothing and barrier support
   LEUCONOSTOC_FERMENT_FILTRATE: 'leuconostoc-ferment-filtrate', // INCI: Leuconostoc Ferment Filtrate | radish-root ferment, hydrating and mild preservative
   SACCHAROMYCES_FERMENT_FILTRATE: 'saccharomyces-ferment-filtrate', // INCI: Saccharomyces Ferment Filtrate | yeast ferment, radiance and hydration
+  BIFIDA_FERMENT_LYSATE: 'bifida-ferment-lysate', // INCI: Bifida Ferment Lysate | bifidobacterium postbiotic, barrier recovery
+  SACCHAROMYCES_LYSATE_EXTRACT: 'saccharomyces-lysate-extract', // INCI: Saccharomyces Lysate Extract | yeast postbiotic lysate, distinct from the ferment filtrate
 } as const
 
 export const ACTIFS_ANTI_AGE_REPARATEURS = {
@@ -408,6 +513,7 @@ export const ACTIFS_ANTI_AGE_REPARATEURS = {
 
 export const CIRCULATOIRE_DRAINAGE = {
   ESCIN: 'escin', // INCI: Escin | from horse chestnut, anti-edema / circulatory
+  AESCULUS_HIPPOCASTANUM_SEED_EXTRACT: 'aesculus-hippocastanum-seed-extract', // INCI: Aesculus Hippocastanum Seed Extract | whole horse chestnut extract, escin-bearing
   RUSCUS_ACULEATUS: 'ruscus-aculeatus', // INCI: Ruscus Aculeatus Root Extract (butcher's broom) | venotonic
   CAFFEINE: 'caffeine', // INCI: Caffeine | lipolytic, decongestant
   ARNICA: 'arnica', // INCI: Arnica Montana Flower Extract | anti-bruising, circulatory
@@ -423,6 +529,10 @@ export const TENSIOACTIFS_NETTOYANTS = {
   PEG_20_GLYCERYL_TRIISOSTEARATE: 'peg-20-glyceryl-triisostearate', // INCI: PEG-20 Glyceryl Triisostearate | oily emulsifier (cleansers)
   COCAMIDOPROPYL_HYDROXYSULTAINE: 'cocamidopropyl-hydroxysultaine', // INCI: Cocamidopropyl Hydroxysultaine | mild amphoteric surfactant
   CAPRYLOYL_GLYCINE: 'capryloyl-glycine', // INCI: Capryloyl Glycine | amino acid alkyl amide, mild antimicrobial, sebum regulator
+  ISOPROPYL_ALCOHOL: 'isopropyl-alcohol', // INCI: Isopropyl Alcohol | volatile solvent and antiseptic
+  SODIUM_C14_16_OLEFIN_SULFONATE: 'sodium-c14-16-olefin-sulfonate', // INCI: Sodium C14-16 Olefin Sulfonate | strong foaming anionic surfactant
+  SODIUM_CETEARYL_SULFATE: 'sodium-cetearyl-sulfate', // INCI: Sodium Cetearyl Sulfate | anionic alkyl sulfate, emulsifying cleanser
+  LAURETH_4: 'laureth-4', // INCI: Laureth-4 | low-mole ethoxylated lauryl alcohol, co-emulsifier
 } as const
 
 export const TEXTURANTS_FONCTIONNELS = {
@@ -443,6 +553,44 @@ export const TEXTURANTS_FONCTIONNELS = {
   CORN_STARCH_MODIFIED: 'corn-starch-modified', // INCI: Corn Starch Modified / Distarch Phosphate | modified corn starch, mattifying absorbent texturizer
   BIOSACCHARIDE_GUM_4: 'biosaccharide-gum-4', // INCI: Biosaccharide Gum-4 | biotech polysaccharide, anti-pollution
   AMMONIUM_ACRYLOYLDIMETHYLTAURATE_VP_COPOLYMER: 'ammonium-acryloyldimethyltaurate-vp-copolymer', // INCI: Ammonium Acryloyldimethyltaurate/VP Copolymer | rheology gelling agent (Aristoflex AVC)
+  CHITOSAN: 'chitosan', // INCI: Chitosan | deacetylated chitin biopolymer, film-forming humectant
+  // Aromatic and citrus oils live here alongside the existing menthe-poivree / verveine entries.
+  // Bergamot carries two spellings for one material: the oil always comes from the peel.
+  CITRUS_AURANTIUM_BERGAMIA_PEEL_OIL: 'citrus-aurantium-bergamia-peel-oil', // INCI: Citrus Aurantium Bergamia Peel Oil / Citrus Aurantium Bergamia Fruit Oil | bergamot, furocoumarin-bearing
+  CITRUS_LIMON_PEEL_OIL: 'citrus-limon-peel-oil', // INCI: Citrus Limon Peel Oil | lemon peel oil, limonene rich
+  CITRUS_PARADISI_PEEL_OIL: 'citrus-paradisi-peel-oil', // INCI: Citrus Paradisi Peel Oil | grapefruit peel oil
+  CITRUS_GRANDIS_PEEL_OIL: 'citrus-grandis-peel-oil', // INCI: Citrus Grandis Peel Oil | pomelo peel oil
+  CITRUS_NOBILIS_PEEL_OIL: 'citrus-nobilis-peel-oil', // INCI: Citrus Nobilis Peel Oil | mandarin peel oil
+  // One species, four materials. algo-derm's stripBotanicalParts folds the organ away, so without
+  // a direct index key every spelling lands on whichever slug exists — neroli was resolving to the
+  // peel oil. Declaring each organ makes the key direct, which is looked up before the bridge.
+  // `Citrus Aurantium Amara Oil`, with no organ, stays on the bridge: the NEROLI and BITTER ORANGE
+  // spellings normalise to the same key (1 product each) so no declaration can separate them.
+  CITRUS_AURANTIUM_AMARA_PEEL_OIL: 'citrus-aurantium-amara-peel-oil', // INCI: Citrus Aurantium Amara Peel Oil | bitter orange peel oil
+  CITRUS_AURANTIUM_AMARA_FLOWER_OIL: 'citrus-aurantium-amara-flower-oil', // INCI: Citrus Aurantium Amara Flower Oil | neroli
+  CITRUS_AURANTIUM_AMARA_LEAF_OIL: 'citrus-aurantium-amara-leaf-oil', // INCI: Citrus Aurantium Amara Leaf Twig Oil / Citrus Aurantium Amara Leaf Twig Extract | petitgrain
+  CITRUS_AURANTIUM_AMARA_FLOWER_WATER: 'citrus-aurantium-amara-flower-water', // INCI: Citrus Aurantium Amara Flower Water / Citrus Aurantium Amara Flower Extract | orange blossom water
+  ROSMARINUS_OFFICINALIS_LEAF_OIL: 'rosmarinus-officinalis-leaf-oil', // INCI: Rosmarinus Officinalis Leaf Oil | rosemary oil, camphor and cineole
+  POGOSTEMON_CABLIN_OIL: 'pogostemon-cablin-oil', // INCI: Pogostemon Cablin Oil | patchouli oil
+  EUCALYPTUS_GLOBULUS_LEAF_OIL: 'eucalyptus-globulus-leaf-oil', // INCI: Eucalyptus Globulus Leaf Oil | eucalyptus oil, cineole rich
+  ANTHEMIS_NOBILIS_FLOWER_OIL: 'anthemis-nobilis-flower-oil', // INCI: Anthemis Nobilis Flower Oil | Roman chamomile oil, esters of angelic acid
+  CANANGA_ODORATA_FLOWER_OIL: 'cananga-odorata-flower-oil', // INCI: Cananga Odorata Flower Oil | ylang-ylang oil
+  LITSEA_CUBEBA_FRUIT_OIL: 'litsea-cubeba-fruit-oil', // INCI: Litsea Cubeba Fruit Oil | may chang oil, citral rich
+  LAVANDULA_HYBRIDA_OIL: 'lavandula-hybrida-oil', // INCI: Lavandula Hybrida Oil | lavandin oil, camphor bearing
+  HELICHRYSUM_ITALICUM_FLOWER_OIL: 'helichrysum-italicum-flower-oil', // INCI: Helichrysum Italicum Flower Oil | immortelle oil, distinct from the extract
+  MENTHA_VIRIDIS_LEAF_OIL: 'mentha-viridis-leaf-oil', // INCI: Mentha Viridis Leaf Oil | spearmint oil, carvone rich, low menthol
+  CEDRUS_ATLANTICA_BARK_OIL: 'cedrus-atlantica-bark-oil', // INCI: Cedrus Atlantica Bark Oil | atlas cedarwood oil
+  SALVIA_OFFICINALIS_OIL: 'salvia-officinalis-oil', // INCI: Salvia Officinalis Oil | common sage oil, thujone bearing
+  ROSA_DAMASCENA_FLOWER_OIL: 'rosa-damascena-flower-oil', // INCI: Rosa Damascena Flower Oil | damask rose otto
+  SALVIA_SCLAREA_OIL: 'salvia-sclarea-oil', // INCI: Salvia Sclarea Oil | clary sage oil, linalyl acetate rich
+  VETIVERIA_ZIZANOIDES_ROOT_OIL: 'vetiveria-zizanoides-root-oil', // INCI: Vetiveria Zizanoides Root Oil | vetiver root oil
+  PINUS_SYLVESTRIS_LEAF_OIL: 'pinus-sylvestris-leaf-oil', // INCI: Pinus Sylvestris Leaf Oil | scots pine needle oil, oxidation-sensitive
+  SANTALUM_ALBUM_OIL: 'santalum-album-oil', // INCI: Santalum Album Oil | indian sandalwood oil
+  BOSWELLIA_CARTERII_OIL: 'boswellia-carterii-oil', // INCI: Boswellia Carterii Oil | frankincense resin oil
+  ELETTARIA_CARDAMOMUM_SEED_OIL: 'elettaria-cardamomum-seed-oil', // INCI: Elettaria Cardamomum Seed Oil | cardamom seed oil
+  ANIBA_ROSAEODORA_WOOD_OIL: 'aniba-rosaeodora-wood-oil', // INCI: Aniba Rosaeodora Wood Oil | rosewood oil, linalool rich
+  CHAMOMILLA_RECUTITA_FLOWER_OIL: 'chamomilla-recutita-flower-oil', // INCI: Chamomilla Recutita Flower Oil | german chamomile oil, chamazulene
+  MENTHA_ARVENSIS_LEAF_OIL: 'mentha-arvensis-leaf-oil', // INCI: Mentha Arvensis Leaf Oil | cornmint oil, menthol rich
 } as const
 
 export const DIVERS_NON_CLASSES = {
@@ -488,6 +636,19 @@ export const DIVERS_NON_CLASSES = {
   CORALLINA_OFFICINALIS: 'corallina-officinalis', // INCI: Corallina Officinalis Extract | red algae, mineral source
   LAVENDER_OIL: 'lavender-oil', // INCI: Lavandula Angustifolia Oil | lavender essential oil (contains fragrance allergens)
   GERANIUM_OIL: 'geranium-oil', // INCI: Pelargonium Graveolens Oil | rose geranium essential oil (contains fragrance allergens)
+  CHLORPHENESIN: 'chlorphenesin', // INCI: Chlorphenesin | broad-spectrum preservative
+  SODIUM_METABISULFITE: 'sodium-metabisulfite', // INCI: Sodium Metabisulfite | sulfite antioxidant preservative
+  SODIUM_SULFITE: 'sodium-sulfite', // INCI: Sodium Sulfite | sulfite antioxidant, same sensitizing moiety as metabisulfite
+  VANILLIN: 'vanillin', // INCI: Vanillin | main aroma molecule of vanilla, EU Annex III restricted
+  PHENYLPROPANOL: 'phenylpropanol', // INCI: Phenylpropanol | aromatic alcohol, fragrance and preservative booster
+  RASPBERRY_KETONE: 'raspberry-ketone', // INCI: Raspberry Ketone | raspberry aroma molecule, tyrosinase substrate
+  ALGAE_EXTRACT: 'algae-extract', // INCI: Algae Extract | generic algal extract, species not declared
+  SEA_SALT: 'sea-salt', // INCI: Sea Salt | mineral salt, abrasive and texture agent
+  HYDROXYDECENOIC_ACID_10: '10-hydroxydecenoic-acid', // INCI: 10-Hydroxydecenoic Acid | royal jelly fatty acid
+  // `Leaf/Stem Extract` would split into a truncated `HEDERA HELIX LEAF` key, so the slash-free
+  // corpus spellings are declared instead; the combined one arrives through the algo-derm bridge.
+  HEDERA_HELIX_EXTRACT: 'hedera-helix-extract', // INCI: Hedera Helix Leaf Extract / Hedera Helix Extract | ivy saponins, falcarinol allergens
+  ALUMINUM_CHLOROHYDRATE: 'aluminum-chlorohydrate', // INCI: Aluminum Chlorohydrate | antiperspirant aluminium salt
 } as const
 
 export const FILLERS = {
