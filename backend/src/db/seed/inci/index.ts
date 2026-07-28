@@ -113,6 +113,17 @@ const NON_DISCRIMINANT_SOURCE: string[] = [
   'Tocopheryl Glucoside',
   // Carbohydrate carriers
   'Maltodextrin',
+  // Lake pigments. The CI family was settled by the 106-token pass; these three escaped it only
+  // because `Colour N Lake (CI …)` hides the code from normalizeInciToken, which erases the
+  // parenthetical outright — `Blue 1 Lake (CI 42090)` normalises to `BLUE 1 LAKE` and the resolver
+  // never sees 42090. Listing the wrapped spelling is what closes that hole. This is not the
+  // retired sweep re-listing colours: the decision is the family's, and it was already taken.
+  'Blue 1 Lake (CI 42090)',
+  'Red 7 Lake (CI 15850)',
+  'Yellow 5 Lake (CI 19140)',
+  // pH adjuster, BUFFERING and nothing else in CosIng — same family as Citric Acid and Sodium
+  // Hydroxide above.
+  'Aminomethyl Propanol',
 ]
 
 export const NON_DISCRIMINANT_TOKENS = new Set<string>(
