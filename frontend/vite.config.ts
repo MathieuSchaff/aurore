@@ -7,109 +7,6 @@ import { nitro } from 'nitro/vite'
 import { defineConfig, loadEnv, type Plugin, type UserConfig } from 'vite'
 import Inspect from 'vite-plugin-inspect'
 
-// Keep this file separate until the Vite 8/Rolldown setup replaces the main config.
-
-// Finds the eager stylesheet tag for an emitted empty CSS asset so it can be removed.
-const EMPTY_CSS_LINK_PATTERN = (href: string) =>
-  new RegExp(
-    `\\s*<link\\b(?=[^>]*\\brel=(?:"stylesheet"|'stylesheet'))(?=[^>]*\\bhref=(?:"${escapeRegExp(
-      href
-    )}"|'${escapeRegExp(href)}'))[^>]*>`,
-    'g'
-  )
-
-function escapeRegExp(value: string) {
-  return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
-}
-
-// Normalizes Rolldown asset sources so CSS can be inspected as text.
-function assetText(asset: { source: string | Uint8Array }) {
-  return typeof asset.source === 'string' ? asset.source : new TextDecoder().decode(asset.source)
-}
-
-// Builds the public asset URL while preserving static-preview relative bases.
-function withBase(base: string, emittedFile: string) {
-  const file = emittedFile.replace(/^\/+/, '')
-
-  if (base === '') return file
-  if (base === './') return `./${file}`
-
-  const normalizedBase = base.endsWith('/') ? base : `${base}/`
-  return `${normalizedBase}${file}`
-}
-
-function preloadBodyFont(): Plugin {
-  let base = '/'
-
-  return {
-    name: 'aurore:preload-body-font',
-    apply: 'build',
-    configResolved(config) {
-      base = config.base
-    },
-    transformIndexHtml: {
-      order: 'post',
-      handler(html, ctx) {
-        if (!ctx.bundle) return html
-
-        // Fontsource hides the body font behind CSS; preload the real hashed file.
-        // Keep this aligned with the font import in `src/routes/__root.tsx`.
-        const font = Object.keys(ctx.bundle).find(
-          (file) => file.includes('dm-sans-latin-400-normal') && file.endsWith('.woff2')
-        )
-        if (!font) return html
-
-        return {
-          html,
-          tags: [
-            {
-              tag: 'link',
-              attrs: {
-                rel: 'preload',
-                as: 'font',
-                type: 'font/woff2',
-                href: withBase(base, font),
-                crossorigin: '',
-              },
-              injectTo: 'head-prepend',
-            },
-          ],
-        }
-      },
-    },
-  }
-}
-
-function stripEmptyEagerCssLinks(): Plugin {
-  let base = '/'
-
-  return {
-    name: 'aurore:strip-empty-eager-css-links',
-    apply: 'build',
-    configResolved(config) {
-      base = config.base
-    },
-    transformIndexHtml: {
-      order: 'post',
-      handler(html, ctx) {
-        if (!ctx.bundle) return html
-
-        let transformedHtml = html
-        for (const [fileName, bundledFile] of Object.entries(ctx.bundle)) {
-          if (bundledFile.type !== 'asset' || !fileName.endsWith('.css')) continue
-          if (assetText(bundledFile).trim() !== '') continue
-
-          // Strip only the eager HTML link. Lazy preloads may still need the asset.
-          const href = withBase(base, fileName)
-          transformedHtml = transformedHtml.replace(EMPTY_CSS_LINK_PATTERN(href), '')
-        }
-
-        return transformedHtml
-      },
-    },
-  }
-}
-
 function enabled(value: string | undefined) {
   return value === '1' || value === 'true'
 }
@@ -177,8 +74,6 @@ export default defineConfig(async ({ command, mode, isPreview }): Promise<UserCo
         presets: [reactCompilerPreset()],
       }),
 
-      preloadBodyFont(),
-      stripEmptyEagerCssLinks(),
       visualizerPlugin,
     ],
 
