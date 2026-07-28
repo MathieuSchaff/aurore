@@ -34,8 +34,8 @@
   mask-image: linear-gradient(
     to right,
     transparent 0,
-    #000 var(--space-4),
-    #000 calc(100% - var(--space-6)),
+    oklch(0% 0 0) var(--space-4),
+    oklch(0% 0 0) calc(100% - var(--space-6)),
     transparent 100%
   );
 }

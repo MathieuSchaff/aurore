@@ -162,10 +162,10 @@ describe('PATCH /admin/users/:id/role', () => {
   })
 
   // Escalation guard: `role` is `z.literal('user')`, so the endpoint can only
-  // demote — it must reject any attempt to write 'admin'/'contributor'. This is
+  // demote. It must reject any attempt to write 'admin'/'contributor'. This is
   // the sole barrier turning a role-write into a privilege-escalation primitive,
   // so it gets a regression test that fails loudly if the literal is ever loosened.
-  it('rejects a non-user target role — escalation guard (400, role unchanged)', async () => {
+  it('rejects a non-user target role: escalation guard (400, role unchanged)', async () => {
     const res = await client.admin.users[':id'].role.$patch(
       {
         param: { id: contributorId },

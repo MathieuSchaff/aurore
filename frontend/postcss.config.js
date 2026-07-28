@@ -44,7 +44,7 @@ export default {
     hoverGate(),
     isProd &&
       purgecss({
-        content: ['./index.html', './src/**/*.{ts,tsx,html}'],
+        content: ['./src/**/*.{ts,tsx,html}'],
         defaultExtractor: (content) => content.match(/[A-Za-z0-9_-]+/g) || [],
         safelist: {
           standard: [/^is-/, /^has-/, /^data-/, /^aria-/],

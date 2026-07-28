@@ -21,11 +21,11 @@ type ModerationAuditInput = {
 // DELETE that had just succeeded. A failure warns because the trail just lost an entry,
 // which is the one thing this table exists to prevent.
 export async function logModerationAction(
-  db: Database,
+  basePool: Database,
   action: ModerationAuditInput
 ): Promise<void> {
   try {
-    await db.insert(moderationActions).values(action)
+    await basePool.insert(moderationActions).values(action)
   } catch (e) {
     logger.warn({ err: e, action: action.action }, 'Moderation audit write failed')
   }

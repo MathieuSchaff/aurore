@@ -1,11 +1,12 @@
 import type { MiddlewareHandler } from 'hono'
 
 import type { AppEnv } from '../app-env'
+import { HEALTH_PATH, READY_PATH } from '../features/health/routes'
 import { logger } from '../lib/logger'
 
 // Container probes run every 30s and accounted for 85% of the API log volume, which
 // buried the handful of lines that carry actual traffic. A failing probe still logs.
-const PROBE_PATHS = new Set(['/api/health', '/api/ready'])
+const PROBE_PATHS = new Set<string>([HEALTH_PATH, READY_PATH])
 
 export const requestLoggingMiddleware: MiddlewareHandler<AppEnv> = async (c, next) => {
   // Generated, never read from the request: an inbound header would let a client forge

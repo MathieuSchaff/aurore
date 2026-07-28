@@ -156,7 +156,7 @@ describe('Sitemap route', () => {
     expect(xml).not.toContain('a&b</loc>')
   })
 
-  it("sert le XML mémoïsé tant que le cache n'est pas vidé", async () => {
+  it('serves the memoized XML until the cache is cleared', async () => {
     const author = await createTestUser()
     const first = await (await app.request('/api/sitemap.xml')).text()
 
@@ -175,7 +175,7 @@ describe('Sitemap route', () => {
     expect(rebuilt).toContain('/blog/skincare/apres-premier-rendu</loc>')
   })
 
-  it('aligne le cache navigateur sur le TTL restant du XML serveur', async () => {
+  it('aligns the browser cache on the remaining server TTL', async () => {
     const startedAt = new Date('2026-07-27T10:00:00.000Z')
     setSystemTime(startedAt)
 
