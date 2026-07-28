@@ -8,8 +8,8 @@ const isProd = process.env.NODE_ENV === 'production'
 // Gate :hover rules behind (hover: hover) so taps on touch devices don't leave
 // stuck hover states. Inline plugin: postcss-hover-media-feature@1.0.2 hangs on
 // :hover inside :has(). Runs after nesting so it sees flat selectors.
-// Caveat: substring match, so `:not(:hover)` is gated too (vanishes on touch) —
-// none exist today; write a plain default state + :hover override if you need one.
+// Caveat: substring match, so `:not(:hover)` is gated too (vanishes on touch).
+// None exist today; write a plain default state + :hover override if you need one.
 const HOVER_MEDIA = /\(\s*hover\s*:\s*hover\s*\)/i
 const hoverGate = () => ({
   postcssPlugin: 'hover-media-gate',
@@ -34,6 +34,21 @@ const hoverGate = () => ({
   },
 })
 
+// PurgeCSS 8 silently drops any rule whose selector *starts* with `:is(...)` followed by a
+// pseudo-class (`:is(.a .b):hover`), which is exactly what postcss-nesting emits for a nested
+// `&:hover` or `&:focus-visible`. No safelist catches it: the rule is dropped before the
+// safelist is evaluated. Prefixing the universal selector moves `:is()` off the front, and
+// costs nothing: `*` adds no specificity and `*:is(X)` matches whatever `:is(X)` matches.
+const prefixLeadingIs = () => ({
+  postcssPlugin: 'prefix-leading-is',
+  OnceExit(root) {
+    root.walkRules((rule) => {
+      if (!rule.selectors.some((s) => s.startsWith(':is('))) return
+      rule.selectors = rule.selectors.map((s) => (s.startsWith(':is(') ? `*${s}` : s))
+    })
+  },
+})
+
 export default {
   plugins: [
     globalData({ files: ['src/styles/tokens/breakpoints.css'] }),
@@ -41,6 +56,7 @@ export default {
     // Flatten nesting before PurgeCSS sees the CSS. Vite only flattens `&` via esbuild
     // after PostCSS, so PurgeCSS would otherwise get raw `&` selectors and drop them.
     nesting(),
+    prefixLeadingIs(),
     hoverGate(),
     isProd &&
       purgecss({
