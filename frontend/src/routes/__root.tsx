@@ -79,9 +79,6 @@ export const Route = createRootRouteWithContext<RouterContext>()({
   // The root must allow SSR because a child cannot override a disabled ancestor.
   // Public routes opt into runtime SSR individually.
   ssr: true,
-  // Vite's preload-error recovery requires a fresh HTML shell after each deploy.
-  // Assets remain content-hashed and keep their independent long-lived cache policy.
-  headers: () => ({ 'Cache-Control': 'no-cache' }),
   // Dehydrated loader data keeps the server and first client render on the same shell.
   // Keep this request-scoped; never write the hint into the shared auth store.
   loader: () => ({ serverHint: readServerSessionHint() }),
@@ -127,6 +124,9 @@ export const Route = createRootRouteWithContext<RouterContext>()({
       },
     ],
   }),
+  // Vite's preload-error recovery requires a fresh HTML shell after each deploy.
+  // Assets remain content-hashed and keep their independent long-lived cache policy.
+  headers: () => ({ 'Cache-Control': 'no-cache' }),
   component: RootComponent,
   // The router mounts the shell outside the root catch boundary, so the document
   // survives a root throw. Rendering it from `component` instead would strip
