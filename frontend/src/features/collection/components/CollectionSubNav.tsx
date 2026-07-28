@@ -3,6 +3,8 @@ import { Link } from '@tanstack/react-router'
 import './CollectionSubNav.css'
 
 // `exact` keeps the index link inactive while a child tab (motifs/achats) is open.
+// It also switches the search comparison to a strict deep-equal, so `includeSearch: false`
+// is required or filter/sort params in the URL would drop the active state.
 const VIEWS = [
   { label: 'Collection', to: '/collection', exact: true },
   { label: 'Motifs', to: '/collection/motifs', exact: false },
@@ -17,7 +19,7 @@ export function CollectionSubNav() {
           key={v.to}
           to={v.to}
           className="coll-subnav-link"
-          activeOptions={{ exact: v.exact }}
+          activeOptions={{ exact: v.exact, includeSearch: false }}
           activeProps={{ className: 'coll-subnav-link--active', 'aria-current': 'page' }}
         >
           {v.label}
