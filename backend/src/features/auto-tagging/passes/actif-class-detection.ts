@@ -130,7 +130,7 @@ export const ACTIF_CLASS_DEFS: ActifClassDef[] = [
   {
     slug: SKINCARE_PRODUCT_TAG_SLUGS.AHA,
     patterns: ['mandelic acid'],
-    // Mandelic acid is never used as a pH adjuster — always an exfoliant actif.
+    // Mandelic acid is never used as a pH adjuster, only as an exfoliant actif.
     positionCap: 15,
     positionCapRinseOff: 20,
   },
@@ -169,14 +169,26 @@ export const ACTIF_CLASS_DEFS: ActifClassDef[] = [
     // with manual corpus. `ng`/`as` types added (observed in cica/relipidant blends).
     // `phytosphingosine` rejected: 0 recall gain but 24 over-tags on soothing
     // products not classified as ceramides in the gold-set.
+    // Letter forms cover the whole Motta code (fatty acid x sphingoid base); the
+    // corpus only carries np/eop/ns/ap/as today, the rest guard future listings.
+    // Numbered names are kept here even though the taxonomy drops them: this pass
+    // matches algo-derm `normalize` output, which does not resolve aliases, so a
+    // product still listing `Ceramide 3` would otherwise go untagged.
     patterns: [
       'ceramide np',
       'ceramide ap',
       'ceramide ns',
       'ceramide ng',
       'ceramide as',
+      'ceramide ag',
+      'ceramide ah',
+      'ceramide nh',
+      'ceramide nds',
+      'ceramide ads',
       'ceramide eop',
       'ceramide eos',
+      'ceramide eoh',
+      'ceramide eods',
       'ceramide 1',
       'ceramide 2',
       'ceramide 3',
@@ -273,9 +285,8 @@ export const ACTIF_CLASS_DEFS: ActifClassDef[] = [
   },
 ]
 
-// Slug-only view, kept as the stable API for the 6 callers + safety-net tests that
-// only need membership. Insertion order mirrors the evidence map, so output is
-// byte-identical to the pre-evidence implementation.
+// Slug-only view for callers that only need membership. Insertion order mirrors
+// the evidence map, so output is byte-identical to the pre-evidence implementation.
 export function detectActifClasses(
   inci: string | null | undefined,
   hoistedIngredients?: readonly string[],
@@ -296,10 +307,9 @@ export function detectActifClasses(
   ]
 }
 
-// Same matching as detectActifClasses, but records the triggering token, its INCI
-// position, and the cap rule that admitted it — so audits can explain (and second-
-// guess) each hit. First def that fires for a slug wins, mirroring the old Set
-// dedup; within a def the earliest in-window token is the evidence.
+// Evidence variant, so audits can explain each hit. First def that fires for a slug
+// wins, which keeps the old Set dedup order; within a def the earliest in-window
+// token is the evidence.
 export function detectActifClassesWithEvidence(
   inci: string | null | undefined,
   hoistedIngredients?: readonly string[],
@@ -317,7 +327,7 @@ export function detectActifClassesWithEvidence(
   // Korean brands often list INCI alphabetically; position caps are meaningless then.
   const isAlpha = isAlphabeticalINCI(ingredients)
   const isRinseOffLike = kind !== undefined && RINSE_OFF_LIKE_KINDS.has(kind)
-  // Empty/absent name disables the cap-marginal gate (legacy keep — see rinseOffNameGate).
+  // Empty/absent name disables the cap-marginal gate (legacy keep, see rinseOffNameGate).
   const gateName = productName?.trim().toLowerCase()
 
   for (const def of ACTIF_CLASS_DEFS) {

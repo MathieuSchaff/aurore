@@ -281,6 +281,31 @@ async function readCurrentLinks(
   return byProduct
 }
 
+// canonical_key → slug fallback map. Prefer a non `-hair` slug so a skincare product
+// lands on the bare slug instead of its haircare shadow (both share the key).
+async function readCanonicalKeyMaps(tx: Transaction): Promise<{
+  canonicalKeyToSlug: Map<string, string>
+  canonicalKeyBySlug: Map<string, string>
+}> {
+  const keyRows = await tx
+    .select({ slug: ingredients.slug, key: ingredients.canonicalKey })
+    .from(ingredients)
+    .where(isNotNull(ingredients.canonicalKey))
+
+  const canonicalKeyToSlug = new Map<string, string>()
+  // Reverse direction: the identity of a slug, used to keep one substance off a product twice.
+  const canonicalKeyBySlug = new Map<string, string>()
+  for (const { slug, key } of keyRows) {
+    if (!key) continue
+    canonicalKeyBySlug.set(slug, key)
+    const cur = canonicalKeyToSlug.get(key)
+    if (!cur || (cur.endsWith('-hair') && !slug.endsWith('-hair'))) {
+      canonicalKeyToSlug.set(key, slug)
+    }
+  }
+  return { canonicalKeyToSlug, canonicalKeyBySlug }
+}
+
 // Bucket observed signals, not assumed causes. Every bucket keeps samples for review.
 type ZeroBucket =
   | 'uppercase-mega-token'
@@ -377,151 +402,130 @@ function printReport(s: RunStats): void {
   }
 }
 
-async function main() {
-  console.log(
-    `\n🔗 INCI → product_ingredients linking (${WRITE ? 'WRITE' : 'DRY-RUN'})` +
-      (SLUG_ARG ? ` · slug=${SLUG_ARG}` : RELINK ? ' · relink=all' : '') +
-      (LIMIT !== null ? ` · limit=${LIMIT}` : '')
-  )
-  console.log(`   alias index: ${aliasIndex.size} keys · inci index: ${inciIndex.size} tokens\n`)
+interface LinkInsert {
+  productId: string
+  ingredientId: string
+  source: 'linker'
+}
 
-  await withAdminRls(async (tx) => {
-    const { ingredientSlugToId } = await fetchIdMaps(tx)
+// One product's write, held until every product is planned so the decision stays out of the
+// transaction and stays inspectable in a dry-run.
+interface ProductWrite {
+  inserts: LinkInsert[]
+  removeIds: string[]
+}
 
-    // canonical_key → slug fallback map. Prefer a non `-hair` slug so a skincare product
-    // lands on the bare slug instead of its haircare shadow (both share the key).
-    const keyRows = await tx
-      .select({ slug: ingredients.slug, key: ingredients.canonicalKey })
-      .from(ingredients)
-      .where(isNotNull(ingredients.canonicalKey))
-    const canonicalKeyToSlug = new Map<string, string>()
-    // Reverse direction: the identity of a slug, used to keep one substance off a product twice.
-    const canonicalKeyBySlug = new Map<string, string>()
-    for (const { slug, key } of keyRows) {
-      if (!key) continue
-      canonicalKeyBySlug.set(slug, key)
-      const cur = canonicalKeyToSlug.get(key)
-      if (!cur || (cur.endsWith('-hair') && !slug.endsWith('-hair'))) {
-        canonicalKeyToSlug.set(key, slug)
-      }
+function planCorpusReconcile(input: {
+  eligible: EligibleProduct[]
+  currentLinks: Map<string, CurrentLink[]>
+  ingredientSlugToId: Map<string, string>
+  canonicalKeyToSlug: Map<string, string>
+  canonicalKeyBySlug: Map<string, string>
+}): { writes: ProductWrite[]; stats: RunStats } {
+  const { eligible, currentLinks, ingredientSlugToId, canonicalKeyToSlug, canonicalKeyBySlug } =
+    input
+
+  const writes: ProductWrite[] = []
+  let withLinks = 0
+  let zeroLinks = 0
+  let totalPairs = 0
+  let removedRows = 0
+  let keptCurated = 0
+  let untouchedNoTarget = 0
+  let changedProducts = 0
+  let aliasConflicts = 0
+  const removedFreq = new Map<string, number>()
+  const keptCuratedSamples: string[] = []
+  const aliasConflictSamples: string[] = []
+  const slugFreq = new Map<string, number>()
+  const unbridgedFreq = new Map<string, number>()
+  const blockedFreq = new Map<string, number>()
+  const zeroBuckets = new Map<ZeroBucket, string[]>([
+    ['uppercase-mega-token', []],
+    ['non-uppercase-mega-token', []],
+    ['resolved-but-unbridged', []],
+    ['blocked-only', []],
+    ['nothing-recognized', []],
+    ['no-inci', []],
+  ])
+  let missingId = 0
+
+  for (const product of eligible) {
+    const current = currentLinks.get(product.id) ?? []
+    if (!product.inci) {
+      zeroLinks++
+      zeroBuckets.get('no-inci')?.push(product.slug)
+      continue
     }
-    console.log(`   canonical_key fallback map: ${canonicalKeyToSlug.size} keys`)
-
-    const eligible = await readEligible(tx)
-    console.log(`   eligible products: ${eligible.length}\n`)
-
-    const currentLinks = await readCurrentLinks(
-      tx,
-      eligible.map((p) => p.id)
+    const computed = computeLinks(
+      product.inci,
+      product.category,
+      canonicalKeyToSlug,
+      canonicalKeyBySlug
     )
-
-    let withLinks = 0
-    let zeroLinks = 0
-    let totalPairs = 0
-    let removedRows = 0
-    let keptCurated = 0
-    let untouchedNoTarget = 0
-    let changedProducts = 0
-    let aliasConflicts = 0
-    const removedFreq = new Map<string, number>()
-    const keptCuratedSamples: string[] = []
-    const aliasConflictSamples: string[] = []
-    const slugFreq = new Map<string, number>()
-    const unbridgedFreq = new Map<string, number>()
-    const blockedFreq = new Map<string, number>()
-    const zeroBuckets = new Map<ZeroBucket, string[]>([
-      ['uppercase-mega-token', []],
-      ['non-uppercase-mega-token', []],
-      ['resolved-but-unbridged', []],
-      ['blocked-only', []],
-      ['nothing-recognized', []],
-      ['no-inci', []],
-    ])
-    let missingId = 0
-
-    for (const product of eligible) {
-      const current = currentLinks.get(product.id) ?? []
-      if (!product.inci) {
-        zeroLinks++
-        zeroBuckets.get('no-inci')?.push(product.slug)
-        continue
-      }
-      const computed = computeLinks(
-        product.inci,
-        product.category,
-        canonicalKeyToSlug,
-        canonicalKeyBySlug
-      )
-      const { slugs, unbridged, blocked } = computed
-      for (const u of unbridged) {
-        unbridgedFreq.set(u, (unbridgedFreq.get(u) ?? 0) + 1)
-      }
-      for (const b of blocked) {
-        blockedFreq.set(b, (blockedFreq.get(b) ?? 0) + 1)
-      }
-
-      const targetIds = new Map<string, string>()
-      for (const slug of slugs) {
-        const ingredientId = ingredientSlugToId.get(slug)
-        if (!ingredientId) {
-          missingId++
-          continue
-        }
-        slugFreq.set(slug, (slugFreq.get(slug) ?? 0) + 1)
-        targetIds.set(slug, ingredientId)
-      }
-
-      if (targetIds.size === 0) {
-        zeroLinks++
-        // Resolved slugs without an id row are seed↔DB drift: counted by missingId,
-        // not a linking-cause bucket.
-        if (slugs.length === 0) zeroBuckets.get(classifyZeroLink(computed))?.push(product.slug)
-        // Deriving nothing means the parser failed on this INCI (prose, glued tokens), not
-        // that the existing links are wrong. Never let an empty target delete anything.
-        if (current.length > 0) untouchedNoTarget++
-        continue
-      }
-      withLinks++
-
-      const plan = planReconcile(current, targetIds.keys(), canonicalKeyBySlug)
-      const pairs = plan.add.map((slug) => ({
-        productId: product.id,
-        // planReconcile only ever returns slugs taken from targetIds.
-        ingredientId: targetIds.get(slug) as string,
-        source: 'linker' as const,
-      }))
-      const toRemove = plan.remove
-      for (const c of plan.remove) {
-        removedFreq.set(c.slug, (removedFreq.get(c.slug) ?? 0) + 1)
-      }
-      for (const c of plan.keptCurated) {
-        keptCurated++
-        if (keptCuratedSamples.length < 20) keptCuratedSamples.push(`${product.slug} · ${c.slug}`)
-      }
-      for (const { slug, heldBy } of plan.aliasConflicts) {
-        aliasConflicts++
-        if (aliasConflictSamples.length < 20)
-          aliasConflictSamples.push(`${product.slug} · ${slug} shadowed by ${heldBy.slug}`)
-      }
-
-      totalPairs += pairs.length
-      removedRows += toRemove.length
-      if (pairs.length > 0 || toRemove.length > 0) changedProducts++
-
-      if (WRITE) {
-        if (pairs.length > 0) await addManyIngredientsToProduct(tx, pairs)
-        if (toRemove.length > 0) {
-          await tx.delete(productIngredients).where(
-            inArray(
-              productIngredients.id,
-              toRemove.map((c) => c.id)
-            )
-          )
-        }
-      }
+    const { slugs, unbridged, blocked } = computed
+    for (const u of unbridged) {
+      unbridgedFreq.set(u, (unbridgedFreq.get(u) ?? 0) + 1)
+    }
+    for (const b of blocked) {
+      blockedFreq.set(b, (blockedFreq.get(b) ?? 0) + 1)
     }
 
-    printReport({
+    const targetIds = new Map<string, string>()
+    for (const slug of slugs) {
+      const ingredientId = ingredientSlugToId.get(slug)
+      if (!ingredientId) {
+        missingId++
+        continue
+      }
+      slugFreq.set(slug, (slugFreq.get(slug) ?? 0) + 1)
+      targetIds.set(slug, ingredientId)
+    }
+
+    if (targetIds.size === 0) {
+      zeroLinks++
+      // Resolved slugs without an id row are seed↔DB drift: counted by missingId,
+      // not a linking-cause bucket.
+      if (slugs.length === 0) zeroBuckets.get(classifyZeroLink(computed))?.push(product.slug)
+      // Deriving nothing means the parser failed on this INCI (prose, glued tokens), not
+      // that the existing links are wrong. Never let an empty target delete anything.
+      if (current.length > 0) untouchedNoTarget++
+      continue
+    }
+    withLinks++
+
+    const plan = planReconcile(current, targetIds.keys(), canonicalKeyBySlug)
+    const inserts = plan.add.map((slug) => ({
+      productId: product.id,
+      // planReconcile only ever returns slugs taken from targetIds.
+      ingredientId: targetIds.get(slug) as string,
+      source: 'linker' as const,
+    }))
+    const removeIds = plan.remove.map((c) => c.id)
+    for (const c of plan.remove) {
+      removedFreq.set(c.slug, (removedFreq.get(c.slug) ?? 0) + 1)
+    }
+    for (const c of plan.keptCurated) {
+      keptCurated++
+      if (keptCuratedSamples.length < 20) keptCuratedSamples.push(`${product.slug} · ${c.slug}`)
+    }
+    for (const { slug, heldBy } of plan.aliasConflicts) {
+      aliasConflicts++
+      if (aliasConflictSamples.length < 20)
+        aliasConflictSamples.push(`${product.slug} · ${slug} shadowed by ${heldBy.slug}`)
+    }
+
+    totalPairs += inserts.length
+    removedRows += removeIds.length
+    if (inserts.length > 0 || removeIds.length > 0) {
+      changedProducts++
+      writes.push({ inserts, removeIds })
+    }
+  }
+
+  return {
+    writes,
+    stats: {
       withLinks,
       zeroLinks,
       totalPairs,
@@ -538,17 +542,61 @@ async function main() {
       keptCuratedSamples,
       aliasConflictSamples,
       zeroBuckets,
+    },
+  }
+}
+
+async function applyReconcilePlans(tx: Transaction, writes: ProductWrite[]): Promise<void> {
+  for (const { inserts, removeIds } of writes) {
+    if (inserts.length > 0) await addManyIngredientsToProduct(tx, inserts)
+    if (removeIds.length > 0) {
+      await tx.delete(productIngredients).where(inArray(productIngredients.id, removeIds))
+    }
+  }
+}
+
+async function main() {
+  console.log(
+    `\n🔗 INCI → product_ingredients linking (${WRITE ? 'WRITE' : 'DRY-RUN'})` +
+      (SLUG_ARG ? ` · slug=${SLUG_ARG}` : RELINK ? ' · relink=all' : '') +
+      (LIMIT !== null ? ` · limit=${LIMIT}` : '')
+  )
+  console.log(`   alias index: ${aliasIndex.size} keys · inci index: ${inciIndex.size} tokens\n`)
+
+  await withAdminRls(async (tx) => {
+    const { ingredientSlugToId } = await fetchIdMaps(tx)
+    const { canonicalKeyToSlug, canonicalKeyBySlug } = await readCanonicalKeyMaps(tx)
+    console.log(`   canonical_key fallback map: ${canonicalKeyToSlug.size} keys`)
+
+    const eligible = await readEligible(tx)
+    console.log(`   eligible products: ${eligible.length}\n`)
+
+    const currentLinks = await readCurrentLinks(
+      tx,
+      eligible.map((p) => p.id)
+    )
+
+    const { writes, stats } = planCorpusReconcile({
+      eligible,
+      currentLinks,
+      ingredientSlugToId,
+      canonicalKeyToSlug,
+      canonicalKeyBySlug,
     })
+
+    if (WRITE) await applyReconcilePlans(tx, writes)
+
+    printReport(stats)
 
     if (!WRITE) {
       console.log(
-        `\n  Would insert ${totalPairs} rows and delete ${removedRows} on ${changedProducts} products. Re-run with --write.\n`
+        `\n  Would insert ${stats.totalPairs} rows and delete ${stats.removedRows} on ${stats.changedProducts} products. Re-run with --write.\n`
       )
       // Roll back the read-only transaction so nothing persists.
       throw new DryRunRollback()
     }
     console.log(
-      `\n  Reconciled ${changedProducts} products: +${totalPairs} / -${removedRows} rows (${keptCurated} human links kept).\n`
+      `\n  Reconciled ${stats.changedProducts} products: +${stats.totalPairs} / -${stats.removedRows} rows (${stats.keptCurated} human links kept).\n`
     )
   }).catch((err) => {
     if (err instanceof DryRunRollback) return
