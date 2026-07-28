@@ -61,6 +61,21 @@ export const BARRIERE_EMOLLIENTS_OCCLUSIFS = {
   CERAMIDE_AP: 'ceramide-ap', // INCI: Ceramide AP (Ceramide 6-II)
   CERAMIDE_EOP: 'ceramide-eop', // INCI: Ceramide EOP (Ceramide 1)
   CERAMIDE_NS: 'ceramide-ns', // INCI: Ceramide NS (Ceramide 2) – less common
+  // Motta letter code: 1st letter = fatty acid (N non-hydroxy, A alpha-hydroxy,
+  // EO omega-hydroxy esterified), 2nd = sphingoid base (S sphingosine,
+  // dS dihydrosphingosine, P phytosphingosine, H 6-hydroxysphingosine).
+  // Retired numbered names stay out of the taxonomy: algo-derm aliases already
+  // resolve them onto these letter forms.
+  CERAMIDE_AS: 'ceramide-as', // INCI: Ceramide AS | alpha-hydroxy acyl on sphingosine
+  CERAMIDE_AG: 'ceramide-ag', // INCI: Ceramide AG | sphingosine base, synthetic acyl chain
+  CERAMIDE_NG: 'ceramide-ng', // INCI: Ceramide NG | sphingosine base, synthetic acyl chain
+  CERAMIDE_EOS: 'ceramide-eos', // INCI: Ceramide EOS | linoleate-esterified acyl on sphingosine
+  CERAMIDE_EOH: 'ceramide-eoh', // INCI: Ceramide EOH | esterified acyl on 6-hydroxysphingosine
+  CERAMIDE_AH: 'ceramide-ah', // INCI: Ceramide AH | alpha-hydroxy acyl on 6-hydroxysphingosine
+  CERAMIDE_NH: 'ceramide-nh', // INCI: Ceramide NH | non-hydroxy acyl on 6-hydroxysphingosine
+  CERAMIDE_NDS: 'ceramide-nds', // INCI: Ceramide NdS | non-hydroxy acyl on dihydrosphingosine
+  CERAMIDE_ADS: 'ceramide-ads', // INCI: Ceramide AdS | alpha-hydroxy acyl on dihydrosphingosine
+  CERAMIDE_EODS: 'ceramide-eods', // INCI: Ceramide EOdS | esterified acyl on dihydrosphingosine
   CHOLESTEROL: 'cholesterol', // INCI: Cholesterol | NMF component, very important in barrier creams
   PHYTOSPHINGOSINE: 'phytosphingosine', // INCI: Phytosphingosine | barrier lipid, antimicrobial
   GLYCOSPHINGOLIPIDS: 'glycosphingolipids', // INCI: Glycosphingolipids | barrier lipids, often with ceramides
