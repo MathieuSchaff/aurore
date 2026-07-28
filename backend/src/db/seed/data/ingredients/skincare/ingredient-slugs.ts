@@ -289,6 +289,34 @@ export const PEPTIDES = {
   ACETYL_TETRAPEPTIDE_11: 'acetyl-tetrapeptide-11', // INCI: Acetyl Tetrapeptide-11
   ACETYL_HEPTAPEPTIDE_4: 'acetyl-heptapeptide-4', // INCI: Acetyl Heptapeptide-4
   ACETYL_TETRAPEPTIDE_40: 'acetyl-tetrapeptide-40', // INCI: Acetyl Tetrapeptide-40
+
+  // Recombinant human peptides. The `sh-` prefix is part of the identity, not a spelling:
+  // sh-Oligopeptide-1 is EGF, Oligopeptide-1 is a small GHK-family peptide. Never alias them.
+  SH_OLIGOPEPTIDE_1: 'sh-oligopeptide-1', // INCI: sh-Oligopeptide-1
+  SH_OLIGOPEPTIDE_2: 'sh-oligopeptide-2', // INCI: sh-Oligopeptide-2
+  SH_POLYPEPTIDE_1: 'sh-polypeptide-1', // INCI: sh-Polypeptide-1
+  SH_POLYPEPTIDE_3: 'sh-polypeptide-3', // INCI: sh-Polypeptide-3
+  SH_POLYPEPTIDE_9: 'sh-polypeptide-9', // INCI: sh-Polypeptide-9
+  SH_POLYPEPTIDE_11: 'sh-polypeptide-11', // INCI: sh-Polypeptide-11
+  SH_POLYPEPTIDE_16: 'sh-polypeptide-16', // INCI: sh-Polypeptide-16
+  SH_POLYPEPTIDE_22: 'sh-polypeptide-22', // INCI: sh-Polypeptide-22
+  SH_POLYPEPTIDE_62: 'sh-polypeptide-62', // INCI: sh-Polypeptide-62
+  SH_DECAPEPTIDE_7: 'sh-decapeptide-7', // INCI: sh-Decapeptide-7
+  SH_OCTAPEPTIDE_4: 'sh-octapeptide-4', // INCI: sh-Octapeptide-4
+
+  // Numbered and acylated peptides algo-derm holds a record for.
+  PALMITOYL_TRIPEPTIDE_8: 'palmitoyl-tripeptide-8', // INCI: Palmitoyl Tripeptide-8
+  OLIGOPEPTIDE_1: 'oligopeptide-1', // INCI: Oligopeptide-1
+  OLIGOPEPTIDE_2: 'oligopeptide-2', // INCI: Oligopeptide-2
+  TRIPEPTIDE_29: 'tripeptide-29', // INCI: Tripeptide-29
+  NICOTINOYL_TRIPEPTIDE_1: 'nicotinoyl-tripeptide-1', // INCI: Nicotinoyl Tripeptide-1
+  MYRISTOYL_PENTAPEPTIDE_4: 'myristoyl-pentapeptide-4', // INCI: Myristoyl Pentapeptide-4
+  HEXANOYL_DIPEPTIDE_3_NORLEUCINE_ACETATE: 'hexanoyl-dipeptide-3-norleucine-acetate', // INCI: Hexanoyl Dipeptide-3 Norleucine Acetate
+  // The key + value already spans 89 columns, so the pair cannot take a trailing comment on the
+  // line Biome keeps: only the code counts toward lineWidth, but a wrapped declaration mints no
+  // key at all. This one resolves through canonical_key, like the nicotiana- fusions above.
+  NICOTIANA_BENTHAMIANA_HEXAPEPTIDE_40_SH_POLYPEPTIDE_47:
+    'nicotiana-benthamiana-hexapeptide-40-sh-polypeptide-47',
 } as const
 
 export const ANTIOXYDANTS_VITAMINES = {
