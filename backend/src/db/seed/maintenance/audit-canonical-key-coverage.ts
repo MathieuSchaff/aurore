@@ -4,6 +4,7 @@
 //   keyed-no-data    — algo-derm knows the substance but records no comedogenicity/functions
 //   keyed-data-lost  — algo-derm HAS data yet the row carries no profile  -> aurore bug
 //   unkeyed-matchable — no canonical_key but the alias index resolves it  -> coverage to claim
+//   unkeyed-blocked  — resolvable but the match is a known conflation     -> must stay unkeyed
 //   unkeyed-unknown  — algo-derm does not know it at all                  -> nothing to do
 
 import { buildAliasIndex, lookupIngredient, MERGED_EVIDENCE_DB } from 'algo-derm/engine'
@@ -21,6 +22,16 @@ const hasData = (key: string): boolean => {
   if (!rec) return false
   return rec.risk?.comedogenicity !== undefined || (rec.identity?.functions?.length ?? 0) > 0
 }
+
+// Mirrors backfill-canonical-key's blocklist, kept in sync by hand. Importing it would
+// run that module's top-level main().
+const UNRESOLVABLE_SLUGS = new Set([
+  'camellia-oleifera-leaf-extract',
+  'ceramide-eos',
+  'ceramide-ng',
+  'citrus-aurantium-amara-flower-oil',
+  'citrus-aurantium-amara-leaf-oil',
+])
 
 // Same resolution ladder as backfill-canonical-key, kept in sync by hand.
 const resolve = (name: string, slug: string): string | null => {
@@ -56,6 +67,7 @@ const buckets = {
   'keyed-no-data': [] as string[],
   'keyed-data-lost': [] as string[],
   'unkeyed-matchable': [] as string[],
+  'unkeyed-blocked': [] as string[],
   'unkeyed-unknown': [] as string[],
 }
 
@@ -66,9 +78,12 @@ for (const r of rows) {
     continue
   }
   const match = resolve(r.name, r.slug)
-  if (match)
-    buckets['unkeyed-matchable'].push(`${r.slug} -> ${match}${hasData(match) ? ' *DATA*' : ''}`)
-  else buckets['unkeyed-unknown'].push(r.slug)
+  if (!match) {
+    buckets['unkeyed-unknown'].push(r.slug)
+    continue
+  }
+  const bucket = UNRESOLVABLE_SLUGS.has(r.slug) ? 'unkeyed-blocked' : 'unkeyed-matchable'
+  buckets[bucket].push(`${r.slug} -> ${match}${hasData(match) ? ' *DATA*' : ''}`)
 }
 
 for (const [label, list] of Object.entries(buckets)) {
