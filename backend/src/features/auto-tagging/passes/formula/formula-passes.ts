@@ -78,7 +78,7 @@ import {
   REPARATION_EXCLUSION_RE,
   REPARATION_POSITION_RE,
 } from '.'
-import { matchNamePositioning } from './name-positioning'
+import { matchNamePositioning, type NamePositioningOptions } from './name-positioning'
 
 function formulaPass(
   name: string,
@@ -96,14 +96,21 @@ function namePass(
   name: string,
   detect: (ctx: PassContext) => readonly SkincareProductTagSlug[],
   positionRe: RegExp,
-  exclusionRe?: RegExp
+  exclusionRe?: RegExp,
+  opts?: NamePositioningOptions
 ): Pass {
   return {
     name,
     run: (ctx) => {
       const slugs = detect(ctx)
       if (slugs.length === 0) return []
-      const evidence = matchNamePositioning(ctx.name, ctx.description, positionRe, exclusionRe)
+      const evidence = matchNamePositioning(
+        ctx.name,
+        ctx.description,
+        positionRe,
+        exclusionRe,
+        opts
+      )
       return slugs.map(
         (tagSlug): AutoTagProposal => ({
           tagSlug,
@@ -140,7 +147,8 @@ export const FORMULA_PASSES: readonly Pass[] = [
     'formula:rougeurs-vasculaires-name',
     (c) => detectRougeursVasculairesFromName(c.name, c.description),
     REDNESS_POSITION_RE,
-    CAMOUFLAGE_RE
+    CAMOUFLAGE_RE,
+    { leadWindowOnly: true }
   ),
   namePass(
     'formula:hyperpigmentation-name',
