@@ -2,6 +2,7 @@ import type { SocialPostSurfaceView } from '@aurore/shared'
 
 import { useQuery } from '@tanstack/react-query'
 import { Link } from '@tanstack/react-router'
+import type { ReactNode } from 'react'
 
 import { Badge } from '@/component/DataDisplay/Badge/Badge'
 import { Time } from '@/component/DataDisplay/Time/Time'
@@ -29,29 +30,36 @@ function AuthorName({ author }: { author: SocialPostSurfaceView['author'] }) {
 }
 
 // The product is implicit here, so we show author + tone + content.
-// Self-hides when empty. No counters, no reaction-based sorting.
-export function ProductPostsSection({ slug }: { slug: string }) {
+// Self-hides when empty, unless a composer is passed. No counters, no reaction-based sorting.
+export function ProductPostsSection({ slug, composer }: { slug: string; composer?: ReactNode }) {
   const { data } = useQuery(productQueries.posts(slug))
   const posts = data?.posts ?? []
 
-  if (posts.length === 0) return null
+  if (posts.length === 0 && !composer) return null
 
   return (
     <section className="product-section product-posts">
-      <SectionHeader title="Publications" variant="primary" />
-      <ul role="list" className="product-posts__list">
-        {posts.map((post) => (
-          <li key={post.id} className="product-posts__item">
-            <header className="product-posts__header">
-              <AuthorName author={post.author} />
-              <Time iso={post.createdAt} style="monthYear" className="product-posts__date" />
-              <Badge variant="chip">{POST_TONE_LABELS[post.tone]}</Badge>
-            </header>
-            <p className="product-posts__body">{post.content}</p>
-            <ReactionRow reactableType="post" reactableId={post.id} />
-          </li>
-        ))}
-      </ul>
+      <SectionHeader
+        title="Publications"
+        count={posts.length > 0 ? posts.length : undefined}
+        variant="primary"
+      />
+      {composer}
+      {posts.length > 0 && (
+        <ul role="list" className="product-posts__list">
+          {posts.map((post) => (
+            <li key={post.id} className="product-posts__item">
+              <header className="product-posts__header">
+                <AuthorName author={post.author} />
+                <Time iso={post.createdAt} style="monthYear" className="product-posts__date" />
+                <Badge variant="chip">{POST_TONE_LABELS[post.tone]}</Badge>
+              </header>
+              <p className="product-posts__body">{post.content}</p>
+              <ReactionRow reactableType="post" reactableId={post.id} />
+            </li>
+          ))}
+        </ul>
+      )}
     </section>
   )
 }

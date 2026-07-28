@@ -10,7 +10,7 @@
   line-height: var(--leading-relaxed);
   background: var(--bg-card);
   border: 1px solid var(--border-default);
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-md);
   padding: var(--space-4);
   margin: 0;
 }
@@ -36,11 +36,13 @@
   }
 }
 
+/* One quiet row per axis. The review text is the main content, ratings stay secondary. */
 .public-reviews__axis {
   display: flex;
-  flex-direction: column;
-  gap: var(--space-1);
-  padding: var(--space-2) 0;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: var(--space-1) 0;
   border-bottom: var(--rule-section);
 }
 
@@ -76,7 +78,7 @@
 .public-reviews__verbatim {
   background: var(--bg-card);
   border: 1px solid var(--border-default);
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-md);
   padding: var(--space-4);
   display: flex;
   flex-direction: column;
@@ -85,9 +87,16 @@
 
 .public-reviews__verbatim-header {
   display: flex;
-  align-items: baseline;
+  align-items: center;
   justify-content: space-between;
   gap: var(--space-3);
+  flex-wrap: wrap;
+}
+
+.public-reviews__byline {
+  display: inline-flex;
+  align-items: baseline;
+  gap: var(--space-2);
   flex-wrap: wrap;
 }
 
