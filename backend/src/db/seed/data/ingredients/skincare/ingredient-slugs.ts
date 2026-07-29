@@ -277,6 +277,18 @@ export const PEPTIDES = {
   ACETYL_HEXAPEPTIDE_51_AMIDE: 'acetyl-hexapeptide-51-amide', // INCI: Acetyl Hexapeptide-51 Amide | skin immune-modulating peptide
   COPPER_LYSINATE_PROLINATE: 'copper-lysinate-prolinate', // INCI: Copper Lysinate/Prolinate | copper salt of lysine+proline (Neodermyl), copper peptide family
   HEXAPEPTIDE_9: 'hexapeptide-9', // INCI: Hexapeptide-9 | cyclized ECM-supporting peptide
+
+  // Numbered peptides the corpus carries with no algo-derm record: French text, no dermo score
+  NONAPEPTIDE_1: 'nonapeptide-1', // INCI: Nonapeptide-1
+  ACETYL_OCTAPEPTIDE_3: 'acetyl-octapeptide-3', // INCI: Acetyl Octapeptide-3
+  DIPEPTIDE_2: 'dipeptide-2', // INCI: Dipeptide-2
+  ACETYL_TETRAPEPTIDE_3: 'acetyl-tetrapeptide-3', // INCI: Acetyl Tetrapeptide-3
+  ACETYL_TETRAPEPTIDE_9: 'acetyl-tetrapeptide-9', // INCI: Acetyl Tetrapeptide-9
+  BIOTINOYL_TRIPEPTIDE_1: 'biotinoyl-tripeptide-1', // INCI: Biotinoyl Tripeptide-1
+  PENTAPEPTIDE_18: 'pentapeptide-18', // INCI: Pentapeptide-18
+  ACETYL_TETRAPEPTIDE_11: 'acetyl-tetrapeptide-11', // INCI: Acetyl Tetrapeptide-11
+  ACETYL_HEPTAPEPTIDE_4: 'acetyl-heptapeptide-4', // INCI: Acetyl Heptapeptide-4
+  ACETYL_TETRAPEPTIDE_40: 'acetyl-tetrapeptide-40', // INCI: Acetyl Tetrapeptide-40
 } as const
 
 export const ANTIOXYDANTS_VITAMINES = {
