@@ -130,7 +130,7 @@ describe('ProductsPage — integration (URL ↔ filtres ↔ liste)', () => {
     expect(screen.getByText(/Niacinamide 10% \+ Zinc 1%/)).toBeInTheDocument()
   })
 
-  it('applies a composed skincare shortcut as canonical URL filters', async () => {
+  it('applies a skincare product family as a canonical URL filter', async () => {
     server.use(
       http.get('*/api/products/filter-options', () =>
         HttpResponse.json({
@@ -140,7 +140,6 @@ describe('ProductsPage — integration (URL ↔ filtres ↔ liste)', () => {
             tagCounts: {
               ...PRODUCT_FILTER_OPTIONS.tagCounts,
               'type-hydratant': 1,
-              'texture-creme': 1,
             },
           },
         })
@@ -156,7 +155,7 @@ describe('ProductsPage — integration (URL ↔ filtres ↔ liste)', () => {
     await user.click(within(dialog).getByRole('button', { name: /Je sais ce que je cherche/i }))
     await user.click(
       within(dialog).getByRole('button', {
-        name: /Crème hydratante.*Hydratant \+ Crème/i,
+        name: /Soin hydratant.*1 produit/i,
       })
     )
     await user.click(within(dialog).getByRole('button', { name: /^Appliquer/i }))
@@ -164,7 +163,6 @@ describe('ProductsPage — integration (URL ↔ filtres ↔ liste)', () => {
     await waitFor(() => {
       expect(router.state.location.search).toMatchObject({
         product_type_v2: ['type-hydratant'],
-        texture: ['texture-creme'],
       })
     })
   })

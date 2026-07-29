@@ -1,7 +1,7 @@
 import type { SkincareProductTagSlug } from '@aurore/shared'
 
-import type { FilterGroupConfig, FilterValues } from '@/component/Filter/types'
-import { type FilterKey, tagLabel } from '@/features/products/filters'
+import type { FilterGroupConfig, FilterOption, FilterValues } from '@/component/Filter/types'
+import type { FilterKey } from '@/features/products/filters'
 
 export type SearchIntent = {
   id: string
@@ -11,35 +11,17 @@ export type SearchIntent = {
 
 export const SEARCH_INTENTS: SearchIntent[] = [
   {
-    id: 'cream-moisturizer',
-    label: 'Crème hydratante',
+    id: 'moisturizer',
+    label: 'Soin hydratant',
     filters: {
       product_type_v2: ['type-hydratant'],
-      texture: ['texture-creme'],
     },
   },
   {
-    id: 'gel-cleanser',
-    label: 'Gel nettoyant',
+    id: 'cleanser',
+    label: 'Nettoyant',
     filters: {
       product_type_v2: ['type-nettoyant'],
-      texture: ['texture-gel'],
-    },
-  },
-  {
-    id: 'face-cleanser',
-    label: 'Nettoyant visage',
-    filters: {
-      product_type_v2: ['type-nettoyant'],
-      skin_zone: ['zone-visage'],
-    },
-  },
-  {
-    id: 'sunscreen-cream',
-    label: 'Crème solaire',
-    filters: {
-      product_type_v2: ['type-solaire'],
-      texture: ['texture-creme'],
     },
   },
   {
@@ -50,22 +32,56 @@ export const SEARCH_INTENTS: SearchIntent[] = [
     },
   },
   {
-    id: 'body-milk',
-    label: 'Lait corps',
+    id: 'sunscreen',
+    label: 'Protection solaire',
     filters: {
-      texture: ['texture-lait'],
-      skin_zone: ['zone-corps'],
+      product_type_v2: ['type-solaire'],
+    },
+  },
+  {
+    id: 'targeted-treatment',
+    label: 'Soin ciblé',
+    filters: {
+      product_type_v2: ['type-traitement'],
+    },
+  },
+  {
+    id: 'mask',
+    label: 'Masque',
+    filters: {
+      product_type_v2: ['type-masque'],
     },
   },
 ]
 
-// Derive the "Nettoyant + Gel" hint from the taxonomy labels of the preset's
-// slugs, in filter-axis order, so it can't drift from the canonical labels.
-export function intentDetail(intent: SearchIntent) {
-  return Object.values(intent.filters)
-    .flat()
-    .map((slug) => tagLabel(slug))
-    .join(' + ')
+const PRODUCT_COUNT_FORMATTER = new Intl.NumberFormat('fr-FR')
+
+export function getSearchIntentOption(
+  intent: SearchIntent,
+  groups: FilterGroupConfig<FilterKey>[]
+): FilterOption | undefined {
+  const entries = Object.entries(intent.filters)
+  if (entries.length !== 1) return undefined
+
+  const [key, values] = entries[0]
+  if (values?.length !== 1) return undefined
+
+  return groups
+    .flatMap((group) => group.subFilters)
+    .find((field) => field.key === key)
+    ?.options.find((option) => option.value === values[0])
+}
+
+export function intentCountLabel(
+  intent: SearchIntent,
+  groups: FilterGroupConfig<FilterKey>[]
+): string {
+  const option = getSearchIntentOption(intent, groups)
+  if (!option || option.disabled) return 'Indisponible'
+  if (option.count === undefined) return 'Disponible'
+
+  const noun = option.count > 1 ? 'produits' : 'produit'
+  return `${PRODUCT_COUNT_FORMATTER.format(option.count)} ${noun}`
 }
 
 function arraysMatch(actual: string[] | undefined, expected: string[]) {
@@ -110,15 +126,6 @@ export function isSearchIntentAvailable(
   intent: SearchIntent,
   groups: FilterGroupConfig<FilterKey>[]
 ) {
-  return Object.entries(intent.filters).every(([key, values]) =>
-    (values ?? []).every((value) =>
-      groups.some((group) =>
-        group.subFilters.some(
-          (field) =>
-            field.key === key &&
-            field.options.some((option) => option.value === value && !option.disabled)
-        )
-      )
-    )
-  )
+  const option = getSearchIntentOption(intent, groups)
+  return Boolean(option && !option.disabled)
 }

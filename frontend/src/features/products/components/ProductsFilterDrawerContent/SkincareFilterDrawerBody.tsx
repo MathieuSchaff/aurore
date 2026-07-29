@@ -34,7 +34,7 @@ function presentGroup(
     defaultOpen,
     subFilters: group.subFilters.map((field) => {
       const selected = localFilters[field.key] ?? []
-      // Options arrive pre-ordered from the hook (alpha, or defs order for
+      // Options arrive already ordered from the hook (alpha, or defs order for
       // semantic categories); only filter out unavailable-and-unselected here.
       const availableOptions = field.options.filter(
         (option) => !option.disabled || selected.includes(option.value)
@@ -152,8 +152,8 @@ export function SkincareFilterDrawerBody({
       {path === 'product' ? (
         <>
           <DrawerSection
-            title="Choisissez un raccourci"
-            description="Chaque raccourci combine plusieurs critères visibles, que vous pourrez affiner."
+            title="Quel type de produit cherchez-vous ?"
+            description="Choisissez une famille de produits, puis affinez par texture, zone ou besoin."
           >
             <SearchIntentPicker
               groups={groups}
