@@ -455,7 +455,9 @@ export const APAISANTS_ANTI_INFLAMMATOIRES = {
   // Every spelling is declared in full: only the fruit one was, so the three others reached the
   // haircare twin through the algo-derm bridge and died on the domain guard. A direct index key
   // is looked up before the bridge, which is what makes this line win them back.
-  MORINDA_CITRIFOLIA: 'morinda-citrifolia', // INCI: Morinda Citrifolia Fruit Extract / Morinda Citrifolia Extract / Morinda Citrifolia Callus Culture Lysate / Morinda Citrifolia Fruit Powder | Noni, protective/antioxidant
+  // `Morinda Citrifolia Seed Oil` stays out on purpose: a seed oil is not a fruit extract, CosIng
+  // separates them, and folding it in would rebuild the over-broad umbrella this line just fixed.
+  MORINDA_CITRIFOLIA: 'morinda-citrifolia', // INCI: Morinda Citrifolia Fruit Extract / Morinda Citrifolia Extract / Morinda Citrifolia Callus Culture Lysate / Morinda Citrifolia Fruit Powder / Morinda Citrifolia Fruit Juice | Noni, protective/antioxidant
   GLYCYRRHETINIC_ACID: 'glycyrrhetinic-acid', // INCI: Glycyrrhetinic Acid (alias INN/BAN: Enoxolone), anti-inflammatory
   DIPOTASSIUM_GLYCYRRHIZATE: 'dipotassium-glycyrrhizate', // INCI: Dipotassium Glycyrrhizate | potent soothing agent from licorice
   NEUTRAZEN: 'neutrazen', // INCI: (specialized soothing component) | complex for reactive skin / rosacea
@@ -721,6 +723,10 @@ export const TEXTURANTS_FONCTIONNELS = {
   LAVANDULA_HYBRIDA_OIL: 'lavandula-hybrida-oil', // INCI: Lavandula Hybrida Oil | lavandin oil, camphor bearing
   HELICHRYSUM_ITALICUM_FLOWER_OIL: 'helichrysum-italicum-flower-oil', // INCI: Helichrysum Italicum Flower Oil | immortelle oil, distinct from the extract
   MENTHA_VIRIDIS_LEAF_OIL: 'mentha-viridis-leaf-oil', // INCI: Mentha Viridis Leaf Oil | spearmint oil, carvone rich, low menthol
+  // `Cedrus Atlantica Oil/Extract` (29 products) cannot be declared here: `/` is the alias
+  // separator, so the line mints `CEDRUS ATLANTICA OIL` and an invented `… BARK EXTRACT`, never
+  // the corpus key `CEDRUS ATLANTICA OIL/EXTRACT`. Same for Cananga Odorata. Measured 2026-07-29,
+  // see the Groupe 4 investigation in sessions/algo-derm-candidates-triage.md.
   CEDRUS_ATLANTICA_BARK_OIL: 'cedrus-atlantica-bark-oil', // INCI: Cedrus Atlantica Bark Oil | atlas cedarwood oil
   SALVIA_OFFICINALIS_OIL: 'salvia-officinalis-oil', // INCI: Salvia Officinalis Oil | common sage oil, thujone bearing
   ROSA_DAMASCENA_FLOWER_OIL: 'rosa-damascena-flower-oil', // INCI: Rosa Damascena Flower Oil | damask rose otto
