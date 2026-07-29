@@ -5,9 +5,14 @@
  *   1. ingredientData[].content markdown: `## INCI\n**Token**` block
  *   2. data/ingredients/<domain>/ingredient-slugs.ts: inline `// [INCI:] Token | desc` comments
  *
- * Excipient blocklist filters out tokens that are too common to be informative
- * (water, glycerin, denat. alcohol, EDTA…). buildInciIndex drops them at construction;
- * buildExcipientSlugs rebuilds with includeExcipients to collect the slugs they resolve to.
+ * NON_DISCRIMINANT_TOKENS answers one question: does this token say anything about *this*
+ * product? Water and glycerin do not, whatever they do to skin. It does not answer "does this
+ * deserve a page" — a listed substance keeps its ingredient row, its /ingredients entry and its
+ * clickable driver in the formula reading, it only never becomes a product link.
+ *
+ * So the index carries these tokens. Dropping them at construction hid them from the algo-derm
+ * bridge, which then landed a synonym on an unblocked slug. Both cuts happen at link time
+ * instead: resolveToken on the raw token, buildNonDiscriminantSlugs on the resolved slug.
  */
 
 import { readFileSync } from 'node:fs'
@@ -16,91 +21,81 @@ import { join } from 'node:path'
 import { ingredientData } from '../data/ingredients'
 import { INGREDIENT_SLUGS } from '../data/ingredients/ingredient-slugs'
 
-// Entries are normalised at module load via normalizeInciToken to match real
-// INCI conventions (dashes, slashes, parens, accents). Source list keeps the
-// original INCI orthography so it stays grep-friendly.
-const EXCIPIENT_BLOCKLIST_SOURCE: string[] = [
-  // Solvents / pH adjusters
+// One rule: a token belongs here only if it blocks a link measured on the corpus, or is common
+// enough (>=300 of 6769 products) that a fiche written later would chip it onto thousands of
+// sheets. Measured with audit-blocklist-purge.ts.
+//
+// The 2026-07 sweeps are retired with their criteria: algo-derm axis thresholds measured intensity,
+// never how much a token tells a reader about *this* product, and the "no resolvable slug" branch
+// took the absence of a fiche as proof none was wanted. Between them they listed 268 tokens that
+// cut nothing at all — peptides, ferments, botanicals, CI colours — and pre-empted the fiches
+// nobody had written yet.
+//
+// Most of the common excipients are already dropped by FILLER_SLUGS (the is_filler taxonomy), on
+// the resolved slug. What this list adds is sixteen slugs that taxonomy does not carry.
+//
+// Entries are normalised at module load via normalizeInciToken to match real INCI conventions
+// (dashes, slashes, parens, accents). The source keeps the original orthography, grep-friendly.
+const NON_DISCRIMINANT_SOURCE: string[] = [
+  // Solvents, humectants, preservatives, pH and chelation
   'Aqua',
-  'Water',
-  'Eau',
   'Glycerin',
-  'Glycerine',
   'Alcohol',
   'Alcohol Denat',
-  'Denatured Alcohol',
-  'Ethanol',
   'Butylene Glycol',
   'Propylene Glycol',
   'Pentylene Glycol',
+  'Dipropylene Glycol',
+  'Methylpropanediol',
+  '1,2-Hexanediol',
+  'Caprylyl Glycol',
   'Parfum',
-  'Fragrance',
   'Phenoxyethanol',
   'Benzyl Alcohol',
   'Ethylhexylglycerin',
   'Citric Acid',
   'Sodium Hydroxide',
-  'Triethanolamine',
   'Disodium EDTA',
-  'EDTA',
-  'Tetrasodium EDTA',
-  'Trisodium EDTA',
-  'BHT',
-  'BHA',
+  'Sodium Phytate',
   'Sodium Chloride',
   'Potassium Sorbate',
   'Sodium Benzoate',
-  // Texture / rheology polymers
+  // Texture and rheology polymers
   'Xanthan Gum',
   'Carbomer',
-  'Sclerotium Gum',
-  'Hydroxyethylcellulose',
-  'Hydroxypropyl Methylcellulose',
-  'Hydroxypropyl Cellulose',
   'Acrylates Copolymer',
   'Acrylates/C10-30 Alkyl Acrylate Crosspolymer',
   'Ammonium Acryloyldimethyltaurate/VP Copolymer',
+  'Hydroxyethyl Acrylate/Sodium Acryloyldimethyl Taurate Copolymer',
   // Silicones
   'Dimethicone',
-  'Dimethiconol',
-  'Cyclomethicone',
-  'Cyclopentasiloxane',
-  'Cyclohexasiloxane',
-  'Phenyl Trimethicone',
-  // Fatty alcohols / emulsifying waxes
+  // Fatty alcohols
   'Cetearyl Alcohol',
   'Cetyl Alcohol',
-  'Stearyl Alcohol',
   'Behenyl Alcohol',
-  'Arachidyl Alcohol',
-  // Common emulsifiers
+  // Emulsifiers and solubilisers
   'Glyceryl Stearate',
-  'Glyceryl Stearate SE',
-  'PEG-100 Stearate',
-  'PEG-40 Stearate',
   'PEG-40 Hydrogenated Castor Oil',
-  'PEG-60 Hydrogenated Castor Oil',
   'Cetearyl Glucoside',
-  'Arachidyl Glucoside',
   'Polysorbate 20',
   'Polysorbate 60',
   'Polysorbate 80',
-  'Sorbitan Stearate',
+  'Sorbitan Isostearate',
   'Sorbitan Olivate',
-  // Bland emollient oils / esters
-  'Mineral Oil',
-  'Paraffinum Liquidum',
-  'Petrolatum',
-  'Ethylhexyl Palmitate',
-  'Isopropyl Myristate',
-  'Isopropyl Palmitate',
+  'Sodium Stearoyl Glutamate',
+  'Hydrogenated Lecithin',
+  // Bland emollients and esters
   'Caprylic/Capric Triglyceride',
-  'Coco-Caprylate',
   'Coco-Caprylate/Caprate',
   'Octyldodecanol',
-  'C12-15 Alkyl Benzoate',
-  'C13-14 Isoparaffin',
-  // Mild surfactants present in nearly every wash/shampoo
+  'Butyloctyl Salicylate',
+  // `Jojoba Esters` was also kept here because the bridge lands it on `hydrolyzed-jojoba-protein`,
+  // said to be a different substance. Measured 2026-07-29: it is not. algo-derm files
+  // `Hydrolyzed Jojoba Esters` as an alias of this very record (CosIng 34778), so the bridge is
+  // right and only the fiche was misnamed. What still justifies the entry is the first reason:
+  // 183 occurrences, a bland ester that tells a reader nothing about a formula.
+  'Jojoba Esters',
+  // Wash surfactants present in nearly every cleanser and shampoo
   'Cocamidopropyl Betaine',
   'Sodium Cocoamphoacetate',
   'Disodium Cocoamphodiacetate',
@@ -108,300 +103,20 @@ const EXCIPIENT_BLOCKLIST_SOURCE: string[] = [
   'Coco-Glucoside',
   'Lauryl Glucoside',
   'Caprylyl/Capryl Glucoside',
-  // Generic shampoo conditioning polymers (cationic)
+  // Conditioning polymers
   'Polyquaternium-10',
   'Polyquaternium-7',
-  'Polyquaternium-4',
-  'Polyquaternium-22',
   'Guar Hydroxypropyltrimonium Chloride',
-  // Vitamin E derivatives are almost always trace-level stabilisers.
+  // Vitamin E derivatives, trace-level stabilisers
   'Tocopherol',
   'Tocopheryl Acetate',
   'Tocopheryl Glucoside',
-  // Below: first sweep of the token-coverage audit. Every entry appeared in >=10 corpus
-  // products with no resolvable slug, so blocklisting them changes no existing link. It only
-  // keeps them out of the "to decide" bucket of future runs.
-  // Colorants and pigments
-  'CI 77492',
-  'CI 77499',
-  'CI 19140',
-  'CI 42090',
-  'CI 17200',
-  'CI 77288',
-  'Caramel',
-  'Blue 1 Lake (CI 42090)',
-  'Red 7 Lake (CI 15850)',
-  'Yellow 5 Lake (CI 19140)',
-  'Red 28 Lake (CI 45410)',
-  'CI 14700 / Red 4',
-  'CI 61570 / Green 5',
-  'CI 15985/Yellow 6',
-  'CI 60730 / Ext. Violet 2',
-  'Green 3 (CI 42053)',
-  'Red 6 (CI 15850)',
-  'Red 4 (CI 14700)',
-  'Violet 2 (CI 60730)',
-  'CI 15850 (Red 6 Lake)',
-  'CI 77163 (Bismuth Oxychloride)',
-  // Chelators and preservative boosters
-  'Sodium Phytate',
-  'Trisodium Ethylenediamine Disuccinate',
-  'Tetrasodium Glutamate Diacetate',
-  'Caprylhydroxamic Acid',
-  'Cyclodextrin',
-  // Mineral fillers, abrasives and texturising clays
-  'Disteardimonium Hectorite',
-  'Stearalkonium Hectorite',
-  'Synthetic Fluorphlogopite',
-  'Magnesium Aluminum Silicate',
-  'Montmorillonite',
-  'Alumina',
-  'Tin Oxide',
-  // Starches and carbohydrate film formers
-  'Microcrystalline Cellulose',
-  'Cellulose',
-  'Tapioca Starch',
-  'Hydroxypropyl Starch Phosphate',
-  'Aluminum Starch Octenylsuccinate',
-  'Pullulan',
-  'Dextrin',
-  // Acrylate, vinyl and silicone rheology polymers
-  'Hydroxyethyl Acrylate/Sodium Acryloyldimethyl Taurate Copolymer',
-  'Sodium Acrylate/Sodium Acryloyldimethyl Taurate Copolymer',
-  'Acrylamide/Sodium Acryloyldimethyltaurate Copolymer',
-  'Sodium Acrylates Copolymer',
-  'Styrene/Acrylates Copolymer',
-  'Polyacrylate Crosspolymer-6',
-  'Polyacrylate-13',
-  'Polyacrylamide',
-  'Methyl Methacrylate Crosspolymer',
-  'Polymethyl Methacrylate',
-  'Glyceryl Polymethacrylate',
-  'HDI/Trimethylol Hexyllactone Crosspolymer',
-  'VP/Eicosene Copolymer',
-  'Vinyl Dimethicone/Methicone Silsesquioxane Crosspolymer',
-  'Polymethylsilsesquioxane',
-  'Polysilicone-11',
-  'Polyisobutene',
-  'Polyethylene',
-  'Polyvinyl Alcohol',
-  'Nylon-12',
-  // Ethoxylated and polyglyceryl emulsifiers
-  'Sorbitan Isostearate',
-  'Sorbitan Oleate',
-  'Sorbitan Sesquioleate',
-  'Polyglyceryl-3 Methylglucose Distearate',
-  'Polyglyceryl-3 Distearate',
-  'Polyglyceryl-3 Diisostearate',
-  'Polyglyceryl-4 Caprate',
-  'Polyglyceryl-4 Isostearate',
-  'Polyglyceryl-6 Behenate',
-  'PEG-6 Caprylic/Capric Glycerides',
-  'PEG-7 Glyceryl Cocoate',
-  'PEG-30 Dipolyhydroxystearate',
-  'PEG-200 Hydrogenated Glyceryl Palmate',
-  'PPG-5-Ceteth-20',
-  'Steareth-2',
-  'Steareth-20',
-  'Steareth-21',
-  'Laureth-3',
-  'Laureth-7',
-  'Laureth-23',
-  'Ceteth-20',
-  'Ceteareth-25',
-  'Ceteareth-60 Myristyl Glycol',
-  'Trideceth-6',
-  'C12-14 Pareth-12',
-  // Anionic and glucoside wash surfactants
-  'Potassium Cetyl Phosphate',
-  'Sodium Methyl Cocoyl Taurate',
-  'Sodium Polyacryloyldimethyl Taurate',
-  'Sodium Lauroyl Lactylate',
-  'Zinc Coceth Sulfate',
-  'C12-20 Alkyl Glucoside',
-  // Fatty acids and bland esters
-  'Lauric Acid',
-  'Arachidic Acid',
-  'Isostearic Acid',
-  'Polyhydroxystearic Acid',
-  'Maleic Acid',
-  'C14-22 Alcohols',
-  'Methylpropanediol',
-  'Isopentyldiol',
-  'Benzyl Glycol',
-  'Dimethyl Isosorbide',
-  'Propylene Carbonate',
-  'Triethoxycaprylylsilane',
-  // Mineral salts and buffers
-  'Magnesium Sulfate',
-  'Magnesium Chloride',
-  'Sodium Phosphate',
-  // Below: second sweep. Same >=10-products / no-resolvable-slug rule as above,
-  // but the read/skip call comes from algo-derm's risk and benefit axes rather than its prose
-  // note: every entry here is *measured* under 2 on all twelve axes. Tokens algo-derm leaves
-  // unscored are deliberately absent: unmeasured is not inert.
-  // The "no resolvable slug" half of the rule swallowed three actives whose slug the declaration
-  // parser was hiding (hamamelis, ruscus); re-check that half before adding a botanical here.
-  // Re-check it through the algo-derm bridge too, not only through buildInciIndex: resolveToken
-  // returns null on a blocklisted token before ever trying the bridge, so an organ synonym that
-  // stripBotanicalParts would fold onto a graded record (Avena Sativa Seed Extract onto Avena
-  // Sativa Kernel Extract) looks unresolvable here and still loses real links.
-  // Preservative boosters and solvent humectants
-  '1,2-Hexanediol',
-  'Caprylyl Glycol',
-  'Dipropylene Glycol',
-  'Dehydroacetic Acid',
-  'Hexylene Glycol',
-  'Levulinic Acid',
-  'Phenethyl Alcohol',
-  'Diisopropyl Sebacate',
-  'Diisopropyl Adipate',
-  'Ethoxydiglycol',
-  // Sugars, polyols and ferment carriers
-  'Inulin',
-  'Sucrose',
-  'Lysine',
-  'Hydrogenated Starch Hydrolysate',
-  'Bacillus Ferment',
-  'Candida Ferment',
-  'Aspergillus Ferment',
-  'Lactococcus Ferment Lysate',
-  'Lactobacillus Ferment Lysate',
-  // Mild emulsifiers and solubilisers
-  'Sodium Stearoyl Glutamate',
-  'Polyglyceryl-2 Dipolyhydroxystearate',
-  'Polyglyceryl-10 Laurate',
-  'Polyglyceryl-10 Myristate',
-  'Polyglyceryl-10 Oleate',
-  'Polyglyceryl-10 Stearate',
-  'Hydrogenated Palm Glycerides Citrate',
-  'Hydrogenated Vegetable Glycerides Citrate',
-  'Glyceryl Behenate',
-  'Isononyl Isononanoate',
-  'Cetearyl Isononanoate',
-  'Octyldodecyl Stearoyl Stearate',
-  // Silicones and synthetic film formers
-  'Caprylyl Methicone',
-  'Glyceryl Acrylate/Acrylic Acid Copolymer',
-  'Silica Dimethyl Silylate',
-  'Paraffin',
-  // Inert emollient esters and hydrocarbons
-  'Jojoba Esters',
-  'Cetyl Ethylhexanoate',
-  'Dibutyl Adipate',
-  'Diisostearyl Malate',
-  'Synthetic Wax',
-  'Hydrogenated Poly(C6-14 Olefin)',
-  'Pentaerythrityl Tetraethylhexanoate',
-  'Isodecyl Neopentanoate',
-  'Euphorbia Cerifera Cera',
-  'Trihydroxystearin',
-  'Myristyl Alcohol',
-  'C12-16 Alcohols',
-  'T-Butyl Alcohol',
-  // Mineral salts and buffers
-  'Sodium Dehydroacetate',
-  'Sodium Salicylate',
-  // Botanical extracts and waters measured flat on every axis
-  'Coccinia Indica Fruit Extract',
-  'Theobroma Grandiflorum Seed Butter',
-  'Salix Alba Bark Extract',
-  'Melaleuca Alternifolia Leaf Extract',
-  'Melaleuca Alternifolia Leaf Water',
-  'Citrus Limon Fruit Extract',
-  'Citrus Aurantium Dulcis Fruit Extract',
-  'Citrus Junos Fruit Extract',
-  'Coptis Japonica Root Extract',
-  'Coptis Chinensis Root Extract',
-  'Oenothera Biennis Flower Extract',
-  'Althaea Rosea Flower Extract',
-  'Marrubium Vulgare Extract',
-  'Dioscorea Japonica Root Extract',
-  'Avena Sativa Leaf/Stem Extract',
-  'Pyrus Communis Fruit Extract',
-  'Brassica Oleracea Italica Extract',
-  'Furcellaria Lumbricalis Extract',
-  'Lapsana Communis Flower Leaf Stem Extract',
-  'Salvia Officinalis Leaf Extract',
-  'Hibiscus Esculentus Fruit Extract',
-  'Chamaecyparis Obtusa Water',
-  'Phellodendron Amurense Bark Extract',
-  'Camellia Japonica Flower Extract',
-  'Lavandula Angustifolia Flower Water',
-  'Kalanchoe Pinnata Leaf Extract',
-  'Prunus Amygdalus Dulcis (Sweet Almond) Seed Extract',
-  // Other formulation aids measured flat
-  'Benzoic Acid',
-  'Sorbic Acid',
-  'p-Anisic Acid',
-  'Glutamic Acid',
-  'Pantolactone',
-  'Phospholipids',
-  'Triethylhexanoin',
-  'Lauryl Betaine',
-  'Butyloctyl Salicylate',
-  'Pentaerythrityl Tetra-Di-T-Butyl Hydroxyhydrocinnamate',
-  'Palmitoyl Tripeptide-5',
-  'Palmitoyl Hexapeptide-12',
-  'Methylparaben',
-  'Propylparaben',
-  'Pyridoxine HCl',
-  // Below: third sweep. These carry no graded axis at all, so the call rests on
-  // algo-derm's prose plus a purely constructional function set, a weaker basis than the two
-  // sweeps above, and deliberately limited to entries where both agree. Ungraded botanicals
-  // whose note claims a benefit are NOT here: see the algo-derm gradation request in bugs.md.
-  // Humectants and polyol conditioners
-  'Glucose',
-  'Glycereth-26',
-  'Inositol',
-  'Diglycerin',
-  'Erythritol',
-  'Methyl Gluceth-10',
-  'Methyl Gluceth-20',
-  'PEG-8',
-  'Sea Water',
-  'Mel',
-  'Honey Extract',
-  'Pyrus Malus Fruit Extract',
-  'Cucumis Melo Fruit Extract',
-  // Mild emulsifiers and conditioning esters
-  'Hydrogenated Lecithin',
-  'Cetearyl Olivate',
-  'Methyl Glucose Sesquistearate',
-  'Polyglyceryl-6 Stearate',
-  'Lauroyl Lysine',
-  'Isoleucine',
-  'Beta-Sitosterol',
-  'Sodium Levulinate',
-  // Silicone elastomers, emulsifiers and film formers
-  'Dimethicone/Vinyl Dimethicone Crosspolymer',
-  'Dimethicone Crosspolymer',
-  'Methyl Trimethicone',
-  'Trimethylsiloxysilicate',
-  'Silanetriol',
-  'PEG-10 Dimethicone',
-  'Lauryl PEG-9 Polydimethylsiloxyethyl Dimethicone',
-  'Lauryl Polyglyceryl-3 Polydimethylsiloxyethyl Dimethicone',
-  // Mineral powders and buffering salts
-  'Sodium Anisate',
-  'Calcium Gluconate',
-  'Disodium Phosphate',
-  'Boron Nitride',
-  'Potassium Benzoate',
-  // Carbohydrate carriers and protein hydrolysates
+  // Carbohydrate carriers
   'Maltodextrin',
-  'Acacia Senegal Gum',
-  'Hydrolyzed Corn Protein',
-  'Hydrolyzed Elastin',
-  // Botanical extracts algo-derm graded on nothing and describes as conditioning only
-  'Ficus Carica Fruit Extract',
-  'Prunus Persica Fruit Extract',
-  'Prunus Persica Leaf Extract',
-  'Prunus Armeniaca Fruit Extract',
 ]
 
-export const EXCIPIENT_BLOCKLIST = new Set<string>(
-  EXCIPIENT_BLOCKLIST_SOURCE.map((s) => normalizeInciToken(s))
+export const NON_DISCRIMINANT_TOKENS = new Set<string>(
+  NON_DISCRIMINANT_SOURCE.map((s) => normalizeInciToken(s))
 )
 
 export type IngredientDomain = 'skincare' | 'haircare' | 'dental' | 'supplements'
@@ -427,7 +142,7 @@ const SLUG_FILES: Array<{ rel: string; domain: IngredientDomain }> = [
  * categories so shared actives (vitamins, soothing extracts) still match. Bodycare and
  * solaire ride the skincare ingredient taxonomy; their candidates only match skincare slugs.
  */
-const CATEGORY_DOMAIN_ALLOWLIST: Record<string, IngredientDomain[]> = {
+export const CATEGORY_DOMAIN_ALLOWLIST: Record<string, IngredientDomain[]> = {
   skincare: ['skincare'],
   bodycare: ['skincare'],
   solaire: ['skincare'],
@@ -487,7 +202,7 @@ export function foldScraperDelimiters(
 // Applied before BOTH lookup paths, so keep it out of normalizeInciToken's uppercasing.
 export function stripInciArtefacts(s: string): string {
   return s
-    .replace(/[*†‡•]+/g, ' ')
+    .replace(/[*†‡•°]+/g, ' ')
     .replace(/\[[^\]]*\]/g, ' ')
     .replace(/\([^)]*$/, ' ')
     .replace(/\d[\d.,]*\s*(%|ppm\b)/gi, ' ')
@@ -668,7 +383,7 @@ export function parseInciFromSlugLine(line: string): { slug: string; tokens: str
 // short key captures every product token spelled that way.
 const NON_SUBSTANCE_KEYS = new Set(['ALIAS', 'CATEGORY', 'VARIABLE INCI'])
 
-export function buildInciIndex(options: { includeExcipients?: boolean } = {}): InciIndex {
+export function buildInciIndex(): InciIndex {
   const index: InciIndex = new Map()
   const validSlugs = new Set<string>(Object.values(INGREDIENT_SLUGS))
 
@@ -679,7 +394,6 @@ export function buildInciIndex(options: { includeExcipients?: boolean } = {}): I
     // Digits lead real INCI names (`3-O-Ethyl Ascorbic Acid`); only punctuation is junk.
     if (!/^[A-Z0-9]/.test(norm)) return
     if (NON_SUBSTANCE_KEYS.has(norm) || isPartOnlyPhrase(norm)) return
-    if (!options.includeExcipients && EXCIPIENT_BLOCKLIST.has(norm)) return
     if (!index.has(norm)) index.set(norm, { slug })
   }
 
@@ -711,16 +425,24 @@ export function buildInciIndex(options: { includeExcipients?: boolean } = {}): I
 }
 
 /**
- * Slugs whose canonical INCI token sits on EXCIPIENT_BLOCKLIST. Lets a *resolved* slug be
- * dropped even when the raw token that produced it was a non-blocklisted synonym (e.g.
- * `Polydimethylsiloxane` → dimethicone, `Gomme Xanthane` → xanthan-gum). buildInciIndex drops
- * blocklisted tokens at construction, so we rebuild the index keeping them and collect their slugs.
+ * Slugs whose canonical INCI token is non-discriminant. Lets a *resolved* slug be dropped even
+ * when the raw token that produced it was a listed substance under another name (e.g.
+ * `Polydimethylsiloxane` → dimethicone, `Gomme Xanthane` → xanthan-gum).
  */
-export function buildExcipientSlugs(): Set<string> {
-  const full = buildInciIndex({ includeExcipients: true })
+export function buildNonDiscriminantSlugs(): Set<string> {
   const slugs = new Set<string>()
-  for (const [token, entry] of full) {
-    if (EXCIPIENT_BLOCKLIST.has(token)) slugs.add(entry.slug)
+  for (const [token, entry] of buildInciIndex()) {
+    if (NON_DISCRIMINANT_TOKENS.has(token)) slugs.add(entry.slug)
+  }
+  // A slug that declares no `// INCI:` comment never enters the index, so the loop above cannot
+  // see it. The bridge can still reach it from the literal slug spelling (`polyquaternium-10`)
+  // or its humanised words (`butylene glycol`). Mirror both key shapes here.
+  for (const slug of Object.values(INGREDIENT_SLUGS)) {
+    const literal = normalizeInciToken(slug)
+    const humanized = normalizeInciToken(slug.replace(/-/g, ' '))
+    if (NON_DISCRIMINANT_TOKENS.has(literal) || NON_DISCRIMINANT_TOKENS.has(humanized)) {
+      slugs.add(slug)
+    }
   }
   return slugs
 }

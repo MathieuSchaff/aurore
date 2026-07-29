@@ -5,13 +5,11 @@ export const SUPPLEMENTS_ANTIOXYDANTS = {
 
 export const SUPPLEMENTS_CAROTENOIDES = {
   ASTAXANTHINE_SUPPLEMENT: 'astaxanthine-supplement',
-  BETA_CAROTENE: 'beta-carotene',
   LUTEINE: 'luteine',
   ZEAXANTHINE: 'zeaxanthine',
 } as const
 
 export const SUPPLEMENTS_ACIDES_AMINES = {
-  CREATINE: 'creatine',
   GAA: 'gaa',
   GLUCOSAMINE: 'glucosamine-supplement',
   GLYCINE_SUPPLEMENT: 'glycine-supplement',
@@ -42,7 +40,6 @@ export const SUPPLEMENTS_ACIDES_GRAS = {
 } as const
 
 export const SUPPLEMENTS_DIVERS = {
-  TAURINE: 'taurine-supplement',
   NAC: 'nac',
   PSYLLIUM: 'psyllium',
   SPIRULINE: 'spiruline',

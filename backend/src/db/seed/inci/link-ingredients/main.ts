@@ -8,9 +8,10 @@
 // ONLY when `product_ingredients.source` says the linker wrote it. Everything else is
 // kept and reported for manual arbitration instead of being silently rewritten.
 //
-// Pipeline per token: aurore inci-index direct hit first; on a miss, resolve through
-// algo-derm's alias index (+ botanical strip) to canonical evidence, then bridge that
-// evidence back onto an aurore slug. Order follows the INCI order (concentration desc)
+// Pipeline per token: aurore inci-index direct hit first; on a miss, algo-derm's full lookup
+// (whole token before slash fallback) yields canonical evidence, then the bridge maps it back to
+// an aurore slug. A slash fallback survives only when every segment names the same identity.
+// Order follows the INCI order (concentration desc)
 // and excipients are dropped. No count cap: INCI order is concentration order, so a cap
 // keeps the structuring agents at the top of the list and drops the actives dosed below
 // them, measured at 2079 evicted links, mostly hyaluronates, ceramides and centella.
@@ -23,7 +24,12 @@
 //   LIMIT=200 bun run .../main.ts                                        # cap product count (dev)
 
 import { normalize, splitINCI } from 'algo-derm'
-import { buildAliasIndex, MERGED_EVIDENCE_DB, stripBotanicalParts } from 'algo-derm/engine'
+import {
+  buildAliasIndex,
+  lookupIngredient,
+  MERGED_EVIDENCE_DB,
+  stripBotanicalParts,
+} from 'algo-derm/engine'
 import { and, eq, inArray, isNotNull, isNull, sql } from 'drizzle-orm'
 
 import { parseIntEnv, parseWriteSlugArgs } from '../../../../features/auto-tagging/runners/cli-args'
@@ -36,12 +42,12 @@ import { INGREDIENT_SLUGS } from '../../data/ingredients/ingredient-slugs'
 import { FILLER_SLUGS } from '../../data/ingredients/skincare/seed-dermo-profiles-fillers'
 import { fetchIdMaps } from '../../utils/id-maps'
 import {
-  buildExcipientSlugs,
   buildInciIndex,
+  buildNonDiscriminantSlugs,
   buildSlugDomainMap,
-  EXCIPIENT_BLOCKLIST,
   foldScraperDelimiters,
   getDomainAllowlist,
+  NON_DISCRIMINANT_TOKENS,
   normalizeInciToken,
   stripInciArtefacts,
 } from '../index'
@@ -76,47 +82,125 @@ const slugByHumanized = buildSlugByHumanized(Object.values(INGREDIENT_SLUGS))
 // gets the same category filter as a direct hit. See computeLinks domain guard below.
 const slugToDomain = buildSlugDomainMap()
 
-// Drop resolved slugs that are fillers/excipients, whichever raw token produced them.
-// Union of the is_filler taxonomy (FILLER_SLUGS) and slugs reachable from EXCIPIENT_BLOCKLIST
-// tokens. Checked on the RESOLVED slug so a non-blocklisted synonym that bridges to an excipient
-// (e.g. `Gomme Xanthane` → xanthan-gum) is caught. resolveToken's raw-token check only sees
-// literal blocklist strings.
-const blockedSlugs = new Set<string>([...FILLER_SLUGS, ...buildExcipientSlugs()])
+// Drop resolved slugs that are fillers or non-discriminant, whichever raw token produced them.
+// Union of the is_filler taxonomy (FILLER_SLUGS) and the slugs NON_DISCRIMINANT_TOKENS reaches.
+// Checked on the RESOLVED slug so a synonym that bridges onto a listed substance (e.g.
+// `Gomme Xanthane` → xanthan-gum) is caught. resolveToken's raw-token check only sees
+// literal list entries.
+const blockedSlugs = new Set<string>([...FILLER_SLUGS, ...buildNonDiscriminantSlugs()])
 
 // A token resolves to an aurore slug, or to algo-derm evidence that bridges to no aurore
 // slug (unbridged), or to nothing (null). Discriminated so a bridge miss can
 // never masquerade as an empty-string slug.
-type Resolved = { kind: 'slug'; slug: string } | { kind: 'unbridged' }
+export type Resolved = { kind: 'slug'; slug: string } | { kind: 'unbridged'; evidenceInci: string }
+
+interface ResolutionCandidate {
+  result: Resolved
+  identities: Set<string>
+  wholeTokenHit: boolean
+}
+
+function identitiesOfResolution(
+  result: Resolved,
+  evidenceInci: string | null,
+  canonicalKeyBySlug: Map<string, string>
+): Set<string> {
+  const identities = new Set<string>()
+  if (result.kind === 'slug') {
+    const bareSlug = result.slug.replace(/-hair$/, '')
+    identities.add(`slug:${bareSlug}`)
+    identities.add(`key:${normalize(bareSlug.replace(/-/g, ' '))}`)
+
+    const canonicalKey = canonicalKeyBySlug.get(result.slug)
+    if (canonicalKey) identities.add(`key:${normalize(canonicalKey)}`)
+  }
+  if (evidenceInci) identities.add(`key:${normalize(evidenceInci)}`)
+  return identities
+}
+
+// Only lookupIngredient's slash fallback needs the all-segments agreement check.
+function hasWholeTokenHit(cleaned: string): boolean {
+  const normalized = normalize(cleaned)
+  if (aliasIndex.has(normalized)) return true
+  const stripped = stripBotanicalParts(normalized)
+  if (stripped && aliasIndex.has(stripped)) return true
+
+  const dehyphenated = normalized.replace(/-/g, ' ').replace(/\s+/g, ' ').trim()
+  return dehyphenated !== normalized && aliasIndex.has(dehyphenated)
+}
 
 // DB-backed fallback: algo-derm's `evidence.inci` is exactly what backfill-canonical-key.ts
 // stores in `ingredients.canonical_key`, so a bridge miss can still land on an aurore slug
 // whose only link to this substance is that shared identity (the humanised bridge misses
 // `-hair` shadows and FR slugs: `zinc oxyde` is not `zinc oxide`). The category domain guard in
 // computeLinks still filters the resolved slug, so a mismatch drops instead of mis-linking.
-function resolveToken(raw: string, canonicalKeyToSlug: Map<string, string>): Resolved | null {
+function resolveCandidate(
+  raw: string,
+  canonicalKeyToSlug: Map<string, string>,
+  canonicalKeyBySlug: Map<string, string>
+): ResolutionCandidate | null {
   const normAurore = normalizeInciToken(raw)
-  if (!normAurore || EXCIPIENT_BLOCKLIST.has(normAurore)) return null
+  if (!normAurore || NON_DISCRIMINANT_TOKENS.has(normAurore)) return null
 
   const direct = inciIndex.get(normAurore)
-  if (direct) return { kind: 'slug', slug: direct.slug }
+  if (direct) {
+    const result: Resolved = { kind: 'slug', slug: direct.slug }
+    return {
+      result,
+      identities: identitiesOfResolution(result, null, canonicalKeyBySlug),
+      wholeTokenHit: true,
+    }
+  }
 
   // algo-derm's normalize keeps bracket contents as words (`zinc oxide [nano]` → `zinc oxide
   // nano`), so the artefacts have to go before it too, not only inside normalizeInciToken.
-  const normAd = normalize(stripInciArtefacts(raw))
-  let evidence = aliasIndex.get(normAd)
-  if (!evidence) {
-    const stripped = stripBotanicalParts(normAd)
-    if (stripped) evidence = aliasIndex.get(stripped)
-  }
+  const cleaned = stripInciArtefacts(raw)
+  const evidence = lookupIngredient(cleaned, aliasIndex)
   if (!evidence) return null
 
-  const bridged = bridgeEvidenceToSlug(evidence, inciIndex, slugByHumanized)
-  if (bridged) return { kind: 'slug', slug: bridged }
+  const slug =
+    bridgeEvidenceToSlug(evidence, inciIndex, slugByHumanized) ??
+    canonicalKeyToSlug.get(evidence.inci)
+  const result: Resolved = slug
+    ? { kind: 'slug', slug }
+    : { kind: 'unbridged', evidenceInci: evidence.inci }
+  return {
+    result,
+    identities: identitiesOfResolution(result, evidence.inci, canonicalKeyBySlug),
+    wholeTokenHit: hasWholeTokenHit(cleaned),
+  }
+}
 
-  const byCanonical = canonicalKeyToSlug.get(evidence.inci)
-  if (byCanonical) return { kind: 'slug', slug: byCanonical }
+export function resolveToken(
+  raw: string,
+  canonicalKeyToSlug: Map<string, string>,
+  canonicalKeyBySlug: Map<string, string>
+): Resolved | null {
+  const candidate = resolveCandidate(raw, canonicalKeyToSlug, canonicalKeyBySlug)
+  if (!candidate) return null
 
-  return { kind: 'unbridged' }
+  const cleaned = stripInciArtefacts(raw)
+  if (!/[\\/]/.test(cleaned) || candidate.wholeTokenHit) return candidate.result
+
+  // A slash fallback is safe only when every segment resolves to one identity.
+  const segments = cleaned
+    .split(/[\\/]/)
+    .map((segment) => segment.trim())
+    .filter(Boolean)
+  if (segments.length < 2) return null
+
+  const segmentCandidates = segments.map((segment) =>
+    resolveCandidate(segment, canonicalKeyToSlug, canonicalKeyBySlug)
+  )
+  if (segmentCandidates.some((segment) => segment === null)) return null
+
+  const completeCandidates = segmentCandidates as ResolutionCandidate[]
+  const first = completeCandidates[0]
+  if (!first) return null
+  const sharedIdentity = [...first.identities].some((identity) =>
+    completeCandidates.every((segment) => segment.identities.has(identity))
+  )
+  return sharedIdentity ? candidate.result : null
 }
 
 // A single "token" carrying this many words is far past the longest real INCI name
@@ -132,7 +216,7 @@ function isUppercaseDominant(s: string): boolean {
   return upper.length / letters.length >= 0.6
 }
 
-function computeLinks(
+export function computeLinks(
   inci: string,
   category: string,
   canonicalKeyToSlug: Map<string, string>,
@@ -158,7 +242,7 @@ function computeLinks(
   const nonUppercaseMegaTokens: string[] = []
 
   for (const raw of tokens) {
-    const resolved = resolveToken(raw, canonicalKeyToSlug)
+    const resolved = resolveToken(raw, canonicalKeyToSlug, canonicalKeyBySlug)
     if (!resolved) {
       const trimmed = raw.trim()
       if (trimmed.split(/\s+/).length >= SUSPECT_TOKEN_WORDS) {
@@ -283,27 +367,30 @@ async function readCurrentLinks(
 
 // canonical_key → slug fallback map. Prefer a non `-hair` slug so a skincare product
 // lands on the bare slug instead of its haircare shadow (both share the key).
-async function readCanonicalKeyMaps(tx: Transaction): Promise<{
+export function buildCanonicalKeyMaps(keyRows: Iterable<{ slug: string; key: string | null }>): {
   canonicalKeyToSlug: Map<string, string>
   canonicalKeyBySlug: Map<string, string>
-}> {
-  const keyRows = await tx
-    .select({ slug: ingredients.slug, key: ingredients.canonicalKey })
-    .from(ingredients)
-    .where(isNotNull(ingredients.canonicalKey))
-
+} {
   const canonicalKeyToSlug = new Map<string, string>()
-  // Reverse direction: the identity of a slug, used to keep one substance off a product twice.
   const canonicalKeyBySlug = new Map<string, string>()
   for (const { slug, key } of keyRows) {
     if (!key) continue
     canonicalKeyBySlug.set(slug, key)
+
     const cur = canonicalKeyToSlug.get(key)
     if (!cur || (cur.endsWith('-hair') && !slug.endsWith('-hair'))) {
       canonicalKeyToSlug.set(key, slug)
     }
   }
   return { canonicalKeyToSlug, canonicalKeyBySlug }
+}
+
+async function readCanonicalKeyMaps(tx: Transaction) {
+  const keyRows = await tx
+    .select({ slug: ingredients.slug, key: ingredients.canonicalKey })
+    .from(ingredients)
+    .where(isNotNull(ingredients.canonicalKey))
+  return buildCanonicalKeyMaps(keyRows)
 }
 
 // Bucket observed signals, not assumed causes. Every bucket keeps samples for review.
@@ -604,4 +691,4 @@ async function main() {
   })
 }
 
-await main()
+if (import.meta.main) await main()

@@ -2,14 +2,8 @@
 
 export const HAIR_TENSIOACTIFS_ANIONIQUES = {
   SLS_HAIR: 'sls-hair', // Sodium Lauryl Sulfate | tensioactif anionique fort, moussant
-  SLES_HAIR: 'sles-hair', // Sodium Laureth Sulfate | version éthoxylée plus douce du SLS
-  AMMONIUM_LAURYL_SULFATE: 'ammonium-lauryl-sulfate', // tensioactif anionique, variante ammonium du SLS
   AMMONIUM_LAURETH_SULFATE: 'ammonium-laureth-sulfate', // variante ammonium éthoxylée
   SODIUM_COCOYL_SULFATE: 'sodium-cocoyl-sulfate', // dérivé coco, moins irritant que SLS
-  DISODIUM_LAURETH_SULFOSUCCINATE: 'disodium-laureth-sulfosuccinate', // tensioactif doux, sulfosuccinate
-  SODIUM_LAUROYL_SARCOSINATE: 'sodium-lauroyl-sarcosinate', // dérivé sarcosine, très doux
-  SODIUM_COCOYL_GLUTAMATE: 'sodium-cocoyl-glutamate', // dérivé acide glutamique, doux
-  SODIUM_LAUROYL_GLUTAMATE: 'sodium-lauroyl-glutamate', // dérivé glutamate C12
   SODIUM_COCOYL_ISETHIONATE: 'sodium-cocoyl-isethionate', // SCI, doux, pouvoir moussant crémeux
   SODIUM_LAURYL_METHYL_ISETHIONATE: 'sodium-lauryl-methyl-isethionate', // SLMI, doux, moussant fin
   SODIUM_COCO_SULFATE: 'sodium-coco-sulfate', // SCS, mélange coco, légèrement moins irritant que SLS
@@ -18,7 +12,6 @@ export const HAIR_TENSIOACTIFS_ANIONIQUES = {
 
 export const HAIR_TENSIOACTIFS_AMPHOTERES = {
   COCAMIDOPROPYL_BETAINE: 'cocamidopropyl-betaine', // tensioactif amphotère doux, co-tensioactif classique
-  COCO_BETAINE: 'coco-betaine', // betaïne pure, plus naturelle que cocamidopropyl
   SODIUM_COCOAMPHOACETATE: 'sodium-cocoamphoacetate', // amphotère doux, certifié naturel
   DISODIUM_COCOAMPHODIACETATE: 'disodium-cocoamphodiacetate', // amphotère doux, variante diacétate
 } as const
@@ -65,7 +58,6 @@ export const HAIR_CONDITIONNEURS = {
   POLYQUATERNIUM_44: 'polyquaternium-44', // conditionneur filmogène
   POLYQUATERNIUM_55: 'polyquaternium-55', // fixateur + conditionneur
   GUAR_HYDROXYPROPYLTRIMONIUM_CHLORIDE: 'guar-hydroxypropyltrimonium-chloride', // guar cationique, démêlant naturel
-  HYDROXYPROPYL_GUAR: 'hydroxypropyl-guar', // guar non-ionique, texture glissante
   HONEYQUAT: 'honeyquat', // miel quaternisé, humectant + conditionneur
 } as const
 
@@ -82,7 +74,6 @@ export const HAIR_HUMECTANTS = {
   HYALURONIC_ACID_HAIR: 'hyaluronic-acid-hair', // hydratation intense multi-couches
   SODIUM_HYALURONATE_HAIR: 'sodium-hyaluronate-hair', // sel hyaluronate, pénétration corticale
   BETAINE_HAIR: 'betaine-hair', // osmolyte humectant, non irritant
-  FRUCTOSE_HAIR: 'fructose-hair', // sucre humectant naturel
   TREHALOSE_HAIR: 'trehalose-hair', // osmolyte protecteur, stabilise la fibre
   ALLANTOIN_HAIR: 'allantoin-hair', // apaisant cuir chevelu, keratolytique doux
   AQUAXYL_COMPLEX: 'aquaxyl-complex', // complexe breveté Sederma, rétention eau biomimétique dans la fibre
@@ -95,52 +86,35 @@ export const HAIR_HUILES_VEGETALES = {
   ARGAN_OIL_HAIR: 'argan-oil-hair', // Argania Spinosa, riche tocophérols, brillance
   COCONUT_OIL_HAIR: 'coconut-oil-hair', // Cocos Nucifera, pénètre la fibre, protéine retention
   JOJOBA_OIL_HAIR: 'jojoba-oil-hair', // Simmondsia Chinensis, cire liquide, légère
-  OLIVE_OIL_HAIR: 'olive-oil-hair', // Olea Europaea, oléique dominant, nourrissant
   AVOCADO_OIL_HAIR: 'avocado-oil-hair', // Persea Gratissima, pénètre profondément
   CASTOR_OIL_HAIR: 'castor-oil-hair', // Ricinus Communis, occlusif, stimulant circulation
   HEMP_OIL_HAIR: 'hemp-oil-hair', // Cannabis Sativa, oméga 3/6 équilibrés
   SUNFLOWER_OIL_HAIR: 'sunflower-oil-hair', // Helianthus Annuus, linoléique, légère
-  MACADAMIA_OIL_HAIR: 'macadamia-oil-hair', // Macadamia Ternifolia, palmitoléique, soyeux
   ALMOND_OIL_HAIR: 'almond-oil-hair', // Prunus Amygdalus Dulcis, oléique, pénétrant
   ROSEHIP_OIL_HAIR: 'rosehip-oil-hair', // Rosa Canina, rétinoïdes naturels, réparateur
   CAMELLIA_SINENSIS_OIL_HAIR: 'camellia-sinensis-oil-hair', // Camellia Sinensis, légère, brillance
-  MORINGA_OIL_HAIR: 'moringa-oil-hair', // Moringa Oleifera, béhénique, purifiante
   HAZELNUT_OIL_HAIR: 'hazelnut-oil-hair', // Corylus Avellana, astringente, légère
-  BLACK_SEED_OIL_HAIR: 'black-seed-oil-hair', // Nigella Sativa, thymoquinone, antipelliculaire
   SAFFLOWER_OIL_HAIR: 'safflower-oil-hair', // Carthamus Tinctorius, linoléique élevé
-  HYDROGENATED_CASTOR_OIL_HAIR: 'hydrogenated-castor-oil-hair', // forme solide du ricin, agent de lustre
   BAOBAB_OIL_HAIR: 'baobab-oil-hair', // Adansonia Digitata, oméga 3/6/9, pénétrant
-  CRAMBE_ABYSSINICA_OIL: 'crambe-abyssinica-seed-oil', // huile d'Abyssinie, légère, protection thermique
 } as const
 
 export const HAIR_BEURRES_VEGETAUX = {
   SHEA_BUTTER_HAIR: 'shea-butter-hair', // Butyrospermum Parkii, occlusif, réparateur
   CACAO_BUTTER_HAIR: 'cacao-butter-hair', // Theobroma Cacao, brillance, rigidité
-  MANGO_BUTTER_HAIR: 'mango-butter-hair', // Mangifera Indica, légère, brillance
   SAL_BUTTER_HAIR: 'sal-butter-hair', // Shorea Robusta, proche karité, fondant
   MADHUCA_LONGIFOLIA_BUTTER: 'madhuca-longifolia-butter', // beurre de mahua, conditionneur ayurvédique
 } as const
 
 export const HAIR_PROTEINES = {
   HYDROLYZED_KERATIN: 'hydrolyzed-keratin', // kératine hydrolysée, comble les lacunes corticales
-  HYDROLYZED_WHEAT_PROTEIN: 'hydrolyzed-wheat-protein', // protéine blé, renforce et hydrate
-  HYDROLYZED_SILK: 'hydrolyzed-silk', // soie hydrolysée, brillance, douceur
-  HYDROLYZED_SOY_PROTEIN: 'hydrolyzed-soy-protein', // protéine soja, volume léger
-  HYDROLYZED_COLLAGEN_HAIR: 'hydrolyzed-collagen-hair', // collagène, hydratation + résistance
-  HYDROLYZED_RICE_PROTEIN: 'hydrolyzed-rice-protein', // protéine riz, volume, force
-  HYDROLYZED_OAT_PROTEIN: 'hydrolyzed-oat-protein', // protéine avoine, adoucissant, apaisant
   HYDROLYZED_QUINOA_PROTEIN: 'hydrolyzed-quinoa-protein', // protéine quinoa, lissant thermique
-  WHEAT_AMINO_ACIDS: 'wheat-amino-acids', // acides aminés blé, pénétration profonde
-  SILK_AMINO_ACIDS: 'silk-amino-acids', // acides aminés soie, brillance
   ARGININE_HAIR: 'arginine-hair', // acide aminé, répare les ponts disulfures
-  HYDROLYZED_JOJOBA_PROTEIN: 'hydrolyzed-jojoba-protein', // protéine jojoba hydrolysée, brillance + douceur
+  // hydrolyzed-jojoba-protein moved to the skincare emollients: it is not a protein, and 38 of
+  // the 48 products carrying the token are not haircare.
   CREATINE_HAIR: 'creatine-hair', // renforce liaisons internes de la fibre
-  PROLINE_HAIR: 'proline-hair', // acide aminé libre, réparation kératine
-  THREONINE_HAIR: 'threonine-hair', // acide aminé libre, réparation kératine
   SERINE_HAIR: 'serine-hair', // acide aminé libre, réparation kératine
   GLYCINE_HAIR: 'glycine-hair', // acide aminé libre haircare (supplément séparé)
   ALANINE_HAIR: 'alanine-hair', // acide aminé libre
-  VALINE_HAIR: 'valine-hair', // acide aminé libre
   HISTIDINE_HAIR: 'histidine-hair', // acide aminé libre
   PHENYLALANINE_HAIR: 'phenylalanine-hair', // acide aminé libre
   ASPARTIC_ACID_HAIR: 'aspartic-acid-hair', // acide aminé libre
@@ -158,10 +132,7 @@ export const HAIR_CERAMIDES_LIPIDES = {
   CHOLESTEROL_HAIR: 'cholesterol-hair', // lipide structurant cuticule
   LINOLEIC_ACID_HAIR: 'linoleic-acid-hair', // oméga-6, composant lipides intercellulaires
   OLEIC_ACID_HAIR: 'oleic-acid-hair', // oméga-9, pénètre le cortex
-  BEHENIC_ACID: 'behenic-acid', // acide gras C22, conditionneur de surface
   SQUALANE_HAIR: 'squalane-hair', // émollient léger analogue sébum, pénètre le cortex
-  PHOSPHOLIPIDS_HAIR: 'phospholipids-hair', // restauration lipidique membranaire fibre
-  PHOSPHATIDYLCHOLINE_HAIR: 'phosphatidylcholine-hair', // phospholipide membranaire, restauration cuticule
 } as const
 
 export const HAIR_EPAISSISSANTS = {
@@ -171,8 +142,6 @@ export const HAIR_EPAISSISSANTS = {
   CELLULOSE_GUM_HAIR: 'cellulose-gum-hair', // CMC, épaississant cellulosique
   HYDROXYETHYLCELLULOSE: 'hydroxyethylcellulose', // HEC, gélifiant/conditionneur naturel
   HYDROXYPROPYL_METHYLCELLULOSE: 'hydroxypropyl-methylcellulose', // HPMC, épaississant filmogène
-  PEG_120_METHYL_GLUCOSE_DIOLEATE: 'peg-120-methyl-glucose-dioleate', // épaississant anioniquecompatible
-  SODIUM_ALGINATE_HAIR: 'sodium-alginate-hair', // algue, gélifiant naturel
   SCLEROTIUM_GUM: 'sclerotium-gum', // champignon, gélifiant naturel rhéologique
   TARA_GUM: 'tara-gum', // Caesalpinia Spinosa, gélifiant naturel
   CETEARYL_GLUCOSIDE: 'cetearyl-glucoside', // émulsifiant sucre + alcool gras
@@ -208,12 +177,9 @@ export const HAIR_CHELATEURS = {
   DISODIUM_EDTA_HAIR: 'disodium-edta-hair', // chélateur calcaire, stabilise formule
   TETRASODIUM_EDTA: 'tetrasodium-edta', // chélateur puissant, efficace eau très calcaire
   PHYTIC_ACID_HAIR: 'phytic-acid-hair', // chélateur naturel (son de riz)
-  SODIUM_GLUCONATE_HAIR: 'sodium-gluconate-hair', // chélateur doux naturel, biodégradable
 } as const
 
 export const HAIR_AGENTS_NACRANTS = {
-  GLYCOL_DISTEARATE: 'glycol-distearate', // agent nacrant cristallin, opacifie le shampooing
-  MICA_HAIR: 'mica-hair', // minéral, reflets nacré/satiné
   TITANIUM_DIOXIDE_HAIR: 'titanium-dioxide-hair', // opacifiant blanc
 } as const
 
@@ -223,7 +189,6 @@ export const HAIR_HUILES_MINERALES = {
   MINERAL_OIL_HAIR: 'mineral-oil-hair', // huile minérale légère
   CERESIN_HAIR: 'ceresin-hair', // cire minérale, texture solide
   OZOKERITE_HAIR: 'ozokerite-hair', // cire fossile, rigidifiant
-  CERA_MICROCRISTALLINA_HAIR: 'cera-microcristallina-hair', // cire microcristalline, tenue
 } as const
 
 export const HAIR_DIVERS = {
@@ -234,16 +199,13 @@ export const HAIR_DIVERS = {
   ROMARIN_EXTRACT_HAIR: 'romarin-extract-hair', // Rosmarinus Officinalis, antioxydant + stimulant
   KAOLIN_HAIR: 'kaolin-hair', // argile blanche, absorbe sébum
   ACTIVATED_CHARCOAL_HAIR: 'activated-charcoal-hair', // charbon actif, adsorbe impuretés
-  BAMBOU_CHARCOAL_HAIR: 'bambou-charcoal-hair', // charbon de bambou, adsorbant doux
   SEA_SALT_HAIR: 'sea-salt-hair', // NaCl, texture, minéraux
   SHIKAKAI_HAIR: 'shikakai-hair', // Acacia Concinna, tensioactif ayurvédique naturel
   REETHA_HAIR: 'reetha-hair', // Sapindus Mukorossi, saponines moussantes naturelles
   AMLA_HAIR: 'amla-hair', // Phyllanthus Emblica, vitamine C, anti-chute ayurvédique
   BIS_AMINOPROPYL_DIGLYCOL_DIMALEATE: 'bis-aminopropyl-diglycol-dimaleate', // molécule Olaplex, reconnecte ponts disulfure cassés
-  HYDROXYPROPYL_CYCLODEXTRIN: 'hydroxypropyl-cyclodextrin', // complexe délivrance, potentialise pénétration actifs
   PHYTANTRIOL_HAIR: 'phytantriol-hair', // antioxydant stabilisant, améliore pénétration
   MORINDA_CITRIFOLIA_EXTRACT: 'morinda-citrifolia-extract', // noni, antioxydant polyphénols
-  EUTERPE_OLERACEA_EXTRACT: 'euterpe-oleracea-extract', // açaï, antioxydant polyphénols
   PUNICA_GRANATUM_EXTRACT: 'punica-granatum-extract', // grenade, antioxydant polyphénols
   PALMITOYL_MYRISTYL_SERINATE: 'palmitoyl-myristyl-serinate', // peptide conditionneur filmogène
 } as const

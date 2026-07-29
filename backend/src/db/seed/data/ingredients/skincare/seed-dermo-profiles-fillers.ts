@@ -1,4 +1,4 @@
-// All ingredient slugs that are considered "fillers" — functional but not active.
+// All ingredient slugs that are considered "fillers", functional but not active.
 // These get an ingredient_dermo_profiles row with is_filler = true.
 export const FILLER_SLUGS: string[] = [
   // Solvants aqueux
@@ -18,6 +18,8 @@ export const FILLER_SLUGS: string[] = [
   'sodium-citrate',
   'disodium-edta',
   'tetrasodium-edta',
+  // Same family, same treatment: its fiche is written, its links are not.
+  'trisodium-edta',
 
   // Épaississants / gélifiants
   'carbomer',
