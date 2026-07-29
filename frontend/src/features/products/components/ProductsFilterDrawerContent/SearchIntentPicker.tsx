@@ -6,7 +6,7 @@ import type { FilterKey } from '@/features/products/filters'
 import {
   applySearchIntent,
   inferActiveIntent,
-  intentDetail,
+  intentCountLabel,
   isSearchIntentAvailable,
   SEARCH_INTENTS,
 } from './SkincareFilterIntents'
@@ -35,7 +35,7 @@ export function SearchIntentPicker({ localFilters, groups, onFiltersChange }: Pr
             disabled={!isSearchIntentAvailable(intent, groups)}
           >
             <span>{intent.label}</span>
-            <small>{intentDetail(intent)}</small>
+            <small>{intentCountLabel(intent, groups)}</small>
           </Button>
         )
       })}

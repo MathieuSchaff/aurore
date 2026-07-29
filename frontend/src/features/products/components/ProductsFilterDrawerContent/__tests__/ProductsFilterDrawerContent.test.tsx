@@ -99,23 +99,23 @@ function renderContent(
   return { props, ...render(<ProductsFilterDrawerContent {...props} />) }
 }
 
-describe('ProductsFilterDrawerContent — skincare intent-first journey', () => {
-  it('explains and applies the composed Crème hydratante shortcut', () => {
+describe('ProductsFilterDrawerContent: skincare intent-first journey', () => {
+  it('explains and applies the Soin hydratant product family', () => {
     const onLocalFiltersChange = vi.fn()
     renderContent({ onLocalFiltersChange })
 
     fireEvent.click(screen.getByRole('button', { name: /Je sais ce que je cherche/i }))
 
-    const shortcut = screen.getByRole('button', {
-      name: /Crème hydratante.*Hydratant \+ Crème/i,
+    expect(screen.getByText(/Choisissez une famille de produits/i)).toBeInTheDocument()
+    const family = screen.getByRole('button', {
+      name: /Soin hydratant.*12 produits/i,
     })
-    fireEvent.click(shortcut)
+    fireEvent.click(family)
 
-    expect(shortcut).toHaveAttribute('aria-pressed', 'true')
+    expect(family).toHaveAttribute('aria-pressed', 'true')
     expect(onLocalFiltersChange).toHaveBeenLastCalledWith(
       expect.objectContaining({
         product_type_v2: ['type-hydratant'],
-        texture: ['texture-creme'],
       })
     )
   })
@@ -125,23 +125,22 @@ describe('ProductsFilterDrawerContent — skincare intent-first journey', () => 
 
     fireEvent.click(screen.getByRole('button', { name: /Je sais ce que je cherche/i }))
 
-    expect(screen.getByRole('button', { name: /Sérum.*Sérum \/ Concentré/i })).toBeDisabled()
+    expect(screen.getByRole('button', { name: /Sérum.*Indisponible/i })).toBeDisabled()
   })
 
-  it('replaces the previous shortcut axes while preserving manual refinements', () => {
+  it('replaces the previous family while preserving manual refinements', () => {
     const onLocalFiltersChange = vi.fn()
     renderContent({ onLocalFiltersChange })
 
     fireEvent.click(screen.getByRole('button', { name: /Je sais ce que je cherche/i }))
-    fireEvent.click(screen.getByRole('button', { name: /Crème hydratante/i }))
+    fireEvent.click(screen.getByRole('button', { name: /Soin hydratant/i }))
     fireEvent.click(screen.getByRole('button', { name: /Acné/i }))
-    fireEvent.click(screen.getByRole('button', { name: /Gel nettoyant/i }))
+    fireEvent.click(screen.getByRole('button', { name: /Nettoyant.*8 produits/i }))
 
     expect(onLocalFiltersChange).toHaveBeenLastCalledWith(
       expect.objectContaining({
         concern: ['acne-imperfections'],
         product_type_v2: ['type-nettoyant'],
-        texture: ['texture-gel'],
       })
     )
   })
@@ -156,8 +155,8 @@ describe('ProductsFilterDrawerContent — skincare intent-first journey', () => 
   })
 })
 
-// Profile toggle bypasses the draft flow — it navigates immediately (parent owns URL).
-describe('ProductsFilterDrawerContent — profile toggle bypasses draft', () => {
+// Profile toggle bypasses the draft flow: it navigates immediately (parent owns URL).
+describe('ProductsFilterDrawerContent: profile toggle bypasses draft', () => {
   it('renders the toggle when showProfileToggle=true', () => {
     renderContent()
     expect(screen.getByRole('switch', { name: PROFILE_TOGGLE_NAME })).toBeInTheDocument()
@@ -180,7 +179,7 @@ describe('ProductsFilterDrawerContent — profile toggle bypasses draft', () => 
     expect(onLocalFiltersChange).not.toHaveBeenCalled()
   })
 
-  it('chip clicks emit through the draft channel — proves the two channels stay independent', () => {
+  it('chip clicks emit through the draft channel (proves the two channels stay independent)', () => {
     const onProfileFilterChange = vi.fn()
     const onLocalFiltersChange = vi.fn()
     renderContent({ onProfileFilterChange, onLocalFiltersChange })
