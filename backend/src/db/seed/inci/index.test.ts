@@ -2,8 +2,11 @@ import { describe, expect, it } from 'bun:test'
 
 import {
   buildInciIndex,
-  EXCIPIENT_BLOCKLIST,
+  buildNonDiscriminantSlugs,
+  CATEGORY_DOMAIN_ALLOWLIST,
   foldScraperDelimiters,
+  getDomainAllowlist,
+  NON_DISCRIMINANT_TOKENS,
   normalizeInciToken,
   parseInciFromContent,
   parseInciFromSlugLine,
@@ -14,6 +17,9 @@ describe('stripInciArtefacts', () => {
   it('drops organic-certification markers', () => {
     expect(stripInciArtefacts('Centaurea Cyanus Flower Water*')).toBe(
       'Centaurea Cyanus Flower Water'
+    )
+    expect(stripInciArtefacts('Oenothera Biennis (Evening Primrose) Seed Extract*°')).toBe(
+      'Oenothera Biennis (Evening Primrose) Seed Extract'
     )
   })
 
@@ -276,18 +282,34 @@ describe('buildInciIndex (integration)', () => {
     expect(idx.has('SODIUM HYALURONATE')).toBe(true)
   })
 
-  it('does not index excipients (blocklist effective)', () => {
+  // The list cuts at link time, not at construction: the token stays indexed so the algo-derm
+  // bridge lands on the listed slug instead of falling through onto an unblocked synonym.
+  it('indexes non-discriminant tokens and reports their slugs as blocked', () => {
     const idx = buildInciIndex()
-    expect(idx.has('AQUA')).toBe(false)
-    expect(idx.has('GLYCERIN')).toBe(false)
+    expect(idx.get('AQUA')?.slug).toBe('aqua')
+    expect(idx.get('GLYCERIN')?.slug).toBe('glycerin')
+
+    const blocked = buildNonDiscriminantSlugs()
+    expect(blocked.has('aqua')).toBe(true)
+    expect(blocked.has('glycerin')).toBe(true)
   })
 
-  // An artefact-carrying spelling used to slip past the blocklist and get linked as a
+  // These slugs carry no `// INCI:` comment, so only their humanised name catches them. Without
+  // that fold the bridge linked them as key ingredients whenever a synonym token resolved.
+  it('blocks a non-discriminant slug that declares no INCI comment', () => {
+    const blocked = buildNonDiscriminantSlugs()
+    expect(blocked.has('butylene-glycol')).toBe(true)
+    expect(blocked.has('cocamidopropyl-betaine')).toBe(true)
+    expect(blocked.has('polysorbate-20')).toBe(true)
+    expect(blocked.has('polyquaternium-10')).toBe(true)
+  })
+
+  // An artefact-carrying spelling used to slip past the list and get linked as a
   // key ingredient while its clean spelling was dropped.
-  it('blocklists an excipient whatever artefact its spelling carries', () => {
-    expect(EXCIPIENT_BLOCKLIST.has(normalizeInciToken('Xanthan Gum*'))).toBe(true)
-    expect(EXCIPIENT_BLOCKLIST.has(normalizeInciToken('Lauryl Glucoside*'))).toBe(true)
-    expect(EXCIPIENT_BLOCKLIST.has(normalizeInciToken('Phenoxyethanol (F.i.l'))).toBe(true)
+  it('catches a non-discriminant token whatever artefact its spelling carries', () => {
+    expect(NON_DISCRIMINANT_TOKENS.has(normalizeInciToken('Xanthan Gum*'))).toBe(true)
+    expect(NON_DISCRIMINANT_TOKENS.has(normalizeInciToken('Lauryl Glucoside*'))).toBe(true)
+    expect(NON_DISCRIMINANT_TOKENS.has(normalizeInciToken('Phenoxyethanol (F.i.l'))).toBe(true)
   })
 
   it('indexes names led by a digit', () => {
@@ -315,5 +337,25 @@ describe('buildInciIndex (integration)', () => {
     expect(idx.get('MYROTHAMNUS FLABELLIFOLIA STEM EXTRACT')?.slug).toBe(
       'myrothamnus-flabellifolia'
     )
+  })
+})
+
+describe('getDomainAllowlist', () => {
+  // Moving a slug declaration into the skincare file is only safe because every category accepts
+  // `skincare`: the guard then admits a slug where it used to drop it, never the reverse. The
+  // guard is monotone, the identity dedup running after it in link-ingredients is not, so a
+  // newly admitted slug can still claim a canonical_key ahead of a later one sharing it.
+  it('accepts skincare in every category, so moving a slug there only adds links', () => {
+    const missing = Object.entries(CATEGORY_DOMAIN_ALLOWLIST)
+      .filter(([, domains]) => !domains.includes('skincare'))
+      .map(([category]) => category)
+    expect(missing).toEqual([])
+  })
+
+  // A category with no entry keeps every slug instead of dropping every slug: the guard reads
+  // `allowed &&`. That is a cross-domain leak, not a link loss.
+  it('fails open on an unknown category', () => {
+    expect(getDomainAllowlist('parfum')).toBeNull()
+    expect(getDomainAllowlist(undefined)).toBeNull()
   })
 })

@@ -66,3 +66,11 @@ backend/openapi
 *.sqlite
 *.sqlite3
 backups/
+
+# ==========================================
+# Heavy staging dirs, never read from the image
+# (bind-mounted in dev, unused in prod; ~226 MB of context per build)
+# ==========================================
+backend/tmp
+backend/src/db/seed/output/images-source
+backend/src/db/seed/output/images-normalized
