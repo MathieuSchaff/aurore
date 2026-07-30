@@ -21,6 +21,11 @@
 //   CONF_OVERRIDE   float: raise every algo-derm per-tag confidenceFloor (computed_score) to this
 //   INCLUDE_DROPPED 1: surface allow:false tags in report (no writes)
 //   LIMIT           int: cap product count
+//   TAG             tag slug: restrict the insert plan to that tag (per-tag view)
+//   EXCLUDE_TAG     tag slug: drop that tag from the insert plan (write-all-except)
+//   SAMPLE          int: draw N to-insert candidates (seeded) into a review CSV
+//   SEED            int: PRNG seed for SAMPLE (default 42)
+//   CSV_OUT         sample CSV path (default /app/backend/tmp/backfill-sample.csv)
 
 import { inArray, sql } from 'drizzle-orm'
 
@@ -35,12 +40,18 @@ import { TAG_CONFIG } from '../../passes/algo-derm-detection'
 import { fetchEligibleProducts } from '../audit/db'
 import { chunk } from '../chunk'
 import { exitOnError, parseIntEnv, parseWriteSlugArgs } from '../cli-args'
+import { mulberry32 } from '../rng'
 import { type Candidate, type ClassifyResult, classifyCandidates, type Relevance } from './classify'
 
 const { write: WRITE, slug: SLUG_ARG } = parseWriteSlugArgs()
 const CONF_OVERRIDE = process.env.CONF_OVERRIDE ? Number(process.env.CONF_OVERRIDE) : null
 const INCLUDE_DROPPED = process.env.INCLUDE_DROPPED === '1'
 const LIMIT = parseIntEnv('LIMIT')
+const TAG = process.env.TAG || null
+const EXCLUDE_TAG = process.env.EXCLUDE_TAG || null
+const SAMPLE = parseIntEnv('SAMPLE')
+const SEED = parseIntEnv('SEED') ?? 42
+const CSV_OUT = process.env.CSV_OUT || '/app/backend/tmp/backfill-sample.csv'
 
 type ProductRow = Awaited<ReturnType<typeof fetchEligibleProducts>>[number]
 
@@ -63,7 +74,9 @@ function logHeader(): void {
   console.log(
     `   mode=${WRITE ? 'WRITE' : 'DRY-RUN'} · ${allowedTagCount} algo-derm tags allow=true${
       CONF_OVERRIDE !== null ? ` · conf_override=${CONF_OVERRIDE}` : ''
-    }${SLUG_ARG ? ` · slug=${SLUG_ARG}` : ''}${LIMIT !== null ? ` · limit=${LIMIT}` : ''}\n`
+    }${SLUG_ARG ? ` · slug=${SLUG_ARG}` : ''}${LIMIT !== null ? ` · limit=${LIMIT}` : ''}${
+      TAG ? ` · tag=${TAG}` : ''
+    }${SAMPLE !== null ? ` · sample=${SAMPLE} seed=${SEED}` : ''}\n`
   )
 }
 
@@ -164,7 +177,7 @@ interface PlanStats {
   primaryPromotions: number
 }
 
-// Pure derivation, no printing — reportPlan renders it, main reuses it after write.
+// Pure derivation, no printing: reportPlan renders it, main reuses it after write.
 function derivePlanStats(result: ClassifyResult): PlanStats {
   const sourceCountInsert: Record<AutoTagSource, number> = {
     'algo-derm': 0,
@@ -222,7 +235,69 @@ function reportPlan(
         console.log(`     [${action} ${c.relevance}] [${c.source}] ${c.tagSlug}`)
       }
     }
+    return
   }
+
+  reportTagBreakdown(result.toInsert)
+  if (TAG) reportTagDetail(result.toInsert)
+}
+
+// Global per-tag view of the insert plan, the sampling entry point: innocuity
+// claims (non-irritant, hypoallergenique, sans-*) must be spotted here before
+// any mass write.
+const TAG_BREAKDOWN_MAX = 40
+
+function reportTagBreakdown(toInsert: readonly Candidate[]): void {
+  if (toInsert.length === 0) return
+  const byTag = new Map<string, number>()
+  for (const c of toInsert) byTag.set(c.tagSlug, (byTag.get(c.tagSlug) ?? 0) + 1)
+  const rows = [...byTag.entries()].sort((a, b) => b[1] - a[1])
+  console.log(`\n   À insérer par tag (${byTag.size} tags) :`)
+  for (const [slug, n] of rows.slice(0, TAG_BREAKDOWN_MAX)) {
+    console.log(`     ${String(n).padStart(5)}  ${slug}`)
+  }
+  if (rows.length > TAG_BREAKDOWN_MAX) {
+    const rest = rows.slice(TAG_BREAKDOWN_MAX).reduce((s, [, n]) => s + n, 0)
+    console.log(`     … +${rows.length - TAG_BREAKDOWN_MAX} tags (${rest} liens)`)
+  }
+}
+
+const TAG_DETAIL_MAX = 50
+
+function reportTagDetail(toInsert: readonly Candidate[]): void {
+  console.log(`\n   Produits à taguer [${TAG}] :`)
+  for (const c of toInsert.slice(0, TAG_DETAIL_MAX)) {
+    console.log(`     [${c.relevance}] [${c.source}] ${c.slug}`)
+  }
+  if (toInsert.length > TAG_DETAIL_MAX) {
+    console.log(`     … +${toInsert.length - TAG_DETAIL_MAX} de plus (SAMPLE=N pour un tirage CSV)`)
+  }
+}
+
+const csvField = (v: string): string => (/[",\n]/.test(v) ? `"${v.replace(/"/g, '""')}"` : v)
+
+// Seeded review sample of the insert plan. Same SEED + same DB state = same
+// draw, so a human review of the CSV stays reproducible.
+async function writeSampleCsv(toInsert: readonly Candidate[], subset: ProductRow[]): Promise<void> {
+  const byId = new Map(subset.map((p) => [p.id, p]))
+  const pool = [...toInsert]
+  const rng = mulberry32(SEED >>> 0)
+  for (let i = pool.length - 1; i > 0; i--) {
+    const j = Math.floor(rng() * (i + 1))
+    ;[pool[i], pool[j]] = [pool[j] as Candidate, pool[i] as Candidate]
+  }
+  const drawn = pool.slice(0, SAMPLE ?? pool.length)
+  const rows = ['product_slug,product_name,tag_slug,relevance,source,inci']
+  for (const c of drawn) {
+    const p = byId.get(c.productId)
+    rows.push(
+      [c.slug, p?.name ?? '', c.tagSlug, c.relevance, c.source, p?.inci ?? '']
+        .map(csvField)
+        .join(',')
+    )
+  }
+  await Bun.write(CSV_OUT, `${rows.join('\n')}\n`)
+  console.log(`\n📄 Échantillon (seed=${SEED}) : ${CSV_OUT} (${drawn.length} lignes)`)
 }
 
 const CHUNK = 500
@@ -299,8 +374,25 @@ async function main() {
     manualPairs
   )
 
+  if (TAG || EXCLUDE_TAG) {
+    if (TAG) {
+      const known = [...candidateMap.values()].some((c) => c.tagSlug === TAG)
+      if (!known) console.warn(`⚠  TAG="${TAG}" absent des candidats détectés (typo ?)`)
+    }
+    const keep = (c: Candidate): boolean =>
+      (TAG === null || c.tagSlug === TAG) && (EXCLUDE_TAG === null || c.tagSlug !== EXCLUDE_TAG)
+    result.toInsert = result.toInsert.filter(keep)
+    result.toUpsert = result.toUpsert.filter(keep)
+    // Counters are computed over the full plan; re-derive them for the slice
+    // (toUpsert rows are either avoid corrections or primary promotions).
+    result.primaryInserts = result.toInsert.filter((c) => c.relevance === 'primary').length
+    result.primaryUpserts = result.toUpsert.filter((c) => c.relevance === 'primary').length
+  }
+
   const stats = derivePlanStats(result)
   reportPlan(subset, noInci, candidateMap.size, result, stats)
+
+  if (SAMPLE !== null) await writeSampleCsv(result.toInsert, subset)
 
   if (eczemaReviewQueue.length > 0) {
     console.warn(
