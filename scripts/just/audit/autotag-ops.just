@@ -32,7 +32,7 @@ catalog-fix-tag-domain:
     source {{justfile_directory()}}/scripts/just/_lib.sh
     data_run "catalog-fix-tag-domain" "src/db/seed/maintenance/fix-tag-domain-consistency.ts"
 
-# Backfill auto-tags. Env: SLUG, WRITE (apply), LIMIT, CONF_OVERRIDE, INCLUDE_DROPPED.
+# Backfill auto-tags. Env: SLUG, WRITE (apply), LIMIT, CONF_OVERRIDE, INCLUDE_DROPPED, TAG (per-tag plan), EXCLUDE_TAG (write-all-except), SAMPLE (review CSV, with SEED/CSV_OUT).
 [group('autotag')]
 autotag-backfill:
     #!/usr/bin/env bash
@@ -47,6 +47,11 @@ autotag-backfill:
         ${CONF_OVERRIDE:+-e CONF_OVERRIDE="$CONF_OVERRIDE"} \
         ${LIMIT:+-e LIMIT="$LIMIT"} \
         ${INCLUDE_DROPPED:+-e INCLUDE_DROPPED="$INCLUDE_DROPPED"} \
+        ${TAG:+-e TAG="$TAG"} \
+        ${EXCLUDE_TAG:+-e EXCLUDE_TAG="$EXCLUDE_TAG"} \
+        ${SAMPLE:+-e SAMPLE="$SAMPLE"} \
+        ${SEED:+-e SEED="$SEED"} \
+        ${CSV_OUT:+-e CSV_OUT="$CSV_OUT"} \
         -w /app/backend api bun run src/features/auto-tagging/runners/backfill/main.ts \
         ${WRITE:+--write} \
         ${SLUG:+--slug "$SLUG"}
@@ -77,6 +82,23 @@ autotag-reconcile *args:
         -w /app/backend api bun run src/features/auto-tagging/runners/backfill/reconcile.ts \
         ${WRITE:+--write} \
         ${SLUG:+--slug "$SLUG"}
+
+# Delete non-manual links of ONE tag the detector no longer emits (tag-scoped reconcile slice; full reconcile also re-inserts). Env: TAG (required), WRITE (apply). TARGET: dev|prod.
+[group('autotag')]
+autotag-purge-stale:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    source {{justfile_directory()}}/scripts/just/_lib.sh
+    TARGET="${TARGET:-dev}"
+    target_compose
+    if [ -z "${TAG:-}" ]; then printf "{{RED}}TAG=<tagSlug> requis{{NC}}\n"; exit 1; fi
+    if [ "$TARGET" = prod ] && [ -n "${WRITE:-}" ]; then confirm_prod "WRITE (autotag-purge-stale $TAG)"; fi
+    MODE=$([ -n "${WRITE:-}" ] && echo "WRITE" || echo "dry-run")
+    printf "{{CYAN}}Purge stale auto-tag links ($MODE, $TARGET, tag=$TAG)...{{NC}}\n"
+    $COMPOSE exec \
+        -e TAG="$TAG" \
+        -w /app/backend api bun run src/features/auto-tagging/runners/backfill/purge-stale-tag.ts \
+        ${WRITE:+--write}
 
 # Explain auto-tag pipeline: SLUG=<slug> traces a real product (full input: name/desc/brand/texture), INCI="..." traces one raw INCI (INCI-only, blind to name/claim passes), COUNTS=1 aggregates the catalogue. Read-only. Env: SLUG, INCI, KIND (serum), CATEGORY (skincare), COUNTS=1.
 [group('autotag')]
