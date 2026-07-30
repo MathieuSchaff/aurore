@@ -40,7 +40,7 @@ const ingredientKeys = {
     [...ingredientKeys.all, 'filter-options', type ?? 'all'] as const,
 }
 
-// Extracted (was inlined in `list.queryFn`) so the filter → query mapping
+// Extracted (was inlined in `list.queryFn`) so the filter-to-query mapping
 // can be unit-tested without spinning up react-query / msw.
 export function buildListIngredientsQuery(filters: ListIngredientsFilters): Record<string, string> {
   const query: Record<string, string> = {}
@@ -152,6 +152,26 @@ export const ingredientQueries = {
       initialPageParam: 0 as number,
       getNextPageParam: (): number | undefined => undefined,
       // No enabled floor here: SearchCombobox owns gating via minChars.
+    }),
+
+  // Rule composer autocomplete: a preference can only attach to a keyed
+  // substance, unkeyed rows are dropped server-response-side.
+  searchDeclarableInfinite: (query: string) =>
+    infiniteQueryOptions({
+      queryKey: [...ingredientKeys.all, 'search-declarable', query] as const,
+      queryFn: async ({ signal }) => {
+        const res = await api.ingredients.search.$get({ query: { q: query } }, { init: { signal } })
+        await throwIfNotOk(res)
+        const json = await res.json()
+        if (!json.success) throw new ApiError('http_error', res.status)
+        return {
+          items: json.data.filter((i) => i.canonicalKey !== null),
+          hasMore: false,
+          nextOffset: 0,
+        }
+      },
+      initialPageParam: 0 as number,
+      getNextPageParam: (): number | undefined => undefined,
     }),
 
   // Resolve names for slugs deep-linked from URL; cached so filter re-mount doesn't refetch.

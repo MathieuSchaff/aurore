@@ -13,12 +13,17 @@ type SkinProfileReadProps = {
   hideFitzpatrick?: boolean
 }
 
+// Single gate for both the fade mask and the toggle: clamping a note the user
+// cannot unfold reads as truncation without a way out.
+const NOTES_CLAMP_THRESHOLD = 150
+
 export function SkinProfileRead({ dermo, hideFitzpatrick = false }: SkinProfileReadProps) {
   const [notesExpanded, setNotesExpanded] = useState(false)
   const hasSkinTypes = dermo.skinTypes && dermo.skinTypes.length > 0
   const hasConcerns = dermo.skinConcerns && dermo.skinConcerns.length > 0
   const fitzItem = FITZPATRICK_ITEMS.find((f) => f.value === dermo.fitzpatrickType)
   const hasNotes = dermo.privateNotes && dermo.privateNotes.trim().length > 0
+  const isLongNote = (dermo.privateNotes?.length ?? 0) > NOTES_CLAMP_THRESHOLD
   const showFitz = fitzItem && !hideFitzpatrick
   const isEmpty = !hasSkinTypes && !showFitz && !hasConcerns && !hasNotes
 
@@ -69,11 +74,14 @@ export function SkinProfileRead({ dermo, hideFitzpatrick = false }: SkinProfileR
         <div className="skin-read__row skin-read__notes-row">
           <span className="skin-read__label">Notes privées</span>
           <div
-            className={clsx('skin-read__notes', !notesExpanded && 'skin-read__notes--collapsed')}
+            className={clsx(
+              'skin-read__notes',
+              isLongNote && !notesExpanded && 'skin-read__notes--collapsed'
+            )}
           >
             <p className="skin-read__notes-text">{dermo.privateNotes}</p>
           </div>
-          {(dermo.privateNotes?.length ?? 0) > 150 && (
+          {isLongNote && (
             <Button
               type="button"
               variant="bare"

@@ -1,10 +1,14 @@
 import {
+  deleteIngredientPreferenceQuerySchema,
+  deleteTagPreferenceParamSchema,
   err,
   HTTP_STATUS,
   ok,
   profileUpdateSchema,
   updatePrivacySettingsSchema,
   updateUserPreferencesSchema,
+  upsertIngredientPreferenceSchema,
+  upsertTagPreferenceSchema,
   userDermoProfileUpdateSchema,
 } from '@aurore/shared'
 
@@ -20,16 +24,21 @@ import { securityScan } from '../security/security.middleware'
 import { logSecurityEvent } from '../security/security.service'
 import { checkExportRateLimit, exportFilename, exportUserData } from './export.service'
 import {
+  deleteIngredientPreference,
+  deleteTagPreference,
   deleteUser,
   getDermoProfile,
   getPrivacySettings,
   getProfile,
   getProfileStats,
   getUserPreferences,
+  listPreferenceTargets,
   updatePrivacySettings,
   updateProfile,
   updateUserPreferences,
   upsertDermoProfile,
+  upsertIngredientPreference,
+  upsertTagPreference,
 } from './service'
 
 const app = new Hono<AppEnv>()
@@ -87,6 +96,67 @@ export const profileRoute = app
     const updated = await updateUserPreferences(db, userId, data)
     return c.json(ok(updated), HTTP_STATUS.OK)
   })
+
+  .get('/preference-targets', async (c) => {
+    const db = c.get('db')
+    const userId = getAuthedUserId(c)
+    const targets = await listPreferenceTargets(db, userId)
+    return c.json(ok(targets), HTTP_STATUS.OK)
+  })
+
+  .put(
+    '/ingredient-preferences',
+    zValidator('json', upsertIngredientPreferenceSchema),
+    async (c) => {
+      const db = c.get('db')
+      const userId = getAuthedUserId(c)
+      const data = c.req.valid('json')
+      const saved = await upsertIngredientPreference(db, userId, data)
+
+      if (!saved) {
+        return c.json(err('not_found'), HTTP_STATUS.NOT_FOUND)
+      }
+
+      return c.json(ok(saved), HTTP_STATUS.OK)
+    }
+  )
+
+  .delete(
+    '/ingredient-preferences',
+    zValidator('query', deleteIngredientPreferenceQuerySchema),
+    async (c) => {
+      const db = c.get('db')
+      const userId = getAuthedUserId(c)
+      const { key } = c.req.valid('query')
+      await deleteIngredientPreference(db, userId, key)
+      return c.body(null, 204)
+    }
+  )
+
+  .put('/tag-preferences', zValidator('json', upsertTagPreferenceSchema), async (c) => {
+    const db = c.get('db')
+    const userId = getAuthedUserId(c)
+    const data = c.req.valid('json')
+    const saved = await upsertTagPreference(db, userId, data)
+
+    if (!saved) {
+      return c.json(err('not_found'), HTTP_STATUS.NOT_FOUND)
+    }
+
+    return c.json(ok(saved), HTTP_STATUS.OK)
+  })
+
+  .delete(
+    '/tag-preferences/:tagId',
+    zValidator('param', deleteTagPreferenceParamSchema),
+    async (c) => {
+      const db = c.get('db')
+      const userId = getAuthedUserId(c)
+      const { tagId } = c.req.valid('param')
+      await deleteTagPreference(db, userId, tagId)
+      return c.body(null, 204)
+    }
+  )
 
   .get('/dermo', async (c) => {
     const db = c.get('db')

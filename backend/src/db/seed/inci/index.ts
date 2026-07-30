@@ -7,7 +7,7 @@
  *
  * NON_DISCRIMINANT_TOKENS answers one question: does this token say anything about *this*
  * product? Water and glycerin do not, whatever they do to skin. It does not answer "does this
- * deserve a page" — a listed substance keeps its ingredient row, its /ingredients entry and its
+ * deserve a page": a listed substance keeps its ingredient row, its /ingredients entry and its
  * clickable driver in the formula reading, it only never becomes a product link.
  *
  * So the index carries these tokens. Dropping them at construction hid them from the algo-derm
@@ -28,11 +28,11 @@ import { INGREDIENT_SLUGS } from '../data/ingredients/ingredient-slugs'
 // The 2026-07 sweeps are retired with their criteria: algo-derm axis thresholds measured intensity,
 // never how much a token tells a reader about *this* product, and the "no resolvable slug" branch
 // took the absence of a fiche as proof none was wanted. Between them they listed 268 tokens that
-// cut nothing at all — peptides, ferments, botanicals, CI colours — and pre-empted the fiches
+// cut nothing at all (peptides, ferments, botanicals, CI colours) and pre-empted the fiches
 // nobody had written yet.
 //
 // Most of the common excipients are already dropped by FILLER_SLUGS (the is_filler taxonomy), on
-// the resolved slug. What this list adds is sixteen slugs that taxonomy does not carry.
+// the resolved slug. What this list adds are the slugs that taxonomy does not carry.
 //
 // Entries are normalised at module load via normalizeInciToken to match real INCI conventions
 // (dashes, slashes, parens, accents). The source keeps the original orthography, grep-friendly.
@@ -49,7 +49,6 @@ const NON_DISCRIMINANT_SOURCE: string[] = [
   'Methylpropanediol',
   '1,2-Hexanediol',
   'Caprylyl Glycol',
-  'Parfum',
   'Phenoxyethanol',
   'Benzyl Alcohol',
   'Ethylhexylglycerin',
@@ -115,13 +114,13 @@ const NON_DISCRIMINANT_SOURCE: string[] = [
   'Maltodextrin',
   // Lake pigments. The CI family was settled by the 106-token pass; these three escaped it only
   // because `Colour N Lake (CI …)` hides the code from normalizeInciToken, which erases the
-  // parenthetical outright — `Blue 1 Lake (CI 42090)` normalises to `BLUE 1 LAKE` and the resolver
+  // parenthetical outright: `Blue 1 Lake (CI 42090)` normalises to `BLUE 1 LAKE` and the resolver
   // never sees 42090. Listing the wrapped spelling is what closes that hole. This is not the
   // retired sweep re-listing colours: the decision is the family's, and it was already taken.
   'Blue 1 Lake (CI 42090)',
   'Red 7 Lake (CI 15850)',
   'Yellow 5 Lake (CI 19140)',
-  // pH adjuster, BUFFERING and nothing else in CosIng — same family as Citric Acid and Sodium
+  // pH adjuster, BUFFERING and nothing else in CosIng, same family as Citric Acid and Sodium
   // Hydroxide above.
   'Aminomethyl Propanol',
 ]

@@ -1,0 +1,25 @@
+.ingredient-mark {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+
+/* `.button` sets `border: none` and its variants ring themselves with an inset
+   box-shadow, so a border-color here would paint nothing. */
+.ingredient-mark__button[aria-pressed="true"] {
+  background: oklch(from var(--color-primary) l c h / 0.14);
+  box-shadow: inset 0 0 0 1px var(--color-primary);
+  color: oklch(from var(--color-primary) var(--on-tint-l, 42%) c h);
+  font-weight: var(--font-semibold);
+}
+
+.ingredient-mark__confirmation {
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+}
+
+.ingredient-mark__link {
+  color: var(--color-primary);
+  text-decoration: underline;
+}

@@ -21,8 +21,11 @@ import { TagError } from './tag-error'
 const idParam = z.object({ id: z.uuid() })
 const slugParam = z.object({ slug: z.string().min(1).max(100) })
 
+// Service default is 100; the preference rule composer needs the full
+// taxonomy (~230 defs) in one read to filter client-side.
 const listTagsQuery = z.object({
   category: z.string().optional(),
+  limit: z.coerce.number().int().min(1).max(500).optional(),
 })
 
 const productTagsApp = new Hono<AppEnv>()

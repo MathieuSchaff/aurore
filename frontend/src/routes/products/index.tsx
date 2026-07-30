@@ -28,7 +28,7 @@ export const Route = createFileRoute('/products/')({
     const userId = useAuthStore.getState().user?.id ?? null
     const dermo = await resolveDermoForList(context.queryClient, userId, deps.profile_filter)
     const avoidFor = deriveAvoidFor(dermo, deps.profile_filter)
-    const filters = productsListApiFilters(deps, avoidFor)
+    const filters = productsListApiFilters(deps, avoidFor, !!userId)
 
     if (userId) {
       void convergeShelfStatusForList(context.queryClient, filters, userId)

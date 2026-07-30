@@ -821,6 +821,7 @@ export const DIVERS_NON_CLASSES = {
   SODIUM_METABISULFITE: 'sodium-metabisulfite', // INCI: Sodium Metabisulfite | sulfite antioxidant preservative
   SODIUM_SULFITE: 'sodium-sulfite', // INCI: Sodium Sulfite | sulfite antioxidant, same sensitizing moiety as metabisulfite
   VANILLIN: 'vanillin', // INCI: Vanillin | main aroma molecule of vanilla, EU Annex III restricted
+  FRAGRANCE: 'fragrance', // INCI: Parfum / Fragrance / Aroma | undisclosed scent compound, INCI umbrella term
   // The Annex III fragrance substances an INCI list has to name one by one. That spelling exists
   // precisely so a reader can spot them, and none of them reached a fiche: algo-derm grades all
   // twenty-three, aurore declared none. `Benzyl Alcohol` is deliberately not here — it stays on
