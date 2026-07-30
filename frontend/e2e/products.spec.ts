@@ -1,5 +1,7 @@
 import { expect, test } from '@playwright/test'
 
+import { waitForHydration } from './helpers/hydration'
+
 // All specs target unauthenticated paths: list, detail, filters, sort, search.
 // Auth-gated surfaces (Add to collection modal, Créer button, profile toggle)
 // require a `storageState` setup.
@@ -8,6 +10,7 @@ test.describe('Products page', () => {
   test.beforeEach(async ({ page }) => {
     await page.goto('/products')
     await expect(page.getByRole('heading', { name: 'Produits', level: 1 })).toBeVisible()
+    await waitForHydration(page)
   })
 
   test('list renders product cards on default skincare tab', async ({ page }) => {
