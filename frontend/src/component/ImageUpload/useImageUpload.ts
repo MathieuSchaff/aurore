@@ -37,7 +37,7 @@ const ACCEPTED_TYPES = new Set(['image/jpeg', 'image/png', 'image/webp'])
 // React Compiler bails on try/finally inside a hook body; a plain async function is fine.
 async function runConfirmCrop(
   image: HTMLImageElement,
-  sourceUrlToRevoke: string | null,
+  releaseSourceUrl: (() => void) | null,
   area: CropArea,
   compress: (image: HTMLImageElement, area: CropArea) => Promise<Blob>,
   uploadXhr: (blob: Blob) => Promise<{ url: string }>,
@@ -55,7 +55,7 @@ async function runConfirmCrop(
     setState({ phase: 'error', code, message: ERROR_MESSAGES[code] ?? ERROR_MESSAGES.unknown })
     throw e
   } finally {
-    if (sourceUrlToRevoke) URL.revokeObjectURL(sourceUrlToRevoke)
+    releaseSourceUrl?.()
   }
 }
 
@@ -120,37 +120,56 @@ export function useImageUpload(opts: UseImageUploadOptions) {
   const inputRef = useRef<HTMLInputElement | null>(null)
   // escape hatch for jsdom tests: avoids File/createObjectURL which are unavailable
   const testSourceImageRef = useRef<HTMLImageElement | null>(null)
+  const sourceUrlRef = useRef<string | null>(null)
+
+  const revokeSourceUrl = useCallback((expectedUrl?: string) => {
+    const sourceUrl = sourceUrlRef.current
+    if (!sourceUrl || (expectedUrl !== undefined && sourceUrl !== expectedUrl)) return
+    URL.revokeObjectURL(sourceUrl)
+    sourceUrlRef.current = null
+  }, [])
 
   // The hidden input is appended to document.body in pickFile; remove it on
-  // unmount so repeated mounts don't accumulate orphaned inputs.
+  // unmount so repeated mounts don't accumulate orphaned inputs or Blob URLs.
   useEffect(() => {
     return () => {
       inputRef.current?.remove()
       inputRef.current = null
+      revokeSourceUrl()
     }
-  }, [])
+  }, [revokeSourceUrl])
 
-  const acceptFile = useCallback((file: File) => {
-    if (file.size > SOURCE_MAX_BYTES) {
-      setState({
-        phase: 'error',
-        code: 'source_too_large',
-        message: ERROR_MESSAGES.source_too_large,
-      })
-      return
-    }
-    const url = URL.createObjectURL(file)
-    const img = new Image()
-    img.onload = () =>
-      setState({ phase: 'cropping', sourceUrl: url, sourceFile: file, sourceImage: img })
-    img.onerror = () =>
-      setState({
-        phase: 'error',
-        code: 'upload_invalid_format',
-        message: ERROR_MESSAGES.upload_invalid_format,
-      })
-    img.src = url
-  }, [])
+  const acceptFile = useCallback(
+    (file: File) => {
+      if (file.size > SOURCE_MAX_BYTES) {
+        setState({
+          phase: 'error',
+          code: 'source_too_large',
+          message: ERROR_MESSAGES.source_too_large,
+        })
+        return
+      }
+      revokeSourceUrl()
+      const url = URL.createObjectURL(file)
+      sourceUrlRef.current = url
+      const img = new Image()
+      img.onload = () => {
+        if (sourceUrlRef.current !== url) return
+        setState({ phase: 'cropping', sourceUrl: url, sourceFile: file, sourceImage: img })
+      }
+      img.onerror = () => {
+        if (sourceUrlRef.current !== url) return
+        revokeSourceUrl(url)
+        setState({
+          phase: 'error',
+          code: 'upload_invalid_format',
+          message: ERROR_MESSAGES.upload_invalid_format,
+        })
+      }
+      img.src = url
+    },
+    [revokeSourceUrl]
+  )
 
   const pickFile = useCallback(() => {
     if (!inputRef.current) {
@@ -166,13 +185,13 @@ export function useImageUpload(opts: UseImageUploadOptions) {
       document.body.appendChild(el)
       inputRef.current = el
     }
-    // Clear any prior error so re-opening the picker (or cancelling it) leaves a usable idle state.
+    // Clear any prior error so opening the picker again (or cancelling it) leaves a usable idle state.
     if (state.phase === 'error') setState({ phase: 'idle' })
     inputRef.current.value = ''
     inputRef.current.click()
   }, [acceptFile, state.phase])
 
-  // Drag-and-drop bypasses the file input's `accept`, so re-check the MIME type here.
+  // Drag-and-drop bypasses the file input's `accept`, so check the MIME type again here.
   const dropFile = useCallback(
     (file: File) => {
       if (!ACCEPTED_TYPES.has(file.type)) {
@@ -189,9 +208,9 @@ export function useImageUpload(opts: UseImageUploadOptions) {
   )
 
   const cancel = useCallback(() => {
-    if (state.phase === 'cropping') URL.revokeObjectURL(state.sourceUrl)
+    revokeSourceUrl()
     setState({ phase: 'idle' })
-  }, [state])
+  }, [revokeSourceUrl])
 
   const compress = useCallback(
     async (image: HTMLImageElement, area: CropArea): Promise<Blob> => {
@@ -232,16 +251,16 @@ export function useImageUpload(opts: UseImageUploadOptions) {
   const confirmCrop = useCallback(
     async (area: CropArea): Promise<{ url: string }> => {
       let image: HTMLImageElement | null = null
-      let sourceUrlToRevoke: string | null = null
+      let releaseSourceUrl: (() => void) | null = null
       if (state.phase === 'cropping') {
         image = state.sourceImage
-        sourceUrlToRevoke = state.sourceUrl
+        releaseSourceUrl = () => revokeSourceUrl(state.sourceUrl)
       }
       if (!image && testSourceImageRef.current) image = testSourceImageRef.current
       if (!image) throw new Error('no_source')
-      return runConfirmCrop(image, sourceUrlToRevoke, area, compress, uploadXhr, setState)
+      return runConfirmCrop(image, releaseSourceUrl, area, compress, uploadXhr, setState)
     },
-    [state, compress, uploadXhr]
+    [state, compress, uploadXhr, revokeSourceUrl]
   )
 
   const __setSourceForTest = (img: HTMLImageElement) => {

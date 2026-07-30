@@ -15,7 +15,7 @@ function installCanvasMock(blobSize = 50_000) {
   const originalToBlob = HTMLCanvasElement.prototype.toBlob
   const originalGetContext = HTMLCanvasElement.prototype.getContext
 
-  // jsdom does not implement canvas 2d — provide a no-op context stub
+  // jsdom does not implement canvas 2d, so provide a no-op context stub
   ;(HTMLCanvasElement.prototype.getContext as unknown) = () => ({ drawImage: () => {} })
   ;(HTMLCanvasElement.prototype.toBlob as unknown) = (cb: BlobCallback) => {
     cb(new Blob([new Uint8Array(blobSize)], { type: 'image/webp' }))
@@ -144,6 +144,71 @@ describe('useImageUpload', () => {
     }
   })
 
+  it('revokes the source URL when the browser cannot decode the image', () => {
+    const originalImage = globalThis.Image
+    const originalCreateObjectURL = URL.createObjectURL
+    const originalRevokeObjectURL = URL.revokeObjectURL
+    const image = document.createElement('img')
+    const revokeObjectURL = vi.fn()
+
+    function MockImage() {
+      return image
+    }
+    Object.defineProperty(globalThis, 'Image', {
+      value: MockImage,
+      writable: true,
+      configurable: true,
+    })
+    URL.createObjectURL = () => 'blob:invalid'
+    URL.revokeObjectURL = revokeObjectURL
+
+    try {
+      const { result } = renderHook(() =>
+        useImageUpload({ endpoint: '/api/uploads/avatar', outputSize: 1024 })
+      )
+
+      act(() => {
+        result.current.dropFile(new File(['x'], 'broken.jpg', { type: 'image/jpeg' }))
+        image.onerror?.call(image, new Event('error'))
+      })
+
+      expect(revokeObjectURL).toHaveBeenCalledWith('blob:invalid')
+      expect(result.current.state.phase).toBe('error')
+    } finally {
+      Object.defineProperty(globalThis, 'Image', {
+        value: originalImage,
+        writable: true,
+        configurable: true,
+      })
+      URL.createObjectURL = originalCreateObjectURL
+      URL.revokeObjectURL = originalRevokeObjectURL
+    }
+  })
+
+  it('revokes a pending source URL when the hook unmounts', () => {
+    const originalCreateObjectURL = URL.createObjectURL
+    const originalRevokeObjectURL = URL.revokeObjectURL
+    const revokeObjectURL = vi.fn()
+    URL.createObjectURL = () => 'blob:pending'
+    URL.revokeObjectURL = revokeObjectURL
+
+    try {
+      const { result, unmount } = renderHook(() =>
+        useImageUpload({ endpoint: '/api/uploads/avatar', outputSize: 1024 })
+      )
+
+      act(() => {
+        result.current.dropFile(new File(['x'], 'photo.jpg', { type: 'image/jpeg' }))
+      })
+      unmount()
+
+      expect(revokeObjectURL).toHaveBeenCalledWith('blob:pending')
+    } finally {
+      URL.createObjectURL = originalCreateObjectURL
+      URL.revokeObjectURL = originalRevokeObjectURL
+    }
+  })
+
   it('cancel returns to idle', () => {
     const { result } = renderHook(() =>
       useImageUpload({ endpoint: '/api/uploads/avatar', outputSize: 1024 })
@@ -202,7 +267,7 @@ describe('useImageUpload', () => {
   })
 
   it('omits Authorization header when auth store has no token', async () => {
-    // accessToken is null by default — must not send Authorization at all
+    // accessToken is null by default, so must not send Authorization at all
     const capturedHeaders: Array<[string, string]> = []
     const original = globalThis.XMLHttpRequest
 
