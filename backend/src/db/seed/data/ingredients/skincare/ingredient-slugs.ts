@@ -761,6 +761,20 @@ export const TEXTURANTS_FONCTIONNELS = {
 } as const
 
 export const DIVERS_NON_CLASSES = {
+  // v27 candidate return, written as Aurore identity-only fiches after the v28 adoption.
+  // Keep the generic citrus and the Chondrus powder distinct: collapsing either would publish
+  // a more specific material than the INCI token actually identifies.
+  CITRUS_AURANTIUM_PEEL_OIL_GENERIC: 'citrus-aurantium-peel-oil-generic', // INCI: Citrus Aurantium Peel Oil | variety indeterminate
+  COCOS_NUCIFERA_FRUIT_EXTRACT: 'cocos-nucifera-fruit-extract', // INCI: Cocos Nucifera Fruit Extract | distinct from coconut oil
+  JUNIPERUS_VIRGINIANA_OIL: 'juniperus-virginiana-oil', // INCI: Juniperus Virginiana Oil | Virginia cedarwood oil
+  SACCHARUM_OFFICINARUM_EXTRACT: 'saccharum-officinarum-extract', // INCI: Saccharum Officinarum Extract | sugarcane extract
+  PRUNUS_DOMESTICA_SEED_OIL: 'prunus-domestica-seed-oil', // INCI: Prunus Domestica Seed Oil | plum seed oil
+  MEDICAGO_SATIVA_EXTRACT: 'medicago-sativa-extract', // INCI: Medicago Sativa Extract | alfalfa extract
+  CERATONIA_SILIQUA_GUM: 'ceratonia-siliqua-gum', // INCI: Ceratonia Siliqua Gum | carob gum
+  CHONDRUS_CRISPUS_POWDER: 'chondrus-crispus-powder', // INCI: Chondrus Crispus Powder | abrasive powder, not the extract
+  RUBUS_IDAEUS_SEED_OIL: 'rubus-idaeus-seed-oil', // INCI: Rubus Idaeus Seed Oil | distinct from fruit extract
+  MALACHITE_EXTRACT: 'malachite-extract', // INCI: Malachite Extract | mineral-derived extract
+
   HUMECTANTS_EMOLLIENTS_OCCLUSIFS: 'humectants-emollients-occlusifs', // General category
   PEPTIDES: 'peptides', // General category
   BIXA_ORELLANA: 'bixa-orellana', // INCI: Bixa Orellana Seed Extract / Annatto | source of bixin (natural dye)
