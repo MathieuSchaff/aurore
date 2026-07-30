@@ -38,7 +38,7 @@ export function ThreadForm({ entityType, slug }: ThreadFormProps) {
 
   if (!open) {
     return (
-      <Button variant="primary" onClick={() => setOpen(true)}>
+      <Button variant="secondary" onClick={() => setOpen(true)}>
         Ouvrir une discussion
       </Button>
     )
@@ -55,9 +55,11 @@ export function ThreadForm({ entityType, slug }: ThreadFormProps) {
         maxLength={120}
         required
       />
+      {/* Not "Votre expérience": PostComposer can be open on the same tab and
+          accessible names must stay distinct. */}
       <Textarea
-        label="Ton expérience"
-        placeholder="Décris ton expérience..."
+        label="Votre message"
+        placeholder="Décrivez votre expérience…"
         value={content}
         onChange={(e) => setContent(e.target.value)}
         rows={4}

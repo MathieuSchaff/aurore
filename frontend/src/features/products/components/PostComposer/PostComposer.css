@@ -4,6 +4,6 @@
   gap: var(--space-3);
   padding: var(--space-4);
   background: var(--bg-card);
+  border: 1px solid var(--border-default);
   border-radius: var(--radius-md);
-  box-shadow: var(--shadow-card);
 }

@@ -12,7 +12,7 @@ import { useAuthStore } from '@/store/auth'
 
 import './ReactionRow.css'
 
-// One reactor, signed — links to the profile only when public (ReviewerName
+// One reactor, signed: links to the profile only when public (ReviewerName
 // pattern). Never rendered as a number; the names themselves are the signal.
 function ReactorName({ reactor }: { reactor: Reactor }) {
   if (reactor.profilePublic) {
@@ -32,7 +32,7 @@ function ReactorName({ reactor }: { reactor: Reactor }) {
 // Entraide reactions on a Reactable (post / thread / reply). Shows WHO reacted per
 // kind, never a count. Toggling is signed and needs auth; anonymous
 // readers see existing reactors but no buttons, and an empty anonymous row renders
-// nothing (calme — no controls a logged-out reader can't use).
+// nothing (calme: no controls a logged-out reader can't use).
 export function ReactionRow({
   reactableType,
   reactableId,
@@ -45,7 +45,7 @@ export function ReactionRow({
   const announce = useAnnounce()
 
   // Auth from the store token, not a me() query: ReactionRow renders on anon
-  // surfaces (product/profile/thread) and only needs the boolean — querying
+  // surfaces (product/profile/thread) and only needs the boolean. Querying
   // /api/profile here just 401s (twice, retry-amplified) per anon view.
   const isAuthed = useAuthStore((s) => !!s.accessToken)
   const viewerKinds = data?.viewerKinds ?? []
@@ -63,8 +63,8 @@ export function ReactionRow({
         return (
           <div key={kind} className="reaction-row__kind">
             <Button
-              variant="ghost"
-              size="sm"
+              variant="bare"
+              className="reaction-row__toggle"
               aria-pressed={pressed}
               disabled={!isAuthed || toggle.isPending}
               onClick={() =>
