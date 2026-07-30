@@ -1,10 +1,8 @@
+/* Pinned by the sheet's flex column (.pds-scroll owns scrolling), no sticky needed.
+   A sticky top offset here would push the hero down inside the dialog and occlude
+   the first section header. */
 .pds-hero {
-  position: sticky;
-  /* Clear the fixed top navbar (Header.css) instead of sliding under it. */
-  top: var(--nav-height);
-  z-index: var(--z-elevated);
-  background: var(--bg-page);
-  padding: var(--space-2) var(--space-5) var(--space-4);
+  padding: var(--space-3) var(--space-5) var(--space-4);
   border-bottom: var(--rule-section);
 }
 
@@ -24,16 +22,15 @@
   align-items: center;
   justify-content: center;
   border-radius: var(--radius-full);
-  background: var(--bg-sunken, var(--bg-muted));
-  border: 1px solid var(--border-strong);
-  color: var(--text-primary);
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
   cursor: pointer;
   transition: all var(--transition-fast);
 }
 
 .pds-hero-close:hover {
-  background: var(--border-default);
-  border-color: var(--border-strong);
+  background: var(--bg-muted);
   color: var(--text-primary);
 }
 
@@ -98,7 +95,7 @@
 .pds-hero-meta {
   display: flex;
   align-items: center;
-  gap: var(--space-3);
+  gap: var(--space-2);
   flex-wrap: wrap;
 }
 
@@ -141,7 +138,9 @@
   font-size: 0.8125rem;
   font-weight: var(--font-semibold);
   background: oklch(from var(--header-status-color, var(--text-muted)) l c h / 0.1);
-  color: oklch(from var(--header-status-color, var(--text-muted)) calc(l - 0.18) c h);
+  /* The -on companion keeps AA contrast in both light and dark themes; a fixed
+     lightness shift on the vivid color would fight the dark themes. */
+  color: var(--header-status-color-on, var(--text-secondary));
   border: 1px solid oklch(from var(--header-status-color, var(--text-muted)) l c h / 0.25);
   cursor: pointer;
   transition: all var(--transition-fast);

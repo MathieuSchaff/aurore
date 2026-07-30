@@ -28,8 +28,9 @@
   line-height: var(--leading-normal);
 }
 
+/* Disclosure row styled like the accordion family: a filled box here reads as a
+   <select> and suggests a form control instead of a fold. */
 .pds-details {
-  background: var(--bg-muted);
   border-radius: var(--radius-md);
   border: 1px solid var(--border-default);
   overflow: hidden;
