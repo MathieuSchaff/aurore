@@ -57,9 +57,13 @@ export async function writeTagsForProduct(
 
     if (rows.length === 0) return { inserted: 0, detected: pairs.length }
 
-    await tx.insert(productTagLinks).values(rows).onConflictDoNothing()
+    // Read the driver's count: onConflictDoNothing skips rows whose PK is held
+    // by a manual link, so rows.length would over-report. bun-postgres exposes
+    // the affected count under `count` (rowCount is absent on this driver).
+    const result = await tx.insert(productTagLinks).values(rows).onConflictDoNothing()
+    const inserted = (result as unknown as { count?: number }).count ?? rows.length
 
-    return { inserted: rows.length, detected: pairs.length }
+    return { inserted, detected: pairs.length }
   })
 }
 

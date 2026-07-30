@@ -208,6 +208,10 @@ const TEXTURE_GEL_INCI_SKIP_KINDS = new Set<ProductKind>([
 
 const TEXTURE_GEL_POSITION_CAP = 5
 
+// Butter/wax veto scans deeper than the gel-former window: a wax at pos 6-8
+// still reads balm-like and contradicts a gel texture.
+const TEXTURE_GEL_BUTTER_WAX_CAP = 8
+
 export function detectTextureGelInci(
   inci: string | null | undefined,
   kind: ProductKind,
@@ -227,7 +231,7 @@ export function detectTextureGelInci(
     if (VEGETABLE_OIL_PATTERNS.some((p) => ing.includes(p))) return []
   }
 
-  for (const ing of inciWindow(ingredients, 8)) {
+  for (const ing of inciWindow(ingredients, TEXTURE_GEL_BUTTER_WAX_CAP)) {
     if (BUTTER_WAX_PATTERNS.some((p) => ing.includes(p))) return []
   }
 
