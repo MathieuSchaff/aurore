@@ -464,6 +464,24 @@ describe('detectRougeursVasculairesFromName', () => {
       detectRougeursVasculairesFromName('Crème Apaisante au Panthénol', 'Pour peaux sensibles')
     ).toEqual([])
   })
+  // Lead window: redness buried past the first description sentence is an
+  // incidental benefit mention (cicalfate/cicapair FP class), not positioning.
+  test('does not fire when redness only appears past the first sentence', () => {
+    expect(
+      detectRougeursVasculairesFromName(
+        'Baume Réparateur',
+        'Répare les peaux abîmées. Apaise aussi les rougeurs et irritations.'
+      )
+    ).toEqual([])
+  })
+  test('fires when redness leads the description first sentence', () => {
+    expect(
+      detectRougeursVasculairesFromName(
+        'Crème de Jour Calmante',
+        'Crème anti-rougeurs pour les peaux hypersensibles. Texture riche.'
+      )
+    ).toEqual(RV)
+  })
   test('does not fire on empty name/desc', () => {
     expect(detectRougeursVasculairesFromName(null, null)).toEqual([])
   })
