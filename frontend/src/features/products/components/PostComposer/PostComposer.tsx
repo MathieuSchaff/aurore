@@ -42,7 +42,7 @@ export function PostComposer({ productId, slug }: { productId: string; slug: str
 
   if (!open) {
     return (
-      <Button variant="primary" onClick={() => setOpen(true)}>
+      <Button variant="secondary" onClick={() => setOpen(true)}>
         Ouvrir une publication
       </Button>
     )

@@ -303,7 +303,7 @@ test.describe('Product detail — Discussions tab', () => {
     })
   })
 
-  test('opening discussion form reveals Sujet + Ton expérience inputs', async ({ page }) => {
+  test('opening discussion form reveals Sujet + Votre message inputs', async ({ page }) => {
     await gotoFirstProductDetail(page)
     await page.getByRole('tab', { name: /Discussions/ }).click()
 
@@ -311,7 +311,7 @@ test.describe('Product detail — Discussions tab', () => {
 
     await expect(page.getByRole('heading', { name: 'Nouvelle discussion' })).toBeVisible()
     await expect(page.getByLabel(/^Sujet/)).toBeVisible()
-    await expect(page.getByLabel(/^Ton expérience/)).toBeVisible()
+    await expect(page.getByLabel(/^Votre message/)).toBeVisible()
     await expect(page.getByRole('button', { name: 'Publier la discussion' })).toBeVisible()
   })
 

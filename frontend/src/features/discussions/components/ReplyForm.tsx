@@ -35,8 +35,8 @@ export function ReplyForm({ entityType, slug, threadId }: ReplyFormProps) {
     <form className="reply-form" onSubmit={handleSubmit}>
       <SectionHeader title="Répondre" as="h3" />
       <Textarea
-        label="Ta réponse"
-        placeholder="Ta réponse..."
+        label="Votre réponse"
+        placeholder="Votre réponse…"
         value={content}
         onChange={(e) => setContent(e.target.value)}
         rows={3}
