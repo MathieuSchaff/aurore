@@ -208,13 +208,26 @@ backup-cron-install:
 [group('db')]
 db-snapshot:
     #!/usr/bin/env bash
+    set -euo pipefail
     mkdir -p backend/src/db/snapshot
+    TMP="{{SNAPSHOT_FILE}}.tmp"
     # pin pg_dump's random \restrict token so unchanged data dumps byte-identical (ADR 0015)
     {{COMPOSE_DEV}} exec -T db pg_dump -U app -d appdb \
         --data-only --inserts --no-owner --no-privileges \
         --exclude-schema=drizzle \
         | sed -E 's/^(\\(un)?restrict) .*/\1 AuroreSnapshotToken/' \
-        > {{SNAPSHOT_FILE}}
+        > "$TMP"
+    # this file is committed to a public repo, so a real sign-in must never ride
+    # along. Staged in a temp file: a rejected dump leaves nothing behind to commit.
+    STRAY=$(grep -oE "[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}" "$TMP" \
+        | sort -u | grep -vE '@(seed\.local|seed\.com|demo\.local)$' || true)
+    if [ -n "$STRAY" ]; then
+        rm -f "$TMP"
+        printf "{{RED}}❌ Non-seed address in the dump — snapshot NOT written:{{NC}}\n%s\n" "$STRAY"
+        printf "{{YELLOW}}Scrub the account on dev first (see .db-fixes/), then re-run.{{NC}}\n"
+        exit 1
+    fi
+    mv "$TMP" {{SNAPSHOT_FILE}}
     printf "{{GREEN}}✓ Snapshot written: {{SNAPSHOT_FILE}} ($(wc -l < {{SNAPSHOT_FILE}}) lines, $(du -h {{SNAPSHOT_FILE}} | cut -f1)){{NC}}\n"
 
 # Reload snapshot/data.sql into DB — requires migrated schema. Dev-only.
