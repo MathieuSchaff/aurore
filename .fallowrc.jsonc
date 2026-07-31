@@ -34,7 +34,7 @@
     "backend/src/images/**/*.ts",
     "backend/src/features/auto-tagging/runners/**/*.ts",
 
-    // CSS chargé via postcss-global-data (postcss.config.js), pas via import
+    // Loaded through postcss-global-data (postcss.config.js), never via an import
     "frontend/src/styles/tokens/breakpoints.css"
   ],
 
@@ -42,11 +42,13 @@
   // NB: fallow 2.77+ does not resolve the @aurore/shared symlink — every export
   // consumed via `@aurore/shared` appears unused even though it isn't. New files
   // also trigger unresolved-import for the same reason (symlink not followed).
-  // Verify shared/src/* findings via grep before acting. See:
+  // Verify shared/src/* findings via grep before acting.
   "ignoreDependencies": ["@aurore/shared", "pino-pretty", "react-doctor"],
   "ignoreUnresolvedImports": ["@aurore/shared"],
 
-  "ignorePatterns": ["vendor/**", ".fallow/**", "**/*.d.ts", "node_modules/**"],
+  // docs-private/wiki carries its own package.json (Starlight). It is not application code and
+  // is gitignored, so it must not be analysed nor reported as an undeclared workspace.
+  "ignorePatterns": ["vendor/**", ".fallow/**", "**/*.d.ts", "node_modules/**", "docs-private/**"],
 
   // Complexity gates aligned with fallow defaults (20 cyclomatic / 15 cognitive)
   "health": {
