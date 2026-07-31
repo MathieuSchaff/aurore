@@ -1,22 +1,22 @@
-// Bulk product creation from a scraped JSONL lot — the CATALOGUE-lane ingest
+// Bulk product creation from a scraped JSONL lot, the CATALOGUE-lane ingest
 // described in docs/CATALOGUE_SEEDING.md. Every row goes through createProduct so
 // validation, cleanInci and auto-tagging follow the exact same path as the app.
 //
 // Input: one JSON object per line, fields = CreateProductInput.
 // Optional classifications file: { [slug]: "DROP" | { kind?, category?, ... } }
-// (LLM verdicts, kept versioned — overrides are merged over the JSONL row).
+// (classification verdicts, kept versioned; overrides are merged over the JSONL row).
 //
-// Usage (run in-container, cwd /app/backend — see `just ingest-catalogue`):
+// Usage (run in-container, cwd /app/backend, see `just ingest-catalogue`):
 //   bun run src/db/seed/ingest/catalogue/main.ts lot.jsonl                            # dry-run
 //   bun run src/db/seed/ingest/catalogue/main.ts lot.jsonl --classifications c.json   # with verdicts
 //   bun run src/db/seed/ingest/catalogue/main.ts lot.jsonl --write                    # apply
 //
-// Gate: any invalid row, in-lot dup or DB name+brand dup is a blocker — the run
+// Gate: any invalid row, in-lot dup or DB name+brand dup is a blocker. The run
 // exits 1 (dry-run AND write) without writing anything, unless --allow-partial.
 // Every run writes tmp/data-runs/<lot>-<ts>/plan.json (counters + blockers +
 // lot sha256); a write also appends apply.jsonl (one line per attempted row).
 //
-// Env: SEED_OWNER_EMAIL — catalogue owner (default seed@seed.com). The owner must
+// Env: SEED_OWNER_EMAIL, catalogue owner (default seed@seed.com). The owner must
 // already exist AND be admin (dev: `just db-seed`, prod: `just db-prod-admin`);
 // this script never creates or promotes accounts.
 
@@ -96,7 +96,7 @@ async function main() {
 
   // Read as admin so hidden rows count too. The name+brand unique index is
   // partial (visible only) and createProduct's pre-check is visible-only, so a
-  // dup against a hidden product would INSERT cleanly — this dry-run set is the
+  // dup against a hidden product would INSERT cleanly, so this dry-run set is the
   // only place it can be refused. Slug idempotence (seed-core mechanic) needs
   // hidden slugs too: the slug index is full, a hidden slug still collides.
   const existingRows = await withAdminRls((tx) =>
@@ -227,7 +227,7 @@ async function main() {
   )
   console.log(`   plan : ${runDir}/plan.json`)
 
-  // GATE A: a lot with blockers is refused as a whole — never a silent partial
+  // GATE A: a lot with blockers is refused as a whole, never a silent partial
   // apply. --allow-partial acknowledges the loss explicitly (kept in plan.json).
   if (blockers.length > 0) {
     if (!ALLOW_PARTIAL) {
@@ -263,7 +263,7 @@ async function main() {
   for (const c of candidates) {
     try {
       // One transaction per product: a race (concurrent write, slug collision)
-      // still surfaces as a 23505 that aborts its whole transaction — per-row,
+      // still surfaces as a 23505 that aborts its whole transaction. Per-row,
       // the failure skips one line instead of killing the run. Any non-ProductError
       // is unexpected and fail-fast on purpose (already-created rows stay committed).
       await withAdminRls((tx) => createProduct(owner.id, 'admin', c.input, tx, { autoTag: true }))
