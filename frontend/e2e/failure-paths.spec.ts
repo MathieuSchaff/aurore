@@ -1,6 +1,7 @@
 import { expect, type Page, test } from '@playwright/test'
 
 import { loginAsSeed } from './helpers/auth'
+import { waitForHydration, waitForSettledUrl } from './helpers/hydration'
 
 async function gotoFirstProductDetail(page: Page): Promise<string> {
   const res = await page.request.get('/api/products?category=skincare&sort=name&limit=1')
@@ -9,6 +10,7 @@ async function gotoFirstProductDetail(page: Page): Promise<string> {
   const slug = json.data.items[0].slug as string
   await page.goto(`/products/${slug}`)
   await expect(page).toHaveURL(new RegExp(`/products/${slug}$`), { timeout: 15_000 })
+  await waitForHydration(page)
   return slug
 }
 
@@ -17,7 +19,7 @@ test.beforeEach(async ({ page }) => {
 })
 
 // The CTA first renders the instant `user` lands, which also mounts PostComposer
-// above it — the resulting layout shift can swallow the click (mousedown/mouseup
+// above it, and the resulting layout shift can swallow the click (mousedown/mouseup
 // split across the move). Re-click until the form is actually open.
 async function openDiscussionForm(page: Page): Promise<void> {
   await expect(async () => {
@@ -101,6 +103,8 @@ test.describe('Edit product — failure paths', () => {
 test.describe('Add to collection — failure path', () => {
   test('backend 500 keeps modal open and shows generic error', async ({ page }) => {
     await page.goto('/products')
+    await waitForHydration(page)
+    await waitForSettledUrl(page)
     // The newest-first first card may be an owned/hidden submission with no
     // "Ajouter" CTA; pick the first card that actually exposes one.
     const card = page

@@ -1,6 +1,13 @@
-import { expect, test } from '@playwright/test'
+import { expect, type Locator, test } from '@playwright/test'
 
 import { waitForHydration } from './helpers/hydration'
+
+// Since the guided drawer, every tag group but the first sits in a collapsed
+// <details>. Its <summary> exposes no button role, so drive it by its heading.
+async function openFilterGroup(drawer: Locator, label: string) {
+  await drawer.getByRole('heading', { name: label, exact: true }).click()
+  return drawer.getByRole('group', { name: `Options pour ${label}` })
+}
 
 // All specs target unauthenticated paths: list, detail, filters, sort, search.
 // Auth-gated surfaces (Add to collection modal, Créer button, profile toggle)
@@ -53,11 +60,13 @@ test.describe('Products page', () => {
 
   test('search combobox finds product and navigates to detail', async ({ page }) => {
     const search = page.getByRole('combobox', { name: 'Rechercher un produit' })
-    await search.fill('kurl')
+    // Skincare on purpose: search is scoped to the active tab, because a cross-domain
+    // suggestion would navigate to a silently empty list (category is ANDed server-side).
+    await search.fill('xeracalm nutrition baume')
 
     // Facet/fallback sections render above raw results, so target the product
     // result by name rather than the first option.
-    const result = page.getByRole('option', { name: /Kurl Nectar Hair Primer/i })
+    const result = page.getByRole('option', { name: /XeraCalm Nutrition Baume Hydratant/i })
     await expect(result).toBeVisible({ timeout: 10_000 })
     await result.click()
 
@@ -110,7 +119,7 @@ test.describe('Products page', () => {
     const search = page.getByRole('combobox', { name: 'Rechercher un produit' })
     await search.fill('mask')
 
-    // No brand/ingredient match → fallback option rendered.
+    // No brand/ingredient match, so the fallback option is rendered.
     const entry = page.getByRole('option', { name: /voir tous les résultats pour "mask"/i })
     await expect(entry).toBeVisible({ timeout: 10_000 })
     await entry.click()
@@ -133,8 +142,7 @@ test.describe('Products page', () => {
     const drawer = page.getByRole('dialog', { name: 'Filtres' })
     await expect(drawer).toBeVisible()
 
-    // "Zone" is an essential, default-open tag group, so no accordion expand needed.
-    const zoneGroup = drawer.getByRole('group', { name: 'Options pour Zone' })
+    const zoneGroup = await openFilterGroup(drawer, 'Zone')
     const zoneChip = zoneGroup.getByRole('button', { name: /^Visage/ })
     await expect(zoneChip).toBeVisible()
     await zoneChip.click()
@@ -181,18 +189,16 @@ test.describe('Products page', () => {
   test('"Tout effacer" clears all active filters', async ({ page }) => {
     await expect(page.locator('.list-card--product').first()).toBeVisible({ timeout: 15_000 })
 
-    // Seed two tag filters from default-open essential groups; both commit
-    // together on Apply (no price-accordion navigation race).
+    // Seed two tag filters; both commit together on Apply (no price-accordion
+    // navigation race). "Barrière cutanée" sits in the first group, open by default.
     await page
       .getByRole('button', { name: /^Filtrer$|^Filtrer \(/ })
       .first()
       .click()
     const drawer = page.getByRole('dialog', { name: 'Filtres' })
 
-    await drawer
-      .getByRole('group', { name: 'Options pour Zone' })
-      .getByRole('button', { name: /^Visage/ })
-      .click()
+    const zoneGroup = await openFilterGroup(drawer, 'Zone')
+    await zoneGroup.getByRole('button', { name: /^Visage/ }).click()
     await drawer.getByRole('button', { name: /^Barrière cutanée/ }).click()
 
     await drawer.getByRole('button', { name: 'Appliquer les filtres sélectionnés' }).click()

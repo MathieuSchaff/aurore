@@ -1,5 +1,7 @@
 import { expect, test } from '@playwright/test'
 
+import { waitForHydration } from './helpers/hydration'
+
 // A 429 on a list read must show the rate-limit retry window, not the misleading
 // "empty catalogue" state: the queryFn must keep the backend code and retryAfter
 // on the ApiError. Oracle for this effort; see docs/conventions/error-handling.md §"Known gap".
@@ -21,7 +23,15 @@ test.describe('Rate-limit surfacing — 429 shows a retry message', () => {
         })
     )
 
-    await page.goto('/products')
+    // /products is ssr:true and prefetches the list on the server, out of reach of
+    // page.route. Enter from another page so the failing fetch happens in the browser.
+    await page.goto('/ingredients')
+    await waitForHydration(page)
+    await page
+      .locator('.main-nav__inline')
+      .getByRole('link', { name: 'Produits', exact: true })
+      .click()
+    await expect(page).toHaveURL(/\/products/)
 
     // EmptyState mirrors its message into the app-level aria-live region, so 'Trop de requêtes'
     // now matches two nodes. Assert the visible empty-state nodes (heading + subtitle) directly.

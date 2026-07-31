@@ -1,6 +1,7 @@
 import { expect, type Page, test } from '@playwright/test'
 
 import { loginAsSeed, registerFreshUser } from './helpers/auth'
+import { waitForHydration, waitForSettledUrl } from './helpers/hydration'
 
 function isApi(req: { url(): string }, path: string | RegExp): boolean {
   const u = req.url()
@@ -22,6 +23,7 @@ async function gotoFirstProductDetail(page: Page): Promise<string> {
   const slug = await resolveFirstSkincareSlug(page)
   await page.goto(`/products/${slug}`)
   await expect(page).toHaveURL(new RegExp(`/products/${slug}$`), { timeout: 15_000 })
+  await waitForHydration(page)
   return slug
 }
 
@@ -36,6 +38,10 @@ test.beforeEach(async ({ page }) => {
 })
 
 test.describe('Product detail — Modifier', () => {
+  // Two tests below write `notes` on the same seed product (first skincare
+  // alphabetical); in parallel the second overwrites what the first asserts.
+  test.describe.configure({ mode: 'serial' })
+
   test('"Modifier" button navigates to edit page with form prefilled', async ({ page }) => {
     const slug = await gotoFirstProductDetail(page)
 
@@ -86,7 +92,7 @@ test.describe('Product detail — Modifier', () => {
   // Editing notes must omit unchanged fields from the PATCH body. Re-sending an
   // untouched inci would re-validate it, which 400s legacy data that predates the
   // comma-or-short write rule (long space-separated inci). The omission is the
-  // guard — asserted directly here; the backend tests cover the rule + preservation.
+  // guard, asserted directly here; the backend tests cover the rule + preservation.
   test('editing notes omits the unchanged inci field and does not 400', async ({ page }) => {
     const slug = await gotoFirstProductDetail(page)
     await page.getByRole('link', { name: /Modifier/ }).click()
@@ -295,7 +301,7 @@ test.describe('Product detail — Discussions tab', () => {
     await expect(page).toHaveURL(new RegExp(`/products/${slug}/discussions`))
     await expect(page.getByRole('tab', { name: /Discussions/, selected: true })).toBeVisible()
 
-    // Logged in → ThreadForm collapsed: "Ouvrir une discussion" CTA visible.
+    // Logged in, so ThreadForm is collapsed: "Ouvrir une discussion" CTA visible.
     // Waiting for it also acts as a proof the outlet's data has resolved before
     // the next test action, avoiding skeleton/transition click-interception.
     await expect(page.getByRole('button', { name: 'Ouvrir une discussion' })).toBeVisible({
@@ -340,6 +346,9 @@ test.describe('Product detail — Discussions tab', () => {
   }) => {
     await page.goto('/products?category=skincare&sort=name')
     await expect(page).toHaveURL(/[?&]sort=name/)
+    // Client-side nav from here on, so history.back() has a list entry to return to.
+    await waitForHydration(page)
+    await waitForSettledUrl(page)
 
     const firstCard = page.locator('.list-card--product a[href^="/products/"]').first()
     await expect(firstCard).toBeVisible({ timeout: 15_000 })
@@ -354,7 +363,7 @@ test.describe('Product detail — Discussions tab', () => {
 
     await page.getByRole('button', { name: 'Produits' }).click()
 
-    // Back on the list with its search params intact — proves history.back() ran
+    // Back on the list with its search params intact, which proves history.back() ran
     // and that the Discussions tab did not stack an extra history entry.
     await expect(page).toHaveURL(/\/products\?[^/]*sort=name/)
   })
@@ -430,7 +439,7 @@ test.describe('Product detail — Lecture de la formule', () => {
           },
         ],
       },
-      regulatoryNotes: [],
+      regulatoryFindings: [],
       interactions: [],
       coverage: { matched: 4, total: 6 },
       matchedEvidence: [
@@ -496,7 +505,7 @@ test.describe('Product detail — Lecture de la formule', () => {
         topBenefitDrivers: [],
         confidenceFactors: [],
       },
-      regulatoryNotes: [],
+      regulatoryFindings: [],
       interactions: [],
       coverage: { matched: 4, total: 4 },
       matchedEvidence: [
@@ -586,7 +595,7 @@ test.describe('Product detail — Lecture de la formule', () => {
         ],
         confidenceFactors: [],
       },
-      regulatoryNotes: [],
+      regulatoryFindings: [],
       interactions: [],
       coverage: { matched: 3, total: 5 },
       matchedEvidence: [],
@@ -631,7 +640,7 @@ test.describe('Product detail — Lecture de la formule', () => {
           },
         ],
       },
-      regulatoryNotes: [],
+      regulatoryFindings: [],
       interactions: [],
       coverage: { matched: 1, total: 8 },
       matchedEvidence: [],
@@ -655,6 +664,17 @@ test.describe('Product detail — Profil de la formule', () => {
   // Both tests fetch-then-modify the detail endpoint under test. Deliberate
   // deviation from e2e.md (do not mock the stack): the assertions need a tag
   // mix no seed product guarantees. Only data.tags is rewritten.
+  // The detail route is ssr:true, so a cold page.goto resolves its loader on the
+  // server where page.route is blind: the mock below would never render. Entering
+  // through a client-side navigation puts the fetch back in the browser.
+  // profile_filter is pinned so the standing setting cannot drop the target card.
+  async function clientNavigateToDetail(page: Page, slug: string): Promise<void> {
+    await page.goto('/products?sort=name&profile_filter=false')
+    await waitForHydration(page)
+    await page.locator(`.list-card--product a[href="/products/${slug}"]`).first().click()
+    await expect(page).toHaveURL(new RegExp(`/products/${slug}$`), { timeout: 15_000 })
+  }
+
   async function mockDetailTags(
     page: Page,
     slug: string,
@@ -713,7 +733,7 @@ test.describe('Product detail — Profil de la formule', () => {
 
     await mockDetailTags(page, slug, tags)
 
-    await page.goto(`/products/${slug}`)
+    await clientNavigateToDetail(page, slug)
 
     const section = page.locator('.formula-profile')
     await expect(section).toBeVisible({ timeout: 15_000 })
@@ -745,7 +765,7 @@ test.describe('Product detail — Profil de la formule', () => {
       },
     ])
 
-    await page.goto(`/products/${slug}`)
+    await clientNavigateToDetail(page, slug)
 
     // "En bref" proves the Infos tab rendered (the first seed product has a kind).
     await expect(page.getByRole('heading', { name: 'En bref' })).toBeVisible({ timeout: 15_000 })
