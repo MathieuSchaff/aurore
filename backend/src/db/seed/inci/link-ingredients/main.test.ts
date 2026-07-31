@@ -63,4 +63,25 @@ describe('computeLinks', () => {
 
     expect(result.slugs).toEqual(['sea-salt'])
   })
+
+  // Real dev↔prod divergence: both carriers are skincare, so the `-hair` tie-break above gives
+  // no signal and the winner falls back to the row order Postgres happens to return. Which slug
+  // SHOULD win is an open decision (bugs.md, 2026-07-29: bare slug, most-linked slug, or refuse
+  // the shared key at write time), so this asserts only what is already settled: one link
+  // survives and both slugs were candidates. Naming a winner here would take that decision.
+  it('keeps exactly one slug when two share a canonical key and neither is a domain shadow', () => {
+    const key = 'SILYBUM MARIANUM FRUIT EXTRACT'
+    const carriers = ['angiopausine', 'comedoclastin']
+
+    for (const rows of [carriers, [...carriers].reverse()]) {
+      const { canonicalKeyToSlug, canonicalKeyBySlug } = buildCanonicalKeyMaps(
+        rows.map((slug) => ({ slug, key }))
+      )
+
+      const result = computeLinks(key, 'skincare', canonicalKeyToSlug, canonicalKeyBySlug)
+
+      expect(result.slugs).toHaveLength(1)
+      expect(carriers).toContain(result.slugs[0] as string)
+    }
+  })
 })
