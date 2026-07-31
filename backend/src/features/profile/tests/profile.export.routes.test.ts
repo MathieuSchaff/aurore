@@ -6,13 +6,24 @@ import { and, eq } from 'drizzle-orm'
 import type { Hono } from 'hono'
 
 import type { AppEnv } from '../../../app-env'
+import { ingredients } from '../../../db/schema/ingredients/ingredients'
+import { userIngredientAnalysisScore } from '../../../db/schema/ingredients/user-ingredient-analysis-score'
 import { securityEvents } from '../../../db/schema/monitoring/security-events'
+import { products } from '../../../db/schema/products/products'
+import { userProductStatusLog } from '../../../db/schema/products/user-product-status-log'
+import { userProducts } from '../../../db/schema/products/user-products'
 import { testDb } from '../../../tests/db.test.config'
 import { setupDbTests } from '../../../tests/db-setup'
 import { expectRequiresAuth } from '../../../tests/helpers/authz-matrix'
 import { createTestApp } from '../../../tests/helpers/createTestApp'
-import { authGet, setupAndLogin } from '../../../tests/helpers/route-test-helpers'
+import {
+  authGet,
+  loginAndGetToken,
+  setupAndLogin,
+  setupAndLoginAdmin,
+} from '../../../tests/helpers/route-test-helpers'
 import { TEST_CREDENTIALS } from '../../../tests/helpers/test-credentials'
+import { createTestUser } from '../../../tests/helpers/test-factories'
 import { resetExportRateLimit, USER_EXPORT_TENANT_TABLES } from '../export.service'
 
 // RLS-scoped route; this file covers auth/headers contract, exhaustivity
@@ -131,6 +142,88 @@ describe('GET /profile/export', () => {
     expect(dataToto.user.email).toBe(TEST_CREDENTIALS.toto.rawEmail)
     expect(dataAlice.user.email).toBe(TEST_CREDENTIALS.alice.rawEmail)
     expect(dataToto.user.email).not.toBe(dataAlice.user.email)
+  })
+
+  it('does not leak other users’ rows when the caller is an admin', async () => {
+    // The *_admin_bypass RLS policies are PERMISSIVE, so RLS alone opens the
+    // whole table to an admin. Only the SQL predicates in export.service keep
+    // an admin export down to the admin's own rows.
+    const victim = await createTestUser(
+      TEST_CREDENTIALS.alice.rawEmail,
+      TEST_CREDENTIALS.alice.rawPassword
+    )
+
+    const [product] = await testDb
+      .insert(products)
+      .values({
+        createdBy: victim.id,
+        name: 'Victim Serum',
+        brand: 'VictimBrand',
+        category: 'skincare',
+        kind: 'serum',
+        unit: 'dropper',
+        slug: 'victim-serum',
+      })
+      .returning()
+    if (!product) throw new Error('product fixture failed')
+
+    const [ingredient] = await testDb
+      .insert(ingredients)
+      .values({
+        createdBy: victim.id,
+        name: 'Victim Ingredient',
+        slug: 'victim-ingredient',
+        type: 'skincare',
+      })
+      .returning()
+    if (!ingredient) throw new Error('ingredient fixture failed')
+
+    const [userProduct] = await testDb
+      .insert(userProducts)
+      .values({ userId: victim.id, productId: product.id, status: 'in_stock' })
+      .returning()
+    if (!userProduct) throw new Error('user_product fixture failed')
+
+    await testDb.insert(userProductStatusLog).values({
+      userId: victim.id,
+      userProductId: userProduct.id,
+      toStatus: 'archived',
+    })
+    await testDb.insert(userIngredientAnalysisScore).values({
+      userId: victim.id,
+      ingredientId: ingredient.id,
+      isSuspect: true,
+    })
+
+    const adminToken = await setupAndLoginAdmin(app, TEST_CREDENTIALS.admin)
+    const res = await authGet(app, '/api/profile/export', adminToken)
+    const body = (await res.json()) as {
+      products: unknown[]
+      productStatusLog: unknown[]
+      ingredientAnalysisScores: unknown[]
+    }
+
+    expect(res.status).toBe(HTTP_STATUS.OK)
+    expect(body.products).toHaveLength(0)
+    expect(body.productStatusLog).toHaveLength(0)
+    expect(body.ingredientAnalysisScores).toHaveLength(0)
+
+    // Same fixtures, non-admin owner: proves the assertions above are empty
+    // because of scoping, not because the fixtures never landed.
+    const victimToken = await loginAndGetToken(
+      app,
+      TEST_CREDENTIALS.alice.rawEmail,
+      TEST_CREDENTIALS.alice.rawPassword
+    )
+    const victimRes = await authGet(app, '/api/profile/export', victimToken)
+    const victimBody = (await victimRes.json()) as {
+      products: unknown[]
+      productStatusLog: unknown[]
+      ingredientAnalysisScores: unknown[]
+    }
+    expect(victimBody.products).toHaveLength(1)
+    expect(victimBody.productStatusLog).toHaveLength(1)
+    expect(victimBody.ingredientAnalysisScores).toHaveLength(1)
   })
 
   it('writes a `data_export_requested` audit event tied to the caller', async () => {
