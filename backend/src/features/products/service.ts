@@ -190,12 +190,11 @@ export async function getProductBySlug(slug: string, database: Database = db) {
 // Single round-trip so Layout/Info/Edit/Sheet share one cache entry.
 export async function getProductFullBySlug(slug: string, database: Database = db) {
   const product = await getProductBySlug(slug, database)
-  const [ingredients, tags] = await Promise.all([
-    listIngredientsByProduct(database, product.id),
-    listTagsByProduct(database, product.id),
-  ])
-  // Named rather than spread: this is where the payload contract is read, and a column of the
-  // same name appearing later must collide loudly instead of being shadowed.
+  // Sequential: same connection-wedging reason as fetchProductMeta, an authed
+  // caller runs these inside the RLS transaction.
+  const ingredients = await listIngredientsByProduct(database, product.id)
+  const tags = await listTagsByProduct(database, product.id)
+  // Not a spread: a rename in computeInciFacts must break the build, not the payload keys.
   const { inciCount, hasFragrance } = computeInciFacts(product.inci)
   return {
     ...product,
@@ -425,7 +424,7 @@ export type ProductsPage = {
   // Rows the caller's declared rules removed from (or, under include_excluded,
   // would remove from) this filter set. 0 when inactive.
   hiddenCount: number
-  // What the rules keyed on, for the banner stating both effects (D8):
+  // What the rules keyed on, for the banner stating both effects:
   // "sans : parfum · avec au moins un de : niacinamide".
   excludedLabels: string[]
   requiredLabels: string[]
@@ -620,9 +619,13 @@ async function fetchProductMeta(
 
   const itemIds = items.map((i) => i.id)
 
-  const [avoidRows, positiveTagRows, shelfRows] = await Promise.all([
+  // Sequential on purpose: for an authenticated caller `database` is the RLS
+  // transaction, i.e. one connection. Fanning these out with Promise.all wedged
+  // that connection "idle in transaction" right after the tag read, and ten of
+  // them exhaust the Bun SQL pool and take the whole API down.
+  const avoidRows =
     avoidSlugs.length > 0
-      ? database
+      ? await database
           .select({ productId: productTagLinks.productId, slug: productTagTypes.slug })
           .from(productTagLinks)
           .innerJoin(productTagTypes, eq(productTagLinks.productTagId, productTagTypes.id))
@@ -633,25 +636,24 @@ async function fetchProductMeta(
               eq(productTagLinks.relevance, 'avoid')
             )
           )
-      : Promise.resolve([] as { productId: string; slug: string }[]),
-    // Primary tags only: the card renders relevance='primary' chips; secondary (~15/product)
-    // was list over-fetch, avoid already lives in profileMatches.
-    database
-      .select({
-        productId: productTagLinks.productId,
-        slug: productTagTypes.slug,
-        tagType: productTagTypes.tagType,
-        relevance: productTagLinks.relevance,
-      })
-      .from(productTagLinks)
-      .innerJoin(productTagTypes, eq(productTagLinks.productTagId, productTagTypes.id))
-      .where(
-        and(inArray(productTagLinks.productId, itemIds), eq(productTagLinks.relevance, 'primary'))
-      ),
-    userId
-      ? getShelfStatusByProductIds(database, userId, itemIds)
-      : Promise.resolve([] as { productId: string; status: UserProductStatus }[]),
-  ])
+      : []
+
+  // Primary tags only: the card renders relevance='primary' chips; secondary (~15/product)
+  // was list over-fetch, avoid already lives in profileMatches.
+  const positiveTagRows = await database
+    .select({
+      productId: productTagLinks.productId,
+      slug: productTagTypes.slug,
+      tagType: productTagTypes.tagType,
+      relevance: productTagLinks.relevance,
+    })
+    .from(productTagLinks)
+    .innerJoin(productTagTypes, eq(productTagLinks.productTagId, productTagTypes.id))
+    .where(
+      and(inArray(productTagLinks.productId, itemIds), eq(productTagLinks.relevance, 'primary'))
+    )
+
+  const shelfRows = userId ? await getShelfStatusByProductIds(database, userId, itemIds) : []
 
   for (const row of avoidRows) {
     const list = matchesByProduct.get(row.productId) ?? []
@@ -732,7 +734,7 @@ async function loadDeclaredPreferences(
 }
 
 // One EXISTS per target family; both key on indexed columns
-// (ingredients_canonical_key_idx, product_ingredients/product_tag_links PKs).
+// (ingredients_canonical_key_idx, product_ingredients_product_idx, product_tag_links PK).
 function declaredTargetHits(keys: string[], tagIds: string[], database: Database): SQL[] {
   const hits: SQL[] = []
   if (keys.length > 0) {
@@ -866,7 +868,7 @@ export async function listProducts(
     ? declaredTargetHits(declared.requireKeys, declared.requireTagIds, database)
     : []
   // Every "Sans" removes on its own; "Avec" rules keep rows containing at least
-  // one required target (OR — AND would empty the list by the third rule, D8).
+  // one required target (OR, since AND would empty the list by the third rule).
   const ruleConditions: SQL[] = [
     ...excludeHits.map((hit) => not(hit) as SQL),
     ...(requireHits.length > 0 ? [or(...requireHits) as SQL] : []),
@@ -902,8 +904,31 @@ export async function listProducts(
   // "N masqués" banner: base count minus ruled count = rows this filter set
   // loses to the declared rules. The paginated `where` already carries one of
   // the two, so only the other side is counted here.
-  const altCountQuery = rulesActive
-    ? database
+  // Sequential: same connection-wedging reason as fetchProductMeta, an authed
+  // caller runs these inside the RLS transaction.
+  const items = await database
+    .select({
+      id: products.id,
+      slug: products.slug,
+      name: products.name,
+      brand: products.brand,
+      kind: products.kind,
+      unit: products.unit,
+      priceCents: products.priceCents,
+      totalAmount: products.totalAmount,
+      amountUnit: products.amountUnit,
+      imageUrl: products.imageUrl,
+    })
+    .from(products)
+    .where(where)
+    .orderBy(...orderBy)
+    .limit(limit)
+    .offset(offset)
+
+  const countResult = await database.select({ total: count() }).from(products).where(where)
+
+  const altResult = rulesActive
+    ? await database
         .select({ total: count() })
         .from(products)
         .where(
@@ -911,30 +936,7 @@ export async function listProducts(
             ? and(...buildListConditions(filters, database))
             : and(...buildListConditions(filters, database), ...ruleConditions)
         )
-    : Promise.resolve([{ total: 0 }])
-
-  const [items, countResult, altResult] = await Promise.all([
-    database
-      .select({
-        id: products.id,
-        slug: products.slug,
-        name: products.name,
-        brand: products.brand,
-        kind: products.kind,
-        unit: products.unit,
-        priceCents: products.priceCents,
-        totalAmount: products.totalAmount,
-        amountUnit: products.amountUnit,
-        imageUrl: products.imageUrl,
-      })
-      .from(products)
-      .where(where)
-      .orderBy(...orderBy)
-      .limit(limit)
-      .offset(offset),
-    database.select({ total: count() }).from(products).where(where),
-    altCountQuery,
-  ])
+    : [{ total: 0 }]
 
   const total = countResult[0]?.total ?? 0
   const altTotal = altResult[0]?.total ?? 0
@@ -996,28 +998,30 @@ export async function getFilterOptions(
   const dbCategories = category ? [...PRODUCT_DOMAIN_DB_CATEGORIES[category]] : null
   const productScope = dbCategories ? inArray(products.category, dbCategories) : undefined
 
-  const [kindRows, brandRows, tagRows] = await Promise.all([
-    database
-      .selectDistinct({ kind: products.kind })
-      .from(products)
-      .where(productScope)
-      .orderBy(products.kind),
-    database
-      .selectDistinct({ brand: products.brand })
-      .from(products)
-      .where(productScope)
-      .orderBy(products.brand),
-    database
-      .select({
-        slug: productTagTypes.slug,
-        count: count(productTagLinks.productId),
-      })
-      .from(productTagTypes)
-      .innerJoin(productTagLinks, eq(productTagTypes.id, productTagLinks.productTagId))
-      .innerJoin(products, eq(productTagLinks.productId, products.id))
-      .where(productScope)
-      .groupBy(productTagTypes.id, productTagTypes.slug),
-  ])
+  // Sequential: same connection-wedging reason as fetchProductMeta, an authed
+  // caller runs these inside the RLS transaction.
+  const kindRows = await database
+    .selectDistinct({ kind: products.kind })
+    .from(products)
+    .where(productScope)
+    .orderBy(products.kind)
+
+  const brandRows = await database
+    .selectDistinct({ brand: products.brand })
+    .from(products)
+    .where(productScope)
+    .orderBy(products.brand)
+
+  const tagRows = await database
+    .select({
+      slug: productTagTypes.slug,
+      count: count(productTagLinks.productId),
+    })
+    .from(productTagTypes)
+    .innerJoin(productTagLinks, eq(productTagTypes.id, productTagLinks.productTagId))
+    .innerJoin(products, eq(productTagLinks.productId, products.id))
+    .where(productScope)
+    .groupBy(productTagTypes.id, productTagTypes.slug)
 
   const tagCounts: Record<string, number> = {}
   for (const r of tagRows) tagCounts[r.slug] = r.count
