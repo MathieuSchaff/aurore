@@ -199,6 +199,24 @@ describe('ProductsPage — integration (URL ↔ filtres ↔ liste)', () => {
     })
   })
 
+  // D9 (R7): profile_filter is a standing setting. "Tout effacer" never clears it, so it
+  // must appear neither in the active count nor as a removable chip beside that button.
+  it('does not count or chip profile_filter, which reset cannot clear', async () => {
+    renderProducts(['/products/?profile_filter=true'])
+    await screen.findByText(/Hydrating Cleanser/)
+
+    const triggers = await screen.findAllByRole('button', { name: /Filtrer/i })
+    const trigger = triggers.find((b) => b.classList.contains('list-filter-btn'))
+    expect(trigger).toHaveAccessibleName('Filtrer')
+    expect(
+      screen.queryByRole('button', { name: /Retirer le filtre Profil/i })
+    ).not.toBeInTheDocument()
+    // The chip was the only reason the bar rendered, so its dead-end "Tout effacer" goes too.
+    expect(
+      screen.queryByRole('button', { name: /Retirer tous les filtres/i })
+    ).not.toBeInTheDocument()
+  })
+
   it('async ingredient filter — type → click hit → apply pushes slug to URL', async () => {
     const user = userEvent.setup()
     const { router } = renderProducts()
@@ -207,7 +225,7 @@ describe('ProductsPage — integration (URL ↔ filtres ↔ liste)', () => {
     await openFilterDrawer(user)
     const dialog = await screen.findByRole('dialog')
 
-    // Ingredient is an inline single-control group (no accordion shell) — the
+    // Ingredient is an inline single-control group (no accordion shell): the
     // combobox renders flat, always visible, so there's nothing to expand.
     const combo = within(dialog).getByRole('combobox', { name: /Ingrédient/i })
     await user.type(combo, 'nia')
@@ -329,14 +347,14 @@ describe('ProductsPage — live preview count', () => {
       name: /Appliquer les filtres sélectionnés/i,
     })
 
-    // No draft yet → preview equals main count (2 fixtures).
+    // No draft yet, so preview equals main count (2 fixtures).
     await waitFor(() => {
       expect(applyBtn).toHaveTextContent(/Voir 2 produits/)
     })
 
     await user.click(within(dialog).getByRole('button', { name: /Acné \/ Imperfections/i }))
 
-    // One fixture carries acne-imperfections → live count = 1.
+    // One fixture carries acne-imperfections, so live count = 1.
     await waitFor(() => {
       expect(applyBtn).toHaveTextContent(/Voir 1 produit\b/)
     })
@@ -353,7 +371,7 @@ describe('ProductsPage — live preview count', () => {
     renderProducts()
     await screen.findByText(/Hydrating Cleanser/)
 
-    // Narrow → apply (URL set, draft cleared).
+    // Narrow, then apply (URL set, draft cleared).
     await openFilterDrawer(user)
     let dialog = await screen.findByRole('dialog')
     await user.click(within(dialog).getByRole('button', { name: /Acné \/ Imperfections/i }))
@@ -404,7 +422,7 @@ describe('ProductsPage — live preview count', () => {
     })
     expect(router.state.location.search).not.toHaveProperty('concern')
 
-    // Drawer stayed open; preview refetches with empty filters → unfiltered count (2 fixtures).
+    // Drawer stayed open; preview refetches with empty filters, so unfiltered count (2 fixtures).
     await waitFor(() => {
       expect(applyBtn).toHaveTextContent(/Voir 2 produits/)
     })
@@ -442,7 +460,7 @@ describe('ProductsPage — live preview count', () => {
 
       await user.click(applyBtn)
 
-      // Main grid query now points at the same key preview populated — should hit cache.
+      // Main grid query now points at the same key preview populated, so it should hit cache.
       await waitFor(() => {
         expect(screen.queryByText(/Hydrating Cleanser/)).not.toBeInTheDocument()
       })

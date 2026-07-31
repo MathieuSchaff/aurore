@@ -91,10 +91,6 @@ export function ProductsPage() {
     urlValue: search.profile_filter,
     userId: user?.id ?? null,
   })
-  const handleRemoveProfileFilter = useCallback(
-    () => handleProfileFilterChange(false),
-    [handleProfileFilterChange]
-  )
 
   // Stable ref: a fresh object every render feeds back into setDraftFilters and loops.
   const filters = useMemo<FilterValues<FilterKey>>(
@@ -113,8 +109,9 @@ export function ProductsPage() {
 
   const hasPriceRange = hasActivePriceRange(priceMin, priceMax)
   const hasFilters = filterCount > 0
-  const effectiveFilterCount =
-    filterCount + (profile_filter ? 1 : 0) + (hasPriceRange ? 1 : 0) + (q ? 1 : 0)
+  // profile_filter is out: "Tout effacer" does not clear a standing setting (D9), so
+  // counting it here promised a reset the button could not deliver.
+  const effectiveFilterCount = filterCount + (hasPriceRange ? 1 : 0) + (q ? 1 : 0)
 
   const handleReset = useCallback(() => {
     resetFilters()
@@ -206,8 +203,6 @@ export function ProductsPage() {
     hasPriceRange,
     priceMin,
     priceMax,
-    profileFilter: profile_filter,
-    onRemoveProfileFilter: handleRemoveProfileFilter,
     q,
   })
 
