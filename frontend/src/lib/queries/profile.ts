@@ -1,6 +1,8 @@
 import type {
   ProfileUpdateInput,
   UpdatePrivacySettingsInput,
+  UpsertIngredientPreferenceInput,
+  UpsertTagPreferenceInput,
   UserDermoProfileUpdateInput,
 } from '@aurore/shared'
 
@@ -89,10 +91,88 @@ export const profileQueries = {
     }),
 }
 
+export const preferenceTargetQueries = {
+  // Callers gate with `enabled: !!userKey`: anonymous visitors must not fire it.
+  list: () =>
+    queryOptions({
+      queryKey: ['profile', 'preference-targets'],
+      queryFn: async () => {
+        const res = await api.profile['preference-targets'].$get()
+        await throwIfNotOk(res)
+        const json = await res.json()
+        if (!json.success) throw new Error('error' in json ? String(json.error) : 'Request failed')
+        return json.data
+      },
+      staleTime: 1000 * 60 * 5,
+    }),
+}
+
+// Every mutation invalidates the products lists too: a declared avoid reshapes
+// the "selon mon profil" exclusion server-side.
+function invalidatePreferenceReads(queryClient: QueryClient) {
+  queryClient.invalidateQueries({ queryKey: ['profile', 'preference-targets'] })
+  queryClient.invalidateQueries({ queryKey: ['products', 'list'] })
+}
+
+export const useUpsertIngredientPreference = () => {
+  const queryClient = useQueryClient()
+  return useMutation({
+    mutationFn: async (data: UpsertIngredientPreferenceInput) => {
+      const res = await api.profile['ingredient-preferences'].$put({ json: data })
+      const json = await res.json()
+      if (!json.success) throw new Error('error' in json ? String(json.error) : 'Request failed')
+      return json.data
+    },
+    onSuccess: () => invalidatePreferenceReads(queryClient),
+    meta: { errorMessage: 'Enregistrement du repère impossible.' },
+  })
+}
+
+export const useDeleteIngredientPreference = () => {
+  const queryClient = useQueryClient()
+  return useMutation({
+    mutationFn: async (canonicalKey: string) => {
+      const res = await api.profile['ingredient-preferences'].$delete({
+        query: { key: canonicalKey },
+      })
+      if (!res.ok) throw new Error('Request failed')
+    },
+    onSuccess: () => invalidatePreferenceReads(queryClient),
+    meta: { errorMessage: 'Retrait du repère impossible.' },
+  })
+}
+
+export const useUpsertTagPreference = () => {
+  const queryClient = useQueryClient()
+  return useMutation({
+    mutationFn: async (data: UpsertTagPreferenceInput) => {
+      const res = await api.profile['tag-preferences'].$put({ json: data })
+      const json = await res.json()
+      if (!json.success) throw new Error('error' in json ? String(json.error) : 'Request failed')
+      return json.data
+    },
+    onSuccess: () => invalidatePreferenceReads(queryClient),
+    meta: { errorMessage: 'Enregistrement du repère impossible.' },
+  })
+}
+
+export const useDeleteTagPreference = () => {
+  const queryClient = useQueryClient()
+  return useMutation({
+    mutationFn: async (tagId: string) => {
+      const res = await api.profile['tag-preferences'][':tagId'].$delete({ param: { tagId } })
+      if (!res.ok) throw new Error('Request failed')
+    },
+    onSuccess: () => invalidatePreferenceReads(queryClient),
+    meta: { errorMessage: 'Retrait du repère impossible.' },
+  })
+}
+
 // Seeds from cache (may be undefined), then for an authenticated visitor either blocks on a
 // fresh dermo fetch (personalization filter on) or warms the cache in the background. A failed
 // fetch under an active filter must not blank the whole catalogue: fall back to the cached
-// profile (or none) and let the list render — deriveAvoidFor tolerates null/undefined → no exclusions.
+// profile (or none) and let the list render: deriveAvoidFor tolerates null/undefined, so
+// nothing gets excluded.
 export async function resolveDermoForList(
   qc: QueryClient,
   userId: string | null,

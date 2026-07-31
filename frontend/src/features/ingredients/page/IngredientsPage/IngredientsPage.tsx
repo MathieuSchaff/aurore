@@ -2,7 +2,7 @@ import type { IngredientType } from '@aurore/shared'
 
 import { useQuery } from '@tanstack/react-query'
 import { getRouteApi, Link, useNavigate } from '@tanstack/react-router'
-import { AlertTriangle, FlaskConical, Plus, SlidersHorizontal } from 'lucide-react'
+import { FlaskConical, Plus, SlidersHorizontal } from 'lucide-react'
 import type React from 'react'
 import { startTransition, useCallback, useMemo, useState } from 'react'
 
@@ -48,7 +48,7 @@ import './IngredientsPage.css'
 const routeApi = getRouteApi('/ingredients/')
 
 const EMPTY_FILTERS = emptyFilters(FILTER_KEYS)
-// 24 divides evenly by 2/3/4 columns (auto-fill grid) so non-final pages have no ragged last row
+// 24 divides evenly by 2/3/4 columns (auto-fill grid) so pages other than the last have no ragged last row
 const PAGE_SIZE = 24
 
 export function IngredientsPage() {
@@ -224,9 +224,11 @@ export function IngredientsPage() {
         onReset={resetFilters}
       >
         {showProfileToggle && (
+          // Not "Selon mon profil": that name belongs to /products, where the
+          // toggle also hides. Here it only annotates, and the wording says so
           <Toggle
-            label="Selon mon profil"
-            hint="Signale les ingrédients déconseillés pour votre type de peau"
+            label="Selon mon portrait"
+            hint="Signale les ingrédients liés à ce que vous suivez. Note personnelle, pas un avertissement."
             checked={profile_filter}
             onChange={handleProfileFilterChange}
             size="sm"
@@ -280,11 +282,13 @@ export function IngredientsPage() {
                       )}
                     </Card.Body>
                     <Card.Footer>
+                      {/* Same inferred signal as /products, so same neutral voice:
+                          "Éviter" and "Déconseillé" were a verdict */}
                       {ingredient.profileMatches.length > 0 && (
-                        <span title={`Déconseillé pour : ${avoidLabels.join(', ')}`}>
-                          <Badge variant="avoided">
-                            <AlertTriangle size={12} aria-hidden="true" /> Éviter
-                          </Badge>
+                        <span
+                          title={`Lié à : ${avoidLabels.join(', ')}. Note personnelle, pas un avertissement.`}
+                        >
+                          <Badge variant="default">Pour vous</Badge>
                         </span>
                       )}
                       <Badge variant="chip">{ingredient.category}</Badge>

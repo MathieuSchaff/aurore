@@ -56,28 +56,12 @@
   width: 100%;
 }
 
-.profile-tab-content__grid {
-  display: grid;
-  /* minmax(0, …) not bare 1fr: a space-less bio/URL sets a huge min-content that
-     would otherwise blow the shared column and drag both cards off-frame. */
-  grid-template-columns: minmax(0, 1fr);
-  gap: var(--space-4);
-  align-items: stretch;
-}
-
-.profile-tab-content__cell {
-  display: flex;
-}
-
-.profile-tab-content__cell > * {
-  flex: 1;
-  width: 100%;
-}
-
-@media (--md) {
-  .profile-tab-content__grid {
-    /* Identity column slightly wider - bio + links tend to be the chattier side. */
-    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
-    gap: var(--space-5);
-  }
+/* Identity editing hangs off the hero, which is the only identity object */
+.profile-identity-edit {
+  margin-top: var(--space-4);
+  background: var(--bg-card);
+  border: var(--border-width) solid var(--border-default);
+  border-radius: var(--radius-xl, 1.25rem);
+  box-shadow: var(--shadow-card);
+  padding: var(--space-5);
 }

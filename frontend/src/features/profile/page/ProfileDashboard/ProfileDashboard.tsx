@@ -14,7 +14,8 @@ import {
   type CompletionStep,
   CompletionStrip,
 } from '../../components/CompletionStrip/CompletionStrip'
-import { IdentityCard } from '../../components/IdentityCard/IdentityCard'
+import { PreferenceMarks } from '../../components/PreferenceMarks/PreferenceMarks'
+import { ProfileForm } from '../../components/ProfileForm/ProfileForm'
 import { ProfileHero } from '../../components/ProfileHero/ProfileHero'
 import { ShelfPulse } from '../../components/ShelfPulse/ShelfPulse'
 import { SkinPortraitCard } from '../../components/SkinPortraitCard/SkinPortraitCard'
@@ -38,6 +39,7 @@ export const ProfileDashboard = () => {
   const [editingSection, setEditingSection] = useState<CompletionStep | null>(null)
 
   const displayName = profile.username ?? 'Utilisateur'
+  const isEditingIdentity = editingSection === 'hero'
 
   const handleProfileUpdate = (data: ProfileUpdateInput) => {
     updateProfile.mutate(data, {
@@ -91,13 +93,29 @@ export const ProfileDashboard = () => {
 
   return (
     <div className="profile-dashboard">
-      <ProfileHero
-        displayName={displayName}
-        avatarUrl={profile.avatarUrl}
-        username={profile.username}
-        createdAt={profile.createdAt}
-        fitzpatrickType={dermo?.fitzpatrickType}
-      />
+      <div id="profile-section-hero">
+        <ProfileHero
+          displayName={displayName}
+          avatarUrl={profile.avatarUrl}
+          username={profile.username}
+          createdAt={profile.createdAt}
+          fitzpatrickType={dermo?.fitzpatrickType}
+          bio={profile.bio}
+          links={profile.links}
+          onEdit={isEditingIdentity ? undefined : () => setEditingSection('hero')}
+        />
+        {isEditingIdentity && (
+          <div className="profile-identity-edit">
+            <ProfileForm
+              profile={profile}
+              onSubmit={handleProfileUpdate}
+              onCancel={handleCloseEdit}
+              isPending={updateProfile.isPending}
+              error={errorMessage}
+            />
+          </div>
+        )}
+      </div>
 
       <Tabs
         options={tabOptions}
@@ -117,28 +135,16 @@ export const ProfileDashboard = () => {
         >
           <CompletionStrip profile={profile} dermo={dermo} onEditSection={handleEditSection} />
 
-          <div className="profile-tab-content__grid">
-            <div id="profile-section-hero" className="profile-tab-content__cell">
-              <IdentityCard
-                profile={profile}
-                isEditing={editingSection === 'hero'}
-                onEdit={() => setEditingSection('hero')}
-                onCloseEdit={handleCloseEdit}
-                onSubmit={handleProfileUpdate}
-                isPending={updateProfile.isPending}
-                errorMessage={errorMessage}
-              />
-            </div>
-
-            <div id="profile-section-skin" className="profile-tab-content__cell">
-              <SkinPortraitCard
-                dermo={dermo}
-                isEditing={editingSection === 'skin'}
-                onEdit={() => setEditingSection('skin')}
-                onCloseEdit={() => setEditingSection(null)}
-              />
-            </div>
+          <div id="profile-section-skin">
+            <SkinPortraitCard
+              dermo={dermo}
+              isEditing={editingSection === 'skin'}
+              onEdit={() => setEditingSection('skin')}
+              onCloseEdit={() => setEditingSection(null)}
+            />
           </div>
+
+          <PreferenceMarks />
 
           <Suspense fallback={<Spinner />}>
             <ShelfPulse />

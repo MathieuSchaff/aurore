@@ -10,16 +10,26 @@ vi.mock('@tanstack/react-query', async (importOriginal) => {
   return { ...actual, useQuery: vi.fn(), useSuspenseQuery: vi.fn() }
 })
 
-const { mockUseSearch, mockNavigate } = vi.hoisted(() => ({
+const { mockUseSearch, mockNavigate, LinkMock } = vi.hoisted(() => ({
   mockUseSearch: vi.fn(() => ({ tab: 'profile' })),
   mockNavigate: vi.fn(),
+  // Hoisted with the rest: the router mock factory runs while the dashboard's
+  // import graph resolves, before module-level consts initialize.
+  LinkMock: ({ children, to }: { children?: unknown; to: string }) => (
+    <a href={to}>{children as React.ReactNode}</a>
+  ),
 }))
 
 vi.mock('@tanstack/react-router', () => ({
-  Link: ({ children, to }: { children: React.ReactNode; to: string }) => (
-    <a href={to}>{children}</a>
-  ),
+  Link: LinkMock,
+  createLink: () => LinkMock,
   getRouteApi: () => ({ useSearch: mockUseSearch, useNavigate: () => mockNavigate }),
+}))
+
+// Composition leaf like the stubs below; its composer pulls real
+// useInfiniteQuery + a QueryClient this harness deliberately has none of.
+vi.mock('../../../components/PreferenceMarks/PreferenceMarks', () => ({
+  PreferenceMarks: () => <div data-testid="preference-marks" />,
 }))
 
 vi.mock('@/lib/queries/profile', () => ({
@@ -27,7 +37,15 @@ vi.mock('@/lib/queries/profile', () => ({
     me: vi.fn(() => ({ queryKey: ['profile', 'me'] })),
     dermo: vi.fn(() => ({ queryKey: ['profile', 'dermo'] })),
   },
+  preferenceTargetQueries: {
+    list: vi.fn(() => ({
+      queryKey: ['profile', 'preference-targets'],
+      queryFn: () => ({ ingredients: [], tags: [] }),
+    })),
+  },
   useUpdateProfile: vi.fn(),
+  useDeleteIngredientPreference: vi.fn(() => ({ mutate: vi.fn(), isPending: false })),
+  useDeleteTagPreference: vi.fn(() => ({ mutate: vi.fn(), isPending: false })),
 }))
 
 // Sub-components are composition leaves; stub them so the dashboard's own
@@ -40,30 +58,11 @@ vi.mock('../../../components/ProfileAvatar/ProfileAvatar', () => ({
 vi.mock('../../../../social/components/SimilarPeople/SimilarPeople', () => ({
   SimilarPeople: () => <div data-testid="similar-people" />,
 }))
-vi.mock('../../../components/IdentityCard/IdentityCard', () => ({
-  IdentityCard: ({
-    profile,
-    isEditing,
-    onEdit,
-    onSubmit,
-  }: {
-    profile: { bio?: string | null }
-    isEditing: boolean
-    onEdit: () => void
-    onSubmit: (data: { bio: string }) => void
-  }) => (
-    <div data-testid="identity-card">
-      {profile.bio && <p>{profile.bio}</p>}
-      {isEditing ? (
-        <button type="button" onClick={() => onSubmit({ bio: 'new bio' })}>
-          submit-identity
-        </button>
-      ) : (
-        <button type="button" onClick={onEdit}>
-          Modifier mes informations
-        </button>
-      )}
-    </div>
+vi.mock('../../../components/ProfileForm/ProfileForm', () => ({
+  ProfileForm: ({ onSubmit }: { onSubmit: (data: { bio: string }) => void }) => (
+    <button type="button" onClick={() => onSubmit({ bio: 'new bio' })}>
+      submit-identity
+    </button>
   ),
 }))
 vi.mock('../../../components/SkinPortraitCard/SkinPortraitCard', () => ({
@@ -137,7 +136,8 @@ describe('ProfileDashboard', () => {
     setUpdateProfile()
   })
 
-  it('renders the bio once in IdentityCard, not in the profile hero', () => {
+  // D12: one identity object, so the bio lives in the hero and nowhere else.
+  it('renders the bio once, inside the profile hero', () => {
     setProfile({ username: 'mathieu', bio: 'Skincare nerd' })
     render(<ProfileDashboard />)
 
@@ -169,7 +169,7 @@ describe('ProfileDashboard', () => {
     expect(arg.search({ tab: 'profile' })).toEqual({ tab: 'account' })
   })
 
-  it('fires updateProfile.mutate when the IdentityCard form submits', () => {
+  it('fires updateProfile.mutate when the identity form submits', () => {
     const { mutate } = setUpdateProfile()
     render(<ProfileDashboard />)
 

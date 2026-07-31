@@ -84,17 +84,33 @@ export function buildProductsApiFilters(args: {
   }
 }
 
+// Declared rules ride the same toggle as the inferred badges, but only for an
+// authenticated caller (anonymous has no rules to apply). Shared so every count
+// on the page (the list and the drawer preview) comes from the same rule set.
+export function applyDeclaredRules(
+  base: ListProductsFilters,
+  search: Pick<ProductsSearch, 'profile_filter' | 'show_hidden'>,
+  isAuthed: boolean
+): ListProductsFilters {
+  if (search.profile_filter && isAuthed) {
+    base.apply_preferences = true
+    if (search.show_hidden) base.include_excluded = true
+  }
+  return base
+}
+
 // Single source of truth for the list query input: both the /products loader (prefetch)
 // and ProductsPage call this so the queryKey matches and the prefetch lands.
 export function productsListApiFilters(
   search: ProductsSearch,
-  avoidFor: string[]
+  avoidFor: string[],
+  isAuthed: boolean
 ): ListProductsFilters {
   const filters = Object.fromEntries(
     FILTER_KEYS.map((k) => [k, search[k] ?? []])
   ) as FilterValues<FilterKey>
   const hasFilters = FILTER_KEYS.some((k) => (search[k]?.length ?? 0) > 0)
-  return buildProductsApiFilters({
+  const base = buildProductsApiFilters({
     category: search.category,
     filters,
     avoidFor,
@@ -105,13 +121,16 @@ export function productsListApiFilters(
     page: search.page,
     hasFilters,
   })
+  return applyDeclaredRules(base, search, isAuthed)
 }
 
 // UI-level toggles outside FilterDrawer state. Tag filters reset via useListFilters.resetFilters().
+// profile_filter survives: it is a standing setting, not a filter chip. Clearing
+// the criteria must not silently revoke a choice the user made once and for all.
 export function buildResetSearchParams<T extends Record<string, unknown>>(prev: T) {
   return {
     ...prev,
-    profile_filter: false,
+    show_hidden: false,
     priceMin: undefined,
     priceMax: undefined,
     q: undefined,
@@ -128,7 +147,7 @@ export function buildDomainSwitchSearch<T extends Record<string, unknown>>(
     ...prev,
     ...emptyTagFilters,
     category: next,
-    profile_filter: false,
+    show_hidden: false,
     q: undefined,
     page: 1,
   }

@@ -31,6 +31,8 @@ export type ListProductsFilters = {
   brand?: string | string[]
   ingredient?: string | string[]
   avoid_for?: string | string[]
+  apply_preferences?: boolean
+  include_excluded?: boolean
   q?: string
   sort?: ProductSort
   priceMin?: number
@@ -59,6 +61,8 @@ export function buildListProductsQuery(
   for (const key of FILTER_KEYS) addParam(key, f[key])
   addParam('avoid_for', filters.avoid_for)
 
+  if (filters.apply_preferences) query.apply_preferences = 'true'
+  if (filters.include_excluded) query.include_excluded = 'true'
   if (filters.q !== undefined) query.q = filters.q
   if (filters.sort !== undefined) query.sort = filters.sort
   if (filters.priceMin !== undefined) query.priceMin = String(filters.priceMin)

@@ -48,10 +48,14 @@ describe('SkinProfileRead', () => {
     ).toBeInTheDocument()
   })
 
-  it('hides the notes toggle when the note is short (≤150 chars)', () => {
+  it('leaves a short note (≤150 chars) unclamped and without a toggle', () => {
     render(<SkinProfileRead dermo={makeDermo({ privateNotes: 'Short note.' })} />)
 
-    expect(screen.getByText('Short note.')).toBeInTheDocument()
+    // The fade mask is CSS-only: clamping without a toggle would show a cut-off
+    // note the reader cannot unfold.
+    expect(screen.getByText('Short note.').parentElement).not.toHaveClass(
+      'skin-read__notes--collapsed'
+    )
     expect(screen.queryByRole('button', { name: /Voir plus/ })).not.toBeInTheDocument()
   })
 
@@ -61,11 +65,13 @@ describe('SkinProfileRead', () => {
 
     const toggle = screen.getByRole('button', { name: /Voir plus/ })
     expect(toggle).toHaveAttribute('aria-expanded', 'false')
+    expect(screen.getByText(longNote).parentElement).toHaveClass('skin-read__notes--collapsed')
 
     fireEvent.click(toggle)
     expect(screen.getByRole('button', { name: /Voir moins/ })).toHaveAttribute(
       'aria-expanded',
       'true'
     )
+    expect(screen.getByText(longNote).parentElement).not.toHaveClass('skin-read__notes--collapsed')
   })
 })

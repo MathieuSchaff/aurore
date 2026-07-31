@@ -175,7 +175,12 @@ export function ProductInfoTab() {
       )}
 
       {product.inci && (
-        <FormulaReading slug={slug} userKey={user?.id ?? null} profileSlugs={profileSlugs} />
+        <FormulaReading
+          slug={slug}
+          userKey={user?.id ?? null}
+          profileSlugs={profileSlugs}
+          linkedIngredients={product.ingredients ?? []}
+        />
       )}
       {hasIngredients && (
         <div className="product-section">

@@ -1,0 +1,19 @@
+.avoided-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+  background: var(--color-primary-light);
+  border: var(--border-width) solid var(--border-default);
+  border-radius: var(--radius-md);
+  padding-block: var(--space-2);
+  padding-inline: var(--space-4);
+  margin-block-end: var(--space-4);
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+}
+
+.avoided-banner__action {
+  flex-shrink: 0;
+}

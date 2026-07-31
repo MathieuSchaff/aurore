@@ -47,7 +47,7 @@ vi.mock('@/hooks/useIngredientTagFilterGroups', () => ({
 }))
 
 // SearchCombobox + FilterDrawer fetch on their own and don't matter to the
-// behaviours under test — short-circuit them.
+// behaviours under test, so short-circuit them.
 vi.mock('@/component/Search/SearchCombobox', () => ({
   SearchCombobox: () => null,
 }))
@@ -133,7 +133,8 @@ describe('IngredientsPage', () => {
     expect(screen.getByText('Régule le sébum.')).toBeInTheDocument()
   })
 
-  it('flags ingredients matching the user profile with the avoid badge', () => {
+  // Neutral wording on purpose: "Éviter" / "Déconseillé" was a verdict (F11).
+  it('flags ingredients matching the user portrait with a neutral badge', () => {
     setQueriesByKey({
       list: {
         items: [
@@ -152,7 +153,7 @@ describe('IngredientsPage', () => {
     })
 
     render(<IngredientsPage />)
-    expect(screen.getByText(/Éviter/)).toBeInTheDocument()
+    expect(screen.getByText('Pour vous')).toBeInTheDocument()
   })
 
   it('fires navigate when a domain tab is clicked', () => {
