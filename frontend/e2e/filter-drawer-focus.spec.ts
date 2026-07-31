@@ -1,13 +1,16 @@
 import { expect, test } from '@playwright/test'
 
+import { waitForHydration } from './helpers/hydration'
+
 // Native <dialog> + showModal() provides the focus trap and initial focus
-// behavior — but jsdom doesn't honor it, so these guarantees can only be
+// behavior, but jsdom doesn't honor it, so these guarantees can only be
 // verified in a real browser.
 
-test.describe('FilterDrawer — focus trap (real browser only)', () => {
+test.describe('FilterDrawer: focus trap (real browser only)', () => {
   test.beforeEach(async ({ page }) => {
     await page.goto('/products')
     await expect(page.locator('.list-card--product').first()).toBeVisible({ timeout: 15_000 })
+    await waitForHydration(page)
     await page
       .getByRole('button', { name: /^Filtrer$|^Filtrer \(/ })
       .first()
