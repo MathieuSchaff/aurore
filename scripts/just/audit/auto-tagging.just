@@ -58,6 +58,18 @@ audit-sans-sulfates:
     $COMPOSE exec -w /app/backend api bun run src/features/auto-tagging/runners/audit/sans-sulfates-coherence.ts \
         | tee "$(audit_out audit-sans-sulfates)"
 
+# Detect absence tags (sans-parfum, sans-silicones, …) whose own INCI declares the thing they deny. Read-only, report-only.
+[group('audit')]
+audit-tag-contradictions:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    source {{justfile_directory()}}/scripts/just/_lib.sh
+    TARGET="${TARGET:-dev}"
+    target_compose
+    printf "{{CYAN}}Audit absence-tag contradictions ($TARGET) → .audit-out/db/audit-tag-contradictions.$TARGET.md{{NC}}\n"
+    $COMPOSE exec -w /app/backend api bun run src/features/auto-tagging/runners/audit/tag-contradictions.ts \
+        | tee "$(audit_out audit-tag-contradictions)"
+
 # Audit products.kind mistags via name patterns. Read-only. Apply reviewed fixes via `just db-fix`. Env: SLUG (single product).
 [group('audit')]
 audit-product-kinds:
