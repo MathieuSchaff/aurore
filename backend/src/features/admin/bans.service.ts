@@ -83,7 +83,7 @@ export async function listUserBans(db: Database, userId: string): Promise<UserBa
     .orderBy(desc(userBans.createdAt))
 }
 
-export type LiftedBanSummary = Pick<UserBan, 'userId' | 'scope' | 'reason' | 'bannedBy'>
+type LiftedBanSummary = Pick<UserBan, 'userId' | 'scope' | 'reason' | 'bannedBy'>
 export type LiftBanResult = ApiResponse<LiftedBanSummary, 'not_found' | 'server_error'>
 
 export async function liftBan(db: Database, banId: string): Promise<LiftBanResult> {

@@ -1,10 +1,10 @@
 // Product facts read off the raw INCI. They are true for every user, so they are computed
-// once here — with algo-derm directly — and shipped in the product payload, instead of the
+// once here, with algo-derm directly, and shipped in the product payload, instead of the
 // browser re-deriving them from a hand-copied split rule it cannot import.
 
 import { splitINCI } from 'algo-derm'
 
-// `splitINCI` cuts on commas — its period fallback needs a comma-sparse list (at most two),
+// `splitINCI` cuts on commas. Its period fallback needs a comma-sparse list (at most two),
 // which a real INCI never is. So a `;` the scraper used as a list comma, and a footnote legend
 // welded to the last token (`limonene**. * issu de l'agriculture biologique`), both hide what
 // follows them. Not a subset of the seed's `foldScraperDelimiters`: this one adds the period,
@@ -14,7 +14,7 @@ function foldWeldedSeparators(inci: string): string {
   return inci.replace(/;/g, ',').replace(/\.(?!\d)/g, ',')
 }
 
-// Presence only — never a count or a position: the fold cuts inside tokens algo-derm keeps whole.
+// Presence only, never a count or a position: the fold cuts inside tokens algo-derm keeps whole.
 function splitInciLoose(inci: string): string[] {
   return splitINCI(foldWeldedSeparators(inci))
 }
@@ -98,7 +98,7 @@ export function findInciToken(
   return null
 }
 
-export function anyInciToken(
+function anyInciToken(
   inci: string | null | undefined,
   hit: (token: string) => boolean,
   options?: InciTokenOptions
@@ -130,14 +130,10 @@ export function fragranceMarkerToken(inci: string | null | undefined): string | 
   return findInciToken(inci, (token) => GENERIC_FRAGRANCE_MARKER.test(token))
 }
 
-export function declaresFragranceMarker(inci: string | null | undefined): boolean {
-  return fragranceMarkerToken(inci) !== null
-}
-
 /**
  * The other half of `hasFragranceComponent`: the Annex III allergens alone, never the bare
  * marker. A declared `Parfum` says nothing about which allergens are above the labelling
- * threshold, so it must not refute a `sans-allergenes-parfumants` claim — 1193 of the 3639
+ * threshold, so it must not refute a `sans-allergenes-parfumants` claim: 1193 of the 3639
  * links carrying that tag declare `Parfum` legitimately (measured 2026-07-31).
  */
 export function fragranceAllergenToken(inci: string | null | undefined): string | null {

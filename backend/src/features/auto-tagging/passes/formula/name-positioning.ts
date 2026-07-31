@@ -5,10 +5,12 @@ import type { TagEvidence } from '../../lib/pass-types'
 export const inciWindow = (ingredients: readonly string[], n: number): readonly string[] =>
   ingredients.slice(0, Math.min(ingredients.length, n))
 
-// First sentence of a marketing description — the lead positioning claim.
-// Abbreviation dots ("Dr.") cut early: the window narrows, which only trades
-// recall, never precision. No sentence punctuation = whole description.
-export const leadSentence = (description: string): string => {
+// First sentence of a marketing description, the lead positioning claim.
+// No sentence punctuation = whole description. Abbreviation dots ("Dr.") cut
+// early, and the exclusion regex reads this same narrowed haystack: a veto
+// token past the cut stops firing, so narrowing costs precision too, not only
+// recall.
+const leadSentence = (description: string): string => {
   const m = /[.!?](?:\s|$)/.exec(description)
   return m ? description.slice(0, m.index + 1) : description
 }
@@ -16,7 +18,7 @@ export const leadSentence = (description: string): string => {
 export interface NamePositioningOptions {
   // Restrict the description side of the haystack to its first sentence.
   // A concern named in the lead is the product's positioning; the same word
-  // buried mid-description is an incidental benefit mention (the FP source
+  // buried in the middle of the description is an incidental benefit mention (the FP source
   // that put rougeurs-vasculaires at P=0.550).
   leadWindowOnly?: boolean
 }
@@ -25,7 +27,7 @@ export interface NamePositioningOptions {
 // normalize name+description into one whitespace-collapsed haystack, require the
 // positioning regex, optionally veto via an exclusion regex. Returns the matched
 // substring + which field carried it (audit evidence) or null. `matchesNamePositioning`
-// is the boolean view used by the detectors; emit behavior is unchanged.
+// is the boolean view used by the detectors.
 export function matchNamePositioning(
   name: string | null | undefined,
   description: string | null | undefined,
