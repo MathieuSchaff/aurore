@@ -35,18 +35,18 @@ vi.mock('@/store/auth', () => ({ useAuthStore: vi.fn() }))
 
 vi.mock('@/hooks/useCopyToClipboard', () => ({ useCopyToClipboard: vi.fn() }))
 
-// react-markdown is lazily imported by ProductInfoTab — short-circuit it.
+// react-markdown is lazily imported by ProductInfoTab, so short-circuit it.
 vi.mock('react-markdown', () => ({
   default: ({ children }: { children: string }) => children,
 }))
 
-// ReportContentButton uses useCreateReport (useMutation) → needs a QueryClient;
+// ReportContentButton uses useCreateReport (useMutation), so it needs a QueryClient;
 // this suite renders bare. Not under test here.
 vi.mock('@/features/discussions/components/ReportContentButton', () => ({
   ReportContentButton: () => null,
 }))
 
-// SuggestEditButton uses useProposeSuggestedEdit (useMutation) → needs a QueryClient;
+// SuggestEditButton uses useProposeSuggestedEdit (useMutation), so it needs a QueryClient;
 // this suite renders bare. Not under test here.
 vi.mock('@/features/discussions/components/SuggestEditButton', () => ({
   SuggestEditButton: () => null,
@@ -190,6 +190,41 @@ describe('ProductInfoTab', () => {
 
     expect(screen.getByText(/Peut ne pas convenir à votre profil cutané/)).toBeInTheDocument()
     expect(screen.getByText(/Sensible/)).toBeInTheDocument()
+  })
+
+  // The user concern vocab and the product tag vocab drifted apart: 'rosacee' is
+  // only ever tagged 'rougeurs-vasculaires' on a product, so a raw slug comparison
+  // never lights the notice for it.
+  it('warns when an avoid tag matches a bridged concern slug', async () => {
+    vi.mocked(useAuthStore).mockReturnValue({ id: 'u1' } as never)
+    setDermo({ skinTypes: [], skinConcerns: ['rosacee', 'eczema'] })
+    setProduct({
+      tags: [
+        { tagSlug: 'rougeurs-vasculaires', relevance: 'avoid' },
+        { tagSlug: 'eczema-atopie', relevance: 'avoid' },
+      ],
+    })
+    await act(async () => {
+      render(<ProductInfoTab />)
+    })
+
+    expect(screen.getByText(/Peut ne pas convenir à votre profil cutané/)).toBeInTheDocument()
+    expect(screen.getByText(/Rougeurs/)).toBeInTheDocument()
+    expect(screen.getByText(/Eczéma \/ Atopie/)).toBeInTheDocument()
+  })
+
+  it('still warns on a concern slug identical in both vocabs', async () => {
+    vi.mocked(useAuthStore).mockReturnValue({ id: 'u1' } as never)
+    setDermo({ skinTypes: [], skinConcerns: ['deshydratation'] })
+    setProduct({
+      tags: [{ tagSlug: 'deshydratation', relevance: 'avoid' }],
+    })
+    await act(async () => {
+      render(<ProductInfoTab />)
+    })
+
+    expect(screen.getByText(/Peut ne pas convenir à votre profil cutané/)).toBeInTheDocument()
+    expect(screen.getByText(/Déshydratation/)).toBeInTheDocument()
   })
 
   it('does not warn for non-matching avoid tags', async () => {
