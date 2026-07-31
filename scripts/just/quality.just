@@ -21,8 +21,24 @@ knip flags="":
 # Import cycles. Type-only imports are ignored via .madgerc so TanStack Start's generated
 # Register imports and other erased TypeScript edges do not masquerade as runtime cycles.
 # Seed blog data excluded: index↔article-data barrels are static data, not real coupling.
+#
+# Runs from a temp cwd with TypeScript 5 pinned. madge parses through
+# @typescript-eslint/typescript-estree, which reads ts.Extension — an enum the workspace's
+# TypeScript 7 native port no longer exposes, so any run that resolves the repo's own
+# typescript crashes on "Cannot read properties of undefined (reading 'Cjs')". The temp cwd
+# keeps Node from walking up into node_modules/. The madge devDependency stays in
+# package.json to pin the major used here; it is not what actually runs.
 cycles:
-    bunx madge --circular --extensions ts,tsx --exclude '(dist|node_modules|db/seed/data)/' backend/src frontend/src shared/src
+    #!/usr/bin/env bash
+    set -euo pipefail
+    repo="$PWD"
+    iso="${TMPDIR:-/tmp}/aurore-madge-iso"
+    mkdir -p "$iso"
+    cp "$repo/.madgerc" "$iso/.madgerc"
+    cd "$iso"
+    npx -y -p madge@8 -p typescript@5.9 madge --circular --extensions ts,tsx \
+        --exclude '(dist|node_modules|db/seed/data)/' \
+        "$repo/backend/src" "$repo/frontend/src" "$repo/shared/src"
 
 # Test prod CSP against prod build, locally, no Docker (builds dist, serves w/ nginx CSP, headless chromium, fails on violation). Test-only.
 test-csp:
