@@ -1,6 +1,7 @@
 import { expect, type Page, test } from '@playwright/test'
 
 import { loginAsSeed } from './helpers/auth'
+import { waitForHydration } from './helpers/hydration'
 
 const inlineLink = (page: Page, name: string) =>
   page.locator('.main-nav__inline').getByRole('link', { name, exact: true })
@@ -17,6 +18,7 @@ test.describe('Top navbar', () => {
     await page.goto('/products')
     await expect(page.getByRole('heading', { name: 'Produits', level: 1 })).toBeVisible()
     await navReady(page)
+    await waitForHydration(page)
 
     // Inline, not the drawer: the hamburger stays hidden and no drawer is mounted.
     await expect(page.locator('.main-nav__lead .main-nav__toggle')).toBeHidden()
@@ -37,6 +39,7 @@ test.describe('Top navbar', () => {
     await page.goto('/products')
     await expect(page.getByRole('heading', { name: 'Produits', level: 1 })).toBeVisible()
     await navReady(page)
+    await waitForHydration(page)
 
     await expect(inlineLink(page, 'Collection')).toBeVisible()
     await expect(inlineLink(page, 'Comparaisons')).toBeVisible()
@@ -54,6 +57,7 @@ test.describe('Top navbar', () => {
     await page.goto('/products')
     await expect(page.getByRole('heading', { name: 'Produits', level: 1 })).toBeVisible()
     await navReady(page)
+    await waitForHydration(page)
 
     const burger = page.locator('.main-nav__lead .main-nav__toggle')
     await expect(burger).toBeVisible()
@@ -77,6 +81,7 @@ test.describe('Top navbar', () => {
     await page.goto('/products')
     await expect(page.getByRole('heading', { name: 'Produits', level: 1 })).toBeVisible()
     await navReady(page)
+    await waitForHydration(page)
 
     await page.locator('.main-nav__lead .main-nav__toggle').click()
     const drawer = page.locator('.main-nav-drawer')
