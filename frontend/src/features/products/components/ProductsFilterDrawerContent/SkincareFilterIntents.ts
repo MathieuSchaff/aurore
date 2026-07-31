@@ -56,7 +56,7 @@ export const SEARCH_INTENTS: SearchIntent[] = [
 
 const PRODUCT_COUNT_FORMATTER = new Intl.NumberFormat('fr-FR')
 
-export function getSearchIntentOption(
+function getSearchIntentOption(
   intent: SearchIntent,
   groups: FilterGroupConfig<FilterKey>[]
 ): FilterOption | undefined {
@@ -85,7 +85,9 @@ export function intentCountLabel(
 }
 
 function arraysMatch(actual: string[] | undefined, expected: string[]) {
-  return actual?.length === expected.length && expected.every((value) => actual.includes(value))
+  if (actual?.length !== expected.length) return false
+  const present = new Set(actual)
+  return expected.every((value) => present.has(value))
 }
 
 export function inferActiveIntent(filters: FilterValues<FilterKey>) {
