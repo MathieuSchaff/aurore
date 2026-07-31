@@ -114,12 +114,14 @@ export function PublicReviewsSection({ slug }: PublicReviewsSectionProps) {
               return (
                 <li key={review.id} className="public-reviews__verbatim">
                   <header className="public-reviews__verbatim-header">
-                    <ReviewerName reviewer={review.reviewer} />
-                    <Time
-                      iso={review.createdAt}
-                      style="monthYear"
-                      className="public-reviews__verbatim-date"
-                    />
+                    <span className="public-reviews__byline">
+                      <ReviewerName reviewer={review.reviewer} />
+                      <Time
+                        iso={review.createdAt}
+                        style="monthYear"
+                        className="public-reviews__verbatim-date"
+                      />
+                    </span>
                     {isAuthenticated && (
                       <ReportContentButton targetType="review" targetId={review.id} />
                     )}

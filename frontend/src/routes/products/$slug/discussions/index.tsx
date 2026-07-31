@@ -23,12 +23,10 @@ function ProductDiscussionIndex() {
     <>
       <PublicReviewsSection slug={slug} />
 
-      {user && (
-        <div className="product-section">
-          <PostComposer productId={product.id} slug={slug} />
-        </div>
-      )}
-      <ProductPostsSection slug={slug} />
+      <ProductPostsSection
+        slug={slug}
+        composer={user ? <PostComposer productId={product.id} slug={slug} /> : undefined}
+      />
 
       <ThreadList threads={threads} entityType="product" slug={slug} isLoggedIn={user !== null} />
     </>

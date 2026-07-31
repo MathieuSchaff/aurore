@@ -169,13 +169,13 @@ test.describe('Discussion thread — failure paths', () => {
     const content = 'detailed content body that should survive a server error'
 
     await page.getByLabel(/^Sujet/).fill(title)
-    await page.getByLabel(/^Ton expérience/).fill(content)
+    await page.getByLabel(/^Votre message/).fill(content)
     await page.getByRole('button', { name: 'Publier la discussion' }).click()
 
     // Form must stay open, inputs preserved (no onSuccess clear ran).
     await expect(page.getByRole('heading', { name: 'Nouvelle discussion' })).toBeVisible()
     await expect(page.getByLabel(/^Sujet/)).toHaveValue(title)
-    await expect(page.getByLabel(/^Ton expérience/)).toHaveValue(content)
+    await expect(page.getByLabel(/^Votre message/)).toHaveValue(content)
   })
 
   test('successful post clears inputs and closes the form', async ({ page }) => {
@@ -185,7 +185,7 @@ test.describe('Discussion thread — failure paths', () => {
 
     const title = `e2e thread ${Date.now()}`
     await page.getByLabel(/^Sujet/).fill(title)
-    await page.getByLabel(/^Ton expérience/).fill('Body content for the thread.')
+    await page.getByLabel(/^Votre message/).fill('Body content for the thread.')
 
     const postPromise = page.waitForRequest(
       (req) => req.method() === 'POST' && /\/api\/products\/[^/]+\/discussions$/.test(req.url())

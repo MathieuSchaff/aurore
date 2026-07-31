@@ -5,7 +5,7 @@ import type { DiscussionThread } from '@aurore/shared'
 import { Link } from '@tanstack/react-router'
 import { MessageSquare } from 'lucide-react'
 
-import { EmptyState } from '@/component/Feedback/ui/EmptyState/EmptyState'
+import { SectionHeader } from '@/component/Typography/SectionHeader/SectionHeader'
 import { AuthorLine } from './AuthorLine'
 import { ThreadForm } from './ThreadForm'
 
@@ -19,9 +19,14 @@ interface ThreadListProps {
 export function ThreadList({ threads, entityType, slug, isLoggedIn }: ThreadListProps) {
   return (
     <div className="discussions-section">
+      <SectionHeader
+        title="Discussions"
+        count={threads.length > 0 ? threads.length : undefined}
+        variant="primary"
+      />
       {isLoggedIn && <ThreadForm entityType={entityType} slug={slug} />}
       {threads.length === 0 ? (
-        <EmptyState subtitle="Aucune discussion pour l'instant." />
+        <p className="discussions-empty">Aucune discussion pour l'instant.</p>
       ) : (
         <div className="thread-list">
           {threads.map((thread) => {
