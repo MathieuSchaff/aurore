@@ -68,6 +68,8 @@ export async function listArticles(db: DB, filters: ArticleSearchFilters, isAdmi
 
   const where = conditions.length > 0 ? and(...conditions) : undefined
 
+  // Promise.all is safe here, unlike the product list reads: the articles router never mounts
+  // withRlsContext, so `db` stays the pool even for an authed caller. Verified against the log.
   const [rows, [{ total }]] = await Promise.all([
     db
       .select({
