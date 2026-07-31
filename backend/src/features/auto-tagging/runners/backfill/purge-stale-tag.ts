@@ -1,6 +1,6 @@
 // Tag-scoped slice of reconcile: delete non-manual links of ONE tag that the
 // current detector no longer emits. Exists because full reconcile is all-or-
-// nothing (DELETE + re-INSERT every tag) — unusable while an insert lot is on
+// nothing (DELETE + re-INSERT every tag), unusable while an insert lot is on
 // hold, e.g. after a gate tightening whose stale links must go out while the
 // non-irritant backlog stays unwritten.
 //
@@ -61,10 +61,8 @@ async function main() {
     console.log('\nRun avec --write pour supprimer.')
     return
   }
-  // tx.delete() returns no usable row count on this driver path; report the
-  // planned count (the WHERE is exact) and let the next dry-run confirm zero.
-  await withAdminRls(async (tx) => {
-    await tx
+  const result = await withAdminRls((tx) =>
+    tx
       .delete(productTagLinks)
       .where(
         and(
@@ -73,10 +71,16 @@ async function main() {
           inArray(productTagLinks.productId, stale)
         )
       )
-  })
-  console.log(
-    `✓ ${stale.length} liens supprimés (${linkedIds.size - stale.length} restants légitimes)`
   )
+  // bun-postgres exposes the affected count under `count` (rowCount is absent on
+  // this driver). A DELETE blocked by RLS also reports 0, so a gap with the
+  // planned count is a real failure, not a rounding detail.
+  const r = result as unknown as { count?: number; rowCount?: number }
+  const deleted = r.count ?? r.rowCount ?? 0
+  if (deleted !== stale.length) {
+    console.warn(`   ⚠ ${deleted} lignes supprimées pour ${stale.length} planifiées`)
+  }
+  console.log(`✓ ${deleted} liens supprimés (${linkedIds.size - deleted} restants légitimes)`)
 }
 
 main().catch(exitOnError)
