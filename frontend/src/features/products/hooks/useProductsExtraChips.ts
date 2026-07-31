@@ -10,6 +10,9 @@ type Args = {
   priceMin?: number
   priceMax?: number
   profileFilter: boolean
+  // Removing the chip is the same gesture as flipping the toggle off, so it must
+  // go through the same setter — otherwise the standing choice is not recorded (D9).
+  onRemoveProfileFilter: () => void
   q?: string
 }
 
@@ -18,6 +21,7 @@ export function useProductsExtraChips({
   priceMin,
   priceMax,
   profileFilter,
+  onRemoveProfileFilter,
   q,
 }: Args): ExtraChip[] {
   const navigate = useNavigate({ from: '/products/' })
@@ -64,14 +68,10 @@ export function useProductsExtraChips({
         id: 'profile',
         prefix: 'Profil',
         label: 'Selon mon profil',
-        onRemove: () =>
-          navigate({
-            search: (prev) => ({ ...prev, profile_filter: false, page: 1 }),
-            replace: true,
-          }),
+        onRemove: onRemoveProfileFilter,
       })
     }
 
     return chips
-  }, [hasPriceRange, priceMin, priceMax, profileFilter, q, navigate])
+  }, [hasPriceRange, priceMin, priceMax, profileFilter, onRemoveProfileFilter, q, navigate])
 }

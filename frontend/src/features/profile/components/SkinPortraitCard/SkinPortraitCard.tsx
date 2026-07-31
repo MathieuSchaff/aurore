@@ -8,6 +8,7 @@ import { FITZPATRICK_ITEMS } from '@/constants/skin'
 import { DermoProfileForm } from '../../tabs/SkinTab/DermoProfileForm'
 import { SectionCard, SectionCardEmpty } from '../SectionCard/SectionCard'
 import { SkinProfileRead } from '../SkinProfileRead/SkinProfileRead'
+import { PortraitReach } from './PortraitReach'
 import './SkinPortraitCard.css'
 
 type SkinPortraitCardProps = {
@@ -72,7 +73,12 @@ export function SkinPortraitCard({ dermo, isEditing, onEdit, onCloseEdit }: Skin
           </div>
 
           {hasContent ? (
-            dermo && <SkinProfileRead dermo={dermo} hideFitzpatrick />
+            dermo && (
+              <>
+                <SkinProfileRead dermo={dermo} hideFitzpatrick />
+                <PortraitReach dermo={dermo} />
+              </>
+            )
           ) : (
             <SectionCardEmpty
               title="Aucun portrait pour le moment."

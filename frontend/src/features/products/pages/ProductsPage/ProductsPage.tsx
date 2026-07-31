@@ -14,6 +14,7 @@ import type { FilterValues } from '@/component/Filter/types'
 import { ListPageLayout } from '@/component/Layout/PageLayout/ListPageLayout'
 import type { TabOption } from '@/component/Tabs/Tabs'
 import { AddToCollectionModal } from '@/features/products/components/AddToCollectionModal/AddToCollectionModal'
+import { AvoidedBanner } from '@/features/products/components/AvoidedBanner/AvoidedBanner'
 import { CollapsibleFiltersStrip } from '@/features/products/components/CollapsibleFiltersStrip/CollapsibleFiltersStrip'
 import {
   type AddToCollectionTarget,
@@ -25,6 +26,7 @@ import { ProductsHeader } from '@/features/products/components/ProductsHeader/Pr
 import { ProductsGridSkeleton } from '@/features/products/components/skeletons/ProductsGridSkeleton/ProductsGridSkeleton'
 import { FILTER_KEYS, type FilterKey, TAG_FILTER_KEYS } from '@/features/products/filters'
 import {
+  applyDeclaredRules,
   buildDomainSwitchSearch,
   buildProductsApiFilters,
   buildResetSearchParams,
@@ -35,8 +37,8 @@ import {
 } from '@/features/products/helpers'
 import { useProductsExtraChips } from '@/features/products/hooks/useProductsExtraChips'
 import { useProductsFilterGroups } from '@/features/products/hooks/useProductsFilterGroups'
+import { useProductsProfileFilter } from '@/features/products/hooks/useProductsProfileFilter'
 import { useListFilters } from '@/hooks/useListFilters'
-import { useProfileFilterToggle } from '@/hooks/useProfileFilterToggle'
 import { isRateLimitError } from '@/lib/helpers/apiError'
 import { useBootPending } from '@/lib/hooks/useBootPending'
 import {
@@ -68,7 +70,9 @@ export function ProductsPage() {
   const [modalProduct, setModalProduct] = useState<AddToCollectionTarget | null>(null)
 
   const search = routeApi.useSearch()
-  const { page, profile_filter, sort, priceMin, priceMax, category, q } = search
+  const { page, sort, priceMin, priceMax, category, q } = search
+  // Unstated in the URL reads as off until the standing choice resolves it (D9).
+  const profile_filter = search.profile_filter === true
   const navigate = useNavigate({ from: '/products/' })
 
   const user = useAuthStore((s) => s.user)
@@ -81,6 +85,15 @@ export function ProductsPage() {
   const avoidFor = useMemo(
     () => deriveAvoidFor(dermoProfile, profile_filter),
     [profile_filter, dermoProfile]
+  )
+
+  const handleProfileFilterChange = useProductsProfileFilter({
+    urlValue: search.profile_filter,
+    userId: user?.id ?? null,
+  })
+  const handleRemoveProfileFilter = useCallback(
+    () => handleProfileFilterChange(false),
+    [handleProfileFilterChange]
   )
 
   // Stable ref: a fresh object every render feeds back into setDraftFilters and loops.
@@ -119,18 +132,21 @@ export function ProductsPage() {
     void queryClient.prefetchQuery(productQueries.filterOptions(category))
   }, [queryClient, category])
 
+  // While the root boot refresh is in flight, keep the anonymous key. The /products
+  // loader joins that refresh before starting authenticated product work.
+  const bootRefreshPending = useBootPending()
+  const userKey = bootRefreshPending ? null : (user?.id ?? null)
+
+  // userKey (not user) so apply_preferences flips together with the cache key:
+  // during boot both stay anonymous, matching the loader's prefetch.
   const apiFilters = useMemo<ListProductsFilters>(
-    () => productsListApiFilters(search, avoidFor),
-    [search, avoidFor]
+    () => productsListApiFilters(search, avoidFor, !!userKey),
+    [search, avoidFor, userKey]
   )
 
   // Random/filtered: long staleTime stops back-nav reshuffle. Discovery: 30s (not 0) so the
   // loader prefetch is honored on cold load instead of triggering an immediate duplicate fetch.
   const staleTime = sort === 'random' || hasFilters ? 5 * 60 * 1000 : 30 * 1000
-  // While the root boot refresh is in flight, keep the anonymous key. The /products
-  // loader joins that refresh before starting authenticated product work.
-  const bootRefreshPending = useBootPending()
-  const userKey = bootRefreshPending ? null : (user?.id ?? null)
   const { data, isLoading, isPlaceholderData, error } = useQuery({
     ...productQueries.list(apiFilters, userKey),
     placeholderData: (prev) => prev,
@@ -156,20 +172,26 @@ export function ProductsPage() {
   }, [apiFilters, queryClient, shelfStatus, user?.id, productIds])
 
   // Live count for the drawer's in-flight selection; only runs while drawer is open.
+  // Same rule gate as the list, otherwise the CTA announces the unruled catalogue
+  // size while the applied list is rule-filtered.
   const previewApiFilters = useMemo<ListProductsFilters>(
     () =>
-      buildProductsApiFilters({
-        category,
-        filters: draftFilters ?? filters,
-        avoidFor,
-        sort,
-        priceMin,
-        priceMax,
-        q,
-        page: 1,
-        hasFilters: true,
-      }),
-    [category, draftFilters, filters, avoidFor, sort, priceMin, priceMax, q]
+      applyDeclaredRules(
+        buildProductsApiFilters({
+          category,
+          filters: draftFilters ?? filters,
+          avoidFor,
+          sort,
+          priceMin,
+          priceMax,
+          q,
+          page: 1,
+          hasFilters: true,
+        }),
+        search,
+        !!userKey
+      ),
+    [category, draftFilters, filters, avoidFor, sort, priceMin, priceMax, q, search, userKey]
   )
   const { data: previewData } = useQuery({
     ...productQueries.list(previewApiFilters, userKey),
@@ -185,6 +207,7 @@ export function ProductsPage() {
     priceMin,
     priceMax,
     profileFilter: profile_filter,
+    onRemoveProfileFilter: handleRemoveProfileFilter,
     q,
   })
 
@@ -212,8 +235,6 @@ export function ProductsPage() {
     },
     [navigate]
   )
-
-  const handleProfileFilterChange = useProfileFilterToggle('/products/')
 
   const handleDomainChange = useCallback(
     (next: ProductDomainTab) => {
@@ -294,6 +315,20 @@ export function ProductsPage() {
         />
 
         <ListPageLayout.Body maxWidth="var(--list-browse-rail)" isSyncing={isPlaceholderData}>
+          {profile_filter && !!userKey && (
+            <AvoidedBanner
+              hiddenCount={data?.hiddenCount ?? 0}
+              excludedLabels={data?.excludedLabels ?? []}
+              requiredLabels={data?.requiredLabels ?? []}
+              showHidden={search.show_hidden}
+              onToggleShowHidden={(next) =>
+                navigate({
+                  search: (prev) => ({ ...prev, show_hidden: next, page: 1 }),
+                  replace: true,
+                })
+              }
+            />
+          )}
           {isLoading && !isPlaceholderData ? (
             <ProductsGridSkeleton />
           ) : items.length === 0 ? (

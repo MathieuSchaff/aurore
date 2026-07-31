@@ -28,6 +28,7 @@ import {
   gte,
   inArray,
   lte,
+  not,
   notExists,
   or,
   type SQL,
@@ -37,9 +38,11 @@ import {
 import { db } from '../../db'
 import type { Database, DB } from '../../db/index'
 import { ingredients, productIngredients } from '../../db/schema'
+import { userIngredientPreferences } from '../../db/schema/ingredients/user-ingredient-preferences'
 import { type Product, products } from '../../db/schema/products'
 import { userProducts } from '../../db/schema/products/user-products'
 import { productTagLinks, productTagTypes } from '../../db/schema/tags/tags'
+import { userTagPreferences } from '../../db/schema/tags/user-tag-preferences'
 import {
   assertWithinSubmissionRateLimit,
   type CatalogRole,
@@ -403,6 +406,11 @@ type ProductSummary = Pick<
 > & {
   // Avoid-tag slugs matching the caller's profile. Empty when no profile filter is active.
   profileMatches: string[]
+  // Declared "Avec" hits: canonical keys + tag labels the row contains.
+  requireMatches: string[]
+  // Declared "Sans" hits, only populated under include_excluded (rows are
+  // excluded otherwise, so there is nothing to annotate).
+  excludeMatches: string[]
   // Primary tags only. The card's chips + its "+N" overflow count both key on
   // relevance='primary'; secondary (~15/product) was pure list over-fetch.
   tags: { slug: string; tagType: string; relevance: 'primary' | 'secondary' }[]
@@ -414,6 +422,13 @@ export type ProductsPage = {
   total: number
   page: number
   limit: number
+  // Rows the caller's declared rules removed from (or, under include_excluded,
+  // would remove from) this filter set. 0 when inactive.
+  hiddenCount: number
+  // What the rules keyed on, for the banner stating both effects (D8):
+  // "sans : parfum · avec au moins un de : niacinamide".
+  excludedLabels: string[]
+  requiredLabels: string[]
 }
 
 // Shared by the autocomplete (`searchProducts`) and the list (`?q=`) so
@@ -661,6 +676,176 @@ async function fetchProductMeta(
   return { matchesByProduct, tagsByProduct, statusByProduct }
 }
 
+type DeclaredPreferences = {
+  excludeKeys: string[]
+  requireKeys: string[]
+  excludeTagIds: string[]
+  requireTagIds: string[]
+  // Banner copy: ingredient canonical keys are already human-readable INCI
+  // names ("Parfum"); tags contribute their label.
+  excludeLabels: string[]
+  requireLabels: string[]
+  tagLabelById: Map<string, string>
+}
+
+async function loadDeclaredPreferences(
+  database: Database,
+  userId: string
+): Promise<DeclaredPreferences | null> {
+  const ingredientPrefs = await database
+    .select({
+      canonicalKey: userIngredientPreferences.canonicalKey,
+      stance: userIngredientPreferences.stance,
+    })
+    .from(userIngredientPreferences)
+    .where(eq(userIngredientPreferences.userId, userId))
+  const tagPrefs = await database
+    .select({
+      tagId: userTagPreferences.tagId,
+      label: productTagTypes.label,
+      stance: userTagPreferences.stance,
+    })
+    .from(userTagPreferences)
+    .innerJoin(productTagTypes, eq(productTagTypes.id, userTagPreferences.tagId))
+    .where(eq(userTagPreferences.userId, userId))
+
+  if (ingredientPrefs.length === 0 && tagPrefs.length === 0) return null
+
+  const excludeKeys = ingredientPrefs
+    .filter((p) => p.stance === 'exclude')
+    .map((p) => p.canonicalKey)
+  const requireKeys = ingredientPrefs
+    .filter((p) => p.stance === 'require')
+    .map((p) => p.canonicalKey)
+  const excludeTags = tagPrefs.filter((p) => p.stance === 'exclude')
+  const requireTags = tagPrefs.filter((p) => p.stance === 'require')
+
+  return {
+    excludeKeys,
+    requireKeys,
+    excludeTagIds: excludeTags.map((t) => t.tagId),
+    requireTagIds: requireTags.map((t) => t.tagId),
+    excludeLabels: [...excludeKeys, ...excludeTags.map((t) => t.label)],
+    requireLabels: [...requireKeys, ...requireTags.map((t) => t.label)],
+    tagLabelById: new Map(tagPrefs.map((t) => [t.tagId, t.label])),
+  }
+}
+
+// One EXISTS per target family; both key on indexed columns
+// (ingredients_canonical_key_idx, product_ingredients/product_tag_links PKs).
+function declaredTargetHits(keys: string[], tagIds: string[], database: Database): SQL[] {
+  const hits: SQL[] = []
+  if (keys.length > 0) {
+    hits.push(
+      exists(
+        database
+          .select({ one: sql`1` })
+          .from(productIngredients)
+          .innerJoin(ingredients, eq(productIngredients.ingredientId, ingredients.id))
+          .where(
+            and(
+              eq(productIngredients.productId, products.id),
+              inArray(ingredients.canonicalKey, keys)
+            )
+          )
+      )
+    )
+  }
+  if (tagIds.length > 0) {
+    hits.push(
+      exists(
+        database
+          .select({ one: sql`1` })
+          .from(productTagLinks)
+          .where(
+            and(
+              eq(productTagLinks.productId, products.id),
+              inArray(productTagLinks.productTagId, tagIds)
+            )
+          )
+      )
+    )
+  }
+  return hits
+}
+
+async function fetchDeclaredMatches(
+  itemIds: string[],
+  declared: DeclaredPreferences,
+  includeExcluded: boolean,
+  database: Database
+): Promise<{ requireByProduct: Map<string, string[]>; excludeByProduct: Map<string, string[]> }> {
+  const requireByProduct = new Map<string, string[]>()
+  const excludeByProduct = new Map<string, string[]>()
+  if (itemIds.length === 0) return { requireByProduct, excludeByProduct }
+
+  const collect = (map: Map<string, string[]>, productId: string, label: string) => {
+    const list = map.get(productId) ?? []
+    if (!list.includes(label)) list.push(label)
+    map.set(productId, list)
+  }
+
+  // Excluded rows only exist on screen under include_excluded.
+  const ingredientKeys = includeExcluded
+    ? [...declared.requireKeys, ...declared.excludeKeys]
+    : declared.requireKeys
+  const tagIds = includeExcluded
+    ? [...declared.requireTagIds, ...declared.excludeTagIds]
+    : declared.requireTagIds
+  const requireKeySet = new Set(declared.requireKeys)
+  const requireTagSet = new Set(declared.requireTagIds)
+
+  if (ingredientKeys.length > 0) {
+    const rows = await database
+      .selectDistinct({
+        productId: productIngredients.productId,
+        key: ingredients.canonicalKey,
+      })
+      .from(productIngredients)
+      .innerJoin(ingredients, eq(productIngredients.ingredientId, ingredients.id))
+      .where(
+        and(
+          inArray(productIngredients.productId, itemIds),
+          inArray(ingredients.canonicalKey, ingredientKeys)
+        )
+      )
+    for (const row of rows) {
+      if (row.key === null) continue
+      collect(
+        requireKeySet.has(row.key) ? requireByProduct : excludeByProduct,
+        row.productId,
+        row.key
+      )
+    }
+  }
+
+  if (tagIds.length > 0) {
+    const rows = await database
+      .selectDistinct({
+        productId: productTagLinks.productId,
+        tagId: productTagLinks.productTagId,
+      })
+      .from(productTagLinks)
+      .where(
+        and(
+          inArray(productTagLinks.productId, itemIds),
+          inArray(productTagLinks.productTagId, tagIds)
+        )
+      )
+    for (const row of rows) {
+      const label = declared.tagLabelById.get(row.tagId)
+      if (!label) continue
+      collect(
+        requireTagSet.has(row.tagId) ? requireByProduct : excludeByProduct,
+        row.productId,
+        label
+      )
+    }
+  }
+
+  return { requireByProduct, excludeByProduct }
+}
+
 export async function listProducts(
   filters: ListProductsFilters,
   database: Database = db,
@@ -670,7 +855,27 @@ export async function listProducts(
   const limit = filters.limit ?? 20
   const offset = (page - 1) * limit
 
+  // Declared rules only bite under the profile toggle, and only for an
+  // authenticated caller. RLS scopes the reads; anonymous yields nothing anyway.
+  const declared =
+    filters.apply_preferences && userId ? await loadDeclaredPreferences(database, userId) : null
+  const excludeHits = declared
+    ? declaredTargetHits(declared.excludeKeys, declared.excludeTagIds, database)
+    : []
+  const requireHits = declared
+    ? declaredTargetHits(declared.requireKeys, declared.requireTagIds, database)
+    : []
+  // Every "Sans" removes on its own; "Avec" rules keep rows containing at least
+  // one required target (OR — AND would empty the list by the third rule, D8).
+  const ruleConditions: SQL[] = [
+    ...excludeHits.map((hit) => not(hit) as SQL),
+    ...(requireHits.length > 0 ? [or(...requireHits) as SQL] : []),
+  ]
+  const rulesActive = ruleConditions.length > 0
+  const enforceRules = rulesActive && !filters.include_excluded
+
   const conditions = buildListConditions(filters, database)
+  if (enforceRules) conditions.push(...ruleConditions)
   const where = conditions.length > 0 ? and(...conditions) : undefined
 
   const orderBy = (() => {
@@ -694,7 +899,21 @@ export async function listProducts(
     }
   })()
 
-  const [items, countResult] = await Promise.all([
+  // "N masqués" banner: base count minus ruled count = rows this filter set
+  // loses to the declared rules. The paginated `where` already carries one of
+  // the two, so only the other side is counted here.
+  const altCountQuery = rulesActive
+    ? database
+        .select({ total: count() })
+        .from(products)
+        .where(
+          enforceRules
+            ? and(...buildListConditions(filters, database))
+            : and(...buildListConditions(filters, database), ...ruleConditions)
+        )
+    : Promise.resolve([{ total: 0 }])
+
+  const [items, countResult, altResult] = await Promise.all([
     database
       .select({
         id: products.id,
@@ -714,9 +933,16 @@ export async function listProducts(
       .limit(limit)
       .offset(offset),
     database.select({ total: count() }).from(products).where(where),
+    altCountQuery,
   ])
 
   const total = countResult[0]?.total ?? 0
+  const altTotal = altResult[0]?.total ?? 0
+  // enforceRules: total is the ruled count, alt is the base; shown-back
+  // (include_excluded): total is the base, alt is the ruled count.
+  const hiddenCount = rulesActive
+    ? Math.max(0, enforceRules ? altTotal - total : total - altTotal)
+    : 0
 
   const { matchesByProduct, tagsByProduct, statusByProduct } = await fetchProductMeta(
     items,
@@ -725,14 +951,36 @@ export async function listProducts(
     database
   )
 
+  const { requireByProduct, excludeByProduct } = declared
+    ? await fetchDeclaredMatches(
+        items.map((i) => i.id),
+        declared,
+        Boolean(filters.include_excluded),
+        database
+      )
+    : {
+        requireByProduct: new Map<string, string[]>(),
+        excludeByProduct: new Map<string, string[]>(),
+      }
+
   const itemsWithMatches: ProductSummary[] = items.map((i) => ({
     ...i,
     profileMatches: matchesByProduct.get(i.id) ?? [],
+    requireMatches: requireByProduct.get(i.id) ?? [],
+    excludeMatches: excludeByProduct.get(i.id) ?? [],
     tags: tagsByProduct.get(i.id) ?? [],
     userStatus: statusByProduct.get(i.id) ?? null,
   }))
 
-  return { items: itemsWithMatches, total, page, limit }
+  return {
+    items: itemsWithMatches,
+    total,
+    page,
+    limit,
+    hiddenCount,
+    excludedLabels: declared?.excludeLabels ?? [],
+    requiredLabels: declared?.requireLabels ?? [],
+  }
 }
 export type FilterOptions = {
   kinds: string[]

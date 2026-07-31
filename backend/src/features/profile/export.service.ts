@@ -13,10 +13,12 @@ import type { DB } from '../../db'
 import { userPreferences } from '../../db/schema/auth/user-preferences'
 import { profiles, userDermoProfiles, usersSafe } from '../../db/schema/auth/users'
 import { userIngredientAnalysisScore } from '../../db/schema/ingredients/user-ingredient-analysis-score'
+import { userIngredientPreferences } from '../../db/schema/ingredients/user-ingredient-preferences'
 import { discussionReplies, discussionThreads } from '../../db/schema/products/discussions'
 import { purchases } from '../../db/schema/products/purchases'
 import { userProductStatusLog } from '../../db/schema/products/user-product-status-log'
 import { userProductReviews, userProducts } from '../../db/schema/products/user-products'
+import { userTagPreferences } from '../../db/schema/tags/user-tag-preferences'
 import { nowISO } from '../../utils/dates'
 
 // Reads run as the RLS-scoped app_runtime role (withRlsContext sets auth.uid()
@@ -77,6 +79,16 @@ export async function exportUserData(db: DB, userId: string): Promise<UserExport
     .innerJoin(userProducts, eq(userProducts.id, purchases.userProductId))
     .where(eq(userProducts.userId, userId))
   const ingredientScoreRows = await db.select().from(userIngredientAnalysisScore)
+  // Scoped in SQL, not by RLS alone: the admin_bypass policy is PERMISSIVE, so an
+  // admin exporting their own data would otherwise receive every user's rules.
+  const ingredientPrefRows = await db
+    .select()
+    .from(userIngredientPreferences)
+    .where(eq(userIngredientPreferences.userId, userId))
+  const tagPrefRows = await db
+    .select()
+    .from(userTagPreferences)
+    .where(eq(userTagPreferences.userId, userId))
   const threadRows = await db
     .select({
       id: discussionThreads.id,
@@ -225,6 +237,26 @@ export async function exportUserData(db: DB, userId: string): Promise<UserExport
       openedAt: row.openedAt,
       finishedAt: row.finishedAt,
       expiresAt: row.expiresAt,
+    })),
+    ingredientPreferences: ingredientPrefRows.map((row) => ({
+      _meta: {
+        id: row.id,
+        userId: row.userId,
+        createdAt: row.createdAt,
+        updatedAt: row.updatedAt,
+      },
+      canonicalKey: row.canonicalKey,
+      stance: row.stance,
+    })),
+    tagPreferences: tagPrefRows.map((row) => ({
+      _meta: {
+        id: row.id,
+        userId: row.userId,
+        createdAt: row.createdAt,
+        updatedAt: row.updatedAt,
+      },
+      tagId: row.tagId,
+      stance: row.stance,
     })),
     ingredientAnalysisScores: ingredientScoreRows.map((row) => ({
       _meta: {

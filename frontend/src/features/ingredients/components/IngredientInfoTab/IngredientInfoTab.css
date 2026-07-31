@@ -155,6 +155,30 @@
   max-width: 65ch;
 }
 
+/* Framed so the two verbs stop reading as a second row of tabs (D11). */
+.ingredient-mark-block {
+  background: var(--bg-card);
+  border: var(--border-width) solid var(--border-default);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  padding: var(--space-4);
+}
+
+.ingredient-mark-block__title {
+  font-size: var(--text-sm);
+  font-weight: var(--font-semibold);
+  color: var(--text-primary);
+  margin: 0 0 var(--space-1);
+}
+
+.ingredient-mark-block__intro {
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+  line-height: var(--leading-relaxed);
+  margin: 0 0 var(--space-3);
+  max-width: 65ch;
+}
+
 .ingredient-updated-at {
   font-size: var(--text-xs);
   color: var(--text-muted);

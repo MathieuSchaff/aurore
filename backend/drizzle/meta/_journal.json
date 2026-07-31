@@ -813,6 +813,13 @@
       "when": 1785105548770,
       "tag": "0115_whole_salo",
       "breakpoints": true
+    },
+    {
+      "idx": 116,
+      "version": "7",
+      "when": 1785448955544,
+      "tag": "0116_ancient_blizzard",
+      "breakpoints": true
     }
   ]
 }

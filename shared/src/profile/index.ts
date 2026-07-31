@@ -125,6 +125,55 @@ export const updateUserPreferencesSchema = z.object({
   criteriaWeights: criteriaWeightsSchema.partial().optional(),
 })
 
+// "Sans X" / "Avec X": the labels state the effect on the list, and the enum
+// does too. exclude removes products containing X, require keeps only
+// products containing at least one required X.
+export const preferenceStanceValues = ['exclude', 'require'] as const
+export const preferenceStanceSchema = z.enum(preferenceStanceValues)
+
+export const ingredientPreferenceSchema = z.object({
+  canonicalKey: z.string().min(1),
+  // Display name joined from ingredients; null when the catalogue row vanished.
+  name: z.string().nullable(),
+  stance: preferenceStanceSchema,
+  createdAt: z.iso.datetime(),
+})
+
+export const tagPreferenceSchema = z.object({
+  tagId: z.uuid(),
+  slug: z.string(),
+  label: z.string(),
+  stance: preferenceStanceSchema,
+  createdAt: z.iso.datetime(),
+})
+
+export const preferenceTargetsSchema = z.object({
+  ingredients: z.array(ingredientPreferenceSchema),
+  tags: z.array(tagPreferenceSchema),
+})
+
+export const upsertIngredientPreferenceSchema = z.object({
+  canonicalKey: z.string().min(1).max(200),
+  stance: preferenceStanceSchema,
+})
+
+export const upsertTagPreferenceSchema = z.object({
+  tagId: z.uuid(),
+  stance: preferenceStanceSchema,
+})
+
+// Query, not path param: canonical keys can carry INCI slashes
+// (`Caprylic/Capric Triglyceride`) that break path routing.
+export const deleteIngredientPreferenceQuerySchema = z.object({
+  key: z.string().min(1).max(200),
+})
+
+// A tag id is a uuid, so it stays a path param. Validate it here, or Postgres
+// rejects the cast and its SQLSTATE surfaces as the public error code.
+export const deleteTagPreferenceParamSchema = z.object({
+  tagId: z.uuid(),
+})
+
 export type ProfileLink = z.infer<typeof profileLinkSchema>
 
 export type ProfileUpdateInput = z.infer<typeof profileUpdateSchema>
@@ -141,5 +190,11 @@ export type PublicProfileView = z.infer<typeof publicProfileViewSchema>
 export type CriteriaWeights = z.infer<typeof criteriaWeightsSchema>
 export type UserPreferences = z.infer<typeof userPreferencesSchema>
 export type UpdateUserPreferencesInput = z.infer<typeof updateUserPreferencesSchema>
+export type PreferenceStance = z.infer<typeof preferenceStanceSchema>
+export type IngredientPreference = z.infer<typeof ingredientPreferenceSchema>
+export type TagPreference = z.infer<typeof tagPreferenceSchema>
+export type PreferenceTargets = z.infer<typeof preferenceTargetsSchema>
+export type UpsertIngredientPreferenceInput = z.infer<typeof upsertIngredientPreferenceSchema>
+export type UpsertTagPreferenceInput = z.infer<typeof upsertTagPreferenceSchema>
 
 export type ProfilePublic = z.infer<typeof profilePublicSchema>

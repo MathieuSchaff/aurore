@@ -1,0 +1,84 @@
+/* Same visual weight as its neighbours: it was the flattest block of the
+   tab while being the only one that acts. */
+.preference-marks {
+  background: var(--bg-card);
+  border: var(--border-width) solid var(--border-default);
+  border-radius: var(--radius-xl, 1.25rem);
+  box-shadow: var(--shadow-card);
+  padding: var(--space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.preference-marks__hint {
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+}
+
+.preference-marks__empty {
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+}
+
+.preference-marks__empty-link {
+  color: var(--color-primary);
+  text-decoration: underline;
+}
+
+.preference-composer {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+  margin-top: var(--space-3);
+}
+
+.preference-composer > .combobox-primitive {
+  flex: 1;
+  min-width: 220px;
+}
+
+.preference-composer__tag-option {
+  font-size: var(--text-sm);
+}
+
+.preference-marks__group {
+  border-top: var(--border-width) solid var(--border-default);
+  padding-top: var(--space-4);
+}
+
+.preference-marks__subhead {
+  font-size: var(--text-sm);
+  font-weight: var(--font-semibold);
+  color: var(--text-primary);
+  margin-block-end: var(--space-2);
+}
+
+.preference-marks__group-empty {
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+  font-style: italic;
+  margin: 0;
+}
+
+.preference-marks__list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.preference-marks__item {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  background: var(--color-primary-light);
+  border-radius: var(--radius-full);
+  padding-block: var(--space-1);
+  padding-inline: var(--space-3) var(--space-1);
+  font-size: var(--text-sm);
+}
+
+.preference-marks__remove {
+  border-radius: var(--radius-full);
+}

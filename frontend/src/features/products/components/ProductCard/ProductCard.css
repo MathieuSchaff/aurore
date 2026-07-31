@@ -270,3 +270,20 @@
 .list-card--product .list-card__shelf-flag--avoided {
   font-style: italic;
 }
+
+.list-card__mark-flag {
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+  background: var(--color-primary-light);
+  border-radius: var(--radius-full);
+  padding-block: var(--space-1);
+  padding-inline: var(--space-2);
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.list-card__mark-flag--exclude {
+  background: var(--bg-muted);
+}

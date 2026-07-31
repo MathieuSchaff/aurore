@@ -152,6 +152,22 @@ function ProductCardImpl({ product, onAdd }: Props) {
                 )}
               </span>
             )}
+            {product.requireMatches.length > 0 && (
+              <span
+                className="list-card__mark-flag list-card__mark-flag--require"
+                title={`Votre règle Avec : ${product.requireMatches.join(', ')}`}
+              >
+                Contient : {product.requireMatches.join(', ')}
+              </span>
+            )}
+            {product.excludeMatches.length > 0 && (
+              <span
+                className="list-card__mark-flag list-card__mark-flag--exclude"
+                title={`Votre règle Sans : ${product.excludeMatches.join(', ')}`}
+              >
+                Contient : {product.excludeMatches.join(', ')}
+              </span>
+            )}
             <div className="list-card__price-wrap">
               {product.priceCents != null && product.priceCents > 0 ? (
                 <span className="list-card__price">
