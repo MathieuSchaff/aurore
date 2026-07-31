@@ -166,7 +166,7 @@ export function DermoProfileForm({ onSave, onCancel }: DermoProfileFormProps) {
       <DermoSection
         overline="Privé"
         title="Notes privées"
-        description="Ces notes sont privées et utilisées uniquement pour les recommandations personnalisées."
+        description="Visibles de vous seul. Aucun calcul ne s'en sert : c'est votre aide-mémoire, inclus dans l'export de vos données."
       >
         {({ titleId, descriptionId }) => (
           <Textarea

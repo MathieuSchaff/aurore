@@ -6,14 +6,16 @@ describe('productsSearchSchema — defaults', () => {
   it('parses an empty object into sensible defaults', () => {
     const parsed = productsSearchSchema.parse({})
     expect(parsed.sort).toBe('newest')
-    expect(parsed.profile_filter).toBe(false)
+    expect(parsed.profile_filter).toBeUndefined()
     expect(parsed.page).toBe(1)
     expect(parsed.priceMin).toBeUndefined()
     expect(parsed.priceMax).toBeUndefined()
   })
 
   it('default values object matches the schema output on empty input', () => {
-    expect(productsSearchDefaults.profile_filter).toBe(false)
+    // profile_filter is deliberately absent: listing it here would let
+    // stripSearchParams erase an explicit `false` from the URL (D9).
+    expect('profile_filter' in productsSearchDefaults).toBe(false)
     expect(productsSearchDefaults.sort).toBe('newest')
     expect(productsSearchDefaults.page).toBe(1)
   })
@@ -111,8 +113,14 @@ describe('productsSearchSchema — tag filters', () => {
 })
 
 describe('productsSearchSchema — profile_filter', () => {
-  it('defaults to false', () => {
-    expect(productsSearchSchema.parse({}).profile_filter).toBe(false)
+  // Tri-state on purpose: an unstated toggle is not a stated "off", so the
+  // standing choice can resolve it client-side (D9).
+  it('stays undefined when the URL says nothing', () => {
+    expect(productsSearchSchema.parse({}).profile_filter).toBeUndefined()
+  })
+
+  it('keeps an explicit false instead of collapsing it to the default', () => {
+    expect(productsSearchSchema.parse({ profile_filter: false }).profile_filter).toBe(false)
   })
 
   it('accepts true', () => {

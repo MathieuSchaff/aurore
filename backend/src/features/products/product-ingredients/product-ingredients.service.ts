@@ -53,6 +53,9 @@ export async function listIngredientsByProduct(db: Database, productId: string) 
       ingredientSlug: ingredients.slug,
       ingredientCategory: ingredients.category,
       ingredientDescription: ingredients.description,
+      // Substance identity: the only key a declared preference can attach to,
+      // and the one the catalogue filter joins on.
+      ingredientCanonicalKey: ingredients.canonicalKey,
     })
     .from(productIngredients)
     .innerJoin(ingredients, eq(productIngredients.ingredientId, ingredients.id))

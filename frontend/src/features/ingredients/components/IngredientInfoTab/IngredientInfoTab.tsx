@@ -11,6 +11,7 @@ import { RichText } from '@/component/Typography/RichText/RichText'
 import { SectionHeader } from '@/component/Typography/SectionHeader/SectionHeader'
 import { ReportContentButton } from '@/features/discussions/components/ReportContentButton'
 import { SuggestEditButton } from '@/features/discussions/components/SuggestEditButton'
+import { IngredientMarkButtons } from '@/features/profile/components/IngredientMarkButtons/IngredientMarkButtons'
 import { ingredientQueries } from '@/lib/queries/ingredients'
 import { useAuthStore } from '@/store/auth'
 import { ingredientLabels } from '../../constants'
@@ -140,6 +141,29 @@ export function IngredientInfoTab() {
           <p className="ingredient-products-empty">{ingredientLabels.noProductsAssociated}</p>
         )}
       </div>
+
+      {/* After the reading, never before it: one understands the substance, then
+          decides. Mounted here rather than in the layout so it stops
+          hovering over the Discussions tab, which it has nothing to do with. */}
+      {user && ingredient.canonicalKey && (
+        <section
+          className="ingredient-section ingredient-mark-block"
+          aria-labelledby="ingredient-mark-title"
+        >
+          <h2 id="ingredient-mark-title" className="ingredient-mark-block__title">
+            Cet ingrédient dans vos recherches
+          </h2>
+          <p className="ingredient-mark-block__intro">
+            « Sans » retire de vos recherches les produits qui en contiennent, « Avec » n'y garde
+            que ceux qui en contiennent au moins un. Retirable d'un tap depuis votre profil.
+          </p>
+          <IngredientMarkButtons
+            canonicalKey={ingredient.canonicalKey}
+            name={ingredient.name}
+            stances={['exclude', 'require']}
+          />
+        </section>
+      )}
 
       <p className="ingredient-updated-at">
         Fiche mise à jour le <Time iso={ingredient.updatedAt} style="long" />

@@ -3,7 +3,7 @@ import { z } from 'zod'
 import { PRODUCT_DOMAIN_DB_CATEGORIES, type ProductDomainTab } from './domain-tabs'
 import { PRODUCT_KINDS } from './kinds'
 
-// Query schema for GET /products. Discriminated on `category` so each domain
+// Query schema for GET /products. Discriminated on `category`: each domain
 // declares only its own filter keys, so skin_type cannot leak into a haircare
 // request. Per-domain keys mirror shared/src/products/{domain}/tag-filters.ts.
 
@@ -41,10 +41,22 @@ const kindFilterFor = (domain: ProductDomainTab) => {
     })
 }
 
+const booleanQueryParam = z.union([
+  z.boolean(),
+  z.enum(['true', 'false']).transform((value) => value === 'true'),
+])
+
 const baseListProductsQuery = z.object({
   brand: z.string().optional(),
   ingredient: z.string().optional(),
   avoid_for: z.string().optional(),
+  // "Selon mon profil": apply the caller's DECLARED rules. "Sans X" (exclude)
+  // removes rows containing X; "Avec X" (require) keeps only rows containing at
+  // least one required target. include_excluded lifts both effects, annotations
+  // stay. Inferred avoid_for badges are separate: the inferred never hides
+  // (CLAUDE.md §1, brief profile-motifs §7 D3/D8).
+  apply_preferences: booleanQueryParam.optional(),
+  include_excluded: booleanQueryParam.optional(),
   // Free-text search across product name + brand. Used as a fallback intent
   // when the header search query matches neither a brand nor an ingredient.
   q: z.string().trim().min(1).max(100).optional(),

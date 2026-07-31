@@ -83,7 +83,12 @@ const { schema: baseSchema, defaultValues } = filterSearchSchema(FILTER_KEYS)
 export const productsSearchSchema = baseSchema
   .extend({
     category: z.enum(PRODUCT_DOMAIN_TABS).default('skincare'),
-    profile_filter: z.boolean().default(false),
+    // No default: an unstated toggle is not a stated "off". The standing choice
+    // resolves it client-side (D9), and it is kept out of productsSearchDefaults
+    // so `?profile_filter=false` survives stripSearchParams.
+    profile_filter: z.boolean().optional(),
+    // "Afficher quand même": reverse the declared-avoid exclusion, keep annotations.
+    show_hidden: z.boolean().default(false),
     sort: productSortEnum.optional(),
     priceMin: z.number().int().min(0).optional(),
     priceMax: z.number().int().min(0).optional(),
@@ -104,6 +109,6 @@ export type ProductsSearch = z.infer<typeof productsSearchSchema>
 export const productsSearchDefaults = {
   ...defaultValues,
   category: 'skincare' as ProductDomainTab,
-  profile_filter: false,
+  show_hidden: false,
   sort: 'newest' as const,
 }

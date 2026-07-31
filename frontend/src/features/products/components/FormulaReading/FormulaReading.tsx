@@ -1,8 +1,9 @@
 import { useQuery } from '@tanstack/react-query'
 import { Link } from '@tanstack/react-router'
-import { GitMerge, Info, Scale, Sparkles } from 'lucide-react'
-import { useMemo } from 'react'
+import { ChevronDown, GitMerge, Info, Scale, Sparkles } from 'lucide-react'
+import { useId, useMemo, useState } from 'react'
 
+import { Button } from '@/component/Button/Button'
 import { SectionHeader } from '@/component/Typography/SectionHeader/SectionHeader'
 import {
   BENEFIT_AXIS_PHRASE,
@@ -14,6 +15,7 @@ import {
   PROFILE_RELEVANT_AXES,
   RISK_AXIS_PHRASE,
 } from '@/constants/derm'
+import { IngredientMarkButtons } from '@/features/profile/components/IngredientMarkButtons/IngredientMarkButtons'
 import { productQueries } from '@/lib/queries/products'
 import { formatRegulatoryFindings } from './regulatoryFindings'
 import './FormulaReading.css'
@@ -36,16 +38,32 @@ function DriverLabel({ label, slug }: { label: string; slug: string | null }) {
   )
 }
 
+type LinkedIngredient = {
+  ingredientName: string
+  ingredientCanonicalKey: string | null
+}
+
 interface FormulaReadingProps {
   slug: string
   userKey: string | null
   profileSlugs: ReadonlySet<string>
+  // Rows of product_ingredients, the only source the catalogue filter can honour.
+  // Driver labels below are parsed from products.inci and diverge from it, so a
+  // rule declared on a driver could hide this very product (D10).
+  linkedIngredients: readonly LinkedIngredient[]
 }
 
 // Surfaces the algo-derm assessment: signals and their reason, never a score or
 // verdict (excluded by the product vision).
-export function FormulaReading({ slug, userKey, profileSlugs }: FormulaReadingProps) {
+export function FormulaReading({
+  slug,
+  userKey,
+  profileSlugs,
+  linkedIngredients,
+}: FormulaReadingProps) {
   const { data: assessment, isError } = useQuery(productQueries.dermoScore(slug, userKey))
+  const [declareOpen, setDeclareOpen] = useState(false)
+  const declareListId = useId()
 
   const relevantAxes = useMemo(() => {
     const axes = new Set<RiskAxis>()
@@ -54,6 +72,18 @@ export function FormulaReading({ slug, userKey, profileSlugs }: FormulaReadingPr
     }
     return axes
   }, [profileSlugs])
+
+  // Unkeyed sheets carry no identity a preference can attach to, so they are
+  // absent (F3). Two sheets can share a key; keep the first name.
+  const declarable = useMemo(() => {
+    const nameByKey = new Map<string, string>()
+    for (const i of linkedIngredients) {
+      if (i.ingredientCanonicalKey && !nameByKey.has(i.ingredientCanonicalKey)) {
+        nameByKey.set(i.ingredientCanonicalKey, i.ingredientName)
+      }
+    }
+    return [...nameByKey].map(([canonicalKey, name]) => ({ canonicalKey, name }))
+  }, [linkedIngredients])
 
   // Loading and errors stay silent; an assessed formula with nothing to
   // surface must say so instead (a mute vanish reads the same as a failure).
@@ -75,7 +105,7 @@ export function FormulaReading({ slug, userKey, profileSlugs }: FormulaReadingPr
   }
   // Keep ingredient/heuristic signals only; interaction rules render in their own
   // section with a human note (their topDrivers label is a raw rule id). Drop drivers
-  // with no axis — matched evidence that carries no concern is noise here.
+  // with no axis: matched evidence that carries no concern is noise here.
   const drivers = explanation.topDrivers.filter(
     (d) => d.source !== 'interaction' && d.axes.length > 0
   )
@@ -195,6 +225,50 @@ export function FormulaReading({ slug, userKey, profileSlugs }: FormulaReadingPr
               {phrase}
             </p>
           ))}
+        </div>
+      )}
+
+      {userKey && declarable.length > 0 && (
+        <div className="formula-reading__declare">
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => setDeclareOpen((open) => !open)}
+            aria-expanded={declareOpen}
+            // The list is unmounted while collapsed, so pointing at its id would
+            // leave a dangling reference for assistive tech.
+            aria-controls={declareOpen ? declareListId : undefined}
+          >
+            <ChevronDown
+              size={14}
+              aria-hidden="true"
+              className={`formula-reading__declare-chevron${
+                declareOpen ? ' formula-reading__declare-chevron--open' : ''
+              }`}
+            />
+            Utiliser un ingrédient de cette formule dans mes recherches
+          </Button>
+
+          {declareOpen && (
+            <div className="formula-reading__declare-panel">
+              <p className="formula-reading__explainer">
+                « Sans » retire de vos recherches les produits qui en contiennent, « Avec » n'y
+                garde que ceux qui en contiennent au moins un. Retirable d'un tap depuis votre
+                profil.
+              </p>
+              <ul role="list" id={declareListId} className="formula-reading__declare-list">
+                {declarable.map((i) => (
+                  <li key={i.canonicalKey}>
+                    <IngredientMarkButtons
+                      canonicalKey={i.canonicalKey}
+                      name={i.name}
+                      stances={['exclude', 'require']}
+                    />
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
         </div>
       )}
 

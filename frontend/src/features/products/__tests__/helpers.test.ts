@@ -223,7 +223,7 @@ describe('buildProductsApiFilters', () => {
     expect(out.priceMin).toBe(500)
   })
 
-  it('forwards q when set (D3 free-text fallback)', () => {
+  it('forwards q when set (free-text fallback)', () => {
     const out = buildProductsApiFilters({
       category: 'skincare',
       filters: emptyFilters(),
@@ -252,10 +252,13 @@ describe('buildProductsApiFilters', () => {
 })
 
 describe('buildResetSearchParams', () => {
-  it('clears profile_filter + price bounds', () => {
+  it('clears price bounds but keeps the standing profile_filter', () => {
     const prev = { profile_filter: true, priceMin: 1500, priceMax: 5000, sort: 'name', page: 3 }
     expect(buildResetSearchParams(prev)).toEqual({
-      profile_filter: false,
+      // A standing setting, not a filter chip: clearing the criteria must not
+      // silently revoke it.
+      profile_filter: true,
+      show_hidden: false,
       priceMin: undefined,
       priceMax: undefined,
       sort: 'name',
@@ -454,7 +457,8 @@ describe('buildDomainSwitchSearch', () => {
     expect(next.category).toBe('haircare')
     expect(next.skin_type).toEqual([])
     expect(next.concern).toEqual([])
-    expect(next.profile_filter).toBe(false)
+    // Survives the domain switch: the toggle follows the reader, not the tab.
+    expect(next.profile_filter).toBe(true)
     expect(next.page).toBe(1)
   })
 

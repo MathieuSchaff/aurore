@@ -12,6 +12,8 @@ export type ProductListItem = {
   amountUnit: string
   imageUrl: string | null
   profileMatches: string[]
+  requireMatches: string[]
+  excludeMatches: string[]
   tags: { slug: string; tagType: string; relevance: 'primary' | 'secondary' }[]
 }
 
@@ -23,7 +25,7 @@ export const PRODUCT_TAGS: Record<string, string[]> = {
   '22222222-2222-2222-2222-222222222222': ['acne-imperfections', 'pores-sebum'],
 }
 
-// Ingredient slugs per product - same purpose as PRODUCT_TAGS but for the
+// Ingredient slugs per product: same purpose as PRODUCT_TAGS but for the
 // async ingredient filter.
 export const PRODUCT_INGREDIENTS: Record<string, string[]> = {
   '11111111-1111-1111-1111-111111111111': ['glycerin', 'hyaluronic-acid'],
@@ -43,6 +45,8 @@ export const PRODUCTS: ProductListItem[] = [
     amountUnit: 'ml',
     imageUrl: null,
     profileMatches: [],
+    requireMatches: [],
+    excludeMatches: [],
     tags: [
       { slug: 'barriere-cutanee', tagType: 'concern', relevance: 'primary' },
       { slug: 'peau-seche', tagType: 'skin_type', relevance: 'primary' },
@@ -60,6 +64,8 @@ export const PRODUCTS: ProductListItem[] = [
     amountUnit: 'ml',
     imageUrl: null,
     profileMatches: [],
+    requireMatches: [],
+    excludeMatches: [],
     tags: [
       { slug: 'acne-imperfections', tagType: 'concern', relevance: 'primary' },
       { slug: 'pores-sebum', tagType: 'concern', relevance: 'secondary' },
@@ -68,7 +74,7 @@ export const PRODUCTS: ProductListItem[] = [
 ]
 
 // Counts derived from PRODUCT_TAGS so chips with at least one match render
-// enabled. Anything absent stays 0 → chip disabled in the drawer.
+// enabled. Anything absent stays 0, so the chip is disabled in the drawer.
 const _counts: Record<string, number> = {}
 for (const tags of Object.values(PRODUCT_TAGS)) {
   for (const t of tags) _counts[t] = (_counts[t] ?? 0) + 1

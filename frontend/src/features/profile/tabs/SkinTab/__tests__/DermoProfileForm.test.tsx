@@ -101,7 +101,7 @@ describe('DermoProfileForm', () => {
       "Sélectionnez jusqu'à 3 types."
     )
     expect(screen.getByRole('textbox', { name: 'Notes privées' })).toHaveAccessibleDescription(
-      /Ces notes sont privées.*0\/2000/
+      /Aucun calcul ne s'en sert.*0\/2000/
     )
   })
 })

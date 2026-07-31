@@ -29,6 +29,9 @@ describe('convergeShelfStatusForList', () => {
       total: items.length,
       page: 1,
       limit: 20,
+      hiddenCount: 0,
+      excludedLabels: [],
+      requiredLabels: [],
     })
 
     let overlayCalls = 0
@@ -48,7 +51,15 @@ describe('convergeShelfStatusForList', () => {
         fullListCalls++
         return HttpResponse.json({
           success: true,
-          data: { items: [], total: 0, page: 1, limit: 20 },
+          data: {
+            items: [],
+            total: 0,
+            page: 1,
+            limit: 20,
+            hiddenCount: 0,
+            excludedLabels: [],
+            requiredLabels: [],
+          },
         })
       })
     )
@@ -73,6 +84,9 @@ describe('convergeShelfStatusForList', () => {
       total: items.length,
       page: 1,
       limit: 20,
+      hiddenCount: 0,
+      excludedLabels: [],
+      requiredLabels: [],
     })
 
     applyShelfStatusOverlayToListCache(

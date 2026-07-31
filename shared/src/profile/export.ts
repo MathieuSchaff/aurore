@@ -1,4 +1,4 @@
-import type { CriteriaWeights, ProfileLink, SkinConcern, SkinType } from './index'
+import type { CriteriaWeights, PreferenceStance, ProfileLink, SkinConcern, SkinType } from './index'
 
 // RGPD portability export (Article 20). Shape is what the user downloads from
 // /api/profile/export. Stays in shared/ so backend service + frontend hook +
@@ -6,7 +6,7 @@ import type { CriteriaWeights, ProfileLink, SkinConcern, SkinType } from './inde
 
 // System-level fields (id, foreign keys, timestamps) live under `_meta` per
 // row, so the user-facing data stays scannable while staying complete for
-// third-party re-import.
+// third-party import.
 export interface ExportRowMeta {
   id?: string
   userId?: string
@@ -98,6 +98,18 @@ export interface ExportPurchase {
   expiresAt: string | null
 }
 
+export interface ExportIngredientPreference {
+  _meta: ExportRowMeta
+  canonicalKey: string
+  stance: PreferenceStance
+}
+
+export interface ExportTagPreference {
+  _meta: ExportRowMeta
+  tagId: string
+  stance: PreferenceStance
+}
+
 export interface ExportUserIngredientAnalysisScore {
   _meta: ExportRowMeta
   suspicionScore: string
@@ -131,6 +143,8 @@ export interface UserExport {
   productReviews: ExportUserProductReview[]
   productStatusLog: ExportUserProductStatusLog[]
   purchases: ExportPurchase[]
+  ingredientPreferences: ExportIngredientPreference[]
+  tagPreferences: ExportTagPreference[]
   ingredientAnalysisScores: ExportUserIngredientAnalysisScore[]
   discussionThreads: ExportDiscussionThread[]
   discussionReplies: ExportDiscussionReply[]

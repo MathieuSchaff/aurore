@@ -168,6 +168,29 @@
   opacity: 0.4;
 }
 
+.portrait-reach {
+  margin: var(--space-4) 0 0;
+  padding-top: var(--space-3);
+  border-top: var(--border-width) solid var(--border-default);
+  font-size: var(--text-sm);
+  line-height: var(--leading-relaxed);
+  color: var(--text-secondary);
+}
+
+.portrait-reach__intro {
+  color: var(--text-muted);
+}
+
+.portrait-reach__link {
+  color: var(--color-primary);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.portrait-reach__sep {
+  color: var(--text-muted);
+}
+
 @media (prefers-reduced-motion: reduce) {
   .skin-portrait-card__halo {
     transition: none;

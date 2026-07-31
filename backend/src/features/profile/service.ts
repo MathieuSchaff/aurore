@@ -1,20 +1,29 @@
 import type {
   CriteriaWeights,
+  IngredientPreference,
+  PreferenceTargets,
   PrivacySettings,
   ProfilePublic,
   ProfileStats,
   ProfileUpdateInput,
   PublicProfileView,
+  TagPreference,
   UpdatePrivacySettingsInput,
   UpdateUserPreferencesInput,
+  UpsertIngredientPreferenceInput,
+  UpsertTagPreferenceInput,
   UserDermoProfile,
   UserDermoProfileUpdateInput,
 } from '@aurore/shared'
 
-import { and, count, eq } from 'drizzle-orm'
+import { and, count, eq, inArray } from 'drizzle-orm'
 
 import type { Database, DB } from '../../db'
 import { userPreferences } from '../../db/schema/auth/user-preferences'
+import { ingredients } from '../../db/schema/ingredients/ingredients'
+import { userIngredientPreferences } from '../../db/schema/ingredients/user-ingredient-preferences'
+import { productTagTypes } from '../../db/schema/tags/tags'
+import { userTagPreferences } from '../../db/schema/tags/user-tag-preferences'
 import { userProducts } from '../../db/schema/user-products'
 import {
   type Profile,
@@ -380,4 +389,137 @@ export async function getPublicProfileByUsername(
       ? ((row.skinConcerns ?? []) as PublicProfileView['skinConcerns'])
       : null,
   }
+}
+
+export async function listPreferenceTargets(db: DB, userId: string): Promise<PreferenceTargets> {
+  // Sequential on purpose: see exportUserData on bun-sql pipelining mis-binds.
+  const ingredientRows = await db
+    .select({
+      canonicalKey: userIngredientPreferences.canonicalKey,
+      stance: userIngredientPreferences.stance,
+      createdAt: userIngredientPreferences.createdAt,
+    })
+    .from(userIngredientPreferences)
+    .where(eq(userIngredientPreferences.userId, userId))
+    .orderBy(userIngredientPreferences.createdAt)
+
+  // Separate lookup, not a JOIN: canonical_key is non-unique on ingredients,
+  // a join would duplicate preference rows. First name wins.
+  const nameByKey = new Map<string, string>()
+  if (ingredientRows.length > 0) {
+    const nameRows = await db
+      .select({ canonicalKey: ingredients.canonicalKey, name: ingredients.name })
+      .from(ingredients)
+      .where(
+        inArray(
+          ingredients.canonicalKey,
+          ingredientRows.map((r) => r.canonicalKey)
+        )
+      )
+    for (const row of nameRows) {
+      if (row.canonicalKey !== null && !nameByKey.has(row.canonicalKey)) {
+        nameByKey.set(row.canonicalKey, row.name)
+      }
+    }
+  }
+
+  const tagRows = await db
+    .select({
+      tagId: userTagPreferences.tagId,
+      slug: productTagTypes.slug,
+      label: productTagTypes.label,
+      stance: userTagPreferences.stance,
+      createdAt: userTagPreferences.createdAt,
+    })
+    .from(userTagPreferences)
+    .innerJoin(productTagTypes, eq(productTagTypes.id, userTagPreferences.tagId))
+    .where(eq(userTagPreferences.userId, userId))
+    .orderBy(userTagPreferences.createdAt)
+
+  return {
+    ingredients: ingredientRows.map((r) => ({ ...r, name: nameByKey.get(r.canonicalKey) ?? null })),
+    tags: tagRows,
+  }
+}
+
+export async function upsertIngredientPreference(
+  db: DB,
+  userId: string,
+  data: UpsertIngredientPreferenceInput
+): Promise<IngredientPreference | null> {
+  // A preference must point at a substance the catalogue knows, otherwise a
+  // typoed key becomes an orphan no screen can ever display or exclude on.
+  const [known] = await db
+    .select({ name: ingredients.name })
+    .from(ingredients)
+    .where(eq(ingredients.canonicalKey, data.canonicalKey))
+    .limit(1)
+  if (!known) return null
+
+  const [row] = await db
+    .insert(userIngredientPreferences)
+    .values({ userId, canonicalKey: data.canonicalKey, stance: data.stance })
+    .onConflictDoUpdate({
+      target: [userIngredientPreferences.userId, userIngredientPreferences.canonicalKey],
+      set: { stance: data.stance, updatedAt: nowISO() },
+    })
+    .returning()
+
+  return {
+    canonicalKey: row.canonicalKey,
+    name: known.name,
+    stance: row.stance,
+    createdAt: row.createdAt,
+  }
+}
+
+export async function deleteIngredientPreference(
+  db: DB,
+  userId: string,
+  canonicalKey: string
+): Promise<void> {
+  await db
+    .delete(userIngredientPreferences)
+    .where(
+      and(
+        eq(userIngredientPreferences.userId, userId),
+        eq(userIngredientPreferences.canonicalKey, canonicalKey)
+      )
+    )
+}
+
+export async function upsertTagPreference(
+  db: DB,
+  userId: string,
+  data: UpsertTagPreferenceInput
+): Promise<TagPreference | null> {
+  const [tag] = await db
+    .select({ slug: productTagTypes.slug, label: productTagTypes.label })
+    .from(productTagTypes)
+    .where(eq(productTagTypes.id, data.tagId))
+    .limit(1)
+  if (!tag) return null
+
+  const [row] = await db
+    .insert(userTagPreferences)
+    .values({ userId, tagId: data.tagId, stance: data.stance })
+    .onConflictDoUpdate({
+      target: [userTagPreferences.userId, userTagPreferences.tagId],
+      set: { stance: data.stance, updatedAt: nowISO() },
+    })
+    .returning()
+
+  return {
+    tagId: row.tagId,
+    slug: tag.slug,
+    label: tag.label,
+    stance: row.stance,
+    createdAt: row.createdAt,
+  }
+}
+
+export async function deleteTagPreference(db: DB, userId: string, tagId: string): Promise<void> {
+  await db
+    .delete(userTagPreferences)
+    .where(and(eq(userTagPreferences.userId, userId), eq(userTagPreferences.tagId, tagId)))
 }

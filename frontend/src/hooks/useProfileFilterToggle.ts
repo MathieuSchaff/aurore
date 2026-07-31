@@ -10,7 +10,14 @@ export function useProfileFilterToggle(from: RoutePaths<typeof routeTree>) {
   return useCallback(
     (checked: boolean) => {
       navigate({
-        search: (prev: Record<string, unknown>) => ({ ...prev, profile_filter: checked, page: 1 }),
+        // Turning the toggle off drops show_hidden too: "afficher quand même"
+        // only means something while the profile filter is active.
+        search: (prev: Record<string, unknown>) => ({
+          ...prev,
+          profile_filter: checked,
+          ...(checked ? {} : { show_hidden: false }),
+          page: 1,
+        }),
       })
     },
     [navigate]

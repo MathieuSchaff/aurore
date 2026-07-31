@@ -369,6 +369,9 @@ export async function searchIngredients(
       slug: ingredients.slug,
       type: ingredients.type,
       category: ingredients.category,
+      // Rule composer autocomplete: a preference can only attach to a keyed
+      // substance (D8), unkeyed rows render disabled.
+      canonicalKey: ingredients.canonicalKey,
     })
     .from(ingredients)
     .where(
