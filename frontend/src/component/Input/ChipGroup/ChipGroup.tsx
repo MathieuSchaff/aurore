@@ -1,5 +1,5 @@
 import clsx from 'clsx'
-import { type ReactNode, useId, useState } from 'react'
+import { type ReactNode, useId, useMemo, useState } from 'react'
 
 import './ChipGroup.css'
 
@@ -47,13 +47,14 @@ export function ChipGroup<T extends string>({
 }: ChipGroupProps<T>) {
   const groupId = useId()
   const [expanded, setExpanded] = useState(false)
+  const selectedValues = useMemo(() => new Set(selected), [selected])
 
   const handleClick = (value: T) => {
     if (mode === 'exclusive') {
       onChange([value])
       return
     }
-    if (selected.includes(value)) {
+    if (selectedValues.has(value)) {
       onChange(selected.filter((v) => v !== value))
     } else {
       if (max && selected.length >= max) return
@@ -69,7 +70,7 @@ export function ChipGroup<T extends string>({
 
   const chips = visibleOptions.map(
     ({ value, label, count, disabled: optionDisabled, icon, title }) => {
-      const isSelected = selected.includes(value)
+      const isSelected = selectedValues.has(value)
       const isDisabled =
         disabled || optionDisabled || (!isSelected && max != null && selected.length >= max)
 
