@@ -1,5 +1,3 @@
-import { hasFragranceComponent } from '@aurore/shared'
-
 import { useQuery } from '@tanstack/react-query'
 import { Link } from '@tanstack/react-router'
 import { Check, Copy, Droplets, Sparkles } from 'lucide-react'
@@ -36,13 +34,7 @@ export function PdsFormulaSection({ p }: PdsFormulaSectionProps) {
   })
 
   const fragranceNote =
-    dermoProfile?.skinTypes?.includes('peau-sensible') && hasFragranceComponent(fullProduct?.inci)
-
-  // A comma followed by a digit belongs to the name (`1,2-Hexanediol`), never to the separator.
-  // Mirrors algo-derm's `splitINCI`, which the frontend cannot import (vendored backend-only).
-  const inciCount = fullProduct?.inci
-    ? fullProduct.inci.split(/,(?!\d)/).filter((s) => s.trim()).length
-    : 0
+    dermoProfile?.skinTypes?.includes('peau-sensible') && fullProduct?.hasFragrance
 
   return (
     <>
@@ -57,7 +49,7 @@ export function PdsFormulaSection({ p }: PdsFormulaSectionProps) {
             <div className="pds-inci-eyebrow">
               <span className="pds-inci-rule" aria-hidden="true" />
               <span>Liste INCI</span>
-              <span className="pds-inci-count">{inciCount} ingrédients</span>
+              <span className="pds-inci-count">{fullProduct.inciCount} ingrédients</span>
             </div>
             <button
               type="button"
