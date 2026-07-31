@@ -223,7 +223,8 @@ export function computeLinks(
   canonicalKeyBySlug: Map<string, string>
 ): ComputeResult {
   const allowed = getDomainAllowlist(category)
-  // splitINCI only splits on commas (+ protects decimals). Fold scraper artifacts first.
+  // splitINCI splits on commas (+ protects decimals); its period fallback needs a comma-sparse
+  // list, so a real declaration never reaches it. Fold scraper artifacts first.
   // Supplement text keeps list separators because its dashes and semicolons separate doses.
   const tokens = splitINCI(
     foldScraperDelimiters(inci, { foldListSeparators: category !== 'complement' })

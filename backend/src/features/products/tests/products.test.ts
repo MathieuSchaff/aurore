@@ -1132,6 +1132,25 @@ describe('Product Service', () => {
       expect(result.ingredients[0]?.ingredientName).toBe('Niacinamide')
       expect(Array.isArray(result.tags)).toBe(true)
     })
+
+    // The sheet reads both off the payload; nothing else recomputes them.
+    it('should ship the INCI facts the product sheet displays', async () => {
+      const product = await makeProduct('Sérum Parfumé', 'Brand', 'serum', 'pump', {
+        inci: 'Aqua, Glycerin, Limonene',
+      })
+
+      const result = await getProductFullBySlug(product.slug, testDb)
+      expect(result.inciCount).toBe(3)
+      expect(result.hasFragrance).toBe(true)
+    })
+
+    it('should report empty INCI facts when the product has no INCI', async () => {
+      const product = await makeProduct('Sérum Nu', 'Brand')
+
+      const result = await getProductFullBySlug(product.slug, testDb)
+      expect(result.inciCount).toBe(0)
+      expect(result.hasFragrance).toBe(false)
+    })
   })
 })
 

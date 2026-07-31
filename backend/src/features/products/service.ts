@@ -47,6 +47,7 @@ import {
   translateUniqueViolation,
 } from '../../lib/catalog'
 import { escapeLike } from '../../lib/helpers'
+import { computeInciFacts } from '../../lib/inci-facts'
 import { buildChanges, logEdit, productEditConfig } from '../../lib/logs'
 import { normalizeInci } from '../../lib/normalize-inci'
 import { nowISO } from '../../utils/dates'
@@ -190,8 +191,13 @@ export async function getProductFullBySlug(slug: string, database: Database = db
     listIngredientsByProduct(database, product.id),
     listTagsByProduct(database, product.id),
   ])
+  // Named rather than spread: this is where the payload contract is read, and a column of the
+  // same name appearing later must collide loudly instead of being shadowed.
+  const { inciCount, hasFragrance } = computeInciFacts(product.inci)
   return {
     ...product,
+    inciCount,
+    hasFragrance,
     ingredients,
     tags,
   }

@@ -162,7 +162,8 @@ export const CATEGORY_DOMAIN_ALLOWLIST: Record<string, IngredientDomain[]> = {
   complement: ['supplements', 'skincare'],
 }
 
-// Repair scraper-mangled delimiters before splitINCI (which only splits on commas).
+// Repair scraper-mangled delimiters before splitINCI (which splits on commas; its period
+// fallback needs a comma-sparse list, so a real declaration never reaches it).
 // Entities decode first: the `;` inside `&lt;` must not become a comma.
 // `&amp;` decodes last so `&amp;lt;` cannot cascade into a real `<`.
 const HTML_ENTITY_DECODES: Array<[RegExp, string]> = [
