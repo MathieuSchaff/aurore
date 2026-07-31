@@ -19,13 +19,10 @@ function splitInciLoose(inci: string): string[] {
   return splitINCI(foldWeldedSeparators(inci))
 }
 
-// EU 1223/2009 Annex III fragrance allergens, in INCI spelling, plus the raw fragrance
-// markers. `Benzyl Alcohol` is left out on purpose: it is a preservative far more often
-// than a fragrance, and the seed already treats it as too common to be informative.
-const FRAGRANCE_COMPONENTS: ReadonlySet<string> = new Set([
-  'parfum',
-  'fragrance',
-  'aroma',
+// EU 1223/2009 Annex III fragrance allergens, in INCI spelling. `Benzyl Alcohol` is left
+// out on purpose: it is a preservative far more often than a fragrance, and the seed
+// already treats it as too common to be informative.
+const FRAGRANCE_ALLERGENS: ReadonlySet<string> = new Set([
   'alpha-isomethyl ionone',
   'amyl cinnamal',
   'amylcinnamyl alcohol',
@@ -56,28 +53,95 @@ const FRAGRANCE_COMPONENTS: ReadonlySet<string> = new Set([
   'methyl 2-octynoate',
 ])
 
+const FRAGRANCE_COMPONENTS: ReadonlySet<string> = new Set([
+  ...FRAGRANCE_ALLERGENS,
+  'parfum',
+  'fragrance',
+  'aroma',
+])
+
 /**
- * Read from the raw INCI, not from linked ingredients: fragrance allergens are declared last
- * and carry no `ingredients` row, so they never reach `product_ingredients`.
+ * `keepParentheticals` keeps `Paraffinum Liquidum (Mineral Oil)` readable as one token
+ * instead of dropping the gloss. Off by default because the gloss is marketing noise for
+ * an identity lookup; on for the contradiction audit, where a misspelt head
+ * (`Paranum Liquidum (Mineral Oil)`) leaves the parenthesis as the only readable
+ * declaration on the label.
  */
-function hasFragranceComponent(inci: string | null | undefined): boolean {
-  if (!inci) return false
+export interface InciTokenOptions {
+  keepParentheticals?: boolean
+}
+
+// One tokenizer, several predicates. The fragrance question alone has three distinct answers
+// (Annex III allergens, the bare `Parfum` marker, or either) and a second copy of this
+// normalization would drift. New markers go through here, never through their own split.
+// Returns the matching token rather than a boolean: an audit has to name what tripped it,
+// and a second walk to find that out would be the drift this function exists to prevent.
+export function findInciToken(
+  inci: string | null | undefined,
+  hit: (token: string) => boolean,
+  options?: InciTokenOptions
+): string | null {
+  if (!inci) return null
   for (const raw of splitInciLoose(inci)) {
     // Same scraper artefacts the seed strips: supplier codes, organic markers, stray dots.
     const token = raw
       .normalize('NFD')
       .replace(/[̀-ͯ]/g, '')
       .toLowerCase()
-      .replace(/\([^)]*\)/g, ' ')
-      .replace(/\[[^\]]*\]/g, ' ')
+      .replace(options?.keepParentheticals ? /[()[\]]/g : /\([^)]*\)|\[[^\]]*\]/g, ' ')
       .replace(/[*†‡•]/g, ' ')
       .replace(/\s+/g, ' ')
       .replace(/^[.\s]+|[.\s]+$/g, '')
     if (!token) continue
-    if (FRAGRANCE_COMPONENTS.has(token)) return true
-    if (/^(parfum|fragrance|aroma)\b/.test(token)) return true
+    if (hit(token)) return token
   }
-  return false
+  return null
+}
+
+export function anyInciToken(
+  inci: string | null | undefined,
+  hit: (token: string) => boolean,
+  options?: InciTokenOptions
+): boolean {
+  return findInciToken(inci, hit, options) !== null
+}
+
+const GENERIC_FRAGRANCE_MARKER = /^(parfum|fragrance|aroma)\b/
+
+/**
+ * Read from the raw INCI, not from linked ingredients: fragrance allergens are declared last
+ * and carry no `ingredients` row, so they never reach `product_ingredients`.
+ */
+function hasFragranceComponent(inci: string | null | undefined): boolean {
+  return anyInciToken(
+    inci,
+    (token) => FRAGRANCE_COMPONENTS.has(token) || GENERIC_FRAGRANCE_MARKER.test(token)
+  )
+}
+
+/**
+ * Narrower than `hasFragranceComponent` on purpose: the declared `Parfum`/`Fragrance`/`Aroma`
+ * marker only, never the Annex III allergens. A product can carry `Limonene` from an essential
+ * oil and still be legitimately fragrance-free, so `sans-parfum` and `sans-allergenes-parfumants`
+ * do not answer the same question. Vetoing a `sans-parfum` claim on the wide set would refute
+ * 354 correct links instead of the 21 false ones (measured 2026-07-31).
+ */
+export function fragranceMarkerToken(inci: string | null | undefined): string | null {
+  return findInciToken(inci, (token) => GENERIC_FRAGRANCE_MARKER.test(token))
+}
+
+export function declaresFragranceMarker(inci: string | null | undefined): boolean {
+  return fragranceMarkerToken(inci) !== null
+}
+
+/**
+ * The other half of `hasFragranceComponent`: the Annex III allergens alone, never the bare
+ * marker. A declared `Parfum` says nothing about which allergens are above the labelling
+ * threshold, so it must not refute a `sans-allergenes-parfumants` claim — 1193 of the 3639
+ * links carrying that tag declare `Parfum` legitimately (measured 2026-07-31).
+ */
+export function fragranceAllergenToken(inci: string | null | undefined): string | null {
+  return findInciToken(inci, (token) => FRAGRANCE_ALLERGENS.has(token))
 }
 
 export interface InciFacts {

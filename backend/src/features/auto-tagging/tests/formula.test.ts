@@ -284,7 +284,7 @@ describe('detectCernesPochesFromName', () => {
 
   // The fix: caffeine/peptides are incidental actives in many eye-creams (snail, ceramide,
   // anti-rides) that don't position for cernes/poches. An eye-cream with those actives but no
-  // cernes/poches naming must NOT fire — the detector reads name+description, never the INCI.
+  // cernes/poches naming must NOT fire: the detector reads name+description, never the INCI.
   test('eye-cream with caffeine/peptides but no cernes naming → not flagged', () => {
     expect(fire('COSRX Snail Peptide Eye Cream', 'apaise et hydrate le contour')).toEqual([])
     expect(fire('Crème Yeux Anti-Rides', 'caféine et matrixyl')).toEqual([])
@@ -328,7 +328,7 @@ describe('detectKeratosePilaireFromName', () => {
   })
 
   // The fix: urea is a ubiquitous dry-skin humectant. A urea / xerosis / repair lotion that
-  // never names KP must NOT fire the concern — only KP positioning does (ADR-0004). The
+  // never names KP must NOT fire the concern: only KP positioning does (ADR-0004). The
   // detector reads name+description, never the INCI.
   test('urea / xerosis / repair lotion without KP naming → not flagged', () => {
     expect(fire('UreaRepair 30 Crème Corps', 'peaux très sèches, rugueuses et squameuses')).toEqual(
@@ -359,7 +359,7 @@ describe('detectReparationCutaneeFromName', () => {
     expect(fire('Crème mains', 'répare les gerçures et crevasses')).toContain(S.REPARATION)
   })
 
-  // The fix: ubiquitous soothing actives in the INCI must NOT fire the concern — only
+  // The fix: ubiquitous soothing actives in the INCI must NOT fire the concern, only
   // name/claim positioning does (ADR-0004). The detector reads name+description, never INCI.
   test('soothing actives without repair positioning → not flagged', () => {
     expect(fire('Sérum hydratant niacinamide', 'à la centella et au panthénol')).toEqual([])
@@ -367,14 +367,14 @@ describe('detectReparationCutaneeFromName', () => {
   })
 
   // Bare repair / réparateur / snail are the gold-set fork FP (barrier-repair, soothing
-  // lead, cell-renewal). Excluded by omission — they need a lesion/cica signal to fire.
+  // lead, cell-renewal). Excluded by omission: they need a lesion/cica signal to fire.
   test('bare repair/réparateur/snail lead without lesion signal → not flagged', () => {
     expect(fire('Snail Mucin 95 Essence')).toEqual([])
     expect(fire('Beta Panthenol Repair Serum', 'répare la barrière')).toEqual([])
   })
 
   // EXCLUSION_RE: a lesion/cica token incidental to a distinct domain (dry-feet xérose,
-  // after-sun) must not fire — the lead is not lesion repair.
+  // after-sun) must not fire: the lead is not lesion repair.
   test('lesion token incidental to dry-feet / after-sun domain → excluded', () => {
     expect(fire('Cicabiafine Crème Pieds Secs', 'réparatrice pour les pieds secs')).toEqual([])
     expect(fire('Fluide Après-Soleil', 'favorise la cicatrisation')).toEqual([])
@@ -444,13 +444,13 @@ describe('detectRougeursVasculairesFromName', () => {
       detectRougeursVasculairesFromName('Primer Vert', 'estompe les rougeurs visibles')
     ).toEqual([])
   })
-  // Recall-safe regression: a tinted *anti-redness* care keeps `teinté` — it must
+  // Recall-safe regression: a tinted *anti-redness* care keeps `teinté`, and it must
   // NOT be swept into the camouflage exclusion (Sensifine AR / Roséliane).
   test('fires on a tinted anti-redness care (teinté not a camouflage token)', () => {
     expect(detectRougeursVasculairesFromName('Soin Teinté Anti-Rougeurs SPF50', null)).toEqual(RV)
   })
   // Regression: a treatment whose copy says "les rougeurs s'estompent" (redness
-  // fades) is anti-redness positioning, not camouflage — `estompe` must not exclude it.
+  // fades) is anti-redness positioning, not camouflage: `estompe` must not exclude it.
   test('fires on an anti-redness treatment that says rougeurs s’estompent', () => {
     expect(
       detectRougeursVasculairesFromName(
@@ -564,7 +564,7 @@ describe('detectDeshydratationFromName', () => {
   test('fires when hydration is the named hero (acide hyaluronique)', () => {
     expect(detectDeshydratationFromName('Sérum à l’Acide Hyaluronique', null)).toEqual(DH)
   })
-  // SPF sunscreens name hydration incidentally — excluded (recall-safe).
+  // SPF sunscreens name hydration incidentally, so they are excluded (recall-safe).
   test('excludes an SPF sunscreen that mentions hydration', () => {
     expect(detectDeshydratationFromName('Fluide Hydratant SPF50', null)).toEqual([])
   })
@@ -624,13 +624,13 @@ describe('detectAcneImperfectionsFromName', () => {
   test('fires on English "blemish"', () => {
     expect(detectAcneImperfectionsFromName('Anti-Blemish Solution', null)).toEqual(AI)
   })
-  // "blemish" on a brightening product means pigment spot, not acne — excluded via `eclair`.
+  // "blemish" on a brightening product means pigment spot, not acne: excluded via `eclair`.
   test('excludes a brightening "blemish" product', () => {
     expect(
       detectAcneImperfectionsFromName('Green Lemon Vita C Blemish Mask', 'effet eclaircissant')
     ).toEqual([])
   })
-  // Accented form: FR copy writes "éclaircissant" — the exclusion must match it too,
+  // Accented form: FR copy writes "éclaircissant", so the exclusion must match it too,
   // else an "imperfections" trigger leaks a false acne tag (regex has no `u`/accent fold).
   test('excludes an accented "éclaircissant" brightening product', () => {
     expect(
@@ -702,11 +702,11 @@ describe('detectBarriereCutaneeFromName', () => {
   test('fires on English "skin barrier"', () => {
     expect(detectBarriereCutaneeFromName('Skin Barrier Repair Cream', null)).toEqual(BC)
   })
-  // Acne lines reuse "réparateur" — excluded (recall-safe).
+  // Acne lines reuse "réparateur", so they are excluded (recall-safe).
   test('excludes an acne-line "soin réparateur" (effaclar)', () => {
     expect(detectBarriereCutaneeFromName('Effaclar H Soin Réparateur', null)).toEqual([])
   })
-  // Anti-aging "repair" = cell turnover, not barrier — excluded.
+  // Anti-aging "repair" = cell turnover, not barrier, so it is excluded.
   test('excludes an anti-age "repair" serum', () => {
     expect(detectBarriereCutaneeFromName('Night Repair Serum Anti-Âge', null)).toEqual([])
   })
@@ -744,7 +744,7 @@ describe('detectApaisantFromName', () => {
   test('fires on anti-redness positioning ("anti-rougeurs")', () => {
     expect(detectApaisantFromName('Soin Anti-Rougeurs', null)).toEqual(AP)
   })
-  // Foaming cleanser that mentions a soothing effect — excluded (gel moussant).
+  // Foaming cleanser that mentions a soothing effect, excluded (gel moussant).
   test('excludes a foaming cleanser ("gel moussant")', () => {
     expect(
       detectApaisantFromName('Gel Moussant Nettoyant', 'nettoie en douceur, effet apaisant')
@@ -773,7 +773,7 @@ describe('detectEczemaAtopieFromName', () => {
   test('fires on English "eczema"', () => {
     expect(detectEczemaAtopieFromName('Eczema Relief Cream', null)).toEqual([S.ECZEMA_ATOPIE])
   })
-  // Safe tokens only — broad brand lines (Lipikar etc.) deliberately not matched.
+  // Safe tokens only: broad brand lines (Lipikar etc.) deliberately not matched.
   test('does not fire on a generic moisturizer', () => {
     expect(
       detectEczemaAtopieFromName('Crème hydratante nourrissante', 'Pour peaux sèches')
@@ -783,7 +783,7 @@ describe('detectEczemaAtopieFromName', () => {
     expect(detectEczemaAtopieFromName(null, null)).toEqual([])
   })
 
-  // Non-regression: real description-only positives — products tagged purely on
+  // Non-regression: real description-only positives, products tagged purely on
   // description, name not matching. Deleting the description branch regresses every
   // one. None of these names contain "atopi"/"eczéma" (Atoderm has no "p"), so a
   // pass here can only come from the description field.
@@ -829,11 +829,11 @@ describe('detectEczemaAtopieFromName', () => {
     expect(detectEczemaAtopieFromName(name, description)).toEqual([S.ECZEMA_ATOPIE])
   })
 
-  // known-gap: a description that contraindicates atopy still fires today —
+  // known-gap: a description that contraindicates atopy still fires today, because
   // detectEczemaAtopieFromName reads the token, not the negation around it. This
   // asserts the WRONG result on purpose. When negation handling lands (the regex
   // gains contraindication awareness), this flips to toEqual([]); that flip is the
-  // signal the gap closed. Do NOT "fix" this test in isolation — the live guard is
+  // signal the gap closed. Do NOT "fix" this test in isolation: the live guard is
   // eczemaAtopieDescriptionNeedsReview in the ingest pipeline.
   test('known-gap: contraindicating description false-positives (documents the gap)', () => {
     expect(detectEczemaAtopieFromName(null, 'Crème déconseillée aux peaux atopiques')).toEqual([
@@ -872,7 +872,7 @@ describe('eczemaAtopieDescriptionNeedsReview', () => {
     expect(eczemaAtopieDescriptionNeedsReview('')).toBe(false)
   })
   // Proximity: a boilerplate caveat in a separate sentence from a positive atopy
-  // claim is not a contraindication of atopy — must not trip the sentinel.
+  // claim is not a contraindication of atopy, so it must not trip the sentinel.
   test('does not flag a positive atopy claim with an unrelated caveat in another sentence', () => {
     expect(
       eczemaAtopieDescriptionNeedsReview('Soin pour peaux atopiques. Éviter le contour des yeux.')
@@ -1047,7 +1047,7 @@ describe('detectTextureRiche', () => {
   })
 
   test('shea synonyms (parkii + shea butter same ingredient) ≠ 2 butters', () => {
-    // Same ingredient listed once with both substrings — should count as 1 group
+    // Same ingredient listed once with both substrings, should count as 1 group
     expect(
       detectTextureRiche('Aqua, Butyrospermum Parkii (Shea Butter), Glycerin, Niacinamide')
     ).toEqual([])
@@ -1298,7 +1298,7 @@ describe('detectPeauNormale', () => {
   })
 })
 
-// detectGrossesseAvoid — sodium retinoyl hyaluronate test removed (migrated to algo-derm).
+// detectGrossesseAvoid: sodium retinoyl hyaluronate test removed (migrated to algo-derm).
 
 // Mutex invariants
 // Pairs of slugs that are sensoriel-mutually-exclusive must never co-fire on
@@ -1413,7 +1413,7 @@ describe('detectTextureGelInci (S5 INCI fallback)', () => {
   })
 })
 
-// F2 — texture-creme default (kind-driven + veto INCI)
+// F2: texture-creme default (kind-driven + veto INCI)
 describe('detectTextureCremeInci (F2 default + veto)', () => {
   // Fires
 
@@ -1852,7 +1852,7 @@ describe('mutex invariants — eye-cream texture-creme vs texture-legere', () =>
   })
 })
 
-// F2 mutex — texture-creme / texture-legere on oil-driven emulsion
+// F2 mutex: texture-creme / texture-legere on oil-driven emulsion
 describe('mutex invariants — texture-creme vs texture-legere (F2)', () => {
   test('moisturizer with sunflower oil emulsion → only texture-creme, not legere', () => {
     const inci =
@@ -1872,27 +1872,71 @@ describe('mutex invariants — texture-creme vs texture-legere (F2)', () => {
 // Absence claims (name/description fallback)
 describe('detectAbsenceClaimsFromText — sans-parfum override', () => {
   test('description with "sans parfum" → SANS_PARFUM', () => {
-    expect(detectAbsenceClaimsFromText('Crème Apaisante', 'sans parfum, non comédogène')).toEqual([
-      S.SANS_PARFUM,
-    ])
+    expect(
+      detectAbsenceClaimsFromText('Crème Apaisante', 'sans parfum, non comédogène', null)
+    ).toEqual([S.SANS_PARFUM])
   })
 
   test('name with "Sans Parfum" (mixed case) → SANS_PARFUM', () => {
-    expect(detectAbsenceClaimsFromText('Crème Sans Parfum', null)).toEqual([S.SANS_PARFUM])
+    expect(detectAbsenceClaimsFromText('Crème Sans Parfum', null, null)).toEqual([S.SANS_PARFUM])
   })
 
   test('description with "fragrance-free" → SANS_PARFUM', () => {
-    expect(detectAbsenceClaimsFromText('Daily Moisturizer', 'A fragrance-free formula')).toEqual([
-      S.SANS_PARFUM,
-    ])
+    expect(
+      detectAbsenceClaimsFromText('Daily Moisturizer', 'A fragrance-free formula', null)
+    ).toEqual([S.SANS_PARFUM])
   })
 
   test('name "Parfum à la rose" (positive parfum mention) → no fire', () => {
-    expect(detectAbsenceClaimsFromText('Parfum à la rose', null)).toEqual([])
+    expect(detectAbsenceClaimsFromText('Parfum à la rose', null, null)).toEqual([])
   })
 
   test('null name + null description → empty', () => {
-    expect(detectAbsenceClaimsFromText(null, null)).toEqual([])
+    expect(detectAbsenceClaimsFromText(null, null, null)).toEqual([])
+  })
+
+  // The override exists for products whose INCI is too short for the algo-derm coverage gate.
+  test('claim with a short INCI that declares no marker → still fires', () => {
+    expect(
+      detectAbsenceClaimsFromText('Crème Sans Parfum', null, 'Aqua, Glycerin, Panthenol')
+    ).toEqual([S.SANS_PARFUM])
+  })
+
+  // Regression: 21 products (dev and prod alike) carried the tag while declaring `Parfum`.
+  test('claim refuted by `Parfum` in the INCI → no fire', () => {
+    expect(
+      detectAbsenceClaimsFromText(
+        'Sun Secure Blur SPF50 Sans Parfum',
+        'sans parfum',
+        'Aqua, Glycerin, Cetearyl Alcohol, Parfum, Propanediol'
+      )
+    ).toEqual([])
+  })
+
+  test('claim refuted by `Fragrance` in the INCI → no fire', () => {
+    expect(
+      detectAbsenceClaimsFromText(
+        'Daily Moisturizer',
+        'A fragrance-free formula',
+        'Water, Fragrance'
+      )
+    ).toEqual([])
+  })
+
+  // The veto is the bare marker only. Vetoing on the Annex III set as well would refute 354
+  // correct links: an essential oil declares `Limonene` without any added fragrance.
+  test('Annex III allergen alone does not refute the claim', () => {
+    expect(
+      detectAbsenceClaimsFromText(
+        'Baume Sans Parfum',
+        null,
+        'Aqua, Citrus Limon Peel Oil, Limonene, Linalool'
+      )
+    ).toEqual([S.SANS_PARFUM])
+  })
+
+  test('no claim in the text → INCI is irrelevant', () => {
+    expect(detectAbsenceClaimsFromText('Crème Riche', null, 'Aqua, Parfum')).toEqual([])
   })
 })
 
