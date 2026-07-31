@@ -28,8 +28,11 @@
 @media (--sm) {
   .dialog-sheet.pds-sheet {
     border-top: none;
-    /* Centered modal: shrink to content up to max-height (Sheet.css), not a forced 90dvh. */
+    /* Centered modal: shrink to content, capped short of the viewport. max-height must
+       be re-stated because the mobile rule above caps at 100dvh, which would otherwise
+       win over Sheet.css's 88dvh and glue the modal to both viewport edges. */
     height: auto;
+    max-height: 88dvh;
   }
 }
 

@@ -39,7 +39,12 @@ export function PdsHero({ p, closeBtnRef, onClose, onStatusChange }: PdsHeroProp
             <button
               type="button"
               className="pds-header-status-trigger"
-              style={{ '--header-status-color': statusCfg.color } as React.CSSProperties}
+              style={
+                {
+                  '--header-status-color': statusCfg.color,
+                  '--header-status-color-on': statusCfg.colorOn,
+                } as React.CSSProperties
+              }
               aria-label={`Statut : ${statusCfg.label}. Changer le statut.`}
             >
               <StatusIcon size={14} aria-hidden="true" />
