@@ -172,6 +172,8 @@ export const BARRIERE_EMOLLIENTS_OCCLUSIFS = {
   LINUM_USITATISSIMUM_SEED_OIL: 'linum-usitatissimum-seed-oil', // INCI: Linum Usitatissimum Seed Oil | flax oil, alpha-linolenic rich, oxidation-prone
   OLEYL_ALCOHOL: 'oleyl-alcohol', // INCI: Oleyl Alcohol | unsaturated C18:1 fatty alcohol, co-emulsifier
   STEARYL_HEPTANOATE: 'stearyl-heptanoate', // INCI: Stearyl Heptanoate | branched ester, rich emollient
+  ISOAMYL_LAURATE: 'isoamyl-laurate', // INCI: Isoamyl Laurate | branched lauric ester, dry-touch emollient
+  PROPYLHEPTYL_CAPRYLATE: 'propylheptyl-caprylate', // INCI: Propylheptyl Caprylate | branched caprylic ester, light spreading emollient
   ISOSTEARYL_ISOSTEARATE: 'isostearyl-isostearate', // INCI: Isostearyl Isostearate | branched emollient ester, pigment binder
   DECYL_OLEATE: 'decyl-oleate', // INCI: Decyl Oleate | fatty ester, light spreading emollient
   ISOPROPYL_ISOSTEARATE: 'isopropyl-isostearate', // INCI: Isopropyl Isostearate | branched isostearic ester, pigment wetting
@@ -427,6 +429,9 @@ export const APAISANTS_ANTI_INFLAMMATOIRES = {
   ASIATICOSIDE: 'asiaticoside', // INCI: Asiaticoside | pure Centella compound
   ALOE_VERA: 'aloe-vera', // INCI: Aloe Barbadensis Leaf Juice / Extract
   AVENA_SATIVA: 'avena-sativa', // INCI: Avena Sativa (Oat) Kernel Extract | soothing beta-glucan
+  // No `INCI:` marker: the organ slash would mint truncated keys. The bridge reaches it by
+  // humanised slug equality against the algo-derm evidence `Avena Sativa Leaf/Stem Extract`.
+  AVENA_SATIVA_LEAF_STEM_EXTRACT: 'avena-sativa-leaf-stem-extract', // aerial oat parts, not the kernel
   BETA_GLUCAN: 'beta-glucan', // INCI: Beta-Glucan | soothing / immunomodulator
   HEARTLEAF: 'heartleaf', // INCI: Houttuynia Cordata Extract | K-beauty anti-inflammatory
   HEARTLEAF_WATER: 'heartleaf-water', // INCI: Houttuynia Cordata Flower/Leaf/Stem Water | soothing distillate
@@ -610,6 +615,7 @@ export const PROBIOTIQUES_PREBIOTIQUES_POSTBIOTIQUES = {
   LEUCONOSTOC_FERMENT_FILTRATE: 'leuconostoc-ferment-filtrate', // INCI: Leuconostoc Ferment Filtrate | radish-root ferment, hydrating and mild preservative
   SACCHAROMYCES_FERMENT_FILTRATE: 'saccharomyces-ferment-filtrate', // INCI: Saccharomyces Ferment Filtrate | yeast ferment, radiance and hydration
   BIFIDA_FERMENT_LYSATE: 'bifida-ferment-lysate', // INCI: Bifida Ferment Lysate | bifidobacterium postbiotic, barrier recovery
+  LACTOBACILLUS_FERMENT_LYSATE: 'lactobacillus-ferment-lysate', // INCI: Lactobacillus Ferment Lysate | lactobacillus postbiotic, distinct from the ferment
   SACCHAROMYCES_LYSATE_EXTRACT: 'saccharomyces-lysate-extract', // INCI: Saccharomyces Lysate Extract | yeast postbiotic lysate, distinct from the ferment filtrate
 } as const
 
@@ -690,7 +696,7 @@ export const TEXTURANTS_FONCTIONNELS = {
   AHNFELTIA_CONCINNA: 'ahnfeltia-concinna', // INCI: Ahnfeltiopsis Concinna Extract | red algae, hydrating and film-forming
   CHARCOAL_POWDER: 'charcoal-powder', // INCI: Charcoal / Activated Charcoal | powerful absorbent, purifying, detoxifying
   // Moved out of the haircare file: its only carrier is a face sponge. Kept lowercase so it
-  // mints no index key — charcoal-powder owns CHARCOAL, and skincare is parsed first.
+  // mints no index key: charcoal-powder owns CHARCOAL, and skincare is parsed first.
   BAMBOU_CHARCOAL_HAIR: 'bambou-charcoal-hair', // bamboo-sourced charcoal, mild adsorbent
   KAOLIN: 'kaolin', // INCI: Kaolin | mineral clay, absorbent, purifying, texturizing (powder or suspension)
   BENTONITE: 'bentonite', // INCI: Bentonite | montmorillonite clay, powerful absorbent and purifying
@@ -706,7 +712,7 @@ export const TEXTURANTS_FONCTIONNELS = {
   CITRUS_GRANDIS_PEEL_OIL: 'citrus-grandis-peel-oil', // INCI: Citrus Grandis Peel Oil | pomelo peel oil
   CITRUS_NOBILIS_PEEL_OIL: 'citrus-nobilis-peel-oil', // INCI: Citrus Nobilis Peel Oil | mandarin peel oil
   // One species, four materials. algo-derm's stripBotanicalParts folds the organ away, so without
-  // a direct index key every spelling lands on whichever slug exists — neroli was resolving to the
+  // a direct index key every spelling lands on whichever slug exists: neroli was resolving to the
   // peel oil. Declaring each organ makes the key direct, which is looked up before the bridge.
   // `Citrus Aurantium Amara Oil`, with no organ, stays on the bridge: the NEROLI and BITTER ORANGE
   // spellings normalise to the same key (1 product each) so no declaration can separate them.
@@ -741,7 +747,7 @@ export const TEXTURANTS_FONCTIONNELS = {
   MENTHA_ARVENSIS_LEAF_OIL: 'mentha-arvensis-leaf-oil', // INCI: Mentha Arvensis Leaf Oil | cornmint oil, menthol rich
   // One declaration used to carry both the oil and the molecule, so a single fiche answered
   // for two substances algo-derm grades apart. Split: the oil keeps the historical slug, the
-  // fragrance molecule gets its own. Both live here — the corpus is overwhelmingly non-dental.
+  // fragrance molecule gets its own. Both live here: the corpus is overwhelmingly non-dental.
   CLOVE_OIL_EUGENOL: 'clove-oil-eugenol', // INCI: Eugenia Caryophyllus Bud Oil | clove bud oil
   EUGENOL: 'eugenol', // INCI: Eugenol | clove-derived fragrance molecule, EU-declarable
   // Thickeners, mineral abrasives and one pearl pigment, moved out of the haircare and dental
@@ -824,7 +830,7 @@ export const DIVERS_NON_CLASSES = {
   FRAGRANCE: 'fragrance', // INCI: Parfum / Fragrance / Aroma | undisclosed scent compound, INCI umbrella term
   // The Annex III fragrance substances an INCI list has to name one by one. That spelling exists
   // precisely so a reader can spot them, and none of them reached a fiche: algo-derm grades all
-  // twenty-three, aurore declared none. `Benzyl Alcohol` is deliberately not here — it stays on
+  // twenty-three, aurore declared none. `Benzyl Alcohol` is deliberately not here: it stays on
   // NON_DISCRIMINANT_TOKENS, where its 547 products and its preservative role put it.
   LIMONENE: 'limonene', // INCI: Limonene | citrus peel terpene, oxidises on air
   LINALOOL: 'linalool', // INCI: Linalool | lavender and rosewood terpene alcohol

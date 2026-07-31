@@ -2,13 +2,15 @@
 // instead of real INCI content.
 //
 // Covers cases that slipped through existing cleanup scripts:
-//   1. LED device (Medicube): no INCI, only product description → NULL.
-//   2. Marketing preamble with unlisted claims (Eucerin Aquaphor): strip
-//      "SANS CONSERVATEUR, SANS COLORANT, NON COMÉDOGÈNE, CLINIQUEMENT PROUVÉ"
-//      prefix; the INCI body starts at CERA MICROCRISTALLINA.
-//   3–4. Korean-beauty usage-instruction prefix (Mixsoon × 2): "Ingrédients :"
-//      marker exists but post-strip INCI has <5 commas, so prose.ts quality
-//      gate excluded them. Strip prefix and keep the short collagen-film INCI.
+//   - LED device (Medicube): no INCI, only product description → NULL.
+//   - Marketing preamble with unlisted claims (Eucerin Aquaphor): strip
+//     "SANS CONSERVATEUR, SANS COLORANT, NON COMÉDOGÈNE, CLINIQUEMENT PROUVÉ"
+//     prefix; the INCI body starts at CERA MICROCRISTALLINA.
+//   - Korean-beauty usage-instruction prefix (Mixsoon × 2): "Ingrédients :"
+//     marker exists but post-strip INCI has <5 commas, so prose.ts quality
+//     gate excluded them. Strip prefix and keep the short collagen-film INCI.
+//   - Eve Lom (× 3): SharePoint span soup; rationale sits on the entries.
+//   - Sales pitch stored as INCI on three sunscreens (Yepoda × 2, Biarritz) → NULL.
 //
 // Mary&May (mary-may-blackberry) was dropped: it once carried pure marketing
 // prose, but the row now holds a valid INCI. NULLing it would destroy data.
@@ -71,6 +73,26 @@ const FIXES: WorstMatchFix[] = [
     slug: 'eve-lom-cleansing-oil',
     action: 'null',
     expected: /^(?![\s\S]*Full Ingredient List)[\s\S]*How to Use[\s\S]*Apply 1,\s*2 pumps/i,
+  },
+
+  // Three sunscreens whose `inci` is the brand's sales pitch. They surfaced while recounting the
+  // SPF-without-a-filter holes: the linker derives 0 link from them, which is correct behaviour, but
+  // the column still renders as a formula on the product page. No INCI is recoverable from the text.
+  // Yepoda ships the same pitch on both sizes, prefixed by a stray `n` from the scrape.
+  {
+    slug: 'yepoda-the-spf-bff-50',
+    action: 'null',
+    expected: /^n?Profitez du soleil[\s\S]*The SPF BFF[\s\S]*1% for the Planet/i,
+  },
+  {
+    slug: 'yepoda-the-mini-spf-bff-50',
+    action: 'null',
+    expected: /^n?Profitez du soleil[\s\S]*The SPF BFF[\s\S]*1% for the Planet/i,
+  },
+  {
+    slug: 'laboratoires-de-biarritz-lait-solaire-spf-30-sport',
+    action: 'null',
+    expected: /^LES LABORATOIRES BIARRITZ[\s\S]*5 GAMMES DE PRODUITS/i,
   },
 ]
 
