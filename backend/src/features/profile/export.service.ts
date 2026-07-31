@@ -22,9 +22,10 @@ import { userTagPreferences } from '../../db/schema/tags/user-tag-preferences'
 import { nowISO } from '../../utils/dates'
 
 // Reads run as the RLS-scoped app_runtime role (withRlsContext sets auth.uid()
-// to the caller). Tables with tenantPolicies/fkTenantPolicies filter
-// automatically; discussion_threads/replies are NOT RLS-scoped, so we add an
-// explicit author_id filter to keep ownership semantics consistent.
+// to the caller), but every read is ALSO scoped in SQL: the *_admin_bypass
+// policies are PERMISSIVE, so an admin exporting their own account would
+// otherwise walk away with every user's rows. discussion_threads/replies are
+// not RLS-scoped at all, hence the explicit author_id filter.
 
 export async function exportUserData(db: DB, userId: string): Promise<UserExport> {
   // Reads are intentionally sequential: bun-sql + drizzle currently mis-bind
@@ -44,7 +45,7 @@ export async function exportUserData(db: DB, userId: string): Promise<UserExport
     .from(userPreferences)
     .where(eq(userPreferences.userId, userId))
     .limit(1)
-  const productRows = await db.select().from(userProducts)
+  const productRows = await db.select().from(userProducts).where(eq(userProducts.userId, userId))
   const reviewRows = await db
     .select({
       id: userProductReviews.id,
@@ -63,7 +64,10 @@ export async function exportUserData(db: DB, userId: string): Promise<UserExport
     .from(userProductReviews)
     .innerJoin(userProducts, eq(userProducts.id, userProductReviews.userProductId))
     .where(eq(userProducts.userId, userId))
-  const statusLogRows = await db.select().from(userProductStatusLog)
+  const statusLogRows = await db
+    .select()
+    .from(userProductStatusLog)
+    .where(eq(userProductStatusLog.userId, userId))
   const purchaseRows = await db
     .select({
       id: purchases.id,
@@ -78,9 +82,10 @@ export async function exportUserData(db: DB, userId: string): Promise<UserExport
     .from(purchases)
     .innerJoin(userProducts, eq(userProducts.id, purchases.userProductId))
     .where(eq(userProducts.userId, userId))
-  const ingredientScoreRows = await db.select().from(userIngredientAnalysisScore)
-  // Scoped in SQL, not by RLS alone: the admin_bypass policy is PERMISSIVE, so an
-  // admin exporting their own data would otherwise receive every user's rules.
+  const ingredientScoreRows = await db
+    .select()
+    .from(userIngredientAnalysisScore)
+    .where(eq(userIngredientAnalysisScore.userId, userId))
   const ingredientPrefRows = await db
     .select()
     .from(userIngredientPreferences)
