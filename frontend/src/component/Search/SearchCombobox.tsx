@@ -8,7 +8,7 @@ import { Search, X } from 'lucide-react'
 import { useId, useRef, useState } from 'react'
 
 import { useDebounce } from '@/hooks/useDebounce'
-import { rateLimitMessage } from '@/lib/helpers/apiError'
+import { rateLimitMessage, rateLimitRetryAfter } from '@/lib/helpers/apiError'
 import {
   ComboboxPrimitive,
   type ComboboxSection,
@@ -82,6 +82,7 @@ export function SearchCombobox<TItem, TQueryKey extends QueryKey>({
     isFetchingNextPage,
     isError,
     error,
+    errorUpdatedAt,
     refetch,
   } = useInfiniteQuery({
     ...queryFn(debouncedQuery),
@@ -158,6 +159,8 @@ export function SearchCombobox<TItem, TQueryKey extends QueryKey>({
       onRetry={() => {
         refetch()
       }}
+      retryAfter={rateLimitRetryAfter(error) ?? undefined}
+      retryAfterAt={errorUpdatedAt}
       hasMore={!!hasNextPage}
       onLoadMore={() => {
         if (hasNextPage && !isFetchingNextPage) fetchNextPage()

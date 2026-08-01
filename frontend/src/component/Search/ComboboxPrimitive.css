@@ -104,8 +104,13 @@
   cursor: pointer;
 }
 
-.combobox-primitive__retry:hover {
+.combobox-primitive__retry:hover:not(:disabled) {
   background: oklch(from var(--color-error) l c h / 0.1);
+}
+
+.combobox-primitive__retry:disabled {
+  opacity: 0.55;
+  cursor: default;
 }
 
 .combobox-primitive__retry:focus-visible {
