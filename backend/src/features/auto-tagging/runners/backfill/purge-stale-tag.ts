@@ -61,7 +61,10 @@ async function main() {
     console.log('\nRun avec --write pour supprimer.')
     return
   }
-  const result = await withAdminRls((tx) =>
+  // Inside a transaction this driver carries no affected-row count (only
+  // db.delete() does), so RETURNING is the only truthful source. A gap with the
+  // planned count is then real: count in DB before blaming RLS.
+  const deletedRows = await withAdminRls((tx) =>
     tx
       .delete(productTagLinks)
       .where(
@@ -71,12 +74,9 @@ async function main() {
           inArray(productTagLinks.productId, stale)
         )
       )
+      .returning({ productId: productTagLinks.productId })
   )
-  // bun-postgres exposes the affected count under `count` (rowCount is absent on
-  // this driver). A DELETE blocked by RLS also reports 0, so a gap with the
-  // planned count is a real failure, not a rounding detail.
-  const r = result as unknown as { count?: number; rowCount?: number }
-  const deleted = r.count ?? r.rowCount ?? 0
+  const deleted = deletedRows.length
   if (deleted !== stale.length) {
     console.warn(`   ⚠ ${deleted} lignes supprimées pour ${stale.length} planifiées`)
   }
