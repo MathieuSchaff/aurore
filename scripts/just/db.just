@@ -234,13 +234,18 @@ db-snapshot:
 [group('db')]
 db-snapshot-load:
     #!/usr/bin/env bash
+    set -euo pipefail
     if [ ! -f "{{SNAPSHOT_FILE}}" ]; then
         printf "{{RED}}❌ No snapshot at {{SNAPSHOT_FILE}} — run `just db-snapshot` first{{NC}}\n"
         exit 1
     fi
     printf "{{YELLOW}}⚠ TRUNCATE all public tables + reload snapshot{{NC}}\n"
-    read -r -p "Confirm? [y/N] " C
-    [ "$C" = "y" ] || exit 1
+    # ASSUME_YES: _db-guard already asked, and a second prompt on a first clone
+    # reads as a new warning rather than the same one.
+    if [ "${ASSUME_YES:-0}" != "1" ]; then
+        read -r -p "Confirm? [y/N] " C
+        [ "$C" = "y" ] || exit 1
+    fi
     {{COMPOSE_DEV}} exec -T db psql -U app -d appdb -v ON_ERROR_STOP=1 -c \
         "DO \$\$ DECLARE r record; BEGIN FOR r IN (SELECT tablename FROM pg_tables WHERE schemaname='public') LOOP EXECUTE 'TRUNCATE ' || quote_ident(r.tablename) || ' RESTART IDENTITY CASCADE'; END LOOP; END \$\$;"
     {{COMPOSE_DEV}} exec -T db psql -U app -d appdb -v ON_ERROR_STOP=1 < {{SNAPSHOT_FILE}} > /dev/null

@@ -6,7 +6,7 @@ on:
   pull_request:
     branches: [ main, master, dev ]
 
-# Annule les jobs en cours si on repousse sur la même branche (gain de temps)
+# Drop in-flight runs when the same branch is pushed again
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
@@ -18,7 +18,7 @@ permissions:
   pull-requests: write
 
 jobs:
-  # Étape 1 : Qualité du code et Types
+  # Step 1: code quality and types
   quality:
     name: Lint & Types
     runs-on: ubuntu-latest
@@ -47,7 +47,7 @@ jobs:
       - name: TypeScript Build & Global Check
         run: just ts-build
 
-  # Étape 2 : Tests Backend (en parallèle avec le Frontend)
+  # Step 2: backend tests (runs alongside the frontend job)
   test-backend:
     name: Backend Tests
     runs-on: ubuntu-latest
@@ -108,7 +108,7 @@ jobs:
           reporter: java-junit
           fail-on-error: true
 
-  # Étape 2b : Auto-tag drift guard (CHECK vs TAG_HIT_RATE_BUDGET)
+  # Step 2b: auto-tag drift guard (CHECK vs TAG_HIT_RATE_BUDGET)
   audit-auto-tags:
     name: Auto-tag drift check
     runs-on: ubuntu-latest
@@ -193,7 +193,7 @@ jobs:
           CHECK: '1'
         run: cd backend && bun run src/features/auto-tagging/runners/audit/main.ts
 
-  # Étape 3 : Tests Frontend (en parallèle avec le Backend)
+  # Step 3: frontend tests (runs alongside the backend job)
   test-frontend:
     name: Frontend Tests
     runs-on: ubuntu-latest

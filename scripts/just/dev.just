@@ -25,22 +25,25 @@ _db-guard:
         {{COMPOSE_DEV}} exec -T db pg_isready -U app -d appdb >/dev/null 2>&1 && break
         sleep 1
     done
-    COUNT=$({{COMPOSE_DEV}} exec -T db psql -U app -d appdb -tAc "SELECT count(*) FROM products" 2>/dev/null | tr -dc '0-9')
+    # A fresh schema has no products table yet. Keep the failed probe from
+    # tripping `set -e -o pipefail`; an empty COUNT is the restore signal.
+    COUNT=$({{COMPOSE_DEV}} exec -T db psql -U app -d appdb -tAc "SELECT count(*) FROM products" 2>/dev/null | tr -dc '0-9' || true)
     if [ -n "$COUNT" ] && [ "$COUNT" -gt 0 ]; then exit 0; fi
-    printf "{{RED}}⚠ DB dev vide (products absente ou 0 ligne) — volume wipé ?{{NC}}\n"
-    printf "{{YELLOW}}  Restore manuel : just db-migrate && just db-snapshot-load{{NC}}\n"
+    printf "{{RED}}⚠ Dev DB is empty (no products table, or 0 rows) — wiped volume, or a first clone.{{NC}}\n"
+    printf "{{YELLOW}}  Manual restore: just db-migrate && just db-snapshot-load{{NC}}\n"
     if [ ! -t 0 ]; then
-        printf "{{YELLOW}}  (non-interactif → boot continue avec une DB vide){{NC}}\n"
+        printf "{{YELLOW}}  (non-interactive → booting on an empty DB){{NC}}\n"
         exit 0
     fi
-    read -r -p "Restaurer depuis snapshot/data.sql maintenant ? [y/N] " C
-    [ "$C" = "y" ] || exit 0
+    # Default yes: declining leaves every page 500ing with no further explanation.
+    read -r -p "Restore the committed catalogue snapshot now? [Y/n] " C
+    case "${C:-y}" in [yY]*) ;; *) exit 0 ;; esac
     just db-migrate
-    just db-snapshot-load
+    ASSUME_YES=1 just db-snapshot-load
     # mig 0013 creates app_runtime with a placeholder password; realign with .env.dev so the pool can auth
     set -a; source .env.dev; set +a
     {{COMPOSE_DEV}} exec -T db psql -U app -d appdb -c "ALTER ROLE app_runtime PASSWORD '${APP_RUNTIME_PASSWORD}'" >/dev/null
-    printf "{{GREEN}}✓ DB restaurée depuis snapshot{{NC}}\n"
+    printf "{{GREEN}}✓ DB restored from snapshot{{NC}}\n"
 
 # Prod-like LCP/transport profiling: the REAL edge nginx (HTTP/2 + TLS + prod
 # template) in front of the prod frontend Bun SSR server (host-built .output),
@@ -92,18 +95,36 @@ dev-rebuild: ts-build
     just _db-guard
     {{COMPOSE_DEV}} up
 
-# First-time setup: deps + hooks + env template
-init: install-deps setup-hooks
-    @if [ ! -f .env.dev ]; then \
-        cp .env.example .env.dev; \
-        printf "{{YELLOW}}→ .env.dev created — fill in secrets before running 'just dev'{{NC}}\n"; \
-    else \
-        printf "{{CYAN}}→ .env.dev already exists, skipping{{NC}}\n"; \
+# First-time setup: deps + env template + hooks
+init: install-deps
+    #!/usr/bin/env bash
+    set -euo pipefail
+    # Compose creates missing bind-mount sources as root, which the api container
+    # (uid 1000) then cannot write to. Own them from the host first.
+    mkdir -p backend/openapi backend/tmp backend/src/output frontend/.tanstack
+    if [ ! -f .env.dev ]; then
+        cp .env.example .env.dev
+        # Real secrets over the shipped placeholders, so the first `just dev` boots.
+        for var in JWT_SECRET REFRESH_SECRET; do
+            secret="$(openssl rand -base64 32 | tr -d '\n')"
+            SECRET="$secret" perl -i -pe "s{^$var=.*}{$var=\$ENV{SECRET}}" .env.dev
+        done
+        printf "{{GREEN}}→ .env.dev created with generated JWT secrets{{NC}}\n"
+        printf "{{YELLOW}}  Third-party keys (Brevo, Google, Bunny) stay placeholders — the app runs without them.{{NC}}\n"
+    else
+        printf "{{CYAN}}→ .env.dev already exists, skipping{{NC}}\n"
     fi
-    @printf "{{GREEN}}✓ Project ready. Next: fill .env.dev then run 'just dev'{{NC}}\n"
+    # Hooks are a contributor convenience: never let them block a first-time setup.
+    if command -v mise >/dev/null 2>&1; then
+        just setup-hooks || printf "{{YELLOW}}→ Git hooks skipped. Run 'just setup-hooks' later.{{NC}}\n"
+    else
+        printf "{{YELLOW}}→ Git hooks skipped (mise not installed).{{NC}}\n"
+    fi
+    printf "{{GREEN}}✓ Project ready. Next: just dev-fresh{{NC}}\n"
 
-# Install git hooks (run once after clone)
+# Install git hooks through mise; fresh clones are trusted before mise runs.
 setup-hooks:
+    mise trust --quiet
     mise exec -- lefthook install
     @printf "{{GREEN}}✓ Git hooks installed{{NC}}\n"
 
