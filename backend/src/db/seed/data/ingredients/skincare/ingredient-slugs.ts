@@ -606,7 +606,9 @@ export const PROBIOTIQUES_PREBIOTIQUES_POSTBIOTIQUES = {
   AQUAPHILUS_DOLOMIAE_FERMENT_FILTRATE: 'aquaphilus-dolomiae-ferment-filtrate', // C+ Restore (Cicalfate+)
   VITREOSCILLA_FERMENT: 'vitreoscilla-ferment', // INCI: Vitreoscilla Ferment | soothing, repairing and fortifying bacterial ferment (postbiotic-like)
   FRUCTOOLIGOSACCHARIDES: 'fructooligosaccharides', // INCI: Fructooligosaccharides / Fructo-Oligosaccharides | prebiotic
-  INULINE: 'inuline', // INCI: Cichorium Intybus Root Extract | chicory root, source of prebiotic inulin
+  // The catalogue declares the purified fructan and its source extract as separate tokens, never
+  // together. Both are aliased here so the fiche answers whichever one a formula lists.
+  INULINE: 'inuline', // INCI: Inulin / Inuline / Cichorium Intybus Root Extract | prebiotic fructan, chicory its usual source
   MICROBIOTA_REGULATOR: 'microbiota-regulator', // Skin microbiome regulator | balances bacterial flora
   MELABIOME_XP: 'melabiome-xp', // Pre/postbiotic complex | microbiome rebalancing and protection
   GALACTOMYCES_FERMENT_FILTRATE: 'galactomyces-ferment-filtrate', // INCI: Galactomyces Ferment Filtrate | Pitera (SK-II), nutrient-rich ferment

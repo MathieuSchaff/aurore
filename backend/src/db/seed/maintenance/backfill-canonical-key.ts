@@ -63,14 +63,10 @@ export const UNRESOLVABLE_SLUGS = new Set([
 // dermo-score driver AND from the INCI linker's canonical_key fallback.
 // A bump that finally aliases the French spelling makes an entry redundant, not wrong (same key
 // either way), so there is no staleness guard; target existence is asserted in the test instead.
-//   - inuline is an editorial call: the fiche declares `Cichorium Intybus Root Extract`, which
-//     has no algo-derm row, and `Inulin` is chicory-derived per its record. The granularity gap
-//     (root extract vs purified inulin) is accepted.
 export const CANONICAL_KEY_OVERRIDES: Record<string, string> = {
   astaxanthine: 'Astaxanthin',
   'astaxanthine-supplement': 'Astaxanthin',
   coq10: 'Ubiquinone',
-  inuline: 'Inulin',
 }
 
 type EvidenceRecord = NonNullable<ReturnType<typeof lookupIngredient>>

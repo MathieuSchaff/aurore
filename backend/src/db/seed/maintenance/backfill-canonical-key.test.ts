@@ -15,6 +15,13 @@ describe('resolveCanonicalKey', () => {
     )
   })
 
+  // `inuline` held its key by hand-written override until the fiche was renamed after the
+  // substance instead of its source: the parenthesised rung now reaches the graded record on its
+  // own. Naming it back after the extract silently hands it the ungraded French stub.
+  it('reaches the graded record from the parenthesised English name', () => {
+    expect(resolveCanonicalKey('Inuline (Inulin)', 'inuline')).toBe('Inulin')
+  })
+
   it('overrides the slugs whose every rung is a stub', () => {
     expect(resolveCanonicalKey('Coenzyme Q10', 'coq10')).toBe('Ubiquinone')
     expect(
