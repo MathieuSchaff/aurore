@@ -30,6 +30,12 @@ describe('resolveCanonicalKey', () => {
     expect(resolveCanonicalKey('Céramide NG', 'ceramide-ng')).toBeNull()
   })
 
+  // The ladder resolves the name to `Aqua`, which would give one brand's fiche the identity of
+  // plain water. A `.db-fixes` had already nulled it; the generator used to hand it straight back.
+  it('never keys a branded thermal spring water on Aqua', () => {
+    expect(resolveCanonicalKey("Eau Thermale d'Avène", 'avene-thermal-spring-water')).toBeNull()
+  })
+
   // The overrides are maintained by hand; a bump renaming or dropping a target would
   // otherwise write dangling canonical keys no consumer can reach.
   it('keeps every override target present in the evidence DB', () => {

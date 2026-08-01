@@ -46,7 +46,10 @@ const aliasIndex = buildAliasIndex(MERGED_EVIDENCE_DB)
 //   - Camellia oleifera is not Camellia sinensis (tea-seed vs green tea).
 //   - EOS/EOP and NG/NS are separate CosIng names; the vendored alias index conflates them,
 //     fixed upstream but not in this pin.
+//   - a branded thermal spring water is not `Aqua`: the ladder resolves it there through the
+//     name, which would hand one brand's fiche the identity of plain water.
 export const UNRESOLVABLE_SLUGS = new Set([
+  'avene-thermal-spring-water',
   'camellia-oleifera-leaf-extract',
   'ceramide-eos',
   'ceramide-ng',
