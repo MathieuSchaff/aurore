@@ -3,12 +3,12 @@
 // Every formula detector emits `source: 'formula'`, `relevance: 'secondary'`,
 // so the family is one declarative table instead of N hand-written `Pass`
 // objects. `formulaPass` stamps the shared metadata; each row binds the
-// `PassContext` fields its detector reads. Detector signatures are unchanged —
+// `PassContext` fields its detector reads. Detector signatures are unchanged:
 // they stay directly unit-tested in `tests/formula.test.ts`.
 //
 // Order is load-bearing: it is the pass-4 dedup tiebreaker (first-emitting pass
 // owns the source attribution) and is pinned by the orchestrator parity test.
-// `peauNormalePass` is not here — it runs last and reads `prior` (own file).
+// `peauNormalePass` is not here: it runs last and reads `prior` (own file).
 
 import type { SkincareProductTagSlug } from '@aurore/shared'
 
@@ -89,7 +89,7 @@ function formulaPass(
 
 // Name-positioning variant: keeps the tested detector as the emit oracle, then
 // re-derives the matched name/description substring (audit evidence) from the same
-// exported regex — single source, so detector and evidence cannot drift.
+// exported regex: single source, so detector and evidence cannot drift.
 // `positionRe` must be non-global: a /g flag carries lastIndex across calls and
 // would intermittently drop the re-derived evidence.
 function namePass(
@@ -266,6 +266,6 @@ export const FORMULA_PASSES: readonly Pass[] = [
     detectTextureCremeEyeInci(c.inci, c.kind, c.texture, c.name, c.normalizedIngredients)
   ),
   formulaPass('formula:absence-claims-text', (c) =>
-    detectAbsenceClaimsFromText(c.name, c.description)
+    detectAbsenceClaimsFromText(c.name, c.description, c.inci)
   ),
 ]
