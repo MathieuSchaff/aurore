@@ -7,42 +7,24 @@
 //   unkeyed-blocked  — resolvable but the match is a known conflation     -> must stay unkeyed
 //   unkeyed-unknown  — algo-derm does not know it at all                  -> nothing to do
 
-import { buildAliasIndex, lookupIngredient, MERGED_EVIDENCE_DB } from 'algo-derm/engine'
+import { MERGED_EVIDENCE_DB } from 'algo-derm/engine'
 import { isNotNull } from 'drizzle-orm'
 
 import { db } from '../..'
 import { ingredientDermoProfiles } from '../../schema/ingredients/ingredient-dermo-profiles'
 import { ingredients } from '../../schema/ingredients/ingredients'
+import {
+  resolveCanonicalKey,
+  resolveFromLadder,
+  UNRESOLVABLE_SLUGS,
+} from './backfill-canonical-key'
 
-const aliasIndex = buildAliasIndex(MERGED_EVIDENCE_DB)
 const byKey = new Map(Object.values(MERGED_EVIDENCE_DB).map((r) => [r.inci, r]))
 
 const hasData = (key: string): boolean => {
   const rec = byKey.get(key)
   if (!rec) return false
   return rec.risk?.comedogenicity !== undefined || (rec.identity?.functions?.length ?? 0) > 0
-}
-
-// Mirrors backfill-canonical-key's blocklist, kept in sync by hand. Importing it would
-// run that module's top-level main().
-const UNRESOLVABLE_SLUGS = new Set([
-  'camellia-oleifera-leaf-extract',
-  'ceramide-eos',
-  'ceramide-ng',
-  'citrus-aurantium-amara-flower-oil',
-  'citrus-aurantium-amara-leaf-oil',
-])
-
-// Same resolution ladder as backfill-canonical-key, kept in sync by hand.
-const resolve = (name: string, slug: string): string | null => {
-  const bare = slug.replace(/-hair$/, '').replace(/-/g, ' ')
-  const paren = name.match(/\(([^)]+)\)\s*$/)?.[1]
-  return (
-    lookupIngredient(name, aliasIndex)?.inci ??
-    lookupIngredient(slug, aliasIndex)?.inci ??
-    lookupIngredient(bare, aliasIndex)?.inci ??
-    (paren ? (lookupIngredient(paren, aliasIndex)?.inci ?? null) : null)
-  )
 }
 
 const rows = await db
@@ -77,7 +59,11 @@ for (const r of rows) {
     buckets[hasData(r.key) ? 'keyed-data-lost' : 'keyed-no-data'].push(`${r.slug} [${r.key}]`)
     continue
   }
-  const match = resolve(r.name, r.slug)
+  // Blocked slugs resolve to null by design; the audit still wants to show what the
+  // ladder would reach for them, so they query the ladder directly.
+  const match = UNRESOLVABLE_SLUGS.has(r.slug)
+    ? resolveFromLadder(r.name, r.slug)
+    : resolveCanonicalKey(r.name, r.slug)
   if (!match) {
     buckets['unkeyed-unknown'].push(r.slug)
     continue
