@@ -73,6 +73,11 @@ export type TagRule = {
   // declared per regulation but at sub-effect levels). Predicate-based so a
   // slug rename doesn't silently break the gate.
   skipIf?: (a: ProductAssessment) => boolean
+  // algo-derm candidate ids (detected_absence) that must themselves fire for
+  // this tag to survive. Expresses "the claim is void when X is in the formula",
+  // which a single axis score cannot: risk is concentration-weighted, so a
+  // disqualifying ingredient low in a long INCI dilutes below every floor.
+  requiresAbsence?: readonly string[]
 }
 
 // Calibration buckets: allow @ 0.50 (agree >= 36 %); allow:false for
@@ -186,11 +191,19 @@ export const TAG_CONFIG: Readonly<Record<string, TagRule>> = {
   // Fires on irritation.risk < 0.35. Mirrors hypoallergenique floors.
   // No skipIf: declarationOnlyRisk is allergenicity-specific (Annex III traces)
   // and has no irritation-axis equivalent in algo-derm.
+  //
+  // requiresAbsence: algo-derm grades Parfum irritation 3/5, but weights it by
+  // rank, so fragrance sitting late in a long INCI scores near zero —
+  // `Aqua, Glycerin, Cetearyl Alcohol, Parfum, Limonene, Linalool` fired at
+  // confidence 0.95. Aurore does not carry a non-irritant claim on a perfumed
+  // formula whatever the axis says, and fragrance reaches an INCI three ways:
+  // the Parfum token, the 26 separately declared allergens, or essential oils.
   'non-irritant': {
     auroreSlug: S.NON_IRRITANT,
     confidenceFloor: 0.85,
     coverageFloor: 0.7,
     allow: true,
+    requiresAbsence: ['sans-parfum', 'sans-allergenes-parfumants', 'sans-huiles-essentielles'],
   },
   // Checks retinoid/hydroquinone absence + pregnancy interactions. algo-derm
   // sets confidence = min(coverage, 0.85), so confidenceFloor 0.75 requires
@@ -255,6 +268,7 @@ export type DropReason =
   | 'rinse_off_excluded'
   | 'leave_on_excluded'
   | 'skip_if'
+  | 'requires_absence'
 
 export interface DetectAutoTagsOptions {
   // Raises per-tag confidenceFloor globally (debug). Never lowers. Only affects
@@ -302,6 +316,10 @@ export function detectAutoTags(
   const candidates = tagProduct(assessment, ingredients as string[])
   const isRinseOff = RINSE_OFF_KINDS.has(kind)
   const coverageRatio = assessment.coverage.ratio
+  // Cross-candidate gate (requiresAbsence). An absence candidate that is not
+  // `present` means either "found in the formula" or "could not tell"; both
+  // must void a claim of absence.
+  const presentIds = new Set(candidates.filter((c) => c.present).map((c) => c.id))
 
   const drops = options.dropCounts
   const results: DetectedAutoTag[] = []
@@ -351,6 +369,11 @@ export function detectAutoTags(
 
     if (rule.skipIf?.(assessment)) {
       bumpDrop(drops, 'skip_if', candidate.id)
+      continue
+    }
+
+    if (rule.requiresAbsence?.some((id) => !presentIds.has(id))) {
+      bumpDrop(drops, 'requires_absence', candidate.id)
       continue
     }
 
