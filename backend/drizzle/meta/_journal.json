@@ -820,6 +820,13 @@
       "when": 1785448955544,
       "tag": "0116_ancient_blizzard",
       "breakpoints": true
+    },
+    {
+      "idx": 117,
+      "version": "7",
+      "when": 1785470610122,
+      "tag": "0117_broad_impossible_man",
+      "breakpoints": true
     }
   ]
 }
