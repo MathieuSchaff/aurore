@@ -55,7 +55,7 @@ ingest-incidecoder phase:
 # Run record → backend/tmp/data-runs/<lot>-<ts>/ (plan.json, apply.jsonl).
 # TARGET=prod from the laptop aborts (assert_prod_stack in _lib.sh). For real prod
 # run via `just prod-ssh 'TARGET=prod WRITE=1 just ingest-catalogue …'`.
-# Runbook: docs/CATALOGUE_SEEDING.md.
+# Runbook: docs/commands/catalog.md.
 [doc("Bulk-create products from a JSONL lot via createProduct (validation + cleanInci + auto-tag). Env: WRITE, ALLOW_PARTIAL, CLASSIFICATIONS, SEED_OWNER_EMAIL")]
 [group('ingest')]
 ingest-catalogue jsonl:
