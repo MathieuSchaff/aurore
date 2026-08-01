@@ -19,7 +19,9 @@
  * the `-hair` suffix stripped (so `coconut-oil-hair` retries as `coconut oil`),
  * then the trailing parenthetical of the name. Catalogue names embed the INCI
  * there ("Huile de Macadamia (Macadamia Ternifolia Seed Oil)"), which resolves
- * when neither the full name nor the slug is a known alias.
+ * when neither the full name nor the slug is a known alias. Blocked slugs stay
+ * NULL and hard overrides win before the ladder runs; among the rungs' hits, an
+ * ungraded French spelling stub yields to the graded English record.
  *
  * Usage:
  *   bun run src/db/seed/maintenance/backfill-canonical-key.ts          # dry-run
@@ -52,17 +54,49 @@ export const UNRESOLVABLE_SLUGS = new Set([
   'citrus-aurantium-amara-leaf-oil',
 ])
 
-const resolve = (name: string, slug: string): string | null => {
-  if (UNRESOLVABLE_SLUGS.has(slug)) return null
+// The graded record and its French spelling are two unrelated rows in algo-derm, so when every
+// rung lands on the stub there is nothing in the data to follow to the real one. Declared here
+// rather than left to the ladder: keying a fiche on a stub makes it unreachable from a
+// dermo-score driver AND from the INCI linker's canonical_key fallback.
+// A bump that finally aliases the French spelling makes an entry redundant, not wrong (same key
+// either way), so there is no staleness guard; target existence is asserted in the test instead.
+//   - inuline is an editorial call: the fiche declares `Cichorium Intybus Root Extract`, which
+//     has no algo-derm row, and `Inulin` is chicory-derived per its record. The granularity gap
+//     (root extract vs purified inulin) is accepted.
+export const CANONICAL_KEY_OVERRIDES: Record<string, string> = {
+  astaxanthine: 'Astaxanthin',
+  'astaxanthine-supplement': 'Astaxanthin',
+  coq10: 'Ubiquinone',
+  inuline: 'Inulin',
+}
 
+type EvidenceRecord = NonNullable<ReturnType<typeof lookupIngredient>>
+
+// Not every `secondClass` record is a stub: Avobenzone or Idebenone carry a CAS and a graded
+// risk, and some are the only record for their substance. The spelling placeholder that must
+// yield is the ungraded one: no CosIng ref, no CAS, empty `risk`.
+const isSpellingStub = (e: EvidenceRecord) =>
+  Boolean(e.identity?.secondClass) &&
+  !e.identity?.cosingRef &&
+  !e.identity?.cas?.length &&
+  Object.keys(e.risk ?? {}).length === 0
+
+// The catalogue names are French, so the first rung lands on a spelling stub whenever the
+// substance is graded under its English INCI name. Keep the stub only when no rung found the
+// real record.
+export const resolveFromLadder = (name: string, slug: string): string | null => {
   const bare = slug.replace(/-hair$/, '').replace(/-/g, ' ')
   const paren = name.match(/\(([^)]+)\)\s*$/)?.[1]
-  return (
-    lookupIngredient(name, aliasIndex)?.inci ??
-    lookupIngredient(slug, aliasIndex)?.inci ??
-    lookupIngredient(bare, aliasIndex)?.inci ??
-    (paren ? (lookupIngredient(paren, aliasIndex)?.inci ?? null) : null)
-  )
+  const hits = [name, slug, bare, paren]
+    .map((q) => (q ? lookupIngredient(q, aliasIndex) : undefined))
+    .filter((e) => e !== undefined)
+
+  return (hits.find((e) => !isSpellingStub(e)) ?? hits[0])?.inci ?? null
+}
+
+export const resolveCanonicalKey = (name: string, slug: string): string | null => {
+  if (UNRESOLVABLE_SLUGS.has(slug)) return null
+  return CANONICAL_KEY_OVERRIDES[slug] ?? resolveFromLadder(name, slug)
 }
 
 async function main() {
@@ -72,7 +106,7 @@ async function main() {
 
   const updates: { id: string; key: string }[] = []
   for (const r of rows) {
-    const key = resolve(r.name, r.slug)
+    const key = resolveCanonicalKey(r.name, r.slug)
     if (key) updates.push({ id: r.id, key })
   }
 
@@ -103,5 +137,8 @@ async function main() {
   console.log(`\napplied: set canonical_key on ${updates.length} ingredients.`)
 }
 
-await main()
-process.exit(0)
+// Guarded so the resolution ladder can be imported and tested without running the backfill.
+if (import.meta.main) {
+  await main()
+  process.exit(0)
+}
