@@ -128,6 +128,18 @@ describe('algo-derm-detection', () => {
     expect(slugs.has(S.NON_IRRITANT)).toBe(false)
   })
 
+  // The SLS case above passes on the irritation axis alone, so it never
+  // exercised the fragrance rule. These three do: without the requiresAbsence
+  // gate each fires, the first at confidence 0.95.
+  test.each([
+    ['Parfum token', 'Aqua, Glycerin, Cetearyl Alcohol, Parfum'],
+    ['declared allergens only', 'Aqua, Glycerin, Cetearyl Alcohol, Limonene, Linalool'],
+    ['essential oil', 'Aqua, Glycerin, Cetearyl Alcohol, Lavandula Angustifolia Oil'],
+  ])('T2 non_irritant: %s voids the claim on an otherwise gentle formula', (_label, inci) => {
+    const slugs = new Set(detectAutoTags(inci, 'moisturizer').map((t) => t.slug))
+    expect(slugs.has(S.NON_IRRITANT)).toBe(false)
+  })
+
   test('R3 per-tag coverageMin: non-comedogene needs ≥ 0.60 coverage', () => {
     // INCI dominated by unknown fillers — coverage will sit between the global
     // floor (0.30) and the non-comedogene floor (0.60). Other computed tags
