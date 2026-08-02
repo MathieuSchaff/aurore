@@ -465,16 +465,16 @@ async function applyDeletions(): Promise<void> {
         console.log(`   ⚠ unresolved ${productSlug} / ${tagSlug}`)
         continue
       }
-      const result = await tx
+      // Inside a transaction this driver carries no affected-row count (only db.delete() does),
+      // so RETURNING is the only way to tell a removed pair from an already-absent one.
+      const rows = await tx
         .delete(productTagLinks)
         .where(
           sql`${productTagLinks.productId} = ${pid} AND ${productTagLinks.productTagId} = ${tid}`
         )
-      // bun-postgres returns count, node-postgres returns rowCount.
-      const r = result as unknown as { count?: number; rowCount?: number }
-      const rowCount = r.count ?? r.rowCount ?? 0
-      if (rowCount === 0) notFound++
-      else deleted += rowCount
+        .returning({ productId: productTagLinks.productId })
+      if (rows.length === 0) notFound++
+      else deleted += rows.length
     }
   })
 
