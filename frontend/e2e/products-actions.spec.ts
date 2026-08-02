@@ -1,20 +1,48 @@
-import { expect, test } from '@playwright/test'
+import { expect, type Page, test } from '@playwright/test'
 
-import { loginAsSeed } from './helpers/auth'
+import { loginAsPersona } from './helpers/auth'
+import { deleteProduct, loginAndGetToken } from './helpers/catalog'
+import { waitForHydration, waitForSettledUrl } from './helpers/hydration'
 
 // Frontend talks to /api/* through the Vite dev proxy on the same origin.
 function isApi(req: { url(): string }, path: string): boolean {
   return req.url().endsWith(`/api${path}`)
 }
 
-// All tests below need an authenticated session (seed user, admin).
-test.beforeEach(async ({ page }) => {
-  await loginAsSeed(page)
+async function shelfIds(page: Page, token: string): Promise<string[]> {
+  const res = await page.request.get('/api/user-products', {
+    headers: { authorization: `Bearer ${token}` },
+  })
+  expect(res.ok(), `shelf read failed (${res.status()})`).toBe(true)
+  return ((await res.json()).data as { id: string }[]).map((row) => row.id)
+}
+
+// These tests add products to a shelf for real. Two consequences, both of which took the
+// whole "Ajouter" describe down once the shelf had grown: a shared account lets the three
+// browser projects clobber each other (one persona per project fixes that), and a shelf
+// that is never emptied eventually owns every card on page 1, leaving no "Ajouter" button
+// to click at all. So each test reverts exactly what it added, nothing else.
+let personaToken = ''
+let shelfBefore: string[] = []
+
+test.beforeEach(async ({ page, browserName }) => {
+  personaToken = await loginAsPersona(page, browserName)
+  shelfBefore = await shelfIds(page, personaToken)
+})
+
+test.afterEach(async ({ page }) => {
+  const auth = { authorization: `Bearer ${personaToken}` }
+  for (const id of await shelfIds(page, personaToken)) {
+    if (shelfBefore.includes(id)) continue
+    await page.request.delete(`/api/user-products/${id}`, { headers: auth })
+  }
 })
 
 test.describe('Products page — "Ajouter" modal', () => {
   test('opens modal with product info and a status grid', async ({ page }) => {
-    await page.goto('/products')
+    await page.goto('/products?sort=name')
+    await waitForHydration(page)
+    await waitForSettledUrl(page)
 
     const card = page
       .locator('.list-card--product')
@@ -40,7 +68,9 @@ test.describe('Products page — "Ajouter" modal', () => {
   test('"Liste de souhaits" sends one POST /user-products with status=wishlist', async ({
     page,
   }) => {
-    await page.goto('/products')
+    await page.goto('/products?sort=name')
+    await waitForHydration(page)
+    await waitForSettledUrl(page)
     const card = page
       .locator('.list-card--product')
       .filter({ has: page.getByRole('button', { name: /^Ajouter / }) })
@@ -68,7 +98,9 @@ test.describe('Products page — "Ajouter" modal', () => {
   test('"En stock" goes to purchase step then POSTs user-products + purchases', async ({
     page,
   }) => {
-    await page.goto('/products')
+    await page.goto('/products?sort=name')
+    await waitForHydration(page)
+    await waitForSettledUrl(page)
     const card = page
       .locator('.list-card--product')
       .filter({ has: page.getByRole('button', { name: /^Ajouter / }) })
@@ -112,7 +144,9 @@ test.describe('Products page — "Ajouter" modal', () => {
   })
 
   test('"Retour" from purchase step returns to status grid', async ({ page }) => {
-    await page.goto('/products')
+    await page.goto('/products?sort=name')
+    await waitForHydration(page)
+    await waitForSettledUrl(page)
     const card = page
       .locator('.list-card--product')
       .filter({ has: page.getByRole('button', { name: /^Ajouter / }) })
@@ -131,7 +165,9 @@ test.describe('Products page — "Ajouter" modal', () => {
   })
 
   test('close button dismisses modal without firing any POST', async ({ page }) => {
-    await page.goto('/products')
+    await page.goto('/products?sort=name')
+    await waitForHydration(page)
+    await waitForSettledUrl(page)
     const card = page
       .locator('.list-card--product')
       .filter({ has: page.getByRole('button', { name: /^Ajouter / }) })
@@ -157,6 +193,8 @@ test.describe('Products page — "Ajouter" modal', () => {
 test.describe('Products page — "Créer" → /products/new', () => {
   test('"Créer" link navigates to the create form', async ({ page }) => {
     await page.goto('/products')
+    await waitForHydration(page)
+    await waitForSettledUrl(page)
 
     await page.getByRole('link', { name: 'Créer un produit', exact: true }).click()
 
@@ -166,6 +204,7 @@ test.describe('Products page — "Créer" → /products/new', () => {
 
   test('submit is disabled until required fields + brand confirmed', async ({ page }) => {
     await page.goto('/products/new')
+    await waitForHydration(page)
 
     const submit = page.getByRole('button', { name: /^Créer le produit$|^Création…$/ })
     await expect(submit).toBeDisabled()
@@ -196,6 +235,7 @@ test.describe('Products page — "Créer" → /products/new', () => {
     page,
   }) => {
     await page.goto('/products/new')
+    await waitForHydration(page)
 
     const stamp = Date.now()
     const name = `E2E Serum ${stamp}`
@@ -223,6 +263,11 @@ test.describe('Products page — "Créer" → /products/new', () => {
     const postPromise = page.waitForRequest(
       (req) => req.method() === 'POST' && isApi(req, '/products')
     )
+    const createdIdPromise = page
+      .waitForResponse(
+        (res) => res.request().method() === 'POST' && isApi(res.request(), '/products')
+      )
+      .then(async (res) => (await res.json()).data.id as string)
 
     await page.getByRole('button', { name: /^Créer le produit$|^Création…$/ }).click()
 
@@ -241,10 +286,15 @@ test.describe('Products page — "Créer" → /products/new', () => {
     // ProductCreatePage.onSuccess navigates to /products/<slug>.
     await expect(page).toHaveURL(/\/products\/[^/]+$/, { timeout: 15_000 })
     await expect(page.getByRole('heading', { name })).toBeVisible()
+
+    // The catalogue defaults to sort=newest, so a leftover product would sit first on
+    // /products and poison every spec that picks the first card.
+    await deleteProduct(page, await loginAndGetToken(page), await createdIdPromise)
   })
 
   test('server error on create surfaces inline without navigation', async ({ page }) => {
     await page.goto('/products/new')
+    await waitForHydration(page)
 
     const stamp = Date.now()
     await page.locator('#edit-name').fill(`E2E Bogus ${stamp}`)

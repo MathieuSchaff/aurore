@@ -1,12 +1,13 @@
 import { expect, type Page } from '@playwright/test'
 
-// Admin user — auto-verifies created products; use for UI moderation + admin API calls.
+// Admin user: auto-verifies created products; use for UI moderation + admin API calls.
 const ADMIN = { email: 'seed@seed.com', password: 'Azerty123!seed' }
-// Plain user — products land unverified in the moderation queue.
+// Plain user: products land unverified in the moderation queue.
 const USER = { email: 'anna@seed.local', password: 'Azerty123!seed' }
 
-// Relative URL → Playwright baseURL (e2e :5174) → Vite proxy → e2e_api. An absolute
-// :3000 would hit the dev stack (wrong DB) — see helpers/auth.ts.
+// A relative URL goes through the Playwright baseURL (e2e :5174), then the Vite proxy,
+// then e2e_api. An absolute
+// :3000 would hit the dev stack (wrong DB), see helpers/auth.ts.
 async function loginAs(page: Page, creds: { email: string; password: string }): Promise<string> {
   const res = await page.request.post('/api/auth/login', { data: creds })
   expect(res.ok(), `login failed (${res.status()})`).toBe(true)
@@ -26,7 +27,7 @@ function bearer(token: string) {
 
 export type CatalogFixture = { id: string; slug: string; name: string }
 
-// Creates a real product as the seed user → lands unverified + visible (the moderation
+// Creates a real product as the seed user, so it lands unverified + visible (the moderation
 // "À vérifier" queue / a "pending" submission). Unique name keeps the slug + (name,brand)
 // visible-unique index collision-free across re-runs.
 export async function createProduct(
@@ -41,6 +42,13 @@ export async function createProduct(
   expect(res.ok(), `create product failed (${res.status()}): ${await res.text()}`).toBe(true)
   const data = (await res.json()).data
   return { id: data.id, slug: data.slug, name }
+}
+
+// Admin-only hard delete: lets a spec that creates a product through the UI put the
+// catalogue back the way it found it.
+export async function deleteProduct(page: Page, token: string, id: string): Promise<void> {
+  const res = await page.request.delete(`/api/products/${id}`, { headers: bearer(token) })
+  expect(res.ok(), `delete product failed (${res.status()})`).toBe(true)
 }
 
 export async function verifyProduct(page: Page, token: string, id: string): Promise<void> {

@@ -10,10 +10,14 @@ test('happy path: règles Sans/Avec — geste en contexte, composeur, catalogue 
   page,
   browserName,
 }) => {
+  // Long multi-page flow with writes and a final revert. The per-test budget is close
+  // to the wall once the whole suite competes for the machine.
+  test.slow()
+
   const token = await loginAsPersona(page, browserName)
 
   // Idempotent setup: a previous crashed run may have left rules behind (the final
-  // revert only runs on success). Wipe both families, not just the ingredient one —
+  // revert only runs on success). Wipe both families, not just the ingredient one:
   // the composer can land on the tag "Niacinamide" too, and a surviving tag rule
   // leaves a second identical label that poisons every later run.
   const auth = { authorization: `Bearer ${token}` }
@@ -54,8 +58,12 @@ test('happy path: règles Sans/Avec — geste en contexte, composeur, catalogue 
 
   // Catalogue under "selon mon profil": "Sans" excludes, the banner states the rule.
   await page.goto('/products?profile_filter=true')
+  // The SSR render is anonymous, so it carries no declared rule and no banner. The banner
+  // appears only after the boot refresh re-fetches the list with the session. Two hops,
+  // which the default 5 s window loses under a loaded worker pool.
+  await waitForHydration(page)
   const banner = page.getByTestId('avoided-banner')
-  await expect(banner).toBeVisible()
+  await expect(banner).toBeVisible({ timeout: 15_000 })
   await expect(banner).toContainText('vos règles : sans : Niacinamide')
 
   // "Afficher quand même" reverses the exclusion, banner flips, rows come back annotated.
@@ -76,7 +84,7 @@ test('happy path: règles Sans/Avec — geste en contexte, composeur, catalogue 
   await avecInput.scrollIntoViewIfNeeded()
   await avecInput.fill('niacinamide')
   // The field proposes ingredients and tags under one name, and the tag section
-  // renders above the raw results once its deferred taxonomy read lands — picking
+  // renders above the raw results once its deferred taxonomy read lands, so picking
   // "the first option" was a race between the two families.
   await page
     .getByRole('option', { name: 'Niacinamide' })
@@ -89,7 +97,8 @@ test('happy path: règles Sans/Avec — geste en contexte, composeur, catalogue 
 
   // "Avec" now filters: rows without the target are masked, the banner says so.
   await page.goto('/products?profile_filter=true')
-  await expect(banner).toBeVisible()
+  await waitForHydration(page)
+  await expect(banner).toBeVisible({ timeout: 15_000 })
   await expect(banner).toContainText('avec : Niacinamide')
 
   // Revert: remove the rule from the recap, list empties.
