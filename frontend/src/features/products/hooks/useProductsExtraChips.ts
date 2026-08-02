@@ -5,25 +5,17 @@ import type { ExtraChip } from '@/component/Filter'
 
 const eurFormatter = new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' })
 
+// profile_filter has no chip here: it is a standing setting, not a filter, and
+// "Tout effacer" next to the chips does not clear it. Its controls are the drawer
+// toggle and AvoidedBanner.
 type Args = {
   hasPriceRange: boolean
   priceMin?: number
   priceMax?: number
-  profileFilter: boolean
-  // Removing the chip is the same gesture as flipping the toggle off, so it must
-  // go through the same setter — otherwise the standing choice is not recorded (D9).
-  onRemoveProfileFilter: () => void
   q?: string
 }
 
-export function useProductsExtraChips({
-  hasPriceRange,
-  priceMin,
-  priceMax,
-  profileFilter,
-  onRemoveProfileFilter,
-  q,
-}: Args): ExtraChip[] {
+export function useProductsExtraChips({ hasPriceRange, priceMin, priceMax, q }: Args): ExtraChip[] {
   const navigate = useNavigate({ from: '/products/' })
 
   return useMemo(() => {
@@ -63,15 +55,6 @@ export function useProductsExtraChips({
       })
     }
 
-    if (profileFilter) {
-      chips.push({
-        id: 'profile',
-        prefix: 'Profil',
-        label: 'Selon mon profil',
-        onRemove: onRemoveProfileFilter,
-      })
-    }
-
     return chips
-  }, [hasPriceRange, priceMin, priceMax, profileFilter, onRemoveProfileFilter, q, navigate])
+  }, [hasPriceRange, priceMin, priceMax, q, navigate])
 }
