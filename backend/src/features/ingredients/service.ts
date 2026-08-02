@@ -109,6 +109,9 @@ export async function listIngredients(database: DB, filters: ListIngredientsSear
   // Mirrors products. Never excludes rows.
   const avoidSlugs = filters.avoid_for ? filters.avoid_for.split(',').filter(Boolean) : []
 
+  // Promise.all is safe here, unlike the product list reads: withRlsContext is mounted but GET
+  // skips requireJwtAuth, so userId is never set and the middleware never opens a transaction.
+  // `database` stays the pool even for an authed caller. Verified against the Postgres log.
   const [items, [{ total }]] = await Promise.all([
     database
       .select({
@@ -370,7 +373,7 @@ export async function searchIngredients(
       type: ingredients.type,
       category: ingredients.category,
       // Rule composer autocomplete: a preference can only attach to a keyed
-      // substance (D8), unkeyed rows render disabled.
+      // substance (D8); unkeyed rows are dropped server-response-side.
       canonicalKey: ingredients.canonicalKey,
     })
     .from(ingredients)
