@@ -15,6 +15,7 @@ import { eq, sql } from 'drizzle-orm'
 import { drizzle } from 'drizzle-orm/bun-sql'
 
 import { users } from '../../db/schema'
+import { getOrCreateSeedUser } from '../../db/seed/seeders/create-user'
 import { testDb } from '../db.test.config'
 import { setupDbTests } from '../db-setup'
 import { createTestContributorUser, createTestUser } from '../helpers/test-factories'
@@ -85,5 +86,28 @@ describe('users role backstop under app_runtime (migration 0091)', () => {
     await testDb.update(users).set({ role: 'admin' }).where(eq(users.id, user.id))
     const [row] = await testDb.select({ role: users.role }).from(users).where(eq(users.id, user.id))
     expect(row?.role).toBe('admin')
+  })
+
+  // The exemption above is only worth anything if the seed actually reaches it.
+  // It did not: the seeder ran on the app_runtime pool, so a fresh DB refused
+  // its own bootstrap. Both branches are covered: creation, then reuse.
+  it('promotes the seed user on both branches of getOrCreateSeedUser', async () => {
+    const email = 'backstop-seed-bootstrap@test.local'
+    const created = await getOrCreateSeedUser(email, 'Azerty123!seed')
+
+    const readBack = async () => {
+      const [row] = await testDb
+        .select({ role: users.role, emailVerifiedAt: users.emailVerifiedAt })
+        .from(users)
+        .where(eq(users.id, created.id))
+      return row
+    }
+
+    expect((await readBack())?.role).toBe('admin')
+    expect((await readBack())?.emailVerifiedAt).not.toBeNull()
+
+    await testDb.update(users).set({ role: 'user' }).where(eq(users.id, created.id))
+    await getOrCreateSeedUser(email, 'Azerty123!seed')
+    expect((await readBack())?.role).toBe('admin')
   })
 })
