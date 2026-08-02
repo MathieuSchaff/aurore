@@ -10,6 +10,7 @@ import { testDb } from '../../../tests/db.test.config'
 import { setupDbTests } from '../../../tests/db-setup'
 import { createTestClient, type TestClient } from '../../../tests/helpers/createTestClient'
 import { createReadyRoute } from '../routes'
+import { checkDatabase } from '../service'
 
 setupDbTests()
 
@@ -71,6 +72,17 @@ describe('Health Routes', () => {
       expect(res.status).toBe(HTTP_STATUS.SERVICE_UNAVAILABLE)
       expect(await res.json()).toMatchObject({ success: false, error: 'db_unreachable' })
       expect(warn).toHaveBeenCalledTimes(1)
+    })
+
+    // A pool exhausted by leaked transactions queues new statements instead of rejecting,
+    // so an untimed probe reports nothing at all. checkDatabase must give up and let the
+    // route answer 503.
+    it('gives up on a statement that never comes back', async () => {
+      const stuck = { execute: () => new Promise(() => {}) } as unknown as Parameters<
+        typeof checkDatabase
+      >[0]
+
+      await expect(checkDatabase(stuck)).rejects.toThrow('readiness_timeout')
     })
   })
 })

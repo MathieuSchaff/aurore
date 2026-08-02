@@ -5,7 +5,15 @@ services:
     image: postgres:18@sha256:52e6ffd11fddd081ae63880b635b2a61c14008c17fc98cdc7ce5472265516dd0
     container_name: app_db
     # Default CMD is "postgres"; keep it first or the container won't boot.
-    command: ["postgres", "-c", "log_min_duration_statement=500"]
+    # idle_in_transaction_session_timeout bounds an abandoned transaction: without it a leaked
+    # connection holds a pool slot forever and freezes the xmin horizon. Seed runners share the
+    # app_runtime role, so this applies to them too; their worst measured idle gap is 0.00s.
+    command:
+      - postgres
+      - -c
+      - log_min_duration_statement=500
+      - -c
+      - idle_in_transaction_session_timeout=30s
     environment:
       POSTGRES_USER: app
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
