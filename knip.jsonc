@@ -68,7 +68,11 @@
         "@tanstack/router-cli",
         "@tanstack/react-router-devtools",
         "katex",
-        "rollup-plugin-visualizer"
+        "rollup-plugin-visualizer",
+        // Pulled in by CSS @import in src/styles/index.css, which knip does not parse.
+        "@fontsource/dm-sans",
+        "@fontsource/fraunces",
+        "@fontsource/ibm-plex-mono"
       ]
     },
     "shared": {
