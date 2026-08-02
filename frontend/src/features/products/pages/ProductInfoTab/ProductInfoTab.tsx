@@ -1,3 +1,5 @@
+import { resolveAvoidSlugs } from '@aurore/shared'
+
 import { useQuery, useSuspenseQuery } from '@tanstack/react-query'
 import { getRouteApi, Link } from '@tanstack/react-router'
 import { Check, ChevronDown, Copy, ExternalLink, FlaskConical, StickyNote } from 'lucide-react'
@@ -21,6 +23,7 @@ import { FormulaConcentrations } from '@/features/products/components/FormulaCon
 import { FormulaProfile } from '@/features/products/components/FormulaProfile/FormulaProfile'
 import { FormulaReading } from '@/features/products/components/FormulaReading/FormulaReading'
 import { ProductSummary } from '@/features/products/components/ProductSummary/ProductSummary'
+import { tagLabel } from '@/features/products/filters'
 import { deriveKpChips } from '@/features/products/kp-chips'
 import { useCopyToClipboard } from '@/hooks/useCopyToClipboard'
 import { productQueries } from '@/lib/queries/products'
@@ -46,7 +49,7 @@ function profileLabel(slug: string): string {
   return (
     SKIN_TYPE_LABELS[slug as keyof typeof SKIN_TYPE_LABELS] ??
     SKIN_CONCERN_LABELS[slug as keyof typeof SKIN_CONCERN_LABELS] ??
-    slug
+    tagLabel(slug)
   )
 }
 
@@ -96,12 +99,17 @@ export function ProductInfoTab() {
     return new Set<string>([...(dermoProfile.skinTypes ?? []), ...dermoProfile.skinConcerns])
   }, [user, dermoProfile])
 
+  // Same bridge as listProducts: user concern vocab and product tag vocab drifted
+  // apart, so a raw comparison only lights the slugs spelled the same in both.
+  // `profileSlugs` stays raw: deriveKpChips and FormulaReading key on user vocab.
+  const avoidSlugs = useMemo(() => new Set(resolveAvoidSlugs([...profileSlugs])), [profileSlugs])
+
   const warnings = useMemo(
-    () => product.tags.filter((t) => t.relevance === 'avoid' && profileSlugs.has(t.tagSlug)),
-    [profileSlugs, product.tags]
+    () => product.tags.filter((t) => t.relevance === 'avoid' && avoidSlugs.has(t.tagSlug)),
+    [avoidSlugs, product.tags]
   )
 
-  // KP bridge — positive mirror of `warnings`: surfaced live for a declared-KP
+  // KP bridge, the positive mirror of `warnings`: surfaced live for a declared-KP
   // profile only, derived from neutral signals, never stored as a product tag.
   const kpChips = useMemo(
     () => deriveKpChips({ profileSlugs, tags: product.tags, inci: product.inci }),
