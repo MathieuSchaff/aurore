@@ -1,6 +1,7 @@
 import { type BrowserContext, expect, type Page, test } from '@playwright/test'
 
 import { loginAsSeed, registerFreshUser } from './helpers/auth'
+import { waitForHydration } from './helpers/hydration'
 
 // Seed user is created and pre-verified by `seed-core` (see backend/src/db/seed/runners/create-user.ts).
 const SEED_EMAIL = 'seed@seed.com'
@@ -32,6 +33,7 @@ async function gotoProductsSettled(page: Page) {
   await expect(page.getByRole('heading', { name: 'Produits' })).toBeVisible({
     timeout: 15_000,
   })
+  await waitForHydration(page)
   await page.getByRole('button', { name: 'Menu utilisateur' }).click()
   await expect(page.getByRole('menu', { name: 'Menu utilisateur' })).toBeVisible()
 }
@@ -278,6 +280,7 @@ test.describe('Auth — session hint (cold-load probe gate)', () => {
     })
     expect(await sessionHint(context)).toBeDefined()
 
+    await waitForHydration(page)
     await page.getByRole('button', { name: 'Menu utilisateur' }).click()
     const menu = page.getByRole('menu', { name: 'Menu utilisateur' })
     await expect(menu).toBeVisible()

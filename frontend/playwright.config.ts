@@ -29,6 +29,12 @@ export default defineConfig({
     {
       name: 'webkit',
       use: { ...devices['Desktop Safari'] },
+      // A webkit test costs 6-8 s here where chromium costs 2, so under the shared worker
+      // pool the default 5 s assertion window expires on a page that is merely slow.
+      // Measured: 31 failures at 10 workers, 8 at 4, none of them engine bugs. Scaling the
+      // budgets keeps the parallelism instead of trading it for green.
+      timeout: 60_000,
+      expect: { timeout: 15_000 },
     },
   ],
   webServer: {
