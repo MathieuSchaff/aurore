@@ -27,6 +27,8 @@ function escapeXml(s: string): string {
     .replace(/'/g, '&apos;')
 }
 
+// Promise.all is safe here, unlike the product list reads: this route carries no auth
+// middleware, so `db` is never the RLS transaction. Verified against the Postgres log.
 async function readSitemapRows(db: DB) {
   const [prods, ings, arts] = await Promise.all([
     db
