@@ -116,7 +116,7 @@ function toSitemapEntries({ prods, ings, arts }: SitemapRows): SitemapEntry[] {
   ]
 }
 
-export async function buildSitemapXml(db: DB): Promise<string> {
+async function buildSitemapXml(db: DB): Promise<string> {
   const urls: SitemapEntry[] = [
     ...STATIC_PATHS.map((path) => ({ path, lastmod: null })),
     ...toSitemapEntries(await readSitemapRows(db)),
