@@ -5,6 +5,7 @@ import { HttpResponse, http } from 'msw'
 import { type ReactElement, useState } from 'react'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
+import { throwIfNotOk } from '@/lib/helpers/apiError'
 import { server } from '../../../../test/msw/server'
 import type { AsyncSearchQueryFactory, FilterOption } from '../../types'
 import { AsyncSearchSelect } from '../AsyncSearchSelect'
@@ -19,6 +20,18 @@ const loadOptionsQuery: AsyncSearchQueryFactory<string, FilterOption[]> = (q) =>
       data: { slug: string; name: string }[]
     }
     return json.data.map((r) => ({ value: r.slug, label: r.name }))
+  },
+})
+
+// The factory above throws a bare Error, so no backend code or delay survives it. The production
+// factories go through throwIfNotOk exactly to keep them on the ApiError; mirror that here, or a
+// 429 is indistinguishable from any other failure.
+const envelopeOptionsQuery: AsyncSearchQueryFactory<string, FilterOption[]> = (q) => ({
+  queryKey: ['ing-search-envelope', q],
+  queryFn: async () => {
+    const res = await fetch(`/api/ingredients/search?q=${encodeURIComponent(q)}`)
+    await throwIfNotOk(res)
+    return [] as FilterOption[]
   },
 })
 
@@ -348,6 +361,33 @@ describe('AsyncSearchSelect — empty + error states', () => {
       expect(screen.getByRole('option', { name: /Niacinamide/i })).toBeInTheDocument()
     })
     expect(callCount).toBe(2)
+  })
+
+  // A16: the button used to invite a click during the very delay its message announced. A 500
+  // carries no delay, so the two cases above must stay clickable: only a 429 refuses.
+  it('refuses the retry for as long as a 429 announced', async () => {
+    server.use(
+      http.get('*/api/ingredients/search', () =>
+        HttpResponse.json(
+          { success: false, error: 'rate_limit_exceeded', details: { retryAfter: '42' } },
+          { status: 429 }
+        )
+      )
+    )
+    const user = userEvent.setup()
+    renderASS(
+      <AsyncSearchSelect
+        {...baseProps}
+        loadOptionsQuery={envelopeOptionsQuery}
+        onToggle={vi.fn()}
+      />
+    )
+    await user.type(screen.getByRole('combobox'), 'ni')
+
+    await waitFor(() => {
+      expect(screen.getByRole('alert')).toHaveTextContent(/réessayez dans 42/i)
+    })
+    expect(screen.getByRole('button', { name: /Réessayer/i })).toBeDisabled()
   })
 })
 

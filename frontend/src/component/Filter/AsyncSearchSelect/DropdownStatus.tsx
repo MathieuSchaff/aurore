@@ -1,9 +1,14 @@
+import { useRetryCountdown } from '../../../hooks/useRetryCountdown'
+
 type Props = {
   showDropdown: boolean
   isLoading: boolean
   isError: boolean
   errorMessage?: string
   onRetry?: () => void
+  /** Raw seconds from a 429; absent for any other error, which stays retryable at once. */
+  retryAfter?: number
+  retryAfterAt?: number
   filteredCount: number
   query: string
   debouncedQuery: string
@@ -35,6 +40,8 @@ export function DropdownStatus({
   isError,
   errorMessage = 'Erreur de recherche',
   onRetry,
+  retryAfter,
+  retryAfterAt,
   filteredCount,
   query,
   debouncedQuery,
@@ -42,6 +49,7 @@ export function DropdownStatus({
   minChars,
   announcement,
 }: Props) {
+  const remaining = useRetryCountdown(retryAfter ?? null, retryAfterAt)
   const showError = showDropdown && isError
   const showNoResult = showDropdown && !isLoading && !isError && filteredCount === 0
   const showMinChars = isOpen && debouncedQuery.length < minChars && query.length > 0
@@ -53,8 +61,16 @@ export function DropdownStatus({
         <p className="search-select__empty search-select__empty--error" role="alert">
           <span>{errorMessage}</span>
           {onRetry && (
-            <button type="button" className="search-select__retry" onClick={onRetry}>
+            <button
+              type="button"
+              className="search-select__retry"
+              onClick={onRetry}
+              disabled={remaining > 0}
+            >
               Réessayer
+              {/* Hidden from the reader: this <p> is role="alert", so a ticking number inside it
+                  would re-fire the whole announcement every second. */}
+              {remaining > 0 && <span aria-hidden="true"> ({remaining} s)</span>}
             </button>
           )}
         </p>

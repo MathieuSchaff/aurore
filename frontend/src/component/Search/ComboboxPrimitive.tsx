@@ -3,6 +3,7 @@ import { createPortal } from 'react-dom'
 
 import { useCaptureDismiss } from '@/hooks/useCaptureDismiss'
 import { useFlipPlacement } from '@/hooks/useFlipPlacement'
+import { useRetryCountdown } from '@/hooks/useRetryCountdown'
 import { useScrollActiveOptionIntoView } from '@/hooks/useScrollActiveOptionIntoView'
 import type { ComboboxController } from './useCombobox'
 import './ComboboxPrimitive.css'
@@ -21,6 +22,9 @@ interface ComboboxPrimitiveProps<T> {
   /** Stale (placeholder) results shown while a newer query is in flight. */
   isUpdating?: boolean
   onRetry?: () => void
+  /** Raw seconds from a 429; absent for any other error, which stays retryable at once. */
+  retryAfter?: number
+  retryAfterAt?: number
   errorMessage?: string
   emptyMessage?: string
   keyExtractor: (item: T, index: number) => string | number
@@ -38,6 +42,8 @@ export function ComboboxPrimitive<T>({
   inputValue,
   isUpdating,
   onRetry,
+  retryAfter,
+  retryAfterAt,
   errorMessage = 'Erreur de recherche',
   emptyMessage = 'Aucun résultat',
   keyExtractor,
@@ -62,6 +68,7 @@ export function ComboboxPrimitive<T>({
     handleKeyDown,
   } = combobox
 
+  const remaining = useRetryCountdown(retryAfter ?? null, retryAfterAt)
   const listboxId = useId()
   const containerRef = useRef<HTMLDivElement>(null)
   const dropdownRef = useRef<HTMLDivElement>(null)
@@ -132,8 +139,16 @@ export function ComboboxPrimitive<T>({
               <div className="combobox-primitive__error" role="alert">
                 <span>{errorMessage}</span>
                 {onRetry && (
-                  <button type="button" className="combobox-primitive__retry" onClick={onRetry}>
+                  <button
+                    type="button"
+                    className="combobox-primitive__retry"
+                    onClick={onRetry}
+                    disabled={remaining > 0}
+                  >
                     Réessayer
+                    {/* Hidden from the reader: this container is role="alert", so a ticking
+                        number inside it would re-fire the announcement every second. */}
+                    {remaining > 0 && <span aria-hidden="true"> ({remaining} s)</span>}
                   </button>
                 )}
               </div>

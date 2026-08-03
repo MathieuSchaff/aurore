@@ -138,8 +138,13 @@
   cursor: pointer;
 }
 
-.search-select__retry:hover {
+.search-select__retry:hover:not(:disabled) {
   background: oklch(from var(--color-error) l c h / 0.1);
+}
+
+.search-select__retry:disabled {
+  opacity: 0.55;
+  cursor: default;
 }
 
 .search-select__retry:focus-visible {
