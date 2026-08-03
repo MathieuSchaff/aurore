@@ -116,6 +116,14 @@ db-fix file:
 prod-security:
     ssh aurore 'docker exec -e PGOPTIONS="-c role=dev_readonly" app_db psql -U app -d appdb -P pager=off -c "SELECT created_at, severity, event_type, field, route, left(payload,60) AS payload FROM security_events WHERE created_at > current_date - 30 ORDER BY created_at DESC LIMIT 20;"'
 
+# Connection pool health. A leaked transaction never returns its connection, and the Bun SQL
+# pool caps at 10: once they are all "idle in transaction" the API stops answering while
+# /api/health still returns 200 (it does not touch the DB by design). Read-only.
+# Runs as `app`, not dev_readonly: pg_stat_activity blanks out other sessions' state for a
+# role without pg_read_all_stats, which hides exactly what this looks for.
+prod-pool:
+    ssh aurore 'docker exec app_db psql -U app -d appdb -P pager=off -c "SELECT state, count(*), max(now() - xact_start) AS oldest_xact FROM pg_stat_activity WHERE datname = '"'"'appdb'"'"' GROUP BY state ORDER BY 2 DESC;"'
+
 # [VPS] Reclaim disk from superseded deploy images and build cache (~1.1 GB added per deploy, never removed). Keeps 14 days so a rollback still has an image; running images untouched.
 prod-docker-prune:
     ssh aurore 'docker system df; echo; docker image prune -af --filter "until=336h"; docker builder prune -af --filter "unused-for=336h"; echo; docker system df'
