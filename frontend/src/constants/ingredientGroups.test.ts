@@ -1,28 +1,33 @@
+import {
+  DENTAL_INGREDIENT_CATEGORY_VALUES,
+  HAIRCARE_INGREDIENT_CATEGORY_VALUES,
+  SKINCARE_INGREDIENT_CATEGORY_VALUES,
+  SUPPLEMENT_CATEGORY_VALUES,
+} from '@aurore/shared'
+
 import { describe, expect, it } from 'vitest'
 
 import { summarizeIngredientGroups } from './ingredientGroups'
 
-// The supplement categories the catalog holds today. An unmapped one is dropped
-// silently, so the summary of a `complement` product loses a whole group.
-const SUPPLEMENT_CATEGORIES_IN_CATALOG = [
-  'vitamine',
-  'mineral',
-  'acide-gras',
-  'antioxydant',
-  'carotenoide',
-  'plante',
-  'prebiotique',
-  'neuroactif',
-  'acide-amine',
-  'autre',
+// Derived from shared, never typed by hand: a hand-written list only ever pins the categories
+// someone remembered, and an unmapped one is dropped silently (a whole group disappears from
+// the summary of a product). This is also the only assertion that sees an incomplete reading
+// order, which the Record type cannot.
+const ALL_CATEGORIES = [
+  ...new Set([
+    ...SKINCARE_INGREDIENT_CATEGORY_VALUES,
+    ...HAIRCARE_INGREDIENT_CATEGORY_VALUES,
+    ...DENTAL_INGREDIENT_CATEGORY_VALUES,
+    ...SUPPLEMENT_CATEGORY_VALUES,
+  ]),
 ]
 
 describe('summarizeIngredientGroups', () => {
-  it('labels every supplement category present in the catalog', () => {
-    const groups = summarizeIngredientGroups(SUPPLEMENT_CATEGORIES_IN_CATALOG)
+  it('labels every category the schemas accept, in any domain', () => {
+    const groups = summarizeIngredientGroups(ALL_CATEGORIES)
 
-    expect(groups).toHaveLength(SUPPLEMENT_CATEGORIES_IN_CATALOG.length)
-    expect(groups.filter(Boolean)).toHaveLength(SUPPLEMENT_CATEGORIES_IN_CATALOG.length)
+    expect(groups).toHaveLength(ALL_CATEGORIES.length)
+    expect(groups.filter(Boolean)).toHaveLength(ALL_CATEGORIES.length)
   })
 
   it('labels the skincare, dental and haircare categories', () => {
