@@ -1,4 +1,4 @@
-import { expect, type Locator, test } from '@playwright/test'
+import { expect, type Locator, type Page, test } from '@playwright/test'
 
 import { waitForHydration } from './helpers/hydration'
 
@@ -7,6 +7,20 @@ import { waitForHydration } from './helpers/hydration'
 async function openFilterGroup(drawer: Locator, label: string) {
   await drawer.getByRole('heading', { name: label, exact: true }).click()
   return drawer.getByRole('group', { name: `Options pour ${label}` })
+}
+
+async function openFilterDrawer(page: Page) {
+  const drawer = page.getByRole('dialog', { name: 'Filtres' })
+  // A cold Vite dependency re-optimization can reload after hydration and drop
+  // the first click. Retry the user action until the drawer is actually open.
+  await expect(async () => {
+    await page
+      .getByRole('button', { name: /^Filtrer$|^Filtrer \(/ })
+      .first()
+      .click()
+    await expect(drawer).toBeVisible({ timeout: 2000 })
+  }).toPass({ timeout: 15_000 })
+  return drawer
 }
 
 // All specs target unauthenticated paths: list, detail, filters, sort, search.
@@ -135,12 +149,7 @@ test.describe('Products page', () => {
   }) => {
     await expect(page.locator('.list-card--product').first()).toBeVisible({ timeout: 15_000 })
 
-    await page
-      .getByRole('button', { name: /^Filtrer$|^Filtrer \(/ })
-      .first()
-      .click()
-    const drawer = page.getByRole('dialog', { name: 'Filtres' })
-    await expect(drawer).toBeVisible()
+    const drawer = await openFilterDrawer(page)
 
     const zoneGroup = await openFilterGroup(drawer, 'Zone')
     const zoneChip = zoneGroup.getByRole('button', { name: /^Visage/ })
@@ -163,11 +172,7 @@ test.describe('Products page', () => {
   test('price filter applies, shows chip, and chip removes it', async ({ page }) => {
     await expect(page.locator('.list-card--product').first()).toBeVisible({ timeout: 15_000 })
 
-    await page
-      .getByRole('button', { name: /^Filtrer$|^Filtrer \(/ })
-      .first()
-      .click()
-    const drawer = page.getByRole('dialog', { name: 'Filtres' })
+    const drawer = await openFilterDrawer(page)
 
     // Price renders flat in the drawer (no accordion), self-labelled by its <legend>.
     const minInput = drawer.getByLabel('Prix minimum en euros')
@@ -191,11 +196,7 @@ test.describe('Products page', () => {
 
     // Seed two tag filters; both commit together on Apply (no price-accordion
     // navigation race). "Barrière cutanée" sits in the first group, open by default.
-    await page
-      .getByRole('button', { name: /^Filtrer$|^Filtrer \(/ })
-      .first()
-      .click()
-    const drawer = page.getByRole('dialog', { name: 'Filtres' })
+    const drawer = await openFilterDrawer(page)
 
     const zoneGroup = await openFilterGroup(drawer, 'Zone')
     await zoneGroup.getByRole('button', { name: /^Visage/ }).click()
@@ -220,11 +221,7 @@ test.describe('Products page', () => {
   test('impossible price filter shows empty state with reset action', async ({ page }) => {
     await expect(page.locator('.list-card--product').first()).toBeVisible({ timeout: 15_000 })
 
-    await page
-      .getByRole('button', { name: /^Filtrer$|^Filtrer \(/ })
-      .first()
-      .click()
-    const drawer = page.getByRole('dialog', { name: 'Filtres' })
+    const drawer = await openFilterDrawer(page)
 
     // Min > Max yields zero rows on any tab.
     await drawer.getByLabel('Prix minimum en euros').fill('99999')
