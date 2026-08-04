@@ -11,17 +11,19 @@ export function emptyFilters<T extends string>(keys: readonly T[]): FilterValues
 }
 
 export function filterSearchSchema<T extends string>(keys: readonly T[]) {
-  const shape = {} as { [K in T]: z.ZodDefault<z.ZodArray<z.ZodString>> }
+  const shape = {} as {
+    [K in T]: z.ZodCatch<z.ZodDefault<z.ZodArray<z.ZodString>>>
+  }
   const defaults = {} as { [K in T]: string[] } & { page: number }
 
   for (const key of keys) {
-    shape[key] = z.string().array().default([])
+    shape[key] = z.string().array().default([]).catch([])
     ;(defaults as Record<string, string[] | number>)[key] = [] as string[]
   }
 
   const schema = z.object({
     ...shape,
-    page: z.number().min(1).default(1),
+    page: z.number().int().min(1).default(1).catch(1),
   })
 
   defaults.page = 1

@@ -23,6 +23,8 @@ describe('emptyFilters', () => {
 })
 
 describe('filterSearchSchema', () => {
+  // These fields are shared by multiple route schemas; one malformed URL field must not make
+  // route validation throw before the other fields can fall back independently.
   it('parses absent fields as empty arrays and page=1 by default', () => {
     const { schema } = filterSearchSchema(['concern', 'kind'] as const)
     const parsed = schema.parse({})
@@ -35,14 +37,19 @@ describe('filterSearchSchema', () => {
     expect(parsed.concern).toEqual(['acne', 'aging'])
   })
 
-  it('rejects non-string entries inside arrays', () => {
+  it('drops an invalid filter array instead of throwing', () => {
     const { schema } = filterSearchSchema(['concern'] as const)
-    expect(() => schema.parse({ concern: [42] })).toThrow()
+    expect(schema.parse({ concern: [42] }).concern).toEqual([])
   })
 
-  it('rejects page < 1', () => {
+  it('defaults page < 1 instead of throwing', () => {
     const { schema } = filterSearchSchema(['concern'] as const)
-    expect(() => schema.parse({ page: 0 })).toThrow()
+    expect(schema.parse({ page: 0 }).page).toBe(1)
+  })
+
+  it('defaults a fractional page instead of accepting an invalid offset', () => {
+    const { schema } = filterSearchSchema(['concern'] as const)
+    expect(schema.parse({ page: 1.5 }).page).toBe(1)
   })
 
   it('returns defaultValues mirroring keys + page=1', () => {

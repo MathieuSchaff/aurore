@@ -14,13 +14,15 @@ describe('productsSearchSchema — defaults', () => {
 
   it('default values object matches the schema output on empty input', () => {
     // profile_filter is deliberately absent: listing it here would let
-    // stripSearchParams erase an explicit `false` from the URL (D9).
+    // stripSearchParams erase an explicit `false` from the URL.
     expect('profile_filter' in productsSearchDefaults).toBe(false)
     expect(productsSearchDefaults.sort).toBe('newest')
     expect(productsSearchDefaults.page).toBe(1)
   })
 })
 
+// Every invalid-field case below exercises a field-local catch: malformed shared URLs stay out
+// of GlobalError while valid sibling parameters remain available to the route.
 describe('productsSearchSchema — sort', () => {
   it.each([
     'name',
@@ -32,8 +34,8 @@ describe('productsSearchSchema — sort', () => {
     expect(productsSearchSchema.parse({ sort }).sort).toBe(sort)
   })
 
-  it('rejects unknown sort values', () => {
-    expect(() => productsSearchSchema.parse({ sort: 'alphabetical' })).toThrow()
+  it('drops an unknown sort value instead of throwing', () => {
+    expect(productsSearchSchema.parse({ sort: 'alphabetical' }).sort).toBe('newest')
   })
 
   it('defaults sort to relevance when q is present', () => {
@@ -84,12 +86,12 @@ describe('productsSearchSchema — priceMin / priceMax', () => {
     expect(productsSearchSchema.parse({ priceMin: 0, priceMax: 0 }).priceMin).toBe(0)
   })
 
-  it('rejects negative priceMin', () => {
-    expect(() => productsSearchSchema.parse({ priceMin: -1 })).toThrow()
+  it('drops a negative priceMin instead of throwing', () => {
+    expect(productsSearchSchema.parse({ priceMin: -1 }).priceMin).toBeUndefined()
   })
 
-  it('rejects non-integer prices', () => {
-    expect(() => productsSearchSchema.parse({ priceMin: 12.5 })).toThrow()
+  it('drops non-integer prices instead of throwing', () => {
+    expect(productsSearchSchema.parse({ priceMin: 12.5 }).priceMin).toBeUndefined()
   })
 
   it('leaves both undefined when omitted', () => {
@@ -114,7 +116,7 @@ describe('productsSearchSchema — tag filters', () => {
 
 describe('productsSearchSchema — profile_filter', () => {
   // Tri-state on purpose: an unstated toggle is not a stated "off", so the
-  // standing choice can resolve it client-side (D9).
+  // standing choice can resolve it client-side.
   it('stays undefined when the URL says nothing', () => {
     expect(productsSearchSchema.parse({}).profile_filter).toBeUndefined()
   })
@@ -125,6 +127,16 @@ describe('productsSearchSchema — profile_filter', () => {
 
   it('accepts true', () => {
     expect(productsSearchSchema.parse({ profile_filter: true }).profile_filter).toBe(true)
+  })
+
+  it('drops an invalid value instead of throwing', () => {
+    expect(productsSearchSchema.parse({ profile_filter: 'yes' }).profile_filter).toBeUndefined()
+  })
+})
+
+describe('productsSearchSchema — show_hidden', () => {
+  it('defaults an invalid value instead of throwing', () => {
+    expect(productsSearchSchema.parse({ show_hidden: 'yes' }).show_hidden).toBe(false)
   })
 })
 
@@ -139,7 +151,9 @@ describe('productsSearchSchema — category', () => {
     expect(parsed.category).toBe(value)
   })
 
-  it('rejects unknown category', () => {
-    expect(() => productsSearchSchema.parse({ category: 'nope' })).toThrow()
+  it('defaults an unknown category without dropping valid siblings', () => {
+    const parsed = productsSearchSchema.parse({ category: 'nope', priceMin: 1500 })
+    expect(parsed.category).toBe('skincare')
+    expect(parsed.priceMin).toBe(1500)
   })
 })

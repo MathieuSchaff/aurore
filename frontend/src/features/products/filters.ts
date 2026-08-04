@@ -82,23 +82,23 @@ const { schema: baseSchema, defaultValues } = filterSearchSchema(FILTER_KEYS)
 
 export const productsSearchSchema = baseSchema
   .extend({
-    category: z.enum(PRODUCT_DOMAIN_TABS).default('skincare'),
+    category: z.enum(PRODUCT_DOMAIN_TABS).default('skincare').catch('skincare'),
     // No default: an unstated toggle is not a stated "off". The standing choice
-    // resolves it client-side (D9), and it is kept out of productsSearchDefaults
+    // resolves it client-side, and it is kept out of productsSearchDefaults
     // so `?profile_filter=false` survives stripSearchParams.
-    profile_filter: z.boolean().optional(),
+    profile_filter: z.boolean().optional().catch(undefined),
     // "Afficher quand même": reverse the declared-avoid exclusion, keep annotations.
-    show_hidden: z.boolean().default(false),
-    sort: productSortEnum.optional(),
-    priceMin: z.number().int().min(0).optional(),
-    priceMax: z.number().int().min(0).optional(),
+    show_hidden: z.boolean().default(false).catch(false),
+    sort: productSortEnum.optional().catch(undefined),
+    priceMin: z.number().int().min(0).optional().catch(undefined),
+    priceMax: z.number().int().min(0).optional().catch(undefined),
     // catch: a hand-crafted/shared URL with an invalid q (whitespace-only, >100 chars)
     // must degrade to the plain list, not throw past the route into GlobalError.
     q: z.string().trim().min(1).max(100).optional().catch(undefined),
   })
   // Contextual sort default: a q without explicit sort means relevance; relevance
   // without q is meaningless and heals back to newest. Both mappings are stable
-  // under re-validation (TanStack round-trips validateSearch output through the URL).
+  // when validated again (TanStack round-trips validateSearch output through the URL).
   .transform((s) => {
     const sort = s.sort ?? (s.q ? ('relevance' as const) : ('newest' as const))
     return { ...s, sort: sort === 'relevance' && !s.q ? ('newest' as const) : sort }

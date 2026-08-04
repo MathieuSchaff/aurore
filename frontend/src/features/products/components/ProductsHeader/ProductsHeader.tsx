@@ -77,6 +77,16 @@ function ProductsHeaderImpl({
     return () => obs.disconnect()
   }, [])
 
+  // sort reset: a fresh q defaults to relevance via productsSearchSchema.
+  const navigateToQuery = useCallback(
+    (trimmed: string) =>
+      navigate({
+        to: '/products',
+        search: (prev) => ({ ...prev, q: trimmed, page: 1, sort: undefined }),
+      }),
+    [navigate]
+  )
+
   const sections = useCallback(
     (q: string): ComboboxSection[] => {
       const folded = foldText(q)
@@ -108,7 +118,14 @@ function ProductsHeaderImpl({
               navigate({
                 to: '/products',
                 // Drop any stale q: the label promises "all products with X", not "X AND q".
-                search: (prev) => ({ ...prev, ingredient: [i.slug], q: undefined, page: 1 }),
+                search: (prev) => ({
+                  ...prev,
+                  ingredient: prev.ingredient?.includes(i.slug)
+                    ? prev.ingredient
+                    : [...(prev.ingredient ?? []), i.slug],
+                  q: undefined,
+                  page: 1,
+                }),
               }),
           })),
         },
@@ -142,18 +159,13 @@ function ProductsHeaderImpl({
                   <span>Voir tous les résultats pour "{trimmed}"</span>
                 </span>
               ),
-              onSelect: () =>
-                navigate({
-                  to: '/products',
-                  // sort reset: a fresh q defaults to relevance via productsSearchSchema.
-                  search: (prev) => ({ ...prev, q: trimmed, page: 1, sort: undefined }),
-                }),
+              onSelect: () => navigateToQuery(trimmed),
             },
           ],
         },
       ]
     },
-    [brands, ingredients, navigate]
+    [brands, ingredients, navigate, navigateToQuery]
   )
 
   return (
@@ -229,11 +241,7 @@ function ProductsHeaderImpl({
           onSubmitQuery={(q) => {
             const trimmed = q.trim()
             if (trimmed.length === 0) return
-            navigate({
-              to: '/products',
-              // sort reset: a fresh q defaults to relevance via productsSearchSchema.
-              search: (prev) => ({ ...prev, q: trimmed, page: 1, sort: undefined }),
-            })
+            navigateToQuery(trimmed)
           }}
         />
       }
