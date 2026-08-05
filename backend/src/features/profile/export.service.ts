@@ -31,7 +31,7 @@ export async function exportUserData(db: DB, userId: string): Promise<UserExport
   // Reads are intentionally sequential: bun-sql + drizzle currently mis-bind
   // result-format codes when many SELECTs are pipelined through a single tx
   // connection (observed as "bind message has N result formats but query has
-  // M columns"). One user export = ~11 small queries on a local pg socket,
+  // M columns"). One user export is a dozen small queries on a local pg socket,
   // well under any UX threshold, so the loss is negligible.
   const userRow = await db.select().from(usersSafe).where(eq(usersSafe.id, userId)).limit(1)
   const profileRow = await db.select().from(profiles).where(eq(profiles.userId, userId)).limit(1)
@@ -298,14 +298,18 @@ export async function exportUserData(db: DB, userId: string): Promise<UserExport
   }
 }
 
-// Pinned for tests: if a tenant-scoped table is added without showing up here,
-// the service-level exhaustivity test fails. Keep in sync with grep
-// `tenantPolicies\|fkTenantPolicies` over backend/src/db/schema/.
+// Hand-kept audit list for the GDPR export. The routes test maps each entry to
+// a JSON section, so a name added here without a section fails to typecheck.
+// Nothing catches the reverse: when a user-scoped table is added, re-run
+// `grep -rl 'tenantPolicies\|fkTenantPolicies' backend/src/db/schema/` and
+// decide explicitly whether it belongs in the export.
 export const USER_EXPORT_TENANT_TABLES = [
   'users',
   'profiles',
   'user_dermo_profiles',
   'user_preferences',
+  'user_ingredient_preferences',
+  'user_tag_preferences',
   'user_products',
   'user_product_reviews',
   'user_product_status_log',
