@@ -1,32 +1,16 @@
 #!/usr/bin/env bun
 
-/**
- * backfill-canonical-key.ts: populate ingredients.canonical_key from algo-derm's
- * curated evidence DB.
- *
- * The catalogue mixes slug schemes (English / French `huile-*` / INCI) and holds
- * `-hair` shadow duplicates, so `slug` is not a substance identity. algo-derm's
- * aliasIndex already normalizes INCI / common names / botanical parts; its
- * `evidence.inci` is the canonical identity. Every alias of one substance resolves
- * to the same key, so `-hair` shadows collapse onto their bare counterpart without
- * renaming or deleting any row.
- *
- * Best-effort: leaves canonical_key NULL when algo-derm has no match (FR / exotic
- * botanicals). `product_ingredients` is a curated optional subset, not a
- * completeness contract. An unkeyed ingredient is a coverage nit, not a defect.
- *
- * Resolution order per ingredient: name, then slug, then de-hyphenated slug with
- * the `-hair` suffix stripped (so `coconut-oil-hair` retries as `coconut oil`),
- * then the trailing parenthetical of the name. Catalogue names embed the INCI
- * there ("Huile de Macadamia (Macadamia Ternifolia Seed Oil)"), which resolves
- * when neither the full name nor the slug is a known alias. Blocked slugs stay
- * NULL and hard overrides win before the ladder runs; among the rungs' hits, an
- * ungraded French spelling stub yields to the graded English record.
- *
- * Usage:
- *   bun run src/db/seed/maintenance/backfill-canonical-key.ts          # dry-run
- *   bun run src/db/seed/maintenance/backfill-canonical-key.ts --write  # apply
- */
+// Populates ingredients.canonical_key from algo-derm's curated evidence DB.
+
+// The catalogue mixes slug schemes (English / French `huile-*` / INCI) and holds
+// `-hair` shadow duplicates, so `slug` is not a substance identity; algo-derm's
+// aliasIndex normalizes INCI / common names / botanical parts so every alias
+// resolves to the same key, collapsing `-hair` shadows without renaming or
+// deleting any row.
+
+// Usage:
+//   bun run src/db/seed/maintenance/backfill-canonical-key.ts          # dry-run
+//   bun run src/db/seed/maintenance/backfill-canonical-key.ts --write  # apply
 
 import { buildAliasIndex, lookupIngredient, MERGED_EVIDENCE_DB } from 'algo-derm/engine'
 import { eq } from 'drizzle-orm'
@@ -38,35 +22,57 @@ import { ingredients } from '../../schema/ingredients/ingredients'
 const WRITE = process.argv.includes('--write')
 const aliasIndex = buildAliasIndex(MERGED_EVIDENCE_DB)
 
-// Slugs whose alias resolution collapses two distinct substances. The ladder below matches
-// on words, so a narrower slug lands on its broader neighbour and inherits a dermo profile
-// that was never measured on it. Left unkeyed on purpose: no key beats a wrong one.
-//   - the bitter-orange trio: flower (neroli) and leaf (petitgrain) both fall on the peel oil,
-//     which is the one carrying furocoumarins.
-//   - Camellia oleifera is not Camellia sinensis (tea-seed vs green tea).
-//   - EOS/EOP and NG/NS are separate CosIng names; the vendored alias index conflates them,
-//     fixed upstream but not in this pin.
-//   - a branded thermal spring water is not `Aqua`: the ladder resolves it there through the
-//     name, which would hand one brand's fiche the identity of plain water.
+// Slugs whose alias resolution collapses two distinct substances. The ladder above
+// matches on words, so a narrower slug lands on its broader neighbour and inherits
+// a dermo profile that was never measured on it. Left unkeyed on purpose: no key
+// beats a wrong one.
 export const UNRESOLVABLE_SLUGS = new Set([
+  // a branded thermal spring water is not `Aqua`: the ladder resolves it there
+  // through the name, which would hand one brand's fiche the identity of plain water.
   'avene-thermal-spring-water',
+  // Camellia oleifera is not Camellia sinensis (tea-seed vs green tea).
   'camellia-oleifera-leaf-extract',
+  // EOS/EOP and NG/NS are separate CosIng names; the vendored alias index
+  // conflates them, fixed upstream but not in this pin.
   'ceramide-eos',
   'ceramide-ng',
+  // the bitter-orange trio: flower (neroli) and leaf (petitgrain) both fall on
+  // the peel oil, which is the one carrying furocoumarins.
   'citrus-aurantium-amara-flower-oil',
   'citrus-aurantium-amara-leaf-oil',
+  // Tetrasodium and Disodium EDTA are separate salts; this pin aliases the
+  // former to the latter.
+  'tetrasodium-edta',
+  // Flower and Bud extract are declared as distinct forms; the ladder
+  // collapses both onto the Flower evidence record.
+  'eugenia-caryophyllus-extract',
 ])
 
-// The graded record and its French spelling are two unrelated rows in algo-derm, so when every
-// rung lands on the stub there is nothing in the data to follow to the real one. Declared here
-// rather than left to the ladder: keying a fiche on a stub makes it unreachable from a
-// dermo-score driver AND from the INCI linker's canonical_key fallback.
+// The first ladder hit can be a spelling stub or a broader alias even when the slug names the
+// exact record. Declared here so the generated key stays on the catalogue row's own substance.
 // A bump that finally aliases the French spelling makes an entry redundant, not wrong (same key
 // either way), so there is no staleness guard; target existence is asserted in the test instead.
 export const CANONICAL_KEY_OVERRIDES: Record<string, string> = {
   astaxanthine: 'Astaxanthin',
   'astaxanthine-supplement': 'Astaxanthin',
   coq10: 'Ubiquinone',
+  'rice-amino-acids': 'Rice Amino Acids',
+  'silk-amino-acids': 'Silk Amino Acids',
+  'sodium-hyaluronate': 'Sodium Hyaluronate',
+  'wheat-amino-acids': 'Wheat Amino Acids',
+}
+
+// These identities are deliberate catalogue distinctions that the vendored evidence either
+// merges or does not carry. Keep them keyed so preferences and the linker's duplicate
+// handling stay exact.
+export const CATALOG_CANONICAL_KEY_OVERRIDES: Record<string, string> = {
+  angiopausine: 'Angiopausine',
+  comedoclastin: 'Comedoclastin',
+  'chardon-marie': 'SILYBUM MARIANUM SEED EXTRACT',
+  'silybum-marianum-extract': 'SILYBUM MARIANUM EXTRACT',
+  'silybum-marianum-fruit-extract': 'SILYBUM MARIANUM FRUIT EXTRACT',
+  'silybum-marianum-seed-oil': 'SILYBUM MARIANUM SEED OIL',
+  'silybum-marianum-ethyl-ester': 'SILYBUM MARIANUM ETHYL ESTER',
 }
 
 type EvidenceRecord = NonNullable<ReturnType<typeof lookupIngredient>>
@@ -79,6 +85,10 @@ const isSpellingStub = (e: EvidenceRecord) =>
   !e.identity?.cosingRef &&
   !e.identity?.cas?.length &&
   Object.keys(e.risk ?? {}).length === 0
+
+// Resolution order: name, then slug, then the slug with hyphens removed and the `-hair`
+// suffix stripped, then the trailing parenthetical of the name (catalogue names
+// embed the INCI there, e.g. "Huile de Macadamia (Macadamia Ternifolia Seed Oil)").
 
 // The catalogue names are French, so the first rung lands on a spelling stub whenever the
 // substance is graded under its English INCI name. Keep the stub only when no rung found the
@@ -93,7 +103,11 @@ export const resolveFromLadder = (name: string, slug: string): string | null => 
   return (hits.find((e) => !isSpellingStub(e)) ?? hits[0])?.inci ?? null
 }
 
+// Best-effort: leaves canonical_key NULL when algo-derm has no match (FR / exotic
+// botanicals). An unkeyed ingredient is a coverage nit, not a defect.
 export const resolveCanonicalKey = (name: string, slug: string): string | null => {
+  const catalogueKey = CATALOG_CANONICAL_KEY_OVERRIDES[slug]
+  if (catalogueKey) return catalogueKey
   if (UNRESOLVABLE_SLUGS.has(slug)) return null
   return CANONICAL_KEY_OVERRIDES[slug] ?? resolveFromLadder(name, slug)
 }
@@ -126,7 +140,7 @@ async function main() {
   }
 
   await withAdminRls(async (tx) => {
-    // reset first so a re-run reflects an updated evidence DB (drops stale keys)
+    // reset first so a later run reflects an updated evidence DB (drops stale keys)
     await tx.update(ingredients).set({ canonicalKey: null })
     for (const u of updates) {
       await tx.update(ingredients).set({ canonicalKey: u.key }).where(eq(ingredients.id, u.id))

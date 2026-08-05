@@ -18,8 +18,11 @@ import '_vars.just'
 # Idempotent. Re-run after every ingest. Seed/ingest does NOT link:
 # this script is the only path that populates links for imported products.
 # SLUG and RELINK reconcile, they do not replace: a link the recompute no longer derives is
-# dropped only when nothing marks it as human, and an empty recompute deletes nothing.
-[doc("Backfill INCI links → product_ingredients. Env: WRITE (omit = dry-run), SLUG (reconcile 1 product), RELINK (reconcile all), LIMIT (integer >= 0)")]
+# dropped only when nothing marks it as human, and an empty recompute deletes nothing. ONLY_SLUGS
+# scopes a RELINK to additive inserts for a bounded creation lot; it never removes a link. Those
+# are INGREDIENT slugs, not product slugs: a product list silently plans zero rows. Scope a lot of
+# products with one SLUG run per product.
+[doc("Backfill INCI links → product_ingredients. Env: WRITE (omit = dry-run), SLUG (reconcile 1 product), RELINK (reconcile all), ONLY_SLUGS (additive scope, ingredient slugs), LIMIT (integer >= 0)")]
 [group('inci')]
 link-ingredients:
     #!/usr/bin/env bash
@@ -30,7 +33,7 @@ link-ingredients:
     if [ "$TARGET" = prod ] && [ -n "${WRITE:-}" ]; then confirm_prod "WRITE (link-ingredients)"; fi
     MODE=$([ -n "${WRITE:-}" ] && echo "WRITE" || echo "dry-run")
     printf "{{CYAN}}INCI link-ingredients ($MODE, $TARGET)...{{NC}}\n"
-    $COMPOSE exec ${LIMIT:+-e LIMIT="$LIMIT"} -w /app/backend api bun run src/db/seed/inci/link-ingredients/main.ts ${WRITE:+--write} ${SLUG:+--slug "$SLUG"} ${RELINK:+--relink}
+    $COMPOSE exec ${LIMIT:+-e LIMIT="$LIMIT"} ${ONLY_SLUGS:+-e ONLY_SLUGS="$ONLY_SLUGS"} -w /app/backend api bun run src/db/seed/inci/link-ingredients/main.ts ${WRITE:+--write} ${SLUG:+--slug "$SLUG"} ${RELINK:+--relink}
 
 # One-shot INCI cleanup. SCRIPT ∈ clean-inci | resplit-single-token | worst-match-prose.
 # Dry-run by default; WRITE=1 commits. Env: TARGET, WRITE, LIMIT (resplit).

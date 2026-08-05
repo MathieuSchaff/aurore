@@ -10,7 +10,7 @@ export const HUMECTANTS = {
   HYDROLYZED_HYALURONIC_ACID: 'hydrolyzed-hyaluronic-acid', // INCI: Hydrolyzed Hyaluronic Acid | fragmented hyaluronic acid (deep penetration)
   SODIUM_HYALURONATE_CROSSPOLYMER: 'sodium-hyaluronate-crosspolymer', // INCI: Sodium Hyaluronate Crosspolymer | long-lasting 3D form
   SODIUM_ACETYLATED_HYALURONATE: 'sodium-acetylated-hyaluronate', // INCI: Sodium Acetylated Hyaluronate | "Super HA", high affinity and hydration
-  HYDROXYPROPYLTRIMONIUM_HYALURONATE: 'hydroxypropyltrimonium-hyaluronate', // INCI: Hydroxypropyltrimonium Hyaluronate | cationic HA (adherence)
+  HYDROXYPROPYLTRIMONIUM_HYALURONATE: 'hydroxypropyltrimonium-hyaluronate', // INCI: Hydroxypropyltrimonium Hyaluronate / Hydroxypropyl Trimonium Hyaluronate | cationic HA (adherence)
   POTASSIUM_HYALURONATE: 'potassium-hyaluronate', // INCI: Potassium Hyaluronate | potassium salt (continuous hydration)
   POLYGLUTAMIC_ACID: 'polyglutamic-acid', // INCI: Polyglutamic Acid | super-humectant (more than HA)
   SODIUM_PCA: 'sodium-pca', // INCI: Sodium PCA | natural NMF component, powerful humectant
@@ -29,11 +29,11 @@ export const HUMECTANTS = {
   HISTIDINE: 'histidine', // INCI: Histidine | NMF amino acid
   LEUCINE: 'leucine', // INCI: Leucine | NMF amino acid
   LYSINE_HCL: 'lysine-hcl', // INCI: Lysine HCl | NMF amino acid
-  PHENYLALANINE: 'phenylalanine', // INCI: Phenylalanine | NMF amino acid
+  PHENYLALANINE: 'phenylalanine', // INCI: Phenylalanine / Phenyl Alanine | NMF amino acid
   TYROSINE: 'tyrosine', // INCI: Tyrosine | amino acid, melanin precursor
   GLUTAMINE: 'glutamine', // INCI: Glutamine | amino acid, hydrating / repairing
   COLLAGEN_AMINO_ACIDS: 'collagen-amino-acids', // INCI: Collagen Amino Acids | humectant collagen hydrolysate
-  XYLITYLGLUCOSIDE: 'xylitylglucoside', // INCI: Xylitylglucoside | sugar derivative (Aquaxyl), boosts deep hydration
+  XYLITYLGLUCOSIDE: 'xylitylglucoside', // INCI: Xylitylglucoside / Xylityl Glucoside | sugar derivative (Aquaxyl), boosts deep hydration
   XYLITOL: 'xylitol', // INCI: Xylitol | natural sugar humectant
   ANHYDROXYLITOL: 'anhydroxylitol', // INCI: Anhydroxylitol | xylitol derivative, hydration balance
   PCA: 'pca', // INCI: PCA | natural moisturizing factor (NMF)
@@ -46,6 +46,8 @@ export const HUMECTANTS = {
   SACCHARIDE_ISOMERATE: 'saccharide-isomerate', // INCI: Saccharide Isomerate | long-lasting plant humectant (Pentavitin)
   HYDROLYZED_SODIUM_HYALURONATE: 'hydrolyzed-sodium-hyaluronate', // INCI: Hydrolyzed Sodium Hyaluronate | low-MW HA fragments, deeper stratum corneum penetration
   SODIUM_ACETYL_HYALURONATE: 'sodium-acetyl-hyaluronate', // INCI: Sodium Acetyl Hyaluronate | acetylated HA salt, improved skin retention
+  SOLUBLE_COLLAGEN: 'soluble-collagen', // INCI: Soluble Collagen / Collagen / Collagen Extract | native soluble collagen, distinct from the hydrolysate
+  HYDROLYZED_QUINOA: 'hydrolyzed-quinoa', // INCI: Hydrolyzed Quinoa | quinoa protein hydrolysate, film-forming and humectant
   MEL_EXTRACT: 'mel-extract', // INCI: Mel Extract | honey extract, humectant supporting filaggrin and aquaporins
   SERICIN: 'sericin', // INCI: Sericin | silk glue protein, lowers TEWL, documented protein allergen
   POLYGLYCERIN_3: 'polyglycerin-3', // INCI: Polyglycerin-3 | low-MW polyglycerol humectant
@@ -134,7 +136,9 @@ export const BARRIERE_EMOLLIENTS_OCCLUSIFS = {
   CAMELINA_SEED_OIL: 'camelina-seed-oil', // INCI: Camelina Sativa Seed Oil | camelina oil, omega-3, light and antioxidant
   HEMP_OIL: 'cannabis-sativa-seed-oil', // INCI: Cannabis Sativa Seed Oil | hemp oil, rich in omega-3/6, anti-inflammatory, soothing
   HUILE_COTON: 'huile-coton', // INCI: Gossypium Herbaceum Seed Oil | cottonseed oil
-  ETHYLHEXYL_PALMITATE: 'ethylhexyl-palmitate', // INCI: Ethylhexyl Palmitate | esterified emollient
+  ETHYLHEXYL_PALMITATE: 'ethylhexyl-palmitate', // INCI: Ethylhexyl Palmitate / Ethyl Hexyl Palmitate | esterified emollient
+  CETEARYL_ETHYLHEXANOATE: 'cetearyl-ethylhexanoate', // INCI: Cetearyl Ethylhexanoate | C16-C18 fatty ester, distinct from Cetyl Ethylhexanoate
+  SHOREA_STENOPTERA_SEED_BUTTER: 'shorea-stenoptera-seed-butter', // INCI: Shorea Stenoptera Seed Butter | illipe butter, distinct from shea butter
   C15_19_ALKANE: 'c15-19-alkane', // INCI: C15-19 Alkane | biomimetic alkane, dry emollient, silicone alternative
   C10_18_TRIGLYCERIDES: 'c10-18-triglycerides', // INCI: C10-18 Triglycerides | biomimetic solid triglycerides, structuring emollient
   HELIANTHUS_ANNUUS_SEED_WAX: 'helianthus-annuus-seed-wax', // INCI: Helianthus Annuus (Sunflower) Seed Wax | sunflower wax, structuring agent and occlusive film
@@ -169,7 +173,7 @@ export const BARRIERE_EMOLLIENTS_OCCLUSIFS = {
   MYRISTYL_MYRISTATE: 'myristyl-myristate', // INCI: Myristyl Myristate | C14-C14 wax ester, opacifier
   SESAMUM_INDICUM_SEED_OIL: 'sesamum-indicum-seed-oil', // INCI: Sesamum Indicum Seed Oil | sesame oil, balanced oleic and linoleic
   ETHYLHEXYL_STEARATE: 'ethylhexyl-stearate', // INCI: Ethylhexyl Stearate | branched stearic ester, dry-touch emollient
-  LINUM_USITATISSIMUM_SEED_OIL: 'linum-usitatissimum-seed-oil', // INCI: Linum Usitatissimum Seed Oil | flax oil, alpha-linolenic rich, oxidation-prone
+  LINUM_USITATISSIMUM_SEED_OIL: 'linum-usitatissimum-seed-oil', // INCI: Linum Usitatissimum Seed Oil / Flax Seed Oil | flax oil, alpha-linolenic rich, oxidation-prone
   OLEYL_ALCOHOL: 'oleyl-alcohol', // INCI: Oleyl Alcohol | unsaturated C18:1 fatty alcohol, co-emulsifier
   STEARYL_HEPTANOATE: 'stearyl-heptanoate', // INCI: Stearyl Heptanoate | branched ester, rich emollient
   ISOAMYL_LAURATE: 'isoamyl-laurate', // INCI: Isoamyl Laurate | branched lauric ester, dry-touch emollient
@@ -250,7 +254,7 @@ export const PEPTIDES = {
   MATRIXYL_3000: 'matrixyl-3000', // INCI: Palmitoyl Tripeptide-1 + Palmitoyl Tetrapeptide-7
   PALMITOYL_PENTAPEPTIDE_4: 'palmitoyl-pentapeptide-4', // INCI: Palmitoyl Pentapeptide-4 | original Matrixyl®
   PALMITOYL_TRIPEPTIDE_1: 'palmitoyl-tripeptide-1', // INCI: Palmitoyl Tripeptide-1
-  PALMITOYL_TETRAPEPTIDE_7: 'palmitoyl-tetrapeptide-7', // INCI: Palmitoyl Tetrapeptide-7 | anti-inflammatory
+  PALMITOYL_TETRAPEPTIDE_7: 'palmitoyl-tetrapeptide-7', // INCI: Palmitoyl Tetrapeptide-7 / Palmitoyl Tetra Peptide-7 | anti-inflammatory
   PALMITOYL_TETRAPEPTIDE_10: 'palmitoyl-tetrapeptide-10', // INCI: Palmitoyl Tetrapeptide-10 | anti-aging
   PALMITOYL_TRIPEPTIDE_38: 'palmitoyl-tripeptide-38', // INCI: Palmitoyl Tripeptide-38
   PALMITOYL_TRIPEPTIDE_5: 'palmitoyl-tripeptide-5', // INCI: Palmitoyl Tripeptide-5
@@ -327,7 +331,10 @@ export const ANTIOXYDANTS_VITAMINES = {
   ASCORBYL_PALMITATE: 'ascorbyl-palmitate', // INCI: Ascorbyl Palmitate | liposoluble form of vitamin C
   MAGNESIUM_ASCORBYL_PHOSPHATE: 'magnesium-ascorbyl-phosphate', // INCI: Magnesium Ascorbyl Phosphate | stable vitamin C derivative
   SODIUM_ASCORBYL_PHOSPHATE: 'sodium-ascorbyl-phosphate', // INCI: Sodium Ascorbyl Phosphate | vitamin C derivative
+  SODIUM_ASCORBATE: 'sodium-ascorbate', // INCI: Sodium Ascorbate | sodium salt of vitamin C, distinct from Ascorbic Acid
   THREE_O_ETHYL_ASCORBIC_ACID: '3-o-ethyl-ascorbic-acid', // INCI: 3-O-Ethyl Ascorbic Acid | stable and penetrating vitamin C derivative
+  ASCORBYL_METHYLSILANOL_PECTINATE: 'ascorbyl-methylsilanol-pectinate', // INCI: Ascorbyl Methylsilanol Pectinate | vitamin C derivative
+  OXIDIZED_GLUTATHIONE: 'oxidized-glutathione', // INCI: Oxidized Glutathione | oxidized glutathione, distinct from reduced glutathione
   TOCOPHEROL: 'tocopherol', // INCI: Tocopherol | pure vitamin E
   TOCOPHERYL_ACETATE: 'tocopheryl-acetate', // INCI: Tocopheryl Acetate | stable vitamin E ester
   TOCOPHERYL_GLUCOSIDE: 'tocopheryl-glucoside', // INCI: Tocopheryl Glucoside | hydrophilic vitamin E derivative
@@ -344,6 +351,9 @@ export const ANTIOXYDANTS_VITAMINES = {
   CURCUMA_LONGA_ROOT_EXTRACT: 'curcuma-longa-root-extract', // INCI: Curcuma Longa (Turmeric) Root Extract | antioxidant
   ROMARIN: 'romarin', // INCI: Rosmarinus Officinalis (Rosemary) Leaf Extract | antioxidant
   SCHISANDRA: 'schisandra-sphenanthera', // INCI: Schisandra Sphenanthera Fruit Extract | adaptogen / antioxidant
+  SCHISANDRA_CHINENSIS_FRUIT_EXTRACT: 'schisandra-chinensis-fruit-extract', // INCI: Schisandra Chinensis Fruit Extract | distinct Schisandra species
+  CAESALPINIA_SPINOSA_FRUIT_EXTRACT: 'caesalpinia-spinosa-fruit-extract', // INCI: Caesalpinia Spinosa Fruit Extract | tara fruit extract, distinct from tara gum
+  MALPIGHIA_GLABRA_FRUIT_WATER: 'malpighia-glabra-fruit-water', // INCI: Malpighia Glabra Fruit Water | acerola fruit water, distinct from an extract
   SALVIA_MILTIORRHIZA: 'salvia-miltiorrhiza', // INCI: Salvia Miltiorrhiza Root Extract (Chinese sage) | antioxidant
   PANAX_GINSENG: 'panax-ginseng', // INCI: Panax Ginseng Root Extract | adaptogen / antioxidant
   PLANKTON_EXTRACT: 'plankton-extract', // INCI: Plankton Extract | antioxidant / marine hydrating agent
@@ -367,7 +377,7 @@ export const ANTIOXYDANTS_VITAMINES = {
   GARDENIA_FRUIT_EXTRACT: 'gardenia-fruit-extract', // INCI: Gardenia Jasminoides Fruit Extract | brightening / antioxidant
   GLYCERYL_ASCORBATE: '3-glyceryl-ascorbate', // INCI: 3-O-Glyceryl Ascorbate | stable and hydrophilic vitamin C derivative
   BENZOTRIAZOLYL_DODECYL_P_CRESOL: 'benzotriazolyl-dodecyl-p-cresol', // INCI: Benzotriazolyl Dodecyl p-Cresol (Tinogard TT) | formula-stabilizing antioxidant
-  SUPEROXIDE_DISMUTASE: 'superoxide-dismutase', // INCI: Superoxide Dismutase | antioxidant enzyme, neutralizes superoxides
+  SUPEROXIDE_DISMUTASE: 'superoxide-dismutase', // INCI: Superoxide Dismutase / Super Oxide Dismutase | antioxidant enzyme, neutralizes superoxides
   SOPHORA_JAPONICA_FLOWER_EXTRACT: 'sophora-japonica-flower-extract', // INCI: Sophora Japonica Flower Extract | flavonoid-rich extract (rutin), antioxidant
   ASCORBYL_TETRAISOPALMITATE: 'ascorbyl-tetraisopalmitate', // INCI: Ascorbyl Tetraisopalmitate / Tetrahexyldecyl Ascorbate (alias: THDA / VC-IP) — ultra-stable liposoluble vitamin C derivative
   POLYGONUM_CUSPIDATUM_EXTRACT: 'polygonum-cuspidatum-extract', // INCI: Polygonum Cuspidatum Root Extract | natural source of resveratrol
@@ -618,6 +628,7 @@ export const PROBIOTIQUES_PREBIOTIQUES_POSTBIOTIQUES = {
   SACCHAROMYCES_FERMENT_FILTRATE: 'saccharomyces-ferment-filtrate', // INCI: Saccharomyces Ferment Filtrate | yeast ferment, radiance and hydration
   BIFIDA_FERMENT_LYSATE: 'bifida-ferment-lysate', // INCI: Bifida Ferment Lysate | bifidobacterium postbiotic, barrier recovery
   LACTOBACILLUS_FERMENT_LYSATE: 'lactobacillus-ferment-lysate', // INCI: Lactobacillus Ferment Lysate | lactobacillus postbiotic, distinct from the ferment
+  LACTOBACILLUS_EXTRACELLULAR_VESICLES: 'lactobacillus-extracellular-vesicles', // INCI: Lactobacillus Extracellular Vesicles | non-living vesicles, distinct from ferments and lysates
   SACCHAROMYCES_LYSATE_EXTRACT: 'saccharomyces-lysate-extract', // INCI: Saccharomyces Lysate Extract | yeast postbiotic lysate, distinct from the ferment filtrate
 } as const
 
@@ -627,6 +638,9 @@ export const ACTIFS_ANTI_AGE_REPARATEURS = {
   MADECASSIC_ACID: 'madecassic-acid', // INCI: Madecassic Acid | Centella component, soothing and repairing
   ALLANTOIN: 'allantoin', // INCI: Allantoin | soothing, healing
   PANTHENOL: 'panthenol', // INCI: Panthenol | provitamin B5, soothing / hydrating
+  // biome-ignore format: parser reads slug + INCI comment off one line, wrapping breaks it
+  POTASSIUM_DIMETHICONE_PEG_7_PANTHENYL_PHOSPHATE: 'potassium-dimethicone-peg-7-panthenyl-phosphate', // INCI: Potassium Dimethicone PEG-7 Panthenyl Phosphate | panthenyl phosphate silicone derivative
+  PHYTONADIONE_EPOXIDE: 'phytonadione-epoxide', // INCI: Phytonadione Epoxide | vitamin K1 epoxide, distinct from phytonadione
   CHARDON_MARIE: 'chardon-marie', // INCI: Silybum Marianum Seed Extract | regenerating
   HYDROXYPALMITOYL_SPHINGANINE: 'hydroxypalmitoyl-sphinganine', // INCI: Hydroxypalmitoyl Sphinganine | ceramide-like, strengthens the barrier
   TWO_OLEAMIDO_1_3_OCTADECANEDIOL: '2-oleamido-1-3-octadecanediol', // INCI: 2-Oleamido-1,3-Octadecanediol | biomimetic repairing lipid
@@ -656,6 +670,7 @@ export const CIRCULATOIRE_DRAINAGE = {
 export const TENSIOACTIFS_NETTOYANTS = {
   COCO_GLUCOSIDE: 'coco-glucoside', // INCI: Coco-Glucoside | mild non-ionic surfactant
   DECYL_GLUCOSIDE: 'decyl-glucoside', // INCI: Decyl Glucoside | mild surfactant
+  LAURYL_GLUCOSIDE: 'lauryl-glucoside', // INCI: Lauryl Glucoside | mild non-ionic surfactant
   SODIUM_LAUROYL_METHYL_ISETHIONATE: 'sodium-lauroyl-methyl-isethionate', // INCI: Sodium Lauroyl Methyl Isethionate | mild surfactant
   SODIUM_COCOYL_ISETHIONATE: 'sodium-cocoyl-isethionate', // INCI: Sodium Cocoyl Isethionate | mild coco-derived surfactant
   GLEDITSIA_TRIACANTHOS_SEED_EXTRACT: 'gleditsia-seed-extract', // INCI: Gleditsia Triacanthos Seed Extract | natural mild surfactant / thickener
@@ -744,7 +759,7 @@ export const TEXTURANTS_FONCTIONNELS = {
   SANTALUM_ALBUM_OIL: 'santalum-album-oil', // INCI: Santalum Album Oil | indian sandalwood oil
   BOSWELLIA_CARTERII_OIL: 'boswellia-carterii-oil', // INCI: Boswellia Carterii Oil | frankincense resin oil
   ELETTARIA_CARDAMOMUM_SEED_OIL: 'elettaria-cardamomum-seed-oil', // INCI: Elettaria Cardamomum Seed Oil | cardamom seed oil
-  ANIBA_ROSAEODORA_WOOD_OIL: 'aniba-rosaeodora-wood-oil', // INCI: Aniba Rosaeodora Wood Oil | rosewood oil, linalool rich
+  ANIBA_ROSAEODORA_WOOD_OIL: 'aniba-rosaeodora-wood-oil', // INCI: Aniba Rosaeodora Wood Oil / Rose Wood Oil | rosewood oil, linalool rich
   CHAMOMILLA_RECUTITA_FLOWER_OIL: 'chamomilla-recutita-flower-oil', // INCI: Chamomilla Recutita Flower Oil | german chamomile oil, chamazulene
   MENTHA_ARVENSIS_LEAF_OIL: 'mentha-arvensis-leaf-oil', // INCI: Mentha Arvensis Leaf Oil | cornmint oil, menthol rich
   // One declaration used to carry both the oil and the molecule, so a single fiche answered
@@ -752,6 +767,7 @@ export const TEXTURANTS_FONCTIONNELS = {
   // fragrance molecule gets its own. Both live here: the corpus is overwhelmingly non-dental.
   CLOVE_OIL_EUGENOL: 'clove-oil-eugenol', // INCI: Eugenia Caryophyllus Bud Oil | clove bud oil
   EUGENOL: 'eugenol', // INCI: Eugenol | clove-derived fragrance molecule, EU-declarable
+  EUGENIA_CARYOPHYLLUS_EXTRACT: 'eugenia-caryophyllus-extract', // INCI: Eugenia Caryophyllus Clove Flower Extract / Eugenia Caryophyllus Flower Extract / Eugenia Caryophyllus Bud Extract | clove flower or bud extract
   // Thickeners, mineral abrasives and one pearl pigment, moved out of the haircare and dental
   // files. A cellulose gum gels a serum the way it gels a toothpaste.
   CELLULOSE_GUM_DENTAL: 'cellulose-gum-dental', // INCI: Cellulose Gum (CMC) | very widespread cellulosic thickener
@@ -926,7 +942,7 @@ export const FILLERS = {
   CARBOMER: 'carbomer', // INCI: Carbomer | inert gelling agent, high tolerance
   XANTHAN_GUM: 'xanthan-gum', // INCI: Xanthan Gum | inert gelling agent
   ACRYLATES_CROSSPOLYMER: 'acrylates-c10-30-alkyl-acrylate-crosspolymer', // INCI: Acrylates/C10-30 Alkyl Acrylate Crosspolymer | inert gelling agent
-  HYDROXYETHYLCELLULOSE: 'hydroxyethylcellulose', // INCI: Hydroxyethylcellulose | inert thickener
+  HYDROXYETHYLCELLULOSE: 'hydroxyethylcellulose', // INCI: Hydroxyethylcellulose / Hydroxyethyl Cellulose | inert thickener
   HYDROXYPROPYL_METHYLCELLULOSE: 'hydroxypropyl-methylcellulose', // INCI: Hydroxypropyl Methylcellulose | inert thickener
   SODIUM_POLYACRYLATE: 'sodium-polyacrylate', // INCI: Sodium Polyacrylate | inert thickener
   SCLEROTIUM_GUM: 'sclerotium-gum', // INCI: Sclerotium Gum | inert gelling agent

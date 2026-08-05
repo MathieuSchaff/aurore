@@ -2,7 +2,11 @@ import { describe, expect, it } from 'bun:test'
 
 import { MERGED_EVIDENCE_DB } from 'algo-derm/engine'
 
-import { CANONICAL_KEY_OVERRIDES, resolveCanonicalKey } from './backfill-canonical-key'
+import {
+  CANONICAL_KEY_OVERRIDES,
+  CATALOG_CANONICAL_KEY_OVERRIDES,
+  resolveCanonicalKey,
+} from './backfill-canonical-key'
 
 describe('resolveCanonicalKey', () => {
   // A key on the French `secondClass` stub reaches no dermo-score driver and no INCI link,
@@ -29,6 +33,55 @@ describe('resolveCanonicalKey', () => {
     ).toBe('Astaxanthin')
   })
 
+  it('keeps the exact INCI record when the display name resolves to a broader alias', () => {
+    const cases = [
+      ['Acide hyaluronique (Sodium Hyaluronate)', 'sodium-hyaluronate', 'Sodium Hyaluronate'],
+      ['Acides Aminés de Riz (Rice Amino Acids)', 'rice-amino-acids', 'Rice Amino Acids'],
+      ['Acides Aminés de Soie (Silk Amino Acids)', 'silk-amino-acids', 'Silk Amino Acids'],
+      ['Acides Aminés de Blé (Wheat Amino Acids)', 'wheat-amino-acids', 'Wheat Amino Acids'],
+    ] as const
+
+    for (const [name, slug, expected] of cases) {
+      expect(resolveCanonicalKey(name, slug)).toBe(expected)
+    }
+  })
+
+  it('keeps catalogue identities that the vendor merges or does not know', () => {
+    const cases = [
+      ['Angiopausine™ (Extrait de Silybum marianum)', 'angiopausine', 'Angiopausine'],
+      ['Comedoclastin™ (Extrait de Silybum marianum)', 'comedoclastin', 'Comedoclastin'],
+      [
+        'Extrait de chardon-marie (Silybum Marianum Seed Extract)',
+        'chardon-marie',
+        'SILYBUM MARIANUM SEED EXTRACT',
+      ],
+      [
+        'Extrait de chardon-marie (Silybum Marianum Extract)',
+        'silybum-marianum-extract',
+        'SILYBUM MARIANUM EXTRACT',
+      ],
+      [
+        'Extrait de fruit de chardon-marie (Silybum Marianum Fruit Extract)',
+        'silybum-marianum-fruit-extract',
+        'SILYBUM MARIANUM FRUIT EXTRACT',
+      ],
+      [
+        'Huile de graines de chardon-marie (Silybum Marianum Seed Oil)',
+        'silybum-marianum-seed-oil',
+        'SILYBUM MARIANUM SEED OIL',
+      ],
+      [
+        'Ester éthylique de chardon-marie (Silybum Marianum Ethyl Ester)',
+        'silybum-marianum-ethyl-ester',
+        'SILYBUM MARIANUM ETHYL ESTER',
+      ],
+    ] as const
+
+    for (const [name, slug, expected] of cases) {
+      expect(resolveCanonicalKey(name, slug)).toBe(expected)
+    }
+  })
+
   it('keeps the stub when no rung reaches a graded record', () => {
     expect(resolveCanonicalKey('Glucosylrutine', 'glucosylrutin')).toBe('Glucosylrutin')
   })
@@ -37,10 +90,25 @@ describe('resolveCanonicalKey', () => {
     expect(resolveCanonicalKey('Céramide NG', 'ceramide-ng')).toBeNull()
   })
 
+  it('leaves Tetrasodium EDTA unkeyed while the vendor resolves it as Disodium EDTA', () => {
+    expect(resolveCanonicalKey('Tetrasodium EDTA', 'tetrasodium-edta')).toBeNull()
+  })
+
   // The ladder resolves the name to `Aqua`, which would give one brand's fiche the identity of
   // plain water. A `.db-fixes` had already nulled it; the generator used to hand it straight back.
   it('never keys a branded thermal spring water on Aqua', () => {
     expect(resolveCanonicalKey("Eau Thermale d'Avène", 'avene-thermal-spring-water')).toBeNull()
+  })
+
+  // Flower and Bud extract are declared as distinct forms; the ladder resolves both
+  // onto the same Flower evidence record, which would conflate them.
+  it('never keys the Eugenia extract fiche on either the Flower or Bud form', () => {
+    expect(
+      resolveCanonicalKey('Eugenia Caryophyllus Flower Extract', 'eugenia-caryophyllus-extract')
+    ).toBeNull()
+    expect(
+      resolveCanonicalKey('Eugenia Caryophyllus Bud Extract', 'eugenia-caryophyllus-extract')
+    ).toBeNull()
   })
 
   // The overrides are maintained by hand; a bump renaming or dropping a target would
@@ -50,5 +118,10 @@ describe('resolveCanonicalKey', () => {
     for (const target of Object.values(CANONICAL_KEY_OVERRIDES)) {
       expect(keys.has(target)).toBe(true)
     }
+  })
+
+  it('keeps local catalogue identity keys unique', () => {
+    const keys = Object.values(CATALOG_CANONICAL_KEY_OVERRIDES)
+    expect(new Set(keys).size).toBe(keys.length)
   })
 })
