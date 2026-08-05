@@ -1,5 +1,5 @@
 // Bulk product creation from a scraped JSONL lot, the CATALOGUE-lane ingest
-// described in docs/CATALOGUE_SEEDING.md. Every row goes through createProduct so
+// described in docs/commands/catalog.md. Every row goes through createProduct so
 // validation, cleanInci and auto-tagging follow the exact same path as the app.
 //
 // Input: one JSON object per line, fields = CreateProductInput.
