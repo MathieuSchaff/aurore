@@ -170,13 +170,13 @@ Aurore is a full-stack TypeScript monorepo.
 The app uses:
 
 - React 19 on the frontend;
-- TanStack Router and TanStack Query;
+- TanStack Start for server-side rendering, with TanStack Router and Query;
 - Hono for the backend API;
 - shared Zod schemas between frontend and backend;
 - PostgreSQL 18 with Drizzle;
 - Row-Level Security for user data;
 - Docker Compose for development and production;
-- Vitest and Playwright for tests;
+- bun:test, Vitest and Playwright for tests;
 - Nginx and SSL in production.
 
 ---
@@ -184,7 +184,7 @@ The app uses:
 ## Architecture
 
 ```text
-React 19 + TanStack Router/Query
+React 19 + TanStack Start — SSR via Nitro, Router + Query
         │
         │ shared Zod schemas
         ▼
@@ -216,34 +216,51 @@ aurore/
 
 ## Stack
 
-| Layer          | Technology                                |
-| :------------- | :---------------------------------------- |
-| Runtime        | Bun                                       |
-| Backend        | Hono, REST API, typesafe RPC              |
-| Frontend       | React 19, TanStack Router, TanStack Query |
-| Database       | PostgreSQL 18, Drizzle ORM                |
-| Validation     | Zod                                       |
-| Styling        | Vanilla CSS, Lucide Icons                 |
-| Quality        | Biome, Vitest, Playwright, Lefthook       |
-| Infrastructure | Docker Compose, Nginx                     |
+| Layer          | Technology                                    |
+| :------------- | :-------------------------------------------- |
+| Runtime        | Bun                                           |
+| Backend        | Hono, REST API, typesafe RPC                  |
+| Frontend       | React 19, TanStack Start (SSR), Router, Query  |
+| Database       | PostgreSQL 18, Drizzle ORM                    |
+| Validation     | Zod                                           |
+| Styling        | Vanilla CSS, Lucide Icons                     |
+| Quality        | Biome, bun:test, Vitest, Playwright, Lefthook  |
+| Infrastructure | Docker Compose, Nginx                         |
 
 ---
 
 ## Quick start
 
-> `just dev` runs a TypeScript preflight on the host before Docker starts.
-> In development, containers run TypeScript source directly.
+### Requirements
+
+| Tool | Version | Why |
+| :--- | :--- | :--- |
+| [Bun](https://bun.sh) | 1.3.12 | Runtime and package manager |
+| [Docker](https://docs.docker.com/get-docker/) | with Compose v2 | Database, API and frontend containers |
+| [just](https://just.systems) | 1.51 | Command runner — every workflow below is a recipe |
+| [mise](https://mise.jdx.dev) | any | Optional. Installs the pinned versions above from `.mise.toml`, and the git hooks |
+
+With mise, `mise install` gets Bun and just at the pinned versions; otherwise install them yourself.
+
+### Setup
 
 ```bash
-# First-time setup
-just init
-
-# Fill in secrets
-$EDITOR .env.dev
-
-# Start the development environment
-just dev-fresh
+just init       # dependencies, generated JWT secrets, .env.dev, hooks when mise is available
+just dev-fresh  # typecheck, build and start the stack
 ```
+
+`just init` writes a `.env.dev` that boots as-is. The third-party keys (Brevo, Google OAuth,
+Bunny CDN) stay placeholders — they are not needed to browse the demo; email, Google sign-in and CDN writes need real credentials.
+
+On a first run the database is empty, and `just dev-fresh` offers to load the committed catalogue
+snapshot: **answer yes**. It restores ~7 300 products with their ingredient lists. Declining leaves
+an empty database and an app that errors on every page.
+
+Then open <http://localhost:5173> and click **« Créer un compte de démo »**. It creates a signed-in
+account seeded with a collection of products — no email, no signup form, nothing to configure.
+
+> `just dev` runs a TypeScript preflight on the host before Docker starts.
+> In development, containers run TypeScript source directly.
 
 Daily workflow:
 
@@ -255,7 +272,7 @@ just ts-check
 just dev
 ```
 
-See [`docs/DEVELOPMENT.md`](./docs/DEVELOPMENT.md) for setup, commands, tests, database workflows and troubleshooting.
+See [`docs/commands/`](./docs/commands/) for setup, commands, tests, database workflows and troubleshooting.
 
 ---
 
@@ -286,8 +303,7 @@ The full stack requires Docker.
 
 ### Engineering
 
-- [`docs/DEVELOPMENT.md`](./docs/DEVELOPMENT.md) — setup, commands, tests and troubleshooting.
-- [`docs/TESTING.md`](./docs/TESTING.md) — backend, frontend and E2E test commands.
+- [`docs/commands/`](./docs/commands/) — every runnable command, grouped by task: dev stack, tests, code audit, database, catalogue, data audits and writes, deploy and ops.
 - [`docs/scoring.md`](./docs/scoring.md) — formula assessment contract, confidence model and limits.
 - [`docs/conventions/`](./docs/conventions/) — backend tests, dates, error handling and project conventions.
 

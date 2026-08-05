@@ -76,3 +76,36 @@ describe('envSchema weak password guard', () => {
     expect(result.success).toBe(true)
   })
 })
+
+describe('envSchema placeholder secret guard', () => {
+  test('rejects the .env.example JWT placeholder in production', () => {
+    const result = envSchema.safeParse({
+      ...baseEnv,
+      NODE_ENV: 'production',
+      JWT_SECRET: 'dev_only_jwt_secret_replace_before_prod',
+    })
+    expect(result.success).toBe(false)
+    if (!result.success) {
+      expect(result.error.issues[0]?.path).toEqual(['JWT_SECRET'])
+    }
+  })
+
+  test('rejects the .env.example refresh placeholder in production', () => {
+    const result = envSchema.safeParse({
+      ...baseEnv,
+      NODE_ENV: 'production',
+      REFRESH_SECRET: 'dev_only_refresh_secret_replace_before_prod',
+    })
+    expect(result.success).toBe(false)
+  })
+
+  test('allows the placeholders in development', () => {
+    const result = envSchema.safeParse({
+      ...baseEnv,
+      NODE_ENV: 'development',
+      JWT_SECRET: 'dev_only_jwt_secret_replace_before_prod',
+      REFRESH_SECRET: 'dev_only_refresh_secret_replace_before_prod',
+    })
+    expect(result.success).toBe(true)
+  })
+})
