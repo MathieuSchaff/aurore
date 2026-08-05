@@ -29,5 +29,7 @@
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules", "dist"],
-  "references": []
+  // Ordering only: without these, `tsc -b` may start this project before backend/dist
+  // exists, and @aurore/backend falls back to its source, type-checked under DOM libs.
+  "references": [{ "path": "../shared" }, { "path": "../backend/tsconfig.build.json" }]
 }
