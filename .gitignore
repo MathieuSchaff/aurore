@@ -94,6 +94,9 @@ scripts/*
 !scripts/just/
 !scripts/just/**
 !scripts/*.sh
+# CI runs this one, so it has to be tracked, unlike the local-only scripts above.
+!scripts/anon-db-gate.ts
+!scripts/anon-db-allowlist.json
 # =========================
 backend/src/db/seed/output/
 backend/src/output

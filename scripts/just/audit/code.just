@@ -1,6 +1,6 @@
-# Static code-quality audit (no Docker / no DB): knip + biome + tsc + cycles + fallow + react-doctor.
+# Static code-quality audit (no Docker / no DB): knip + biome + tsc + cycles + fallow + anon-db-gate + react-doctor.
 
-# Full code audit (knip + biome + tsc + cycles + fallow health/dupes + react-doctor). Reports → .audit-out/
+# Full code audit (knip + biome + tsc + cycles + fallow health/dupes + anon-db-gate + react-doctor). Reports → .audit-out/
 audit-code:
     #!/usr/bin/env bash
     # set +e keeps every report being written when one probe fails, but a bare "Done" then
@@ -29,6 +29,9 @@ audit-code:
     printf "{{ CYAN }}=== fallow dupes ==={{ NC }}\n"
     npx fallow dupes 2>&1 | tee .audit-out/dupes.txt
     [ ${PIPESTATUS[0]} -eq 0 ] || failed+=("fallow-dupes")
+    printf "{{ CYAN }}=== anon-db-gate (anonDb surface) ==={{ NC }}\n"
+    just anon-db-gate 2>&1 | tee .audit-out/anon-db-gate.txt
+    [ ${PIPESTATUS[0]} -eq 0 ] || failed+=("anon-db-gate")
     printf "{{ CYAN }}=== react-doctor (React patterns/a11y/perf) ==={{ NC }}\n"
     # Version comes from frontend/package.json (react-doctor dependency) — no pin here.
     (cd frontend && npx react-doctor --verbose --no-score 2>&1) | tee .audit-out/react-doctor.txt

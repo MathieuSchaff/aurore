@@ -39,7 +39,7 @@ jobs:
             ${{ runner.os }}-bun-${{ hashFiles('vendor/algo-derm.tgz') }}-
 
       - name: Install Dependencies
-        run: just install-deps
+        run: just install-deps-ci
 
       - name: Lint Check (Biome)
         run: just lint
@@ -47,13 +47,17 @@ jobs:
       - name: TypeScript Build & Global Check
         run: just ts-build
 
+      # Static scan, no DB: a new c.get('anonDb') site compiles and passes tests,
+      # so nothing but this frozen list catches it.
+      - name: anonDb surface gate
+        run: just anon-db-gate
+
   # Step 2: backend tests (runs alongside the frontend job)
   test-backend:
     name: Backend Tests
     runs-on: ubuntu-latest
-    needs: quality # On ne lance les tests que si le build de base passe
+    needs: quality # tests only run once the base build passes
     services:
-      # Utilisation du service Postgres directement dans l'Action
       postgres:
         image: postgres:18-alpine
         env:
@@ -84,7 +88,7 @@ jobs:
             ${{ runner.os }}-bun-${{ hashFiles('vendor/algo-derm.tgz') }}-
 
       - name: Install Dependencies
-        run: just install-deps
+        run: just install-deps-ci
 
       - name: Prepare Backend DB & Run Tests
         env:
@@ -144,13 +148,13 @@ jobs:
             ${{ runner.os }}-bun-${{ hashFiles('vendor/algo-derm.tgz') }}-
 
       - name: Install Dependencies
-        run: just install-deps
+        run: just install-deps-ci
 
       - name: Migrate schema + load corpus snapshot
         # CHECK validates per-(slug,category) hit rates against
-        # TAG_HIT_RATE_BUDGET, calibrated on the full 3601-product corpus
-        # committed at backend/src/db/snapshot/data.sql. JS seed-core would
-        # only seed ~500 products and produce spurious FAILs.
+        # TAG_HIT_RATE_BUDGET, calibrated on the full corpus committed at
+        # backend/src/db/snapshot/data.sql. JS seed-core seeds a small fraction
+        # of it and would produce spurious FAILs.
         env:
           DATABASE_URL: postgres://app:testpassword@localhost:5433/appdb_test
           APP_DATABASE_URL: postgres://app:testpassword@localhost:5433/appdb_test
@@ -174,7 +178,7 @@ jobs:
           psql -h localhost -p 5433 -U app -d appdb_test -v ON_ERROR_STOP=1 -f backend/src/db/snapshot/data.sql > /dev/null
 
       - name: Audit auto-tags drift (CHECK vs TAG_HIT_RATE_BUDGET)
-        # Placeholder env vars satisfy backend/src/config/env.ts zod schema —
+        # Placeholder env vars satisfy backend/src/config/env.ts zod schema;
         # the audit runner only uses DATABASE_URL functionally.
         env:
           DATABASE_URL: postgres://app:testpassword@localhost:5433/appdb_test
@@ -215,7 +219,7 @@ jobs:
             ${{ runner.os }}-bun-${{ hashFiles('vendor/algo-derm.tgz') }}-
 
       - name: Install Dependencies
-        run: just install-deps
+        run: just install-deps-ci
 
       - name: Run Frontend Tests
         run: |
