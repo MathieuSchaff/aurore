@@ -8,6 +8,13 @@ const WEAK_DB_PASSWORDS = [
   'dev_password_123',
 ] as const
 
+// .env.example ships bootable dev defaults so a fresh clone starts without editing;
+// the length check alone would then let them reach production.
+const PLACEHOLDER_SECRETS = [
+  'dev_only_jwt_secret_replace_before_prod',
+  'dev_only_refresh_secret_replace_before_prod',
+] as const
+
 export const envSchema = z
   .object({
     NODE_ENV: z.enum(['development', 'production', 'test']).default('development'),
@@ -36,6 +43,15 @@ export const envSchema = z
   })
   .superRefine((val, ctx) => {
     if (val.NODE_ENV !== 'production') return
+    for (const field of ['JWT_SECRET', 'REFRESH_SECRET'] as const) {
+      if ((PLACEHOLDER_SECRETS as readonly string[]).includes(val[field])) {
+        ctx.addIssue({
+          code: 'custom',
+          path: [field],
+          message: `${field} still holds the .env.example placeholder. Generate one with \`openssl rand -base64 32\` before booting in production.`,
+        })
+      }
+    }
     for (const field of ['DATABASE_URL', 'APP_DATABASE_URL'] as const) {
       const url = val[field]
       const leaked = WEAK_DB_PASSWORDS.find((pw) => url.includes(pw))

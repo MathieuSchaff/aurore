@@ -1,8 +1,13 @@
 set shell := ["bash", "-c"]
 
-# Default (bare `just`): list recipes instead of booting the dev stack
+# Default (bare `just`): show the recruiter/contributor path, not every ops recipe.
 default:
-    @just --list
+    @printf "{{ CYAN }}Aurore — common commands{{ NC }}\n"
+    @printf "  First clone: just init, then just dev-fresh\n"
+    @printf "  Daily dev:   just dev\n"
+    @printf "  Tests:       just test\n"
+    @printf "  Full list:   just --list\n"
+    @printf "  Guide:       docs/commands/README.md\n"
 
 import 'scripts/just/_vars.just'
 import 'scripts/just/dev.just'
