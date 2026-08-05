@@ -220,7 +220,8 @@ export function computeLinks(
   inci: string,
   category: string,
   canonicalKeyToSlug: Map<string, string>,
-  canonicalKeyBySlug: Map<string, string>
+  canonicalKeyBySlug: Map<string, string>,
+  slugsByCanonicalKey: Map<string, SiblingRow[]> = new Map()
 ): ComputeResult {
   const allowed = getDomainAllowlist(category)
   // splitINCI splits on commas (+ protects decimals); its period fallback needs a comma-sparse
@@ -255,8 +256,18 @@ export function computeLinks(
       unbridged.push(raw.trim())
       continue
     }
-    const { slug } = resolved
     // F2: drop filler/excipient by resolved slug, whichever raw token produced it.
+    if (blockedSlugs.has(resolved.slug)) {
+      blocked.push(resolved.slug)
+      continue
+    }
+    const slug = preferDomainSibling(
+      resolved.slug,
+      category,
+      slugsByCanonicalKey,
+      canonicalKeyBySlug
+    )
+    // Re-checked: the excipient list holds only bare slugs, and the swap can land on one.
     if (blockedSlugs.has(slug)) {
       blocked.push(slug)
       continue
@@ -366,29 +377,71 @@ async function readCurrentLinks(
   return byProduct
 }
 
-// canonical_key → slug fallback map. Prefer a non `-hair` slug so a skincare product
-// lands on the bare slug instead of its haircare shadow (both share the key).
-export function buildCanonicalKeyMaps(keyRows: Iterable<{ slug: string; key: string | null }>): {
+export type SiblingRow = { slug: string; type: string | null }
+
+// Fallback map for callers with no product category in scope (the algo-derm bridge): it can only
+// express "prefer the bare slug". The category-aware choice lives in computeLinks.
+export function buildCanonicalKeyMaps(
+  keyRows: Iterable<{ slug: string; key: string | null; type?: string | null }>
+): {
   canonicalKeyToSlug: Map<string, string>
   canonicalKeyBySlug: Map<string, string>
+  slugsByCanonicalKey: Map<string, SiblingRow[]>
 } {
   const canonicalKeyToSlug = new Map<string, string>()
   const canonicalKeyBySlug = new Map<string, string>()
-  for (const { slug, key } of keyRows) {
+  const slugsByCanonicalKey = new Map<string, SiblingRow[]>()
+  for (const { slug, key, type } of keyRows) {
     if (!key) continue
     canonicalKeyBySlug.set(slug, key)
+
+    const siblings = slugsByCanonicalKey.get(key)
+    if (siblings) siblings.push({ slug, type: type ?? null })
+    else slugsByCanonicalKey.set(key, [{ slug, type: type ?? null }])
 
     const cur = canonicalKeyToSlug.get(key)
     if (!cur || (cur.endsWith('-hair') && !slug.endsWith('-hair'))) {
       canonicalKeyToSlug.set(key, slug)
     }
   }
-  return { canonicalKeyToSlug, canonicalKeyBySlug }
+  return { canonicalKeyToSlug, canonicalKeyBySlug, slugsByCanonicalKey }
+}
+
+// Which `ingredients.type` a product of this category should land on. Same mapping as
+// dermo-score/service.ts:sortPreferred: the sheet and the link have to agree on the domain.
+function preferredIngredientType(category: string): string {
+  if (category === 'haircare' || category === 'dental') return category
+  if (category === 'complement') return 'supplement'
+  return 'skincare'
+}
+
+// A shadow row (`-hair`, `-dental`) shares its canonical_key with the bare sibling: one substance
+// seen from two domains, so a shampoo's Niacinamide belongs on the haircare sheet. Ranks on
+// `ingredients.type`, never the slug suffix or the declaring file (19 `-hair` slugs live in the
+// skincare file). Swapping keeps the key, and an absent sibling keeps the incumbent.
+function preferDomainSibling(
+  slug: string,
+  category: string,
+  slugsByCanonicalKey: Map<string, SiblingRow[]>,
+  canonicalKeyBySlug: Map<string, string>
+): string {
+  const key = canonicalKeyBySlug.get(slug)
+  if (!key) return slug
+  const siblings = slugsByCanonicalKey.get(key)
+  if (!siblings || siblings.length < 2) return slug
+
+  const preferred = preferredIngredientType(category)
+  if (siblings.find((s) => s.slug === slug)?.type === preferred) return slug
+
+  const better = siblings
+    .filter((s) => s.type === preferred)
+    .sort((a, b) => a.slug.localeCompare(b.slug, 'en'))[0]
+  return better?.slug ?? slug
 }
 
 async function readCanonicalKeyMaps(tx: Transaction) {
   const keyRows = await tx
-    .select({ slug: ingredients.slug, key: ingredients.canonicalKey })
+    .select({ slug: ingredients.slug, key: ingredients.canonicalKey, type: ingredients.type })
     .from(ingredients)
     .where(isNotNull(ingredients.canonicalKey))
   return buildCanonicalKeyMaps(keyRows)
@@ -509,9 +562,16 @@ function planCorpusReconcile(input: {
   ingredientSlugToId: Map<string, string>
   canonicalKeyToSlug: Map<string, string>
   canonicalKeyBySlug: Map<string, string>
+  slugsByCanonicalKey: Map<string, SiblingRow[]>
 }): { writes: ProductWrite[]; stats: RunStats } {
-  const { eligible, currentLinks, ingredientSlugToId, canonicalKeyToSlug, canonicalKeyBySlug } =
-    input
+  const {
+    eligible,
+    currentLinks,
+    ingredientSlugToId,
+    canonicalKeyToSlug,
+    canonicalKeyBySlug,
+    slugsByCanonicalKey,
+  } = input
 
   const writes: ProductWrite[] = []
   let withLinks = 0
@@ -549,7 +609,8 @@ function planCorpusReconcile(input: {
       product.inci,
       product.category,
       canonicalKeyToSlug,
-      canonicalKeyBySlug
+      canonicalKeyBySlug,
+      slugsByCanonicalKey
     )
     const { slugs, unbridged, blocked } = computed
     for (const u of unbridged) {
@@ -653,7 +714,8 @@ async function main() {
 
   await withAdminRls(async (tx) => {
     const { ingredientSlugToId } = await fetchIdMaps(tx)
-    const { canonicalKeyToSlug, canonicalKeyBySlug } = await readCanonicalKeyMaps(tx)
+    const { canonicalKeyToSlug, canonicalKeyBySlug, slugsByCanonicalKey } =
+      await readCanonicalKeyMaps(tx)
     console.log(`   canonical_key fallback map: ${canonicalKeyToSlug.size} keys`)
 
     const eligible = await readEligible(tx)
@@ -670,6 +732,7 @@ async function main() {
       ingredientSlugToId,
       canonicalKeyToSlug,
       canonicalKeyBySlug,
+      slugsByCanonicalKey,
     })
 
     if (WRITE) await applyReconcilePlans(tx, writes)
