@@ -122,9 +122,11 @@ backend/src/images/fetchers/*.ts
 !backend/src/images/fetchers/README.md
 
 
-# Audit outputs (knip + biome + tsc + cycles + fallow)
+# Audit outputs (knip + biome + tsc + cycles + fallow) and research notes.
+# Keep /reports/ anchored: bare `reports/` also matched backend/src/features/reports
+# and shared/src/reports, where it made `git add` skip new files without a word.
 .audit-out/
-reports/
+/reports/
 
 # =========================
 # Staged one-shot DB fixes (just db-fix) — never committed; README documents the convention
