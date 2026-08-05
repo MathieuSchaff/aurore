@@ -1,2 +1,10 @@
 [install]
 linker = "hoisted"
+
+# Supply chain: refuse registry versions published less than 3 days ago
+# Compromised releases are usually pulled within 24-72h; this window keeps us
+# off the bleeding edge without blocking normal upgrades.
+minimumReleaseAge = 259200
+
+# `bun add` pins the exact version instead of writing a `^` range.
+exact = true
