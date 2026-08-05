@@ -5,7 +5,7 @@ import { Input } from '@/component/Input/Input'
 import { ComboboxPrimitive } from '@/component/Search/ComboboxPrimitive'
 import { useCombobox } from '@/component/Search/useCombobox'
 import { useDebounce } from '@/hooks/useDebounce'
-import { rateLimitMessage } from '@/lib/helpers/apiError'
+import { rateLimitMessage, rateLimitRetryAfter } from '@/lib/helpers/apiError'
 import { ingredientQueries } from '@/lib/queries/ingredients'
 import './IngredientSearch.css'
 
@@ -20,6 +20,7 @@ export function IngredientSearch({ existingIds, onAdd }: IngredientSearchProps) 
   const {
     data: results,
     error,
+    errorUpdatedAt,
     refetch,
     isError,
   } = useQuery(ingredientQueries.search(debouncedQuery))
@@ -56,6 +57,8 @@ export function IngredientSearch({ existingIds, onAdd }: IngredientSearchProps) 
       onRetry={() => {
         refetch()
       }}
+      retryAfter={rateLimitRetryAfter(error) ?? undefined}
+      retryAfterAt={errorUpdatedAt}
       keyExtractor={(item) => item.id}
       renderItem={(item) => (
         <>

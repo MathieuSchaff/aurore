@@ -23,6 +23,7 @@ type HarnessProps = {
   isLoading?: boolean
   isError?: boolean
   onRetry?: () => void
+  retryAfter?: number
   footer?: React.ReactNode
   hasMore?: boolean
   onLoadMore?: () => void
@@ -41,6 +42,7 @@ function Harness({
   isLoading,
   isError,
   onRetry,
+  retryAfter,
   footer,
   hasMore,
   onLoadMore,
@@ -65,6 +67,7 @@ function Harness({
       combobox={combobox}
       inputValue={inputValue}
       onRetry={onRetry}
+      retryAfter={retryAfter}
       footer={footer}
       hasMore={hasMore}
       onLoadMore={onLoadMore}
@@ -88,7 +91,7 @@ function Harness({
   )
 }
 
-describe('ComboboxPrimitive — click outside (capture + preventDefault)', () => {
+describe('ComboboxPrimitive: click outside (capture + preventDefault)', () => {
   it('calls onClose when an outside click fires (capture phase intercept)', () => {
     const onClose = vi.fn()
     render(
@@ -133,7 +136,7 @@ describe('ComboboxPrimitive — click outside (capture + preventDefault)', () =>
   })
 })
 
-describe('ComboboxPrimitive — IntersectionObserver infinite scroll', () => {
+describe('ComboboxPrimitive: IntersectionObserver infinite scroll', () => {
   // Capture the IO callback per-instance so we can fire it deterministically.
   let observerCallback: IntersectionObserverCallback | null = null
   let observedTargets: Element[] = []
@@ -196,7 +199,7 @@ describe('ComboboxPrimitive — IntersectionObserver infinite scroll', () => {
   })
 })
 
-describe('ComboboxPrimitive — scrollIntoView on highlight change', () => {
+describe('ComboboxPrimitive: scrollIntoView on highlight change', () => {
   it('scrolls the active option into view when the highlight moves', async () => {
     const scrollSpy = vi.fn()
     // jsdom does not implement scrollIntoView; stub it.
@@ -212,7 +215,7 @@ describe('ComboboxPrimitive — scrollIntoView on highlight change', () => {
   })
 })
 
-describe('ComboboxPrimitive — footer prop', () => {
+describe('ComboboxPrimitive: footer prop', () => {
   it('renders footer below the items list', () => {
     render(<Harness footer={<div data-testid="cbx-footer">Custom footer</div>} />)
     expect(screen.getByTestId('cbx-footer')).toBeInTheDocument()
@@ -220,14 +223,14 @@ describe('ComboboxPrimitive — footer prop', () => {
   })
 
   it('suppresses the empty message when a footer is present', () => {
-    // totalEntries=0 + inputValue non-empty + no footer would normally show empty.
+    // totalEntries=0 + inputValue that is not empty + no footer would normally show empty.
     render(<Harness items={[]} footer={<div data-testid="cbx-footer">Fallback CTA</div>} />)
     expect(screen.queryByText(/Aucun résultat/)).not.toBeInTheDocument()
     expect(screen.getByTestId('cbx-footer')).toBeInTheDocument()
   })
 })
 
-describe('ComboboxPrimitive — onKeyDown parent intercept', () => {
+describe('ComboboxPrimitive: onKeyDown parent intercept', () => {
   it('short-circuits internal switch when parent onKeyDown calls preventDefault', async () => {
     const parentOnKeyDown = vi.fn((e: React.KeyboardEvent) => {
       // Parent claims the event (e.g. Tab handling).
@@ -257,8 +260,8 @@ describe('ComboboxPrimitive — onKeyDown parent intercept', () => {
   })
 })
 
-describe('ComboboxPrimitive — loading-state a11y', () => {
-  it('ignores arrow nav while loading — no dangling aria-activedescendant', async () => {
+describe('ComboboxPrimitive: loading-state a11y', () => {
+  it('ignores arrow nav while loading (no dangling aria-activedescendant)', async () => {
     render(<Harness isLoading />)
     const input = screen.getByRole('combobox')
     input.focus()
@@ -291,7 +294,7 @@ describe('ComboboxPrimitive — loading-state a11y', () => {
   })
 })
 
-describe('ComboboxPrimitive — empty-state a11y', () => {
+describe('ComboboxPrimitive: empty-state a11y', () => {
   // The empty-state <output> already announces; the count live region must not
   // speak over it nor advertise arrow keys that no-op with zero entries.
   it('suppresses the result-count live region when there are no results', () => {
@@ -300,7 +303,7 @@ describe('ComboboxPrimitive — empty-state a11y', () => {
   })
 })
 
-describe('ComboboxPrimitive — Escape propagation', () => {
+describe('ComboboxPrimitive: Escape propagation', () => {
   it('stops Escape while open; a second Escape reaches the parent (dialog peel)', () => {
     const onClose = vi.fn()
     const parentEsc = vi.fn()
@@ -321,7 +324,7 @@ describe('ComboboxPrimitive — Escape propagation', () => {
   })
 })
 
-describe('ComboboxPrimitive — keyboard wrap', () => {
+describe('ComboboxPrimitive: keyboard wrap', () => {
   it('ArrowDown on the last option wraps to the first, ArrowUp on the first wraps to the last', () => {
     render(<Harness />)
     const input = screen.getByRole('combobox')
@@ -337,7 +340,7 @@ describe('ComboboxPrimitive — keyboard wrap', () => {
   })
 })
 
-describe('ComboboxPrimitive — IME composition', () => {
+describe('ComboboxPrimitive: IME composition', () => {
   it('ignores Enter while composing: no select, nothing forwarded to the parent', () => {
     const onSelect = vi.fn()
     const onKeyDown = vi.fn()
@@ -359,7 +362,7 @@ describe('ComboboxPrimitive — IME composition', () => {
   })
 })
 
-describe('ComboboxPrimitive — load-more status announcement', () => {
+describe('ComboboxPrimitive: load-more status announcement', () => {
   let originalIO: typeof IntersectionObserver | undefined
 
   beforeEach(() => {
@@ -385,7 +388,7 @@ describe('ComboboxPrimitive — load-more status announcement', () => {
   })
 })
 
-describe('ComboboxPrimitive — error state', () => {
+describe('ComboboxPrimitive: error state', () => {
   it('renders error UI with retry button when isError', () => {
     const onRetry = vi.fn()
     render(<Harness isError onRetry={onRetry} />)
@@ -403,5 +406,23 @@ describe('ComboboxPrimitive — error state', () => {
   it('hides the listbox when isError', () => {
     render(<Harness isError onRetry={vi.fn()} />)
     expect(screen.queryByRole('listbox')).not.toBeInTheDocument()
+  })
+
+  // The two cases above carry no delay and must stay clickable: an error without a known
+  // window is retryable at once.
+  it('refuses the retry while a known delay is still running', async () => {
+    const onRetry = vi.fn()
+    render(<Harness isError onRetry={onRetry} retryAfter={42} />)
+
+    const retry = screen.getByRole('button', { name: /Réessayer/i })
+    expect(retry).toBeDisabled()
+    await userEvent.click(retry)
+    expect(onRetry).not.toHaveBeenCalled()
+  })
+
+  it('keeps the countdown out of the alert announcement', () => {
+    render(<Harness isError onRetry={vi.fn()} retryAfter={42} />)
+    // The container is role="alert"; a ticking number read aloud would fire it again every second.
+    expect(screen.getByRole('button', { name: /Réessayer/i })).toHaveAccessibleName('Réessayer')
   })
 })
