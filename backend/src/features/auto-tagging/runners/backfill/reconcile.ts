@@ -105,6 +105,7 @@ async function main() {
   let relChanged = 0
   const relDirection = new Map<string, number>()
   const delBySlug = new Map<string, number>()
+  const insBySlug = new Map<string, number>()
 
   for (const p of prods) {
     // Same kernel as the writers: withholds eczema-atopie, drops domain-ineligible
@@ -128,6 +129,10 @@ async function main() {
       const s = tagIdToSlug.get(tagId) ?? tagId
       delBySlug.set(s, (delBySlug.get(s) ?? 0) + 1)
     }
+    for (const tagId of diff.inserts) {
+      const s = tagIdToSlug.get(tagId) ?? tagId
+      insBySlug.set(s, (insBySlug.get(s) ?? 0) + 1)
+    }
   }
 
   console.log(`   net inserts       : ${netInsert}`)
@@ -138,6 +143,14 @@ async function main() {
     console.log('   --- relevance by direction ---')
     for (const [d, n] of [...relDirection.entries()].sort((a, b) => b[1] - a[1]))
       console.log(`     ${n}\t${d}`)
+  }
+  // Named per slug on both sides: a bare "net inserts" total hides which claim
+  // is about to land, so a tag held back on purpose reads as an anonymous
+  // number and gets written by an operator who could not have seen it.
+  if (insBySlug.size > 0) {
+    console.log('   --- inserts by slug (top 25) ---')
+    for (const [s, n] of [...insBySlug.entries()].sort((a, b) => b[1] - a[1]).slice(0, 25))
+      console.log(`     ${n}\t${s}`)
   }
   if (delBySlug.size > 0) {
     console.log('   --- deletes by slug (top 25) ---')
