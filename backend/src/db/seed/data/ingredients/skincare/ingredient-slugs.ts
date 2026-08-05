@@ -183,7 +183,7 @@ export const BARRIERE_EMOLLIENTS_OCCLUSIFS = {
   GENTIANA_LUTEA_ROOT_EXTRACT: 'gentiana-lutea-root-extract', // INCI: Gentiana Lutea Root Extract | yellow gentian, raises keratinocyte ceramide synthesis
   // Moved out of the haircare file: nothing about an olive oil or a lecithin is capillary.
   PHOSPHATIDYLCHOLINE_HAIR: 'phosphatidylcholine-hair', // membrane phospholipid, emulsifier and liposome former
-  PHOSPHOLIPIDS_HAIR: 'phospholipids-hair', // membrane lipid fraction, barrier restoring
+  PHOSPHOLIPIDS_HAIR: 'phospholipids-hair', // INCI: Phospholipids / Phospholipides | membrane lipid fraction
   OLIVE_OIL_HAIR: 'olive-oil-hair', // olive fruit oil, oleic dominant, nourishing
   MACADAMIA_OIL_HAIR: 'macadamia-oil-hair', // macadamia ternifolia oil, palmitoleic, silky
   MORINGA_OIL_HAIR: 'moringa-oil-hair', // moringa seed oil, behenic acid rich
@@ -334,7 +334,7 @@ export const ANTIOXYDANTS_VITAMINES = {
   CYANOCOBALAMIN: 'cyanocobalamin', // INCI: Cyanocobalamin | vitamin B12
   NAD: 'nad', // INCI: NAD+ | antioxidant coenzyme / cellular energy
   RIBOSE: 'ribose', // INCI: Ribose | cellular energy sugar
-  COQ10: 'coq10', // INCI: Ubiquinone | mitochondrial antioxidant
+  COQ10: 'coq10', // INCI: Ubiquinone / Coenzyme Q10 | mitochondrial antioxidant
   ERGOTHIONEINE: 'ergothioneine', // INCI: Ergothioneine | potent and stable antioxidant
   RESVERATROL: 'resveratrol', // INCI: Resveratrol | antioxidant polyphenol
   CARNOSINE: 'carnosine', // INCI: Carnosine | antioxidant / anti-glycation dipeptide
@@ -374,14 +374,14 @@ export const ANTIOXYDANTS_VITAMINES = {
   CISTUS_MONSPELIENSIS_EXTRACT: 'cistus-monspeliensis-extract', // INCI: Cistus Monspeliensis Extract | rock rose, Mediterranean antioxidant plant
   ACETYL_ZINGERONE: 'acetyl-zingerone', // INCI: Acetyl Zingerone | next-gen antioxidant (ginger), Vit C stabilizer
   GENISTEIN: 'genistein', // INCI: Genistein | soy isoflavone, phyto-estrogen-like antioxidant
-  QUERCETIN: 'quercetin', // INCI: Quercetin | antioxidant and anti-inflammatory flavonoid
+  QUERCETIN: 'quercetin', // INCI: Quercetin / Quercetine | antioxidant flavonoid
   SILYBIN: 'silybin', // INCI: Silybin | milk-thistle flavonolignan, anti-aging / anti-redness
   HESPERIDIN_METHYL_CHALCONE: 'hesperidin-methyl-chalcone', // INCI: Hesperidin Methyl Chalcone | citrus flavonoid, venotonic
   DIMETHYLMETHOXYCHROMANOL: 'dimethylmethoxychromanol', // INCI: Dimethylmethoxy Chromanol (Lipochroman) | dual hydro/lipo-mode antioxidant
   TETRAHYDRODIFERULOYLMETHANE: 'tetrahydrodiferuloylmethane', // INCI: Tetrahydrodiferuloylmethane (THC) | tetrahydrocurcuminoid, anti-pigmentation
   NARINGENIN: 'naringenin', // INCI: Naringenin | citrus flavonoid, anti-redness partner to azelaic acid
-  GLUCOSYLRUTIN: 'glucosylrutin', // INCI: Glucosylrutin | stable glycosylated rutin
-  RUTIN: 'rutin', // INCI: Rutin | quercetin glycoside, venotonic antioxidant
+  GLUCOSYLRUTIN: 'glucosylrutin', // INCI: Glucosylrutin / Glucosylrutine | stable glycosylated rutin
+  RUTIN: 'rutin', // INCI: Rutin / Rutine | quercetin glycoside, venotonic antioxidant
   OLEA_EUROPAEA_LEAF_EXTRACT: 'olea-europaea-leaf-extract', // INCI: Olea Europaea (Olive) Leaf Extract | oleuropein-rich, distinct from olive fruit oil
   TERMINALIA_FERDINANDIANA_FRUIT_EXTRACT: 'terminalia-ferdinandiana-fruit-extract', // INCI: Terminalia Ferdinandiana Fruit Extract | Kakadu plum, vitamin C and ellagitannins
   GLYCINE_SOJA_SEED_EXTRACT: 'glycine-soja-seed-extract', // INCI: Glycine Soja (Soybean) Seed Extract | isoflavones and saponins, known allergen
@@ -605,7 +605,7 @@ export const PROBIOTIQUES_PREBIOTIQUES_POSTBIOTIQUES = {
   AQUAPHILUS_DOLOMIAE_EXTRACT: 'aquaphilus-dolomiae-extract', // I-modulia (XeraCalm)
   AQUAPHILUS_DOLOMIAE_FERMENT_FILTRATE: 'aquaphilus-dolomiae-ferment-filtrate', // C+ Restore (Cicalfate+)
   VITREOSCILLA_FERMENT: 'vitreoscilla-ferment', // INCI: Vitreoscilla Ferment | soothing, repairing and fortifying bacterial ferment (postbiotic-like)
-  FRUCTOOLIGOSACCHARIDES: 'fructooligosaccharides', // INCI: Fructooligosaccharides | prebiotic, supports the skin microbiome
+  FRUCTOOLIGOSACCHARIDES: 'fructooligosaccharides', // INCI: Fructooligosaccharides / Fructo-Oligosaccharides | prebiotic
   INULINE: 'inuline', // INCI: Cichorium Intybus Root Extract | chicory root, source of prebiotic inulin
   MICROBIOTA_REGULATOR: 'microbiota-regulator', // Skin microbiome regulator | balances bacterial flora
   MELABIOME_XP: 'melabiome-xp', // Pre/postbiotic complex | microbiome rebalancing and protection
