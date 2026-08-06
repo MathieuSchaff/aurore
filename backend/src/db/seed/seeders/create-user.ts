@@ -1,13 +1,29 @@
+import { SQL } from 'bun'
+
 import type { Email, RawPassword } from '@aurore/shared'
 
 import { eq } from 'drizzle-orm'
+import { type BunSQLDatabase, drizzle } from 'drizzle-orm/bun-sql'
 
 import { env } from '../../../config/env'
+import * as schema from '../../../db/schema'
 import { users } from '../../../db/schema/users'
 import type { AuthContext } from '../../../features/auth/service'
 import { signup } from '../../../features/auth/service'
 import { getUser } from '../../../features/auth/user.utils'
 import { db } from '../../index'
+
+// Migration 0091 refuses role='admin' from app_runtime and the seed shares that pool, so the
+// bootstrap promotion must run as the table owner, the exemption the trigger already assumes.
+// Opened per call: the seed exits by falling off the event loop, a lingering pool would hang it.
+async function withOwnerDb<T>(fn: (ownerDb: BunSQLDatabase<typeof schema>) => Promise<T>) {
+  const client = new SQL(env.DATABASE_URL)
+  try {
+    return await fn(drizzle(client, { schema }))
+  } finally {
+    await client.close()
+  }
+}
 
 export function createCtx(overrides?: Partial<AuthContext>): AuthContext {
   return {
@@ -33,7 +49,9 @@ export async function getOrCreateSeedUser(
   if (user) {
     console.log(`Reusing existing seed user: ${email}`)
     if (user.role !== 'admin') {
-      await ctx.db.update(users).set({ role: 'admin' }).where(eq(users.id, user.id))
+      await withOwnerDb((ownerDb) =>
+        ownerDb.update(users).set({ role: 'admin' }).where(eq(users.id, user.id))
+      )
     }
     return user
   }
@@ -53,10 +71,12 @@ export async function getOrCreateSeedUser(
   }
 
   // Mark as verified and admin so slug is used as-is during ingredient creation
-  await ctx.db
-    .update(users)
-    .set({ emailVerifiedAt: new Date().toISOString(), role: 'admin' })
-    .where(eq(users.id, created.id))
+  await withOwnerDb((ownerDb) =>
+    ownerDb
+      .update(users)
+      .set({ emailVerifiedAt: new Date().toISOString(), role: 'admin' })
+      .where(eq(users.id, created.id))
+  )
 
   console.log(`Seed user created and verified: ${email}`)
   return created
