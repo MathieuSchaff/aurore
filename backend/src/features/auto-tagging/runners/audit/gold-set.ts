@@ -100,13 +100,22 @@ async function main() {
   // omitted here, no focus-tag impact, but the gap was silent).
   const bundle = await loadAutoTagFetchBundle(dbProducts.map((p) => p.id))
 
-  // Every annotated slug must exist in DB; missing = stale gold set (renamed/deleted product).
+  // Missing slug = stale gold set (product renamed or deduped away). Same class
+  // of staleness as an empty annotation, so same policy: STRICT fails, a plain
+  // run reports and drops them from the metrics. A hard failure by default let
+  // one deduped product take the whole benchmark down — and the benchmark is
+  // what arbitrates a suspected calibration drift, so it must survive.
   const dbBySlug = new Map<string, (typeof dbProducts)[number]>()
   for (const p of dbProducts) dbBySlug.set(p.slug, p)
   const missing = annotated.filter((s) => !dbBySlug.has(s))
   if (missing.length > 0) {
-    throw new Error(
-      `Gold-set drift: ${missing.length} annotated product(s) missing from DB:\n  ${missing.join('\n  ')}\nRe-run \`make gold-set-bootstrap\` or remove the orphans from annotations.json.`
+    if (STRICT) {
+      throw new Error(
+        `STRICT mode — gold-set drift: ${missing.length} annotated product(s) missing from DB:\n  ${missing.join('\n  ')}\nRe-run \`make gold-set-bootstrap\` or remove the orphans from annotations.json.`
+      )
+    }
+    console.log(
+      `⚠  ${missing.length}/${annotated.length} produits annotés absents de la base — ignorés des métriques :\n  ${missing.join('\n  ')}`
     )
   }
 
