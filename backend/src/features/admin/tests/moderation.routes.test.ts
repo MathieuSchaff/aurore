@@ -1,4 +1,4 @@
-import { afterEach, beforeEach, describe, expect, it } from 'bun:test'
+import { beforeAll, beforeEach, describe, expect, it } from 'bun:test'
 
 import { HTTP_STATUS } from '@aurore/shared'
 
@@ -9,16 +9,15 @@ import { ingredients } from '../../../db/schema/ingredients/ingredients'
 import { discussionReplies, discussionThreads } from '../../../db/schema/products/discussions'
 import { products } from '../../../db/schema/products/products'
 import { userProductReviews, userProducts } from '../../../db/schema/products/user-products'
-import { setupDbTests } from '../../../tests/db-setup'
-
-const ANY_USER_ID = '019d0000-0000-7000-8000-00000000abc1'
-
 import { testDb } from '../../../tests/db.test.config'
+import { setupDbTests } from '../../../tests/db-setup'
 import {
   createTestClient,
   type TestClient,
   withAuth,
 } from '../../../tests/helpers/createTestClient'
+import { expectOk, expectStatus } from '../../../tests/helpers/expectStatus'
+import { login } from '../../../tests/helpers/login'
 import { TEST_CREDENTIALS } from '../../../tests/helpers/test-credentials'
 import {
   createTestAdminUser,
@@ -26,30 +25,74 @@ import {
   createTestUser,
 } from '../../../tests/helpers/test-factories'
 
-async function login(client: TestClient, email: string, password: string): Promise<string> {
-  const res = await client.auth.login.$post({ json: { email, password } })
-  const data = await res.json()
-  if (!data.success) throw new Error('login failed in moderation test setup')
-  return data.data.accessToken
+const ANY_USER_ID = '019d0000-0000-7000-8000-00000000abc1'
+const GHOST_ID = '019d0000-0000-7000-8000-000000000abc'
+
+function setProfile(userId: string, values: Partial<typeof profiles.$inferInsert>) {
+  return testDb.update(profiles).set(values).where(eq(profiles.userId, userId))
+}
+
+// Raw insert rather than createTestProduct/createTestIngredient: the catalog
+// services open a transaction and run auto-tagging, which deadlocks against the
+// TRUNCATE of the next beforeEach in this suite.
+async function seedProduct(
+  createdBy: string,
+  values: Partial<typeof products.$inferInsert> & { name: string }
+) {
+  const [product] = await testDb
+    .insert(products)
+    .values({
+      brand: 'ModBrand',
+      category: 'skincare',
+      kind: 'serum',
+      unit: 'dropper',
+      slug: `${values.name.toLowerCase().replaceAll(' ', '-')}-${Math.random().toString(36).slice(2, 8)}`,
+      ...values,
+      createdBy,
+    })
+    .returning()
+  if (!product) throw new Error('product seed failed')
+  return product
+}
+
+async function seedIngredient(createdBy: string, name: string) {
+  const [ingredient] = await testDb
+    .insert(ingredients)
+    .values({
+      createdBy,
+      name,
+      slug: `${name.toLowerCase().replaceAll(' ', '-')}-${Math.random().toString(36).slice(2, 8)}`,
+      type: 'skincare',
+    })
+    .returning()
+  if (!ingredient) throw new Error('ingredient seed failed')
+  return ingredient
+}
+
+// No shared factory for discussions — the repo convention is a local helper.
+async function seedThread(productId: string, authorId: string, title = 'T', content = 'c') {
+  const [thread] = await testDb
+    .insert(discussionThreads)
+    .values({ productId, authorId, title, content })
+    .returning({ id: discussionThreads.id })
+  if (!thread) throw new Error('thread seed failed')
+  return thread.id
+}
+
+async function seedReply(threadId: string, authorId: string, content = 'r') {
+  const [reply] = await testDb
+    .insert(discussionReplies)
+    .values({ threadId, authorId, content })
+    .returning({ id: discussionReplies.id })
+  if (!reply) throw new Error('reply seed failed')
+  return reply.id
 }
 
 async function setupProductAndReview(opts: {
   userId: string
   isPublic?: boolean
 }): Promise<{ productSlug: string; reviewId: string }> {
-  const [product] = await testDb
-    .insert(products)
-    .values({
-      createdBy: opts.userId,
-      name: 'Mod Serum',
-      brand: 'ModBrand',
-      category: 'skincare',
-      kind: 'serum',
-      unit: 'dropper',
-      slug: `mod-serum-${Math.random().toString(36).slice(2, 8)}`,
-    })
-    .returning()
-  if (!product) throw new Error('product seed failed')
+  const product = await seedProduct(opts.userId, { name: 'Mod Serum' })
 
   const [up] = await testDb
     .insert(userProducts)
@@ -82,8 +125,11 @@ describe('POST /admin/moderation/* + public read filters', () => {
   let contributorId: string
   let contributorToken: string
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     client = await createTestClient()
+  })
+
+  beforeEach(async () => {
     const toto = TEST_CREDENTIALS.toto
     const admin = TEST_CREDENTIALS.admin
     const contributor = TEST_CREDENTIALS.contributor
@@ -100,50 +146,31 @@ describe('POST /admin/moderation/* + public read filters', () => {
     adminToken = await login(client, admin.rawEmail, admin.rawPassword)
     contributorToken = await login(client, contributor.rawEmail, contributor.rawPassword)
     // give the reviewer a username so the public reviews join doesn't drop the row
-    await testDb
-      .update(profiles)
-      .set({ username: 'reviewer-pub' })
-      .where(eq(profiles.userId, userId))
+    await setProfile(userId, { username: 'reviewer-pub' })
   })
 
-  afterEach(async () => {
-    await testDb.delete(discussionReplies)
-    await testDb.delete(discussionThreads)
-    await testDb.delete(userProductReviews)
-    await testDb.delete(userProducts)
-    await testDb.delete(products)
-    await testDb.delete(ingredients)
-  })
+  function publicReviews(slug: string) {
+    return expectOk(client.products[':slug'].reviews.public.$get({ param: { slug } }))
+  }
 
   it('hides a review from /products/:slug/reviews/public and restores it', async () => {
     const { productSlug, reviewId } = await setupProductAndReview({ userId })
 
-    const before = await client.products[':slug'].reviews.public.$get({
-      param: { slug: productSlug },
-    })
-    const beforeBody = await before.json()
-    if (!beforeBody.success) throw new Error('public read failed before mod')
-    expect(beforeBody.data.reviews.length).toBe(1)
+    expect((await publicReviews(productSlug)).reviews.length).toBe(1)
 
-    const hide = await client.admin.moderation.reviews[':id'].$patch(
-      {
-        param: { id: reviewId },
-        json: { status: 'hidden', reason: 'abuse' },
-      },
-      withAuth(adminToken)
+    const hideBody = await expectOk(
+      client.admin.moderation.reviews[':id'].$patch(
+        {
+          param: { id: reviewId },
+          json: { status: 'hidden', reason: 'abuse' },
+        },
+        withAuth(adminToken)
+      )
     )
-    expect(hide.status).toBe(HTTP_STATUS.OK)
-    const hideBody = await hide.json()
-    if (!hideBody.success) throw new Error('moderation failed')
-    expect(hideBody.data.moderationStatus).toBe('hidden')
-    expect(hideBody.data.moderationReason).toBe('abuse')
+    expect(hideBody.moderationStatus).toBe('hidden')
+    expect(hideBody.moderationReason).toBe('abuse')
 
-    const after = await client.products[':slug'].reviews.public.$get({
-      param: { slug: productSlug },
-    })
-    const afterBody = await after.json()
-    if (!afterBody.success) throw new Error('public read failed after mod')
-    expect(afterBody.data.reviews.length).toBe(0)
+    expect((await publicReviews(productSlug)).reviews.length).toBe(0)
 
     // Restore → row reappears
     const restore = await client.admin.moderation.reviews[':id'].$patch(
@@ -155,137 +182,82 @@ describe('POST /admin/moderation/* + public read filters', () => {
     )
     expect(restore.status).toBe(HTTP_STATUS.OK)
 
-    const restored = await client.products[':slug'].reviews.public.$get({
-      param: { slug: productSlug },
-    })
-    const restoredBody = await restored.json()
-    if (!restoredBody.success) throw new Error('public read failed after restore')
-    expect(restoredBody.data.reviews.length).toBe(1)
+    expect((await publicReviews(productSlug)).reviews.length).toBe(1)
   })
 
   it('hides a discussion thread from listThreads (product slug)', async () => {
-    const [product] = await testDb
-      .insert(products)
-      .values({
-        createdBy: userId,
-        name: 'Thread Serum',
-        brand: 'ThreadBrand',
-        category: 'skincare',
-        kind: 'serum',
-        unit: 'dropper',
-        slug: `thread-serum-${Math.random().toString(36).slice(2, 8)}`,
-      })
-      .returning()
-    if (!product) throw new Error('product seed failed')
+    const product = await seedProduct(userId, { name: 'Thread Serum', brand: 'ThreadBrand' })
+    const threadId = await seedThread(product.id, userId, 'Visible thread', 'hi')
 
-    const [thread] = await testDb
-      .insert(discussionThreads)
-      .values({
-        productId: product.id,
-        authorId: userId,
-        title: 'Visible thread',
-        content: 'hi',
-      })
-      .returning({ id: discussionThreads.id })
-    if (!thread) throw new Error('thread seed failed')
-
-    const before = await client.products[':slug'].discussions.$get(
-      { param: { slug: product.slug } },
-      withAuth(userToken)
+    const before = await expectOk(
+      client.products[':slug'].discussions.$get(
+        { param: { slug: product.slug } },
+        withAuth(userToken)
+      )
     )
-    const beforeBody = await before.json()
-    if (!beforeBody.success) throw new Error('list before failed')
-    expect(beforeBody.data.length).toBeGreaterThanOrEqual(1)
+    expect(before.length).toBeGreaterThanOrEqual(1)
 
     const hide = await client.admin.moderation.threads[':id'].$patch(
-      { param: { id: thread.id }, json: { status: 'hidden', reason: 'spam' } },
+      { param: { id: threadId }, json: { status: 'hidden', reason: 'spam' } },
       withAuth(adminToken)
     )
     expect(hide.status).toBe(HTTP_STATUS.OK)
 
-    const after = await client.products[':slug'].discussions.$get(
-      { param: { slug: product.slug } },
-      withAuth(userToken)
+    const after = await expectOk(
+      client.products[':slug'].discussions.$get(
+        { param: { slug: product.slug } },
+        withAuth(userToken)
+      )
     )
-    const afterBody = await after.json()
-    if (!afterBody.success) throw new Error('list after failed')
-    const hiddenStillVisible = afterBody.data.some((t) => t.id === thread.id)
-    expect(hiddenStillVisible).toBe(false)
+    expect(after.some((t) => t.id === threadId)).toBe(false)
   })
 
   it('hides a discussion reply from the thread detail', async () => {
-    const [product] = await testDb
-      .insert(products)
-      .values({
-        createdBy: userId,
-        name: 'Reply Serum',
-        brand: 'ReplyBrand',
-        category: 'skincare',
-        kind: 'serum',
-        unit: 'dropper',
-        slug: `reply-serum-${Math.random().toString(36).slice(2, 8)}`,
-      })
-      .returning()
-    if (!product) throw new Error('product seed failed')
+    const product = await seedProduct(userId, { name: 'Reply Serum', brand: 'ReplyBrand' })
+    const threadId = await seedThread(product.id, userId, 'Thread with reply', 'hi')
+    const replyId = await seedReply(threadId, userId, 'visible reply')
 
-    const [thread] = await testDb
-      .insert(discussionThreads)
-      .values({
-        productId: product.id,
-        authorId: userId,
-        title: 'Thread with reply',
-        content: 'hi',
-      })
-      .returning({ id: discussionThreads.id })
-    if (!thread) throw new Error('thread seed failed')
-
-    const [reply] = await testDb
-      .insert(discussionReplies)
-      .values({ threadId: thread.id, authorId: userId, content: 'visible reply' })
-      .returning({ id: discussionReplies.id })
-    if (!reply) throw new Error('reply seed failed')
-
-    const before = await client.products[':slug'].discussions[':threadId'].$get(
-      { param: { slug: product.slug, threadId: thread.id } },
-      withAuth(userToken)
+    const before = await expectOk(
+      client.products[':slug'].discussions[':threadId'].$get(
+        { param: { slug: product.slug, threadId } },
+        withAuth(userToken)
+      )
     )
-    const beforeBody = await before.json()
-    if (!beforeBody.success) throw new Error('thread detail before failed')
-    expect(beforeBody.data.replies.length).toBe(1)
+    expect(before.replies.length).toBe(1)
 
     const hide = await client.admin.moderation.replies[':id'].$patch(
-      { param: { id: reply.id }, json: { status: 'hidden' } },
+      { param: { id: replyId }, json: { status: 'hidden' } },
       withAuth(adminToken)
     )
     expect(hide.status).toBe(HTTP_STATUS.OK)
 
-    const after = await client.products[':slug'].discussions[':threadId'].$get(
-      { param: { slug: product.slug, threadId: thread.id } },
-      withAuth(userToken)
+    const after = await expectOk(
+      client.products[':slug'].discussions[':threadId'].$get(
+        { param: { slug: product.slug, threadId } },
+        withAuth(userToken)
+      )
     )
-    const afterBody = await after.json()
-    if (!afterBody.success) throw new Error('thread detail after failed')
-    expect(afterBody.data.replies.length).toBe(0)
+    expect(after.replies.length).toBe(0)
   })
 
   it('plain user (role=user) gets 403 on all 3 content moderation endpoints', async () => {
     const reviewRes = await client.admin.moderation.reviews[':id'].$patch(
-      { param: { id: '019d0000-0000-7000-8000-000000000abc' }, json: { status: 'hidden' } },
+      { param: { id: GHOST_ID }, json: { status: 'hidden' } },
       withAuth(userToken)
     )
-    expect(reviewRes.status as number).toBe(HTTP_STATUS.FORBIDDEN)
+    expectStatus(reviewRes, HTTP_STATUS.FORBIDDEN)
 
     const threadRes = await client.admin.moderation.threads[':id'].$patch(
-      { param: { id: '019d0000-0000-7000-8000-000000000abc' }, json: { status: 'hidden' } },
+      { param: { id: GHOST_ID }, json: { status: 'hidden' } },
       withAuth(userToken)
     )
-    expect(threadRes.status as number).toBe(HTTP_STATUS.FORBIDDEN)
+    expectStatus(threadRes, HTTP_STATUS.FORBIDDEN)
 
     const replyRes = await client.admin.moderation.replies[':id'].$patch(
-      { param: { id: '019d0000-0000-7000-8000-000000000abc' }, json: { status: 'hidden' } },
+      { param: { id: GHOST_ID }, json: { status: 'hidden' } },
       withAuth(userToken)
     )
-    expect(replyRes.status as number).toBe(HTTP_STATUS.FORBIDDEN)
+    expectStatus(replyRes, HTTP_STATUS.FORBIDDEN)
   })
 
   // Contributors can use the reversible content moderation subset.
@@ -294,21 +266,15 @@ describe('POST /admin/moderation/* + public read filters', () => {
   it('contributor hides a review (200) and it drops from public reviews', async () => {
     const { productSlug, reviewId } = await setupProductAndReview({ userId })
 
-    const hide = await client.admin.moderation.reviews[':id'].$patch(
-      { param: { id: reviewId }, json: { status: 'hidden', reason: 'spam' } },
-      withAuth(contributorToken)
+    const hideBody = await expectOk(
+      client.admin.moderation.reviews[':id'].$patch(
+        { param: { id: reviewId }, json: { status: 'hidden', reason: 'spam' } },
+        withAuth(contributorToken)
+      )
     )
-    expect(hide.status).toBe(HTTP_STATUS.OK)
-    const hideBody = await hide.json()
-    if (!hideBody.success) throw new Error('contributor moderation failed')
-    expect(hideBody.data.moderationStatus).toBe('hidden')
+    expect(hideBody.moderationStatus).toBe('hidden')
 
-    const after = await client.products[':slug'].reviews.public.$get({
-      param: { slug: productSlug },
-    })
-    const afterBody = await after.json()
-    if (!afterBody.success) throw new Error('public read after contributor hide failed')
-    expect(afterBody.data.reviews.length).toBe(0)
+    expect((await publicReviews(productSlug)).reviews.length).toBe(0)
 
     const [row] = await testDb
       .select({ moderatedBy: userProductReviews.moderatedBy })
@@ -318,38 +284,18 @@ describe('POST /admin/moderation/* + public read filters', () => {
   })
 
   it('contributor hides a thread and a reply (200)', async () => {
-    const [product] = await testDb
-      .insert(products)
-      .values({
-        createdBy: userId,
-        name: 'Modo Thread Serum',
-        brand: 'ModoBrand',
-        category: 'skincare',
-        kind: 'serum',
-        unit: 'dropper',
-        slug: `modo-thread-${Math.random().toString(36).slice(2, 8)}`,
-      })
-      .returning()
-    if (!product) throw new Error('product seed failed')
-    const [thread] = await testDb
-      .insert(discussionThreads)
-      .values({ productId: product.id, authorId: userId, title: 'T', content: 'c' })
-      .returning({ id: discussionThreads.id })
-    if (!thread) throw new Error('thread seed failed')
-    const [reply] = await testDb
-      .insert(discussionReplies)
-      .values({ threadId: thread.id, authorId: userId, content: 'r' })
-      .returning({ id: discussionReplies.id })
-    if (!reply) throw new Error('reply seed failed')
+    const product = await seedProduct(userId, { name: 'Modo Thread Serum' })
+    const threadId = await seedThread(product.id, userId)
+    const replyId = await seedReply(threadId, userId)
 
     const hideThread = await client.admin.moderation.threads[':id'].$patch(
-      { param: { id: thread.id }, json: { status: 'hidden' } },
+      { param: { id: threadId }, json: { status: 'hidden' } },
       withAuth(contributorToken)
     )
     expect(hideThread.status).toBe(HTTP_STATUS.OK)
 
     const hideReply = await client.admin.moderation.replies[':id'].$patch(
-      { param: { id: reply.id }, json: { status: 'hidden' } },
+      { param: { id: replyId }, json: { status: 'hidden' } },
       withAuth(contributorToken)
     )
     expect(hideReply.status).toBe(HTTP_STATUS.OK)
@@ -370,7 +316,7 @@ describe('POST /admin/moderation/* + public read filters', () => {
       { param: { userId: ANY_USER_ID }, json: { forcedPrivate: true } },
       withAuth(contributorToken)
     )
-    expect(res.status as number).toBe(HTTP_STATUS.FORBIDDEN)
+    expectStatus(res, HTTP_STATUS.FORBIDDEN)
   })
 
   // Catalog-sheet hide opens to moderators. The route guard + service persistence
@@ -378,28 +324,15 @@ describe('POST /admin/moderation/* + public read filters', () => {
   // (anon/user can't SELECT hidden, contributor can) lives in catalog-rls.test.ts —
   // this harness runs as the table owner and bypasses RLS.
   it('contributor hides a product sheet (200) and restores it', async () => {
-    const [product] = await testDb
-      .insert(products)
-      .values({
-        createdBy: userId,
-        name: 'Spam Serum',
-        brand: 'SpamBrand',
-        category: 'skincare',
-        kind: 'serum',
-        unit: 'dropper',
-        slug: `spam-serum-${Math.random().toString(36).slice(2, 8)}`,
-      })
-      .returning()
-    if (!product) throw new Error('product seed failed')
+    const product = await seedProduct(userId, { name: 'Spam Serum', brand: 'SpamBrand' })
 
-    const hide = await client.admin.moderation.products[':id'].$patch(
-      { param: { id: product.id }, json: { status: 'hidden', reason: 'spam' } },
-      withAuth(contributorToken)
+    const hideBody = await expectOk(
+      client.admin.moderation.products[':id'].$patch(
+        { param: { id: product.id }, json: { status: 'hidden', reason: 'spam' } },
+        withAuth(contributorToken)
+      )
     )
-    expect(hide.status).toBe(HTTP_STATUS.OK)
-    const hideBody = await hide.json()
-    if (!hideBody.success) throw new Error('contributor product hide failed')
-    expect(hideBody.data.moderationStatus).toBe('hidden')
+    expect(hideBody.moderationStatus).toBe('hidden')
 
     const [hidden] = await testDb
       .select({ status: products.moderationStatus, moderatedBy: products.moderatedBy })
@@ -421,25 +354,15 @@ describe('POST /admin/moderation/* + public read filters', () => {
   })
 
   it('contributor hides an ingredient sheet (200)', async () => {
-    const [ingredient] = await testDb
-      .insert(ingredients)
-      .values({
-        createdBy: userId,
-        name: 'Spam Acid',
-        slug: `spam-acid-${Math.random().toString(36).slice(2, 8)}`,
-        type: 'skincare',
-      })
-      .returning()
-    if (!ingredient) throw new Error('ingredient seed failed')
+    const ingredient = await seedIngredient(userId, 'Spam Acid')
 
-    const hide = await client.admin.moderation.ingredients[':id'].$patch(
-      { param: { id: ingredient.id }, json: { status: 'hidden', reason: 'spam' } },
-      withAuth(contributorToken)
+    const hideBody = await expectOk(
+      client.admin.moderation.ingredients[':id'].$patch(
+        { param: { id: ingredient.id }, json: { status: 'hidden', reason: 'spam' } },
+        withAuth(contributorToken)
+      )
     )
-    expect(hide.status).toBe(HTTP_STATUS.OK)
-    const hideBody = await hide.json()
-    if (!hideBody.success) throw new Error('contributor ingredient hide failed')
-    expect(hideBody.data.moderationStatus).toBe('hidden')
+    expect(hideBody.moderationStatus).toBe('hidden')
 
     const [hidden] = await testDb
       .select({ status: ingredients.moderationStatus, moderatedBy: ingredients.moderatedBy })
@@ -450,78 +373,54 @@ describe('POST /admin/moderation/* + public read filters', () => {
   })
 
   it('plain user (role=user) gets 403 on product + ingredient hide', async () => {
-    const ghost = '019d0000-0000-7000-8000-000000000abc'
     const productRes = await client.admin.moderation.products[':id'].$patch(
-      { param: { id: ghost }, json: { status: 'hidden' } },
+      { param: { id: GHOST_ID }, json: { status: 'hidden' } },
       withAuth(userToken)
     )
-    expect(productRes.status as number).toBe(HTTP_STATUS.FORBIDDEN)
+    expectStatus(productRes, HTTP_STATUS.FORBIDDEN)
 
     const ingredientRes = await client.admin.moderation.ingredients[':id'].$patch(
-      { param: { id: ghost }, json: { status: 'hidden' } },
+      { param: { id: GHOST_ID }, json: { status: 'hidden' } },
       withAuth(userToken)
     )
-    expect(ingredientRes.status as number).toBe(HTTP_STATUS.FORBIDDEN)
+    expectStatus(ingredientRes, HTTP_STATUS.FORBIDDEN)
   })
 
   // S2: the moderator previews a reported sheet (even hidden) before deciding —
   // mirrors the review/thread/reply preview path.
   it('contributor GET preview product (200) returns the sheet even when hidden', async () => {
-    const [product] = await testDb
-      .insert(products)
-      .values({
-        createdBy: userId,
-        name: 'Preview Spam',
-        brand: 'PrevBrand',
-        category: 'skincare',
-        kind: 'serum',
-        unit: 'dropper',
-        slug: `prev-spam-${Math.random().toString(36).slice(2, 8)}`,
-        moderationStatus: 'hidden',
-        moderationReason: 'ad',
-      })
-      .returning()
-    if (!product) throw new Error('product seed failed')
-    await testDb
-      .update(profiles)
-      .set({ username: 'preview-author' })
-      .where(eq(profiles.userId, userId))
+    const product = await seedProduct(userId, {
+      name: 'Preview Spam',
+      brand: 'PrevBrand',
+      moderationStatus: 'hidden',
+      moderationReason: 'ad',
+    })
+    await setProfile(userId, { username: 'preview-author' })
 
-    const res = await client.admin.moderation.products[':id'].$get(
-      { param: { id: product.id } },
-      withAuth(contributorToken)
+    const body = await expectOk(
+      client.admin.moderation.products[':id'].$get(
+        { param: { id: product.id } },
+        withAuth(contributorToken)
+      )
     )
-    expect(res.status).toBe(HTTP_STATUS.OK)
-    const body = await res.json()
-    if (!body.success) throw new Error('product preview failed')
-    if (body.data.kind !== 'product') throw new Error('expected product kind')
-    expect(body.data.name).toBe('Preview Spam')
-    expect(body.data.brand).toBe('PrevBrand')
-    expect(body.data.moderationStatus).toBe('hidden')
-    expect(body.data.authorUsername).toBe('preview-author')
+    if (body.kind !== 'product') throw new Error('expected product kind')
+    expect(body.name).toBe('Preview Spam')
+    expect(body.brand).toBe('PrevBrand')
+    expect(body.moderationStatus).toBe('hidden')
+    expect(body.authorUsername).toBe('preview-author')
   })
 
   it('admin GET preview ingredient (200)', async () => {
-    const [ingredient] = await testDb
-      .insert(ingredients)
-      .values({
-        createdBy: userId,
-        name: 'Preview Acid',
-        slug: `prev-acid-${Math.random().toString(36).slice(2, 8)}`,
-        type: 'skincare',
-      })
-      .returning()
-    if (!ingredient) throw new Error('ingredient seed failed')
+    const ingredient = await seedIngredient(userId, 'Preview Acid')
 
-    const res = await client.admin.moderation.ingredients[':id'].$get(
-      { param: { id: ingredient.id } },
-      withAuth(adminToken)
+    const body = await expectOk(
+      client.admin.moderation.ingredients[':id'].$get(
+        { param: { id: ingredient.id } },
+        withAuth(adminToken)
+      )
     )
-    expect(res.status).toBe(HTTP_STATUS.OK)
-    const body = await res.json()
-    if (!body.success) throw new Error('ingredient preview failed')
-    if (body.data.kind !== 'ingredient') throw new Error('expected ingredient kind')
-    expect(body.data.name).toBe('Preview Acid')
+    if (body.kind !== 'ingredient') throw new Error('expected ingredient kind')
+    expect(body.name).toBe('Preview Acid')
   })
 
   it('plain user GET preview product → 403', async () => {
@@ -529,7 +428,7 @@ describe('POST /admin/moderation/* + public read filters', () => {
       { param: { id: '019d0000-0000-7000-8000-00000000abcd' } },
       withAuth(userToken)
     )
-    expect(res.status as number).toBe(HTTP_STATUS.FORBIDDEN)
+    expectStatus(res, HTTP_STATUS.FORBIDDEN)
   })
 
   it('returns 404 when targeting a non-existing review', async () => {
@@ -538,7 +437,7 @@ describe('POST /admin/moderation/* + public read filters', () => {
       { param: { id: ghost }, json: { status: 'hidden' } },
       withAuth(adminToken)
     )
-    expect(res.status as number).toBe(HTTP_STATUS.NOT_FOUND)
+    expectStatus(res, HTTP_STATUS.NOT_FOUND)
   })
 
   it('rejects whitespace-only reason via zod trim().min(1)', async () => {
@@ -547,45 +446,40 @@ describe('POST /admin/moderation/* + public read filters', () => {
       { param: { id: reviewId }, json: { status: 'hidden', reason: '   ' } },
       withAuth(adminToken)
     )
-    expect(res.status as number).toBe(HTTP_STATUS.BAD_REQUEST)
+    expectStatus(res, HTTP_STATUS.BAD_REQUEST)
   })
 
   it('force-private profile hides /u/:username and clears on restore', async () => {
     // Set username + flip public so the route returns a row when not force-private
-    await testDb
-      .update(profiles)
-      .set({ username: 'targetable-user', profilePublic: true, bio: 'hello' })
-      .where(eq(profiles.userId, userId))
+    await setProfile(userId, { username: 'targetable-user', profilePublic: true, bio: 'hello' })
 
     const before = await client.profiles[':username'].public.$get({
       param: { username: 'targetable-user' },
     })
     expect(before.status).toBe(HTTP_STATUS.OK)
 
-    const hide = await client.admin.moderation.profiles[':userId'].visibility.$patch(
-      { param: { userId }, json: { forcedPrivate: true, reason: 'abuse' } },
-      withAuth(adminToken)
+    const hideBody = await expectOk(
+      client.admin.moderation.profiles[':userId'].visibility.$patch(
+        { param: { userId }, json: { forcedPrivate: true, reason: 'abuse' } },
+        withAuth(adminToken)
+      )
     )
-    expect(hide.status).toBe(HTTP_STATUS.OK)
-    const hideBody = await hide.json()
-    if (!hideBody.success) throw new Error('hide failed')
-    expect(hideBody.data.forcedPrivateByAdmin).toBe(true)
-    expect(hideBody.data.forcedPrivateReason).toBe('abuse')
+    expect(hideBody.forcedPrivateByAdmin).toBe(true)
+    expect(hideBody.forcedPrivateReason).toBe('abuse')
 
     const after = await client.profiles[':username'].public.$get({
       param: { username: 'targetable-user' },
     })
-    expect(after.status as number).toBe(HTTP_STATUS.NOT_FOUND)
+    expectStatus(after, HTTP_STATUS.NOT_FOUND)
 
-    const unhide = await client.admin.moderation.profiles[':userId'].visibility.$patch(
-      { param: { userId }, json: { forcedPrivate: false } },
-      withAuth(adminToken)
+    const unhideBody = await expectOk(
+      client.admin.moderation.profiles[':userId'].visibility.$patch(
+        { param: { userId }, json: { forcedPrivate: false } },
+        withAuth(adminToken)
+      )
     )
-    expect(unhide.status).toBe(HTTP_STATUS.OK)
-    const unhideBody = await unhide.json()
-    if (!unhideBody.success) throw new Error('unhide failed')
-    expect(unhideBody.data.forcedPrivateByAdmin).toBe(false)
-    expect(unhideBody.data.forcedPrivateReason).toBeNull()
+    expect(unhideBody.forcedPrivateByAdmin).toBe(false)
+    expect(unhideBody.forcedPrivateReason).toBeNull()
 
     const restored = await client.profiles[':username'].public.$get({
       param: { username: 'targetable-user' },
@@ -594,31 +488,18 @@ describe('POST /admin/moderation/* + public read filters', () => {
   })
 
   it('force-private also drops the user public reviews from the list', async () => {
-    await testDb
-      .update(profiles)
-      .set({ username: 'fp-reviewer' })
-      .where(eq(profiles.userId, userId))
+    await setProfile(userId, { username: 'fp-reviewer' })
     const { productSlug } = await setupProductAndReview({ userId })
 
-    const before = await client.products[':slug'].reviews.public.$get({
-      param: { slug: productSlug },
-    })
-    const beforeBody = await before.json()
-    if (!beforeBody.success) throw new Error('public reviews before failed')
-    expect(beforeBody.data.reviews.length).toBe(1)
+    expect((await publicReviews(productSlug)).reviews.length).toBe(1)
 
     await client.admin.moderation.profiles[':userId'].visibility.$patch(
       { param: { userId }, json: { forcedPrivate: true } },
       withAuth(adminToken)
     )
 
-    const after = await client.products[':slug'].reviews.public.$get({
-      param: { slug: productSlug },
-    })
-    const afterBody = await after.json()
-    if (!afterBody.success) throw new Error('public reviews after failed')
     // innerJoin profiles drops the review when the pseudonym policy stops matching.
-    expect(afterBody.data.reviews.length).toBe(0)
+    expect((await publicReviews(productSlug)).reviews.length).toBe(0)
   })
 
   it('force-private non-admin → 403', async () => {
@@ -626,7 +507,7 @@ describe('POST /admin/moderation/* + public read filters', () => {
       { param: { userId: ANY_USER_ID }, json: { forcedPrivate: true } },
       withAuth(userToken)
     )
-    expect(res.status as number).toBe(HTTP_STATUS.FORBIDDEN)
+    expectStatus(res, HTTP_STATUS.FORBIDDEN)
   })
 
   it('force-private 404 when target profile row does not exist', async () => {
@@ -635,7 +516,7 @@ describe('POST /admin/moderation/* + public read filters', () => {
       { param: { userId: ghost }, json: { forcedPrivate: true } },
       withAuth(adminToken)
     )
-    expect(res.status as number).toBe(HTTP_STATUS.NOT_FOUND)
+    expectStatus(res, HTTP_STATUS.NOT_FOUND)
   })
 
   it('admin GET preview returns content even when moderation_status=hidden', async () => {
@@ -646,68 +527,33 @@ describe('POST /admin/moderation/* + public read filters', () => {
       withAuth(adminToken)
     )
 
-    const res = await client.admin.moderation.reviews[':id'].$get(
-      { param: { id: reviewId } },
-      withAuth(adminToken)
+    const body = await expectOk(
+      client.admin.moderation.reviews[':id'].$get({ param: { id: reviewId } }, withAuth(adminToken))
     )
-    expect(res.status).toBe(HTTP_STATUS.OK)
-    const body = await res.json()
-    if (!body.success) throw new Error('preview failed')
-    expect(body.data.kind).toBe('review')
-    expect(body.data.moderationStatus).toBe('hidden')
-    expect(body.data.moderationReason).toBe('abuse')
-    if (body.data.kind === 'review') {
-      expect(body.data.comment).toBe('public test review')
+    expect(body.kind).toBe('review')
+    expect(body.moderationStatus).toBe('hidden')
+    expect(body.moderationReason).toBe('abuse')
+    if (body.kind === 'review') {
+      expect(body.comment).toBe('public test review')
     }
   })
 
   it('admin GET preview thread + reply', async () => {
-    const [product] = await testDb
-      .insert(products)
-      .values({
-        createdBy: userId,
-        name: 'Preview Serum',
-        brand: 'PreviewBrand',
-        category: 'skincare',
-        kind: 'serum',
-        unit: 'dropper',
-        slug: `preview-${Math.random().toString(36).slice(2, 8)}`,
-      })
-      .returning()
-    if (!product) throw new Error('product seed failed')
-    const [thread] = await testDb
-      .insert(discussionThreads)
-      .values({
-        productId: product.id,
-        authorId: userId,
-        title: 'Preview thread',
-        content: 'hello',
-      })
-      .returning({ id: discussionThreads.id })
-    if (!thread) throw new Error('thread seed failed')
-    const [reply] = await testDb
-      .insert(discussionReplies)
-      .values({ threadId: thread.id, authorId: userId, content: 'reply body' })
-      .returning({ id: discussionReplies.id })
-    if (!reply) throw new Error('reply seed failed')
+    const product = await seedProduct(userId, { name: 'Preview Serum', brand: 'PreviewBrand' })
+    const threadId = await seedThread(product.id, userId, 'Preview thread', 'hello')
+    const replyId = await seedReply(threadId, userId, 'reply body')
 
-    const t = await client.admin.moderation.threads[':id'].$get(
-      { param: { id: thread.id } },
-      withAuth(adminToken)
+    const thread = await expectOk(
+      client.admin.moderation.threads[':id'].$get({ param: { id: threadId } }, withAuth(adminToken))
     )
-    const tBody = await t.json()
-    if (!tBody.success) throw new Error('thread preview failed')
-    if (tBody.data.kind !== 'thread') throw new Error('expected thread kind')
-    expect(tBody.data.title).toBe('Preview thread')
+    if (thread.kind !== 'thread') throw new Error('expected thread kind')
+    expect(thread.title).toBe('Preview thread')
 
-    const r = await client.admin.moderation.replies[':id'].$get(
-      { param: { id: reply.id } },
-      withAuth(adminToken)
+    const reply = await expectOk(
+      client.admin.moderation.replies[':id'].$get({ param: { id: replyId } }, withAuth(adminToken))
     )
-    const rBody = await r.json()
-    if (!rBody.success) throw new Error('reply preview failed')
-    if (rBody.data.kind !== 'reply') throw new Error('expected reply kind')
-    expect(rBody.data.content).toBe('reply body')
+    if (reply.kind !== 'reply') throw new Error('expected reply kind')
+    expect(reply.content).toBe('reply body')
   })
 
   it('admin GET preview 404 when target missing', async () => {
@@ -716,7 +562,7 @@ describe('POST /admin/moderation/* + public read filters', () => {
       { param: { id: ghost } },
       withAuth(adminToken)
     )
-    expect(res.status as number).toBe(HTTP_STATUS.NOT_FOUND)
+    expectStatus(res, HTTP_STATUS.NOT_FOUND)
   })
 
   it('non-admin GET preview → 403', async () => {
@@ -724,7 +570,7 @@ describe('POST /admin/moderation/* + public read filters', () => {
       { param: { id: '019d0000-0000-7000-8000-00000000abcd' } },
       withAuth(userToken)
     )
-    expect(res.status as number).toBe(HTTP_STATUS.FORBIDDEN)
+    expectStatus(res, HTTP_STATUS.FORBIDDEN)
   })
 
   it('records moderatedBy + moderatedAt on the row', async () => {

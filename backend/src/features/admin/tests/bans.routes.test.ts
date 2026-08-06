@@ -1,4 +1,4 @@
-import { afterEach, beforeEach, describe, expect, it } from 'bun:test'
+import { afterEach, beforeAll, beforeEach, describe, expect, it } from 'bun:test'
 
 import { HTTP_STATUS } from '@aurore/shared'
 
@@ -12,6 +12,8 @@ import {
   type TestClient,
   withAuth,
 } from '../../../tests/helpers/createTestClient'
+import { expectError, expectOk, expectStatus } from '../../../tests/helpers/expectStatus'
+import { login } from '../../../tests/helpers/login'
 import { TEST_CREDENTIALS } from '../../../tests/helpers/test-credentials'
 import {
   createTestAdminUser,
@@ -20,11 +22,27 @@ import {
 } from '../../../tests/helpers/test-factories'
 import { clearBanCache } from '../../auth/ban.service'
 
-async function login(client: TestClient, email: string, password: string): Promise<string> {
-  const res = await client.auth.login.$post({ json: { email, password } })
-  const data = await res.json()
-  if (!data.success) throw new Error('login failed in admin-bans test setup')
-  return data.data.accessToken
+// Raw insert on purpose: the ban routes are the subject of this suite, so the
+// fixtures must not go through them.
+async function seedBan(values: typeof userBans.$inferInsert): Promise<string> {
+  const [row] = await testDb.insert(userBans).values(values).returning({ id: userBans.id })
+  if (!row) throw new Error('ban seed failed')
+  return row.id
+}
+
+function bansForUser(userId: string) {
+  return testDb.select().from(userBans).where(eq(userBans.userId, userId))
+}
+
+function bansById(banId: string) {
+  return testDb.select().from(userBans).where(eq(userBans.id, banId))
+}
+
+function moderationTrailFor(targetUserId: string) {
+  return testDb
+    .select()
+    .from(moderationActions)
+    .where(eq(moderationActions.targetUserId, targetUserId))
 }
 
 setupDbTests()
@@ -36,8 +54,11 @@ describe('POST /admin/users/:id/bans', () => {
   let adminToken: string
   let userToken: string
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     client = await createTestClient()
+  })
+
+  beforeEach(async () => {
     clearBanCache()
     const toto = TEST_CREDENTIALS.toto
     const admin = TEST_CREDENTIALS.admin
@@ -49,24 +70,23 @@ describe('POST /admin/users/:id/bans', () => {
     adminToken = await login(client, admin.rawEmail, admin.rawPassword)
   })
 
-  afterEach(async () => {
+  // The ban cache is in-memory, so the DB truncate of setupDbTests() never reaches it.
+  afterEach(() => {
     clearBanCache()
-    await testDb.delete(userBans)
   })
 
   it('admin creates a global ban (201, row inserted, cache invalidated)', async () => {
-    const res = await client.admin.users[':id'].bans.$post(
-      {
-        param: { id: userId },
-        json: { scope: 'global', reason: 'spam' },
-      },
-      withAuth(adminToken)
+    const ban = await expectOk(
+      client.admin.users[':id'].bans.$post(
+        {
+          param: { id: userId },
+          json: { scope: 'global', reason: 'spam' },
+        },
+        withAuth(adminToken)
+      ),
+      HTTP_STATUS.CREATED
     )
-
-    expect(res.status as number).toBe(HTTP_STATUS.CREATED)
-    const body = await res.json()
-    if (!body.success) throw new Error(`expected success, got ${JSON.stringify(body)}`)
-    expect(body.data).toMatchObject({
+    expect(ban).toMatchObject({
       userId,
       scope: 'global',
       reason: 'spam',
@@ -74,84 +94,70 @@ describe('POST /admin/users/:id/bans', () => {
       expiresAt: null,
     })
 
-    const rows = await testDb.select().from(userBans).where(eq(userBans.userId, userId))
-    expect(rows).toHaveLength(1)
+    expect(await bansForUser(userId)).toHaveLength(1)
     // Cache invalidation for the target is asserted by the end-to-end test below
-    // (admin's own /auth/session pre-warming the cache makes a size check noisy).
+    // (admin's own /auth/session warms the cache first, which makes a size check noisy).
   })
 
   it('admin creates a ban with future expiresAt', async () => {
     const future = new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString()
-    const res = await client.admin.users[':id'].bans.$post(
-      {
-        param: { id: userId },
-        json: { scope: 'global', expiresAt: future },
-      },
-      withAuth(adminToken)
+    const ban = await expectOk(
+      client.admin.users[':id'].bans.$post(
+        {
+          param: { id: userId },
+          json: { scope: 'global', expiresAt: future },
+        },
+        withAuth(adminToken)
+      ),
+      HTTP_STATUS.CREATED
     )
-
-    expect(res.status as number).toBe(HTTP_STATUS.CREATED)
-    const body = await res.json()
-    if (!body.success) throw new Error(`expected success, got ${JSON.stringify(body)}`)
-    expect(Date.parse(body.data.expiresAt ?? '')).toBe(Date.parse(future))
+    expect(Date.parse(ban.expiresAt ?? '')).toBe(Date.parse(future))
   })
 
   it('non-admin caller gets 403 forbidden', async () => {
-    const res = await client.admin.users[':id'].bans.$post(
-      {
-        param: { id: adminId },
-        json: { scope: 'global' },
-      },
-      withAuth(userToken)
+    await expectError(
+      client.admin.users[':id'].bans.$post(
+        { param: { id: adminId }, json: { scope: 'global' } },
+        withAuth(userToken)
+      ),
+      HTTP_STATUS.FORBIDDEN,
+      'forbidden'
     )
-
-    expect(res.status as number).toBe(HTTP_STATUS.FORBIDDEN)
-    const body = await res.json()
-    expect(body).toMatchObject({ success: false, error: 'forbidden' })
   })
 
   it('self-ban rejected with cannot_self_ban (400)', async () => {
-    const res = await client.admin.users[':id'].bans.$post(
-      {
-        param: { id: adminId },
-        json: { scope: 'global' },
-      },
-      withAuth(adminToken)
+    await expectError(
+      client.admin.users[':id'].bans.$post(
+        { param: { id: adminId }, json: { scope: 'global' } },
+        withAuth(adminToken)
+      ),
+      HTTP_STATUS.BAD_REQUEST,
+      'cannot_self_ban'
     )
-
-    expect(res.status as number).toBe(HTTP_STATUS.BAD_REQUEST)
-    const body = await res.json()
-    expect(body).toMatchObject({ success: false, error: 'cannot_self_ban' })
   })
 
   it('target user not found returns 404', async () => {
     const ghost = '019d0000-0000-7000-8000-00000000ffff'
-    const res = await client.admin.users[':id'].bans.$post(
-      {
-        param: { id: ghost },
-        json: { scope: 'global' },
-      },
-      withAuth(adminToken)
+    await expectError(
+      client.admin.users[':id'].bans.$post(
+        { param: { id: ghost }, json: { scope: 'global' } },
+        withAuth(adminToken)
+      ),
+      HTTP_STATUS.NOT_FOUND,
+      'not_found'
     )
-
-    expect(res.status as number).toBe(HTTP_STATUS.NOT_FOUND)
-    const body = await res.json()
-    expect(body).toMatchObject({ success: false, error: 'not_found' })
   })
 
   it('expiresAt in the past returns 400 invalid_input', async () => {
     const past = new Date(Date.now() - 60_000).toISOString()
-    const res = await client.admin.users[':id'].bans.$post(
-      {
-        param: { id: userId },
-        json: { scope: 'global', expiresAt: past },
-      },
-      withAuth(adminToken)
+    await expectError(
+      client.admin.users[':id'].bans.$post(
+        { param: { id: userId }, json: { scope: 'global', expiresAt: past } },
+        withAuth(adminToken)
+      ),
+      HTTP_STATUS.BAD_REQUEST,
+      'invalid_input'
     )
-
-    expect(res.status as number).toBe(HTTP_STATUS.BAD_REQUEST)
-    const body = await res.json()
-    expect(body).toMatchObject({ success: false, error: 'invalid_input' })
   })
 
   it('rejects whitespace-only reason as invalid (zod trim().min(1))', async () => {
@@ -163,7 +169,7 @@ describe('POST /admin/users/:id/bans', () => {
       withAuth(adminToken)
     )
 
-    expect(res.status as number).toBe(HTTP_STATUS.BAD_REQUEST)
+    expectStatus(res, HTTP_STATUS.BAD_REQUEST)
   })
 
   it('GET /admin/users/:id/bans lists bans newest-first for admin', async () => {
@@ -174,17 +180,12 @@ describe('POST /admin/users/:id/bans', () => {
       { userId, scope: 'global', bannedBy: adminId, reason: 'recent', createdAt: recent },
     ])
 
-    const res = await client.admin.users[':id'].bans.$get(
-      { param: { id: userId } },
-      withAuth(adminToken)
+    const bans = await expectOk(
+      client.admin.users[':id'].bans.$get({ param: { id: userId } }, withAuth(adminToken))
     )
-
-    expect(res.status).toBe(HTTP_STATUS.OK)
-    const body = await res.json()
-    if (!body.success) throw new Error(`expected success, got ${JSON.stringify(body)}`)
-    expect(body.data).toHaveLength(2)
-    expect(body.data[0]?.reason).toBe('recent')
-    expect(body.data[1]?.reason).toBe('old')
+    expect(bans).toHaveLength(2)
+    expect(bans[0]?.reason).toBe('recent')
+    expect(bans[1]?.reason).toBe('old')
   })
 
   it('GET /admin/users/:id/bans returns 403 for non-admin', async () => {
@@ -193,22 +194,18 @@ describe('POST /admin/users/:id/bans', () => {
       withAuth(userToken)
     )
 
-    expect(res.status as number).toBe(HTTP_STATUS.FORBIDDEN)
+    expectStatus(res, HTTP_STATUS.FORBIDDEN)
   })
 
-  it('DELETE /admin/bans/:banId lifts the ban and re-allows the user', async () => {
-    const [inserted] = await testDb
-      .insert(userBans)
-      .values({ userId, scope: 'global', bannedBy: adminId, reason: 'oops' })
-      .returning({ id: userBans.id })
-    if (!inserted) throw new Error('insert failed in test')
+  it('DELETE /admin/bans/:banId lifts the ban and allows the user again', async () => {
+    const banId = await seedBan({ userId, scope: 'global', bannedBy: adminId, reason: 'oops' })
     clearBanCache()
 
     const banned = await client.auth.session.$get({}, withAuth(userToken))
-    expect(banned.status as number).toBe(HTTP_STATUS.FORBIDDEN)
+    expectStatus(banned, HTTP_STATUS.FORBIDDEN)
 
     const lift = await client.admin.bans[':banId'].$delete(
-      { param: { banId: inserted.id } },
+      { param: { banId } },
       withAuth(adminToken)
     )
     expect(lift.status).toBe(HTTP_STATUS.OK)
@@ -216,27 +213,16 @@ describe('POST /admin/users/:id/bans', () => {
     const allowed = await client.auth.session.$get({}, withAuth(userToken))
     expect(allowed.status).toBe(HTTP_STATUS.OK)
 
-    const rows = await testDb.select().from(userBans).where(eq(userBans.id, inserted.id))
-    expect(rows).toHaveLength(0)
+    expect(await bansById(banId)).toHaveLength(0)
   })
 
   it('DELETE /admin/bans/:banId records what the deletion destroys', async () => {
-    const [inserted] = await testDb
-      .insert(userBans)
-      .values({ userId, scope: 'global', bannedBy: adminId, reason: 'oops' })
-      .returning({ id: userBans.id })
-    if (!inserted) throw new Error('insert failed in test')
+    const banId = await seedBan({ userId, scope: 'global', bannedBy: adminId, reason: 'oops' })
     clearBanCache()
 
-    await client.admin.bans[':banId'].$delete(
-      { param: { banId: inserted.id } },
-      withAuth(adminToken)
-    )
+    await client.admin.bans[':banId'].$delete({ param: { banId } }, withAuth(adminToken))
 
-    const [trail] = await testDb
-      .select()
-      .from(moderationActions)
-      .where(eq(moderationActions.targetUserId, userId))
+    const [trail] = await moderationTrailFor(userId)
 
     // The ban row is gone, so this structured payload is the only place these still exist.
     expect(trail).toMatchObject({
@@ -248,44 +234,31 @@ describe('POST /admin/users/:id/bans', () => {
 
   it('DELETE /admin/bans/:banId returns 404 when banId does not exist', async () => {
     const ghost = '019d0000-0000-7000-8000-000000000bad'
-    const res = await client.admin.bans[':banId'].$delete(
-      { param: { banId: ghost } },
-      withAuth(adminToken)
+    await expectError(
+      client.admin.bans[':banId'].$delete({ param: { banId: ghost } }, withAuth(adminToken)),
+      HTTP_STATUS.NOT_FOUND,
+      'not_found'
     )
-
-    expect(res.status as number).toBe(HTTP_STATUS.NOT_FOUND)
-    const body = await res.json()
-    expect(body).toMatchObject({ success: false, error: 'not_found' })
   })
 
   it('DELETE /admin/bans/:banId returns 403 for non-admin', async () => {
-    const [inserted] = await testDb
-      .insert(userBans)
-      .values({ userId, scope: 'global', bannedBy: adminId })
-      .returning({ id: userBans.id })
-    if (!inserted) throw new Error('insert failed in test')
+    const banId = await seedBan({ userId, scope: 'global', bannedBy: adminId })
 
-    const res = await client.admin.bans[':banId'].$delete(
-      { param: { banId: inserted.id } },
-      withAuth(userToken)
-    )
+    const res = await client.admin.bans[':banId'].$delete({ param: { banId } }, withAuth(userToken))
 
-    expect(res.status as number).toBe(HTTP_STATUS.FORBIDDEN)
+    expectStatus(res, HTTP_STATUS.FORBIDDEN)
   })
 
   it('GET /admin/users returns recent users newest-first for admin', async () => {
-    const res = await client.admin.users.$get({}, withAuth(adminToken))
+    const users = await expectOk(client.admin.users.$get({}, withAuth(adminToken)))
 
-    expect(res.status).toBe(HTTP_STATUS.OK)
-    const body = await res.json()
-    if (!body.success) throw new Error(`expected success, got ${JSON.stringify(body)}`)
     // Setup creates user then admin, so admin is newer and comes first.
-    expect(body.data.items.length).toBeGreaterThanOrEqual(2)
-    const ids = body.data.items.map((u) => u.id)
+    expect(users.items.length).toBeGreaterThanOrEqual(2)
+    const ids = users.items.map((u) => u.id)
     expect(ids).toContain(userId)
     expect(ids).toContain(adminId)
     // Each item has the safe-projection shape (no password_hash / google_sub)
-    const firstItem = body.data.items[0]
+    const firstItem = users.items[0]
     expect(firstItem).toHaveProperty('email')
     expect(firstItem).toHaveProperty('role')
     expect(firstItem).toHaveProperty('emailVerifiedAt')
@@ -294,40 +267,31 @@ describe('POST /admin/users/:id/bans', () => {
 
   it('GET /admin/users returns 403 for non-admin', async () => {
     const res = await client.admin.users.$get({}, withAuth(userToken))
-    expect(res.status as number).toBe(HTTP_STATUS.FORBIDDEN)
+    expectStatus(res, HTTP_STATUS.FORBIDDEN)
   })
 
   it('PATCH /admin/bans/:banId extends expiresAt and invalidates cache', async () => {
-    const [inserted] = await testDb
-      .insert(userBans)
-      .values({ userId, scope: 'global', bannedBy: adminId, reason: 'first' })
-      .returning({ id: userBans.id })
-    if (!inserted) throw new Error('insert failed in test')
+    const banId = await seedBan({ userId, scope: 'global', bannedBy: adminId, reason: 'first' })
     clearBanCache()
 
     // Warm cache as the target user
     const warm = await client.auth.session.$get({}, withAuth(userToken))
-    expect(warm.status as number).toBe(HTTP_STATUS.FORBIDDEN)
+    expectStatus(warm, HTTP_STATUS.FORBIDDEN)
 
     const future = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString()
-    const res = await client.admin.bans[':banId'].$patch(
-      {
-        param: { banId: inserted.id },
-        json: { expiresAt: future, reason: 'extended' },
-      },
-      withAuth(adminToken)
+    const patchedBan = await expectOk(
+      client.admin.bans[':banId'].$patch(
+        {
+          param: { banId },
+          json: { expiresAt: future, reason: 'extended' },
+        },
+        withAuth(adminToken)
+      )
     )
+    expect(patchedBan.expiresAt && Date.parse(patchedBan.expiresAt)).toBe(Date.parse(future))
+    expect(patchedBan.reason).toBe('extended')
 
-    expect(res.status).toBe(HTTP_STATUS.OK)
-    const body = await res.json()
-    if (!body.success) throw new Error(`expected success, got ${JSON.stringify(body)}`)
-    expect(body.data.expiresAt && Date.parse(body.data.expiresAt)).toBe(Date.parse(future))
-    expect(body.data.reason).toBe('extended')
-
-    const [trail] = await testDb
-      .select()
-      .from(moderationActions)
-      .where(eq(moderationActions.targetUserId, userId))
+    const [trail] = await moderationTrailFor(userId)
     expect(trail).toMatchObject({
       actorId: adminId,
       action: 'ban_updated',
@@ -336,50 +300,42 @@ describe('POST /admin/users/:id/bans', () => {
 
     // Cache was invalidated, so /auth/session reads fresh state (still banned, expiry not reached)
     const after = await client.auth.session.$get({}, withAuth(userToken))
-    expect(after.status as number).toBe(HTTP_STATUS.FORBIDDEN)
+    expectStatus(after, HTTP_STATUS.FORBIDDEN)
   })
 
   it('PATCH /admin/bans/:banId can clear expiresAt (make permanent)', async () => {
     const tomorrow = new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString()
-    const [inserted] = await testDb
-      .insert(userBans)
-      .values({ userId, scope: 'global', bannedBy: adminId, expiresAt: tomorrow })
-      .returning({ id: userBans.id })
-    if (!inserted) throw new Error('insert failed in test')
+    const banId = await seedBan({
+      userId,
+      scope: 'global',
+      bannedBy: adminId,
+      expiresAt: tomorrow,
+    })
 
-    const res = await client.admin.bans[':banId'].$patch(
-      {
-        param: { banId: inserted.id },
-        json: { expiresAt: null },
-      },
-      withAuth(adminToken)
+    const patchedBan = await expectOk(
+      client.admin.bans[':banId'].$patch(
+        {
+          param: { banId },
+          json: { expiresAt: null },
+        },
+        withAuth(adminToken)
+      )
     )
-
-    expect(res.status).toBe(HTTP_STATUS.OK)
-    const body = await res.json()
-    if (!body.success) throw new Error(`expected success, got ${JSON.stringify(body)}`)
-    expect(body.data.expiresAt).toBeNull()
+    expect(patchedBan.expiresAt).toBeNull()
   })
 
   it('PATCH /admin/bans/:banId rejects past expiresAt with 400 invalid_input', async () => {
-    const [inserted] = await testDb
-      .insert(userBans)
-      .values({ userId, scope: 'global', bannedBy: adminId })
-      .returning({ id: userBans.id })
-    if (!inserted) throw new Error('insert failed in test')
+    const banId = await seedBan({ userId, scope: 'global', bannedBy: adminId })
 
     const past = new Date(Date.now() - 60_000).toISOString()
-    const res = await client.admin.bans[':banId'].$patch(
-      {
-        param: { banId: inserted.id },
-        json: { expiresAt: past },
-      },
-      withAuth(adminToken)
+    await expectError(
+      client.admin.bans[':banId'].$patch(
+        { param: { banId }, json: { expiresAt: past } },
+        withAuth(adminToken)
+      ),
+      HTTP_STATUS.BAD_REQUEST,
+      'invalid_input'
     )
-
-    expect(res.status as number).toBe(HTTP_STATUS.BAD_REQUEST)
-    const body = await res.json()
-    expect(body).toMatchObject({ success: false, error: 'invalid_input' })
   })
 
   it('PATCH /admin/bans/:banId returns 404 when banId does not exist', async () => {
@@ -392,43 +348,29 @@ describe('POST /admin/users/:id/bans', () => {
       withAuth(adminToken)
     )
 
-    expect(res.status as number).toBe(HTTP_STATUS.NOT_FOUND)
+    expectStatus(res, HTTP_STATUS.NOT_FOUND)
   })
 
   it('PATCH /admin/bans/:banId rejects empty body (400 invalid_input via zod refine)', async () => {
-    const [inserted] = await testDb
-      .insert(userBans)
-      .values({ userId, scope: 'global', bannedBy: adminId })
-      .returning({ id: userBans.id })
-    if (!inserted) throw new Error('insert failed in test')
+    const banId = await seedBan({ userId, scope: 'global', bannedBy: adminId })
 
     const res = await client.admin.bans[':banId'].$patch(
-      {
-        param: { banId: inserted.id },
-        json: {},
-      },
+      { param: { banId }, json: {} },
       withAuth(adminToken)
     )
 
-    expect(res.status as number).toBe(HTTP_STATUS.BAD_REQUEST)
+    expectStatus(res, HTTP_STATUS.BAD_REQUEST)
   })
 
   it('PATCH /admin/bans/:banId returns 403 for non-admin', async () => {
-    const [inserted] = await testDb
-      .insert(userBans)
-      .values({ userId, scope: 'global', bannedBy: adminId })
-      .returning({ id: userBans.id })
-    if (!inserted) throw new Error('insert failed in test')
+    const banId = await seedBan({ userId, scope: 'global', bannedBy: adminId })
 
     const res = await client.admin.bans[':banId'].$patch(
-      {
-        param: { banId: inserted.id },
-        json: { reason: 'noop' },
-      },
+      { param: { banId }, json: { reason: 'noop' } },
       withAuth(userToken)
     )
 
-    expect(res.status as number).toBe(HTTP_STATUS.FORBIDDEN)
+    expectStatus(res, HTTP_STATUS.FORBIDDEN)
   })
 
   it('end-to-end: ban created then /auth/session returns 403 banned immediately', async () => {
@@ -443,14 +385,12 @@ describe('POST /admin/users/:id/bans', () => {
       withAuth(adminToken)
     )
 
-    const afterRes = await client.auth.session.$get({}, withAuth(userToken))
-    expect(afterRes.status as number).toBe(HTTP_STATUS.FORBIDDEN)
-    const body = await afterRes.json()
-    expect(body).toMatchObject({
-      success: false,
-      error: 'banned',
-      details: { reason: 'manual ops', expiresAt: null },
-    })
+    const body = await expectError<{ reason: string; expiresAt: string | null }>(
+      client.auth.session.$get({}, withAuth(userToken)),
+      HTTP_STATUS.FORBIDDEN,
+      'banned'
+    )
+    expect(body.details).toMatchObject({ reason: 'manual ops', expiresAt: null })
   })
 })
 
@@ -465,8 +405,11 @@ describe('Contributor (moderator) content-scoped bans', () => {
   let contributorToken: string
   let userToken: string
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     client = await createTestClient()
+  })
+
+  beforeEach(async () => {
     clearBanCache()
     const target = await createTestUser('s4-target@test.local', 'Azerty123!')
     const contributor = await createTestContributorUser('s4-modo@test.local', 'Azerty123!')
@@ -478,21 +421,19 @@ describe('Contributor (moderator) content-scoped bans', () => {
     userToken = await login(client, 's4-target@test.local', 'Azerty123!')
   })
 
-  afterEach(async () => {
+  afterEach(() => {
     clearBanCache()
-    await testDb.delete(userBans)
   })
 
   it('contributor creates a content-scoped ban (review_publish): 201, bannedBy=contributor', async () => {
-    const res = await client.admin.users[':id'].bans.$post(
-      { param: { id: targetId }, json: { scope: 'review_publish', reason: 'spam reviews' } },
-      withAuth(contributorToken)
+    const ban = await expectOk(
+      client.admin.users[':id'].bans.$post(
+        { param: { id: targetId }, json: { scope: 'review_publish', reason: 'spam reviews' } },
+        withAuth(contributorToken)
+      ),
+      HTTP_STATUS.CREATED
     )
-
-    expect(res.status as number).toBe(HTTP_STATUS.CREATED)
-    const body = await res.json()
-    if (!body.success) throw new Error(`expected success, got ${JSON.stringify(body)}`)
-    expect(body.data).toMatchObject({
+    expect(ban).toMatchObject({
       userId: targetId,
       scope: 'review_publish',
       bannedBy: contributorId,
@@ -500,58 +441,49 @@ describe('Contributor (moderator) content-scoped bans', () => {
   })
 
   it('contributor creating a global ban: 403 forbidden', async () => {
-    const res = await client.admin.users[':id'].bans.$post(
-      { param: { id: targetId }, json: { scope: 'global', reason: 'nope' } },
-      withAuth(contributorToken)
+    await expectError(
+      client.admin.users[':id'].bans.$post(
+        { param: { id: targetId }, json: { scope: 'global', reason: 'nope' } },
+        withAuth(contributorToken)
+      ),
+      HTTP_STATUS.FORBIDDEN,
+      'forbidden'
     )
 
-    expect(res.status as number).toBe(HTTP_STATUS.FORBIDDEN)
-    const body = await res.json()
-    expect(body).toMatchObject({ success: false, error: 'forbidden' })
-
-    const rows = await testDb.select().from(userBans).where(eq(userBans.userId, targetId))
-    expect(rows).toHaveLength(0)
+    expect(await bansForUser(targetId)).toHaveLength(0)
   })
 
   it('contributor lifts a content-scoped ban: 200, row deleted', async () => {
-    const [inserted] = await testDb
-      .insert(userBans)
-      .values({ userId: targetId, scope: 'review_publish', bannedBy: adminId, reason: 'x' })
-      .returning({ id: userBans.id })
-    if (!inserted) throw new Error('insert failed in test')
+    const banId = await seedBan({
+      userId: targetId,
+      scope: 'review_publish',
+      bannedBy: adminId,
+      reason: 'x',
+    })
     clearBanCache()
 
     const res = await client.admin.bans[':banId'].$delete(
-      { param: { banId: inserted.id } },
+      { param: { banId } },
       withAuth(contributorToken)
     )
 
     expect(res.status).toBe(HTTP_STATUS.OK)
-    const rows = await testDb.select().from(userBans).where(eq(userBans.id, inserted.id))
-    expect(rows).toHaveLength(0)
+    expect(await bansById(banId)).toHaveLength(0)
   })
 
   // The app-level gate returns 403 here (owner `app`, BYPASSRLS, so getBanScope sees the
   // global row). Under prod RLS the same request is 404 (the row is hidden from the
   // contributor, so not_found); the DB-level denial is proven in user-bans-rls.test.ts.
   it('contributor lifting a global ban: 403 forbidden, ban survives', async () => {
-    const [inserted] = await testDb
-      .insert(userBans)
-      .values({ userId: targetId, scope: 'global', bannedBy: adminId })
-      .returning({ id: userBans.id })
-    if (!inserted) throw new Error('insert failed in test')
+    const banId = await seedBan({ userId: targetId, scope: 'global', bannedBy: adminId })
 
-    const res = await client.admin.bans[':banId'].$delete(
-      { param: { banId: inserted.id } },
-      withAuth(contributorToken)
+    await expectError(
+      client.admin.bans[':banId'].$delete({ param: { banId } }, withAuth(contributorToken)),
+      HTTP_STATUS.FORBIDDEN,
+      'forbidden'
     )
 
-    expect(res.status as number).toBe(HTTP_STATUS.FORBIDDEN)
-    const body = await res.json()
-    expect(body).toMatchObject({ success: false, error: 'forbidden' })
-
-    const rows = await testDb.select().from(userBans).where(eq(userBans.id, inserted.id))
-    expect(rows).toHaveLength(1)
+    expect(await bansById(banId)).toHaveLength(1)
   })
 
   it('contributor lists user bans: 200 (queue reachable by moderator)', async () => {
@@ -566,17 +498,13 @@ describe('Contributor (moderator) content-scoped bans', () => {
   // contributor is rejected (the plain-user 403 test can't catch a regression
   // that loosened PATCH to requireContentModerator).
   it('contributor cannot update a ban (PATCH stays admin-only): 403', async () => {
-    const [inserted] = await testDb
-      .insert(userBans)
-      .values({ userId: targetId, scope: 'review_publish', bannedBy: adminId })
-      .returning({ id: userBans.id })
-    if (!inserted) throw new Error('insert failed in test')
+    const banId = await seedBan({ userId: targetId, scope: 'review_publish', bannedBy: adminId })
 
     const res = await client.admin.bans[':banId'].$patch(
-      { param: { banId: inserted.id }, json: { reason: 'nope' } },
+      { param: { banId }, json: { reason: 'nope' } },
       withAuth(contributorToken)
     )
-    expect(res.status as number).toBe(HTTP_STATUS.FORBIDDEN)
+    expectStatus(res, HTTP_STATUS.FORBIDDEN)
   })
 
   it('plain user creating a content-scoped ban: 403, nothing inserted', async () => {
@@ -584,8 +512,7 @@ describe('Contributor (moderator) content-scoped bans', () => {
       { param: { id: contributorId }, json: { scope: 'review_publish' } },
       withAuth(userToken)
     )
-    expect(res.status as number).toBe(HTTP_STATUS.FORBIDDEN)
-    const rows = await testDb.select().from(userBans).where(eq(userBans.userId, contributorId))
-    expect(rows).toHaveLength(0)
+    expectStatus(res, HTTP_STATUS.FORBIDDEN)
+    expect(await bansForUser(contributorId)).toHaveLength(0)
   })
 })

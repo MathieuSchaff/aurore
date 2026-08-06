@@ -5,7 +5,8 @@
     "fallow": "^3.10.0",
     "knip": "^6.25.0",
     "madge": "^8.0.0",
-    "typescript": "^7.0.2"
+    "typescript": "^7.0.2",
+    "typescript-5": "npm:typescript@^5.9.3"
   },
   "private": true,
   "workspaces": [

@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it } from 'bun:test'
+import { beforeAll, describe, expect, it } from 'bun:test'
 
 import { HTTP_STATUS } from '@aurore/shared'
 
@@ -14,6 +14,7 @@ import { socialPostReplies, socialPosts } from '../../../db/schema/social/posts'
 import { testDb } from '../../../tests/db.test.config'
 import { setupDbTests } from '../../../tests/db-setup'
 import { createTestEnv, type TestClient, withAuth } from '../../../tests/helpers/createTestClient'
+import { expectOk } from '../../../tests/helpers/expectStatus'
 import { loginAndGetToken } from '../../../tests/helpers/route-test-helpers'
 import { createTestUser } from '../../../tests/helpers/test-factories'
 
@@ -23,7 +24,7 @@ describe('Social reactions routes', () => {
   let app: Hono<AppEnv>
   let client: TestClient
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     const env = await createTestEnv()
     app = env.app
     client = env.client
@@ -51,20 +52,19 @@ describe('Social reactions routes', () => {
     const author = await makeUser('author@react.test')
     const postId = await createPost(author.token)
 
-    const res = await client.social.reactions.$post(
-      { json: { reactableType: 'post', reactableId: postId, kind: 'merci' } },
-      withAuth(author.token)
+    const reaction = await expectOk(
+      client.social.reactions.$post(
+        { json: { reactableType: 'post', reactableId: postId, kind: 'merci' } },
+        withAuth(author.token)
+      )
     )
-    expect(res.status).toBe(HTTP_STATUS.OK)
-    const data = await res.json()
-    if (!data.success) throw new Error('expected ok')
 
-    expect(data.data.reactions.merci).toEqual([{ username: 'author', profilePublic: false }])
-    expect(data.data.reactions['moi-aussi']).toEqual([])
-    expect(data.data.reactions.soutien).toEqual([])
-    expect(data.data.viewerKinds).toEqual(['merci'])
+    expect(reaction.reactions.merci).toEqual([{ username: 'author', profilePublic: false }])
+    expect(reaction.reactions['moi-aussi']).toEqual([])
+    expect(reaction.reactions.soutien).toEqual([])
+    expect(reaction.viewerKinds).toEqual(['merci'])
     // Zero-counter doctrine (ADR-0013): no total anywhere in the payload.
-    expect(JSON.stringify(data.data)).not.toContain('count')
+    expect(JSON.stringify(reaction)).not.toContain('count')
   })
 
   it('toggles off via DELETE and is idempotent on repeated POST', async () => {
@@ -72,19 +72,18 @@ describe('Social reactions routes', () => {
     const postId = await createPost(author.token)
     const body = { reactableType: 'post' as const, reactableId: postId, kind: 'merci' as const }
 
-    // Re-POST the same kind: idempotent, never a second row.
+    // POST the same kind again: idempotent, never a second row.
     await client.social.reactions.$post({ json: body }, withAuth(author.token))
     const again = await client.social.reactions.$post({ json: body }, withAuth(author.token))
     const againData = await again.json()
     if (!againData.success) throw new Error('expected ok')
     expect(againData.data.reactions.merci).toHaveLength(1)
 
-    const del = await client.social.reactions.$delete({ json: body }, withAuth(author.token))
-    expect(del.status).toBe(HTTP_STATUS.OK)
-    const delData = await del.json()
-    if (!delData.success) throw new Error('expected ok')
-    expect(delData.data.reactions.merci).toEqual([])
-    expect(delData.data.viewerKinds).toEqual([])
+    const del = await expectOk(
+      client.social.reactions.$delete({ json: body }, withAuth(author.token))
+    )
+    expect(del.reactions.merci).toEqual([])
+    expect(del.viewerKinds).toEqual([])
   })
 
   it('lets one user hold several kinds on the same target at once (multi-kind)', async () => {
@@ -116,15 +115,14 @@ describe('Social reactions routes', () => {
     await client.social.reactions.$post({ json: body }, withAuth(other.token))
 
     // Anonymous read: signed list, viewer has no own kinds.
-    const get = await client.social.reactions.$get({
-      query: { reactableType: 'post', reactableId: postId },
-    })
-    expect(get.status).toBe(HTTP_STATUS.OK)
-    const data = await get.json()
-    if (!data.success) throw new Error('expected ok')
-    const names = data.data.reactions['moi-aussi'].map((r) => r.username).sort()
+    const get = await expectOk(
+      client.social.reactions.$get({
+        query: { reactableType: 'post', reactableId: postId },
+      })
+    )
+    const names = get.reactions['moi-aussi'].map((r) => r.username).sort()
     expect(names).toEqual(['author', 'other'])
-    expect(data.data.viewerKinds).toEqual([])
+    expect(get.viewerKinds).toEqual([])
   })
 
   const UNKNOWN_ID = '11111111-1111-4111-8111-111111111111'
@@ -153,7 +151,7 @@ describe('Social reactions routes', () => {
   it('makes reacting on a Review impossible (invalid reactable_type → 400)', async () => {
     const author = await makeUser('author@react.test')
     // Bypass the typed client: 'review' is outside the enum, so the schema rejects
-    // it at the boundary — a Review is never a Reactable (ADR-0013).
+    // it at the boundary: a Review is never a Reactable (ADR-0013).
     const res = await app.request('/api/social/reactions', {
       method: 'POST',
       headers: {
@@ -215,14 +213,13 @@ describe('Social reactions routes', () => {
       { reactableType: 'post_reply' as const, reactableId: postReply.id },
     ]
     for (const target of targets) {
-      const res = await client.social.reactions.$post(
-        { json: { ...target, kind: 'soutien' } },
-        withAuth(author.token)
+      const reaction = await expectOk(
+        client.social.reactions.$post(
+          { json: { ...target, kind: 'soutien' } },
+          withAuth(author.token)
+        )
       )
-      expect(res.status).toBe(HTTP_STATUS.OK)
-      const data = await res.json()
-      if (!data.success) throw new Error(`expected ok for ${target.reactableType}`)
-      expect(data.data.reactions.soutien).toEqual([{ username: 'author', profilePublic: false }])
+      expect(reaction.reactions.soutien).toEqual([{ username: 'author', profilePublic: false }])
     }
   })
 

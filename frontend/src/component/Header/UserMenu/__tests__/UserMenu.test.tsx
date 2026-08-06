@@ -6,21 +6,18 @@ import { useLogout } from '@/lib/queries/auth'
 import { useAuthStore } from '@/store/auth'
 import { UserMenu } from '../UserMenu'
 
-vi.mock('@tanstack/react-query', async (importOriginal) => {
-  const actual = await importOriginal<typeof import('@tanstack/react-query')>()
-  return { ...actual, useQuery: vi.fn() }
-})
+vi.mock('@tanstack/react-query', async () => ({
+  ...(await vi.importActual<typeof import('@tanstack/react-query')>('@tanstack/react-query')),
+  useQuery: vi.fn(),
+}))
 
-vi.mock('@tanstack/react-router', async (importOriginal) => {
-  const actual = await importOriginal<typeof import('@tanstack/react-router')>()
-  return {
-    ...actual,
-    Link: ({ children, to }: { children: React.ReactNode; to: string }) => (
-      <a href={to}>{children}</a>
-    ),
-    useNavigate: vi.fn(() => vi.fn()),
-  }
-})
+vi.mock('@tanstack/react-router', async () => ({
+  ...(await vi.importActual<typeof import('@tanstack/react-router')>('@tanstack/react-router')),
+  Link: ({ children, to }: { children: React.ReactNode; to: string }) => (
+    <a href={to}>{children}</a>
+  ),
+  useNavigate: vi.fn(() => vi.fn()),
+}))
 
 vi.mock('@/lib/queries/auth', () => ({
   useLogout: vi.fn(),

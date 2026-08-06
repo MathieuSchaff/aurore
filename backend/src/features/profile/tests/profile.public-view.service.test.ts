@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it } from 'bun:test'
+import { beforeAll, describe, expect, it } from 'bun:test'
 
 import type { Hono } from 'hono'
 
@@ -36,7 +36,7 @@ setupDbTests()
 describe('getPublicProfileByUsername', () => {
   let app: Hono<AppEnv>
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     app = await createTestApp()
   })
 

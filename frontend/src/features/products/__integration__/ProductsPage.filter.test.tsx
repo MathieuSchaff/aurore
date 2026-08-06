@@ -5,14 +5,14 @@ vi.unmock('@tanstack/react-router')
 
 import { HAIRCARE_PRODUCT_TAG_TAXONOMY } from '@aurore/shared'
 
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { QueryClient } from '@tanstack/react-query'
 import {
   createMemoryHistory,
   createRootRoute,
   createRouter,
   RouterProvider,
 } from '@tanstack/react-router'
-import { render, screen, waitFor, within } from '@testing-library/react'
+import { screen, waitFor, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { HttpResponse, http } from 'msw'
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
@@ -21,6 +21,7 @@ import { Route as ProductsIndexRouteImport } from '@/routes/products/index'
 import { useAuthStore } from '@/store/auth'
 import { PRODUCT_FILTER_OPTIONS } from '@/test/msw/fixtures/products'
 import { server } from '@/test/msw/server'
+import { renderWithProviders } from '@/test/utils'
 
 const HAIRCARE_ZERO_COUNT_LABEL = HAIRCARE_PRODUCT_TAG_TAXONOMY.pellicules.label
 
@@ -45,7 +46,7 @@ function buildUrl(path: string, search: Record<string, string[]> = {}): string {
 
 function renderProducts(initialEntries: string[] = ['/products/']) {
   const rootRoute = createRootRoute()
-  // Re-attach the file route to a fresh root so the test picks its initial URL via memory history.
+  // Attach the file route to a fresh root so the test picks its initial URL via memory history.
   const productsRoute = (
     ProductsIndexRouteImport as unknown as {
       update: (opts: object) => unknown
@@ -69,11 +70,7 @@ function renderProducts(initialEntries: string[] = ['/products/']) {
   return {
     router,
     queryClient,
-    ...render(
-      <QueryClientProvider client={queryClient}>
-        <RouterProvider router={router} />
-      </QueryClientProvider>
-    ),
+    ...renderWithProviders(<RouterProvider router={router} />, { queryClient }),
   }
 }
 
@@ -108,7 +105,7 @@ afterEach(() => {
   document.body.style.top = ''
 })
 
-describe('ProductsPage — integration (URL ↔ filtres ↔ liste)', () => {
+describe('ProductsPage: integration (URL ↔ filtres ↔ liste)', () => {
   it('applies a tag filter from the drawer and pushes it to the URL', async () => {
     const user = userEvent.setup()
     const { router } = renderProducts()
@@ -199,7 +196,7 @@ describe('ProductsPage — integration (URL ↔ filtres ↔ liste)', () => {
     })
   })
 
-  // D9 (R7): profile_filter is a standing setting. "Tout effacer" never clears it, so it
+  // profile_filter is a standing setting. "Tout effacer" never clears it, so it
   // must appear neither in the active count nor as a removable chip beside that button.
   it('does not count or chip profile_filter, which reset cannot clear', async () => {
     renderProducts(['/products/?profile_filter=true'])
@@ -217,7 +214,7 @@ describe('ProductsPage — integration (URL ↔ filtres ↔ liste)', () => {
     ).not.toBeInTheDocument()
   })
 
-  it('async ingredient filter — type → click hit → apply pushes slug to URL', async () => {
+  it('async ingredient filter: type → click hit → apply pushes slug to URL', async () => {
     const user = userEvent.setup()
     const { router } = renderProducts()
     await screen.findByText(/Hydrating Cleanser/)
@@ -287,7 +284,7 @@ describe('ProductsPage — integration (URL ↔ filtres ↔ liste)', () => {
 
   it('renders chips with count=0 as disabled for a non-skincare domain', async () => {
     const user = userEvent.setup()
-    // Non-skincare domains keep the generic drawer, which disables (not hides) zero-count chips.
+    // Domains that are not skincare keep the generic drawer, which disables (not hides) zero-count chips.
     renderProducts([`/products/?category=${encodeURIComponent(JSON.stringify('haircare'))}`])
     await screen.findByText(/Hydrating Cleanser/)
 
@@ -335,7 +332,7 @@ describe('ProductsPage — integration (URL ↔ filtres ↔ liste)', () => {
 })
 
 // Apply button reflects in-flight count, draft clears on close, and preview/main share the query key.
-describe('ProductsPage — live preview count', () => {
+describe('ProductsPage: live preview count', () => {
   it('updates the apply button text live as the user toggles chips in the drawer', async () => {
     const user = userEvent.setup()
     renderProducts()
@@ -359,7 +356,7 @@ describe('ProductsPage — live preview count', () => {
       expect(applyBtn).toHaveTextContent(/Voir 1 produit\b/)
     })
 
-    // Toggling off restores the unfiltered count without re-apply.
+    // Toggling off restores the unfiltered count without applying again.
     await user.click(within(dialog).getByRole('button', { name: /Acné \/ Imperfections/i }))
     await waitFor(() => {
       expect(applyBtn).toHaveTextContent(/Voir 2 produits/)
@@ -428,7 +425,7 @@ describe('ProductsPage — live preview count', () => {
     })
   })
 
-  it('reuses preview cache on apply — no extra fetch when keys converge', async () => {
+  it('reuses preview cache on apply, no extra fetch when keys converge', async () => {
     const user = userEvent.setup()
     renderProducts()
     await screen.findByText(/Hydrating Cleanser/)

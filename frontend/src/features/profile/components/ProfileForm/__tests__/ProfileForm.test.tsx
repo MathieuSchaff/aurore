@@ -1,9 +1,9 @@
 import type { ProfilePublic } from '@aurore/shared'
 
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { fireEvent, render, screen, within } from '@testing-library/react'
+import { fireEvent, screen, within } from '@testing-library/react'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
+import { renderWithProviders } from '@/test/utils'
 import { ProfileForm } from '../ProfileForm'
 
 const baseProfile: ProfilePublic = {
@@ -22,21 +22,18 @@ function renderForm(
 ) {
   const onSubmit = vi.fn()
   const onCancel = vi.fn()
-  const queryClient = new QueryClient({ defaultOptions: { queries: { retry: false } } })
 
   return {
     onSubmit,
     onCancel,
-    ...render(
-      <QueryClientProvider client={queryClient}>
-        <ProfileForm
-          profile={profile}
-          onSubmit={onSubmit}
-          onCancel={onCancel}
-          isPending={overrides.isPending ?? false}
-          error={overrides.error ?? null}
-        />
-      </QueryClientProvider>
+    ...renderWithProviders(
+      <ProfileForm
+        profile={profile}
+        onSubmit={onSubmit}
+        onCancel={onCancel}
+        isPending={overrides.isPending ?? false}
+        error={overrides.error ?? null}
+      />
     ),
   }
 }

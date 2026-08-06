@@ -1,4 +1,4 @@
-import type { Page } from '@playwright/test'
+import type { Page, Response } from '@playwright/test'
 
 // SSR'd markup is visible long before React owns it, so waiting on a rendered
 // element is not a readiness gate: a click landing in that window is dropped
@@ -27,4 +27,46 @@ export function waitForSettledUrl(page: Page, quietMs = 400) {
     quietMs,
     { polling: 50 }
   )
+}
+
+export async function gotoHydrated(page: Page, url: string): Promise<void> {
+  await page.goto(url)
+  await waitForHydration(page)
+}
+
+export async function gotoSettled(page: Page, url: string): Promise<void> {
+  await gotoHydrated(page, url)
+  await waitForSettledUrl(page)
+}
+
+// The replace-navigate above only starts a second, unguarded chain: profile_filter=true
+// enables the dermoProfile query, which recomputes avoidFor, which changes the products
+// list query key and refetches it. waitForSettledUrl only watches the URL, so a card read
+// right after gotoSettled can still be yanked out from under a click by this later refetch —
+// under real network latency (a full e2e run, not an isolated one) the two round trips
+// routinely outlast the 400ms URL-quiet window. Wait for /api/products GETs to go quiet too.
+export function waitForProductsListSettled(page: Page, quietMs = 400): Promise<void> {
+  return new Promise((resolve) => {
+    let timer: ReturnType<typeof setTimeout>
+    const isProductsListGet = (url: string, method: string) =>
+      method === 'GET' && /\/api\/products(\?|$)/.test(url)
+    const finish = () => {
+      page.off('response', onResponse)
+      resolve()
+    }
+    const reset = () => {
+      clearTimeout(timer)
+      timer = setTimeout(finish, quietMs)
+    }
+    const onResponse = (res: Response) => {
+      if (isProductsListGet(res.url(), res.request().method())) reset()
+    }
+    page.on('response', onResponse)
+    reset()
+  })
+}
+
+export async function gotoProductsSettled(page: Page, url: string): Promise<void> {
+  await gotoSettled(page, url)
+  await waitForProductsListSettled(page)
 }

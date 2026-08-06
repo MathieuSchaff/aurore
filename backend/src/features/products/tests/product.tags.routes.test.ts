@@ -1,11 +1,17 @@
-import { beforeEach, describe, expect, it } from 'bun:test'
+import { beforeAll, beforeEach, describe, expect, it } from 'bun:test'
 
 import { HTTP_STATUS } from '@aurore/shared'
 
 import { setupDbTests } from '../../../tests/db-setup'
 import { expectRequiresAuth, expectRoleMatrix } from '../../../tests/helpers/authz-matrix'
-import { createTestEnv, type TestClient, withAuth } from '../../../tests/helpers/createTestClient'
-import { expectStatus } from '../../../tests/helpers/expectStatus'
+import {
+  createTestEnv,
+  type TestApp,
+  type TestClient,
+  withAuth,
+} from '../../../tests/helpers/createTestClient'
+import { expectOk, expectStatus } from '../../../tests/helpers/expectStatus'
+import { SKINCARE } from '../../../tests/helpers/product-shapes'
 import {
   setupAndLoginAdmin,
   setupAndLoginContributor,
@@ -13,15 +19,7 @@ import {
 import { TEST_CREDENTIALS } from '../../../tests/helpers/test-credentials'
 
 type ApiErrorBody = { success: false; error: string; details?: unknown }
-type TestApp = Awaited<ReturnType<typeof createTestEnv>>['app']
-
-const VALID_PRODUCT = {
-  name: 'Sérum Vitamine C',
-  brand: 'The Inkey List',
-  category: 'skincare',
-  kind: 'serum',
-  unit: 'pump',
-} as const
+const VALID_PRODUCT = { name: 'Sérum Vitamine C', brand: 'The Inkey List', ...SKINCARE } as const
 
 async function createProduct(
   client: TestClient,
@@ -56,8 +54,11 @@ describe('Product Tags Routes', () => {
   let contributorToken: string
   let adminToken: string
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     ;({ app, client } = await createTestEnv())
+  })
+
+  beforeEach(async () => {
     contributorToken = await setupAndLoginContributor(app, TEST_CREDENTIALS.contributor)
     adminToken = await setupAndLoginAdmin(app, TEST_CREDENTIALS.admin)
   })
@@ -66,14 +67,12 @@ describe('Product Tags Routes', () => {
     it('should return an empty array when no tags are linked (no auth required)', async () => {
       const product = await createProduct(client, contributorToken)
 
-      const res = await client.products[':productId'].tags.$get({
-        param: { productId: product.id },
-      })
-
-      expectStatus(res, HTTP_STATUS.OK)
-      const data = await res.json()
-      if (!data.success) throw new Error('list tags failed')
-      expect(data.data).toEqual([])
+      const tags = await expectOk(
+        client.products[':productId'].tags.$get({
+          param: { productId: product.id },
+        })
+      )
+      expect(tags).toEqual([])
     })
 
     it('should return linked tags with the correct shape', async () => {
@@ -153,19 +152,17 @@ describe('Product Tags Routes', () => {
         tagType: 'skin_type',
       })
 
-      const res = await client.products[':productId'].tags.$put(
-        {
-          param: { productId: product.id },
-          json: { tags: [{ tagId: t1.id }, { tagId: t2.id, relevance: 'avoid' }] },
-        },
-        withAuth(contributorToken)
+      const tags = await expectOk(
+        client.products[':productId'].tags.$put(
+          {
+            param: { productId: product.id },
+            json: { tags: [{ tagId: t1.id }, { tagId: t2.id, relevance: 'avoid' }] },
+          },
+          withAuth(contributorToken)
+        )
       )
-
-      expectStatus(res, HTTP_STATUS.OK)
-      const data = await res.json()
-      if (!data.success) throw new Error('put tags failed')
-      expect(data.data).toHaveLength(2)
-      expect(data.data.map((r) => r.productTagId).sort()).toEqual([t1.id, t2.id].sort())
+      expect(tags).toHaveLength(2)
+      expect(tags.map((r) => r.productTagId).sort()).toEqual([t1.id, t2.id].sort())
     })
 
     it('should replace existing tags (not append)', async () => {
@@ -205,15 +202,13 @@ describe('Product Tags Routes', () => {
         { param: { productId: product.id }, json: { tags: [{ tagId: tag.id }] } },
         withAuth(contributorToken)
       )
-      const clearRes = await client.products[':productId'].tags.$put(
-        { param: { productId: product.id }, json: { tags: [] } },
-        withAuth(contributorToken)
+      const clearedTags = await expectOk(
+        client.products[':productId'].tags.$put(
+          { param: { productId: product.id }, json: { tags: [] } },
+          withAuth(contributorToken)
+        )
       )
-
-      expectStatus(clearRes, HTTP_STATUS.OK)
-      const clearData = await clearRes.json()
-      if (!clearData.success) throw new Error('clear failed')
-      expect(clearData.data).toEqual([])
+      expect(clearedTags).toEqual([])
 
       const getRes = await client.products[':productId'].tags.$get({
         param: { productId: product.id },

@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it } from 'bun:test'
+import { beforeAll, beforeEach, describe, expect, it } from 'bun:test'
 
 import { HTTP_STATUS } from '@aurore/shared'
 
@@ -7,7 +7,12 @@ import { eq } from 'drizzle-orm'
 import { users } from '../../../db/schema'
 import { testDb } from '../../../tests/db.test.config'
 import { setupDbTests } from '../../../tests/db-setup'
-import { createTestEnv, type TestClient, withAuth } from '../../../tests/helpers/createTestClient'
+import {
+  createTestEnv,
+  type TestApp,
+  type TestClient,
+  withAuth,
+} from '../../../tests/helpers/createTestClient'
 import { TEST_CREDENTIALS } from '../../../tests/helpers/test-credentials'
 import { createTestContributorUser } from '../../../tests/helpers/test-factories'
 
@@ -32,16 +37,19 @@ async function expectForbidden(res: { status: number; json: () => Promise<unknow
 setupDbTests()
 
 describe('Role gates read the fresh DB role, not the stale JWT claim', () => {
-  let app: Awaited<ReturnType<typeof createTestEnv>>['app']
+  let app: TestApp
+  let client: TestClient
   let token: string
 
+  beforeAll(async () => {
+    ;({ app, client } = await createTestEnv())
+  })
+
   beforeEach(async () => {
-    const env = await createTestEnv()
-    app = env.app
     const { rawEmail, rawPassword } = TEST_CREDENTIALS.toto
     const user = await createTestContributorUser(rawEmail, rawPassword)
     // Token minted while still contributor — this is the stale claim under test.
-    token = await login(env.client, rawEmail, rawPassword)
+    token = await login(client, rawEmail, rawPassword)
     // Demote after the token was issued (simulates demoteToUser mid-token-life).
     await testDb.update(users).set({ role: 'user' }).where(eq(users.id, user.id))
   })

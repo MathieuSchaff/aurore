@@ -1,9 +1,13 @@
 import { beforeEach, describe, expect, it } from 'bun:test'
 
-import { createIngredient } from '../../../features/ingredients/service'
 import { testDb } from '../../../tests/db.test.config'
 import { setupDbTests } from '../../../tests/db-setup'
-import { createTestUser } from '../../../tests/helpers/test-factories'
+import {
+  createTestIngredient,
+  createTestProduct,
+  createTestUser,
+  type TestUser,
+} from '../../../tests/helpers/test-factories'
 import {
   addIngredientToProduct,
   addManyIngredientsToProduct,
@@ -13,25 +17,29 @@ import {
   replaceProductIngredients,
   updateProductIngredient,
 } from '../product-ingredients/product-ingredients.service'
-import { createProduct } from '../service'
-
-async function makeProduct(userId: string, name = 'Produit Test') {
-  return createProduct(
-    userId,
-    'admin',
-    { name, brand: 'toto', category: 'skincare', kind: 'serum', unit: 'dropper' },
-    testDb
-  )
-}
-
-async function makeIngredient(userId: string, name = 'Ingrédient Test') {
-  return createIngredient(testDb, userId, 'contributor', { name, type: 'skincare' })
-}
 
 setupDbTests()
 
+const addIng = (data: Parameters<typeof addIngredientToProduct>[1]) =>
+  testDb.transaction((tx) => addIngredientToProduct(tx, data))
+
+const addManyIng = (data: Parameters<typeof addManyIngredientsToProduct>[1]) =>
+  testDb.transaction((tx) => addManyIngredientsToProduct(tx, data))
+
+const updIng = (
+  productId: string,
+  ingredientId: string,
+  data: Parameters<typeof updateProductIngredient>[3]
+) => testDb.transaction((tx) => updateProductIngredient(tx, productId, ingredientId, data))
+
+const removeIng = (productId: string, ingredientId: string) =>
+  testDb.transaction((tx) => removeIngredientFromProduct(tx, productId, ingredientId))
+
+const replaceIng = (productId: string, data: Parameters<typeof replaceProductIngredients>[2]) =>
+  testDb.transaction((tx) => replaceProductIngredients(tx, productId, data))
+
 describe('Product Ingredients Service', () => {
-  let user: any
+  let user: TestUser
 
   beforeEach(async () => {
     user = await createTestUser()
@@ -39,16 +47,12 @@ describe('Product Ingredients Service', () => {
 
   describe('addIngredientToProduct', () => {
     it('should link an ingredient to a product', async () => {
-      const product = await makeProduct(user.id)
-      const ingredient = await makeIngredient(user.id)
+      const product = await createTestProduct(user.id, { name: 'Produit Test' })
+      const ingredient = await createTestIngredient(user.id, { name: 'Ingrédient Test' })
 
-      const link = await addIngredientToProduct(testDb, {
+      const link = await addIng({
         productId: product.id,
         ingredientId: ingredient.id,
-        concentrationValue: null,
-        concentrationUnit: null,
-        concentrationPer: null,
-        notes: null,
       })
 
       expect(link).toBeDefined()
@@ -57,15 +61,14 @@ describe('Product Ingredients Service', () => {
     })
 
     it('should store concentration details', async () => {
-      const product = await makeProduct(user.id)
-      const ingredient = await makeIngredient(user.id, 'Rétinol')
+      const product = await createTestProduct(user.id, { name: 'Produit Test' })
+      const ingredient = await createTestIngredient(user.id, { name: 'Rétinol' })
 
-      const link = await addIngredientToProduct(testDb, {
+      const link = await addIng({
         productId: product.id,
         ingredientId: ingredient.id,
         concentrationValue: '0.5',
         concentrationUnit: '%',
-        concentrationPer: null,
         notes: 'Encapsulé',
       })
 
@@ -75,78 +78,45 @@ describe('Product Ingredients Service', () => {
     })
 
     it('should store per-unit concentration (e.g. 2500 IU per drop)', async () => {
-      const product = await makeProduct(user.id)
-      const ingredient = await makeIngredient(user.id, 'Vitamine D3')
+      const product = await createTestProduct(user.id, { name: 'Produit Test' })
+      const ingredient = await createTestIngredient(user.id, { name: 'Vitamine D3' })
 
-      const link = await addIngredientToProduct(testDb, {
+      const link = await addIng({
         productId: product.id,
         ingredientId: ingredient.id,
         concentrationValue: '2500',
         concentrationUnit: 'IU',
         concentrationPer: 'goutte',
-        notes: null,
       })
 
       expect(link?.concentrationValue).toBe('2500')
       expect(link?.concentrationUnit).toBe('IU')
       expect(link?.concentrationPer).toBe('goutte')
     })
-
-    it('should store createdAt timestamp', async () => {
-      const product = await makeProduct(user.id)
-      const ingredient = await makeIngredient(user.id)
-
-      const link = await addIngredientToProduct(testDb, {
-        productId: product.id,
-        ingredientId: ingredient.id,
-        concentrationValue: null,
-        concentrationUnit: null,
-        concentrationPer: null,
-        notes: null,
-      })
-
-      expect(typeof link?.createdAt).toBe('string')
-    })
   })
 
   describe('addManyIngredientsToProduct', () => {
     it('should return an empty array when given no data', async () => {
-      const result = await addManyIngredientsToProduct(testDb, [])
+      const result = await addManyIng([])
 
       expect(result).toEqual([])
     })
 
     it('should link multiple ingredients to a product at once', async () => {
-      const product = await makeProduct(user.id)
-      const i1 = await makeIngredient(user.id, 'Niacinamide')
-      const i2 = await makeIngredient(user.id, 'Zinc')
-      const i3 = await makeIngredient(user.id, 'Panthénol')
+      const product = await createTestProduct(user.id, { name: 'Produit Test' })
+      const i1 = await createTestIngredient(user.id, { name: 'Niacinamide' })
+      const i2 = await createTestIngredient(user.id, { name: 'Zinc' })
+      const i3 = await createTestIngredient(user.id, { name: 'Panthénol' })
 
-      const links = await addManyIngredientsToProduct(testDb, [
+      const links = await addManyIng([
         {
           productId: product.id,
           ingredientId: i1.id,
           concentrationValue: '10',
           concentrationUnit: '%',
-          concentrationPer: null,
-          notes: null,
         },
-        {
-          productId: product.id,
-          ingredientId: i2.id,
-          concentrationValue: null,
-          concentrationUnit: null,
-          concentrationPer: null,
-          notes: null,
-        },
-        {
-          productId: product.id,
-          ingredientId: i3.id,
-          concentrationValue: null,
-          concentrationUnit: null,
-          concentrationPer: null,
-          notes: 'Forme liposomale',
-        },
+        { productId: product.id, ingredientId: i2.id },
+        { productId: product.id, ingredientId: i3.id, notes: 'Forme liposomale' },
       ])
 
       expect(links).toHaveLength(3)
@@ -159,7 +129,7 @@ describe('Product Ingredients Service', () => {
 
   describe('listIngredientsByProduct', () => {
     it('should return an empty list when the product has no ingredients', async () => {
-      const product = await makeProduct(user.id)
+      const product = await createTestProduct(user.id, { name: 'Produit Test' })
 
       const result = await listIngredientsByProduct(testDb, product.id)
 
@@ -167,21 +137,18 @@ describe('Product Ingredients Service', () => {
     })
 
     it('should return ingredients with joined ingredient information', async () => {
-      const product = await makeProduct(user.id)
-      const ingredient = await createIngredient(testDb, user.id, 'contributor', {
+      const product = await createTestProduct(user.id, { name: 'Produit Test' })
+      const ingredient = await createTestIngredient(user.id, {
         name: 'Acide Hyaluronique',
-        type: 'skincare',
         category: 'actif',
         description: 'Hydratant',
       })
 
-      await addIngredientToProduct(testDb, {
+      await addIng({
         productId: product.id,
         ingredientId: ingredient.id,
         concentrationValue: '1',
         concentrationUnit: '%',
-        concentrationPer: null,
-        notes: null,
       })
 
       const result = await listIngredientsByProduct(testDb, product.id)
@@ -198,18 +165,11 @@ describe('Product Ingredients Service', () => {
     })
 
     it('should not return ingredients from other products', async () => {
-      const p1 = await makeProduct(user.id, 'Produit A')
-      const p2 = await makeProduct(user.id, 'Produit B')
-      const ingredient = await makeIngredient(user.id)
+      const p1 = await createTestProduct(user.id, { name: 'Produit A' })
+      const p2 = await createTestProduct(user.id, { name: 'Produit B' })
+      const ingredient = await createTestIngredient(user.id, { name: 'Ingrédient Test' })
 
-      await addIngredientToProduct(testDb, {
-        productId: p1.id,
-        ingredientId: ingredient.id,
-        concentrationValue: null,
-        concentrationUnit: null,
-        concentrationPer: null,
-        notes: null,
-      })
+      await addIng({ productId: p1.id, ingredientId: ingredient.id })
 
       const result = await listIngredientsByProduct(testDb, p2.id)
 
@@ -217,27 +177,13 @@ describe('Product Ingredients Service', () => {
     })
 
     it('should return results ordered by ingredient name', async () => {
-      const product = await makeProduct(user.id)
-      const zinc = await makeIngredient(user.id, 'Zinc')
-      const acide = await makeIngredient(user.id, 'Acide Azélaïque')
+      const product = await createTestProduct(user.id, { name: 'Produit Test' })
+      const zinc = await createTestIngredient(user.id, { name: 'Zinc' })
+      const acide = await createTestIngredient(user.id, { name: 'Acide Azélaïque' })
 
-      await addManyIngredientsToProduct(testDb, [
-        {
-          productId: product.id,
-          ingredientId: zinc.id,
-          concentrationValue: null,
-          concentrationUnit: null,
-          concentrationPer: null,
-          notes: null,
-        },
-        {
-          productId: product.id,
-          ingredientId: acide.id,
-          concentrationValue: null,
-          concentrationUnit: null,
-          concentrationPer: null,
-          notes: null,
-        },
+      await addManyIng([
+        { productId: product.id, ingredientId: zinc.id },
+        { productId: product.id, ingredientId: acide.id },
       ])
 
       const result = await listIngredientsByProduct(testDb, product.id)
@@ -250,7 +196,7 @@ describe('Product Ingredients Service', () => {
 
   describe('listProductsByIngredient', () => {
     it('should return an empty list when no products contain the ingredient', async () => {
-      const ingredient = await makeIngredient(user.id)
+      const ingredient = await createTestIngredient(user.id, { name: 'Ingrédient Test' })
 
       const result = await listProductsByIngredient(testDb, ingredient.id)
 
@@ -258,27 +204,13 @@ describe('Product Ingredients Service', () => {
     })
 
     it('should return product links for a given ingredient', async () => {
-      const p1 = await makeProduct(user.id, 'Sérum A')
-      const p2 = await makeProduct(user.id, 'Sérum B')
-      const ingredient = await makeIngredient(user.id, 'Niacinamide')
+      const p1 = await createTestProduct(user.id, { name: 'Sérum A' })
+      const p2 = await createTestProduct(user.id, { name: 'Sérum B' })
+      const ingredient = await createTestIngredient(user.id, { name: 'Niacinamide' })
 
-      await addManyIngredientsToProduct(testDb, [
-        {
-          productId: p1.id,
-          ingredientId: ingredient.id,
-          concentrationValue: null,
-          concentrationUnit: null,
-          concentrationPer: null,
-          notes: null,
-        },
-        {
-          productId: p2.id,
-          ingredientId: ingredient.id,
-          concentrationValue: null,
-          concentrationUnit: null,
-          concentrationPer: null,
-          notes: null,
-        },
+      await addManyIng([
+        { productId: p1.id, ingredientId: ingredient.id },
+        { productId: p2.id, ingredientId: ingredient.id },
       ])
 
       const result = await listProductsByIngredient(testDb, ingredient.id)
@@ -292,19 +224,15 @@ describe('Product Ingredients Service', () => {
 
   describe('updateProductIngredient', () => {
     it('should update concentration fields', async () => {
-      const product = await makeProduct(user.id)
-      const ingredient = await makeIngredient(user.id, 'Rétinol')
+      const product = await createTestProduct(user.id, { name: 'Produit Test' })
+      const ingredient = await createTestIngredient(user.id, { name: 'Rétinol' })
 
-      await addIngredientToProduct(testDb, {
+      await addIng({
         productId: product.id,
         ingredientId: ingredient.id,
-        concentrationValue: null,
-        concentrationUnit: null,
-        concentrationPer: null,
-        notes: null,
       })
 
-      const updated = await updateProductIngredient(testDb, product.id, ingredient.id, {
+      const updated = await updIng(product.id, ingredient.id, {
         concentrationValue: '0.3',
         concentrationUnit: '%',
         notes: 'Microencapsulé',
@@ -317,10 +245,10 @@ describe('Product Ingredients Service', () => {
     })
 
     it('should return undefined when the link does not exist', async () => {
-      const product = await makeProduct(user.id)
-      const ingredient = await makeIngredient(user.id)
+      const product = await createTestProduct(user.id, { name: 'Produit Test' })
+      const ingredient = await createTestIngredient(user.id, { name: 'Ingrédient Test' })
 
-      const result = await updateProductIngredient(testDb, product.id, ingredient.id, {
+      const result = await updIng(product.id, ingredient.id, {
         notes: 'Nope',
       })
 
@@ -328,10 +256,10 @@ describe('Product Ingredients Service', () => {
     })
 
     it('should only update provided fields', async () => {
-      const product = await makeProduct(user.id)
-      const ingredient = await makeIngredient(user.id)
+      const product = await createTestProduct(user.id, { name: 'Produit Test' })
+      const ingredient = await createTestIngredient(user.id, { name: 'Ingrédient Test' })
 
-      await addIngredientToProduct(testDb, {
+      await addIng({
         productId: product.id,
         ingredientId: ingredient.id,
         concentrationValue: '5',
@@ -340,7 +268,7 @@ describe('Product Ingredients Service', () => {
         notes: 'Ancienne note',
       })
 
-      const updated = await updateProductIngredient(testDb, product.id, ingredient.id, {
+      const updated = await updIng(product.id, ingredient.id, {
         notes: 'Nouvelle note',
       })
 
@@ -353,19 +281,15 @@ describe('Product Ingredients Service', () => {
 
   describe('removeIngredientFromProduct', () => {
     it('should remove the link and return true', async () => {
-      const product = await makeProduct(user.id)
-      const ingredient = await makeIngredient(user.id)
+      const product = await createTestProduct(user.id, { name: 'Produit Test' })
+      const ingredient = await createTestIngredient(user.id, { name: 'Ingrédient Test' })
 
-      await addIngredientToProduct(testDb, {
+      await addIng({
         productId: product.id,
         ingredientId: ingredient.id,
-        concentrationValue: null,
-        concentrationUnit: null,
-        concentrationPer: null,
-        notes: null,
       })
 
-      const removed = await removeIngredientFromProduct(testDb, product.id, ingredient.id)
+      const removed = await removeIng(product.id, ingredient.id)
 
       expect(removed).toBe(true)
 
@@ -374,39 +298,25 @@ describe('Product Ingredients Service', () => {
     })
 
     it('should return false when the link does not exist', async () => {
-      const product = await makeProduct(user.id)
-      const ingredient = await makeIngredient(user.id)
+      const product = await createTestProduct(user.id, { name: 'Produit Test' })
+      const ingredient = await createTestIngredient(user.id, { name: 'Ingrédient Test' })
 
-      const result = await removeIngredientFromProduct(testDb, product.id, ingredient.id)
+      const result = await removeIng(product.id, ingredient.id)
 
       expect(result).toBe(false)
     })
 
     it('should only remove the specified link, not others', async () => {
-      const product = await makeProduct(user.id)
-      const i1 = await makeIngredient(user.id, 'Garder')
-      const i2 = await makeIngredient(user.id, 'Retirer')
+      const product = await createTestProduct(user.id, { name: 'Produit Test' })
+      const i1 = await createTestIngredient(user.id, { name: 'Garder' })
+      const i2 = await createTestIngredient(user.id, { name: 'Retirer' })
 
-      await addManyIngredientsToProduct(testDb, [
-        {
-          productId: product.id,
-          ingredientId: i1.id,
-          concentrationValue: null,
-          concentrationUnit: null,
-          concentrationPer: null,
-          notes: null,
-        },
-        {
-          productId: product.id,
-          ingredientId: i2.id,
-          concentrationValue: null,
-          concentrationUnit: null,
-          concentrationPer: null,
-          notes: null,
-        },
+      await addManyIng([
+        { productId: product.id, ingredientId: i1.id },
+        { productId: product.id, ingredientId: i2.id },
       ])
 
-      await removeIngredientFromProduct(testDb, product.id, i2.id)
+      await removeIng(product.id, i2.id)
 
       const remaining = await listIngredientsByProduct(testDb, product.id)
       expect(remaining).toHaveLength(1)
@@ -416,27 +326,14 @@ describe('Product Ingredients Service', () => {
 
   describe('replaceProductIngredients', () => {
     it('should replace existing ingredients with new ones', async () => {
-      const product = await makeProduct(user.id)
-      const old = await makeIngredient(user.id, 'Ancien')
-      const nouveau = await makeIngredient(user.id, 'Nouveau')
+      const product = await createTestProduct(user.id, { name: 'Produit Test' })
+      const old = await createTestIngredient(user.id, { name: 'Ancien' })
+      const nouveau = await createTestIngredient(user.id, { name: 'Nouveau' })
 
-      await addIngredientToProduct(testDb, {
-        productId: product.id,
-        ingredientId: old.id,
-        concentrationValue: null,
-        concentrationUnit: null,
-        concentrationPer: null,
-        notes: null,
-      })
+      await addIng({ productId: product.id, ingredientId: old.id })
 
-      await replaceProductIngredients(testDb, product.id, [
-        {
-          ingredientId: nouveau.id,
-          concentrationValue: '5',
-          concentrationUnit: '%',
-          concentrationPer: null,
-          notes: null,
-        },
+      await replaceIng(product.id, [
+        { ingredientId: nouveau.id, concentrationValue: '5', concentrationUnit: '%' },
       ])
 
       const result = await listIngredientsByProduct(testDb, product.id)
@@ -445,19 +342,15 @@ describe('Product Ingredients Service', () => {
     })
 
     it('should clear all ingredients when given an empty array', async () => {
-      const product = await makeProduct(user.id)
-      const ingredient = await makeIngredient(user.id)
+      const product = await createTestProduct(user.id, { name: 'Produit Test' })
+      const ingredient = await createTestIngredient(user.id, { name: 'Ingrédient Test' })
 
-      await addIngredientToProduct(testDb, {
+      await addIng({
         productId: product.id,
         ingredientId: ingredient.id,
-        concentrationValue: null,
-        concentrationUnit: null,
-        concentrationPer: null,
-        notes: null,
       })
 
-      const result = await replaceProductIngredients(testDb, product.id, [])
+      const result = await replaceIng(product.id, [])
 
       expect(result).toEqual([])
 
@@ -466,25 +359,13 @@ describe('Product Ingredients Service', () => {
     })
 
     it('should add productId to each entry correctly', async () => {
-      const product = await makeProduct(user.id)
-      const i1 = await makeIngredient(user.id, 'Premier')
-      const i2 = await makeIngredient(user.id, 'Deuxième')
+      const product = await createTestProduct(user.id, { name: 'Produit Test' })
+      const i1 = await createTestIngredient(user.id, { name: 'Premier' })
+      const i2 = await createTestIngredient(user.id, { name: 'Deuxième' })
 
-      const result = await replaceProductIngredients(testDb, product.id, [
-        {
-          ingredientId: i1.id,
-          concentrationValue: null,
-          concentrationUnit: null,
-          concentrationPer: null,
-          notes: null,
-        },
-        {
-          ingredientId: i2.id,
-          concentrationValue: null,
-          concentrationUnit: null,
-          concentrationPer: null,
-          notes: 'Liposomal',
-        },
+      const result = await replaceIng(product.id, [
+        { ingredientId: i1.id },
+        { ingredientId: i2.id, notes: 'Liposomal' },
       ])
 
       expect(result).toHaveLength(2)

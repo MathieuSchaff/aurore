@@ -4,10 +4,10 @@ import { describe, expect, it, vi } from 'vitest'
 
 import { renderWithProviders } from '@/test/utils'
 
-vi.mock('@tanstack/react-query', async (importOriginal) => {
-  const actual = await importOriginal<typeof import('@tanstack/react-query')>()
-  return { ...actual, useSuspenseQuery: vi.fn() }
-})
+vi.mock('@tanstack/react-query', async () => ({
+  ...(await vi.importActual<typeof import('@tanstack/react-query')>('@tanstack/react-query')),
+  useSuspenseQuery: vi.fn(),
+}))
 
 vi.mock('@tanstack/react-router', async (importOriginal) => {
   const actual = await importOriginal<typeof import('@tanstack/react-router')>()

@@ -1,4 +1,4 @@
-import { afterEach, beforeEach, describe, expect, it } from 'bun:test'
+import { afterEach, beforeAll, beforeEach, describe, expect, it } from 'bun:test'
 
 import { HTTP_STATUS } from '@aurore/shared'
 
@@ -55,8 +55,11 @@ setupDbTests()
 describe('GET /profile/export', () => {
   let app: Hono<AppEnv>
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     app = await createTestApp()
+  })
+
+  beforeEach(() => {
     resetExportRateLimit()
   })
 

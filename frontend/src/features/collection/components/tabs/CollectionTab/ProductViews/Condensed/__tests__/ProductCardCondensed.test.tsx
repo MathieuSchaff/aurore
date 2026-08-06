@@ -2,6 +2,7 @@ import { cleanup, fireEvent, render, screen } from '@testing-library/react'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 
 import type { UserProduct } from '@/lib/queries/user-products'
+import { makeUserProduct } from '@/test/utils'
 import { ProductCardCondensed } from '../ProductCardCondensed'
 
 vi.mock('@/lib/queries/user-products', async (importOriginal) => {
@@ -15,26 +16,16 @@ vi.mock('@/lib/queries/user-products', async (importOriginal) => {
 })
 
 // Card reads prefs via useQuery — stub it.
-vi.mock('@tanstack/react-query', async (importOriginal) => {
-  const actual = await importOriginal<typeof import('@tanstack/react-query')>()
-  return {
-    ...actual,
-    useQuery: () => ({ data: { criteriaWeights: undefined } }),
-  }
-})
+vi.mock('@tanstack/react-query', async () => ({
+  ...(await vi.importActual<typeof import('@tanstack/react-query')>('@tanstack/react-query')),
+  useQuery: () => ({ data: { criteriaWeights: undefined } }),
+}))
 
-function makeProduct(overrides: Partial<UserProduct> = {}): UserProduct {
-  return {
-    id: '1',
-    userId: 'u1',
-    productId: 'p1',
-    status: 'in_stock',
+// All ratings at 4/5 unweighted = 16/20 → exercises the score-rare threshold.
+function makeProduct(overrides: Partial<UserProduct> = {}) {
+  return makeUserProduct({
     sentiment: 4,
     wouldRepurchase: 'yes',
-    comment: null,
-    createdAt: new Date().toISOString(),
-    updatedAt: new Date().toISOString(),
-    purchases: [],
     review: {
       id: 'r1',
       userProductId: '1',
@@ -45,26 +36,21 @@ function makeProduct(overrides: Partial<UserProduct> = {}): UserProduct {
       stability: 4,
       mixability: 4,
       valueForMoney: 4,
+      isPublic: false,
+      ratingsPublic: false,
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
     },
     product: {
+      ...makeUserProduct().product,
       id: 'p1',
       name: 'Sérum HA',
       brand: 'The Ordinary',
-      kind: 'skincare',
-      unit: 'ml',
+      kind: 'serum',
       priceCents: 1000,
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString(),
-      description: null,
-      url: null,
-      createdBy: 'u1',
-      inci: null,
-      productTags: [],
     },
     ...overrides,
-  } as unknown as UserProduct
+  })
 }
 
 describe('ProductCardCondensed', () => {

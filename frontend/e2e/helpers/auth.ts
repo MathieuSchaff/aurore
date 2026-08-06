@@ -1,19 +1,31 @@
 import { expect, type Page } from '@playwright/test'
 
-const SEED_EMAIL = 'seed@seed.com'
-const SEED_PASSWORD = 'Azerty123!seed'
+// keep in sync with backend/src/db/seed/seeders/seed-test-users.ts
+export const SEED_EMAIL = 'seed@seed.com'
+export const SEED_PASSWORD = 'Azerty123!seed'
+
+export type Credentials = { email: string; password: string }
+
+// Returns the access token: API-level fixture calls (setup/teardown) need a
+// Bearer header, the cookie alone only feeds the SPA silent refresh.
+// The label only shapes the assertion message, so a failing fixture says which
+// login broke without a stack walk.
+export async function loginAs(page: Page, creds: Credentials, label = 'login'): Promise<string> {
+  // Relative URL routes through Playwright baseURL (e2e frontend :5174), then
+  // the nitro /api proxy to e2e_api. Absolute :3000 would hit the dev stack.
+  const res = await page.request.post('/api/auth/login', { data: creds })
+  expect(res.ok(), `${label} failed (${res.status()})`).toBe(true)
+  const token = (await res.json()).data.accessToken as string
+  expect(token, 'no accessToken in login response').toBeTruthy()
+  return token
+}
 
 // Login via the API to set the refreshToken cookie on the BrowserContext.
 // Subsequent page.goto() will trigger the SPA boot silentRefresh (see
 // useTokenRefresh.ts) which exchanges the cookie for an access token and
 // populates the Zustand auth store, no UI interaction needed.
-export async function loginAsSeed(page: Page): Promise<void> {
-  // Relative URL routes through Playwright baseURL (e2e frontend :5174), then
-  // the nitro /api proxy to e2e_api. Absolute :3000 would hit the dev stack.
-  const res = await page.request.post('/api/auth/login', {
-    data: { email: SEED_EMAIL, password: SEED_PASSWORD },
-  })
-  expect(res.ok(), `login failed (${res.status()})`).toBe(true)
+export async function loginAsSeed(page: Page): Promise<string> {
+  return loginAs(page, { email: SEED_EMAIL, password: SEED_PASSWORD })
 }
 
 // Server-mutating specs must NOT share an account across the 3 Playwright
@@ -25,18 +37,10 @@ const PERSONA_BY_BROWSER: Record<string, string> = {
   webkit: 'theo@seed.local',
 }
 
-// Returns the access token: API-level fixture calls (setup/teardown) need a
-// Bearer header, the cookie alone only feeds the SPA silent refresh.
 export async function loginAsPersona(page: Page, browserName: string): Promise<string> {
   const email = PERSONA_BY_BROWSER[browserName]
   if (!email) throw new Error(`no persona mapped for browser "${browserName}"`)
-  const res = await page.request.post('/api/auth/login', {
-    data: { email, password: SEED_PASSWORD },
-  })
-  expect(res.ok(), `persona login failed (${res.status()})`).toBe(true)
-  const token = (await res.json()).data.accessToken as string
-  expect(token, 'no accessToken in login response').toBeTruthy()
-  return token
+  return loginAs(page, { email, password: SEED_PASSWORD }, 'persona login')
 }
 
 // Register a throwaway account so the profile starts empty. Needed by tests
@@ -52,8 +56,5 @@ export async function registerFreshUser(page: Page): Promise<void> {
   })
   expect(signupRes.ok(), `signup failed (${signupRes.status()})`).toBe(true)
 
-  const loginRes = await page.request.post('/api/auth/login', {
-    data: { email, password },
-  })
-  expect(loginRes.ok(), `login failed (${loginRes.status()})`).toBe(true)
+  await loginAs(page, { email, password })
 }

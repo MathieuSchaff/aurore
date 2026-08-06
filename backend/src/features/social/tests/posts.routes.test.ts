@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it } from 'bun:test'
+import { beforeAll, describe, expect, it } from 'bun:test'
 
 import { HTTP_STATUS } from '@aurore/shared'
 
@@ -13,6 +13,7 @@ import { socialPosts } from '../../../db/schema/social/posts'
 import { testDb } from '../../../tests/db.test.config'
 import { setupDbTests } from '../../../tests/db-setup'
 import { createTestEnv, type TestClient, withAuth } from '../../../tests/helpers/createTestClient'
+import { expectOk } from '../../../tests/helpers/expectStatus'
 import { loginAndGetToken } from '../../../tests/helpers/route-test-helpers'
 import { createTestUser } from '../../../tests/helpers/test-factories'
 
@@ -24,7 +25,7 @@ describe('Social posts routes', () => {
   let app: Hono<AppEnv>
   let client: TestClient
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     const env = await createTestEnv()
     app = env.app
     client = env.client
@@ -49,13 +50,10 @@ describe('Social posts routes', () => {
   it('creates a concern-anchored post (201) and rejects unauthenticated creation (401)', async () => {
     const { token } = await makeUser('author@social.test')
 
-    const res = await createConcernPost(token)
-    expect(res.status).toBe(HTTP_STATUS.CREATED)
-    const data = await res.json()
-    if (!data.success) throw new Error('expected ok')
-    expect(data.data.content).toBe('Ma rosacée va mieux.')
-    expect(data.data.tone).toBe('principal')
-    expect(data.data.concernSlug).toBe('rosacee')
+    const data = await expectOk(createConcernPost(token), HTTP_STATUS.CREATED)
+    expect(data.content).toBe('Ma rosacée va mieux.')
+    expect(data.tone).toBe('principal')
+    expect(data.concernSlug).toBe('rosacee')
 
     const anon = await app.request('/api/social/posts', {
       method: 'POST',
@@ -81,12 +79,9 @@ describe('Social posts routes', () => {
     if (!createdData.success) throw new Error('expected ok')
     const postId = createdData.data.id
 
-    const get = await client.social.posts[':postId'].$get({ param: { postId } })
-    expect(get.status).toBe(HTTP_STATUS.OK)
-    const getData = await get.json()
-    if (!getData.success) throw new Error('expected ok')
-    expect(getData.data.replyCount).toBe(0)
-    expect(getData.data.authorName).toBe('author')
+    const getData = await expectOk(client.social.posts[':postId'].$get({ param: { postId } }))
+    expect(getData.replyCount).toBe(0)
+    expect(getData.authorName).toBe('author')
 
     const unknown = await client.social.posts[':postId'].$get({ param: { postId: UNKNOWN_ID } })
     expect(unknown.status as number).toBe(HTTP_STATUS.NOT_FOUND)
@@ -182,14 +177,14 @@ describe('Social posts routes', () => {
       .returning()
     if (!product) throw new Error('product seed failed')
 
-    const res = await client.social.posts.$post(
-      { json: { content: 'super crème', tone: 'coup-de-gueule', productId: product.id } },
-      withAuth(author.token)
+    const data = await expectOk(
+      client.social.posts.$post(
+        { json: { content: 'super crème', tone: 'coup-de-gueule', productId: product.id } },
+        withAuth(author.token)
+      ),
+      HTTP_STATUS.CREATED
     )
-    expect(res.status).toBe(HTTP_STATUS.CREATED)
-    const data = await res.json()
-    if (!data.success) throw new Error('expected ok')
-    expect(data.data.productId).toBe(product.id)
-    expect(data.data.tone).toBe('coup-de-gueule')
+    expect(data.productId).toBe(product.id)
+    expect(data.tone).toBe('coup-de-gueule')
   })
 })

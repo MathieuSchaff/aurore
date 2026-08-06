@@ -6,8 +6,7 @@ import { buildAliasIndex, lookupIngredient, MERGED_EVIDENCE_DB } from 'algo-derm
 import { ingredients } from '../../../db/schema/ingredients/ingredients'
 import { testDb } from '../../../tests/db.test.config'
 import { cleanDatabase } from '../../../tests/helpers/db-cleaner'
-import { createTestUser } from '../../../tests/helpers/test-factories'
-import { createProduct } from '../../products/service'
+import { createTestProduct, createTestUser } from '../../../tests/helpers/test-factories'
 import { upsertDermoProfile } from '../../profile/service'
 import { attachIngredientSlugs, computeProductDermoScore, loadAlgoDermProfile } from '../service'
 
@@ -25,30 +24,9 @@ beforeEach(async () => {
   user = await createTestUser()
 })
 
-async function makeProduct(opts: {
-  name: string
-  brand: string
-  inci?: string | null
-  kind?: 'serum' | 'cleanser' | 'moisturizer'
-}) {
-  return createProduct(
-    user.id,
-    'admin',
-    {
-      name: opts.name,
-      brand: opts.brand,
-      kind: opts.kind ?? 'serum',
-      unit: 'pump',
-      category: 'skincare',
-      inci: opts.inci ?? undefined,
-    },
-    testDb
-  )
-}
-
 describe('computeProductDermoScore', () => {
   it('returns assessment for product with INCI (anonymous)', async () => {
-    const p = await makeProduct({
+    const p = await createTestProduct(user.id, {
       name: 'Sérum test',
       brand: 'Brand',
       inci: 'Aqua, Glycerin, Niacinamide, Alcohol Denat, Parfum, Limonene',
@@ -71,7 +49,7 @@ describe('computeProductDermoScore', () => {
 
   it('falls back to the anonymous score when the user has no dermo profile', async () => {
     const inci = 'Aqua, Glycerin, Niacinamide, Alcohol Denat, Parfum, Limonene'
-    const p = await makeProduct({ name: 'Sérum sans profil', brand: 'Brand', inci })
+    const p = await createTestProduct(user.id, { name: 'Sérum sans profil', brand: 'Brand', inci })
 
     const anon = await computeProductDermoScore(p.slug, null, testDb)
     // user (beforeEach) has no user_dermo_profiles row → loadAlgoDermProfile returns
@@ -83,7 +61,7 @@ describe('computeProductDermoScore', () => {
   })
 
   it('returns inci_missing when product has no INCI', async () => {
-    const p = await makeProduct({ name: 'Sérum no inci', brand: 'Brand', inci: null })
+    const p = await createTestProduct(user.id, { name: 'Sérum no inci', brand: 'Brand' })
 
     const result = await computeProductDermoScore(p.slug, null, testDb)
 
@@ -91,7 +69,7 @@ describe('computeProductDermoScore', () => {
   })
 
   it('returns inci_missing when INCI is whitespace only', async () => {
-    const p = await makeProduct({ name: 'Sérum blank', brand: 'Brand', inci: '   ' })
+    const p = await createTestProduct(user.id, { name: 'Sérum blank', brand: 'Brand', inci: '   ' })
 
     const result = await computeProductDermoScore(p.slug, null, testDb)
 
@@ -106,7 +84,7 @@ describe('computeProductDermoScore', () => {
 
   it('lifts irritation/dryness drivers when user has sensitive skin', async () => {
     const inci = 'Aqua, Glycerin, Alcohol Denat, Parfum, Limonene'
-    const p = await makeProduct({ name: 'Sérum alcohol', brand: 'Brand', inci })
+    const p = await createTestProduct(user.id, { name: 'Sérum alcohol', brand: 'Brand', inci })
 
     await upsertDermoProfile(testDb, user.id, { skinTypes: ['peau-sensible'] })
 
@@ -127,7 +105,7 @@ describe('computeProductDermoScore', () => {
       type: 'skincare',
       canonicalKey: NIACINAMIDE_KEY,
     })
-    const p = await makeProduct({
+    const p = await createTestProduct(user.id, {
       name: 'Sérum lié',
       brand: 'Brand',
       inci: 'Aqua, Niacinamide, Alcohol Denat, Parfum, Limonene',
@@ -159,7 +137,7 @@ describe('computeProductDermoScore', () => {
       canonicalKey: NIACINAMIDE_KEY,
       moderationStatus: 'hidden',
     })
-    const p = await makeProduct({
+    const p = await createTestProduct(user.id, {
       name: 'Sérum caché',
       brand: 'Brand',
       inci: 'Aqua, Niacinamide, Alcohol Denat',
@@ -203,7 +181,7 @@ describe('computeProductDermoScore', () => {
         canonicalKey: NIACINAMIDE_KEY,
       },
     ])
-    const p = await makeProduct({
+    const p = await createTestProduct(user.id, {
       name: 'Sérum tie-break',
       brand: 'Brand',
       inci: 'Aqua, Niacinamide, Alcohol Denat',

@@ -1,9 +1,9 @@
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { render, screen, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import type { ReactElement } from 'react'
 import { describe, expect, it, vi } from 'vitest'
 
+import { renderWithProviders } from '@/test/utils'
 import type {
   AsyncSearchQueryFactory,
   FilterGroupConfig,
@@ -70,13 +70,10 @@ const emptyFilters: FilterValues<Key> = {
 
 function renderAccordion(ui: ReactElement, { withQuery = false }: { withQuery?: boolean } = {}) {
   if (!withQuery) return render(ui)
-  const client = new QueryClient({
-    defaultOptions: { queries: { retry: false, gcTime: 0 } },
-  })
-  return render(<QueryClientProvider client={client}>{ui}</QueryClientProvider>)
+  return renderWithProviders(ui)
 }
 
-describe('FilterAccordion — variant routing', () => {
+describe('FilterAccordion: variant routing', () => {
   it('renders ChipGroup for the default chips variant', async () => {
     const onToggle = vi.fn()
     renderAccordion(
@@ -219,7 +216,7 @@ describe('FilterAccordion — variant routing', () => {
   })
 })
 
-describe('FilterAccordion — header behavior', () => {
+describe('FilterAccordion: header behavior', () => {
   it('expands at mount when defaultOpen=true', () => {
     const { container } = renderAccordion(
       <FilterAccordion
@@ -301,7 +298,7 @@ describe('FilterAccordion — header behavior', () => {
   })
 })
 
-describe('FilterAccordion — escape propagation', () => {
+describe('FilterAccordion: escape propagation', () => {
   it('Escape on a chip closes the accordion and refocuses the trigger', async () => {
     const user = userEvent.setup()
     const { container } = renderAccordion(
@@ -324,7 +321,7 @@ describe('FilterAccordion — escape propagation', () => {
   })
 })
 
-describe('FilterAccordion — open state', () => {
+describe('FilterAccordion: open state', () => {
   it('renders a closed <details> when defaultOpen=false and no selections', () => {
     const { container } = renderAccordion(
       <FilterAccordion
@@ -338,7 +335,7 @@ describe('FilterAccordion — open state', () => {
   })
 })
 
-describe('FilterAccordion — multi sub-filters', () => {
+describe('FilterAccordion: multi sub-filters', () => {
   it('shows the sub-filter label only when there are multiple sub-filters', () => {
     const { container, rerender } = renderAccordion(
       <FilterAccordion
@@ -372,7 +369,7 @@ describe('FilterAccordion — multi sub-filters', () => {
   })
 })
 
-describe('FilterAccordion — a11y', () => {
+describe('FilterAccordion: a11y', () => {
   it('summary aria-controls points to the body element id', () => {
     const { container } = renderAccordion(
       <FilterAccordion

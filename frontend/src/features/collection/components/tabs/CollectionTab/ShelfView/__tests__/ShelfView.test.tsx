@@ -12,13 +12,10 @@ vi.mock('@/lib/queries/user-products', async (importOriginal) => {
   }
 })
 
-vi.mock('@tanstack/react-query', async (importOriginal) => {
-  const actual = await importOriginal<typeof import('@tanstack/react-query')>()
-  return {
-    ...actual,
-    useQuery: () => ({ data: { criteriaWeights: undefined } }),
-  }
-})
+vi.mock('@tanstack/react-query', async () => ({
+  ...(await vi.importActual<typeof import('@tanstack/react-query')>('@tanstack/react-query')),
+  useQuery: () => ({ data: { criteriaWeights: undefined } }),
+}))
 
 function makeProduct(
   id: string,

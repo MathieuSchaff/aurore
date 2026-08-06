@@ -6,19 +6,17 @@ import { useCopyToClipboard } from '@/hooks/useCopyToClipboard'
 import { useAuthStore } from '@/store/auth'
 import { ProductInfoTab } from '../ProductInfoTab'
 
-vi.mock('@tanstack/react-query', async (importOriginal) => {
-  const actual = await importOriginal<typeof import('@tanstack/react-query')>()
-  return { ...actual, useQuery: vi.fn(), useSuspenseQuery: vi.fn() }
-})
+vi.mock('@tanstack/react-query', async () => ({
+  ...(await vi.importActual<typeof import('@tanstack/react-query')>('@tanstack/react-query')),
+  useQuery: vi.fn(),
+  useSuspenseQuery: vi.fn(),
+}))
 
-vi.mock('@tanstack/react-router', async (importOriginal) => {
-  const actual = await importOriginal<typeof import('@tanstack/react-router')>()
-  return {
-    ...actual,
-    Link: vi.fn(({ children }) => children),
-    getRouteApi: vi.fn(() => ({ useParams: () => ({ slug: 'product-x' }) })),
-  }
-})
+vi.mock('@tanstack/react-router', async () => ({
+  ...(await vi.importActual<typeof import('@tanstack/react-router')>('@tanstack/react-router')),
+  Link: vi.fn(({ children }) => children),
+  getRouteApi: vi.fn(() => ({ useParams: () => ({ slug: 'product-x' }) })),
+}))
 
 vi.mock('@/lib/queries/products', () => ({
   productKeys: { all: ['products'] as const },

@@ -1,7 +1,8 @@
-import { QueryClient, QueryClientProvider, useQuery } from '@tanstack/react-query'
+import { QueryClient, useQuery } from '@tanstack/react-query'
 import { cleanup, fireEvent, render, screen, waitFor } from '@testing-library/react'
 import { afterEach, beforeAll, describe, expect, it, vi } from 'vitest'
 
+import { renderWithProviders } from '@/test/utils'
 import type { FilterGroupConfig, FilterValues } from '../../types'
 import { FilterDrawer } from '../FilterDrawer'
 
@@ -59,7 +60,7 @@ const GROUPS: FilterGroupConfig<Key>[] = [
 
 const EMPTY: FilterValues<Key> = { concern: [], skin_type: [] }
 
-describe('FilterDrawer — open/close lifecycle', () => {
+describe('FilterDrawer: open/close lifecycle', () => {
   it('does not apply or close when the dialog is just opened', () => {
     const onApply = vi.fn()
     const onClose = vi.fn()
@@ -79,7 +80,7 @@ describe('FilterDrawer — open/close lifecycle', () => {
   })
 })
 
-describe('FilterDrawer — modify + apply flow', () => {
+describe('FilterDrawer: modify + apply flow', () => {
   it('commits the modified selection when "Appliquer" is clicked', () => {
     const onApply = vi.fn()
     const onClose = vi.fn()
@@ -146,7 +147,7 @@ describe('FilterDrawer — modify + apply flow', () => {
   })
 })
 
-describe('FilterDrawer — reset', () => {
+describe('FilterDrawer: reset', () => {
   it('calls onReset and wipes local state back to initialFilters', () => {
     const onApply = vi.fn()
     const onReset = vi.fn()
@@ -170,7 +171,7 @@ describe('FilterDrawer — reset', () => {
   })
 })
 
-describe('FilterDrawer — extra children', () => {
+describe('FilterDrawer: extra children', () => {
   it('renders injected children at the top of the body', () => {
     render(
       <FilterDrawer
@@ -189,7 +190,7 @@ describe('FilterDrawer — extra children', () => {
   })
 })
 
-describe('FilterDrawer — Escape key (native cancel)', () => {
+describe('FilterDrawer: Escape key (native cancel)', () => {
   it('closes WITHOUT applying when Escape fires the dialog cancel event', () => {
     const onApply = vi.fn()
     const onClose = vi.fn()
@@ -214,7 +215,7 @@ describe('FilterDrawer — Escape key (native cancel)', () => {
   })
 })
 
-describe('FilterDrawer — backdrop click', () => {
+describe('FilterDrawer: backdrop click', () => {
   it('closes WITHOUT applying when the click target is the dialog itself (backdrop)', () => {
     const onClose = vi.fn()
     const onApply = vi.fn()
@@ -254,7 +255,7 @@ describe('FilterDrawer — backdrop click', () => {
   })
 })
 
-describe('FilterDrawer — currentFilters resync', () => {
+describe('FilterDrawer: currentFilters resync', () => {
   it('resets local state when currentFilters changes while open', () => {
     const onApply = vi.fn()
     const { rerender } = render(
@@ -287,7 +288,7 @@ describe('FilterDrawer — currentFilters resync', () => {
   })
 })
 
-describe('FilterDrawer — body scroll lock', () => {
+describe('FilterDrawer: body scroll lock', () => {
   it('locks the body when open and releases on close', () => {
     const { rerender, unmount } = render(
       <FilterDrawer
@@ -320,7 +321,7 @@ describe('FilterDrawer — body scroll lock', () => {
   })
 })
 
-describe('FilterDrawer — focus restoration', () => {
+describe('FilterDrawer: focus restoration', () => {
   it('restores focus to the element that opened the drawer on close', async () => {
     const opener = document.createElement('button')
     opener.textContent = 'Open'
@@ -349,14 +350,14 @@ describe('FilterDrawer — focus restoration', () => {
   })
 })
 
-describe('FilterDrawer — async child does not block the drawer', () => {
+describe('FilterDrawer: async child does not block the drawer', () => {
   it('keeps the chips and footer interactive while a child query is pending', async () => {
     const client = new QueryClient({
       defaultOptions: { queries: { retry: false } },
     })
 
     function PendingChild() {
-      // Hangs forever — simulates a slow async loader inside the drawer.
+      // Hangs forever, simulates a slow async loader inside the drawer.
       useQuery({
         queryKey: ['pending'],
         queryFn: () => new Promise<never>(() => {}),
@@ -365,20 +366,19 @@ describe('FilterDrawer — async child does not block the drawer', () => {
     }
 
     const onApply = vi.fn()
-    render(
-      <QueryClientProvider client={client}>
-        <FilterDrawer
-          open={true}
-          onClose={vi.fn()}
-          groups={GROUPS}
-          currentFilters={EMPTY}
-          initialFilters={EMPTY}
-          onApply={onApply}
-          onReset={vi.fn()}
-        >
-          <PendingChild />
-        </FilterDrawer>
-      </QueryClientProvider>
+    renderWithProviders(
+      <FilterDrawer
+        open={true}
+        onClose={vi.fn()}
+        groups={GROUPS}
+        currentFilters={EMPTY}
+        initialFilters={EMPTY}
+        onApply={onApply}
+        onReset={vi.fn()}
+      >
+        <PendingChild />
+      </FilterDrawer>,
+      { queryClient: client }
     )
 
     expect(screen.getByTestId('pending-child')).toBeInTheDocument()
@@ -393,7 +393,7 @@ describe('FilterDrawer — async child does not block the drawer', () => {
 
 // Guards the "Maximum update depth" loop: emit-on-effect + unmemoised parent
 // currentFilters ping-ponged forever. Emit only on user action.
-describe('FilterDrawer — feedback loop guards', () => {
+describe('FilterDrawer: feedback loop guards', () => {
   it('does not call onLocalFiltersChange just by opening', () => {
     const onChange = vi.fn()
     render(
@@ -479,7 +479,7 @@ describe('FilterDrawer — feedback loop guards', () => {
 
 // Native <dialog> implies dialog + aria-modal, but jsdom-like SRs need the
 // attributes explicit to report the title; pin that contract.
-describe('FilterDrawer — a11y attributes', () => {
+describe('FilterDrawer: a11y attributes', () => {
   it('exposes aria-modal=true on the dialog', () => {
     render(
       <FilterDrawer
@@ -566,7 +566,7 @@ describe('FilterDrawer — a11y attributes', () => {
   })
 })
 
-describe('FilterDrawer — Apply button label', () => {
+describe('FilterDrawer: Apply button label', () => {
   it.each([
     ['undefined', undefined, 'Appliquer'],
     ['0 (singular)', 0, 'Voir 0 produit'],
@@ -591,7 +591,7 @@ describe('FilterDrawer — Apply button label', () => {
   })
 })
 
-describe('FilterDrawer — accordion trigger keyboard nav', () => {
+describe('FilterDrawer: accordion trigger keyboard nav', () => {
   it('ArrowDown moves focus from the first trigger to the second', async () => {
     render(
       <FilterDrawer

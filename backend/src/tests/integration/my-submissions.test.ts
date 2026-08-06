@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it } from 'bun:test'
+import { beforeAll, beforeEach, describe, expect, it } from 'bun:test'
 
 import { HTTP_STATUS } from '@aurore/shared'
 
@@ -6,6 +6,7 @@ import { products } from '../../db/schema/products/products'
 import { testDb } from '../db.test.config'
 import { setupDbTests } from '../db-setup'
 import { createTestClient, type TestClient, withAuth } from '../helpers/createTestClient'
+import { expectOk, expectStatus } from '../helpers/expectStatus'
 import { login } from '../helpers/login'
 import { TEST_CREDENTIALS } from '../helpers/test-credentials'
 import { createTestContributorUser, createTestUser } from '../helpers/test-factories'
@@ -19,8 +20,11 @@ describe('GET /me/submissions', () => {
   let otherToken: string
   let contributorToken: string
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     client = await createTestClient()
+  })
+
+  beforeEach(async () => {
     const toto = TEST_CREDENTIALS.toto
     const alice = TEST_CREDENTIALS.alice
     const contributor = TEST_CREDENTIALS.contributor
@@ -32,6 +36,8 @@ describe('GET /me/submissions', () => {
     contributorToken = await login(client, contributor.rawEmail, contributor.rawPassword)
   })
 
+  // Raw insert, not createTestProduct: the factory defaults to role 'admin', which
+  // stamps catalogQuality 'verified', and these tests assert the unverified stamp.
   async function seedProductForU(name: string): Promise<string> {
     const [product] = await testDb
       .insert(products)
@@ -59,18 +65,15 @@ describe('GET /me/submissions', () => {
     )
     expect(hide.status).toBe(HTTP_STATUS.OK)
 
-    const res = await client.me.submissions.$get({}, withAuth(userToken))
-    expect(res.status).toBe(HTTP_STATUS.OK)
-    const body = await res.json()
-    if (!body.success) throw new Error('my-submissions list failed')
+    const submissions = await expectOk(client.me.submissions.$get({}, withAuth(userToken)))
 
-    expect(body.data.items.length).toBe(2)
-    const hiddenItem = body.data.items.find((i) => i.id === hiddenId)
+    expect(submissions.items.length).toBe(2)
+    const hiddenItem = submissions.items.find((i) => i.id === hiddenId)
     if (!hiddenItem) throw new Error('expected the hidden submission')
     expect(hiddenItem.moderationStatus).toBe('hidden')
     expect(hiddenItem.moderationReason).toBe('doublon catalogue')
     expect(hiddenItem.catalogQuality).toBe('unverified')
-    for (const item of body.data.items) {
+    for (const item of submissions.items) {
       expect(item.catalogQuality).toBeDefined()
     }
   })
@@ -85,15 +88,12 @@ describe('GET /me/submissions', () => {
     )
     expect(hide.status).toBe(HTTP_STATUS.OK)
 
-    const res = await client.me.submissions.$get({}, withAuth(otherToken))
-    expect(res.status).toBe(HTTP_STATUS.OK)
-    const body = await res.json()
-    if (!body.success) throw new Error('my-submissions list failed for other user')
-    expect(body.data.items.length).toBe(0)
+    const submissions = await expectOk(client.me.submissions.$get({}, withAuth(otherToken)))
+    expect(submissions.items.length).toBe(0)
   })
 
   it('unauthenticated request is rejected', async () => {
     const res = await client.me.submissions.$get({})
-    expect(res.status as number).toBe(HTTP_STATUS.UNAUTHORIZED)
+    expectStatus(res, HTTP_STATUS.UNAUTHORIZED)
   })
 })

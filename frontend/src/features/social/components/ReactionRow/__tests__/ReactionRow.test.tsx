@@ -4,26 +4,10 @@ import { afterEach, describe, expect, it, vi } from 'vitest'
 import type { ReactionList } from '@/lib/queries/social'
 import { reactionKeys } from '@/lib/queries/social'
 import { useAuthStore } from '@/store/auth'
+import { createLinkStub, LinkStub } from '@/test/mocks/router'
 import { createTestQueryClient, renderWithProviders } from '@/test/utils'
 
-vi.mock('@tanstack/react-router', () => ({
-  // Button.tsx calls createLink at module load; stub so the import doesn't throw.
-  createLink: vi.fn(() => vi.fn(({ children }) => children)),
-  Link: ({
-    to,
-    params,
-    children,
-  }: {
-    to: string
-    params?: Record<string, string>
-    children: React.ReactNode
-  }) => {
-    const href = params
-      ? Object.entries(params).reduce((a, [k, v]) => a.replace(`$${k}`, v), to)
-      : to
-    return <a href={href}>{children}</a>
-  },
-}))
+vi.mock('@tanstack/react-router', () => ({ createLink: createLinkStub, Link: LinkStub }))
 
 import { ReactionRow } from '../ReactionRow'
 

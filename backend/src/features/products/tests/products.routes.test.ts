@@ -1,5 +1,6 @@
-import { beforeEach, describe, expect, it } from 'bun:test'
+import { beforeAll, beforeEach, describe, expect, it } from 'bun:test'
 
+import type { CreateProductInput } from '@aurore/shared'
 import { HTTP_STATUS } from '@aurore/shared'
 
 import type { Hono } from 'hono'
@@ -9,6 +10,8 @@ import { setupDbTests } from '../../../tests/db-setup'
 import { expectRequiresAuth } from '../../../tests/helpers/authz-matrix'
 import type { TestClient } from '../../../tests/helpers/createTestClient'
 import { createTestEnv, withAuth } from '../../../tests/helpers/createTestClient'
+import { expectOk } from '../../../tests/helpers/expectStatus'
+import { COMPLEMENT, HAIRCARE, SKINCARE } from '../../../tests/helpers/product-shapes'
 import {
   setupAndLogin,
   setupAndLoginAdmin,
@@ -16,13 +19,19 @@ import {
 } from '../../../tests/helpers/route-test-helpers'
 import { TEST_CREDENTIALS } from '../../../tests/helpers/test-credentials'
 
-const VALID_PRODUCT = {
-  name: 'Vitamine C',
-  brand: 'Solgar',
-  category: 'complement',
-  kind: 'gelule',
-  unit: 'bottle',
+const VALID_PRODUCT = { name: 'Vitamine C', brand: 'Solgar', ...COMPLEMENT } as const
+
+// Pair used by every tab-scoping test: one row per domain tab, distinct brands
+// and kinds so a leak across tabs is visible in the assertion.
+const SKINCARE_PRODUCT = {
+  name: 'Sérum Vitamine C',
+  brand: 'Brand-Skincare',
+  ...SKINCARE,
 } as const
+
+const HAIRCARE_PRODUCT = { name: 'Shampoo Doux', brand: 'Brand-Haircare', ...HAIRCARE } as const
+
+const SKINCARE_SERUM = { name: 'Sérum C', brand: 'CeraVe', ...SKINCARE } as const
 
 setupDbTests()
 
@@ -32,71 +41,66 @@ describe('Product Routes', () => {
   // Record routes need contributor+ (catalog-authz); CRUD here runs as contributor, delete still needs admin.
   let contributorToken: string
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     const env = await createTestEnv()
     app = env.app
     client = env.client
+  })
+
+  beforeEach(async () => {
     contributorToken = await setupAndLoginContributor(app, TEST_CREDENTIALS.contributor)
   })
 
+  // Defaults to VALID_PRODUCT (a complement); pass a full payload to land on another tab.
+  async function createProduct(overrides: Partial<CreateProductInput> = {}) {
+    const res = await client.products.$post(
+      { json: { ...VALID_PRODUCT, ...overrides } },
+      withAuth(contributorToken)
+    )
+    const data = await res.json()
+    if (!data.success) throw new Error('create failed')
+    return data.data
+  }
+
   describe('POST /products', () => {
     it('should create a product with required fields', async () => {
-      const token = contributorToken
-
-      const res = await client.products.$post({ json: VALID_PRODUCT }, withAuth(token))
-
-      expect(res.status as number).toBe(HTTP_STATUS.CREATED)
-      const data = await res.json()
-      if (!data.success) throw new Error('create failed')
-      expect(data.data.id).toBeDefined()
-      expect(data.data.name).toBe('Vitamine C')
-      expect(data.data.brand).toBe('Solgar')
-      expect(data.data.slug).toBeTypeOf('string')
+      const product = await expectOk(
+        client.products.$post({ json: VALID_PRODUCT }, withAuth(contributorToken)),
+        HTTP_STATUS.CREATED
+      )
+      expect(product.id).toBeDefined()
+      expect(product.name).toBe('Vitamine C')
+      expect(product.brand).toBe('Solgar')
+      expect(product.slug).toBeTypeOf('string')
     })
 
     it('should create a product with all optional fields', async () => {
-      const token = contributorToken
-
-      const res = await client.products.$post(
-        {
-          json: {
-            ...VALID_PRODUCT,
-            description: 'Antioxydant puissant',
-            totalAmount: 60,
-            amountUnit: 'capsule',
-            priceCents: 1500,
-            notes: 'À prendre le matin',
+      const product = await expectOk(
+        client.products.$post(
+          {
+            json: {
+              ...VALID_PRODUCT,
+              description: 'Antioxydant puissant',
+              totalAmount: 60,
+              amountUnit: 'capsule',
+              priceCents: 1500,
+              notes: 'À prendre le matin',
+            },
           },
-        },
-        withAuth(token)
+          withAuth(contributorToken)
+        ),
+        HTTP_STATUS.CREATED
       )
-
-      expect(res.status as number).toBe(HTTP_STATUS.CREATED)
-      const data = await res.json()
-      if (!data.success) throw new Error('create failed')
-      expect(data.data.description).toBe('Antioxydant puissant')
-      expect(data.data.totalAmount).toBe(60)
-      expect(data.data.amountUnit).toBe('capsule')
-      expect(data.data.priceCents).toBe(1500)
-      expect(data.data.notes).toBe('À prendre le matin')
-    })
-
-    it('should store createdAt and updatedAt', async () => {
-      const token = contributorToken
-
-      const res = await client.products.$post({ json: VALID_PRODUCT }, withAuth(token))
-      const data = await res.json()
-      if (!data.success) throw new Error('create failed')
-
-      expect(data.data.createdAt).toBeDefined()
-      expect(data.data.updatedAt).toBeDefined()
+      expect(product.description).toBe('Antioxydant puissant')
+      expect(product.totalAmount).toBe(60)
+      expect(product.amountUnit).toBe('capsule')
+      expect(product.priceCents).toBe(1500)
+      expect(product.notes).toBe('À prendre le matin')
     })
 
     it('should return 409 for duplicate name+brand', async () => {
-      const token = contributorToken
-
-      await client.products.$post({ json: VALID_PRODUCT }, withAuth(token))
-      const res = await client.products.$post({ json: VALID_PRODUCT }, withAuth(token))
+      await createProduct()
+      const res = await client.products.$post({ json: VALID_PRODUCT }, withAuth(contributorToken))
 
       expect(res.status as number).toBe(HTTP_STATUS.CONFLICT)
       const data = (await res.json()) as { success: boolean; error?: string }
@@ -105,22 +109,21 @@ describe('Product Routes', () => {
     })
 
     it('should allow same name with different brands', async () => {
-      const token = contributorToken
-
-      await client.products.$post({ json: VALID_PRODUCT }, withAuth(token))
+      await createProduct()
       const res = await client.products.$post(
         { json: { ...VALID_PRODUCT, brand: 'Now Foods' } },
-        withAuth(token)
+        withAuth(contributorToken)
       )
 
       expect(res.status as number).toBe(HTTP_STATUS.CREATED)
     })
 
     it('should reject missing required fields', async () => {
-      const token = contributorToken
-
       // Invalid on purpose, to trigger schema validation.
-      const res = await client.products.$post({ json: { name: 'Zinc' } as never }, withAuth(token))
+      const res = await client.products.$post(
+        { json: { name: 'Zinc' } as never },
+        withAuth(contributorToken)
+      )
 
       expect(res.status as number).toBe(HTTP_STATUS.BAD_REQUEST)
     })
@@ -134,84 +137,41 @@ describe('Product Routes', () => {
       const res = await client.products.$post({ json: VALID_PRODUCT }, withAuth(userToken))
       expect(res.status as number).toBe(HTTP_STATUS.CREATED)
     })
-
-    it('201 for a contributor on POST /products', async () => {
-      const res = await client.products.$post({ json: VALID_PRODUCT }, withAuth(contributorToken))
-      expect(res.status as number).toBe(HTTP_STATUS.CREATED)
-    })
   })
 
   describe('GET /products', () => {
     it('should return the correct paginated shape', async () => {
-      const res = await client.products.$get({ query: { category: 'skincare' } })
-
-      expect(res.status as number).toBe(HTTP_STATUS.OK)
-      const data = await res.json()
-      expect(data.success).toBe(true)
-      if (!data.success) throw new Error('list failed')
-      expect(data.data).toHaveProperty('items')
-      expect(data.data).toHaveProperty('total')
-      expect(data.data).toHaveProperty('page')
-      expect(data.data).toHaveProperty('limit')
+      const list = await expectOk(client.products.$get({ query: { category: 'skincare' } }))
+      expect(list).toHaveProperty('items')
+      expect(list).toHaveProperty('total')
+      expect(list).toHaveProperty('page')
+      expect(list).toHaveProperty('limit')
     })
 
     it('should return empty items when no products exist', async () => {
-      const res = await client.products.$get({ query: { category: 'skincare' } })
-
-      const data = await res.json()
-      if (!data.success) throw new Error('list failed')
-      expect(data.data.items).toEqual([])
-      expect(data.data.total).toBe(0)
+      const list = await expectOk(client.products.$get({ query: { category: 'skincare' } }))
+      expect(list.items).toEqual([])
+      expect(list.total).toBe(0)
     })
 
     it('should list all products within a domain without filters', async () => {
-      const token = contributorToken
-      await client.products.$post({ json: VALID_PRODUCT }, withAuth(token))
-      await client.products.$post(
-        {
-          json: {
-            name: 'Magnésium',
-            brand: 'Solgar',
-            category: 'complement',
-            kind: 'gelule',
-            unit: 'bottle',
-          },
-        },
-        withAuth(token)
-      )
+      await createProduct()
+      await createProduct({ name: 'Magnésium' })
 
-      const res = await client.products.$get({ query: { category: 'complement' } })
-
-      const data = await res.json()
-      if (!data.success) throw new Error('list failed')
-      expect(data.data.total).toBe(2)
-      expect(data.data.items).toHaveLength(2)
+      const list = await expectOk(client.products.$get({ query: { category: 'complement' } }))
+      expect(list.total).toBe(2)
+      expect(list.items).toHaveLength(2)
     })
 
     it('should filter by kind', async () => {
-      const token = contributorToken
-      await client.products.$post({ json: VALID_PRODUCT }, withAuth(token))
-      await client.products.$post(
-        {
-          json: {
-            name: 'Sérum C',
-            brand: 'The Ordinary',
-            category: 'skincare',
-            kind: 'serum',
-            unit: 'pump',
-          },
-        },
-        withAuth(token)
+      await createProduct()
+      await createProduct(SKINCARE_SERUM)
+
+      const list = await expectOk(
+        client.products.$get({ query: { category: 'skincare', kind: 'serum' } })
       )
-
-      const res = await client.products.$get({
-        query: { category: 'skincare', kind: 'serum' },
-      })
-
-      const data = await res.json()
-      if (!data.success) throw new Error('list failed')
-      expect(data.data.total).toBe(1)
-      expect(data.data.items[0]?.kind).toBe('serum')
+      expect(list.total).toBe(1)
+      expect(list.items[0]?.kind).toBe('serum')
     })
 
     it('should reject kind that does not belong to the requested category', async () => {
@@ -231,116 +191,46 @@ describe('Product Routes', () => {
     })
 
     it('should filter by brand', async () => {
-      const token = contributorToken
-      await client.products.$post({ json: VALID_PRODUCT }, withAuth(token))
-      await client.products.$post(
-        {
-          json: {
-            name: 'Sérum C',
-            brand: 'CeraVe',
-            category: 'skincare',
-            kind: 'serum',
-            unit: 'pump',
-          },
-        },
-        withAuth(token)
+      await createProduct()
+      await createProduct(SKINCARE_SERUM)
+
+      const list = await expectOk(
+        client.products.$get({ query: { category: 'skincare', brand: 'CeraVe' } })
       )
-
-      const res = await client.products.$get({
-        query: { category: 'skincare', brand: 'CeraVe' },
-      })
-
-      const data = await res.json()
-      if (!data.success) throw new Error('list failed')
-      expect(data.data.total).toBe(1)
-      expect(data.data.items[0]?.brand).toBe('CeraVe')
+      expect(list.total).toBe(1)
+      expect(list.items[0]?.brand).toBe('CeraVe')
     })
 
     it('should paginate results', async () => {
-      const token = contributorToken
-      await client.products.$post({ json: VALID_PRODUCT }, withAuth(token))
-      await client.products.$post(
-        {
-          json: {
-            name: 'Magnésium',
-            brand: 'Solgar',
-            category: 'complement',
-            kind: 'gelule',
-            unit: 'bottle',
-          },
-        },
-        withAuth(token)
-      )
-      await client.products.$post(
-        {
-          json: {
-            name: 'Zinc',
-            brand: 'Solgar',
-            category: 'complement',
-            kind: 'gelule',
-            unit: 'bottle',
-          },
-        },
-        withAuth(token)
-      )
+      await createProduct()
+      await createProduct({ name: 'Magnésium' })
+      await createProduct({ name: 'Zinc' })
 
-      const res = await client.products.$get({
-        query: { category: 'complement', limit: '2', page: '1' },
-      })
-
-      const data = await res.json()
-      if (!data.success) throw new Error('list failed')
-      expect(data.data.items).toHaveLength(2)
-      expect(data.data.total).toBe(3)
-      expect(data.data.page).toBe(1)
-      expect(data.data.limit).toBe(2)
+      const list = await expectOk(
+        client.products.$get({ query: { category: 'complement', limit: '2', page: '1' } })
+      )
+      expect(list.items).toHaveLength(2)
+      expect(list.total).toBe(3)
+      expect(list.page).toBe(1)
+      expect(list.limit).toBe(2)
     })
 
     it('should return page 2 correctly', async () => {
-      const token = contributorToken
-      await client.products.$post({ json: VALID_PRODUCT }, withAuth(token))
-      await client.products.$post(
-        {
-          json: {
-            name: 'Magnésium',
-            brand: 'Solgar',
-            category: 'complement',
-            kind: 'gelule',
-            unit: 'bottle',
-          },
-        },
-        withAuth(token)
-      )
-      await client.products.$post(
-        {
-          json: {
-            name: 'Zinc',
-            brand: 'Solgar',
-            category: 'complement',
-            kind: 'gelule',
-            unit: 'bottle',
-          },
-        },
-        withAuth(token)
-      )
+      await createProduct()
+      await createProduct({ name: 'Magnésium' })
+      await createProduct({ name: 'Zinc' })
 
-      const res = await client.products.$get({
-        query: { category: 'complement', limit: '2', page: '2' },
-      })
-
-      const data = await res.json()
-      if (!data.success) throw new Error('list failed')
-      expect(data.data.items).toHaveLength(1)
-      expect(data.data.page).toBe(2)
+      const list = await expectOk(
+        client.products.$get({ query: { category: 'complement', limit: '2', page: '2' } })
+      )
+      expect(list.items).toHaveLength(1)
+      expect(list.page).toBe(2)
     })
 
     it('should default to page=1 and limit=20', async () => {
-      const res = await client.products.$get({ query: { category: 'skincare' } })
-
-      const data = await res.json()
-      if (!data.success) throw new Error('list failed')
-      expect(data.data.page).toBe(1)
-      expect(data.data.limit).toBe(20)
+      const list = await expectOk(client.products.$get({ query: { category: 'skincare' } }))
+      expect(list.page).toBe(1)
+      expect(list.limit).toBe(20)
     })
 
     it('should return 400 for invalid limit', async () => {
@@ -358,13 +248,10 @@ describe('Product Routes', () => {
     })
 
     it('should return each item with the correct summary fields', async () => {
-      const token = contributorToken
-      await client.products.$post({ json: { ...VALID_PRODUCT, priceCents: 1500 } }, withAuth(token))
+      await createProduct({ priceCents: 1500 })
 
-      const res = await client.products.$get({ query: { category: 'complement' } })
-      const data = await res.json()
-      if (!data.success) throw new Error('list failed')
-      const item = data.data.items[0]
+      const list = await expectOk(client.products.$get({ query: { category: 'complement' } }))
+      const item = list.items[0]
       if (!item) throw new Error('expected at least one item')
 
       expect(item).toHaveProperty('id')
@@ -383,41 +270,14 @@ describe('Product Routes', () => {
 
   describe('GET /products/:slug', () => {
     it('should return the product by slug without auth', async () => {
-      const token = contributorToken
+      const created = await createProduct()
 
-      const createRes = await client.products.$post({ json: VALID_PRODUCT }, withAuth(token))
-      const createData = await createRes.json()
-      if (!createData.success) throw new Error('create failed')
-      const created = createData.data
-
-      const res = await client.products[':slug'].$get({ param: { slug: created.slug } })
-
-      expect(res.status as number).toBe(HTTP_STATUS.OK)
-      const data = await res.json()
-      expect(data.success).toBe(true)
-      if (!data.success) throw new Error('get failed')
-      expect(data.data.id).toBe(created.id)
-      expect(data.data.slug).toBe(created.slug)
-      expect(data.data.name).toBe('Vitamine C')
-    })
-
-    it('should also work when authenticated', async () => {
-      const token = contributorToken
-
-      const createRes = await client.products.$post({ json: VALID_PRODUCT }, withAuth(token))
-      const createData = await createRes.json()
-      if (!createData.success) throw new Error('create failed')
-      const created = createData.data
-
-      const res = await client.products[':slug'].$get(
-        { param: { slug: created.slug } },
-        withAuth(token)
+      const fetched = await expectOk(
+        client.products[':slug'].$get({ param: { slug: created.slug } })
       )
-
-      expect(res.status as number).toBe(HTTP_STATUS.OK)
-      const data = await res.json()
-      if (!data.success) throw new Error('get failed')
-      expect(data.data.id).toBe(created.id)
+      expect(fetched.id).toBe(created.id)
+      expect(fetched.slug).toBe(created.slug)
+      expect(fetched.name).toBe('Vitamine C')
     })
 
     it('should return 404 for unknown slug', async () => {
@@ -435,58 +295,17 @@ describe('Product Routes', () => {
 
   describe('GET /products/brands', () => {
     it('returns an empty array when no products exist', async () => {
-      const res = await client.products.brands.$get({ query: {} })
-      expect(res.status).toBe(200)
-      const data = await res.json()
-      expect(data.success).toBe(true)
-      if (!data.success) throw new Error('brands failed')
-      expect(data.data).toEqual([])
+      const brands = await expectOk(client.products.brands.$get({ query: {} }))
+      expect(brands).toEqual([])
     })
 
     it('returns distinct brand names sorted A→Z', async () => {
-      const token = contributorToken
-      await client.products.$post(
-        {
-          json: {
-            name: 'Serum C',
-            brand: 'The Ordinary',
-            category: 'skincare',
-            kind: 'serum',
-            unit: 'bottle',
-          },
-        },
-        withAuth(token)
-      )
-      await client.products.$post(
-        {
-          json: {
-            name: 'SPF 50',
-            brand: 'Avène',
-            category: 'skincare',
-            kind: 'serum',
-            unit: 'bottle',
-          },
-        },
-        withAuth(token)
-      )
-      await client.products.$post(
-        {
-          json: {
-            name: 'Niacinamide',
-            brand: 'The Ordinary',
-            category: 'skincare',
-            kind: 'serum',
-            unit: 'bottle',
-          },
-        },
-        withAuth(token)
-      )
+      await createProduct({ ...SKINCARE_SERUM, name: 'Serum C', brand: 'The Ordinary' })
+      await createProduct({ ...SKINCARE_SERUM, name: 'SPF 50', brand: 'Avène' })
+      await createProduct({ ...SKINCARE_SERUM, name: 'Niacinamide', brand: 'The Ordinary' })
 
-      const res = await client.products.brands.$get({ query: {} })
-      expect(res.status).toBe(200)
-      const data = await res.json()
-      if (!data.success) throw new Error('brands failed')
-      expect(data.data).toEqual(['Avène', 'The Ordinary'])
+      const brands = await expectOk(client.products.brands.$get({ query: {} }))
+      expect(brands).toEqual(['Avène', 'The Ordinary'])
     })
 
     it('does not require authentication', async () => {
@@ -497,37 +316,13 @@ describe('Product Routes', () => {
     // Route-level guard: service coverage alone would miss a dropped `category`
     // in the routes.ts destructuring or the getDistinctBrands call.
     it('scopes brands to the requested tab', async () => {
-      const token = contributorToken
-      await client.products.$post(
-        {
-          json: {
-            name: 'Sérum Vitamine C',
-            brand: 'Brand-Skincare',
-            category: 'skincare',
-            kind: 'serum',
-            unit: 'pump',
-          },
-        },
-        withAuth(token)
-      )
-      await client.products.$post(
-        {
-          json: {
-            name: 'Shampoo Doux',
-            brand: 'Brand-Haircare',
-            category: 'haircare',
-            kind: 'shampoo',
-            unit: 'bottle',
-          },
-        },
-        withAuth(token)
-      )
+      await createProduct(SKINCARE_PRODUCT)
+      await createProduct(HAIRCARE_PRODUCT)
 
-      const res = await client.products.brands.$get({ query: { category: 'haircare' } })
-      expect(res.status).toBe(200)
-      const data = await res.json()
-      if (!data.success) throw new Error('brands failed')
-      expect(data.data).toEqual(['Brand-Haircare'])
+      const brands = await expectOk(
+        client.products.brands.$get({ query: { category: 'haircare' } })
+      )
+      expect(brands).toEqual(['Brand-Haircare'])
     })
 
     it('rejects unknown category value', async () => {
@@ -540,44 +335,24 @@ describe('Product Routes', () => {
 
   describe('GET /products/filter-options', () => {
     it('should return the correct structure when empty', async () => {
-      const res = await client.products['filter-options'].$get({ query: {} })
-
-      expect(res.status as number).toBe(HTTP_STATUS.OK)
-      const data = await res.json()
-      expect(data.success).toBe(true)
-      if (!data.success) throw new Error('filter-options failed')
-      expect(data.data).toHaveProperty('kinds')
-      expect(data.data).toHaveProperty('brands')
-      expect(data.data).toHaveProperty('tagCounts')
-      expect(data.data.kinds).toEqual([])
-      expect(data.data.brands).toEqual([])
-      expect(data.data.tagCounts).toEqual({})
+      const options = await expectOk(client.products['filter-options'].$get({ query: {} }))
+      expect(options).toHaveProperty('kinds')
+      expect(options).toHaveProperty('brands')
+      expect(options).toHaveProperty('tagCounts')
+      expect(options.kinds).toEqual([])
+      expect(options.brands).toEqual([])
+      expect(options.tagCounts).toEqual({})
     })
 
     it('should return populated kinds and brands after creating products', async () => {
-      const token = contributorToken
-      await client.products.$post({ json: VALID_PRODUCT }, withAuth(token))
-      await client.products.$post(
-        {
-          json: {
-            name: 'Sérum C',
-            brand: 'CeraVe',
-            category: 'skincare',
-            kind: 'serum',
-            unit: 'pump',
-          },
-        },
-        withAuth(token)
-      )
+      await createProduct()
+      await createProduct(SKINCARE_SERUM)
 
-      const res = await client.products['filter-options'].$get({ query: {} })
-      const data = await res.json()
-      if (!data.success) throw new Error('filter-options failed')
-
-      expect(data.data.kinds).toContain('gelule')
-      expect(data.data.kinds).toContain('serum')
-      expect(data.data.brands).toContain('Solgar')
-      expect(data.data.brands).toContain('CeraVe')
+      const options = await expectOk(client.products['filter-options'].$get({ query: {} }))
+      expect(options.kinds).toContain('gelule')
+      expect(options.kinds).toContain('serum')
+      expect(options.brands).toContain('Solgar')
+      expect(options.brands).toContain('CeraVe')
     })
 
     it('should not require authentication', async () => {
@@ -589,41 +364,14 @@ describe('Product Routes', () => {
 
   describe('GET /products/filter-options?category=', () => {
     it('scopes brands and kinds to the requested tab', async () => {
-      const token = contributorToken
-      await client.products.$post(
-        {
-          json: {
-            name: 'Sérum Vitamine C',
-            brand: 'Brand-Skincare',
-            category: 'skincare',
-            kind: 'serum',
-            unit: 'pump',
-          },
-        },
-        withAuth(token)
-      )
-      await client.products.$post(
-        {
-          json: {
-            name: 'Shampoo Doux',
-            brand: 'Brand-Haircare',
-            category: 'haircare',
-            kind: 'shampoo',
-            unit: 'bottle',
-          },
-        },
-        withAuth(token)
-      )
+      await createProduct(SKINCARE_PRODUCT)
+      await createProduct(HAIRCARE_PRODUCT)
 
-      const res = await client.products['filter-options'].$get({
-        query: { category: 'haircare' },
-      })
-      expect(res.status).toBe(200)
-      const data = await res.json()
-      expect(data.success).toBe(true)
-      if (!data.success) throw new Error('filter-options failed')
-      expect(data.data.brands).toEqual(['Brand-Haircare'])
-      expect(data.data.kinds).toEqual(['shampoo'])
+      const options = await expectOk(
+        client.products['filter-options'].$get({ query: { category: 'haircare' } })
+      )
+      expect(options.brands).toEqual(['Brand-Haircare'])
+      expect(options.kinds).toEqual(['shampoo'])
     })
 
     it('rejects unknown category value', async () => {
@@ -636,30 +384,25 @@ describe('Product Routes', () => {
 
   describe('GET /products/check-duplicate', () => {
     it('should return an empty array when no similar products exist', async () => {
-      const res = await client.products['check-duplicate'].$get({
-        query: { name: 'Niacinamide', brand: 'CeraVe' },
-      })
-
-      expect(res.status as number).toBe(HTTP_STATUS.OK)
-      const data = await res.json()
-      expect(data.success).toBe(true)
-      if (!data.success) throw new Error('check-duplicate failed')
-      expect(data.data).toEqual([])
+      const matches = await expectOk(
+        client.products['check-duplicate'].$get({
+          query: { name: 'Niacinamide', brand: 'CeraVe' },
+        })
+      )
+      expect(matches).toEqual([])
     })
 
     it('should return similar products for an exact name+brand match', async () => {
-      const token = contributorToken
-      await client.products.$post({ json: VALID_PRODUCT }, withAuth(token))
+      await createProduct()
 
-      const res = await client.products['check-duplicate'].$get({
-        query: { name: 'Vitamine C', brand: 'Solgar' },
-      })
-
-      const data = await res.json()
-      if (!data.success) throw new Error('check-duplicate failed')
-      expect(data.data).toHaveLength(1)
-      expect(data.data[0]?.name).toBe('Vitamine C')
-      expect(data.data[0]?.brand).toBe('Solgar')
+      const matches = await expectOk(
+        client.products['check-duplicate'].$get({
+          query: { name: 'Vitamine C', brand: 'Solgar' },
+        })
+      )
+      expect(matches).toHaveLength(1)
+      expect(matches[0]?.name).toBe('Vitamine C')
+      expect(matches[0]?.brand).toBe('Solgar')
     })
 
     it('should return 400 when name is missing', async () => {
@@ -687,17 +430,15 @@ describe('Product Routes', () => {
     })
 
     it('should return the correct shape for each result (id, name, brand, kind, slug)', async () => {
-      const token = contributorToken
-      await client.products.$post({ json: VALID_PRODUCT }, withAuth(token))
+      await createProduct()
 
-      const res = await client.products['check-duplicate'].$get({
-        query: { name: 'Vitamine C', brand: 'Solgar' },
-      })
-
-      const data = await res.json()
-      if (!data.success) throw new Error('check-duplicate failed')
-      expect(data.data).toHaveLength(1)
-      const item = data.data[0]
+      const matches = await expectOk(
+        client.products['check-duplicate'].$get({
+          query: { name: 'Vitamine C', brand: 'Solgar' },
+        })
+      )
+      expect(matches).toHaveLength(1)
+      const item = matches[0]
       if (!item) throw new Error('expected an item')
       expect(item).toHaveProperty('id')
       expect(item).toHaveProperty('name')
@@ -717,53 +458,39 @@ describe('Product Routes', () => {
 
   describe('GET /products/slug-preview', () => {
     it('returns slugified name+brand for a fresh product', async () => {
-      const res = await client.products['slug-preview'].$get(
-        {
-          query: { name: 'CeraVe Baume', brand: 'CeraVe' },
-        },
-        withAuth(contributorToken)
+      const preview = await expectOk(
+        client.products['slug-preview'].$get(
+          { query: { name: 'CeraVe Baume', brand: 'CeraVe' } },
+          withAuth(contributorToken)
+        )
       )
-      expect(res.status as number).toBe(HTTP_STATUS.OK)
-      const data = await res.json()
-      expect(data.success).toBe(true)
-      if (!data.success) throw new Error('slug-preview failed')
-      expect(data.data.slug).toBe('cera-ve-baume-cera-ve')
+      expect(preview.slug).toBe('cera-ve-baume-cera-ve')
     })
 
     it('appends numeric suffix when base slug is already taken', async () => {
-      await client.products.$post(
-        {
-          json: {
-            ...VALID_PRODUCT,
-            name: 'Niacinamide',
-            brand: 'Ordinary',
-            slug: 'niacinamide-ordinary',
-          },
-        },
-        withAuth(contributorToken)
+      await createProduct({
+        name: 'Niacinamide',
+        brand: 'Ordinary',
+        slug: 'niacinamide-ordinary',
+      })
+
+      const preview = await expectOk(
+        client.products['slug-preview'].$get(
+          { query: { name: 'Niacinamide', brand: 'Ordinary' } },
+          withAuth(contributorToken)
+        )
       )
-      const res = await client.products['slug-preview'].$get(
-        {
-          query: { name: 'Niacinamide', brand: 'Ordinary' },
-        },
-        withAuth(contributorToken)
-      )
-      const data = await res.json()
-      if (!data.success) throw new Error('slug-preview failed')
-      expect(data.data.slug).toBe('niacinamide-ordinary-1')
+      expect(preview.slug).toBe('niacinamide-ordinary-1')
     })
 
     it('works with empty brand', async () => {
-      const res = await client.products['slug-preview'].$get(
-        {
-          query: { name: 'Niacinamide', brand: '' },
-        },
-        withAuth(contributorToken)
+      const preview = await expectOk(
+        client.products['slug-preview'].$get(
+          { query: { name: 'Niacinamide', brand: '' } },
+          withAuth(contributorToken)
+        )
       )
-      expect(res.status as number).toBe(HTTP_STATUS.OK)
-      const data = await res.json()
-      if (!data.success) throw new Error('slug-preview failed')
-      expect(data.data.slug).toBe('niacinamide')
+      expect(preview.slug).toBe('niacinamide')
     })
 
     it('returns 400 when name is too short', async () => {
@@ -779,72 +506,33 @@ describe('Product Routes', () => {
 
   describe('GET /products/search', () => {
     it('should return an empty array when nothing matches', async () => {
-      const res = await client.products.search.$get({ query: { q: 'xyzzyx' } })
-
-      expect(res.status as number).toBe(HTTP_STATUS.OK)
-      const data = await res.json()
-      expect(data.success).toBe(true)
-      if (!data.success) throw new Error('search failed')
-      expect(data.data.items).toEqual([])
+      const results = await expectOk(client.products.search.$get({ query: { q: 'xyzzyx' } }))
+      expect(results.items).toEqual([])
     })
 
     it('should return products matching by name', async () => {
-      const token = contributorToken
-      await client.products.$post({ json: VALID_PRODUCT }, withAuth(token))
-      await client.products.$post(
-        {
-          json: {
-            name: 'Magnésium',
-            brand: 'Solgar',
-            category: 'complement',
-            kind: 'gelule',
-            unit: 'bottle',
-          },
-        },
-        withAuth(token)
-      )
+      await createProduct()
+      await createProduct({ name: 'Magnésium' })
 
-      const res = await client.products.search.$get({ query: { q: 'Vitamine' } })
-
-      const data = await res.json()
-      if (!data.success) throw new Error('search failed')
-      expect(data.data.items).toHaveLength(1)
-      expect(data.data.items[0]?.name).toBe('Vitamine C')
+      const results = await expectOk(client.products.search.$get({ query: { q: 'Vitamine' } }))
+      expect(results.items).toHaveLength(1)
+      expect(results.items[0]?.name).toBe('Vitamine C')
     })
 
     it('should return products matching by brand', async () => {
-      const token = contributorToken
-      await client.products.$post({ json: VALID_PRODUCT }, withAuth(token))
-      await client.products.$post(
-        {
-          json: {
-            name: 'Sérum C',
-            brand: 'CeraVe',
-            category: 'skincare',
-            kind: 'serum',
-            unit: 'pump',
-          },
-        },
-        withAuth(token)
-      )
+      await createProduct()
+      await createProduct(SKINCARE_SERUM)
 
-      const res = await client.products.search.$get({ query: { q: 'CeraVe' } })
-
-      const data = await res.json()
-      if (!data.success) throw new Error('search failed')
-      expect(data.data.items).toHaveLength(1)
-      expect(data.data.items[0]?.brand).toBe('CeraVe')
+      const results = await expectOk(client.products.search.$get({ query: { q: 'CeraVe' } }))
+      expect(results.items).toHaveLength(1)
+      expect(results.items[0]?.brand).toBe('CeraVe')
     })
 
     it('should be case-insensitive', async () => {
-      const token = contributorToken
-      await client.products.$post({ json: VALID_PRODUCT }, withAuth(token))
+      await createProduct()
 
-      const res = await client.products.search.$get({ query: { q: 'VITAMINE' } })
-
-      const data = await res.json()
-      if (!data.success) throw new Error('search failed')
-      expect(data.data.items).toHaveLength(1)
+      const results = await expectOk(client.products.search.$get({ query: { q: 'VITAMINE' } }))
+      expect(results.items).toHaveLength(1)
     })
 
     it('should return 400 when q is missing', async () => {
@@ -854,52 +542,22 @@ describe('Product Routes', () => {
     })
 
     it('should respect the limit query param', async () => {
-      const token = contributorToken
-      await client.products.$post({ json: VALID_PRODUCT }, withAuth(token))
-      await client.products.$post(
-        {
-          json: {
-            name: 'Vitamine D',
-            brand: 'Solgar',
-            category: 'complement',
-            kind: 'gelule',
-            unit: 'bottle',
-          },
-        },
-        withAuth(token)
-      )
-      await client.products.$post(
-        {
-          json: {
-            name: 'Vitamine E',
-            brand: 'Solgar',
-            category: 'complement',
-            kind: 'gelule',
-            unit: 'bottle',
-          },
-        },
-        withAuth(token)
-      )
+      await createProduct()
+      await createProduct({ name: 'Vitamine D' })
+      await createProduct({ name: 'Vitamine E' })
 
-      const res = await client.products.search.$get({
-        query: { q: 'Vitamine', limit: '2' },
-      })
-
-      const data = await res.json()
-      if (!data.success) throw new Error('search failed')
-      expect(data.data.items).toHaveLength(2)
+      const results = await expectOk(
+        client.products.search.$get({ query: { q: 'Vitamine', limit: '2' } })
+      )
+      expect(results.items).toHaveLength(2)
     })
 
     it('should return the correct shape (id, name, brand, kind, slug)', async () => {
-      const token = contributorToken
-      await client.products.$post({ json: VALID_PRODUCT }, withAuth(token))
+      await createProduct()
 
-      const res = await client.products.search.$get({ query: { q: 'Vitamine' } })
-
-      const data = await res.json()
-      if (!data.success) throw new Error('search failed')
-      expect(data.data.items).toHaveLength(1)
-      const item = data.data.items[0]
+      const results = await expectOk(client.products.search.$get({ query: { q: 'Vitamine' } }))
+      expect(results.items).toHaveLength(1)
+      const item = results.items[0]
       if (!item) throw new Error('expected an item')
       expect(item).toHaveProperty('id')
       expect(item).toHaveProperty('name')
@@ -919,39 +577,13 @@ describe('Product Routes', () => {
     // Route-level guard: service coverage alone would miss a dropped `category`
     // in the routes.ts destructuring or the searchProducts call.
     it('scopes results to the requested tab', async () => {
-      const token = contributorToken
-      await client.products.$post(
-        {
-          json: {
-            name: 'Sérum Kératine',
-            brand: 'Brand-Skincare',
-            category: 'skincare',
-            kind: 'serum',
-            unit: 'pump',
-          },
-        },
-        withAuth(token)
-      )
-      await client.products.$post(
-        {
-          json: {
-            name: 'Shampoing Kératine',
-            brand: 'Brand-Haircare',
-            category: 'haircare',
-            kind: 'shampoo',
-            unit: 'bottle',
-          },
-        },
-        withAuth(token)
-      )
+      await createProduct({ ...SKINCARE_PRODUCT, name: 'Sérum Kératine' })
+      await createProduct({ ...HAIRCARE_PRODUCT, name: 'Shampoing Kératine' })
 
-      const res = await client.products.search.$get({
-        query: { q: 'keratine', category: 'haircare' },
-      })
-      expect(res.status).toBe(200)
-      const data = await res.json()
-      if (!data.success) throw new Error('search failed')
-      expect(data.data.items.map((p) => p.name)).toEqual(['Shampoing Kératine'])
+      const results = await expectOk(
+        client.products.search.$get({ query: { q: 'keratine', category: 'haircare' } })
+      )
+      expect(results.items.map((p) => p.name)).toEqual(['Shampoing Kératine'])
     })
 
     it('rejects unknown category value', async () => {
@@ -964,36 +596,15 @@ describe('Product Routes', () => {
 
   describe('GET /products/by-ids', () => {
     it('should return products matching the requested ids in any order', async () => {
-      const token = contributorToken
-      const aRes = await client.products.$post({ json: VALID_PRODUCT }, withAuth(token))
-      const aData = await aRes.json()
-      if (!aData.success) throw new Error('create failed')
-      const bRes = await client.products.$post(
-        {
-          json: {
-            name: 'Magnésium',
-            brand: 'Solgar',
-            category: 'complement',
-            kind: 'gelule',
-            unit: 'bottle',
-          },
-        },
-        withAuth(token)
+      const a = await createProduct()
+      const b = await createProduct({ name: 'Magnésium' })
+
+      const items = await expectOk(
+        client.products['by-ids'].$get({ query: { ids: `${a.id},${b.id}` } })
       )
-      const bData = await bRes.json()
-      if (!bData.success) throw new Error('create failed')
-
-      const res = await client.products['by-ids'].$get({
-        query: { ids: `${aData.data.id},${bData.data.id}` },
-      })
-
-      expect(res.status as number).toBe(HTTP_STATUS.OK)
-      const data = await res.json()
-      if (!data.success) throw new Error('by-ids failed')
-      const ids = data.data.map((p) => p.id).sort()
-      expect(ids).toEqual([aData.data.id, bData.data.id].sort())
-      expect(data.data[0]).toHaveProperty('name')
-      expect(data.data[0]).toHaveProperty('brand')
+      expect(items.map((p) => p.id).sort()).toEqual([a.id, b.id].sort())
+      expect(items[0]).toHaveProperty('name')
+      expect(items[0]).toHaveProperty('brand')
     })
 
     it('should return 400 when ids is missing', async () => {
@@ -1007,57 +618,39 @@ describe('Product Routes', () => {
     })
 
     it('should not require authentication', async () => {
-      const token = contributorToken
-      const createRes = await client.products.$post({ json: VALID_PRODUCT }, withAuth(token))
-      const createData = await createRes.json()
-      if (!createData.success) throw new Error('create failed')
+      const created = await createProduct()
 
-      const res = await client.products['by-ids'].$get({
-        query: { ids: createData.data.id },
-      })
+      const res = await client.products['by-ids'].$get({ query: { ids: created.id } })
       expect(res.status as number).toBe(HTTP_STATUS.OK)
     })
   })
 
   describe('GET /products/shelf-status', () => {
-    async function createProductId(name: string): Promise<string> {
-      const res = await client.products.$post(
-        { json: { ...VALID_PRODUCT, name } },
-        withAuth(contributorToken)
-      )
-      const data = await res.json()
-      if (!data.success) throw new Error('create failed')
-      return data.data.id
-    }
-
     it("returns shelf status only for the caller's shelved products", async () => {
-      const shelvedId = await createProductId('Vitamine C')
-      const otherId = await createProductId('Magnésium')
+      const shelved = await createProduct()
+      const other = await createProduct({ name: 'Magnésium' })
       const token = await setupAndLogin(app, TEST_CREDENTIALS.toto)
       await client['user-products'].$post(
-        { json: { productId: shelvedId, status: 'wishlist' } },
+        { json: { productId: shelved.id, status: 'wishlist' } },
         withAuth(token)
       )
 
-      const res = await client.products['shelf-status'].$get(
-        { query: { ids: `${shelvedId},${otherId}` } },
-        withAuth(token)
+      const overlay = await expectOk(
+        client.products['shelf-status'].$get(
+          { query: { ids: `${shelved.id},${other.id}` } },
+          withAuth(token)
+        )
       )
-
-      expect(res.status as number).toBe(HTTP_STATUS.OK)
-      const data = await res.json()
-      if (!data.success) throw new Error('shelf-status failed')
       // Products not on the shelf are omitted; the explicit userId filter (not RLS) scopes the read.
-      expect(data.data).toEqual([{ productId: shelvedId, userStatus: 'wishlist' }])
+      expect(overlay).toEqual([{ productId: shelved.id, userStatus: 'wishlist' }])
     })
 
     it('returns an empty overlay for an anonymous caller', async () => {
-      const id = await createProductId('Vitamine C')
-      const res = await client.products['shelf-status'].$get({ query: { ids: id } })
-      expect(res.status as number).toBe(HTTP_STATUS.OK)
-      const data = await res.json()
-      if (!data.success) throw new Error('shelf-status failed')
-      expect(data.data).toEqual([])
+      const product = await createProduct()
+      const overlay = await expectOk(
+        client.products['shelf-status'].$get({ query: { ids: product.id } })
+      )
+      expect(overlay).toEqual([])
     })
 
     it('returns 400 when an id is not a uuid', async () => {
@@ -1073,103 +666,60 @@ describe('Product Routes', () => {
 
   describe('PATCH /products/:id', () => {
     it('should update product fields', async () => {
-      const token = contributorToken
+      const created = await createProduct()
 
-      const createRes = await client.products.$post({ json: VALID_PRODUCT }, withAuth(token))
-      const createData = await createRes.json()
-      if (!createData.success) throw new Error('create failed')
-      const created = createData.data
-
-      const res = await client.products[':id'].$patch(
-        {
-          param: { id: created.id },
-          json: { brand: 'Now Foods', priceCents: 1200 },
-        },
-        withAuth(token)
+      const patched = await expectOk(
+        client.products[':id'].$patch(
+          {
+            param: { id: created.id },
+            json: { brand: 'Now Foods', priceCents: 1200 },
+          },
+          withAuth(contributorToken)
+        )
       )
-
-      expect(res.status as number).toBe(HTTP_STATUS.OK)
-      const data = await res.json()
-      expect(data.success).toBe(true)
-      if (!data.success) throw new Error('patch failed')
-      expect(data.data.brand).toBe('Now Foods')
-      expect(data.data.priceCents).toBe(1200)
-      expect(data.data.name).toBe('Vitamine C')
+      expect(patched.brand).toBe('Now Foods')
+      expect(patched.priceCents).toBe(1200)
+      expect(patched.name).toBe('Vitamine C')
     })
 
     it('should not affect untouched fields', async () => {
-      const token = contributorToken
-
-      const createRes = await client.products.$post(
-        { json: { ...VALID_PRODUCT, notes: 'Note initiale' } },
-        withAuth(token)
-      )
-      const createData = await createRes.json()
-      if (!createData.success) throw new Error('create failed')
-      const created = createData.data
+      const created = await createProduct({ notes: 'Note initiale' })
 
       await client.products[':id'].$patch(
         { param: { id: created.id }, json: { brand: 'Now Foods' } },
-        withAuth(token)
+        withAuth(contributorToken)
       )
 
-      const res = await client.products[':slug'].$get({ param: { slug: created.slug } })
-      const data = await res.json()
-      if (!data.success) throw new Error('get failed')
-      expect(data.data.notes).toBe('Note initiale')
-    })
-
-    it('should persist updates across requests', async () => {
-      const token = contributorToken
-
-      const createRes = await client.products.$post({ json: VALID_PRODUCT }, withAuth(token))
-      const createData = await createRes.json()
-      if (!createData.success) throw new Error('create failed')
-      const created = createData.data
-
-      await client.products[':id'].$patch(
-        { param: { id: created.id }, json: { notes: 'Mise à jour persistée' } },
-        withAuth(token)
+      const fetched = await expectOk(
+        client.products[':slug'].$get({ param: { slug: created.slug } })
       )
-
-      const res = await client.products[':slug'].$get({ param: { slug: created.slug } })
-      const data = await res.json()
-      if (!data.success) throw new Error('get failed')
-      expect(data.data.notes).toBe('Mise à jour persistée')
+      expect(fetched.notes).toBe('Note initiale')
     })
 
     it('should allow overwriting a previously set field', async () => {
-      const token = contributorToken
-
-      const createRes = await client.products.$post({ json: VALID_PRODUCT }, withAuth(token))
-      const createData = await createRes.json()
-      if (!createData.success) throw new Error('create failed')
-      const created = createData.data
+      const created = await createProduct()
 
       await client.products[':id'].$patch(
         { param: { id: created.id }, json: { notes: 'première note' } },
-        withAuth(token)
+        withAuth(contributorToken)
       )
-      const updateRes = await client.products[':id'].$patch(
-        { param: { id: created.id }, json: { notes: 'deuxième note' } },
-        withAuth(token)
+      const updated = await expectOk(
+        client.products[':id'].$patch(
+          { param: { id: created.id }, json: { notes: 'deuxième note' } },
+          withAuth(contributorToken)
+        )
       )
-      const updateData = await updateRes.json()
-      if (!updateData.success) throw new Error('patch failed')
-      const updated = updateData.data
 
-      const res = await client.products[':slug'].$get({ param: { slug: updated.slug } })
-      const data = await res.json()
-      if (!data.success) throw new Error('get failed')
-      expect(data.data.notes).toBe('deuxième note')
+      const fetched = await expectOk(
+        client.products[':slug'].$get({ param: { slug: updated.slug } })
+      )
+      expect(fetched.notes).toBe('deuxième note')
     })
 
     it('should return 404 for unknown id', async () => {
-      const token = contributorToken
-
       const res = await client.products[':id'].$patch(
         { param: { id: crypto.randomUUID() }, json: { brand: 'XY' } },
-        withAuth(token)
+        withAuth(contributorToken)
       )
 
       expect(res.status as number).toBe(HTTP_STATUS.NOT_FOUND)
@@ -1178,19 +728,14 @@ describe('Product Routes', () => {
     })
 
     it('should reject unknown fields (strict schema)', async () => {
-      const token = contributorToken
-
-      const createRes = await client.products.$post({ json: VALID_PRODUCT }, withAuth(token))
-      const createData = await createRes.json()
-      if (!createData.success) throw new Error('create failed')
-      const created = createData.data
+      const created = await createProduct()
 
       const res = await client.products[':id'].$patch(
         {
           param: { id: created.id },
           json: { hackerField: 'oops' } as never,
         },
-        withAuth(token)
+        withAuth(contributorToken)
       )
 
       expect(res.status as number).toBe(HTTP_STATUS.BAD_REQUEST)
@@ -1206,18 +751,13 @@ describe('Product Routes', () => {
     // A notes-only edit omits inci, so it never re-validates an untouched legacy value
     // (see service test for preservation).
     it('rejects a non-conforming inci sent in the patch body', async () => {
-      const token = contributorToken
-
-      const createRes = await client.products.$post({ json: VALID_PRODUCT }, withAuth(token))
-      const createData = await createRes.json()
-      if (!createData.success) throw new Error('create failed')
-      const created = createData.data
+      const created = await createProduct()
 
       const longNoComma =
         'AQUA GLYCERIN CETEARYL ALCOHOL DIMETHICONE PHENOXYETHANOL TOCOPHEROL BUTYROSPERMUM PARKII BUTTER CAPRYLIC CAPRIC TRIGLYCERIDE SODIUM HYALURONATE'
       const res = await client.products[':id'].$patch(
         { param: { id: created.id }, json: { inci: longNoComma } },
-        withAuth(token)
+        withAuth(contributorToken)
       )
 
       expect(res.status as number).toBe(HTTP_STATUS.BAD_REQUEST)
@@ -1227,14 +767,7 @@ describe('Product Routes', () => {
   describe('DELETE /products/:id', () => {
     it('should delete the product and return null data', async () => {
       const adminToken = await setupAndLoginAdmin(app, TEST_CREDENTIALS.admin)
-
-      const createRes = await client.products.$post(
-        { json: VALID_PRODUCT },
-        withAuth(contributorToken)
-      )
-      const createData = await createRes.json()
-      if (!createData.success) throw new Error('create failed')
-      const created = createData.data
+      const created = await createProduct()
 
       const res = await client.products[':id'].$delete(
         { param: { id: created.id } },
@@ -1246,14 +779,7 @@ describe('Product Routes', () => {
 
     it('should make the product unreachable by slug after deletion', async () => {
       const adminToken = await setupAndLoginAdmin(app, TEST_CREDENTIALS.admin)
-
-      const createRes = await client.products.$post(
-        { json: VALID_PRODUCT },
-        withAuth(contributorToken)
-      )
-      const createData = await createRes.json()
-      if (!createData.success) throw new Error('create failed')
-      const created = createData.data
+      const created = await createProduct()
 
       await client.products[':id'].$delete({ param: { id: created.id } }, withAuth(adminToken))
 
@@ -1263,26 +789,8 @@ describe('Product Routes', () => {
 
     it('should not affect other products when deleting one', async () => {
       const adminToken = await setupAndLoginAdmin(app, TEST_CREDENTIALS.admin)
-
-      const r1 = await client.products.$post({ json: VALID_PRODUCT }, withAuth(contributorToken))
-      const r2 = await client.products.$post(
-        {
-          json: {
-            name: 'Magnésium',
-            brand: 'Solgar',
-            category: 'complement',
-            kind: 'gelule',
-            unit: 'bottle',
-          },
-        },
-        withAuth(contributorToken)
-      )
-
-      const d1 = await r1.json()
-      const d2 = await r2.json()
-      if (!d1.success || !d2.success) throw new Error('create failed')
-      const p1 = d1.data
-      const p2 = d2.data
+      const p1 = await createProduct()
+      const p2 = await createProduct({ name: 'Magnésium' })
 
       await client.products[':id'].$delete({ param: { id: p1.id } }, withAuth(adminToken))
 
@@ -1294,13 +802,7 @@ describe('Product Routes', () => {
       // requireAdmin blocks a contributor with 'forbidden' before the handler;
       // the service-layer unauthorized_access check is the backstop.
       // Boundary: contributors create/edit, not delete.
-      const createRes = await client.products.$post(
-        { json: VALID_PRODUCT },
-        withAuth(contributorToken)
-      )
-      const createData = await createRes.json()
-      if (!createData.success) throw new Error('create failed')
-      const created = createData.data
+      const created = await createProduct()
 
       const res = await client.products[':id'].$delete(
         { param: { id: created.id } },

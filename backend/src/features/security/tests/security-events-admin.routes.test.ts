@@ -1,4 +1,4 @@
-import { afterEach, beforeEach, describe, expect, it } from 'bun:test'
+import { afterEach, beforeAll, beforeEach, describe, expect, it } from 'bun:test'
 
 import { HTTP_STATUS } from '@aurore/shared'
 
@@ -10,6 +10,7 @@ import {
   type TestClient,
   withAuth,
 } from '../../../tests/helpers/createTestClient'
+import { expectOk } from '../../../tests/helpers/expectStatus'
 import { TEST_CREDENTIALS } from '../../../tests/helpers/test-credentials'
 import {
   createTestAdminUser,
@@ -44,8 +45,11 @@ describe('Admin security events — GET list (admin-only)', () => {
   let adminToken: string
   let contributorToken: string
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     client = await createTestClient()
+  })
+
+  beforeEach(async () => {
     const toto = TEST_CREDENTIALS.toto
     const admin = TEST_CREDENTIALS.admin
     const contributor = TEST_CREDENTIALS.contributor
@@ -70,13 +74,11 @@ describe('Admin security events — GET list (admin-only)', () => {
       { ...eventRow(userId, 'high', '/recent'), createdAt: recent },
     ])
 
-    const res = await client.admin['security-events'].$get({ query: {} }, withAuth(adminToken))
-
-    expect(res.status).toBe(HTTP_STATUS.OK)
-    const body = await res.json()
-    if (!body.success) throw new Error('admin security events list failed')
-    expect(body.data.items[0]?.route).toBe('/recent')
-    expect(body.data.items[1]?.route).toBe('/old')
+    const body = await expectOk(
+      client.admin['security-events'].$get({ query: {} }, withAuth(adminToken))
+    )
+    expect(body.items[0]?.route).toBe('/recent')
+    expect(body.items[1]?.route).toBe('/old')
   })
 
   it('admin GET filters by severity=high', async () => {

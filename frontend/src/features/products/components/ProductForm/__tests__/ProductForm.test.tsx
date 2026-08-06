@@ -1,10 +1,14 @@
-import { QueryClientProvider } from '@tanstack/react-query'
-import { fireEvent, render, screen } from '@testing-library/react'
+import { fireEvent, screen } from '@testing-library/react'
 import type React from 'react'
+import type { ReactElement } from 'react'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
-import { createTestQueryClient } from '@/test/utils'
+import { createTestQueryClient, renderWithProviders } from '@/test/utils'
 import { ProductForm } from '../ProductForm'
+
+function renderForm(ui: ReactElement, queryClient: ReturnType<typeof createTestQueryClient>) {
+  return renderWithProviders(ui, { queryClient })
+}
 
 const mockSubmit = vi.fn((e: React.FormEvent) => e.preventDefault())
 
@@ -120,11 +124,7 @@ describe('ProductForm', () => {
     const queryClient = createTestQueryClient()
     const onSuccess = vi.fn()
 
-    render(
-      <QueryClientProvider client={queryClient}>
-        <ProductForm mode="create" onSuccess={onSuccess} />
-      </QueryClientProvider>
-    )
+    renderForm(<ProductForm mode="create" onSuccess={onSuccess} />, queryClient)
 
     fireEvent.change(screen.getByLabelText(/^Nom/), { target: { value: 'Test Sérum' } })
     fireEvent.change(screen.getByLabelText('Marque'), { target: { value: 'BrandX' } })
@@ -142,14 +142,13 @@ describe('ProductForm', () => {
   it('prefills name + brand in create mode and treats the prefilled brand as confirmed', () => {
     const queryClient = createTestQueryClient()
 
-    render(
-      <QueryClientProvider client={queryClient}>
-        <ProductForm
-          mode="create"
-          prefill={{ name: 'Crème mystère', brand: 'BrandX' }}
-          onSuccess={vi.fn()}
-        />
-      </QueryClientProvider>
+    renderForm(
+      <ProductForm
+        mode="create"
+        prefill={{ name: 'Crème mystère', brand: 'BrandX' }}
+        onSuccess={vi.fn()}
+      />,
+      queryClient
     )
 
     expect(screen.getByLabelText(/^Nom/)).toHaveValue('Crème mystère')
@@ -165,11 +164,7 @@ describe('ProductForm', () => {
     const queryClient = createTestQueryClient()
     const onSuccess = vi.fn()
 
-    render(
-      <QueryClientProvider client={queryClient}>
-        <ProductForm mode="edit" product={mockProduct} onSuccess={onSuccess} />
-      </QueryClientProvider>
-    )
+    renderForm(<ProductForm mode="edit" product={mockProduct} onSuccess={onSuccess} />, queryClient)
 
     const submit = screen.getByRole('button', { name: 'Enregistrer' })
     // Pristine edit form: dirty=false → submit disabled.
@@ -186,11 +181,7 @@ describe('ProductForm', () => {
   it('points the edit cancel link at the product detail page', () => {
     const queryClient = createTestQueryClient()
 
-    render(
-      <QueryClientProvider client={queryClient}>
-        <ProductForm mode="edit" product={mockProduct} onSuccess={vi.fn()} />
-      </QueryClientProvider>
-    )
+    renderForm(<ProductForm mode="edit" product={mockProduct} onSuccess={vi.fn()} />, queryClient)
 
     expect(screen.getByRole('link', { name: /Annuler/ })).toHaveAttribute('href', '/products/$slug')
   })
@@ -200,11 +191,7 @@ describe('ProductForm', () => {
     const queryClient = createTestQueryClient()
     const noSlug = { ...mockProduct, slug: undefined } as unknown as typeof mockProduct
 
-    render(
-      <QueryClientProvider client={queryClient}>
-        <ProductForm mode="edit" product={noSlug} onSuccess={vi.fn()} />
-      </QueryClientProvider>
-    )
+    renderForm(<ProductForm mode="edit" product={noSlug} onSuccess={vi.fn()} />, queryClient)
 
     expect(screen.getByRole('link', { name: /Annuler/ })).toHaveAttribute('href', '/products')
   })

@@ -1,9 +1,8 @@
-import { QueryClientProvider } from '@tanstack/react-query'
-import { fireEvent, render, screen } from '@testing-library/react'
+import { fireEvent, screen } from '@testing-library/react'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
 import { useCreateArticle, useUpdateArticle } from '@/lib/queries/articles'
-import { createTestQueryClient } from '@/test/utils'
+import { renderWithProviders } from '@/test/utils'
 import { ArticleEditorForm } from './ArticleEditorForm'
 import { ARTICLE_FORM_ERRORS } from './ArticleEditorForm.constants'
 
@@ -28,7 +27,6 @@ const mockArticle = {
 }
 
 function renderForm(mode: 'create' | 'edit') {
-  const queryClient = createTestQueryClient()
   const onSuccess = vi.fn()
   const onCancel = vi.fn()
   const ui =
@@ -45,7 +43,7 @@ function renderForm(mode: 'create' | 'edit') {
   return {
     onSuccess,
     onCancel,
-    ...render(<QueryClientProvider client={queryClient}>{ui}</QueryClientProvider>),
+    ...renderWithProviders(ui),
   }
 }
 

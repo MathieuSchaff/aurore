@@ -1,6 +1,5 @@
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { act, renderHook } from '@testing-library/react'
-import type { ReactNode } from 'react'
+import { QueryClient } from '@tanstack/react-query'
+import { act } from '@testing-library/react'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
 const mockCreateProductMutateAsync = vi.fn()
@@ -35,15 +34,12 @@ vi.mock('react-hot-toast', () => ({
 
 import { toast } from 'react-hot-toast'
 
+import { renderHookWithProviders } from '@/test/utils'
 import { useQuickAdd } from '../useQuickAdd'
 
 describe('useQuickAdd', () => {
   let queryClient: QueryClient
   const onClose = vi.fn()
-
-  function wrapper({ children }: { children: ReactNode }) {
-    return <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
-  }
 
   beforeEach(() => {
     queryClient = new QueryClient({ defaultOptions: { queries: { retry: false } } })
@@ -60,7 +56,7 @@ describe('useQuickAdd', () => {
   })
 
   it('initializes with default state', () => {
-    const { result } = renderHook(() => useQuickAdd({ onClose }), { wrapper })
+    const { result } = renderHookWithProviders(() => useQuickAdd({ onClose }), { queryClient })
 
     expect(result.current.activeTab).toBe('existing')
     expect(result.current.selectedProduct).toBeNull()
@@ -73,7 +69,7 @@ describe('useQuickAdd', () => {
   it('handleAddExisting adds a product with wishlist status', async () => {
     mockAddUserProductMutateAsync.mockResolvedValue({ id: 'up1' })
 
-    const { result } = renderHook(() => useQuickAdd({ onClose }), { wrapper })
+    const { result } = renderHookWithProviders(() => useQuickAdd({ onClose }), { queryClient })
 
     act(() => {
       result.current.setSelectedProduct({
@@ -100,7 +96,7 @@ describe('useQuickAdd', () => {
     mockAddUserProductMutateAsync.mockResolvedValue({ id: 'up1' })
     mockAddPurchaseMutateAsync.mockResolvedValue({})
 
-    const { result } = renderHook(() => useQuickAdd({ onClose }), { wrapper })
+    const { result } = renderHookWithProviders(() => useQuickAdd({ onClose }), { queryClient })
 
     act(() => {
       result.current.setSelectedProduct({
@@ -125,7 +121,7 @@ describe('useQuickAdd', () => {
   })
 
   it('handleAddExisting does nothing without a selected product', async () => {
-    const { result } = renderHook(() => useQuickAdd({ onClose }), { wrapper })
+    const { result } = renderHookWithProviders(() => useQuickAdd({ onClose }), { queryClient })
 
     await act(() => result.current.handleAddExisting())
 
@@ -136,7 +132,7 @@ describe('useQuickAdd', () => {
   it('handleAddExisting shows error toast on failure', async () => {
     mockAddUserProductMutateAsync.mockRejectedValue(new Error('fail'))
 
-    const { result } = renderHook(() => useQuickAdd({ onClose }), { wrapper })
+    const { result } = renderHookWithProviders(() => useQuickAdd({ onClose }), { queryClient })
 
     act(() => {
       result.current.setSelectedProduct({
@@ -158,7 +154,7 @@ describe('useQuickAdd', () => {
     mockAddUserProductMutateAsync.mockResolvedValue({ id: 'up1' })
     mockAddPurchaseMutateAsync.mockResolvedValue({})
 
-    const { result } = renderHook(() => useQuickAdd({ onClose }), { wrapper })
+    const { result } = renderHookWithProviders(() => useQuickAdd({ onClose }), { queryClient })
 
     act(() => {
       result.current.setNewName('Mon Sérum')
@@ -183,7 +179,7 @@ describe('useQuickAdd', () => {
   it('handleCreateAndAdd shows error toast on failure', async () => {
     mockCreateProductMutateAsync.mockRejectedValue(new Error('duplicate'))
 
-    const { result } = renderHook(() => useQuickAdd({ onClose }), { wrapper })
+    const { result } = renderHookWithProviders(() => useQuickAdd({ onClose }), { queryClient })
 
     act(() => {
       result.current.setNewName('Sérum')

@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it } from 'bun:test'
+import { beforeAll, describe, expect, it } from 'bun:test'
 
 import { HTTP_STATUS } from '@aurore/shared'
 
@@ -89,7 +89,7 @@ async function fetchReviews(app: Hono<AppEnv>, username: string) {
 describe('GET /profiles/:username/reviews', () => {
   let app: Hono<AppEnv>
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     app = await createTestApp()
   })
 

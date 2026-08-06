@@ -10,9 +10,12 @@ import { and, eq, ne } from 'drizzle-orm'
 import { productTagLinks, productTagTypes } from '../../../db/schema'
 import { productTagData } from '../../../db/seed/data/tags'
 import { testDb } from '../../../tests/db.test.config'
-import { cleanDatabase } from '../../../tests/helpers/db-cleaner'
-import { createTestUser } from '../../../tests/helpers/test-factories'
+import { setupDbTests } from '../../../tests/db-setup'
+import { SKINCARE } from '../../../tests/helpers/product-shapes'
+import { createTestProduct, createTestUser } from '../../../tests/helpers/test-factories'
 import { createProduct } from '../service'
+
+setupDbTests()
 
 const RICH_INCI =
   'Aqua, Niacinamide, Retinol, Glycerin, Tocopherol, Phenoxyethanol, Hyaluronic Acid'
@@ -23,45 +26,26 @@ const autoLinks = (productId: string) =>
     .from(productTagLinks)
     .where(and(eq(productTagLinks.productId, productId), ne(productTagLinks.source, 'manual')))
 
-describe('createProduct — auto-tag opt-out', () => {
+describe('createProduct: auto-tag opt-out', () => {
   beforeEach(async () => {
-    await cleanDatabase()
     await testDb.insert(productTagTypes).values(productTagData)
   })
 
   it('auto-tags by default', async () => {
     const user = await createTestUser()
-    const product = await createProduct(
-      user.id,
-      'admin',
-      {
-        name: 'Auto Serum',
-        brand: 'Lab',
-        kind: 'serum',
-        unit: 'pump',
-        category: 'skincare',
-        inci: RICH_INCI,
-      },
-      testDb
-    )
+    const product = await createTestProduct(user.id, { name: 'Auto Serum', inci: RICH_INCI })
     expect((await autoLinks(product.id)).length).toBeGreaterThan(0)
   })
 
   it('keeps an explicit classification even when the name looks like a sunscreen', async () => {
     const user = await createTestUser()
-    const product = await createProduct(
-      user.id,
-      'admin',
-      {
-        name: 'Relief Sun : Rice + Probiotics SPF50+ PA++++',
-        brand: 'Beauty of Joseon',
-        kind: 'moisturizer',
-        unit: 'tube',
-        category: 'skincare',
-        inci: RICH_INCI,
-      },
-      testDb
-    )
+    const product = await createTestProduct(user.id, {
+      name: 'Relief Sun : Rice + Probiotics SPF50+ PA++++',
+      brand: 'Beauty of Joseon',
+      kind: 'moisturizer',
+      unit: 'tube',
+      inci: RICH_INCI,
+    })
     expect(product.category).toBe('skincare')
     expect(product.kind).toBe('moisturizer')
 
@@ -76,19 +60,14 @@ describe('createProduct — auto-tag opt-out', () => {
 
   it('skips auto-tagging when autoTag is false', async () => {
     const user = await createTestUser()
-    const product = await createProduct(
-      user.id,
-      'admin',
-      {
-        name: 'No Auto Serum',
-        brand: 'Lab',
-        kind: 'serum',
-        unit: 'pump',
-        category: 'skincare',
-        inci: RICH_INCI,
-      },
-      testDb,
-      { autoTag: false }
+    const product = await testDb.transaction((tx) =>
+      createProduct(
+        user.id,
+        'admin',
+        { name: 'No Auto Serum', brand: 'Lab', ...SKINCARE, inci: RICH_INCI },
+        tx,
+        { autoTag: false }
+      )
     )
     expect((await autoLinks(product.id)).length).toBe(0)
   })

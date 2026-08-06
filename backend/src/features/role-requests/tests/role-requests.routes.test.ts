@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it } from 'bun:test'
+import { beforeAll, beforeEach, describe, expect, it } from 'bun:test'
 
 import { HTTP_STATUS } from '@aurore/shared'
 
@@ -12,6 +12,7 @@ import {
   type TestClient,
   withAuth,
 } from '../../../tests/helpers/createTestClient'
+import { expectOk } from '../../../tests/helpers/expectStatus'
 import { TEST_CREDENTIALS } from '../../../tests/helpers/test-credentials'
 import { createTestContributorUser, createTestUser } from '../../../tests/helpers/test-factories'
 
@@ -24,13 +25,16 @@ async function login(client: TestClient, email: string, password: string): Promi
 
 setupDbTests()
 
-describe('role requests — user self-service', () => {
+describe('role requests: user self-service', () => {
   let client: TestClient
   let userId: string
   let userToken: string
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     client = await createTestClient()
+  })
+
+  beforeEach(async () => {
     const toto = TEST_CREDENTIALS.toto
     const user = await createTestUser(toto.rawEmail, toto.rawPassword)
     userId = user.id
@@ -38,15 +42,14 @@ describe('role requests — user self-service', () => {
   })
 
   it('submits a role request (201, pending row created)', async () => {
-    const res = await client['role-requests'].$post(
-      { json: { motivation: 'Je veux aider à vérifier les fiches du catalogue.' } },
-      withAuth(userToken)
+    const roleRequest = await expectOk(
+      client['role-requests'].$post(
+        { json: { motivation: 'Je veux aider à vérifier les fiches du catalogue.' } },
+        withAuth(userToken)
+      ),
+      HTTP_STATUS.CREATED
     )
-
-    expect(res.status as number).toBe(HTTP_STATUS.CREATED)
-    const body = await res.json()
-    if (!body.success) throw new Error(`expected success, got ${JSON.stringify(body)}`)
-    expect(body.data).toMatchObject({ userId, status: 'pending' })
+    expect(roleRequest).toMatchObject({ userId, status: 'pending' })
 
     const [row] = await testDb.select().from(roleRequests).where(eq(roleRequests.userId, userId))
     expect(row?.status).toBe('pending')
@@ -107,7 +110,7 @@ describe('role requests — user self-service', () => {
     expect(body.data).toMatchObject({ userId, status: 'pending' })
   })
 
-  it('cancels its own pending request and allows re-submission', async () => {
+  it('cancels its own pending request and allows submitting again', async () => {
     const submit = await client['role-requests'].$post(
       { json: { motivation: 'Demande à annuler puis re-soumettre.' } },
       withAuth(userToken)
@@ -116,15 +119,10 @@ describe('role requests — user self-service', () => {
     if (!submitBody.success) throw new Error('expected success')
     const requestId = submitBody.data.id
 
-    const res = await client['role-requests'][':id'].cancel.$post(
-      { param: { id: requestId } },
-      withAuth(userToken)
+    const cancelled = await expectOk(
+      client['role-requests'][':id'].cancel.$post({ param: { id: requestId } }, withAuth(userToken))
     )
-
-    expect(res.status as number).toBe(HTTP_STATUS.OK)
-    const body = await res.json()
-    if (!body.success) throw new Error('expected success')
-    expect(body.data.status).toBe('cancelled')
+    expect(cancelled.status).toBe('cancelled')
 
     // cancelled !== pending, so the partial unique index lets a fresh request through.
     const resubmit = await client['role-requests'].$post(
@@ -188,12 +186,12 @@ describe('role requests — user self-service', () => {
     expect(row?.status).toBe('pending')
   })
 
-  it('allows re-submission after a previous request was rejected', async () => {
+  it('allows submitting again after a previous request was rejected', async () => {
     await testDb
       .insert(roleRequests)
       .values({ userId, motivation: 'Demande déjà refusée par un admin.', status: 'rejected' })
 
-    // rejected !== pending, so neither the pre-check nor the partial unique index blocks a new one
+    // rejected !== pending, so neither the check nor the partial unique index blocks a new one
     const res = await client['role-requests'].$post(
       { json: { motivation: 'Nouvelle demande après un refus.' } },
       withAuth(userToken)

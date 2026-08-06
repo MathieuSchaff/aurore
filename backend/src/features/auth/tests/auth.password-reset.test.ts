@@ -5,7 +5,7 @@ import { and, eq, isNull } from 'drizzle-orm'
 import { passwordResets, users } from '../../../db/schema'
 import { setupDbTests } from '../../../tests/db-setup'
 import { TEST_CREDENTIALS } from '../../../tests/helpers/test-credentials'
-import { createTestUser } from '../../../tests/helpers/test-factories'
+import { createTestToto, createTestUser } from '../../../tests/helpers/test-factories'
 import { unsafePassword } from '../../../tests/helpers/unsafe'
 import {
   createPasswordResetToken,
@@ -52,8 +52,7 @@ describe('requestPasswordReset', () => {
     // alice is never created → unknown-email branch.
     const unknown = await requestPasswordReset(createCtx(), TEST_CREDENTIALS.alice.email)
 
-    const creds = TEST_CREDENTIALS.toto
-    await createTestUser(creds.rawEmail, creds.rawPassword)
+    const creds = await createTestToto()
     const existing = await requestPasswordReset(createCtx(), creds.email)
 
     // Byte-identical: no code, status, or shape difference between the branches.

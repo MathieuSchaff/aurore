@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it } from 'bun:test'
+import { beforeAll, describe, expect, it } from 'bun:test'
 
 import { HTTP_STATUS, type SkinConcern, type SkinType } from '@aurore/shared'
 
@@ -11,6 +11,7 @@ import { testDb } from '../../../tests/db.test.config'
 import { setupDbTests } from '../../../tests/db-setup'
 import { expectRequiresAuth } from '../../../tests/helpers/authz-matrix'
 import { createTestEnv, type TestClient, withAuth } from '../../../tests/helpers/createTestClient'
+import { expectOk } from '../../../tests/helpers/expectStatus'
 import { loginAndGetToken } from '../../../tests/helpers/route-test-helpers'
 import { createTestUser } from '../../../tests/helpers/test-factories'
 
@@ -26,7 +27,7 @@ describe('GET /api/social/profiles/search', () => {
   let app: Hono<AppEnv>
   let client: TestClient
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     const env = await createTestEnv()
     app = env.app
     client = env.client
@@ -54,11 +55,7 @@ describe('GET /api/social/profiles/search', () => {
   }
 
   async function fetchSearch(token: string, concern: SkinConcern) {
-    const res = await client.social.profiles.search.$get({ query: { concern } }, withAuth(token))
-    expect(res.status).toBe(HTTP_STATUS.OK)
-    const data = await res.json()
-    if (!data.success) throw new Error('expected ok')
-    return data.data
+    return expectOk(client.social.profiles.search.$get({ query: { concern } }, withAuth(token)))
   }
 
   expectRequiresAuth(() => app, {

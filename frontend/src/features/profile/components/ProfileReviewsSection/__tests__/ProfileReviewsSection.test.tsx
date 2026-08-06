@@ -1,35 +1,15 @@
 import { render, screen } from '@testing-library/react'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
-vi.mock('@tanstack/react-router', () => ({
-  createLink: vi.fn(() => vi.fn(({ children }) => children)),
-  Link: ({
-    to,
-    params,
-    children,
-    className,
-  }: {
-    to: string
-    params?: Record<string, string>
-    children: React.ReactNode
-    className?: string
-  }) => {
-    const href = params
-      ? Object.entries(params).reduce((acc, [k, v]) => acc.replace(`$${k}`, v), to)
-      : to
-    return (
-      <a href={href} className={className}>
-        {children}
-      </a>
-    )
-  },
-}))
+import { createLinkStub, LinkStub } from '@/test/mocks/router'
+
+vi.mock('@tanstack/react-router', () => ({ createLink: createLinkStub, Link: LinkStub }))
 
 const useQueryMock = vi.fn()
-vi.mock('@tanstack/react-query', async (importOriginal) => {
-  const actual = await importOriginal<typeof import('@tanstack/react-query')>()
-  return { ...actual, useQuery: (opts: unknown) => useQueryMock(opts) }
-})
+vi.mock('@tanstack/react-query', async () => ({
+  ...(await vi.importActual<typeof import('@tanstack/react-query')>('@tanstack/react-query')),
+  useQuery: (opts: unknown) => useQueryMock(opts),
+}))
 
 import { ProfileReviewsSection } from '../ProfileReviewsSection'
 
