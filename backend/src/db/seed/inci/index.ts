@@ -409,9 +409,12 @@ export function buildInciIndex(): InciIndex {
   }
 
   // Source 1: slug-file inline comments first. The explicit `INCI:` prefix is the most
-  // predictable signal, and the file order (skincare → haircare → dental → supplements)
-  // resolves shared tokens like NIACINAMIDE to the canonical skincare slug rather than
-  // a domain-suffixed variant (niacinamide-hair, etc.).
+  // predictable signal.
+  //
+  // File order was believed to arbitrate shared tokens like NIACINAMIDE towards the skincare
+  // slug over its domain shadow. It never did: the haircare file declares no INCI at all, so
+  // `niacinamide-hair` is not in this index and no arbitration ever took place. Which domain a
+  // product lands on is decided in link-ingredients/main.ts, on `ingredients.type`.
   for (const { rel } of SLUG_FILES) {
     const path = join(INGREDIENTS_ROOT, rel)
     let text: string
