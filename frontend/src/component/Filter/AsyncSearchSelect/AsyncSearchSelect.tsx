@@ -3,7 +3,7 @@ import { useMemo } from 'react'
 
 import { useDebounce } from '@/hooks/useDebounce'
 import { useFlipPlacement } from '@/hooks/useFlipPlacement'
-import { rateLimitMessage } from '@/lib/helpers/apiError'
+import { rateLimitMessage, rateLimitRetryAfter } from '@/lib/helpers/apiError'
 import { ComboboxTextInput } from '../ComboboxTextInput'
 import type { AsyncSearchQueryFactory, FilterOption } from '../types'
 import { useSearchSelectController } from '../useSearchSelectController'
@@ -19,7 +19,7 @@ import '../SearchSelect/SearchSelect.css'
 type AsyncSearchSelectProps = {
   selected: string[]
   onToggle: (value: string) => void
-  // Loosely typed at the prop level - the type union of all possible factories
+  // Loosely typed at the prop level: the type union of all possible factories
   // is impractical to thread; FilterAccordion validates presence at the call site.
   // biome-ignore lint/suspicious/noExplicitAny: see comment above
   loadOptionsQuery: AsyncSearchQueryFactory<string, any>
@@ -90,6 +90,7 @@ export function AsyncSearchSelect({
   const isLoading = optionsQuery.isFetching && debouncedQuery.length >= minChars
   const isError = optionsQuery.isError && debouncedQuery.length >= minChars
   const errorMessage = rateLimitMessage(optionsQuery.error) ?? undefined
+  const retryAfter = rateLimitRetryAfter(optionsQuery.error) ?? undefined
 
   const handleKeyDown = useComboboxKeyboard({
     isOpen,
@@ -158,6 +159,8 @@ export function AsyncSearchSelect({
           onRetry={() => {
             optionsQuery.refetch()
           }}
+          retryAfter={retryAfter}
+          retryAfterAt={optionsQuery.errorUpdatedAt}
           filteredCount={filtered.length}
           query={query}
           debouncedQuery={debouncedQuery}
