@@ -1,12 +1,13 @@
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { render, screen, waitFor } from '@testing-library/react'
+import { screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import type { ReactNode } from 'react'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
+import { renderWithProviders } from '@/test/utils'
+
 const navigate = vi.fn()
 
-// Hoisted spies: the focus-gate test asserts these are NOT called pre-focus.
+// Hoisted spies: the focus-gate test asserts these are NOT called before focus.
 const { brandsQueryFn, ingredientOptionsQueryFn } = vi.hoisted(() => ({
   // 3 'Bioderm*' brands enable the brand top-N cap test.
   brandsQueryFn: vi.fn(() =>
@@ -60,13 +61,6 @@ import { ingredientQueries } from '@/lib/queries/ingredients'
 import { productQueries } from '@/lib/queries/products'
 import { ProductsHeader } from '../ProductsHeader'
 
-function makeWrapper() {
-  const client = new QueryClient({ defaultOptions: { queries: { retry: false } } })
-  return ({ children }: { children: ReactNode }) => (
-    <QueryClientProvider client={client}>{children}</QueryClientProvider>
-  )
-}
-
 const baseProps = {
   total: 0,
   hasFilters: false,
@@ -84,13 +78,13 @@ const baseProps = {
   ],
 }
 
-describe('ProductsHeader — facet match footer', () => {
+describe('ProductsHeader: facet match footer', () => {
   beforeEach(() => {
     vi.clearAllMocks()
   })
 
   it('renders brand footer entry on exact brand match', async () => {
-    render(<ProductsHeader {...baseProps} />, { wrapper: makeWrapper() })
+    renderWithProviders(<ProductsHeader {...baseProps} />)
     const input = screen.getByRole('combobox', { name: /rechercher un produit/i })
     await userEvent.type(input, 'avène')
     await waitFor(() => {
@@ -99,7 +93,7 @@ describe('ProductsHeader — facet match footer', () => {
   })
 
   it('renders ingredient footer entry on exact ingredient match', async () => {
-    render(<ProductsHeader {...baseProps} />, { wrapper: makeWrapper() })
+    renderWithProviders(<ProductsHeader {...baseProps} />)
     const input = screen.getByRole('combobox', { name: /rechercher un produit/i })
     await userEvent.type(input, 'vitamine c')
     await waitFor(() => {
@@ -107,8 +101,8 @@ describe('ProductsHeader — facet match footer', () => {
     })
   })
 
-  it('renders free-text fallback footer when query matches no facet (D3)', async () => {
-    render(<ProductsHeader {...baseProps} />, { wrapper: makeWrapper() })
+  it('renders free-text fallback footer when query matches no facet', async () => {
+    renderWithProviders(<ProductsHeader {...baseProps} />)
     const input = screen.getByRole('combobox', { name: /rechercher un produit/i })
     await userEvent.type(input, 'matifiant')
     // Fallback uses "résultats", facets use "produits"; negative assertion excludes facets.
@@ -118,17 +112,17 @@ describe('ProductsHeader — facet match footer', () => {
     expect(screen.queryByText(/voir tous les produits/i)).not.toBeInTheDocument()
   })
 
-  it('renders fallback section alongside facet match (D4 multi-section)', async () => {
-    render(<ProductsHeader {...baseProps} />, { wrapper: makeWrapper() })
+  it('renders fallback section alongside facet match', async () => {
+    renderWithProviders(<ProductsHeader {...baseProps} />)
     const input = screen.getByRole('combobox', { name: /rechercher un produit/i })
     await userEvent.type(input, 'vitamine c')
     await waitFor(() => screen.getByText(/voir tous les produits avec vitamine c/i))
-    // D4: fallback and facets coexist so the user can still pick "see all by name+brand".
+    // Fallback and facets coexist so the user can still pick "see all by name+brand".
     expect(screen.getByText(/voir tous les résultats pour "vitamine c"/i)).toBeInTheDocument()
   })
 
-  it('renders section header labels (D4)', async () => {
-    render(<ProductsHeader {...baseProps} />, { wrapper: makeWrapper() })
+  it('renders section header labels', async () => {
+    renderWithProviders(<ProductsHeader {...baseProps} />)
     const input = screen.getByRole('combobox', { name: /rechercher un produit/i })
     await userEvent.type(input, 'vitamine c')
     await waitFor(() => screen.getByText('Ingrédients'))
@@ -137,8 +131,8 @@ describe('ProductsHeader — facet match footer', () => {
     expect(screen.queryByText('Marques')).not.toBeInTheDocument()
   })
 
-  it('caps ingredient section at FACET_SECTION_LIMIT (D4)', async () => {
-    render(<ProductsHeader {...baseProps} />, { wrapper: makeWrapper() })
+  it('caps ingredient section at FACET_SECTION_LIMIT', async () => {
+    renderWithProviders(<ProductsHeader {...baseProps} />)
     const input = screen.getByRole('combobox', { name: /rechercher un produit/i })
     // 'vita' matches all 4 vitamins; cap limits to top 2.
     await userEvent.type(input, 'vita')
@@ -147,8 +141,8 @@ describe('ProductsHeader — facet match footer', () => {
     expect(entries).toHaveLength(2)
   })
 
-  it('navigates to /products?q=… on fallback footer click (D3)', async () => {
-    render(<ProductsHeader {...baseProps} />, { wrapper: makeWrapper() })
+  it('navigates to /products?q=… on fallback footer click', async () => {
+    renderWithProviders(<ProductsHeader {...baseProps} />)
     const input = screen.getByRole('combobox', { name: /rechercher un produit/i })
     await userEvent.type(input, 'matifiant')
     const entry = await screen.findByText(/voir tous les résultats pour "matifiant"/i)
@@ -162,8 +156,8 @@ describe('ProductsHeader — facet match footer', () => {
     expect(resolved.sort).toBeUndefined()
   })
 
-  it('navigates to /products?q=… on Enter when fallback is the only footer entry (D3)', async () => {
-    render(<ProductsHeader {...baseProps} />, { wrapper: makeWrapper() })
+  it('navigates to /products?q=… on Enter when fallback is the only footer entry', async () => {
+    renderWithProviders(<ProductsHeader {...baseProps} />)
     const input = screen.getByRole('combobox', { name: /rechercher un produit/i })
     await userEvent.type(input, 'matifiant')
     await screen.findByText(/voir tous les résultats pour "matifiant"/i)
@@ -177,7 +171,7 @@ describe('ProductsHeader — facet match footer', () => {
   })
 
   it('matches brand entry when typing without accents', async () => {
-    render(<ProductsHeader {...baseProps} />, { wrapper: makeWrapper() })
+    renderWithProviders(<ProductsHeader {...baseProps} />)
     const input = screen.getByRole('combobox', { name: /rechercher un produit/i })
     await userEvent.type(input, 'avene')
     await waitFor(() => {
@@ -186,7 +180,7 @@ describe('ProductsHeader — facet match footer', () => {
   })
 
   it('facet click drops a stale q from the URL (label promises "all products with X")', async () => {
-    render(<ProductsHeader {...baseProps} />, { wrapper: makeWrapper() })
+    renderWithProviders(<ProductsHeader {...baseProps} />)
     const input = screen.getByRole('combobox', { name: /rechercher un produit/i })
     await userEvent.type(input, 'vitamine c')
     const entry = await screen.findByText(/voir tous les produits avec vitamine c/i)
@@ -198,7 +192,7 @@ describe('ProductsHeader — facet match footer', () => {
   })
 
   it('keeps active ingredient filters on ingredient footer click', async () => {
-    render(<ProductsHeader {...baseProps} />, { wrapper: makeWrapper() })
+    renderWithProviders(<ProductsHeader {...baseProps} />)
     const input = screen.getByRole('combobox', { name: /rechercher un produit/i })
     await userEvent.type(input, 'vitamine c')
     const entry = await screen.findByText(/voir tous les produits avec vitamine c/i)
@@ -213,7 +207,7 @@ describe('ProductsHeader — facet match footer', () => {
   })
 
   it('does not duplicate an already active ingredient filter', async () => {
-    render(<ProductsHeader {...baseProps} />, { wrapper: makeWrapper() })
+    renderWithProviders(<ProductsHeader {...baseProps} />)
     const input = screen.getByRole('combobox', { name: /rechercher un produit/i })
     await userEvent.type(input, 'vitamine c')
     const entry = await screen.findByRole('option', {
@@ -222,13 +216,13 @@ describe('ProductsHeader — facet match footer', () => {
     await userEvent.click(entry)
     const [call] = navigate.mock.calls
     const resolved = call[0].search({ ingredient: ['retinol', 'vitamine-c'] })
-    // Re-selecting a visible active facet runs this updater again; appending blindly duplicates
+    // Selecting an already active facet runs this updater again; appending blindly duplicates
     // both the URL value and its chip.
     expect(resolved.ingredient).toEqual(['retinol', 'vitamine-c'])
   })
 
   it('Enter applies typed text as q even when a facet section matches (sections require explicit selection)', async () => {
-    render(<ProductsHeader {...baseProps} />, { wrapper: makeWrapper() })
+    renderWithProviders(<ProductsHeader {...baseProps} />)
     const input = screen.getByRole('combobox', { name: /rechercher un produit/i })
     await userEvent.type(input, 'vitamine c')
     await screen.findByText(/voir tous les produits avec vitamine c/i)
@@ -242,7 +236,7 @@ describe('ProductsHeader — facet match footer', () => {
   })
 
   it('ArrowDown + Enter on an ingredient section entry navigates to /products?ingredient=…', async () => {
-    render(<ProductsHeader {...baseProps} />, { wrapper: makeWrapper() })
+    renderWithProviders(<ProductsHeader {...baseProps} />)
     const input = screen.getByRole('combobox', { name: /rechercher un produit/i })
     await userEvent.type(input, 'vitamine c')
     await screen.findByText(/voir tous les produits avec vitamine c/i)
@@ -256,9 +250,9 @@ describe('ProductsHeader — facet match footer', () => {
   })
 
   it('matches ingredient facet via slug when the display name does not match (INCI-style query)', async () => {
-    render(<ProductsHeader {...baseProps} />, { wrapper: makeWrapper() })
+    renderWithProviders(<ProductsHeader {...baseProps} />)
     const input = screen.getByRole('combobox', { name: /rechercher un produit/i })
-    // 'vitamine-c' is not a substring of the folded name 'vitamine c' — only the slug matches.
+    // 'vitamine-c' is not a substring of the folded name 'vitamine c', only the slug matches.
     await userEvent.type(input, 'vitamine-c')
     await waitFor(() => {
       expect(screen.getByText(/voir tous les produits avec vitamine c/i)).toBeInTheDocument()
@@ -266,7 +260,7 @@ describe('ProductsHeader — facet match footer', () => {
   })
 
   it('caps brand section at FACET_SECTION_LIMIT', async () => {
-    render(<ProductsHeader {...baseProps} />, { wrapper: makeWrapper() })
+    renderWithProviders(<ProductsHeader {...baseProps} />)
     const input = screen.getByRole('combobox', { name: /rechercher un produit/i })
     // 'bioderm' matches 3 mocked brands; cap limits to top 2.
     await userEvent.type(input, 'bioderm')
@@ -275,7 +269,7 @@ describe('ProductsHeader — facet match footer', () => {
   })
 
   it('scopes facets and product search to the active domain tab', async () => {
-    render(<ProductsHeader {...baseProps} activeTab="haircare" />, { wrapper: makeWrapper() })
+    renderWithProviders(<ProductsHeader {...baseProps} activeTab="haircare" />)
     const input = screen.getByRole('combobox', { name: /rechercher un produit/i })
     await userEvent.type(input, 'keratine')
 
@@ -285,13 +279,13 @@ describe('ProductsHeader — facet match footer', () => {
   })
 
   it('maps the complement tab to the supplement ingredient type', async () => {
-    render(<ProductsHeader {...baseProps} activeTab="complement" />, { wrapper: makeWrapper() })
+    renderWithProviders(<ProductsHeader {...baseProps} activeTab="complement" />)
     await userEvent.click(screen.getByRole('combobox', { name: /rechercher un produit/i }))
     expect(ingredientQueries.options).toHaveBeenCalledWith('supplement')
   })
 
   it('does not fetch brands/ingredients before the input gains focus (LCP gate)', async () => {
-    render(<ProductsHeader {...baseProps} />, { wrapper: makeWrapper() })
+    renderWithProviders(<ProductsHeader {...baseProps} />)
     expect(brandsQueryFn).not.toHaveBeenCalled()
     expect(ingredientOptionsQueryFn).not.toHaveBeenCalled()
 

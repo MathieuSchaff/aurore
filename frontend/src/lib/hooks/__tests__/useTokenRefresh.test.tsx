@@ -1,8 +1,8 @@
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { act, renderHook } from '@testing-library/react'
-import type { ReactNode } from 'react'
+import { QueryClient } from '@tanstack/react-query'
+import { act } from '@testing-library/react'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
+import { renderHookWithProviders } from '@/test/utils'
 import { useAuthStore } from '../../../store/auth'
 
 // Partial mock: keep the real scheduling math (msUntilProactiveRefresh) and isExpired,
@@ -20,10 +20,6 @@ const mockEnsureFresh = vi.mocked(ensureFresh)
 describe('useTokenRefresh', () => {
   let queryClient: QueryClient
 
-  function wrapper({ children }: { children: ReactNode }) {
-    return <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
-  }
-
   beforeEach(() => {
     vi.useFakeTimers()
     queryClient = new QueryClient()
@@ -38,7 +34,7 @@ describe('useTokenRefresh', () => {
   })
 
   it('does nothing when there is no tokenExpiresAt', () => {
-    renderHook(() => useTokenRefresh(), { wrapper })
+    renderHookWithProviders(() => useTokenRefresh(), { queryClient })
 
     vi.advanceTimersByTime(120_000)
     expect(mockEnsureFresh).not.toHaveBeenCalled()
@@ -48,7 +44,7 @@ describe('useTokenRefresh', () => {
     const fiveMin = Date.now() + 5 * 60_000
     useAuthStore.setState({ tokenExpiresAt: fiveMin })
 
-    renderHook(() => useTokenRefresh(), { wrapper })
+    renderHookWithProviders(() => useTokenRefresh(), { queryClient })
 
     expect(mockEnsureFresh).not.toHaveBeenCalled()
 
@@ -59,7 +55,7 @@ describe('useTokenRefresh', () => {
   it('refreshes immediately when token expires in less than 1 minute', () => {
     useAuthStore.setState({ tokenExpiresAt: Date.now() + 30_000 })
 
-    renderHook(() => useTokenRefresh(), { wrapper })
+    renderHookWithProviders(() => useTokenRefresh(), { queryClient })
 
     expect(mockEnsureFresh).toHaveBeenCalledOnce()
   })
@@ -67,7 +63,7 @@ describe('useTokenRefresh', () => {
   it('cleans up the timer on unmount', () => {
     useAuthStore.setState({ tokenExpiresAt: Date.now() + 5 * 60_000 })
 
-    const { unmount } = renderHook(() => useTokenRefresh(), { wrapper })
+    const { unmount } = renderHookWithProviders(() => useTokenRefresh(), { queryClient })
     unmount()
 
     vi.advanceTimersByTime(10 * 60_000)
@@ -77,7 +73,7 @@ describe('useTokenRefresh', () => {
   it('reschedules when tokenExpiresAt changes', () => {
     useAuthStore.setState({ tokenExpiresAt: Date.now() + 10 * 60_000 })
 
-    const { rerender } = renderHook(() => useTokenRefresh(), { wrapper })
+    const { rerender } = renderHookWithProviders(() => useTokenRefresh(), { queryClient })
 
     act(() => {
       useAuthStore.setState({ tokenExpiresAt: Date.now() + 2 * 60_000 })
@@ -110,7 +106,7 @@ describe('useTokenRefresh', () => {
 
     it('refreshes when tab becomes visible and token is expired', () => {
       loginWithExpiry(-10)
-      renderHook(() => useTokenRefresh(), { wrapper })
+      renderHookWithProviders(() => useTokenRefresh(), { queryClient })
       mockEnsureFresh.mockClear() // discard the immediate-on-mount refresh
 
       setVisibility('hidden')
@@ -121,7 +117,7 @@ describe('useTokenRefresh', () => {
 
     it('does not refresh on visibility change when token is still valid', () => {
       loginWithExpiry(3600)
-      renderHook(() => useTokenRefresh(), { wrapper })
+      renderHookWithProviders(() => useTokenRefresh(), { queryClient })
       mockEnsureFresh.mockClear()
 
       setVisibility('hidden')
@@ -131,7 +127,7 @@ describe('useTokenRefresh', () => {
     })
 
     it('does not refresh on visibility change when user is not logged in', () => {
-      renderHook(() => useTokenRefresh(), { wrapper })
+      renderHookWithProviders(() => useTokenRefresh(), { queryClient })
 
       setVisibility('hidden')
       setVisibility('visible')
@@ -141,7 +137,7 @@ describe('useTokenRefresh', () => {
 
     it('removes the listener on unmount', () => {
       loginWithExpiry(-10)
-      const { unmount } = renderHook(() => useTokenRefresh(), { wrapper })
+      const { unmount } = renderHookWithProviders(() => useTokenRefresh(), { queryClient })
       mockEnsureFresh.mockClear()
 
       unmount()

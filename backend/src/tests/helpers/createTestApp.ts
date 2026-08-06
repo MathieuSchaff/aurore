@@ -5,7 +5,12 @@ import { globalErrorHandler } from '../../utils/errors/error-handler'
 import { testDb } from '../db.test.config'
 import { JWT_SECRET, REFRESH_SECRET } from '../helpers/secrets'
 
-export async function createTestApp() {
+type CreateTestAppOptions = {
+  anonDb?: AppEnv['Variables']['anonDb']
+}
+
+// Prefer beforeAll unless a test in your suite needs a fresh app instance.
+export async function createTestApp({ anonDb = testDb }: CreateTestAppOptions = {}) {
   const app = new Hono<AppEnv>()
 
   app.onError(globalErrorHandler)
@@ -46,7 +51,7 @@ export async function createTestApp() {
   const { suggestedEditsRoutes } = await import('../../features/suggested-edits/routes')
 
   app.use('*', async (c, next) => {
-    c.set('db', testDb)
+    c.set('anonDb', anonDb)
     c.set('env', 'development')
     c.set('jwtSecret', JWT_SECRET)
     c.set('refreshSecret', REFRESH_SECRET)

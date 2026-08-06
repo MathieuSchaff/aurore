@@ -1,9 +1,8 @@
 import { beforeEach, describe, expect, it } from 'bun:test'
 
-import { createProduct } from '../../../features/products/service'
 import { testDb } from '../../../tests/db.test.config'
 import { setupDbTests } from '../../../tests/db-setup'
-import { createTestUser } from '../../../tests/helpers/test-factories'
+import { createTestProduct, createTestUser } from '../../../tests/helpers/test-factories'
 import {
   addManyTagsToProduct,
   addTagToProduct,
@@ -18,15 +17,6 @@ import {
   updateProductTag,
 } from '../service'
 import { TagError } from '../tag-error'
-
-async function makeProduct(userId: string, name = 'Produit Test') {
-  return createProduct(
-    userId,
-    'admin',
-    { name, brand: 'Generic', category: 'skincare', kind: 'serum', unit: 'pump' },
-    testDb
-  )
-}
 
 setupDbTests()
 
@@ -176,7 +166,7 @@ describe('Product Tags Service', () => {
 
   describe('addTagToProduct', () => {
     it('should link a tag to a product', async () => {
-      const product = await makeProduct(user.id)
+      const product = await createTestProduct(user.id, { name: 'Produit Test' })
       const tag = await createProductTag(testDb, { label: 'Hydratation' })
 
       const link = await addTagToProduct(testDb, product.id, tag.id)
@@ -189,7 +179,7 @@ describe('Product Tags Service', () => {
 
   describe('addManyTagsToProduct', () => {
     it('should return an empty array when given no tag ids', async () => {
-      const product = await makeProduct(user.id)
+      const product = await createTestProduct(user.id, { name: 'Produit Test' })
 
       const links = await addManyTagsToProduct(testDb, product.id, [])
 
@@ -197,7 +187,7 @@ describe('Product Tags Service', () => {
     })
 
     it('should link multiple tags to a product at once', async () => {
-      const product = await makeProduct(user.id)
+      const product = await createTestProduct(user.id, { name: 'Produit Test' })
       const t1 = await createProductTag(testDb, { label: 'Acné' })
       const t2 = await createProductTag(testDb, { label: 'Pores' })
       const t3 = await createProductTag(testDb, { label: 'Sébum' })
@@ -214,7 +204,7 @@ describe('Product Tags Service', () => {
 
   describe('listTagsByProduct', () => {
     it('should return an empty list when the product has no tags', async () => {
-      const product = await makeProduct(user.id)
+      const product = await createTestProduct(user.id, { name: 'Produit Test' })
 
       const result = await listTagsByProduct(testDb, product.id)
 
@@ -222,7 +212,7 @@ describe('Product Tags Service', () => {
     })
 
     it('should return tags with joined tag information', async () => {
-      const product = await makeProduct(user.id)
+      const product = await createTestProduct(user.id, { name: 'Produit Test' })
       const tag = await createProductTag(testDb, { label: 'Anti-âge', tagType: 'concern' })
 
       await addTagToProduct(testDb, product.id, tag.id)
@@ -238,8 +228,8 @@ describe('Product Tags Service', () => {
     })
 
     it('should not return tags from other products', async () => {
-      const p1 = await makeProduct(user.id, 'Produit A')
-      const p2 = await makeProduct(user.id, 'Produit B')
+      const p1 = await createTestProduct(user.id, { name: 'Produit A' })
+      const p2 = await createTestProduct(user.id, { name: 'Produit B' })
       const tag = await createProductTag(testDb, { label: 'Test' })
 
       await addTagToProduct(testDb, p1.id, tag.id)
@@ -260,8 +250,8 @@ describe('Product Tags Service', () => {
     })
 
     it('should return product links for a given tag', async () => {
-      const p1 = await makeProduct(user.id, 'Produit A')
-      const p2 = await makeProduct(user.id, 'Produit B')
+      const p1 = await createTestProduct(user.id, { name: 'Produit A' })
+      const p2 = await createTestProduct(user.id, { name: 'Produit B' })
       const tag = await createProductTag(testDb, { label: 'Commun' })
 
       await addTagToProduct(testDb, p1.id, tag.id)
@@ -278,7 +268,7 @@ describe('Product Tags Service', () => {
 
   describe('removeTagFromProduct', () => {
     it('should remove a tag from a product and return true', async () => {
-      const product = await makeProduct(user.id)
+      const product = await createTestProduct(user.id, { name: 'Produit Test' })
       const tag = await createProductTag(testDb, { label: 'À retirer' })
 
       await addTagToProduct(testDb, product.id, tag.id)
@@ -291,7 +281,7 @@ describe('Product Tags Service', () => {
     })
 
     it('should return false when the link does not exist', async () => {
-      const product = await makeProduct(user.id)
+      const product = await createTestProduct(user.id, { name: 'Produit Test' })
       const tag = await createProductTag(testDb, { label: 'Inexistant' })
 
       const result = await removeTagFromProduct(testDb, product.id, tag.id)
@@ -300,7 +290,7 @@ describe('Product Tags Service', () => {
     })
 
     it('should only remove the specified tag, not others', async () => {
-      const product = await makeProduct(user.id)
+      const product = await createTestProduct(user.id, { name: 'Produit Test' })
       const t1 = await createProductTag(testDb, { label: 'Garder' })
       const t2 = await createProductTag(testDb, { label: 'Retirer' })
 
@@ -315,7 +305,7 @@ describe('Product Tags Service', () => {
 
   describe('replaceProductTags', () => {
     it('should replace existing tags with new ones', async () => {
-      const product = await makeProduct(user.id)
+      const product = await createTestProduct(user.id, { name: 'Produit Test' })
       const t1 = await createProductTag(testDb, { label: 'Ancien' })
       const t2 = await createProductTag(testDb, { label: 'Nouveau' })
 
@@ -328,7 +318,7 @@ describe('Product Tags Service', () => {
     })
 
     it('should clear all tags when given an empty array', async () => {
-      const product = await makeProduct(user.id)
+      const product = await createTestProduct(user.id, { name: 'Produit Test' })
       const tag = await createProductTag(testDb, { label: 'À effacer' })
 
       await addTagToProduct(testDb, product.id, tag.id)
@@ -340,7 +330,7 @@ describe('Product Tags Service', () => {
     })
 
     it('should handle replacing when no tags existed', async () => {
-      const product = await makeProduct(user.id)
+      const product = await createTestProduct(user.id, { name: 'Produit Test' })
       const t1 = await createProductTag(testDb, { label: 'Premier' })
       const t2 = await createProductTag(testDb, { label: 'Deuxième' })
 

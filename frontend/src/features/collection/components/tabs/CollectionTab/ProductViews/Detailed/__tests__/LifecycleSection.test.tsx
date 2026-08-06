@@ -1,7 +1,8 @@
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { cleanup, render, screen } from '@testing-library/react'
+import { QueryClient } from '@tanstack/react-query'
+import { cleanup, screen } from '@testing-library/react'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 
+import { renderWithProviders } from '@/test/utils'
 import { LifecycleSection } from '../LifecycleSection'
 
 const queryClient = new QueryClient({
@@ -12,13 +13,10 @@ const queryClient = new QueryClient({
   },
 })
 
-vi.mock('@tanstack/react-query', async (importOriginal) => {
-  const actual = await importOriginal<any>()
-  return {
-    ...actual,
-    useQuery: vi.fn(() => ({ data: [] })),
-  }
-})
+vi.mock('@tanstack/react-query', async () => ({
+  ...(await vi.importActual<typeof import('@tanstack/react-query')>('@tanstack/react-query')),
+  useQuery: vi.fn(() => ({ data: [] })),
+}))
 
 vi.mock('@/lib/queries/purchases', () => ({
   purchaseQueries: {
@@ -39,11 +37,7 @@ describe('LifecycleSection', () => {
   }
 
   it('affiche un message si aucun achat disponible', () => {
-    render(
-      <QueryClientProvider client={queryClient}>
-        <LifecycleSection {...defaultProps} />
-      </QueryClientProvider>
-    )
+    renderWithProviders(<LifecycleSection {...defaultProps} />, { queryClient })
     expect(screen.getByText(/Aucun achat enregistré/)).toBeInTheDocument()
   })
 })

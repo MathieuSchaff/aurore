@@ -12,14 +12,11 @@ import { useAuthStore } from '@/store/auth'
 import { createTestQueryClient, renderWithProviders } from '@/test/utils'
 import { ProductCollectionAction } from '../ProductCollectionAction'
 
-vi.mock('@tanstack/react-router', async (importOriginal) => {
-  const actual = await importOriginal<typeof import('@tanstack/react-router')>()
-  return {
-    ...actual,
-    useNavigate: vi.fn(),
-    useRouterState: vi.fn(),
-  }
-})
+vi.mock('@tanstack/react-router', async () => ({
+  ...(await vi.importActual<typeof import('@tanstack/react-router')>('@tanstack/react-router')),
+  useNavigate: vi.fn(),
+  useRouterState: vi.fn(),
+}))
 
 vi.mock('@/store/auth', () => ({ useAuthStore: vi.fn() }))
 

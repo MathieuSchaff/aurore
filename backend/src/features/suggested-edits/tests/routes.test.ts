@@ -1,4 +1,4 @@
-import { afterEach, beforeEach, describe, expect, it } from 'bun:test'
+import { afterEach, beforeAll, beforeEach, describe, expect, it } from 'bun:test'
 
 import { HTTP_STATUS } from '@aurore/shared'
 
@@ -12,6 +12,7 @@ import {
   type TestClient,
   withAuth,
 } from '../../../tests/helpers/createTestClient'
+import { expectOk } from '../../../tests/helpers/expectStatus'
 import { TEST_CREDENTIALS } from '../../../tests/helpers/test-credentials'
 import {
   createTestAdminUser,
@@ -35,8 +36,11 @@ let adminToken: string
 let contributorToken: string
 let productId: string
 
-beforeEach(async () => {
+beforeAll(async () => {
   client = await createTestClient()
+})
+
+beforeEach(async () => {
   const { toto, admin, contributor } = TEST_CREDENTIALS
   const user = await createTestUser(toto.rawEmail, toto.rawPassword)
   await createTestAdminUser(admin.rawEmail, admin.rawPassword)
@@ -70,21 +74,21 @@ afterEach(async () => {
 
 describe('suggested-edits routes', () => {
   it('authed user proposes a correction → 201 pending', async () => {
-    const res = await client['suggested-edits'].$post(
-      {
-        json: {
-          targetType: 'product',
-          targetId: productId,
-          field: 'name',
-          proposedValue: 'New Name',
+    const body = await expectOk(
+      client['suggested-edits'].$post(
+        {
+          json: {
+            targetType: 'product',
+            targetId: productId,
+            field: 'name',
+            proposedValue: 'New Name',
+          },
         },
-      },
-      withAuth(userToken)
+        withAuth(userToken)
+      ),
+      HTTP_STATUS.CREATED
     )
-    expect(res.status).toBe(HTTP_STATUS.CREATED)
-    const body = await res.json()
-    if (!body.success) throw new Error('propose failed')
-    expect(body.data.status).toBe('pending')
+    expect(body.status).toBe('pending')
   })
 
   // 'brand' is not proposable for 'ingredient' (PROPOSABLE_FIELDS.ingredient = ['name','description']).

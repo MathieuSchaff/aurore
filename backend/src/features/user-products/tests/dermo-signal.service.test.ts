@@ -3,57 +3,51 @@ import { describe, expect, it } from 'bun:test'
 import { and, eq } from 'drizzle-orm'
 
 import { ingredientDermoProfiles } from '../../../db/schema/ingredients/ingredient-dermo-profiles'
-import { ingredients } from '../../../db/schema/ingredients/ingredients'
 import { userIngredientAnalysisScore } from '../../../db/schema/ingredients/user-ingredient-analysis-score'
 import { productIngredients } from '../../../db/schema/products/product-ingredients'
-import { products } from '../../../db/schema/products/products'
 import { userProductReviews, userProducts } from '../../../db/schema/products/user-products'
 import { testDb } from '../../../tests/db.test.config'
 import { setupDbTests } from '../../../tests/db-setup'
-import { createTestUser } from '../../../tests/helpers/test-factories'
+import {
+  createTestIngredient,
+  createTestProduct,
+  createTestUser,
+} from '../../../tests/helpers/test-factories'
 import { recalculateAllSignalsForUser } from '../dermo-signal.service'
 
 setupDbTests()
 
-async function createIngredient(userId: string, slug: string): Promise<string> {
-  const [row] = await testDb
-    .insert(ingredients)
-    .values({ createdBy: userId, name: slug, slug, type: 'skincare' })
-    .returning({ id: ingredients.id })
-  if (!row) throw new Error('ingredient insert failed')
-  return row.id
+// recalculateAllSignalsForUser runs inside the request RLS transaction, so open a
+// real one here instead of handing it the root test handle.
+const recalcTx = (userId: string) =>
+  testDb.transaction((tx) => recalculateAllSignalsForUser(userId, tx))
+
+async function createIngredient(userId: string, name: string): Promise<string> {
+  const ingredient = await createTestIngredient(userId, { name })
+  return ingredient.id
 }
 
+// The shared factory has no ingredient link, which is the whole point here.
 async function createProduct(
   userId: string,
-  slug: string,
+  name: string,
   ingredientIds: string[]
 ): Promise<string> {
-  const [row] = await testDb
-    .insert(products)
-    .values({
-      createdBy: userId,
-      name: slug,
-      brand: 'TestBrand',
-      category: 'skincare',
-      kind: 'serum',
-      unit: 'dropper',
-      slug,
-    })
-    .returning({ id: products.id })
-  if (!row) throw new Error('product insert failed')
+  const product = await createTestProduct(userId, { name })
   if (ingredientIds.length > 0) {
     await testDb
       .insert(productIngredients)
-      .values(ingredientIds.map((ingredientId) => ({ productId: row.id, ingredientId })))
+      .values(ingredientIds.map((ingredientId) => ({ productId: product.id, ingredientId })))
   }
-  return row.id
+  return product.id
 }
+
+type CollectionOpts = { status?: 'in_stock' | 'avoided'; sentiment?: number; tolerance?: number }
 
 async function addToCollection(
   userId: string,
   productId: string,
-  opts: { status?: 'in_stock' | 'avoided'; sentiment?: number; tolerance?: number }
+  opts: CollectionOpts
 ): Promise<void> {
   const [row] = await testDb
     .insert(userProducts)
@@ -72,6 +66,21 @@ async function addToCollection(
   }
 }
 
+// MIN_EVIDENCE is 2, so a classification needs the ingredient on two products.
+// The bucket each product lands in is the subject of every test, hence passed in.
+async function seedPair(
+  userId: string,
+  ingredientId: string,
+  prefix: string,
+  first: CollectionOpts,
+  second: CollectionOpts
+): Promise<void> {
+  const p1 = await createProduct(userId, `${prefix}-1`, [ingredientId])
+  const p2 = await createProduct(userId, `${prefix}-2`, [ingredientId])
+  await addToCollection(userId, p1, first)
+  await addToCollection(userId, p2, second)
+}
+
 function getScore(userId: string, ingredientId: string) {
   return testDb
     .select()
@@ -86,15 +95,12 @@ function getScore(userId: string, ingredientId: string) {
 }
 
 describe('recalculateAllSignalsForUser', () => {
-  it('flags an ingredient over-represented in bad products as suspect', async () => {
+  it('flags an ingredient that appears too often in bad products as suspect', async () => {
     const user = await createTestUser('signal-suspect@test.local')
     const ing = await createIngredient(user.id, 'suspect-actif')
-    const p1 = await createProduct(user.id, 'bad-1', [ing])
-    const p2 = await createProduct(user.id, 'bad-2', [ing])
-    await addToCollection(user.id, p1, { status: 'avoided' })
-    await addToCollection(user.id, p2, { tolerance: 1 })
+    await seedPair(user.id, ing, 'bad', { status: 'avoided' }, { tolerance: 1 })
 
-    await recalculateAllSignalsForUser(user.id, testDb)
+    await recalcTx(user.id)
 
     const row = await getScore(user.id, ing)
     expect(row?.isSuspect).toBe(true)
@@ -102,15 +108,12 @@ describe('recalculateAllSignalsForUser', () => {
     expect(Number(row?.suspicionScore)).toBeGreaterThan(0)
   })
 
-  it('flags an ingredient over-represented in good products as favorite', async () => {
+  it('flags an ingredient that appears too often in good products as favorite', async () => {
     const user = await createTestUser('signal-fav@test.local')
     const ing = await createIngredient(user.id, 'favorite-actif')
-    const g1 = await createProduct(user.id, 'good-1', [ing])
-    const g2 = await createProduct(user.id, 'good-2', [ing])
-    await addToCollection(user.id, g1, { tolerance: 5 })
-    await addToCollection(user.id, g2, { sentiment: 6 })
+    await seedPair(user.id, ing, 'good', { tolerance: 5 }, { sentiment: 6 })
 
-    await recalculateAllSignalsForUser(user.id, testDb)
+    await recalcTx(user.id)
 
     const row = await getScore(user.id, ing)
     expect(row?.isFavorite).toBe(true)
@@ -124,7 +127,7 @@ describe('recalculateAllSignalsForUser', () => {
     const p1 = await createProduct(user.id, 'weak-bad', [ing])
     await addToCollection(user.id, p1, { status: 'avoided' })
 
-    await recalculateAllSignalsForUser(user.id, testDb)
+    await recalcTx(user.id)
 
     const row = await getScore(user.id, ing)
     expect(row?.isSuspect).toBe(false)
@@ -136,12 +139,9 @@ describe('recalculateAllSignalsForUser', () => {
     const user = await createTestUser('signal-filler@test.local')
     const ing = await createIngredient(user.id, 'aqua-filler')
     await testDb.insert(ingredientDermoProfiles).values({ ingredientId: ing, isFiller: true })
-    const p1 = await createProduct(user.id, 'filler-1', [ing])
-    const p2 = await createProduct(user.id, 'filler-2', [ing])
-    await addToCollection(user.id, p1, { status: 'avoided' })
-    await addToCollection(user.id, p2, { tolerance: 1 })
+    await seedPair(user.id, ing, 'filler', { status: 'avoided' }, { tolerance: 1 })
 
-    await recalculateAllSignalsForUser(user.id, testDb)
+    await recalcTx(user.id)
 
     const row = await getScore(user.id, ing)
     expect(row).toBeUndefined()
@@ -161,12 +161,9 @@ describe('recalculateAllSignalsForUser', () => {
     })
 
     const live = await createIngredient(user.id, 'live-actif')
-    const p1 = await createProduct(user.id, 'orphan-bad-1', [live])
-    const p2 = await createProduct(user.id, 'orphan-bad-2', [live])
-    await addToCollection(user.id, p1, { status: 'avoided' })
-    await addToCollection(user.id, p2, { tolerance: 1 })
+    await seedPair(user.id, live, 'orphan-bad', { status: 'avoided' }, { tolerance: 1 })
 
-    await recalculateAllSignalsForUser(user.id, testDb)
+    await recalcTx(user.id)
 
     expect(await getScore(user.id, orphan)).toBeUndefined()
     expect((await getScore(user.id, live))?.isSuspect).toBe(true)
@@ -175,12 +172,9 @@ describe('recalculateAllSignalsForUser', () => {
   it('does not crash on an empty good bucket (no division by zero)', async () => {
     const user = await createTestUser('signal-zerogood@test.local')
     const ing = await createIngredient(user.id, 'onlybad-actif')
-    const p1 = await createProduct(user.id, 'zerogood-1', [ing])
-    const p2 = await createProduct(user.id, 'zerogood-2', [ing])
-    await addToCollection(user.id, p1, { status: 'avoided' })
-    await addToCollection(user.id, p2, { tolerance: 2 })
+    await seedPair(user.id, ing, 'zerogood', { status: 'avoided' }, { tolerance: 2 })
 
-    await recalculateAllSignalsForUser(user.id, testDb)
+    await recalcTx(user.id)
 
     const row = await getScore(user.id, ing)
     expect(row?.isSuspect).toBe(true)
@@ -190,7 +184,7 @@ describe('recalculateAllSignalsForUser', () => {
   it('does not crash and writes nothing for an empty collection', async () => {
     const user = await createTestUser('signal-empty@test.local')
 
-    await recalculateAllSignalsForUser(user.id, testDb)
+    await recalcTx(user.id)
 
     const rows = await testDb
       .select()
@@ -203,12 +197,9 @@ describe('recalculateAllSignalsForUser', () => {
   it('treats tolerance = 3 as neutral (no signal row)', async () => {
     const user = await createTestUser('signal-neutral@test.local')
     const ing = await createIngredient(user.id, 'neutral-actif')
-    const p1 = await createProduct(user.id, 'neutral-1', [ing])
-    const p2 = await createProduct(user.id, 'neutral-2', [ing])
-    await addToCollection(user.id, p1, { tolerance: 3 })
-    await addToCollection(user.id, p2, { tolerance: 3 })
+    await seedPair(user.id, ing, 'neutral', { tolerance: 3 }, { tolerance: 3 })
 
-    await recalculateAllSignalsForUser(user.id, testDb)
+    await recalcTx(user.id)
 
     expect(await getScore(user.id, ing)).toBeUndefined()
   })
@@ -216,12 +207,9 @@ describe('recalculateAllSignalsForUser', () => {
   it('classifies tolerance = 4 as a favorite (good-bucket lower bound)', async () => {
     const user = await createTestUser('signal-tol4@test.local')
     const ing = await createIngredient(user.id, 'tol4-actif')
-    const p1 = await createProduct(user.id, 'tol4-1', [ing])
-    const p2 = await createProduct(user.id, 'tol4-2', [ing])
-    await addToCollection(user.id, p1, { tolerance: 4 })
-    await addToCollection(user.id, p2, { tolerance: 4 })
+    await seedPair(user.id, ing, 'tol4', { tolerance: 4 }, { tolerance: 4 })
 
-    await recalculateAllSignalsForUser(user.id, testDb)
+    await recalcTx(user.id)
 
     const row = await getScore(user.id, ing)
     expect(row?.isFavorite).toBe(true)
@@ -234,12 +222,15 @@ describe('recalculateAllSignalsForUser', () => {
   it('lands sentiment=6 + low tolerance in both buckets (cancels to zero)', async () => {
     const user = await createTestUser('signal-dual@test.local')
     const ing = await createIngredient(user.id, 'dual-actif')
-    const p1 = await createProduct(user.id, 'dual-1', [ing])
-    const p2 = await createProduct(user.id, 'dual-2', [ing])
-    await addToCollection(user.id, p1, { sentiment: 6, tolerance: 2 })
-    await addToCollection(user.id, p2, { sentiment: 6, tolerance: 2 })
+    await seedPair(
+      user.id,
+      ing,
+      'dual',
+      { sentiment: 6, tolerance: 2 },
+      { sentiment: 6, tolerance: 2 }
+    )
 
-    await recalculateAllSignalsForUser(user.id, testDb)
+    await recalcTx(user.id)
 
     const row = await getScore(user.id, ing)
     expect(row).toBeDefined()

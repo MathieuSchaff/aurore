@@ -1,4 +1,4 @@
-import { afterEach, beforeEach, describe, expect, it } from 'bun:test'
+import { afterEach, beforeAll, beforeEach, describe, expect, it } from 'bun:test'
 
 import { HTTP_STATUS } from '@aurore/shared'
 
@@ -10,6 +10,7 @@ import {
   type TestClient,
   withAuth,
 } from '../../../tests/helpers/createTestClient'
+import { expectOk } from '../../../tests/helpers/expectStatus'
 import { TEST_CREDENTIALS } from '../../../tests/helpers/test-credentials'
 import {
   createTestAdminUser,
@@ -38,8 +39,11 @@ describe('Content reports — user POST + admin GET/PATCH', () => {
   let adminToken: string
   let contributorToken: string
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     client = await createTestClient()
+  })
+
+  beforeEach(async () => {
     const toto = TEST_CREDENTIALS.toto
     const admin = TEST_CREDENTIALS.admin
     const contributor = TEST_CREDENTIALS.contributor
@@ -62,17 +66,17 @@ describe('Content reports — user POST + admin GET/PATCH', () => {
   })
 
   it('user POSTs a report and gets 201 with the row', async () => {
-    const res = await client.reports.$post(
-      {
-        json: { targetType: 'review', targetId: ANY_TARGET, reason: 'spam advertising' },
-      },
-      withAuth(userToken)
+    const report = await expectOk(
+      client.reports.$post(
+        {
+          json: { targetType: 'review', targetId: ANY_TARGET, reason: 'spam advertising' },
+        },
+        withAuth(userToken)
+      ),
+      HTTP_STATUS.CREATED
     )
 
-    expect(res.status as number).toBe(HTTP_STATUS.CREATED)
-    const body = await res.json()
-    if (!body.success) throw new Error(`expected success, got ${JSON.stringify(body)}`)
-    expect(body.data).toMatchObject({
+    expect(report).toMatchObject({
       reporterId: userId,
       targetType: 'review',
       targetId: ANY_TARGET,
@@ -85,25 +89,25 @@ describe('Content reports — user POST + admin GET/PATCH', () => {
 
   // S2 (ADR-0006): a catalogue sheet is « Signaler »-able like a review.
   it('user POSTs a report on a product sheet → 201', async () => {
-    const res = await client.reports.$post(
-      { json: { targetType: 'product', targetId: ANY_TARGET, reason: 'fiche spam / pub' } },
-      withAuth(userToken)
+    const report = await expectOk(
+      client.reports.$post(
+        { json: { targetType: 'product', targetId: ANY_TARGET, reason: 'fiche spam / pub' } },
+        withAuth(userToken)
+      ),
+      HTTP_STATUS.CREATED
     )
-    expect(res.status as number).toBe(HTTP_STATUS.CREATED)
-    const body = await res.json()
-    if (!body.success) throw new Error(`expected success, got ${JSON.stringify(body)}`)
-    expect(body.data.targetType).toBe('product')
+    expect(report.targetType).toBe('product')
   })
 
   it('user POSTs a report on an ingredient sheet → 201', async () => {
-    const res = await client.reports.$post(
-      { json: { targetType: 'ingredient', targetId: OTHER_TARGET, reason: 'fiche douteuse' } },
-      withAuth(userToken)
+    const report = await expectOk(
+      client.reports.$post(
+        { json: { targetType: 'ingredient', targetId: OTHER_TARGET, reason: 'fiche douteuse' } },
+        withAuth(userToken)
+      ),
+      HTTP_STATUS.CREATED
     )
-    expect(res.status as number).toBe(HTTP_STATUS.CREATED)
-    const body = await res.json()
-    if (!body.success) throw new Error(`expected success, got ${JSON.stringify(body)}`)
-    expect(body.data.targetType).toBe('ingredient')
+    expect(report.targetType).toBe('ingredient')
   })
 
   it('user POST rejects whitespace-only reason', async () => {
@@ -137,14 +141,10 @@ describe('Content reports — user POST + admin GET/PATCH', () => {
       },
     ])
 
-    const res = await client.admin.reports.$get({ query: {} }, withAuth(adminToken))
-
-    expect(res.status).toBe(HTTP_STATUS.OK)
-    const body = await res.json()
-    if (!body.success) throw new Error('admin list failed')
-    expect(body.data.items.length).toBeGreaterThanOrEqual(2)
-    expect(body.data.items[0]?.reason).toBe('recent')
-    expect(body.data.items[1]?.reason).toBe('old')
+    const list = await expectOk(client.admin.reports.$get({ query: {} }, withAuth(adminToken)))
+    expect(list.items.length).toBeGreaterThanOrEqual(2)
+    expect(list.items[0]?.reason).toBe('recent')
+    expect(list.items[1]?.reason).toBe('old')
   })
 
   it('admin GET filters by status=resolved', async () => {
@@ -189,17 +189,15 @@ describe('Content reports — user POST + admin GET/PATCH', () => {
     if (!report) throw new Error('report seed failed')
 
     const before = Date.now()
-    const res = await client.admin.reports[':id'].$patch(
-      { param: { id: report.id }, json: { status: 'resolved' } },
-      withAuth(adminToken)
+    const updated = await expectOk(
+      client.admin.reports[':id'].$patch(
+        { param: { id: report.id }, json: { status: 'resolved' } },
+        withAuth(adminToken)
+      )
     )
-
-    expect(res.status).toBe(HTTP_STATUS.OK)
-    const body = await res.json()
-    if (!body.success) throw new Error('admin patch failed')
-    expect(body.data.status).toBe('resolved')
-    expect(body.data.reviewedBy).toBe(adminId)
-    expect(body.data.reviewedAt && Date.parse(body.data.reviewedAt)).toBeGreaterThanOrEqual(before)
+    expect(updated.status).toBe('resolved')
+    expect(updated.reviewedBy).toBe(adminId)
+    expect(updated.reviewedAt && Date.parse(updated.reviewedAt)).toBeGreaterThanOrEqual(before)
   })
 
   it('admin PATCH returns 404 on missing report', async () => {
@@ -254,14 +252,13 @@ describe('Content reports — user POST + admin GET/PATCH', () => {
       .returning({ id: contentReports.id })
     if (!report) throw new Error('report seed failed')
 
-    const res = await client.admin.reports[':id'].$patch(
-      { param: { id: report.id }, json: { status: 'resolved' } },
-      withAuth(contributorToken)
+    const updated = await expectOk(
+      client.admin.reports[':id'].$patch(
+        { param: { id: report.id }, json: { status: 'resolved' } },
+        withAuth(contributorToken)
+      )
     )
-    expect(res.status).toBe(HTTP_STATUS.OK)
-    const body = await res.json()
-    if (!body.success) throw new Error('contributor patch failed')
-    expect(body.data.status).toBe('resolved')
+    expect(updated.status).toBe('resolved')
   })
 
   // S3 (ADR-0006): escalate-to-admin. Orthogonal to status — the report stays
@@ -279,19 +276,15 @@ describe('Content reports — user POST + admin GET/PATCH', () => {
     if (!report) throw new Error('report seed failed')
 
     const before = Date.now()
-    const res = await client.admin.reports[':id'].escalate.$patch(
-      { param: { id: report.id } },
-      withAuth(contributorToken)
+    const updated = await expectOk(
+      client.admin.reports[':id'].escalate.$patch(
+        { param: { id: report.id } },
+        withAuth(contributorToken)
+      )
     )
-
-    expect(res.status).toBe(HTTP_STATUS.OK)
-    const body = await res.json()
-    if (!body.success) throw new Error(`escalate failed: ${JSON.stringify(body)}`)
-    expect(body.data.escalatedBy).toBe(contributorId)
-    expect(body.data.escalatedAt && Date.parse(body.data.escalatedAt)).toBeGreaterThanOrEqual(
-      before
-    )
-    expect(body.data.status).toBe('open')
+    expect(updated.escalatedBy).toBe(contributorId)
+    expect(updated.escalatedAt && Date.parse(updated.escalatedAt)).toBeGreaterThanOrEqual(before)
+    expect(updated.status).toBe('open')
   })
 
   it('admin can escalate a report', async () => {
@@ -306,14 +299,13 @@ describe('Content reports — user POST + admin GET/PATCH', () => {
       .returning({ id: contentReports.id })
     if (!report) throw new Error('report seed failed')
 
-    const res = await client.admin.reports[':id'].escalate.$patch(
-      { param: { id: report.id } },
-      withAuth(adminToken)
+    const updated = await expectOk(
+      client.admin.reports[':id'].escalate.$patch(
+        { param: { id: report.id } },
+        withAuth(adminToken)
+      )
     )
-    expect(res.status).toBe(HTTP_STATUS.OK)
-    const body = await res.json()
-    if (!body.success) throw new Error('admin escalate failed')
-    expect(body.data.escalatedBy).toBe(adminId)
+    expect(updated.escalatedBy).toBe(adminId)
   })
 
   it('escalate returns 404 on missing report', async () => {
@@ -362,16 +354,11 @@ describe('Content reports — user POST + admin GET/PATCH', () => {
       },
     ])
 
-    const res = await client.admin.reports.$get(
-      { query: { escalated: 'true' } },
-      withAuth(adminToken)
+    const list = await expectOk(
+      client.admin.reports.$get({ query: { escalated: 'true' } }, withAuth(adminToken))
     )
-
-    expect(res.status).toBe(HTTP_STATUS.OK)
-    const body = await res.json()
-    if (!body.success) throw new Error('escalated filter failed')
-    expect(body.data.items.length).toBe(1)
-    expect(body.data.items[0]?.reason).toBe('escalated one')
+    expect(list.items.length).toBe(1)
+    expect(list.items[0]?.reason).toBe('escalated one')
   })
 
   // status + escalated compose with AND: an escalated-but-resolved report must be
@@ -399,15 +386,13 @@ describe('Content reports — user POST + admin GET/PATCH', () => {
       },
     ])
 
-    const res = await client.admin.reports.$get(
-      { query: { status: 'open', escalated: 'true' } },
-      withAuth(adminToken)
+    const list = await expectOk(
+      client.admin.reports.$get(
+        { query: { status: 'open', escalated: 'true' } },
+        withAuth(adminToken)
+      )
     )
-
-    expect(res.status).toBe(HTTP_STATUS.OK)
-    const body = await res.json()
-    if (!body.success) throw new Error('combined filter failed')
-    expect(body.data.items.length).toBe(1)
-    expect(body.data.items[0]?.reason).toBe('open + escalated')
+    expect(list.items.length).toBe(1)
+    expect(list.items[0]?.reason).toBe('open + escalated')
   })
 })

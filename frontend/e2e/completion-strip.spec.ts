@@ -1,11 +1,12 @@
 import { expect, test } from '@playwright/test'
 
 import { registerFreshUser } from './helpers/auth'
+import { gotoHydrated } from './helpers/hydration'
 
-test.describe('Profile — completion strip', () => {
+test.describe('Profile: completion strip', () => {
   test('shows strip with both section buttons for empty profile', async ({ page }) => {
     await registerFreshUser(page)
-    await page.goto('/profile')
+    await gotoHydrated(page, '/profile')
 
     const strip = page.getByRole('complementary', { name: 'Compléter le profil' })
     await expect(strip).toBeVisible()
@@ -16,7 +17,7 @@ test.describe('Profile — completion strip', () => {
 
   test('clicking "Mes informations" opens the hero edit form', async ({ page }) => {
     await registerFreshUser(page)
-    await page.goto('/profile')
+    await gotoHydrated(page, '/profile')
 
     const strip = page.getByRole('complementary', { name: 'Compléter le profil' })
     await strip.getByRole('button', { name: 'Mes informations' }).click()

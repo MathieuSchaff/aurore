@@ -1,6 +1,7 @@
 import { expect, test } from '@playwright/test'
 
 import { createProduct, loginAndGetToken, loginAsUser } from './helpers/catalog'
+import { gotoHydrated } from './helpers/hydration'
 
 const isPatch200 =
   (re: RegExp) => (r: { request(): { method(): string }; url(): string; status(): number }) =>
@@ -13,7 +14,7 @@ test.describe('Admin catalog moderation queue', () => {
   test('verifies, then hides + restores a submitted product via real round-trips', async ({
     page,
   }) => {
-    // Products created as a plain user — they land unverified in the moderation queue.
+    // Products created as a plain user land unverified in the moderation queue.
     // Admin-created products are auto-verified (resolveCatalogQuality) and skip the queue.
     const userToken = await loginAsUser(page)
     const tag = Date.now()
@@ -22,10 +23,10 @@ test.describe('Admin catalog moderation queue', () => {
 
     // Switch page session to admin for UI navigation.
     await loginAndGetToken(page)
-    await page.goto('/admin/catalog')
+    await gotoHydrated(page, '/admin/catalog')
     await expect(page.getByRole('heading', { name: 'Modération catalogue' })).toBeVisible()
 
-    // Verify — one-way bless.
+    // Verify: one-way bless.
     const verifyRow = page.locator('tr', { hasText: toVerify.name })
     await expect(verifyRow).toBeVisible({ timeout: 15_000 })
     const verified = page.waitForResponse(isPatch200(VERIFY_PATCH))
@@ -34,7 +35,7 @@ test.describe('Admin catalog moderation queue', () => {
     await verified
     await expect(page.getByText('Fiche vérifiée.')).toBeVisible()
 
-    // Hide — reversible.
+    // Hide: reversible.
     const hideRow = page.locator('tr', { hasText: toHide.name })
     await expect(hideRow).toBeVisible()
     const hidden = page.waitForResponse(isPatch200(MODERATE_PATCH))

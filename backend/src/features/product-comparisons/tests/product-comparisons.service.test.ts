@@ -3,7 +3,7 @@ import { beforeEach, describe, expect, it } from 'bun:test'
 import { ingredients, productIngredients } from '../../../db/schema'
 import { testDb } from '../../../tests/db.test.config'
 import { cleanDatabase } from '../../../tests/helpers/db-cleaner'
-import { createTestUser } from '../../../tests/helpers/test-factories'
+import { createTestProduct, createTestUser } from '../../../tests/helpers/test-factories'
 import { createProduct } from '../../products/service'
 import {
   createComparison,
@@ -15,15 +15,6 @@ import {
 
 let user: { id: string }
 
-async function makeProduct(name: string, brand: string) {
-  return createProduct(
-    user.id,
-    'admin',
-    { name, brand, kind: 'serum', unit: 'pump', category: 'skincare' },
-    testDb
-  )
-}
-
 describe('createComparison', () => {
   beforeEach(async () => {
     await cleanDatabase()
@@ -31,8 +22,8 @@ describe('createComparison', () => {
   })
 
   it('creates a comparison with 2 products', async () => {
-    const p1 = await makeProduct('Sérum A', 'BrandA')
-    const p2 = await makeProduct('Sérum B', 'BrandB')
+    const p1 = await createTestProduct(user.id, { name: 'Sérum A', brand: 'BrandA' })
+    const p2 = await createTestProduct(user.id, { name: 'Sérum B', brand: 'BrandB' })
 
     const cmp = await createComparison(
       user.id,
@@ -49,7 +40,7 @@ describe('createComparison', () => {
   })
 
   it('rejects unknown product ids', async () => {
-    const real = await makeProduct('Sérum X', 'BrandX')
+    const real = await createTestProduct(user.id, { name: 'Sérum X', brand: 'BrandX' })
     const fakeId = '00000000-0000-7000-8000-000000000000'
 
     await expect(
@@ -58,8 +49,8 @@ describe('createComparison', () => {
   })
 
   it("denies access to another user's comparison", async () => {
-    const p1 = await makeProduct('Sérum A', 'BrandA')
-    const p2 = await makeProduct('Sérum B', 'BrandB')
+    const p1 = await createTestProduct(user.id, { name: 'Sérum A', brand: 'BrandA' })
+    const p2 = await createTestProduct(user.id, { name: 'Sérum B', brand: 'BrandB' })
 
     const cmp = await createComparison(user.id, { productIds: [p1.id, p2.id] }, testDb)
 
@@ -78,9 +69,9 @@ describe('updateComparison', () => {
   })
 
   it('rewrites productIds and persists order', async () => {
-    const a = await makeProduct('Sérum A', 'BrandA')
-    const b = await makeProduct('Sérum B', 'BrandB')
-    const c = await makeProduct('Sérum C', 'BrandC')
+    const a = await createTestProduct(user.id, { name: 'Sérum A', brand: 'BrandA' })
+    const b = await createTestProduct(user.id, { name: 'Sérum B', brand: 'BrandB' })
+    const c = await createTestProduct(user.id, { name: 'Sérum C', brand: 'BrandC' })
 
     const cmp = await createComparison(user.id, { productIds: [a.id, b.id] }, testDb)
 
@@ -91,8 +82,8 @@ describe('updateComparison', () => {
   })
 
   it('renames without touching products', async () => {
-    const p1 = await makeProduct('Sérum A', 'BrandA')
-    const p2 = await makeProduct('Sérum B', 'BrandB')
+    const p1 = await createTestProduct(user.id, { name: 'Sérum A', brand: 'BrandA' })
+    const p2 = await createTestProduct(user.id, { name: 'Sérum B', brand: 'BrandB' })
 
     const cmp = await createComparison(
       user.id,
@@ -115,8 +106,8 @@ describe('listComparisons', () => {
   })
 
   it('lists user comparisons with product count', async () => {
-    const p1 = await makeProduct('Sérum A', 'BrandA')
-    const p2 = await makeProduct('Sérum B', 'BrandB')
+    const p1 = await createTestProduct(user.id, { name: 'Sérum A', brand: 'BrandA' })
+    const p2 = await createTestProduct(user.id, { name: 'Sérum B', brand: 'BrandB' })
 
     await createComparison(user.id, { name: 'first', productIds: [p1.id, p2.id] }, testDb)
 
@@ -134,8 +125,8 @@ describe('deleteComparison', () => {
   })
 
   it('removes a comparison and its items', async () => {
-    const p1 = await makeProduct('Sérum A', 'BrandA')
-    const p2 = await makeProduct('Sérum B', 'BrandB')
+    const p1 = await createTestProduct(user.id, { name: 'Sérum A', brand: 'BrandA' })
+    const p2 = await createTestProduct(user.id, { name: 'Sérum B', brand: 'BrandB' })
 
     const cmp = await createComparison(user.id, { productIds: [p1.id, p2.id] }, testDb)
 
@@ -147,8 +138,8 @@ describe('deleteComparison', () => {
   })
 
   it('denies a different user from deleting', async () => {
-    const a = await makeProduct('Sérum A', 'BrandA')
-    const b = await makeProduct('Sérum B', 'BrandB')
+    const a = await createTestProduct(user.id, { name: 'Sérum A', brand: 'BrandA' })
+    const b = await createTestProduct(user.id, { name: 'Sérum B', brand: 'BrandB' })
 
     const cmp = await createComparison(user.id, { productIds: [a.id, b.id] }, testDb)
 
@@ -167,8 +158,8 @@ describe('enrichment', () => {
   })
 
   it('flags niacinamide as active', async () => {
-    const p1 = await makeProduct('Sérum A', 'BrandA')
-    const p2 = await makeProduct('Sérum B', 'BrandB')
+    const p1 = await createTestProduct(user.id, { name: 'Sérum A', brand: 'BrandA' })
+    const p2 = await createTestProduct(user.id, { name: 'Sérum B', brand: 'BrandB' })
 
     const [ingredient] = await testDb
       .insert(ingredients)
@@ -209,7 +200,7 @@ describe('enrichment', () => {
       },
       testDb
     )
-    const b = await makeProduct('Sérum B', 'BrandB')
+    const b = await createTestProduct(user.id, { name: 'Sérum B', brand: 'BrandB' })
 
     const cmp = await createComparison(user.id, { productIds: [a.id, b.id] }, testDb)
 

@@ -9,23 +9,20 @@ import { useAuthStore } from '@/store/auth'
 import { ingredientLabels } from '../../constants'
 import { IngredientsPage } from './IngredientsPage'
 
-vi.mock('@tanstack/react-query', async (importOriginal) => {
-  const actual = await importOriginal<typeof import('@tanstack/react-query')>()
-  return { ...actual, useQuery: vi.fn() }
-})
+vi.mock('@tanstack/react-query', async () => ({
+  ...(await vi.importActual<typeof import('@tanstack/react-query')>('@tanstack/react-query')),
+  useQuery: vi.fn(),
+}))
 
-vi.mock('@tanstack/react-router', async (importOriginal) => {
-  const actual = await importOriginal<typeof import('@tanstack/react-router')>()
-  return {
-    ...actual,
-    Link: vi.fn(({ children }) => children),
-    createLink: vi.fn(() => vi.fn(({ children }) => children)),
-    useNavigate: vi.fn(),
-    getRouteApi: vi.fn(() => ({
-      useSearch: () => ({ page: 1, type: 'skincare', profile_filter: false }),
-    })),
-  }
-})
+vi.mock('@tanstack/react-router', async () => ({
+  ...(await vi.importActual<typeof import('@tanstack/react-router')>('@tanstack/react-router')),
+  Link: vi.fn(({ children }) => children),
+  createLink: vi.fn(() => vi.fn(({ children }) => children)),
+  useNavigate: vi.fn(),
+  getRouteApi: vi.fn(() => ({
+    useSearch: () => ({ page: 1, type: 'skincare', profile_filter: false }),
+  })),
+}))
 
 vi.mock('@/lib/queries/ingredients', () => ({
   ingredientQueries: {

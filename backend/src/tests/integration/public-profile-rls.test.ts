@@ -1,40 +1,24 @@
 /**
  * Regression test: user_dermo_profiles_select_public + profiles_select_public
  * must let an anonymous app_runtime caller see public profiles but never leak
- * non-public ones. Service-level tests bypass RLS (testDb = owner pool); this
+ * ones that are not public. Service-level tests bypass RLS (testDb = owner pool); this
  * file binds to the real app_runtime role so the policies are exercised.
  */
-import { afterAll, beforeEach, describe, expect, it } from 'bun:test'
-import { SQL } from 'bun'
+import { describe, expect, it } from 'bun:test'
 
 import { eq } from 'drizzle-orm'
-import { drizzle } from 'drizzle-orm/bun-sql'
 
 import { profiles, userDermoProfiles } from '../../db/schema/auth/users'
 import { testDb } from '../db.test.config'
 import { setupDbTests } from '../db-setup'
-import { cleanDatabase } from '../helpers/db-cleaner'
+import { createAppRuntimeDb } from '../helpers/app-runtime-db'
 import { createTestUser } from '../helpers/test-factories'
 
-const APP_DATABASE_URL = process.env.APP_DATABASE_URL
-if (!APP_DATABASE_URL) throw new Error('APP_DATABASE_URL not set')
-
-const appRuntimePool = new SQL(APP_DATABASE_URL)
-const appRuntimeDb = drizzle(appRuntimePool, {
-  schema: await import('../../db/schema'),
-})
-
-afterAll(async () => {
-  await appRuntimePool.close()
-})
-
-beforeEach(async () => {
-  await cleanDatabase()
-})
+const appRuntimeDb = await createAppRuntimeDb()
 
 setupDbTests()
 
-describe('public-surface RLS — anonymous app_runtime', () => {
+describe('public-surface RLS: anonymous app_runtime', () => {
   it('sees only public profiles and their dermo rows', async () => {
     const alice = await createTestUser('alice-rls@test.local', 'Azerty123!')
     const bob = await createTestUser('bob-rls@test.local', 'Azerty123!')

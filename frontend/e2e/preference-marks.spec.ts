@@ -1,12 +1,12 @@
 import { expect, test } from '@playwright/test'
 
 import { loginAsPersona } from './helpers/auth'
-import { waitForHydration } from './helpers/hydration'
+import { gotoHydrated } from './helpers/hydration'
 
 // Server-mutating spec: one persona per browser project (see helpers/auth.ts),
 // final revert keeps the warm e2e stack idempotent across runs.
 
-test('happy path: règles Sans/Avec — geste en contexte, composeur, catalogue filtré', async ({
+test('happy path: règles Sans/Avec (geste en contexte, composeur, catalogue filtré)', async ({
   page,
   browserName,
 }) => {
@@ -32,16 +32,15 @@ test('happy path: règles Sans/Avec — geste en contexte, composeur, catalogue 
     await page.request.delete(`/api/profile/tag-preferences/${t.tagId}`, { headers: auth })
   }
 
-  // Declare "Sans" from the ingredient page (in-context shortcut, D4/D8).
-  await page.goto('/ingredients/niacinamide')
-  await waitForHydration(page)
+  // Declare "Sans" from the ingredient page (in-context shortcut).
+  await gotoHydrated(page, '/ingredients/niacinamide')
   const sansButton = page.getByRole('button', { name: 'Sans Niacinamide' })
   await expect(sansButton).toBeVisible()
   await expect(sansButton).toHaveAttribute('aria-pressed', 'false')
   await sansButton.click()
   await expect(sansButton).toHaveAttribute('aria-pressed', 'true')
 
-  // Post-gesture confirmation deep-links to the authoritative recap (D5).
+  // Post-gesture confirmation deep-links to the authoritative recap.
   await expect(page.getByText('Ajouté à vos repères')).toBeVisible()
   await page.getByRole('link', { name: 'voir', exact: true }).click()
   await expect(page).toHaveURL(/\/profile/)
@@ -57,11 +56,10 @@ test('happy path: règles Sans/Avec — geste en contexte, composeur, catalogue 
   ).toBeVisible()
 
   // Catalogue under "selon mon profil": "Sans" excludes, the banner states the rule.
-  await page.goto('/products?profile_filter=true')
   // The SSR render is anonymous, so it carries no declared rule and no banner. The banner
-  // appears only after the boot refresh re-fetches the list with the session. Two hops,
+  // appears only after the boot refresh fetches the list again with the session. Two hops,
   // which the default 5 s window loses under a loaded worker pool.
-  await waitForHydration(page)
+  await gotoHydrated(page, '/products?profile_filter=true')
   const banner = page.getByTestId('avoided-banner')
   await expect(banner).toBeVisible({ timeout: 15_000 })
   await expect(banner).toContainText('vos règles : sans : Niacinamide')
@@ -70,10 +68,9 @@ test('happy path: règles Sans/Avec — geste en contexte, composeur, catalogue 
   await banner.getByRole('button', { name: 'Afficher quand même' }).click()
   await expect(banner.getByRole('button', { name: 'Masquer à nouveau' })).toBeVisible()
 
-  // Direct entry in /profile (D8/D13): the verb is the list you add into, so the
+  // Direct entry in /profile: the verb is the list you add into, so the
   // "Avec" composer is the one under the "Avec" heading.
-  await page.goto('/profile')
-  await waitForHydration(page)
+  await gotoHydrated(page, '/profile')
   await expect(marks.getByRole('heading', { name: 'Mes repères' })).toBeVisible()
   const avecGroup = page
     .locator('.preference-marks__group')
@@ -96,14 +93,12 @@ test('happy path: règles Sans/Avec — geste en contexte, composeur, catalogue 
   ).toBeVisible()
 
   // "Avec" now filters: rows without the target are masked, the banner says so.
-  await page.goto('/products?profile_filter=true')
-  await waitForHydration(page)
+  await gotoHydrated(page, '/products?profile_filter=true')
   await expect(banner).toBeVisible({ timeout: 15_000 })
   await expect(banner).toContainText('avec : Niacinamide')
 
   // Revert: remove the rule from the recap, list empties.
-  await page.goto('/profile')
-  await waitForHydration(page)
+  await gotoHydrated(page, '/profile')
   await page.locator('#reperes').getByRole('button', { name: 'Retirer Niacinamide' }).click()
   // Scoped to list labels: the empty state's invitation copy mentions
   // "niacinamide" and getByText matches case-insensitively.

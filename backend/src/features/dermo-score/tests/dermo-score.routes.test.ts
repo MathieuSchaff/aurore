@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it } from 'bun:test'
+import { beforeAll, describe, expect, it } from 'bun:test'
 
 import { HTTP_STATUS } from '@aurore/shared'
 
@@ -36,7 +36,7 @@ async function seedProduct(inci: string | null) {
 describe('GET /products/:slug/dermo-score', () => {
   let client: TestClient
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     client = await createTestClient()
   })
 

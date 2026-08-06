@@ -10,7 +10,7 @@ describe('normalizeInci', () => {
     expect(r.value.split(', ')).toHaveLength(3)
   })
 
-  test('is idempotent — same substance reads identically everywhere', () => {
+  test('is idempotent: same substance reads identically everywhere', () => {
     const once = normalizeInci('WATER, GLYCERIN, NIACINAMIDE, SODIUM HYALURONATE').value
     const twice = normalizeInci(once).value
     expect(twice).toBe(once)
@@ -22,11 +22,18 @@ describe('normalizeInci', () => {
     expect(r.tokensAfter).toBe(3)
   })
 
-  test('keeps the original when cleaning halves the token count', () => {
-    // A long INCI followed by marketing prose the cleaner strips: if the kept
-    // portion is under half the original tokens, the original is preserved.
-    const raw = 'Aqua, Glycerin, Niacinamide, Panthenol. SANS PARABEN, SANS PARFUM.'
-    const r = normalizeInci(raw)
-    if (r.guardrailTripped) expect(r.value).toBe(raw)
+  test('keeps the original when cleaning yields no token', () => {
+    // A punctuation-only scrape must never overwrite a stored INCI with an empty string.
+    const r = normalizeInci('...')
+    expect(r.guardrailTripped).toBe(true)
+    expect(r.value).toBe('...')
+    expect(r.changed).toBe(false)
+  })
+
+  test('a marketing tail does not trip the guardrail', () => {
+    const r = normalizeInci('Aqua, Glycerin, Niacinamide, Panthenol. SANS PARABEN, SANS PARFUM.')
+    expect(r.guardrailTripped).toBe(false)
+    expect(r.value).toContain('Niacinamide')
+    expect(r.value).toContain('Panthenol')
   })
 })

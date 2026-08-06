@@ -2,36 +2,38 @@ import { beforeEach, describe, expect, it } from 'bun:test'
 
 import { testDb } from '../../../tests/db.test.config'
 import { setupDbTests } from '../../../tests/db-setup'
-import { createTestUser } from '../../../tests/helpers/test-factories'
+import {
+  createTestIngredient,
+  createTestUser,
+  type TestUser,
+} from '../../../tests/helpers/test-factories'
 import { IngredientError } from '../ingredients-error'
 import {
-  createIngredient,
   getIngredientById,
   getIngredientBySlug,
   listIngredientEdits,
   updateIngredient,
 } from '../service'
 
-let user: any
-
-async function makeIngredient(
-  name: string,
-  extra: {
-    type?: 'skincare' | 'haircare' | 'dental' | 'supplement'
-    description?: string
-    content?: string
-    category?: string
-    slug?: string
-  } = {}
-) {
-  return createIngredient(testDb, user.id, 'contributor', {
-    name,
-    type: 'skincare' as const,
-    ...extra,
-  })
-}
+let user: TestUser
 
 setupDbTests()
+
+const updIng = (
+  userId: string,
+  id: string,
+  data: Parameters<typeof updateIngredient>[3],
+  summary?: string,
+  expectedUpdatedAt?: string
+) => testDb.transaction((tx) => updateIngredient(tx, userId, id, data, summary, expectedUpdatedAt))
+
+const getIng = (id: string) => testDb.transaction((tx) => getIngredientById(tx, id))
+
+// `changes` is a jsonb column, so its old/new payload needs a cast to be read.
+const lastChanges = async (ingredientId: string) => {
+  const edits = await listIngredientEdits(testDb, ingredientId)
+  return edits[0]?.changes as Record<string, { old: unknown; new: unknown }>
+}
 
 describe('updateIngredient — exhaustive', () => {
   beforeEach(async () => {
@@ -40,13 +42,14 @@ describe('updateIngredient — exhaustive', () => {
 
   describe('returning shape and values', () => {
     it('should return a full Ingredient object', async () => {
-      const created = await makeIngredient('Rétinol Return', {
+      const created = await createTestIngredient(user.id, {
+        name: 'Rétinol Return',
         description: 'Avant',
         content: '## Wiki',
         category: 'actif',
       })
 
-      const updated = await updateIngredient(testDb, user.id, created.id, { description: 'Après' })
+      const updated = await updIng(user.id, created.id, { description: 'Après' })
 
       expect(updated.id).toBe(created.id)
       expect(updated.name).toBe('Rétinol Return')
@@ -60,13 +63,14 @@ describe('updateIngredient — exhaustive', () => {
     })
 
     it('should return unchanged fields intact', async () => {
-      const created = await makeIngredient('Intact', {
+      const created = await createTestIngredient(user.id, {
+        name: 'Intact',
         description: 'Desc originale',
         content: 'Contenu original',
         category: 'humectant',
       })
 
-      const updated = await updateIngredient(testDb, user.id, created.id, { category: 'actif' })
+      const updated = await updIng(user.id, created.id, { category: 'actif' })
 
       expect(updated.category).toBe('actif')
       expect(updated.name).toBe('Intact')
@@ -75,18 +79,18 @@ describe('updateIngredient — exhaustive', () => {
     })
 
     it('should persist the update in the database', async () => {
-      const created = await makeIngredient('Persist Test')
+      const created = await createTestIngredient(user.id, { name: 'Persist Test' })
 
-      await updateIngredient(testDb, user.id, created.id, { description: 'Nouvelle description' })
+      await updIng(user.id, created.id, { description: 'Nouvelle description' })
 
-      const fetched = await getIngredientById(testDb, created.id)
+      const fetched = await getIng(created.id)
       expect(fetched.description).toBe('Nouvelle description')
     })
 
     it('should return the original ingredient when no actual change occurs', async () => {
-      const created = await makeIngredient('NoChange', { category: 'actif' })
+      const created = await createTestIngredient(user.id, { name: 'NoChange', category: 'actif' })
 
-      const updated = await updateIngredient(testDb, user.id, created.id, { category: 'actif' })
+      const updated = await updIng(user.id, created.id, { category: 'actif' })
 
       expect(updated.id).toBe(created.id)
       expect(updated.category).toBe('actif')
@@ -95,17 +99,17 @@ describe('updateIngredient — exhaustive', () => {
 
   describe('individual field updates', () => {
     it('should update name only', async () => {
-      const created = await makeIngredient('Ancien Nom')
+      const created = await createTestIngredient(user.id, { name: 'Ancien Nom' })
 
-      const updated = await updateIngredient(testDb, user.id, created.id, { name: 'Nouveau Nom' })
+      const updated = await updIng(user.id, created.id, { name: 'Nouveau Nom' })
 
       expect(updated.name).toBe('Nouveau Nom')
     })
 
     it('should update description only', async () => {
-      const created = await makeIngredient('Desc Test')
+      const created = await createTestIngredient(user.id, { name: 'Desc Test' })
 
-      const updated = await updateIngredient(testDb, user.id, created.id, {
+      const updated = await updIng(user.id, created.id, {
         description: 'Description mise à jour',
       })
 
@@ -113,9 +117,9 @@ describe('updateIngredient — exhaustive', () => {
     })
 
     it('should update content only', async () => {
-      const created = await makeIngredient('Content Test')
+      const created = await createTestIngredient(user.id, { name: 'Content Test' })
 
-      const updated = await updateIngredient(testDb, user.id, created.id, {
+      const updated = await updIng(user.id, created.id, {
         content: '## Nouveau contenu wiki',
       })
 
@@ -123,26 +127,26 @@ describe('updateIngredient — exhaustive', () => {
     })
 
     it('should update category only', async () => {
-      const created = await makeIngredient('Cat Test', { category: 'actif' })
+      const created = await createTestIngredient(user.id, { name: 'Cat Test', category: 'actif' })
 
-      const updated = await updateIngredient(testDb, user.id, created.id, { category: 'excipient' })
+      const updated = await updIng(user.id, created.id, { category: 'excipient' })
 
       expect(updated.category).toBe('excipient')
     })
 
     it('should set category to null', async () => {
-      const created = await makeIngredient('Cat Null', { category: 'actif' })
+      const created = await createTestIngredient(user.id, { name: 'Cat Null', category: 'actif' })
 
-      const updated = await updateIngredient(testDb, user.id, created.id, { category: null })
+      const updated = await updIng(user.id, created.id, { category: null })
 
       expect(updated.category).toBeNull()
     })
 
     it('should update description from default empty string to a value', async () => {
-      const created = await makeIngredient('Empty Desc')
+      const created = await createTestIngredient(user.id, { name: 'Empty Desc' })
       expect(created.description).toBe('')
 
-      const updated = await updateIngredient(testDb, user.id, created.id, {
+      const updated = await updIng(user.id, created.id, {
         description: 'Maintenant rempli',
       })
 
@@ -150,10 +154,10 @@ describe('updateIngredient — exhaustive', () => {
     })
 
     it('should update content from default empty string to a value', async () => {
-      const created = await makeIngredient('Empty Content')
+      const created = await createTestIngredient(user.id, { name: 'Empty Content' })
       expect(created.content).toBe('')
 
-      const updated = await updateIngredient(testDb, user.id, created.id, {
+      const updated = await updIng(user.id, created.id, {
         content: '# Wiki complet',
       })
 
@@ -163,9 +167,9 @@ describe('updateIngredient — exhaustive', () => {
 
   describe('multiple fields at once', () => {
     it('should update two fields simultaneously', async () => {
-      const created = await makeIngredient('Multi 2')
+      const created = await createTestIngredient(user.id, { name: 'Multi 2' })
 
-      const updated = await updateIngredient(testDb, user.id, created.id, {
+      const updated = await updIng(user.id, created.id, {
         description: 'Nouvelle desc',
         category: 'humectant',
       })
@@ -175,14 +179,14 @@ describe('updateIngredient — exhaustive', () => {
     })
 
     it('should update all mutable fields simultaneously', async () => {
-      const created = await makeIngredient('Multi All', {
+      const created = await createTestIngredient(user.id, {
+        name: 'Multi All',
         description: 'Ancienne desc',
         content: 'Ancien contenu',
         category: 'actif',
       })
 
-      const updated = await updateIngredient(
-        testDb,
+      const updated = await updIng(
         user.id,
         created.id,
         {
@@ -202,13 +206,13 @@ describe('updateIngredient — exhaustive', () => {
     })
 
     it('should only track fields that actually changed in a multi-field update', async () => {
-      const created = await makeIngredient('Partial Change', {
+      const created = await createTestIngredient(user.id, {
+        name: 'Partial Change',
         description: 'Déjà là',
         category: 'actif',
       })
 
-      await updateIngredient(
-        testDb,
+      await updIng(
         user.id,
         created.id,
         { description: 'Déjà là', category: 'excipient' },
@@ -227,9 +231,9 @@ describe('updateIngredient — exhaustive', () => {
   // slug field in the payload is rejected by the strict update schema.
   describe('slug immutability (C-4)', () => {
     it('should not change slug when the name changes', async () => {
-      const created = await makeIngredient('Acide Original')
+      const created = await createTestIngredient(user.id, { name: 'Acide Original' })
 
-      const updated = await updateIngredient(testDb, user.id, created.id, {
+      const updated = await updIng(user.id, created.id, {
         name: 'Acide Hyaluronique Modifié',
       })
 
@@ -238,10 +242,10 @@ describe('updateIngredient — exhaustive', () => {
     })
 
     it('should not change slug when only non-name fields are updated', async () => {
-      const created = await makeIngredient('Slug Stable')
+      const created = await createTestIngredient(user.id, { name: 'Slug Stable' })
       const originalSlug = created.slug
 
-      const updated = await updateIngredient(testDb, user.id, created.id, {
+      const updated = await updIng(user.id, created.id, {
         description: 'Nouvelle description',
       })
 
@@ -249,19 +253,19 @@ describe('updateIngredient — exhaustive', () => {
     })
 
     it('should stay fetchable by its original slug after a name change', async () => {
-      const created = await makeIngredient('Ancien Slug Fetch')
+      const created = await createTestIngredient(user.id, { name: 'Ancien Slug Fetch' })
 
-      await updateIngredient(testDb, user.id, created.id, { name: 'Nouveau Slug Fetch' })
+      await updIng(user.id, created.id, { name: 'Nouveau Slug Fetch' })
 
       const fetched = await getIngredientBySlug(testDb, 'ancien-slug-fetch')
       expect(fetched.id).toBe(created.id)
     })
 
     it('should reject a slug field in the update payload', async () => {
-      const created = await makeIngredient('Slug Forced')
+      const created = await createTestIngredient(user.id, { name: 'Slug Forced' })
 
       await expect(
-        updateIngredient(testDb, user.id, created.id, {
+        updIng(user.id, created.id, {
           slug: 'mon-slug-custom',
         } as never)
       ).rejects.toThrow()
@@ -270,15 +274,12 @@ describe('updateIngredient — exhaustive', () => {
 
   describe('audit log', () => {
     it('should record old and new values in changes', async () => {
-      const created = await makeIngredient('Audit Values', { category: 'actif' })
+      const created = await createTestIngredient(user.id, {
+        name: 'Audit Values',
+        category: 'actif',
+      })
 
-      await updateIngredient(
-        testDb,
-        user.id,
-        created.id,
-        { category: 'excipient' },
-        'Changement catégorie'
-      )
+      await updIng(user.id, created.id, { category: 'excipient' }, 'Changement catégorie')
 
       const edits = await listIngredientEdits(testDb, created.id)
 
@@ -289,54 +290,48 @@ describe('updateIngredient — exhaustive', () => {
     })
 
     it('should record old null → new value', async () => {
-      const created = await makeIngredient('Audit Null To Value')
+      const created = await createTestIngredient(user.id, { name: 'Audit Null To Value' })
 
-      await updateIngredient(testDb, user.id, created.id, { category: 'actif' }, 'Ajout catégorie')
+      await updIng(user.id, created.id, { category: 'actif' }, 'Ajout catégorie')
 
-      const edits = await listIngredientEdits(testDb, created.id)
-      const changes = edits[0]?.changes as Record<string, { old: unknown; new: unknown }>
+      const changes = await lastChanges(created.id)
       expect(changes.category.old).toBeNull()
       expect(changes.category.new).toBe('actif')
     })
 
     it('should record old value → new null', async () => {
-      const created = await makeIngredient('Audit Value To Null', { category: 'actif' })
+      const created = await createTestIngredient(user.id, {
+        name: 'Audit Value To Null',
+        category: 'actif',
+      })
 
-      await updateIngredient(
-        testDb,
-        user.id,
-        created.id,
-        { category: null },
-        'Suppression catégorie'
-      )
+      await updIng(user.id, created.id, { category: null }, 'Suppression catégorie')
 
-      const edits = await listIngredientEdits(testDb, created.id)
-      const changes = edits[0]?.changes as Record<string, { old: unknown; new: unknown }>
+      const changes = await lastChanges(created.id)
       expect(changes.category.old).toBe('actif')
       expect(changes.category.new).toBeNull()
     })
 
     it('should record empty string → value for description', async () => {
-      const created = await makeIngredient('Audit Empty To Desc')
+      const created = await createTestIngredient(user.id, { name: 'Audit Empty To Desc' })
       expect(created.description).toBe('')
 
-      await updateIngredient(testDb, user.id, created.id, { description: 'Rempli' }, 'Ajout desc')
+      await updIng(user.id, created.id, { description: 'Rempli' }, 'Ajout desc')
 
-      const edits = await listIngredientEdits(testDb, created.id)
-      const changes = edits[0]?.changes as Record<string, { old: unknown; new: unknown }>
+      const changes = await lastChanges(created.id)
       expect(changes.description.old).toBe('')
       expect(changes.description.new).toBe('Rempli')
     })
 
     it('should record multiple changed fields in a single audit entry', async () => {
-      const created = await makeIngredient('Audit Multi', {
+      const created = await createTestIngredient(user.id, {
+        name: 'Audit Multi',
         description: 'Ancienne',
         content: 'Ancien contenu',
         category: 'actif',
       })
 
-      await updateIngredient(
-        testDb,
+      await updIng(
         user.id,
         created.id,
         { description: 'Nouvelle', content: 'Nouveau contenu', category: 'excipient' },
@@ -352,24 +347,18 @@ describe('updateIngredient — exhaustive', () => {
     })
 
     it('should store summary when provided', async () => {
-      const created = await makeIngredient('Summary Yes')
+      const created = await createTestIngredient(user.id, { name: 'Summary Yes' })
 
-      await updateIngredient(
-        testDb,
-        user.id,
-        created.id,
-        { description: 'Changé' },
-        'Mon résumé explicite'
-      )
+      await updIng(user.id, created.id, { description: 'Changé' }, 'Mon résumé explicite')
 
       const edits = await listIngredientEdits(testDb, created.id)
       expect(edits[0]?.summary).toBe('Mon résumé explicite')
     })
 
     it('should store summary as null when not provided', async () => {
-      const created = await makeIngredient('Summary No')
+      const created = await createTestIngredient(user.id, { name: 'Summary No' })
 
-      await updateIngredient(testDb, user.id, created.id, { description: 'Changé sans summary' })
+      await updIng(user.id, created.id, { description: 'Changé sans summary' })
 
       const edits = await listIngredientEdits(testDb, created.id)
       expect(edits[0]?.summary).toBeNull()
@@ -377,40 +366,40 @@ describe('updateIngredient — exhaustive', () => {
 
     it('should store the correct editedBy user', async () => {
       const other = await createTestUser('autre@test.com')
-      const created = await makeIngredient('EditedBy Test')
+      const created = await createTestIngredient(user.id, { name: 'EditedBy Test' })
 
-      await updateIngredient(testDb, other.id, created.id, { description: 'Modifié par autre' })
+      await updIng(other.id, created.id, { description: 'Modifié par autre' })
 
       const edits = await listIngredientEdits(testDb, created.id)
       expect(edits[0]?.editedBy).toBe(other.id)
     })
 
     it('should store the correct ingredientId', async () => {
-      const created = await makeIngredient('IngredientId Test')
+      const created = await createTestIngredient(user.id, { name: 'IngredientId Test' })
 
-      await updateIngredient(testDb, user.id, created.id, { description: 'Check ingredientId' })
+      await updIng(user.id, created.id, { description: 'Check ingredientId' })
 
       const edits = await listIngredientEdits(testDb, created.id)
       expect(edits[0]?.ingredientId).toBe(created.id)
     })
 
     it('should store createdAt on the edit entry', async () => {
-      const created = await makeIngredient('Edit Timestamp')
+      const created = await createTestIngredient(user.id, { name: 'Edit Timestamp' })
 
-      await updateIngredient(testDb, user.id, created.id, { description: 'Timestamp check' })
+      await updIng(user.id, created.id, { description: 'Timestamp check' })
 
       const edits = await listIngredientEdits(testDb, created.id)
       expect(typeof edits[0]?.createdAt).toBe('string')
     })
 
     it('should not create audit log when same value is set (no-op)', async () => {
-      const created = await makeIngredient('NoOp Test', {
+      const created = await createTestIngredient(user.id, {
+        name: 'NoOp Test',
         description: 'Identique',
         category: 'actif',
       })
 
-      await updateIngredient(
-        testDb,
+      await updIng(
         user.id,
         created.id,
         { description: 'Identique', category: 'actif' },
@@ -422,33 +411,21 @@ describe('updateIngredient — exhaustive', () => {
     })
 
     it('should not create audit log when null is set on already-null field', async () => {
-      const created = await makeIngredient('Null Null')
+      const created = await createTestIngredient(user.id, { name: 'Null Null' })
       expect(created.category).toBeNull()
 
-      await updateIngredient(testDb, user.id, created.id, { category: null })
+      await updIng(user.id, created.id, { category: null })
 
       const edits = await listIngredientEdits(testDb, created.id)
       expect(edits).toHaveLength(0)
     })
 
     it('should create separate audit entries for successive updates', async () => {
-      const created = await makeIngredient('Multi Edit')
+      const created = await createTestIngredient(user.id, { name: 'Multi Edit' })
 
-      await updateIngredient(
-        testDb,
-        user.id,
-        created.id,
-        { description: 'Première modif' },
-        'Edit 1'
-      )
-      await updateIngredient(
-        testDb,
-        user.id,
-        created.id,
-        { description: 'Deuxième modif' },
-        'Edit 2'
-      )
-      await updateIngredient(testDb, user.id, created.id, { category: 'actif' }, 'Edit 3')
+      await updIng(user.id, created.id, { description: 'Première modif' }, 'Edit 1')
+      await updIng(user.id, created.id, { description: 'Deuxième modif' }, 'Edit 2')
+      await updIng(user.id, created.id, { category: 'actif' }, 'Edit 3')
 
       const edits = await listIngredientEdits(testDb, created.id)
 
@@ -464,7 +441,7 @@ describe('updateIngredient — exhaustive', () => {
       const fakeId = crypto.randomUUID()
 
       try {
-        await updateIngredient(testDb, user.id, fakeId, { description: 'X' })
+        await updIng(user.id, fakeId, { description: 'X' })
         throw new Error('should have thrown')
       } catch (e) {
         expect(e).toBeInstanceOf(IngredientError)
@@ -476,10 +453,10 @@ describe('updateIngredient — exhaustive', () => {
       const fakeId = crypto.randomUUID()
 
       try {
-        await updateIngredient(testDb, user.id, fakeId, { description: 'X' }, 'Ghost edit')
+        await updIng(user.id, fakeId, { description: 'X' }, 'Ghost edit')
       } catch {}
 
-      const real = await makeIngredient('Real For Ghost Check')
+      const real = await createTestIngredient(user.id, { name: 'Real For Ghost Check' })
       const edits = await listIngredientEdits(testDb, real.id)
       expect(edits).toHaveLength(0)
     })
@@ -487,12 +464,12 @@ describe('updateIngredient — exhaustive', () => {
 
   describe('updatedAt behavior', () => {
     it('should advance updatedAt after a real change', async () => {
-      const created = await makeIngredient('Timestamp Advance')
+      const created = await createTestIngredient(user.id, { name: 'Timestamp Advance' })
       const originalUpdatedAt = created.updatedAt
 
       await new Promise((r) => setTimeout(r, 50))
 
-      const updated = await updateIngredient(testDb, user.id, created.id, {
+      const updated = await updIng(user.id, created.id, {
         description: 'Changé pour timestamp',
       })
 
@@ -502,9 +479,9 @@ describe('updateIngredient — exhaustive', () => {
     })
 
     it('should not change createdAt after update', async () => {
-      const created = await makeIngredient('CreatedAt Stable')
+      const created = await createTestIngredient(user.id, { name: 'CreatedAt Stable' })
 
-      const updated = await updateIngredient(testDb, user.id, created.id, {
+      const updated = await updIng(user.id, created.id, {
         description: 'Modifié',
       })
 

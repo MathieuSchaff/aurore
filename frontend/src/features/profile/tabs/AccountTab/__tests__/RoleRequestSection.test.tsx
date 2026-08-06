@@ -6,13 +6,13 @@ import userEvent from '@testing-library/user-event'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
 import { useCancelRoleRequest, useSubmitRoleRequest } from '@/lib/queries/role-requests'
-import { useAuthStore } from '@/store/auth'
+import { setAuthRole } from '@/test/mocks/auth-store'
 import { renderWithProviders } from '@/test/utils'
 
-vi.mock('@tanstack/react-query', async (importOriginal) => {
-  const actual = await importOriginal<typeof import('@tanstack/react-query')>()
-  return { ...actual, useQuery: vi.fn() }
-})
+vi.mock('@tanstack/react-query', async () => ({
+  ...(await vi.importActual<typeof import('@tanstack/react-query')>('@tanstack/react-query')),
+  useQuery: vi.fn(),
+}))
 
 vi.mock('@/store/auth', () => ({ useAuthStore: vi.fn() }))
 
@@ -23,12 +23,6 @@ vi.mock('@/lib/queries/role-requests', () => ({
 }))
 
 import { RoleRequestSection } from '../RoleRequestSection'
-
-function setRole(role: 'user' | 'admin' | 'contributor') {
-  vi.mocked(useAuthStore).mockImplementation(
-    (selector: unknown) => (selector as (s: { role: typeof role }) => unknown)({ role }) as never
-  )
-}
 
 function setQuery(state: {
   data?: RoleRequestView | null
@@ -82,7 +76,7 @@ describe('RoleRequestSection', () => {
   })
 
   it('renders nothing for a non-user role', () => {
-    setRole('contributor')
+    setAuthRole('contributor')
     setQuery({ data: null })
     renderWithProviders(<RoleRequestSection />)
 
@@ -90,7 +84,7 @@ describe('RoleRequestSection', () => {
   })
 
   it('shows a loading hint while fetching', () => {
-    setRole('user')
+    setAuthRole('user')
     setQuery({ isLoading: true })
     renderWithProviders(<RoleRequestSection />)
 
@@ -98,7 +92,7 @@ describe('RoleRequestSection', () => {
   })
 
   it('shows a recoverable message (not the form) when the load fails', () => {
-    setRole('user')
+    setAuthRole('user')
     setQuery({ isError: true })
     renderWithProviders(<RoleRequestSection />)
 
@@ -107,7 +101,7 @@ describe('RoleRequestSection', () => {
   })
 
   it('shows the pending state with a working cancel button', async () => {
-    setRole('user')
+    setAuthRole('user')
     setQuery({ data: makeRequest({ status: 'pending' }) })
     const { cancel } = setMutations()
     renderWithProviders(<RoleRequestSection />)
@@ -118,7 +112,7 @@ describe('RoleRequestSection', () => {
   })
 
   it('shows the welcome message when the latest request is approved', () => {
-    setRole('user')
+    setAuthRole('user')
     setQuery({ data: makeRequest({ status: 'approved' }) })
     renderWithProviders(<RoleRequestSection />)
 
@@ -126,7 +120,7 @@ describe('RoleRequestSection', () => {
   })
 
   it('shows the rejection reason above the resubmit form when rejected', () => {
-    setRole('user')
+    setAuthRole('user')
     setQuery({ data: makeRequest({ status: 'rejected', rejectionReason: 'Trop peu de détails.' }) })
     renderWithProviders(<RoleRequestSection />)
 
@@ -135,7 +129,7 @@ describe('RoleRequestSection', () => {
   })
 
   it('keeps the form behind an opt-in for a first-time user, then reveals it', async () => {
-    setRole('user')
+    setAuthRole('user')
     setQuery({ data: null })
     renderWithProviders(<RoleRequestSection />)
 
@@ -149,7 +143,7 @@ describe('RoleRequestSection', () => {
   })
 
   it('disables submit below the 10-char minimum and enables it at the boundary', async () => {
-    setRole('user')
+    setAuthRole('user')
     setQuery({ data: null })
     const { submit } = setMutations()
     renderWithProviders(<RoleRequestSection />)

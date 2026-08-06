@@ -1,48 +1,49 @@
-import { afterAll, describe, expect, it } from 'bun:test'
-import { SQL } from 'bun'
+import { describe, expect, it } from 'bun:test'
 
 import { HTTP_STATUS } from '@aurore/shared'
 
-import { eq, sql } from 'drizzle-orm'
-import { drizzle } from 'drizzle-orm/bun-sql'
-import { Hono } from 'hono'
+import { eq } from 'drizzle-orm'
 
-import type { AppEnv } from '../../app-env'
 import { ingredients } from '../../db/schema/ingredients/ingredients'
 import { products } from '../../db/schema/products/products'
 import { userProducts } from '../../db/schema/user-products'
 import { createIngredient } from '../../features/ingredients/service'
 import { ProductError } from '../../features/products/product-error'
 import { createProduct } from '../../features/products/service'
-import { globalErrorHandler } from '../../utils/errors/error-handler'
 import { testDb } from '../db.test.config'
 import { setupDbTests } from '../db-setup'
-import { createTestClient, type TestClient, withAuth } from '../helpers/createTestClient'
-import { JWT_SECRET, REFRESH_SECRET } from '../helpers/secrets'
+import { createAppRuntimeDb, withRlsAs } from '../helpers/app-runtime-db'
+import { createTestClient, withAuth } from '../helpers/createTestClient'
+import { expectError, expectOk } from '../helpers/expectStatus'
+import { login } from '../helpers/login'
+import { createRlsApp, loginViaRlsApp } from '../helpers/rls-app'
 import { TEST_CREDENTIALS } from '../helpers/test-credentials'
 import { createTestAdminUser, createTestUser } from '../helpers/test-factories'
 
-const APP_DATABASE_URL = process.env.APP_DATABASE_URL
-if (!APP_DATABASE_URL) throw new Error('APP_DATABASE_URL not set')
-
-const appRuntimePool = new SQL(APP_DATABASE_URL)
-const appRuntimeDb = drizzle(appRuntimePool, {
-  schema: await import('../../db/schema'),
-})
-
-afterAll(async () => {
-  await appRuntimePool.close()
-})
+const appRuntimeDb = await createAppRuntimeDb()
 
 setupDbTests()
 
-// Mirrors withRlsContext: sets app.user_id + app.role in a tx on the RLS-enforced pool.
-function withRls<T>(role: string, userId: string, fn: (tx: typeof appRuntimeDb) => Promise<T>) {
-  return appRuntimeDb.transaction(async (tx) => {
-    await tx.execute(sql`SELECT set_config('app.user_id', ${userId}, true)`)
-    await tx.execute(sql`SELECT set_config('app.role', ${role}, true)`)
-    return fn(tx as unknown as typeof appRuntimeDb)
-  })
+const VISIBILITY_ADMIN = { email: 'visibility-admin@test.local', password: 'Azerty123!' } as const
+
+type ProductOverrides = { name: string; brand: string; slug?: string }
+
+// autoTag stays off: these suites assert visibility, and the tagging pass only
+// adds write cost and rows that no assertion reads.
+function seedProduct(userId: string, overrides: ProductOverrides) {
+  return testDb.transaction((tx) =>
+    createProduct(
+      userId,
+      'admin',
+      { category: 'skincare', kind: 'serum', unit: 'dropper', ...overrides },
+      tx,
+      { autoTag: false }
+    )
+  )
+}
+
+function hideProduct(id: string) {
+  return testDb.update(products).set({ moderationStatus: 'hidden' }).where(eq(products.id, id))
 }
 
 // RLS-aware app: injects appRuntimeDb so SELECT policies fire (no BYPASSRLS).
@@ -54,45 +55,11 @@ async function buildRlsApp() {
   const { adminModerationRoutes } = await import('../../features/admin/moderation.routes')
   const { ingredientRoutes } = await import('../../features/ingredients/routes')
 
-  const app = new Hono<AppEnv>()
-  app.onError(globalErrorHandler)
-
-  app.use('*', async (c, next) => {
-    c.set('db', appRuntimeDb)
-    c.set('env', 'development')
-    c.set('jwtSecret', JWT_SECRET)
-    c.set('refreshSecret', REFRESH_SECRET)
-    c.set('frontendUrl', 'http://localhost:5173')
-    await next()
-  })
-
-  return app
+  return createRlsApp(appRuntimeDb)
     .route('/auth', jwtAuthRoutes)
     .route('', productsFeature)
     .route('/ingredients', ingredientRoutes)
     .route('/admin/moderation', adminModerationRoutes)
-}
-
-async function loginViaApp(
-  app: Awaited<ReturnType<typeof buildRlsApp>>,
-  email: string,
-  password: string
-) {
-  const res = await app.request('/auth/login', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ email, password }),
-  })
-  const body = (await res.json()) as { success: boolean; data?: { accessToken: string } }
-  if (!body.success || !body.data) throw new Error('login failed in catalog-visibility test')
-  return body.data.accessToken
-}
-
-async function loginViaClient(client: TestClient, email: string, password: string) {
-  const res = await client.auth.login.$post({ json: { email, password } })
-  const body = await res.json()
-  if (!body.success) throw new Error('login failed')
-  return body.data.accessToken
 }
 
 // 1. Unhide collision via route (V-3 ★)
@@ -103,86 +70,64 @@ describe('catalog visibility — unhide collision via route (V-3, ★)', () => {
   it('PATCH /admin/moderation/products/:id → 409 with details when unhiding to occupied key', async () => {
     const client = await createTestClient()
     const adminUser = await createTestAdminUser(admin.rawEmail, admin.rawPassword)
-    const adminToken = await loginViaClient(client, admin.rawEmail, admin.rawPassword)
+    const adminToken = await login(client, admin.rawEmail, admin.rawPassword)
 
-    const p1 = await createProduct(
-      adminUser.id,
-      'admin',
-      {
-        name: 'Unhide Serum',
-        brand: 'UnhideBrand',
-        category: 'skincare' as const,
-        kind: 'serum' as const,
-        unit: 'dropper' as const,
-      },
-      testDb,
-      { autoTag: false }
-    )
-
-    await testDb.update(products).set({ moderationStatus: 'hidden' }).where(eq(products.id, p1.id))
+    const p1 = await seedProduct(adminUser.id, { name: 'Unhide Serum', brand: 'UnhideBrand' })
+    await hideProduct(p1.id)
 
     // Explicit slug avoids full-slug-unique-index collision with P1 (still exists as hidden row).
     // V-3 frees the name+brand key but NOT the slug key (products use a full unique slug index).
-    const p2 = await createProduct(
-      adminUser.id,
-      'admin',
-      {
-        name: 'Unhide Serum',
-        brand: 'UnhideBrand',
-        category: 'skincare' as const,
-        kind: 'serum' as const,
-        unit: 'dropper' as const,
-        slug: 'unhide-serum-v2',
-      },
-      testDb,
-      { autoTag: false }
-    )
+    const p2 = await seedProduct(adminUser.id, {
+      name: 'Unhide Serum',
+      brand: 'UnhideBrand',
+      slug: 'unhide-serum-v2',
+    })
 
     const res = await client.admin.moderation.products[':id'].$patch(
       { param: { id: p1.id }, json: { status: 'visible' } },
       withAuth(adminToken)
     )
 
-    expect(res.status as number).toBe(HTTP_STATUS.CONFLICT)
-    const body = (await res.json()) as { success: false; error: string; details?: unknown }
-    expect(body.error).toBe('product_already_exists')
-    const details = body.details as { id: string; name: string; brand: string; slug: string }
-    expect(details.id).toBe(p2.id)
-    expect(details.name).toBe(p2.name)
-    expect(details.slug).toBe(p2.slug)
+    const body = await expectError<{ id: string; name: string; brand: string; slug: string }>(
+      res,
+      HTTP_STATUS.CONFLICT,
+      'product_already_exists'
+    )
+    expect(body.details?.id).toBe(p2.id)
+    expect(body.details?.name).toBe(p2.name)
+    expect(body.details?.slug).toBe(p2.slug)
   })
 
   it('PATCH /admin/moderation/ingredients/:id → 409 with details when unhiding to occupied key', async () => {
     const client = await createTestClient()
     const adminUser = await createTestAdminUser(admin.rawEmail, admin.rawPassword)
-    const adminToken = await loginViaClient(client, admin.rawEmail, admin.rawPassword)
+    const adminToken = await login(client, admin.rawEmail, admin.rawPassword)
 
-    const i1 = await createIngredient(testDb, adminUser.id, 'admin', {
-      name: 'Unhide Acid',
-      type: 'skincare' as const,
-    })
+    const seedIngredient = () =>
+      testDb.transaction((tx) =>
+        createIngredient(tx, adminUser.id, 'admin', { name: 'Unhide Acid', type: 'skincare' })
+      )
 
+    const i1 = await seedIngredient()
     await testDb
       .update(ingredients)
       .set({ moderationStatus: 'hidden' })
       .where(eq(ingredients.id, i1.id))
 
-    const i2 = await createIngredient(testDb, adminUser.id, 'admin', {
-      name: 'Unhide Acid',
-      type: 'skincare' as const,
-    })
+    const i2 = await seedIngredient()
 
     const res = await client.admin.moderation.ingredients[':id'].$patch(
       { param: { id: i1.id }, json: { status: 'visible' } },
       withAuth(adminToken)
     )
 
-    expect(res.status as number).toBe(HTTP_STATUS.CONFLICT)
-    const body = (await res.json()) as { success: false; error: string; details?: unknown }
-    expect(body.error).toBe('ingredient_already_exists')
-    const details = body.details as { id: string; name: string; slug: string }
-    expect(details.id).toBe(i2.id)
-    expect(details.name).toBe(i2.name)
+    const body = await expectError<{ id: string; name: string; slug: string }>(
+      res,
+      HTTP_STATUS.CONFLICT,
+      'ingredient_already_exists'
+    )
+    expect(body.details?.id).toBe(i2.id)
+    expect(body.details?.name).toBe(i2.name)
   })
 })
 
@@ -193,24 +138,8 @@ describe('catalog visibility — RLS: hidden product excluded from public reads 
     const app = await buildRlsApp()
     const user = await createTestUser('rls-vis-anon@test.local', 'Azerty123!')
 
-    const product = await createProduct(
-      user.id,
-      'admin',
-      {
-        name: 'RLS Vis Serum',
-        brand: 'RLSBrand',
-        category: 'skincare' as const,
-        kind: 'serum' as const,
-        unit: 'dropper' as const,
-      },
-      testDb,
-      { autoTag: false }
-    )
-
-    await testDb
-      .update(products)
-      .set({ moderationStatus: 'hidden' })
-      .where(eq(products.id, product.id))
+    const product = await seedProduct(user.id, { name: 'RLS Vis Serum', brand: 'RLSBrand' })
+    await hideProduct(product.id)
 
     const res = await app.request(`/products/${product.slug}`)
     expect(res.status).toBe(HTTP_STATUS.NOT_FOUND)
@@ -218,29 +147,13 @@ describe('catalog visibility — RLS: hidden product excluded from public reads 
 
   it('GET /products/:slug returns 200 for hidden product (admin)', async () => {
     const app = await buildRlsApp()
-    await createTestAdminUser(admin_email, admin_pw)
+    await createTestAdminUser(VISIBILITY_ADMIN.email, VISIBILITY_ADMIN.password)
     const user = await createTestUser('rls-vis-user@test.local', 'Azerty123!')
 
-    const product = await createProduct(
-      user.id,
-      'admin',
-      {
-        name: 'RLS Admin Serum',
-        brand: 'RLSAdminBrand',
-        category: 'skincare' as const,
-        kind: 'serum' as const,
-        unit: 'dropper' as const,
-      },
-      testDb,
-      { autoTag: false }
-    )
+    const product = await seedProduct(user.id, { name: 'RLS Admin Serum', brand: 'RLSAdminBrand' })
+    await hideProduct(product.id)
 
-    await testDb
-      .update(products)
-      .set({ moderationStatus: 'hidden' })
-      .where(eq(products.id, product.id))
-
-    const adminToken = await loginViaApp(app, admin_email, admin_pw)
+    const adminToken = await loginViaRlsApp(app, VISIBILITY_ADMIN.email, VISIBILITY_ADMIN.password)
     const res = await app.request(`/products/${product.slug}`, {
       headers: { Authorization: `Bearer ${adminToken}` },
     })
@@ -251,47 +164,15 @@ describe('catalog visibility — RLS: hidden product excluded from public reads 
     const app = await buildRlsApp()
     const user = await createTestUser('rls-search@test.local', 'Azerty123!')
 
-    await createProduct(
-      user.id,
-      'admin',
-      {
-        name: 'Visible Serum',
-        brand: 'VisibleBrand',
-        category: 'skincare' as const,
-        kind: 'serum' as const,
-        unit: 'dropper' as const,
-      },
-      testDb,
-      { autoTag: false }
+    await seedProduct(user.id, { name: 'Visible Serum', brand: 'VisibleBrand' })
+    const hidden = await seedProduct(user.id, { name: 'Hidden Serum', brand: 'HiddenBrand' })
+    await hideProduct(hidden.id)
+
+    const body = await expectOk<{ items: Array<{ name: string }> }>(
+      app.request('/products?category=skincare')
     )
 
-    const hidden = await createProduct(
-      user.id,
-      'admin',
-      {
-        name: 'Hidden Serum',
-        brand: 'HiddenBrand',
-        category: 'skincare' as const,
-        kind: 'serum' as const,
-        unit: 'dropper' as const,
-      },
-      testDb,
-      { autoTag: false }
-    )
-
-    await testDb
-      .update(products)
-      .set({ moderationStatus: 'hidden' })
-      .where(eq(products.id, hidden.id))
-
-    const res = await app.request('/products?category=skincare')
-    const body = (await res.json()) as {
-      success: true
-      data: { items: Array<{ name: string }> }
-    }
-
-    expect(body.success).toBe(true)
-    const names = body.data.items.map((i) => i.name)
+    const names = body.items.map((i) => i.name)
     expect(names).not.toContain('Hidden Serum')
     expect(names).toContain('Visible Serum')
   })
@@ -302,48 +183,21 @@ describe('catalog visibility — RLS: hidden product excluded from public reads 
     const ownerPw = 'Azerty123!'
     const owner = await createTestUser(ownerEmail, ownerPw)
 
-    await createProduct(
-      owner.id,
-      'admin',
-      {
-        name: 'Owner Visible Serum',
-        brand: 'OwnerVisibleBrand',
-        category: 'skincare' as const,
-        kind: 'serum' as const,
-        unit: 'dropper' as const,
-      },
-      testDb,
-      { autoTag: false }
-    )
-    const hidden = await createProduct(
-      owner.id,
-      'admin',
-      {
-        name: 'Owner Hidden Serum',
-        brand: 'OwnerHiddenBrand',
-        category: 'skincare' as const,
-        kind: 'serum' as const,
-        unit: 'dropper' as const,
-      },
-      testDb,
-      { autoTag: false }
-    )
-    await testDb
-      .update(products)
-      .set({ moderationStatus: 'hidden' })
-      .where(eq(products.id, hidden.id))
-
-    const token = await loginViaApp(app, ownerEmail, ownerPw)
-    const res = await app.request('/products?category=skincare', {
-      headers: { Authorization: `Bearer ${token}` },
+    await seedProduct(owner.id, { name: 'Owner Visible Serum', brand: 'OwnerVisibleBrand' })
+    const hidden = await seedProduct(owner.id, {
+      name: 'Owner Hidden Serum',
+      brand: 'OwnerHiddenBrand',
     })
-    const body = (await res.json()) as {
-      success: true
-      data: { items: Array<{ name: string }> }
-    }
+    await hideProduct(hidden.id)
 
-    expect(body.success).toBe(true)
-    const names = body.data.items.map((i) => i.name)
+    const token = await loginViaRlsApp(app, ownerEmail, ownerPw)
+    const body = await expectOk<{ items: Array<{ name: string }> }>(
+      app.request('/products?category=skincare', {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+    )
+
+    const names = body.items.map((i) => i.name)
     // app.own_submissions is unset on the browse path, so the owner's hidden sheet
     // must not resurface here — it surfaces only via GET /me/submissions.
     expect(names).not.toContain('Owner Hidden Serum')
@@ -377,31 +231,22 @@ describe('catalog visibility — hidden product drops join rows (T-1)', () => {
       .returning()
     if (!up) throw new Error('user_product seed failed')
 
-    // Before hiding: user sees their own collection entry via RLS
-    const before = await withRls('user', user.id, (tx) =>
-      tx
-        .select({ upId: userProducts.id })
-        .from(userProducts)
-        .innerJoin(products, eq(products.id, userProducts.productId))
-        .where(eq(userProducts.id, up.id))
-    )
-    expect(before).toHaveLength(1)
+    const collectionRows = () =>
+      withRlsAs(appRuntimeDb, 'user', user.id, (tx) =>
+        tx
+          .select({ upId: userProducts.id })
+          .from(userProducts)
+          .innerJoin(products, eq(products.id, userProducts.productId))
+          .where(eq(userProducts.id, up.id))
+      )
 
-    // Hide the product
-    await testDb
-      .update(products)
-      .set({ moderationStatus: 'hidden' })
-      .where(eq(products.id, product.id))
+    // Before hiding: user sees their own collection entry via RLS
+    expect(await collectionRows()).toHaveLength(1)
+
+    await hideProduct(product.id)
 
     // After hiding: INNER JOIN drops the row (A-1 compose)
-    const after = await withRls('user', user.id, (tx) =>
-      tx
-        .select({ upId: userProducts.id })
-        .from(userProducts)
-        .innerJoin(products, eq(products.id, userProducts.productId))
-        .where(eq(userProducts.id, up.id))
-    )
-    expect(after).toHaveLength(0)
+    expect(await collectionRows()).toHaveLength(0)
   })
 })
 
@@ -423,7 +268,7 @@ describe('catalog visibility — concurrent RLS-path create: one wins, no 500 (�
     // (catalog_quality='unverified' branch), which is the real production path.
     const attempts = await Promise.allSettled(
       Array.from({ length: 4 }, () =>
-        withRls('user', user.id, (tx) =>
+        withRlsAs(appRuntimeDb, 'user', user.id, (tx) =>
           createProduct(user.id, 'user', input, tx, { autoTag: false })
         )
       )
@@ -439,6 +284,3 @@ describe('catalog visibility — concurrent RLS-path create: one wins, no 500 (�
     }
   })
 })
-
-const admin_email = 'visibility-admin@test.local'
-const admin_pw = 'Azerty123!'

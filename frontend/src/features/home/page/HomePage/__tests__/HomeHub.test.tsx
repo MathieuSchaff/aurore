@@ -12,46 +12,39 @@ const { mockQuery } = vi.hoisted(() => ({
   mockQuery: { data: {} as Record<string, unknown>, errors: {} as Record<string, boolean> },
 }))
 
-vi.mock('@tanstack/react-query', async (importOriginal) => {
-  const actual = await importOriginal<typeof import('@tanstack/react-query')>()
-  return {
-    ...actual,
-    useQuery: (opts: { queryKey: unknown[] }) => {
-      const key = opts.queryKey.join('.')
-      const isError = mockQuery.errors[key] ?? false
-      return {
-        data: isError ? undefined : mockQuery.data[key],
-        isLoading: false,
-        isPending: false,
-        isError,
-        refetch: vi.fn(),
-      }
-    },
-  }
-})
+vi.mock('@tanstack/react-query', async () => ({
+  ...(await vi.importActual<typeof import('@tanstack/react-query')>('@tanstack/react-query')),
+  useQuery: (opts: { queryKey: unknown[] }) => {
+    const key = opts.queryKey.join('.')
+    const isError = mockQuery.errors[key] ?? false
+    return {
+      data: isError ? undefined : mockQuery.data[key],
+      isLoading: false,
+      isPending: false,
+      isError,
+      refetch: vi.fn(),
+    }
+  },
+}))
 
-vi.mock('@tanstack/react-router', async (importOriginal) => {
-  const actual = await importOriginal<typeof import('@tanstack/react-router')>()
-  return {
-    ...actual,
-    // Expose `to`/`search.tab`/`hash` so doorway deep-links are assertable.
-    Link: ({
-      children,
-      to,
-      search,
-      hash,
-    }: {
-      children: React.ReactNode
-      to?: string
-      search?: { tab?: string }
-      hash?: string
-    }) => (
-      <a href={typeof to === 'string' ? to : undefined} data-tab={search?.tab} data-hash={hash}>
-        {children}
-      </a>
-    ),
-  }
-})
+vi.mock('@tanstack/react-router', async () => ({
+  ...(await vi.importActual<typeof import('@tanstack/react-router')>('@tanstack/react-router')), // Expose `to`/`search.tab`/`hash` so doorway deep-links are assertable.
+  Link: ({
+    children,
+    to,
+    search,
+    hash,
+  }: {
+    children: React.ReactNode
+    to?: string
+    search?: { tab?: string }
+    hash?: string
+  }) => (
+    <a href={typeof to === 'string' ? to : undefined} data-tab={search?.tab} data-hash={hash}>
+      {children}
+    </a>
+  ),
+}))
 
 vi.mock('@/component/Button/Button', () => ({
   Button: ({ children }: { children: React.ReactNode }) => (

@@ -8,27 +8,18 @@
  * Like user-bans-rls, route tests run as the owner `app` (exempt), so the trigger is
  * only observable under the real app_runtime pool — hence the dedicated connection.
  */
-import { afterAll, describe, expect, it } from 'bun:test'
-import { SQL } from 'bun'
+import { describe, expect, it } from 'bun:test'
 
 import { eq, sql } from 'drizzle-orm'
-import { drizzle } from 'drizzle-orm/bun-sql'
 
 import { users } from '../../db/schema'
 import { getOrCreateSeedUser } from '../../db/seed/seeders/create-user'
 import { testDb } from '../db.test.config'
 import { setupDbTests } from '../db-setup'
+import { createAppRuntimeDb } from '../helpers/app-runtime-db'
 import { createTestContributorUser, createTestUser } from '../helpers/test-factories'
 
-const APP_DATABASE_URL = process.env.APP_DATABASE_URL
-if (!APP_DATABASE_URL) throw new Error('APP_DATABASE_URL not set')
-
-const appRuntimePool = new SQL(APP_DATABASE_URL)
-const appRuntimeDb = drizzle(appRuntimePool, { schema: await import('../../db/schema') })
-
-afterAll(async () => {
-  await appRuntimePool.close()
-})
+const appRuntimeDb = await createAppRuntimeDb()
 
 function setRoleAs(userId: string, role: 'user' | 'admin' | 'contributor') {
   return appRuntimeDb
@@ -38,6 +29,8 @@ function setRoleAs(userId: string, role: 'user' | 'admin' | 'contributor') {
     .returning({ id: users.id, role: users.role })
 }
 
+// Kept over .rejects.toThrow(): that matcher hangs on bun SQL tagged templates
+// (see role-separation.test.ts) and silently passes when the await is dropped.
 async function rejected(run: () => Promise<unknown>): Promise<boolean> {
   try {
     await run()

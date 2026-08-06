@@ -16,8 +16,8 @@ describe('freqTable', () => {
   })
 
   test('labels the key column and returns console.table-ready rows', () => {
-    const freq = new Map([['token', 5]])
-    expect(freqTable(freq, 10, 'token')).toEqual([{ token: 'token', count: 5 }])
+    const freq = new Map([['limonene', 5]])
+    expect(freqTable(freq, 10, 'token')).toEqual([{ token: 'limonene', count: 5 }])
   })
 
   test('empty map yields no rows', () => {

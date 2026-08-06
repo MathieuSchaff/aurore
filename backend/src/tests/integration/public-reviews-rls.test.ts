@@ -5,39 +5,66 @@
  * private ones. Service-level tests bypass RLS (testDb = owner pool); this
  * file binds to the real app_runtime role so the policies are exercised.
  */
-import { afterAll, beforeEach, describe, expect, it } from 'bun:test'
+import { describe, expect, it } from 'bun:test'
 import { SQL } from 'bun'
 
 import { eq } from 'drizzle-orm'
-import { drizzle } from 'drizzle-orm/bun-sql'
 
 import { profiles } from '../../db/schema/auth/users'
 import { products } from '../../db/schema/products/products'
 import { userProductReviews, userProducts } from '../../db/schema/products/user-products'
 import { testDb } from '../db.test.config'
 import { setupDbTests } from '../db-setup'
-import { cleanDatabase } from '../helpers/db-cleaner'
+import { createAppRuntimeDb } from '../helpers/app-runtime-db'
 import { createTestUser } from '../helpers/test-factories'
 
 const APP_DATABASE_URL = process.env.APP_DATABASE_URL
 if (!APP_DATABASE_URL) throw new Error('APP_DATABASE_URL not set')
 
-const appRuntimePool = new SQL(APP_DATABASE_URL)
-const appRuntimeDb = drizzle(appRuntimePool, {
-  schema: await import('../../db/schema'),
-})
-
-afterAll(async () => {
-  await appRuntimePool.close()
-})
-
-beforeEach(async () => {
-  await cleanDatabase()
-})
+const appRuntimeDb = await createAppRuntimeDb()
 
 setupDbTests()
 
-describe('public reviews RLS — anonymous app_runtime', () => {
+describe('public reviews RLS: anonymous app_runtime', () => {
+  async function seedProduct(createdBy: string, name: string, brand: string, slug: string) {
+    const [product] = await testDb
+      .insert(products)
+      .values({
+        createdBy,
+        name,
+        brand,
+        category: 'skincare',
+        kind: 'serum',
+        unit: 'dropper',
+        slug,
+      })
+      .returning()
+    if (!product) throw new Error('product seed failed')
+    return product
+  }
+
+  async function seedUserProduct(userId: string, productId: string) {
+    const [up] = await testDb
+      .insert(userProducts)
+      .values({ userId, productId, status: 'in_stock' })
+      .returning()
+    if (!up) throw new Error('user_product seed failed')
+    return up
+  }
+
+  // Owner + product + collection entry + one opted-in review: the minimum a
+  // profile needs to surface through profiles_select_for_public_review.
+  async function seedPublicReview(userId: string, name: string, brand: string, slug: string) {
+    const product = await seedProduct(userId, name, brand, slug)
+    const up = await seedUserProduct(userId, product.id)
+    const [review] = await testDb
+      .insert(userProductReviews)
+      .values({ userProductId: up.id, tolerance: 5, isPublic: true })
+      .returning()
+    if (!review) throw new Error('review seed failed')
+    return review
+  }
+
   it('exposes only is_public=true reviews and the reviewer pseudonym', async () => {
     const alice = await createTestUser('alice-rev@test.local', 'Azerty123!')
     const bob = await createTestUser('bob-rev@test.local', 'Azerty123!')
@@ -59,29 +86,9 @@ describe('public reviews RLS — anonymous app_runtime', () => {
       .set({ username: 'carol-priv' })
       .where(eq(profiles.userId, carol.id))
 
-    const [product] = await testDb
-      .insert(products)
-      .values({
-        createdBy: alice.id,
-        name: 'Test Serum',
-        brand: 'TestBrand',
-        category: 'skincare',
-        kind: 'serum',
-        unit: 'dropper',
-        slug: 'test-serum-testbrand',
-      })
-      .returning()
-    if (!product) throw new Error('product seed failed')
-
-    const [bobUp] = await testDb
-      .insert(userProducts)
-      .values({ userId: bob.id, productId: product.id, status: 'in_stock' })
-      .returning()
-    const [carolUp] = await testDb
-      .insert(userProducts)
-      .values({ userId: carol.id, productId: product.id, status: 'in_stock' })
-      .returning()
-    if (!bobUp || !carolUp) throw new Error('user_products seed failed')
+    const product = await seedProduct(alice.id, 'Test Serum', 'TestBrand', 'test-serum-testbrand')
+    const bobUp = await seedUserProduct(bob.id, product.id)
+    const carolUp = await seedUserProduct(carol.id, product.id)
 
     await testDb.insert(userProductReviews).values([
       { userProductId: bobUp.id, tolerance: 4, comment: 'bob public', isPublic: true },
@@ -103,31 +110,7 @@ describe('public reviews RLS — anonymous app_runtime', () => {
 
     await testDb.update(profiles).set({ username: 'bob-flip' }).where(eq(profiles.userId, bob.id))
 
-    const [product] = await testDb
-      .insert(products)
-      .values({
-        createdBy: bob.id,
-        name: 'Flip Serum',
-        brand: 'FlipBrand',
-        category: 'skincare',
-        kind: 'serum',
-        unit: 'dropper',
-        slug: 'flip-serum-flipbrand',
-      })
-      .returning()
-    if (!product) throw new Error('product seed failed')
-
-    const [up] = await testDb
-      .insert(userProducts)
-      .values({ userId: bob.id, productId: product.id, status: 'in_stock' })
-      .returning()
-    if (!up) throw new Error('user_product seed failed')
-
-    const [review] = await testDb
-      .insert(userProductReviews)
-      .values({ userProductId: up.id, tolerance: 5, isPublic: true })
-      .returning()
-    if (!review) throw new Error('review seed failed')
+    const review = await seedPublicReview(bob.id, 'Flip Serum', 'FlipBrand', 'flip-serum-flipbrand')
 
     let visible = await appRuntimeDb.select().from(profiles)
     expect(visible.map((p) => p.userId)).toEqual([bob.id])
@@ -150,36 +133,17 @@ describe('public reviews RLS — anonymous app_runtime', () => {
 
     await testDb.update(profiles).set({ username: 'bob-mod' }).where(eq(profiles.userId, bob.id))
 
-    const [product] = await testDb
-      .insert(products)
-      .values({
-        createdBy: bob.id,
-        name: 'Mod Filter Serum',
-        brand: 'ModFilterBrand',
-        category: 'skincare',
-        kind: 'serum',
-        unit: 'dropper',
-        slug: 'mod-filter-serum',
-      })
-      .returning()
-    if (!product) throw new Error('product seed failed')
-
-    const [up] = await testDb
-      .insert(userProducts)
-      .values({ userId: bob.id, productId: product.id, status: 'in_stock' })
-      .returning()
-    if (!up) throw new Error('user_product seed failed')
-
-    const [review] = await testDb
-      .insert(userProductReviews)
-      .values({ userProductId: up.id, tolerance: 5, isPublic: true })
-      .returning()
-    if (!review) throw new Error('review seed failed')
+    const review = await seedPublicReview(
+      bob.id,
+      'Mod Filter Serum',
+      'ModFilterBrand',
+      'mod-filter-serum'
+    )
 
     let visible = await appRuntimeDb.select().from(profiles)
     expect(visible.map((p) => p.userId)).toEqual([bob.id])
 
-    // Admin moderation hides the review — profile must stop appearing through
+    // Admin moderation hides the review: profile must stop appearing through
     // profiles_select_for_public_review.
     await testDb
       .update(userProductReviews)

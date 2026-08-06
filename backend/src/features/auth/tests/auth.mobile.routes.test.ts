@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it } from 'bun:test'
+import { beforeAll, describe, expect, it } from 'bun:test'
 
 import { HTTP_STATUS } from '@aurore/shared'
 
@@ -8,6 +8,7 @@ import {
   type TestClient,
   withAuth,
 } from '../../../tests/helpers/createTestClient'
+import { expectOk } from '../../../tests/helpers/expectStatus'
 import { createTestUser } from '../../../tests/helpers/test-factories'
 
 async function mobileLogin(client: TestClient, email: string, password: string) {
@@ -27,7 +28,7 @@ setupDbTests()
 describe('Auth Routes (mobile)', () => {
   let client: TestClient
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     client = await createTestClient()
   })
 
@@ -135,19 +136,16 @@ describe('Auth Routes (mobile)', () => {
       if (!loginData.success) throw new Error('mobile login failed')
       const oldRefreshToken = loginData.data.refreshToken
 
-      const res = await client.auth.mobile.refresh.$post({
-        json: { refreshToken: oldRefreshToken },
-      })
+      const data = await expectOk(
+        client.auth.mobile.refresh.$post({
+          json: { refreshToken: oldRefreshToken },
+        })
+      )
 
-      expect(res.status).toBe(HTTP_STATUS.OK)
+      expect(data.accessToken).toBeDefined()
+      expect(data.refreshToken).toBeDefined()
 
-      const data = await res.json()
-      expect(data.success).toBe(true)
-      if (!data.success) throw new Error('mobile refresh failed')
-      expect(data.data.accessToken).toBeDefined()
-      expect(data.data.refreshToken).toBeDefined()
-
-      expect(data.data.refreshToken).not.toBe(oldRefreshToken)
+      expect(data.refreshToken).not.toBe(oldRefreshToken)
     })
 
     it('should fail without refreshToken in body', async () => {

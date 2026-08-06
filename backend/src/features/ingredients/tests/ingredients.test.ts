@@ -2,10 +2,17 @@ import { beforeEach, describe, expect, it } from 'bun:test'
 
 import { listIngredientsSearchSchema } from '@aurore/shared'
 
+import { eq } from 'drizzle-orm'
+
+import { ingredients } from '../../../db/schema/ingredients/ingredients'
 import { addTagToIngredient, createIngredientTag } from '../../../features/ingredient-tags/service'
 import { testDb } from '../../../tests/db.test.config'
 import { setupDbTests } from '../../../tests/db-setup'
-import { createTestUser } from '../../../tests/helpers/test-factories'
+import {
+  createTestIngredient,
+  createTestUser,
+  type TestUser,
+} from '../../../tests/helpers/test-factories'
 import { IngredientError } from '../ingredients-error'
 import {
   createIngredient,
@@ -14,10 +21,10 @@ import {
   getIngredientBySlug,
   listAllIngredientOptions,
   listIngredients,
+  searchIngredientIdentities,
   searchIngredients,
 } from '../service'
 
-type TestUser = Awaited<ReturnType<typeof createTestUser>>
 let user: TestUser
 
 // Helper: page/limit have schema defaults, so we parse to satisfy the non-optional types.
@@ -25,22 +32,29 @@ function filters(input: Record<string, string> = {}) {
   return listIngredientsSearchSchema.parse(input)
 }
 
-async function makeIngredient(
-  name: string,
-  extra: {
-    type?: 'skincare' | 'haircare' | 'dental' | 'supplement'
-    category?: string
-    description?: string
-    slug?: string
-    content?: string
-  } = {},
-  role: 'user' | 'admin' | 'contributor' = 'contributor'
-) {
-  return createIngredient(testDb, user.id, role, { name, type: 'skincare', ...extra })
-}
-
 async function makeTag(name: string, category?: string) {
   return createIngredientTag(testDb, { label: name, tagType: category })
+}
+
+const createIng = (
+  userId: string,
+  role: Parameters<typeof createIngredient>[2],
+  input: Parameters<typeof createIngredient>[3]
+) => testDb.transaction((tx) => createIngredient(tx, userId, role, input))
+
+const getIng = (id: string) => testDb.transaction((tx) => getIngredientById(tx, id))
+
+const delIng = (role: Parameters<typeof deleteIngredient>[1], id: string) =>
+  testDb.transaction((tx) => deleteIngredient(tx, role, id))
+
+async function makeKeyedIngredient(
+  name: string,
+  canonicalKey: string,
+  extra: Omit<Parameters<typeof createTestIngredient>[1], 'name'> = {}
+) {
+  const ingredient = await createTestIngredient(user.id, { name, ...extra })
+  await testDb.update(ingredients).set({ canonicalKey }).where(eq(ingredients.id, ingredient.id))
+  return ingredient
 }
 
 setupDbTests()
@@ -52,7 +66,7 @@ describe('Ingredient Service', () => {
 
   describe('createIngredient', () => {
     it('should create an ingredient with minimal fields', async () => {
-      const ingredient = await makeIngredient('Rétinol')
+      const ingredient = await createTestIngredient(user.id, { name: 'Rétinol' })
 
       expect(ingredient.id).toBeDefined()
       expect(ingredient.name).toBe('Rétinol')
@@ -64,7 +78,8 @@ describe('Ingredient Service', () => {
     })
 
     it('should create an ingredient with all fields', async () => {
-      const ingredient = await makeIngredient('Acide Ascorbique', {
+      const ingredient = await createTestIngredient(user.id, {
+        name: 'Acide Ascorbique',
         description: 'Forme pure de la vitamine C',
         content: '## Description\n\nActif antioxydant.',
         category: 'humectant',
@@ -77,31 +92,39 @@ describe('Ingredient Service', () => {
     })
 
     it('should auto-generate slug from name', async () => {
-      const ingredient = await makeIngredient('Acide Hyaluronique')
+      const ingredient = await createTestIngredient(user.id, { name: 'Acide Hyaluronique' })
       expect(ingredient.slug).toBe('acide-hyaluronique')
     })
 
     it('should use custom slug when provided by admin', async () => {
-      const ingredient = await makeIngredient('Niacinamide', { slug: 'niacin' }, 'admin')
+      const ingredient = await createTestIngredient(
+        user.id,
+        { name: 'Niacinamide', slug: 'niacin' },
+        'admin'
+      )
       expect(ingredient.slug).toBe('niacin')
     })
 
     it('should NOT use custom slug when provided by non-admin', async () => {
-      const ingredient = await makeIngredient('Niacinamide', { slug: 'niacin' }, 'user')
+      const ingredient = await createTestIngredient(
+        user.id,
+        { name: 'Niacinamide', slug: 'niacin' },
+        'user'
+      )
       expect(ingredient.slug).toBe('niacinamide')
     })
 
     it('should store createdAt and updatedAt timestamps', async () => {
-      const ingredient = await makeIngredient('Zinc')
+      const ingredient = await createTestIngredient(user.id, { name: 'Zinc' })
       expect(typeof ingredient.createdAt).toBe('string')
       expect(typeof ingredient.updatedAt).toBe('string')
     })
 
     it('should throw ingredient_already_exists for duplicate slug (admin)', async () => {
-      await makeIngredient('Magnésium', { slug: 'magnesium' }, 'admin')
+      await createTestIngredient(user.id, { name: 'Magnésium', slug: 'magnesium' }, 'admin')
 
       try {
-        await makeIngredient('Magnésium Bis', { slug: 'magnesium' }, 'admin')
+        await createTestIngredient(user.id, { name: 'Magnésium Bis', slug: 'magnesium' }, 'admin')
         throw new Error('should have thrown')
       } catch (e) {
         expect(e).toBeInstanceOf(IngredientError)
@@ -111,8 +134,8 @@ describe('Ingredient Service', () => {
 
     it('should allow different users to create ingredients with different names', async () => {
       const other = await createTestUser('other@test.com')
-      const i1 = await makeIngredient('Rétinol')
-      const i2 = await createIngredient(testDb, other.id, 'contributor', {
+      const i1 = await createTestIngredient(user.id, { name: 'Rétinol' })
+      const i2 = await createIng(other.id, 'contributor', {
         name: 'Bakuchiol',
         type: 'skincare',
       })
@@ -123,8 +146,8 @@ describe('Ingredient Service', () => {
 
   describe('getIngredientById', () => {
     it('should return the ingredient for a valid id', async () => {
-      const created = await makeIngredient('Rétinol')
-      const fetched = await getIngredientById(testDb, created.id)
+      const created = await createTestIngredient(user.id, { name: 'Rétinol' })
+      const fetched = await getIng(created.id)
 
       expect(fetched.id).toBe(created.id)
       expect(fetched.name).toBe('Rétinol')
@@ -132,13 +155,13 @@ describe('Ingredient Service', () => {
 
     it('should throw ingredient_not_found for unknown id', async () => {
       const fakeId = crypto.randomUUID()
-      expect(getIngredientById(testDb, fakeId)).rejects.toThrow(IngredientError)
+      expect(getIng(fakeId)).rejects.toThrow(IngredientError)
     })
   })
 
   describe('getIngredientBySlug', () => {
     it('should return the ingredient for a valid slug', async () => {
-      const created = await makeIngredient('Niacinamide')
+      const created = await createTestIngredient(user.id, { name: 'Niacinamide' })
       const fetched = await getIngredientBySlug(testDb, created.slug)
 
       expect(fetched.id).toBe(created.id)
@@ -152,24 +175,24 @@ describe('Ingredient Service', () => {
 
   describe('deleteIngredient', () => {
     it('should permanently remove the ingredient', async () => {
-      const created = await makeIngredient('Rétinol')
-      await deleteIngredient(testDb, 'admin', created.id)
-      expect(getIngredientById(testDb, created.id)).rejects.toThrow(IngredientError)
+      const created = await createTestIngredient(user.id, { name: 'Rétinol' })
+      await delIng('admin', created.id)
+      expect(getIng(created.id)).rejects.toThrow(IngredientError)
     })
 
     it('should not affect other ingredients when deleting one', async () => {
-      const i1 = await makeIngredient('Ingrédient A')
-      const i2 = await makeIngredient('Ingrédient B')
+      const i1 = await createTestIngredient(user.id, { name: 'Ingrédient A' })
+      const i2 = await createTestIngredient(user.id, { name: 'Ingrédient B' })
 
-      await deleteIngredient(testDb, 'admin', i1.id)
-      const fetched = await getIngredientById(testDb, i2.id)
+      await delIng('admin', i1.id)
+      const fetched = await getIng(i2.id)
       expect(fetched.id).toBe(i2.id)
     })
   })
 
   describe('listIngredients', () => {
     it('should return the correct shape with defaults', async () => {
-      await makeIngredient('Rétinol')
+      await createTestIngredient(user.id, { name: 'Rétinol' })
       const result = await listIngredients(testDb, filters())
 
       expect(result).toHaveProperty('items')
@@ -179,9 +202,9 @@ describe('Ingredient Service', () => {
     })
 
     it('should order items by name', async () => {
-      await makeIngredient('Zinc PCA')
-      await makeIngredient('Acide Azélaïque')
-      await makeIngredient('Niacinamide')
+      await createTestIngredient(user.id, { name: 'Zinc PCA' })
+      await createTestIngredient(user.id, { name: 'Acide Azélaïque' })
+      await createTestIngredient(user.id, { name: 'Niacinamide' })
 
       const result = await listIngredients(testDb, filters())
       expect(result.items[0]?.name).toBe('Acide Azélaïque')
@@ -190,9 +213,9 @@ describe('Ingredient Service', () => {
     })
 
     it('should filter by tags (concern)', async () => {
-      const i1 = await makeIngredient('Rétinol')
+      const i1 = await createTestIngredient(user.id, { name: 'Rétinol' })
       // Untagged witness: a silently dropped axis would return it too.
-      await makeIngredient('Squalane')
+      await createTestIngredient(user.id, { name: 'Squalane' })
       const tag = await makeTag('Anti-âge', 'concern')
       await addTagToIngredient(testDb, i1.id, tag.id)
 
@@ -202,9 +225,9 @@ describe('Ingredient Service', () => {
     })
 
     it('should filter by tags (actif_class)', async () => {
-      const i1 = await makeIngredient('Céramide NP')
+      const i1 = await createTestIngredient(user.id, { name: 'Céramide NP' })
       // Untagged witness: a silently dropped axis would return it too.
-      await makeIngredient('Acide hyaluronique')
+      await createTestIngredient(user.id, { name: 'Acide hyaluronique' })
       const tag = await makeTag('Céramides', 'actif_class')
       await addTagToIngredient(testDb, i1.id, tag.id)
 
@@ -216,8 +239,8 @@ describe('Ingredient Service', () => {
     describe('avoid_for filter', () => {
       it('flags matching ingredients via profileMatches but does not exclude them', async () => {
         const reactive = await makeTag('Peau réactive', 'skin_type')
-        const retinol = await makeIngredient('Rétinol')
-        const gentle = await makeIngredient('Hydratant doux')
+        const retinol = await createTestIngredient(user.id, { name: 'Rétinol' })
+        const gentle = await createTestIngredient(user.id, { name: 'Hydratant doux' })
         await addTagToIngredient(testDb, retinol.id, reactive.id, 'avoid')
 
         const result = await listIngredients(testDb, filters({ avoid_for: reactive.slug }))
@@ -230,7 +253,7 @@ describe('Ingredient Service', () => {
 
       it('does not flag ingredients where the tag relevance is primary or secondary', async () => {
         const reactive = await makeTag('Peau réactive', 'skin_type')
-        const dedicated = await makeIngredient('Allantoïne')
+        const dedicated = await createTestIngredient(user.id, { name: 'Allantoïne' })
         await addTagToIngredient(testDb, dedicated.id, reactive.id, 'primary')
 
         const result = await listIngredients(testDb, filters({ avoid_for: reactive.slug }))
@@ -238,7 +261,7 @@ describe('Ingredient Service', () => {
       })
 
       it('returns empty profileMatches when no avoid_for filter is provided', async () => {
-        await makeIngredient('Niacinamide')
+        await createTestIngredient(user.id, { name: 'Niacinamide' })
         const result = await listIngredients(testDb, filters())
         expect(result.items[0]?.profileMatches).toEqual([])
       })
@@ -247,8 +270,8 @@ describe('Ingredient Service', () => {
 
   describe('listAllIngredientOptions', () => {
     it('should scope options to the ingredient type when set', async () => {
-      await makeIngredient('Niacinamide')
-      await makeIngredient('Kératine hydrolysée', { type: 'haircare' })
+      await createTestIngredient(user.id, { name: 'Niacinamide' })
+      await createTestIngredient(user.id, { name: 'Kératine hydrolysée', type: 'haircare' })
 
       const haircare = await listAllIngredientOptions(testDb, 'haircare')
       expect(haircare.map((i) => i.name)).toEqual(['Kératine hydrolysée'])
@@ -260,8 +283,8 @@ describe('Ingredient Service', () => {
 
   describe('searchIngredients', () => {
     it('should return ingredients matching by name', async () => {
-      await makeIngredient('Niacinamide')
-      await makeIngredient('Zinc PCA')
+      await createTestIngredient(user.id, { name: 'Niacinamide' })
+      await createTestIngredient(user.id, { name: 'Zinc PCA' })
 
       const results = await searchIngredients(testDb, 'niacin')
       expect(results).toHaveLength(1)
@@ -269,13 +292,13 @@ describe('Ingredient Service', () => {
     })
 
     it('should be case-insensitive', async () => {
-      await makeIngredient('Niacinamide')
+      await createTestIngredient(user.id, { name: 'Niacinamide' })
       const results = await searchIngredients(testDb, 'NIACINAMIDE')
       expect(results).toHaveLength(1)
     })
 
     it('should match names without accents', async () => {
-      await makeIngredient('Sélénium', { slug: 'trace-mineral' })
+      await createTestIngredient(user.id, { name: 'Sélénium', slug: 'trace-mineral' })
       const results = await searchIngredients(testDb, 'se')
       expect(results).toHaveLength(1)
       expect(results[0]?.name).toBe('Sélénium')
@@ -284,9 +307,9 @@ describe('Ingredient Service', () => {
     // Similarity alone would rank the short contains-match above the long
     // prefix-match; the explicit rank must win for a predictable dropdown.
     it('should rank exact > prefix > contains even when similarity disagrees', async () => {
-      await makeIngredient('Pro-Rétinol')
-      await makeIngredient('Rétinol Palmitate Complexe Stabilisé')
-      await makeIngredient('Rétinol')
+      await createTestIngredient(user.id, { name: 'Pro-Rétinol' })
+      await createTestIngredient(user.id, { name: 'Rétinol Palmitate Complexe Stabilisé' })
+      await createTestIngredient(user.id, { name: 'Rétinol' })
 
       const results = await searchIngredients(testDb, 'retinol')
       expect(results.map((r) => r.name)).toEqual([
@@ -298,28 +321,58 @@ describe('Ingredient Service', () => {
 
     // pg_trgm similarity catches typos that ILIKE %q% would miss.
     it('should match typos via trigram similarity', async () => {
-      await makeIngredient('Niacinamide')
+      await createTestIngredient(user.id, { name: 'Niacinamide' })
       const results = await searchIngredients(testDb, 'niacynamid')
       expect(results.length).toBeGreaterThan(0)
       expect(results[0]?.name).toBe('Niacinamide')
     })
 
     it('should return empty list for blank query', async () => {
-      await makeIngredient('Niacinamide')
+      await createTestIngredient(user.id, { name: 'Niacinamide' })
       const results = await searchIngredients(testDb, '   ')
       expect(results).toHaveLength(0)
     })
 
     // Cross-domain homonyms (ceramides) must not leak into another tab's dropdown.
     it('should scope results to the requested type', async () => {
-      await makeIngredient('Céramide NP')
-      await makeIngredient('Céramide 2', { type: 'haircare' })
+      await createTestIngredient(user.id, { name: 'Céramide NP' })
+      await createTestIngredient(user.id, { name: 'Céramide 2', type: 'haircare' })
 
       const scoped = await searchIngredients(testDb, 'ceramide', { type: 'skincare' })
       expect(scoped.map((r) => r.name)).toEqual(['Céramide NP'])
 
       const unscoped = await searchIngredients(testDb, 'ceramide')
       expect(unscoped).toHaveLength(2)
+    })
+  })
+
+  describe('searchIngredientIdentities', () => {
+    it('returns the best matching row once per canonical identity', async () => {
+      await makeKeyedIngredient('Niacinamide', 'Niacinamide')
+      await makeKeyedIngredient('Pro-Niacinamide', 'Niacinamide')
+
+      const results = await searchIngredientIdentities(testDb, 'niacinamide')
+
+      expect(results.map((r) => r.slug)).toEqual(['niacinamide'])
+    })
+
+    it('deduplicates identities before applying the result limit', async () => {
+      await makeKeyedIngredient('Niacinamide A', 'Niacinamide')
+      await makeKeyedIngredient('Niacinamide B', 'Niacinamide')
+      await makeKeyedIngredient('Niacinamide Zinc', 'Niacinamide Zinc')
+
+      const results = await searchIngredientIdentities(testDb, 'niacinamide', { limit: 2 })
+
+      expect(results.map((r) => r.canonicalKey)).toEqual(['Niacinamide', 'Niacinamide Zinc'])
+    })
+
+    it('returns one preference target when an identity spans ingredient types', async () => {
+      await makeKeyedIngredient('Céramide', 'Ceramide NP')
+      await makeKeyedIngredient('Céramide cheveux', 'Ceramide NP', { type: 'haircare' })
+
+      const results = await searchIngredientIdentities(testDb, 'ceramide')
+
+      expect(results.map((r) => r.type)).toEqual(['skincare'])
     })
   })
 })

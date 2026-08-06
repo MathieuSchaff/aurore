@@ -1,111 +1,112 @@
-import { describe, expect, it } from 'bun:test'
+import { beforeEach, describe, expect, it } from 'bun:test'
 
-import { ingredients } from '../../db/schema/ingredients/ingredients'
 import { userIngredientAnalysisScore } from '../../db/schema/ingredients/user-ingredient-analysis-score'
 import { productIngredients } from '../../db/schema/products/product-ingredients'
-import { products } from '../../db/schema/products/products'
 import { userProducts } from '../../db/schema/products/user-products'
 import { testDb } from '../../tests/db.test.config'
 import { setupDbTests } from '../../tests/db-setup'
-import { createTestUser } from '../../tests/helpers/test-factories'
+import {
+  createTestIngredient,
+  createTestProduct,
+  createTestUser,
+  type TestUser,
+} from '../../tests/helpers/test-factories'
 import { calculateCompatibilityScores, getCollectionFormulaMotifs } from './service'
 
 setupDbTests()
 
-async function createIngredient(userId: string, slug: string): Promise<string> {
-  const [row] = await testDb
-    .insert(ingredients)
-    .values({ createdBy: userId, name: slug, slug, type: 'skincare' })
-    .returning({ id: ingredients.id })
-  if (!row) throw new Error('ingredient insert failed')
-  return row.id
-}
+// Both services run inside the request RLS transaction, so open a real one here
+// instead of handing them the root test handle.
+const formulaMotifs = (userId: string) =>
+  testDb.transaction((tx) => getCollectionFormulaMotifs(userId, tx))
 
-async function createProduct(
-  userId: string,
-  slug: string,
-  ingredientIds: string[]
+const compatScores = (userId: string, productIds: string[]) =>
+  testDb.transaction((tx) => calculateCompatibilityScores(userId, productIds, tx))
+
+// Rich, widely-recognized INCI: glycerin → hydrating benefit, tocopherol → antioxidant,
+// parfum → fragrance heuristic note. analyzeINCI uses algo-derm's bundled evidence, so
+// these assertions don't depend on the aurore DB seed.
+const MOTIF_INCI = 'Aqua, Glycerin, Niacinamide, Panthenol, Tocopherol, Parfum'
+
+let user: TestUser
+
+beforeEach(async () => {
+  user = await createTestUser('collection@test.local')
+})
+
+async function createSignalIngredient(
+  name: string,
+  signal: { favorite?: number; suspect?: number }
 ): Promise<string> {
-  const [row] = await testDb
-    .insert(products)
-    .values({
-      createdBy: userId,
-      name: slug,
-      brand: 'TestBrand',
-      category: 'skincare',
-      kind: 'serum',
-      unit: 'dropper',
-      slug,
-    })
-    .returning({ id: products.id })
-  if (!row) throw new Error('product insert failed')
-  if (ingredientIds.length > 0) {
-    await testDb
-      .insert(productIngredients)
-      .values(ingredientIds.map((ingredientId) => ({ productId: row.id, ingredientId })))
-  }
-  return row.id
-}
-
-async function insertSignal(
-  userId: string,
-  ingredientId: string,
-  opts: { favorite?: number; suspect?: number }
-): Promise<void> {
-  const favorite = opts.favorite ?? 0
-  const suspect = opts.suspect ?? 0
+  const ingredient = await createTestIngredient(user.id, { name })
+  const favorite = signal.favorite ?? 0
+  const suspect = signal.suspect ?? 0
   await testDb.insert(userIngredientAnalysisScore).values({
-    userId,
-    ingredientId,
+    userId: user.id,
+    ingredientId: ingredient.id,
     favoriteScore: favorite.toFixed(6),
     suspicionScore: suspect.toFixed(6),
     isFavorite: favorite > 0,
     isSuspect: suspect > 0,
   })
+  return ingredient.id
+}
+
+async function createProductWith(name: string, ingredientIds: string[]): Promise<string> {
+  const product = await createTestProduct(user.id, { name })
+  if (ingredientIds.length > 0) {
+    await testDb
+      .insert(productIngredients)
+      .values(ingredientIds.map((ingredientId) => ({ productId: product.id, ingredientId })))
+  }
+  return product.id
+}
+
+async function shelveProduct(
+  name: string,
+  opts: { inci?: string; status?: 'in_stock' | 'avoided' } = {}
+): Promise<string> {
+  const product = await createTestProduct(user.id, { name, inci: opts.inci })
+  await testDb
+    .insert(userProducts)
+    .values({ userId: user.id, productId: product.id, status: opts.status ?? 'in_stock' })
+  return product.id
 }
 
 describe('calculateCompatibilityScores', () => {
   it('scores a product above neutral when its ingredients lean favorite', async () => {
-    const user = await createTestUser('compat-fav@test.local')
-    const ing = await createIngredient(user.id, 'fav-actif')
-    await insertSignal(user.id, ing, { favorite: 0.8 })
-    const product = await createProduct(user.id, 'fav-product', [ing])
+    const ing = await createSignalIngredient('fav-actif', { favorite: 0.8 })
+    const product = await createProductWith('fav-product', [ing])
 
-    const scores = await calculateCompatibilityScores(user.id, [product], testDb)
+    const scores = await compatScores(user.id, [product])
 
     expect(scores[product]).toBe(90)
   })
 
   it('scores a product below neutral when its ingredients lean suspect', async () => {
-    const user = await createTestUser('compat-suspect@test.local')
-    const ing = await createIngredient(user.id, 'suspect-actif')
-    await insertSignal(user.id, ing, { suspect: 0.6 })
-    const product = await createProduct(user.id, 'suspect-product', [ing])
+    const ing = await createSignalIngredient('suspect-actif', { suspect: 0.6 })
+    const product = await createProductWith('suspect-product', [ing])
 
-    const scores = await calculateCompatibilityScores(user.id, [product], testDb)
+    const scores = await compatScores(user.id, [product])
 
     expect(scores[product]).toBe(20)
   })
 
   it('returns null when no ingredient carries real evidence', async () => {
-    const user = await createTestUser('compat-zero@test.local')
-    const ing = await createIngredient(user.id, 'zero-actif')
-    await insertSignal(user.id, ing, {}) // flags false: appears but no evidence
-    const product = await createProduct(user.id, 'zero-product', [ing])
+    const ing = await createSignalIngredient('zero-actif', {}) // flags false: appears but no evidence
+    const product = await createProductWith('zero-product', [ing])
 
-    const scores = await calculateCompatibilityScores(user.id, [product], testDb)
+    const scores = await compatScores(user.id, [product])
 
     expect(scores[product]).toBeNull()
   })
 
   it('returns a null entry for every requested product, even unscored ones', async () => {
-    const user = await createTestUser('compat-mixed@test.local')
-    const favIng = await createIngredient(user.id, 'mixed-fav')
-    await insertSignal(user.id, favIng, { favorite: 1 })
-    const scored = await createProduct(user.id, 'mixed-scored', [favIng])
-    const unscored = await createProduct(user.id, 'mixed-unscored', [])
+    const favIng = await createSignalIngredient('mixed-fav', { favorite: 1 })
+    const scored = await createProductWith('mixed-scored', [favIng])
+    const unscored = await createProductWith('mixed-unscored', [])
 
-    const scores = await calculateCompatibilityScores(user.id, [scored, unscored], testDb)
+    const scores = await compatScores(user.id, [scored, unscored])
 
     expect(scores[scored]).toBe(100)
     expect(scores[unscored]).toBeNull()
@@ -113,95 +114,42 @@ describe('calculateCompatibilityScores', () => {
   })
 
   it('averages mixed-signal ingredients within a product', async () => {
-    const user = await createTestUser('compat-avg@test.local')
-    const favIng = await createIngredient(user.id, 'avg-fav')
-    const suspectIng = await createIngredient(user.id, 'avg-suspect')
-    await insertSignal(user.id, favIng, { favorite: 0.6 })
-    await insertSignal(user.id, suspectIng, { suspect: 0.6 })
-    const product = await createProduct(user.id, 'avg-product', [favIng, suspectIng])
+    const favIng = await createSignalIngredient('avg-fav', { favorite: 0.6 })
+    const suspectIng = await createSignalIngredient('avg-suspect', { suspect: 0.6 })
+    const product = await createProductWith('avg-product', [favIng, suspectIng])
 
-    const scores = await calculateCompatibilityScores(user.id, [product], testDb)
+    const scores = await compatScores(user.id, [product])
 
     // mean signal = (0.6 + -0.6) / 2 = 0 → neutral 50.
     expect(scores[product]).toBe(50)
   })
 
   it('returns an empty object for an empty product list', async () => {
-    const user = await createTestUser('compat-empty@test.local')
-
-    const scores = await calculateCompatibilityScores(user.id, [], testDb)
+    const scores = await compatScores(user.id, [])
 
     expect(scores).toEqual({})
   })
 })
 
-// Rich, widely-recognized INCI: glycerin → hydrating benefit, tocopherol → antioxidant,
-// parfum → fragrance heuristic note. analyzeINCI uses algo-derm's bundled evidence, so
-// these assertions don't depend on the aurore DB seed.
-const MOTIF_INCI = 'Aqua, Glycerin, Niacinamide, Panthenol, Tocopherol, Parfum'
-
-async function createInciProduct(userId: string, slug: string, inci: string): Promise<string> {
-  const [row] = await testDb
-    .insert(products)
-    .values({
-      createdBy: userId,
-      name: slug,
-      brand: 'TestBrand',
-      category: 'skincare',
-      kind: 'serum',
-      unit: 'dropper',
-      slug,
-      inci,
-    })
-    .returning({ id: products.id })
-  if (!row) throw new Error('product insert failed')
-  return row.id
-}
-
-async function addToCollection(
-  userId: string,
-  productId: string,
-  status: 'in_stock' | 'avoided' = 'in_stock'
-): Promise<void> {
-  await testDb.insert(userProducts).values({ userId, productId, status })
-}
-
 describe('getCollectionFormulaMotifs', () => {
   it('returns nothing for an empty collection', async () => {
-    const user = await createTestUser('motif-empty@test.local')
-
-    const motifs = await getCollectionFormulaMotifs(user.id, testDb)
+    const motifs = await formulaMotifs(user.id)
 
     expect(motifs).toEqual({ productsAnalyzed: 0, benefits: [], notes: [] })
   })
 
   it('does not count a product with no INCI', async () => {
-    const user = await createTestUser('motif-no-inci@test.local')
-    const [row] = await testDb
-      .insert(products)
-      .values({
-        createdBy: user.id,
-        name: 'no-inci',
-        brand: 'TestBrand',
-        category: 'skincare',
-        kind: 'serum',
-        unit: 'dropper',
-        slug: 'motif-no-inci-product',
-      })
-      .returning({ id: products.id })
-    if (!row) throw new Error('product insert failed')
-    await addToCollection(user.id, row.id)
+    await shelveProduct('motif-no-inci')
 
-    const motifs = await getCollectionFormulaMotifs(user.id, testDb)
+    const motifs = await formulaMotifs(user.id)
 
     expect(motifs.productsAnalyzed).toBe(0)
   })
 
   it('gates a single product out: one occurrence is not a motif', async () => {
-    const user = await createTestUser('motif-single@test.local')
-    await addToCollection(user.id, await createInciProduct(user.id, 'motif-single-a', MOTIF_INCI))
+    await shelveProduct('motif-single-a', { inci: MOTIF_INCI })
 
-    const motifs = await getCollectionFormulaMotifs(user.id, testDb)
+    const motifs = await formulaMotifs(user.id)
 
     expect(motifs.productsAnalyzed).toBe(1)
     expect(motifs.benefits).toEqual([])
@@ -209,17 +157,12 @@ describe('getCollectionFormulaMotifs', () => {
   })
 
   it('aggregates recurring axes and excludes avoided products', async () => {
-    const user = await createTestUser('motif-agg@test.local')
-    await addToCollection(user.id, await createInciProduct(user.id, 'motif-agg-a', MOTIF_INCI))
-    await addToCollection(user.id, await createInciProduct(user.id, 'motif-agg-b', MOTIF_INCI))
+    await shelveProduct('motif-agg-a', { inci: MOTIF_INCI })
+    await shelveProduct('motif-agg-b', { inci: MOTIF_INCI })
     // Same formula but rejected — must not feed the shelf's signal.
-    await addToCollection(
-      user.id,
-      await createInciProduct(user.id, 'motif-agg-c', MOTIF_INCI),
-      'avoided'
-    )
+    await shelveProduct('motif-agg-c', { inci: MOTIF_INCI, status: 'avoided' })
 
-    const motifs = await getCollectionFormulaMotifs(user.id, testDb)
+    const motifs = await formulaMotifs(user.id)
 
     expect(motifs.productsAnalyzed).toBe(2)
     expect(motifs.benefits.some((b) => b.axis === 'hydrating')).toBe(true)

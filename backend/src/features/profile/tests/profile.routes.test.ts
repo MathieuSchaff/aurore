@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it } from 'bun:test'
+import { beforeAll, describe, expect, it } from 'bun:test'
 
 import { HTTP_STATUS } from '@aurore/shared'
 
@@ -8,7 +8,8 @@ import type { AppEnv } from '../../../app-env'
 import { setupDbTests } from '../../../tests/db-setup'
 import { expectRequiresAuth } from '../../../tests/helpers/authz-matrix'
 import { createTestEnv, type TestClient, withAuth } from '../../../tests/helpers/createTestClient'
-import { authPatch, setupAndLogin } from '../../../tests/helpers/route-test-helpers'
+import { expectOk } from '../../../tests/helpers/expectStatus'
+import { authDelete, authPatch, setupAndLogin } from '../../../tests/helpers/route-test-helpers'
 import { TEST_CREDENTIALS } from '../../../tests/helpers/test-credentials'
 
 setupDbTests()
@@ -17,7 +18,7 @@ describe('Profile Routes', () => {
   let app: Hono<AppEnv>
   let client: TestClient
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     const env = await createTestEnv()
     app = env.app
     client = env.client
@@ -27,13 +28,8 @@ describe('Profile Routes', () => {
     it('should return profile for authenticated user', async () => {
       const token = await setupAndLogin(app, TEST_CREDENTIALS.toto)
 
-      const res = await client.profile.$get({}, withAuth(token))
-
-      expect(res.status).toBe(HTTP_STATUS.OK)
-      const data = await res.json()
-      expect(data.success).toBe(true)
-      if (!data.success) throw new Error('expected ok')
-      expect(data.data.userId).toBeDefined()
+      const profile = await expectOk(client.profile.$get({}, withAuth(token)))
+      expect(profile.userId).toBeDefined()
     })
 
     it('should return distinct profiles for different users', async () => {
@@ -102,13 +98,10 @@ describe('Profile Routes', () => {
     it('should update username', async () => {
       const token = await setupAndLogin(app, TEST_CREDENTIALS.toto)
 
-      const res = await client.profile.$patch({ json: { username: 'newname' } }, withAuth(token))
-
-      expect(res.status).toBe(HTTP_STATUS.OK)
-      const data = await res.json()
-      expect(data.success).toBe(true)
-      if (!data.success) throw new Error('expected ok')
-      expect(data.data.username).toBe('newname')
+      const profile = await expectOk(
+        client.profile.$patch({ json: { username: 'newname' } }, withAuth(token))
+      )
+      expect(profile.username).toBe('newname')
     })
 
     it('returns 409 username_taken on collision, not an unhandled 500', async () => {
@@ -134,44 +127,32 @@ describe('Profile Routes', () => {
     it('should update bio', async () => {
       const token = await setupAndLogin(app, TEST_CREDENTIALS.toto)
 
-      const res = await client.profile.$patch({ json: { bio: 'Hello world' } }, withAuth(token))
-
-      expect(res.status).toBe(HTTP_STATUS.OK)
-      const data = await res.json()
-      expect(data.success).toBe(true)
-      if (!data.success) throw new Error('expected ok')
-      expect(data.data.bio).toBe('Hello world')
+      const profile = await expectOk(
+        client.profile.$patch({ json: { bio: 'Hello world' } }, withAuth(token))
+      )
+      expect(profile.bio).toBe('Hello world')
     })
 
     it('should update avatarUrl', async () => {
       const token = await setupAndLogin(app, TEST_CREDENTIALS.toto)
 
-      const res = await client.profile.$patch(
-        { json: { avatarUrl: 'https://example.com/avatar.png' } },
-        withAuth(token)
+      const profile = await expectOk(
+        client.profile.$patch(
+          { json: { avatarUrl: 'https://example.com/avatar.png' } },
+          withAuth(token)
+        )
       )
-
-      expect(res.status).toBe(HTTP_STATUS.OK)
-      const data = await res.json()
-      expect(data.success).toBe(true)
-      if (!data.success) throw new Error('expected ok')
-      expect(data.data.avatarUrl).toBe('https://example.com/avatar.png')
+      expect(profile.avatarUrl).toBe('https://example.com/avatar.png')
     })
 
     it('should update multiple fields at once', async () => {
       const token = await setupAndLogin(app, TEST_CREDENTIALS.toto)
 
-      const res = await client.profile.$patch(
-        { json: { username: 'multi', bio: 'Updated bio' } },
-        withAuth(token)
+      const profile = await expectOk(
+        client.profile.$patch({ json: { username: 'multi', bio: 'Updated bio' } }, withAuth(token))
       )
-
-      expect(res.status).toBe(HTTP_STATUS.OK)
-      const data = await res.json()
-      expect(data.success).toBe(true)
-      if (!data.success) throw new Error('expected ok')
-      expect(data.data.username).toBe('multi')
-      expect(data.data.bio).toBe('Updated bio')
+      expect(profile.username).toBe('multi')
+      expect(profile.bio).toBe('Updated bio')
     })
 
     it('should persist updates across requests', async () => {
@@ -336,13 +317,8 @@ describe('Profile Routes', () => {
     it('returns zeroed stats for a new user', async () => {
       const token = await setupAndLogin(app, TEST_CREDENTIALS.toto)
 
-      const res = await client.profile.stats.$get({}, withAuth(token))
-
-      expect(res.status).toBe(HTTP_STATUS.OK)
-      const data = await res.json()
-      expect(data.success).toBe(true)
-      if (!data.success) throw new Error('expected ok')
-      expect(data.data.totalProducts).toBe(0)
+      const stats = await expectOk(client.profile.stats.$get({}, withAuth(token)))
+      expect(stats.totalProducts).toBe(0)
     })
 
     expectRequiresAuth(() => app, { method: 'GET', path: '/api/profile/stats' })
@@ -352,14 +328,9 @@ describe('Profile Routes', () => {
     it('returns default preferences for a new user', async () => {
       const token = await setupAndLogin(app, TEST_CREDENTIALS.toto)
 
-      const res = await client.profile.preferences.$get({}, withAuth(token))
-
-      expect(res.status).toBe(HTTP_STATUS.OK)
-      const data = await res.json()
-      expect(data.success).toBe(true)
-      if (!data.success) throw new Error('expected ok')
-      expect(data.data.criteriaWeights).toBeDefined()
-      expect(data.data.criteriaWeights.tolerance).toBe(1)
+      const preferences = await expectOk(client.profile.preferences.$get({}, withAuth(token)))
+      expect(preferences.criteriaWeights).toBeDefined()
+      expect(preferences.criteriaWeights.tolerance).toBe(1)
     })
 
     expectRequiresAuth(() => app, { method: 'GET', path: '/api/profile/preferences' })
@@ -405,6 +376,23 @@ describe('Profile Routes', () => {
       method: 'PATCH',
       path: '/api/profile/preferences',
       body: { criteriaWeights: { tolerance: 5 } },
+    })
+  })
+
+  describe('DELETE /profile/deleteUser', () => {
+    it('deletes the account and rejects a subsequent login', async () => {
+      const token = await setupAndLogin(app, TEST_CREDENTIALS.toto)
+
+      const deleted = await authDelete(app, '/api/profile/deleteUser', token)
+      expect(deleted.status).toBe(204)
+
+      const login = await client.auth.login.$post({
+        json: {
+          email: TEST_CREDENTIALS.toto.rawEmail,
+          password: TEST_CREDENTIALS.toto.rawPassword,
+        },
+      })
+      expect(login.status).toBe(HTTP_STATUS.UNAUTHORIZED)
     })
   })
 })

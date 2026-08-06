@@ -1,13 +1,13 @@
 import type { UserPublic } from '@aurore/shared'
 
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { QueryClient } from '@tanstack/react-query'
 import { useRouter } from '@tanstack/react-router'
-import { renderHook, waitFor } from '@testing-library/react'
-import type { ReactNode } from 'react'
+import { waitFor } from '@testing-library/react'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
 import { httpClient } from '@/lib/httpClient'
 import { useAuthStore } from '@/store/auth'
+import { renderHookWithProviders } from '@/test/utils'
 
 vi.mock('@/lib/httpClient', () => ({
   httpClient: vi.fn(),
@@ -21,10 +21,6 @@ const mockUseRouter = vi.mocked(useRouter)
 
 describe('useBootRefresh', () => {
   let queryClient: QueryClient
-
-  function wrapper({ children }: { children: ReactNode }) {
-    return <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
-  }
 
   beforeEach(() => {
     queryClient = new QueryClient()
@@ -67,7 +63,7 @@ describe('useBootRefresh', () => {
       json: () => Promise.resolve({ success: true, data: { accessToken, user } }),
     } as Response)
 
-    renderHook(() => useBootRefresh(), { wrapper })
+    renderHookWithProviders(() => useBootRefresh(), { queryClient })
 
     await waitFor(() => expect(invalidate).toHaveBeenCalledOnce())
     expect(useAuthStore.getState()).toMatchObject({

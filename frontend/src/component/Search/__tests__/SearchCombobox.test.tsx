@@ -1,8 +1,8 @@
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { act, render, screen, waitFor } from '@testing-library/react'
+import { act, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import type { ReactNode } from 'react'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
+
+import { renderWithProviders } from '@/test/utils'
 
 // jsdom lacks IntersectionObserver; stub for ComboboxPrimitive's sentinel.
 if (!window.IntersectionObserver) {
@@ -36,33 +36,25 @@ function makeQueryFn(handlers: Record<string, () => Promise<TestItem[]>> = {}) {
   })
 }
 
-function makeWrapper() {
-  const client = new QueryClient({ defaultOptions: { queries: { retry: false } } })
-  return ({ children }: { children: ReactNode }) => (
-    <QueryClientProvider client={client}>{children}</QueryClientProvider>
-  )
-}
-
 const ITEMS_AB: TestItem[] = [
   { id: 1, slug: 'item-a', name: 'Item A' },
   { id: 2, slug: 'item-b', name: 'Item B' },
 ]
 const ITEMS_C: TestItem[] = [{ id: 3, slug: 'item-c', name: 'Item C' }]
 
-describe('SearchCombobox — results', () => {
+describe('SearchCombobox: results', () => {
   beforeEach(() => vi.clearAllMocks())
 
   it('shows items once query reaches minChars', async () => {
     const queryFn = makeQueryFn({ ab: () => Promise.resolve(ITEMS_AB) })
-    render(
+    renderWithProviders(
       <SearchCombobox
         label="Search"
         queryFn={queryFn}
         toResult={toResult}
         onSelect={vi.fn()}
         debounce={0}
-      />,
-      { wrapper: makeWrapper() }
+      />
     )
     await userEvent.type(screen.getByRole('combobox'), 'ab')
     await waitFor(() => expect(screen.getAllByRole('option')).toHaveLength(2))
@@ -73,15 +65,14 @@ describe('SearchCombobox — results', () => {
   it('calls onSelect with slug and full result on item click', async () => {
     const queryFn = makeQueryFn({ ab: () => Promise.resolve(ITEMS_AB) })
     const onSelect = vi.fn()
-    render(
+    renderWithProviders(
       <SearchCombobox
         label="Search"
         queryFn={queryFn}
         toResult={toResult}
         onSelect={onSelect}
         debounce={0}
-      />,
-      { wrapper: makeWrapper() }
+      />
     )
     await userEvent.type(screen.getByRole('combobox'), 'ab')
     await waitFor(() => screen.getByRole('option', { name: 'Item A' }))
@@ -91,15 +82,14 @@ describe('SearchCombobox — results', () => {
 
   it('clears input and closes dropdown after selection', async () => {
     const queryFn = makeQueryFn({ ab: () => Promise.resolve(ITEMS_AB) })
-    render(
+    renderWithProviders(
       <SearchCombobox
         label="Search"
         queryFn={queryFn}
         toResult={toResult}
         onSelect={vi.fn()}
         debounce={0}
-      />,
-      { wrapper: makeWrapper() }
+      />
     )
     const input = screen.getByRole('combobox') as HTMLInputElement
     await userEvent.type(input, 'ab')
@@ -110,29 +100,28 @@ describe('SearchCombobox — results', () => {
   })
 })
 
-describe('SearchCombobox — loading states', () => {
+describe('SearchCombobox: loading states', () => {
   it('shows spinner on first fetch (no previous data)', async () => {
     let resolve!: (items: TestItem[]) => void
     const pending = new Promise<TestItem[]>((r) => {
       resolve = r
     })
     const queryFn = makeQueryFn({ ab: () => pending })
-    render(
+    renderWithProviders(
       <SearchCombobox
         label="Search"
         queryFn={queryFn}
         toResult={toResult}
         onSelect={vi.fn()}
         debounce={0}
-      />,
-      { wrapper: makeWrapper() }
+      />
     )
     await userEvent.type(screen.getByRole('combobox'), 'ab')
     await waitFor(() => expect(screen.getByText('Chargement…')).toBeInTheDocument())
     resolve([])
   })
 
-  it('keeps previous items visible during re-fetch — no flash', async () => {
+  it('keeps previous items visible while it fetches again (no flash)', async () => {
     let abcStarted = false
     let resolveC!: (items: TestItem[]) => void
     const pendingC = new Promise<TestItem[]>((r) => {
@@ -147,21 +136,20 @@ describe('SearchCombobox — loading states', () => {
       },
     })
 
-    render(
+    renderWithProviders(
       <SearchCombobox
         label="Search"
         queryFn={queryFn}
         toResult={toResult}
         onSelect={vi.fn()}
         debounce={0}
-      />,
-      { wrapper: makeWrapper() }
+      />
     )
 
     await userEvent.type(screen.getByRole('combobox'), 'ab')
     await waitFor(() => screen.getByRole('option', { name: 'Item A' }))
 
-    // Add 'c': triggers a re-fetch for 'abc' that stays pending.
+    // Add 'c': triggers a second fetch for 'abc' that stays pending.
     await userEvent.type(screen.getByRole('combobox'), 'c')
     await waitFor(() => expect(abcStarted).toBe(true))
 
@@ -179,18 +167,17 @@ describe('SearchCombobox — loading states', () => {
   })
 })
 
-describe('SearchCombobox — keyboard', () => {
+describe('SearchCombobox: keyboard', () => {
   it('Escape closes the dropdown', async () => {
     const queryFn = makeQueryFn({ ab: () => Promise.resolve(ITEMS_AB) })
-    render(
+    renderWithProviders(
       <SearchCombobox
         label="Search"
         queryFn={queryFn}
         toResult={toResult}
         onSelect={vi.fn()}
         debounce={0}
-      />,
-      { wrapper: makeWrapper() }
+      />
     )
     const input = screen.getByRole('combobox')
     await userEvent.type(input, 'ab')
@@ -202,7 +189,7 @@ describe('SearchCombobox — keyboard', () => {
   it('Enter right after typing submits the live text, not the stale debounced one', async () => {
     const queryFn = makeQueryFn({})
     const onSubmitQuery = vi.fn()
-    render(
+    renderWithProviders(
       // Default debounce (300ms): Enter fires before the debounce flushes.
       <SearchCombobox
         label="Search"
@@ -210,8 +197,7 @@ describe('SearchCombobox — keyboard', () => {
         toResult={toResult}
         onSelect={vi.fn()}
         onSubmitQuery={onSubmitQuery}
-      />,
-      { wrapper: makeWrapper() }
+      />
     )
     await userEvent.type(screen.getByRole('combobox'), 'niacinamide{Enter}')
     expect(onSubmitQuery).toHaveBeenCalledWith('niacinamide')
@@ -220,7 +206,7 @@ describe('SearchCombobox — keyboard', () => {
   it('Enter with no highlight calls onSubmitQuery with the typed query', async () => {
     const queryFn = makeQueryFn({ ab: () => Promise.resolve(ITEMS_AB) })
     const onSubmitQuery = vi.fn()
-    render(
+    renderWithProviders(
       <SearchCombobox
         label="Search"
         queryFn={queryFn}
@@ -228,8 +214,7 @@ describe('SearchCombobox — keyboard', () => {
         onSelect={vi.fn()}
         onSubmitQuery={onSubmitQuery}
         debounce={0}
-      />,
-      { wrapper: makeWrapper() }
+      />
     )
     await userEvent.type(screen.getByRole('combobox'), 'ab')
     await waitFor(() => screen.getByRole('option', { name: 'Item A' }))
@@ -240,15 +225,14 @@ describe('SearchCombobox — keyboard', () => {
   it('Enter with no highlight does nothing when onSubmitQuery is not provided', async () => {
     const queryFn = makeQueryFn({ ab: () => Promise.resolve(ITEMS_AB) })
     const onSelect = vi.fn()
-    render(
+    renderWithProviders(
       <SearchCombobox
         label="Search"
         queryFn={queryFn}
         toResult={toResult}
         onSelect={onSelect}
         debounce={0}
-      />,
-      { wrapper: makeWrapper() }
+      />
     )
     const input = screen.getByRole('combobox') as HTMLInputElement
     await userEvent.type(input, 'ab')
@@ -262,7 +246,7 @@ describe('SearchCombobox — keyboard', () => {
     const queryFn = makeQueryFn({ ab: () => Promise.resolve(ITEMS_AB) })
     const onSelect = vi.fn()
     const sectionSelect = vi.fn()
-    render(
+    renderWithProviders(
       <SearchCombobox
         label="Search"
         queryFn={queryFn}
@@ -276,8 +260,7 @@ describe('SearchCombobox — keyboard', () => {
           },
         ]}
         debounce={0}
-      />,
-      { wrapper: makeWrapper() }
+      />
     )
     await userEvent.type(screen.getByRole('combobox'), 'ab')
     await waitFor(() => screen.getByRole('option', { name: 'Item A' }))
@@ -288,7 +271,7 @@ describe('SearchCombobox — keyboard', () => {
   })
 })
 
-describe('SearchCombobox — infinite pagination through the real useInfiniteQuery wiring', () => {
+describe('SearchCombobox: infinite pagination through the real useInfiniteQuery wiring', () => {
   let observerCallback: IntersectionObserverCallback | null = null
   let originalIO: typeof IntersectionObserver
 
@@ -325,15 +308,14 @@ describe('SearchCombobox — infinite pagination through the real useInfiniteQue
       getNextPageParam: (last: { hasMore: boolean; nextOffset: number }) =>
         last.hasMore ? last.nextOffset : undefined,
     })
-    render(
+    renderWithProviders(
       <SearchCombobox
         label="Search"
         queryFn={queryFn}
         toResult={toResult}
         onSelect={vi.fn()}
         debounce={0}
-      />,
-      { wrapper: makeWrapper() }
+      />
     )
     await userEvent.type(screen.getByRole('combobox'), 'ab')
     await waitFor(() => screen.getByRole('option', { name: 'Item A' }))
@@ -351,7 +333,7 @@ describe('SearchCombobox — infinite pagination through the real useInfiniteQue
   })
 })
 
-describe('SearchCombobox — error state', () => {
+describe('SearchCombobox: error state', () => {
   it('renders explicit error UI when the query fails (not silent "Aucun résultat")', async () => {
     const queryFn = (q: string) => ({
       queryKey: ['test-search-err', q] as const,
@@ -361,15 +343,14 @@ describe('SearchCombobox — error state', () => {
       initialPageParam: 0,
       getNextPageParam: () => undefined,
     })
-    render(
+    renderWithProviders(
       <SearchCombobox
         label="Search"
         queryFn={queryFn}
         toResult={toResult}
         onSelect={vi.fn()}
         debounce={0}
-      />,
-      { wrapper: makeWrapper() }
+      />
     )
     await userEvent.type(screen.getByRole('combobox'), 'ab')
 
@@ -394,15 +375,14 @@ describe('SearchCombobox — error state', () => {
       initialPageParam: 0,
       getNextPageParam: () => undefined,
     })
-    render(
+    renderWithProviders(
       <SearchCombobox
         label="Search"
         queryFn={queryFn}
         toResult={toResult}
         onSelect={vi.fn()}
         debounce={0}
-      />,
-      { wrapper: makeWrapper() }
+      />
     )
     await userEvent.type(screen.getByRole('combobox'), 'ab')
 
@@ -416,10 +396,10 @@ describe('SearchCombobox — error state', () => {
   })
 })
 
-describe('SearchCombobox — sections', () => {
+describe('SearchCombobox: sections', () => {
   it('renders section header label and items', async () => {
     const queryFn = makeQueryFn({ ab: () => Promise.resolve(ITEMS_AB) })
-    render(
+    renderWithProviders(
       <SearchCombobox
         label="Search"
         queryFn={queryFn}
@@ -433,17 +413,16 @@ describe('SearchCombobox — sections', () => {
           },
         ]}
         debounce={0}
-      />,
-      { wrapper: makeWrapper() }
+      />
     )
     await userEvent.type(screen.getByRole('combobox'), 'ab')
     await waitFor(() => expect(screen.getByText('Ingrédients')).toBeInTheDocument())
     expect(screen.getByText('Voir tous Vitamine C')).toBeInTheDocument()
   })
 
-  it('hides empty sections — visibleSections filter', async () => {
+  it('hides empty sections (visibleSections filter)', async () => {
     const queryFn = makeQueryFn({ ab: () => Promise.resolve(ITEMS_AB) })
-    render(
+    renderWithProviders(
       <SearchCombobox
         label="Search"
         queryFn={queryFn}
@@ -458,8 +437,7 @@ describe('SearchCombobox — sections', () => {
           },
         ]}
         debounce={0}
-      />,
-      { wrapper: makeWrapper() }
+      />
     )
     await userEvent.type(screen.getByRole('combobox'), 'ab')
     await waitFor(() => screen.getByText('Filled'))
@@ -469,7 +447,7 @@ describe('SearchCombobox — sections', () => {
   it('calls section item onSelect and closes on click', async () => {
     const queryFn = makeQueryFn({ ab: () => Promise.resolve(ITEMS_AB) })
     const sectionSelect = vi.fn()
-    render(
+    renderWithProviders(
       <SearchCombobox
         label="Search"
         queryFn={queryFn}
@@ -483,8 +461,7 @@ describe('SearchCombobox — sections', () => {
           },
         ]}
         debounce={0}
-      />,
-      { wrapper: makeWrapper() }
+      />
     )
     const input = screen.getByRole('combobox') as HTMLInputElement
     await userEvent.type(input, 'ab')
@@ -498,7 +475,7 @@ describe('SearchCombobox — sections', () => {
   it('keyboard nav reaches section items first (sections rendered above results)', async () => {
     const queryFn = makeQueryFn({ ab: () => Promise.resolve(ITEMS_AB) })
     const sectionSelect = vi.fn()
-    render(
+    renderWithProviders(
       <SearchCombobox
         label="Search"
         queryFn={queryFn}
@@ -512,8 +489,7 @@ describe('SearchCombobox — sections', () => {
           },
         ]}
         debounce={0}
-      />,
-      { wrapper: makeWrapper() }
+      />
     )
     await userEvent.type(screen.getByRole('combobox'), 'ab')
     await waitFor(() => screen.getByRole('option', { name: 'Item A' }))

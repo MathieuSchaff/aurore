@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it } from 'bun:test'
+import { beforeAll, beforeEach, describe, expect, it } from 'bun:test'
 
 import { HTTP_STATUS } from '@aurore/shared'
 
@@ -14,7 +14,8 @@ import {
   type TestClient,
   withAuth,
 } from '../../../tests/helpers/createTestClient'
-import { createProduct } from '../../products/service'
+import { expectOk } from '../../../tests/helpers/expectStatus'
+import { createTestProduct } from '../../../tests/helpers/test-factories'
 
 setupDbTests()
 
@@ -37,18 +38,16 @@ describe('user-products mutations — dermo signal recompute', () => {
   let userId: string
   let productId: string
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     client = await createTestClient()
+  })
+
+  beforeEach(async () => {
     const auth = await signupAndGetToken(client, 'signal@test.com', 'Azerty123!seed')
     token = auth.token
     userId = auth.userId
 
-    const product = await createProduct(
-      userId,
-      'admin',
-      { name: 'Sérum signal', brand: 'Brand', kind: 'serum', unit: 'pump', category: 'skincare' },
-      testDb
-    )
+    const product = await createTestProduct(userId, { name: 'Sérum signal', brand: 'Brand' })
     productId = product.id
 
     const [ingredient] = await testDb
@@ -93,14 +92,12 @@ describe('user-products mutations — dermo signal recompute', () => {
   })
 
   async function createInStock() {
-    const res = await client['user-products'].$post(
-      { json: { productId, status: 'in_stock' } },
-      withAuth(token)
+    const created = await expectOk(
+      client['user-products'].$post({ json: { productId, status: 'in_stock' } }, withAuth(token)),
+      HTTP_STATUS.CREATED
     )
-    const body = await res.json()
-    if (!body.success) throw new Error('create failed')
     expect(await countScores(userId)).toBe(1) // in_stock create carries no signal
-    return body.data.id
+    return created.id
   }
 
   it('recomputes on PATCH to avoided', async () => {

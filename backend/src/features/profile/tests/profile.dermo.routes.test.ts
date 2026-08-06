@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it } from 'bun:test'
+import { beforeAll, describe, expect, it } from 'bun:test'
 
 import { HTTP_STATUS } from '@aurore/shared'
 
@@ -8,6 +8,7 @@ import type { AppEnv } from '../../../app-env'
 import { setupDbTests } from '../../../tests/db-setup'
 import { expectRequiresAuth } from '../../../tests/helpers/authz-matrix'
 import { createTestEnv, type TestClient, withAuth } from '../../../tests/helpers/createTestClient'
+import { expectOk } from '../../../tests/helpers/expectStatus'
 import { authPatch, setupAndLogin } from '../../../tests/helpers/route-test-helpers'
 import { TEST_CREDENTIALS } from '../../../tests/helpers/test-credentials'
 
@@ -17,7 +18,7 @@ describe('Dermo Profile Routes', () => {
   let app: Hono<AppEnv>
   let client: TestClient
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     const env = await createTestEnv()
     app = env.app
     client = env.client
@@ -26,12 +27,8 @@ describe('Dermo Profile Routes', () => {
   describe('GET /profile/dermo', () => {
     it('should return null for a new user', async () => {
       const token = await setupAndLogin(app, TEST_CREDENTIALS.toto)
-      const res = await client.profile.dermo.$get({}, withAuth(token))
-      expect(res.status).toBe(HTTP_STATUS.OK)
-      const data = await res.json()
-      expect(data.success).toBe(true)
-      if (!data.success) throw new Error('expected ok')
-      expect(data.data).toBeNull()
+      const dermoProfile = await expectOk(client.profile.dermo.$get({}, withAuth(token)))
+      expect(dermoProfile).toBeNull()
     })
 
     expectRequiresAuth(() => app, { method: 'GET', path: '/api/profile/dermo' })
@@ -40,24 +37,23 @@ describe('Dermo Profile Routes', () => {
   describe('PATCH /profile/dermo', () => {
     it('should create dermo profile on first patch', async () => {
       const token = await setupAndLogin(app, TEST_CREDENTIALS.toto)
-      const res = await client.profile.dermo.$patch(
-        {
-          json: {
-            skinTypes: ['peau-seche', 'peau-sensible'],
-            fitzpatrickType: 2,
-            skinConcerns: ['rosacee', 'deshydratation'],
-            privateNotes: 'Reacts to fragrances',
+      const dermoProfile = await expectOk(
+        client.profile.dermo.$patch(
+          {
+            json: {
+              skinTypes: ['peau-seche', 'peau-sensible'],
+              fitzpatrickType: 2,
+              skinConcerns: ['rosacee', 'deshydratation'],
+              privateNotes: 'Reacts to fragrances',
+            },
           },
-        },
-        withAuth(token)
+          withAuth(token)
+        )
       )
-      expect(res.status).toBe(HTTP_STATUS.OK)
-      const data = await res.json()
-      if (!data.success) throw new Error('expected ok')
-      expect(data.data.skinTypes).toEqual(['peau-seche', 'peau-sensible'])
-      expect(data.data.fitzpatrickType).toBe(2)
-      expect(data.data.skinConcerns).toEqual(['rosacee', 'deshydratation'])
-      expect(data.data.privateNotes).toBe('Reacts to fragrances')
+      expect(dermoProfile.skinTypes).toEqual(['peau-seche', 'peau-sensible'])
+      expect(dermoProfile.fitzpatrickType).toBe(2)
+      expect(dermoProfile.skinConcerns).toEqual(['rosacee', 'deshydratation'])
+      expect(dermoProfile.privateNotes).toBe('Reacts to fragrances')
     })
 
     it('should persist dermo profile across requests', async () => {

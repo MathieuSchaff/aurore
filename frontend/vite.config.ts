@@ -42,7 +42,10 @@ export default defineConfig(async ({ command, mode, isPreview }): Promise<UserCo
       devServer && Inspect(),
       // The `devtools` option below only configures the build-time Rolldown
       // devtools; the dev panel at /__devtools/ is mounted by this plugin.
-      devServer && (await DevTools()),
+      // devframe's WS transport hardcodes crossws/adapters/node with no runtime
+      // detection (checked up to devframe 0.8.2), so it throws under Bun. Gate it
+      // off there until upstream adds a Bun adapter.
+      devServer && !process.versions.bun && (await DevTools()),
 
       // TanStack Start must run before React so route splitting sees source files.
       tanstackStart({
@@ -121,8 +124,8 @@ export default defineConfig(async ({ command, mode, isPreview }): Promise<UserCo
             groups: [
               {
                 // The route tree and every route-definition module must live in ONE
-                // chunk. Left to rolldown's auto-splitting they land in mutually-
-                // importing shared chunks whose init order is non-deterministic, so
+                // chunk. Left to rolldown's auto-splitting they land in shared chunks
+                // that import each other, and their init order is not guaranteed, so
                 // under the wrong order the tree reads a route export before its chunk
                 // assigns it (Route$N.update of undefined) and every SSR request 500s.
                 // Match only definition modules: the negative lookahead excludes the

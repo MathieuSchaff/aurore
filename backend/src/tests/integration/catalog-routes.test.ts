@@ -1,4 +1,4 @@
-import { afterEach, beforeEach, describe, expect, it } from 'bun:test'
+import { afterEach, beforeAll, beforeEach, describe, expect, it } from 'bun:test'
 
 import { HTTP_STATUS } from '@aurore/shared'
 
@@ -7,7 +7,8 @@ import { clearBanCache } from '../../features/auth/ban.service'
 import { testDb } from '../db.test.config'
 import { setupDbTests } from '../db-setup'
 import { createTestClient, type TestClient, withAuth } from '../helpers/createTestClient'
-import { login as loginAs } from '../helpers/login'
+import { expectError, expectOk, expectStatus } from '../helpers/expectStatus'
+import { login } from '../helpers/login'
 import { TEST_CREDENTIALS } from '../helpers/test-credentials'
 import {
   createTestAdminUser,
@@ -25,16 +26,21 @@ const VALID_PRODUCT = {
 
 const VALID_INGREDIENT = { name: 'User Acid', type: 'skincare' } as const
 
+const ADMIN_FIELDS = ['moderatedBy', 'moderationReason', 'moderatedAt', 'verifiedBy', 'verifiedAt']
+
 setupDbTests()
 
-describe('catalog routes — guard swap (requireCatalogWrite removed from create/edit)', () => {
+describe('catalog routes: guard swap (requireCatalogWrite removed from create/edit)', () => {
   let client: TestClient
   let userId: string
   let adminId: string
   let userToken: string
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     client = await createTestClient()
+  })
+
+  beforeEach(async () => {
     clearBanCache()
     const toto = TEST_CREDENTIALS.toto
     const admin = TEST_CREDENTIALS.admin
@@ -44,12 +50,12 @@ describe('catalog routes — guard swap (requireCatalogWrite removed from create
 
     userId = user.id
     adminId = adminUser.id
-    userToken = await loginAs(client, toto.rawEmail, toto.rawPassword)
+    userToken = await login(client, toto.rawEmail, toto.rawPassword)
   })
 
-  afterEach(async () => {
+  // The ban cache is process memory, so cleanDatabase alone would leave it stale.
+  afterEach(() => {
     clearBanCache()
-    await testDb.delete(userBans)
   })
 
   it('ingredient_create ban blocks POST /ingredients with scope detail', async () => {
@@ -65,9 +71,7 @@ describe('catalog routes — guard swap (requireCatalogWrite removed from create
       withAuth(userToken)
     )
 
-    expect(res.status as number).toBe(HTTP_STATUS.FORBIDDEN)
-    const body = (await res.json()) as { error?: string; details?: { scope?: string } }
-    expect(body.error).toBe('banned')
+    const body = await expectError<{ scope?: string }>(res, HTTP_STATUS.FORBIDDEN, 'banned')
     expect(body.details?.scope).toBe('ingredient_create')
   })
 
@@ -88,240 +92,211 @@ describe('catalog routes — guard swap (requireCatalogWrite removed from create
   })
 })
 
-describe('catalog routes — verify (PATCH /:id/quality)', () => {
+describe('catalog routes: verify (PATCH /:id/quality)', () => {
   let client: TestClient
   let userToken: string
   let contributorToken: string
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     client = await createTestClient()
+  })
+
+  beforeEach(async () => {
     const toto = TEST_CREDENTIALS.toto
     const contrib = TEST_CREDENTIALS.contributor
     await createTestUser(toto.rawEmail, toto.rawPassword)
     await createTestContributorUser(contrib.rawEmail, contrib.rawPassword)
-    userToken = await loginAs(client, toto.rawEmail, toto.rawPassword)
-    contributorToken = await loginAs(client, contrib.rawEmail, contrib.rawPassword)
+    userToken = await login(client, toto.rawEmail, toto.rawPassword)
+    contributorToken = await login(client, contrib.rawEmail, contrib.rawPassword)
   })
 
-  it('contributor can verify a product (PATCH /products/:id/quality)', async () => {
-    const createRes = await client.products.$post({ json: VALID_PRODUCT }, withAuth(userToken))
-    const createBody = await createRes.json()
-    if (!createBody.success) throw new Error('create failed')
-    const id = createBody.data.id
-
-    const res = await client.products[':id'].quality.$patch(
-      { param: { id }, json: { quality: 'verified' } },
-      withAuth(contributorToken)
+  const postProduct = () =>
+    expectOk(
+      client.products.$post({ json: VALID_PRODUCT }, withAuth(userToken)),
+      HTTP_STATUS.CREATED
     )
 
-    expect(res.status as number).toBe(HTTP_STATUS.OK)
-    const body = await res.json()
-    if (!body.success) throw new Error('verify failed')
-    expect(body.data.catalogQuality).toBe('verified')
+  const postIngredient = () =>
+    expectOk(
+      client.ingredients.$post({ json: VALID_INGREDIENT }, withAuth(userToken)),
+      HTTP_STATUS.CREATED
+    )
+
+  it('contributor can verify a product (PATCH /products/:id/quality)', async () => {
+    const { id } = await postProduct()
+
+    const body = await expectOk(
+      client.products[':id'].quality.$patch(
+        { param: { id }, json: { quality: 'verified' } },
+        withAuth(contributorToken)
+      )
+    )
+    expect(body.catalogQuality).toBe('verified')
   })
 
   it('regular user gets 403 on PATCH /products/:id/quality', async () => {
-    const createRes = await client.products.$post({ json: VALID_PRODUCT }, withAuth(userToken))
-    const createBody = await createRes.json()
-    if (!createBody.success) throw new Error('create failed')
-    const id = createBody.data.id
+    const { id } = await postProduct()
 
     const res = await client.products[':id'].quality.$patch(
       { param: { id }, json: { quality: 'verified' } as never },
       withAuth(userToken)
     )
 
-    expect(res.status as number).toBe(HTTP_STATUS.FORBIDDEN)
+    expectStatus(res, HTTP_STATUS.FORBIDDEN)
   })
 
   it('contributor can verify an ingredient (PATCH /ingredients/:id/quality)', async () => {
-    const createRes = await client.ingredients.$post(
-      { json: VALID_INGREDIENT },
-      withAuth(userToken)
-    )
-    const createBody = await createRes.json()
-    if (!createBody.success) throw new Error('create failed')
-    const id = createBody.data.id
+    const { id } = await postIngredient()
 
-    const res = await client.ingredients[':id'].quality.$patch(
-      { param: { id }, json: { quality: 'verified' } },
-      withAuth(contributorToken)
+    const body = await expectOk(
+      client.ingredients[':id'].quality.$patch(
+        { param: { id }, json: { quality: 'verified' } },
+        withAuth(contributorToken)
+      )
     )
-
-    expect(res.status as number).toBe(HTTP_STATUS.OK)
-    const body = await res.json()
-    if (!body.success) throw new Error('verify failed')
-    expect(body.data.catalogQuality).toBe('verified')
+    expect(body.catalogQuality).toBe('verified')
   })
 
   it('regular user gets 403 on PATCH /ingredients/:id/quality', async () => {
-    const createRes = await client.ingredients.$post(
-      { json: VALID_INGREDIENT },
-      withAuth(userToken)
-    )
-    const createBody = await createRes.json()
-    if (!createBody.success) throw new Error('create failed')
-    const id = createBody.data.id
+    const { id } = await postIngredient()
 
     const res = await client.ingredients[':id'].quality.$patch(
       { param: { id }, json: { quality: 'verified' } as never },
       withAuth(userToken)
     )
 
-    expect(res.status as number).toBe(HTTP_STATUS.FORBIDDEN)
+    expectStatus(res, HTTP_STATUS.FORBIDDEN)
   })
 })
 
-describe('catalog routes — field-strip public projections', () => {
+describe('catalog routes: field-strip public projections', () => {
   let client: TestClient
   let userToken: string
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     client = await createTestClient()
-    const toto = TEST_CREDENTIALS.toto
-    await createTestUser(toto.rawEmail, toto.rawPassword)
-    userToken = await loginAs(client, toto.rawEmail, toto.rawPassword)
   })
 
-  const ADMIN_FIELDS = [
-    'moderatedBy',
-    'moderationReason',
-    'moderatedAt',
-    'verifiedBy',
-    'verifiedAt',
-  ]
+  beforeEach(async () => {
+    const toto = TEST_CREDENTIALS.toto
+    await createTestUser(toto.rawEmail, toto.rawPassword)
+    userToken = await login(client, toto.rawEmail, toto.rawPassword)
+  })
+
+  function expectStripped(data: unknown) {
+    const record = data as Record<string, unknown>
+    for (const f of ADMIN_FIELDS) expect(record).not.toHaveProperty(f)
+    expect(record).toHaveProperty('catalogQuality')
+  }
 
   it('POST /products response strips admin fields but keeps catalogQuality', async () => {
-    const res = await client.products.$post({ json: VALID_PRODUCT }, withAuth(userToken))
-    const body = await res.json()
-    if (!body.success) throw new Error('create failed')
-    const data = body.data as Record<string, unknown>
-    for (const f of ADMIN_FIELDS) expect(data).not.toHaveProperty(f)
-    expect(data).toHaveProperty('catalogQuality')
+    const data = await expectOk(
+      client.products.$post({ json: VALID_PRODUCT }, withAuth(userToken)),
+      HTTP_STATUS.CREATED
+    )
+    expectStripped(data)
   })
 
   it('GET /products/:slug response strips admin fields', async () => {
-    const createRes = await client.products.$post({ json: VALID_PRODUCT }, withAuth(userToken))
-    const createBody = await createRes.json()
-    if (!createBody.success) throw new Error('create failed')
-    const slug = createBody.data.slug
+    const { slug } = await expectOk(
+      client.products.$post({ json: VALID_PRODUCT }, withAuth(userToken)),
+      HTTP_STATUS.CREATED
+    )
 
-    const res = await client.products[':slug'].$get({ param: { slug } })
-    const body = await res.json()
-    if (!body.success) throw new Error('get failed')
-    const data = body.data as Record<string, unknown>
-    for (const f of ADMIN_FIELDS) expect(data).not.toHaveProperty(f)
-    expect(data).toHaveProperty('catalogQuality')
+    expectStripped(await expectOk(client.products[':slug'].$get({ param: { slug } })))
   })
 
   it('POST /ingredients response strips admin fields but keeps catalogQuality', async () => {
-    const res = await client.ingredients.$post({ json: VALID_INGREDIENT }, withAuth(userToken))
-    const body = await res.json()
-    if (!body.success) throw new Error('create failed')
-    const data = body.data as Record<string, unknown>
-    for (const f of ADMIN_FIELDS) expect(data).not.toHaveProperty(f)
-    expect(data).toHaveProperty('catalogQuality')
+    const data = await expectOk(
+      client.ingredients.$post({ json: VALID_INGREDIENT }, withAuth(userToken)),
+      HTTP_STATUS.CREATED
+    )
+    expectStripped(data)
   })
 
   it('GET /ingredients/:slug response strips admin fields', async () => {
-    const createRes = await client.ingredients.$post(
-      { json: VALID_INGREDIENT },
-      withAuth(userToken)
+    const { slug } = await expectOk(
+      client.ingredients.$post({ json: VALID_INGREDIENT }, withAuth(userToken)),
+      HTTP_STATUS.CREATED
     )
-    const createBody = await createRes.json()
-    if (!createBody.success) throw new Error('create failed')
-    const slug = createBody.data.slug
 
-    const res = await client.ingredients[':slug'].$get({ param: { slug } })
-    const body = await res.json()
-    if (!body.success) throw new Error('get failed')
-    const data = body.data as Record<string, unknown>
-    for (const f of ADMIN_FIELDS) expect(data).not.toHaveProperty(f)
-    expect(data).toHaveProperty('catalogQuality')
+    expectStripped(await expectOk(client.ingredients[':slug'].$get({ param: { slug } })))
   })
 })
 
-describe('catalog routes — list endpoints strip admin fields', () => {
+describe('catalog routes: list endpoints strip admin fields', () => {
   let client: TestClient
   let userToken: string
   let contributorToken: string
 
-  const ADMIN_FIELDS = [
-    'moderatedBy',
-    'moderationReason',
-    'moderatedAt',
-    'verifiedBy',
-    'verifiedAt',
-  ]
+  beforeAll(async () => {
+    client = await createTestClient()
+  })
 
   beforeEach(async () => {
-    client = await createTestClient()
     const toto = TEST_CREDENTIALS.toto
     const contrib = TEST_CREDENTIALS.contributor
     await createTestUser(toto.rawEmail, toto.rawPassword)
     await createTestContributorUser(contrib.rawEmail, contrib.rawPassword)
-    userToken = await loginAs(client, toto.rawEmail, toto.rawPassword)
-    contributorToken = await loginAs(client, contrib.rawEmail, contrib.rawPassword)
+    userToken = await login(client, toto.rawEmail, toto.rawPassword)
+    contributorToken = await login(client, contrib.rawEmail, contrib.rawPassword)
   })
 
-  // A verified+visible row has verifiedBy/verifiedAt NON-NULL, so a leak can't
+  function expectItemsStripped(items: Array<Record<string, unknown>>) {
+    expect(items.length).toBeGreaterThan(0)
+    for (const item of items) {
+      for (const f of ADMIN_FIELDS) expect(item).not.toHaveProperty(f)
+    }
+  }
+
+  // A verified+visible row has verifiedBy/verifiedAt not null, so a leak can't
   // hide behind null values. The row still appears in a public list (RLS only
   // hides 'hidden' rows), proving any verify-stamp leak in the list projection.
   it('GET /products list strips admin fields on a verified row', async () => {
-    const createRes = await client.products.$post({ json: VALID_PRODUCT }, withAuth(userToken))
-    const createBody = await createRes.json()
-    if (!createBody.success) throw new Error('create failed')
+    const created = await expectOk(
+      client.products.$post({ json: VALID_PRODUCT }, withAuth(userToken)),
+      HTTP_STATUS.CREATED
+    )
     await client.products[':id'].quality.$patch(
-      { param: { id: createBody.data.id }, json: { quality: 'verified' } },
+      { param: { id: created.id }, json: { quality: 'verified' } },
       withAuth(contributorToken)
     )
 
-    const res = await client.products.$get({ query: { category: 'skincare' } })
-    const body = await res.json()
-    if (!body.success) throw new Error('list failed')
-    const items = body.data.items as Array<Record<string, unknown>>
-    expect(items.length).toBeGreaterThan(0)
-    for (const item of items) {
-      for (const f of ADMIN_FIELDS) expect(item).not.toHaveProperty(f)
-    }
+    const { items } = await expectOk(client.products.$get({ query: { category: 'skincare' } }))
+    expectItemsStripped(items as Array<Record<string, unknown>>)
   })
 
   it('GET /ingredients list strips admin fields on a verified row', async () => {
-    const createRes = await client.ingredients.$post(
-      { json: VALID_INGREDIENT },
-      withAuth(userToken)
+    const created = await expectOk(
+      client.ingredients.$post({ json: VALID_INGREDIENT }, withAuth(userToken)),
+      HTTP_STATUS.CREATED
     )
-    const createBody = await createRes.json()
-    if (!createBody.success) throw new Error('create failed')
     await client.ingredients[':id'].quality.$patch(
-      { param: { id: createBody.data.id }, json: { quality: 'verified' } },
+      { param: { id: created.id }, json: { quality: 'verified' } },
       withAuth(contributorToken)
     )
 
-    const res = await client.ingredients.$get({ query: {} })
-    const body = await res.json()
-    if (!body.success) throw new Error('list failed')
-    const items = body.data.items as Array<Record<string, unknown>>
-    expect(items.length).toBeGreaterThan(0)
-    for (const item of items) {
-      for (const f of ADMIN_FIELDS) expect(item).not.toHaveProperty(f)
-    }
+    const { items } = await expectOk(client.ingredients.$get({ query: {} }))
+    expectItemsStripped(items as Array<Record<string, unknown>>)
   })
 })
 
-describe('catalog routes — read filters (?quality / ?status)', () => {
+describe('catalog routes: read filters (?quality / ?status)', () => {
   let client: TestClient
   let userToken: string
   let adminToken: string
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     client = await createTestClient()
+  })
+
+  beforeEach(async () => {
     const toto = TEST_CREDENTIALS.toto
     const admin = TEST_CREDENTIALS.admin
     await createTestUser(toto.rawEmail, toto.rawPassword)
     await createTestAdminUser(admin.rawEmail, admin.rawPassword)
-    userToken = await loginAs(client, toto.rawEmail, toto.rawPassword)
-    adminToken = await loginAs(client, admin.rawEmail, admin.rawPassword)
+    userToken = await login(client, toto.rawEmail, toto.rawPassword)
+    adminToken = await login(client, admin.rawEmail, admin.rawPassword)
   })
 
   it('GET /products?quality=unverified returns only unverified products', async () => {
@@ -331,12 +306,9 @@ describe('catalog routes — read filters (?quality / ?status)', () => {
       withAuth(adminToken)
     )
 
-    const res = await client.products.$get({
-      query: { category: 'skincare', quality: 'unverified' },
-    })
-    const body = await res.json()
-    if (!body.success) throw new Error('list failed')
-    const items = body.data.items as Array<{ catalogQuality?: string }>
+    const { items } = await expectOk(
+      client.products.$get({ query: { category: 'skincare', quality: 'unverified' } })
+    )
     expect(items.length).toBe(1)
   })
 
@@ -347,10 +319,7 @@ describe('catalog routes — read filters (?quality / ?status)', () => {
       withAuth(adminToken)
     )
 
-    const res = await client.ingredients.$get({ query: { quality: 'unverified' } })
-    const body = await res.json()
-    if (!body.success) throw new Error('list failed')
-    const items = body.data.items
+    const { items } = await expectOk(client.ingredients.$get({ query: { quality: 'unverified' } }))
     expect(items.length).toBe(1)
   })
 })

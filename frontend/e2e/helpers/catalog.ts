@@ -1,20 +1,12 @@
 import { expect, type Page } from '@playwright/test'
 
-// Admin user: auto-verifies created products; use for UI moderation + admin API calls.
-const ADMIN = { email: 'seed@seed.com', password: 'Azerty123!seed' }
-// Plain user: products land unverified in the moderation queue.
-const USER = { email: 'anna@seed.local', password: 'Azerty123!seed' }
+import { type Credentials, loginAs, SEED_EMAIL, SEED_PASSWORD } from './auth'
 
-// A relative URL goes through the Playwright baseURL (e2e :5174), then the Vite proxy,
-// then e2e_api. An absolute
-// :3000 would hit the dev stack (wrong DB), see helpers/auth.ts.
-async function loginAs(page: Page, creds: { email: string; password: string }): Promise<string> {
-  const res = await page.request.post('/api/auth/login', { data: creds })
-  expect(res.ok(), `login failed (${res.status()})`).toBe(true)
-  const token = (await res.json()).data.accessToken as string
-  expect(token, 'no accessToken in login response').toBeTruthy()
-  return token
-}
+// Admin user: auto-verifies created products; use for UI moderation + admin API calls.
+const ADMIN: Credentials = { email: SEED_EMAIL, password: SEED_PASSWORD }
+// Plain user: products land unverified in the moderation queue.
+// keep in sync with backend/src/db/seed/seeders/seed-test-users.ts
+const USER: Credentials = { email: 'anna@seed.local', password: SEED_PASSWORD }
 
 // Login as admin (seed@seed.com). Sets the page's session cookie to admin.
 export const loginAndGetToken = (page: Page) => loginAs(page, ADMIN)
