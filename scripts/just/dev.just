@@ -134,6 +134,12 @@ install-deps:
     bun install
     @printf "{{GREEN}}✓ Dependencies installed{{NC}}\n"
 
+# Install deps in CI: the lockfile is law, any drift fails the job.
+install-deps-ci:
+    @printf "{{CYAN}}Installing monorepo dependencies (frozen lockfile)...{{NC}}\n"
+    bun install --frozen-lockfile
+    @printf "{{GREEN}}✓ Dependencies installed{{NC}}\n"
+
 # Rebuild algo-derm tarball in vendor/ from a pinned ref + bun install --force.
 # Aurore is calibrated for a fixed TAG_DEFS_VERSION (passes/algo-derm-detection.ts);
 # algo-derm main has moved ahead, so we build from a pinned ref in a throwaway
