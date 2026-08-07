@@ -220,9 +220,12 @@ describe('refresh', () => {
     const { logout } = await import('../service')
     const creds = TEST_CREDENTIALS.toto
     await createTestUser(creds.rawEmail, creds.rawPassword)
-    const { refreshToken } = await connecterEtRecupererTokens(creds.rawEmail, creds.rawPassword)
+    const { refreshToken, user } = await connecterEtRecupererTokens(
+      creds.rawEmail,
+      creds.rawPassword
+    )
 
-    await logout(createCtx(), refreshToken)
+    await logout(createCtx(), refreshToken, user.id)
 
     const result = await refresh(createCtx({ ip: '127.0.0.1', userAgent: 'Test' }), refreshToken)
     expect(result.success).toBe(false)

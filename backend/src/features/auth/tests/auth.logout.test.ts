@@ -20,7 +20,11 @@ describe('logout', () => {
     expect(loginResult.success).toBe(true)
     if (!loginResult.success) return
 
-    const result = await logout(createCtx(), loginResult.data.refreshToken)
+    const result = await logout(
+      createCtx(),
+      loginResult.data.refreshToken,
+      loginResult.data.user.id
+    )
     expect(result.success).toBe(true)
 
     const refreshPayload = await verifyRefreshToken(loginResult.data.refreshToken, REFRESH_SECRET)
@@ -39,20 +43,30 @@ describe('logout', () => {
     expect(loginResult.success).toBe(true)
     if (!loginResult.success) return
 
-    const result1 = await logout(createCtx(), loginResult.data.refreshToken)
+    const result1 = await logout(
+      createCtx(),
+      loginResult.data.refreshToken,
+      loginResult.data.user.id
+    )
     expect(result1.success).toBe(true)
 
-    const result2 = await logout(createCtx(), loginResult.data.refreshToken)
+    const result2 = await logout(
+      createCtx(),
+      loginResult.data.refreshToken,
+      loginResult.data.user.id
+    )
     expect(result2.success).toBe(true)
   })
 
   it('devrait gérer un logout avec un token invalide', async () => {
-    const result = await logout(createCtx(), 'token.completement.invalide')
+    const user = await createTestUser()
+    const result = await logout(createCtx(), 'token.completement.invalide', user.id)
     expect(result.success).toBe(true)
   })
 
   it('devrait gérer un logout avec un token vide', async () => {
-    const result = await logout(createCtx(), '')
+    const user = await createTestUser()
+    const result = await logout(createCtx(), null, user.id)
     expect(result.success).toBe(true)
   })
 
@@ -64,7 +78,7 @@ describe('logout', () => {
     expect(loginResult.success).toBe(true)
     if (!loginResult.success) return
 
-    await logout(createCtx(), loginResult.data.refreshToken)
+    await logout(createCtx(), loginResult.data.refreshToken, loginResult.data.user.id)
 
     const reloginResult = await login(createCtx(), creds.email, creds.password)
     expect(reloginResult.success).toBe(true)

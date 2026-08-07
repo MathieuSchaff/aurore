@@ -4,7 +4,15 @@ import { HTTP_STATUS } from '@aurore/shared'
 
 import { eq } from 'drizzle-orm'
 
-import { profiles } from '../../../db/schema/auth/users'
+import {
+  discussionReplies,
+  discussionThreads,
+  socialPostReplies,
+  socialPosts,
+  socialReactions,
+  userBans,
+} from '../../../db/schema'
+import { profiles, users } from '../../../db/schema/auth/users'
 import { testDb } from '../../../tests/db.test.config'
 import { setupDbTests } from '../../../tests/db-setup'
 import { expectRequiresAuth } from '../../../tests/helpers/authz-matrix'
@@ -16,8 +24,14 @@ import {
 } from '../../../tests/helpers/createTestClient'
 import { expectError, expectOk } from '../../../tests/helpers/expectStatus'
 import { authDelete, authPatch, setupAndLogin } from '../../../tests/helpers/route-test-helpers'
+import { JWT_SECRET, REFRESH_SECRET } from '../../../tests/helpers/secrets'
 import { TEST_CREDENTIALS } from '../../../tests/helpers/test-credentials'
-import { createTestUser } from '../../../tests/helpers/test-factories'
+import {
+  createTestAdminUser,
+  createTestProduct,
+  createTestUser,
+} from '../../../tests/helpers/test-factories'
+import { createDemo } from '../../auth/service'
 import { updateProfile } from '../service'
 
 setupDbTests()
@@ -336,6 +350,144 @@ describe('Profile Routes', () => {
         },
       })
       expect(login.status).toBe(HTTP_STATUS.UNAUTHORIZED)
+    })
+
+    it('preserves the global-ban gate outside the request RLS transaction', async () => {
+      const user = await createTestUser(
+        TEST_CREDENTIALS.toto.rawEmail,
+        TEST_CREDENTIALS.toto.rawPassword
+      )
+      const admin = await createTestAdminUser('normal-delete-ban-admin@test.local', 'Azerty123!')
+      await testDb.insert(userBans).values({
+        userId: user.id,
+        bannedBy: admin.id,
+        scope: 'global',
+        reason: 'Account locked',
+      })
+
+      const deletion = await authDelete(app, '/api/profile/deleteUser', token)
+
+      expect(deletion.status).toBe(HTTP_STATUS.FORBIDDEN)
+      expect(await testDb.select().from(users).where(eq(users.id, user.id))).toHaveLength(1)
+    })
+
+    it('keeps normal-account public content and anonymizes its author', async () => {
+      const deletedUser = await createTestUser(
+        TEST_CREDENTIALS.toto.rawEmail,
+        TEST_CREDENTIALS.toto.rawPassword
+      )
+      const catalogOwner = await createTestUser('normal-delete-owner@test.local', 'Azerty123!')
+      const product = await createTestProduct(catalogOwner.id, {
+        name: 'Normal deletion shared product',
+      })
+
+      const [post] = await testDb
+        .insert(socialPosts)
+        .values({
+          authorId: deletedUser.id,
+          tone: 'principal',
+          content: 'Post kept after normal deletion',
+          productId: product.id,
+        })
+        .returning({ id: socialPosts.id })
+      if (!post) throw new Error('post insert failed')
+
+      const [postReply] = await testDb
+        .insert(socialPostReplies)
+        .values({
+          postId: post.id,
+          authorId: deletedUser.id,
+          content: 'Post reply kept after normal deletion',
+        })
+        .returning({ id: socialPostReplies.id })
+      if (!postReply) throw new Error('post reply insert failed')
+
+      const [thread] = await testDb
+        .insert(discussionThreads)
+        .values({
+          productId: product.id,
+          authorId: deletedUser.id,
+          title: 'Thread kept after normal deletion',
+          content: 'Thread content kept after normal deletion',
+        })
+        .returning({ id: discussionThreads.id })
+      if (!thread) throw new Error('thread insert failed')
+
+      const [threadReply] = await testDb
+        .insert(discussionReplies)
+        .values({
+          threadId: thread.id,
+          authorId: deletedUser.id,
+          content: 'Thread reply kept after normal deletion',
+        })
+        .returning({ id: discussionReplies.id })
+      if (!threadReply) throw new Error('thread reply insert failed')
+
+      const [reaction] = await testDb
+        .insert(socialReactions)
+        .values({
+          reactableType: 'post',
+          reactableId: post.id,
+          userId: deletedUser.id,
+          kind: 'merci',
+        })
+        .returning({ id: socialReactions.id })
+      if (!reaction) throw new Error('reaction insert failed')
+
+      const deleted = await authDelete(app, '/api/profile/deleteUser', token)
+      expect(deleted.status).toBe(204)
+
+      const [keptPost] = await testDb
+        .select({ id: socialPosts.id, authorId: socialPosts.authorId })
+        .from(socialPosts)
+        .where(eq(socialPosts.id, post.id))
+      const [keptPostReply] = await testDb
+        .select({ id: socialPostReplies.id, authorId: socialPostReplies.authorId })
+        .from(socialPostReplies)
+        .where(eq(socialPostReplies.id, postReply.id))
+      const [keptThread] = await testDb
+        .select({ id: discussionThreads.id, authorId: discussionThreads.authorId })
+        .from(discussionThreads)
+        .where(eq(discussionThreads.id, thread.id))
+      const [keptThreadReply] = await testDb
+        .select({ id: discussionReplies.id, authorId: discussionReplies.authorId })
+        .from(discussionReplies)
+        .where(eq(discussionReplies.id, threadReply.id))
+      const [keptReaction] = await testDb
+        .select({ id: socialReactions.id, userId: socialReactions.userId })
+        .from(socialReactions)
+        .where(eq(socialReactions.id, reaction.id))
+
+      expect({
+        post: keptPost,
+        postReply: keptPostReply,
+        thread: keptThread,
+        threadReply: keptThreadReply,
+        reaction: keptReaction,
+      }).toEqual({
+        post: { id: post.id, authorId: null },
+        postReply: { id: postReply.id, authorId: null },
+        thread: { id: thread.id, authorId: null },
+        threadReply: { id: threadReply.id, authorId: null },
+        reaction: { id: reaction.id, userId: null },
+      })
+    })
+
+    it('purges a demo account through the account deletion route', async () => {
+      const demo = await createDemo({
+        db: testDb,
+        jwtSecret: JWT_SECRET,
+        refreshSecret: REFRESH_SECRET,
+        frontendUrl: 'http://localhost:5173',
+      })
+      expect(demo.success).toBe(true)
+      if (!demo.success) return
+
+      const deleted = await authDelete(app, '/api/profile/deleteUser', demo.data.accessToken)
+      expect(deleted.status).toBe(204)
+
+      const remaining = await testDb.select().from(users).where(eq(users.id, demo.data.user.id))
+      expect(remaining).toHaveLength(0)
     })
 
     expectRequiresAuth(() => app, { method: 'DELETE', path: '/api/profile/deleteUser' })

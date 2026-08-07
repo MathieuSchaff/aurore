@@ -1,8 +1,8 @@
 import { beforeEach, describe, expect, it } from 'bun:test'
 
-import { eq } from 'drizzle-orm'
+import { eq, sql } from 'drizzle-orm'
 
-import { products } from '../../../db/schema'
+import { products, suggestedEdits } from '../../../db/schema'
 import { testDb } from '../../../tests/db.test.config'
 import { setupDbTests } from '../../../tests/db-setup'
 import { createTestUser } from '../../../tests/helpers/test-factories'
@@ -18,6 +18,14 @@ const listEdits = (filters: Parameters<typeof listSuggestedEdits>[1]) =>
 
 const reviewEdit = (args: Parameters<typeof reviewSuggestedEdit>[1]) =>
   testDb.transaction((tx) => reviewSuggestedEdit(tx, args))
+
+function deferred() {
+  let resolve!: () => void
+  const promise = new Promise<void>((done) => {
+    resolve = done
+  })
+  return { promise, resolve }
+}
 
 let proposerId: string
 let reviewerId: string
@@ -57,6 +65,51 @@ describe('suggested-edits service', () => {
     })
     expect(row.status).toBe('pending')
     expect(row.proposedValue).toBe('New Name')
+  })
+
+  it('createSuggestedEdit rejects a missing target sheet', async () => {
+    await expect(
+      createEdit({
+        proposerId,
+        body: {
+          targetType: 'product',
+          targetId: '00000000-0000-7000-8000-000000000000',
+          field: 'name',
+          proposedValue: 'New Name',
+        },
+      })
+    ).rejects.toMatchObject({ code: 'not_found' })
+  })
+
+  it('holds the target sheet while creating its polymorphic reference', async () => {
+    const created = deferred()
+    const release = deferred()
+    const writer = testDb.transaction(async (tx) => {
+      await createSuggestedEdit(tx, {
+        proposerId,
+        body: {
+          targetType: 'product',
+          targetId: productId,
+          field: 'name',
+          proposedValue: 'New Name',
+        },
+      })
+      created.resolve()
+      await release.promise
+    })
+    await created.promise
+
+    try {
+      await expect(
+        testDb.transaction(async (tx) => {
+          await tx.execute(sql`SET LOCAL lock_timeout = '100ms'`)
+          await tx.delete(products).where(eq(products.id, productId))
+        })
+      ).rejects.toThrow()
+    } finally {
+      release.resolve()
+      await writer
+    }
   })
 
   it('listSuggestedEdits filters by status, newest first', async () => {
@@ -133,15 +186,17 @@ describe('suggested-edits service', () => {
 
   // Covers the applyToSheet 0-row branch: the edit exists but its target is gone.
   it('ACCEPT on an edit whose target sheet is gone throws', async () => {
-    const edit = await createEdit({
-      proposerId,
-      body: {
+    const [edit] = await testDb
+      .insert(suggestedEdits)
+      .values({
+        proposerId,
         targetType: 'product',
         targetId: '00000000-0000-7000-8000-000000000000',
         field: 'name',
         proposedValue: 'X',
-      },
-    })
+      })
+      .returning({ id: suggestedEdits.id })
+    if (!edit) throw new Error('suggested edit seed failed')
     await expect(reviewEdit({ id: edit.id, reviewerId, status: 'accepted' })).rejects.toThrow()
   })
 })

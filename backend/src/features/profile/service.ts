@@ -30,7 +30,6 @@ import {
   profiles,
   type UserDermoProfileRow,
   userDermoProfiles,
-  users,
 } from '../../db/schema/users'
 import { isUniqueViolation } from '../../lib/helpers'
 import { nowISO } from '../../utils/dates'
@@ -227,11 +226,6 @@ export async function getProfileStats(
   return {
     totalProducts: productCount?.count ?? 0,
   }
-}
-
-export async function deleteUser(db: DatabaseTransaction, userId: string) {
-  const deletedUser = await db.delete(users).where(eq(users.id, userId)).returning({ id: users.id })
-  return deletedUser
 }
 
 const PROFILE_FLAG_KEYS = ['profilePublic', 'bioPublic', 'avatarPublic', 'linksPublic'] as const
