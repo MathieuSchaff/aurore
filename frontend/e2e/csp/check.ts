@@ -25,6 +25,14 @@ function cspTemplate(): string {
 }
 const CSP_TEMPLATE = cspTemplate()
 
+// Neither ROUTE below mounts ImageUpload (needs a backend this harness doesn't run), so the
+// blob: crop-preview path (URL.createObjectURL) can't be exercised live. Guard the directive
+// itself instead, since regressions on it wouldn't otherwise fail this suite.
+if (!/\bimg-src\b[^;]*\bblob:/.test(CSP_TEMPLATE)) {
+  console.error("✗ CSP img-src missing 'blob:' (required by ImageUpload crop preview)")
+  process.exit(1)
+}
+
 async function waitForPort(port: number, timeoutMs = 15000) {
   const deadline = Date.now() + timeoutMs
   while (Date.now() < deadline) {

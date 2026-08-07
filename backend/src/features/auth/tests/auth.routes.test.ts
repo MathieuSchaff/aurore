@@ -4,6 +4,7 @@ import { HTTP_STATUS } from '@aurore/shared'
 
 import { eq } from 'drizzle-orm'
 
+import { users } from '../../../db/schema'
 import { testDb } from '../../../tests/db.test.config'
 import { setupDbTests } from '../../../tests/db-setup'
 import { expectRequiresAuth } from '../../../tests/helpers/authz-matrix'
@@ -360,6 +361,29 @@ describe('Auth Routes (browser)', () => {
       expect(setCookie).toContain('refresh_token=;')
     })
 
+    it('deletes a demo account immediately', async () => {
+      const demoResponse = await client.auth.demo.$post()
+      const demo = await expectOk(demoResponse, HTTP_STATUS.CREATED)
+
+      await expectOk(
+        client.auth.logout.$post(
+          {},
+          {
+            headers: {
+              Cookie: extractCookie(demoResponse),
+              Authorization: `Bearer ${demo.accessToken}`,
+            },
+          }
+        )
+      )
+
+      const [remaining] = await testDb
+        .select({ id: users.id })
+        .from(users)
+        .where(eq(users.id, demo.user.id))
+      expect(remaining).toBeUndefined()
+    })
+
     it('sets the JS-readable session hint on login and clears it on logout', async () => {
       const creds = await createTestToto()
       const {
@@ -446,6 +470,33 @@ describe('Auth Routes (browser)', () => {
         {
           headers: {
             Cookie: totoSession.cookie,
+            Authorization: `Bearer ${totoSession.accessToken}`,
+          },
+        }
+      )
+
+      const aliceRefresh = await client.auth.refresh.$post(
+        {},
+        { headers: { Cookie: aliceSession.cookie } }
+      )
+      expect(aliceRefresh.status).toBe(HTTP_STATUS.OK)
+    })
+
+    it('uses the access-token identity when the refresh cookie belongs to another user', async () => {
+      const toto = TEST_CREDENTIALS.toto
+      const alice = TEST_CREDENTIALS.alice
+      await createTestUser(toto.rawEmail, toto.rawPassword)
+      await createTestUser(alice.rawEmail, alice.rawPassword)
+
+      const totoSession = await loginAndGetCookies(client, toto.rawEmail, toto.rawPassword)
+      const aliceSession = await loginAndGetCookies(client, alice.rawEmail, alice.rawPassword)
+
+      // A stale cross-account cookie must never let Toto revoke Alice's session.
+      await client.auth.logout.$post(
+        {},
+        {
+          headers: {
+            Cookie: aliceSession.cookie,
             Authorization: `Bearer ${totoSession.accessToken}`,
           },
         }

@@ -18,6 +18,7 @@ import type { AppEnv } from '../../app-env'
 import { db as baseDb } from '../../db'
 import { getAuthedUserId, getRlsDb } from '../../utils/accessors'
 import { zValidator } from '../../utils/validator'
+import { deleteAccount } from '../auth/demo-cleanup'
 import { requireJwtAuth, requireNotBanned } from '../auth/middleware'
 import { withRlsContext } from '../auth/rls-context.middleware'
 import { getUserById } from '../auth/user.utils'
@@ -27,7 +28,6 @@ import { checkExportRateLimit, exportFilename, exportUserData } from './export.s
 import {
   deleteIngredientPreference,
   deleteTagPreference,
-  deleteUser,
   getDermoProfile,
   getPrivacySettings,
   getProfile,
@@ -45,10 +45,22 @@ import {
 const app = new Hono<AppEnv>()
 
 app.use('*', requireJwtAuth)
-app.use('*', withRlsContext)
-app.use('*', requireNotBanned)
 
+// This root operation owns its admin transaction. Register it before the
+// request-wide RLS transaction so one request never checks out two pool slots.
 export const profileRoute = app
+  .delete('/deleteUser', async (c) => {
+    const result = await deleteAccount(getAuthedUserId(c))
+    if (result.status === 'banned') {
+      return c.json(
+        err('banned', { expiresAt: result.expiresAt, reason: result.reason }),
+        HTTP_STATUS.FORBIDDEN
+      )
+    }
+    return c.body(null, HTTP_STATUS.NO_CONTENT)
+  })
+  .use('*', withRlsContext)
+  .use('*', requireNotBanned)
 
   .get('/', async (c) => {
     const requestDbRls = getRlsDb(c)
@@ -190,13 +202,6 @@ export const profileRoute = app
     }
 
     return c.json(ok(updated), HTTP_STATUS.OK)
-  })
-
-  .delete('/deleteUser', async (c) => {
-    const db = getRlsDb(c)
-    const userId = getAuthedUserId(c)
-    await deleteUser(db, userId)
-    return c.body(null, 204)
   })
 
   // RGPD Article 20: data portability. JSON dump of every tenant-scoped row

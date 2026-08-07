@@ -4,6 +4,7 @@ import { and, desc, eq, isNotNull } from 'drizzle-orm'
 
 import type { DatabaseTransaction } from '../../db'
 import { contentReports } from '../../db/schema'
+import { lockVisiblePolymorphicTarget } from '../../lib/polymorphic-target'
 import { nowISO } from '../../utils/dates'
 import { ReportError } from './report-error'
 
@@ -11,6 +12,10 @@ export async function createReport(
   db: DatabaseTransaction,
   args: { reporterId: string; body: CreateReportInput }
 ) {
+  if (!(await lockVisiblePolymorphicTarget(db, args.body.targetType, args.body.targetId))) {
+    throw new ReportError('not_found')
+  }
+
   const [row] = await db
     .insert(contentReports)
     .values({
@@ -62,7 +67,7 @@ export async function resolveReport(
 
 // Escalation is orthogonal to status (ADR-0006 S3): the report stays open while
 // escalated, then resolves normally. The admin surfaces it via the escalated filter.
-// Re-escalating overwrites attribution (last escalator wins), same posture as
+// Escalating again overwrites attribution (last escalator wins), same posture as
 // resolveReport's reviewedBy; the UI hides the action once escalated.
 export async function escalateReport(
   db: DatabaseTransaction,

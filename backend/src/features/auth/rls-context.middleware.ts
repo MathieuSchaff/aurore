@@ -1,7 +1,8 @@
-import { sql, TransactionRollbackError } from 'drizzle-orm'
+import { eq, sql, TransactionRollbackError } from 'drizzle-orm'
 import type { Context, Next } from 'hono'
 
 import type { AppEnv } from '../../app-env'
+import { users } from '../../db/schema'
 import { getAuthedUserRole } from '../../utils/accessors'
 
 // Wraps authenticated requests in a transaction and binds the PostgreSQL RLS context.
@@ -29,6 +30,11 @@ export const withRlsContext = async (c: Context<AppEnv>, next: Next) => {
       // set_config() takes a parameterized value, so it is safe.
       await tx.execute(sql`SELECT set_config('app.user_id', ${userId}, true)`)
       await tx.execute(sql`SELECT set_config('app.role', ${role}, true)`)
+
+      // Account deletion takes FOR UPDATE before touching owned targets. Holding
+      // KEY SHARE here makes every authenticated request lock in that same order,
+      // account before target, so no write commits after account cleanup.
+      await tx.select({ id: users.id }).from(users).where(eq(users.id, userId)).for('key share')
 
       c.set('requestDb', tx)
 
