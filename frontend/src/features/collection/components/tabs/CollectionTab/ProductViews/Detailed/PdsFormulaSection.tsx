@@ -1,9 +1,12 @@
 import { useQuery } from '@tanstack/react-query'
 import { Link } from '@tanstack/react-router'
 import { Check, Copy, Droplets, Sparkles } from 'lucide-react'
+import { useId } from 'react'
 
+import { ShowMoreButton } from '@/component/DataDisplay/ShowMoreButton/ShowMoreButton'
 import { pdsLabels } from '@/features/collection/constants'
 import { useCopyToClipboard } from '@/hooks/useCopyToClipboard'
+import { useExpandableList } from '@/hooks/useExpandableList'
 import { productQueries } from '@/lib/queries/products'
 import { profileQueries } from '@/lib/queries/profile'
 import type { UserProduct } from '@/lib/queries/user-products'
@@ -35,6 +38,14 @@ export function PdsFormulaSection({ p }: PdsFormulaSectionProps) {
 
   const fragranceNote =
     dermoProfile?.skinTypes?.includes('peau-sensible') && fullProduct?.hasFragrance
+
+  const tagsListId = useId()
+  const {
+    visible: visibleTags,
+    hiddenCount: hiddenTagsCount,
+    isExpanded: tagsExpanded,
+    toggle: toggleTagsExpanded,
+  } = useExpandableList(fullProduct?.ingredients ?? [], undefined, p.product.slug)
 
   return (
     <>
@@ -71,8 +82,8 @@ export function PdsFormulaSection({ p }: PdsFormulaSectionProps) {
             <Droplets size={12} aria-hidden="true" />
             <span>Composants principaux</span>
           </h3>
-          <ul role="list" className="pds-ingtags">
-            {fullProduct.ingredients.map((pi) => (
+          <ul role="list" id={tagsListId} className="pds-ingtags">
+            {visibleTags.map((pi) => (
               <li key={pi.ingredientId}>
                 <Link
                   to="/ingredients/$slug"
@@ -84,6 +95,13 @@ export function PdsFormulaSection({ p }: PdsFormulaSectionProps) {
               </li>
             ))}
           </ul>
+          <ShowMoreButton
+            className="pds-ingtags-more"
+            hiddenCount={hiddenTagsCount}
+            isExpanded={tagsExpanded}
+            onToggle={toggleTagsExpanded}
+            controlsId={tagsListId}
+          />
         </div>
       ) : fullProductPending ? (
         <p className="pds-empty-msg">{pdsLabels.loadingFormula}</p>

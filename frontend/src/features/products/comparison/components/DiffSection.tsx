@@ -2,7 +2,7 @@ import type { EnrichedComparisonProduct } from '@aurore/shared'
 
 import { useId, useState } from 'react'
 
-import { Button } from '@/component/Button/Button'
+import { ShowMoreButton } from '@/component/DataDisplay/ShowMoreButton/ShowMoreButton'
 import { computeSpecifics } from '../helpers/aggregations'
 import './DiffSection.css'
 
@@ -76,17 +76,13 @@ export function DiffSection({ products }: Props) {
                 </ul>
               )}
 
-              {hidden > 0 && (
-                <Button
-                  variant="bare"
-                  className="diff-section__more"
-                  onClick={() => toggleExpand(p.id)}
-                  aria-expanded={isExpanded}
-                  aria-controls={colId}
-                >
-                  {isExpanded ? 'Voir moins' : `+ ${hidden} autres`}
-                </Button>
-              )}
+              <ShowMoreButton
+                className="diff-section__more"
+                hiddenCount={hidden}
+                isExpanded={isExpanded}
+                onToggle={() => toggleExpand(p.id)}
+                controlsId={colId}
+              />
             </div>
           )
         })}

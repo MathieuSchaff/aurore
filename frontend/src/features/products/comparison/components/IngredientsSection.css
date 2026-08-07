@@ -103,6 +103,10 @@
   margin: 0;
 }
 
+.terroir__more {
+  margin-top: var(--space-1);
+}
+
 .terroir-pill {
   display: inline-flex;
   align-items: baseline;

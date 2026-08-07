@@ -150,8 +150,10 @@
   animation: fade-slide-in var(--transition-base) ease;
 }
 
+/* Dimmed but still clickable: a stale card points at a product that still exists,
+   and the profile-filter reflow put this state under the cursor twice per cold
+   load, swallowing the pointerdown so no click ever reached the link. */
 .list-page-layout__body--syncing {
   opacity: 0.6;
-  pointer-events: none;
   transition: opacity var(--transition-base) ease-in-out;
 }

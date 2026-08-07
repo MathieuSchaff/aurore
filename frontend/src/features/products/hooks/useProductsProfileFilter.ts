@@ -1,43 +1,13 @@
-import type { UserDermoProfile } from '@aurore/shared'
-
 import { useQuery } from '@tanstack/react-query'
-import { useNavigate } from '@tanstack/react-router'
-import { useCallback, useEffect } from 'react'
+import { useNavigate, useRouterState } from '@tanstack/react-router'
+import { useCallback, useEffect, useState } from 'react'
 
+import { hasPortrait, readOptOut, writeOptOut } from '@/features/products/standingProfileFilter'
 import { preferenceTargetQueries, profileQueries } from '@/lib/queries/profile'
 
-// Only the "off" choice is stored: the default being on, a new device starts on,
-// which is the wanted behaviour and spares a column on an already pending migration.
-// Keyed per user, otherwise one account's opt-out silences the next account's
-// declared rules on a shared browser.
-const optOutKey = (userId: string) => `products-profile-filter-off:${userId}`
-
-function readOptOut(userId: string | null): boolean {
-  if (typeof window === 'undefined' || !userId) return false
-  try {
-    return window.localStorage.getItem(optOutKey(userId)) === '1'
-  } catch {
-    return false
-  }
-}
-
-function writeOptOut(userId: string | null, off: boolean) {
-  if (!userId) return
-  try {
-    if (off) window.localStorage.setItem(optOutKey(userId), '1')
-    else window.localStorage.removeItem(optOutKey(userId))
-  } catch {
-    /* ignore quota / private-mode errors */
-  }
-}
-
-// Phototype deliberately excluded: `deriveAvoidFor` only reads skin types and
-// concerns, so a phototype-only portrait would turn the toggle on for no visible
-// effect. Same rule as portrait-reach.ts, which keeps it out of the catalogue surface.
-function hasPortrait(dermo: UserDermoProfile | null | undefined): boolean {
-  if (!dermo) return false
-  return (dermo.skinTypes?.length ?? 0) > 0 || dermo.skinConcerns.length > 0
-}
+// Ceiling on the hold below. The profile requests carry an 8s abort and one retry,
+// so an outage would otherwise freeze the catalogue on its anonymous key for ~16s.
+const RESOLVE_CAP_MS = 700
 
 type Args = {
   // `undefined` means the URL says nothing, which is what lets an unstated
@@ -46,12 +16,13 @@ type Args = {
   userId: string | null
 }
 
-// D9: "Selon mon profil" is a standing setting, not a per-visit filter. It survives
+// "Selon mon profil" is a standing setting, not a per-visit filter. It survives
 // between sessions and starts on as soon as there's a portrait or a declared rule to
 // apply (a toggle that starts off left /profile with no visible effect). An explicit
 // value in the URL always wins, so a shared link stays literal.
 export function useProductsProfileFilter({ urlValue, userId }: Args) {
   const navigate = useNavigate({ from: '/products/' })
+  const pathname = useRouterState({ select: (s) => s.location.pathname })
   const isAuthed = !!userId
 
   const dermoQuery = useQuery({ ...profileQueries.dermo(), enabled: isAuthed })
@@ -81,12 +52,35 @@ export function useProductsProfileFilter({ urlValue, userId }: Args) {
       targetsQuery.data.ingredients.length > 0 ||
       targetsQuery.data.tags.length > 0)
 
+  const [capExpired, setCapExpired] = useState(false)
+  useEffect(() => {
+    if (!isAuthed) return
+    const timer = setTimeout(() => setCapExpired(true), RESOLVE_CAP_MS)
+    return () => clearTimeout(timer)
+  }, [isAuthed])
+
+  // The standing choice is not knowable yet, so the caller should keep serving the
+  // anonymous cache key rather than pay a second list fetch when it lands. Monotone
+  // by construction: a settled query never returns to pending, and `urlValue` is
+  // defined for good once the replace below commits.
+  const unresolved =
+    isAuthed &&
+    urlValue === undefined &&
+    !capExpired &&
+    !readOptOut(userId) &&
+    (dermoQuery.isPending || targetsQuery.isPending)
+
   useEffect(() => {
     if (!isAuthed || urlValue !== undefined || !hasSomethingToApply || readOptOut(userId)) return
+    // The profile queries can land after a card click has already pushed the
+    // product location: replacing then commits over it and drops the visitor back
+    // on the list. `location` moves at commitLocation, before the loaders run, so
+    // it is the one piece of router state that already sees the click.
+    if (pathname !== '/products') return
     // page: 1 like the manual setter. The rules shrink the set, and an offset
     // inherited from a link would land past the end and read as "no result".
     navigate({ search: (prev) => ({ ...prev, profile_filter: true, page: 1 }), replace: true })
-  }, [isAuthed, userId, urlValue, hasSomethingToApply, navigate])
+  }, [isAuthed, userId, urlValue, hasSomethingToApply, navigate, pathname])
 
-  return setProfileFilter
+  return { setProfileFilter, unresolved }
 }
