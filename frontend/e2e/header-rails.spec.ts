@@ -1,7 +1,7 @@
 import { expect, type Page, test } from '@playwright/test'
 
 import { loginAsSeed } from './helpers/auth'
-import { waitForHydration } from './helpers/hydration'
+import { gotoHydrated, waitForHydration, waitForSettledUrl } from './helpers/hydration'
 
 interface Rect {
   x: number
@@ -53,20 +53,15 @@ test.describe('Page header rails', () => {
   test.use({ viewport: { width: 1440, height: 1000 } })
 
   test('aligns public list headers with their body rails', async ({ page }) => {
-    await page.goto('/products')
-    await waitForHydration(page)
+    await gotoHydrated(page, '/products')
     await expect(page.getByRole('heading', { name: 'Produits', level: 1 })).toBeVisible()
     await expectAligned(page, '.list-browse-header__top-inner', '.list-page-layout__body')
 
-    await page.goto('/ingredients')
-
-    await waitForHydration(page)
+    await gotoHydrated(page, '/ingredients')
     await expect(page.getByRole('heading', { name: 'Ingrédients', level: 1 })).toBeVisible()
     await expectAligned(page, '.list-browse-header__top-inner', '.list-page-layout__body')
 
-    await page.goto('/blog')
-
-    await waitForHydration(page)
+    await gotoHydrated(page, '/blog')
     await expect(page.getByRole('heading', { level: 1 })).toBeVisible()
     // The gradient stays full-bleed; only the header CONTENT (inside padding)
     // must sit on the body rail, hence contentRect. Strict: the body mirrors
@@ -79,9 +74,7 @@ test.describe('Page header rails', () => {
   }) => {
     await loginAsSeed(page)
 
-    await page.goto('/collection')
-
-    await waitForHydration(page)
+    await gotoHydrated(page, '/collection')
     await expect(page.getByRole('heading', { name: 'Ma Collection', level: 1 })).toBeVisible()
     await expectAligned(page, '.list-page-layout__header', '.list-page-layout__body')
     // Desktop contract: centered only aligns the row vertically; title and actions
@@ -101,9 +94,7 @@ test.describe('Page header rails', () => {
       })
       .toBeLessThanOrEqual(1)
 
-    await page.goto('/feed')
-
-    await waitForHydration(page)
+    await gotoHydrated(page, '/feed')
     await expect(
       page.getByRole('heading', { name: 'Le fil des semblables', level: 1 })
     ).toBeVisible()
@@ -111,8 +102,7 @@ test.describe('Page header rails', () => {
 
     // Mobile contract: centered centers the stacked header.
     await page.setViewportSize({ width: 390, height: 844 })
-    await page.goto('/collection')
-    await waitForHydration(page)
+    await gotoHydrated(page, '/collection')
     await expect(page.getByRole('heading', { name: 'Ma Collection', level: 1 })).toBeVisible()
     await expect
       .poll(async () => {
@@ -131,8 +121,7 @@ test.describe('Page header rails', () => {
     await page.setViewportSize({ width: 390, height: 844 })
 
     for (const path of ['/products', '/ingredients', '/blog']) {
-      await page.goto(path)
-      await waitForHydration(page)
+      await gotoHydrated(page, path)
       await expect(page.getByRole('heading', { level: 1 })).toHaveCount(1)
 
       await expect
@@ -146,15 +135,21 @@ test.describe('Page header rails', () => {
   })
 
   test('renders every light palette variant without losing the page title', async ({ page }) => {
-    await page.goto('/products')
-    await waitForHydration(page)
+    await gotoHydrated(page, '/products')
 
     for (const variant of ['terracota', 'foret', 'ardoise']) {
       await page.evaluate((nextVariant) => {
         localStorage.setItem('theme-preference', 'light')
         localStorage.setItem('variant', nextVariant)
       }, variant)
+      // Hydration lands before the lazy chunks it kicked off (react-query devtools
+      // in dev); reloading while one is in flight cancels the document request too
+      // (Firefox: NS_BINDING_ABORTED, 12 aborts / 18 reloads without this wait).
+      // The URL never moves here: this is borrowed for its quiet window, and
+      // networkidle is unusable against the Vite dev server's HMR socket.
+      await waitForSettledUrl(page)
       await page.reload()
+      await waitForHydration(page)
 
       const title = page.getByRole('heading', { name: 'Produits', level: 1 })
       await expect(title).toBeVisible()

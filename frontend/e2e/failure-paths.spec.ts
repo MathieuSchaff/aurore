@@ -1,18 +1,9 @@
 import { expect, type Page, test } from '@playwright/test'
 
 import { loginAsSeed } from './helpers/auth'
-import { waitForHydration, waitForSettledUrl } from './helpers/hydration'
-
-async function gotoFirstProductDetail(page: Page): Promise<string> {
-  const res = await page.request.get('/api/products?category=skincare&sort=name&limit=1')
-  expect(res.ok()).toBe(true)
-  const json = await res.json()
-  const slug = json.data.items[0].slug as string
-  await page.goto(`/products/${slug}`)
-  await expect(page).toHaveURL(new RegExp(`/products/${slug}$`), { timeout: 15_000 })
-  await waitForHydration(page)
-  return slug
-}
+import { gotoFirstProductDetail } from './helpers/catalog'
+import { gotoSettled } from './helpers/hydration'
+import { mockApiError } from './helpers/network'
 
 test.beforeEach(async ({ page }) => {
   await loginAsSeed(page)
@@ -30,7 +21,7 @@ async function openDiscussionForm(page: Page): Promise<void> {
   }).toPass()
 }
 
-test.describe('Edit product — failure paths', () => {
+test.describe('Edit product: failure paths', () => {
   test('whitespace-only name surfaces custom inline error and blocks PATCH', async ({ page }) => {
     // HTML5 `required` on the input would catch a literal empty string; setting
     // it to a single space passes HTML5 validation, then the form's trim()
@@ -78,17 +69,7 @@ test.describe('Edit product — failure paths', () => {
     const slug = await gotoFirstProductDetail(page)
     await page.getByRole('link', { name: /Modifier/ }).click()
 
-    await page.route('**/api/products/*', async (route) => {
-      if (route.request().method() === 'PATCH') {
-        await route.fulfill({
-          status: 500,
-          contentType: 'application/json',
-          body: JSON.stringify({ success: false, error: 'server_error' }),
-        })
-        return
-      }
-      await route.continue()
-    })
+    await mockApiError(page, '**/api/products/*', 500, 'server_error', 'PATCH')
 
     await page.locator('#edit-notes').fill(`failure-test-${Date.now()}`)
     await page.getByRole('button', { name: /^Enregistrer$/ }).click()
@@ -100,11 +81,9 @@ test.describe('Edit product — failure paths', () => {
   })
 })
 
-test.describe('Add to collection — failure path', () => {
+test.describe('Add to collection: failure path', () => {
   test('backend 500 keeps modal open and shows generic error', async ({ page }) => {
-    await page.goto('/products')
-    await waitForHydration(page)
-    await waitForSettledUrl(page)
+    await gotoSettled(page, '/products')
     // The newest-first first card may be an owned/hidden submission with no
     // "Ajouter" CTA; pick the first card that actually exposes one.
     const card = page
@@ -113,17 +92,7 @@ test.describe('Add to collection — failure path', () => {
       .first()
     await expect(card).toBeVisible({ timeout: 15_000 })
 
-    await page.route('**/api/user-products', async (route) => {
-      if (route.request().method() === 'POST') {
-        await route.fulfill({
-          status: 500,
-          contentType: 'application/json',
-          body: JSON.stringify({ success: false, error: 'server_error' }),
-        })
-        return
-      }
-      await route.continue()
-    })
+    await mockApiError(page, '**/api/user-products', 500, 'server_error', 'POST')
 
     await card.getByRole('button', { name: /^Ajouter / }).click()
     const dialog = page.getByRole('dialog')
@@ -134,7 +103,7 @@ test.describe('Add to collection — failure path', () => {
   })
 })
 
-test.describe('Discussion thread — failure paths', () => {
+test.describe('Discussion thread: failure paths', () => {
   test('submitting empty form is blocked by HTML5 validation, no POST', async ({ page }) => {
     await gotoFirstProductDetail(page)
     await page.getByRole('tab', { name: /Discussions/ }).click()
@@ -157,17 +126,7 @@ test.describe('Discussion thread — failure paths', () => {
     await page.getByRole('tab', { name: /Discussions/ }).click()
     await openDiscussionForm(page)
 
-    await page.route('**/api/products/*/discussions', async (route) => {
-      if (route.request().method() === 'POST') {
-        await route.fulfill({
-          status: 500,
-          contentType: 'application/json',
-          body: JSON.stringify({ success: false, error: 'thread_creation_failed' }),
-        })
-        return
-      }
-      await route.continue()
-    })
+    await mockApiError(page, '**/api/products/*/discussions', 500, 'thread_creation_failed', 'POST')
 
     const title = `e2e fail title ${Date.now()}`
     const content = 'detailed content body that should survive a server error'

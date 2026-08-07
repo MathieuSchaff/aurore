@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it } from 'bun:test'
+import { beforeAll, beforeEach, describe, expect, it } from 'bun:test'
 
 import { HTTP_STATUS } from '@aurore/shared'
 
@@ -7,7 +7,7 @@ import type { Hono } from 'hono'
 import type { AppEnv } from '../../../app-env'
 import { setupDbTests } from '../../../tests/db-setup'
 import { createTestEnv, type TestClient, withAuth } from '../../../tests/helpers/createTestClient'
-import { expectStatus } from '../../../tests/helpers/expectStatus'
+import { expectOk, expectStatus } from '../../../tests/helpers/expectStatus'
 import { setupAndLogin, setupAndLoginContributor } from '../../../tests/helpers/route-test-helpers'
 import { TEST_CREDENTIALS } from '../../../tests/helpers/test-credentials'
 
@@ -33,10 +33,13 @@ describe('Product Discussion Routes', () => {
   // discussion routes themselves stay open to any authenticated user.
   let contributorToken: string
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     const env = await createTestEnv()
     app = env.app
     client = env.client
+  })
+
+  beforeEach(async () => {
     contributorToken = await setupAndLoginContributor(app, TEST_CREDENTIALS.contributor)
   })
 
@@ -52,17 +55,15 @@ describe('Product Discussion Routes', () => {
       const token = await setupAndLogin(app, TEST_CREDENTIALS.toto)
       const slug = await createProductAndGetSlug()
 
-      const res = await client.products[':slug'].discussions.$post(
-        { json: VALID_THREAD, param: { slug } },
-        withAuth(token)
+      const thread = await expectOk(
+        client.products[':slug'].discussions.$post(
+          { json: VALID_THREAD, param: { slug } },
+          withAuth(token)
+        ),
+        HTTP_STATUS.CREATED
       )
-
-      expect(res.status).toBe(HTTP_STATUS.CREATED)
-      const data = await res.json()
-      expect(data.success).toBe(true)
-      if (!data.success) throw new Error('expected ok')
-      expect(data.data.title).toBe(VALID_THREAD.title)
-      expect(data.data.productId).toBeDefined()
+      expect(thread.title).toBe(VALID_THREAD.title)
+      expect(thread.productId).toBeDefined()
     })
 
     it('should return 401 when unauthenticated', async () => {
@@ -87,14 +88,10 @@ describe('Product Discussion Routes', () => {
         withAuth(token)
       )
 
-      const res = await client.products[':slug'].discussions.$get({ param: { slug } })
-
-      expect(res.status).toBe(HTTP_STATUS.OK)
-      const data = await res.json()
-      if (!data.success) throw new Error('expected ok')
-      expect(data.data).toHaveLength(1)
-      expect(data.data[0]?.title).toBe(VALID_THREAD.title)
-      expect(data.data[0]?.replyCount).toBe(0)
+      const threads = await expectOk(client.products[':slug'].discussions.$get({ param: { slug } }))
+      expect(threads).toHaveLength(1)
+      expect(threads[0]?.title).toBe(VALID_THREAD.title)
+      expect(threads[0]?.replyCount).toBe(0)
     })
   })
 
@@ -110,16 +107,15 @@ describe('Product Discussion Routes', () => {
       if (!threadData.success) throw new Error('thread creation failed')
       const threadId = threadData.data.id
 
-      const res = await client.products[':slug'].discussions[':threadId'].replies.$post(
-        { json: VALID_REPLY, param: { slug, threadId } },
-        withAuth(token)
+      const reply = await expectOk(
+        client.products[':slug'].discussions[':threadId'].replies.$post(
+          { json: VALID_REPLY, param: { slug, threadId } },
+          withAuth(token)
+        ),
+        HTTP_STATUS.CREATED
       )
-
-      expect(res.status).toBe(HTTP_STATUS.CREATED)
-      const data = await res.json()
-      if (!data.success) throw new Error('expected ok')
-      expect(data.data.content).toBe(VALID_REPLY.content)
-      expect(data.data.threadId).toBe(threadId)
+      expect(reply.content).toBe(VALID_REPLY.content)
+      expect(reply.threadId).toBe(threadId)
     })
 
     it('rejects replies on a thread hidden by admin moderation', async () => {
@@ -171,16 +167,14 @@ describe('Product Discussion Routes', () => {
         withAuth(token)
       )
 
-      const res = await client.products[':slug'].discussions[':threadId'].$get({
-        param: { slug, threadId: thread.id },
-      })
-
-      expect(res.status).toBe(HTTP_STATUS.OK)
-      const data = await res.json()
-      if (!data.success) throw new Error('expected ok')
-      expect(data.data.id).toBe(thread.id)
-      expect(data.data.replies).toHaveLength(1)
-      expect(data.data.replies[0]?.content).toBe(VALID_REPLY.content)
+      const fullThread = await expectOk(
+        client.products[':slug'].discussions[':threadId'].$get({
+          param: { slug, threadId: thread.id },
+        })
+      )
+      expect(fullThread.id).toBe(thread.id)
+      expect(fullThread.replies).toHaveLength(1)
+      expect(fullThread.replies[0]?.content).toBe(VALID_REPLY.content)
     })
   })
 

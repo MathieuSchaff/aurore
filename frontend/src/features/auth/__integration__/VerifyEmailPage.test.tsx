@@ -7,14 +7,11 @@ import { renderWithProviders } from '../../../test/utils'
 const navigateMock = vi.fn()
 const useSearchMock = vi.fn()
 
-vi.mock('@tanstack/react-router', async (importOriginal) => {
-  const actual = await importOriginal<typeof import('@tanstack/react-router')>()
-  return {
-    ...actual,
-    useNavigate: () => navigateMock,
-    useSearch: () => useSearchMock(),
-  }
-})
+vi.mock('@tanstack/react-router', async () => ({
+  ...(await vi.importActual<typeof import('@tanstack/react-router')>('@tanstack/react-router')),
+  useNavigate: () => navigateMock,
+  useSearch: () => useSearchMock(),
+}))
 
 vi.mock('react-hot-toast', () => ({
   toast: { success: vi.fn(), error: vi.fn() },

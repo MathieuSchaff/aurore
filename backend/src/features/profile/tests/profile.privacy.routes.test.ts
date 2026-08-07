@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it } from 'bun:test'
+import { beforeAll, describe, expect, it } from 'bun:test'
 
 import { HTTP_STATUS } from '@aurore/shared'
 
@@ -8,6 +8,7 @@ import type { AppEnv } from '../../../app-env'
 import { setupDbTests } from '../../../tests/db-setup'
 import { expectRequiresAuth } from '../../../tests/helpers/authz-matrix'
 import { createTestEnv, type TestClient, withAuth } from '../../../tests/helpers/createTestClient'
+import { expectOk } from '../../../tests/helpers/expectStatus'
 import { authPatch, setupAndLogin } from '../../../tests/helpers/route-test-helpers'
 import { TEST_CREDENTIALS } from '../../../tests/helpers/test-credentials'
 
@@ -17,7 +18,7 @@ describe('Privacy Settings Routes', () => {
   let app: Hono<AppEnv>
   let client: TestClient
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     const env = await createTestEnv()
     app = env.app
     client = env.client
@@ -27,13 +28,9 @@ describe('Privacy Settings Routes', () => {
     it('returns default settings for a new user', async () => {
       const token = await setupAndLogin(app, TEST_CREDENTIALS.toto)
 
-      const res = await client.profile['privacy-settings'].$get({}, withAuth(token))
+      const settings = await expectOk(client.profile['privacy-settings'].$get({}, withAuth(token)))
 
-      expect(res.status).toBe(HTTP_STATUS.OK)
-      const data = await res.json()
-      expect(data.success).toBe(true)
-      if (!data.success) throw new Error('expected ok')
-      expect(data.data).toEqual({
+      expect(settings).toEqual({
         profilePublic: false,
         bioPublic: false,
         avatarPublic: false,
@@ -72,30 +69,22 @@ describe('Privacy Settings Routes', () => {
     it('updates profilePublic', async () => {
       const token = await setupAndLogin(app, TEST_CREDENTIALS.toto)
 
-      const res = await client.profile['privacy-settings'].$patch(
-        { json: { profilePublic: true } },
-        withAuth(token)
+      const settings = await expectOk(
+        client.profile['privacy-settings'].$patch(
+          { json: { profilePublic: true } },
+          withAuth(token)
+        )
       )
-
-      expect(res.status).toBe(HTTP_STATUS.OK)
-      const data = await res.json()
-      expect(data.success).toBe(true)
-      if (!data.success) throw new Error('expected ok')
-      expect(data.data.profilePublic).toBe(true)
+      expect(settings.profilePublic).toBe(true)
     })
 
     it('updates aiConsent', async () => {
       const token = await setupAndLogin(app, TEST_CREDENTIALS.toto)
 
-      const res = await client.profile['privacy-settings'].$patch(
-        { json: { aiConsent: true } },
-        withAuth(token)
+      const settings = await expectOk(
+        client.profile['privacy-settings'].$patch({ json: { aiConsent: true } }, withAuth(token))
       )
-
-      expect(res.status).toBe(HTTP_STATUS.OK)
-      const data = await res.json()
-      if (!data.success) throw new Error('expected ok')
-      expect(data.data.aiConsent).toBe(true)
+      expect(settings.aiConsent).toBe(true)
     })
 
     it('persists changes across requests', async () => {
@@ -160,66 +149,60 @@ describe('Privacy Settings Routes', () => {
     it('updates each profile-table sub-flag independently', async () => {
       const token = await setupAndLogin(app, TEST_CREDENTIALS.toto)
 
-      const res = await client.profile['privacy-settings'].$patch(
-        { json: { bioPublic: true, avatarPublic: true, linksPublic: true } },
-        withAuth(token)
+      const settings = await expectOk(
+        client.profile['privacy-settings'].$patch(
+          { json: { bioPublic: true, avatarPublic: true, linksPublic: true } },
+          withAuth(token)
+        )
       )
-
-      expect(res.status).toBe(HTTP_STATUS.OK)
-      const data = await res.json()
-      if (!data.success) throw new Error('expected ok')
-      expect(data.data.bioPublic).toBe(true)
-      expect(data.data.avatarPublic).toBe(true)
-      expect(data.data.linksPublic).toBe(true)
-      expect(data.data.profilePublic).toBe(false)
+      expect(settings.bioPublic).toBe(true)
+      expect(settings.avatarPublic).toBe(true)
+      expect(settings.linksPublic).toBe(true)
+      expect(settings.profilePublic).toBe(false)
     })
 
     it('updates dermo sub-flags even when dermo row does not exist yet', async () => {
       const token = await setupAndLogin(app, TEST_CREDENTIALS.toto)
 
-      const res = await client.profile['privacy-settings'].$patch(
-        {
-          json: {
-            skinTypesPublic: true,
-            fitzpatrickPublic: true,
-            skinConcernsPublic: true,
+      const settings = await expectOk(
+        client.profile['privacy-settings'].$patch(
+          {
+            json: {
+              skinTypesPublic: true,
+              fitzpatrickPublic: true,
+              skinConcernsPublic: true,
+            },
           },
-        },
-        withAuth(token)
+          withAuth(token)
+        )
       )
-
-      expect(res.status).toBe(HTTP_STATUS.OK)
-      const data = await res.json()
-      if (!data.success) throw new Error('expected ok')
-      expect(data.data.skinTypesPublic).toBe(true)
-      expect(data.data.fitzpatrickPublic).toBe(true)
-      expect(data.data.skinConcernsPublic).toBe(true)
+      expect(settings.skinTypesPublic).toBe(true)
+      expect(settings.fitzpatrickPublic).toBe(true)
+      expect(settings.skinConcernsPublic).toBe(true)
     })
 
     it('updates all 9 flags in a single request', async () => {
       const token = await setupAndLogin(app, TEST_CREDENTIALS.toto)
 
-      const res = await client.profile['privacy-settings'].$patch(
-        {
-          json: {
-            profilePublic: true,
-            bioPublic: true,
-            avatarPublic: true,
-            linksPublic: true,
-            skinTypesPublic: true,
-            fitzpatrickPublic: true,
-            skinConcernsPublic: true,
-            discoverable: true,
-            aiConsent: true,
+      const settings = await expectOk(
+        client.profile['privacy-settings'].$patch(
+          {
+            json: {
+              profilePublic: true,
+              bioPublic: true,
+              avatarPublic: true,
+              linksPublic: true,
+              skinTypesPublic: true,
+              fitzpatrickPublic: true,
+              skinConcernsPublic: true,
+              discoverable: true,
+              aiConsent: true,
+            },
           },
-        },
-        withAuth(token)
+          withAuth(token)
+        )
       )
-
-      expect(res.status).toBe(HTTP_STATUS.OK)
-      const data = await res.json()
-      if (!data.success) throw new Error('expected ok')
-      expect(data.data).toEqual({
+      expect(settings).toEqual({
         profilePublic: true,
         bioPublic: true,
         avatarPublic: true,

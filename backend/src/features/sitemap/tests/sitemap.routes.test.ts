@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it, setSystemTime } from 'bun:test'
+import { beforeAll, beforeEach, describe, expect, it, setSystemTime } from 'bun:test'
 
 import type { Hono } from 'hono'
 
@@ -17,8 +17,11 @@ setupDbTests()
 describe('Sitemap route', () => {
   let app: Hono<AppEnv>
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     app = await createTestApp()
+  })
+
+  beforeEach(() => {
     resetSitemapCache()
   })
 

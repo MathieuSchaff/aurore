@@ -6,22 +6,20 @@ import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { useEscalateReport, useModerateContent, useResolveReport } from '@/lib/queries/admin'
 import { renderWithProviders } from '@/test/utils'
 
-vi.mock('@tanstack/react-query', async (importOriginal) => {
-  const actual = await importOriginal<typeof import('@tanstack/react-query')>()
-  return { ...actual, useSuspenseQuery: vi.fn(), useQuery: vi.fn() }
-})
+vi.mock('@tanstack/react-query', async () => ({
+  ...(await vi.importActual<typeof import('@tanstack/react-query')>('@tanstack/react-query')),
+  useSuspenseQuery: vi.fn(),
+  useQuery: vi.fn(),
+}))
 
-vi.mock('@tanstack/react-router', async (importOriginal) => {
-  const actual = await importOriginal<typeof import('@tanstack/react-router')>()
-  return {
-    ...actual,
-    Link: ({ children, to, ...rest }: { children: React.ReactNode; to: string }) => (
-      <a href={to} {...(rest as object)}>
-        {children}
-      </a>
-    ),
-  }
-})
+vi.mock('@tanstack/react-router', async () => ({
+  ...(await vi.importActual<typeof import('@tanstack/react-router')>('@tanstack/react-router')),
+  Link: ({ children, to, ...rest }: { children: React.ReactNode; to: string }) => (
+    <a href={to} {...(rest as object)}>
+      {children}
+    </a>
+  ),
+}))
 
 vi.mock('@/lib/queries/admin', async (importOriginal) => {
   const actual = await importOriginal<typeof import('@/lib/queries/admin')>()
@@ -35,15 +33,9 @@ vi.mock('@/lib/queries/admin', async (importOriginal) => {
 
 vi.mock('@/store/auth', () => ({ useAuthStore: vi.fn() }))
 
-import { useAuthStore } from '@/store/auth'
+import { setAuthRole } from '@/test/mocks/auth-store'
 import { AdminReportsPage } from '../components/AdminReportsPage'
 import { adminLabels } from '../constants'
-
-function setRole(role: 'user' | 'admin' | 'contributor') {
-  vi.mocked(useAuthStore).mockImplementation(
-    (selector: unknown) => (selector as (s: { role: typeof role }) => unknown)({ role }) as never
-  )
-}
 
 type ReportItem = {
   id: string
@@ -156,7 +148,7 @@ function setupMutations() {
 describe('AdminReportsPage', () => {
   beforeEach(() => {
     vi.clearAllMocks()
-    setRole('admin')
+    setAuthRole('admin')
   })
 
   it('renders the header count and status tabs', () => {
@@ -248,7 +240,7 @@ describe('AdminReportsPage', () => {
   // Contributors own the queue but get a content-only view: no account PII,
   // no admin-only profile/global-ban affordances.
   it('hides reporter email from a contributor (no account PII)', () => {
-    setRole('contributor')
+    setAuthRole('contributor')
     setupQueries([baseReports[0]])
     setupMutations()
     renderWithProviders(<AdminReportsPage />)
@@ -259,7 +251,7 @@ describe('AdminReportsPage', () => {
   })
 
   it('hides the « Voir le profil » link + target email from a contributor', () => {
-    setRole('contributor')
+    setAuthRole('contributor')
     setupQueries([baseReports[1]])
     setupMutations()
     renderWithProviders(<AdminReportsPage />)
@@ -373,7 +365,7 @@ describe('AdminReportsPage', () => {
   })
 
   it('hides the Escaladés tab from a contributor', () => {
-    setRole('contributor')
+    setAuthRole('contributor')
     setupQueries(baseReports)
     setupMutations()
     renderWithProviders(<AdminReportsPage />)

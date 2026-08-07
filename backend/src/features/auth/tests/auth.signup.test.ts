@@ -5,7 +5,7 @@ import { eq } from 'drizzle-orm'
 import { emailVerifications, users } from '../../../db/schema'
 import { setupDbTests } from '../../../tests/db-setup'
 import { TEST_CREDENTIALS } from '../../../tests/helpers/test-credentials'
-import { createTestUser } from '../../../tests/helpers/test-factories'
+import { createTestToto } from '../../../tests/helpers/test-factories'
 import { signup } from '../service'
 import { createCtx, testDb } from './auth-test.setup'
 
@@ -14,7 +14,7 @@ setupDbTests()
 // Signup is enumeration-safe (ADR 0009): the response is an identical neutral
 // `{ pending: true }` with no session whether the email is new or already taken;
 // the new-vs-existing truth reaches only the address owner, by email. These tests
-// are the guard: a code, status, session, or shape difference would re-open the leak.
+// are the guard: a code, status, session, or shape difference would open the leak again.
 describe('signup', () => {
   async function userRow(email: string) {
     const [row] = await testDb.select().from(users).where(eq(users.email, email))
@@ -56,8 +56,7 @@ describe('signup', () => {
       TEST_CREDENTIALS.alice.password
     )
 
-    const creds = TEST_CREDENTIALS.toto
-    await createTestUser(creds.rawEmail, creds.rawPassword)
+    const creds = await createTestToto()
     const existing = await signup(createCtx(), creds.email, creds.password)
 
     // Byte-identical: no difference in code, status or shape between new and existing.
@@ -66,8 +65,7 @@ describe('signup', () => {
   })
 
   it("ne crée pas de second compte quand l'email existe déjà", async () => {
-    const creds = TEST_CREDENTIALS.toto
-    await createTestUser(creds.rawEmail, creds.rawPassword)
+    const creds = await createTestToto()
 
     expect(await userCount(creds.rawEmail)).toBe(1)
     await signup(createCtx(), creds.email, creds.password)
@@ -93,8 +91,7 @@ describe('signup', () => {
   })
 
   it('détecte un email existant quelle que soit la casse (pas de second compte)', async () => {
-    const creds = TEST_CREDENTIALS.toto
-    await createTestUser(creds.rawEmail, creds.rawPassword)
+    const creds = await createTestToto()
 
     const result = await signup(
       createCtx(),

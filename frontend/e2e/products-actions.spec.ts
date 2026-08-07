@@ -2,7 +2,8 @@ import { expect, type Page, test } from '@playwright/test'
 
 import { loginAsPersona } from './helpers/auth'
 import { deleteProduct, loginAndGetToken } from './helpers/catalog'
-import { waitForHydration, waitForSettledUrl } from './helpers/hydration'
+import { gotoHydrated, gotoProductsSettled, gotoSettled } from './helpers/hydration'
+import { mockJson } from './helpers/network'
 
 // Frontend talks to /api/* through the Vite dev proxy on the same origin.
 function isApi(req: { url(): string }, path: string): boolean {
@@ -38,11 +39,12 @@ test.afterEach(async ({ page }) => {
   }
 })
 
-test.describe('Products page — "Ajouter" modal', () => {
+test.describe('Products page: "Ajouter" modal', () => {
   test('opens modal with product info and a status grid', async ({ page }) => {
-    await page.goto('/products?sort=name')
-    await waitForHydration(page)
-    await waitForSettledUrl(page)
+    // This test compares text captured from the card to text in the dialog, so it needs
+    // the products list refetch triggered by the profile-filter reflow to have landed too,
+    // not just the URL. See gotoProductsSettled.
+    await gotoProductsSettled(page, '/products?sort=name')
 
     const card = page
       .locator('.list-card--product')
@@ -68,9 +70,7 @@ test.describe('Products page — "Ajouter" modal', () => {
   test('"Liste de souhaits" sends one POST /user-products with status=wishlist', async ({
     page,
   }) => {
-    await page.goto('/products?sort=name')
-    await waitForHydration(page)
-    await waitForSettledUrl(page)
+    await gotoSettled(page, '/products?sort=name')
     const card = page
       .locator('.list-card--product')
       .filter({ has: page.getByRole('button', { name: /^Ajouter / }) })
@@ -98,9 +98,7 @@ test.describe('Products page — "Ajouter" modal', () => {
   test('"En stock" goes to purchase step then POSTs user-products + purchases', async ({
     page,
   }) => {
-    await page.goto('/products?sort=name')
-    await waitForHydration(page)
-    await waitForSettledUrl(page)
+    await gotoSettled(page, '/products?sort=name')
     const card = page
       .locator('.list-card--product')
       .filter({ has: page.getByRole('button', { name: /^Ajouter / }) })
@@ -144,9 +142,7 @@ test.describe('Products page — "Ajouter" modal', () => {
   })
 
   test('"Retour" from purchase step returns to status grid', async ({ page }) => {
-    await page.goto('/products?sort=name')
-    await waitForHydration(page)
-    await waitForSettledUrl(page)
+    await gotoSettled(page, '/products?sort=name')
     const card = page
       .locator('.list-card--product')
       .filter({ has: page.getByRole('button', { name: /^Ajouter / }) })
@@ -165,9 +161,7 @@ test.describe('Products page — "Ajouter" modal', () => {
   })
 
   test('close button dismisses modal without firing any POST', async ({ page }) => {
-    await page.goto('/products?sort=name')
-    await waitForHydration(page)
-    await waitForSettledUrl(page)
+    await gotoSettled(page, '/products?sort=name')
     const card = page
       .locator('.list-card--product')
       .filter({ has: page.getByRole('button', { name: /^Ajouter / }) })
@@ -190,11 +184,9 @@ test.describe('Products page — "Ajouter" modal', () => {
   })
 })
 
-test.describe('Products page — "Créer" → /products/new', () => {
+test.describe('Products page: "Créer" → /products/new', () => {
   test('"Créer" link navigates to the create form', async ({ page }) => {
-    await page.goto('/products')
-    await waitForHydration(page)
-    await waitForSettledUrl(page)
+    await gotoSettled(page, '/products')
 
     await page.getByRole('link', { name: 'Créer un produit', exact: true }).click()
 
@@ -203,8 +195,7 @@ test.describe('Products page — "Créer" → /products/new', () => {
   })
 
   test('submit is disabled until required fields + brand confirmed', async ({ page }) => {
-    await page.goto('/products/new')
-    await waitForHydration(page)
+    await gotoHydrated(page, '/products/new')
 
     const submit = page.getByRole('button', { name: /^Créer le produit$|^Création…$/ })
     await expect(submit).toBeDisabled()
@@ -234,8 +225,7 @@ test.describe('Products page — "Créer" → /products/new', () => {
   test('submitting creates a product, sends correct payload, navigates to detail', async ({
     page,
   }) => {
-    await page.goto('/products/new')
-    await waitForHydration(page)
+    await gotoHydrated(page, '/products/new')
 
     const stamp = Date.now()
     const name = `E2E Serum ${stamp}`
@@ -293,8 +283,7 @@ test.describe('Products page — "Créer" → /products/new', () => {
   })
 
   test('server error on create surfaces inline without navigation', async ({ page }) => {
-    await page.goto('/products/new')
-    await waitForHydration(page)
+    await gotoHydrated(page, '/products/new')
 
     const stamp = Date.now()
     await page.locator('#edit-name').fill(`E2E Bogus ${stamp}`)
@@ -314,13 +303,7 @@ test.describe('Products page — "Créer" → /products/new', () => {
       .click()
 
     // Mock the POST to simulate a server-side validation failure.
-    await page.route('**/api/products', (route) => {
-      if (route.request().method() === 'POST') {
-        route.fulfill({ status: 422, contentType: 'application/json', body: '{}' })
-      } else {
-        route.continue()
-      }
-    })
+    await mockJson(page, '**/api/products', 422, {}, 'POST')
 
     await page.getByRole('button', { name: /^Créer le produit$|^Création…$/ }).click()
 

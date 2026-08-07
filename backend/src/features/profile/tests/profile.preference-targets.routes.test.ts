@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it } from 'bun:test'
+import { beforeAll, describe, expect, it } from 'bun:test'
 
 import { HTTP_STATUS, type UserExport } from '@aurore/shared'
 
@@ -12,6 +12,7 @@ import { testDb } from '../../../tests/db.test.config'
 import { setupDbTests } from '../../../tests/db-setup'
 import { expectRequiresAuth } from '../../../tests/helpers/authz-matrix'
 import { createTestEnv, type TestClient, withAuth } from '../../../tests/helpers/createTestClient'
+import { expectOk } from '../../../tests/helpers/expectStatus'
 import { authGet, setupAndLogin } from '../../../tests/helpers/route-test-helpers'
 import { TEST_CREDENTIALS } from '../../../tests/helpers/test-credentials'
 import { createTestUser } from '../../../tests/helpers/test-factories'
@@ -58,7 +59,7 @@ describe('Preference targets routes', () => {
   let app: Hono<AppEnv>
   let client: TestClient
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     const env = await createTestEnv()
     app = env.app
     client = env.client
@@ -78,12 +79,9 @@ describe('Preference targets routes', () => {
   it('returns empty targets for a fresh user', async () => {
     const token = await setupAndLogin(app, TEST_CREDENTIALS.toto)
 
-    const res = await client.profile['preference-targets'].$get({}, withAuth(token))
+    const data = await expectOk(client.profile['preference-targets'].$get({}, withAuth(token)))
 
-    expect(res.status).toBe(HTTP_STATUS.OK)
-    const data = await res.json()
-    if (!data.success) throw new Error('expected ok')
-    expect(data.data).toEqual({ ingredients: [], tags: [] })
+    expect(data).toEqual({ ingredients: [], tags: [] })
   })
 
   it('rejects an ingredient key the catalogue does not carry', async () => {
@@ -154,15 +152,14 @@ describe('Preference targets routes', () => {
     )
     expect(unknown.status).toBe(HTTP_STATUS.NOT_FOUND)
 
-    const put = await client.profile['tag-preferences'].$put(
-      { json: { tagId, stance: 'exclude' } },
-      withAuth(token)
+    const saved = await expectOk(
+      client.profile['tag-preferences'].$put(
+        { json: { tagId, stance: 'exclude' } },
+        withAuth(token)
+      )
     )
-    expect(put.status).toBe(HTTP_STATUS.OK)
-    const saved = await put.json()
-    if (!saved.success) throw new Error('expected ok')
-    expect(saved.data.slug).toBe('sans-parfum-fixture')
-    expect(saved.data.label).toBe('Sans parfum')
+    expect(saved.slug).toBe('sans-parfum-fixture')
+    expect(saved.label).toBe('Sans parfum')
 
     const del = await client.profile['tag-preferences'][':tagId'].$delete(
       { param: { tagId } },

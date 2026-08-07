@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it } from 'bun:test'
+import { beforeAll, describe, expect, it } from 'bun:test'
 
 import { HTTP_STATUS, type SocialPostSurfaceView } from '@aurore/shared'
 
@@ -73,7 +73,7 @@ async function seedProductPost(
 describe('GET /products/:slug/posts', () => {
   let app: Hono<AppEnv>
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     app = await createTestApp()
   })
 
@@ -105,7 +105,7 @@ describe('GET /products/:slug/posts', () => {
     expect(await postsOf(slug)).toHaveLength(0)
   })
 
-  it('still lists a non-public author post but flags profilePublic false (link gated client-side)', async () => {
+  it('still lists a post whose author is not public but flags profilePublic false (link gated client-side)', async () => {
     const { slug } = await seedProductPost('poster-shy', {}, { profilePublic: false })
     const posts = await postsOf(slug)
     expect(posts).toHaveLength(1)

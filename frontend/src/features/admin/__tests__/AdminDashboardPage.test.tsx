@@ -4,22 +4,19 @@ import { beforeEach, describe, expect, it, vi } from 'vitest'
 
 import { renderWithProviders } from '@/test/utils'
 
-vi.mock('@tanstack/react-query', async (importOriginal) => {
-  const actual = await importOriginal<typeof import('@tanstack/react-query')>()
-  return { ...actual, useSuspenseQuery: vi.fn() }
-})
+vi.mock('@tanstack/react-query', async () => ({
+  ...(await vi.importActual<typeof import('@tanstack/react-query')>('@tanstack/react-query')),
+  useSuspenseQuery: vi.fn(),
+}))
 
-vi.mock('@tanstack/react-router', async (importOriginal) => {
-  const actual = await importOriginal<typeof import('@tanstack/react-router')>()
-  return {
-    ...actual,
-    Link: ({ children, to, ...rest }: { children: React.ReactNode; to: string }) => (
-      <a href={to} {...(rest as object)}>
-        {children}
-      </a>
-    ),
-  }
-})
+vi.mock('@tanstack/react-router', async () => ({
+  ...(await vi.importActual<typeof import('@tanstack/react-router')>('@tanstack/react-router')),
+  Link: ({ children, to, ...rest }: { children: React.ReactNode; to: string }) => (
+    <a href={to} {...(rest as object)}>
+      {children}
+    </a>
+  ),
+}))
 
 import { AdminDashboardPage } from '../components/AdminDashboardPage'
 import { adminLabels } from '../constants'

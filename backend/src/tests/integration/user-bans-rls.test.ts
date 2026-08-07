@@ -9,51 +9,36 @@
  * whose scope !== 'global'; the account-level 'global' lockout stays admin-only.
  * This file proves the scope gate under prod RLS (the app-level 403 is in the route tests).
  */
-import { afterAll, describe, expect, it } from 'bun:test'
-import { SQL } from 'bun'
+import { describe, expect, it } from 'bun:test'
 
 import type { BanScope } from '@aurore/shared'
 
-import { eq, sql } from 'drizzle-orm'
-import { drizzle } from 'drizzle-orm/bun-sql'
+import { eq } from 'drizzle-orm'
 
 import { userBans } from '../../db/schema'
 import { testDb } from '../db.test.config'
 import { setupDbTests } from '../db-setup'
+import { createAppRuntimeDb, withRlsAs } from '../helpers/app-runtime-db'
 import {
   createTestAdminUser,
   createTestContributorUser,
   createTestUser,
 } from '../helpers/test-factories'
 
-const APP_DATABASE_URL = process.env.APP_DATABASE_URL
-if (!APP_DATABASE_URL) throw new Error('APP_DATABASE_URL not set')
-
-const appRuntimePool = new SQL(APP_DATABASE_URL)
-const appRuntimeDb = drizzle(appRuntimePool, {
-  schema: await import('../../db/schema'),
-})
-
-afterAll(async () => {
-  await appRuntimePool.close()
-})
+const appRuntimeDb = await createAppRuntimeDb()
 
 type BanValues = { userId: string; scope: BanScope; bannedBy: string }
 
 function insertBanAs(role: string, contextUserId: string, values: BanValues) {
-  return appRuntimeDb.transaction(async (tx) => {
-    await tx.execute(sql`SELECT set_config('app.user_id', ${contextUserId}, true)`)
-    await tx.execute(sql`SELECT set_config('app.role', ${role}, true)`)
-    return tx.insert(userBans).values(values).returning({ id: userBans.id, scope: userBans.scope })
-  })
+  return withRlsAs(appRuntimeDb, role, contextUserId, (tx) =>
+    tx.insert(userBans).values(values).returning({ id: userBans.id, scope: userBans.scope })
+  )
 }
 
 function deleteBanAs(role: string, contextUserId: string, banId: string) {
-  return appRuntimeDb.transaction(async (tx) => {
-    await tx.execute(sql`SELECT set_config('app.user_id', ${contextUserId}, true)`)
-    await tx.execute(sql`SELECT set_config('app.role', ${role}, true)`)
-    return tx.delete(userBans).where(eq(userBans.id, banId)).returning({ id: userBans.id })
-  })
+  return withRlsAs(appRuntimeDb, role, contextUserId, (tx) =>
+    tx.delete(userBans).where(eq(userBans.id, banId)).returning({ id: userBans.id })
+  )
 }
 
 function updateBanAs(
@@ -62,17 +47,13 @@ function updateBanAs(
   banId: string,
   set: Partial<{ reason: string; scope: BanScope }>
 ) {
-  return appRuntimeDb.transaction(async (tx) => {
-    await tx.execute(sql`SELECT set_config('app.user_id', ${contextUserId}, true)`)
-    await tx.execute(sql`SELECT set_config('app.role', ${role}, true)`)
-    return tx.update(userBans).set(set).where(eq(userBans.id, banId)).returning({ id: userBans.id })
-  })
+  return withRlsAs(appRuntimeDb, role, contextUserId, (tx) =>
+    tx.update(userBans).set(set).where(eq(userBans.id, banId)).returning({ id: userBans.id })
+  )
 }
 
 function selectScopesAs(role: string, contextUserId: string, userId: string) {
-  return appRuntimeDb.transaction(async (tx) => {
-    await tx.execute(sql`SELECT set_config('app.user_id', ${contextUserId}, true)`)
-    await tx.execute(sql`SELECT set_config('app.role', ${role}, true)`)
+  return withRlsAs(appRuntimeDb, role, contextUserId, async (tx) => {
     const rows = await tx
       .select({ scope: userBans.scope })
       .from(userBans)
@@ -101,7 +82,7 @@ describe('user_bans RLS under app_runtime (S4)', () => {
     const target = await createTestUser('ub-g-target@test.local', 'Azerty123!')
     const modo = await createTestContributorUser('ub-g-modo@test.local', 'Azerty123!')
 
-    expect(
+    await expect(
       insertBanAs('contributor', modo.id, {
         userId: target.id,
         scope: 'global',
@@ -159,7 +140,7 @@ describe('user_bans RLS under app_runtime (S4)', () => {
       .returning({ id: userBans.id })
     if (!c) throw new Error('seed failed')
 
-    expect(updateBanAs('contributor', modo.id, c.id, { scope: 'global' })).rejects.toThrow()
+    await expect(updateBanAs('contributor', modo.id, c.id, { scope: 'global' })).rejects.toThrow()
   })
 
   it('hides global bans from a contributor SELECT, shows content-scoped ones', async () => {

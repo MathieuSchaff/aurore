@@ -1,6 +1,5 @@
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { renderHook, waitFor } from '@testing-library/react'
-import type { ReactNode } from 'react'
+import { QueryClient } from '@tanstack/react-query'
+import { waitFor } from '@testing-library/react'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
 vi.mock('../../api', () => ({
@@ -13,6 +12,7 @@ vi.mock('../../api', () => ({
   },
 }))
 
+import { renderHookWithProviders } from '@/test/utils'
 import { api } from '../../api'
 import { ExportRateLimitError, useDownloadDataExport } from '../profile'
 
@@ -24,10 +24,6 @@ function makeResponse(init: { status?: number; body: BodyInit; headers?: Headers
 
 describe('useDownloadDataExport', () => {
   let queryClient: QueryClient
-
-  function wrapper({ children }: { children: ReactNode }) {
-    return <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
-  }
 
   const createObjectURL = vi.fn(() => 'blob:mock-url')
   const revokeObjectURL = vi.fn()
@@ -63,7 +59,7 @@ describe('useDownloadDataExport', () => {
       })
     )
 
-    const { result } = renderHook(() => useDownloadDataExport(), { wrapper })
+    const { result } = renderHookWithProviders(() => useDownloadDataExport(), { queryClient })
     result.current.mutate()
 
     await waitFor(() => expect(result.current.isSuccess).toBe(true))
@@ -83,7 +79,7 @@ describe('useDownloadDataExport', () => {
       })
     )
 
-    const { result } = renderHook(() => useDownloadDataExport(), { wrapper })
+    const { result } = renderHookWithProviders(() => useDownloadDataExport(), { queryClient })
     result.current.mutate()
 
     await waitFor(() => expect(result.current.isSuccess).toBe(true))
@@ -105,7 +101,7 @@ describe('useDownloadDataExport', () => {
       })
     )
 
-    const { result } = renderHook(() => useDownloadDataExport(), { wrapper })
+    const { result } = renderHookWithProviders(() => useDownloadDataExport(), { queryClient })
     result.current.mutate()
 
     await waitFor(() => expect(result.current.isError).toBe(true))
@@ -126,7 +122,7 @@ describe('useDownloadDataExport', () => {
       })
     )
 
-    const { result } = renderHook(() => useDownloadDataExport(), { wrapper })
+    const { result } = renderHookWithProviders(() => useDownloadDataExport(), { queryClient })
     result.current.mutate()
 
     await waitFor(() => expect(result.current.isError).toBe(true))

@@ -5,10 +5,10 @@ import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { useUpdateDermoProfile } from '@/lib/queries/profile'
 import { DermoProfileForm } from '../DermoProfileForm'
 
-vi.mock('@tanstack/react-query', async (importOriginal) => {
-  const actual = await importOriginal<typeof import('@tanstack/react-query')>()
-  return { ...actual, useSuspenseQuery: vi.fn() }
-})
+vi.mock('@tanstack/react-query', async () => ({
+  ...(await vi.importActual<typeof import('@tanstack/react-query')>('@tanstack/react-query')),
+  useSuspenseQuery: vi.fn(),
+}))
 
 vi.mock('@/lib/queries/profile', () => ({
   profileQueries: { dermo: vi.fn(() => ({ queryKey: ['profile', 'dermo'] })) },

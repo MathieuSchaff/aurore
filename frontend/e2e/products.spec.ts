@@ -11,7 +11,7 @@ async function openFilterGroup(drawer: Locator, label: string) {
 
 async function openFilterDrawer(page: Page) {
   const drawer = page.getByRole('dialog', { name: 'Filtres' })
-  // A cold Vite dependency re-optimization can reload after hydration and drop
+  // Vite can optimize a cold dependency a second time, reload after hydration and drop
   // the first click. Retry the user action until the drawer is actually open.
   await expect(async () => {
     await page
@@ -21,6 +21,20 @@ async function openFilterDrawer(page: Page) {
     await expect(drawer).toBeVisible({ timeout: 2000 })
   }).toPass({ timeout: 15_000 })
   return drawer
+}
+
+async function typeSearchUntilOptionVisible(
+  search: Locator,
+  query: string,
+  expectedOption: Locator
+) {
+  // A cold Vite reload can discard local combobox state after hydration.
+  await expect(async () => {
+    await search.click()
+    await search.fill('')
+    await search.pressSequentially(query)
+    await expect(expectedOption).toBeVisible({ timeout: 2000 })
+  }).toPass({ timeout: 15_000 })
 }
 
 // All specs target unauthenticated paths: list, detail, filters, sort, search.
@@ -74,14 +88,13 @@ test.describe('Products page', () => {
 
   test('search combobox finds product and navigates to detail', async ({ page }) => {
     const search = page.getByRole('combobox', { name: 'Rechercher un produit' })
+    const result = page.getByRole('option', { name: /XeraCalm Nutrition Baume Hydratant/i })
     // Skincare on purpose: search is scoped to the active tab, because a cross-domain
     // suggestion would navigate to a silently empty list (category is ANDed server-side).
-    await search.fill('xeracalm nutrition baume')
+    await typeSearchUntilOptionVisible(search, 'xeracalm nutrition baume', result)
 
     // Facet/fallback sections render above raw results, so target the product
     // result by name rather than the first option.
-    const result = page.getByRole('option', { name: /XeraCalm Nutrition Baume Hydratant/i })
-    await expect(result).toBeVisible({ timeout: 10_000 })
     await result.click()
 
     await expect(page).toHaveURL(/\/products\/[^/?]+/)
@@ -89,12 +102,10 @@ test.describe('Products page', () => {
 
   test('search ingredient footer click navigates to filtered list', async ({ page }) => {
     const search = page.getByRole('combobox', { name: 'Rechercher un produit' })
-    await search.fill('sodium hyaluronate')
-
     const entry = page
       .getByRole('option', { name: /voir tous les produits avec Acide hyaluronique/i })
       .first()
-    await expect(entry).toBeVisible({ timeout: 10_000 })
+    await typeSearchUntilOptionVisible(search, 'sodium hyaluronate', entry)
     await entry.click()
 
     await expect(page).toHaveURL(/ingredient=.*sodium-hyaluronate/)
@@ -103,14 +114,14 @@ test.describe('Products page', () => {
 
   test('search Enter navigates to ?q= free-text filtered list', async ({ page }) => {
     const search = page.getByRole('combobox', { name: 'Rechercher un produit' })
-    await search.fill('kurl')
+    const fallbackOption = page
+      .getByRole('option', { name: /voir tous les résultats pour "kurl"/i })
+      .first()
 
     // Wait for the fallback option (proves debounced match logic ran) before
     // pressing Enter. Since 34ca1b91 Enter submits a free-text query, not the
     // highlighted option.
-    await expect(
-      page.getByRole('option', { name: /voir tous les résultats pour "kurl"/i }).first()
-    ).toBeVisible({ timeout: 10_000 })
+    await typeSearchUntilOptionVisible(search, 'kurl', fallbackOption)
     await search.press('Enter')
 
     await expect(page).toHaveURL(/[?&]q=kurl/)
@@ -129,13 +140,11 @@ test.describe('Products page', () => {
     await expect(page.locator('.list-card--product').first()).toBeVisible({ timeout: 15_000 })
   })
 
-  test('search free-text fallback (D3) navigates to ?q= filtered list', async ({ page }) => {
+  test('search free-text fallback navigates to ?q= filtered list', async ({ page }) => {
     const search = page.getByRole('combobox', { name: 'Rechercher un produit' })
-    await search.fill('mask')
-
     // No brand/ingredient match, so the fallback option is rendered.
     const entry = page.getByRole('option', { name: /voir tous les résultats pour "mask"/i })
-    await expect(entry).toBeVisible({ timeout: 10_000 })
+    await typeSearchUntilOptionVisible(search, 'mask', entry)
     await entry.click()
 
     await expect(page).toHaveURL(/[?&]q=mask/)

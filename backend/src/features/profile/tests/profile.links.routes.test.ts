@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it } from 'bun:test'
+import { beforeAll, describe, expect, it } from 'bun:test'
 
 import { HTTP_STATUS } from '@aurore/shared'
 
@@ -7,6 +7,7 @@ import type { Hono } from 'hono'
 import type { AppEnv } from '../../../app-env'
 import { setupDbTests } from '../../../tests/db-setup'
 import { createTestEnv, type TestClient, withAuth } from '../../../tests/helpers/createTestClient'
+import { expectOk } from '../../../tests/helpers/expectStatus'
 import { authPatch, setupAndLogin } from '../../../tests/helpers/route-test-helpers'
 import { TEST_CREDENTIALS } from '../../../tests/helpers/test-credentials'
 
@@ -16,7 +17,7 @@ describe('Profile Links Routes', () => {
   let app: Hono<AppEnv>
   let client: TestClient
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     const env = await createTestEnv()
     app = env.app
     client = env.client
@@ -33,11 +34,8 @@ describe('Profile Links Routes', () => {
   it('should save and return links', async () => {
     const token = await setupAndLogin(app, TEST_CREDENTIALS.toto)
     const links = [{ label: 'Instagram', url: 'https://instagram.com/test' }]
-    const res = await client.profile.$patch({ json: { links } }, withAuth(token))
-    expect(res.status).toBe(HTTP_STATUS.OK)
-    const data = await res.json()
-    if (!data.success) throw new Error('expected ok')
-    expect(data.data.links).toEqual(links)
+    const profile = await expectOk(client.profile.$patch({ json: { links } }, withAuth(token)))
+    expect(profile.links).toEqual(links)
   })
 
   it('should persist links across requests', async () => {

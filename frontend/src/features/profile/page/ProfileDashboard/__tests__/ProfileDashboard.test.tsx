@@ -5,10 +5,11 @@ import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { useUpdateProfile } from '@/lib/queries/profile'
 import { ProfileDashboard } from '../ProfileDashboard'
 
-vi.mock('@tanstack/react-query', async (importOriginal) => {
-  const actual = await importOriginal<typeof import('@tanstack/react-query')>()
-  return { ...actual, useQuery: vi.fn(), useSuspenseQuery: vi.fn() }
-})
+vi.mock('@tanstack/react-query', async () => ({
+  ...(await vi.importActual<typeof import('@tanstack/react-query')>('@tanstack/react-query')),
+  useQuery: vi.fn(),
+  useSuspenseQuery: vi.fn(),
+}))
 
 const { mockUseSearch, mockNavigate, LinkMock } = vi.hoisted(() => ({
   mockUseSearch: vi.fn(() => ({ tab: 'profile' })),
@@ -136,7 +137,7 @@ describe('ProfileDashboard', () => {
     setUpdateProfile()
   })
 
-  // D12: one identity object, so the bio lives in the hero and nowhere else.
+  // One identity object, so the bio lives in the hero and nowhere else.
   it('renders the bio once, inside the profile hero', () => {
     setProfile({ username: 'mathieu', bio: 'Skincare nerd' })
     render(<ProfileDashboard />)

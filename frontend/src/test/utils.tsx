@@ -1,26 +1,25 @@
 import type {
-  IngredientType,
-  Patent,
   PreferencesTag,
   ProductCategory,
   ProductKind,
-  ProductTexture,
   ProductUnit,
-  Purchase,
-  RepurchaseFlag,
   RessentiTag,
   RoutineTag,
-  SkincareIngredientCategory,
-  SupplementCategory,
-  TagSource,
   UserProductStatus,
 } from '@aurore/shared'
 
 import { QueryClient, QueryClientProvider, useQuery } from '@tanstack/react-query'
-import { type RenderOptions, render } from '@testing-library/react'
+import {
+  type RenderHookOptions,
+  type RenderOptions,
+  render,
+  renderHook,
+} from '@testing-library/react'
 import type { ReactElement } from 'react'
 import { Suspense } from 'react'
 import { vi } from 'vitest'
+
+import type { UserProduct } from '@/lib/queries/user-products'
 
 export function createTestQueryClient() {
   return new QueryClient({
@@ -46,6 +45,19 @@ export function renderWithProviders(
   })
 }
 
+export function renderHookWithProviders<TProps, TResult>(
+  hook: (props: TProps) => TResult,
+  options?: Omit<RenderHookOptions<TProps>, 'wrapper'> & { queryClient?: QueryClient }
+) {
+  const queryClient = options?.queryClient ?? createTestQueryClient()
+  return renderHook(hook, {
+    wrapper: ({ children }) => (
+      <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+    ),
+    ...options,
+  })
+}
+
 // Routes `useQuery` results by `queryKey[0]`. Tests must `vi.mock('@tanstack/react-query', ...)`
 // to expose `useQuery` as a vi.fn before calling this.
 export function mockUseQueryByKey(map: Record<string, unknown>): void {
@@ -55,110 +67,7 @@ export function mockUseQueryByKey(map: Record<string, unknown>): void {
   })
 }
 
-export function makeUserProduct(
-  overrides: Partial<{
-    id: string
-    userId: string
-    productId: string
-    status: UserProductStatus
-    qty: number
-    sentiment: number | null
-    wouldRepurchase: RepurchaseFlag | null
-    comment: string | null
-    ressenti: RessentiTag[]
-    routine: RoutineTag[]
-    preferences: PreferencesTag[]
-    createdAt: string
-    updatedAt: string
-    product: {
-      id: string
-      brand: string
-      name: string
-      createdAt: string
-      updatedAt: string
-      createdBy: string
-      kind: ProductKind
-      texture: ProductTexture | null
-      unit: ProductUnit
-      inci: string | null
-      description: string | null
-      totalAmount: number | null
-      priceCents: number | null
-      amountUnit: string
-      slug: string
-      url: string | null
-      patents: Patent[]
-      category: ProductCategory
-      imageUrl: string | null
-      notes: string | null
-      catalogQuality: 'unverified' | 'verified'
-      verifiedBy: string | null
-      verifiedAt: string | null
-      moderationStatus: 'visible' | 'hidden'
-      moderatedBy: string | null
-      moderatedAt: string | null
-      moderationReason: string | null
-      productIngredients: {
-        id: string
-        createdAt: string
-        notes: string | null
-        productId: string
-        ingredientId: string
-        concentrationValue: string | null
-        concentrationUnit: string | null
-        concentrationPer: string | null
-        ingredient: {
-          id: string
-          name: string
-          slug: string
-          type: IngredientType
-          category: SkincareIngredientCategory | SupplementCategory | null
-          description: string
-          content: string
-          createdBy: string
-          createdAt: string
-          updatedAt: string
-          catalogQuality: 'unverified' | 'verified'
-          verifiedBy: string | null
-          verifiedAt: string | null
-          moderationStatus: 'visible' | 'hidden'
-          moderatedBy: string | null
-          moderatedAt: string | null
-          moderationReason: string | null
-        }
-      }[]
-      productTagLinks: {
-        productTagId: string
-        productId: string
-        relevance: 'primary' | 'secondary' | 'avoid'
-        source: TagSource
-        productTag: {
-          id: string
-          slug: string
-          label: string
-          tagType: string
-          createdAt: string
-        }
-      }[]
-    }
-    review: {
-      id: string
-      userProductId: string
-      tolerance: number | null
-      efficacy: number | null
-      sensoriality: number | null
-      stability: number | null
-      mixability: number | null
-      valueForMoney: number | null
-      comment: string | null
-      isPublic: boolean
-      ratingsPublic: boolean
-      createdAt: string
-      updatedAt: string
-    }
-    purchases: Purchase[]
-  }> = {}
-) {
+export function makeUserProduct(overrides: Partial<UserProduct> = {}) {
   return {
     id: 'test-id-1',
     userId: 'test-user-1',

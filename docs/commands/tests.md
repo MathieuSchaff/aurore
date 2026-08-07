@@ -27,7 +27,7 @@ the root loader, or the server-hint context changed.
 
 | Command | What | Notes |
 | :--- | :--- | :--- |
-| `just test-db-up` | Start the test DB and apply migrations | Keep it up for the whole session |
+| `just test-db-up` | Recreate the test DB and apply migrations | `just test-db-up keep` reuses a running one |
 | `just test-db-down` | Stop the test DB | — |
 | `just test-db-seed` | Seed CORE into the test DB | Requires `test-db-up` |
 | `just test-backend [args]` | Full backend suite, brings the DB up | — |

@@ -1,11 +1,9 @@
 import { type BrowserContext, expect, type Page, test } from '@playwright/test'
 
-import { loginAsSeed, registerFreshUser } from './helpers/auth'
+import { loginAsSeed, registerFreshUser, SEED_EMAIL, SEED_PASSWORD } from './helpers/auth'
 import { waitForHydration } from './helpers/hydration'
 
 // Seed user is created and pre-verified by `seed-core` (see backend/src/db/seed/runners/create-user.ts).
-const SEED_EMAIL = 'seed@seed.com'
-const SEED_PASSWORD = 'Azerty123!seed'
 
 // Random unique email per signup to avoid collisions across runs: snapshot-once
 // seed keeps prior signups in the DB.
@@ -178,8 +176,9 @@ test.describe('Auth — banned user', () => {
   }) => {
     await page.goto('/auth/login')
 
+    // keep in sync with backend/src/db/seed/seeders/seed-test-users.ts
     await page.getByLabel('Email', { exact: true }).fill('banned@seed.local')
-    await page.getByLabel('Mot de passe', { exact: true }).fill('Azerty123!seed')
+    await page.getByLabel('Mot de passe', { exact: true }).fill(SEED_PASSWORD)
     await page.getByRole('button', { name: 'Se connecter', exact: true }).click()
 
     await expect(page).toHaveURL(/\/auth\/banned/, { timeout: 15_000 })

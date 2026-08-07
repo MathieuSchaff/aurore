@@ -6,15 +6,12 @@ import { renderWithProviders } from '../../../test/utils'
 
 const navigateMock = vi.fn()
 
-vi.mock('@tanstack/react-router', async (importOriginal) => {
-  const actual = await importOriginal<typeof import('@tanstack/react-router')>()
-  return {
-    ...actual,
-    useNavigate: () => navigateMock,
-    useSearch: () => ({}),
-    Link: ({ children }: { children: React.ReactNode }) => children,
-  }
-})
+vi.mock('@tanstack/react-router', async () => ({
+  ...(await vi.importActual<typeof import('@tanstack/react-router')>('@tanstack/react-router')),
+  useNavigate: () => navigateMock,
+  useSearch: () => ({}),
+  Link: ({ children }: { children: React.ReactNode }) => children,
+}))
 
 vi.mock('../../../lib/queries/auth', async (importOriginal) => {
   const actual = await importOriginal<typeof import('../../../lib/queries/auth')>()

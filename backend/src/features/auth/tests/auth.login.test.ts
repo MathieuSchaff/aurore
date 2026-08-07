@@ -5,7 +5,7 @@ import { eq } from 'drizzle-orm'
 import { setupDbTests } from '../../../tests/db-setup'
 import { JWT_SECRET, REFRESH_SECRET } from '../../../tests/helpers/secrets'
 import { TEST_CREDENTIALS } from '../../../tests/helpers/test-credentials'
-import { createTestUser } from '../../../tests/helpers/test-factories'
+import { createTestToto, createTestUser } from '../../../tests/helpers/test-factories'
 import { verifyAccessToken, verifyRefreshToken } from '../jwt.utils'
 import { findValidRefreshToken } from '../refresh-token.service'
 import { login } from '../service'
@@ -15,8 +15,7 @@ setupDbTests()
 
 describe('login', () => {
   it('devrait connecter Toto avec ses identifiants valides', async () => {
-    const creds = TEST_CREDENTIALS.toto
-    await createTestUser(creds.rawEmail, creds.rawPassword)
+    const creds = await createTestToto()
 
     const result = await login(createCtx(), creds.email, creds.password)
 
@@ -39,8 +38,7 @@ describe('login', () => {
   })
 
   it('devrait retourner un access token JWT valide avec le bon sub et type', async () => {
-    const creds = TEST_CREDENTIALS.toto
-    await createTestUser(creds.rawEmail, creds.rawPassword)
+    const creds = await createTestToto()
 
     const result = await login(createCtx(), creds.email, creds.password)
     if (!result.success) return
@@ -53,8 +51,7 @@ describe('login', () => {
   })
 
   it('devrait stocker le refresh token en base de données', async () => {
-    const creds = TEST_CREDENTIALS.toto
-    await createTestUser(creds.rawEmail, creds.rawPassword)
+    const creds = await createTestToto()
 
     const result = await login(createCtx(), creds.email, creds.password)
     if (!result.success) return
@@ -70,8 +67,7 @@ describe('login', () => {
   })
 
   it('devrait retourner un refresh token JWT valide avec un jti', async () => {
-    const creds = TEST_CREDENTIALS.toto
-    await createTestUser(creds.rawEmail, creds.rawPassword)
+    const creds = await createTestToto()
 
     const result = await login(createCtx(), creds.email, creds.password)
     if (!result.success) return
@@ -84,8 +80,7 @@ describe('login', () => {
   })
 
   it("devrait normaliser l'email de Toto (majuscules, espaces, casse mélangée)", async () => {
-    const creds = TEST_CREDENTIALS.toto
-    await createTestUser(creds.rawEmail, creds.rawPassword)
+    const creds = await createTestToto()
 
     const variantes = [
       TEST_CREDENTIALS.totoVariants.majuscules,
@@ -116,8 +111,7 @@ describe('login', () => {
   })
 
   it('devrait échouer avec un mauvais mot de passe', async () => {
-    const creds = TEST_CREDENTIALS.toto
-    await createTestUser(creds.rawEmail, creds.rawPassword)
+    const creds = await createTestToto()
 
     const result = await login(
       createCtx(),
@@ -145,8 +139,7 @@ describe('login', () => {
   })
 
   it('devrait échouer avec un mot de passe vide', async () => {
-    const creds = TEST_CREDENTIALS.toto
-    await createTestUser(creds.rawEmail, creds.rawPassword)
+    const creds = await createTestToto()
 
     const result = await login(createCtx(), creds.email, TEST_CREDENTIALS.invalide.videMotDePasse)
 
@@ -184,8 +177,7 @@ describe('login', () => {
   })
 
   it('devrait retourner la même erreur pour email inconnu et mauvais mot de passe (timing-safe)', async () => {
-    const creds = TEST_CREDENTIALS.toto
-    await createTestUser(creds.rawEmail, creds.rawPassword)
+    const creds = await createTestToto()
 
     const resultBadEmail = await login(
       createCtx(),
@@ -207,8 +199,7 @@ describe('login', () => {
   })
 
   it("devrait enregistrer l'IP et le UserAgent avec le refresh token", async () => {
-    const creds = TEST_CREDENTIALS.toto
-    await createTestUser(creds.rawEmail, creds.rawPassword)
+    const creds = await createTestToto()
 
     const result = await login(
       createCtx({ ip: '192.168.1.1', userAgent: 'TestBrowser/1.0' }),
@@ -228,8 +219,7 @@ describe('login', () => {
   })
 
   it('devrait stocker null pour IP et UserAgent quand non fournis', async () => {
-    const creds = TEST_CREDENTIALS.toto
-    await createTestUser(creds.rawEmail, creds.rawPassword)
+    const creds = await createTestToto()
 
     const result = await login(createCtx(), creds.email, creds.password)
 
@@ -245,8 +235,7 @@ describe('login', () => {
   })
 
   it('devrait générer des tokens différents à chaque login', async () => {
-    const creds = TEST_CREDENTIALS.toto
-    await createTestUser(creds.rawEmail, creds.rawPassword)
+    const creds = await createTestToto()
 
     const result1 = await login(createCtx(), creds.email, creds.password)
     const result2 = await login(createCtx(), creds.email, creds.password)
@@ -257,8 +246,7 @@ describe('login', () => {
   })
 
   it('devrait retourner le même userId à chaque login', async () => {
-    const creds = TEST_CREDENTIALS.toto
-    await createTestUser(creds.rawEmail, creds.rawPassword)
+    const creds = await createTestToto()
 
     const result1 = await login(createCtx(), creds.email, creds.password)
     const result2 = await login(createCtx(), creds.email, creds.password)
@@ -268,8 +256,7 @@ describe('login', () => {
   })
 
   it('devrait retourner un objet user public sans le passwordHash', async () => {
-    const creds = TEST_CREDENTIALS.toto
-    await createTestUser(creds.rawEmail, creds.rawPassword)
+    const creds = await createTestToto()
 
     const result = await login(createCtx(), creds.email, creds.password)
     if (!result.success) return
@@ -300,8 +287,7 @@ describe('login', () => {
   })
 
   it('devrait autoriser le login si email non vérifié dans les 24h (grace period)', async () => {
-    const creds = TEST_CREDENTIALS.toto
-    await createTestUser(creds.rawEmail, creds.rawPassword)
+    const creds = await createTestToto()
 
     const result = await login(createCtx(), creds.email, creds.password)
 
@@ -374,8 +360,7 @@ describe('login lockout', () => {
   })
 
   it('devrait bloquer même un bon mot de passe pendant la fenêtre de lockout', async () => {
-    const creds = TEST_CREDENTIALS.toto
-    await createTestUser(creds.rawEmail, creds.rawPassword)
+    const creds = await createTestToto()
 
     for (let i = 0; i < 5; i++) {
       await login(createCtx(), creds.email, TEST_CREDENTIALS.invalide.mauvaisMotDePasse)

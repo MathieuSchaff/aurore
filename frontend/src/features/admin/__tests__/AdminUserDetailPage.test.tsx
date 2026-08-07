@@ -11,23 +11,21 @@ import {
 } from '@/lib/queries/admin'
 import { renderWithProviders } from '@/test/utils'
 
-vi.mock('@tanstack/react-query', async (importOriginal) => {
-  const actual = await importOriginal<typeof import('@tanstack/react-query')>()
-  return { ...actual, useSuspenseQuery: vi.fn(), useQuery: vi.fn() }
-})
+vi.mock('@tanstack/react-query', async () => ({
+  ...(await vi.importActual<typeof import('@tanstack/react-query')>('@tanstack/react-query')),
+  useSuspenseQuery: vi.fn(),
+  useQuery: vi.fn(),
+}))
 
-vi.mock('@tanstack/react-router', async (importOriginal) => {
-  const actual = await importOriginal<typeof import('@tanstack/react-router')>()
-  return {
-    ...actual,
-    Link: ({ children, to, ...rest }: { children: React.ReactNode; to: string }) => (
-      <a href={to} {...(rest as object)}>
-        {children}
-      </a>
-    ),
-    getRouteApi: () => ({ useParams: () => ({ userId: 'usr-1' }) }),
-  }
-})
+vi.mock('@tanstack/react-router', async () => ({
+  ...(await vi.importActual<typeof import('@tanstack/react-router')>('@tanstack/react-router')),
+  Link: ({ children, to, ...rest }: { children: React.ReactNode; to: string }) => (
+    <a href={to} {...(rest as object)}>
+      {children}
+    </a>
+  ),
+  getRouteApi: () => ({ useParams: () => ({ userId: 'usr-1' }) }),
+}))
 
 vi.mock('@/lib/queries/admin', async (importOriginal) => {
   const actual = await importOriginal<typeof import('@/lib/queries/admin')>()
@@ -42,15 +40,9 @@ vi.mock('@/lib/queries/admin', async (importOriginal) => {
 
 vi.mock('@/store/auth', () => ({ useAuthStore: vi.fn() }))
 
-import { useAuthStore } from '@/store/auth'
+import { setAuthRole } from '@/test/mocks/auth-store'
 import { AdminUserDetailPage } from '../components/AdminUserDetailPage'
 import { adminLabels } from '../constants'
-
-function setRole(role: 'user' | 'admin' | 'contributor') {
-  vi.mocked(useAuthStore).mockImplementation(
-    (selector: unknown) => (selector as (s: { role: typeof role }) => unknown)({ role }) as never
-  )
-}
 
 type User = {
   id: string
@@ -131,7 +123,7 @@ function clickConfirmDialogButton(label: string) {
 describe('AdminUserDetailPage', () => {
   beforeEach(() => {
     vi.clearAllMocks()
-    setRole('admin')
+    setAuthRole('admin')
   })
 
   it("renders the user's email + role in the header when the user exists", () => {
@@ -316,7 +308,7 @@ describe('AdminUserDetailPage', () => {
 describe('AdminUserDetailPage — contributor content-only slice', () => {
   beforeEach(() => {
     vi.clearAllMocks()
-    setRole('contributor')
+    setAuthRole('contributor')
   })
 
   it('hides the account header + force-private and drops global from the scope options', () => {
