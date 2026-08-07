@@ -1,19 +1,4 @@
-/**
- * INCI-token to slug index for auto-filling candidate keyIngredients.
- *
- * Two parsing sources, first-write wins on collisions:
- *   1. ingredientData[].content markdown: `## INCI\n**Token**` block
- *   2. data/ingredients/<domain>/ingredient-slugs.ts: inline `// [INCI:] Token | desc` comments
- *
- * NON_DISCRIMINANT_TOKENS answers one question: does this token say anything about *this*
- * product? Water and glycerin do not, whatever they do to skin. It does not answer "does this
- * deserve a page": a listed substance keeps its ingredient row, its /ingredients entry and its
- * clickable driver in the formula reading, it only never becomes a product link.
- *
- * So the index carries these tokens. Dropping them at construction hid them from the algo-derm
- * bridge, which then landed a synonym on an unblocked slug. Both cuts happen at link time
- * instead: resolveToken on the raw token, buildNonDiscriminantSlugs on the resolved slug.
- */
+// INCI-token to slug index for auto-filling candidate keyIngredients.
 
 import { readFileSync } from 'node:fs'
 import { join } from 'node:path'
@@ -21,21 +6,11 @@ import { join } from 'node:path'
 import { ingredientData } from '../data/ingredients'
 import { INGREDIENT_SLUGS } from '../data/ingredients/ingredient-slugs'
 
-// One rule: a token belongs here only if it blocks a link measured on the corpus, or is common
-// enough (>=300 of 6769 products) that a fiche written later would chip it onto thousands of
-// sheets. Measured with audit-blocklist-purge.ts.
-//
-// The 2026-07 sweeps are retired with their criteria: algo-derm axis thresholds measured intensity,
-// never how much a token tells a reader about *this* product, and the "no resolvable slug" branch
-// took the absence of a fiche as proof none was wanted. Between them they listed 268 tokens that
-// cut nothing at all (peptides, ferments, botanicals, CI colours) and pre-empted the fiches
-// nobody had written yet.
-//
-// Most of the common excipients are already dropped by FILLER_SLUGS (the is_filler taxonomy), on
-// the resolved slug. What this list adds are the slugs that taxonomy does not carry.
-//
-// Entries are normalised at module load via normalizeInciToken to match real INCI conventions
-// (dashes, slashes, parens, accents). The source keeps the original orthography, grep-friendly.
+// A token belongs here only if it says nothing about *this* product (water, glycerin), not if
+// it "doesn't deserve a page": the ingredient row and /ingredients entry stay, only the product
+// link is dropped. Must block a link measured on the corpus, or be common enough (>=300/6769
+// products) that a later fiche would chip onto thousands of sheets (audit-blocklist-purge.ts).
+// Most excipients are already dropped via FILLER_SLUGS; this adds what that taxonomy misses.
 const NON_DISCRIMINANT_SOURCE: string[] = [
   // Solvents, humectants, preservatives, pH and chelation
   'Aqua',
@@ -116,7 +91,7 @@ const NON_DISCRIMINANT_SOURCE: string[] = [
   // because `Colour N Lake (CI …)` hides the code from normalizeInciToken, which erases the
   // parenthetical outright: `Blue 1 Lake (CI 42090)` normalises to `BLUE 1 LAKE` and the resolver
   // never sees 42090. Listing the wrapped spelling is what closes that hole. This is not the
-  // retired sweep re-listing colours: the decision is the family's, and it was already taken.
+  // retired sweep listing colours again: the decision is the family's, and it was already taken.
   'Blue 1 Lake (CI 42090)',
   'Red 7 Lake (CI 15850)',
   'Yellow 5 Lake (CI 19140)',
@@ -125,6 +100,11 @@ const NON_DISCRIMINANT_SOURCE: string[] = [
   'Aminomethyl Propanol',
 ]
 
+// The 2026-07 sweeps were retired: their criteria (algo-derm axis thresholds, "no resolvable
+// slug") measured intensity, not whether a token tells a reader anything about this product, and
+// listed 268 tokens that cut nothing at all while shutting out fiches nobody had written yet.
+// Normalised via normalizeInciToken at load, to match real INCI conventions; the source above
+// keeps the original orthography so it stays grep-friendly.
 export const NON_DISCRIMINANT_TOKENS = new Set<string>(
   NON_DISCRIMINANT_SOURCE.map((s) => normalizeInciToken(s))
 )
@@ -148,7 +128,7 @@ const SLUG_FILES: Array<{ rel: string; domain: IngredientDomain }> = [
 
 /**
  * For a given product category, which ingredient domains should be considered when
- * inferring keyIngredients. Skincare is a generic base included for non-skincare
+ * inferring keyIngredients. Skincare is a generic base included for categories outside
  * categories so shared actives (vitamins, soothing extracts) still match. Bodycare and
  * solaire ride the skincare ingredient taxonomy; their candidates only match skincare slugs.
  */
@@ -183,12 +163,11 @@ const HTML_ENTITY_DECODES: Array<[RegExp, string]> = [
 
 const HTML_ENTITY_OR_SEMICOLON = /&(?:#[0-9]+|#x[0-9a-f]+|[a-z][a-z0-9]+);|\s*;\s*/gi
 
-// The dash fold requires two letters on each side (trademark/asterisk markers may
-// trail the left side): a digit neighbour is a mangled hyphen (`2-BROMO-2 -NITRO`,
-// `C12 - 16`), a single letter a chemical prefix (`P - fenilendiammina`), `[+/-` a
-// may-contain marker. Real INCI names never carry a space before a hyphen (`PEG-60`,
-// `C10-30`). `repair-and-fold-inci-delimiters-v2.sql` mirrors this for the stored
-// column. Keep both in sync.
+// Dash fold requires two letters on each side (trademark/asterisk markers may trail the left
+// side): a digit neighbour is a mangled hyphen (`2-BROMO-2 -NITRO`, `C12 - 16`), a single letter
+// a chemical prefix (`P - fenilendiammina`), `[+/-` a may-contain marker. Real INCI names never
+// carry a space before a hyphen (`PEG-60`, `C10-30`). `repair-and-fold-inci-delimiters-v2.sql`
+// mirrors this for the stored column. Keep both in sync.
 export interface FoldScraperDelimiterOptions {
   foldListSeparators?: boolean
 }
@@ -205,14 +184,13 @@ export function foldScraperDelimiters(
     .replace(/([A-Za-zÀ-ÿ]{2}[™®*]{0,2})\s+-\s*(?=[A-Za-zÀ-ÿ]{2})/g, '$1, ')
 }
 
-// Scraper/label artefacts that hide a substance we already resolve: organic markers, supplier
-// bracket notes, a paren the split cut open, formulation doses. `[nano]` folds onto the plain
-// name on purpose: the two are regulatorily distinct but share one `ingredients` row today.
-// Slashes are deliberately left alone: `Phytosteryl/Isostearyl/Cetyl Dimer Dilinoleate` is one
-// compound name, not a double nomenclature, and splitting on them fabricates links.
-// Applied before BOTH lookup paths, so keep it out of normalizeInciToken's uppercasing.
+// Strips scraper artefacts (markers, brackets, parens, doses) that hide an already-resolved
+// substance. `[nano]` folds onto the plain name on purpose: same row, distinct regulatory form.
+// Slashes stay: compound names like `Phytosteryl/Isostearyl/Cetyl Dimer Dilinoleate` would
+// fabricate links if split. Strip zero-width chars first, `\s+` does not match them in JS.
 export function stripInciArtefacts(s: string): string {
   return s
+    .replace(/[\u200B-\u200D\uFEFF]/g, ' ')
     .replace(/[*†‡•°]+/g, ' ')
     .replace(/\[[^\]]*\]/g, ' ')
     .replace(/\([^)]*$/, ' ')
@@ -223,6 +201,7 @@ export function stripInciArtefacts(s: string): string {
     .trim()
 }
 
+// stripInciArtefacts already runs before both lookup paths, so don't duplicate its stripping here.
 export function normalizeInciToken(s: string): string {
   return stripInciArtefacts(s)
     .normalize('NFD')
@@ -233,7 +212,7 @@ export function normalizeInciToken(s: string): string {
     .toUpperCase()
 }
 
-/** Pull tokens out of a `## INCI` markdown section. Returns raw (non-normalized) strings. */
+/** Pull tokens out of a `## INCI` markdown section. Returns raw (not normalized) strings. */
 export function parseInciFromContent(content: string): string[] {
   const lines = content.split('\n')
   const blockLines: string[] = []
@@ -408,13 +387,11 @@ export function buildInciIndex(): InciIndex {
     if (!index.has(norm)) index.set(norm, { slug })
   }
 
-  // Source 1: slug-file inline comments first. The explicit `INCI:` prefix is the most
-  // predictable signal.
-  //
-  // File order was believed to arbitrate shared tokens like NIACINAMIDE towards the skincare
-  // slug over its domain shadow. It never did: the haircare file declares no INCI at all, so
-  // `niacinamide-hair` is not in this index and no arbitration ever took place. Which domain a
-  // product lands on is decided in link-ingredients/main.ts, on `ingredients.type`.
+  // Source 1: slug-file inline comments run first (explicit `INCI:` prefix is the most predictable
+  // signal). File order was believed to arbitrate shared tokens like NIACINAMIDE towards skincare
+  // over its domain shadow; it never did, since the haircare file declares no INCI at all, so
+  // `niacinamide-hair` never entered this index to compete. Domain arbitration actually happens in
+  // link-ingredients/main.ts, on `ingredients.type`.
   for (const { rel } of SLUG_FILES) {
     const path = join(INGREDIENTS_ROOT, rel)
     let text: string
@@ -438,10 +415,13 @@ export function buildInciIndex(): InciIndex {
   return index
 }
 
+// The index still carries a token that discriminates nothing: dropping it there used to hide it from the
+// algo-derm bridge, which then landed a synonym on an unblocked slug. Both cuts happen at link
+// time now: resolveToken on the raw token, this function on the resolved slug.
 /**
- * Slugs whose canonical INCI token is non-discriminant. Lets a *resolved* slug be dropped even
+ * Slugs whose canonical INCI token discriminates nothing. Lets a *resolved* slug be dropped even
  * when the raw token that produced it was a listed substance under another name (e.g.
- * `Polydimethylsiloxane` → dimethicone, `Gomme Xanthane` → xanthan-gum).
+ * `Polydimethylsiloxane` maps to dimethicone, `Gomme Xanthane` maps to xanthan-gum).
  */
 export function buildNonDiscriminantSlugs(): Set<string> {
   const slugs = new Set<string>()
@@ -462,7 +442,7 @@ export function buildNonDiscriminantSlugs(): Set<string> {
 }
 
 /**
- * Every ingredient slug → its source-file domain. Unlike the inci index (which only carries
+ * Every ingredient slug mapped to its source-file domain. Unlike the inci index (which only carries
  * slugs that expose an INCI token), this covers the full slug set, so a slug reached by the
  * humanised-word bridge still gets domain-filtered. First file wins on cross-domain collision.
  */

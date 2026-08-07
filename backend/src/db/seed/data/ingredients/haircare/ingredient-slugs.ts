@@ -19,7 +19,6 @@ export const HAIR_TENSIOACTIFS_AMPHOTERES = {
 export const HAIR_TENSIOACTIFS_NON_IONIQUES = {
   COCO_GLUCOSIDE: 'coco-glucoside', // glucoside coco, tensioactif doux naturel
   DECYL_GLUCOSIDE: 'decyl-glucoside', // glucoside décyl, très doux, certifiable naturel
-  LAURYL_GLUCOSIDE: 'lauryl-glucoside', // glucoside lauryl, intermédiaire
   CAPRYLYL_CAPRYL_GLUCOSIDE: 'caprylyl-capryl-glucoside', // mélange C8/C10, très doux, peaux sensibles
   POLYSORBATE_20: 'polysorbate-20', // émulsifiant non-ionique, solubilisateur
   POLYSORBATE_60: 'polysorbate-60', // émulsifiant non-ionique, corps gras
