@@ -2,7 +2,7 @@ import type { ProfilePublic, UserDermoProfile } from '@aurore/shared'
 
 import clsx from 'clsx'
 import { Check, X } from 'lucide-react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { Button } from '@/component/Button/Button'
 import { Overline } from '@/component/Typography/Overline/Overline'
@@ -32,10 +32,17 @@ function isSkinComplete(dermo: UserDermoProfile | null | undefined) {
 }
 
 export function CompletionStrip({ profile, dermo, onEditSection }: CompletionStripProps) {
-  const [dismissed, setDismissed] = useState(() => {
-    if (typeof window === 'undefined') return false
-    return window.localStorage.getItem(DISMISSED_KEY) === '1'
-  })
+  const [dismissed, setDismissed] = useState(false)
+
+  // Browser storage is unavailable to SSR. Restore it after mount so the first
+  // client tree matches the reminder rendered by the server.
+  useEffect(() => {
+    try {
+      if (window.localStorage.getItem(DISMISSED_KEY) === '1') setDismissed(true)
+    } catch {
+      /* ignore blocked storage */
+    }
+  }, [])
 
   const heroDone = isHeroComplete(profile)
   const skinDone = isSkinComplete(dermo)

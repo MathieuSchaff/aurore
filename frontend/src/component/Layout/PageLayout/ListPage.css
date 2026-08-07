@@ -53,9 +53,9 @@
   transition: opacity var(--transition-base) ease-in-out;
 }
 
+/* Clickable while syncing, same reason as .list-page-layout__body--syncing. */
 .list-main--syncing {
   opacity: 0.6;
-  pointer-events: none;
 }
 
 .list-grid {

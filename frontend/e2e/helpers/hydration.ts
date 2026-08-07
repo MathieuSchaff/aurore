@@ -10,8 +10,9 @@ export function waitForHydration(page: Page) {
 
 // Hydration is not the last word on an authenticated catalogue: ~350 ms later
 // useProductsProfileFilter lands a replace-navigate that applies the standing
-// "Selon mon profil" setting. It refetches the list, so cards detach mid-click and
-// a navigation started in that window is reverted. Wait for the URL to go quiet.
+// "Selon mon profil" setting, and the rule-filtered list is a different set of
+// cards. The grid stays clickable throughout and the replace no longer commits
+// over a card click, but a card read before the swap is still stale.
 export function waitForSettledUrl(page: Page, quietMs = 400) {
   return page.waitForFunction(
     (quiet) => {
@@ -39,10 +40,11 @@ export async function gotoSettled(page: Page, url: string): Promise<void> {
   await waitForSettledUrl(page)
 }
 
-// The replace-navigate above only starts a second, unguarded chain: profile_filter=true
-// enables the dermoProfile query, which recomputes avoidFor, which changes the products
-// list query key and refetches it. waitForSettledUrl only watches the URL, so a card read
-// right after gotoSettled can still be yanked out from under a click by this later refetch —
+// The replace-navigate above only starts a second, unguarded chain, and it is not the
+// dermo query: that one is already cached, since its success is what triggers the replace.
+// It is the loader rerun: convergeShelfStatusForList awaits the rule-filtered list, then
+// the shelf statuses for its ids. waitForSettledUrl only watches the URL, so a card read
+// right after gotoSettled can still be swapped out from under a click by this later refetch:
 // under real network latency the two round trips routinely outlast the 400ms URL-quiet window.
 export function waitForProductsListSettled(page: Page, quietMs = 400): Promise<void> {
   return new Promise((resolve) => {

@@ -71,7 +71,7 @@ export function ProductsPage() {
 
   const search = routeApi.useSearch()
   const { page, sort, priceMin, priceMax, category, q } = search
-  // Unstated in the URL reads as off until the standing choice resolves it (D9).
+  // Unstated in the URL reads as off until the standing choice resolves it.
   const profile_filter = search.profile_filter === true
   const navigate = useNavigate({ from: '/products/' })
 
@@ -87,10 +87,11 @@ export function ProductsPage() {
     [profile_filter, dermoProfile]
   )
 
-  const handleProfileFilterChange = useProductsProfileFilter({
-    urlValue: search.profile_filter,
-    userId: user?.id ?? null,
-  })
+  const { setProfileFilter: handleProfileFilterChange, unresolved: profileFilterUnresolved } =
+    useProductsProfileFilter({
+      urlValue: search.profile_filter,
+      userId: user?.id ?? null,
+    })
 
   // Stable ref: a fresh object every render feeds back into setDraftFilters and loops.
   const filters = useMemo<FilterValues<FilterKey>>(
@@ -109,7 +110,7 @@ export function ProductsPage() {
 
   const hasPriceRange = hasActivePriceRange(priceMin, priceMax)
   const hasFilters = filterCount > 0
-  // profile_filter is out: "Tout effacer" does not clear a standing setting (D9), so
+  // profile_filter is out: "Tout effacer" does not clear a standing setting, so
   // counting it here promised a reset the button could not deliver.
   const effectiveFilterCount = filterCount + (hasPriceRange ? 1 : 0) + (q ? 1 : 0)
 
@@ -131,8 +132,11 @@ export function ProductsPage() {
 
   // While the root boot refresh is in flight, keep the anonymous key. The /products
   // loader joins that refresh before starting authenticated product work.
+  // `profileFilterUnresolved` extends the same hold past the refresh: flipping the key
+  // before the standing setting is known costs a list fetch that the very next render
+  // throws away, and each key change blanks the grid mid-click.
   const bootRefreshPending = useBootPending()
-  const userKey = bootRefreshPending ? null : (user?.id ?? null)
+  const userKey = bootRefreshPending || profileFilterUnresolved ? null : (user?.id ?? null)
 
   // userKey (not user) so apply_preferences flips together with the cache key:
   // during boot both stay anonymous, matching the loader's prefetch.
@@ -151,22 +155,25 @@ export function ProductsPage() {
   })
   const productIds = useMemo(() => data?.items.map((item) => item.id) ?? [], [data])
   // Don't fetch statuses for placeholder (previous page) ids during a navigation.
-  const shelfStatusOptions = productQueries.shelfStatus(user?.id ?? null, productIds)
+  // userKey, not user.id: while the key is held the loader already overlays the
+  // anonymous entry, and writing under user.id would target a cache entry the page
+  // is not reading.
+  const shelfStatusOptions = productQueries.shelfStatus(userKey, productIds)
   const { data: shelfStatus } = useQuery({
     ...shelfStatusOptions,
     enabled: shelfStatusOptions.enabled && !isPlaceholderData,
   })
 
   useEffect(() => {
-    if (!user?.id || !shelfStatus) return
+    if (!userKey || !shelfStatus) return
     applyShelfStatusOverlayToListCache(
       queryClient,
       apiFilters,
-      user.id,
+      userKey,
       new Set(productIds),
       shelfStatus
     )
-  }, [apiFilters, queryClient, shelfStatus, user?.id, productIds])
+  }, [apiFilters, queryClient, shelfStatus, userKey, productIds])
 
   // Live count for the drawer's in-flight selection; only runs while drawer is open.
   // Same rule gate as the list, otherwise the CTA announces the unruled catalogue

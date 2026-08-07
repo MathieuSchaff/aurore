@@ -184,6 +184,10 @@
   margin: 0;
 }
 
+.ingredient-list__more {
+  margin-top: var(--space-2);
+}
+
 .ingredient-item {
   display: grid;
   grid-template-columns: auto 1fr auto;
