@@ -1,7 +1,7 @@
 import { expect, type Page, test } from '@playwright/test'
 
 import { loginAsSeed, registerFreshUser } from './helpers/auth'
-import { waitForHydration, waitForSettledUrl } from './helpers/hydration'
+import { gotoHydrated, gotoSettled, waitForHydration, waitForSettledUrl } from './helpers/hydration'
 
 function isApi(req: { url(): string }, path: string | RegExp): boolean {
   const u = req.url()
@@ -142,16 +142,6 @@ test.describe('Product edit — clearing nullable fields', () => {
   // assert against its URL field; running them in parallel races on setup.
   test.describe.configure({ mode: 'serial' })
 
-  // PATCH is JWT-guarded; loginAsSeed only sets the refresh cookie. Re-login
-  // to fish out an access token usable for setup mutations.
-  async function getAccessToken(page: Page): Promise<string> {
-    const res = await page.request.post('/api/auth/login', {
-      data: { email: 'seed@seed.com', password: 'Azerty123!seed' },
-    })
-    expect(res.ok()).toBe(true)
-    return (await res.json()).data.accessToken as string
-  }
-
   // Returns slug + id of the first skincare product, with `url` pre-set to a
   // known sentinel so we have something to clear.
   async function ensureProductWithUrl(
@@ -161,7 +151,7 @@ test.describe('Product edit — clearing nullable fields', () => {
     const slug = await resolveFirstSkincareSlug(page)
     const detail = await page.request.get(`/api/products/${slug}`)
     const id = (await detail.json()).data.id as string
-    const token = await getAccessToken(page)
+    const token = await loginAsSeed(page)
     const setup = await page.request.patch(`/api/products/${id}`, {
       headers: { authorization: `Bearer ${token}` },
       data: { url: sentinel },
@@ -173,7 +163,7 @@ test.describe('Product edit — clearing nullable fields', () => {
   test('clearing the url sends url:null and detail no longer shows the link', async ({ page }) => {
     const { slug } = await ensureProductWithUrl(page, 'https://e2e-clear-url.example.com')
 
-    await page.goto(`/products/${slug}/edit`)
+    await gotoHydrated(page, `/products/${slug}/edit`)
     await expect(page.locator('#edit-url')).toHaveValue('https://e2e-clear-url.example.com')
 
     await page.locator('#edit-url').fill('')
@@ -669,9 +659,10 @@ test.describe('Product detail — Profil de la formule', () => {
   // through a client-side navigation puts the fetch back in the browser.
   // profile_filter is pinned so the standing setting cannot drop the target card.
   async function clientNavigateToDetail(page: Page, slug: string): Promise<void> {
-    await page.goto('/products?sort=name&profile_filter=false')
-    await waitForHydration(page)
-    await page.locator(`.list-card--product a[href="/products/${slug}"]`).first().click()
+    await gotoSettled(page, '/products?sort=name&profile_filter=false')
+    const productLink = page.locator(`.list-card--product a[href="/products/${slug}"]`).first()
+    await productLink.waitFor({ state: 'visible' })
+    await productLink.click()
     await expect(page).toHaveURL(new RegExp(`/products/${slug}$`), { timeout: 15_000 })
   }
 

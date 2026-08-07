@@ -1,6 +1,7 @@
 import { expect, test } from '@playwright/test'
 
 import { loginAsSeed } from './helpers/auth'
+import { mockJson } from './helpers/network'
 
 // Feed filtering/ordering correctness is pinned by the backend route test.
 // This spec checks that the screen is auth-gated and the tone tab drives the URL.
@@ -36,7 +37,7 @@ test('redirects to login when the feed is opened unauthenticated', async ({ page
   await expect(page).toHaveURL(/\/auth\/login/, { timeout: 15_000 })
 })
 
-test.describe('Feed — authenticated (mocked feed payload)', () => {
+test.describe('Feed: authenticated (mocked feed payload)', () => {
   test.beforeEach(async ({ page }) => {
     await loginAsSeed(page)
     // Return a tone-specific post so clicking the tab proves the URL drives the query.
@@ -49,15 +50,12 @@ test.describe('Feed — authenticated (mocked feed payload)', () => {
         body: JSON.stringify({ success: true, data: { posts: [post] } }),
       })
     })
-    // Concern chips are drawn from the viewer's own dermo, not the feed payload —
-    // mock it so the concern ChipGroup renders deterministically (it self-hides at
+    // Concern chips are drawn from the viewer's own dermo, not the feed payload.
+    // Mock it so the concern ChipGroup renders deterministically (it self-hides at
     // ≤1 option). FeedPage only reads `skinConcerns`.
-    await page.route('**/api/profile/dermo**', async (route) => {
-      await route.fulfill({
-        status: 200,
-        contentType: 'application/json',
-        body: JSON.stringify({ success: true, data: { skinConcerns: ['rosacee'] } }),
-      })
+    await mockJson(page, '**/api/profile/dermo**', 200, {
+      success: true,
+      data: { skinConcerns: ['rosacee'] },
     })
   })
 

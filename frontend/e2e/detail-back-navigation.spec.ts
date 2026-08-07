@@ -3,16 +3,11 @@ import path from 'node:path'
 import { expect, type Locator, type Page, test } from '@playwright/test'
 
 import { loginAsSeed } from './helpers/auth'
+import { resolveFirstSkincareSlug } from './helpers/catalog'
+import { gotoHydrated } from './helpers/hydration'
 
 const screenshotPhase = process.env.CAPTURE_BACK_BUTTON_SCREENSHOTS
 const screenshotDir = path.resolve(import.meta.dirname, '../../.audit-out/back-button')
-
-async function resolveFirstSkincareSlug(page: Page): Promise<string> {
-  const response = await page.request.get('/api/products?category=skincare&sort=name&limit=1')
-  expect(response.ok()).toBe(true)
-  const json = await response.json()
-  return json.data.items[0].slug as string
-}
 
 async function captureAtDesktopAndMobile(page: Page, name: string) {
   if (!screenshotPhase) return
@@ -50,7 +45,7 @@ test('product detail exposes a prominent, explicit return to the product list', 
   page,
 }) => {
   const slug = await resolveFirstSkincareSlug(page)
-  await page.goto(`/products/${slug}`)
+  await gotoHydrated(page, `/products/${slug}`)
   await expect(page.getByRole('heading', { level: 1 })).toBeVisible()
 
   await captureAtDesktopAndMobile(page, 'product')
@@ -62,7 +57,7 @@ test('product detail exposes a prominent, explicit return to the product list', 
 test('ingredient detail exposes a prominent, explicit return to the ingredient list', async ({
   page,
 }) => {
-  await page.goto('/ingredients/niacinamide')
+  await gotoHydrated(page, '/ingredients/niacinamide')
   await expect(page.getByRole('heading', { level: 1, name: /niacinamide/i })).toBeVisible()
 
   await captureAtDesktopAndMobile(page, 'ingredient')

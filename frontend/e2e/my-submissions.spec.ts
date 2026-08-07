@@ -7,6 +7,7 @@ import {
   loginAsUser,
   verifyProduct,
 } from './helpers/catalog'
+import { gotoHydrated } from './helpers/hydration'
 
 test.describe('Contributor « Mes soumissions » dashboard', () => {
   // Proves the owner-scoped elevated read (withAdminRls) end-to-end: the hidden row +
@@ -16,7 +17,7 @@ test.describe('Contributor « Mes soumissions » dashboard', () => {
   }) => {
     // Admin token for verify/hide API calls (requireCatalogWrite gates both routes).
     // Products are created as a plain user so they land unverified (owner can see them
-    // via withAdminRls even when hidden — that's the invariant under test).
+    // via withAdminRls even when hidden; that's the invariant under test).
     const adminToken = await loginAndGetToken(page)
     const userToken = await loginAsUser(page) // switches page session to anna
     const tag = Date.now()
@@ -28,7 +29,7 @@ test.describe('Contributor « Mes soumissions » dashboard', () => {
     const reason = `Doublon de fiche ${tag}.`
     await hideProduct(page, adminToken, hidden.id, reason)
 
-    await page.goto('/submissions')
+    await gotoHydrated(page, '/submissions')
     await expect(page.getByRole('heading', { name: 'Mes soumissions' })).toBeVisible()
 
     const pendingRow = page.locator('li.submissions__row', { hasText: pending.name })
