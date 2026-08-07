@@ -43,7 +43,9 @@
   // consumed via `@aurore/shared` appears unused even though it isn't. New files
   // also trigger unresolved-import for the same reason (symlink not followed).
   // Verify shared/src/* findings via grep before acting.
-  "ignoreDependencies": ["@aurore/shared", "pino-pretty", "react-doctor"],
+  // typescript-5: only consumer is scripts/audit-comments.ts, which is gitignored (local-only
+  // tooling), so no analyser can see the import that justifies the dependency.
+  "ignoreDependencies": ["@aurore/shared", "pino-pretty", "react-doctor", "typescript-5"],
   "ignoreUnresolvedImports": ["@aurore/shared"],
 
   // docs-private/wiki carries its own package.json (Starlight). It is not application code and
