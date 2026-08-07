@@ -1,16 +1,20 @@
-import { beforeEach, describe, expect, it } from 'bun:test'
+import { beforeAll, describe, expect, it } from 'bun:test'
 
 import { HTTP_STATUS } from '@aurore/shared'
 
-import { createIngredient } from '../../../features/ingredients/service'
 import { testDb } from '../../../tests/db.test.config'
 import { setupDbTests } from '../../../tests/db-setup'
 import { expectRequiresAuth, expectRoleMatrix } from '../../../tests/helpers/authz-matrix'
-import { createTestEnv, type TestClient, withAuth } from '../../../tests/helpers/createTestClient'
-import { expectStatus } from '../../../tests/helpers/expectStatus'
+import {
+  createTestEnv,
+  type TestApp,
+  type TestClient,
+  withAuth,
+} from '../../../tests/helpers/createTestClient'
+import { expectOk, expectStatus } from '../../../tests/helpers/expectStatus'
 import { setupAndLoginAdmin } from '../../../tests/helpers/route-test-helpers'
 import { TEST_CREDENTIALS } from '../../../tests/helpers/test-credentials'
-import { createTestUser } from '../../../tests/helpers/test-factories'
+import { createTestIngredient, createTestUser } from '../../../tests/helpers/test-factories'
 import { addTagToIngredient } from '../service'
 
 type ApiErrorBody = { success: false; error: string }
@@ -20,10 +24,10 @@ const VALID_TAG = { label: 'Hydratant' }
 setupDbTests()
 
 describe('Ingredient Tag Routes', () => {
-  let app: Awaited<ReturnType<typeof createTestEnv>>['app']
+  let app: TestApp
   let client: TestClient
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     ;({ app, client } = await createTestEnv())
   })
 
@@ -31,30 +35,28 @@ describe('Ingredient Tag Routes', () => {
     it('should create a tag with only a name', async () => {
       const token = await setupAndLoginAdmin(app, TEST_CREDENTIALS.admin)
 
-      const res = await client['ingredient-tags'].$post({ json: VALID_TAG }, withAuth(token))
-
-      expectStatus(res, HTTP_STATUS.CREATED)
-      const data = await res.json()
-      if (!data.success) throw new Error('create tag failed')
-      expect(data.data.id).toBeDefined()
-      expect(data.data.label).toBe('Hydratant')
-      expect(data.data.slug).toBe('hydratant')
-      expect(data.data.tagType).toBe('')
+      const tag = await expectOk(
+        client['ingredient-tags'].$post({ json: VALID_TAG }, withAuth(token)),
+        HTTP_STATUS.CREATED
+      )
+      expect(tag.id).toBeDefined()
+      expect(tag.label).toBe('Hydratant')
+      expect(tag.slug).toBe('hydratant')
+      expect(tag.tagType).toBe('')
     })
 
     it('should create a tag with a category', async () => {
       const token = await setupAndLoginAdmin(app, TEST_CREDENTIALS.admin)
 
-      const res = await client['ingredient-tags'].$post(
-        { json: { label: 'Apaisant', tagType: 'effect' } },
-        withAuth(token)
+      const tag = await expectOk(
+        client['ingredient-tags'].$post(
+          { json: { label: 'Apaisant', tagType: 'effect' } },
+          withAuth(token)
+        ),
+        HTTP_STATUS.CREATED
       )
-
-      expectStatus(res, HTTP_STATUS.CREATED)
-      const data = await res.json()
-      if (!data.success) throw new Error('create tag failed')
-      expect(data.data.label).toBe('Apaisant')
-      expect(data.data.tagType).toBe('effect')
+      expect(tag.label).toBe('Apaisant')
+      expect(tag.tagType).toBe('effect')
     })
 
     it('should auto-generate slug from name', async () => {
@@ -136,12 +138,8 @@ describe('Ingredient Tag Routes', () => {
       await client['ingredient-tags'].$post({ json: { label: 'Tag 1' } }, withAuth(token))
       await client['ingredient-tags'].$post({ json: { label: 'Tag 2' } }, withAuth(token))
 
-      const res = await client['ingredient-tags'].$get({ query: {} })
-
-      expectStatus(res, HTTP_STATUS.OK)
-      const data = await res.json()
-      if (!data.success) throw new Error('list tags failed')
-      expect(data.data.length).toBeGreaterThanOrEqual(2)
+      const tags = await expectOk(client['ingredient-tags'].$get({ query: {} }))
+      expect(tags.length).toBeGreaterThanOrEqual(2)
     })
 
     it('should filter by category', async () => {
@@ -156,12 +154,8 @@ describe('Ingredient Tag Routes', () => {
         withAuth(token)
       )
 
-      const res = await client['ingredient-tags'].$get({ query: { category: 'effect' } })
-
-      expectStatus(res, HTTP_STATUS.OK)
-      const data = await res.json()
-      if (!data.success) throw new Error('list tags failed')
-      expect(data.data.every((t) => t.tagType === 'effect')).toBe(true)
+      const tags = await expectOk(client['ingredient-tags'].$get({ query: { category: 'effect' } }))
+      expect(tags.every((t) => t.tagType === 'effect')).toBe(true)
     })
   })
 
@@ -174,13 +168,11 @@ describe('Ingredient Tag Routes', () => {
       if (!createData.success) throw new Error('create tag failed')
       const created = createData.data
 
-      const res = await client['ingredient-tags'][':id'].$get({ param: { id: created.id } })
-
-      expectStatus(res, HTTP_STATUS.OK)
-      const data = await res.json()
-      if (!data.success) throw new Error('get tag failed')
-      expect(data.data.id).toBe(created.id)
-      expect(data.data.label).toBe('Hydratant')
+      const tag = await expectOk(
+        client['ingredient-tags'][':id'].$get({ param: { id: created.id } })
+      )
+      expect(tag.id).toBe(created.id)
+      expect(tag.label).toBe('Hydratant')
     })
 
     it('should return 404 for unknown id', async () => {
@@ -212,16 +204,14 @@ describe('Ingredient Tag Routes', () => {
       if (!createData.success) throw new Error('create tag failed')
       const created = createData.data
 
-      const res = await client['ingredient-tags'][':id'].$patch(
-        { param: { id: created.id }, json: { label: 'Neuf', tagType: 'type' } },
-        withAuth(token)
+      const tag = await expectOk(
+        client['ingredient-tags'][':id'].$patch(
+          { param: { id: created.id }, json: { label: 'Neuf', tagType: 'type' } },
+          withAuth(token)
+        )
       )
-
-      expectStatus(res, HTTP_STATUS.OK)
-      const data = await res.json()
-      if (!data.success) throw new Error('update tag failed')
-      expect(data.data.label).toBe('Neuf')
-      expect(data.data.tagType).toBe('type')
+      expect(tag.label).toBe('Neuf')
+      expect(tag.tagType).toBe('type')
     })
 
     it('should return 404 for unknown id', async () => {
@@ -278,15 +268,10 @@ describe('Ingredient Tag Routes', () => {
       if (!createData.success) throw new Error('create tag failed')
       const created = createData.data
 
-      const res = await client['ingredient-tags'][':id'].$delete(
-        { param: { id: created.id } },
-        withAuth(token)
+      const deleted = await expectOk(
+        client['ingredient-tags'][':id'].$delete({ param: { id: created.id } }, withAuth(token))
       )
-
-      expectStatus(res, HTTP_STATUS.OK)
-      const data = await res.json()
-      if (!data.success) throw new Error('delete tag failed')
-      expect(data.data).toBeNull()
+      expect(deleted).toBeNull()
     })
 
     it('should make the tag unreachable after deletion', async () => {
@@ -333,21 +318,16 @@ describe('Ingredient Tag Routes', () => {
       if (!tagData.success) throw new Error('create tag failed')
       const tag = tagData.data
 
-      const ing = await createIngredient(testDb, ingOwner.id, 'contributor', {
-        name: 'Centella',
-        type: 'skincare',
-      })
+      const ing = await createTestIngredient(ingOwner.id, { name: 'Centella' }, 'contributor')
       await addTagToIngredient(testDb, ing.id, tag.id)
 
-      const res = await client['ingredient-tags'][':slug'].ingredients.$get({
-        param: { slug: tag.slug },
-      })
-
-      expectStatus(res, HTTP_STATUS.OK)
-      const data = await res.json()
-      if (!data.success) throw new Error('list ingredients failed')
-      expect(data.data).toHaveLength(1)
-      expect(data.data[0]?.name).toBe('Centella')
+      const ingredients = await expectOk(
+        client['ingredient-tags'][':slug'].ingredients.$get({
+          param: { slug: tag.slug },
+        })
+      )
+      expect(ingredients).toHaveLength(1)
+      expect(ingredients[0]?.name).toBe('Centella')
     })
 
     it('should return 404 for unknown slug', async () => {

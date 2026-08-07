@@ -1,4 +1,4 @@
-import { afterEach, beforeEach, describe, expect, it } from 'bun:test'
+import { afterEach, beforeAll, beforeEach, describe, expect, it } from 'bun:test'
 
 import { HTTP_STATUS } from '@aurore/shared'
 
@@ -31,8 +31,11 @@ describe('Ban enforcement (requireNotBanned)', () => {
   let adminId: string
   let token: string
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     client = await createTestClient()
+  })
+
+  beforeEach(async () => {
     clearBanCache()
     const toto = TEST_CREDENTIALS.toto
     const admin = TEST_CREDENTIALS.admin

@@ -1,6 +1,8 @@
 import { mock } from 'bun:test'
 
 process.env.NODE_ENV = 'test'
+// Separate from helpers/secrets.ts: this is the env-var lineage (seeders, createCtx),
+// not the createTestApp lineage. Different values are intentional, not drift.
 process.env.JWT_SECRET = 'test-secret-at-least-32-chars-long-for-zod'
 process.env.REFRESH_SECRET = 'test-refresh-at-least-32-chars-long-for-zod'
 process.env.DATABASE_URL =

@@ -6,30 +6,22 @@ import { productIngredients } from '../../../db/schema/products/product-ingredie
 import { productTagLinks, productTagTypes } from '../../../db/schema/tags/tags'
 import { userTagPreferences } from '../../../db/schema/tags/user-tag-preferences'
 import { testDb } from '../../../tests/db.test.config'
-import { cleanDatabase } from '../../../tests/helpers/db-cleaner'
-import { createTestUser } from '../../../tests/helpers/test-factories'
-import { createProduct, listProducts } from '../service'
+import { setupDbTests } from '../../../tests/db-setup'
+import { createTestProduct, createTestUser } from '../../../tests/helpers/test-factories'
+import { listProducts } from '../service'
 
 // Service-level: testDb runs as superuser (BYPASSRLS), so fixtures write
 // directly; listProducts receives userId explicitly like the route does.
 
+setupDbTests()
+
 let user: { id: string }
 
 beforeEach(async () => {
-  await cleanDatabase()
   user = await createTestUser()
 })
 
 const PARFUM_KEY = 'Parfum'
-
-async function makeProduct(name: string) {
-  return createProduct(
-    user.id,
-    'admin',
-    { name, brand: 'Brand', kind: 'serum', unit: 'pump', category: 'skincare' },
-    testDb
-  )
-}
 
 async function linkIngredient(productId: string, canonicalKey: string, name: string, slug: string) {
   const [ing] = await testDb
@@ -52,9 +44,9 @@ async function makeTag(slug: string, label: string) {
 
 const baseFilters = { category: 'skincare', page: 1, limit: 20 } as const
 
-describe('listProducts — declared rules (D3/D8)', () => {
+describe('listProducts: declared rules', () => {
   it('without apply_preferences: declared rules change nothing', async () => {
-    const scented = await makeProduct('Sérum parfumé')
+    const scented = await createTestProduct(user.id, { name: 'Sérum parfumé', brand: 'Brand' })
     await linkIngredient(scented.id, PARFUM_KEY, 'Parfum (Fragrance)', 'fragrance')
     await testDb
       .insert(userIngredientPreferences)
@@ -68,9 +60,9 @@ describe('listProducts — declared rules (D3/D8)', () => {
   })
 
   it('"Sans" excludes the hit and counts it, clean rows stay', async () => {
-    const scented = await makeProduct('Sérum parfumé')
+    const scented = await createTestProduct(user.id, { name: 'Sérum parfumé', brand: 'Brand' })
     await linkIngredient(scented.id, PARFUM_KEY, 'Parfum (Fragrance)', 'fragrance')
-    await makeProduct('Sérum propre')
+    await createTestProduct(user.id, { name: 'Sérum propre', brand: 'Brand' })
     await testDb
       .insert(userIngredientPreferences)
       .values({ userId: user.id, canonicalKey: PARFUM_KEY, stance: 'exclude' })
@@ -84,7 +76,7 @@ describe('listProducts — declared rules (D3/D8)', () => {
   })
 
   it('include_excluded shows hits back, annotated, count intact', async () => {
-    const scented = await makeProduct('Sérum parfumé')
+    const scented = await createTestProduct(user.id, { name: 'Sérum parfumé', brand: 'Brand' })
     await linkIngredient(scented.id, PARFUM_KEY, 'Parfum (Fragrance)', 'fragrance')
     await testDb
       .insert(userIngredientPreferences)
@@ -102,9 +94,9 @@ describe('listProducts — declared rules (D3/D8)', () => {
   })
 
   it('"Avec" keeps only rows containing the target, annotated', async () => {
-    const nia = await makeProduct('Sérum niacinamide')
+    const nia = await createTestProduct(user.id, { name: 'Sérum niacinamide', brand: 'Brand' })
     await linkIngredient(nia.id, 'Niacinamide', 'Niacinamide', 'niacinamide-fixture')
-    await makeProduct('Sérum neutre')
+    await createTestProduct(user.id, { name: 'Sérum neutre', brand: 'Brand' })
     await testDb
       .insert(userIngredientPreferences)
       .values({ userId: user.id, canonicalKey: 'Niacinamide', stance: 'require' })
@@ -119,14 +111,14 @@ describe('listProducts — declared rules (D3/D8)', () => {
   })
 
   it('several "Avec" rules are an OR across ingredient and tag targets', async () => {
-    const nia = await makeProduct('Sérum niacinamide')
+    const nia = await createTestProduct(user.id, { name: 'Sérum niacinamide', brand: 'Brand' })
     await linkIngredient(nia.id, 'Niacinamide', 'Niacinamide', 'niacinamide-fixture')
-    const tagged = await makeProduct('Crème céramides')
+    const tagged = await createTestProduct(user.id, { name: 'Crème céramides', brand: 'Brand' })
     const tagId = await makeTag('ceramides-fixture', 'Céramides')
     await testDb
       .insert(productTagLinks)
       .values({ productId: tagged.id, productTagId: tagId, relevance: 'primary' })
-    await makeProduct('Sérum neutre')
+    await createTestProduct(user.id, { name: 'Sérum neutre', brand: 'Brand' })
     await testDb
       .insert(userIngredientPreferences)
       .values({ userId: user.id, canonicalKey: 'Niacinamide', stance: 'require' })
@@ -141,10 +133,16 @@ describe('listProducts — declared rules (D3/D8)', () => {
   })
 
   it('"Sans" wins over "Avec" on the same row', async () => {
-    const both = await makeProduct('Sérum niacinamide parfumé')
+    const both = await createTestProduct(user.id, {
+      name: 'Sérum niacinamide parfumé',
+      brand: 'Brand',
+    })
     await linkIngredient(both.id, 'Niacinamide', 'Niacinamide', 'niacinamide-fixture')
     await linkIngredient(both.id, PARFUM_KEY, 'Parfum (Fragrance)', 'fragrance')
-    const clean = await makeProduct('Sérum niacinamide propre')
+    const clean = await createTestProduct(user.id, {
+      name: 'Sérum niacinamide propre',
+      brand: 'Brand',
+    })
     await linkIngredient(clean.id, 'Niacinamide', 'Niacinamide bis', 'niacinamide-fixture-2')
     await testDb.insert(userIngredientPreferences).values([
       { userId: user.id, canonicalKey: 'Niacinamide', stance: 'require' },
@@ -159,12 +157,12 @@ describe('listProducts — declared rules (D3/D8)', () => {
   })
 
   it('declared "Sans" on a tag excludes tagged rows, label in the banner', async () => {
-    const tagged = await makeProduct('Crème aux huiles')
+    const tagged = await createTestProduct(user.id, { name: 'Crème aux huiles', brand: 'Brand' })
     const tagId = await makeTag('huiles-essentielles-fixture', 'Huiles essentielles')
     await testDb
       .insert(productTagLinks)
       .values({ productId: tagged.id, productTagId: tagId, relevance: 'primary' })
-    await makeProduct('Crème sans')
+    await createTestProduct(user.id, { name: 'Crème sans', brand: 'Brand' })
     await testDb.insert(userTagPreferences).values({ userId: user.id, tagId, stance: 'exclude' })
 
     const result = await listProducts({ ...baseFilters, apply_preferences: true }, testDb, user.id)
@@ -176,7 +174,7 @@ describe('listProducts — declared rules (D3/D8)', () => {
   })
 
   it('anonymous caller with apply_preferences is a no-op', async () => {
-    const scented = await makeProduct('Sérum parfumé')
+    const scented = await createTestProduct(user.id, { name: 'Sérum parfumé', brand: 'Brand' })
     await linkIngredient(scented.id, PARFUM_KEY, 'Parfum (Fragrance)', 'fragrance')
     await testDb
       .insert(userIngredientPreferences)

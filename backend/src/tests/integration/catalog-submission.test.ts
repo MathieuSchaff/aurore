@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it } from 'bun:test'
+import { describe, expect, it } from 'bun:test'
 
 import { eq } from 'drizzle-orm'
 
@@ -10,12 +10,8 @@ import { ProductError } from '../../features/products/product-error'
 import { createProduct } from '../../features/products/service'
 import { testDb } from '../db.test.config'
 import { setupDbTests } from '../db-setup'
-import { cleanDatabase } from '../helpers/db-cleaner'
+import { captureError } from '../helpers/capture-error'
 import { createTestUser } from '../helpers/test-factories'
-
-beforeEach(async () => {
-  await cleanDatabase()
-})
 
 setupDbTests()
 
@@ -31,7 +27,9 @@ describe('catalog submission — createProduct quality stamp', () => {
   it('stamps a user submission as unverified + visible, with no verify stamp', async () => {
     const user = await createTestUser('submit-user@test.local', 'Azerty123!')
 
-    const product = await createProduct(user.id, 'user', baseProductInput, testDb)
+    const product = await testDb.transaction((tx) =>
+      createProduct(user.id, 'user', baseProductInput, tx)
+    )
 
     const [row] = await testDb.select().from(products).where(eq(products.id, product.id))
     expect(row?.catalogQuality).toBe('unverified')
@@ -44,7 +42,9 @@ describe('catalog submission — createProduct quality stamp', () => {
   it('stamps a contributor submission as verified with a verify stamp', async () => {
     const user = await createTestUser('submit-contrib@test.local', 'Azerty123!')
 
-    const product = await createProduct(user.id, 'contributor', baseProductInput, testDb)
+    const product = await testDb.transaction((tx) =>
+      createProduct(user.id, 'contributor', baseProductInput, tx)
+    )
 
     const [row] = await testDb.select().from(products).where(eq(products.id, product.id))
     expect(row?.catalogQuality).toBe('verified')
@@ -55,7 +55,9 @@ describe('catalog submission — createProduct quality stamp', () => {
   it('stamps an admin submission as verified with a verify stamp', async () => {
     const user = await createTestUser('submit-admin@test.local', 'Azerty123!')
 
-    const product = await createProduct(user.id, 'admin', baseProductInput, testDb)
+    const product = await testDb.transaction((tx) =>
+      createProduct(user.id, 'admin', baseProductInput, tx)
+    )
 
     const [row] = await testDb.select().from(products).where(eq(products.id, product.id))
     expect(row?.catalogQuality).toBe('verified')
@@ -67,19 +69,20 @@ describe('catalog submission — createProduct quality stamp', () => {
 describe('catalog submission — createProduct dedup (A-2)', () => {
   it('rejects a visible duplicate (case/space-insensitive) and returns the existing row', async () => {
     const user = await createTestUser('dup-visible@test.local', 'Azerty123!')
-    const first = await createProduct(user.id, 'admin', baseProductInput, testDb)
+    const first = await testDb.transaction((tx) =>
+      createProduct(user.id, 'admin', baseProductInput, tx)
+    )
 
-    let err: unknown
-    try {
-      await createProduct(
-        user.id,
-        'admin',
-        { ...baseProductInput, name: '  submission   serum ', brand: 'SUBMITBRAND' },
-        testDb
+    const err = await captureError(() =>
+      testDb.transaction((tx) =>
+        createProduct(
+          user.id,
+          'admin',
+          { ...baseProductInput, name: '  submission   serum ', brand: 'SUBMITBRAND' },
+          tx
+        )
       )
-    } catch (e) {
-      err = e
-    }
+    )
     expect(err).toBeInstanceOf(ProductError)
     expect((err as ProductError).code).toBe('product_already_exists')
     expect((err as ProductError).details).toMatchObject({ id: first.id })
@@ -98,7 +101,9 @@ describe('catalog submission — createProduct dedup (A-2)', () => {
       moderationStatus: 'hidden',
     })
 
-    const created = await createProduct(user.id, 'user', baseProductInput, testDb)
+    const created = await testDb.transaction((tx) =>
+      createProduct(user.id, 'user', baseProductInput, tx)
+    )
 
     const [row] = await testDb.select().from(products).where(eq(products.id, created.id))
     expect(row?.moderationStatus).toBe('visible')
@@ -110,7 +115,9 @@ describe('catalog submission — createProduct dedup (A-2)', () => {
 
     const attempts = await Promise.allSettled(
       Array.from({ length: 4 }, () =>
-        createProduct(user.id, 'admin', baseProductInput, testDb, { autoTag: false })
+        testDb.transaction((tx) =>
+          createProduct(user.id, 'admin', baseProductInput, tx, { autoTag: false })
+        )
       )
     )
 
@@ -136,15 +143,16 @@ describe('catalog submission — createProduct rate-limit', () => {
   it('blocks a simple user after 10 submissions within the hour (11th → 429)', async () => {
     const user = await createTestUser('rate-user@test.local', 'Azerty123!')
     for (let i = 0; i < 10; i++) {
-      await createProduct(user.id, 'user', rateInput(String(i)), testDb, { autoTag: false })
+      await testDb.transaction((tx) =>
+        createProduct(user.id, 'user', rateInput(String(i)), tx, { autoTag: false })
+      )
     }
 
-    let err: unknown
-    try {
-      await createProduct(user.id, 'user', rateInput('eleven'), testDb, { autoTag: false })
-    } catch (e) {
-      err = e
-    }
+    const err = await captureError(() =>
+      testDb.transaction((tx) =>
+        createProduct(user.id, 'user', rateInput('eleven'), tx, { autoTag: false })
+      )
+    )
     expect(err).toBeInstanceOf(ProductError)
     expect((err as ProductError).code).toBe('product_rate_limited')
   })
@@ -152,7 +160,9 @@ describe('catalog submission — createProduct rate-limit', () => {
   it('exempts contributor and admin from the hourly limit', async () => {
     const contrib = await createTestUser('rate-contrib@test.local', 'Azerty123!')
     for (let i = 0; i < 12; i++) {
-      await createProduct(contrib.id, 'contributor', rateInput(`c${i}`), testDb, { autoTag: false })
+      await testDb.transaction((tx) =>
+        createProduct(contrib.id, 'contributor', rateInput(`c${i}`), tx, { autoTag: false })
+      )
     }
     const rows = await testDb.select().from(products).where(eq(products.createdBy, contrib.id))
     expect(rows.length).toBe(12)
@@ -161,19 +171,20 @@ describe('catalog submission — createProduct rate-limit', () => {
   it('counts hidden rows toward the quota — hiding spam does not refill it (C-2)', async () => {
     const user = await createTestUser('rate-hidden@test.local', 'Azerty123!')
     for (let i = 0; i < 10; i++) {
-      await createProduct(user.id, 'user', rateInput(`h${i}`), testDb, { autoTag: false })
+      await testDb.transaction((tx) =>
+        createProduct(user.id, 'user', rateInput(`h${i}`), tx, { autoTag: false })
+      )
     }
     await testDb
       .update(products)
       .set({ moderationStatus: 'hidden' })
       .where(eq(products.createdBy, user.id))
 
-    let err: unknown
-    try {
-      await createProduct(user.id, 'user', rateInput('after-hide'), testDb, { autoTag: false })
-    } catch (e) {
-      err = e
-    }
+    const err = await captureError(() =>
+      testDb.transaction((tx) =>
+        createProduct(user.id, 'user', rateInput('after-hide'), tx, { autoTag: false })
+      )
+    )
     expect(err).toBeInstanceOf(ProductError)
     expect((err as ProductError).code).toBe('product_rate_limited')
   })
@@ -185,7 +196,9 @@ describe('catalog submission — createIngredient quality stamp', () => {
   it('stamps a user submission as unverified + visible, with no verify stamp', async () => {
     const user = await createTestUser('ing-user@test.local', 'Azerty123!')
 
-    const ingredient = await createIngredient(testDb, user.id, 'user', baseIngredientInput)
+    const ingredient = await testDb.transaction((tx) =>
+      createIngredient(tx, user.id, 'user', baseIngredientInput)
+    )
 
     const [row] = await testDb.select().from(ingredients).where(eq(ingredients.id, ingredient.id))
     expect(row?.catalogQuality).toBe('unverified')
@@ -198,7 +211,9 @@ describe('catalog submission — createIngredient quality stamp', () => {
   it('stamps a contributor submission as verified with a verify stamp', async () => {
     const user = await createTestUser('ing-contrib@test.local', 'Azerty123!')
 
-    const ingredient = await createIngredient(testDb, user.id, 'contributor', baseIngredientInput)
+    const ingredient = await testDb.transaction((tx) =>
+      createIngredient(tx, user.id, 'contributor', baseIngredientInput)
+    )
 
     const [row] = await testDb.select().from(ingredients).where(eq(ingredients.id, ingredient.id))
     expect(row?.catalogQuality).toBe('verified')
@@ -210,14 +225,13 @@ describe('catalog submission — createIngredient quality stamp', () => {
 describe('catalog submission — createIngredient dedup (A-2)', () => {
   it('rejects a visible duplicate slug and returns the existing row', async () => {
     const user = await createTestUser('ing-dup-visible@test.local', 'Azerty123!')
-    const first = await createIngredient(testDb, user.id, 'contributor', baseIngredientInput)
+    const first = await testDb.transaction((tx) =>
+      createIngredient(tx, user.id, 'contributor', baseIngredientInput)
+    )
 
-    let err: unknown
-    try {
-      await createIngredient(testDb, user.id, 'contributor', baseIngredientInput)
-    } catch (e) {
-      err = e
-    }
+    const err = await captureError(() =>
+      testDb.transaction((tx) => createIngredient(tx, user.id, 'contributor', baseIngredientInput))
+    )
     expect(err).toBeInstanceOf(IngredientError)
     expect((err as IngredientError).code).toBe('ingredient_already_exists')
     expect((err as IngredientError).details).toMatchObject({ id: first.id })
@@ -233,7 +247,9 @@ describe('catalog submission — createIngredient dedup (A-2)', () => {
       moderationStatus: 'hidden',
     })
 
-    const created = await createIngredient(testDb, user.id, 'user', baseIngredientInput)
+    const created = await testDb.transaction((tx) =>
+      createIngredient(tx, user.id, 'user', baseIngredientInput)
+    )
 
     const [row] = await testDb.select().from(ingredients).where(eq(ingredients.id, created.id))
     expect(row?.moderationStatus).toBe('visible')
@@ -245,7 +261,9 @@ describe('catalog submission — createIngredient dedup (A-2)', () => {
 
     const attempts = await Promise.allSettled(
       Array.from({ length: 4 }, () =>
-        createIngredient(testDb, user.id, 'contributor', baseIngredientInput)
+        testDb.transaction((tx) =>
+          createIngredient(tx, user.id, 'contributor', baseIngredientInput)
+        )
       )
     )
 
@@ -265,15 +283,12 @@ describe('catalog submission — createIngredient rate-limit', () => {
   it('blocks a simple user after 10 submissions within the hour (11th → 429)', async () => {
     const user = await createTestUser('ing-rate-user@test.local', 'Azerty123!')
     for (let i = 0; i < 10; i++) {
-      await createIngredient(testDb, user.id, 'user', rateIng(String(i)))
+      await testDb.transaction((tx) => createIngredient(tx, user.id, 'user', rateIng(String(i))))
     }
 
-    let err: unknown
-    try {
-      await createIngredient(testDb, user.id, 'user', rateIng('eleven'))
-    } catch (e) {
-      err = e
-    }
+    const err = await captureError(() =>
+      testDb.transaction((tx) => createIngredient(tx, user.id, 'user', rateIng('eleven')))
+    )
     expect(err).toBeInstanceOf(IngredientError)
     expect((err as IngredientError).code).toBe('ingredient_rate_limited')
   })
@@ -281,7 +296,9 @@ describe('catalog submission — createIngredient rate-limit', () => {
   it('exempts contributor and admin from the hourly limit', async () => {
     const contrib = await createTestUser('ing-rate-contrib@test.local', 'Azerty123!')
     for (let i = 0; i < 12; i++) {
-      await createIngredient(testDb, contrib.id, 'contributor', rateIng(`c${i}`))
+      await testDb.transaction((tx) =>
+        createIngredient(tx, contrib.id, 'contributor', rateIng(`c${i}`))
+      )
     }
     const rows = await testDb
       .select()
@@ -293,19 +310,16 @@ describe('catalog submission — createIngredient rate-limit', () => {
   it('counts hidden rows toward the quota — hiding spam does not refill it (C-2)', async () => {
     const user = await createTestUser('ing-rate-hidden@test.local', 'Azerty123!')
     for (let i = 0; i < 10; i++) {
-      await createIngredient(testDb, user.id, 'user', rateIng(`h${i}`))
+      await testDb.transaction((tx) => createIngredient(tx, user.id, 'user', rateIng(`h${i}`)))
     }
     await testDb
       .update(ingredients)
       .set({ moderationStatus: 'hidden' })
       .where(eq(ingredients.createdBy, user.id))
 
-    let err: unknown
-    try {
-      await createIngredient(testDb, user.id, 'user', rateIng('after-hide'))
-    } catch (e) {
-      err = e
-    }
+    const err = await captureError(() =>
+      testDb.transaction((tx) => createIngredient(tx, user.id, 'user', rateIng('after-hide')))
+    )
     expect(err).toBeInstanceOf(IngredientError)
     expect((err as IngredientError).code).toBe('ingredient_rate_limited')
   })

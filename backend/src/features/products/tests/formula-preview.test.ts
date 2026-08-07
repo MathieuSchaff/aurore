@@ -6,15 +6,16 @@ import { normalize, splitINCI, stripPreamble } from 'algo-derm'
 import { buildAliasIndex, lookupIngredient, MERGED_EVIDENCE_DB } from 'algo-derm/engine'
 import { eq } from 'drizzle-orm'
 
-import { ingredients } from '../../db/schema/ingredients/ingredients'
-import { productTagTypes } from '../../db/schema/tags/tags'
-import { productTagData } from '../../db/seed/data/tags'
-import { testDb } from '../../tests/db.test.config'
-import { createTestEnv, withAuth } from '../../tests/helpers/createTestClient'
-import { cleanDatabase } from '../../tests/helpers/db-cleaner'
-import { setupAndLoginContributor } from '../../tests/helpers/route-test-helpers'
-import { TEST_CREDENTIALS } from '../../tests/helpers/test-credentials'
-import { createTestUser } from '../../tests/helpers/test-factories'
+import { ingredients } from '../../../db/schema/ingredients/ingredients'
+import { productTagTypes } from '../../../db/schema/tags/tags'
+import { productTagData } from '../../../db/seed/data/tags'
+import { testDb } from '../../../tests/db.test.config'
+import { createTestEnv, withAuth } from '../../../tests/helpers/createTestClient'
+import { cleanDatabase } from '../../../tests/helpers/db-cleaner'
+import { expectOk } from '../../../tests/helpers/expectStatus'
+import { setupAndLoginContributor } from '../../../tests/helpers/route-test-helpers'
+import { TEST_CREDENTIALS } from '../../../tests/helpers/test-credentials'
+import { createTestUser } from '../../../tests/helpers/test-factories'
 
 // Canonical key for niacinamide, resolved once at module load (same algo as service).
 const aliasIndex = buildAliasIndex(MERGED_EVIDENCE_DB)
@@ -86,17 +87,12 @@ describe('POST /products/formula-preview', () => {
       if (!inserted) throw new Error('fixture insert failed')
 
       const env = await createTestEnv()
-      const res = await env.client.products['formula-preview'].$post(
-        { json: { inci: 'Niacinamide, Glycerin', category: 'skincare', kind: 'serum' } },
-        withAuth(token)
+      const { tokens } = await expectOk(
+        env.client.products['formula-preview'].$post(
+          { json: { inci: 'Niacinamide, Glycerin', category: 'skincare', kind: 'serum' } },
+          withAuth(token)
+        )
       )
-
-      expect(res.status as number).toBe(HTTP_STATUS.OK)
-      const data = await res.json()
-      expect(data.success).toBe(true)
-      if (!data.success) throw new Error('preview failed')
-
-      const { tokens } = data.data
 
       // Order must follow the INCI string order.
       expect(tokens[0]?.raw).toContain('Niacinamide')

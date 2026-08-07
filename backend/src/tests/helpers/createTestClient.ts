@@ -16,6 +16,7 @@ export async function createTestEnv() {
 }
 
 export type TestClient = Awaited<ReturnType<typeof createTestClient>>
+export type TestApp = Awaited<ReturnType<typeof createTestEnv>>['app']
 
 export function withAuth(token: string) {
   return { headers: { Authorization: `Bearer ${token}` } } as const

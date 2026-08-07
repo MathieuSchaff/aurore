@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it } from 'bun:test'
+import { beforeAll, describe, expect, it } from 'bun:test'
 
 import { HTTP_STATUS } from '@aurore/shared'
 
@@ -7,11 +7,15 @@ import { eq } from 'drizzle-orm'
 import { testDb } from '../../../tests/db.test.config'
 import { setupDbTests } from '../../../tests/db-setup'
 import { expectRequiresAuth } from '../../../tests/helpers/authz-matrix'
-import { createTestEnv, type TestClient, withAuth } from '../../../tests/helpers/createTestClient'
+import {
+  createTestEnv,
+  type TestApp,
+  type TestClient,
+  withAuth,
+} from '../../../tests/helpers/createTestClient'
+import { expectOk } from '../../../tests/helpers/expectStatus'
 import { TEST_CREDENTIALS } from '../../../tests/helpers/test-credentials'
-import { createTestUser } from '../../../tests/helpers/test-factories'
-
-type TestApp = Awaited<ReturnType<typeof createTestEnv>>['app']
+import { createTestToto, createTestUser } from '../../../tests/helpers/test-factories'
 
 function extractCookie(res: { headers: Headers }): string {
   return res.headers.get('Set-Cookie') ?? ''
@@ -31,7 +35,7 @@ describe('Auth Routes (browser)', () => {
   let app: TestApp
   let client: TestClient
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     ;({ app, client } = await createTestEnv())
   })
 
@@ -55,8 +59,7 @@ describe('Auth Routes (browser)', () => {
     })
 
     it('returns the same neutral response for an existing email', async () => {
-      const creds = TEST_CREDENTIALS.toto
-      await createTestUser(creds.rawEmail, creds.rawPassword)
+      const creds = await createTestToto()
 
       const res = await client.auth.signup.$post({
         json: { email: creds.rawEmail, password: creds.rawPassword },
@@ -78,8 +81,7 @@ describe('Auth Routes (browser)', () => {
         },
       })
 
-      const creds = TEST_CREDENTIALS.toto
-      await createTestUser(creds.rawEmail, creds.rawPassword)
+      const creds = await createTestToto()
       const existing = await client.auth.signup.$post({
         json: { email: creds.rawEmail, password: creds.rawPassword },
       })
@@ -172,32 +174,25 @@ describe('Auth Routes (browser)', () => {
     })
 
     it('accepts an already-registered email with the same neutral 200', async () => {
-      const creds = TEST_CREDENTIALS.toto
-      await createTestUser(creds.rawEmail, creds.rawPassword)
+      const creds = await createTestToto()
 
       // Different casing still resolves to the existing account: neutral pending,
       // never a CONFLICT/email_exists that would confirm the address.
-      const res = await client.auth.signup.$post({
-        json: { email: 'TOTO@EXEMPLE.FR', password: creds.rawPassword },
-      })
-
-      expect(res.status).toBe(HTTP_STATUS.OK)
-      const data = await res.json()
-      expect(data.success).toBe(true)
-      if (!data.success) throw new Error('expected neutral pending')
-      expect(data.data).toEqual({ pending: true })
+      const pending = await expectOk(
+        client.auth.signup.$post({
+          json: { email: 'TOTO@EXEMPLE.FR', password: creds.rawPassword },
+        })
+      )
+      expect(pending).toEqual({ pending: true })
     })
 
     it('should normalize email on signup', async () => {
-      const res = await client.auth.signup.$post({
-        json: { email: '  TOTO@EXEMPLE.FR  ', password: TEST_CREDENTIALS.toto.rawPassword },
-      })
-
-      expect(res.status).toBe(HTTP_STATUS.OK)
-      const data = await res.json()
-      expect(data.success).toBe(true)
-      if (!data.success) throw new Error('signup failed')
-      expect(data.data).toEqual({ pending: true })
+      const pending = await expectOk(
+        client.auth.signup.$post({
+          json: { email: '  TOTO@EXEMPLE.FR  ', password: TEST_CREDENTIALS.toto.rawPassword },
+        })
+      )
+      expect(pending).toEqual({ pending: true })
     })
 
     it('should reject empty body', async () => {
@@ -212,8 +207,7 @@ describe('Auth Routes (browser)', () => {
 
   describe('POST /auth/login', () => {
     it('should login existing user and set refresh token cookie', async () => {
-      const creds = TEST_CREDENTIALS.toto
-      await createTestUser(creds.rawEmail, creds.rawPassword)
+      const creds = await createTestToto()
 
       const res = await client.auth.login.$post({
         json: { email: creds.rawEmail, password: creds.rawPassword },
@@ -234,8 +228,7 @@ describe('Auth Routes (browser)', () => {
     })
 
     it('should reject wrong password', async () => {
-      const creds = TEST_CREDENTIALS.toto
-      await createTestUser(creds.rawEmail, creds.rawPassword)
+      const creds = await createTestToto()
 
       const res = await client.auth.login.$post({
         json: {
@@ -265,8 +258,7 @@ describe('Auth Routes (browser)', () => {
     })
 
     it('should return same error for wrong email and wrong password (timing-safe)', async () => {
-      const creds = TEST_CREDENTIALS.toto
-      await createTestUser(creds.rawEmail, creds.rawPassword)
+      const creds = await createTestToto()
 
       const resBadEmail = await client.auth.login.$post({
         json: {
@@ -308,8 +300,7 @@ describe('Auth Routes (browser)', () => {
     })
 
     it('should reject empty password', async () => {
-      const creds = TEST_CREDENTIALS.toto
-      await createTestUser(creds.rawEmail, creds.rawPassword)
+      const creds = await createTestToto()
 
       const res = await client.auth.login.$post({
         json: { email: creds.rawEmail, password: '' },
@@ -328,22 +319,18 @@ describe('Auth Routes (browser)', () => {
     })
 
     it('should normalize email on login', async () => {
-      const creds = TEST_CREDENTIALS.toto
-      await createTestUser(creds.rawEmail, creds.rawPassword)
+      const creds = await createTestToto()
 
-      const res = await client.auth.login.$post({
-        json: { email: '  TOTO@EXEMPLE.FR  ', password: creds.rawPassword },
-      })
-
-      expect(res.status).toBe(HTTP_STATUS.OK)
-      const data = await res.json()
-      if (!data.success) throw new Error('login failed')
-      expect(data.data.user.email).toBe(creds.rawEmail)
+      const session = await expectOk(
+        client.auth.login.$post({
+          json: { email: '  TOTO@EXEMPLE.FR  ', password: creds.rawPassword },
+        })
+      )
+      expect(session.user.email).toBe(creds.rawEmail)
     })
 
     it('should not expose passwordHash in response body', async () => {
-      const creds = TEST_CREDENTIALS.toto
-      await createTestUser(creds.rawEmail, creds.rawPassword)
+      const creds = await createTestToto()
 
       const res = await client.auth.login.$post({
         json: { email: creds.rawEmail, password: creds.rawPassword },
@@ -373,8 +360,7 @@ describe('Auth Routes (browser)', () => {
 
   describe('POST /auth/refresh', () => {
     it('should rotate tokens with valid refresh cookie', async () => {
-      const creds = TEST_CREDENTIALS.toto
-      await createTestUser(creds.rawEmail, creds.rawPassword)
+      const creds = await createTestToto()
       const { cookie: loginCookie } = await loginAndGetCookies(
         client,
         creds.rawEmail,
@@ -416,8 +402,7 @@ describe('Auth Routes (browser)', () => {
     })
 
     it('should invalidate old refresh token after rotation (replay detection)', async () => {
-      const creds = TEST_CREDENTIALS.toto
-      await createTestUser(creds.rawEmail, creds.rawPassword)
+      const creds = await createTestToto()
       const { cookie: loginCookie } = await loginAndGetCookies(
         client,
         creds.rawEmail,
@@ -432,8 +417,7 @@ describe('Auth Routes (browser)', () => {
     })
 
     it('should allow multiple successive rotations with fresh cookies', async () => {
-      const creds = TEST_CREDENTIALS.toto
-      await createTestUser(creds.rawEmail, creds.rawPassword)
+      const creds = await createTestToto()
       let { cookie: currentCookie } = await loginAndGetCookies(
         client,
         creds.rawEmail,
@@ -455,8 +439,7 @@ describe('Auth Routes (browser)', () => {
     })
 
     it('should not expose refreshToken in response body', async () => {
-      const creds = TEST_CREDENTIALS.toto
-      await createTestUser(creds.rawEmail, creds.rawPassword)
+      const creds = await createTestToto()
       const { cookie } = await loginAndGetCookies(client, creds.rawEmail, creds.rawPassword)
 
       const res = await client.auth.refresh.$post({}, { headers: { Cookie: cookie } })
@@ -469,8 +452,7 @@ describe('Auth Routes (browser)', () => {
 
   describe('POST /auth/logout', () => {
     it('should logout and clear refresh cookie', async () => {
-      const creds = TEST_CREDENTIALS.toto
-      await createTestUser(creds.rawEmail, creds.rawPassword)
+      const creds = await createTestToto()
       const { cookie, accessToken } = await loginAndGetCookies(
         client,
         creds.rawEmail,
@@ -496,8 +478,7 @@ describe('Auth Routes (browser)', () => {
     })
 
     it('sets the JS-readable session hint on login and clears it on logout', async () => {
-      const creds = TEST_CREDENTIALS.toto
-      await createTestUser(creds.rawEmail, creds.rawPassword)
+      const creds = await createTestToto()
       const {
         res: login,
         cookie,
@@ -521,8 +502,7 @@ describe('Auth Routes (browser)', () => {
     expectRequiresAuth(() => app, { method: 'POST', path: '/api/auth/logout' })
 
     it('should invalidate refresh token after logout', async () => {
-      const creds = TEST_CREDENTIALS.toto
-      await createTestUser(creds.rawEmail, creds.rawPassword)
+      const creds = await createTestToto()
       const { cookie, accessToken } = await loginAndGetCookies(
         client,
         creds.rawEmail,
@@ -544,8 +524,7 @@ describe('Auth Routes (browser)', () => {
     })
 
     it('should allow re-login after logout', async () => {
-      const creds = TEST_CREDENTIALS.toto
-      await createTestUser(creds.rawEmail, creds.rawPassword)
+      const creds = await createTestToto()
       const { cookie, accessToken } = await loginAndGetCookies(
         client,
         creds.rawEmail,
@@ -562,15 +541,12 @@ describe('Auth Routes (browser)', () => {
         }
       )
 
-      const reloginRes = await client.auth.login.$post({
-        json: { email: creds.rawEmail, password: creds.rawPassword },
-      })
-
-      expect(reloginRes.status).toBe(HTTP_STATUS.OK)
-      const data = await reloginRes.json()
-      expect(data.success).toBe(true)
-      if (!data.success) throw new Error('relogin failed')
-      expect(data.data.user.email).toBe(creds.rawEmail)
+      const relogin = await expectOk(
+        client.auth.login.$post({
+          json: { email: creds.rawEmail, password: creds.rawPassword },
+        })
+      )
+      expect(relogin.user.email).toBe(creds.rawEmail)
     })
 
     it('should not affect other user sessions on logout', async () => {
@@ -602,25 +578,18 @@ describe('Auth Routes (browser)', () => {
 
   describe('GET /auth/session', () => {
     it('should return authenticated user info', async () => {
-      const creds = TEST_CREDENTIALS.toto
-      await createTestUser(creds.rawEmail, creds.rawPassword)
+      const creds = await createTestToto()
       const { accessToken } = await loginAndGetCookies(client, creds.rawEmail, creds.rawPassword)
 
-      const res = await client.auth.session.$get({}, withAuth(accessToken))
-
-      expect(res.status).toBe(HTTP_STATUS.OK)
-      const data = await res.json()
-      expect(data.success).toBe(true)
-      if (!data.success) throw new Error('session failed')
-      expect(data.data.authenticated).toBe(true)
-      expect(data.data.userId).toBeDefined()
+      const session = await expectOk(client.auth.session.$get({}, withAuth(accessToken)))
+      expect(session.authenticated).toBe(true)
+      expect(session.userId).toBeDefined()
     })
 
     expectRequiresAuth(() => app, { method: 'GET', path: '/api/auth/session' })
 
     it('should reject request with expired/revoked access token after logout', async () => {
-      const creds = TEST_CREDENTIALS.toto
-      await createTestUser(creds.rawEmail, creds.rawPassword)
+      const creds = await createTestToto()
       const { cookie, accessToken } = await loginAndGetCookies(
         client,
         creds.rawEmail,
@@ -677,13 +646,8 @@ describe('Auth Routes (browser)', () => {
       const user = await createTestUser(creds.rawEmail, creds.rawPassword)
       const token = await createVerificationToken(testDb, user.id)
 
-      const res = await client.auth['verify-email'].$post({ json: { token } })
-
-      expect(res.status).toBe(HTTP_STATUS.OK)
-      const data = await res.json()
-      expect(data.success).toBe(true)
-      if (!data.success) throw new Error('verify-email failed')
-      expect(data.data).toBeNull()
+      const result = await expectOk(client.auth['verify-email'].$post({ json: { token } }))
+      expect(result).toBeNull()
     })
 
     it('should return invalid_token (400) for unknown token', async () => {
@@ -720,8 +684,7 @@ describe('Auth Routes (browser)', () => {
 
   describe('POST /auth/resend-verification', () => {
     it('should resend verification email when authenticated and unverified', async () => {
-      const creds = TEST_CREDENTIALS.toto
-      await createTestUser(creds.rawEmail, creds.rawPassword)
+      const creds = await createTestToto()
       const { accessToken } = await loginAndGetCookies(client, creds.rawEmail, creds.rawPassword)
 
       const res = await client.auth['resend-verification'].$post({}, withAuth(accessToken))
@@ -792,8 +755,7 @@ describe('Auth Routes (browser)', () => {
     })
 
     it('devrait autoriser le login pendant la grace period (< 24h)', async () => {
-      const creds = TEST_CREDENTIALS.toto
-      await createTestUser(creds.rawEmail, creds.rawPassword)
+      const creds = await createTestToto()
 
       const res = await client.auth.login.$post({
         json: { email: creds.rawEmail, password: creds.rawPassword },
@@ -827,11 +789,8 @@ describe('Auth Routes (browser)', () => {
       const newAccessToken = refreshData.data.accessToken
       const newCookie = extractCookie(refreshRes)
 
-      const sessionRes = await client.auth.session.$get({}, withAuth(newAccessToken))
-      expect(sessionRes.status).toBe(HTTP_STATUS.OK)
-      const sessionData = await sessionRes.json()
-      if (!sessionData.success) throw new Error('session failed')
-      expect(sessionData.data.authenticated).toBe(true)
+      const sessionData = await expectOk(client.auth.session.$get({}, withAuth(newAccessToken)))
+      expect(sessionData.authenticated).toBe(true)
 
       const logoutRes = await client.auth.logout.$post(
         {},
@@ -867,8 +826,7 @@ describe('Auth Routes (browser)', () => {
     })
 
     it('returns the same neutral response for an existing email (no enumeration)', async () => {
-      const creds = TEST_CREDENTIALS.toto
-      await createTestUser(creds.rawEmail, creds.rawPassword)
+      const creds = await createTestToto()
 
       const unknown = await client.auth['forgot-password'].$post({
         json: { email: TEST_CREDENTIALS.alice.email },
@@ -903,15 +861,12 @@ describe('Auth Routes (browser)', () => {
       const { token } = await issueToken(creds.rawEmail, creds.rawPassword)
       const newPassword = 'NouveauPass123!'
 
-      const res = await client.auth['reset-password'].$post({
-        json: { token, password: newPassword },
-      })
-
-      expect(res.status).toBe(HTTP_STATUS.OK)
-      const data = await res.json()
-      expect(data.success).toBe(true)
-      if (!data.success) throw new Error('reset-password failed')
-      expect(data.data).toBeNull()
+      const result = await expectOk(
+        client.auth['reset-password'].$post({
+          json: { token, password: newPassword },
+        })
+      )
+      expect(result).toBeNull()
 
       const login = await client.auth.login.$post({
         json: { email: creds.rawEmail, password: newPassword },

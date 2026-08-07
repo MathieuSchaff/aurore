@@ -9,6 +9,7 @@ import { logger } from '../../../lib/logger'
 import { testDb } from '../../../tests/db.test.config'
 import { setupDbTests } from '../../../tests/db-setup'
 import { createTestClient, type TestClient } from '../../../tests/helpers/createTestClient'
+import { expectOk } from '../../../tests/helpers/expectStatus'
 import { createReadyRoute } from '../routes'
 import { checkDatabase } from '../service'
 
@@ -23,13 +24,9 @@ describe('Health Routes', () => {
 
   describe('GET /health', () => {
     it('should return 200 with success', async () => {
-      const res = await client.health.$get()
+      const health = await expectOk(client.health.$get())
 
-      expect(res.status).toBe(HTTP_STATUS.OK)
-      const data = await res.json()
-      expect(data.success).toBe(true)
-      if (!data.success) throw new Error('health failed')
-      expect(data.data).toBe(true)
+      expect(health).toBe(true)
     })
 
     it('should not require authentication', async () => {
@@ -57,7 +54,7 @@ describe('Health Routes', () => {
       const warn = spyOn(logger, 'warn').mockImplementation(() => {})
       const app = new Hono<AppEnv>()
         .use('*', async (c, next) => {
-          c.set('db', testDb)
+          c.set('anonDb', testDb)
           await next()
         })
         .route(

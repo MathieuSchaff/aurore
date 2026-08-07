@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it } from 'bun:test'
+import { beforeAll, beforeEach, describe, expect, it } from 'bun:test'
 
 import { HTTP_STATUS } from '@aurore/shared'
 
@@ -7,6 +7,7 @@ import type { Hono } from 'hono'
 import type { AppEnv } from '../../../app-env'
 import { setupDbTests } from '../../../tests/db-setup'
 import { createTestEnv, type TestClient, withAuth } from '../../../tests/helpers/createTestClient'
+import { expectOk } from '../../../tests/helpers/expectStatus'
 import { setupAndLogin, setupAndLoginContributor } from '../../../tests/helpers/route-test-helpers'
 import { TEST_CREDENTIALS } from '../../../tests/helpers/test-credentials'
 
@@ -47,10 +48,14 @@ describe('Product Comparison Routes', () => {
   // Product fixtures now require contributor+ (catalog-authz); the comparison
   // routes themselves stay open to any authenticated user.
   let contributorToken: string
-  beforeEach(async () => {
+
+  beforeAll(async () => {
     const env = await createTestEnv()
     app = env.app
     client = env.client
+  })
+
+  beforeEach(async () => {
     contributorToken = await setupAndLoginContributor(app, TEST_CREDENTIALS.contributor)
   })
 
@@ -90,14 +95,13 @@ describe('Product Comparison Routes', () => {
     const createdData = await createdRes.json()
     if (!createdData.success) throw new Error('comparison creation failed')
 
-    const res = await client['product-comparisons'][':id'].$get(
-      { param: { id: createdData.data.id } },
-      withAuth(token)
+    const comparison = await expectOk(
+      client['product-comparisons'][':id'].$get(
+        { param: { id: createdData.data.id } },
+        withAuth(token)
+      )
     )
-    expect(res.status).toBe(HTTP_STATUS.OK)
-    const data = await res.json()
-    if (!data.success) throw new Error('expected ok')
-    expect(data.data.products.length).toBe(2)
+    expect(comparison.products.length).toBe(2)
   })
 
   it('PATCH renames a comparison', async () => {
@@ -135,15 +139,14 @@ describe('Product Comparison Routes', () => {
     const createdData = await createdRes.json()
     if (!createdData.success) throw new Error('comparison creation failed')
 
-    const res = await client['product-comparisons'][':id'].$patch(
-      { json: { name: 'Renamed', productIds: [b.id, c.id] }, param: { id: createdData.data.id } },
-      withAuth(token)
+    const comparison = await expectOk(
+      client['product-comparisons'][':id'].$patch(
+        { json: { name: 'Renamed', productIds: [b.id, c.id] }, param: { id: createdData.data.id } },
+        withAuth(token)
+      )
     )
-    expect(res.status).toBe(HTTP_STATUS.OK)
-    const data = await res.json()
-    if (!data.success) throw new Error('expected ok')
-    expect(data.data.name).toBe('Renamed')
-    expect(data.data.products.map((p) => p.id)).toEqual([b.id, c.id])
+    expect(comparison.name).toBe('Renamed')
+    expect(comparison.products.map((p) => p.id)).toEqual([b.id, c.id])
   })
 
   it('DELETE removes a comparison', async () => {

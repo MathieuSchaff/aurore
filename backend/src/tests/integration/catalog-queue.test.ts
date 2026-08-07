@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it } from 'bun:test'
+import { beforeAll, beforeEach, describe, expect, it } from 'bun:test'
 
 import { HTTP_STATUS } from '@aurore/shared'
 
@@ -7,6 +7,7 @@ import { products } from '../../db/schema/products/products'
 import { testDb } from '../db.test.config'
 import { setupDbTests } from '../db-setup'
 import { createTestClient, type TestClient, withAuth } from '../helpers/createTestClient'
+import { expectOk, expectStatus } from '../helpers/expectStatus'
 import { login } from '../helpers/login'
 import { TEST_CREDENTIALS } from '../helpers/test-credentials'
 import { createTestContributorUser, createTestUser } from '../helpers/test-factories'
@@ -19,8 +20,11 @@ describe('GET /admin/moderation/catalog', () => {
   let contributorToken: string
   let userToken: string
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     client = await createTestClient()
+  })
+
+  beforeEach(async () => {
     const toto = TEST_CREDENTIALS.toto
     const contributor = TEST_CREDENTIALS.contributor
     const submitter = await createTestUser(toto.rawEmail, toto.rawPassword)
@@ -30,6 +34,9 @@ describe('GET /admin/moderation/catalog', () => {
     contributorToken = await login(client, contributor.rawEmail, contributor.rawPassword)
   })
 
+  // Raw insert, not createTestProduct: the factory defaults to role 'admin', which
+  // stamps catalogQuality 'verified' and drops the row from the unverified queue
+  // these tests read.
   async function seedProduct(): Promise<string> {
     const [product] = await testDb
       .insert(products)
@@ -50,15 +57,14 @@ describe('GET /admin/moderation/catalog', () => {
   it('contributor lists an unverified visible product submission', async () => {
     await seedProduct()
 
-    const res = await client.admin.moderation.catalog.$get(
-      { query: { kind: 'product', quality: 'unverified', status: 'visible' } },
-      withAuth(contributorToken)
+    const body = await expectOk(
+      client.admin.moderation.catalog.$get(
+        { query: { kind: 'product', quality: 'unverified', status: 'visible' } },
+        withAuth(contributorToken)
+      )
     )
-    expect(res.status).toBe(HTTP_STATUS.OK)
-    const body = await res.json()
-    if (!body.success) throw new Error('catalog queue list failed')
-    expect(body.data.items.length).toBe(1)
-    const item = body.data.items[0]
+    expect(body.items.length).toBe(1)
+    const item = body.items[0]
     if (!item) throw new Error('expected one queue item')
     expect(item.kind).toBe('product')
     expect(item.catalogQuality).toBe('unverified')
@@ -75,14 +81,13 @@ describe('GET /admin/moderation/catalog', () => {
     )
     expect(hide.status).toBe(HTTP_STATUS.OK)
 
-    const res = await client.admin.moderation.catalog.$get(
-      { query: { kind: 'product', status: 'hidden' } },
-      withAuth(contributorToken)
+    const body = await expectOk(
+      client.admin.moderation.catalog.$get(
+        { query: { kind: 'product', status: 'hidden' } },
+        withAuth(contributorToken)
+      )
     )
-    expect(res.status).toBe(HTTP_STATUS.OK)
-    const body = await res.json()
-    if (!body.success) throw new Error('hidden catalog queue list failed')
-    const item = body.data.items.find((i) => i.id === productId)
+    const item = body.items.find((i) => i.id === productId)
     if (!item) throw new Error('expected the hidden product in the queue')
     expect(item.moderationStatus).toBe('hidden')
     expect(item.authorId).toBe(submitterId)
@@ -105,14 +110,13 @@ describe('GET /admin/moderation/catalog', () => {
 
     // No quality param: the "Masqués" view wants all hidden rows. Before the fix the
     // 'unverified' default silently dropped this verified+hidden row.
-    const res = await client.admin.moderation.catalog.$get(
-      { query: { kind: 'product', status: 'hidden' } },
-      withAuth(contributorToken)
+    const body = await expectOk(
+      client.admin.moderation.catalog.$get(
+        { query: { kind: 'product', status: 'hidden' } },
+        withAuth(contributorToken)
+      )
     )
-    expect(res.status).toBe(HTTP_STATUS.OK)
-    const body = await res.json()
-    if (!body.success) throw new Error('hidden catalog queue list failed')
-    const item = body.data.items.find((i) => i.id === productId)
+    const item = body.items.find((i) => i.id === productId)
     if (!item) throw new Error('expected the verified+hidden product in the queue')
     expect(item.catalogQuality).toBe('verified')
     expect(item.moderationStatus).toBe('hidden')
@@ -130,14 +134,13 @@ describe('GET /admin/moderation/catalog', () => {
       .returning({ id: ingredients.id })
     if (!ingredient) throw new Error('ingredient seed failed')
 
-    const res = await client.admin.moderation.catalog.$get(
-      { query: { kind: 'ingredient', quality: 'unverified' } },
-      withAuth(contributorToken)
+    const body = await expectOk(
+      client.admin.moderation.catalog.$get(
+        { query: { kind: 'ingredient', quality: 'unverified' } },
+        withAuth(contributorToken)
+      )
     )
-    expect(res.status).toBe(HTTP_STATUS.OK)
-    const body = await res.json()
-    if (!body.success) throw new Error('ingredient catalog queue list failed')
-    const item = body.data.items.find((i) => i.id === ingredient.id)
+    const item = body.items.find((i) => i.id === ingredient.id)
     if (!item) throw new Error('expected the seeded ingredient in the queue')
     expect(item.kind).toBe('ingredient')
     expect(item.brand).toBeNull()
@@ -148,6 +151,6 @@ describe('GET /admin/moderation/catalog', () => {
       { query: { kind: 'product' } },
       withAuth(userToken)
     )
-    expect(res.status as number).toBe(HTTP_STATUS.FORBIDDEN)
+    expectStatus(res, HTTP_STATUS.FORBIDDEN)
   })
 })

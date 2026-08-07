@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it } from 'bun:test'
+import { beforeAll, beforeEach, describe, expect, it } from 'bun:test'
 
 import { HTTP_STATUS } from '@aurore/shared'
 
@@ -6,8 +6,8 @@ import type { Hono } from 'hono'
 
 import type { AppEnv } from '../../../app-env'
 import { setupDbTests } from '../../../tests/db-setup'
-import { createTestApp } from '../../../tests/helpers/createTestApp'
-import { authPost, setupAndLoginContributor } from '../../../tests/helpers/route-test-helpers'
+import { createTestEnv, type TestClient, withAuth } from '../../../tests/helpers/createTestClient'
+import { setupAndLoginContributor } from '../../../tests/helpers/route-test-helpers'
 import { TEST_CREDENTIALS } from '../../../tests/helpers/test-credentials'
 
 const VALID_PRODUCT = {
@@ -18,18 +18,22 @@ const VALID_PRODUCT = {
   unit: 'pump',
 }
 
-async function postProduct(app: Hono<AppEnv>, token: string, body: object) {
-  return authPost(app, '/api/products', token, body)
+async function postProduct(client: TestClient, token: string, body: object) {
+  return client.products.$post({ json: body as never }, withAuth(token))
 }
 
 setupDbTests()
 
 describe('Security Middleware — product routes', () => {
   let app: Hono<AppEnv>
+  let client: TestClient
   let token: string
 
+  beforeAll(async () => {
+    ;({ app, client } = await createTestEnv())
+  })
+
   beforeEach(async () => {
-    app = await createTestApp()
     // Product creation requires contributor+ (catalog-authz); the security
     // middleware under test runs regardless of role.
     token = await setupAndLoginContributor(app, TEST_CREDENTIALS.contributor)
@@ -37,7 +41,7 @@ describe('Security Middleware — product routes', () => {
 
   describe('detection', () => {
     it('blocks javascript: URL on first attempt (403)', async () => {
-      const res = await postProduct(app, token, {
+      const res = await postProduct(client, token, {
         ...VALID_PRODUCT,
         url: 'javascript:alert(document.cookie)',
       })
@@ -48,7 +52,7 @@ describe('Security Middleware — product routes', () => {
     })
 
     it('blocks data:text/html URL on first attempt (403)', async () => {
-      const res = await postProduct(app, token, {
+      const res = await postProduct(client, token, {
         ...VALID_PRODUCT,
         url: 'data:text/html,<script>alert(1)</script>',
       })
@@ -56,7 +60,7 @@ describe('Security Middleware — product routes', () => {
     })
 
     it('blocks HTML in inci on first attempt (403)', async () => {
-      const res = await postProduct(app, token, {
+      const res = await postProduct(client, token, {
         ...VALID_PRODUCT,
         inci: '<script>alert(1)</script>',
       })
@@ -64,7 +68,7 @@ describe('Security Middleware — product routes', () => {
     })
 
     it('http:// URL is LOW for the scanner (not 403); https-only schema rejects it (400)', async () => {
-      const res = await postProduct(app, token, {
+      const res = await postProduct(client, token, {
         ...VALID_PRODUCT,
         url: 'http://example.com',
       })
@@ -74,12 +78,12 @@ describe('Security Middleware — product routes', () => {
     })
 
     it('passes valid product through', async () => {
-      const res = await postProduct(app, token, VALID_PRODUCT)
+      const res = await postProduct(client, token, VALID_PRODUCT)
       expect(res.status).toBe(HTTP_STATUS.CREATED)
     })
 
     it('passes valid product with https URL through', async () => {
-      const res = await postProduct(app, token, {
+      const res = await postProduct(client, token, {
         ...VALID_PRODUCT,
         url: 'https://example.com',
       })
@@ -110,7 +114,7 @@ describe('Security Middleware — product routes', () => {
   describe('repeat-offender fast-path', () => {
     it('low-severity events do not contribute to the block', async () => {
       for (let i = 0; i < 5; i++) {
-        await postProduct(app, token, {
+        await postProduct(client, token, {
           name: `Produit ${i}`,
           brand: 'TestBrand',
           category: 'skincare',
@@ -120,7 +124,7 @@ describe('Security Middleware — product routes', () => {
         })
       }
 
-      const res = await postProduct(app, token, { ...VALID_PRODUCT, name: 'Produit Final' })
+      const res = await postProduct(client, token, { ...VALID_PRODUCT, name: 'Produit Final' })
       expect(res.status).toBe(HTTP_STATUS.CREATED)
     })
   })

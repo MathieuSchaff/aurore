@@ -1,4 +1,4 @@
-import { afterEach, beforeEach, describe, expect, it } from 'bun:test'
+import { afterEach, beforeAll, beforeEach, describe, expect, it } from 'bun:test'
 
 import { HTTP_STATUS } from '@aurore/shared'
 
@@ -41,12 +41,12 @@ async function expectBanned(res: { status: number; json: () => Promise<unknown> 
 // Mount a single router on a bare app with the same context the prod app sets.
 // The link routers share a prefix with productRoutes/ingredientRoutes in the real
 // app, whose guards run first and would mask a broken guard here — so we isolate
-// each link router to prove its OWN split-use() guard returns 403, not a sibling's.
+// each link router to prove its own route-owned guard returns 403, not a sibling's.
 function isolate(mount: (app: Hono<AppEnv>) => void) {
   const app = new Hono<AppEnv>()
   app.onError(globalErrorHandler)
   app.use('*', async (c, next) => {
-    c.set('db', testDb)
+    c.set('anonDb', testDb)
     c.set('env', 'development')
     c.set('jwtSecret', JWT_SECRET)
     c.set('refreshSecret', REFRESH_SECRET)
@@ -71,8 +71,11 @@ describe('Globally-banned user gets 403 (not 500) on non-GET catalog routes', ()
   let client: TestClient
   let token: string
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     client = await createTestClient()
+  })
+
+  beforeEach(async () => {
     clearBanCache()
     const toto = TEST_CREDENTIALS.toto
     const admin = TEST_CREDENTIALS.admin

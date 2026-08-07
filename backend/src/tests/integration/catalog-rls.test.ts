@@ -1,41 +1,23 @@
-import { afterAll, beforeEach, describe, expect, it } from 'bun:test'
-import { SQL } from 'bun'
+import { describe, expect, it } from 'bun:test'
 
 import { eq, sql } from 'drizzle-orm'
-import { drizzle } from 'drizzle-orm/bun-sql'
 
 import { withAdminRls } from '../../db/rls'
 import { products } from '../../db/schema/products/products'
 import { productTagTypes } from '../../db/schema/tags/tags'
 import { testDb } from '../db.test.config'
 import { setupDbTests } from '../db-setup'
-import { cleanDatabase } from '../helpers/db-cleaner'
+import { createAppRuntimeDb, withRlsAs } from '../helpers/app-runtime-db'
 import { createTestUser } from '../helpers/test-factories'
 
-const APP_DATABASE_URL = process.env.APP_DATABASE_URL
-if (!APP_DATABASE_URL) throw new Error('APP_DATABASE_URL not set')
-
-const appRuntimePool = new SQL(APP_DATABASE_URL)
-const appRuntimeDb = drizzle(appRuntimePool, {
-  schema: await import('../../db/schema'),
-})
-
-afterAll(async () => {
-  await appRuntimePool.close()
-})
-
-beforeEach(async () => {
-  await cleanDatabase()
-})
+const appRuntimeDb = await createAppRuntimeDb()
 
 setupDbTests()
 
 // Insert a product as `role` via the app_runtime pool with RLS context set.
-async function insertProductAs(role: string, createdBy: string, contextUserId: string = createdBy) {
-  return appRuntimeDb.transaction(async (tx) => {
-    await tx.execute(sql`SELECT set_config('app.user_id', ${contextUserId}, true)`)
-    await tx.execute(sql`SELECT set_config('app.role', ${role}, true)`)
-    await tx.insert(products).values({
+function insertProductAs(role: string, createdBy: string, contextUserId: string = createdBy) {
+  return withRlsAs(appRuntimeDb, role, contextUserId, (tx) =>
+    tx.insert(products).values({
       createdBy,
       name: 'RLS Probe',
       brand: 'RLSBrand',
@@ -44,54 +26,52 @@ async function insertProductAs(role: string, createdBy: string, contextUserId: s
       unit: 'dropper',
       slug: `rls-probe-${role}`,
     })
-  })
+  )
 }
 
 // Insert a product_tag def as `role` — admin-only table.
-async function insertProductTagAs(role: string) {
-  return appRuntimeDb.transaction(async (tx) => {
-    await tx.execute(sql`SELECT set_config('app.user_id', '', true)`)
-    await tx.execute(sql`SELECT set_config('app.role', ${role}, true)`)
-    await tx.insert(productTagTypes).values({
+function insertProductTagAs(role: string) {
+  return withRlsAs(appRuntimeDb, role, '', (tx) =>
+    tx.insert(productTagTypes).values({
       slug: `rls-tag-${role}`,
       label: 'RLS Tag Probe',
       tagType: 'test',
     })
-  })
+  )
 }
 
 // Count rows visible for `slug` under a given app.role via the NO-BYPASSRLS pool.
-async function selectProductCountAs(role: string, slug: string, contextUserId = '') {
-  return appRuntimeDb.transaction(async (tx) => {
-    await tx.execute(sql`SELECT set_config('app.user_id', ${contextUserId}, true)`)
-    await tx.execute(sql`SELECT set_config('app.role', ${role}, true)`)
+function selectProductCountAs(role: string, slug: string, contextUserId = '') {
+  return withRlsAs(appRuntimeDb, role, contextUserId, async (tx) => {
     const rows = await tx.select({ id: products.id }).from(products).where(eq(products.slug, slug))
     return rows.length
   })
 }
 
+// Drizzle wraps the PG error, so the policy message lives in e.cause.
+async function expectRlsDenial(run: () => Promise<unknown>) {
+  let threw = false
+  try {
+    await run()
+  } catch (e) {
+    threw = true
+    const msg = (e as { cause?: { message?: string } }).cause?.message ?? (e as Error).message
+    expect(msg).toMatch(/row-level security|policy/i)
+  }
+  expect(threw).toBe(true)
+}
+
 describe('catalog RLS — fail closed', () => {
   it('allows anonymous SELECT on products (public read, no app.role)', async () => {
     // Public SELECT policy USING(true): must not require app.role
-    const rows = (await appRuntimePool`SELECT 1 AS ok FROM products LIMIT 1`) as unknown as Array<{
-      ok: number
-    }>
+    const rows = await appRuntimeDb.execute(sql`SELECT 1 AS ok FROM products LIMIT 1`)
     expect(Array.isArray(rows)).toBe(true)
   })
 
   it('denies INSERT for anonymous (no app.user_id)', async () => {
     const owner = await createTestUser('rls-noctx@test.local', 'Azerty123!')
-    let threw = false
-    try {
-      // Identity absent → auth.uid() is null, so created_by = auth.uid() fails.
-      await insertProductAs('', owner.id, '')
-    } catch (e) {
-      threw = true
-      // Drizzle wraps the PG error: actual message is in e.cause
-      const msg = (e as { cause?: { message?: string } }).cause?.message ?? (e as Error).message
-      expect(msg).toMatch(/row-level security|policy/i)
-    }
-    expect(threw).toBe(true)
+    // Identity absent → auth.uid() is null, so created_by = auth.uid() fails.
+    await expectRlsDenial(() => insertProductAs('', owner.id, ''))
   })
 
   it('allows role=user to self-insert own unverified row', async () => {
@@ -126,15 +106,7 @@ describe('catalog RLS — fail closed', () => {
 
   // product_tags is admin-only: contributor must be denied.
   it('denies product_tags INSERT for role=contributor (admin-only table)', async () => {
-    let threw = false
-    try {
-      await insertProductTagAs('contributor')
-    } catch (e) {
-      threw = true
-      const msg = (e as { cause?: { message?: string } }).cause?.message ?? (e as Error).message
-      expect(msg).toMatch(/row-level security|policy/i)
-    }
-    expect(threw).toBe(true)
+    await expectRlsDenial(() => insertProductTagAs('contributor'))
   })
 
   it('allows product_tags INSERT for role=admin', async () => {

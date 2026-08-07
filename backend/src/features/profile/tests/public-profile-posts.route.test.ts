@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it } from 'bun:test'
+import { beforeAll, describe, expect, it } from 'bun:test'
 
 import { HTTP_STATUS, type PostTone, type SocialPostSurfaceView } from '@aurore/shared'
 
@@ -57,7 +57,7 @@ async function seedPoster(
 describe('GET /profiles/:username/posts', () => {
   let app: Hono<AppEnv>
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     app = await createTestApp()
   })
 

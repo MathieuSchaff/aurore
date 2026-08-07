@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it } from 'bun:test'
+import { beforeAll, describe, expect, it } from 'bun:test'
 
 import { HTTP_STATUS } from '@aurore/shared'
 
@@ -10,10 +10,10 @@ import { users } from '../../../db/schema'
 import { testDb } from '../../../tests/db.test.config'
 import { setupDbTests } from '../../../tests/db-setup'
 import { createTestEnv, type TestClient, withAuth } from '../../../tests/helpers/createTestClient'
+import { expectOk } from '../../../tests/helpers/expectStatus'
 import {
   authDelete,
   authPatch,
-  authPost,
   loginAndGetToken,
   setupAndLogin,
 } from '../../../tests/helpers/route-test-helpers'
@@ -25,7 +25,7 @@ describe('Article Routes — GET', () => {
   let app: Hono<AppEnv>
   let client: TestClient
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     const env = await createTestEnv()
     app = env.app
     client = env.client
@@ -33,13 +33,9 @@ describe('Article Routes — GET', () => {
 
   describe('GET /articles', () => {
     it('returns 200 with empty list when no articles exist', async () => {
-      const res = await client.articles.$get({ query: {} })
-      expect(res.status).toBe(HTTP_STATUS.OK)
-      const json = await res.json()
-      expect(json.success).toBe(true)
-      if (!json.success) throw new Error('expected ok')
-      expect(json.data.items).toBeArray()
-      expect(json.data.total).toBe(0)
+      const data = await expectOk(client.articles.$get({ query: {} }))
+      expect(data.items).toBeArray()
+      expect(data.total).toBe(0)
     })
 
     it('filters by category', async () => {
@@ -50,11 +46,8 @@ describe('Article Routes — GET', () => {
     })
 
     it('returns only published articles by default', async () => {
-      const res = await client.articles.$get({ query: {} })
-      expect(res.status).toBe(HTTP_STATUS.OK)
-      const json = await res.json()
-      if (!json.success) throw new Error('expected ok')
-      for (const item of json.data.items) {
+      const data = await expectOk(client.articles.$get({ query: {} }))
+      for (const item of data.items) {
         expect(item.publishedAt).not.toBeNull()
       }
     })
@@ -98,13 +91,10 @@ describe('Article Routes — GET', () => {
 
   describe('GET /articles/categories', () => {
     it('returns zero counts for every category when DB is empty', async () => {
-      const res = await client.articles.categories.$get()
-      expect(res.status).toBe(HTTP_STATUS.OK)
-      const json = await res.json()
-      if (!json.success) throw new Error('expected ok')
-      expect(json.data.skincare).toBe(0)
-      expect(json.data.lifestyle).toBe(0)
-      expect(json.data.routines).toBe(0)
+      const data = await expectOk(client.articles.categories.$get())
+      expect(data.skincare).toBe(0)
+      expect(data.lifestyle).toBe(0)
+      expect(data.routines).toBe(0)
     })
   })
 })
@@ -121,7 +111,7 @@ describe('Article Routes — Write (admin only)', () => {
   let app: Hono<AppEnv>
   let client: TestClient
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     const env = await createTestEnv()
     app = env.app
     client = env.client
@@ -156,13 +146,12 @@ describe('Article Routes — Write (admin only)', () => {
         TEST_CREDENTIALS.toto.rawPassword
       )
 
-      const res = await client.articles.$post({ json: VALID_ARTICLE }, withAuth(token))
-      expect(res.status).toBe(HTTP_STATUS.CREATED)
-      const json = await res.json()
-      expect(json.success).toBe(true)
-      if (!json.success) throw new Error('expected ok')
-      expect(json.data.slug).toBe('guide-complet-acne')
-      expect(json.data.category).toBe('skincare')
+      const data = await expectOk(
+        client.articles.$post({ json: VALID_ARTICLE }, withAuth(token)),
+        HTTP_STATUS.CREATED
+      )
+      expect(data.slug).toBe('guide-complet-acne')
+      expect(data.category).toBe('skincare')
     })
   })
 
@@ -198,11 +187,10 @@ describe('Article Routes — Write (admin only)', () => {
       })
       expect(patched.status).toBe(HTTP_STATUS.OK)
 
-      const updated = await client.articles[':slug'].$get({ param: { slug } }, withAuth(token))
-      expect(updated.status).toBe(HTTP_STATUS.OK)
-      const updatedJson = await updated.json()
-      if (!updatedJson.success) throw new Error('expected ok')
-      expect(updatedJson.data.title).toBe('Brouillon mis à jour')
+      const updatedData = await expectOk(
+        client.articles[':slug'].$get({ param: { slug } }, withAuth(token))
+      )
+      expect(updatedData.title).toBe('Brouillon mis à jour')
 
       const deleted = await authDelete(app, `/api/articles/${slug}`, token)
       expect(deleted.status).toBe(HTTP_STATUS.NO_CONTENT)
@@ -247,6 +235,3 @@ describe('Article Routes — Write (admin only)', () => {
     })
   })
 })
-
-// Quiet "unused" warnings for helpers used only in error-path tests.
-void authPost

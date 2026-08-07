@@ -9,11 +9,9 @@
  * ADR-0013: a signed reaction is public, so the reactor's pseudonym must surface
  * even when their profile is private — but a force-privated user must not.
  */
-import { afterAll, describe, expect, it } from 'bun:test'
-import { SQL } from 'bun'
+import { describe, expect, it } from 'bun:test'
 
 import { eq } from 'drizzle-orm'
-import { drizzle } from 'drizzle-orm/bun-sql'
 
 import { profiles } from '../../db/schema/auth/users'
 import { products } from '../../db/schema/products/products'
@@ -23,19 +21,10 @@ import { getPostWithReplies, listPostsForProduct } from '../../features/social/p
 import { listReactions } from '../../features/social/reactions.service'
 import { testDb } from '../db.test.config'
 import { setupDbTests } from '../db-setup'
+import { createAppRuntimeDb } from '../helpers/app-runtime-db'
 import { createTestUser } from '../helpers/test-factories'
 
-const APP_DATABASE_URL = process.env.APP_DATABASE_URL
-if (!APP_DATABASE_URL) throw new Error('APP_DATABASE_URL not set')
-
-const appRuntimePool = new SQL(APP_DATABASE_URL)
-const appRuntimeDb = drizzle(appRuntimePool, {
-  schema: await import('../../db/schema'),
-}) as unknown as typeof testDb
-
-afterAll(async () => {
-  await appRuntimePool.close()
-})
+const appRuntimeDb = (await createAppRuntimeDb()) as unknown as typeof testDb
 
 setupDbTests()
 

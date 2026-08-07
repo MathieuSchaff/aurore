@@ -2,9 +2,6 @@ import { describe, expect, test } from 'bun:test'
 
 import { buildKnownConcentrations } from './known-concentrations'
 
-// Pure: rows from product_ingredients → algo-derm knownConcentrations map.
-// Keyed by ingredient NAME (algo-derm normalize() + FR→Latin translates it to
-// match an INCI token); slug would fail because normalize keeps hyphens.
 describe('buildKnownConcentrations', () => {
   test('keeps % rows with a finite positive value, keyed by name', () => {
     const map = buildKnownConcentrations([
@@ -54,9 +51,6 @@ describe('buildKnownConcentrations', () => {
   })
 
   test('also emits a spaced-slug key (algo-derm normalize keeps hyphens)', () => {
-    // The slug ("salicylic-acid") is English INCI-ish and binds actives whose
-    // French name ("Acide Salicylique") never matches the INCI token. Hyphens
-    // become spaces so algo-derm normalize() yields the spaced INCI form.
     const map = buildKnownConcentrations([
       {
         name: 'Acide Salicylique',
@@ -71,9 +65,9 @@ describe('buildKnownConcentrations', () => {
 
   test('omits slug key when slug is absent', () => {
     const map = buildKnownConcentrations([
-      { name: 'Niacinamide', concentrationValue: '10', concentrationUnit: '%' },
+      { name: 'Niacinamide', slug: undefined, concentrationValue: '10', concentrationUnit: '%' },
     ])
-    expect(map).toEqual({ Niacinamide: 10 })
+    expect(Object.keys(map)).toEqual(['Niacinamide'])
   })
 
   test('empty input → empty map', () => {

@@ -57,9 +57,26 @@ Effet : enregistre `beforeAll(ping DB)` + `beforeEach(cleanDatabase)` **scopés 
 
 **Pourquoi pas d'auto-detect** : preload bun:test global = clean sur 1559 tests même les 632 purs. C'était le bottleneck initial (baseline ~130 s). Opt-in scoped = pollueur paie.
 
-## 3. Self-cleaner = pas de `setupDbTests`
+## 3. Fixture par test : l'ordre des hooks, pas le pattern
 
-Si ton fichier a besoin de créer un fixture spécifique avant chaque test :
+Si ton fichier a besoin de créer un fixture spécifique avant chaque test, la seule règle qui compte
+est que le clean tourne **avant** la création du fixture. Bun:test exécute les `beforeEach` dans leur
+ordre d'enregistrement, donc deux écritures marchent.
+
+**A. `setupDbTests()` + `beforeEach` local** — à préférer pour un fichier neuf :
+
+```ts
+setupDbTests()          // top-level, AVANT le describe : son clean s'enregistre en premier
+
+describe('...', () => {
+  let user: User
+  beforeEach(async () => {
+    user = await createTestUser(...)
+  })
+})
+```
+
+**B. Self-cleaner** — historique, le fichier fait son ménage lui-même et n'appelle pas `setupDbTests()` :
 
 ```ts
 let user: User
@@ -69,14 +86,15 @@ beforeEach(async () => {
 })
 ```
 
-NE PAS ajouter `setupDbTests()` en plus. Sinon :
-- `setupDbTests` enregistre `beforeEach(clean)` global au fichier
-- Bun:test les exécute dans l'ordre d'enregistrement
-- ⇒ Si `setupDbTests()` est appelé APRÈS ton `beforeEach` local, le clean global wipe le `createTestUser` qui vient juste de se faire
+Le seul montage cassé est un `setupDbTests()` enregistré **après** ton `beforeEach` local (appelé en
+bas du fichier, ou depuis l'intérieur d'un `describe`) : son clean global wipe alors le
+`createTestUser` qui vient de se faire. En A, l'appel top-level en tête de fichier l'empêche par
+construction.
 
-16 fichiers suivent ce pattern. Ne les recopie pas sans raison, et si tu copies, vérifie l'ordre des hooks.
+Ne convertis pas un self-cleaner sans raison — mais si tu le fais, place `setupDbTests()` en tête de
+fichier et vérifie le compte de tests avant/après.
 
-Liste actuelle des self-cleaners (référence) :
+Liste des self-cleaners restants (référence, régénérable — un test qui appelle `cleanDatabase()` sans `setupDbTests()`) :
 
 ```
 db/seed/utils/batch.test.ts
@@ -86,11 +104,11 @@ features/auto-tagging/tests/auto-tag-manual-overlap.test.ts
 features/auto-tagging/tests/auto-tag-skip.test.ts
 features/auto-tagging/tests/auto-tag-stale-cleanup.test.ts
 features/auto-tagging/tests/auto-tag-write-tx.test.ts
+features/auto-tagging/tests/reconcile-parity.test.ts
+features/auto-tagging/tests/tx-delete-row-count.test.ts
 features/dermo-score/tests/dermo-score.service.test.ts
 features/product-comparisons/tests/product-comparisons.service.test.ts
-features/products/formula-preview.test.ts
-features/products/tests/create-product-autotag.test.ts
-features/products/tests/products.test.ts
+features/products/tests/formula-preview.test.ts
 features/security/tests/security.service.test.ts
 features/user-products/tests/public-reviews.test.ts
 features/user-products/tests/purchases.test.ts

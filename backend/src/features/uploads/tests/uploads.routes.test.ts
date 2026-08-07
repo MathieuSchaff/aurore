@@ -1,4 +1,4 @@
-import { afterEach, beforeEach, describe, expect, it, mock } from 'bun:test'
+import { afterEach, beforeAll, beforeEach, describe, expect, it, mock } from 'bun:test'
 
 import { HTTP_STATUS } from '@aurore/shared'
 
@@ -12,6 +12,7 @@ import {
   signupAndGetToken,
   type TestClient,
 } from '../../../tests/helpers/createTestClient'
+import { expectOk } from '../../../tests/helpers/expectStatus'
 import {
   authPostMultipart,
   setupAndLoginContributor,
@@ -49,10 +50,13 @@ describe('Upload Routes', () => {
   const ORIGINAL_FETCH = globalThis.fetch
   let bunnyMock: ReturnType<typeof mock>
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     const env = await createTestEnv()
     app = env.app
     client = env.client
+  })
+
+  beforeEach(() => {
     bunnyMock = mock(async () => new Response(null, { status: 201 }))
     globalThis.fetch = bunnyMock as unknown as typeof fetch
   })
@@ -72,14 +76,17 @@ describe('Upload Routes', () => {
       )
       const buf = buildVp8l(1024, 1024, 100)
       const blob = new Blob([buf], { type: 'image/webp' })
-      const res = await authPostMultipart(app, '/api/uploads/avatar', token, { image: blob })
-      expect(res.status).toBe(HTTP_STATUS.CREATED)
-      const body = (await res.json()) as
-        | { success: true; data: { url: string } }
-        | { success: false; error: string }
-      expect(body.success).toBe(true)
-      if (!body.success) throw new Error('avatar upload failed')
-      expect(body.data.url).toMatch(/^https:\/\/.+\/avatars\/.+\.webp\?v=\d+$/)
+      const body = await expectOk<{ url: string }>(
+        // authPostMultipart falls back to raw app.request(), whose Response#json() is untyped.
+        authPostMultipart(app, '/api/uploads/avatar', token, {
+          image: blob,
+        }) as unknown as Promise<{
+          status: number
+          json(): Promise<{ success: true; data: { url: string } } | { success: false }>
+        }>,
+        HTTP_STATUS.CREATED
+      )
+      expect(body.url).toMatch(/^https:\/\/.+\/avatars\/.+\.webp\?v=\d+$/)
       expect(bunnyMock).toHaveBeenCalledTimes(1)
     })
 

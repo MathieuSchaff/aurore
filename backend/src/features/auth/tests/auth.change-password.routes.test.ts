@@ -4,10 +4,12 @@ import { HTTP_STATUS } from '@aurore/shared'
 
 import { setupDbTests } from '../../../tests/db-setup'
 import { expectRequiresAuth } from '../../../tests/helpers/authz-matrix'
-import { createTestEnv, type TestClient } from '../../../tests/helpers/createTestClient'
+import {
+  createTestEnv,
+  type TestApp,
+  type TestClient,
+} from '../../../tests/helpers/createTestClient'
 import { unsafeEmail } from '../../../tests/helpers/unsafe'
-
-type TestApp = Awaited<ReturnType<typeof createTestEnv>>['app']
 
 setupDbTests()
 

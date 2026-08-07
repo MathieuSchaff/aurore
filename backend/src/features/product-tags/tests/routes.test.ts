@@ -1,17 +1,21 @@
-import { beforeEach, describe, expect, it } from 'bun:test'
+import { beforeAll, beforeEach, describe, expect, it } from 'bun:test'
 
+import type { CreateTagInput } from '@aurore/shared'
 import { HTTP_STATUS } from '@aurore/shared'
 
 import { setupDbTests } from '../../../tests/db-setup'
 import { expectRequiresAuth, expectRoleMatrix } from '../../../tests/helpers/authz-matrix'
-import { createTestEnv, type TestClient, withAuth } from '../../../tests/helpers/createTestClient'
-import { expectStatus } from '../../../tests/helpers/expectStatus'
+import {
+  createTestEnv,
+  type TestApp,
+  type TestClient,
+  withAuth,
+} from '../../../tests/helpers/createTestClient'
+import { expectOk, expectStatus } from '../../../tests/helpers/expectStatus'
 import { setupAndLoginAdmin } from '../../../tests/helpers/route-test-helpers'
 import { TEST_CREDENTIALS } from '../../../tests/helpers/test-credentials'
 
 type ApiErrorBody = { success: false; error: string }
-type TestApp = Awaited<ReturnType<typeof createTestEnv>>['app']
-
 const VALID_TAG = { label: 'Anti-âge' }
 
 setupDbTests()
@@ -19,84 +23,84 @@ setupDbTests()
 describe('Product Tag Routes', () => {
   let app: TestApp
   let client: TestClient
+  let adminToken: string
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     ;({ app, client } = await createTestEnv())
   })
 
+  beforeEach(async () => {
+    adminToken = await setupAndLoginAdmin(app, TEST_CREDENTIALS.admin)
+  })
+
+  // Setup-only: tests whose subject is the POST itself call the route directly.
+  async function createTag(overrides: Partial<CreateTagInput> = {}) {
+    return expectOk(
+      client['product-tags'].$post({ json: { ...VALID_TAG, ...overrides } }, withAuth(adminToken)),
+      HTTP_STATUS.CREATED
+    )
+  }
+
   describe('POST /product-tags', () => {
     it('should create a tag with only a name', async () => {
-      const token = await setupAndLoginAdmin(app, TEST_CREDENTIALS.admin)
-
-      const res = await client['product-tags'].$post({ json: VALID_TAG }, withAuth(token))
-
-      expectStatus(res, HTTP_STATUS.CREATED)
-      const data = await res.json()
-      if (!data.success) throw new Error('create tag failed')
-      expect(data.data.id).toBeDefined()
-      expect(data.data.label).toBe('Anti-âge')
-      expect(data.data.slug).toBe('anti-age')
-      expect(data.data.tagType).toBe('')
+      const tag = await expectOk(
+        client['product-tags'].$post({ json: VALID_TAG }, withAuth(adminToken)),
+        HTTP_STATUS.CREATED
+      )
+      expect(tag.id).toBeDefined()
+      expect(tag.label).toBe('Anti-âge')
+      expect(tag.slug).toBe('anti-age')
+      expect(tag.tagType).toBe('')
     })
 
     it('should create a tag with a category', async () => {
-      const token = await setupAndLoginAdmin(app, TEST_CREDENTIALS.admin)
-
-      const res = await client['product-tags'].$post(
-        { json: { label: 'Peau grasse', tagType: 'skin_type' } },
-        withAuth(token)
+      const tag = await expectOk(
+        client['product-tags'].$post(
+          { json: { label: 'Peau grasse', tagType: 'skin_type' } },
+          withAuth(adminToken)
+        ),
+        HTTP_STATUS.CREATED
       )
-
-      expectStatus(res, HTTP_STATUS.CREATED)
-      const data = await res.json()
-      if (!data.success) throw new Error('create tag failed')
-      expect(data.data.label).toBe('Peau grasse')
-      expect(data.data.tagType).toBe('skin_type')
+      expect(tag.label).toBe('Peau grasse')
+      expect(tag.tagType).toBe('skin_type')
     })
 
     it('should auto-generate slug from name', async () => {
-      const token = await setupAndLoginAdmin(app, TEST_CREDENTIALS.admin)
-
-      const res = await client['product-tags'].$post(
-        { json: { label: 'Rides et Ridules' } },
-        withAuth(token)
+      const tag = await expectOk(
+        client['product-tags'].$post({ json: { label: 'Rides et Ridules' } }, withAuth(adminToken)),
+        HTTP_STATUS.CREATED
       )
-      const data = await res.json()
-      if (!data.success) throw new Error('create tag failed')
 
-      expect(data.data.slug).toBe('rides-et-ridules')
+      expect(tag.slug).toBe('rides-et-ridules')
     })
 
     it('should use custom slug when provided', async () => {
-      const token = await setupAndLoginAdmin(app, TEST_CREDENTIALS.admin)
-
-      const res = await client['product-tags'].$post(
-        { json: { label: 'Éclat', slug: 'eclat-custom' } },
-        withAuth(token)
+      const tag = await expectOk(
+        client['product-tags'].$post(
+          { json: { label: 'Éclat', slug: 'eclat-custom' } },
+          withAuth(adminToken)
+        ),
+        HTTP_STATUS.CREATED
       )
-      const data = await res.json()
-      if (!data.success) throw new Error('create tag failed')
 
-      expect(data.data.slug).toBe('eclat-custom')
+      expect(tag.slug).toBe('eclat-custom')
     })
 
     it('should store a createdAt timestamp', async () => {
-      const token = await setupAndLoginAdmin(app, TEST_CREDENTIALS.admin)
+      const tag = await expectOk(
+        client['product-tags'].$post({ json: VALID_TAG }, withAuth(adminToken)),
+        HTTP_STATUS.CREATED
+      )
 
-      const res = await client['product-tags'].$post({ json: VALID_TAG }, withAuth(token))
-      const data = await res.json()
-      if (!data.success) throw new Error('create tag failed')
-
-      expect(data.data.createdAt).toBeDefined()
+      expect(tag.createdAt).toBeDefined()
     })
 
     it('should return 409 for duplicate slug', async () => {
-      const token = await setupAndLoginAdmin(app, TEST_CREDENTIALS.admin)
+      await createTag({ label: 'Acné', slug: 'acne' })
 
-      await client['product-tags'].$post({ json: { label: 'Acné', slug: 'acne' } }, withAuth(token))
       const res = await client['product-tags'].$post(
         { json: { label: 'Acné Bis', slug: 'acne' } },
-        withAuth(token)
+        withAuth(adminToken)
       )
 
       expectStatus(res, HTTP_STATUS.CONFLICT)
@@ -106,12 +110,10 @@ describe('Product Tag Routes', () => {
     })
 
     it('should reject missing label', async () => {
-      const token = await setupAndLoginAdmin(app, TEST_CREDENTIALS.admin)
-
       const res = await client['product-tags'].$post(
         // @ts-expect-error: missing required label, testing schema rejection
         { json: { tagType: 'skin_type' } },
-        withAuth(token)
+        withAuth(adminToken)
       )
 
       expectStatus(res, HTTP_STATUS.BAD_REQUEST)
@@ -134,39 +136,20 @@ describe('Product Tag Routes', () => {
 
   describe('GET /product-tags/:id', () => {
     it('should return the tag without auth', async () => {
-      const token = await setupAndLoginAdmin(app, TEST_CREDENTIALS.admin)
+      const created = await createTag()
 
-      const createRes = await client['product-tags'].$post({ json: VALID_TAG }, withAuth(token))
-      const createData = await createRes.json()
-      if (!createData.success) throw new Error('create tag failed')
-      const created = createData.data
-
-      const res = await client['product-tags'][':id'].$get({ param: { id: created.id } })
-
-      expectStatus(res, HTTP_STATUS.OK)
-      const data = await res.json()
-      if (!data.success) throw new Error('get tag failed')
-      expect(data.data.id).toBe(created.id)
-      expect(data.data.label).toBe('Anti-âge')
+      const tag = await expectOk(client['product-tags'][':id'].$get({ param: { id: created.id } }))
+      expect(tag.id).toBe(created.id)
+      expect(tag.label).toBe('Anti-âge')
     })
 
     it('should also work when authenticated', async () => {
-      const token = await setupAndLoginAdmin(app, TEST_CREDENTIALS.admin)
+      const created = await createTag()
 
-      const createRes = await client['product-tags'].$post({ json: VALID_TAG }, withAuth(token))
-      const createData = await createRes.json()
-      if (!createData.success) throw new Error('create tag failed')
-      const created = createData.data
-
-      const res = await client['product-tags'][':id'].$get(
-        { param: { id: created.id } },
-        withAuth(token)
+      const tag = await expectOk(
+        client['product-tags'][':id'].$get({ param: { id: created.id } }, withAuth(adminToken))
       )
-
-      expectStatus(res, HTTP_STATUS.OK)
-      const data = await res.json()
-      if (!data.success) throw new Error('get tag failed')
-      expect(data.data.id).toBe(created.id)
+      expect(tag.id).toBe(created.id)
     })
 
     it('should return 404 for unknown id', async () => {
@@ -189,53 +172,34 @@ describe('Product Tag Routes', () => {
 
   describe('PATCH /product-tags/:id', () => {
     it('should update tag fields', async () => {
-      const token = await setupAndLoginAdmin(app, TEST_CREDENTIALS.admin)
+      const created = await createTag({ label: 'Rides' })
 
-      const createRes = await client['product-tags'].$post(
-        { json: { label: 'Rides' } },
-        withAuth(token)
+      const tag = await expectOk(
+        client['product-tags'][':id'].$patch(
+          { param: { id: created.id }, json: { label: 'Rides et Ridules', tagType: 'concern' } },
+          withAuth(adminToken)
+        )
       )
-      const createData = await createRes.json()
-      if (!createData.success) throw new Error('create tag failed')
-      const created = createData.data
-
-      const res = await client['product-tags'][':id'].$patch(
-        { param: { id: created.id }, json: { label: 'Rides et Ridules', tagType: 'concern' } },
-        withAuth(token)
-      )
-
-      expectStatus(res, HTTP_STATUS.OK)
-      const data = await res.json()
-      if (!data.success) throw new Error('update tag failed')
-      expect(data.data.label).toBe('Rides et Ridules')
-      expect(data.data.tagType).toBe('concern')
+      expect(tag.label).toBe('Rides et Ridules')
+      expect(tag.tagType).toBe('concern')
     })
 
     it('should persist updates across requests', async () => {
-      const token = await setupAndLoginAdmin(app, TEST_CREDENTIALS.admin)
-
-      const createRes = await client['product-tags'].$post({ json: VALID_TAG }, withAuth(token))
-      const createData = await createRes.json()
-      if (!createData.success) throw new Error('create tag failed')
-      const created = createData.data
+      const created = await createTag()
 
       await client['product-tags'][':id'].$patch(
         { param: { id: created.id }, json: { label: 'Anti-âge Pro' } },
-        withAuth(token)
+        withAuth(adminToken)
       )
 
-      const res = await client['product-tags'][':id'].$get({ param: { id: created.id } })
-      const data = await res.json()
-      if (!data.success) throw new Error('get tag failed')
-      expect(data.data.label).toBe('Anti-âge Pro')
+      const tag = await expectOk(client['product-tags'][':id'].$get({ param: { id: created.id } }))
+      expect(tag.label).toBe('Anti-âge Pro')
     })
 
     it('should return 404 for unknown id', async () => {
-      const token = await setupAndLoginAdmin(app, TEST_CREDENTIALS.admin)
-
       const res = await client['product-tags'][':id'].$patch(
         { param: { id: crypto.randomUUID() }, json: { label: 'X' } },
-        withAuth(token)
+        withAuth(adminToken)
       )
 
       expectStatus(res, HTTP_STATUS.NOT_FOUND)
@@ -244,23 +208,12 @@ describe('Product Tag Routes', () => {
     })
 
     it('should return 409 when updating to a conflicting slug', async () => {
-      const token = await setupAndLoginAdmin(app, TEST_CREDENTIALS.admin)
-
-      await client['product-tags'].$post(
-        { json: { label: 'Éclat', slug: 'eclat' } },
-        withAuth(token)
-      )
-      const r2 = await client['product-tags'].$post(
-        { json: { label: 'Luminosité' } },
-        withAuth(token)
-      )
-      const r2Data = await r2.json()
-      if (!r2Data.success) throw new Error('create tag failed')
-      const t2 = r2Data.data
+      await createTag({ label: 'Éclat', slug: 'eclat' })
+      const t2 = await createTag({ label: 'Luminosité' })
 
       const res = await client['product-tags'][':id'].$patch(
         { param: { id: t2.id }, json: { label: 'Éclat', slug: 'eclat' } },
-        withAuth(token)
+        withAuth(adminToken)
       )
 
       expectStatus(res, HTTP_STATUS.CONFLICT)
@@ -277,66 +230,40 @@ describe('Product Tag Routes', () => {
 
   describe('DELETE /product-tags/:id', () => {
     it('should delete the tag and return null data', async () => {
-      const token = await setupAndLoginAdmin(app, TEST_CREDENTIALS.admin)
+      const created = await createTag()
 
-      const createRes = await client['product-tags'].$post({ json: VALID_TAG }, withAuth(token))
-      const createData = await createRes.json()
-      if (!createData.success) throw new Error('create tag failed')
-      const created = createData.data
-
-      const res = await client['product-tags'][':id'].$delete(
-        { param: { id: created.id } },
-        withAuth(token)
+      const deleted = await expectOk(
+        client['product-tags'][':id'].$delete({ param: { id: created.id } }, withAuth(adminToken))
       )
-
-      expectStatus(res, HTTP_STATUS.OK)
-      const data = await res.json()
-      expect(data.success).toBe(true)
-      if (!data.success) throw new Error('delete failed')
-      expect(data.data).toBeNull()
+      expect(deleted).toBeNull()
     })
 
     it('should make the tag unreachable after deletion', async () => {
-      const token = await setupAndLoginAdmin(app, TEST_CREDENTIALS.admin)
+      const created = await createTag()
 
-      const createRes = await client['product-tags'].$post({ json: VALID_TAG }, withAuth(token))
-      const createData = await createRes.json()
-      if (!createData.success) throw new Error('create tag failed')
-      const created = createData.data
-
-      await client['product-tags'][':id'].$delete({ param: { id: created.id } }, withAuth(token))
+      await client['product-tags'][':id'].$delete(
+        { param: { id: created.id } },
+        withAuth(adminToken)
+      )
 
       const res = await client['product-tags'][':id'].$get({ param: { id: created.id } })
       expectStatus(res, HTTP_STATUS.NOT_FOUND)
     })
 
     it('should not affect other tags when deleting one', async () => {
-      const token = await setupAndLoginAdmin(app, TEST_CREDENTIALS.admin)
+      const t1 = await createTag()
+      const t2 = await createTag({ label: 'Hydratation' })
 
-      const r1 = await client['product-tags'].$post({ json: VALID_TAG }, withAuth(token))
-      const r2 = await client['product-tags'].$post(
-        { json: { label: 'Hydratation' } },
-        withAuth(token)
-      )
-
-      const r1Data = await r1.json()
-      const r2Data = await r2.json()
-      if (!r1Data.success || !r2Data.success) throw new Error('create tag failed')
-      const t1 = r1Data.data
-      const t2 = r2Data.data
-
-      await client['product-tags'][':id'].$delete({ param: { id: t1.id } }, withAuth(token))
+      await client['product-tags'][':id'].$delete({ param: { id: t1.id } }, withAuth(adminToken))
 
       const res = await client['product-tags'][':id'].$get({ param: { id: t2.id } })
       expectStatus(res, HTTP_STATUS.OK)
     })
 
     it('should return 404 for unknown id', async () => {
-      const token = await setupAndLoginAdmin(app, TEST_CREDENTIALS.admin)
-
       const res = await client['product-tags'][':id'].$delete(
         { param: { id: crypto.randomUUID() } },
-        withAuth(token)
+        withAuth(adminToken)
       )
 
       expectStatus(res, HTTP_STATUS.NOT_FOUND)

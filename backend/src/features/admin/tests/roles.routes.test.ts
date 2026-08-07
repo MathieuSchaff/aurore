@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it } from 'bun:test'
+import { beforeAll, beforeEach, describe, expect, it } from 'bun:test'
 
 import { HTTP_STATUS } from '@aurore/shared'
 
@@ -12,19 +12,14 @@ import {
   type TestClient,
   withAuth,
 } from '../../../tests/helpers/createTestClient'
+import { expectError, expectOk, expectStatus } from '../../../tests/helpers/expectStatus'
+import { login } from '../../../tests/helpers/login'
 import { TEST_CREDENTIALS } from '../../../tests/helpers/test-credentials'
 import {
   createTestAdminUser,
   createTestContributorUser,
   createTestUser,
 } from '../../../tests/helpers/test-factories'
-
-async function login(client: TestClient, email: string, password: string): Promise<string> {
-  const res = await client.auth.login.$post({ json: { email, password } })
-  const data = await res.json()
-  if (!data.success) throw new Error('login failed in admin-roles test setup')
-  return data.data.accessToken
-}
 
 setupDbTests()
 
@@ -37,8 +32,11 @@ describe('PATCH /admin/users/:id/role', () => {
   let userId: string
   let userToken: string
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     client = await createTestClient()
+  })
+
+  beforeEach(async () => {
     const admin = TEST_CREDENTIALS.admin
     const contributor = TEST_CREDENTIALS.contributor
     const toto = TEST_CREDENTIALS.toto
@@ -59,22 +57,21 @@ describe('PATCH /admin/users/:id/role', () => {
     userToken = await login(client, toto.rawEmail, toto.rawPassword)
   })
 
+  async function readRole(id: string) {
+    const [row] = await testDb.select({ role: users.role }).from(users).where(eq(users.id, id))
+    return row?.role
+  }
+
   it('admin demotes a contributor to user (200, role persisted)', async () => {
-    const res = await client.admin.users[':id'].role.$patch(
-      { param: { id: contributorId }, json: { role: 'user', reason: 'curation inactive' } },
-      withAuth(adminToken)
+    const body = await expectOk(
+      client.admin.users[':id'].role.$patch(
+        { param: { id: contributorId }, json: { role: 'user', reason: 'curation inactive' } },
+        withAuth(adminToken)
+      )
     )
+    expect(body).toMatchObject({ id: contributorId, role: 'user' })
 
-    expect(res.status as number).toBe(HTTP_STATUS.OK)
-    const body = await res.json()
-    if (!body.success) throw new Error(`expected success, got ${JSON.stringify(body)}`)
-    expect(body.data).toMatchObject({ id: contributorId, role: 'user' })
-
-    const [row] = await testDb
-      .select({ role: users.role })
-      .from(users)
-      .where(eq(users.id, contributorId))
-    expect(row?.role).toBe('user')
+    expect(await readRole(contributorId)).toBe('user')
 
     const [trail] = await testDb
       .select()
@@ -88,15 +85,13 @@ describe('PATCH /admin/users/:id/role', () => {
   })
 
   it('reason is optional (200 without reason)', async () => {
-    const res = await client.admin.users[':id'].role.$patch(
-      { param: { id: contributorId }, json: { role: 'user' } },
-      withAuth(adminToken)
+    const body = await expectOk(
+      client.admin.users[':id'].role.$patch(
+        { param: { id: contributorId }, json: { role: 'user' } },
+        withAuth(adminToken)
+      )
     )
-
-    expect(res.status as number).toBe(HTTP_STATUS.OK)
-    const body = await res.json()
-    if (!body.success) throw new Error(`expected success, got ${JSON.stringify(body)}`)
-    expect(body.data.role).toBe('user')
+    expect(body.role).toBe('user')
   })
 
   it('whitespace-only reason is rejected (400)', async () => {
@@ -105,18 +100,18 @@ describe('PATCH /admin/users/:id/role', () => {
       withAuth(adminToken)
     )
 
-    expect(res.status as number).toBe(HTTP_STATUS.BAD_REQUEST)
+    expectStatus(res, HTTP_STATUS.BAD_REQUEST)
   })
 
   it('non-admin user gets 403 forbidden', async () => {
-    const res = await client.admin.users[':id'].role.$patch(
-      { param: { id: contributorId }, json: { role: 'user' } },
-      withAuth(userToken)
+    await expectError(
+      client.admin.users[':id'].role.$patch(
+        { param: { id: contributorId }, json: { role: 'user' } },
+        withAuth(userToken)
+      ),
+      HTTP_STATUS.FORBIDDEN,
+      'forbidden'
     )
-
-    expect(res.status as number).toBe(HTTP_STATUS.FORBIDDEN)
-    const body = await res.json()
-    expect(body).toMatchObject({ success: false, error: 'forbidden' })
   })
 
   it('a contributor cannot demote (403 forbidden)', async () => {
@@ -125,40 +120,40 @@ describe('PATCH /admin/users/:id/role', () => {
       withAuth(contributorToken)
     )
 
-    expect(res.status as number).toBe(HTTP_STATUS.FORBIDDEN)
+    expectStatus(res, HTTP_STATUS.FORBIDDEN)
   })
 
   it('self-demote is rejected (400 cannot_self_demote)', async () => {
-    const res = await client.admin.users[':id'].role.$patch(
-      { param: { id: adminId }, json: { role: 'user' } },
-      withAuth(adminToken)
+    await expectError(
+      client.admin.users[':id'].role.$patch(
+        { param: { id: adminId }, json: { role: 'user' } },
+        withAuth(adminToken)
+      ),
+      HTTP_STATUS.BAD_REQUEST,
+      'cannot_self_demote'
     )
-
-    expect(res.status as number).toBe(HTTP_STATUS.BAD_REQUEST)
-    const body = await res.json()
-    expect(body).toMatchObject({ success: false, error: 'cannot_self_demote' })
   })
 
   it('demoting a non-contributor is rejected (409 not_a_contributor)', async () => {
-    const res = await client.admin.users[':id'].role.$patch(
-      { param: { id: userId }, json: { role: 'user' } },
-      withAuth(adminToken)
+    await expectError(
+      client.admin.users[':id'].role.$patch(
+        { param: { id: userId }, json: { role: 'user' } },
+        withAuth(adminToken)
+      ),
+      HTTP_STATUS.CONFLICT,
+      'not_a_contributor'
     )
-
-    expect(res.status as number).toBe(HTTP_STATUS.CONFLICT)
-    const body = await res.json()
-    expect(body).toMatchObject({ success: false, error: 'not_a_contributor' })
   })
 
   it('demoting an unknown user is rejected (404 not_found)', async () => {
-    const res = await client.admin.users[':id'].role.$patch(
-      { param: { id: crypto.randomUUID() }, json: { role: 'user' } },
-      withAuth(adminToken)
+    await expectError(
+      client.admin.users[':id'].role.$patch(
+        { param: { id: crypto.randomUUID() }, json: { role: 'user' } },
+        withAuth(adminToken)
+      ),
+      HTTP_STATUS.NOT_FOUND,
+      'not_found'
     )
-
-    expect(res.status as number).toBe(HTTP_STATUS.NOT_FOUND)
-    const body = await res.json()
-    expect(body).toMatchObject({ success: false, error: 'not_found' })
   })
 
   // Escalation guard: `role` is `z.literal('user')`, so the endpoint can only
@@ -175,23 +170,19 @@ describe('PATCH /admin/users/:id/role', () => {
       withAuth(adminToken)
     )
 
-    expect(res.status as number).toBe(HTTP_STATUS.BAD_REQUEST)
-    const [row] = await testDb
-      .select({ role: users.role })
-      .from(users)
-      .where(eq(users.id, contributorId))
-    expect(row?.role).toBe('contributor')
+    expectStatus(res, HTTP_STATUS.BAD_REQUEST)
+    expect(await readRole(contributorId)).toBe('contributor')
   })
 
   it('demoting an admin target is rejected (409 not_a_contributor)', async () => {
     const otherAdmin = await createTestAdminUser('admin2@exemple.fr', 'Admin123!super')
-    const res = await client.admin.users[':id'].role.$patch(
-      { param: { id: otherAdmin.id }, json: { role: 'user' } },
-      withAuth(adminToken)
+    await expectError(
+      client.admin.users[':id'].role.$patch(
+        { param: { id: otherAdmin.id }, json: { role: 'user' } },
+        withAuth(adminToken)
+      ),
+      HTTP_STATUS.CONFLICT,
+      'not_a_contributor'
     )
-
-    expect(res.status as number).toBe(HTTP_STATUS.CONFLICT)
-    const body = await res.json()
-    expect(body).toMatchObject({ success: false, error: 'not_a_contributor' })
   })
 })

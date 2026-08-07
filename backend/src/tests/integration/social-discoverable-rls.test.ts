@@ -9,28 +9,17 @@
  * ranking service's explicit discoverable filter. What is asserted here is the
  * invariant ADR 0012 promises: discoverable never overrides the master gate.
  */
-import { afterAll, describe, expect, it } from 'bun:test'
-import { SQL } from 'bun'
+import { describe, expect, it } from 'bun:test'
 
 import { eq } from 'drizzle-orm'
-import { drizzle } from 'drizzle-orm/bun-sql'
 
 import { profiles, userDermoProfiles } from '../../db/schema/auth/users'
 import { testDb } from '../db.test.config'
 import { setupDbTests } from '../db-setup'
+import { createAppRuntimeDb } from '../helpers/app-runtime-db'
 import { createTestUser } from '../helpers/test-factories'
 
-const APP_DATABASE_URL = process.env.APP_DATABASE_URL
-if (!APP_DATABASE_URL) throw new Error('APP_DATABASE_URL not set')
-
-const appRuntimePool = new SQL(APP_DATABASE_URL)
-const appRuntimeDb = drizzle(appRuntimePool, {
-  schema: await import('../../db/schema'),
-})
-
-afterAll(async () => {
-  await appRuntimePool.close()
-})
+const appRuntimeDb = await createAppRuntimeDb()
 
 // setupDbTests() already registers a beforeEach(cleanDatabase) — no second one.
 setupDbTests()
