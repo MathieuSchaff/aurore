@@ -3,6 +3,7 @@ import { describe, expect, it } from 'bun:test'
 import {
   buildInciIndex,
   buildNonDiscriminantSlugs,
+  buildSlugDomainMap,
   CATEGORY_DOMAIN_ALLOWLIST,
   foldScraperDelimiters,
   getDomainAllowlist,
@@ -47,6 +48,15 @@ describe('stripInciArtefacts', () => {
     )
     expect(stripInciArtefacts('C12-15 Alkyl Benzoate')).toBe('C12-15 Alkyl Benzoate')
     expect(stripInciArtefacts('Ci 77491')).toBe('Ci 77491')
+  })
+
+  // A zero-width char survives `\s+`, so the token never equals its blocklist or index entry.
+  it('drops zero-width characters', () => {
+    expect(stripInciArtefacts('Aqua/\u200BWater')).toBe('Aqua/ Water')
+    expect(stripInciArtefacts('Lactobacillus/\u200BSoybean Ferment Extract')).toBe(
+      'Lactobacillus/ Soybean Ferment Extract'
+    )
+    expect(normalizeInciToken('Sodium\uFEFF Hyaluronate')).toBe('SODIUM HYALURONATE')
   })
 
   it('drops trailing punctuation left by the bracket strip, keeping inner hyphens', () => {
@@ -282,6 +292,64 @@ describe('buildInciIndex (integration)', () => {
     expect(idx.has('SODIUM HYALURONATE')).toBe(true)
   })
 
+  it('keeps legal morphological boundaries as direct INCI spellings', () => {
+    const idx = buildInciIndex()
+    expect(idx.get('HYDROXYETHYL CELLULOSE')?.slug).toBe('hydroxyethylcellulose')
+    expect(idx.get('XYLITYL GLUCOSIDE')?.slug).toBe('xylitylglucoside')
+    expect(idx.get('HYDROXYPROPYL TRIMONIUM HYALURONATE')?.slug).toBe(
+      'hydroxypropyltrimonium-hyaluronate'
+    )
+    expect(idx.get('ETHYL HEXYL PALMITATE')?.slug).toBe('ethylhexyl-palmitate')
+    expect(idx.get('PALMITOYL TETRA PEPTIDE-7')?.slug).toBe('palmitoyl-tetrapeptide-7')
+    expect(idx.get('SUPER OXIDE DISMUTASE')?.slug).toBe('superoxide-dismutase')
+    expect(idx.get('PHENYL ALANINE')?.slug).toBe('phenylalanine')
+  })
+
+  it('keeps near-duplicate ingredient names distinct in the direct index', () => {
+    const idx = buildInciIndex()
+    expect(
+      Object.fromEntries(
+        [
+          ['CAESALPINIA SPINOSA FRUIT EXTRACT', 'caesalpinia-spinosa-fruit-extract'],
+          ['CETEARYL ETHYLHEXANOATE', 'cetearyl-ethylhexanoate'],
+          ['SOLUBLE COLLAGEN', 'soluble-collagen'],
+          ['ASCORBYL METHYLSILANOL PECTINATE', 'ascorbyl-methylsilanol-pectinate'],
+          ['HYDROLYZED QUINOA', 'hydrolyzed-quinoa'],
+          ['LACTOBACILLUS EXTRACELLULAR VESICLES', 'lactobacillus-extracellular-vesicles'],
+          ['MALPIGHIA GLABRA FRUIT WATER', 'malpighia-glabra-fruit-water'],
+          ['OXIDIZED GLUTATHIONE', 'oxidized-glutathione'],
+          ['PHYTONADIONE EPOXIDE', 'phytonadione-epoxide'],
+          [
+            'POTASSIUM DIMETHICONE PEG-7 PANTHENYL PHOSPHATE',
+            'potassium-dimethicone-peg-7-panthenyl-phosphate',
+          ],
+          ['SCHISANDRA CHINENSIS FRUIT EXTRACT', 'schisandra-chinensis-fruit-extract'],
+          ['SHOREA STENOPTERA SEED BUTTER', 'shorea-stenoptera-seed-butter'],
+          ['SODIUM ASCORBATE', 'sodium-ascorbate'],
+        ].map(([token]) => [token, idx.get(token)?.slug])
+      )
+    ).toEqual({
+      'CAESALPINIA SPINOSA FRUIT EXTRACT': 'caesalpinia-spinosa-fruit-extract',
+      'CETEARYL ETHYLHEXANOATE': 'cetearyl-ethylhexanoate',
+      'SOLUBLE COLLAGEN': 'soluble-collagen',
+      'ASCORBYL METHYLSILANOL PECTINATE': 'ascorbyl-methylsilanol-pectinate',
+      'HYDROLYZED QUINOA': 'hydrolyzed-quinoa',
+      'LACTOBACILLUS EXTRACELLULAR VESICLES': 'lactobacillus-extracellular-vesicles',
+      'MALPIGHIA GLABRA FRUIT WATER': 'malpighia-glabra-fruit-water',
+      'OXIDIZED GLUTATHIONE': 'oxidized-glutathione',
+      'PHYTONADIONE EPOXIDE': 'phytonadione-epoxide',
+      'POTASSIUM DIMETHICONE PEG-7 PANTHENYL PHOSPHATE':
+        'potassium-dimethicone-peg-7-panthenyl-phosphate',
+      'SCHISANDRA CHINENSIS FRUIT EXTRACT': 'schisandra-chinensis-fruit-extract',
+      'SHOREA STENOPTERA SEED BUTTER': 'shorea-stenoptera-seed-butter',
+      'SODIUM ASCORBATE': 'sodium-ascorbate',
+    })
+    expect(idx.get('CETYL ETHYLHEXANOATE')?.slug).not.toBe('cetearyl-ethylhexanoate')
+    expect(idx.get('COLLAGEN EXTRACT')?.slug).toBe('soluble-collagen')
+    expect(idx.get('COLLAGEN')?.slug).toBe('soluble-collagen')
+    expect(idx.get('HYDROLYZED COLLAGEN')?.slug).not.toBe('soluble-collagen')
+  })
+
   // The list cuts at link time, not at construction: the token stays indexed so the algo-derm
   // bridge lands on the listed slug instead of falling through onto an unblocked synonym.
   it('indexes non-discriminant tokens and reports their slugs as blocked', () => {
@@ -341,6 +409,10 @@ describe('buildInciIndex (integration)', () => {
 })
 
 describe('getDomainAllowlist', () => {
+  it('declares the shared Lauryl Glucoside sheet in the generic domain', () => {
+    expect(buildSlugDomainMap().get('lauryl-glucoside')).toBe('skincare')
+  })
+
   // Moving a slug declaration into the skincare file is only safe because every category accepts
   // `skincare`: the guard then admits a slug where it used to drop it, never the reverse. The
   // guard is monotone, the identity dedup running after it in link-ingredients is not, so a
