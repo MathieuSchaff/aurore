@@ -578,8 +578,8 @@ export const FILTRES_UV = {
   TRIASORB: 'triasorb', // Ultra broad-spectrum filter
   IRON_OXIDE: 'oxide-de-fer', // INCI: Iron Oxides | mineral pigments, visible-light / HEV protection
   DROMETRIZOLE_TRISILOXANE: 'drometrizole-trisiloxane', // INCI: Drometrizole Trisiloxane | photostable UVA filter (Mexoryl XL)
-  BUTYL_METHOXYDIBENZOYLMETHANE: 'butyl-methoxydibenvoylmethane', // INCI: Butyl Methoxydibenzoylmethane | UVA filter (Avobenzone)
-  AVOBENZONE: 'butyl-methoxydibenvoylmethane', // Alias
+  BUTYL_METHOXYDIBENZOYLMETHANE: 'butyl-methoxydibenzoylmethane', // INCI: Butyl Methoxydibenzoylmethane | UVA filter (Avobenzone)
+  AVOBENZONE: 'butyl-methoxydibenzoylmethane', // Alias
   OCTOCRYLENE: 'octocrylene', // INCI: Octocrylene | stabilizing UVB filter
   HOMOSALATE: 'homosalate', // INCI: Homosalate | UVB filter
   // Octisalate is declared as an alias, not left in the gloss: US sunscreen labels use the USAN
