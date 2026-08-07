@@ -1,0 +1,41 @@
+{
+  "total": 29,
+  "groups": {
+    "A": "structural — opens the request transaction",
+    "B": "pre-identity auth — no identity exists yet to bind into the GUCs",
+    "C": "system probe — no bearer, no personalisation possible",
+    "D": "anonymous read behind an explicit `userId ? getRlsDb(c) : anonDb` branch",
+    "E": "unconditional anonymous read — the router mounts no optionalJwtAuth"
+  },
+  "sites": [
+    { "file": "backend/src/features/auth/rls-context.middleware.ts", "count": 1, "groups": ["A"] },
+    { "file": "backend/src/features/auth/routes.ts", "count": 1, "groups": ["B"] },
+    { "file": "backend/src/features/blog/routes.ts", "count": 1, "groups": ["D"] },
+    { "file": "backend/src/features/dermo-score/routes.ts", "count": 1, "groups": ["D"] },
+    {
+      "file": "backend/src/features/discussions/discussion-routes.ts",
+      "count": 2,
+      "groups": ["E"]
+    },
+    { "file": "backend/src/features/health/routes.ts", "count": 1, "groups": ["C"] },
+    { "file": "backend/src/features/ingredient-tags/routes.ts", "count": 3, "groups": ["E"] },
+    {
+      "file": "backend/src/features/ingredients/ingredient-tags/routes.ts",
+      "count": 1,
+      "groups": ["E"]
+    },
+    { "file": "backend/src/features/ingredients/routes.ts", "count": 8, "groups": ["D", "E"] },
+    { "file": "backend/src/features/product-tags/routes.ts", "count": 3, "groups": ["E"] },
+    {
+      "file": "backend/src/features/products/product-ingredients/routes.ts",
+      "count": 1,
+      "groups": ["E"]
+    },
+    { "file": "backend/src/features/products/product-tags/routes.ts", "count": 1, "groups": ["E"] },
+    { "file": "backend/src/features/products/routes.ts", "count": 1, "groups": ["D"] },
+    { "file": "backend/src/features/profile/public-routes.ts", "count": 1, "groups": ["D"] },
+    { "file": "backend/src/features/sitemap/routes.ts", "count": 1, "groups": ["C"] },
+    { "file": "backend/src/features/social/posts.routes.ts", "count": 1, "groups": ["E"] },
+    { "file": "backend/src/features/social/reactions.routes.ts", "count": 1, "groups": ["D"] }
+  ]
+}
