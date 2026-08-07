@@ -43,8 +43,7 @@ export async function gotoSettled(page: Page, url: string): Promise<void> {
 // enables the dermoProfile query, which recomputes avoidFor, which changes the products
 // list query key and refetches it. waitForSettledUrl only watches the URL, so a card read
 // right after gotoSettled can still be yanked out from under a click by this later refetch —
-// under real network latency (a full e2e run, not an isolated one) the two round trips
-// routinely outlast the 400ms URL-quiet window. Wait for /api/products GETs to go quiet too.
+// under real network latency the two round trips routinely outlast the 400ms URL-quiet window.
 export function waitForProductsListSettled(page: Page, quietMs = 400): Promise<void> {
   return new Promise((resolve) => {
     let timer: ReturnType<typeof setTimeout>

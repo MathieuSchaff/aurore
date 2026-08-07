@@ -25,6 +25,7 @@ import type { AppEnv } from '../../app-env'
 import { env } from '../../config/env'
 import { withAdminRls } from '../../db/rls'
 import { usersSafe } from '../../db/schema'
+import { getAuthedUserId, getRlsDb } from '../../utils/accessors'
 import { clientIp } from '../../utils/clientIp'
 import {
   demoRateLimiterFunc,
@@ -39,8 +40,9 @@ import { sendVerificationEmail } from './email.service'
 import { createVerificationToken, verifyEmailToken } from './email-verification.service'
 import { getGoogleAuthUrl, handleGoogleCallback } from './google.service'
 import { clearRefreshTokenCookie, extractRefreshToken, setRefreshTokenCookie } from './jwt.utils'
-import { getAuthedUserId, requireJwtAuth, requireNotBanned } from './middleware'
+import { requireJwtAuth, requireNotBanned } from './middleware'
 import { requestPasswordReset, resetPassword } from './password-reset.service'
+import { withRlsContext } from './rls-context.middleware'
 import {
   type AuthContext,
   changePassword,
@@ -51,9 +53,9 @@ import {
   signup,
 } from './service'
 
-function buildAuthContext(c: Context<AppEnv>): AuthContext {
+function buildAnonAuthContext(c: Context<AppEnv>): AuthContext {
   return {
-    db: c.get('db'),
+    db: c.get('anonDb'),
     jwtSecret: c.get('jwtSecret'),
     refreshSecret: c.get('refreshSecret'),
     frontendUrl: c.get('frontendUrl'),
@@ -119,15 +121,16 @@ if (env.NODE_ENV !== 'test') {
   app.use('*', csrf({ origin: isTrustedCsrfOrigin }))
 }
 
-// auth tables (users, refresh_tokens, email_verifications) are outside RLS: auth
-// lookups happen pre-identity. If RLS is added to those tables, register
-// withRlsContext alongside requireJwtAuth here.
+// Pre-identity auth flows use anonDb. Authenticated routes that read RLS-protected
+// data must establish requestDb before checking bans or entering their handler.
 app.use('/logout', requireJwtAuth)
 app.use('/session', requireJwtAuth)
 app.use('/mobile/logout', requireJwtAuth)
 app.use('/resend-verification', requireJwtAuth)
 // /logout intentionally skips requireNotBanned: banned users must still be able
 // to clear their refresh token cookie.
+app.use('/session', withRlsContext)
+app.use('/resend-verification', withRlsContext)
 app.use('/session', requireNotBanned)
 app.use('/resend-verification', requireNotBanned)
 
@@ -135,7 +138,7 @@ export const jwtAuthRoutes = app
 
   .post('/login', loginRateLimiterFunc, zValidator('json', authBodySchema), async (c) => {
     const env = c.get('env')
-    const ctx = buildAuthContext(c)
+    const ctx = buildAnonAuthContext(c)
     const { email, password } = c.req.valid('json')
 
     const result = await login(ctx, email, password)
@@ -145,7 +148,7 @@ export const jwtAuthRoutes = app
     }
 
     // Check the ban before issuing tokens, to avoid a login-then-redirect race.
-    // withAdminRls bypasses RLS since there's no authenticated session yet.
+    // withAdminRls sets the admin RLS role because there is no authenticated session yet.
     const ban = await withAdminRls((tx) => isUserBanned(tx, result.data.user.id, 'global', false))
     if (ban) {
       return c.json(
@@ -163,7 +166,7 @@ export const jwtAuthRoutes = app
   })
 
   .post('/signup', zValidator('json', authBodySchema), async (c) => {
-    const ctx = buildAuthContext(c)
+    const ctx = buildAnonAuthContext(c)
     const { email, password } = c.req.valid('json')
 
     const result = await signup(ctx, email, password)
@@ -179,7 +182,7 @@ export const jwtAuthRoutes = app
 
   .post('/demo', demoRateLimiterFunc, async (c) => {
     const env = c.get('env')
-    const ctx = buildAuthContext(c)
+    const ctx = buildAnonAuthContext(c)
 
     const result = await createDemo(ctx)
 
@@ -197,7 +200,7 @@ export const jwtAuthRoutes = app
 
   .post('/refresh', async (c) => {
     const env = c.get('env')
-    const ctx = buildAuthContext(c)
+    const ctx = buildAnonAuthContext(c)
     const refreshToken = await extractRefreshToken(c)
 
     if (!refreshToken) {
@@ -220,7 +223,7 @@ export const jwtAuthRoutes = app
   })
 
   .post('/logout', async (c) => {
-    const ctx = buildAuthContext(c)
+    const ctx = buildAnonAuthContext(c)
     const refreshToken = await extractRefreshToken(c)
 
     if (refreshToken) {
@@ -235,15 +238,16 @@ export const jwtAuthRoutes = app
   .post(
     '/change-password',
     requireJwtAuth,
+    withRlsContext,
     requireNotBanned,
     zValidator('json', changePasswordSchema),
     async (c) => {
-      const ctx = buildAuthContext(c)
+      const requestDb = getRlsDb(c)
       const userId = getAuthedUserId(c)
       const { currentPassword, newPassword } = c.req.valid('json')
 
       const result = await changePassword(
-        ctx,
+        requestDb,
         userId,
         currentPassword as RawPassword,
         newPassword as RawPassword
@@ -258,8 +262,8 @@ export const jwtAuthRoutes = app
 
   .get('/session', async (c) => {
     const userId = getAuthedUserId(c)
-    const db = c.get('db')
-    const [user] = await db
+    const requestDb = getRlsDb(c)
+    const [user] = await requestDb
       .select({ role: usersSafe.role })
       .from(usersSafe)
       .where(eq(usersSafe.id, userId))
@@ -276,7 +280,7 @@ export const jwtAuthRoutes = app
   })
 
   .post('/verify-email', zValidator('json', verifyEmailBodySchema), async (c) => {
-    const { db } = buildAuthContext(c)
+    const { db } = buildAnonAuthContext(c)
     const { token } = c.req.valid('json')
 
     const result = await verifyEmailToken(db, token)
@@ -290,13 +294,14 @@ export const jwtAuthRoutes = app
 
   .post('/resend-verification', async (c) => {
     const userId = getAuthedUserId(c)
-    const ctx = buildAuthContext(c)
+    const requestDb = getRlsDb(c)
+    const frontendUrl = c.get('frontendUrl')
 
     if (!checkResendLimit(userId)) {
       return c.json(err('too_many_requests'), HTTP_STATUS.RATE_LIMIT_EXCEEDED)
     }
 
-    const [user] = await ctx.db
+    const [user] = await requestDb
       .select({ emailVerifiedAt: usersSafe.emailVerifiedAt, email: usersSafe.email })
       .from(usersSafe)
       .where(eq(usersSafe.id, userId))
@@ -306,8 +311,8 @@ export const jwtAuthRoutes = app
       return c.json(ok(null), HTTP_STATUS.OK)
     }
 
-    const rawToken = await createVerificationToken(ctx.db, userId)
-    const verificationUrl = `${ctx.frontendUrl}/auth/verify-email?token=${rawToken}`
+    const rawToken = await createVerificationToken(requestDb, userId)
+    const verificationUrl = `${frontendUrl}/auth/verify-email?token=${rawToken}`
     await sendVerificationEmail(user.email, verificationUrl)
 
     return c.json(ok(null), HTTP_STATUS.OK)
@@ -318,7 +323,7 @@ export const jwtAuthRoutes = app
     forgotPasswordRateLimiterFunc,
     zValidator('json', forgotPasswordSchema),
     async (c) => {
-      const ctx = buildAuthContext(c)
+      const ctx = buildAnonAuthContext(c)
       const { email } = c.req.valid('json')
 
       const result = await requestPasswordReset(ctx, email)
@@ -338,7 +343,7 @@ export const jwtAuthRoutes = app
     resetPasswordRateLimiterFunc,
     zValidator('json', resetPasswordSchema),
     async (c) => {
-      const ctx = buildAuthContext(c)
+      const ctx = buildAnonAuthContext(c)
       const { token, password } = c.req.valid('json')
 
       const result = await resetPassword(ctx, token, password as RawPassword)
@@ -354,7 +359,7 @@ export const jwtAuthRoutes = app
   )
 
   .post('/mobile/login', loginRateLimiterFunc, zValidator('json', authBodySchema), async (c) => {
-    const ctx = buildAuthContext(c)
+    const ctx = buildAnonAuthContext(c)
     const { email, password } = c.req.valid('json')
 
     const result = await login(ctx, email, password)
@@ -374,7 +379,7 @@ export const jwtAuthRoutes = app
   })
 
   .post('/mobile/signup', zValidator('json', authBodySchema), async (c) => {
-    const ctx = buildAuthContext(c)
+    const ctx = buildAnonAuthContext(c)
     const { email, password } = c.req.valid('json')
 
     const result = await signup(ctx, email, password)
@@ -389,7 +394,7 @@ export const jwtAuthRoutes = app
   })
 
   .post('/mobile/refresh', zValidator('json', refreshTokenBodySchema), async (c) => {
-    const ctx = buildAuthContext(c)
+    const ctx = buildAnonAuthContext(c)
     const { refreshToken } = c.req.valid('json')
 
     if (!refreshToken) {
@@ -412,7 +417,7 @@ export const jwtAuthRoutes = app
   })
 
   .post('/mobile/logout', zValidator('json', refreshTokenBodySchema), async (c) => {
-    const ctx = buildAuthContext(c)
+    const ctx = buildAnonAuthContext(c)
     const { refreshToken } = c.req.valid('json')
 
     if (refreshToken) {
@@ -446,7 +451,7 @@ export const jwtAuthRoutes = app
 
   .get('/google/callback', async (c) => {
     const env = c.get('env')
-    const ctx = buildAuthContext(c)
+    const ctx = buildAnonAuthContext(c)
 
     const storedState = getCookie(c, 'google_oauth_state')
     const storedVerifier = getCookie(c, 'google_code_verifier')

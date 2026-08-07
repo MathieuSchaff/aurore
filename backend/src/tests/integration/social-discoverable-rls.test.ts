@@ -1,12 +1,9 @@
 /**
- * RLS regression for user_dermo_profiles_select_discoverable. Route-level tests
- * run on the owner pool (RLS bypassed); production runs as app_runtime, so the
- * policy's boundary is only exercised here, on a second app_runtime pool.
- *
- * Scope note: _select_public already exposes any public profile's dermo row to
- * app_runtime, so this policy adds no read capability on its own — it is
- * forward-proofing/defense-in-depth, and the "opt-in only" narrowing is the
- * ranking service's explicit discoverable filter. What is asserted here is the
+ * RLS regression for user_dermo_profiles_select_discoverable. Route-level tests run on
+ * the owner pool (RLS bypassed); production runs as app_runtime, so the policy's
+ * boundary is only exercised here, on a second app_runtime pool. Scope note:
+ * _select_public already exposes any public profile's dermo row to app_runtime, so this
+ * policy adds no read capability on its own; it is defense-in-depth backing the
  * invariant ADR 0012 promises: discoverable never overrides the master gate.
  */
 import { describe, expect, it } from 'bun:test'
@@ -21,10 +18,10 @@ import { createTestUser } from '../helpers/test-factories'
 
 const appRuntimeDb = await createAppRuntimeDb()
 
-// setupDbTests() already registers a beforeEach(cleanDatabase) — no second one.
+// setupDbTests() already registers a beforeEach(cleanDatabase), no second one.
 setupDbTests()
 
-describe('user_dermo_profiles_select_discoverable RLS — app_runtime', () => {
+describe('user_dermo_profiles_select_discoverable RLS: app_runtime', () => {
   it('exposes an opt-in (discoverable + public) dermo row to app_runtime', async () => {
     const peer = await createTestUser('disc-pub@test.local', 'Azerty123!')
     await testDb
@@ -39,7 +36,7 @@ describe('user_dermo_profiles_select_discoverable RLS — app_runtime', () => {
     expect(rows.map((r) => r.userId)).toEqual([peer.id])
   })
 
-  it('hides a discoverable user whose profile is private — master gate beats discoverable', async () => {
+  it('hides a discoverable user whose profile is private: master gate beats discoverable', async () => {
     const peer = await createTestUser('disc-priv@test.local', 'Azerty123!')
     await testDb
       .update(profiles)

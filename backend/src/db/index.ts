@@ -1,24 +1,20 @@
 import { SQL } from 'bun'
 
 import type { ExtractTablesWithRelations } from 'drizzle-orm'
-import { type BunSQLDatabase, drizzle } from 'drizzle-orm/bun-sql'
-import type { PgTransaction } from 'drizzle-orm/pg-core'
+import { type BunSQLTransaction, drizzle } from 'drizzle-orm/bun-sql'
 
 import { env } from '../config/env'
 import * as schema from './schema'
 
 const client = new SQL(env.APP_DATABASE_URL)
 
-export type Database = BunSQLDatabase<typeof schema> & { $client: SQL }
-
-export type Transaction = PgTransaction<
-  //biome-ignore lint/suspicious/noExplicitAny: BunSQLQueryResultHKT not yet exported
-  any,
+export type DatabaseTransaction = BunSQLTransaction<
   typeof schema,
   ExtractTablesWithRelations<typeof schema>
 >
 
-// Accepts both the main db instance and a transaction, use this in services
-export type DB = BunSQLDatabase<typeof schema> | Transaction
+export const db = drizzle(client, { schema })
 
-export const db = drizzle(client, { schema }) as Database
+export type Database = typeof db
+
+export type DbOrTransaction = Database | DatabaseTransaction

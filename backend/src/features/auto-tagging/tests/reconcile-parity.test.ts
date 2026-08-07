@@ -1,5 +1,5 @@
 // Cross-pins the reconcile dry-run against the apply path: diffReconcileProduct
-// (pure prediction) and writeTagsForProduct (SQL DELETE non-manual + INSERT
+// (pure prediction) and writeTagsForProduct (SQL DELETE of auto-sourced rows + INSERT
 // onConflictDoNothing) are two encodings of the same full-sync policy with no
 // shared code; without this test they can drift silently (ADR-0016).
 // The want/stored/manual maps are built with the same queries reconcile.ts uses.
@@ -50,7 +50,7 @@ describe('reconcile dry-run ↔ apply parity', () => {
       .where(eq(products.id, created.id))
       .limit(1)
     if (!productRow) throw new Error('product fixture missing')
-    const bundle = await loadAutoTagFetchBundle([created.id])
+    const bundle = await loadAutoTagFetchBundle([created.id], testDb)
     const { rows: wantRows } = computeTagRowsForProduct(productRow, bundle)
     const want = new Map(wantRows.map((r) => [r.tagId, r.relevance]))
     // The scenario below needs 3 distinct wanted tags to mutate independently.
@@ -64,24 +64,24 @@ describe('reconcile dry-run ↔ apply parity', () => {
     if (!staleTagId) throw new Error('no non-emitted tag available for the stale fixture')
 
     // Disorder the stored state:
-    // 1. stale non-manual row the orchestrator no longer emits → delete expected
+    // 1. stale auto-sourced row the orchestrator no longer emits: delete expected
     await testDb.insert(productTagLinks).values({
       productId: created.id,
       productTagId: staleTagId,
       relevance: 'secondary',
       source: 'formula',
     })
-    // 2. drop a wanted auto row → insert expected
+    // 2. drop a wanted auto row: insert expected
     await testDb
       .delete(productTagLinks)
       .where(and(eq(productTagLinks.productId, created.id), eq(productTagLinks.productTagId, tagA)))
-    // 3. flip a wanted row's relevance → relevance change expected
+    // 3. flip a wanted row's relevance: relevance change expected
     const flipped = want.get(tagB) === 'avoid' ? 'secondary' : 'avoid'
     await testDb
       .update(productTagLinks)
       .set({ relevance: flipped })
       .where(and(eq(productTagLinks.productId, created.id), eq(productTagLinks.productTagId, tagB)))
-    // 4. manual row holding a wanted PK → manual-shadowed insert expected
+    // 4. manual row holding a wanted PK: manual-shadowed insert expected
     await testDb
       .delete(productTagLinks)
       .where(and(eq(productTagLinks.productId, created.id), eq(productTagLinks.productTagId, tagC)))
@@ -106,7 +106,7 @@ describe('reconcile dry-run ↔ apply parity', () => {
     expect(diff.deletes).toEqual([staleTagId])
     expect(diff.relChanges).toEqual([{ tagId: tagB, from: flipped, to: want.get(tagB) ?? 'avoid' }])
 
-    await writeTagsForProduct(created.id, testDb)
+    await testDb.transaction((tx) => writeTagsForProduct(created.id, tx))
 
     // The applied state must match the prediction applied to the initial state.
     const after = await fetchLinks(created.id)

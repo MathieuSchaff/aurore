@@ -1,6 +1,6 @@
 import { eq } from 'drizzle-orm'
 
-import type { DB } from '../../db/index'
+import type { DatabaseTransaction } from '../../db/index'
 import { profiles } from '../../db/schema'
 
 // Accent-free so /u/:username stays URL-safe; calm/neutral so an auto-assigned
@@ -65,7 +65,7 @@ function randomHandle(suffixCeil = 900, suffixBase = 100): string {
 
 // Probe before insert: createProfile runs inside the signup tx, where a unique
 // violation would abort the whole transaction. The unique index stays the backstop.
-export async function generateUniqueUsername(db: DB): Promise<string> {
+export async function generateUniqueUsername(db: DatabaseTransaction): Promise<string> {
   for (let i = 0; i < 6; i++) {
     const candidate = randomHandle()
     const [taken] = await db
@@ -75,6 +75,6 @@ export async function generateUniqueUsername(db: DB): Promise<string> {
       .limit(1)
     if (!taken) return candidate
   }
-  // Friendly space exhausted (vanishingly unlikely) — widen the numeric suffix.
+  // Friendly space exhausted (vanishingly unlikely), so widen the numeric suffix.
   return randomHandle(1e7, 0)
 }

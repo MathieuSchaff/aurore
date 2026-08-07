@@ -29,7 +29,7 @@ function insertProductAs(role: string, createdBy: string, contextUserId: string 
   )
 }
 
-// Insert a product_tag def as `role` — admin-only table.
+// Insert a product_tag def as `role`, an admin-only table.
 function insertProductTagAs(role: string) {
   return withRlsAs(appRuntimeDb, role, '', (tx) =>
     tx.insert(productTagTypes).values({
@@ -61,7 +61,7 @@ async function expectRlsDenial(run: () => Promise<unknown>) {
   expect(threw).toBe(true)
 }
 
-describe('catalog RLS — fail closed', () => {
+describe('catalog RLS: fail closed', () => {
   it('allows anonymous SELECT on products (public read, no app.role)', async () => {
     // Public SELECT policy USING(true): must not require app.role
     const rows = await appRuntimeDb.execute(sql`SELECT 1 AS ok FROM products LIMIT 1`)
@@ -70,7 +70,7 @@ describe('catalog RLS — fail closed', () => {
 
   it('denies INSERT for anonymous (no app.user_id)', async () => {
     const owner = await createTestUser('rls-noctx@test.local', 'Azerty123!')
-    // Identity absent → auth.uid() is null, so created_by = auth.uid() fails.
+    // Identity absent, so auth.uid() is null and created_by = auth.uid() fails.
     await expectRlsDenial(() => insertProductAs('', owner.id, ''))
   })
 
@@ -118,13 +118,9 @@ describe('catalog RLS — fail closed', () => {
     expect(row?.slug).toBe('rls-tag-admin')
   })
 
-  // Locks withAdminRls as the correct primitive for trusted CLI/seed runners:
-  // it sets app.role='admin' LOCAL to the writing tx (the bug was a bare
-  // SET LOCAL outside any tx → no-op → RLS denied the write). Exercises the
-  // real helper on the shared app_runtime `db`, not a hand-rolled tx.
   // select_visible exposes hidden submission rows to moderators so a sheet can be
-  // reviewed/restored; plain users
-  // (even the owner) and anon never see a hidden sheet — public reads stay honest.
+  // reviewed/restored; plain users (even the owner) and anon never see a hidden
+  // sheet: public reads stay honest.
   it('hides a product sheet from role=user + anon, shows it to contributor + admin', async () => {
     const owner = await createTestUser('rls-hidden@test.local', 'Azerty123!')
     await testDb.insert(products).values({
@@ -144,6 +140,10 @@ describe('catalog RLS — fail closed', () => {
     expect(await selectProductCountAs('admin', 'rls-hidden-probe')).toBe(1)
   })
 
+  // Locks withAdminRls as the correct primitive for trusted CLI/seed runners: it
+  // sets app.role='admin' LOCAL to the writing tx (the bug was a bare SET LOCAL
+  // outside any tx, a no-op, so RLS denied the write). Exercises the real helper
+  // on the shared app_runtime `db`, not a hand-rolled tx.
   it('withAdminRls can INSERT into an RLS-protected catalog table', async () => {
     const owner = await createTestUser('rls-withadmin@test.local', 'Azerty123!')
     await withAdminRls(async (tx) => {

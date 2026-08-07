@@ -3,29 +3,12 @@ import { type RefObject, useEffect, useEffectEvent, useRef } from 'react'
 type AnyRef = RefObject<HTMLElement | null>
 
 /**
- * Tap-blocking outside-click dismiss for portaled menus, popovers and
- * comboboxes that float over real click targets (Links, Cards, buttons).
- *
- * Differs from `useClickOutside` in three ways that matter:
- *  1. Listens on `click` (not `mousedown`) so the whole click chain is in scope.
- *  2. Listens in **capture phase**, so this handler fires before the target.
- *  3. Calls `preventDefault` + `stopPropagation`, swallowing the click.
- *
- * Why: a `mousedown` hook dismisses the menu but lets the subsequent `click`
- * reach the target underneath, causing surprise navigation on mobile (no
- * Escape key, no hover). Industry standard (Apple HIG, Material Design, Radix
- * UI, Headless UI) is to consume the outside tap entirely.
- *
- * Choice rule:
- *  - Use `useCaptureDismiss` when the component floats over NON-INTENTIONAL
- *    content (app body, product cards, page underneath). Tap outside = cancel,
- *    no side effects.
- *  - Use `useClickOutside` when the component lives INSIDE a deliberately
- *    interactive container (drawer with Apply/Reset, form with sibling inputs).
- *    Tap outside should activate the target it landed on.
- *
- * Always pass `{ enabled }` when the component can be closed - a permanently
- * attached capture listener will swallow EVERY click in the app.
+ * Tap-blocking outside-click dismiss for portaled menus/popovers over content the tap is
+ * not meant for (app body, product cards). Swallows the click in capture phase, unlike
+ * `useClickOutside`'s `mousedown` which lets it reach the target underneath and cause
+ * surprise navigation on mobile. Use `useClickOutside` instead inside a deliberately
+ * interactive container (drawer, form). Always pass `{ enabled }` when the component
+ * can be closed: a permanent capture listener would swallow every click in the app.
  */
 export const useCaptureDismiss = (
   refOrRefs: AnyRef | AnyRef[],

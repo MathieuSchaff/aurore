@@ -1,13 +1,10 @@
 /**
- * RLS regression for profiles_select_for_reaction + profiles_select_for_social_post
- * (migration 0108) and profiles_select_for_post_reply (migration 0109). Route-level
- * tests run on the owner pool (RLS bypassed); production runs as app_runtime, so a
- * non-public reactor/author/replier is only visible to the profiles join via these
- * additive policies. Exercised here on a second app_runtime pool (no app.user_id
- * set → anonymous, the worst case).
- *
- * ADR-0013: a signed reaction is public, so the reactor's pseudonym must surface
- * even when their profile is private — but a force-privated user must not.
+ * RLS regression for profiles_select_for_reaction/social_post/post_reply (migrations
+ * 0108-0109). Route-level tests run on the owner pool (RLS bypassed); production runs
+ * as app_runtime, so a reactor/author/replier who is not public is only visible via these
+ * additive policies. Exercised on a second app_runtime pool, anonymous (worst case).
+ * ADR-0013: a signed reaction is public, so the reactor's pseudonym must surface even
+ * when their profile is private, but a force-privated user must not.
  */
 import { describe, expect, it } from 'bun:test'
 
@@ -46,8 +43,8 @@ async function makePost(authorId: string) {
   return post
 }
 
-describe('profiles_select_for_reaction RLS — app_runtime', () => {
-  it('surfaces a non-public reactor to the signed list (the critical prod path)', async () => {
+describe('profiles_select_for_reaction RLS: app_runtime', () => {
+  it('surfaces a reactor that is not public to the signed list (the critical prod path)', async () => {
     const author = await makeReactor('author@rxn-rls.test', 'rxn-author')
     const reactor = await makeReactor('reactor@rxn-rls.test', 'rxn-reactor')
     const post = await makePost(author.id)
@@ -80,8 +77,8 @@ describe('profiles_select_for_reaction RLS — app_runtime', () => {
   })
 })
 
-describe('profiles_select_for_social_post RLS — app_runtime (T5b twin)', () => {
-  it('surfaces a non-public author on the product posts surface', async () => {
+describe('profiles_select_for_social_post RLS: app_runtime', () => {
+  it('surfaces an author that is not public on the product posts surface', async () => {
     const author = await makeReactor('pauthor@rxn-rls.test', 'rxn-pauthor')
     const [product] = await testDb
       .insert(products)
@@ -108,7 +105,7 @@ describe('profiles_select_for_social_post RLS — app_runtime (T5b twin)', () =>
   })
 })
 
-describe('profiles_select_for_post_reply RLS — app_runtime (migration 0109)', () => {
+describe('profiles_select_for_post_reply RLS: app_runtime (migration 0109)', () => {
   async function makeReply(postId: string, authorId: string, overrides = {}) {
     const [reply] = await testDb
       .insert(socialPostReplies)
@@ -118,7 +115,7 @@ describe('profiles_select_for_post_reply RLS — app_runtime (migration 0109)', 
     return reply
   }
 
-  it('surfaces a non-public reply author to getPostWithReplies (the critical prod path)', async () => {
+  it('surfaces a reply author that is not public to getPostWithReplies (the critical prod path)', async () => {
     const author = await makeReactor('pauthor@reply-rls.test', 'reply-pauthor')
     const replier = await makeReactor('replier@reply-rls.test', 'reply-replier')
     const post = await makePost(author.id)
@@ -140,8 +137,8 @@ describe('profiles_select_for_post_reply RLS — app_runtime (migration 0109)', 
     let view = await getPostWithReplies(post.id, appRuntimeDb)
     expect(view.replies.map((r) => r.authorName)).toEqual([null])
 
-    // Clearing the flag surfaces the same visible reply's author — proves this
-    // policy (not another path) grants the non-public replier, so the assertion
+    // Clearing the flag surfaces the same visible reply's author, which proves this
+    // policy (not another path) grants the replier who is not public, so the assertion
     // is not vacuously null.
     await testDb
       .update(profiles)
@@ -158,7 +155,7 @@ describe('profiles_select_for_post_reply RLS — app_runtime (migration 0109)', 
     const reply = await makeReply(post.id, replier.id, { moderationStatus: 'hidden' })
 
     // getPostWithReplies filters hidden replies at the query layer, so probe the
-    // policy directly. A non-public user whose only reply is hidden stays invisible.
+    // policy directly. A user who is not public, whose only reply is hidden, stays invisible.
     const probe = () =>
       appRuntimeDb
         .select({ username: profiles.username })
@@ -167,7 +164,7 @@ describe('profiles_select_for_post_reply RLS — app_runtime (migration 0109)', 
     expect(await probe()).toEqual([])
 
     // Flip the reply to visible: the moderation gate now admits the author. Proves
-    // the 'visible' filter is load-bearing — not the mere absence of a policy.
+    // the 'visible' filter is load-bearing, not the mere absence of a policy.
     await testDb
       .update(socialPostReplies)
       .set({ moderationStatus: 'visible' })

@@ -2,7 +2,7 @@ import { type Email, emailSchema, type HashedPassword, type UserPublic } from '@
 
 import { eq, sql } from 'drizzle-orm'
 
-import type { DB } from '../../db/index'
+import type { Database, DatabaseTransaction, DbOrTransaction } from '../../db/index'
 import type { User, UserSafe } from '../../db/schema'
 import { profiles, users, usersSafe } from '../../db/schema'
 import { normalizeInstant } from '../../utils/dates'
@@ -30,7 +30,7 @@ function mapUserRow(row: Record<string, unknown> | undefined): User | null {
 }
 
 // Direct SELECT password_hash is denied to app_runtime since migration 0038.
-export async function getUser(db: DB, email: string) {
+export async function getUser(db: Database, email: string) {
   const normalizedEmail = email.trim().toLowerCase()
   const result = await db.execute(
     sql`SELECT * FROM auth.find_user_with_hash_by_email(${normalizedEmail})`
@@ -39,7 +39,7 @@ export async function getUser(db: DB, email: string) {
 }
 
 // Direct SELECT google_sub is denied to app_runtime since migration 0038.
-export async function getUserByGoogleSub(db: DB, googleSub: string) {
+export async function getUserByGoogleSub(db: Database, googleSub: string) {
   const result = await db.execute(sql`SELECT * FROM auth.find_user_by_google_sub(${googleSub})`)
   return mapUserRow((result as unknown as Record<string, unknown>[])[0])
 }
@@ -54,7 +54,7 @@ export function toPublicUser(user: UserSafe): UserPublic {
   }
 }
 
-export async function getUserRole(db: DB, userId: string) {
+export async function getUserRole(db: DatabaseTransaction, userId: string) {
   const [row] = await db
     .select({ role: usersSafe.role })
     .from(usersSafe)
@@ -62,7 +62,8 @@ export async function getUserRole(db: DB, userId: string) {
     .limit(1)
   return row?.role ?? null
 }
-export async function getUserById(db: DB, userId: string): Promise<UserPublic | null> {
+
+export async function getUserById(db: DbOrTransaction, userId: string): Promise<UserPublic | null> {
   const [user] = await db
     .select({
       id: usersSafe.id,
@@ -89,12 +90,13 @@ export async function getUserById(db: DB, userId: string): Promise<UserPublic | 
 }
 
 // Returns password_hash via SECURITY DEFINER fn, used by changePassword only.
-export async function getFullUserById(db: DB, userId: string) {
-  const result = await db.execute(sql`SELECT * FROM auth.find_user_with_hash_by_id(${userId})`)
+// Transaction-only: the caller is authenticated, so it runs inside the request tx.
+export async function getFullUserById(tx: DatabaseTransaction, userId: string) {
+  const result = await tx.execute(sql`SELECT * FROM auth.find_user_with_hash_by_id(${userId})`)
   return mapUserRow((result as unknown as Record<string, unknown>[])[0])
 }
 export async function createUser(
-  db: DB,
+  db: DatabaseTransaction,
   userData: {
     email: Email
     passwordHash: HashedPassword | null
@@ -132,7 +134,11 @@ export async function createUser(
 
   return user
 }
-export async function createProfile(db: DB, userId: string, data?: { avatarUrl?: string | null }) {
+export async function createProfile(
+  db: DatabaseTransaction,
+  userId: string,
+  data?: { avatarUrl?: string | null }
+) {
   // Assign a pseudonym up front so public sharing (reviews, social) can never
   // silently no-op on a NULL username; the user renames it later in ProfileForm.
   const username = await generateUniqueUsername(db)

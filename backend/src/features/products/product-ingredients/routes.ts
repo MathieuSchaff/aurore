@@ -10,6 +10,7 @@ import { z } from 'zod'
 
 import type { AppEnv } from '../../../app-env'
 import { isUniqueViolation } from '../../../lib/helpers'
+import { getRlsDb } from '../../../utils/accessors'
 import { zValidator } from '../../../utils/validator'
 import {
   requireCatalogWrite,
@@ -45,19 +46,13 @@ const replaceIngredientsSchema = z.object({
 
 const productIngredientsApp = new Hono<AppEnv>()
 
-// One guard per use(): nesting swallows the short-circuit 403 → "Context not finalized" 500.
-productIngredientsApp.use('*', async (c, next) => {
-  return c.req.method === 'GET' ? next() : requireJwtAuth(c, next)
-})
-productIngredientsApp.use('*', async (c, next) => {
-  return c.req.method === 'GET' ? next() : requireNotBanned(c, next)
-})
-productIngredientsApp.use('*', withRlsContext)
+// This router shares /products with sibling routers. Guards stay on owned endpoints
+// so public reads use anonDb and authenticated writes own exactly one RLS transaction.
 
 export const productIngredientRoutes = productIngredientsApp
 
   .get('/:productId/ingredients', zValidator('param', productParams), async (c) => {
-    const db = c.get('db')
+    const db = c.get('anonDb')
     const { productId } = c.req.valid('param')
     const items = await listIngredientsByProduct(db, productId)
     return c.json(ok(items), HTTP_STATUS.OK)
@@ -65,12 +60,15 @@ export const productIngredientRoutes = productIngredientsApp
 
   .post(
     '/:productId/ingredients',
+    requireJwtAuth,
+    withRlsContext,
+    requireNotBanned,
     requireNotBannedScope('product_edit'),
     requireCatalogWrite,
     zValidator('param', productParams),
     zValidator('json', createProductIngredientSchema),
     async (c) => {
-      const db = c.get('db')
+      const db = getRlsDb(c)
       const { productId } = c.req.valid('param')
       const input = c.req.valid('json')
 
@@ -97,12 +95,15 @@ export const productIngredientRoutes = productIngredientsApp
 
   .patch(
     '/:productId/ingredients/:ingredientId',
+    requireJwtAuth,
+    withRlsContext,
+    requireNotBanned,
     requireNotBannedScope('product_edit'),
     requireCatalogWrite,
     zValidator('param', ingredientLinkParams),
     zValidator('json', updateProductIngredientSchema),
     async (c) => {
-      const db = c.get('db')
+      const db = getRlsDb(c)
       const { productId, ingredientId } = c.req.valid('param')
       const input = c.req.valid('json')
 
@@ -123,11 +124,14 @@ export const productIngredientRoutes = productIngredientsApp
 
   .delete(
     '/:productId/ingredients/:ingredientId',
+    requireJwtAuth,
+    withRlsContext,
+    requireNotBanned,
     requireNotBannedScope('product_edit'),
     requireCatalogWrite,
     zValidator('param', ingredientLinkParams),
     async (c) => {
-      const db = c.get('db')
+      const db = getRlsDb(c)
       const { productId, ingredientId } = c.req.valid('param')
       const removed = await removeIngredientFromProduct(db, productId, ingredientId)
       if (!removed) throw new ProductIngredientError('product_ingredient_not_found')
@@ -137,12 +141,15 @@ export const productIngredientRoutes = productIngredientsApp
 
   .put(
     '/:productId/ingredients',
+    requireJwtAuth,
+    withRlsContext,
+    requireNotBanned,
     requireNotBannedScope('product_edit'),
     requireCatalogWrite,
     zValidator('param', productParams),
     zValidator('json', replaceIngredientsSchema),
     async (c) => {
-      const db = c.get('db')
+      const db = getRlsDb(c)
       const { productId } = c.req.valid('param')
       const { ingredients } = c.req.valid('json')
 

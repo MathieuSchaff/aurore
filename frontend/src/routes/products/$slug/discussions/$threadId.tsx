@@ -21,13 +21,13 @@ function ProductThreadDetailRoute() {
 }
 
 // No routing-level auth guard: threads are public (read). Write actions (post/reply)
-// are gated by the backend - frontend shows UI conditionally via useAuthStore.
+// are gated by the backend, frontend shows UI conditionally via useAuthStore.
 export const Route = createFileRoute('/products/$slug/discussions/$threadId')({
   loader: ({ context, params }) =>
     context.queryClient
       .ensureQueryData(discussionQueries.thread('product', params.slug, params.threadId))
       .catch((err) => {
-        // Missing thread = 404 → notFoundComponent; keep 5xx/429 on the real error UI.
+        // Missing thread = 404, route to notFoundComponent; keep 5xx/429 on the real error UI
         if (err instanceof ApiError && err.status === 404) throw notFound()
         throw err
       }),

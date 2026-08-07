@@ -2,18 +2,15 @@ import { z } from 'zod'
 
 import { HTTP_STATUS, type HttpStatus } from '../core'
 
-// SCHEMAS
-
 export const relevanceValues = ['primary', 'secondary', 'avoid'] as const
 
 export const relevanceEnum = z.enum(relevanceValues)
 
 // Origin of a tag_products row. 'manual' covers any tag posted via the
-// product-tags CRUD path (admin endpoint, seed-curated, test fixture).
-// The non-'manual' values are the AutoTagSource union: the backend derives
-// `AutoTagSource = Exclude<TagSource, 'manual'>` from this array, so the two
-// cannot drift. Used by auto-tag intake to DELETE only its own rows
-// (preserving manual curation) before re-inserting.
+// product-tags CRUD path. The backend derives
+// `AutoTagSource = Exclude<TagSource, 'manual'>` from this array so the two
+// can't drift. Auto-tag intake uses it to delete only its own rows before
+// inserting again, preserving manual curation.
 export const tagSourceValues = [
   'manual',
   'algo-derm',
@@ -59,8 +56,6 @@ export const replaceProductTagsSchema = z.object({
   ),
 })
 
-// TYPES
-
 export type CreateTagInput = z.infer<typeof createTagSchema>
 export type UpdateTagInput = z.infer<typeof updateTagSchema>
 export type ReplaceIngredientTagsInput = z.infer<typeof replaceIngredientTagsSchema>
@@ -70,8 +65,6 @@ export type TagErrorCode =
   | 'tag_already_exists'
   | 'tag_creation_failed'
   | 'database_error'
-
-// HELPERS
 
 export const tagErrorMapping = {
   tag_not_found: HTTP_STATUS.NOT_FOUND,

@@ -23,44 +23,42 @@ import { ingredientTagData, productTagData } from '../data/tags'
 const productTypeTagSlugs = new Set<string>(
   productTagData.filter((t) => t.tagType === 'product_type').map((t) => t.slug)
 )
-// "attribute-ish" categories — the old single 'attribute' bucket was split
+// "attribute-ish" categories: the old single 'attribute' bucket was split
 // into ingredient_attribute + skin_effect + product_label + shared_label.
 // SKINCARE_INGREDIENT_CATEGORY_VALUES still lives in the ingredient_attribute slice.
 const ingredientAttributeTagSlugs = new Set<string>(
   ingredientTagData.filter((t) => t.tagType === 'ingredient_attribute').map((t) => t.slug)
 )
-// skin_type and concern slugs exist in both taxonomies — use ingredient side.
+// skin_type and concern slugs exist in both taxonomies, so use ingredient side.
 const skinTypeTagSlugs = new Set<string>(
   ingredientTagData.filter((t) => t.tagType === 'skin_type').map((t) => t.slug)
 )
 const concernTagSlugs = new Set<string>(
   ingredientTagData.filter((t) => t.tagType === 'concern').map((t) => t.slug)
 )
-// Haircare equivalent of skin_type — used in `avoid` to express
+// Haircare equivalent of skin_type, used in `avoid` to express
 // "contraindicated for dry hair / curly hair / colored hair…".
 const hairTypeTagSlugs = new Set<string>(
   ingredientTagData.filter((t) => t.tagType === 'hair_type').map((t) => t.slug)
 )
 
 describe('Shared schemas ↔ seed tags integrity', () => {
-  // Why: for the `complément` group, kinds are written as French slugs
-  // (gelule, capsule, ampoule…) and are expected to line up 1:1 with
-  // product_type tag slugs. The skincare/haircare/… groups use English
-  // kinds (serum, moisturizer…) and deliberately do NOT have to match
-  // tag slugs.
-  //
-  // Past bug this catches: PRODUCT_KINDS.complement.GELULE was 'gélule'
-  // (accented) while the tag was 'gelule' — the match was silently broken
-  // and no product could ever be filtered by that product_type tag.
+  // Why: for the `complément` group, kinds are written as French slugs and are
+  // expected to line up 1:1 with product_type tag slugs. The skincare/haircare
+  // groups use English kinds and deliberately do NOT have to match tag slugs.
   describe('PRODUCT_KINDS.complement vs product_type tags', () => {
     // Legacy PRODUCT_KINDS.complement values that are superseded by more
     // specific product_type tag slugs in SUPPLEMENT_PRODUCT_TAG_SLUGS:
-    //   'huile'   → 'huile-orale'
-    //   'ampoule' → 'ampoule-buvable'
+    //   'huile'   is now 'huile-orale'
+    //   'ampoule' is now 'ampoule-buvable'
+
     // No supplement product uses these kinds today; keep the allowlist until
     // PRODUCT_KINDS.complement is migrated to the tag-slug values.
     const KNOWN_MISSING = new Set<string>(['huile', 'ampoule'])
 
+    // Past bug this catches: PRODUCT_KINDS.complement.GELULE was 'gélule'
+    // (accented) while the tag was 'gelule': silently broken, no product could
+    // ever be filtered by that product_type tag.
     it('every complément kind has a matching product_type tag', () => {
       const complementKinds = Object.values(PRODUCT_KINDS.complement)
       const missing = complementKinds.filter(
@@ -82,12 +80,11 @@ describe('Shared schemas ↔ seed tags integrity', () => {
     })
   })
 
-  // Why: the scope rules forbid tagging an ingredient with a slug whose
-  // taxonomy scope is 'product' — those describe a finished product, not
-  // a molecule. And `avoid` on an ingredient accepts only
-  // skin_type or concern slugs (+ 'grossesse-compatible' as a conventional
-  // exception). The scope check is derived directly from SKINCARE_INGREDIENT_TAG_TAXONOMY
-  // so adding a new tag can never silently drift.
+  // Why: the scope rules forbid tagging an ingredient with a slug whose taxonomy
+  // scope is 'product' (those describe a finished product, not a molecule), and
+  // `avoid` on an ingredient accepts only skin_type or concern slugs (plus
+  // 'grossesse-compatible' as a conventional exception). The scope check is
+  // derived directly from SKINCARE_INGREDIENT_TAG_TAXONOMY so it can't drift.
   describe('ingredientTagMap respects the strict scope rules', () => {
     const AVOID_EXCEPTION = 'grossesse-compatible'
 
@@ -124,7 +121,7 @@ describe('Shared schemas ↔ seed tags integrity', () => {
     })
 
     // `restriction` slugs (supplement) act as the supplement equivalent of
-    // skincare `skin_type` / `concern` for the `avoid` bucket — they mark
+    // skincare `skin_type` / `concern` for the `avoid` bucket: they mark
     // "do not take if the user matches X".
     const restrictionTagSlugs = new Set<string>(
       ingredientTagData.filter((t) => t.tagType === 'restriction').map((t) => t.slug)
@@ -152,7 +149,7 @@ describe('Shared schemas ↔ seed tags integrity', () => {
   // *-product-tags.ts file merged into allProductTagsMap. No test covered
   // this side before the refactor, so brand files accumulated ingredient-
   // scoped slugs (anti-oxydant, reparateur, humectant, …) on finished
-  // products — which is forbidden by the taxonomy.
+  // products, which is forbidden by the taxonomy.
   describe('allProductTagsMap respects the strict scope rules', () => {
     const AVOID_EXCEPTION = 'grossesse-compatible'
 

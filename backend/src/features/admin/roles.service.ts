@@ -2,7 +2,7 @@ import type { UpdateRoleResult } from '@aurore/shared'
 
 import { eq } from 'drizzle-orm'
 
-import type { Database } from '../../db'
+import type { DatabaseTransaction } from '../../db'
 import { users, usersSafe } from '../../db/schema'
 
 type DemoteArgs = { adminId: string; targetUserId: string; role: 'user' }
@@ -10,7 +10,7 @@ type DemoteArgs = { adminId: string; targetUserId: string; role: 'user' }
 // Only contributors are demotable: rejects admins and plain users so the affordance
 // cannot silently change unintended roles.
 export async function demoteToUser(
-  db: Database,
+  db: DatabaseTransaction,
   { adminId, targetUserId, role }: DemoteArgs
 ): Promise<UpdateRoleResult> {
   if (adminId === targetUserId) {

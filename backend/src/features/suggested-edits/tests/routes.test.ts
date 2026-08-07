@@ -49,7 +49,7 @@ beforeEach(async () => {
   userToken = await login(client, toto.rawEmail, toto.rawPassword)
   adminToken = await login(client, admin.rawEmail, admin.rawPassword)
   contributorToken = await login(client, contributor.rawEmail, contributor.rawPassword)
-  // createdBy required (FK → users); serum/pump/skincare matches the valid
+  // createdBy required (FK to users); serum/pump/skincare matches the valid
   // combo proven in service.test.ts.
   const [p] = await testDb
     .insert(products)
@@ -92,7 +92,7 @@ describe('suggested-edits routes', () => {
   })
 
   // 'brand' is not proposable for 'ingredient' (PROPOSABLE_FIELDS.ingredient = ['name','description']).
-  // superRefine triggers → zValidator returns 400.
+  // superRefine triggers, so zValidator returns 400.
   it('rejects a field not editable for the target → 400', async () => {
     const res = await client['suggested-edits'].$post(
       {

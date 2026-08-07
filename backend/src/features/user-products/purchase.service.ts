@@ -9,7 +9,7 @@ import { purchaseSchema } from '@aurore/shared'
 
 import { and, desc, eq, isNull, not } from 'drizzle-orm'
 
-import type { DB } from '../../db'
+import type { DatabaseTransaction } from '../../db'
 import { type Purchase as PurchaseRow, purchases } from '../../db/schema/products/purchases'
 import { userProducts } from '../../db/schema/user-products'
 import { calendarToInstant, instantToCalendar, normalizeInstant } from '../../utils/dates'
@@ -32,7 +32,7 @@ function toApiPurchase(row: PurchaseRow): Purchase {
   return devAssertSchema(purchaseSchema, mapped, 'toApiPurchase')
 }
 
-async function verifyOwnership(userId: string, userProductId: string, db: DB) {
+async function verifyOwnership(userId: string, userProductId: string, db: DatabaseTransaction) {
   const up = await db.query.userProducts.findFirst({
     where: and(eq(userProducts.id, userProductId), eq(userProducts.userId, userId)),
   })
@@ -44,7 +44,7 @@ export async function addPurchase(
   userId: string,
   userProductId: string,
   input: AddPurchaseInput,
-  db: DB
+  db: DatabaseTransaction
 ) {
   await verifyOwnership(userId, userProductId, db)
 
@@ -64,7 +64,7 @@ export async function addPurchase(
   return toApiPurchase(result)
 }
 
-export async function getPurchases(userId: string, userProductId: string, db: DB) {
+export async function getPurchases(userId: string, userProductId: string, db: DatabaseTransaction) {
   await verifyOwnership(userId, userProductId, db)
 
   const rows = await db.query.purchases.findMany({
@@ -78,7 +78,7 @@ export async function openPurchase(
   userId: string,
   purchaseId: string,
   input: OpenPurchaseInput,
-  db: DB
+  db: DatabaseTransaction
 ) {
   const purchase = await db.query.purchases.findFirst({
     where: eq(purchases.id, purchaseId),
@@ -118,7 +118,7 @@ export async function finishPurchase(
   userId: string,
   userProductId: string,
   input: FinishPurchaseInput,
-  db: DB
+  db: DatabaseTransaction
 ) {
   await verifyOwnership(userId, userProductId, db)
 
@@ -143,7 +143,7 @@ export async function updatePurchase(
   userId: string,
   purchaseId: string,
   input: UpdatePurchaseInput,
-  db: DB
+  db: DatabaseTransaction
 ) {
   const purchase = await db.query.purchases.findFirst({
     where: eq(purchases.id, purchaseId),
@@ -171,7 +171,7 @@ export async function updatePurchase(
   return toApiPurchase(result)
 }
 
-export async function deletePurchase(userId: string, purchaseId: string, db: DB) {
+export async function deletePurchase(userId: string, purchaseId: string, db: DatabaseTransaction) {
   const purchase = await db.query.purchases.findFirst({
     where: eq(purchases.id, purchaseId),
     with: { userProduct: true },

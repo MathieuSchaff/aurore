@@ -74,12 +74,12 @@ const DEFAULT_USER: User = {
 const CONTRIBUTOR_USER: User = { ...DEFAULT_USER, role: 'contributor' }
 
 function setupQueries({ users, bans }: { users?: User[]; bans?: Ban[] }) {
-  // users() is admin-only → useQuery (gated by enabled:isAdmin); userBans() → useSuspenseQuery.
+  // users() is admin-only, so useQuery (gated by enabled:isAdmin); userBans() uses useSuspenseQuery.
   vi.mocked(useQuery).mockReturnValue({
     data: { items: users ?? [DEFAULT_USER] },
   } as unknown as ReturnType<typeof useQuery>)
   vi.mocked(useSuspenseQuery).mockImplementation((options: { queryKey: readonly unknown[] }) => {
-    // userBans(userId) → length 4.
+    // userBans(userId) query key has length 4.
     if (options.queryKey.length === 4) {
       return { data: bans ?? [] } as unknown as ReturnType<typeof useSuspenseQuery>
     }

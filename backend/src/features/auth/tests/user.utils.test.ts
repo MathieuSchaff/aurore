@@ -11,13 +11,18 @@ import { createProfile, createUser, getUser } from '../user.utils'
 
 setupDbTests()
 
+// createUser/createProfile run inside the signup tx, so open a real one here instead
+// of handing them the root test handle.
+const createUserTx = (data: { email: Email; passwordHash: HashedPassword }) =>
+  testDb.transaction((tx) => createUser(tx, data))
+
 describe('User Utils', () => {
   describe('getUser', () => {
     it('should find user by email', async () => {
       const email = 'find@example.com' as Email
       const passwordHash = (await Bun.password.hash('Azerty123!')) as HashedPassword
 
-      await createUser(testDb, { email, passwordHash })
+      await createUserTx({ email, passwordHash })
 
       const user = await getUser(testDb, email)
       expect(user).toBeDefined()
@@ -35,13 +40,13 @@ describe('User Utils', () => {
       const email = `newuser-${randomUUID()}@example.com` as Email
       const passwordHash = (await Bun.password.hash('Secret123!')) as HashedPassword
 
-      const user = await createUser(testDb, { email, passwordHash })
-      await createProfile(testDb, user.id)
+      const user = await createUserTx({ email, passwordHash })
+      await testDb.transaction((tx) => createProfile(tx, user.id))
 
       expect(user.id).toBeDefined()
       expect(user.email).toBe(email)
 
-      const profile = await getProfile(testDb, user.id)
+      const profile = await testDb.transaction((tx) => getProfile(tx, user.id))
       expect(profile).toBeDefined()
       expect(profile?.userId).toBe(user.id)
     })
@@ -50,16 +55,16 @@ describe('User Utils', () => {
       const email = 'invalid-email' as any
       const passwordHash = 'hash' as any
 
-      expect(createUser(testDb, { email, passwordHash })).rejects.toThrow()
+      expect(createUserTx({ email, passwordHash })).rejects.toThrow()
     })
 
     it('should throw error if email already exists', async () => {
       const email = 'duplicate@example.com' as Email
       const passwordHash = (await Bun.password.hash('Pass123!')) as HashedPassword
 
-      await createUser(testDb, { email, passwordHash })
+      await createUserTx({ email, passwordHash })
 
-      expect(createUser(testDb, { email, passwordHash })).rejects.toThrow()
+      expect(createUserTx({ email, passwordHash })).rejects.toThrow()
     })
   })
 

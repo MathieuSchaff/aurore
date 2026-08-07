@@ -9,21 +9,18 @@ import {
 
 import { and, arrayOverlaps, eq, ne } from 'drizzle-orm'
 
-import type { DB } from '../../db'
+import type { DatabaseTransaction } from '../../db'
 import { profiles, userDermoProfiles } from '../../db/schema/auth/users'
 
 export type SimilarProfile = { username: string; band: SimilarityBand }
 
-// Shared core of both passive ranking and active concern search. Ranks the
-// discoverable cohort by skin similarity to the viewer; surfaces the ordinal band
-// only, never the score. Cross-user reads are
-// gated by RLS, but the master gate (discoverable + profile_public +
-// NOT force-privated) is also filtered explicitly because the owner pool bypasses
-// RLS — same defense-in-depth as getPublicProfileByUsername. The viewer's own row
-// is visible via tenant_isolation (self-sim = 1.0) and must be excluded. An
-// optional concern set narrows the cohort (bucket-aware, array overlap).
+// Shared core of both passive ranking and active concern search. Ranks the discoverable
+// cohort by skin similarity, surfacing only the ordinal band, never the score. RLS gates
+// cross-user reads, but the master gate (discoverable + profile_public + not force-privated)
+// is also filtered explicitly, same as getPublicProfileByUsername. The viewer's own row
+// passes tenant_isolation (self-sim = 1.0) and must be excluded explicitly.
 async function rankDiscoverableCohort(
-  db: DB,
+  db: DatabaseTransaction,
   viewerUserId: string,
   opts: { concerns?: SkinConcern[] } = {}
 ): Promise<SimilarProfile[]> {
@@ -37,7 +34,7 @@ async function rankDiscoverableCohort(
     .where(eq(userDermoProfiles.userId, viewerUserId))
     .limit(1)
 
-  // No skin profile → nothing to rank against.
+  // No skin profile, so there is nothing to rank against.
   if (!viewer) return []
 
   const viewerInput: SkinSimilarityInput = {
@@ -89,14 +86,17 @@ async function rankDiscoverableCohort(
 }
 
 // Passive lens: everyone like the viewer, ranked by similarity.
-export function rankSimilarProfiles(db: DB, viewerUserId: string): Promise<SimilarProfile[]> {
+export function rankSimilarProfiles(
+  db: DatabaseTransaction,
+  viewerUserId: string
+): Promise<SimilarProfile[]> {
   return rankDiscoverableCohort(db, viewerUserId)
 }
 
 // Active lens: people who share the searched concern's clinical bucket,
 // still ranked by similarity to the viewer.
 export function searchProfilesByConcern(
-  db: DB,
+  db: DatabaseTransaction,
   concern: SkinConcern,
   viewerUserId: string
 ): Promise<SimilarProfile[]> {

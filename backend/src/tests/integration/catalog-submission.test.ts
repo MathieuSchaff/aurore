@@ -23,7 +23,7 @@ const baseProductInput = {
   unit: 'dropper',
 } as const
 
-describe('catalog submission — createProduct quality stamp', () => {
+describe('catalog submission: createProduct quality stamp', () => {
   it('stamps a user submission as unverified + visible, with no verify stamp', async () => {
     const user = await createTestUser('submit-user@test.local', 'Azerty123!')
 
@@ -66,7 +66,7 @@ describe('catalog submission — createProduct quality stamp', () => {
   })
 })
 
-describe('catalog submission — createProduct dedup (A-2)', () => {
+describe('catalog submission: createProduct dedup', () => {
   it('rejects a visible duplicate (case/space-insensitive) and returns the existing row', async () => {
     const user = await createTestUser('dup-visible@test.local', 'Azerty123!')
     const first = await testDb.transaction((tx) =>
@@ -88,7 +88,7 @@ describe('catalog submission — createProduct dedup (A-2)', () => {
     expect((err as ProductError).details).toMatchObject({ id: first.id })
   })
 
-  it('allows a submission whose key matches only a hidden row (V-3 tombstone)', async () => {
+  it('allows a submission whose key matches only a hidden row', async () => {
     const user = await createTestUser('dup-hidden@test.local', 'Azerty123!')
     await testDb.insert(products).values({
       createdBy: user.id,
@@ -131,7 +131,7 @@ describe('catalog submission — createProduct dedup (A-2)', () => {
   })
 })
 
-describe('catalog submission — createProduct rate-limit', () => {
+describe('catalog submission: createProduct rate-limit', () => {
   const rateInput = (label: string) => ({
     name: `Rate Serum ${label}`,
     brand: 'RateBrand',
@@ -168,7 +168,7 @@ describe('catalog submission — createProduct rate-limit', () => {
     expect(rows.length).toBe(12)
   })
 
-  it('counts hidden rows toward the quota — hiding spam does not refill it (C-2)', async () => {
+  it('counts hidden rows toward the quota, hiding spam does not refill it', async () => {
     const user = await createTestUser('rate-hidden@test.local', 'Azerty123!')
     for (let i = 0; i < 10; i++) {
       await testDb.transaction((tx) =>
@@ -192,7 +192,7 @@ describe('catalog submission — createProduct rate-limit', () => {
 
 const baseIngredientInput = { name: 'Submission Acid', type: 'skincare' } as const
 
-describe('catalog submission — createIngredient quality stamp', () => {
+describe('catalog submission: createIngredient quality stamp', () => {
   it('stamps a user submission as unverified + visible, with no verify stamp', async () => {
     const user = await createTestUser('ing-user@test.local', 'Azerty123!')
 
@@ -222,7 +222,7 @@ describe('catalog submission — createIngredient quality stamp', () => {
   })
 })
 
-describe('catalog submission — createIngredient dedup (A-2)', () => {
+describe('catalog submission: createIngredient dedup', () => {
   it('rejects a visible duplicate slug and returns the existing row', async () => {
     const user = await createTestUser('ing-dup-visible@test.local', 'Azerty123!')
     const first = await testDb.transaction((tx) =>
@@ -237,7 +237,7 @@ describe('catalog submission — createIngredient dedup (A-2)', () => {
     expect((err as IngredientError).details).toMatchObject({ id: first.id })
   })
 
-  it('allows a submission whose slug matches only a hidden row (V-3 tombstone)', async () => {
+  it('allows a submission whose slug matches only a hidden row', async () => {
     const user = await createTestUser('ing-dup-hidden@test.local', 'Azerty123!')
     await testDb.insert(ingredients).values({
       createdBy: user.id,
@@ -277,7 +277,7 @@ describe('catalog submission — createIngredient dedup (A-2)', () => {
   })
 })
 
-describe('catalog submission — createIngredient rate-limit', () => {
+describe('catalog submission: createIngredient rate-limit', () => {
   const rateIng = (label: string) => ({ name: `Rate Acid ${label}`, type: 'skincare' as const })
 
   it('blocks a simple user after 10 submissions within the hour (11th → 429)', async () => {
@@ -307,7 +307,7 @@ describe('catalog submission — createIngredient rate-limit', () => {
     expect(rows.length).toBe(12)
   })
 
-  it('counts hidden rows toward the quota — hiding spam does not refill it (C-2)', async () => {
+  it('counts hidden rows toward the quota, hiding spam does not refill it', async () => {
     const user = await createTestUser('ing-rate-hidden@test.local', 'Azerty123!')
     for (let i = 0; i < 10; i++) {
       await testDb.transaction((tx) => createIngredient(tx, user.id, 'user', rateIng(`h${i}`)))

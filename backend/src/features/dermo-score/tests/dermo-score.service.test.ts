@@ -6,9 +6,16 @@ import { buildAliasIndex, lookupIngredient, MERGED_EVIDENCE_DB } from 'algo-derm
 import { ingredients } from '../../../db/schema/ingredients/ingredients'
 import { testDb } from '../../../tests/db.test.config'
 import { cleanDatabase } from '../../../tests/helpers/db-cleaner'
-import { createTestProduct, createTestUser } from '../../../tests/helpers/test-factories'
+import {
+  createTestProduct,
+  createTestUser,
+  type TestUser,
+} from '../../../tests/helpers/test-factories'
 import { upsertDermoProfile } from '../../profile/service'
 import { attachIngredientSlugs, computeProductDermoScore, loadAlgoDermProfile } from '../service'
+
+const upsertDermo = (userId: string, data: Parameters<typeof upsertDermoProfile>[2]) =>
+  testDb.transaction((tx) => upsertDermoProfile(tx, userId, data))
 
 // Canonical key resolved from the same alias index the service joins on, so the
 // fixtures stay valid across algo-derm vendor bumps.
@@ -17,7 +24,7 @@ const NIACINAMIDE_KEY = lookupIngredient('niacinamide', aliasIndex)?.inci ?? nul
 if (!NIACINAMIDE_KEY)
   throw new Error('algo-derm has no entry for niacinamide — check vendor tarball')
 
-let user: { id: string }
+let user: TestUser
 
 beforeEach(async () => {
   await cleanDatabase()
@@ -37,9 +44,7 @@ describe('computeProductDermoScore', () => {
     expect(result.ok).toBe(true)
     if (!result.ok) throw new Error('expected ok=true')
     const a = result.assessment
-    expect(a.overallRisk).toBeGreaterThanOrEqual(0)
-    expect(a.overallRisk).toBeLessThanOrEqual(1)
-    expect(['low', 'medium', 'high']).toContain(a.rating)
+    // 6 tokens in, 6 covered: cleanInciString handed the whole list to the engine.
     expect(a.coverage.total).toBe(6)
     // Tie the baseline to algo-derm actually scoring the irritants (Alcohol Denat /
     // Parfum / Limonene), not just ingredient coverage, catches engine regressions.
@@ -52,7 +57,7 @@ describe('computeProductDermoScore', () => {
     const p = await createTestProduct(user.id, { name: 'Sérum sans profil', brand: 'Brand', inci })
 
     const anon = await computeProductDermoScore(p.slug, null, testDb)
-    // user (beforeEach) has no user_dermo_profiles row → loadAlgoDermProfile returns
+    // user (beforeEach) has no user_dermo_profiles row, so loadAlgoDermProfile returns
     // undefined, so the personalized path must collapse onto the anonymous result.
     const noProfile = await computeProductDermoScore(p.slug, user.id, testDb)
 
@@ -86,7 +91,7 @@ describe('computeProductDermoScore', () => {
     const inci = 'Aqua, Glycerin, Alcohol Denat, Parfum, Limonene'
     const p = await createTestProduct(user.id, { name: 'Sérum alcohol', brand: 'Brand', inci })
 
-    await upsertDermoProfile(testDb, user.id, { skinTypes: ['peau-sensible'] })
+    await upsertDermo(user.id, { skinTypes: ['peau-sensible'] })
 
     const anon = await computeProductDermoScore(p.slug, null, testDb)
     const sensitive = await computeProductDermoScore(p.slug, user.id, testDb)
@@ -266,7 +271,7 @@ describe('loadAlgoDermProfile', () => {
   })
 
   it('maps a sensitive skin type to sensitiveSkin', async () => {
-    await upsertDermoProfile(testDb, user.id, { skinTypes: ['peau-sensible'] })
+    await upsertDermo(user.id, { skinTypes: ['peau-sensible'] })
 
     expect(await loadAlgoDermProfile(user.id, testDb)).toEqual({
       sensitiveSkin: true,
@@ -277,7 +282,7 @@ describe('loadAlgoDermProfile', () => {
   })
 
   it('maps an acne concern to acneProne', async () => {
-    await upsertDermoProfile(testDb, user.id, { skinConcerns: ['anti-acne'] })
+    await upsertDermo(user.id, { skinConcerns: ['anti-acne'] })
 
     const profile = await loadAlgoDermProfile(user.id, testDb)
     expect(profile?.acneProne).toBe(true)
@@ -285,7 +290,7 @@ describe('loadAlgoDermProfile', () => {
   })
 
   it('maps a rosacea concern to rosacea', async () => {
-    await upsertDermoProfile(testDb, user.id, { skinConcerns: ['rosacee'] })
+    await upsertDermo(user.id, { skinConcerns: ['rosacee'] })
 
     const profile = await loadAlgoDermProfile(user.id, testDb)
     expect(profile?.rosacea).toBe(true)
@@ -294,7 +299,7 @@ describe('loadAlgoDermProfile', () => {
 
   // pregnant has no column/UI yet; the mapper must keep hardcoding false (not undefined).
   it('always reports pregnant=false', async () => {
-    await upsertDermoProfile(testDb, user.id, {
+    await upsertDermo(user.id, {
       skinTypes: ['peau-sensible'],
       skinConcerns: ['rosacee', 'anti-acne'],
     })

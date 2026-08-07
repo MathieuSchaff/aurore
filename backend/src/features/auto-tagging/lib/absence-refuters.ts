@@ -8,18 +8,9 @@ import {
 
 const S = SKINCARE_PRODUCT_TAG_SLUGS
 
-// What disproves an absence tag, per tag. One table, two consumers: the text-claim veto
-// (`passes/formula/absence-claims.ts`) and the contradiction audit
-// (`runners/audit/tag-contradictions.ts`). Kept apart from the claim regexes because the two
-// answer different questions: "does the marketing text claim this absence?" is text-side and
-// scoped to `sans-parfum`, "does the INCI declare the thing?" holds for every absence tag
-// whatever emitted it.
-//
-// A refuter is a DECLARATION reader, not a re-implementation of algo-derm. Where it is wider
-// than the heuristic that emits the tag, that is the point: the audit exists to surface the
-// gap. Every divergence is spelled out in `note`.
-//
-// Refuters return the offending token, not a boolean, so a report can name what tripped it.
+// What disproves an absence tag, per tag. Two consumers: the text-claim veto
+// (`passes/formula/absence-claims.ts`, text-side, scoped to `sans-parfum`) and the
+// contradiction audit (`runners/audit/tag-contradictions.ts`, INCI-side, all absence tags).
 
 // Pattern grammar mirrors algo-derm's `data/rules/heuristic_rules.json` so the two lists stay
 // diffable: `patterns` are substrings ORed together, `groups` AND across groups and OR inside,
@@ -56,7 +47,10 @@ function tokenRule(rule: TokenRule): (inci: string | null | undefined) => string
 
 export interface AbsenceRefuter {
   readonly tag: SkincareProductTagSlug
+  // Returns the offending token, not a boolean, so reports can name what tripped it.
   readonly refutingToken: (inci: string | null | undefined) => string | null
+  // A refuter reads declarations, it does not re-implement algo-derm. Where wider than the
+  // heuristic that emits the tag, that's intentional: the audit surfaces the gap.
   readonly note: string
 }
 

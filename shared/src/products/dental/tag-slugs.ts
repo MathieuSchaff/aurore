@@ -1,14 +1,8 @@
-// Dental Product Tag definitions — single source of truth.
-// One {key, slug, label, category} per tag; the legacy *_TAG_SLUGS object and
-// the taxonomy (tag-taxonomy.ts) are derived from this array.
-//
-// concern / age_group / dental_effect: slugs aligned with
-// DENTAL_INGREDIENT_TAG_SLUGS when the meaning is shared (independent DB rows,
-// scope `both` inferred — cross-entity consistency, same pattern as skincare).
-// product_type / product_label: new slugs, product scope.
-//
-// Note `gencivite` / `taches`: spelling preserved to align with the
-// existing ingredient slugs (typo `gencivite` vs correct `gingivite`).
+// Single source of truth: legacy *_TAG_SLUGS and the taxonomy (tag-taxonomy.ts)
+// are derived from this array of {key, slug, label, category}.
+// concern / age_group / dental_effect stay aligned with DENTAL_INGREDIENT_TAG_SLUGS
+// (separate DB rows, same slugs) for cross-entity consistency.
+// `gencivite` / `taches` keep the existing ingredient spelling (typo for `gingivite`).
 
 import { deriveTagSlugs, type ProductTagDef } from '../../tag-taxonomy-builder'
 

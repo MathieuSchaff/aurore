@@ -92,7 +92,7 @@ describe('HomeHub', () => {
     expect(screen.getByText(/Vos produits, vos notes et les raisons/)).toBeInTheDocument()
     expect(screen.getByText(/Aucun produit pour l'instant/)).toBeInTheDocument()
     expect(screen.getByText('Compléter mon profil')).toBeInTheDocument()
-    // Discovery off → land on the account tab that holds the toggle, not a dead-end.
+    // Discovery off: land on the account tab that holds the toggle, not a dead-end.
     const discoverCta = screen.getByText('Activer la découverte').closest('a')
     expect(discoverCta).toHaveAttribute('href', '/profile')
     expect(discoverCta).toHaveAttribute('data-tab', 'account')
@@ -128,11 +128,11 @@ describe('HomeHub', () => {
     expect(screen.getByText(/Dernier ajout : The Ordinary — Niacinamide 10%/)).toBeInTheDocument()
     // Doorway A cta flips to "Ouvrir ma collection" once a recent item exists.
     expect(screen.getByText('Ouvrir ma collection')).toBeInTheDocument()
-    // Discovery on → the doorway opens the people tab directly.
+    // Discovery on: the doorway opens the people tab directly.
     const discoverCta = screen.getByText('Découvrir').closest('a')
     expect(discoverCta).toHaveAttribute('href', '/profile')
     expect(discoverCta).toHaveAttribute('data-tab', 'people')
-    // On → no scroll hash needed (the people tab is the content itself).
+    // On: no scroll hash needed (the people tab is the content itself).
     expect(discoverCta).not.toHaveAttribute('data-hash')
     expect(screen.getByText('Voir mon profil')).toBeInTheDocument()
     // Private notes are never exposed on the home.

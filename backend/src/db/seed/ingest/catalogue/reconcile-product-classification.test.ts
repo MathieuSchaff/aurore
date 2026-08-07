@@ -22,22 +22,20 @@ describe('reconcileImportedProductClassification', () => {
     })
   })
 
-  it.each([
-    'moisturizer',
-    'serum',
-    'essence',
-    'mist',
-  ])('repairs the observed stale skincare kinds: %s', (kind) => {
-    expect(
-      reconcileImportedProductClassification({
-        name: 'Daily Sun Gel FPS-50 PA++++',
-        slug: 'daily-sun-gel',
-        inci: null,
-        category: 'skincare',
-        kind,
-      })
-    ).toMatchObject({ category: 'solaire', kind: 'sunscreen' })
-  })
+  it.each(['moisturizer', 'serum', 'essence', 'mist'])(
+    'repairs the observed stale skincare kinds: %s',
+    (kind) => {
+      expect(
+        reconcileImportedProductClassification({
+          name: 'Daily Sun Gel FPS-50 PA++++',
+          slug: 'daily-sun-gel',
+          inci: null,
+          category: 'skincare',
+          kind,
+        })
+      ).toMatchObject({ category: 'solaire', kind: 'sunscreen' })
+    }
+  )
 
   it.each([
     ['dr-ceuracle-cica-regen-waterproof-sun', 'moisturizer'],
@@ -87,7 +85,7 @@ describe('reconcileImportedProductClassification', () => {
     ['Lipid-Balance Cleansing Oil', 'oil'],
     ['Physiopure Huile Démaquillante', 'oil'],
     ['Huile Demaquillante Bio', 'oil'],
-    // "yeux" would trip the sunscreen exclusion gate — the cleansing-oil branch
+    // "yeux" would trip the sunscreen exclusion gate, the cleansing-oil branch
     // runs first.
     ['Huile Démaquillante Yeux Waterproof', 'oil'],
     ['Deep Cleansing Balm', 'balm'],

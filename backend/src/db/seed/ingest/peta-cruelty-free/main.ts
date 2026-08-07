@@ -1,23 +1,10 @@
-// T4.E: PETA Ultimate Cruelty-Free List ingestion. Targeted scraper :
-// for each brand in our corpus + manual seed, probe
-// `https://crueltyfree.peta.org/company/<slug>/` and treat 200 as a CF
-// claim. Bounded request count (~ 220 brands) ; polite 250 ms delay
-// keeps the run well under PETA rate limits and finishes in a minute.
-//
-// Cache : `backend/tmp/cache/peta/results.json` is a JSON dict
-//   { [slug]: { status: 200|404, fetchedAt: iso } }
-// Re-runs reuse cached statuses ; pass --refresh to force re-fetch.
-//
-// Audit : the runner cross-checks our manual seed (T4.B). If a brand is
-// seeded with `peta` in `sources.cruelty_free` but PETA's site says
-// not-listed, the runner emits a warning and (with --strict-prune) drops
-// `peta` from sources jsonb. Default behaviour is warn-only. Manual
-// seed claims may still be valid via Vegan Society / Leaping Bunny so
-// we don't strip them by default.
-//
+// PETA Ultimate Cruelty-Free List ingestion. For each brand in our corpus plus
+// the manual seed, probes `https://crueltyfree.peta.org/company/<slug>/` and
+// treats 200 as a CF claim.
+
 // Usage:
 //   bun run backend/src/db/seed/ingest/peta-cruelty-free/main.ts                # dry-run, cached
-//   bun run backend/src/db/seed/ingest/peta-cruelty-free/main.ts --refresh      # re-fetch all
+//   bun run backend/src/db/seed/ingest/peta-cruelty-free/main.ts --refresh      # fetch all again
 //   bun run backend/src/db/seed/ingest/peta-cruelty-free/main.ts --write        # apply DB upserts
 //   bun run backend/src/db/seed/ingest/peta-cruelty-free/main.ts --strict-prune # also remove stale `peta` from sources
 
@@ -42,12 +29,15 @@ import { decidePetaStatus, type PerSlugStatus, parsePetaPageStatus, petaSlugVari
 // root, so cache lives under the gitignored backend/tmp/ from host or container.
 const CACHE_DIR = join(import.meta.dir, '..', '..', '..', '..', '..', 'tmp', 'cache', 'peta')
 const CACHE_FILE = join(CACHE_DIR, 'results.json')
+// ~220 brands total; this delay keeps the run well under PETA rate limits.
 const POLITE_DELAY_MS = 250
 
 const REFRESH = process.argv.includes('--refresh')
 const WRITE = process.argv.includes('--write')
 const STRICT_PRUNE = process.argv.includes('--strict-prune')
 
+// `backend/tmp/cache/peta/results.json`. Later runs reuse cached statuses;
+// pass --refresh to fetch again.
 interface CacheEntry {
   httpCode: number
   pageStatus: 'cruelty-free' | 'not-cf' | 'unknown' | null
@@ -90,35 +80,48 @@ async function probeOne(
   }
 }
 
-async function main() {
-  console.log('🐰 Ingest PETA Cruelty-Free List')
-  console.log(
-    `   mode=${WRITE ? 'WRITE' : 'DRY-RUN'} · ${REFRESH ? 'force-refresh' : 'use-cache'}${
-      STRICT_PRUNE ? ' · strict-prune' : ''
-    }\n`
-  )
+type SeedRow = Awaited<ReturnType<typeof loadCorpusAndSeed>>['seedRows'][number]
+type ProbeResult = Map<string, { display: string; statuses: Map<string, PerSlugStatus> }>
+type ListedBrand = { brandNormalized: string; display: string; matchedSlug: string }
+type BrandRef = { brandNormalized: string; display: string }
+type SourcedRow = { brandNormalized: string; display: string; sources: BrandCertificationSources }
 
-  // Build the brand list to probe : corpus ∪ manual seed
-  const { corpusBrands, seedRows } = await withAdminRls(async (tx) => ({
+interface MergePlan {
+  newRows: SourcedRow[]
+  liftUpdates: SourcedRow[]
+  pruneUpdates: { brandNormalized: string; sources: BrandCertificationSources }[]
+  toInsert: number
+  toLift: number
+  toEnrich: number
+}
+
+function loadCorpusAndSeed() {
+  return withAdminRls(async (tx) => ({
     corpusBrands: await tx.selectDistinct({ brand: products.brand }).from(products),
     seedRows: await tx.select().from(brandCertifications),
   }))
-  const brandSet = new Map<string, string>() // normalized → display
+}
+
+// key: normalized brand, value: display name
+function buildBrandsToProbe(
+  corpusBrands: { brand: string }[],
+  seedRows: SeedRow[]
+): Map<string, string> {
+  const brandSet = new Map<string, string>()
   for (const r of corpusBrands) {
     brandSet.set(normalizeBrand(r.brand), r.brand)
   }
   for (const s of seedRows) {
     if (!brandSet.has(s.brandNormalized)) brandSet.set(s.brandNormalized, s.brandDisplay)
   }
-  console.log(
-    `🎯 ${brandSet.size} marques à sonder (corpus ${corpusBrands.length} ∪ seed ${seedRows.length})`
-  )
+  return brandSet
+}
 
-  // Probe
+async function probeBrands(brandSet: Map<string, string>): Promise<ProbeResult> {
   const cache = loadCache()
   let probed = 0
   let cached = 0
-  const perBrand = new Map<string, { display: string; statuses: Map<string, PerSlugStatus> }>()
+  const perBrand: ProbeResult = new Map()
 
   for (const [brandNormalized, display] of brandSet) {
     const variants = petaSlugVariants(display)
@@ -127,7 +130,7 @@ async function main() {
     for (const slug of variants) {
       let entry = cache.get(slug)
       // Cache invalidation : the v1 cache stored only HTTP code (no
-      // pageStatus). Treat such entries as misses to force re-fetch with
+      // pageStatus). Treat such entries as misses to force a fresh fetch with
       // the body parser.
       const cacheUsable = entry && (entry.httpCode === 404 || entry.pageStatus !== null)
       if (REFRESH || !cacheUsable) {
@@ -160,10 +163,12 @@ async function main() {
 
   saveCache(cache)
   console.log(`   ${probed} fetch · ${cached} cache hit · cache: ${CACHE_FILE}\n`)
+  return perBrand
+}
 
-  // Classify
-  const listed: { brandNormalized: string; display: string; matchedSlug: string }[] = []
-  const notListed: { brandNormalized: string; display: string }[] = []
+function classifyBrands(perBrand: ProbeResult): { listed: ListedBrand[]; notListed: BrandRef[] } {
+  const listed: ListedBrand[] = []
+  const notListed: BrandRef[] = []
 
   for (const [brandNormalized, info] of perBrand) {
     const status = decidePetaStatus(info.statuses)
@@ -175,13 +180,16 @@ async function main() {
       notListed.push({ brandNormalized, display: info.display })
     }
   }
+  return { listed, notListed }
+}
 
-  console.log(`📊 Statuts :`)
-  console.log(`   listed (cruelty-free) : ${listed.length}`)
-  console.log(`   not on PETA's CF list : ${notListed.length}\n`)
-
-  // Audit manual seed for stale `peta` citations
-  const seedByNormalized = new Map(seedRows.map((r) => [r.brandNormalized, r]))
+// Seed rows citing `peta` for a brand the list does not carry. Warn-only by
+// default: the manual claim may still hold via Vegan Society or Leaping Bunny,
+// only --strict-prune drops `peta` from sources.
+function findStaleCitations(
+  notListed: BrandRef[],
+  seedByNormalized: Map<string, SeedRow>
+): { display: string }[] {
   const staleCitations: { display: string }[] = []
   for (const nl of notListed) {
     const seed = seedByNormalized.get(nl.brandNormalized)
@@ -191,30 +199,19 @@ async function main() {
       staleCitations.push({ display: seed.brandDisplay })
     }
   }
-  if (staleCitations.length > 0) {
-    console.log(`⚠️  Citations PETA potentiellement stale dans le seed manuel :`)
-    for (const s of staleCitations) {
-      console.log(`   ${s.display}`)
-    }
-    console.log(
-      `   (${STRICT_PRUNE ? 'seront retirées' : 'gardées — passe --strict-prune pour les retirer'})\n`
-    )
-  }
+  return staleCitations
+}
 
-  // Build merge plan
+function buildMergePlan(
+  listed: ListedBrand[],
+  staleCitations: { display: string }[],
+  seedByNormalized: Map<string, SeedRow>
+): MergePlan {
   let toLift = 0
   let toEnrich = 0
   let toInsert = 0
-  const liftUpdates: {
-    brandNormalized: string
-    display: string
-    sources: BrandCertificationSources
-  }[] = []
-  const newRows: {
-    brandNormalized: string
-    display: string
-    sources: BrandCertificationSources
-  }[] = []
+  const liftUpdates: SourcedRow[] = []
+  const newRows: SourcedRow[] = []
 
   for (const l of listed) {
     const seed = seedByNormalized.get(l.brandNormalized)
@@ -244,8 +241,6 @@ async function main() {
     }
   }
 
-  // Strict-prune : remove `peta` from sources of brands seeded with PETA
-  // citation but not actually on the list. Apply only with the flag.
   const pruneUpdates: { brandNormalized: string; sources: BrandCertificationSources }[] = []
   if (STRICT_PRUNE) {
     for (const stale of staleCitations) {
@@ -260,26 +255,15 @@ async function main() {
     }
   }
 
-  console.log(`📝 Plan de merge :`)
-  console.log(`   Nouvelles marques PETA (insert)              : ${toInsert}`)
-  console.log(`   Existantes — flag CF lifté false→true        : ${toLift}`)
-  console.log(`   Existantes — sources jsonb enrichies (peta)  : ${toEnrich}`)
-  if (STRICT_PRUNE) {
-    console.log(`   Stale citations 'peta' supprimées            : ${pruneUpdates.length}`)
-  }
-  console.log()
+  return { newRows, liftUpdates, pruneUpdates, toInsert, toLift, toEnrich }
+}
 
-  if (!WRITE) {
-    console.log('Run avec --write pour appliquer.')
-    return
-  }
-
-  // Write
-  if (newRows.length > 0) {
+async function applyMergePlan(plan: MergePlan) {
+  if (plan.newRows.length > 0) {
     await db
       .insert(brandCertifications)
       .values(
-        newRows.map((r) => ({
+        plan.newRows.map((r) => ({
           brandNormalized: r.brandNormalized,
           brandDisplay: r.display,
           isVegan: false,
@@ -296,24 +280,85 @@ async function main() {
           sources: sql`coalesce(brand_certifications.sources, '{}'::jsonb) || excluded.sources`,
         },
       })
-    console.log(`✅ ${newRows.length} insert (nouvelles marques PETA-only)`)
+    console.log(`✅ ${plan.newRows.length} insert (nouvelles marques PETA-only)`)
   }
 
-  for (const u of liftUpdates) {
+  for (const u of plan.liftUpdates) {
     await db
       .update(brandCertifications)
       .set({ isCrueltyFree: true, sources: u.sources })
       .where(sql`${brandCertifications.brandNormalized} = ${u.brandNormalized}`)
   }
-  console.log(`✅ ${liftUpdates.length} updates (existantes — flag/sources)`)
+  console.log(`✅ ${plan.liftUpdates.length} updates (existantes — flag/sources)`)
 
-  for (const u of pruneUpdates) {
+  for (const u of plan.pruneUpdates) {
     await db
       .update(brandCertifications)
       .set({ sources: u.sources })
       .where(sql`${brandCertifications.brandNormalized} = ${u.brandNormalized}`)
   }
-  if (STRICT_PRUNE) console.log(`✅ ${pruneUpdates.length} prune (stale peta citations)`)
+  if (STRICT_PRUNE) console.log(`✅ ${plan.pruneUpdates.length} prune (stale peta citations)`)
+}
+
+function reportStatuses(listed: ListedBrand[], notListed: BrandRef[]) {
+  console.log(`📊 Statuts :`)
+  console.log(`   listed (cruelty-free) : ${listed.length}`)
+  console.log(`   not on PETA's CF list : ${notListed.length}\n`)
+}
+
+function reportStaleCitations(staleCitations: { display: string }[]) {
+  if (staleCitations.length === 0) return
+  console.log(`⚠️  Citations PETA potentiellement stale dans le seed manuel :`)
+  for (const s of staleCitations) {
+    console.log(`   ${s.display}`)
+  }
+  console.log(
+    `   (${STRICT_PRUNE ? 'seront retirées' : 'gardées — passe --strict-prune pour les retirer'})\n`
+  )
+}
+
+function reportMergePlan(plan: MergePlan) {
+  console.log(`📝 Plan de merge :`)
+  console.log(`   Nouvelles marques PETA (insert)              : ${plan.toInsert}`)
+  console.log(`   Existantes — flag CF lifté false→true        : ${plan.toLift}`)
+  console.log(`   Existantes — sources jsonb enrichies (peta)  : ${plan.toEnrich}`)
+  if (STRICT_PRUNE) {
+    console.log(`   Stale citations 'peta' supprimées            : ${plan.pruneUpdates.length}`)
+  }
+  console.log()
+}
+
+async function main() {
+  console.log('🐰 Ingest PETA Cruelty-Free List')
+  console.log(
+    `   mode=${WRITE ? 'WRITE' : 'DRY-RUN'} · ${REFRESH ? 'force-refresh' : 'use-cache'}${
+      STRICT_PRUNE ? ' · strict-prune' : ''
+    }\n`
+  )
+
+  const { corpusBrands, seedRows } = await loadCorpusAndSeed()
+  const brandSet = buildBrandsToProbe(corpusBrands, seedRows)
+  console.log(
+    `🎯 ${brandSet.size} marques à sonder (corpus ${corpusBrands.length} ∪ seed ${seedRows.length})`
+  )
+
+  const perBrand = await probeBrands(brandSet)
+  const { listed, notListed } = classifyBrands(perBrand)
+  reportStatuses(listed, notListed)
+
+  const seedByNormalized = new Map(seedRows.map((r) => [r.brandNormalized, r]))
+  const staleCitations = findStaleCitations(notListed, seedByNormalized)
+  reportStaleCitations(staleCitations)
+
+  const plan = buildMergePlan(listed, staleCitations, seedByNormalized)
+  reportMergePlan(plan)
+
+  if (!WRITE) {
+    console.log('Run avec --write pour appliquer.')
+    return
+  }
+
+  await applyMergePlan(plan)
 }
 
 main().catch((err) => {

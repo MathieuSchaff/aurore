@@ -1,12 +1,8 @@
-// Tag-scoped slice of reconcile: delete non-manual links of ONE tag that the
-// current detector no longer emits. Exists because full reconcile is all-or-
-// nothing (DELETE + re-INSERT every tag), unusable while an insert lot is on
-// hold, e.g. after a gate tightening whose stale links must go out while the
-// non-irritant backlog stays unwritten.
-//
-// Usage (via `just autotag-purge-stale`):
-//   TAG=<tagSlug> bun run …/runners/backfill/purge-stale-tag.ts            # dry-run
-//   TAG=<tagSlug> bun run …/runners/backfill/purge-stale-tag.ts --write    # apply
+// Tag-scoped slice of reconcile: delete auto links of ONE tag that the current
+// detector no longer emits. Exists because full reconcile is all-or-nothing (DELETE + INSERT again for
+// every tag), unusable while an insert lot is on hold, e.g. after a gate tightening whose stale
+// links must go out while the non-irritant backlog stays unwritten. Usage: `just
+// autotag-purge-stale` (TAG=<tagSlug> required, dry-run by default, --write to apply).
 import { and, eq, inArray, ne } from 'drizzle-orm'
 
 import { db } from '../../../../db'
@@ -37,9 +33,12 @@ async function main() {
   console.log(`   ${linkedIds.size} non-manual links in DB`)
 
   // fetchEligibleProducts elevates RLS in-tx; a plain read would hide
-  // non-visible products and silently under-purge.
+  // products that are not visible and silently purge too little.
   const prods = (await fetchEligibleProducts()).filter((p) => linkedIds.has(p.id))
-  const bundle = await loadAutoTagFetchBundle(prods.map((p) => p.id))
+  const bundle = await loadAutoTagFetchBundle(
+    prods.map((p) => p.id),
+    db
+  )
   const stale: string[] = []
   const staleSlugs: string[] = []
   for (const p of prods) {

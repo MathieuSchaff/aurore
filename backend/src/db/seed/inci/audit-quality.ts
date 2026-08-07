@@ -98,10 +98,9 @@ for (const { slug, inci, category, brand } of rows) {
   const unmatchedHere: string[] = []
   for (const ing of ings) {
     const norm = normalize(ing)
-    // Use lookupIngredient (not aliasIndex.has) so botanical-part strip
-    // ("centella asiatica leaf extract" → "centella asiatica extract") fires;
-    // matches real engine path. Otherwise we overcount unmatched on N-word
-    // botanicals.
+    // Use lookupIngredient (not aliasIndex.has) so botanical-part strip fires
+    // ("centella asiatica leaf extract" becomes "centella asiatica extract"),
+    // matching the real engine path. Otherwise N-word botanicals overcount as unmatched.
     if (lookupIngredient(ing, aliasIndex)) {
       matched++
     } else {

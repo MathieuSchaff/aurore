@@ -1,13 +1,10 @@
 /**
  * RLS regression for user_bans under the real app_runtime pool.
- *
  * Route-level tests run as the table-owner `app` (implicit BYPASSRLS), which masks
- * production: APP_DATABASE_URL connects as `app_runtime` (no BYPASSRLS).
- * user_bans needs more than tenant_isolation (user_id = auth.uid()) + admin_bypass — so a
- * contributor (« modérateur ») could not write ANY ban under prod RLS. S4 adds
- * user_bans_moderation_scoped: a contributor may SELECT/INSERT/UPDATE/DELETE bans
- * whose scope !== 'global'; the account-level 'global' lockout stays admin-only.
- * This file proves the scope gate under prod RLS (the app-level 403 is in the route tests).
+ * production: APP_DATABASE_URL connects as `app_runtime` (no BYPASSRLS). user_bans needs
+ * more than tenant_isolation + admin_bypass: a contributor ("modérateur") could not
+ * otherwise write any ban under prod RLS. S4 adds user_bans_moderation_scoped: a
+ * contributor may act on bans whose scope !== 'global'; the 'global' lockout stays admin-only.
  */
 import { describe, expect, it } from 'bun:test'
 
@@ -64,7 +61,7 @@ function selectScopesAs(role: string, contextUserId: string, userId: string) {
 
 setupDbTests()
 
-describe('user_bans RLS under app_runtime (S4)', () => {
+describe('user_bans RLS under app_runtime', () => {
   it('lets a contributor INSERT a content-scoped ban', async () => {
     const target = await createTestUser('ub-target@test.local', 'Azerty123!')
     const modo = await createTestContributorUser('ub-modo@test.local', 'Azerty123!')

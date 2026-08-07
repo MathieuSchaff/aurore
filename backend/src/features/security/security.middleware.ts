@@ -2,8 +2,9 @@ import { sanitizeUrl } from '@braintree/sanitize-url'
 import type { Context, Next } from 'hono'
 
 import type { AppEnv } from '../../app-env'
-// Local `db` is the request RLS tx; baseDb is the pool for off-tx best-effort logging.
+// requestDb is the request RLS transaction; baseDb is reserved for off-tx best-effort logging.
 import { db as baseDb } from '../../db'
+import { getRlsDb } from '../../utils/accessors'
 import { isUserBlocked, logSecurityEvent } from './security.service'
 
 const URL_FIELDS = new Set(['url', 'imageUrl', 'avatarUrl', 'coverImageUrl'])
@@ -57,7 +58,7 @@ export function securityScan() {
     const userId = c.get('userId')
     if (!userId) return next()
 
-    const db = c.get('db')
+    const db = getRlsDb(c)
 
     if (await isUserBlocked(db, userId)) {
       return c.json({ success: false, error: 'forbidden' }, 403)

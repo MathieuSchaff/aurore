@@ -55,11 +55,10 @@ const profileStatsSchema = z.object({
 })
 
 // Master `profilePublic` gates all field-level flags: when false, no field is
-// exposed regardless of its sub-flag. Username is implicit (URL identifier).
-// `discoverable` is consent to MATCHING (the similarity engine may rank this
-// profile against others), distinct from the `*Public` display flags and from
-// `skinConcernsPublic`: one can be found by a shared bucket without exposing
-// raw concerns. Opt-in, defaults off, only effective under master profilePublic.
+// exposed regardless of its sub-flag. `discoverable` is separate consent to
+// matching (similarity engine may rank this profile) and is independent from
+// `skinConcernsPublic`: a profile can be matched via a shared bucket without
+// exposing raw concerns. Opt-in, defaults off.
 const privacySettingsSchema = z.object({
   profilePublic: z.boolean(),
   bioPublic: z.boolean(),

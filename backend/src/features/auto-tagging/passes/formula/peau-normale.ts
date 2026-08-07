@@ -5,14 +5,11 @@ import { resolveIngredients } from '../../lib/ingredient-resolver'
 
 const S = SKINCARE_PRODUCT_TAG_SLUGS
 
-// Peau-normale (heuristic, used by orchestrator post-pass)
-// Inverse heuristic: a product can be tagged `peau-normale` when no other
-// skin_type fired AND the kind is a neutral routine staple AND no aggressive
-// actif sits in the INCI. Fills the "tout-types muet" default that algo-derm
-// can't surface (it has no positive `peau-normale` signal).
-//
-// Orchestrator passes the set of skin_type slugs already proposed for the
-// product; we abstain if any of them are present.
+// Peau-normale heuristic, run by the orchestrator after the other passes: a product can be tagged
+// `peau-normale` when no other skin_type fired, the kind is a neutral routine staple,
+// and no aggressive actif sits in the INCI. Fills the "tout-types muet" default that
+// algo-derm can't surface (it has no positive `peau-normale` signal). Orchestrator
+// passes the set of skin_type slugs already proposed; abstain if any are present.
 
 // Minimum INCI length for the peau-normale claim to be credible (mirrors
 // the vegan absence-tag floor, now that vegan is in algo-derm).

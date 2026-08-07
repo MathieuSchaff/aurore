@@ -2,7 +2,7 @@ import type { ListSecurityEventsResponse, SecuritySeverity } from '@aurore/share
 
 import { and, count, desc, eq, gt, sql } from 'drizzle-orm'
 
-import type { Database } from '../../db'
+import type { Database, DatabaseTransaction } from '../../db'
 import { securityEvents } from '../../db/schema'
 
 const HIGH_SEVERITY_BLOCK_THRESHOLD = 3
@@ -27,7 +27,7 @@ export async function logSecurityEvent(db: Database, event: SecurityEventInput):
 }
 
 export async function listSecurityEvents(
-  db: Database,
+  db: DatabaseTransaction,
   filters: { severity?: SecuritySeverity }
 ): Promise<ListSecurityEventsResponse> {
   const items = await db
@@ -40,7 +40,7 @@ export async function listSecurityEvents(
   return { items }
 }
 
-export async function isUserBlocked(db: Database, userId: string): Promise<boolean> {
+export async function isUserBlocked(db: DatabaseTransaction, userId: string): Promise<boolean> {
   const windowStart = new Date()
   windowStart.setDate(windowStart.getDate() - BLOCK_WINDOW_DAYS)
 

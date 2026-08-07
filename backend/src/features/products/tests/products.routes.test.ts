@@ -10,7 +10,7 @@ import { setupDbTests } from '../../../tests/db-setup'
 import { expectRequiresAuth } from '../../../tests/helpers/authz-matrix'
 import type { TestClient } from '../../../tests/helpers/createTestClient'
 import { createTestEnv, withAuth } from '../../../tests/helpers/createTestClient'
-import { expectOk } from '../../../tests/helpers/expectStatus'
+import { expectError, expectOk } from '../../../tests/helpers/expectStatus'
 import { COMPLEMENT, HAIRCARE, SKINCARE } from '../../../tests/helpers/product-shapes'
 import {
   setupAndLogin,
@@ -38,7 +38,9 @@ setupDbTests()
 describe('Product Routes', () => {
   let app: Hono<AppEnv>
   let client: TestClient
-  // Record routes need contributor+ (catalog-authz); CRUD here runs as contributor, delete still needs admin.
+  // Create and edit only need an authenticated, unbanned user. The verify stamp
+  // (PATCH /:id/quality) needs requireCatalogWrite, delete needs admin. CRUD here runs
+  // as contributor.
   let contributorToken: string
 
   beforeAll(async () => {
@@ -102,10 +104,7 @@ describe('Product Routes', () => {
       await createProduct()
       const res = await client.products.$post({ json: VALID_PRODUCT }, withAuth(contributorToken))
 
-      expect(res.status as number).toBe(HTTP_STATUS.CONFLICT)
-      const data = (await res.json()) as { success: boolean; error?: string }
-      expect(data.success).toBe(false)
-      expect(data.error).toBe('product_already_exists')
+      await expectError(res, HTTP_STATUS.CONFLICT, 'product_already_exists')
     })
 
     it('should allow same name with different brands', async () => {
@@ -285,11 +284,7 @@ describe('Product Routes', () => {
         param: { slug: 'slug-qui-nexiste-pas' },
       })
 
-      expect(res.status as number).toBe(HTTP_STATUS.NOT_FOUND)
-      // Error body shape comes from globalErrorHandler, outside the route's success union.
-      const data = (await res.json()) as { success: boolean; error?: string }
-      expect(data.success).toBe(false)
-      expect(data.error).toBe('product_not_found')
+      await expectError(res, HTTP_STATUS.NOT_FOUND, 'product_not_found')
     })
   })
 
@@ -722,9 +717,7 @@ describe('Product Routes', () => {
         withAuth(contributorToken)
       )
 
-      expect(res.status as number).toBe(HTTP_STATUS.NOT_FOUND)
-      const data = await res.json()
-      if (!data.success) expect(data.error).toBe('product_not_found')
+      await expectError(res, HTTP_STATUS.NOT_FOUND, 'product_not_found')
     })
 
     it('should reject unknown fields (strict schema)', async () => {
@@ -748,7 +741,7 @@ describe('Product Routes', () => {
     })
 
     // inci write rule (comma-or-short) is only enforced when inci is present in the body.
-    // A notes-only edit omits inci, so it never re-validates an untouched legacy value
+    // A notes-only edit omits inci, so it never validates an untouched legacy value again
     // (see service test for preservation).
     it('rejects a non-conforming inci sent in the patch body', async () => {
       const created = await createProduct()
@@ -809,10 +802,7 @@ describe('Product Routes', () => {
         withAuth(contributorToken)
       )
 
-      expect(res.status as number).toBe(HTTP_STATUS.FORBIDDEN)
-      const data = (await res.json()) as { success: boolean; error?: string }
-      expect(data.success).toBe(false)
-      expect(data.error).toBe('forbidden')
+      await expectError(res, HTTP_STATUS.FORBIDDEN, 'forbidden')
     })
 
     it('should return 404 for unknown id (product_not_found)', async () => {
@@ -823,10 +813,7 @@ describe('Product Routes', () => {
         withAuth(adminToken)
       )
 
-      expect(res.status as number).toBe(HTTP_STATUS.NOT_FOUND)
-      const data = (await res.json()) as { success: boolean; error?: string }
-      expect(data.success).toBe(false)
-      expect(data.error).toBe('product_not_found')
+      await expectError(res, HTTP_STATUS.NOT_FOUND, 'product_not_found')
     })
 
     expectRequiresAuth(() => app, {

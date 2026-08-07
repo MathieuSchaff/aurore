@@ -2,17 +2,13 @@ import { beforeAll, describe, expect, it } from 'bun:test'
 
 import { HTTP_STATUS, type PostTone, type SocialPostSurfaceView } from '@aurore/shared'
 
-import { eq } from 'drizzle-orm'
-import type { Hono } from 'hono'
-
-import type { AppEnv } from '../../../app-env'
-import { profiles } from '../../../db/schema/auth/users'
-import { products } from '../../../db/schema/products/products'
 import { socialPosts } from '../../../db/schema/social/posts'
 import { testDb } from '../../../tests/db.test.config'
 import { setupDbTests } from '../../../tests/db-setup'
 import { createTestApp } from '../../../tests/helpers/createTestApp'
-import { createTestUser } from '../../../tests/helpers/test-factories'
+import type { TestApp } from '../../../tests/helpers/createTestClient'
+import { createTestProduct } from '../../../tests/helpers/test-factories'
+import { seedPublicAuthor } from './profile-test.setup'
 
 setupDbTests()
 
@@ -29,7 +25,6 @@ async function seedPoster(
   post: PostSeed = {},
   profile: { profilePublic?: boolean; forcedPrivateByAdmin?: boolean } = {}
 ) {
-  const { profilePublic = true, forcedPrivateByAdmin = false } = profile
   const {
     content = 'Ma rosacée va mieux.',
     tone = 'principal',
@@ -37,11 +32,7 @@ async function seedPoster(
     moderationStatus = 'visible',
   } = post
 
-  const owner = await createTestUser(`${username}@social.test`, 'Azerty123!')
-  await testDb
-    .update(profiles)
-    .set({ username, profilePublic, forcedPrivateByAdmin })
-    .where(eq(profiles.userId, owner.id))
+  const owner = await seedPublicAuthor(username, profile)
 
   await testDb.insert(socialPosts).values({
     authorId: owner.id,
@@ -55,7 +46,7 @@ async function seedPoster(
 }
 
 describe('GET /profiles/:username/posts', () => {
-  let app: Hono<AppEnv>
+  let app: TestApp
 
   beforeAll(async () => {
     app = await createTestApp()
@@ -84,7 +75,7 @@ describe('GET /profiles/:username/posts', () => {
     expect(await postsOf('poster-hidden')).toHaveLength(0)
   })
 
-  it('returns an empty list for a non-public profile (master gate)', async () => {
+  it('returns an empty list for a profile that is not public (master gate)', async () => {
     await seedPoster('poster-shy', {}, { profilePublic: false })
     expect(await postsOf('poster-shy')).toHaveLength(0)
   })
@@ -99,24 +90,12 @@ describe('GET /profiles/:username/posts', () => {
   })
 
   it('resolves a product anchor to its slug and name (porte-produits link-out)', async () => {
-    const owner = await createTestUser('poster-anchor@social.test', 'Azerty123!')
-    await testDb
-      .update(profiles)
-      .set({ username: 'poster-anchor', profilePublic: true })
-      .where(eq(profiles.userId, owner.id))
-    const [product] = await testDb
-      .insert(products)
-      .values({
-        createdBy: owner.id,
-        name: 'Crème Apaisante',
-        brand: 'BrandX',
-        category: 'skincare',
-        kind: 'serum',
-        unit: 'dropper',
-        slug: 'creme-apaisante-profile',
-      })
-      .returning()
-    if (!product) throw new Error('product seed failed')
+    const owner = await seedPublicAuthor('poster-anchor')
+    const product = await createTestProduct(owner.id, {
+      name: 'Crème Apaisante',
+      brand: 'BrandX',
+      unit: 'dropper',
+    })
     await testDb.insert(socialPosts).values({
       authorId: owner.id,
       content: 'Cette crème calme tout.',
@@ -126,10 +105,7 @@ describe('GET /profiles/:username/posts', () => {
 
     const posts = await postsOf('poster-anchor')
     expect(posts).toHaveLength(1)
-    expect(posts[0].productAnchor).toEqual({
-      slug: 'creme-apaisante-profile',
-      name: 'Crème Apaisante',
-    })
+    expect(posts[0].productAnchor).toEqual({ slug: product.slug, name: 'Crème Apaisante' })
     expect(posts[0].concernSlug).toBeNull()
   })
 })

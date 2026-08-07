@@ -37,7 +37,7 @@ describe('export helpers', () => {
       checkExportRateLimit('user-1', 1_000)
       const r = checkExportRateLimit('user-1', 1_000 + 60_000)
       expect(r.ok).toBe(false)
-      // 5 min - 1 min already elapsed → ~240 s
+      // 5 min - 1 min already elapsed, so ~240 s
       if (!r.ok) expect(r.retryAfterSec).toBe(240)
     })
 

@@ -8,15 +8,16 @@ import {
   verifyQualityBodySchema,
 } from '@aurore/shared'
 
+import type { Context } from 'hono'
 import { Hono } from 'hono'
 import { z } from 'zod'
 
 import type { AppEnv } from '../../app-env'
 import { stripAdminFields } from '../../lib/catalog'
+import { getAuthedUserId, getAuthedUserRole, getRlsDb } from '../../utils/accessors'
 import { zValidator } from '../../utils/validator'
 import {
-  getAuthedUserId,
-  getAuthedUserRole,
+  optionalJwtAuth,
   requireAdmin,
   requireCatalogWrite,
   requireJwtAuth,
@@ -34,6 +35,7 @@ import {
   listIngredientEdits,
   listIngredients,
   listIngredientsBySlugs,
+  searchIngredientIdentities,
   searchIngredients,
   updateIngredient,
   verifyIngredient,
@@ -62,31 +64,37 @@ const MAX_SLUG_LOOKUP = 50
 
 const ingredientsApp = new Hono<AppEnv>()
 
-// GET = anonymous OK. Non-GET = auth + ban-check. Split into two middleware so
-// requireNotBanned's short-circuit 403 propagates back through Hono compose
-// (see products/routes.ts for the same fix).
-ingredientsApp.use('*', async (c, next) => {
-  if (c.req.method === 'GET') return next()
-  return requireJwtAuth(c, next)
-})
-ingredientsApp.use('*', async (c, next) => {
-  if (c.req.method === 'GET') return next()
-  return requireNotBanned(c, next)
-})
-ingredientsApp.use('*', withRlsContext)
+// A hidden ingredient is invisible to anonymous callers but visible to admins and
+// contributors through ingredients_select_visible, which reads auth.role(). That GUC
+// exists only inside the request transaction, so the detail routes bind identity when
+// it is present; without this a moderator gets a 404 on the row they must review.
+function getIngredientReadDb(c: Context<AppEnv>) {
+  return c.get('userId') ? getRlsDb(c) : c.get('anonDb')
+}
+
+// This router shares /ingredients with tags and discussions. Guards stay on
+// owned endpoints so sibling routes are not intercepted.
 
 export const ingredientRoutes = ingredientsApp
 
   .get('/search', zValidator('query', searchQuery), async (c) => {
-    const db = c.get('db')
+    const db = c.get('anonDb')
     const { q, type } = c.req.valid('query')
 
     const results = await searchIngredients(db, q, { type })
 
     return c.json(ok(results), HTTP_STATUS.OK)
   })
+  .get('/search-identities', zValidator('query', searchQuery), async (c) => {
+    const db = c.get('anonDb')
+    const { q, type } = c.req.valid('query')
+
+    const results = await searchIngredientIdentities(db, q, { type })
+
+    return c.json(ok(results), HTTP_STATUS.OK)
+  })
   .get('/by-slugs', zValidator('query', bySlugsQuery), async (c) => {
-    const db = c.get('db')
+    const db = c.get('anonDb')
     const { slugs } = c.req.valid('query')
     const list = slugs.split(',').filter(Boolean).slice(0, MAX_SLUG_LOOKUP)
     const results = await listIngredientsBySlugs(db, list)
@@ -96,7 +104,7 @@ export const ingredientRoutes = ingredientsApp
     '/filter-options',
     zValidator('query', z.object({ type: z.enum(INGREDIENT_TYPE_VALUES).optional() })),
     async (c) => {
-      const db = c.get('db')
+      const db = c.get('anonDb')
       const { type } = c.req.valid('query')
       const options = await getIngredientFilterOptions(db, type)
       return c.json(ok(options), HTTP_STATUS.OK)
@@ -106,14 +114,14 @@ export const ingredientRoutes = ingredientsApp
     '/options',
     zValidator('query', z.object({ type: z.enum(INGREDIENT_TYPE_VALUES).optional() })),
     async (c) => {
-      const db = c.get('db')
+      const db = c.get('anonDb')
       const { type } = c.req.valid('query')
       const items = await listAllIngredientOptions(db, type)
       return c.json(ok(items), HTTP_STATUS.OK)
     }
   )
   .get('/', zValidator('query', listIngredientsSearchSchema), async (c) => {
-    const db = c.get('db')
+    const db = c.get('anonDb')
     const query = c.req.valid('query')
     const { items, total } = await listIngredients(db, query)
     return c.json(ok({ items, total }), HTTP_STATUS.OK)
@@ -121,10 +129,13 @@ export const ingredientRoutes = ingredientsApp
 
   .post(
     '/',
+    requireJwtAuth,
+    withRlsContext,
+    requireNotBanned,
     requireNotBannedScope('ingredient_create'),
     zValidator('json', createIngredientSchema),
     async (c) => {
-      const db = c.get('db')
+      const db = getRlsDb(c)
       const userId = getAuthedUserId(c)
       const role = getAuthedUserRole(c)
       const input = c.req.valid('json')
@@ -135,8 +146,8 @@ export const ingredientRoutes = ingredientsApp
     }
   )
 
-  .get('/:slug', zValidator('param', slugParam), async (c) => {
-    const db = c.get('db')
+  .get('/:slug', optionalJwtAuth, withRlsContext, zValidator('param', slugParam), async (c) => {
+    const db = getIngredientReadDb(c)
     const { slug } = c.req.valid('param')
 
     const ingredient = await getIngredientBySlug(db, slug)
@@ -146,11 +157,14 @@ export const ingredientRoutes = ingredientsApp
 
   .patch(
     '/:id',
+    requireJwtAuth,
+    withRlsContext,
+    requireNotBanned,
     requireNotBannedScope('ingredient_edit'),
     zValidator('param', idParam),
     zValidator('json', updateIngredientRouteSchema),
     async (c) => {
-      const db = c.get('db')
+      const db = getRlsDb(c)
       const { id } = c.req.valid('param')
       const userId = getAuthedUserId(c)
       const { expectedUpdatedAt, summary, ...data } = c.req.valid('json')
@@ -160,11 +174,14 @@ export const ingredientRoutes = ingredientsApp
   )
   .patch(
     '/:id/quality',
+    requireJwtAuth,
+    withRlsContext,
+    requireNotBanned,
     requireCatalogWrite,
     zValidator('param', idParam),
     zValidator('json', verifyQualityBodySchema),
     async (c) => {
-      const db = c.get('db')
+      const db = getRlsDb(c)
       const { id } = c.req.valid('param')
       const actorId = getAuthedUserId(c)
       const ingredient = await verifyIngredient(db, actorId, id)
@@ -173,11 +190,14 @@ export const ingredientRoutes = ingredientsApp
   )
   .delete(
     '/:id',
+    requireJwtAuth,
+    withRlsContext,
+    requireNotBanned,
     requireNotBannedScope('ingredient_edit'),
     requireAdmin,
     zValidator('param', idParam),
     async (c) => {
-      const db = c.get('db')
+      const db = getRlsDb(c)
       const role = getAuthedUserRole(c)
       const { id } = c.req.valid('param')
       await deleteIngredient(db, role, id)
@@ -185,18 +205,24 @@ export const ingredientRoutes = ingredientsApp
     }
   )
 
-  .get('/:slug/edits', zValidator('param', slugParam), async (c) => {
-    const db = c.get('db')
-    const { slug } = c.req.valid('param')
+  .get(
+    '/:slug/edits',
+    optionalJwtAuth,
+    withRlsContext,
+    zValidator('param', slugParam),
+    async (c) => {
+      const db = getIngredientReadDb(c)
+      const { slug } = c.req.valid('param')
 
-    const ingredient = await getIngredientBySlug(db, slug)
-    const edits = await listIngredientEdits(db, ingredient.id)
+      const ingredient = await getIngredientBySlug(db, slug)
+      const edits = await listIngredientEdits(db, ingredient.id)
 
-    return c.json(ok(edits), HTTP_STATUS.OK)
-  })
+      return c.json(ok(edits), HTTP_STATUS.OK)
+    }
+  )
 
   .get('/:slug/products', zValidator('param', slugParam), async (c) => {
-    const db = c.get('db')
+    const db = c.get('anonDb')
     const { slug } = c.req.valid('param')
 
     const ingredient = await getIngredientBySlug(db, slug)

@@ -1,9 +1,6 @@
-// Auto-tag pipeline. Runs AUTO_TAG_PASSES left-to-right, dedup'd via
-// `mergeProposal`, then promotes primaries.
-//
-// Consumed by seed-core (fresh DB), backfill runner (post-snapshot rehydrate),
-// and product service (per-product inline). Parity contract in
-// `tests/auto-tag-orchestrator-parity.test.ts` keeps all three consumers
+// Auto-tag pipeline. Runs AUTO_TAG_PASSES left-to-right, dedup'd via `mergeProposal`, then promotes primaries.
+// Consumed by seed-core, the backfill runner, and product service; the parity
+// contract in `tests/auto-tag-orchestrator-parity.test.ts` keeps all three
 // identical for the same input. ADR-0001 describes the registry-driven design.
 
 import type { SkincareProductTagSlug } from '@aurore/shared'
@@ -20,15 +17,15 @@ export type { OrchestratorInput, OrchestratorOptions } from './lib/orchestrator-
 export type { AutoTagPair, AutoTagRelevance, AutoTagSource } from './lib/pass-types'
 
 // Optional trace hooks. The orchestrator owns the single dispatch loop; the sink
-// lets a reader (explainInci) observe per-pass proposals, the pre-promote merge
-// snapshot, and algo-derm drop counts without re-running the loop.
+// lets a reader (explainInci) observe per-pass proposals, the merge snapshot taken
+// before promotion, and algo-derm drop counts without running the loop again.
 export interface AutoTagTraceSink {
   // Wired into ctx so the algo-derm gate records each dropped candidate.
   dropCounts?: Map<string, number>
   // One call per pass, in registry order, after the pass's proposals merged.
   // outcomes[i] is mergeProposal's verdict for proposals[i] (true = became the
-  // byTag entry); the pre-promote winner for a slug is its LAST accepted
-  // proposal. Readers derive won/superseded from this event order — never from
+  // byTag entry); before promotion, the winner for a slug is its LAST accepted
+  // proposal. Readers derive won/superseded from this event order, never from
   // object identity, which the merge does not guarantee.
   onPass?: (
     name: string,

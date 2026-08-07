@@ -1,24 +1,9 @@
 #!/usr/bin/env bun
 /**
- * delete-bunny-images.ts: Delete product images from Bunny Storage.
- *
- * Reads slugs from the CDN-delete list (or path passed via $SLUGS_FILE)
- * and DELETEs https://${BUNNY_STORAGE_HOSTNAME}/${BUNNY_STORAGE_ZONE}/${PREFIX}<slug>.webp.
- * 404s are treated as success (idempotent).
- *
- * Required env:
- *   BUNNY_STORAGE_ZONE
- *   BUNNY_STORAGE_PASSWORD
- *
- * Optional env:
- *   BUNNY_STORAGE_HOSTNAME    default: storage.bunnycdn.com
- *   BUNNY_STORAGE_PREFIX      default: products/
- *   SLUGS_FILE                default: ../db/seed/output/dedup-dropped-slugs.json
- *   CONCURRENCY               default: 8
- *
- * Usage:
- *   bun run backend/src/images/maintenance/delete-bunny.ts          # preview
- *   bun run backend/src/images/maintenance/delete-bunny.ts --apply  # delete
+ * Deletes product images from Bunny Storage. Reads slugs from the CDN-delete list
+ * (or $SLUGS_FILE) and DELETEs each <slug>.webp; 404s count as success (idempotent).
+ * Required env: BUNNY_STORAGE_ZONE, BUNNY_STORAGE_PASSWORD.
+ * Usage: bun run backend/src/images/maintenance/delete-bunny.ts [--apply]  # preview by default
  */
 
 import { readFileSync } from 'node:fs'

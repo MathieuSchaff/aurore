@@ -2,7 +2,7 @@
 // hand-built the OrchestratorInput object; the fields being optional, three
 // callers had silently dropped one (seed texture, preview/bench brand certs).
 // `OrchestratorProductFields` keys are required, so omitting a field is a
-// compile error instead of a silent detection gap — a caller must say `null`.
+// compile error instead of a silent detection gap: a caller must say `null`.
 
 import type { ProductCategory, ProductKind, ProductTexture } from '@aurore/shared'
 
@@ -64,11 +64,10 @@ export interface ComputedTagRows {
   withheld: boolean
 }
 
-// Detection kernel for DB-backed callers: build input → detect → persist
-// filter. `pairs` is the raw orchestrator emission (audit/bench and the
-// source-only rewrite read it); `rows` is what may reach product_tag_links —
-// eczema withholding + domain filter applied, so a persisting consumer cannot
-// forget the filter by calling detectAllAutoTags directly.
+// Detection kernel for DB-backed callers: builds input, runs detect, then applies the persist
+// filter. `pairs` is the raw orchestrator emission (audit/bench and the source-only rewrite
+// read it); `rows` is what may reach product_tag_links: eczema withholding + domain filter
+// applied, so a persisting consumer cannot forget the filter by calling detectAllAutoTags directly.
 export function computeTagRowsForProduct(
   product: AutoTagProductRow,
   bundle: AutoTagFetchBundle,

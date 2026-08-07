@@ -2,7 +2,7 @@ import { DOMAIN_PRODUCT_FILTER_CATEGORIES, PRODUCT_CATEGORY_TO_DOMAIN_TAB } from
 
 import { eq, inArray } from 'drizzle-orm'
 
-import type { DB } from '../../../db'
+import type { DatabaseTransaction } from '../../../db'
 import { products, productTagTypes } from '../../../db/schema'
 import { ProductError } from '../product-error'
 
@@ -11,7 +11,7 @@ import { ProductError } from '../product-error'
 // (cross-row relational rule), and the frontend filter alone is not a
 // boundary against direct API calls or service-level seeds.
 export async function assertTagsMatchProductDomain(
-  db: DB,
+  db: DatabaseTransaction,
   productId: string,
   tagIds: readonly string[]
 ): Promise<void> {

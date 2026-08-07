@@ -1,16 +1,5 @@
 // Pharmacological cluster detection for skincare products.
-//
-// Patterns target canonical INCI fragments (lowercase, post-algo-derm normalize).
-// Matcher is OR-of-substring; add a pattern = add a new INCI alias.
-//
-// Position gating: actifs at position 25+ are rarely at functional concentration
-// (AHA as pH adjuster, trace niacinamide). Each cluster declares `positionCap`.
-// pH-dependent acids (AHA/BHA/PHA) use a tight cap; antioxidants/humectants/
-// ceramides use Infinity because the gold-set tags them regardless of INCI position.
-//
-// Do not gate all clusters on the EU <1% zone: vitamin-e/HA/ceramides can be
-// functional below 1%. Cap-marginal AHA hits get a narrower dose/name
-// tiebreaker; see `aha-cap-marginal-gate`.
+// Patterns match canonical INCI fragments (lowercase, post-algo-derm normalize) by substring.
 
 import type { ProductKind } from '@aurore/shared'
 import { SKINCARE_PRODUCT_TAG_SLUGS, type SkincareProductTagSlug } from '@aurore/shared'
@@ -51,7 +40,9 @@ export interface ActifClassDef {
   // Match the whole INCI token instead of substring. Needed when the bare name
   // is a substring of unrelated ingredients (urea vs hydroxyethyl urea / botanicals).
   exact?: boolean
-  // Tighter than default when the actif must be at functional concentration (acids).
+  // Past pos 25 an actif is rarely functional, so pH-dependent acids use a tight cap.
+  // Antioxidants/humectants/ceramides use Infinity: the gold-set tags them regardless
+  // of position, even under 1% dosing.
   positionCap?: number
   // Looser cap for cleansers/exfoliants where actives sit deeper.
   positionCapRinseOff?: number
@@ -165,15 +156,13 @@ export const ACTIF_CLASS_DEFS: ActifClassDef[] = [
   },
   {
     slug: SKINCARE_PRODUCT_TAG_SLUGS.CERAMIDES,
-    // Sub-1% dosing; listed deep (median pos 27, p90 39). Cap removed to align
-    // with manual corpus. `ng`/`as` types added (observed in cica/relipidant blends).
-    // `phytosphingosine` rejected: 0 recall gain but 24 over-tags on soothing
-    // products not classified as ceramides in the gold-set.
-    // Letter forms cover the whole Motta code (fatty acid x sphingoid base); the
-    // corpus only carries np/eop/ns/ap/as today, the rest guard future listings.
-    // Numbered names are kept here even though the taxonomy drops them: this pass
-    // matches algo-derm `normalize` output, which does not resolve aliases, so a
-    // product still listing `Ceramide 3` would otherwise go untagged.
+    // Sub-1% dosing, listed deep in INCI (median pos 27, p90 39), so cap removed.
+    // `phytosphingosine` rejected: 0 recall gain, 24 over-tags on soothing products.
+
+    // Letter forms cover the Motta code (fatty acid x sphingoid base) beyond the
+    // np/eop/ns/ap/as seen in the corpus today. Numbered names stay even though the
+    // taxonomy drops them: algo-derm `normalize` doesn't resolve aliases, so
+    // "Ceramide 3" would otherwise go untagged.
     patterns: [
       'ceramide np',
       'ceramide ap',
@@ -248,11 +237,11 @@ export const ACTIF_CLASS_DEFS: ActifClassDef[] = [
     slug: SKINCARE_PRODUCT_TAG_SLUGS.TYROSINASE_INHIBITORS,
     // Sub-1% dosing; manual corpus tags at any position (median 18, p90 33). Cap removed.
     // `arbutin` catches `alpha-arbutin` and `deoxyarbutin` via substring.
-    // Excluded by mechanism mismatch:
-    // - `glycyrrhiza`/`glycyrrhizate`: +401 over-tags; pigmentation signal only when
-    //   combined with kojic/arbutin/morus alba (already caught).
-    // - `niacinamide`: inhibits melanosome transfer, not tyrosinase; would over-broaden
-    //   to most niacinamide products.
+
+    // Excluded by mechanism mismatch: `glycyrrhiza`/`glycyrrhizate` cause +401 over-tags
+    // (pigmentation signal only holds combined with kojic/arbutin/morus alba, already
+    // caught); `niacinamide` inhibits melanosome transfer, not tyrosinase, and would
+    // over-broaden to most niacinamide products.
     patterns: [
       'kojic acid',
       'arbutin',

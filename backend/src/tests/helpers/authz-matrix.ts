@@ -15,12 +15,21 @@ export interface AuthzRequest {
   method: Method
   path: string
   body?: object
+  // Multipart routes (uploads) read c.req.parseBody(), so they need a real
+  // FormData rather than a JSON body. Takes precedence over `body`.
+  form?: Record<string, Blob | string>
 }
 
 function fire(app: Hono<AppEnv>, req: AuthzRequest, token?: string) {
   const headers: Record<string, string> = {}
-  if (req.body !== undefined) headers['Content-Type'] = 'application/json'
   if (token) headers.Authorization = `Bearer ${token}`
+  if (req.form !== undefined) {
+    const form = new FormData()
+    for (const [key, value] of Object.entries(req.form)) form.append(key, value)
+    // Content-Type is left to fetch, which appends the multipart boundary.
+    return app.request(req.path, { method: req.method, headers, body: form })
+  }
+  if (req.body !== undefined) headers['Content-Type'] = 'application/json'
   return app.request(req.path, {
     method: req.method,
     headers,

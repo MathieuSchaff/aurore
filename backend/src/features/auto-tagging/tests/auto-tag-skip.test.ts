@@ -53,6 +53,11 @@ describe('recordAutoTagSkip', () => {
   })
 })
 
+const writeFailSoft = (
+  productId: string,
+  meta: Parameters<typeof writeTagsForProductFailSoft>[2]
+) => testDb.transaction((tx) => writeTagsForProductFailSoft(tx, productId, meta))
+
 describe('writeTagsForProductFailSoft', () => {
   beforeEach(async () => {
     await cleanDatabase()
@@ -63,7 +68,7 @@ describe('writeTagsForProductFailSoft', () => {
     const product = await createAutoTagProduct(user.id, { name: 'Test Serum' })
 
     await expect(
-      writeTagsForProductFailSoft(testDb, product.id, {
+      writeFailSoft(product.id, {
         operation: 'create',
         userId: user.id,
       })
@@ -73,7 +78,7 @@ describe('writeTagsForProductFailSoft', () => {
   it('does not throw when the product does not exist (writeTagsForProduct returns early)', async () => {
     const user = await createTestUser()
     await expect(
-      writeTagsForProductFailSoft(testDb, FAKE_PRODUCT_ID, {
+      writeFailSoft(FAKE_PRODUCT_ID, {
         operation: 'update',
         userId: user.id,
       })

@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest'
 
 import { productsSearchDefaults, productsSearchSchema } from '../filters'
 
-describe('productsSearchSchema — defaults', () => {
+describe('productsSearchSchema: defaults', () => {
   it('parses an empty object into sensible defaults', () => {
     const parsed = productsSearchSchema.parse({})
     expect(parsed.sort).toBe('newest')
@@ -23,16 +23,13 @@ describe('productsSearchSchema — defaults', () => {
 
 // Every invalid-field case below exercises a field-local catch: malformed shared URLs stay out
 // of GlobalError while valid sibling parameters remain available to the route.
-describe('productsSearchSchema — sort', () => {
-  it.each([
-    'name',
-    'random',
-    'price_asc',
-    'price_desc',
-    'newest',
-  ] as const)('accepts sort=%s', (sort) => {
-    expect(productsSearchSchema.parse({ sort }).sort).toBe(sort)
-  })
+describe('productsSearchSchema: sort', () => {
+  it.each(['name', 'random', 'price_asc', 'price_desc', 'newest'] as const)(
+    'accepts sort=%s',
+    (sort) => {
+      expect(productsSearchSchema.parse({ sort }).sort).toBe(sort)
+    }
+  )
 
   it('drops an unknown sort value instead of throwing', () => {
     expect(productsSearchSchema.parse({ sort: 'alphabetical' }).sort).toBe('newest')
@@ -50,7 +47,7 @@ describe('productsSearchSchema — sort', () => {
     expect(productsSearchSchema.parse({ sort: 'relevance' }).sort).toBe('newest')
   })
 
-  // TanStack round-trips validateSearch output through the URL and re-validates.
+  // TanStack round-trips validateSearch output through the URL and validates it again.
   it('is idempotent on its own output', () => {
     const first = productsSearchSchema.parse({ q: 'serum' })
     expect(productsSearchSchema.parse(first)).toEqual(first)
@@ -59,7 +56,7 @@ describe('productsSearchSchema — sort', () => {
 
 // Invalid q from a shared/hand-crafted URL degrades to the plain list; a throw here
 // would bubble past the route and replace the whole app shell with GlobalError.
-describe('productsSearchSchema — q resilience', () => {
+describe('productsSearchSchema: q resilience', () => {
   it('drops a whitespace-only q instead of throwing', () => {
     const parsed = productsSearchSchema.parse({ q: '   ' })
     expect(parsed.q).toBeUndefined()
@@ -77,7 +74,7 @@ describe('productsSearchSchema — q resilience', () => {
   })
 })
 
-describe('productsSearchSchema — priceMin / priceMax', () => {
+describe('productsSearchSchema: priceMin / priceMax', () => {
   it('accepts a positive integer priceMin', () => {
     expect(productsSearchSchema.parse({ priceMin: 1500 }).priceMin).toBe(1500)
   })
@@ -101,7 +98,7 @@ describe('productsSearchSchema — priceMin / priceMax', () => {
   })
 })
 
-describe('productsSearchSchema — tag filters', () => {
+describe('productsSearchSchema: tag filters', () => {
   it('accepts an array of slugs for a tag category', () => {
     const parsed = productsSearchSchema.parse({ concern: ['acne', 'anti-age'] })
     expect(parsed.concern).toEqual(['acne', 'anti-age'])
@@ -114,7 +111,7 @@ describe('productsSearchSchema — tag filters', () => {
   })
 })
 
-describe('productsSearchSchema — profile_filter', () => {
+describe('productsSearchSchema: profile_filter', () => {
   // Tri-state on purpose: an unstated toggle is not a stated "off", so the
   // standing choice can resolve it client-side.
   it('stays undefined when the URL says nothing', () => {
@@ -134,13 +131,13 @@ describe('productsSearchSchema — profile_filter', () => {
   })
 })
 
-describe('productsSearchSchema — show_hidden', () => {
+describe('productsSearchSchema: show_hidden', () => {
   it('defaults an invalid value instead of throwing', () => {
     expect(productsSearchSchema.parse({ show_hidden: 'yes' }).show_hidden).toBe(false)
   })
 })
 
-describe('productsSearchSchema — category', () => {
+describe('productsSearchSchema: category', () => {
   it('defaults category to skincare', () => {
     const parsed = productsSearchSchema.parse({})
     expect(parsed.category).toBe('skincare')

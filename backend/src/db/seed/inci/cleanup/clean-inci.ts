@@ -1,19 +1,13 @@
-// One-shot: repair scraper-damaged products.inci with algo-derm cleanInciString
-// (leading labels, broken separators, marketing/legal prose). Supersedes the
-// former preamble / separators / prose / trailing-prose scripts — that logic now
-// lives in algo-derm so any consumer (seed import, dermo-score, auto-tagging)
-// shares one cleaner.
-//
-// Guardrail: skip rows whose cleaned INCI drops below 3 tokens or under 50% of
-// the original token count (defensive against a transform eating the list).
-// Dry-run by default. Pass --apply to UPDATE.
-//
-// Not covered here (separate runners): resplit-single-token.ts (index-based
-// re-split of separator-free blobs) and worst-match-prose.ts (per-slug fixes).
+// One-shot: repair scraper-damaged products.inci with algo-derm cleanInciString. Supersedes
+// the former preamble/separators/prose/trailing-prose scripts: that logic now lives in
+// algo-derm, so every consumer (seed import, dermo-score, auto-tagging) shares one cleaner.
+// Not covered here: resplit-single-token.ts (resplit of separator-free blobs) and
+// worst-match-prose.ts (per-slug fixes).
 import { SQL } from 'bun'
 
 import { cleanInciString, splitINCI, stripPreamble } from 'algo-derm'
 
+// Dry-run by default. Pass --apply to UPDATE.
 const apply = process.argv.includes('--apply')
 
 const tokensOf = (inci: string): number => splitINCI(stripPreamble(inci)).length
@@ -47,6 +41,8 @@ for (const row of rows) {
 
   const tBefore = tokensOf(row.inci)
   const tAfter = tokensOf(final)
+  // Guardrail: skip if the clean drops below 3 tokens or under 50% of the original count;
+  // defends against a transform eating the list.
   if (tAfter < 3 || tAfter * 2 < tBefore) {
     skippedGuardrail++
     if (guardrailDrops.length < 6)

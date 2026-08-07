@@ -21,7 +21,7 @@ async function authFetch(input: RequestInfo | URL, init?: RequestInit): Promise<
     return res
   }
   // Don't retry the refresh POST itself: a 401 there means the refresh cookie is dead,
-  // and retrying would loop refresh -> 401 -> refresh forever.
+  // and retrying would loop refresh, 401, refresh, forever.
   if (res.status !== 401 || isRefreshEndpoint(input)) return res
   return recoverUnauthorized(res, input, init)
 }

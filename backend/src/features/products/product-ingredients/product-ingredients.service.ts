@@ -1,6 +1,6 @@
 import { and, eq, getTableColumns } from 'drizzle-orm'
 
-import type { Database, DB } from '../../../db/index'
+import type { DatabaseTransaction, DbOrTransaction } from '../../../db/index'
 import { ingredients } from '../../../db/schema/ingredients/ingredients'
 import { type Product, products } from '../../../db/schema/products'
 import {
@@ -24,7 +24,10 @@ type UpdateProductIngredientInput = Partial<
   Pick<ProductIngredient, 'concentrationValue' | 'concentrationUnit' | 'concentrationPer' | 'notes'>
 >
 
-export async function addIngredientToProduct(db: DB, data: CreateProductIngredientInput) {
+export async function addIngredientToProduct(
+  db: DatabaseTransaction,
+  data: CreateProductIngredientInput
+) {
   // Strip null/empty so Drizzle doesn't write bad values.
   const entries = Object.entries(data).filter(([_, v]) => v != null && v !== '')
   const cleanData = Object.fromEntries(entries) as CreateProductIngredientInput
@@ -33,14 +36,14 @@ export async function addIngredientToProduct(db: DB, data: CreateProductIngredie
   return link
 }
 export async function addManyIngredientsToProduct(
-  db: DB,
+  db: DatabaseTransaction,
   data: CreateProductIngredientInput[]
 ): Promise<ProductIngredient[]> {
   if (data.length === 0) return []
   return db.insert(productIngredients).values(data).returning()
 }
 
-export async function listIngredientsByProduct(db: Database, productId: string) {
+export async function listIngredientsByProduct(db: DbOrTransaction, productId: string) {
   return db
     .select({
       productId: productIngredients.productId,
@@ -64,7 +67,7 @@ export async function listIngredientsByProduct(db: Database, productId: string) 
 }
 
 export async function listProductsByIngredient(
-  db: Database,
+  db: DbOrTransaction,
   ingredientId: string
 ): Promise<Product[]> {
   return db
@@ -76,7 +79,7 @@ export async function listProductsByIngredient(
 }
 
 export async function updateProductIngredient(
-  db: Database,
+  db: DatabaseTransaction,
   productId: string,
   ingredientId: string,
   data: UpdateProductIngredientInput
@@ -95,7 +98,7 @@ export async function updateProductIngredient(
 }
 
 export async function removeIngredientFromProduct(
-  db: Database,
+  db: DatabaseTransaction,
   productId: string,
   ingredientId: string
 ): Promise<boolean> {
@@ -112,7 +115,7 @@ export async function removeIngredientFromProduct(
 }
 
 export async function replaceProductIngredients(
-  db: Database,
+  db: DatabaseTransaction,
   productId: string,
   data: Omit<CreateProductIngredientInput, 'productId'>[]
 ): Promise<ProductIngredient[]> {

@@ -1,11 +1,9 @@
 /**
- * Regression test: admin moderation routes must work under the real
- * app_runtime pool.
- *
- * The route-level tests use testDb, which connects as the postgres superuser
- * `app` and can mask production RLS behavior. This mini-app injects the real
- * `app_runtime` pool as anonDb; the guarded route must then open requestDb and
- * bind the admin identity before updating a FORCE RLS table.
+ * Regression test: admin moderation routes must work under the real app_runtime pool.
+ * Route-level tests use testDb, which connects as superuser `app` and can mask
+ * production RLS behavior. This mini-app injects the real `app_runtime` pool as
+ * anonDb, so the guarded route must open requestDb and bind the admin identity
+ * before updating a FORCE RLS table.
  */
 import { describe, expect, it } from 'bun:test'
 
@@ -35,7 +33,7 @@ async function buildApp() {
 
 setupDbTests()
 
-describe('admin moderation under app_runtime — RLS enforcement', () => {
+describe('admin moderation under app_runtime: RLS enforcement', () => {
   it('PATCH /admin/moderation/reviews/:id flips moderation_status to hidden', async () => {
     const reviewer = await createTestUser('reviewer-rls@test.local', 'Azerty123!')
     await createTestAdminUser('admin-rls@test.local', 'Azerty123!')

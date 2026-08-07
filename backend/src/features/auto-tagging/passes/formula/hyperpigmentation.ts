@@ -5,11 +5,10 @@ import { matchesNamePositioning } from './name-positioning'
 const S = SKINCARE_PRODUCT_TAG_SLUGS
 
 // Positioning gate for `hyperpigmentation` (re-emits an algo-derm slug, ADR-0004).
-// algo-derm fires on brightening actives in the INCI (niacinamide, arbutin, thiamidol)
-// even when the product is positioned for anti-age or generic radiance. The
-// gate keys on spot-specific name/claim vocabulary. Generic radiance products (éclat,
-// éclaircissant) are deliberately NOT matched here — they belong to eclat-teint-uniforme;
-// folding them in would over-tag.
+// algo-derm fires on brightening actives (niacinamide, arbutin, thiamidol) even when
+// the product is positioned for anti-age or generic radiance. The gate keys on
+// spot-specific name/claim vocabulary. Generic radiance products (éclat, éclaircissant)
+// are deliberately not matched here, they belong to eclat-teint-uniforme.
 export const PIGMENT_POSITION_RE =
   /hyperpigment|tach[eé].{0,15}brun|tach[eé].{0,15}pigment|anti.{0,5}pigment|anti.{0,5}tach|d[eé]pigment|dark.?spot|melasma|chloasma|tach[eé].{0,15}vieillesse|correcteur.{0,10}tach|corriger.{0,10}tach|r[eé]duire.{0,10}tach/i
 

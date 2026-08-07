@@ -100,7 +100,7 @@ describe('GET /api/social/feed', () => {
     expect(data).toEqual({ posts: [] })
   })
 
-  it('shows only posts from the similar cohort — a non-discoverable author never surfaces', async () => {
+  it('shows only posts from the similar cohort, a non-discoverable author never surfaces', async () => {
     const token = await seedViewer()
     const close = await seedPeer('close', SENSITIVE)
     const hidden = await seedPeer('hidden', SENSITIVE, { discoverable: false })
@@ -136,11 +136,11 @@ describe('GET /api/social/feed', () => {
     await insertPost(far, { tone: 'principal', concernSlug: 'anti-acne', createdAt: ts(12) })
 
     const data = await fetchFeed(token)
-    // far's post is newer → first, regardless of the author's closeness.
+    // far's post is newer, so it comes first, regardless of the author's closeness.
     expect(data.posts.map((p) => p.author.username)).toEqual(['far', 'close'])
   })
 
-  it('orders by similarity on demand — closest authors first, never by reactions', async () => {
+  it('orders by similarity on demand: closest authors first, never by reactions', async () => {
     const token = await seedViewer()
     const close = await seedPeer('close', SENSITIVE)
     const far = await seedPeer('far', {
@@ -157,7 +157,7 @@ describe('GET /api/social/feed', () => {
     expect(data.posts.map((p) => p.authorBand)).toEqual(['tres-proche', 'proche'])
   })
 
-  it('scopes by concern bucket — rosacée surfaces couperose, excludes unrelated concerns', async () => {
+  it('scopes by concern bucket: rosacée surfaces couperose, excludes unrelated concerns', async () => {
     const token = await seedViewer()
     const close = await seedPeer('close', SENSITIVE)
     const far = await seedPeer('far', {

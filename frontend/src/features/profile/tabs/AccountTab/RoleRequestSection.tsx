@@ -14,7 +14,7 @@ import {
 } from '../../../../lib/queries/role-requests'
 import { useAuthStore } from '../../../../store/auth'
 
-// Server error codes from submitRoleRequestBodySchema's mapping → calm FR copy.
+// Maps server error codes from submitRoleRequestBodySchema to calm FR copy.
 const ROLE_REQUEST_ERRORS: Record<string, string> = {
   already_pending: 'Vous avez déjà une demande en attente.',
   already_elevated: 'Vous êtes déjà modérateur ou administrateur.',
@@ -57,7 +57,7 @@ export const RoleRequestSection = () => {
     submit.mutate(
       {
         motivation: trimmedMotivation,
-        // Omit the link when empty — never send '' or null (httpsUrl is optional, absent = not provided).
+        // Omit the link when empty: never send '' or null (httpsUrl is optional, absent = not provided).
         ...(trimmedLink ? { motivationLink: trimmedLink } : {}),
       },
       {
@@ -113,8 +113,8 @@ export const RoleRequestSection = () => {
   if (isLoading) {
     body = <p className="role-request-intro">Chargement…</p>
   } else if (isError) {
-    // Don't fall through to the form on a failed load — a user with a pending request
-    // would see it and re-submit into an `already_pending` error.
+    // Don't fall through to the form on a failed load: a user with a pending request
+    // would see it and submit again into an `already_pending` error.
     body = (
       <FormMessage variant="warning">
         Impossible de charger l'état de votre demande. Rechargez la page.
@@ -142,7 +142,7 @@ export const RoleRequestSection = () => {
     )
   } else if (latest?.status === 'approved') {
     // Welcome message. The role flips to contributor at the next token refresh (≤15 min),
-    // which unmounts this section — no force-refresh needed.
+    // which unmounts this section, no force-refresh needed.
     body = (
       <FormMessage variant="success">
         Votre demande a été acceptée. Vos accès modérateur seront actifs d'ici quelques minutes, à

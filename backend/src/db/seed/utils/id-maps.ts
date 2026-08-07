@@ -1,5 +1,4 @@
-import { db } from '../..'
-import type { DB } from '../../index'
+import type { DatabaseTransaction, DbOrTransaction } from '../../index'
 import {
   articles,
   discussionReplies,
@@ -26,11 +25,11 @@ export function flattenTagGroups(
   ])
 }
 
-export async function cleanDatabase(tx: DB = db) {
+export async function cleanDatabase(tx: DbOrTransaction) {
   console.log('🧹 Nettoyage de la base de données...')
   // Order matters: junction tables before owners (FK constraints).
   // Discussions: replies cascade from threads, but threads have an
-  // ON DELETE RESTRICT FK to products — must be cleared explicitly
+  // ON DELETE RESTRICT FK to products, so they must be cleared explicitly
   // before the products delete or the seed transaction aborts.
   await tx.delete(articles)
   await tx.delete(discussionReplies)
@@ -47,7 +46,7 @@ export async function cleanDatabase(tx: DB = db) {
   console.log('✅ Base nettoyée\n')
 }
 
-export async function fetchIdMaps(database: DB) {
+export async function fetchIdMaps(database: DatabaseTransaction) {
   console.log('\n📊 Récupération des IDs...')
   const [allProducts, allProductTags, allIngredientTags, allIngredients] = await Promise.all([
     database.select({ id: products.id, slug: products.slug }).from(products),

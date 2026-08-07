@@ -2,8 +2,7 @@ import type { CreateReplyInput, CreateThreadInput } from '@aurore/shared'
 
 import { and, count, desc, eq } from 'drizzle-orm'
 
-import type { DB } from '../../db'
-import { db } from '../../db'
+import type { DatabaseTransaction, DbOrTransaction } from '../../db'
 import { ingredients } from '../../db/schema/ingredients/ingredients'
 import { products } from '../../db/schema/products'
 import { discussionReplies, discussionThreads } from '../../db/schema/products/discussions'
@@ -15,7 +14,7 @@ export type EntityType = 'product' | 'ingredient'
 async function resolveEntityId(
   slug: string,
   entityType: EntityType,
-  database: DB
+  database: DbOrTransaction
 ): Promise<string> {
   if (entityType === 'product') {
     const [row] = await database
@@ -33,7 +32,7 @@ async function resolveEntityId(
   return row.id
 }
 
-export async function listThreads(slug: string, entityType: EntityType, database: DB = db) {
+export async function listThreads(slug: string, entityType: EntityType, database: DbOrTransaction) {
   const entityId = await resolveEntityId(slug, entityType, database)
   const condition =
     entityType === 'product'
@@ -71,7 +70,7 @@ export async function createThread(
   slug: string,
   entityType: EntityType,
   input: CreateThreadInput,
-  database: DB = db
+  database: DatabaseTransaction
 ) {
   const entityId = await resolveEntityId(slug, entityType, database)
   const entityFields =
@@ -88,7 +87,7 @@ export async function createThread(
   return thread
 }
 
-export async function getThreadWithReplies(threadId: string, database: DB = db) {
+export async function getThreadWithReplies(threadId: string, database: DbOrTransaction) {
   const [thread] = await database
     .select({
       id: discussionThreads.id,
@@ -130,9 +129,13 @@ export async function getThreadWithReplies(threadId: string, database: DB = db) 
   return { ...thread, replyCount: replies.length, replies }
 }
 
-export async function deleteThread(userId: string, threadId: string, database: DB = db) {
-  // Owner filter in the WHERE clause, not a post-fetch 403: a non-existent thread
-  // and another user's thread both delete zero rows → uniform thread_not_found.
+export async function deleteThread(
+  userId: string,
+  threadId: string,
+  database: DatabaseTransaction
+) {
+  // Owner filter in the WHERE clause, not a 403 after the fetch: a thread that doesn't exist
+  // and another user's thread both delete zero rows, giving a uniform thread_not_found.
   // A 403-vs-404 split would let any authenticated user probe thread existence.
   const deleted = await database
     .delete(discussionThreads)
@@ -146,7 +149,7 @@ export async function createReply(
   userId: string,
   threadId: string,
   input: CreateReplyInput,
-  database: DB = db
+  database: DatabaseTransaction
 ) {
   // Rejects replies on hidden threads: insert would succeed but the reply would
   // be invisible and pollute the DB with rows on moderated threads.
@@ -168,7 +171,7 @@ export async function createReply(
   return reply
 }
 
-export async function deleteReply(userId: string, replyId: string, database: DB = db) {
+export async function deleteReply(userId: string, replyId: string, database: DatabaseTransaction) {
   // Same collapse as deleteThread: owner filter folds cross-user and missing into
   // a single reply_not_found, so the response can't leak reply existence.
   const deleted = await database

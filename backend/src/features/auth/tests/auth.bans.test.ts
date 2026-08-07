@@ -12,16 +12,11 @@ import {
   type TestClient,
   withAuth,
 } from '../../../tests/helpers/createTestClient'
-import { TEST_CREDENTIALS } from '../../../tests/helpers/test-credentials'
-import { createTestAdminUser, createTestUser } from '../../../tests/helpers/test-factories'
+import { expectError, expectStatus } from '../../../tests/helpers/expectStatus'
 import { _banCacheSize, clearBanCache } from '../ban.service'
+import { seedBanActors } from './ban-test.setup'
 
-async function login(client: TestClient, email: string, password: string): Promise<string> {
-  const res = await client.auth.login.$post({ json: { email, password } })
-  const data = await res.json()
-  if (!data.success) throw new Error('login failed in ban-test setup')
-  return data.data.accessToken
-}
+type BannedDetails = { reason: string | null; expiresAt: string | null }
 
 setupDbTests()
 
@@ -37,13 +32,7 @@ describe('Ban enforcement (requireNotBanned)', () => {
 
   beforeEach(async () => {
     clearBanCache()
-    const toto = TEST_CREDENTIALS.toto
-    const admin = TEST_CREDENTIALS.admin
-    const user = await createTestUser(toto.rawEmail, toto.rawPassword)
-    const adminUser = await createTestAdminUser(admin.rawEmail, admin.rawPassword)
-    userId = user.id
-    adminId = adminUser.id
-    token = await login(client, toto.rawEmail, toto.rawPassword)
+    ;({ userId, adminId, token } = await seedBanActors(client))
   })
 
   afterEach(() => {
@@ -60,14 +49,8 @@ describe('Ban enforcement (requireNotBanned)', () => {
 
     const res = await client.auth.session.$get({}, withAuth(token))
 
-    // Middleware-issued 403 is outside the route's inferred status union.
-    expect(res.status as number).toBe(HTTP_STATUS.FORBIDDEN)
-    const body = await res.json()
-    expect(body).toMatchObject({
-      success: false,
-      error: 'banned',
-      details: { reason: 'spam', expiresAt: null },
-    })
+    const body = await expectError<BannedDetails>(res, HTTP_STATUS.FORBIDDEN, 'banned')
+    expect(body.details).toEqual({ reason: 'spam', expiresAt: null })
   })
 
   it('allows /session when ban is expired', async () => {
@@ -110,13 +93,13 @@ describe('Ban enforcement (requireNotBanned)', () => {
     })
 
     const first = await client.auth.session.$get({}, withAuth(token))
-    expect(first.status as number).toBe(HTTP_STATUS.FORBIDDEN)
+    expectStatus(first, HTTP_STATUS.FORBIDDEN)
     expect(_banCacheSize()).toBe(1)
 
     // Delete the row out-of-band: cache should still return banned within TTL.
     await testDb.delete(userBans).where(eq(userBans.userId, userId))
     const second = await client.auth.session.$get({}, withAuth(token))
-    expect(second.status as number).toBe(HTTP_STATUS.FORBIDDEN)
+    expectStatus(second, HTTP_STATUS.FORBIDDEN)
 
     // Invalidate cache: request now reads fresh state.
     clearBanCache()
@@ -134,15 +117,7 @@ describe('Ban enforcement (requireNotBanned)', () => {
 
     const res = await client.auth.session.$get({}, withAuth(token))
 
-    expect(res.status as number).toBe(HTTP_STATUS.FORBIDDEN)
-    const body = await res.json()
-    // Banned-shape response is delivered by middleware, outside the route's
-    // inferred response union — narrow with a runtime cast.
-    const bannedBody = body as unknown as {
-      success: false
-      error: 'banned'
-      details: { reason: string | null; expiresAt: string | null }
-    }
-    expect(bannedBody.details.reason).toBe('recent')
+    const body = await expectError<BannedDetails>(res, HTTP_STATUS.FORBIDDEN, 'banned')
+    expect(body.details?.reason).toBe('recent')
   })
 })

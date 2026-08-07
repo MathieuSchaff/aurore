@@ -9,15 +9,11 @@ export type InciNormalization = {
   tokensAfter: number
 }
 
-// Rewrite a raw INCI declaration to its governed canonical form: repair the
-// scraped string, split, and map each token to its canonical INCI name so the
-// same substance reads identically across the catalogue. Unknown tokens (FR /
-// exotic) pass through unchanged — never silently dropped.
-//
-// canonicalizeINCI is 1:1, so the only way to lose tokens is the clean+split
-// step misreading the list as prose. Guardrail: keep the original when cleaning
-// halves the token count. No absolute floor — mono/bi-ingredient products
-// (pure oils) are legitimate and must normalize too.
+// Rewrites a raw INCI declaration to canonical form: repairs the scraped string, splits, and
+// maps each token to its canonical INCI name, so unknown tokens (FR / exotic) pass through
+// unchanged, never dropped. Guardrail: keep the original when cleaning halves the token count
+// (clean+split misreading the list as prose), since canonicalizeINCI itself is 1:1. No floor:
+// mono/bi-ingredient oils are legitimate and must normalize too.
 export function normalizeInci(raw: string): InciNormalization {
   const { canonical } = cleanInci(raw)
   const value = canonical.join(', ')

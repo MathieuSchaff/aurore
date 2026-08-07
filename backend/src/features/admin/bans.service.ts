@@ -10,7 +10,7 @@ import type {
 
 import { desc, eq, sql } from 'drizzle-orm'
 
-import type { Database } from '../../db'
+import type { DatabaseTransaction } from '../../db'
 import { type UserBan, userBans, usersSafe } from '../../db/schema'
 import { profiles } from '../../db/schema/auth/users'
 import { clearBanCache } from '../auth/ban.service'
@@ -25,7 +25,7 @@ type CreateBanArgs = {
 }
 
 export async function createBan(
-  db: Database,
+  db: DatabaseTransaction,
   { actorId, targetUserId, body }: CreateBanArgs
 ): Promise<CreateBanResult> {
   if (actorId === targetUserId) {
@@ -66,7 +66,10 @@ export async function createBan(
 }
 
 // Returns null when the ban is absent; caller falls through to liftBan's not_found path.
-export async function getBanScope(db: Database, banId: string): Promise<BanScope | null> {
+export async function getBanScope(
+  db: DatabaseTransaction,
+  banId: string
+): Promise<BanScope | null> {
   const [row] = await db
     .select({ scope: userBans.scope })
     .from(userBans)
@@ -75,7 +78,7 @@ export async function getBanScope(db: Database, banId: string): Promise<BanScope
   return row?.scope ?? null
 }
 
-export async function listUserBans(db: Database, userId: string): Promise<UserBan[]> {
+export async function listUserBans(db: DatabaseTransaction, userId: string): Promise<UserBan[]> {
   return db
     .select()
     .from(userBans)
@@ -86,7 +89,7 @@ export async function listUserBans(db: Database, userId: string): Promise<UserBa
 type LiftedBanSummary = Pick<UserBan, 'userId' | 'scope' | 'reason' | 'bannedBy'>
 export type LiftBanResult = ApiResponse<LiftedBanSummary, 'not_found' | 'server_error'>
 
-export async function liftBan(db: Database, banId: string): Promise<LiftBanResult> {
+export async function liftBan(db: DatabaseTransaction, banId: string): Promise<LiftBanResult> {
   // The row is destroyed here, so return what it held: this is the last moment where
   // who banned whom, and why, still exists anywhere.
   const deleted = await db.delete(userBans).where(eq(userBans.id, banId)).returning({
@@ -104,7 +107,7 @@ export async function liftBan(db: Database, banId: string): Promise<LiftBanResul
 }
 
 export async function updateBan(
-  db: Database,
+  db: DatabaseTransaction,
   banId: string,
   body: UpdateBanInput
 ): Promise<UpdateBanResult> {
@@ -129,7 +132,7 @@ export async function updateBan(
   return { success: true, data: row }
 }
 
-export async function listUsers(db: Database): Promise<AdminUserListItem[]> {
+export async function listUsers(db: DatabaseTransaction): Promise<AdminUserListItem[]> {
   const rows = await db
     .select({
       id: usersSafe.id,

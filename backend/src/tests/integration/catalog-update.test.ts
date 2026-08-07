@@ -35,7 +35,7 @@ const baseProductInput = {
 
 const baseIngredientInput = { name: 'Update Acid', type: 'skincare' } as const
 
-describe('catalog update — updateIngredient 0-row disambiguation (CQ-2)', () => {
+describe('catalog update: updateIngredient 0-row disambiguation', () => {
   it('★ creator editing an ingredient that became verified gets 403, not a 500', async () => {
     const user = await createTestUser('ing-upd-verified@test.local')
     const created = await testDb.transaction((tx) =>
@@ -101,7 +101,7 @@ describe('catalog update — updateIngredient 0-row disambiguation (CQ-2)', () =
   })
 })
 
-describe('catalog update — updateProduct dedup on rename (C-4)', () => {
+describe('catalog update: updateProduct dedup on rename', () => {
   it('translates a unique-key collision on rename into 409, never a raw 500', async () => {
     const user = await createTestUser('upd-dedup@test.local')
     await testDb.transaction((tx) =>
@@ -140,7 +140,7 @@ describe('catalog update — updateProduct dedup on rename (C-4)', () => {
   })
 })
 
-describe('catalog update — updateProduct field-strip (V-2)', () => {
+describe('catalog update: updateProduct field-strip', () => {
   it('ignores attempts to flip quality / moderation / verify stamps', async () => {
     const user = await createTestUser('upd-strip@test.local')
     const product = await testDb.transaction((tx) =>
@@ -172,7 +172,7 @@ describe('catalog update — updateProduct field-strip (V-2)', () => {
   })
 })
 
-describe('catalog update — updateProduct 0-row disambiguation (CQ-2)', () => {
+describe('catalog update: updateProduct 0-row disambiguation', () => {
   it('★ creator editing a row that became verified gets 403, not a silent 404', async () => {
     const user = await createTestUser('upd-verified@test.local')
     const product = await testDb.transaction((tx) =>

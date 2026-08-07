@@ -23,7 +23,7 @@ export interface ClassifyResult {
 }
 
 // V1/V2 gate: V1 backfill inserts product_type_v2 primaries when curation is
-// absent; re-running the gate on "any primary row" would block V2 (concern)
+// absent; running the gate again on "any primary row" would block V2 (concern)
 // from firing on products V1 already touched, so the caller treats only the
 // V1-emittable tagType as "auto" when building productsWithCuratedPrimary.
 // Demote to secondary for curated products so the row is still inserted.
@@ -51,10 +51,10 @@ export function classifyCandidates(
     const effective = applyV1V2Gate(c, productsWithCuratedPrimary)
     const pairKey = `${effective.productId}:${effective.productTagId}`
     const dbRel = existingMap.get(pairKey)
-    // A manual row owns this PK → never upsert it. upsertExistingPairs rewrites
+    // A manual row owns this PK: never upsert it. upsertExistingPairs rewrites
     // relevance+source unconditionally, so an avoid/primary candidate would
     // clobber human curation. writeTagsForProduct already scopes its DELETE to
-    // non-manual; backfill must honour the same invariant.
+    // rows that are not manual; backfill must honour the same invariant.
     const isManual = manualPairs.has(pairKey)
 
     if (dbRel === undefined) {

@@ -5,8 +5,8 @@ import { afterEach, describe, expect, it, vi } from 'vitest'
 import { DropdownMenu } from '../DropdownMenu'
 
 // Oracle tests for the shared DropdownMenu component.
-// Cover the post-refactor Option B contract (DOM-order roving focus,
-// multi-ref useCaptureDismiss hook). All active, no residual `it.skip`.
+// Cover the Option B contract left by the refactor (DOM-order roving focus,
+// useCaptureDismiss hook taking several refs). All active, no residual `it.skip`.
 
 function Sample({ ariaLabel = 'Test menu' }: { ariaLabel?: string } = {}) {
   return (
@@ -37,7 +37,7 @@ async function flushFocus() {
   })
 }
 
-describe('DropdownMenu — comportement actuel', () => {
+describe('DropdownMenu: comportement actuel', () => {
   afterEach(() => cleanup())
 
   it("aria-haspopup / aria-expanded sont posés sur le trigger, aria-controls seulement à l'ouverture", async () => {
@@ -188,7 +188,7 @@ describe('DropdownMenu — comportement actuel', () => {
   })
 })
 
-describe('DropdownMenu — contrats post-fix (D-findings shipped)', () => {
+describe('DropdownMenu: contrats après le fix (D-findings shipped)', () => {
   afterEach(() => cleanup())
 
   // ArrowDown on the trigger must open the menu and focus item[0].
@@ -235,10 +235,10 @@ describe('DropdownMenu — contrats post-fix (D-findings shipped)', () => {
     })
   })
 
-  // kb nav survives a parent re-render. With DOM-order roving, the source
+  // kb nav survives when the parent renders again. With DOM-order roving, the source
   // of truth is the current DOM (querySelectorAll), not an itemsRef mutated by
-  // registration callbacks. No more wipe risk between re-renders.
-  it('kb nav reste fonctionnelle après re-render parent', async () => {
+  // registration callbacks. No more wipe risk between renders.
+  it('kb nav reste fonctionnelle après un nouveau rendu du parent', async () => {
     function Wrapper({ tick }: { tick: number }) {
       return (
         <div data-tick={tick}>
@@ -277,7 +277,7 @@ describe('DropdownMenu — contrats post-fix (D-findings shipped)', () => {
   // wrapper. Children.toArray + a `child.type === DropdownMenuItem` check would
   // have skipped them; querySelectorAll sees them because the role is set by
   // cloneElement on the final element.
-  it('items dans Fragment — kb nav traverse correctement', async () => {
+  it('items dans Fragment: kb nav traverse correctement', async () => {
     const user = userEvent.setup()
     render(
       <DropdownMenu>
@@ -306,9 +306,9 @@ describe('DropdownMenu — contrats post-fix (D-findings shipped)', () => {
     expect(document.activeElement).toBe(screen.getByRole('menuitem', { name: 'Frag B' }))
   })
 
-  // Conditional remount: an item removed then re-added between two opens must
+  // Conditional remount: an item removed then added back between two opens must
   // be accounted for. The live DOM read carries no stale state.
-  it("items conditionnels — kb nav reflète l'ordre DOM courant après remount", async () => {
+  it("items conditionnels: kb nav reflète l'ordre DOM courant après remount", async () => {
     function Conditional({ extra }: { extra: boolean }) {
       return (
         <DropdownMenu>
@@ -337,18 +337,18 @@ describe('DropdownMenu — contrats post-fix (D-findings shipped)', () => {
     await user.click(screen.getByRole('button', { name: 'Open' }))
     await flushFocus()
 
-    // Without 'Extra': Always → Tail.
+    // Without 'Extra': ArrowDown moves from Always to Tail.
     await user.keyboard('{ArrowDown}')
     expect(document.activeElement).toBe(screen.getByRole('menuitem', { name: 'Tail' }))
 
     // Remount with 'Extra' present (without closing the menu).
     rerender(<Conditional extra={true} />)
 
-    // Focus stayed on Tail (last known item). End → still last.
+    // Focus stayed on Tail (last known item). End still lands on last.
     await user.keyboard('{End}')
     expect(document.activeElement).toBe(screen.getByRole('menuitem', { name: 'Tail' }))
 
-    // Home → first item (Always), ArrowDown → Extra (new, at position 2).
+    // Home goes to first item (Always), then ArrowDown lands on Extra (new, at position 2).
     await user.keyboard('{Home}')
     expect(document.activeElement).toBe(screen.getByRole('menuitem', { name: 'Always' }))
     await user.keyboard('{ArrowDown}')

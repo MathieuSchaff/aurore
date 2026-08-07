@@ -12,8 +12,9 @@ import {
 import { z } from 'zod'
 
 import { logger } from '../../lib/logger'
+import { getAuthedUserId, getRlsDb } from '../../utils/accessors'
 import { zValidator } from '../../utils/validator'
-import { getAuthedUserId, requireAdmin } from '../auth/middleware'
+import { requireAdmin } from '../auth/middleware'
 import { listRoleRequests, reviewRoleRequest } from '../role-requests/service'
 import { createAdminGuardedRouter } from './_guarded-router'
 
@@ -24,7 +25,7 @@ const requestIdParam = z.object({ id: z.uuid() })
 export const adminRoleRequestsRoutes = createAdminGuardedRouter(requireAdmin)
   .get('/', zValidator('query', listRoleRequestsQuerySchema), async (c) => {
     const filters = c.req.valid('query')
-    const result = await listRoleRequests(c.get('db'), filters)
+    const result = await listRoleRequests(getRlsDb(c), filters)
     return c.json(ok(result), HTTP_STATUS.OK)
   })
   .patch(
@@ -36,7 +37,7 @@ export const adminRoleRequestsRoutes = createAdminGuardedRouter(requireAdmin)
       const review = c.req.valid('json')
       const adminId = getAuthedUserId(c)
 
-      const result = await reviewRoleRequest(c.get('db'), { id, adminId, review })
+      const result = await reviewRoleRequest(getRlsDb(c), { id, adminId, review })
       if (!isApiSuccess(result)) {
         return c.json(err(result.error), errorToStatus(result.error, reviewRoleRequestErrorMapping))
       }

@@ -1,17 +1,6 @@
-// Explain CLI for the auto-tag pipeline. Read-only: no writes, no DB mutation.
-//
-// Two modes:
-//   1. INCI trace (default): `bun run .../explain/main.ts [--kind serum]
-//      [--category skincare] "<raw INCI>": prints the layers that fired, each
-//      proposal + its merge outcome, why algo-derm candidates were dropped, the
-//      primary promotion, and the final tag set. Wraps `explainInci` (the shared
-//      service); the CLI only parses argv and formats.
-//   2. Catalogue counts: `--counts`, GROUP BY on tag_products for the real
-//      stored counts per tag / cluster (product_tags.type) / level (relevance).
-//      Not the audit runner (that aggregates dry-run predictions, not stored rows).
-//
-// Invoked inside the api container via `just autotag-explain` (env: INCI, KIND,
-// CATEGORY, COUNTS); see scripts/just/audit/autotag-ops.just.
+// Explain CLI for the auto-tag pipeline. Read-only: no writes, no DB mutation. Invoked inside
+// the api container via `just autotag-explain` (env: INCI, KIND, CATEGORY, COUNTS); see
+// scripts/just/audit/autotag-ops.just.
 
 import { PRODUCT_KIND_LABELS, type ProductKind } from '@aurore/shared'
 
@@ -94,6 +83,8 @@ function printTrace(trace: ExplainTrace, kind: string, category: string): void {
   console.log()
 }
 
+// GROUP BY on tag_products for the real stored counts, not the audit runner's
+// dry-run predictions.
 async function runCounts(): Promise<void> {
   // Elevate in-tx so the counts cover the full catalogue (see db/rls.ts).
   const rows = await withAdminRls(async (tx) =>
@@ -146,7 +137,7 @@ function sortDesc(m: Map<string, number>): [string, number][] {
 // Trace a real catalogue product. Unlike the raw-INCI mode, this feeds the full
 // OrchestratorInput (name / description / brand / texture / percent claims /
 // known concentrations) + brand certifications, so the trace matches what intake
-// actually persists — the raw-INCI mode is blind to every name/claim pass.
+// actually persists; the raw-INCI mode is blind to every name/claim pass.
 // Mirrors `computeTagRowsForProduct`'s input assembly.
 async function runSlug(slug: string): Promise<void> {
   // RLS elevation so the runner reads the product regardless of ownership, and
@@ -198,6 +189,7 @@ async function main(): Promise<void> {
     throw new Error(`Unknown kind '${args.kind}'. Valid: ${[...VALID_KINDS].join(', ')}`)
   }
 
+  // Wraps `explainInci` (the shared service); this CLI only parses argv and formats.
   const trace = explainInci({
     inci: args.inci,
     kind: args.kind as ProductKind,

@@ -15,5 +15,3 @@ export async function closeTestDb() {
   // Bun SQL doesn't require explicit teardown
   // client.close()
 }
-
-export type DB = typeof testDb

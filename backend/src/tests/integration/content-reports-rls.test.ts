@@ -1,13 +1,10 @@
 /**
  * RLS regression for content_reports under the real app_runtime pool.
- *
- * The route-level tests (features/reports/tests) run as the table-owner role `app`
- * (implicit BYPASSRLS), which masks production: APP_DATABASE_URL connects as
- * `app_runtime` (no BYPASSRLS). content_reports needs moderator policies, not only tenant_isolation
- * (reporter_id = auth.uid()) + admin_bypass — so a contributor saw ONLY reports they
- * filed → an empty moderation queue, and a contributor escalate-UPDATE touched 0 rows
- * → 404. moderationPolicies('content_reports') opens read+update to admin∨contributor.
- * This file proves both halves under prod RLS.
+ * Route-level tests run as the table-owner role `app` (implicit BYPASSRLS), which masks
+ * production: APP_DATABASE_URL connects as `app_runtime` (no BYPASSRLS). content_reports
+ * needs moderator policies, not only tenant_isolation + admin_bypass: a contributor
+ * would otherwise see only reports they filed, and their escalate-UPDATE would touch 0
+ * rows (404). moderationPolicies('content_reports') opens read+update to admin/contributor.
  */
 import { describe, expect, it } from 'bun:test'
 

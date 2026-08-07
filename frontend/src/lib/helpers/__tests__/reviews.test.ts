@@ -56,7 +56,7 @@ describe('calculateWeightedScore', () => {
       valueForMoney: 1,
     }
     // (5×3 + 3×2 + 2×1 + 2×1 + 2×1 + 2×1) / (3+2+1+1+1+1) = 29/9 ≈ 3.2222
-    // ×4 = 12.888... → "12.9"
+    // ×4 = 12.888..., which rounds to "12.9"
     expect(calculateWeightedScore(review, weights)).toBe('12.9')
   })
 

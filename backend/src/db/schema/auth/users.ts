@@ -131,7 +131,7 @@ export const profiles = pgTable(
       )`,
     }),
     // A visible Post is a public signed artifact, so its author's pseudonym must
-    // surface (product surface shows non-public authors, /u link gated client-side).
+    // surface (product surface shows authors who are not public, /u link gated client-side).
     // moderation_status='visible' so a hidden post never leaks its author.
     pgPolicy('profiles_select_for_social_post', {
       as: 'permissive',
@@ -218,12 +218,10 @@ export const userDermoProfiles = pgTable(
           AND r.moderation_status = 'visible'
       )`,
     }),
-    // Exposes opt-in rows to the similarity engine (ADR-0012). Same
-    // master gate as _select_public (profile_public + not force-privated), plus
-    // the discoverable consent. No SECURITY DEFINER wrapper: the inner read hits
-    // only `profiles`, whose policies never reference user_dermo_profiles, so no
-    // recursion cycle (unlike 0067). The engine reads private dermo data through
-    // this path and only ever surfaces an ordinal band.
+    // Exposes opt-in rows to the similarity engine (ADR-0012), same master gate as
+    // _select_public plus the discoverable consent. No SECURITY DEFINER wrapper: the
+    // inner read hits only `profiles`, whose policies never reference this table, so
+    // no recursion cycle (unlike 0067). The engine only ever surfaces an ordinal band.
     pgPolicy('user_dermo_profiles_select_discoverable', {
       as: 'permissive',
       for: 'select',
@@ -257,7 +255,7 @@ export const refreshTokens = pgTable(
   },
   (t) => [
     uniqueIndex('refresh_tokens_jti_hash_ux').on(t.jtiHash),
-    // Partial index: only active (non-revoked) tokens, used by getUserActiveSessions
+    // Partial index: only active (not revoked) tokens, used by getUserActiveSessions
     index('refresh_tokens_active_user_idx')
       .on(t.userId, t.expiresAt)
       .where(sql`${t.revokedAt} IS NULL`),
@@ -267,7 +265,7 @@ export const refreshTokens = pgTable(
     index('refresh_tokens_expires_revoked_idx').on(t.expiresAt, t.revokedAt),
     check('revoked_after_created', sql`${t.revokedAt} IS NULL OR ${t.revokedAt} >= ${t.createdAt}`),
     check('expires_in_future', sql`${t.expiresAt} > ${t.createdAt}`),
-    // Pre-identity lookup (refresh flow before bindRlsContext is set) goes
+    // Lookup before identity is known (refresh flow before bindRlsContext is set) goes
     // through auth.find_active_refresh_token (SECURITY DEFINER, see 0041).
     // All other reads/writes are gated by these policies.
     ...tenantPolicies('refresh_tokens', t.userId),

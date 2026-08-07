@@ -1,6 +1,6 @@
 import { addDays, subMonths } from 'date-fns'
 
-import type { Database } from '../../db/index'
+import type { DatabaseTransaction } from '../../db/index'
 import { logger } from '../../lib/logger'
 import { listProducts } from '../products/service'
 import { addPurchase, finishPurchase, openPurchase } from '../user-products/purchase.service'
@@ -9,7 +9,7 @@ import { createUserProduct, upsertUserProductReview } from '../user-products/ser
 // Wire dates are ISO datetime UTC; backend boundary truncates to YYYY-MM-DD.
 const d = (date: Date) => date.toISOString()
 
-export async function seedDemoData(userId: string, db: Database) {
+export async function seedDemoData(userId: string, db: DatabaseTransaction) {
   logger.info({ userId }, 'seeding demo data')
 
   await seedDemoCollection(userId, db)
@@ -17,7 +17,7 @@ export async function seedDemoData(userId: string, db: Database) {
   logger.info({ userId }, 'demo data seeded')
 }
 
-async function seedDemoCollection(userId: string, db: Database) {
+async function seedDemoCollection(userId: string, db: DatabaseTransaction) {
   const { items: products } = await listProducts(
     { category: 'skincare', page: 1, limit: 15, sort: 'random' },
     db
@@ -123,7 +123,7 @@ async function seedDemoPurchases(
   userId: string,
   userProductId: string,
   pattern: 'in_stock' | 'holy_grail' | 'archived',
-  db: Database
+  db: DatabaseTransaction
 ) {
   if (pattern === 'archived') {
     const p = await addPurchase(
@@ -166,7 +166,7 @@ async function seedDemoPurchases(
     return
   }
 
-  // Non-deterministic on purpose (varied demo collections). Safe for analytics:
+  // Not deterministic on purpose (varied demo collections). Safe for analytics:
   // every metric filters is_demo=false (see db/audit/stats-db.ts).
   const hasOpen = Math.random() > 0.5
   const purchasedAt = subMonths(new Date(), Math.floor(Math.random() * 4) + 1)

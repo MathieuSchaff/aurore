@@ -4,23 +4,15 @@ import { resolveIngredients } from '../../lib/ingredient-resolver'
 
 const S = SKINCARE_PRODUCT_TAG_SLUGS
 
-// Absorbent / mattifying powders. Functional only when in top 8 (past that
-// they're texture polish without enough mass to absorb sebum). Emits both
-// `fini-mat` (sensoriel) and `matifiant` (skin_effect): same trigger, two
-// axes. Replaces the algo-derm `matifiant` mapping (its `computed_score` rule
-// conflated the slug with `peau-grasse` set membership (identical product
-// set, different semantics). The algo-derm slug has no TAG_CONFIG entry;
-// its candidate is dropped as `unmapped`. Ties matifiant to actual
-// absorbent ingredients instead of skin-type inference.
-//
-// `talc` is included for legacy makeup/skincare hybrids; its safety status
-// (asbestos-free) is a separate concern handled at the brand level.
+// Absorbent / mattifying powders. Replaces the algo-derm `matifiant` mapping, whose
+// `computed_score` rule conflated the slug with `peau-grasse` set membership (identical
+// products, different semantics); that algo-derm candidate is now dropped as `unmapped`.
 
 const ABSORBENT_PATTERNS = [
   'silica',
   'kaolin',
   'perlite',
-  'talc',
+  'talc', // legacy makeup/skincare hybrids; asbestos-free safety status is a brand-level concern
   'corn starch',
   'zea mays starch',
   'oryza sativa starch',
@@ -31,6 +23,8 @@ const ABSORBENT_PATTERNS = [
   'starch', // catch-all for the *starch suffix; comes last so specifics rank first
 ]
 
+// Functional only in top 8: past that, powders are texture polish without enough
+// mass to absorb sebum.
 const ABSORBENT_POSITION_CAP = 8
 
 export function detectFiniMat(
@@ -43,6 +37,7 @@ export function detectFiniMat(
 
   for (let i = 0; i < cap; i++) {
     if (ABSORBENT_PATTERNS.some((p) => ingredients[i].includes(p))) {
+      // Same trigger, two axes: fini-mat is sensoriel, matifiant is skin_effect.
       return [S.FINI_MAT, S.MATIFIANT]
     }
   }

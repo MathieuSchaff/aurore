@@ -1,11 +1,3 @@
-// seedBatch runs its items inside the seed's single outer transaction (one
-// connection). Fanning them out concurrently makes each createProduct open a
-// nested tx (a SAVEPOINT) on that shared connection; Bun's SQL pipelines the
-// statements and Drizzle's nested-tx counter races, so a RELEASE kills another
-// item's savepoint -> `savepoint "sN" does not exist` and the rest cascade.
-// withAdminRls reproduces the exact outer-tx + SET LOCAL admin combo the seed
-// uses (see seed-core).
-
 import { beforeEach, describe, expect, it } from 'bun:test'
 
 import { createProduct } from '../../../features/products/service'
@@ -20,7 +12,7 @@ import { seedBatch } from './batch'
 const RICH_INCI =
   'Aqua, Niacinamide, Retinol, Glycerin, Tocopherol, Phenoxyethanol, Hyaluronic Acid'
 
-describe('seedBatch — transaction safety', () => {
+describe('seedBatch: transaction safety', () => {
   beforeEach(async () => {
     await cleanDatabase()
     await testDb.insert(productTagTypes).values(productTagData)
@@ -37,6 +29,14 @@ describe('seedBatch — transaction safety', () => {
       inci: RICH_INCI,
     }))
 
+    // seedBatch runs its items inside the seed's single outer transaction (one
+    // connection). Fanning them out concurrently makes each createProduct open a
+    // nested tx (a SAVEPOINT) on that shared connection; Bun's SQL pipelines the
+    // statements and Drizzle's nested-tx counter races, so a RELEASE kills another
+    // item's savepoint, giving `savepoint "sN" does not exist` and the rest cascade.
+
+    // withAdminRls reproduces the exact outer-tx + SET LOCAL admin combo the seed
+    // uses (see seed-core).
     const result = await withAdminRls((tx) =>
       seedBatch(
         'produits',

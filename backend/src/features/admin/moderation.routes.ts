@@ -14,9 +14,10 @@ import { z } from 'zod'
 
 import type { AppEnv } from '../../app-env'
 import { logger } from '../../lib/logger'
+import { getAuthedUserId, getRlsDb } from '../../utils/accessors'
 import { zValidator } from '../../utils/validator'
 import { applyAuthedGuards } from '../auth/authed-guards'
-import { getAuthedUserId, requireAdmin, requireContentModerator } from '../auth/middleware'
+import { requireAdmin, requireContentModerator } from '../auth/middleware'
 import {
   listCatalogQueue,
   moderateIngredient,
@@ -48,7 +49,7 @@ export const adminModerationRoutes = app
     zValidator('query', catalogQueueQuerySchema),
     async (c) => {
       const filters = c.req.valid('query')
-      const result = await listCatalogQueue(c.get('db'), filters)
+      const result = await listCatalogQueue(getRlsDb(c), filters)
       return c.json(ok(result), HTTP_STATUS.OK)
     }
   )
@@ -62,7 +63,7 @@ export const adminModerationRoutes = app
       const body = c.req.valid('json')
       const adminId = getAuthedUserId(c)
 
-      const result = await moderateReview(c.get('db'), { id, adminId, body })
+      const result = await moderateReview(getRlsDb(c), { id, adminId, body })
       if (!isApiSuccess(result)) {
         return c.json(err(result.error), errorToStatus(result.error, {}))
       }
@@ -80,7 +81,7 @@ export const adminModerationRoutes = app
       const body = c.req.valid('json')
       const adminId = getAuthedUserId(c)
 
-      const result = await moderateThread(c.get('db'), { id, adminId, body })
+      const result = await moderateThread(getRlsDb(c), { id, adminId, body })
       if (!isApiSuccess(result)) {
         return c.json(err(result.error), errorToStatus(result.error, {}))
       }
@@ -98,7 +99,7 @@ export const adminModerationRoutes = app
       const body = c.req.valid('json')
       const adminId = getAuthedUserId(c)
 
-      const result = await moderateReply(c.get('db'), { id, adminId, body })
+      const result = await moderateReply(getRlsDb(c), { id, adminId, body })
       if (!isApiSuccess(result)) {
         return c.json(err(result.error), errorToStatus(result.error, {}))
       }
@@ -108,7 +109,7 @@ export const adminModerationRoutes = app
   )
   .get('/reviews/:id', requireContentModerator, zValidator('param', idParam), async (c) => {
     const { id } = c.req.valid('param')
-    const result = await previewReview(c.get('db'), id)
+    const result = await previewReview(getRlsDb(c), id)
     if (!isApiSuccess(result)) {
       return c.json(err(result.error), errorToStatus(result.error, {}))
     }
@@ -116,7 +117,7 @@ export const adminModerationRoutes = app
   })
   .get('/threads/:id', requireContentModerator, zValidator('param', idParam), async (c) => {
     const { id } = c.req.valid('param')
-    const result = await previewThread(c.get('db'), id)
+    const result = await previewThread(getRlsDb(c), id)
     if (!isApiSuccess(result)) {
       return c.json(err(result.error), errorToStatus(result.error, {}))
     }
@@ -124,7 +125,7 @@ export const adminModerationRoutes = app
   })
   .get('/replies/:id', requireContentModerator, zValidator('param', idParam), async (c) => {
     const { id } = c.req.valid('param')
-    const result = await previewReply(c.get('db'), id)
+    const result = await previewReply(getRlsDb(c), id)
     if (!isApiSuccess(result)) {
       return c.json(err(result.error), errorToStatus(result.error, {}))
     }
@@ -132,7 +133,7 @@ export const adminModerationRoutes = app
   })
   .get('/products/:id', requireContentModerator, zValidator('param', idParam), async (c) => {
     const { id } = c.req.valid('param')
-    const result = await previewProduct(c.get('db'), id)
+    const result = await previewProduct(getRlsDb(c), id)
     if (!isApiSuccess(result)) {
       return c.json(err(result.error), errorToStatus(result.error, {}))
     }
@@ -140,7 +141,7 @@ export const adminModerationRoutes = app
   })
   .get('/ingredients/:id', requireContentModerator, zValidator('param', idParam), async (c) => {
     const { id } = c.req.valid('param')
-    const result = await previewIngredient(c.get('db'), id)
+    const result = await previewIngredient(getRlsDb(c), id)
     if (!isApiSuccess(result)) {
       return c.json(err(result.error), errorToStatus(result.error, {}))
     }
@@ -156,7 +157,7 @@ export const adminModerationRoutes = app
       const body = c.req.valid('json')
       const adminId = getAuthedUserId(c)
 
-      const result = await moderateProfileVisibility(c.get('db'), {
+      const result = await moderateProfileVisibility(getRlsDb(c), {
         targetUserId,
         adminId,
         body,
@@ -181,7 +182,7 @@ export const adminModerationRoutes = app
       const body = c.req.valid('json')
       const adminId = getAuthedUserId(c)
 
-      const result = await moderateProduct(c.get('db'), { id, adminId, body })
+      const result = await moderateProduct(getRlsDb(c), { id, adminId, body })
       if (!isApiSuccess(result)) {
         return c.json(err(result.error), errorToStatus(result.error, {}))
       }
@@ -199,7 +200,7 @@ export const adminModerationRoutes = app
       const body = c.req.valid('json')
       const adminId = getAuthedUserId(c)
 
-      const result = await moderateIngredient(c.get('db'), { id, adminId, body })
+      const result = await moderateIngredient(getRlsDb(c), { id, adminId, body })
       if (!isApiSuccess(result)) {
         return c.json(err(result.error), errorToStatus(result.error, {}))
       }

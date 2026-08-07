@@ -1,34 +1,8 @@
-// Audit manual AHA / BHA / PHA tags that the detector does NOT emit.
-//
-// Read-only. The three acid clusters carry a positionCap of 10 by design
-// (pH-dependent acid past pos 10 = pH adjuster / preservative trace, not
-// a functional exfoliant. See AUTO-TAGS.md, "AHA / BHA / PHA, drift
-// conservée par design"). Manual annotations are concentration-agnostic
-// and tag any product that contains the molecule, so 254 manual pairs
-// survive past the cap. Decision is offline, case-by-case (some are
-// marketing-legitimate like dermalogica-daily-microfoliant BHA @23 even
-// though the cap excludes them; others are clearly inert pH adjusters).
-//
-// Output:
-//   - Console: per-tag counts, top kinds, top ingredients, position
-//     buckets (10–14 / 15–19 / 20+) so the borderline calls jump out.
-//   - CSV (optional, CSV_OUT=...): one row per (product, tag) override
-//     with product_slug, tag_slug, ingredient, position, kind, name,
-//     inci_excerpt (~6 tokens around the match).
-//
-// Tunables via env:
-//   CSV_OUT     optional: path to write the override CSV (single file)
-//   CSV_DIR     optional: write 3 split CSVs in this dir:
-//                                  delete.csv     · auto-classified safe-delete
-//                                  keep.csv       · auto-classified marketed
-//                                  borderline.csv · needs case-by-case review
-//   LIMIT       optional: cap product count (debug)
-//   APPLY       optional 1, destructive: DELETE pairs listed in
-//                                APPLY_FROM_CSV. Skips the audit pass entirely.
-//   APPLY_FROM_CSV  required: path to a CSV with header
-//                                product_slug,tag_slug,…  (any extra cols
-//                                ignored). Pairs are deleted via composite
-//                                lookup (productId, productTagId).
+// Audit manual AHA / BHA / PHA tags that the detector does NOT emit. Read-only. The three
+// acid clusters cap at position 10 by design (pH-dependent acid past pos 10 reads as pH
+// adjuster / preservative trace, not a functional exfoliant), so the drift against manual
+// tags is expected and kept. Manual annotations are concentration-agnostic and tag any
+// product containing the molecule, so 254 manual pairs survive past the cap.
 
 import type { ProductKind } from '@aurore/shared'
 
@@ -57,6 +31,9 @@ const PATTERNS: Record<TargetSlug, readonly string[]> = {
   pha: collectPatterns('pha'),
 }
 
+// Env: CSV_OUT, CSV_DIR (see below), LIMIT (cap product count, debug), APPLY=1 (destructive:
+// delete pairs from APPLY_FROM_CSV, skips the audit pass), APPLY_FROM_CSV (path to CSV with
+// product_slug,tag_slug columns; deleted via composite productId/productTagId lookup).
 const CSV_OUT = process.env.CSV_OUT
 const CSV_DIR = process.env.CSV_DIR
 const APPLY = process.env.APPLY === '1'
@@ -74,29 +51,9 @@ interface OverrideRow {
 
 type Verdict = 'delete' | 'keep' | 'borderline'
 
-// Heuristic auto-classification.
-//
-// Rationale (matches the AUTO-TAGS.md "drift conservée par design" doc):
-//   - The detector cap=10 is the chemistry-aware policy. Past pos 10 the
-//     molecule is mostly inert (pH adjuster / preservative trace). Manual
-//     baselines are concentration-agnostic; they tag any product that
-//     contains the molecule, including those where it has no exfoliant
-//     intent.
-//   - Marketing intent overrides chemistry when the product is sold as
-//     an exfoliant. Dermalogica Daily Microfoliant (BHA at pos 23) is
-//     functionally a BHA peel even though the cap excludes it.
-//   - Anti-acne / anti-pigmentation formulas commonly use AHA/BHA at
-//     mid-position as a functional adjunct (concentration ~0.5-1 %, pos
-//     11-19). Keep when the product's primary positioning is acne or
-//     pigmentation, even if the name doesn't carry the acid marker.
-//
-// Rules in precedence order:
-//   1. Marketed exfoliant (name carries an acid/peel marker) → keep.
-//   2. Hair / scalp products → delete (irrelevant to face exfoliant tags).
-//   3. Anti-acne / anti-pigmentation product + pos ≤ 19 → keep (adjunct).
-//   4. Position 20+ → delete (canonical inert past mid-tail).
-//   5. Position 15-19 in non-acne / non-pigmentation product → delete.
-//   6. Position 11-14 → borderline (truly ambiguous, case-by-case).
+// Heuristic auto-classification for the drift the detector keeps by design.
+// Marketing intent overrides chemistry when the product is sold as an exfoliant
+// (Dermalogica Daily Microfoliant BHA at pos 23 is functionally a peel despite the cap).
 const MARKET_MARKERS = [
   'aha',
   'bha',
@@ -115,6 +72,7 @@ const MARKET_MARKERS = [
   'exfoliant',
 ]
 
+// Hair / scalp products: delete, irrelevant to face exfoliant tags.
 const HAIR_MARKERS = [
   'shampoo',
   'shampoing',
@@ -131,9 +89,9 @@ const HAIR_MARKERS = [
 ]
 
 // Acne / pigmentation product positioning: when the product is sold as
-// an acne or anti-pigmentation treatment, AHA/BHA at mid-position is the
-// canonical functional adjunct (not pH adjuster). Keep these regardless
-// of the molecule's exact INCI position up to 19.
+// an acne or pigmentation treatment, AHA/BHA in the middle of the list (pos 11-19,
+// ~0.5-1%) is the canonical functional adjunct (not pH adjuster). Keep these
+// regardless of the molecule's exact INCI position up to 19.
 const ACNE_MARKERS = [
   'sebium',
   'sebiaclear',
@@ -356,6 +314,8 @@ async function main() {
   console.log(`🧮 Auto-classification`)
   console.table(counts)
 
+  // CSV_OUT writes one file; CSV_DIR splits into delete/keep/borderline.csv. The keep/delete
+  // call itself is offline, case-by-case.
   if (CSV_OUT) {
     const lines = [csvHeader()]
     for (const o of overrides) lines.push(csvLine(o))

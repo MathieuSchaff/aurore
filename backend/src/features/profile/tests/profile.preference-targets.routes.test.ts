@@ -1,17 +1,20 @@
-import { beforeAll, describe, expect, it } from 'bun:test'
+import { beforeAll, beforeEach, describe, expect, it } from 'bun:test'
 
 import { HTTP_STATUS, type UserExport } from '@aurore/shared'
 
 import { buildAliasIndex, lookupIngredient, MERGED_EVIDENCE_DB } from 'algo-derm/engine'
-import type { Hono } from 'hono'
 
-import type { AppEnv } from '../../../app-env'
 import { ingredients } from '../../../db/schema/ingredients/ingredients'
 import { productTagTypes } from '../../../db/schema/tags/tags'
 import { testDb } from '../../../tests/db.test.config'
 import { setupDbTests } from '../../../tests/db-setup'
 import { expectRequiresAuth } from '../../../tests/helpers/authz-matrix'
-import { createTestEnv, type TestClient, withAuth } from '../../../tests/helpers/createTestClient'
+import {
+  createTestEnv,
+  type TestApp,
+  type TestClient,
+  withAuth,
+} from '../../../tests/helpers/createTestClient'
 import { expectOk } from '../../../tests/helpers/expectStatus'
 import { authGet, setupAndLogin } from '../../../tests/helpers/route-test-helpers'
 import { TEST_CREDENTIALS } from '../../../tests/helpers/test-credentials'
@@ -56,13 +59,18 @@ async function seedCatalogFixtures() {
 }
 
 describe('Preference targets routes', () => {
-  let app: Hono<AppEnv>
+  let app: TestApp
   let client: TestClient
+  let token: string
 
   beforeAll(async () => {
     const env = await createTestEnv()
     app = env.app
     client = env.client
+  })
+
+  beforeEach(async () => {
+    token = await setupAndLogin(app, TEST_CREDENTIALS.toto)
   })
 
   expectRequiresAuth(() => app, { method: 'GET', path: '/api/profile/preference-targets' })
@@ -75,18 +83,23 @@ describe('Preference targets routes', () => {
     method: 'DELETE',
     path: '/api/profile/ingredient-preferences?key=Niacinamide',
   })
+  expectRequiresAuth(() => app, {
+    method: 'PUT',
+    path: '/api/profile/tag-preferences',
+    body: { tagId: '00000000-0000-7000-8000-000000000000', stance: 'exclude' },
+  })
+  expectRequiresAuth(() => app, {
+    method: 'DELETE',
+    path: `/api/profile/tag-preferences/${crypto.randomUUID()}`,
+  })
 
   it('returns empty targets for a fresh user', async () => {
-    const token = await setupAndLogin(app, TEST_CREDENTIALS.toto)
-
     const data = await expectOk(client.profile['preference-targets'].$get({}, withAuth(token)))
 
     expect(data).toEqual({ ingredients: [], tags: [] })
   })
 
   it('rejects an ingredient key the catalogue does not carry', async () => {
-    const token = await setupAndLogin(app, TEST_CREDENTIALS.toto)
-
     const res = await client.profile['ingredient-preferences'].$put(
       { json: { canonicalKey: 'Substance Inconnue', stance: 'exclude' } },
       withAuth(token)
@@ -97,7 +110,6 @@ describe('Preference targets routes', () => {
 
   it('upserts an ingredient preference, then flips its stance in place', async () => {
     await seedCatalogFixtures()
-    const token = await setupAndLogin(app, TEST_CREDENTIALS.toto)
 
     const put = await client.profile['ingredient-preferences'].$put(
       { json: { canonicalKey: NIACINAMIDE_KEY, stance: 'require' } },
@@ -111,19 +123,16 @@ describe('Preference targets routes', () => {
     )
     expect(flip.status).toBe(HTTP_STATUS.OK)
 
-    const res = await client.profile['preference-targets'].$get({}, withAuth(token))
-    const data = await res.json()
-    if (!data.success) throw new Error('expected ok')
-    expect(data.data.ingredients).toHaveLength(1)
-    expect(data.data.ingredients[0]?.canonicalKey).toBe(NIACINAMIDE_KEY)
-    expect(data.data.ingredients[0]?.stance).toBe('exclude')
-    // The recap displays the catalogue name, not the raw canonical key (D8).
-    expect(data.data.ingredients[0]?.name).toBe('Niacinamide')
+    const targets = await expectOk(client.profile['preference-targets'].$get({}, withAuth(token)))
+    expect(targets.ingredients).toHaveLength(1)
+    expect(targets.ingredients[0]?.canonicalKey).toBe(NIACINAMIDE_KEY)
+    expect(targets.ingredients[0]?.stance).toBe('exclude')
+    // The recap displays the catalogue name, not the raw canonical key.
+    expect(targets.ingredients[0]?.name).toBe('Niacinamide')
   })
 
   it('deletes an ingredient preference through the query param, slashes included', async () => {
     await seedCatalogFixtures()
-    const token = await setupAndLogin(app, TEST_CREDENTIALS.toto)
 
     await client.profile['ingredient-preferences'].$put(
       { json: { canonicalKey: SLASH_KEY, stance: 'exclude' } },
@@ -136,15 +145,12 @@ describe('Preference targets routes', () => {
     )
     expect(del.status).toBe(204)
 
-    const res = await client.profile['preference-targets'].$get({}, withAuth(token))
-    const data = await res.json()
-    if (!data.success) throw new Error('expected ok')
-    expect(data.data.ingredients).toEqual([])
+    const targets = await expectOk(client.profile['preference-targets'].$get({}, withAuth(token)))
+    expect(targets.ingredients).toEqual([])
   })
 
   it('upserts and deletes a tag preference, labels joined from the taxonomy', async () => {
     const { tagId } = await seedCatalogFixtures()
-    const token = await setupAndLogin(app, TEST_CREDENTIALS.toto)
 
     const unknown = await client.profile['tag-preferences'].$put(
       { json: { tagId: '00000000-0000-7000-8000-000000000000', stance: 'exclude' } },
@@ -167,31 +173,27 @@ describe('Preference targets routes', () => {
     )
     expect(del.status).toBe(204)
 
-    const res = await client.profile['preference-targets'].$get({}, withAuth(token))
-    const data = await res.json()
-    if (!data.success) throw new Error('expected ok')
-    expect(data.data.tags).toEqual([])
+    const targets = await expectOk(client.profile['preference-targets'].$get({}, withAuth(token)))
+    expect(targets.tags).toEqual([])
   })
 
   it('scopes targets to the requesting user', async () => {
     await seedCatalogFixtures()
-    const tokenA = await setupAndLogin(app, TEST_CREDENTIALS.toto)
-    const tokenB = await setupAndLogin(app, TEST_CREDENTIALS.alice)
+    const tokenAlice = await setupAndLogin(app, TEST_CREDENTIALS.alice)
 
     await client.profile['ingredient-preferences'].$put(
       { json: { canonicalKey: NIACINAMIDE_KEY, stance: 'exclude' } },
-      withAuth(tokenA)
+      withAuth(token)
     )
 
-    const res = await client.profile['preference-targets'].$get({}, withAuth(tokenB))
-    const data = await res.json()
-    if (!data.success) throw new Error('expected ok')
-    expect(data.data.ingredients).toEqual([])
+    const targets = await expectOk(
+      client.profile['preference-targets'].$get({}, withAuth(tokenAlice))
+    )
+    expect(targets.ingredients).toEqual([])
   })
 
   it('ships preferences in the RGPD export', async () => {
     await seedCatalogFixtures()
-    const token = await setupAndLogin(app, TEST_CREDENTIALS.toto)
 
     await client.profile['ingredient-preferences'].$put(
       { json: { canonicalKey: NIACINAMIDE_KEY, stance: 'require' } },

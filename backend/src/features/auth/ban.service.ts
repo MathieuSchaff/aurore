@@ -2,13 +2,14 @@ import type { BanScope } from '@aurore/shared'
 
 import { and, desc, eq, gt, isNull, or } from 'drizzle-orm'
 
-import type { Database, Transaction } from '../../db'
+import type { Database, DatabaseTransaction } from '../../db'
 import { type UserBan, userBans } from '../../db/schema'
 import { nowISO } from '../../utils/dates'
 
-// Admin-pool query bypasses RLS: identity-layer read, caller already authenticated
-// by requireJwtAuth. 30s TTL bounds window where a freshly banned user gets through
-// (vs ~15min token lifetime without enforcement).
+// 30s TTL bounds the window where a freshly banned user gets through (vs ~15min token
+// lifetime without enforcement). The handle comes from the caller: the request path
+// passes requestDb so user_bans RLS sees the identity, the login gate passes an
+// admin-RLS tx because no request identity exists yet.
 const CACHE_TTL_MS = 30_000
 const CACHE_MAX = 5000
 
@@ -34,12 +35,13 @@ function writeCache(userId: string, ban: UserBan | null): void {
   cache.set(userId, { ban, expiresAt: Date.now() + CACHE_TTL_MS })
 }
 
-// Matches the given scope or any active 'global' ban. Active = expiresAt IS NULL OR expiresAt > now().
+// Active 'global' ban only: the signature pins the scope, every other scope goes
+// through isUserBannedForScope. Active = expiresAt IS NULL OR expiresAt > now().
 // useCache=false reads fresh and skips the cache entirely. The login gate uses
 // it: a one-shot security check shouldn't trust (nor warm) the request-path
 // cache, else a login warms `null` and masks a ban applied seconds later.
 export async function isUserBanned(
-  db: Database | Transaction,
+  db: Database | DatabaseTransaction,
   userId: string,
   scope: 'global' = 'global',
   useCache = true
@@ -71,7 +73,7 @@ export async function isUserBanned(
 // No cache: write paths are cold vs /auth/session, and per-scope cache keys complicate
 // invalidation when bans are created or lifted.
 export async function isUserBannedForScope(
-  db: Database,
+  db: DatabaseTransaction,
   userId: string,
   scope: BanScope
 ): Promise<UserBan | null> {

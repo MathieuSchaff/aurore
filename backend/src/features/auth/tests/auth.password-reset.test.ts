@@ -49,7 +49,7 @@ describe('requestPasswordReset', () => {
   })
 
   it("renvoie la MÊME réponse neutre pour un email existant (guard d'énumération)", async () => {
-    // alice is never created → unknown-email branch.
+    // alice is never created, so this hits the unknown-email branch.
     const unknown = await requestPasswordReset(createCtx(), TEST_CREDENTIALS.alice.email)
 
     const creds = await createTestToto()
@@ -101,7 +101,7 @@ describe('requestPasswordReset', () => {
 
     const result = await requestPasswordReset(createCtx(), 'google-only@exemple.fr')
 
-    // Same neutral shape as the unknown-email branch — no existence leak.
+    // Same neutral shape as the unknown-email branch, no existence leak.
     expect(result.success).toBe(true)
     if (result.success) expect(result.data).toEqual({ pending: true })
     // No reset token grafted onto the OAuth-only account.
@@ -117,7 +117,7 @@ describe('requestPasswordReset', () => {
       requestPasswordReset(createCtx(), creds.email),
     ])
 
-    // The partial unique index makes the loser's INSERT fail (swallowed best-effort) → 1 active.
+    // The partial unique index makes the loser's INSERT fail (swallowed best-effort), so only 1 stays active.
     expect((await activeResetTokens(user.id)).length).toBe(1)
   })
 })
@@ -226,7 +226,7 @@ describe('resetPassword', () => {
       const result = await resetPassword(createCtx(), 'b'.repeat(64), NEW_PASSWORD)
       expect(result.success).toBe(false)
       if (!result.success) expect(result.error).toBe('invalid_token')
-      // Bogus token is rejected by the cheap pre-check before argon2 ever runs.
+      // Bogus token is rejected by the cheap check that runs before argon2 ever does.
       expect(hashSpy).not.toHaveBeenCalled()
     } finally {
       hashSpy.mockRestore()
@@ -309,8 +309,8 @@ describe('resetPassword', () => {
 })
 
 // Timing-oracle guard (ADR 0010): the unknown/OAuth-only branch must spend the same
-// token hash as the real branch, or a refactor silently re-opens the latency oracle.
-describe('requestPasswordReset — timing equalization', () => {
+// token hash as the real branch, or a refactor silently opens the latency oracle again.
+describe('requestPasswordReset: timing equalization', () => {
   it('hashe un token jetable sur la branche email inconnu (parité de timing)', async () => {
     const hashSpy = spyOn(tokenUtils, 'hashToken')
     try {
@@ -323,7 +323,7 @@ describe('requestPasswordReset — timing equalization', () => {
   })
 })
 
-// Outer catch → server_error: the route maps this to HTTP 500. Untested before, so a
+// Outer catch maps to server_error, and the route turns that into HTTP 500. Untested before, so a
 // regression turning a thrown error into a leak or crash would go unnoticed.
 describe('server_error fallbacks', () => {
   it('requestPasswordReset renvoie server_error si la lecture user échoue', async () => {

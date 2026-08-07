@@ -8,7 +8,7 @@ import { comparisonQueries } from '@/lib/queries/comparisons'
 export const Route = createFileRoute('/_authenticated/products/compare/$id')({
   loader: ({ context, params }) =>
     context.queryClient.ensureQueryData(comparisonQueries.detail(params.id)).catch((err) => {
-      // Missing comparison = 404 → notFoundComponent; keep 5xx/429 on the real error UI.
+      // Missing comparison = 404, route to notFoundComponent; keep 5xx/429 on the real error UI
       if (err instanceof ApiError && err.status === 404) throw notFound()
       throw err
     }),

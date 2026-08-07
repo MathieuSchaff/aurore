@@ -1,39 +1,8 @@
-// Dry-run audit for the pharmacological-cluster pass (audit O3).
+// Dry-run audit for the pharmacological-cluster pass (audit O3), read-only, passe 2
+// (`detectActifClasses`).
 //
-// Read-only. Audit-auto-tags covers passe 1 (algo-derm tagProduct) only.
-// This runner targets passe 2 (`detectActifClasses`): 12 distinct cluster slugs
-// (RETINOIDS, VITAMIN_C, VITAMIN_E, AHA, BHA, PHA, CERAMIDES, HYALURONIC_ACID,
-// PEPTIDES, POLYPHENOLS, TYROSINASE_INHIBITORS, ENZYMES_EXFOLIANTS).
-// BHA has two ACTIF_CLASS_DEFS entries (different positionCap), same slug.
-//
-// Per cluster reports:
-//   hit:   products that would receive the cluster slug
-//   agree: hit ∩ already-present in tag_products
-//   new:   hit \ already-present (proposed additions)
-//   manual_only: cluster slugs in DB that the detector does NOT emit (audit
-//                signal: either the rule misses an INCI variant, or the
-//                manual tag was applied without the cluster firing, drift)
-//   top kinds: top 3 ProductKinds where the cluster fires, with counts.
-//              Catches gating drift (e.g. RETINOIDS firing on cleansers
-//              should be rare → backfill bug or INCI parsing edge).
-//
-// No writes. The clusters are emitted by `detectAllAutoTags` at relevance
-// 'secondary' source 'actif-class'; so this audit does NOT reflect the
-// orchestrator's avoid precedence (relevant only for grossesse / cross-
-// signal-avoid, not for clusters).
-//
-// Measures three things, kept distinct:
-//   - couverture: how many products each cluster fires on (hit / new / agree / only_db).
-//   - agreement: hit vs the DB tag set (a backfilled false positive reads as `agree`).
-//   - justesse: hit vs the gold set (human truth) — the only signal that catches a
-//     wrong tag the DB already agrees with. Plus cap-marginal acid hits (admitted
-//     ONLY by the looser rinse-off cap = pH-adjuster suspects, audit obs 1).
-// Evidence (matched token @ INCI position + the cap rule) is shown by default for
-// the actionable findings, not hidden behind DUMP_* flags.
-//
-// Tunables via env:
-//   LIMIT          optional: cap product count (debug)
-//   GOLD_SET_PATH  optional: alternative annotations.json (else default path)
+// Clusters emit at relevance 'secondary' source 'actif-class', so this audit does NOT reflect
+// orchestrator avoid precedence.
 
 import type { ProductKind } from '@aurore/shared'
 
@@ -48,6 +17,7 @@ import { pad } from '../fmt'
 import { fetchEligibleProducts, fetchProductTagSlugsByProduct } from './db'
 import { LIMIT } from './env'
 
+// Env: LIMIT (cap product count, debug), GOLD_SET_PATH (alternative annotations.json).
 const DUMP_DRIFT = process.env.DUMP_DRIFT === '1'
 const DUMP_NEW = process.env.DUMP_NEW === '1'
 const GOLD_SET_PATH = process.env.GOLD_SET_PATH ?? DEFAULT_GOLD_SET_PATH
@@ -114,6 +84,7 @@ function printFindings(findings: Finding[]): void {
 }
 
 async function main() {
+  // BHA has two ACTIF_CLASS_DEFS entries (different positionCap, same slug); dedup via Set.
   const uniqueClusterSlugs = new Set(ACTIF_CLASS_DEFS.map((d) => d.slug))
   console.log(`🧪 Audit actif-class (passe 2)`)
   console.log(`   ${uniqueClusterSlugs.size} clusters${LIMIT ? ` · limit=${LIMIT}` : ''}\n`)
@@ -202,7 +173,8 @@ async function main() {
       }
     }
 
-    // manual_only: detector miss on a manually-tagged cluster slug, signals rule drift.
+    // manual_only: detector miss on a manually-tagged cluster slug, a missed INCI variant
+    // or a manual tag applied off-detector.
     const detectedSlugs = new Set<string>(detected.keys())
     for (const slug of existing) {
       if (!detectedSlugs.has(slug)) {
@@ -236,6 +208,8 @@ async function main() {
   })
   console.table(coverageRows)
 
+  // Top-kinds counts catch gating drift, e.g. RETINOIDS firing on cleansers should be
+  // rare (signals a backfill bug or INCI parsing edge).
   console.log(`\n📋 Top 3 kinds par cluster`)
   for (const [slug, stat] of sorted) {
     if (stat.hit === 0) continue
@@ -259,6 +233,8 @@ async function main() {
     }
   }
 
+  // Justesse (hit vs gold set) is the only measure that catches a wrong tag the DB
+  // already agrees with: a backfilled false positive still reads as agree.
   if (goldBySlug) {
     const justesse = sorted.filter(([_, s]) => s.goldTP + s.goldFP > 0)
     console.log(`\n🎯 Justesse vs gold-set (hits annotés — attrape les FP que la DB valide)`)

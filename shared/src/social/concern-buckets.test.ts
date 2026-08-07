@@ -15,7 +15,7 @@ describe('concernsSharingBucket', () => {
   })
 
   it('fans across every bucket a multi-bucket concern touches', () => {
-    // post-acne → {acné-imperfections, réparation}; siblings span both.
+    // post-acne fans to {acné-imperfections, réparation}; siblings span both.
     expect(new Set(concernsSharingBucket('post-acne'))).toEqual(
       new Set(['anti-acne', 'post-acne', 'cicatrisation'])
     )

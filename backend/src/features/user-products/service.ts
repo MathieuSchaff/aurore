@@ -9,7 +9,7 @@ import type {
 
 import { and, desc, eq, isNotNull, sql } from 'drizzle-orm'
 
-import type { DB } from '../../db'
+import type { DatabaseTransaction, DbOrTransaction } from '../../db'
 import { profiles, userDermoProfiles } from '../../db/schema/auth/users'
 import { products } from '../../db/schema/products/products'
 import { userProductStatusLog } from '../../db/schema/products/user-product-status-log'
@@ -30,7 +30,7 @@ const REVIEW_PUBLIC_EXCLUDE = {
 // `source` tells the INCI linker whether it owns a link. Internal bookkeeping, not product data.
 const LINK_PUBLIC_EXCLUDE = { source: false } as const
 
-export async function getUserProducts(userId: string, db: DB) {
+export async function getUserProducts(userId: string, db: DatabaseTransaction) {
   return await db.query.userProducts.findMany({
     where: eq(userProducts.userId, userId),
     with: {
@@ -57,7 +57,11 @@ export async function getUserProducts(userId: string, db: DB) {
   })
 }
 
-export async function getUserProductById(userId: string, userProductId: string, db: DB) {
+export async function getUserProductById(
+  userId: string,
+  userProductId: string,
+  db: DatabaseTransaction
+) {
   const row = await db.query.userProducts.findFirst({
     where: and(eq(userProducts.id, userProductId), eq(userProducts.userId, userId)),
     with: {
@@ -86,7 +90,11 @@ export async function getUserProductById(userId: string, userProductId: string, 
   return row
 }
 
-export async function getUserProductByProductId(userId: string, productId: string, db: DB) {
+export async function getUserProductByProductId(
+  userId: string,
+  productId: string,
+  db: DatabaseTransaction
+) {
   const row = await db.query.userProducts.findFirst({
     where: and(eq(userProducts.productId, productId), eq(userProducts.userId, userId)),
     with: {
@@ -115,7 +123,11 @@ export async function getUserProductByProductId(userId: string, productId: strin
   return row
 }
 
-export async function createUserProduct(userId: string, input: CreateUserProductInput, db: DB) {
+export async function createUserProduct(
+  userId: string,
+  input: CreateUserProductInput,
+  db: DatabaseTransaction
+) {
   return await db.transaction(async (tx) => {
     const existing = await tx.query.userProducts.findFirst({
       where: and(eq(userProducts.userId, userId), eq(userProducts.productId, input.productId)),
@@ -148,7 +160,7 @@ export async function createUserProduct(userId: string, input: CreateUserProduct
       throw new UserProductError('user_product_creation_failed')
     }
 
-    // Append-only: log initial transition (null -> status) or re-status via upsert; skip idle upserts.
+    // Append-only: log initial transition (null to status) or re-status via upsert; skip idle upserts.
     const fromStatus = existing?.status ?? null
     if (fromStatus !== result.status) {
       await tx.insert(userProductStatusLog).values({
@@ -167,7 +179,7 @@ export async function updateUserProduct(
   userId: string,
   userProductId: string,
   input: UpdateUserProductInput,
-  db: DB
+  db: DatabaseTransaction
 ) {
   const { reason, ...patch } = input
   return await db.transaction(async (tx) => {
@@ -207,7 +219,11 @@ export async function updateUserProduct(
   })
 }
 
-export async function getUserProductStatusHistory(userId: string, userProductId: string, db: DB) {
+export async function getUserProductStatusHistory(
+  userId: string,
+  userProductId: string,
+  db: DatabaseTransaction
+) {
   // fkTenantPolicies already enforces ownership at the row level, but an
   // explicit check returns a clear error instead of an empty list on foreign id.
   const owner = await db.query.userProducts.findFirst({
@@ -232,7 +248,11 @@ export async function getUserProductStatusHistory(userId: string, userProductId:
     .orderBy(desc(userProductStatusLog.createdAt))
 }
 
-export async function deleteUserProduct(userId: string, userProductId: string, db: DB) {
+export async function deleteUserProduct(
+  userId: string,
+  userProductId: string,
+  db: DatabaseTransaction
+) {
   const [result] = await db
     .delete(userProducts)
     .where(and(eq(userProducts.id, userProductId), eq(userProducts.userId, userId)))
@@ -247,7 +267,7 @@ export async function upsertUserProductReview(
   userId: string,
   userProductId: string,
   input: UpdateUserProductReviewInput,
-  db: DB
+  db: DatabaseTransaction
 ) {
   const userProduct = await db.query.userProducts.findFirst({
     where: and(eq(userProducts.id, userProductId), eq(userProducts.userId, userId)),
@@ -374,7 +394,7 @@ function toPublicReviewView(row: PublicReviewRow): PublicReviewView {
 // ADR 0005: RLS filters non-public rows; ratings exposed only when author opted in.
 // Aurore never computes or aggregates scores.
 export async function listPublicReviewsForProduct(
-  db: DB,
+  db: DbOrTransaction,
   slug: string
 ): Promise<PublicProductReviewsResponse> {
   const rows = await db
@@ -402,16 +422,13 @@ export async function listPublicReviewsForProduct(
   return { reviews: rows.map(toPublicReviewView) }
 }
 
-// Profile-surface mirror of listPublicReviewsForProduct, keyed on the author's
-// username with the product made explicit. Same guards (public + visible +
-// comment non-empty + not force-privated) plus the master profilePublic gate
-// (the product page shows public reviews even from non-public profiles; a
-// profile page must not). Same ratings-null projection. Recent capped sample,
-// never a wall.
+// Profile-surface mirror of listPublicReviewsForProduct, keyed on the author's username.
+// Same guards plus the master profilePublic gate: the product page shows public reviews
+// even from non-public profiles, a profile page must not. Recent capped sample, never a wall.
 const PROFILE_REVIEWS_SAMPLE_CAP = 12
 
 export async function listPublicReviewsByUser(
-  db: DB,
+  db: DbOrTransaction,
   username: string
 ): Promise<PublicProfileReviewsResponse> {
   const rows = await db

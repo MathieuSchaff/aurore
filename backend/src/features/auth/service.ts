@@ -14,7 +14,7 @@ import { err, ok } from '@aurore/shared'
 
 import { eq, sql } from 'drizzle-orm'
 
-import type { Database, DB } from '../../db/index'
+import type { Database, DatabaseTransaction } from '../../db/index'
 import { bindRlsContext } from '../../db/rls'
 import { users, usersSafe } from '../../db/schema'
 import { isUniqueViolation } from '../../lib/helpers'
@@ -31,6 +31,7 @@ import {
   cleanupUserRefreshTokens,
   findValidRefreshToken,
   revokeAllUserRefreshTokens,
+  revokeAllUserRefreshTokensTx,
   revokeRefreshToken,
   storeRefreshToken,
 } from './refresh-token.service'
@@ -44,7 +45,7 @@ import {
 } from './user.utils'
 
 export type AuthContext = {
-  db: DB
+  db: Database
   jwtSecret: string
   refreshSecret: string
   frontendUrl: string
@@ -66,7 +67,7 @@ const LOGIN_LOCKOUT_THRESHOLD = 5
 const LOGIN_LOCKOUT_DURATION_MS = 15 * 60 * 1000
 
 async function registerFailedLogin(
-  db: DB,
+  db: Database,
   userId: string,
   currentAttempts: number
 ): Promise<{ justLocked: boolean }> {
@@ -83,7 +84,7 @@ async function registerFailedLogin(
   return { justLocked: lockedUntil !== null && currentAttempts < LOGIN_LOCKOUT_THRESHOLD }
 }
 
-async function resetFailedLogins(db: DB, userId: string): Promise<void> {
+async function resetFailedLogins(db: Database, userId: string): Promise<void> {
   await db
     .update(users)
     .set({ failedLoginAttempts: 0, lockedUntil: null })
@@ -305,14 +306,17 @@ export async function logout(ctx: AuthContext, rawRefreshToken: string): Promise
   }
 }
 
+// Authenticated route: runs on the request transaction (requestDb), never the pool.
+// Least privilege — app_runtime reads the hash only through the SECURITY DEFINER fn,
+// and refresh_tokens RLS confines the revoke to the caller's own sessions.
 export async function changePassword(
-  ctx: AuthContext,
+  tx: DatabaseTransaction,
   userId: string,
   currentPassword: RawPassword,
   newPassword: RawPassword
 ): Promise<ChangePasswordResult> {
   try {
-    const user = await getFullUserById(ctx.db, userId)
+    const user = await getFullUserById(tx, userId)
     if (!user?.passwordHash) {
       return err('invalid_credentials')
     }
@@ -327,17 +331,14 @@ export async function changePassword(
       PASSWORD_HASH_OPTIONS
     )) as HashedPassword
 
-    // Atomic: a revoke failure must roll back the password write too, otherwise
-    // the password changes while stolen sessions stay alive. /change-password has
-    // no withRlsContext wrapper, so ctx.db is the pool. Open the tx explicitly.
-    await ctx.db.transaction(async (tx) => {
-      await tx
-        .update(users)
-        .set({ passwordHash: newPasswordHash, updatedAt: nowISO() })
-        .where(eq(users.id, userId))
+    // Both writes ride the request transaction: a revoke failure rolls back the
+    // password write too, otherwise the password changes while stolen sessions live on.
+    await tx
+      .update(users)
+      .set({ passwordHash: newPasswordHash, updatedAt: nowISO() })
+      .where(eq(users.id, userId))
 
-      await revokeAllUserRefreshTokens(ctx.db, userId, tx)
-    })
+    await revokeAllUserRefreshTokensTx(tx, userId)
 
     return ok(null)
   } catch (e) {
@@ -370,7 +371,7 @@ export async function createDemo(
       // Lazy import keeps the auth module graph free of the products/user-products
       // services demo-seed pulls in, so auth stays loadable/testable in isolation.
       const { seedDemoData } = await import('./demo-seed')
-      await seedDemoData(created.id, tx as unknown as Database)
+      await seedDemoData(created.id, tx)
       return created
     })
 

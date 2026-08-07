@@ -75,7 +75,7 @@ describe('priorSlugSet', () => {
   })
 })
 
-describe('mergeProposal — precedence', () => {
+describe('mergeProposal: precedence', () => {
   test('inserts first proposal', () => {
     const byTag = new Map<SkincareProductTagSlug, AutoTagProposal>()
     // Return value = merge verdict (accepted), the signal the trace sink relays.
@@ -88,7 +88,7 @@ describe('mergeProposal — precedence', () => {
   })
 
   // Full relevance matrix (avoid > primary > secondary; ties keep first seen).
-  // accepted=true ⇒ the incoming proposal replaces the whole entry (source too).
+  // accepted=true means the incoming proposal replaces the whole entry (source too).
   const MATRIX: ReadonlyArray<
     [AutoTagProposal['relevance'], AutoTagProposal['relevance'], boolean]
   > = [
@@ -113,7 +113,7 @@ describe('mergeProposal — precedence', () => {
     )
   })
 
-  test('overwrite replaces the whole proposal — prior confidence is not carried over', () => {
+  test('overwrite replaces the whole proposal, prior confidence is not carried over', () => {
     const byTag = new Map<SkincareProductTagSlug, AutoTagProposal>()
     mergeProposal(byTag, proposal(S.HYPERPIGMENTATION, 'secondary', 'algo-derm', 0.6))
     mergeProposal(byTag, proposal(S.HYPERPIGMENTATION, 'avoid', 'interaction'))
@@ -121,7 +121,7 @@ describe('mergeProposal — precedence', () => {
   })
 })
 
-describe('primaryPromote — kind-derived TYPE_*', () => {
+describe('primaryPromote: kind-derived TYPE_*', () => {
   test('promotes a secondary type slug to primary, preserving source', () => {
     const byTag = new Map<SkincareProductTagSlug, AutoTagProposal>()
     byTag.set(S.TYPE_SERUM, proposal(S.TYPE_SERUM, 'secondary', 'kind'))
@@ -147,7 +147,7 @@ describe('primaryPromote — kind-derived TYPE_*', () => {
   })
 })
 
-describe('primaryPromote — top algo-derm concern', () => {
+describe('primaryPromote: top algo-derm concern', () => {
   // Concrete concern slugs from SKINCARE_CONCERN_SLUGS (kept literal so the
   // test fails loudly if either slug ever leaves the concern taxonomy).
   const concernA: SkincareProductTagSlug = S.ACNE_IMPERFECTIONS

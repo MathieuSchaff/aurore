@@ -1,19 +1,10 @@
-// Snapshot + diff runner for the auto-tag orchestrator (audit O1). Read-only.
-//
-// Snapshot mode (BASELINE unset): writes full (product, tag, relevance, source) set to CSV_OUT.
-// Diff mode (BASELINE set): computes delta vs prior snapshot; action in {added, removed, relevance_changed}.
-// Source-only changes are intentionally not reported (no observable effect).
-//
-// Needed because backfill is insert-only (onConflictDoNothing/onConflictDoUpdate('avoid')):
-// it cannot surface what a rule tightening would remove. Only two snapshots can.
-//
-// Env:
-//   CSV_OUT     required : path to write
-//   BASELINE    optional : prior snapshot CSV; switches to diff mode
-//   LIMIT       optional : cap product count (debug)
+// Snapshot + diff runner for the auto-tag orchestrator (audit O1). Read-only. Needed because
+// backfill is insert-only (onConflictDoNothing/onConflictDoUpdate('avoid')): it can't surface
+// what a rule tightening would remove. Only two snapshots can.
 
 import { relevanceValues, tagSourceValues } from '@aurore/shared'
 
+import { db } from '../../../../db'
 import { loadAutoTagFetchBundle } from '../../lib/fetch-auto-tag-bundle'
 import { computeTagRowsForProduct } from '../../lib/orchestrator-input'
 import type { AutoTagRelevance, AutoTagSource } from '../../orchestrator'
@@ -22,10 +13,12 @@ import { rpad } from '../fmt'
 import { fetchEligibleProducts } from './db'
 import { LIMIT } from './env'
 
+// Env: CSV_OUT (required, path to write), BASELINE (optional, prior snapshot CSV, switches to
+// diff mode), LIMIT (optional, cap product count, debug).
 const CSV_OUT = process.env.CSV_OUT
 const BASELINE = process.env.BASELINE
 
-// Baseline CSVs outlive schema changes — validate enum columns on read
+// Baseline CSVs outlive schema changes, so validate enum columns on read
 // instead of blind-casting a stale snapshot into the diff.
 const RELEVANCE_SET: ReadonlySet<string> = new Set(relevanceValues)
 const AUTO_TAG_SOURCE_SET: ReadonlySet<string> = new Set(
@@ -65,7 +58,10 @@ async function main() {
   const subset = await fetchEligibleProducts({ limit: LIMIT ?? undefined })
   // Full input via the shared kernel: a hand-built literal here once left the
   // snapshot blind to brand/texture (and any future field) without a compile error.
-  const bundle = await loadAutoTagFetchBundle(subset.map((p) => p.id))
+  const bundle = await loadAutoTagFetchBundle(
+    subset.map((p) => p.id),
+    db
+  )
 
   const currentRows: Row[] = []
   for (const p of subset) {
@@ -86,6 +82,9 @@ async function main() {
   console.log(`   ${subset.length} produits éligibles`)
   console.log(`   ${currentRows.length} paires (product, tag) émises\n`)
 
+  // Snapshot mode (BASELINE unset): writes the full (product, tag, relevance, source) set.
+  // Diff mode (BASELINE set): computes delta vs the prior snapshot, action in
+  // {added, removed, relevance_changed}.
   if (!BASELINE) {
     await writeSnapshot(CSV_OUT, currentRows)
     console.log(`📄 Snapshot écrit : ${CSV_OUT} (${currentRows.length} lignes)\n`)

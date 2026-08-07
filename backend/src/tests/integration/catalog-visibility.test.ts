@@ -62,9 +62,9 @@ async function buildRlsApp() {
     .route('/admin/moderation', adminModerationRoutes)
 }
 
-// 1. Unhide collision via route (V-3 ★)
+// 1. Unhide collision via route
 
-describe('catalog visibility — unhide collision via route (V-3, ★)', () => {
+describe('catalog visibility: unhide collision via route', () => {
   const admin = TEST_CREDENTIALS.admin
 
   it('PATCH /admin/moderation/products/:id → 409 with details when unhiding to occupied key', async () => {
@@ -131,9 +131,9 @@ describe('catalog visibility — unhide collision via route (V-3, ★)', () => {
   })
 })
 
-// 2. RLS visibility: hidden product excluded from reads (T-1)
+// 2. RLS visibility: hidden product excluded from reads
 
-describe('catalog visibility — RLS: hidden product excluded from public reads (T-1)', () => {
+describe('catalog visibility, RLS: hidden product excluded from public reads', () => {
   it('GET /products/:slug returns 404 for hidden product (anon)', async () => {
     const app = await buildRlsApp()
     const user = await createTestUser('rls-vis-anon@test.local', 'Azerty123!')
@@ -199,15 +199,15 @@ describe('catalog visibility — RLS: hidden product excluded from public reads 
 
     const names = body.items.map((i) => i.name)
     // app.own_submissions is unset on the browse path, so the owner's hidden sheet
-    // must not resurface here — it surfaces only via GET /me/submissions.
+    // must not resurface here: it surfaces only via GET /me/submissions.
     expect(names).not.toContain('Owner Hidden Serum')
     expect(names).toContain('Owner Visible Serum')
   })
 })
 
-// 3. Join cross-feature: hidden product drops join rows (T-1)
+// 3. Join cross-feature: hidden product drops join rows
 
-describe('catalog visibility — hidden product drops join rows (T-1)', () => {
+describe('catalog visibility: hidden product drops join rows', () => {
   it('user_products INNER JOIN products returns 0 rows when product is hidden', async () => {
     const user = await createTestUser('rls-join@test.local', 'Azerty123!')
 
@@ -245,14 +245,14 @@ describe('catalog visibility — hidden product drops join rows (T-1)', () => {
 
     await hideProduct(product.id)
 
-    // After hiding: INNER JOIN drops the row (A-1 compose)
+    // After hiding: INNER JOIN drops the row
     expect(await collectionRows()).toHaveLength(0)
   })
 })
 
-// 4. Concurrent RLS-path create: one wins, no 500 (★)
+// 4. Concurrent RLS-path create: one wins, no 500
 
-describe('catalog visibility — concurrent RLS-path create: one wins, no 500 (★)', () => {
+describe('catalog visibility, concurrent RLS-path create: one wins, no 500', () => {
   it('4 concurrent createProduct calls via appRuntimeDb: 1 success, 3 x product_already_exists', async () => {
     const user = await createTestUser('concurrent-rls@test.local', 'Azerty123!')
 

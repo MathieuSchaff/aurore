@@ -1,19 +1,8 @@
-// Full corpus reconcile: align every eligible product's auto-tags to the current
-// orchestrator. Unlike `main.ts` (additive + relevance-upgrade only), this also
-// removes stale rows and corrects relevance downgrades; it applies the intake
-// primitive `writeTagsForProduct` (DELETE non-manual + INSERT) per product.
-// Manual rows (source = 'manual') are never touched.
-//
-// Use after an orchestrator change (pass, registry, primaryPromote) that should
-// reach rows already in DB. See the README "Propagating an orchestrator change to
-// the existing corpus" section.
-//
-// Usage (via `just reconcile-auto-tags`):
-//   bun run …/runners/backfill/reconcile.ts            # dry-run (preview)
-//   bun run …/runners/backfill/reconcile.ts --write    # apply
-//   bun run …/runners/backfill/reconcile.ts --slug <s> # single product
-//
-// Env: LIMIT (cap product count).
+// Full corpus reconcile: align every eligible product's auto-tags to the current orchestrator.
+// Unlike `main.ts` (additive + relevance-upgrade only), this also removes stale rows and
+// corrects relevance downgrades via `writeTagsForProduct` (DELETE non-manual + INSERT) per
+// product; manual rows (source='manual') are never touched. See README "Propagating an
+// orchestrator change to the existing corpus".
 import { and, eq, inArray, ne } from 'drizzle-orm'
 
 import { db } from '../../../../db'
@@ -27,6 +16,8 @@ import { exitOnError, parseIntEnv, parseWriteSlugArgs } from '../cli-args'
 import { diffReconcileProduct } from './reconcile-diff'
 
 const { write: WRITE, slug: SLUG_ARG } = parseWriteSlugArgs()
+// Usage (via `just reconcile-auto-tags`): dry-run by default, --write to apply, --slug <s>
+// for a single product. LIMIT: cap product count.
 const LIMIT = parseIntEnv('LIMIT')
 
 async function main() {
@@ -45,7 +36,10 @@ async function main() {
     let written = 0
     // Load the fetch set once for the whole corpus; the per-product writer would
     // otherwise re-scan the corpus-global brand-certs and tag-defs N times.
-    const bundle = await loadAutoTagFetchBundle(prods.map((p) => p.id))
+    const bundle = await loadAutoTagFetchBundle(
+      prods.map((p) => p.id),
+      db
+    )
     // Passing tx nests writeTagsForProduct as a savepoint inheriting app.role='admin'.
     // Bare invocation has no role set, so RLS denies catalog writes.
     await withAdminRls(async (tx) => {
@@ -63,7 +57,7 @@ async function main() {
   }
 
   const productIds = prods.map((p) => p.id)
-  const bundle = await loadAutoTagFetchBundle(productIds)
+  const bundle = await loadAutoTagFetchBundle(productIds, db)
   const tagIdToSlug = new Map([...bundle.tagSlugToInfo].map(([slug, t]) => [t.id, slug]))
 
   const storedAutoTagRows = await db

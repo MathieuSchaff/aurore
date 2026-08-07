@@ -16,8 +16,9 @@ import { Hono } from 'hono'
 
 import type { AppEnv } from '../../app-env'
 import { db as baseDb } from '../../db'
+import { getAuthedUserId, getRlsDb } from '../../utils/accessors'
 import { zValidator } from '../../utils/validator'
-import { getAuthedUserId, requireJwtAuth, requireNotBanned } from '../auth/middleware'
+import { requireJwtAuth, requireNotBanned } from '../auth/middleware'
 import { withRlsContext } from '../auth/rls-context.middleware'
 import { getUserById } from '../auth/user.utils'
 import { securityScan } from '../security/security.middleware'
@@ -44,15 +45,15 @@ import {
 const app = new Hono<AppEnv>()
 
 app.use('*', requireJwtAuth)
-app.use('*', requireNotBanned)
 app.use('*', withRlsContext)
+app.use('*', requireNotBanned)
 
 export const profileRoute = app
 
   .get('/', async (c) => {
-    const db = c.get('db')
+    const requestDbRls = getRlsDb(c)
     const userId = getAuthedUserId(c)
-    const profile = await getProfile(db, userId)
+    const profile = await getProfile(requestDbRls, userId)
 
     if (!profile) {
       return c.json(err('not_found'), HTTP_STATUS.NOT_FOUND)
@@ -62,14 +63,14 @@ export const profileRoute = app
   })
 
   .get('/stats', async (c) => {
-    const db = c.get('db')
+    const db = getRlsDb(c)
     const userId = getAuthedUserId(c)
     const stats = await getProfileStats(db, userId)
     return c.json(ok(stats), HTTP_STATUS.OK)
   })
 
   .patch('/', securityScan(), zValidator('json', profileUpdateSchema), async (c) => {
-    const db = c.get('db')
+    const db = getRlsDb(c)
     const userId = getAuthedUserId(c)
 
     const data = c.req.valid('json')
@@ -83,14 +84,14 @@ export const profileRoute = app
   })
 
   .get('/preferences', async (c) => {
-    const db = c.get('db')
+    const db = getRlsDb(c)
     const userId = getAuthedUserId(c)
     const prefs = await getUserPreferences(db, userId)
     return c.json(ok(prefs), HTTP_STATUS.OK)
   })
 
   .patch('/preferences', zValidator('json', updateUserPreferencesSchema), async (c) => {
-    const db = c.get('db')
+    const db = getRlsDb(c)
     const userId = getAuthedUserId(c)
     const data = c.req.valid('json')
     const updated = await updateUserPreferences(db, userId, data)
@@ -98,7 +99,7 @@ export const profileRoute = app
   })
 
   .get('/preference-targets', async (c) => {
-    const db = c.get('db')
+    const db = getRlsDb(c)
     const userId = getAuthedUserId(c)
     const targets = await listPreferenceTargets(db, userId)
     return c.json(ok(targets), HTTP_STATUS.OK)
@@ -108,7 +109,7 @@ export const profileRoute = app
     '/ingredient-preferences',
     zValidator('json', upsertIngredientPreferenceSchema),
     async (c) => {
-      const db = c.get('db')
+      const db = getRlsDb(c)
       const userId = getAuthedUserId(c)
       const data = c.req.valid('json')
       const saved = await upsertIngredientPreference(db, userId, data)
@@ -125,7 +126,7 @@ export const profileRoute = app
     '/ingredient-preferences',
     zValidator('query', deleteIngredientPreferenceQuerySchema),
     async (c) => {
-      const db = c.get('db')
+      const db = getRlsDb(c)
       const userId = getAuthedUserId(c)
       const { key } = c.req.valid('query')
       await deleteIngredientPreference(db, userId, key)
@@ -134,7 +135,7 @@ export const profileRoute = app
   )
 
   .put('/tag-preferences', zValidator('json', upsertTagPreferenceSchema), async (c) => {
-    const db = c.get('db')
+    const db = getRlsDb(c)
     const userId = getAuthedUserId(c)
     const data = c.req.valid('json')
     const saved = await upsertTagPreference(db, userId, data)
@@ -150,7 +151,7 @@ export const profileRoute = app
     '/tag-preferences/:tagId',
     zValidator('param', deleteTagPreferenceParamSchema),
     async (c) => {
-      const db = c.get('db')
+      const db = getRlsDb(c)
       const userId = getAuthedUserId(c)
       const { tagId } = c.req.valid('param')
       await deleteTagPreference(db, userId, tagId)
@@ -159,27 +160,27 @@ export const profileRoute = app
   )
 
   .get('/dermo', async (c) => {
-    const db = c.get('db')
+    const db = getRlsDb(c)
     const userId = getAuthedUserId(c)
     const profile = await getDermoProfile(db, userId)
     return c.json(ok(profile), HTTP_STATUS.OK)
   })
 
   .patch('/dermo', zValidator('json', userDermoProfileUpdateSchema), async (c) => {
-    const db = c.get('db')
+    const db = getRlsDb(c)
     const userId = getAuthedUserId(c)
     const data = c.req.valid('json')
     const updated = await upsertDermoProfile(db, userId, data)
     return c.json(ok(updated), HTTP_STATUS.OK)
   })
   .get('/privacy-settings', async (c) => {
-    const db = c.get('db')
+    const db = getRlsDb(c)
     const userId = getAuthedUserId(c)
     const settings = await getPrivacySettings(db, userId)
     return c.json(ok(settings), HTTP_STATUS.OK)
   })
   .patch('/privacy-settings', zValidator('json', updatePrivacySettingsSchema), async (c) => {
-    const db = c.get('db')
+    const db = getRlsDb(c)
     const userId = getAuthedUserId(c)
     const data = c.req.valid('json')
     const updated = await updatePrivacySettings(db, userId, data)
@@ -192,7 +193,7 @@ export const profileRoute = app
   })
 
   .delete('/deleteUser', async (c) => {
-    const db = c.get('db')
+    const db = getRlsDb(c)
     const userId = getAuthedUserId(c)
     await deleteUser(db, userId)
     return c.body(null, 204)
@@ -203,7 +204,7 @@ export const profileRoute = app
   // by author_id explicitly (no RLS on those tables).
   .get('/export', async (c) => {
     const userId = getAuthedUserId(c)
-    const db = c.get('db')
+    const db = getRlsDb(c)
 
     // Demo accounts have no meaningful data to export and each call pollutes the
     // security journal with a data_export_requested event. Block them up front.

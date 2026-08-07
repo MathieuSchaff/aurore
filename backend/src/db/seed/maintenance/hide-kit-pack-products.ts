@@ -1,18 +1,12 @@
 #!/usr/bin/env bun
 
-/**
- * hide-kit-pack-products.ts — soft-hide (default) or delete products that are
- * bundles (gift coffrets, kits, bulk "lot de N" packs) or samples (échantillon,
- * sachet, mini, travel-size, tiny 1-5ml) rather than a standalone formula.
- * Match logic shared with scan-db-duplicates.ts (_kit-pack-pattern.ts).
- * Idempotent: only touches rows still 'visible', safe to re-run as new
- * scraped products land in the catalogue.
- *
- * Usage:
- *   bun run src/db/seed/maintenance/hide-kit-pack-products.ts                   # dry-run
- *   bun run src/db/seed/maintenance/hide-kit-pack-products.ts --write           # soft-hide
- *   bun run src/db/seed/maintenance/hide-kit-pack-products.ts --write --delete  # hard delete
- */
+// Soft-hides (default) or deletes products that are bundles or samples, rather
+// than a standalone formula.
+
+// Usage:
+//   bun run src/db/seed/maintenance/hide-kit-pack-products.ts                   # dry-run
+//   bun run src/db/seed/maintenance/hide-kit-pack-products.ts --write           # soft-hide
+//   bun run src/db/seed/maintenance/hide-kit-pack-products.ts --write --delete  # hard delete
 
 import { eq } from 'drizzle-orm'
 
@@ -30,8 +24,13 @@ async function main() {
   const rows = await db
     .select({ id: products.id, slug: products.slug, name: products.name })
     .from(products)
+    // Idempotent: only rows still 'visible', safe to run again as new scraped
+    // products land in the catalogue.
     .where(eq(products.moderationStatus, 'visible'))
 
+  // Bundles: gift coffrets, kits, bulk "lot de N" packs. Samples: échantillon,
+  // sachet, mini, travel-size, 1-5ml. Match logic shared with scan-db-duplicates.ts
+  // (_kit-pack-pattern.ts).
   const matches = rows.filter((r) => isBundleOrSample(r.slug, r.name))
 
   console.log(`visible products: ${rows.length}`)

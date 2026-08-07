@@ -4,14 +4,10 @@ import { matchesNamePositioning } from './name-positioning'
 
 const S = SKINCARE_PRODUCT_TAG_SLUGS
 
-// Positioning gate for `keratose-pilaire`. Was an INCI detector (urea top-8 OR
-// lactic+ammonium-lactate, body-lotion/body-oil). Urea is a ubiquitous dry-skin
-// humectant: urea-repair / xerosis / callus / psoriasis lotions share the actant
-// but are not positioned for KP. A concern reports marketed positioning, not
-// actant presence (ADR-0004).
-// Gate now keys on products that NAME KP — the clinical term (FR/EN) plus the lay
-// "chicken skin" / "peau de poulet" and "body bumps". No kind gate: KP is named
-// on body and face products alike, and naming alone is precise.
+// Positioning gate for `keratose-pilaire` (ADR-0004: report positioning, not actant
+// presence). Not an INCI detector: urea is shared by xerosis/callus/psoriasis lotions
+// not positioned for KP. Gate keys on products naming KP (clinical FR/EN term, or lay
+// "chicken skin"/"peau de poulet"/"body bumps"). No kind gate: named on body and face alike.
 export const KERATOSE_PILAIRE_POSITION_RE =
   /k[ée]ratose\s+(?:pilaire|folliculaire)|keratosis\s+pilaris|follicular\s+keratosis|peau\s+de\s+poulet|chicken\s+skin|\bbody\s+bumps?\b|\bbumpy\s+skin\b/i
 

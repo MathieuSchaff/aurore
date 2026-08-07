@@ -120,14 +120,14 @@ describe('User Products Service', () => {
 
     it('should throw if not found', async () => {
       const fakeId = crypto.randomUUID()
-      expect(getUPById(user.id, fakeId)).rejects.toThrow(UserProductError)
+      await expect(getUPById(user.id, fakeId)).rejects.toThrow(UserProductError)
     })
 
     it('should throw if the product belongs to another user', async () => {
       const created = await collect()
       const otherUser = await createTestUser('other@test.com')
 
-      expect(getUPById(otherUser.id, created.id)).rejects.toThrow(UserProductError)
+      await expect(getUPById(otherUser.id, created.id)).rejects.toThrow(UserProductError)
     })
   })
 
@@ -141,14 +141,14 @@ describe('User Products Service', () => {
 
     it('should throw if not found', async () => {
       const fakeProductId = crypto.randomUUID()
-      expect(getUPByProductId(user.id, fakeProductId)).rejects.toThrow(UserProductError)
+      await expect(getUPByProductId(user.id, fakeProductId)).rejects.toThrow(UserProductError)
     })
 
     it('should throw if the user has no association with this product', async () => {
       await collect()
       const otherUser = await createTestUser('other@test.com')
 
-      expect(getUPByProductId(otherUser.id, product.id)).rejects.toThrow(UserProductError)
+      await expect(getUPByProductId(otherUser.id, product.id)).rejects.toThrow(UserProductError)
     })
   })
 
@@ -162,14 +162,16 @@ describe('User Products Service', () => {
 
     it('should throw if user product does not exist', async () => {
       const fakeId = crypto.randomUUID()
-      expect(updateUP(user.id, fakeId, { status: 'archived' })).rejects.toThrow(UserProductError)
+      await expect(updateUP(user.id, fakeId, { status: 'archived' })).rejects.toThrow(
+        UserProductError
+      )
     })
 
     it('should throw if user product belongs to another user', async () => {
       const created = await collect()
       const otherUser = await createTestUser('other@test.com')
 
-      expect(updateUP(otherUser.id, created.id, { status: 'archived' })).rejects.toThrow(
+      await expect(updateUP(otherUser.id, created.id, { status: 'archived' })).rejects.toThrow(
         UserProductError
       )
     })
@@ -181,19 +183,19 @@ describe('User Products Service', () => {
 
       await deleteUP(user.id, created.id)
 
-      expect(getUPById(user.id, created.id)).rejects.toThrow(UserProductError)
+      await expect(getUPById(user.id, created.id)).rejects.toThrow(UserProductError)
     })
 
     it('should throw if user product does not exist', async () => {
       const fakeId = crypto.randomUUID()
-      expect(deleteUP(user.id, fakeId)).rejects.toThrow(UserProductError)
+      await expect(deleteUP(user.id, fakeId)).rejects.toThrow(UserProductError)
     })
 
     it('should throw if user product belongs to another user', async () => {
       const created = await collect()
       const otherUser = await createTestUser('other@test.com')
 
-      expect(deleteUP(otherUser.id, created.id)).rejects.toThrow(UserProductError)
+      await expect(deleteUP(otherUser.id, created.id)).rejects.toThrow(UserProductError)
     })
   })
 
@@ -246,7 +248,7 @@ describe('User Products Service', () => {
       expect(history).toHaveLength(1)
     })
 
-    it('logs the upsert path when createUserProduct re-statuses an existing row', async () => {
+    it('logs the upsert path when createUserProduct changes the status of an existing row', async () => {
       const created = await collect('wishlist')
       await collect()
 
@@ -269,7 +271,7 @@ describe('User Products Service', () => {
       const created = await collect()
       const otherUser = await createTestUser('other@test.com')
 
-      expect(getUPHistory(otherUser.id, created.id)).rejects.toThrow(UserProductError)
+      await expect(getUPHistory(otherUser.id, created.id)).rejects.toThrow(UserProductError)
     })
   })
 
@@ -291,14 +293,16 @@ describe('User Products Service', () => {
 
     it('should throw if user product not found', async () => {
       const fakeId = crypto.randomUUID()
-      expect(upsertUPReview(user.id, fakeId, { tolerance: 5 })).rejects.toThrow(UserProductError)
+      await expect(upsertUPReview(user.id, fakeId, { tolerance: 5 })).rejects.toThrow(
+        UserProductError
+      )
     })
 
     it('should throw if user product belongs to another user', async () => {
       const created = await collect()
       const otherUser = await createTestUser('other@test.com')
 
-      expect(upsertUPReview(otherUser.id, created.id, { tolerance: 5 })).rejects.toThrow(
+      await expect(upsertUPReview(otherUser.id, created.id, { tolerance: 5 })).rejects.toThrow(
         UserProductError
       )
     })

@@ -75,7 +75,7 @@ export const ingredientQueries = {
       queryFn: async () => {
         const res = await api.ingredients.$get({ query: buildListIngredientsQuery(filters) })
         // throwIfNotOk (not `if (!res.ok)`) to keep the backend code+retryAfter on the
-        // ApiError so a 429 surfaces "retry in Ns"; re-narrow the union after.
+        // ApiError so a 429 surfaces "retry in Ns"; narrow the union again after.
         await throwIfNotOk(res)
         const json = await res.json()
         if (!json.success) throw new ApiError('http_error', res.status)
@@ -154,18 +154,20 @@ export const ingredientQueries = {
       // No enabled floor here: SearchCombobox owns gating via minChars.
     }),
 
-  // Rule composer autocomplete: a preference can only attach to a keyed
-  // substance, unkeyed rows are dropped server-response-side.
+  // Preferences attach to a substance, not to one of its catalogue aliases.
   searchDeclarableInfinite: (query: string) =>
     infiniteQueryOptions({
       queryKey: [...ingredientKeys.all, 'search-declarable', query] as const,
       queryFn: async ({ signal }) => {
-        const res = await api.ingredients.search.$get({ query: { q: query } }, { init: { signal } })
+        const res = await api.ingredients['search-identities'].$get(
+          { query: { q: query } },
+          { init: { signal } }
+        )
         await throwIfNotOk(res)
         const json = await res.json()
         if (!json.success) throw new ApiError('http_error', res.status)
         return {
-          items: json.data.filter((i) => i.canonicalKey !== null),
+          items: json.data,
           hasMore: false,
           nextOffset: 0,
         }
@@ -174,7 +176,7 @@ export const ingredientQueries = {
       getNextPageParam: (): number | undefined => undefined,
     }),
 
-  // Resolve names for slugs deep-linked from URL; cached so filter re-mount doesn't refetch.
+  // Resolve names for slugs deep-linked from URL; cached so mounting the filter again doesn't refetch.
   bySlugs: (slugs: string[]) =>
     queryOptions({
       queryKey: [...ingredientKeys.all, 'by-slugs', slugs.toSorted()] as const,

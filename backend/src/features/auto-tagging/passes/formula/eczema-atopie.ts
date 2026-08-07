@@ -2,15 +2,13 @@ import { SKINCARE_PRODUCT_TAG_SLUGS, type SkincareProductTagSlug } from '@aurore
 
 const S = SKINCARE_PRODUCT_TAG_SLUGS
 
-// Named-atopic shelf (Atoderm/Xeracalm/Xemose) carries no reliable INCI signal.
-// EU-regulated claims at the cosmetic-to-medical-device borderline are used only
-// when genuinely positioned for atopy, so precision is high in both name and
-// description. Contraindication prose lives only in ingredient/article copy, never
-// in products.description.
-// Latent FP: a description that contraindicates atopy would trigger here; handled
-// by partitionEczemaReview at every write/audit consumer rather than gating this
-// regex (gating would drop the positive forms). No kind gate: an atopy-named
+// Named-atopic shelf (Atoderm/Xeracalm/Xemose) carries no reliable INCI signal. EU-regulated
+// claims (cosmetic-to-medical-device borderline) are used only when genuinely positioned for
+// atopy, so precision is high in both name and description. No kind gate: an atopy-named
 // cleanser is still atopy-positioned.
+
+// Contraindication prose normally lives in ingredient/article copy, not here; the rare
+// exception is caught by partitionEczemaReview below, not by gating this regex.
 const ATOPIE_NAME_RE = /atopi|ecz[ée]ma/i
 
 export function detectEczemaAtopieFromName(
@@ -42,11 +40,11 @@ export function eczemaAtopieDescriptionNeedsReview(
   return sentences.some((s) => ATOPIE_NAME_RE.test(s) && ATOPIE_CONTRAINDICATION_RE.test(s))
 }
 
-// Shared withholding helper. Each persisting detectAllAutoTags consumer
-// (seed-core, backfill, reconcile, live intake) must call this after the
-// orchestrator. It is NOT applied inside detectAllAutoTags, so a new writer
-// that forgets the call will not withhold. Audit consumers skip it on purpose
-// (they measure the raw orchestrator emission).
+// Withholding helper instead of gating ATOPIE_NAME_RE directly (that would drop true
+// positives too). Each persisting detectAllAutoTags consumer (seed-core, backfill,
+// reconcile, live intake) must call this after the orchestrator. It is NOT applied
+// inside detectAllAutoTags, so a new writer that forgets the call will not withhold.
+// Audit consumers skip it on purpose (they measure the raw orchestrator emission).
 export function partitionEczemaReview<T extends { tagSlug: SkincareProductTagSlug }>(
   pairs: readonly T[],
   description: string | null | undefined

@@ -104,7 +104,7 @@ describe('summarizeByLayer', () => {
     expect(actif?.rated).toBe(6)
     // macro = unweighted mean of per-tag precision (0.75, 1) = 0.875
     expect(actif?.macro.precision).toBeCloseTo(0.875, 5)
-    // micro pools tp/fp/fn: tp=4 fp=1 fn=1 → P=R=F1=0.8
+    // micro pools tp/fp/fn: tp=4 fp=1 fn=1, so P=R=F1=0.8
     expect(actif?.micro.precision).toBeCloseTo(0.8, 5)
     expect(actif?.micro.recall).toBeCloseTo(0.8, 5)
   })

@@ -1,9 +1,8 @@
 // Pure test (no DB): the persist-filter seam shared by writeTagsForProduct
 // (intake), the backfill runner, and reconcile. resolveTagRows must apply
 // eczema-atopie withholding, drop unknown slugs and domain-ineligible tag types,
-// and preserve (tagSlug, tagId, relevance, source) on every kept row — so the
-// three persisting consumers cannot drift on which orchestrator emissions reach
-// the DB.
+// and preserve (tagSlug, tagId, relevance, source) on every kept row, so the
+// three persisting consumers cannot drift on which emissions reach the DB.
 
 import { describe, expect, it } from 'bun:test'
 
@@ -20,18 +19,18 @@ const pair = (
   source: AutoTagPair['source'] = 'formula'
 ): AutoTagPair => ({ tagSlug, relevance, source })
 
-// 'concern' is a skincare filter category; 'haircare_only' is not → domain-ineligible.
+// 'concern' is a skincare filter category; 'haircare_only' is not, so it's domain-ineligible.
 const tagInfo = new Map<string, { id: string; tagType: string }>([
   [S.ECZEMA_ATOPIE, { id: 'id-eczema', tagType: 'concern' }],
   [S.HYPERPIGMENTATION, { id: 'id-hyperpig', tagType: 'concern' }],
   [S.REPARATION, { id: 'id-rep', tagType: 'haircare_only' }],
 ])
 
-// Names atopy under a contraindication → eczemaAtopieDescriptionNeedsReview true.
+// Names atopy under a contraindication, so eczemaAtopieDescriptionNeedsReview is true.
 const CONTRA = 'Déconseillé aux peaux atopiques sévères.'
 const BENIGN = 'Apaise les sensations de démangeaison.'
 
-describe('resolveTagRows — persist-filter seam', () => {
+describe('resolveTagRows: persist-filter seam', () => {
   it('withholds eczema-atopie when the description contraindicates atopy', () => {
     const { rows, withheld } = resolveTagRows(
       [pair(S.ECZEMA_ATOPIE), pair(S.HYPERPIGMENTATION)],

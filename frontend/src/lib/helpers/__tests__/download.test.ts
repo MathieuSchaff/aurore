@@ -34,7 +34,7 @@ describe('parseAttachmentFilename', () => {
 })
 
 describe('downloadBlobAsFile', () => {
-  // jsdom does not implement URL.createObjectURL / revokeObjectURL — stub them.
+  // jsdom does not implement URL.createObjectURL / revokeObjectURL. Stub them.
   const createObjectURL = vi.fn(() => 'blob:mock-url')
   const revokeObjectURL = vi.fn()
 
@@ -71,7 +71,7 @@ describe('downloadBlobAsFile', () => {
 
     downloadBlobAsFile(blob, 'x.json')
 
-    // setTimeout(..., 0) → fires on the next macrotask tick. Async cleanup
+    // setTimeout(..., 0) fires on the next macrotask tick. Async cleanup
     // matters here because Safari needs the blob URL alive long enough to
     // kick off the download before we tear it down.
     expect(revokeObjectURL).not.toHaveBeenCalled()
