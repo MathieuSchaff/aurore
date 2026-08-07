@@ -22,7 +22,7 @@ audit-auto-tags:
         -w /app/backend api bun run src/features/auto-tagging/runners/audit/main.ts \
         | tee "$(audit_out audit-auto-tags)"
 
-# Calibration drift: hit_rate per (slug,category) vs TAG_HIT_RATE_BUDGET; exit 1 on FAIL, out-of-budget → WARN (warn-only, roadmap A3).
+# Calibration drift: hit_rate per (slug,category) vs TAG_HIT_RATE_BUDGET; exit 1 on FAIL, out-of-budget → WARN (warn-only).
 [group('audit')]
 audit-auto-tags-check:
     #!/usr/bin/env bash
@@ -45,6 +45,20 @@ audit-kind-inci:
     printf "{{CYAN}}Audit kind⇄INCI coherence ($TARGET) → .audit-out/db/audit-kind-inci.$TARGET.md{{NC}}\n"
     $COMPOSE exec -w /app/backend api bun run src/features/auto-tagging/runners/audit/kind-inci-coherence.ts \
         | tee "$(audit_out audit-kind-inci)"
+
+# Detect visible SPF products (name or kind=sunscreen) with no filtre-uv ingredient linked.
+# Report-only: the cause is an empty/weak source INCI (scrape), not a linking bug. Catches a
+# new hole right after a catalogue ingest.
+[group('audit')]
+audit-uv-filters:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    source {{justfile_directory()}}/scripts/just/_lib.sh
+    TARGET="${TARGET:-dev}"
+    target_compose
+    printf "{{CYAN}}Audit UV filter coverage ($TARGET) → .audit-out/db/audit-uv-filters.$TARGET.md{{NC}}\n"
+    $COMPOSE exec -w /app/backend api bun run src/features/auto-tagging/runners/audit/uv-filters-coverage.ts \
+        | tee "$(audit_out audit-uv-filters)"
 
 # Detect sans-sulfates false negatives: leave-on products denied the claim by a cetearyl/coceth emulsifier. Read-only.
 [group('audit')]
