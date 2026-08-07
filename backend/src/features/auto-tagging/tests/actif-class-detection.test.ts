@@ -244,19 +244,43 @@ describe('actif-class-detection', () => {
     )
   })
 
-  test('tyrosinase: full-scan (no positionCap) — alpha-arbutin at tail still detected', () => {
-    const filler = fillerIngredients(25)
-    const inci = `Aqua, ${filler}, Alpha-Arbutin`
+  test.each([
+    'Kojic Acid',
+    'Arbutin',
+    'Alpha-Arbutin',
+    'Beta-Arbutin',
+    'Hexylresorcinol',
+    '4-Hexylresorcinol',
+    '4-Butylresorcinol',
+    '4-n-Butylresorcinol',
+    'Rucinol',
+    'Isobutylamido Thiazolyl Resorcinol',
+    'Thiamidol',
+  ])('tyrosinase: detects direct human inhibitor %s', (ingredient) => {
+    const inci = `Aqua, Glycerin, ${ingredient}`
     expect(detectActifClasses(inci)).toContain(SKINCARE_PRODUCT_TAG_SLUGS.TYROSINASE_INHIBITORS)
   })
 
-  test('tyrosinase: undecylenoyl phenylalanine + hexylresorcinol detected', () => {
-    expect(detectActifClasses('Aqua, Glycerin, Undecylenoyl Phenylalanine')).toContain(
-      SKINCARE_PRODUCT_TAG_SLUGS.TYROSINASE_INHIBITORS
-    )
-    expect(detectActifClasses('Aqua, Glycerin, Hexylresorcinol')).toContain(
-      SKINCARE_PRODUCT_TAG_SLUGS.TYROSINASE_INHIBITORS
-    )
+  test('tyrosinase: full-scan keeps alpha-arbutin at tail', () => {
+    const inci = `Aqua, ${fillerIngredients(25)}, Alpha-Arbutin`
+    expect(detectActifClasses(inci)).toContain(SKINCARE_PRODUCT_TAG_SLUGS.TYROSINASE_INHIBITORS)
+  })
+
+  test.each([
+    'Deoxyarbutin',
+    'Tetrahydropyranyloxy Phenol',
+    'Kojic Dipalmitate',
+    'Tranexamic Acid',
+    'Ellagic Acid',
+    'Morus Alba Root Extract',
+    'Undecylenoyl Phenylalanine',
+    '2-Mercaptonicotinoyl Glycine',
+    'Boldine',
+    'Diacetyl Boldine',
+    'Azelaic Acid',
+  ])('tyrosinase: excludes %s from the strict automatic class', (ingredient) => {
+    const inci = `Aqua, Glycerin, ${ingredient}`
+    expect(detectActifClasses(inci)).not.toContain(SKINCARE_PRODUCT_TAG_SLUGS.TYROSINASE_INHIBITORS)
   })
 
   test('tyrosinase: niacinamide alone NOT tagged (different mechanism)', () => {

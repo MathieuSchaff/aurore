@@ -90,6 +90,28 @@ services:
       retries: 3
       start_period: 10s
 
+  autotag-backfill:
+    build:
+      context: ../../..
+      dockerfile: infra/docker/images/backend/Dockerfile
+      target: dev
+    user: "${UID:-1000}:${GID:-1000}"
+    volumes:
+      - ../../../package.json:/app/package.json:ro
+      - ../../../bun.lock:/app/bun.lock:ro
+      - ../../../tsconfig.json:/app/tsconfig.json:ro
+      - ../../../backend/package.json:/app/backend/package.json:ro
+      - ../../../backend/src:/app/backend/src
+      - ../../../backend/drizzle:/app/backend/drizzle:ro
+      - ../../../backend/tsconfig.json:/app/backend/tsconfig.json:ro
+      - ../../../backend/tmp:/app/backend/tmp
+      - ../../../shared/package.json:/app/shared/package.json:ro
+      - ../../../shared/src:/app/shared/src:ro
+      - ../../../shared/tsconfig.json:/app/shared/tsconfig.json:ro
+    environment:
+      NODE_ENV: development
+      LOG_LEVEL: debug
+
   # No nginx in dev; reach API and frontend directly.
   nginx:
     profiles: ["disabled"]

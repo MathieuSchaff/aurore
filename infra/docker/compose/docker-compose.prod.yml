@@ -58,6 +58,22 @@ services:
       retries: 3
       start_period: 10s
 
+  autotag-backfill:
+    image: ghcr.io/mathieuschaff/aurore-api:${IMAGE_TAG:-latest}
+    build:
+      context: ../../..
+      dockerfile: infra/docker/images/backend/Dockerfile
+      target: prod
+    environment:
+      NODE_ENV: production
+      LOG_LEVEL: info
+    cpus: "1.0"
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+
   frontend:
     # CI-built image (build-push.yml). `build:` inherited from base compose as fallback.
     image: ghcr.io/mathieuschaff/aurore-frontend:${IMAGE_TAG:-latest}
