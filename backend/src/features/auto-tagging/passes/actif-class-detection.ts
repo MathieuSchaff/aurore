@@ -1,5 +1,5 @@
 // Pharmacological cluster detection for skincare products.
-// Patterns match canonical INCI fragments (lowercase, post-algo-derm normalize) by substring.
+// Patterns match canonical INCI tokens (lowercase, post-algo-derm normalize).
 
 import type { ProductKind } from '@aurore/shared'
 import { SKINCARE_PRODUCT_TAG_SLUGS, type SkincareProductTagSlug } from '@aurore/shared'
@@ -37,8 +37,8 @@ const RINSE_OFF_LIKE_KINDS = new Set<ProductKind>([
 export interface ActifClassDef {
   slug: SkincareProductTagSlug
   patterns: string[]
-  // Match the whole INCI token instead of substring. Needed when the bare name
-  // is a substring of unrelated ingredients (urea vs hydroxyethyl urea / botanicals).
+  // Match the whole INCI token instead of substring. Needed when a shared name
+  // fragment does not prove the same chemical family or mechanism.
   exact?: boolean
   // Past pos 25 an actif is rarely functional, so pH-dependent acids use a tight cap.
   // Antioxidants/humectants/ceramides use Infinity: the gold-set tags them regardless
@@ -235,28 +235,25 @@ export const ACTIF_CLASS_DEFS: ActifClassDef[] = [
   },
   {
     slug: SKINCARE_PRODUCT_TAG_SLUGS.TYROSINASE_INHIBITORS,
-    // Sub-1% dosing; manual corpus tags at any position (median 18, p90 33). Cap removed.
-    // `arbutin` catches `alpha-arbutin` and `deoxyarbutin` via substring.
-
-    // Excluded by mechanism mismatch: `glycyrrhiza`/`glycyrrhizate` cause +401 over-tags
-    // (pigmentation signal only holds combined with kojic/arbutin/morus alba, already
-    // caught); `niacinamide` inhibits melanosome transfer, not tyrosinase, and would
-    // over-broaden to most niacinamide products.
+    // Keep this class literal: cellular melanogenesis effects and mushroom-only
+    // inhibition do not establish direct inhibition of human tyrosinase.
     patterns: [
       'kojic acid',
       'arbutin',
-      'tranexamic acid',
-      'ellagic acid',
-      'morus alba',
-      'undecylenoyl phenylalanine',
+      'alpha-arbutin',
+      'beta-arbutin',
       'hexylresorcinol',
-      // Mela B3 (La Roche-Posay): direct tyrosinase pathway inhibitor.
-      '2-mercaptonicotinoyl glycine',
-      // Boldine (diacetyl boldine = Lumiskin): competitive tyrosinase inhibitor.
-      'boldine',
-      // Competitive tyrosinase inhibitor + anti-acne; specific token, low over-tag risk.
-      'azelaic acid',
+      '4-hexylresorcinol',
+      '4-butylresorcinol',
+      '4-n-butylresorcinol',
+      'rucinol',
+      'isobutylamido thiazolyl resorcinol',
+      'thiamidol',
     ],
+    // Exact aliases prevent arbutin/boldine-like substrings from making
+    // chemically distinct derivatives inherit this mechanism.
+    // Deoxyarbutin is excluded separately because EU cosmetics prohibit it.
+    exact: true,
     positionCap: Number.POSITIVE_INFINITY,
   },
   {

@@ -30,7 +30,7 @@ export async function writeTagsForProduct(
 
   // Loader reads run serially so a tx `database` stays safe; see
   // fetch-auto-tag-bundle.ts. Full-corpus callers (reconcile) inject a bundle
-  // loaded once, skipping the per-product re-read of the corpus-global certs
+  // loaded once, skipping the per-product read of the corpus-global certs
   // and tag-defs.
   const resolvedBundle = bundle ?? (await loadAutoTagFetchBundle([productId], database))
   // Unknown slugs (missing `product_tags_defs` row) are silently dropped here, so the
@@ -53,11 +53,15 @@ export async function writeTagsForProduct(
     if (rows.length === 0) return { inserted: 0, detected: pairs.length }
 
     // Idempotent via onConflictDoNothing on (productId, productTagId).
-    // Read the driver's count: onConflictDoNothing skips rows whose PK is held
-    // by a manual link, so rows.length would over-report. bun-postgres exposes
-    // the affected count under `count` (rowCount is absent on this driver).
-    const result = await tx.insert(productTagLinks).values(rows).onConflictDoNothing()
-    const inserted = (result as unknown as { count?: number }).count ?? rows.length
+    // `.count` is absent on tx inserts with this driver; `.returning()` gives
+    // the true affected-row count instead of the `rows.length` upper bound.
+    const inserted = (
+      await tx
+        .insert(productTagLinks)
+        .values(rows)
+        .onConflictDoNothing()
+        .returning({ productId: productTagLinks.productId })
+    ).length
 
     return { inserted, detected: pairs.length }
   })

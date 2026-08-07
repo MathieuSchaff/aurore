@@ -41,10 +41,20 @@ describe('detectPercentClaimTags', () => {
     expect(slugs).toEqual([])
   })
 
-  test('maps azelaic acid to tyrosinase inhibitors', () => {
+  test('maps a direct human tyrosinase inhibitor claim', () => {
     const slugs = detectPercentClaimTags('Adenosine, Allantoin, Betaine, Caffeine, Ceramide NP', [
-      { ingredientSlug: 'azelaic-acid', concentrationValue: 12, concentrationUnit: '%' },
+      { ingredientSlug: 'alpha-arbutin', concentrationValue: 2, concentrationUnit: '%' },
     ])
     expect(slugs).toContain(S.TYROSINASE_INHIBITORS)
   })
+
+  test.each(['azelaic-acid', 'tranexamic-acid'])(
+    'does not map indirect or mixed-mechanism %s claims to tyrosinase inhibitors',
+    (ingredientSlug) => {
+      const slugs = detectPercentClaimTags('Adenosine, Allantoin, Betaine, Caffeine, Ceramide NP', [
+        { ingredientSlug, concentrationValue: 2, concentrationUnit: '%' },
+      ])
+      expect(slugs).not.toContain(S.TYROSINASE_INHIBITORS)
+    }
+  )
 })

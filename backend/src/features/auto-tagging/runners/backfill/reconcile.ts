@@ -6,14 +6,13 @@
 import { and, eq, inArray, ne } from 'drizzle-orm'
 
 import { db } from '../../../../db'
-import { withAdminRls } from '../../../../db/rls'
 import { productTagLinks } from '../../../../db/schema'
 import { loadAutoTagFetchBundle } from '../../lib/fetch-auto-tag-bundle'
 import { computeTagRowsForProduct } from '../../lib/orchestrator-input'
-import { writeTagsForProduct } from '../../write'
 import { fetchEligibleProducts } from '../audit/db'
 import { exitOnError, parseIntEnv, parseWriteSlugArgs } from '../cli-args'
 import { diffReconcileProduct } from './reconcile-diff'
+import { writeReconciledProducts } from './reconcile-write'
 
 const { write: WRITE, slug: SLUG_ARG } = parseWriteSlugArgs()
 // Usage (via `just reconcile-auto-tags`): dry-run by default, --write to apply, --slug <s>
@@ -32,24 +31,19 @@ async function main() {
   )
 
   if (WRITE) {
-    let reconciled = 0
-    let written = 0
     // Load the fetch set once for the whole corpus; the per-product writer would
     // otherwise re-scan the corpus-global brand-certs and tag-defs N times.
     const bundle = await loadAutoTagFetchBundle(
       prods.map((p) => p.id),
       db
     )
-    // Passing tx nests writeTagsForProduct as a savepoint inheriting app.role='admin'.
-    // Bare invocation has no role set, so RLS denies catalog writes.
-    await withAdminRls(async (tx) => {
-      for (const p of prods) {
-        const r = await writeTagsForProduct(p.id, tx, bundle)
-        written += r.inserted
-        reconciled++
-        if (reconciled % 500 === 0) console.log(`  …${reconciled}/${prods.length}`)
+    const { reconciled, written } = await writeReconciledProducts(
+      prods.map((p) => p.id),
+      bundle,
+      (count) => {
+        if (count % 500 === 0) console.log(`  …${count}/${prods.length}`)
       }
-    })
+    )
     console.log(
       `✓ reconciled ${reconciled} products · ${written} auto rows written (manual untouched)`
     )

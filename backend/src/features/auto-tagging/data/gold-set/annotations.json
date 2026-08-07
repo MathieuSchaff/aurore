@@ -4200,14 +4200,7 @@
       "productSlug": "dr-ceuracle-pure-vc-mellight-ampoule-set",
       "kind": "serum",
       "category": "skincare",
-      "present": [
-        "ceramides",
-        "hyaluronic-acid",
-        "polyphenols",
-        "tyrosinase-inhibitors",
-        "vitamin-c",
-        "vitamin-e"
-      ],
+      "present": ["ceramides", "hyaluronic-acid", "polyphenols", "vitamin-c", "vitamin-e"],
       "absent": [
         "aha",
         "anti-age",
@@ -4219,11 +4212,12 @@
         "pha",
         "retinoids",
         "texture-legere",
-        "texture-riche"
+        "texture-riche",
+        "tyrosinase-inhibitors"
       ],
       "annotatedAt": "2026-05-25",
       "sampledFor": ["eclat-teint-uniforme", "polyphenols"],
-      "notes": "ACIDE ASCORBIQUE pos-1; TOCOPHEROL; SODIUM HYALURONATE; ROSMARINUS OFFICINALIS (polyphenol); CERAMIDE NP; ACIDE TRANEXAMIQUE (tyrosinase). Powder ampoule, light texture. [adjust] texture-legere absent: powder ampoule top 1 = ACIDE ASCORBIQUE actif, not aqueous base (detector requires water/glycerin top 3). | anti-age: absent — brightening/anti-taches (hyperpigmentation) ; eclat-teint: absent — vit C ampoule multi-claim (brightening/hyperpig/anti-âge), pas de lead teint unique"
+      "notes": "ACIDE ASCORBIQUE pos-1; TOCOPHEROL; SODIUM HYALURONATE; ROSMARINUS OFFICINALIS (polyphenol); CERAMIDE NP; ACIDE TRANEXAMIQUE (modulateur indirect, pas inhibition humaine directe). Powder ampoule, light texture. [adjust] texture-legere absent: powder ampoule top 1 = ACIDE ASCORBIQUE actif, not aqueous base (detector requires water/glycerin top 3). | anti-age: absent — brightening/anti-taches (hyperpigmentation) ; eclat-teint: absent — vit C ampoule multi-claim (brightening/hyperpig/anti-âge), pas de lead teint unique"
     },
     {
       "productSlug": "dr-ceuracle-pure-vc-mellight-boosting-essence",
@@ -8499,7 +8493,7 @@
       "productSlug": "la-roche-posay-mela-b3-gel-micro-peeling-unifiant-eclat",
       "kind": "exfoliant",
       "category": "skincare",
-      "present": ["ceramides", "pha", "tyrosinase-inhibitors", "vitamin-e"],
+      "present": ["ceramides", "pha", "vitamin-e"],
       "absent": [
         "aha",
         "bha",
@@ -8509,10 +8503,12 @@
         "peptides",
         "polyphenols",
         "retinoids",
+        "tyrosinase-inhibitors",
         "vitamin-c"
       ],
       "annotatedAt": "2026-05-10",
-      "sampledFor": ["pha"]
+      "sampledFor": ["pha"],
+      "notes": "2-MERCAPTONICOTINOYL GLYCINE / Melasyl intercepte des précurseurs de mélanine ; l'étude mécanistique le décrit explicitement comme non-inhibiteur de tyrosinase."
     },
     {
       "productSlug": "la-roche-posay-mela-b3-serum",
@@ -13827,14 +13823,7 @@
       "productSlug": "svr-clairial-day",
       "kind": "sunscreen",
       "category": "solaire",
-      "present": [
-        "hyaluronic-acid",
-        "polyphenols",
-        "protection",
-        "texture-legere",
-        "tyrosinase-inhibitors",
-        "vitamin-e"
-      ],
+      "present": ["hyaluronic-acid", "polyphenols", "protection", "texture-legere", "vitamin-e"],
       "absent": [
         "aha",
         "bha",
@@ -13845,24 +13834,18 @@
         "pha",
         "retinoids",
         "texture-riche",
+        "tyrosinase-inhibitors",
         "vitamin-c"
       ],
       "annotatedAt": "2026-05-11",
       "sampledFor": ["protection", "tyrosinase-inhibitors"],
-      "notes": "TOCOPHEROL ACETATE + TOCOPHEROL; SODIUM HYALURONATE; ETHYLHEXYL FERULATE pos-49 (polyphenol via P1 ferulate pattern); UNDECYLENOYL PHENYLALANINE + DIACETYL BOLDINE (tyrosinase); SILICA pos-9 + BORON NITRIDE pos-10 + ALUMINA + sodium polyacrylate (matifying complex anti-tache, fini-mat present chimiquement); fluide aqueux top 3. [adjust] fini-mat absent: SILICA pos-9 past cap top 8 (per detector strict, follow position rule comme betaine salicylate annotation philosophy). | protection: present (recall FN) — sunscreen — UV protection is the lead"
+      "notes": "TOCOPHEROL ACETATE + TOCOPHEROL; SODIUM HYALURONATE; ETHYLHEXYL FERULATE pos-49 (polyphenol via P1 ferulate pattern); UNDECYLENOYL PHENYLALANINE + DIACETYL BOLDINE (modulateurs indirects, hors classe hTYR stricte); SILICA pos-9 + BORON NITRIDE pos-10 + ALUMINA + sodium polyacrylate (matifying complex anti-tache, fini-mat present chimiquement); fluide aqueux top 3. [adjust] fini-mat absent: SILICA pos-9 past cap top 8 (per detector strict, follow position rule comme betaine salicylate annotation philosophy). | protection: present (recall FN) — sunscreen — UV protection is the lead"
     },
     {
       "productSlug": "svr-clairial-serum",
       "kind": "serum",
       "category": "skincare",
-      "present": [
-        "fini-mat",
-        "hyaluronic-acid",
-        "polyphenols",
-        "tyrosinase-inhibitors",
-        "vitamin-c",
-        "vitamin-e"
-      ],
+      "present": ["fini-mat", "hyaluronic-acid", "polyphenols", "vitamin-c", "vitamin-e"],
       "absent": [
         "aha",
         "bha",
@@ -13871,10 +13854,12 @@
         "peptides",
         "pha",
         "retinoids",
-        "texture-riche"
+        "texture-riche",
+        "tyrosinase-inhibitors"
       ],
       "annotatedAt": "2026-05-10",
-      "sampledFor": ["vitamin-c"]
+      "sampledFor": ["vitamin-c"],
+      "notes": "UNDECYLENOYL PHENYLALANINE et DIACETYL BOLDINE modulent la mélanogenèse sans preuve d'inhibition catalytique directe de hTYR."
     },
     {
       "productSlug": "svr-collagen-biotic",
