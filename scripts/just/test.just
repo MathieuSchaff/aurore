@@ -10,12 +10,19 @@ APP_TEST_DB_URL := "postgres://app_runtime:testpassword@localhost:5433/appdb_tes
 
 # ─────────────────────────── DB lifecycle ───────────────────────────
 
-# Start test DB and apply migrations
-test-db-up:
-    {{COMPOSE_TEST}} down --remove-orphans 2>/dev/null || true
-    {{COMPOSE_TEST}} up -d
-    @printf "{{CYAN}}Waiting for DB...{{NC}}\n"
-    @until {{COMPOSE_TEST}} exec db-test pg_isready -U app -d appdb_test 2>/dev/null; do sleep 1; done
+# Reusing a long-lived test DB lets its schema drift from what the migrations
+# describe (drizzle only applies the missing ones), which surfaces as flaky RLS
+# failures — hence the recreate-by-default. `keep` also spares a concurrent run's DB.
+# Recreate the test DB and apply migrations — pass `keep` to reuse a running one.
+test-db-up keep="":
+    @if [ "{{keep}}" = "keep" ] && {{COMPOSE_TEST}} exec db-test pg_isready -U app -d appdb_test >/dev/null 2>&1; then \
+        printf "{{CYAN}}Reusing running test DB (omit 'keep' to recreate).{{NC}}\n"; \
+    else \
+        {{COMPOSE_TEST}} down --remove-orphans 2>/dev/null || true; \
+        {{COMPOSE_TEST}} up -d; \
+        printf "{{CYAN}}Waiting for DB...{{NC}}\n"; \
+        until {{COMPOSE_TEST}} exec db-test pg_isready -U app -d appdb_test 2>/dev/null; do sleep 1; done; \
+    fi
     @printf "{{CYAN}}Applying migrations...{{NC}}\n"
     cd backend && DATABASE_URL={{TEST_DB_URL}} APP_DATABASE_URL={{APP_TEST_DB_URL}} bun run src/db/migrate.ts
     @printf "{{GREEN}}✓ Test DB ready{{NC}}\n"
