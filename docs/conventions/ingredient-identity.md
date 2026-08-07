@@ -22,8 +22,9 @@ over-counts; it cannot resolve identity.
 
 ## The column
 
-`ingredients.canonical_key text` (migration `0097`) = algo-derm's `evidence.inci` — the
-curated canonical INCI name. Every alias of one substance resolves to the **same** key:
+`ingredients.canonical_key text` (migration `0097`) is the reviewed substance identity. It is
+usually algo-derm's `evidence.inci`; a small catalogue override names identities that the vendor
+merges or does not carry. Every alias of one substance resolves to the **same** key:
 
 ```
 glycerin        \
@@ -33,10 +34,13 @@ argan-oil-hair  \
 huile-argan      >--->  "Argania Spinosa Kernel Oil"
 ```
 
-- **Source of truth:** algo-derm `lookupIngredient(name, buildAliasIndex(MERGED_EVIDENCE_DB))`.
-  Not a hand-kept map — it rides algo-derm's curated alias/normalize/botanical-strip logic.
-- **Best-effort, NULL when unmatched.** ~50% resolved; the rest (FR / exotic botanicals
-  algo-derm doesn't curate) stay NULL. This is **not a completeness contract** —
+- **Source of truth:** algo-derm `lookupIngredient(name, buildAliasIndex(MERGED_EVIDENCE_DB))`,
+  completed by two audited override sets in the backfill. `CANONICAL_KEY_OVERRIDES` selects an
+  exact vendor record when the generic ladder lands on a broader alias or spelling stub.
+  `CATALOG_CANONICAL_KEY_OVERRIDES` preserves a reviewed local identity when the vendor merges
+  distinct declarations or has no record. Known unsafe conflations stay unkeyed.
+- **Best-effort, NULL when unmatched.** ~82% resolved (2026-08-08); the rest (FR / exotic botanicals
+  algo-derm doesn't curate and without a reviewed local identity) stay NULL. This is **not a completeness contract** —
   `product_ingredients` is a curated optional subset, an unkeyed ingredient is a coverage
   nit, not a broken link.
 - **Identity ≠ catalogue row.** A key can exist with no bare canonical ingredient
@@ -47,7 +51,9 @@ huile-argan      >--->  "Argania Spinosa Kernel Oil"
 
 - **Reason identity off `canonical_key`, never the slug.** "Same substance?" = same non-NULL
   key. Two NULLs are *not* equal (unknown ≠ unknown).
-- Group/dedup with `GROUP BY canonical_key` (index `ingredients_canonical_key_idx`).
+- Identity-level consumers group non-NULL keys (`GROUP BY` or `DISTINCT ON canonical_key`, index
+  `ingredients_canonical_key_idx`). Row-level consumers preserve aliases when they need an
+  addressable catalogue slug.
 - Display still uses `slug`/`name` — `canonical_key` is an internal identity, not a label.
 
 ## Maintenance
@@ -56,6 +62,8 @@ huile-argan      >--->  "Argania Spinosa Kernel Oil"
   `WRITE=1 just catalog-backfill-canonical-key` then `just db-snapshot`.
 - `just db-seed` already re-runs the backfill (seed inserts leave the column NULL).
 - The backfill resets the column first, so it reflects the current algo-derm evidence DB —
-  a dropped alias drops its key.
+  a dropped alias drops its key unless a reviewed catalogue identity owns it.
+- A one-off data fix repairs already-populated databases after a resolution-rule change, but the
+  backfill remains authoritative: a data-only correction would be overwritten on its next run.
 
 Script: `backend/src/db/seed/maintenance/backfill-canonical-key.ts`.

@@ -122,7 +122,7 @@ describe('detectSemiOcclusif', () => {
 // Pregnancy and vegan detection tested via detectAutoTags / detectAllAutoTags
 // in algo-derm-detection.test.ts and auto-tag-orchestrator-parity.test.ts.
 
-describe('detectSolaireTags — sanity', () => {
+describe('detectSolaireTags: sanity', () => {
   test('avobenzone in sunscreen → filtres-chimiques', () => {
     const tags = detectSolaireTags('Aqua, Avobenzone, Octocrylene', 'sunscreen', 'solaire')
     expect(tags).toContain(S.FILTRES_CHIMIQUES)
@@ -156,7 +156,7 @@ describe('detectSolaireTags — sanity', () => {
   })
 })
 
-describe('detectPrebiotique — sanity', () => {
+describe('detectPrebiotique: sanity', () => {
   test('inulin → prebiotique', () => {
     expect(detectPrebiotique('Aqua, Inulin, Glycerin')).toContain(S.PREBIOTIQUE)
   })
@@ -290,13 +290,13 @@ describe('detectCernesPochesFromName', () => {
     expect(fire('Crème Yeux Anti-Rides', 'caféine et matrixyl')).toEqual([])
   })
 
-  // Makeup names "anti-cernes" but covers rather than treats → excluded.
+  // Makeup names "anti-cernes" but covers rather than treats, so it's excluded.
   test('concealer / tinted naming anti-cernes → excluded', () => {
     expect(fire('Correcteur Anti-Cernes Teinté', 'couvrance modulable')).toEqual([])
   })
 
-  // "poche" is polysemous (eye bag vs garment pocket): packaging copy on non-eye products
-  // over-fired (lip balms, sunscreen sticks). The poche token needs an eye anchor.
+  // "poche" is polysemous (eye bag vs garment pocket): packaging copy on products unrelated
+  // to eyes made it fire (lip balms, sunscreen sticks). The poche token needs an eye anchor.
   test('poche meaning pocket (no eye anchor) → not flagged', () => {
     expect(fire('Lip Glowy Balm', 'son tube de poche se glisse partout')).toEqual([])
     expect(fire('Sunscreen Stick', 'se glisse facilement dans les poches ou les sacs')).toEqual([])
@@ -412,7 +412,7 @@ describe('detectProtection', () => {
   test('non-sunscreen kind with no SPF does not fire', () => {
     expect(detectProtection('serum', 'Sérum éclat vitamine C', 'Antioxydant')).toEqual([])
   })
-  // Rule E: post-exposure ≠ protection. after-sun / self-tanner without SPF stay absent
+  // Rule E: care used after exposure ≠ protection. after-sun / self-tanner without SPF stay absent
   // (they are not `sunscreen`); an SPF claim would still win via the SPF branch.
   test('after-sun without SPF does not fire', () => {
     expect(detectProtection('after-sun', 'Après-soleil réparateur', null)).toEqual([])
@@ -444,13 +444,13 @@ describe('detectRougeursVasculairesFromName', () => {
       detectRougeursVasculairesFromName('Primer Vert', 'estompe les rougeurs visibles')
     ).toEqual([])
   })
-  // Recall-safe regression: a tinted *anti-redness* care keeps `teinté`, and it must
+  // Recall-safe regression: a tinted care that treats redness keeps `teinté`, and it must
   // NOT be swept into the camouflage exclusion (Sensifine AR / Roséliane).
   test('fires on a tinted anti-redness care (teinté not a camouflage token)', () => {
     expect(detectRougeursVasculairesFromName('Soin Teinté Anti-Rougeurs SPF50', null)).toEqual(RV)
   })
   // Regression: a treatment whose copy says "les rougeurs s'estompent" (redness
-  // fades) is anti-redness positioning, not camouflage: `estompe` must not exclude it.
+  // fades) positions the product as treating redness, not camouflaging it: `estompe` must not exclude it.
   test('fires on an anti-redness treatment that says rougeurs s’estompent', () => {
     expect(
       detectRougeursVasculairesFromName(
@@ -706,7 +706,7 @@ describe('detectBarriereCutaneeFromName', () => {
   test('excludes an acne-line "soin réparateur" (effaclar)', () => {
     expect(detectBarriereCutaneeFromName('Effaclar H Soin Réparateur', null)).toEqual([])
   })
-  // Anti-aging "repair" = cell turnover, not barrier, so it is excluded.
+  // An `anti-age` "repair" = cell turnover, not barrier, so it is excluded.
   test('excludes an anti-age "repair" serum', () => {
     expect(detectBarriereCutaneeFromName('Night Repair Serum Anti-Âge', null)).toEqual([])
   })
@@ -783,7 +783,7 @@ describe('detectEczemaAtopieFromName', () => {
     expect(detectEczemaAtopieFromName(null, null)).toEqual([])
   })
 
-  // Non-regression: real description-only positives, products tagged purely on
+  // Regression guard: real description-only positives, products tagged purely on
   // description, name not matching. Deleting the description branch regresses every
   // one. None of these names contain "atopi"/"eczéma" (Atoderm has no "p"), so a
   // pass here can only come from the description field.
@@ -829,11 +829,10 @@ describe('detectEczemaAtopieFromName', () => {
     expect(detectEczemaAtopieFromName(name, description)).toEqual([S.ECZEMA_ATOPIE])
   })
 
-  // known-gap: a description that contraindicates atopy still fires today, because
-  // detectEczemaAtopieFromName reads the token, not the negation around it. This
-  // asserts the WRONG result on purpose. When negation handling lands (the regex
-  // gains contraindication awareness), this flips to toEqual([]); that flip is the
-  // signal the gap closed. Do NOT "fix" this test in isolation: the live guard is
+  // known-gap: detectEczemaAtopieFromName reads the token, not the negation around
+  // it, so a contraindicating description still fires today. This test asserts
+  // the WRONG result on purpose; when negation handling lands, this flips to
+  // toEqual([]). Do NOT "fix" this test alone: the live guard is
   // eczemaAtopieDescriptionNeedsReview in the ingest pipeline.
   test('known-gap: contraindicating description false-positives (documents the gap)', () => {
     expect(detectEczemaAtopieFromName(null, 'Crème déconseillée aux peaux atopiques')).toEqual([
@@ -856,7 +855,7 @@ describe('eczemaAtopieDescriptionNeedsReview', () => {
   test('does not flag positive positioning (preserves recall)', () => {
     expect(eczemaAtopieDescriptionNeedsReview('Soin pour peaux à tendance atopique')).toBe(false)
   })
-  test('does not flag eczéma/psoriasis co-indication (positive claim)', () => {
+  test('does not flag eczéma and psoriasis named together (positive claim)', () => {
     expect(eczemaAtopieDescriptionNeedsReview('Soulage eczéma/psoriasis léger')).toBe(false)
   })
   test('does not flag contraindication without atopy', () => {
@@ -1301,10 +1300,10 @@ describe('detectPeauNormale', () => {
 // detectGrossesseAvoid: sodium retinoyl hyaluronate test removed (migrated to algo-derm).
 
 // Mutex invariants
-// Pairs of slugs that are sensoriel-mutually-exclusive must never co-fire on
+// Pairs of slugs that are sensoriel-mutually-exclusive must never fire together on
 // the same INCI.
 
-describe('mutex invariants — sensoriel slugs cannot co-fire', () => {
+describe('mutex invariants: sensoriel slugs cannot fire together', () => {
   test('texture-riche / texture-legere (heavy butter formula)', () => {
     const inci = 'Aqua, Glycerin, Butyrospermum Parkii Butter, Theobroma Cacao Seed Butter, Beeswax'
     const riche = detectTextureRiche(inci)
@@ -1327,7 +1326,7 @@ describe('mutex invariants — sensoriel slugs cannot co-fire', () => {
   })
 })
 
-describe('detectTextureFromField (S5 — products.texture pass-through)', () => {
+describe('detectTextureFromField (products.texture pass-through)', () => {
   test('null/undefined → no tag', () => {
     expect(detectTextureFromField(null)).toEqual([])
     expect(detectTextureFromField(undefined)).toEqual([])
@@ -1355,7 +1354,7 @@ describe('detectTextureFromField (S5 — products.texture pass-through)', () => 
   })
 })
 
-describe('detectTextureGelInci (S5 INCI fallback)', () => {
+describe('detectTextureGelInci (INCI fallback)', () => {
   test('carbomer top 5 + aqueous serum → texture-gel', () => {
     const inci = 'Aqua, Glycerin, Carbomer, Niacinamide, Sodium Hyaluronate'
     expect(detectTextureGelInci(inci, 'serum', null)).toEqual([S.TEXTURE_GEL])
@@ -1413,8 +1412,8 @@ describe('detectTextureGelInci (S5 INCI fallback)', () => {
   })
 })
 
-// F2: texture-creme default (kind-driven + veto INCI)
-describe('detectTextureCremeInci (F2 default + veto)', () => {
+// texture-creme default (kind-driven + veto INCI)
+describe('detectTextureCremeInci (default + veto)', () => {
   // Fires
 
   test('moisturizer with classic emulsion (water + glyceryl stearate + shea) → texture-creme', () => {
@@ -1703,7 +1702,7 @@ describe('detectTextureBaumeFromName', () => {
     expect(detectTextureBaumeFromName('eye-cream', 'creme', 'Baume Regard')).toEqual([])
   })
 
-  test('moisturizer + "Baume" in name → texture-baume (F6 Q3)', () => {
+  test('moisturizer + "Baume" in name → texture-baume', () => {
     expect(detectTextureBaumeFromName('moisturizer', null, 'CeraVe Baume Hydratant')).toEqual([
       S.TEXTURE_BAUME,
     ])
@@ -1762,7 +1761,7 @@ describe('detectTextureBaumeFromName', () => {
   })
 })
 
-// texture-stick name-driven (F4)
+// texture-stick name-driven
 describe('detectTextureStickFromName', () => {
   test('lip-care + "Stick Lèvres" → texture-stick', () => {
     expect(
@@ -1813,7 +1812,7 @@ describe('detectTextureStickFromName', () => {
     expect(detectTextureStickFromName('lip-care', 'stick', 'Stick Lèvres')).toEqual([])
   })
 
-  test('rinse-off kinds → not eligible (Q1 cohérence)', () => {
+  test('rinse-off kinds → not eligible (coherence)', () => {
     expect(detectTextureStickFromName('cleanser', null, 'Soin Nettoyant Visage Stick')).toEqual([])
     expect(detectTextureStickFromName('mask', null, 'Quick Clay Stick Mask')).toEqual([])
   })
@@ -1835,7 +1834,7 @@ describe('detectTextureStickFromName', () => {
 })
 
 // Eye-cream texture-creme / texture-legere separation
-describe('mutex invariants — eye-cream texture-creme vs texture-legere', () => {
+describe('mutex invariants: eye-cream texture-creme vs texture-legere', () => {
   test('eye-cream serum-style (no emulsifier) → texture-legere fires, texture-creme does not', () => {
     const inci =
       'Aqua, Glycerin, Sodium Hyaluronate, Niacinamide, Caffeine, Panthenol, Tocopherol, Arginine'
@@ -1843,8 +1842,8 @@ describe('mutex invariants — eye-cream texture-creme vs texture-legere', () =>
     expect(detectTextureLegere(inci, 'eye-cream')).toContain(S.TEXTURE_LEGERE)
   })
 
-  test('eye-cream cream-style (emulsifier) → texture-creme fires, texture-legere does not (emulsifier excluded from heavy patterns but typical cream formula avoids co-fire via oily phase)', () => {
-    // Cream with vegetable oil → texture-legere excluded via HEAVY_EXCLUSION_PATTERNS
+  test('eye-cream cream-style (emulsifier) → texture-creme fires, texture-legere does not (emulsifier excluded from heavy patterns but typical cream formula avoids firing both via oily phase)', () => {
+    // Cream with vegetable oil: texture-legere excluded via HEAVY_EXCLUSION_PATTERNS
     const inci =
       'Aqua, Glycerin, Helianthus Annuus Seed Oil, Cetearyl Alcohol, Niacinamide, Caffeine, Panthenol, Tocopherol'
     expect(detectTextureCremeEyeInci(inci, 'eye-cream', null)).toContain(S.TEXTURE_CREME)
@@ -1852,8 +1851,8 @@ describe('mutex invariants — eye-cream texture-creme vs texture-legere', () =>
   })
 })
 
-// F2 mutex: texture-creme / texture-legere on oil-driven emulsion
-describe('mutex invariants — texture-creme vs texture-legere (F2)', () => {
+// Mutex: texture-creme / texture-legere on oil-driven emulsion
+describe('mutex invariants: texture-creme vs texture-legere', () => {
   test('moisturizer with sunflower oil emulsion → only texture-creme, not legere', () => {
     const inci =
       'Aqua, Glycerin, Helianthus Annuus Seed Oil, Cetearyl Alcohol, Glyceryl Stearate, Panthenol, Tocopherol, Niacinamide'
@@ -1870,7 +1869,7 @@ describe('mutex invariants — texture-creme vs texture-legere (F2)', () => {
 })
 
 // Absence claims (name/description fallback)
-describe('detectAbsenceClaimsFromText — sans-parfum override', () => {
+describe('detectAbsenceClaimsFromText: sans-parfum override', () => {
   test('description with "sans parfum" → SANS_PARFUM', () => {
     expect(
       detectAbsenceClaimsFromText('Crème Apaisante', 'sans parfum, non comédogène', null)

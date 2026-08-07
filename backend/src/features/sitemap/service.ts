@@ -2,7 +2,7 @@ import { evaluateSeoEligibility, SITE_URL } from '@aurore/shared'
 
 import { isNotNull, sql } from 'drizzle-orm'
 
-import type { DB } from '../../db'
+import type { Database } from '../../db'
 import { articles } from '../../db/schema/blog/articles'
 import { ingredients } from '../../db/schema/ingredients/ingredients'
 import { products } from '../../db/schema/products/products'
@@ -13,7 +13,7 @@ import { normalizeInstant } from '../../utils/dates'
 type SitemapEntry = { path: string; lastmod: string | null }
 
 // Marketing + indexable hub pages that are not row-backed. The blog category hubs
-// are data-driven (only non-empty ones) and come from toSitemapEntries.
+// are data-driven (only ones with at least one entry) and come from toSitemapEntries.
 const STATIC_PATHS = ['/', '/about', '/privacy', '/products', '/ingredients', '/blog']
 
 // Slugs are [a-z0-9-] by construction (create paths slugify); this is the belt
@@ -29,7 +29,7 @@ function escapeXml(s: string): string {
 
 // Promise.all is safe here, unlike the product list reads: this route carries no auth
 // middleware, so `db` is never the RLS transaction. Verified against the Postgres log.
-async function readSitemapRows(db: DB) {
+async function readSitemapRows(db: Database) {
   const [prods, ings, arts] = await Promise.all([
     db
       .select({
@@ -116,7 +116,7 @@ function toSitemapEntries({ prods, ings, arts }: SitemapRows): SitemapEntry[] {
   ]
 }
 
-async function buildSitemapXml(db: DB): Promise<string> {
+async function buildSitemapXml(db: Database): Promise<string> {
   const urls: SitemapEntry[] = [
     ...STATIC_PATHS.map((path) => ({ path, lastmod: null })),
     ...toSitemapEntries(await readSitemapRows(db)),
@@ -144,7 +144,7 @@ export type SitemapXml = {
   maxAgeSeconds: number
 }
 
-export async function getSitemapXml(db: DB): Promise<SitemapXml> {
+export async function getSitemapXml(db: Database): Promise<SitemapXml> {
   const now = Date.now()
   let entry = cached
 

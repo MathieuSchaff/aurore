@@ -12,7 +12,7 @@ import type {
 
 import { and, desc, eq, isNotNull } from 'drizzle-orm'
 
-import type { DB } from '../../db'
+import type { Database, DatabaseTransaction, DbOrTransaction } from '../../db'
 import { profiles } from '../../db/schema/auth/users'
 import { ingredients } from '../../db/schema/ingredients/ingredients'
 import { products } from '../../db/schema/products/products'
@@ -30,13 +30,13 @@ function toPostView(post: PostRow, authorName: string | null): SocialPostView {
     content: post.content,
     productId: post.productId,
     ingredientId: post.ingredientId,
-    // Always a SKIN_CONCERNS value — Zod-validated on write, stored as text.
+    // Always a SKIN_CONCERNS value, Zod-validated on write, stored as text.
     concernSlug: post.concernSlug as SkinConcern | null,
     createdAt: post.createdAt,
   }
 }
 
-async function usernameOf(userId: string, db: DB): Promise<string | null> {
+async function usernameOf(userId: string, db: DatabaseTransaction): Promise<string | null> {
   const [row] = await db
     .select({ username: profiles.username })
     .from(profiles)
@@ -46,7 +46,7 @@ async function usernameOf(userId: string, db: DB): Promise<string | null> {
 
 // FK-anchored entities must exist (the CHECK only enforces ≥1 anchor present, not
 // that it points at a real row). Concern is enum-validated by Zod, no FK.
-async function assertAnchorsExist(input: CreatePostInput, db: DB): Promise<void> {
+async function assertAnchorsExist(input: CreatePostInput, db: DatabaseTransaction): Promise<void> {
   if (input.productId) {
     const [p] = await db
       .select({ id: products.id })
@@ -66,7 +66,7 @@ async function assertAnchorsExist(input: CreatePostInput, db: DB): Promise<void>
 export async function createPost(
   userId: string,
   input: CreatePostInput,
-  db: DB
+  db: DatabaseTransaction
 ): Promise<SocialPostView> {
   await assertAnchorsExist(input, db)
 
@@ -86,7 +86,10 @@ export async function createPost(
   return toPostView(post, await usernameOf(userId, db))
 }
 
-export async function getPostWithReplies(postId: string, db: DB): Promise<SocialPostWithReplies> {
+export async function getPostWithReplies(
+  postId: string,
+  db: Database
+): Promise<SocialPostWithReplies> {
   const [post] = await db
     .select({
       id: socialPosts.id,
@@ -129,9 +132,13 @@ export async function getPostWithReplies(postId: string, db: DB): Promise<Social
   }
 }
 
-export async function deletePost(userId: string, postId: string, db: DB): Promise<void> {
-  // Owner filter in the WHERE, not a post-fetch 403: a missing post and another
-  // user's post both delete zero rows → uniform post_not_found (anti-enumeration).
+export async function deletePost(
+  userId: string,
+  postId: string,
+  db: DatabaseTransaction
+): Promise<void> {
+  // Owner filter in the WHERE, not a 403 after the fetch: a missing post and another
+  // user's post both delete zero rows, so both give uniform post_not_found and stay indistinguishable.
   const deleted = await db
     .delete(socialPosts)
     .where(and(eq(socialPosts.id, postId), eq(socialPosts.authorId, userId)))
@@ -144,7 +151,7 @@ export async function createPostReply(
   userId: string,
   postId: string,
   input: CreatePostReplyInput,
-  db: DB
+  db: DatabaseTransaction
 ): Promise<SocialPostReplyView> {
   // Reject replies on hidden/missing posts: the insert would succeed but pollute
   // the DB with rows on a moderated post.
@@ -172,7 +179,11 @@ export async function createPostReply(
   }
 }
 
-export async function deletePostReply(userId: string, replyId: string, db: DB): Promise<void> {
+export async function deletePostReply(
+  userId: string,
+  replyId: string,
+  db: DatabaseTransaction
+): Promise<void> {
   const deleted = await db
     .delete(socialPostReplies)
     .where(and(eq(socialPostReplies.id, replyId), eq(socialPostReplies.authorId, userId)))
@@ -231,9 +242,9 @@ const PROFILE_POSTS_SAMPLE_CAP = 12
 // Profile-surface mirror of listPublicReviewsByUser: a recent capped sample of an
 // author's visible posts, master-gated (profilePublic + not force-privated; RLS
 // doesn't gate this surface so the service is the primary gate). Anchors resolved
-// to displayable refs. Anti-enum: unknown/non-public username -> empty list.
+// to displayable refs. An unknown username, and one that is not public, give the same empty list.
 export async function listPostsByAuthor(
-  db: DB,
+  db: DbOrTransaction,
   username: string
 ): Promise<PublicProfilePostsResponse> {
   const rows = await db
@@ -261,10 +272,10 @@ const PRODUCT_POSTS_SAMPLE_CAP = 50
 
 // Product-surface mirror of listPublicReviewsForProduct: visible posts anchored to
 // the product, newest first. Unlike the profile surface this does NOT master-gate
-// on profilePublic — a non-public author's post still shows, the /u link is gated
-// client-side (ReviewerName pattern). Force-privated authors are excluded.
+// on profilePublic: a post from an author who is not public still shows, the /u
+// link is gated client-side (ReviewerName pattern). Force-privated authors are excluded.
 export async function listPostsForProduct(
-  db: DB,
+  db: DbOrTransaction,
   slug: string
 ): Promise<PublicProductPostsResponse> {
   const rows = await db
@@ -280,7 +291,7 @@ export async function listPostsForProduct(
         eq(socialPosts.moderationStatus, 'visible'),
         eq(products.slug, slug),
         // Mirror listPublicReviewsForProduct: an author who never set a username
-        // must not surface (author.username is non-null on the wire).
+        // must not surface (author.username is not null on the wire).
         isNotNull(profiles.username),
         eq(profiles.forcedPrivateByAdmin, false)
       )

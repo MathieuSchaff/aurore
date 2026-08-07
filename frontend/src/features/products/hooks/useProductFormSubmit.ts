@@ -105,9 +105,17 @@ export function useProductFormSubmit(args: Args) {
         tags: tagsPayload(),
       }),
     ])
+    // Force a cold read on return-to-detail so the updated detail page refetches.
+    queryClient.removeQueries({
+      queryKey: productQueries.bySlug(updated.slug).queryKey,
+      exact: true,
+    })
     // Drop stale bySlug cache when slug changes, else orphaned under old key.
     if (updated.slug !== current.slug) {
-      queryClient.removeQueries({ queryKey: productQueries.bySlug(current.slug).queryKey })
+      queryClient.removeQueries({
+        queryKey: productQueries.bySlug(current.slug).queryKey,
+        exact: true,
+      })
     }
     return updated.slug
   }

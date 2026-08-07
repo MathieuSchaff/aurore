@@ -1,11 +1,6 @@
-// Pure metric primitives for the gold-set benchmark.
-// Separated from the runner to allow DB-free unit tests.
-//
-// Conventions:
-//   p ∈ [0, 1]   predicted probability
-//   y ∈ {0, 1}   gold label (1 = present, 0 = absent)
-//
-// Deterministic detectors (passes 2-6) collapse p to {0,1}: Brier reduces to
+// Pure metric primitives for the gold-set benchmark, separated from the runner for DB-free unit tests.
+// Conventions: p in [0, 1] predicted probability, y in {0, 1} gold label (1 = present).
+// Deterministic detectors (passes 2-6) collapse p to {0,1}, so Brier reduces to
 // misclassification rate and ECE collapses to a single bin by design.
 
 export interface Sample {

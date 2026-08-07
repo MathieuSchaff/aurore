@@ -1,10 +1,8 @@
 // Bind tests for the structural passes (ADR-0001).
-//
-// Each test pins a discriminating behaviour of the wrapper (field routing,
-// source stamping, guard branches) with direct expected values — never by
-// restating `pass.run ≡ asProposals(detect(...))`, which proves nothing
-// (README, "Adding a new pass"). Detector-internal coverage lives in the
-// per-detector test files.
+// Each test pins a discriminating behavior of the wrapper (field routing, source
+// stamping, guard branches) with direct expected values, never by restating
+// `pass.run ≡ asProposals(detect(...))`, which proves nothing (README, "Adding a
+// new pass"). Detector-internal coverage lives in the per-detector test files.
 
 import { describe, expect, test } from 'bun:test'
 
@@ -69,7 +67,7 @@ describe('crossSignalPass', () => {
       { tagSlug: S.RETINOIDS, relevance: 'secondary', source: 'actif-class' },
       { tagSlug: S.TYPE_SERUM, relevance: 'secondary', source: 'kind' }, // ignored
     ]
-    // AHA + leave-on serum → moment-soir; the kind-sourced entry must not leak in.
+    // AHA + leave-on serum gives moment-soir; the kind-sourced entry must not leak in.
     expect(crossSignalPass.run(ctx, prior)).toContainEqual({
       tagSlug: S.MOMENT_SOIR,
       relevance: 'secondary',

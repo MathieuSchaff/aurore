@@ -24,6 +24,7 @@ describe('logout', () => {
     expect(result.success).toBe(true)
 
     const refreshPayload = await verifyRefreshToken(loginResult.data.refreshToken, REFRESH_SECRET)
+    expect(refreshPayload).not.toBeNull()
     if (!refreshPayload) return
 
     const stored = await findValidRefreshToken(testDb, refreshPayload.jti)
@@ -60,6 +61,7 @@ describe('logout', () => {
     await createTestUser(creds.rawEmail, creds.rawPassword)
 
     const loginResult = await login(createCtx(), creds.email, creds.password)
+    expect(loginResult.success).toBe(true)
     if (!loginResult.success) return
 
     await logout(createCtx(), loginResult.data.refreshToken)

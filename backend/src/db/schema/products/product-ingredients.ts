@@ -29,8 +29,8 @@ export const productIngredients = pgTable(
     ingredientId: uuid('ingredient_id')
       .notNull()
       .references(() => ingredients.id, { onDelete: 'cascade' }),
-    // Concentration: 10% → value: 10, unit: "%"
-    // 2500 IU/drop → value: 2500, unit: "IU", per: "goutte"
+    // Concentration examples: 10% is value: 10, unit: "%"; 2500 IU/drop is
+    // value: 2500, unit: "IU", per: "goutte"
     concentrationValue: numeric('concentration_value'),
     concentrationUnit: text('concentration_unit'), // "%", "IU", "mg", "mcg"
     concentrationPer: text('concentration_per'), // "drop", "capsule", "mL"

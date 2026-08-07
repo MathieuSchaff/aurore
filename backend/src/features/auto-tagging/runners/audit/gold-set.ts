@@ -1,25 +1,9 @@
-// Gold-set benchmark: per-tag P/R/F1/Brier/ECE against hand-annotated corpus
-// (~260 products). Read-only on DB.
-//
-// Annotations: gold-set/annotations.json (loaded via fixtures.ts).
-// Focus tags: GOLD_SET_FOCUS_TAGS (gold-set/fixtures.ts).
-//
-// Pipeline per product:
-//   1. detectAllAutoTags: orchestrator emission set.
-//   2. detectAutoTags: algo-derm confidence per emitted tag (passe 1 only).
-//      Other passes emit deterministic: p=1.0 emitted / p=0.0 not emitted,
-//      collapsing Brier to misclassification rate (calibration only valid for passe 1).
-//      assessment/ingredients hoisted so the double-call is cheap.
-//
-// Missing annotated slug hard-fails: stale gold set must be fixed, never silently skipped.
-//
-// Env:
-//   GOLD_SET_PATH    optional   : alternative annotations.json path
-//   CSV_OUT          optional   : per (product, tag) prediction CSV
-//   STRICT           optional 1 : fail if any annotation has empty present AND absent
+// Gold-set benchmark: per-tag P/R/F1/Brier/ECE against the hand-annotated corpus.
+// Read-only.
 
 import { inArray } from 'drizzle-orm'
 
+import { db } from '../../../../db'
 import { withAdminRls } from '../../../../db/rls'
 import { products } from '../../../../db/schema'
 import {
@@ -46,6 +30,8 @@ import { isAutoTagEligibleCategory } from '../../orchestrator'
 import { detectAutoTags } from '../../passes/algo-derm-detection'
 import { exitOnError } from '../cli-args'
 
+// Env: GOLD_SET_PATH (alternative annotations.json path), CSV_OUT (per product/tag prediction
+// CSV), STRICT=1 (fail if any annotation has empty present AND absent).
 const GOLD_SET_PATH = process.env.GOLD_SET_PATH ?? DEFAULT_GOLD_SET_PATH
 const CSV_OUT = process.env.CSV_OUT
 const STRICT = process.env.STRICT === '1'
@@ -98,12 +84,15 @@ async function main() {
   // Same fetch bundle as the writers: the bench measures the inputs intake
   // actually feeds the orchestrator (brand certs and texture used to be
   // omitted here, no focus-tag impact, but the gap was silent).
-  const bundle = await loadAutoTagFetchBundle(dbProducts.map((p) => p.id))
+  const bundle = await loadAutoTagFetchBundle(
+    dbProducts.map((p) => p.id),
+    db
+  )
 
   // Missing slug = stale gold set (product renamed or deduped away). Same class
   // of staleness as an empty annotation, so same policy: STRICT fails, a plain
   // run reports and drops them from the metrics. A hard failure by default let
-  // one deduped product take the whole benchmark down — and the benchmark is
+  // one deduped product take the whole benchmark down, and the benchmark is
   // what arbitrates a suspected calibration drift, so it must survive.
   const dbBySlug = new Map<string, (typeof dbProducts)[number]>()
   for (const p of dbProducts) dbBySlug.set(p.slug, p)
@@ -149,7 +138,8 @@ async function main() {
     if (inci) {
       // Hoist via buildPassContext so the Pass-1 confidence feeding Brier/ECE is
       // computed on the same cleaned INCI + knownConcentrations the runtime uses
-      // (a hand-copied strip/split/analyze here drifted from it once already).
+      // (a hand-copied strip/split/analyze here drifted from it once already), and
+      // so the double-call below (orchestrator + detectAutoTags) reuses one assessment.
       const ctx = buildPassContext(
         buildOrchestratorInput(p, {
           knownConcentrations: bundle.knownConcentrationsByProduct.get(p.id),
@@ -157,6 +147,8 @@ async function main() {
         {}
       )
       if (ctx.assessment) {
+        // Confidence source for Brier/ECE, passe 1 only. Other passes emit deterministic
+        // p=1.0/p=0.0, which collapses Brier to a plain misclassification rate.
         const algoTags = detectAutoTags(inci, p.kind, {
           assessment: ctx.assessment,
           ingredients: ctx.ingredients,

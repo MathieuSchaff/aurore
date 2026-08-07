@@ -8,7 +8,7 @@ import type {
 
 import { and, eq } from 'drizzle-orm'
 
-import type { DB } from '../../db'
+import type { DatabaseTransaction, DbOrTransaction } from '../../db'
 import { profiles } from '../../db/schema/auth/users'
 import { discussionReplies, discussionThreads } from '../../db/schema/products/discussions'
 import { socialPostReplies, socialPosts } from '../../db/schema/social/posts'
@@ -18,7 +18,11 @@ import { SocialReactionError } from './social-reaction-error'
 // Polymorphic dispatch: each reactable_type maps to exactly one table whose
 // moderation_status gates visibility. A split enum (not a single 'reply') keeps
 // this lookup unambiguous — one type, one table (ADR-0013).
-async function reactableVisible(db: DB, type: ReactableType, id: string): Promise<boolean> {
+async function reactableVisible(
+  db: DbOrTransaction,
+  type: ReactableType,
+  id: string
+): Promise<boolean> {
   switch (type) {
     case 'post': {
       const [r] = await db
@@ -68,10 +72,10 @@ async function reactableVisible(db: DB, type: ReactableType, id: string): Promis
   }
 }
 
-// Missing or hidden parent → uniform not-found (anti-enumeration), mirroring
+// Missing or hidden parent both give uniform not-found (anti-enumeration), mirroring
 // posts.service's reject-on-hidden.
 async function assertReactableVisible(
-  db: DB,
+  db: DbOrTransaction,
   reactableType: ReactableType,
   reactableId: string
 ): Promise<void> {
@@ -84,7 +88,7 @@ async function assertReactableVisible(
 export async function react(
   userId: string,
   input: ReactionInput,
-  db: DB
+  db: DatabaseTransaction
 ): Promise<ReactionListView> {
   await assertReactableVisible(db, input.reactableType, input.reactableId)
   await db
@@ -116,7 +120,7 @@ export async function react(
 export async function unreact(
   userId: string,
   input: ReactionInput,
-  db: DB
+  db: DatabaseTransaction
 ): Promise<ReactionListView> {
   await assertReactableVisible(db, input.reactableType, input.reactableId)
   await db
@@ -136,7 +140,7 @@ export async function unreact(
 // missing/hidden), then build the list. react/unreact skip the gate (they already
 // asserted before the write) by calling buildReactionList directly.
 export async function listReactions(
-  db: DB,
+  db: DbOrTransaction,
   reactableType: ReactableType,
   reactableId: string,
   viewerUserId: string | null
@@ -151,7 +155,7 @@ export async function listReactions(
 // profiles_select_for_reaction makes non-public-but-signed reactors visible to
 // app_runtime in production.
 async function buildReactionList(
-  db: DB,
+  db: DbOrTransaction,
   reactableType: ReactableType,
   reactableId: string,
   viewerUserId: string | null

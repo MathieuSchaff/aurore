@@ -1,35 +1,8 @@
-// Stratified sampler for the auto-tag gold set (audit O2).
-//
-// Read-only on the DB; writes one JSON file (annotations.json) at the path
-// given by GOLD_SET_PATH (default: backend/src/features/auto-tagging/data/gold-set/annotations.json).
-// Idempotent: existing annotations are preserved verbatim. Only entries
-// missing from the file get a fresh skeleton (empty present/absent) so the
-// annotator can pick up where they left off.
-//
-// Sampling strategy
-// For each focus tag (GOLD_SET_FOCUS_TAGS, gold-set/fixtures.ts), we draw:
-//   - POSITIVES_PER_TAG products that currently carry the tag in DB. Picked
-//     to span product kinds so the metric isn't dominated by serum-only.
-//   - NEGATIVES_PER_TAG products that currently lack the tag but share the
-//     dominant kind for that tag. These exercise FP detection.
-//
-// Round-robin draws across tags (so a tag with few candidates doesn't get
-// starved) until SAMPLE_SIZE unique products is reached. A multi-tag product
-// (e.g. a retinoid serum that's also vitamin-c) only counts once toward the
-// budget but its `sampledFor` field records every tag that recommended it,
-// helping the annotator focus when triaging.
-//
-// Determinism
-// Seeded PRNG (mulberry32, SEED env). Same SEED + same DB state = same draw.
-// Re-running with a higher SAMPLE_SIZE adds new products on top of the
-// previous draw; the previous selection stays stable.
-//
-// Tunables via env:
-//   SAMPLE_SIZE         optional 70: total unique products to draw
-//   POSITIVES_PER_TAG   optional 4: currently-tagged samples per tag
-//   NEGATIVES_PER_TAG   optional 2: currently-untagged samples per tag
-//   SEED                optional 42: PRNG seed
-//   GOLD_SET_PATH       optional: output JSON path
+// Stratified sampler for the auto-tag gold set (audit O2). Read-only on the DB; writes one
+// JSON file (annotations.json, path via GOLD_SET_PATH, default
+// backend/src/features/auto-tagging/data/gold-set/annotations.json). Idempotent: existing
+// annotations are kept verbatim, only entries missing from the file get a fresh skeleton
+// (empty present/absent) so the annotator can resume.
 
 import type { ProductKind } from '@aurore/shared'
 
@@ -51,6 +24,8 @@ import { fetchEligibleProducts } from './audit/db'
 import { exitOnError } from './cli-args'
 import { mulberry32 } from './rng'
 
+// Env: SAMPLE_SIZE (default 70, total unique products), POSITIVES_PER_TAG (default 4),
+// NEGATIVES_PER_TAG (default 2), SEED (default 42), GOLD_SET_PATH (output JSON path).
 const SAMPLE_SIZE = Number(process.env.SAMPLE_SIZE ?? 70)
 const POSITIVES_PER_TAG = Number(process.env.POSITIVES_PER_TAG ?? 4)
 const NEGATIVES_PER_TAG = Number(process.env.NEGATIVES_PER_TAG ?? 2)
@@ -149,6 +124,7 @@ async function fetchTagsByProduct(): Promise<Map<string, Set<string>>> {
   return tagsByProduct
 }
 
+// Positives: products that carry the tag, spanning kinds so the metric isn't serum-only.
 function buildPools(eligible: ProductRow[], tagsByProduct: Map<string, Set<string>>): PoolsState {
   const poolsByTag = new Map<GoldSetFocusTag, Pools>()
   for (const tag of GOLD_SET_FOCUS_TAGS) poolsByTag.set(tag, { positives: [], negatives: [] })
@@ -171,7 +147,8 @@ function buildPools(eligible: ProductRow[], tagsByProduct: Map<string, Set<strin
   return { poolsByTag, kindFreqByTag }
 }
 
-// Computed after positives so the dominant kind per tag is known.
+// Negatives share the tag's dominant kind (exercises FP detection); computed after
+// positives so the dominant kind per tag is known.
 function addNegativesToPools(
   eligible: ProductRow[],
   tagsByProduct: Map<string, Set<string>>,
@@ -219,6 +196,7 @@ function logPoolsTable({ poolsByTag, kindFreqByTag }: PoolsState): void {
 
 // sampledFor accumulates every tag that selected the same product (multi-tag products).
 function drawSelection(state: PoolsState): Map<string, SelectionEntry> {
+  // Seeded PRNG: same SEED + DB state gives the same draw.
   const rng = mulberry32(SEED >>> 0)
   for (const pools of state.poolsByTag.values()) {
     shuffleInPlace(pools.positives, rng)
@@ -233,6 +211,8 @@ function drawSelection(state: PoolsState): Map<string, SelectionEntry> {
   return selected
 }
 
+// Round-robin across tags so one with few candidates isn't starved, until SAMPLE_SIZE
+// unique products is reached.
 function drawRound(
   poolsByTag: Map<GoldSetFocusTag, Pools>,
   selected: Map<string, SelectionEntry>,

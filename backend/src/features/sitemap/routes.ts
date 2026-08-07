@@ -4,7 +4,7 @@ import type { AppEnv } from '../../app-env'
 import { getSitemapXml } from './service'
 
 const sitemapApp = new Hono<AppEnv>().get('/', async (c) => {
-  const { xml, maxAgeSeconds } = await getSitemapXml(c.get('db'))
+  const { xml, maxAgeSeconds } = await getSitemapXml(c.get('anonDb'))
 
   return c.body(xml, 200, {
     'Content-Type': 'application/xml; charset=utf-8',

@@ -6,15 +6,15 @@ import { rateLimiterFunc } from '../../utils/rateLimiter'
 import { requireJwtAuth, requireNotBanned } from '../auth/middleware'
 import { withRlsContext } from '../auth/rls-context.middleware'
 
-// Canonical admin guard chain shared by the unique-prefix '/api/admin/<x>' sub-routers.
-// `guard` (requireAdmin | requireContentModerator) is the only axis that varies.
-// withRlsContext stays in-chain so enabling RLS on these tables needs no route change.
-// Blanket use('*') is safe only because each prefix has no contributor-reachable sibling.
+// Canonical chain for admin routers mounted on dedicated prefixes: rate limit, then
+// JWT, then request RLS, then global ban, then route-specific authorization, then handler.
+// `guard` (requireAdmin | requireContentModerator) is the only varying capability.
+// Blanket use('*') is safe only while the consumer owns its complete mount prefix.
 export function createAdminGuardedRouter(guard: MiddlewareHandler<AppEnv>) {
   return new Hono<AppEnv>()
     .use('*', rateLimiterFunc)
     .use('*', requireJwtAuth)
+    .use('*', withRlsContext)
     .use('*', requireNotBanned)
     .use('*', guard)
-    .use('*', withRlsContext)
 }

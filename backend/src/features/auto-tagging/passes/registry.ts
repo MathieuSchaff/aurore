@@ -1,15 +1,8 @@
 // Ordered pass registry for the auto-tag pipeline (ADR-0001 cutover).
-//
-// Order matters:
-//   1. Per-tag dedup (mergeProposal) keeps the first proposal at a given
-//      relevance level; source attribution is stable for the earliest pass.
-//   2. Downstream passes read `prior` for upstream output:
-//        - cross-signal → reads `source='actif-class'`
-//        - avoid       → reads `source='actif-class'`
-//        - peau-normale → reads every prior slug (skin_type abstention gate)
-//
-// The sequence below mirrors the pre-cutover orchestrator's pass order
-// exactly so the parity test stays green.
+// Order matters: per-tag dedup (mergeProposal) keeps the first proposal at a given
+// relevance level, so source attribution is stable for the earliest pass. The sequence
+// mirrors exactly the pass order the orchestrator had before the cutover, so the parity test
+// stays green.
 
 import type { Pass } from '../lib/pass-types'
 import { actifClassPass } from './actif-class-pass'
@@ -30,7 +23,7 @@ export const AUTO_TAG_PASSES: readonly Pass[] = [
   // Pass 3: kind-derived (TYPE / STEP / ZONE / MOMENT / TEXTURE)
   kindPass,
   // Pass 4: formula detectors (declarative table; order preserved from
-  // pre-cutover orchestrator — it is the dedup tiebreaker)
+  // the orchestrator as it was before the cutover, it is the dedup tiebreaker)
   ...FORMULA_PASSES,
   // Pass 5: cross-signal (reads `actif-class` via `prior`)
   crossSignalPass,
@@ -43,6 +36,6 @@ export const AUTO_TAG_PASSES: readonly Pass[] = [
   // Pass 6: avoid (reads `actif-class` via `prior` + ctx.assessment)
   avoidPass,
   // Post: peau-normale runs LAST so it can read every skin_type slug already
-  // proposed (abstains when any non-neutral skin_type fired upstream).
+  // proposed (abstains when any skin_type that isn't neutral fired upstream).
   peauNormalePass,
 ] as const

@@ -12,14 +12,14 @@ const AVATAR_PNG = Buffer.from(
 
 const MOCK_URL = 'https://cdn.example.test/avatars/seed.webp?v=1'
 
-// The unit tests mock XHR; this proves the recovery end-to-end — real XMLHttpRequest,
-// real /api/auth/refresh, real React state machine — through the actual upload UI.
-test.describe('Image upload — 401 recovery via silent refresh', () => {
+// The unit tests mock XHR; this proves the recovery end-to-end through the actual upload
+// UI: real XMLHttpRequest, real /api/auth/refresh, real React state machine.
+test.describe('Image upload: 401 recovery via silent refresh', () => {
   test('avatar upload that 401s once recovers via refresh + a single retry', async ({ page }) => {
     await loginAsSeed(page)
 
     // First upload POST 401s (stands in for a token rejected server-side between the
-    // proactive-refresh tick and xhr.send); the second — after the token rotates —
+    // proactive-refresh tick and xhr.send); the second, after the token rotates,
     // succeeds. Only the upload response is stubbed (this also keeps bytes off Bunny);
     // the refresh and retry run for real.
     let uploadCalls = 0
@@ -56,7 +56,7 @@ test.describe('Image upload — 401 recovery via silent refresh', () => {
     await valider.click()
 
     // Recovery oracle: the avatar settles on the mocked URL (onSuccess propagated) and
-    // the endpoint was hit exactly twice (401 → refresh → retry, no extra sends).
+    // the endpoint was hit exactly twice (401, then refresh, then retry, no extra sends).
     await expect(page.locator('img.image-upload__image')).toHaveAttribute('src', MOCK_URL, {
       timeout: 15_000,
     })

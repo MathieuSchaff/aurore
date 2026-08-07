@@ -15,7 +15,7 @@ function token(tag: SkincareProductTagSlug, inci: string): string | null {
 }
 
 describe('table integrity', () => {
-  test('every entry carries a note — a silent divergence from algo-derm is the failure mode', () => {
+  test('every entry carries a note: a silent divergence from algo-derm is the failure mode', () => {
     for (const r of ABSENCE_REFUTERS) expect(r.note.length).toBeGreaterThan(20)
   })
 
@@ -24,7 +24,7 @@ describe('table integrity', () => {
   })
 })
 
-describe('sans-silicones — wider than algo-derm on purpose', () => {
+describe('sans-silicones: wider than algo-derm on purpose', () => {
   // algo-derm's silicone heuristic lists dimethicone/trimethicone/cyclomethicone/amodimethicone
   // but no bare `methicone`, so these three escape it upstream.
   test.each([
@@ -40,7 +40,7 @@ describe('sans-silicones — wider than algo-derm on purpose', () => {
   })
 })
 
-describe('sans-huiles-minerales — spelling gaps and scraper corruptions', () => {
+describe('sans-huiles-minerales: spelling gaps and scraper corruptions', () => {
   test('English `Microcrystalline Wax`, which algo-derm only lists as `cera microcristallina`', () => {
     expect(token(S.SANS_HUILES_MINERALES, 'Cera Alba, Microcrystalline Wax')).toBe(
       'microcrystalline wax'
@@ -65,7 +65,7 @@ describe('sans-huiles-minerales — spelling gaps and scraper corruptions', () =
   })
 })
 
-describe('sans-savon — anchored where algo-derm is not', () => {
+describe('sans-savon: anchored where algo-derm is not', () => {
   test('a real soap fires', () => {
     expect(token(S.SANS_SAVON, 'Sodium Palmate, Sodium Cocoate, Aqua')).toBe('sodium palmate')
   })
@@ -112,10 +112,10 @@ describe('sans-sulfates mirrors algo-derm exactly', () => {
     expect(token(S.SANS_SULFATES, 'Aqua, Sodium Laureth Sulfate')).toBe('sodium laureth sulfate')
   })
 
-  test.each([
-    'Aqua, Sodium Cetearyl Sulfate',
-    'Aqua, Sodium Coceth Sulfate',
-  ])('%s is an emulsifier/mild variant, not a washing sulfate', (inci) => {
-    expect(token(S.SANS_SULFATES, inci)).toBeNull()
-  })
+  test.each(['Aqua, Sodium Cetearyl Sulfate', 'Aqua, Sodium Coceth Sulfate'])(
+    '%s is an emulsifier/mild variant, not a washing sulfate',
+    (inci) => {
+      expect(token(S.SANS_SULFATES, inci)).toBeNull()
+    }
+  )
 })

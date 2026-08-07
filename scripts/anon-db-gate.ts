@@ -1,11 +1,10 @@
 #!/usr/bin/env bun
 // Freezes the list of `c.get('anonDb')` sites under backend/src against scripts/anon-db-allowlist.json.
-// anonDb is the anonymous view of the same app_runtime role as requestDb, so a new site never escalates
-// privileges — it under-scopes: a read that silently loses personalisation, or a write that leaves the
-// request transaction. That failure is invisible at runtime and to the type checker, hence this gate.
+// anonDb is the anonymous view of the same app_runtime role as requestDb: a new site never escalates
+// privileges, it under-scopes: a read that silently loses personalisation, or a write that leaves the
+// request transaction. Invisible at runtime and to the type checker.
 // Grain is file + count, not file:line: line numbers churn on every edit and would make the list rot.
-// Tests are scanned too — a harness reaching for the anonymous view is the same decision.
-// Usage: bun scripts/anon-db-gate.ts [--update]
+// Tests are scanned too: a harness reaching for the anonymous view is the same decision.
 
 import { readFileSync, writeFileSync } from 'node:fs'
 import { dirname, join, relative } from 'node:path'
@@ -17,7 +16,6 @@ const SCAN_ROOT = 'backend/src'
 const ALLOWLIST_PATH = join(REPO_ROOT, 'scripts/anon-db-allowlist.json')
 const PATTERN = /c\.get\(\s*['"]anonDb['"]\s*\)/g
 
-// Classification from docs-private/sessions/db-transaction/rootdb-audit.md §Classement des 29.
 const GROUPS: Record<string, string> = {
   A: 'structural — opens the request transaction',
   B: 'pre-identity auth — no identity exists yet to bind into the GUCs',
@@ -65,6 +63,7 @@ function writeAllowlist(entries: Entry[]): void {
   )
 }
 
+// Usage: bun scripts/anon-db-gate.ts [--update]
 const update = process.argv.includes('--update')
 const found = await scan()
 const allowed = new Map(readAllowlist().map((e) => [e.file, e]))
@@ -107,7 +106,7 @@ if (update) {
 }
 
 // An unknown group is a divergence in its own right: "?" is what --update parks a new file on,
-// so accepting it would let a re-baseline launder a new site into the allowlist unread.
+// so accepting it would let a baseline refresh launder a new site into the allowlist unread
 for (const entry of allowed.values()) {
   const unknown = entry.groups.filter((g) => !(g in GROUPS))
   if (unknown.length)
@@ -127,8 +126,7 @@ console.error('anon-db-gate: the anonDb surface changed.\n')
 for (const p of problems) console.error(`  ${p}`)
 console.error(`
 Decide before allowlisting: does this site need the anonymous view, or has it lost
-the request transaction? Classification and the reasoning per group live in
-docs-private/sessions/db-transaction/rootdb-audit.md.
+the request transaction? The GROUPS table in scripts/anon-db-gate.ts describes each case.
 
 Once the answer is "anonymous is right": just anon-db-gate --update, then set the group.`)
 process.exit(1)

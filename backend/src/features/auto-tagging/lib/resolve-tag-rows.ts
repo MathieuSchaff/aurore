@@ -1,15 +1,8 @@
-// Shared persist-filter seam. The three persisting auto-tag consumers
-// (writeTagsForProduct intake, the backfill runner, reconcile dry-run) each ran
-// an identical "withhold eczema-atopie, resolve slug→tagId, drop
-// domain-ineligible tag types" sequence after detectAllAutoTags. Extracted so
-// they cannot drift on which orchestrator emissions reach the DB; each caller
+// Shared persist-filter seam. The three persisting auto-tag consumers (writeTagsForProduct
+// intake, the backfill runner, reconcile dry-run) each ran the same "withhold eczema-atopie,
+// resolve slug to tagId, drop domain-ineligible tag types" sequence after detectAllAutoTags.
+// Extracted so they can't drift on which orchestrator emissions reach the DB; each caller
 // projects the result to its own row shape.
-//
-// DB-free and orchestrator-free on purpose: input building (percentClaims,
-// knownConcentrations) and the detectAllAutoTags call stay at each caller, which
-// is where they legitimately diverge. seed-core is intentionally NOT a consumer:
-// it persists by slug, skips the domain filter, and flattens relevance — a
-// different kernel, not this one.
 
 import {
   DOMAIN_PRODUCT_FILTER_CATEGORIES,
@@ -27,6 +20,10 @@ export interface ResolvedTagRow {
   source: AutoTagSource
 }
 
+// DB-free and orchestrator-free on purpose: input building (percentClaims, knownConcentrations)
+// and the detectAllAutoTags call stay at each caller, where they legitimately diverge. seed-core
+// is NOT a consumer: it persists by slug, skips the domain filter, and flattens relevance, a
+// different kernel.
 export function resolveTagRows(
   pairs: readonly AutoTagPair[],
   product: { category: ProductCategory; description: string | null | undefined },

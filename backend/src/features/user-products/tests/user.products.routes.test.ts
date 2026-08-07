@@ -7,14 +7,20 @@ import type { Hono } from 'hono'
 
 import type { AppEnv } from '../../../app-env'
 import { setupDbTests } from '../../../tests/db-setup'
+import { expectRequiresAuth } from '../../../tests/helpers/authz-matrix'
 import { createTestEnv, type TestClient, withAuth } from '../../../tests/helpers/createTestClient'
-import { expectOk } from '../../../tests/helpers/expectStatus'
+import { expectError, expectOk } from '../../../tests/helpers/expectStatus'
 import { loginAndGetToken, setupAndLogin } from '../../../tests/helpers/route-test-helpers'
 import { TEST_CREDENTIALS } from '../../../tests/helpers/test-credentials'
 import { createTestProduct, createTestUser } from '../../../tests/helpers/test-factories'
 
 // Catalogue row every collection entry points at; no assertion reads its fields.
 const SUPPORT_PRODUCT = { name: 'Crème hydratante', brand: 'Avène' } as const
+
+// Every ownership guard answers alike. Asserting the domain code too keeps a
+// mistyped path (which also 404s, but through Hono) from passing as a guard hit.
+const expectNotFound = (res: Parameters<typeof expectError>[0]) =>
+  expectError(res, HTTP_STATUS.NOT_FOUND, 'user_product_not_found')
 
 setupDbTests()
 
@@ -55,6 +61,21 @@ describe('User Products API', () => {
     const otherToken = await setupAndLogin(app, TEST_CREDENTIALS.alice)
     return createUserProduct({}, otherToken)
   }
+
+  // The whole feature sits behind a single `use('*', requireJwtAuth)`; the
+  // nested purchases path checks the guard still applies past the first segment.
+  describe('authentication', () => {
+    expectRequiresAuth(() => app, { method: 'GET', path: '/api/user-products' })
+    expectRequiresAuth(() => app, {
+      method: 'POST',
+      path: '/api/user-products',
+      body: { productId: crypto.randomUUID(), status: 'in_stock' },
+    })
+    expectRequiresAuth(() => app, {
+      method: 'GET',
+      path: `/api/user-products/${crypto.randomUUID()}/purchases`,
+    })
+  })
 
   describe('GET /user-products', () => {
     it('returns empty list initially', async () => {
@@ -114,12 +135,15 @@ describe('User Products API', () => {
     })
 
     it('rejects missing productId', async () => {
-      const res = await client['user-products'].$post(
-        // @ts-expect-error — missing productId is exactly what we want to test
-        { json: { status: 'in_stock' } },
-        withAuth(token)
+      await expectError(
+        client['user-products'].$post(
+          // @ts-expect-error: missing productId is exactly what we want to test
+          { json: { status: 'in_stock' } },
+          withAuth(token)
+        ),
+        HTTP_STATUS.BAD_REQUEST,
+        'invalid_input'
       )
-      expect(res.status as number).toBe(HTTP_STATUS.BAD_REQUEST)
     })
   })
 
@@ -136,21 +160,40 @@ describe('User Products API', () => {
 
     it('returns 404 for unknown id', async () => {
       const fakeId = crypto.randomUUID()
-      const res = await client['user-products'][':id'].$get(
-        { param: { id: fakeId } },
-        withAuth(token)
+      await expectNotFound(
+        client['user-products'][':id'].$get({ param: { id: fakeId } }, withAuth(token))
       )
-      expect(res.status as number).toBe(HTTP_STATUS.NOT_FOUND)
     })
 
     it('returns 404 for another user product', async () => {
       const up = await createOtherUserProduct()
 
-      const res = await client['user-products'][':id'].$get(
-        { param: { id: up.id } },
-        withAuth(token)
+      await expectNotFound(
+        client['user-products'][':id'].$get({ param: { id: up.id } }, withAuth(token))
       )
-      expect(res.status as number).toBe(HTTP_STATUS.NOT_FOUND)
+    })
+  })
+
+  describe('GET /user-products/product/:productId', () => {
+    it('resolves the collection row from the catalogue product id', async () => {
+      const up = await createUserProduct()
+
+      const fetched = await expectOk(
+        client['user-products'].product[':productId'].$get(
+          { param: { productId } },
+          withAuth(token)
+        )
+      )
+      expect(fetched.id).toBe(up.id)
+    })
+
+    it('returns 404 when the product is not in the collection', async () => {
+      await expectNotFound(
+        client['user-products'].product[':productId'].$get(
+          { param: { productId } },
+          withAuth(token)
+        )
+      )
     })
   })
 
@@ -170,11 +213,12 @@ describe('User Products API', () => {
     it('returns 404 for another user product', async () => {
       const up = await createOtherUserProduct()
 
-      const res = await client['user-products'][':id'].$patch(
-        { param: { id: up.id }, json: { status: 'archived' } },
-        withAuth(token)
+      await expectNotFound(
+        client['user-products'][':id'].$patch(
+          { param: { id: up.id }, json: { status: 'archived' } },
+          withAuth(token)
+        )
       )
-      expect(res.status as number).toBe(HTTP_STATUS.NOT_FOUND)
     })
 
     it('persists experience tags (ressenti / routine / preferences)', async () => {
@@ -201,15 +245,18 @@ describe('User Products API', () => {
     it('rejects an unknown tag value', async () => {
       const up = await createUserProduct()
 
-      const res = await client['user-products'][':id'].$patch(
-        {
-          param: { id: up.id },
-          // @ts-expect-error — 'not-a-real-tag' is intentionally invalid
-          json: { ressenti: ['not-a-real-tag'] },
-        },
-        withAuth(token)
+      await expectError(
+        client['user-products'][':id'].$patch(
+          {
+            param: { id: up.id },
+            // @ts-expect-error: 'not-a-real-tag' is intentionally invalid
+            json: { ressenti: ['not-a-real-tag'] },
+          },
+          withAuth(token)
+        ),
+        HTTP_STATUS.BAD_REQUEST,
+        'invalid_input'
       )
-      expect(res.status as number).toBe(HTTP_STATUS.BAD_REQUEST)
     })
   })
 
@@ -230,11 +277,9 @@ describe('User Products API', () => {
     it('returns 404 for another user product', async () => {
       const up = await createOtherUserProduct()
 
-      const res = await client['user-products'][':id'].$delete(
-        { param: { id: up.id } },
-        withAuth(token)
+      await expectNotFound(
+        client['user-products'][':id'].$delete({ param: { id: up.id } }, withAuth(token))
       )
-      expect(res.status as number).toBe(HTTP_STATUS.NOT_FOUND)
     })
   })
 
@@ -263,11 +308,12 @@ describe('User Products API', () => {
 
     it('returns 404 for unknown user product', async () => {
       const fakeId = crypto.randomUUID()
-      const res = await client['user-products'][':id'].review.$put(
-        { param: { id: fakeId }, json: { tolerance: 5 } },
-        withAuth(token)
+      await expectNotFound(
+        client['user-products'][':id'].review.$put(
+          { param: { id: fakeId }, json: { tolerance: 5 } },
+          withAuth(token)
+        )
       )
-      expect(res.status as number).toBe(HTTP_STATUS.NOT_FOUND)
     })
   })
 
@@ -296,11 +342,9 @@ describe('User Products API', () => {
 
     it('returns 404 for another user product', async () => {
       const fakeId = crypto.randomUUID()
-      const res = await client['user-products'][':id'].history.$get(
-        { param: { id: fakeId } },
-        withAuth(token)
+      await expectNotFound(
+        client['user-products'][':id'].history.$get({ param: { id: fakeId } }, withAuth(token))
       )
-      expect(res.status as number).toBe(HTTP_STATUS.NOT_FOUND)
     })
   })
 

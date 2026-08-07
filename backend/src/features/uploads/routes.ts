@@ -5,9 +5,9 @@ import { bodyLimit } from 'hono/body-limit'
 import { z } from 'zod'
 
 import type { AppEnv } from '../../app-env'
+import { getAuthedUserId, getRlsDb } from '../../utils/accessors'
 import { zValidator } from '../../utils/validator'
 import {
-  getAuthedUserId,
   requireCatalogWrite,
   requireJwtAuth,
   requireNotBanned,
@@ -20,8 +20,8 @@ import { UploadError } from './upload-error'
 const app = new Hono<AppEnv>()
 
 app.use('*', requireJwtAuth)
-app.use('*', requireNotBanned)
 app.use('*', withRlsContext)
+app.use('*', requireNotBanned)
 app.use('*', bodyLimit({ maxSize: 1_048_576 }))
 
 function handleUploadError(c: Context<AppEnv>, e: unknown) {
@@ -42,7 +42,7 @@ export const uploadsRoutes = app
     }
     const buffer = Buffer.from(await file.arrayBuffer())
     try {
-      const result = await uploadAvatar(c.get('db'), userId, buffer)
+      const result = await uploadAvatar(getRlsDb(c), userId, buffer)
       return c.json(ok(result), HTTP_STATUS.CREATED)
     } catch (e) {
       return handleUploadError(c, e)
@@ -65,7 +65,7 @@ export const uploadsRoutes = app
       }
       const buffer = Buffer.from(await file.arrayBuffer())
       try {
-        const result = await uploadProductImage(c.get('db'), slug, buffer)
+        const result = await uploadProductImage(getRlsDb(c), slug, buffer)
         return c.json(ok(result), HTTP_STATUS.CREATED)
       } catch (e) {
         return handleUploadError(c, e)

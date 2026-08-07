@@ -1,22 +1,10 @@
 #!/usr/bin/env bun
 /**
- * main.ts: CLI wrapper around ./lib (uploadProductImage). Via `just image-upload`.
- *
- * Single:
- *   bun run src/images/upload/main.ts <slug> --url <URL>
- *   bun run src/images/upload/main.ts <slug> --file <PATH>
- *
- * Batch (JSON array of { slug, url? | file? }):
- *   bun run src/images/upload/main.ts --batch <jobs.json>
- *
- * Flags:
- *   --dry            preview, no Bunny PUT or DB UPDATE
- *   --no-db          skip DB UPDATE
- *   --no-staged      skip writing to output/images-{source,normalized}/
- *   --concurrency N  batch only (default 4)
- *
+ * CLI wrapper around ./lib (uploadProductImage), via `just image-upload`.
+ * Single: bun run src/images/upload/main.ts <slug> --url <URL> | --file <PATH>
+ * Batch: bun run src/images/upload/main.ts --batch <jobs.json>  (JSON array of { slug, url? | file? })
+ * Flags: --dry (preview) --no-db --no-staged --concurrency N (batch only, default 4).
  * Required env (apply mode): see ./lib.ts.
- *
  * After a batch, run `just db-snapshot` to persist DB changes to snapshot/data.sql.
  */
 

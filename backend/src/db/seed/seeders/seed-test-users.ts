@@ -15,7 +15,7 @@ import { and, eq, inArray } from 'drizzle-orm'
 import { signup } from '../../../features/auth/service'
 import { getUser } from '../../../features/auth/user.utils'
 import { calendarMonthsAgoUTC } from '../../../utils/dates'
-import type { DB } from '../..'
+import type { DatabaseTransaction } from '../..'
 import { userBans } from '../../schema/auth/user-bans'
 import { profiles, userDermoProfiles, users } from '../../schema/auth/users'
 import { purchases } from '../../schema/products/purchases'
@@ -23,7 +23,7 @@ import { userProductReviews, userProducts } from '../../schema/products/user-pro
 import { createCtx } from './create-user'
 
 // Five personas covering every skin type, varied Fitzpatrick + concerns.
-// Reviews skip the obviously redundant axes (e.g. no mixability score on an
+// Reviews skip the axes that do not apply (e.g. no mixability score on an
 // eau micellaire) so the seeded distribution still looks realistic, not flat.
 type CollectionEntry = {
   slug: string
@@ -442,7 +442,7 @@ async function getOrCreateTestUser(persona: Persona) {
     throw new Error(`Seed test user not found after signup: ${persona.email}`)
   }
 
-  // Skip email verification flow — these are seed users, no real inbox.
+  // Skip email verification flow: these are seed users, no real inbox.
   await ctx.db
     .update(users)
     .set({ emailVerifiedAt: new Date().toISOString() })
@@ -451,7 +451,7 @@ async function getOrCreateTestUser(persona: Persona) {
   return created
 }
 
-export async function seedTestUsers(tx: DB, productSlugToId: Map<string, string>) {
+export async function seedTestUsers(tx: DatabaseTransaction, productSlugToId: Map<string, string>) {
   console.log('\n👥 Seed users de test (6 personas)...')
 
   for (const persona of PERSONAS) {
@@ -473,7 +473,7 @@ export async function seedTestUsers(tx: DB, productSlugToId: Map<string, string>
           userId: user.id,
           scope: 'global',
           reason: 'Compte de test banni (seed)',
-          // bannedBy must reference a valid user — self-referencing is acceptable for seed fixtures.
+          // bannedBy must reference a valid user, self-referencing is acceptable for seed fixtures.
           bannedBy: user.id,
         })
         .onConflictDoNothing()
@@ -528,8 +528,8 @@ export async function seedTestUsers(tx: DB, productSlugToId: Map<string, string>
 
     await tx.insert(userProducts).values(userProductInserts).onConflictDoNothing()
 
-    // Re-query to map productId → userProduct.id (covers both newly inserted
-    // and pre-existing rows from a previous seed run).
+    // Query again to map productId to userProduct.id (covers both newly inserted
+    // and rows left by a previous seed run).
     const productIds = userProductInserts.map((u) => u.productId)
     const upRows = await tx
       .select({ id: userProducts.id, productId: userProducts.productId })
@@ -565,9 +565,9 @@ export async function seedTestUsers(tx: DB, productSlugToId: Map<string, string>
     }
 
     // Purchase history so the Achats page has data. Derived from status (mirrors
-    // demo-seed): in_stock = one open bottle, archived = bought → used → finished,
-    // Holy Grail (sentiment 6) = a finished bottle plus a repurchase. Wishlist /
-    // watched / avoided are never bought.
+    // demo-seed): in_stock = one open bottle, archived = bought then used then
+    // finished, Holy Grail (sentiment 6) = a finished bottle plus a repurchase.
+    // Wishlist / watched / avoided are never bought.
     const purchaseSeeds = persona.collection.flatMap((entry, i) => {
       if (entry.status !== 'in_stock' && entry.status !== 'archived') return []
       const productId = productSlugToId.get(entry.slug)
@@ -614,8 +614,8 @@ export async function seedTestUsers(tx: DB, productSlugToId: Map<string, string>
       ]
     })
 
-    // Idempotent: skip products that already have a purchase — there is no unique
-    // key to dedupe on, so a re-run must not double-insert.
+    // Idempotent: skip products that already have a purchase. There is no unique
+    // key to dedupe on, so running it again must not double-insert.
     let purchaseInserts = purchaseSeeds
     if (purchaseSeeds.length > 0) {
       const upIds = [...new Set(purchaseSeeds.map((p) => p.userProductId))]

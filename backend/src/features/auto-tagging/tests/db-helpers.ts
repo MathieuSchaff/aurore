@@ -14,11 +14,13 @@ export function createAutoTagProduct(
   userId: string,
   overrides: Partial<CreateProductInput> & Pick<CreateProductInput, 'name'>
 ) {
-  return createProduct(
-    userId,
-    'admin',
-    { brand: 'Lab', kind: 'serum', unit: 'pump', category: 'skincare', ...overrides },
-    testDb
+  return testDb.transaction((tx) =>
+    createProduct(
+      userId,
+      'admin',
+      { brand: 'Lab', kind: 'serum', unit: 'pump', category: 'skincare', ...overrides },
+      tx
+    )
   )
 }
 

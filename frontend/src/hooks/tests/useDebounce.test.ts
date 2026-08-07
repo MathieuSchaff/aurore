@@ -29,7 +29,7 @@ describe('useDebounce', () => {
     act(() => {
       vi.advanceTimersByTime(100)
     })
-    // 100ms since last change < 200ms debounce → not committed yet.
+    // 100ms since last change is under the 200ms debounce, so not committed yet.
     expect(result.current).toBe('a')
 
     act(() => {

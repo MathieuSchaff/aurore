@@ -75,13 +75,13 @@ describe('GET /api/social/profiles/search', () => {
       skinTypes: ['peau-sensible'],
       fitzpatrickType: 3,
     })
-    // Same rougeurs-vasculaires bucket, different raw term → must match.
+    // Same rougeurs-vasculaires bucket, different raw term: must still match.
     await seedPeer('couperose-peer', {
       skinConcerns: ['couperose'],
       skinTypes: ['peau-sensible'],
       fitzpatrickType: 3,
     })
-    // Different bucket → must not match the rosacée search.
+    // Different bucket: must not match the rosacée search.
     await seedPeer('acne-peer', {
       skinConcerns: ['anti-acne'],
       skinTypes: ['peau-sensible'],
@@ -144,7 +144,7 @@ describe('GET /api/social/profiles/search', () => {
 
   it('gates search on similarity: a concern match dissimilar to the viewer (éloigné) is not surfaced', async () => {
     // Viewer does not share the searched concern's family, and differs on every
-    // axis → the only concern match scores éloigné → excluded (similarity is the
+    // axis, so the only concern match scores éloigné and is excluded (similarity is the
     // universal lens, even for active search).
     const token = await seedViewer({
       skinConcerns: ['anti-acne'],

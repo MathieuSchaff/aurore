@@ -128,7 +128,7 @@ describe('AdminCatalogPage', () => {
     renderWithProviders(<AdminCatalogPage />)
 
     expect(screen.getByText('mathieu')).toBeInTheDocument()
-    // UNVERIFIED_PRODUCT has no username → first 8 chars of its authorId.
+    // UNVERIFIED_PRODUCT has no username, so it falls back to the first 8 chars of its authorId.
     expect(screen.getByText('usr-auth')).toBeInTheDocument()
   })
 

@@ -1,27 +1,14 @@
-// T4.D: Open Beauty Facts brand-level label ingestion. Streams the OBF
-// CSV dump (≈ 17 MB gz, ≈ 120 MB raw, ~64 k cosmetics rows), aggregates
-// per-brand vegan / cruelty-free / natural claims, and merges them into
-// `brand_certifications` with source `obf`. The manual seed (T4.B) is
-// preserved : we only ADD evidence to a brand's `sources` jsonb and lift
-// flags from false → true. We never overwrite a manual `true` to false.
-//
-// Decision rule (default): a brand-level claim fires when ≥ 50 % of the
-// brand's OBF products carry the matching label AND the brand has ≥ 2
-// products in OBF. Tunable via --threshold and --min.
-//
-// Whitelist scope: by default we only roll up brands present in
-// `products.brand` (after slugification). Switch off with --no-whitelist
-// to ingest every OBF brand (much larger result set, mostly irrelevant).
-//
+// Open Beauty Facts brand-level label ingestion. Streams the OBF CSV dump
+// (~17 MB gz, ~120 MB raw, ~64k cosmetics rows) and aggregates per-brand
+// vegan / cruelty-free / natural claims into `brand_certifications`
+// (source `obf`). Manual seed preserved: only add evidence, lift false to
+// true — never overwrite a manual `true` back to false.
+
 // Usage:
 //   bun run backend/src/db/seed/ingest/obf-brand-labels/main.ts                   # dry-run, cached dump
 //   bun run backend/src/db/seed/ingest/obf-brand-labels/main.ts --download        # force re-download
 //   bun run backend/src/db/seed/ingest/obf-brand-labels/main.ts --write           # apply DB upserts
 //   bun run backend/src/db/seed/ingest/obf-brand-labels/main.ts --threshold 0.7   # stricter ratio
-//
-// Cache lives at `backend/tmp/cache/obf/products.csv.gz` (gitignored). Re-
-// running without --download reuses the cached file ; OBF refreshes the
-// dump daily so a `--download` once a day is enough.
 
 import { existsSync, mkdirSync } from 'node:fs'
 import { join } from 'node:path'
@@ -58,6 +45,8 @@ const CACHE_FILE = join(CACHE_DIR, 'products.csv.gz')
 const FORCE_DOWNLOAD = process.argv.includes('--download')
 const WRITE = process.argv.includes('--write')
 const NO_WHITELIST = process.argv.includes('--no-whitelist')
+// Decision rule (default): a claim fires when ≥50% of the brand's OBF
+// products carry the matching label AND the brand has ≥2 products in OBF.
 const RATIO_THRESHOLD = numericFlag('--threshold', 0.5)
 const MIN_PRODUCTS = numericFlag('--min', 2)
 const MIN_LABEL_COUNT = numericFlag('--min-label-count', 3)
@@ -73,6 +62,9 @@ function numericFlag(name: string, fallback: number): number {
   return parsed
 }
 
+// Cache lives at `backend/tmp/cache/obf/products.csv.gz` (gitignored). Reuses
+// the cached file unless --download is passed; OBF refreshes the dump daily,
+// so a `--download` once a day is enough.
 async function ensureDump(): Promise<Uint8Array> {
   if (FORCE_DOWNLOAD || !existsSync(CACHE_FILE)) {
     if (!existsSync(CACHE_DIR)) mkdirSync(CACHE_DIR, { recursive: true })
@@ -110,7 +102,9 @@ async function main() {
     }\n`
   )
 
-  // Whitelist : OBF slugs of brands actually in our corpus
+  // Whitelist: OBF slugs of brands present in `products.brand` (after
+  // slugification). --no-whitelist ingests every OBF brand instead (much
+  // larger result set, mostly irrelevant).
   let whitelist: Set<string> | undefined
   let corpusSlugToDisplay: Map<string, string> | undefined
   if (!NO_WHITELIST) {
@@ -239,8 +233,8 @@ async function main() {
       continue
     }
 
-    // Existing row : merge sources jsonb + lift any false flag that OBF
-    // newly asserts. Never flip a manual `true` → false.
+    // Existing row: merge sources jsonb and lift any false flag that OBF
+    // newly asserts. Never flip a manual `true` back to false.
     const newSources = mergeObfSourcesIntoExisting(ex.sources ?? {}, rollup)
     const sourcesChanged = JSON.stringify(newSources) !== JSON.stringify(ex.sources ?? {})
 

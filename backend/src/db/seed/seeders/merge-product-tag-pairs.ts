@@ -1,8 +1,3 @@
-// Merge the seed's product-tag pair streams under the global manual-safety
-// invariant: curated pairs are never silently replaced by an auto verdict
-// (write.ts scopes its DELETE to source != 'manual'; backfill classify.ts
-// guards with !isManual). An auto `avoid` colliding with a manual pair of a
-// different verdict is dropped and reported for human arbitration.
 // Pure module (no DB / no env imports) so it unit-tests without a database.
 
 // Type alias, not interface: the alias keeps an implicit index signature so
@@ -32,6 +27,11 @@ export interface MergeProductTagPairsResult {
 const keyOf = (pair: Pick<SeedProductTagPair, 'slug' | 'tagSlug'>): string =>
   `${pair.slug}::${pair.tagSlug}`
 
+// Merge under the global manual-safety invariant: curated pairs are never
+// silently replaced by an auto verdict (write.ts scopes its DELETE to
+// source != 'manual'; backfill classify.ts guards with !isManual). An auto
+// `avoid` colliding with a manual pair of a different verdict is dropped
+// and reported for human arbitration.
 export function mergeProductTagPairs(streams: {
   manual: SeedProductTagPair[]
   avoid: SeedProductTagPair[]

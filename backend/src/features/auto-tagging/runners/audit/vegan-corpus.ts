@@ -1,17 +1,9 @@
-// Spot-check audit for the vegan auto-tag (audit B.7). Read-only.
-//
-// Random sample of vegan-tagged products scanned against an extended
-// ambiguous-animal-pattern list (broader than formula-detection.ts:ANIMAL_PATTERNS).
-// Vegan fires at ~80% of corpus, so precision is the bottleneck before trusting it on UI.
-//
-// Output: per-product suspect INCI matches + per-pattern hit count.
-// Decision (tighten ANIMAL_PATTERNS vs deferral T4 brand-level) is offline.
-//
-// Env:
-//   SAMPLE_SIZE  optional 30  : products to inspect
-//   SEED         optional     : deterministic sample (any string)
-//   PRUNE        optional 1   : delete vegan rows for Tier A INCI matches across FULL corpus.
-//                               Backfill is insert-only, so this is required to retroactively clean FP.
+// Spot-check audit for the vegan auto-tag (audit B.7). Read-only. Vegan fires on ~80% of the
+// corpus, so precision is the bottleneck before trusting it on UI. Pattern list here is
+// TIER_A_PATTERNS below and local to this audit: no pass scans the INCI for animal ingredients,
+// `vegan` is emitted by the algo-derm signal (passes/algo-derm-detection.ts) and by brand
+// certifications (passes/brand-cert-detection.ts). Tier C (already covered, sanity bucket
+// only): collagen, keratin, milk, snail, beeswax, lanolin.
 
 import { normalize, splitINCI } from 'algo-derm'
 import { and, eq, ilike, inArray, or } from 'drizzle-orm'
@@ -23,23 +15,18 @@ import { exitOnError } from '../cli-args'
 import { formatPct, padTrunc, rpad } from '../fmt'
 import { mulberry32 } from '../rng'
 
+// Env: SAMPLE_SIZE (default 30, products to inspect), SEED (deterministic sample, any string),
+// PRUNE=1 (delete vegan rows for Tier A INCI matches across the full corpus; backfill is
+// insert-only, so this is needed to retroactively clean FPs).
 const SAMPLE_SIZE = process.env.SAMPLE_SIZE ? Number(process.env.SAMPLE_SIZE) : 30
 const SEED = process.env.SEED
 const PRUNE = process.env.PRUNE === '1'
 
-// Tier A: clearly animal INCI — high-confidence FP signals for algo-derm vegan tagging.
-// Non-zero hit on a vegan-tagged product = FP candidate (prune with PRUNE=1).
-//   gelatin/gelatine: collagen-derived, porcine/bovine/marine origin
-//   oyster: mollusk; colostrum: bovine milk; lactalbumin: milk protein
-//   bee venom/apitoxin: apiculture byproduct; egg/albumin: chicken-derived
-//   pearl / lactoperoxidase: reference anchors — non-zero hit = regression.
-//
-// Tier B: ambiguous (animal or plant, INCI alone can't distinguish).
-//   stearic acid: bovine tallow historically, mostly plant today
-//   palmitic acid: same ambiguity; cetyl alcohol: palm or animal fat
-//   glycerin: skipped (90%+ corpus hit rate, too noisy)
-//
-// Tier C (already covered, sanity bucket): collagen, keratin, milk, snail, beeswax, lanolin.
+// Tier A: clearly animal INCI, high-confidence FP signals for algo-derm vegan tagging. Any
+// hit on a vegan-tagged product is an FP candidate (prune with PRUNE=1). gelatin/gelatine:
+// collagen-derived (porcine/bovine/marine); oyster: mollusk; colostrum/lactalbumin: milk;
+// bee venom/apitoxin: apiculture byproduct; egg/albumin: chicken. pearl / lactoperoxidase are
+// reference anchors: any hit there is a regression.
 const TIER_A_PATTERNS = [
   'gelatin',
   'gelatine',
@@ -54,6 +41,9 @@ const TIER_A_PATTERNS = [
   'lactoperoxidase',
 ] as const
 
+// Tier B: ambiguous (animal or plant, INCI alone can't tell). stearic acid: bovine tallow
+// historically, mostly plant today; palmitic acid: same ambiguity; cetyl alcohol: palm or
+// animal fat. glycerin is skipped (90%+ corpus hit rate, too noisy).
 const TIER_B_PATTERNS = ['stearic acid', 'palmitic acid', 'cetyl alcohol'] as const
 
 interface SuspectHit {
@@ -198,7 +188,7 @@ async function main() {
   console.log(`🧭 Recommandation`)
   if (tierAHits.length === 0) {
     console.log(`   Tier A = 0 sur ${sample.length} → précision actuelle solide.`)
-    console.log(`   Patterns ANIMAL_PATTERNS suffisants pour ce sample. Pas de change urgent.`)
+    console.log(`   Patterns TIER_A_PATTERNS suffisants pour ce sample. Pas de change urgent.`)
     console.log(
       `   Considérer deferral T4 (champ \`is_vegan\` certifié brand-level) pour gains futurs.`
     )
@@ -208,7 +198,7 @@ async function main() {
       `   Tier A = ${tierAHits.length}/${sample.length} (${formatPct(tierARate)}) → resserrement recommandé.`
     )
     const offendingPatterns = new Set(tierAHits.map((h) => h.pattern))
-    console.log(`   Ajouter à \`ANIMAL_PATTERNS\` : ${[...offendingPatterns].join(', ')}.`)
+    console.log(`   Ajouter à \`TIER_A_PATTERNS\` : ${[...offendingPatterns].join(', ')}.`)
   }
   if (tierBHits.length > 0) {
     console.log(
@@ -218,7 +208,7 @@ async function main() {
   console.log()
 }
 
-// SQL OR over Tier A patterns; prune scope tracks formula-detection.ts:ANIMAL_PATTERNS.
+// SQL OR over Tier A patterns; prune scope tracks TIER_A_PATTERNS, nothing else.
 async function pruneFalsePositives(): Promise<void> {
   console.log(`🪦 Prune vegan FP (Tier A INCI match → DELETE tag_products row)`)
 

@@ -32,11 +32,11 @@ import {
 
 // Re-export the slug maps that colocated seed/ingredient-tag files import via
 // this `data/tags` barrel instead of reaching into `@aurore/shared` directly.
-// Each consumer imports only the maps whose keys it uses — TS catches
+// Each consumer imports only the maps whose keys it uses, so TS catches
 // wrong-domain slugs at compile time.
 export { DENTAL_PRODUCT_TAG_SLUGS, SKINCARE_INGREDIENT_TAG_SLUGS } from '@aurore/shared'
 
-// Ingredient slug → FR label. Each domain co-locates the label with its tag
+// Maps ingredient slug to FR label. Each domain keeps the label next to its tag
 // def in shared; merged here across the four ingredient domains. Shared slugs
 // (e.g. `anti-inflammatoire`) carry the same label in every domain, so the
 // merge order is irrelevant.
@@ -55,13 +55,11 @@ function labelForProduct(slug: string): string {
   return getProductTagLabel(slug) ?? slug
 }
 
-// Seed rows inserted raw via tx.insert (bulk seed), not through the tag
-// service. tagType is derived from the shared taxonomy, so it cannot drift.
-//
-// Ingredient tag rows come from every domain taxonomy. De-dup by slug when
-// the same slug exists in multiple taxonomies with the same category (e.g.
-// `anti-inflammatoire` lives in both skincare and supplement ingredient
-// attributes) — first occurrence wins, the assertion keeps the invariant.
+// Rows inserted raw via tx.insert (bulk seed), not through the tag service.
+// tagType is derived from the shared taxonomy, so it cannot drift.
+// Drop duplicates by slug when the same slug exists in multiple taxonomies with the
+// same category (e.g. `anti-inflammatoire` in both skincare and supplement):
+// first occurrence wins.
 const skincareIngredientTags = (
   Object.values(SKINCARE_INGREDIENT_TAG_SLUGS) as SkincareIngredientTagSlug[]
 ).map((slug) => ({
@@ -138,8 +136,8 @@ const supplementProductTags = (
   tagType: SUPPLEMENT_PRODUCT_TAG_TAXONOMY[slug].category as string,
 }))
 
-// Same de-dup pattern as ingredientTagData: first-wins on shared slugs
-// (e.g. `sans-parfum`, `vegan` — same tagType `product_label` across domains).
+// Same duplicate handling as ingredientTagData: first occurrence wins on shared slugs
+// (e.g. `sans-parfum`, `vegan`, same tagType `product_label` across domains).
 const seenProductSlugs = new Set<string>()
 export const productTagData = [
   ...skincareProductTags,

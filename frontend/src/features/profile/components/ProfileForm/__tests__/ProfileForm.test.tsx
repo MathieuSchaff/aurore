@@ -49,7 +49,7 @@ function getLinkRow(index: number) {
   }
 }
 
-describe('ProfileForm — links validation', () => {
+describe('ProfileForm: links validation', () => {
   beforeEach(() => vi.clearAllMocks())
 
   it('silently drops a single empty row and closes the form', () => {
@@ -111,7 +111,7 @@ describe('ProfileForm — links validation', () => {
 
     const row1 = getLinkRow(1)
     fireEvent.change(row1.label, { target: { value: 'Site' } })
-    // row1.url left empty → should error on row 1 only
+    // row1.url left empty, should error on row 1 only
 
     fireEvent.click(screen.getByRole('button', { name: 'Enregistrer' }))
 

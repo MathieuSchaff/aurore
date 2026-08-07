@@ -35,7 +35,7 @@ function createIng(userId: string, role: Parameters<typeof createIngredient>[2])
   return testDb.transaction((tx) => createIngredient(tx, userId, role, baseIngredientInput))
 }
 
-describe('catalog verify — verifyProduct / verifyIngredient', () => {
+describe('catalog verify: verifyProduct / verifyIngredient', () => {
   it('stamps an unverified product as verified by the actor', async () => {
     const author = await createTestUser('vm-prod-author@test.local')
     const actor = await createTestUser('vm-prod-actor@test.local')
@@ -79,7 +79,7 @@ describe('catalog verify — verifyProduct / verifyIngredient', () => {
   })
 })
 
-describe('catalog moderate — moderateProduct / moderateIngredient', () => {
+describe('catalog moderate: moderateProduct / moderateIngredient', () => {
   it('hides a product and returns its moderation state', async () => {
     const admin = await createTestUser('vm-mod-admin@test.local')
     const author = await createTestUser('vm-mod-author@test.local')
@@ -115,7 +115,7 @@ describe('catalog moderate — moderateProduct / moderateIngredient', () => {
     expect(result.error).toBe('not_found')
   })
 
-  it('throws 409 when unhiding a product whose key was reclaimed by a visible row (V-3)', async () => {
+  it('throws 409 when unhiding a product whose key was reclaimed by a visible row', async () => {
     const admin = await createTestUser('vm-mod-unhide@test.local')
     const author = await createTestUser('vm-mod-unhide-author@test.local')
     const first = await testDb.transaction((tx) =>
@@ -125,8 +125,8 @@ describe('catalog moderate — moderateProduct / moderateIngredient', () => {
       .update(products)
       .set({ moderationStatus: 'hidden' })
       .where(eq(products.id, first.id))
-    // Same (name, brand) key is now free (V-3 tombstone) → a fresh visible row
-    // takes it. Distinct slug because products_slug_unique is a full index.
+    // Same (name, brand) key is now free (hidden row is a tombstone), so a fresh
+    // visible row takes it. Distinct slug because products_slug_unique is a full index.
     const clone = await testDb.transaction((tx) =>
       createProduct(author.id, 'admin', { ...baseProductInput, slug: 'vm-serum-clone' }, tx, {
         autoTag: false,
@@ -169,7 +169,7 @@ describe('catalog moderate — moderateProduct / moderateIngredient', () => {
     expect(result.data.moderationReason).toBe('doublon')
   })
 
-  it('throws 409 when unhiding an ingredient whose slug was reclaimed (V-3)', async () => {
+  it('throws 409 when unhiding an ingredient whose slug was reclaimed', async () => {
     const admin = await createTestUser('vm-mod-ing-unhide@test.local')
     const author = await createTestUser('vm-mod-ing-unhide-author@test.local')
     const first = await createIng(author.id, 'admin')
@@ -195,7 +195,7 @@ describe('catalog moderate — moderateProduct / moderateIngredient', () => {
   })
 })
 
-describe('catalog queue — listCatalogQueue author', () => {
+describe('catalog queue: listCatalogQueue author', () => {
   it('resolves authorUsername from the contributor profile, null when unset', async () => {
     const named = await createTestUser('vm-queue-named@test.local')
     const anon = await createTestUser('vm-queue-anon@test.local')

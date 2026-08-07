@@ -4,7 +4,7 @@ import { normalize, splitINCI, stripPreamble } from 'algo-derm'
 import { buildAliasIndex, lookupIngredient, MERGED_EVIDENCE_DB } from 'algo-derm/engine'
 import { eq, inArray } from 'drizzle-orm'
 
-import type { DB } from '../../db/index'
+import type { DatabaseTransaction } from '../../db/index'
 import { ingredients } from '../../db/schema/ingredients/ingredients'
 import { brandCertifications, normalizeBrand } from '../../db/schema/products/brand-certifications'
 import {
@@ -15,7 +15,7 @@ import {
   resolveTagRows,
 } from '../auto-tagging'
 
-// Built once on first call — `MERGED_EVIDENCE_DB` is immutable at runtime.
+// Built once on first call: `MERGED_EVIDENCE_DB` is immutable at runtime.
 let aliasIndex: ReturnType<typeof buildAliasIndex> | null = null
 function getAliasIndex() {
   if (!aliasIndex) aliasIndex = buildAliasIndex(MERGED_EVIDENCE_DB)
@@ -49,7 +49,7 @@ function sortPreferred(rows: IngredientRow[], category: string): IngredientRow[]
 
 export async function previewProductFormula(
   input: ProductFormulaPreviewInput,
-  db: DB
+  db: DatabaseTransaction
 ): Promise<FormulaPreviewResult> {
   const idx = getAliasIndex()
 
@@ -86,7 +86,7 @@ export async function previewProductFormula(
 
   // Fallback for tokens without a usable canonical key: accent-folded name match.
   // Postgres lower() keeps accents while normalize() strips them, so the fold must
-  // happen in JS — the table is small enough (~700 rows) for a full lightweight scan.
+  // happen in JS: the table is small enough (~700 rows) for a full lightweight scan.
   const needFallback = tokenMeta.some((t) => t.canonicalKey === null || !byKey.has(t.canonicalKey))
   const allRows = needFallback ? await db.select(ingredientColumns).from(ingredients) : []
 
@@ -103,7 +103,7 @@ export async function previewProductFormula(
     }
   }
 
-  // INCI order preserved, duplicates kept — token count must match the pasted list.
+  // INCI order preserved, duplicates kept: token count must match the pasted list.
   const tokens: FormulaPreviewToken[] = tokenMeta.map(({ raw, normalized, canonicalKey }) => {
     const keyRow = canonicalKey ? byKey.get(canonicalKey) : undefined
     const match = keyRow ?? (normalized ? byNorm.get(normalized) : undefined)

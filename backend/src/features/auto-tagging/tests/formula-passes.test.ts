@@ -1,11 +1,8 @@
 // Contract tests for the formula pass family (ADR-0001 declarative table).
-//
-// The family used to be N hand-written `Pass` objects, each with a tautological
-// shape test (`pass.run ≡ asProposals(detector(...))`). After the collapse it is
-// one `FORMULA_PASSES` table. Detector behaviour is owned by `tests/formula.test.ts`
-// (INCI in → slugs out) and orchestration by the parity test; these tests guard
-// only what the table itself owns: the shared metadata stamp, table integrity,
-// and that the non-INCI binds route the right `PassContext` field.
+// Replaces N hand-written `Pass` objects each with a tautological shape test
+// (`pass.run ≡ asProposals(detector(...))`), which proved nothing. Detector
+// behavior is owned by `tests/formula.test.ts`; these tests guard only what
+// the table itself owns: metadata stamp, integrity, and PassContext field routing.
 
 import { describe, expect, test } from 'bun:test'
 
@@ -106,14 +103,14 @@ describe('formula pass table contract', () => {
     }
   })
 
-  test('the table is live — fires non-empty across the rich fixtures', () => {
+  test('the table is live: fires non-empty across the rich fixtures', () => {
     const total = FIXTURES.flatMap((ctx) => FORMULA_PASSES.flatMap((p) => p.run(ctx, [])))
     expect(total.length).toBeGreaterThan(0)
   })
 })
 
 // The binds for INCI-driven passes are exercised by formula.test.ts + parity.
-// These cover the passes that read a non-INCI field, where a wrong-field bind
+// These cover the passes that read a field that isn't INCI, where a wrong-field bind
 // would be the silent-arg failure this collapse set out to remove.
 describe('formula pass field binds', () => {
   test('texture-from-field reads ctx.texture', () => {

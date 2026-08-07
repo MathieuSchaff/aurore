@@ -1,10 +1,8 @@
-// Curated brand-level certifications for vegan / cruelty-free / natural-or-
-// organic claims. Brand names match `lower(trim(products.brand))` so the
-// detector lookup never misses on casing/whitespace.
+// Curated brand-level certifications for vegan / cruelty-free / natural-or-organic
+// claims. Brand names match `lower(trim(products.brand))` so casing/whitespace never miss.
 //
-// Skeleton: the full curated list was removed (the rows live in the SQL
-// snapshot). Two entries are kept as a shape example — re-add entries here and
-// re-run the seed to refresh brand_certifications from TS.
+// Skeleton: the full curated list lives in the SQL snapshot, not here. These two
+// entries are a shape example: add rows back here and run the seed again to refresh from TS.
 
 import type {
   BrandCertificationInsert,

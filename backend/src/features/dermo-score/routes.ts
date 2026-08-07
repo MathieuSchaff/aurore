@@ -4,6 +4,7 @@ import { type Context, Hono, type Next } from 'hono'
 import { z } from 'zod'
 
 import type { AppEnv } from '../../app-env'
+import { getRlsDb } from '../../utils/accessors'
 import { zValidator } from '../../utils/validator'
 import { verifyAccessToken } from '../auth/jwt.utils'
 import { withRlsContext } from '../auth/rls-context.middleware'
@@ -37,8 +38,8 @@ export const dermoScoreRoutes = app
    * @tag dermo-score
    */
   .get('/:slug/dermo-score', zValidator('param', slugParam), async (c) => {
-    const database = c.get('db')
     const userId = c.get('userId') ?? null
+    const database = userId ? getRlsDb(c) : c.get('anonDb')
     const { slug } = c.req.valid('param')
 
     const outcome = await computeProductDermoScore(slug, userId, database)

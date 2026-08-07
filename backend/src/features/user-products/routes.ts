@@ -18,9 +18,10 @@ import { z } from 'zod'
 
 import type { AppEnv } from '../../app-env'
 import { userProductReviews, userProducts } from '../../db/schema/products/user-products'
+import { getAuthedUserId, getRlsDb } from '../../utils/accessors'
 import { zValidator } from '../../utils/validator'
 import { isUserBannedForScope } from '../auth/ban.service'
-import { getAuthedUserId, requireJwtAuth, requireNotBanned } from '../auth/middleware'
+import { requireJwtAuth, requireNotBanned } from '../auth/middleware'
 import { withRlsContext } from '../auth/rls-context.middleware'
 import { recalculateAllSignalsForUser } from './dermo-signal.service'
 import {
@@ -48,23 +49,23 @@ const purchaseParams = z.object({ id: z.uuid(), purchaseId: z.uuid() })
 const app = new Hono<AppEnv>()
 
 app.use('*', requireJwtAuth)
-app.use('*', requireNotBanned)
 app.use('*', withRlsContext)
+app.use('*', requireNotBanned)
 
 export const userProductRoutes = app
   .get('/', async (c) => {
-    const db = c.get('db')
+    const db = getRlsDb(c)
     const userId = getAuthedUserId(c)
     const result = await getUserProducts(userId, db)
     return c.json(ok(result), HTTP_STATUS.OK)
   })
 
   .post('/', zValidator('json', createUserProductSchema), async (c) => {
-    const db = c.get('db')
+    const db = getRlsDb(c)
     const userId = getAuthedUserId(c)
     const input = c.req.valid('json')
 
-    // createUserProduct upserts, so a re-add can flip an existing row's
+    // createUserProduct upserts, so adding it again can flip an existing row's
     // avoided/Holy-Grail flag, moving it in or out of the signal's bad/good
     // buckets. Snapshot those flags first; recompute only when one actually
     // changes (a plain in_stock add carries no signal, skip the full rebuild).
@@ -86,7 +87,7 @@ export const userProductRoutes = app
   })
 
   .get('/:id', zValidator('param', idParam), async (c) => {
-    const db = c.get('db')
+    const db = getRlsDb(c)
     const userId = getAuthedUserId(c)
     const { id } = c.req.valid('param')
     const result = await getUserProductById(userId, id, db)
@@ -94,7 +95,7 @@ export const userProductRoutes = app
   })
 
   .get('/product/:productId', zValidator('param', z.object({ productId: z.uuid() })), async (c) => {
-    const db = c.get('db')
+    const db = getRlsDb(c)
     const userId = getAuthedUserId(c)
     const { productId } = c.req.valid('param')
     const result = await getUserProductByProductId(userId, productId, db)
@@ -106,7 +107,7 @@ export const userProductRoutes = app
     zValidator('param', idParam),
     zValidator('json', updateUserProductSchema),
     async (c) => {
-      const db = c.get('db')
+      const db = getRlsDb(c)
       const userId = getAuthedUserId(c)
       const { id } = c.req.valid('param')
       const input = c.req.valid('json')
@@ -122,7 +123,7 @@ export const userProductRoutes = app
   )
 
   .delete('/:id', zValidator('param', idParam), async (c) => {
-    const db = c.get('db')
+    const db = getRlsDb(c)
     const userId = getAuthedUserId(c)
     const { id } = c.req.valid('param')
     await deleteUserProduct(userId, id, db)
@@ -136,7 +137,7 @@ export const userProductRoutes = app
     zValidator('param', idParam),
     zValidator('json', updateUserProductReviewSchema),
     async (c) => {
-      const db = c.get('db')
+      const db = getRlsDb(c)
       const userId = getAuthedUserId(c)
       const { id } = c.req.valid('param')
       const input = c.req.valid('json')
@@ -181,7 +182,7 @@ export const userProductRoutes = app
   )
 
   .get('/:id/history', zValidator('param', idParam), async (c) => {
-    const db = c.get('db')
+    const db = getRlsDb(c)
     const userId = getAuthedUserId(c)
     const { id } = c.req.valid('param')
     const result = await getUserProductStatusHistory(userId, id, db)
@@ -189,7 +190,7 @@ export const userProductRoutes = app
   })
 
   .get('/:id/purchases', zValidator('param', idParam), async (c) => {
-    const db = c.get('db')
+    const db = getRlsDb(c)
     const userId = getAuthedUserId(c)
     const { id } = c.req.valid('param')
     const result = await getPurchases(userId, id, db)
@@ -201,7 +202,7 @@ export const userProductRoutes = app
     zValidator('param', idParam),
     zValidator('json', addPurchaseSchema),
     async (c) => {
-      const db = c.get('db')
+      const db = getRlsDb(c)
       const userId = getAuthedUserId(c)
       const { id } = c.req.valid('param')
       const input = c.req.valid('json')
@@ -215,7 +216,7 @@ export const userProductRoutes = app
     zValidator('param', idParam),
     zValidator('json', finishPurchaseSchema),
     async (c) => {
-      const db = c.get('db')
+      const db = getRlsDb(c)
       const userId = getAuthedUserId(c)
       const { id } = c.req.valid('param')
       const input = c.req.valid('json')
@@ -229,7 +230,7 @@ export const userProductRoutes = app
     zValidator('param', purchaseParams),
     zValidator('json', openPurchaseSchema),
     async (c) => {
-      const db = c.get('db')
+      const db = getRlsDb(c)
       const userId = getAuthedUserId(c)
       const { purchaseId } = c.req.valid('param')
       const input = c.req.valid('json')
@@ -243,7 +244,7 @@ export const userProductRoutes = app
     zValidator('param', purchaseParams),
     zValidator('json', updatePurchaseSchema),
     async (c) => {
-      const db = c.get('db')
+      const db = getRlsDb(c)
       const userId = getAuthedUserId(c)
       const { purchaseId } = c.req.valid('param')
       const input = c.req.valid('json')
@@ -253,7 +254,7 @@ export const userProductRoutes = app
   )
 
   .delete('/:id/purchases/:purchaseId', zValidator('param', purchaseParams), async (c) => {
-    const db = c.get('db')
+    const db = getRlsDb(c)
     const userId = getAuthedUserId(c)
     const { purchaseId } = c.req.valid('param')
     await deletePurchase(userId, purchaseId, db)

@@ -1,22 +1,14 @@
-// Batch-loads the AutoTagFetchBundle (brand certs, tag defs, percent claims,
-// known concentrations) for a set of products. One loader for intake and the
-// batch runners so the fetch set cannot drift per caller — brand certs used to
-// be fetched four times over, with two callers silently missing inputs.
-//
-// Reads stay sequential as belt-and-suspenders. The bun-sql driver now
-// serializes statements on a single tx connection (verified: 0/300 misroute,
-// no overlap), so Promise.all would be safe today. But a Bun/driver downgrade
-// could reintroduce the concurrent-tx misroute, where a misrouted empty
-// tag-defs read drops every tag while the intake DELETE still wipes existing
-// rows. Reconcile passes a tx (withAdminRls); intake uses the pool.
+// Batch-loads the AutoTagFetchBundle (brand certs, tag defs, percent claims, known
+// concentrations) for a set of products. One loader for intake and the batch runners so the
+// fetch set cannot drift per caller (brand certs used to be fetched 4x, two callers missed inputs).
 
-import { type DB, db } from '../../../db'
+import type { DbOrTransaction } from '../../../db'
 import { brandCertifications, products, productTagTypes } from '../../../db/schema'
 import { fetchKnownConcentrationsByProduct } from '../../../lib/fetch-known-concentrations'
 import { fetchPercentClaimsByProduct } from '../../../lib/fetch-percent-claims'
 import type { AutoTagFetchBundle } from './orchestrator-input'
 
-// Drizzle column set matching `OrchestratorProductFields` — the one select
+// Drizzle column set matching `OrchestratorProductFields`: the one select
 // shape every DB-backed caller spreads (`{ id: products.id, ...COLUMNS }`), so
 // adding an orchestrator input field is one edit, not one per call site.
 export const ORCHESTRATOR_PRODUCT_COLUMNS = {
@@ -32,7 +24,7 @@ export const ORCHESTRATOR_PRODUCT_COLUMNS = {
 // Shared with the formula preview so its resolveTagRows input cannot drift
 // from the tag-def shape the writers persist with.
 export async function loadTagSlugToInfo(
-  database: DB = db
+  database: DbOrTransaction
 ): Promise<AutoTagFetchBundle['tagSlugToInfo']> {
   const tagDefs = await database
     .select({
@@ -46,8 +38,12 @@ export async function loadTagSlugToInfo(
 
 export async function loadAutoTagFetchBundle(
   productIds: readonly string[],
-  database: DB = db
+  database: DbOrTransaction
 ): Promise<AutoTagFetchBundle> {
+  // Reads stay sequential on purpose. bun-sql serializes statements on a single tx connection
+  // today (verified 0/300 misroute), but a Bun/driver downgrade could reintroduce the
+  // concurrent-tx misroute: a misrouted empty tag-defs read drops every tag while intake's
+  // DELETE still wipes existing rows. Reconcile passes a tx (withAdminRls); intake uses the pool.
   const certRows = await database.select().from(brandCertifications)
   const percentClaimsByProduct = await fetchPercentClaimsByProduct(productIds, database)
   const knownConcentrationsByProduct = await fetchKnownConcentrationsByProduct(productIds, database)

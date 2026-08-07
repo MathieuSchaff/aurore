@@ -1,13 +1,11 @@
-// Batch-loads brand-claimed concentrations as orchestrator `percentClaims`
-// input, keyed by product. Sibling of fetch-known-concentrations.
-//
-// Guard matches the intake writer (writeTagsForProduct): a row counts when
-// value and unit are both non-null and the value parses finite. A claimed 0%
-// is a real claim and is kept.
+// Batch-loads brand-claimed concentrations as orchestrator `percentClaims` input,
+// keyed by product. Guard matches the intake writer (writeTagsForProduct): a row
+// counts when value and unit are both not null and the value parses finite. A
+// claimed 0% is a real claim and is kept.
 
 import { eq, inArray } from 'drizzle-orm'
 
-import { type DB, db } from '../db'
+import type { DbOrTransaction } from '../db'
 import { ingredients, productIngredients } from '../db/schema'
 
 export interface PercentClaim {
@@ -18,7 +16,7 @@ export interface PercentClaim {
 
 export async function fetchPercentClaimsByProduct(
   productIds: readonly string[],
-  database: DB = db
+  database: DbOrTransaction
 ): Promise<Map<string, PercentClaim[]>> {
   if (productIds.length === 0) return new Map()
 

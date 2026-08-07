@@ -1,21 +1,10 @@
 #!/usr/bin/env bun
-/**
- * scan-db-duplicates.ts — DB-wide duplicate scanner.
- *
- * Catches dup patterns the seed-file audit can't see (Atoderm-style: products
- * sit in DB only, no seed entry). Pulls (slug, name, brand, kind, inci,
- * imageUrl, totalAmount, amountUnit) from a backup SQL file (avoids hitting
- * the live DB and keeps results stable across re-runs).
- *
- * Reports four signals:
- *   1. Slug typos    : repeated slug fragments ("gel-douche-gel-douche")
- *   2. Kit markers   : "...-et-eco-recharge-..." inside slug
- *   3. INCI clusters : same brand, INCI Jaccard ≥ 0.95, name Jaccard ≥ 0.6
- *   4. Refill pairs  : same brand+core-name, one entry has "eco-recharge" /
- *                      "famille" / "kit" / "lot-de-N", other doesn't
- *
- * Usage: bun run backend/src/db/seed/maintenance/scan-db-duplicates.ts <backup.sql>
- */
+// DB-wide duplicate scanner. Catches dup patterns the seed-file audit can't see
+// (Atoderm-style: products sit in DB only, no seed entry). Pulls (slug, name,
+// brand, kind, inci, imageUrl, totalAmount, amountUnit) from a backup SQL file,
+// which avoids hitting the live DB and keeps results stable across runs.
+
+// Usage: bun run backend/src/db/seed/maintenance/scan-db-duplicates.ts <backup.sql>
 
 import { readFileSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
@@ -44,8 +33,8 @@ type Row = {
 
 // pg_dump emits two formats: COPY ... FROM stdin (default backup) or
 // INSERT INTO ... VALUES (--inserts, used by the committed snapshot at
-// src/db/snapshot/data.sql). Support both — \N for COPY nulls, the bare
-// NULL keyword for INSERT — so the scanner runs on either source.
+// src/db/snapshot/data.sql). Support both (\N for COPY nulls, the bare
+// NULL keyword for INSERT) so the scanner runs on either source.
 function parseCopy(dump: string): string[][] | null {
   const m = dump.match(/^COPY public\.products \([^)]*\) FROM stdin;\n/m)
   if (!m) return null
@@ -60,7 +49,7 @@ function parseCopy(dump: string): string[][] | null {
 
 // Column-aware splitter for one `INSERT INTO ... VALUES (...)` tuple. Walks
 // chars so quoted strings (with '' escapes and embedded newlines/commas) and
-// the unquoted NULL keyword survive. NULL → \N to reuse the COPY mapping.
+// the unquoted NULL keyword survive. NULL becomes \N to reuse the COPY mapping.
 function parseInserts(dump: string): string[][] {
   const rows: string[][] = []
   const PREFIX = 'INSERT INTO public.products VALUES ('
@@ -119,17 +108,17 @@ const rows: Row[] = cells.map((c) => ({
 
 console.log(`Loaded ${rows.length} products from backup\n`)
 
-// 1. Slug typos — same fragment repeated
+// 1. Slug typos: repeated fragment, e.g. "gel-douche-gel-douche"
 const SLUG_TYPO_RE = /\b([a-z]{4,}(?:-[a-z]{2,})?)-\1\b/
 const slugTypos: Row[] = []
 for (const r of rows) {
   if (SLUG_TYPO_RE.test(r.slug)) slugTypos.push(r)
 }
 
-// 2. Kit/refill markers in slug
+// 2. Kit/refill markers in slug, e.g. "...-et-eco-recharge-..."
 const kits: Row[] = rows.filter((r) => KIT_PACK_RE.test(r.slug))
 
-// 3. INCI clusters — same brand, similar INCI, similar core name
+// 3. INCI clusters: same brand, similar INCI, similar core name
 function tokenizeInci(s: string): Set<string> {
   return new Set(
     s
@@ -189,7 +178,7 @@ for (const [, brandRows] of byBrand) {
   }
 }
 
-// 4. Refill pairs — same brand, same core name (volumes/markers stripped),
+// 4. Refill pairs: same brand, same core name (volumes/markers stripped),
 // one has refill marker, other doesn't
 const REFILL_MARKERS = /\b(eco[-\s]?recharge|recharge|kit|coffret|famille|duo-pack)\b/i
 function coreName(n: string): string {

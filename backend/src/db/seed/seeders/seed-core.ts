@@ -1,25 +1,9 @@
-import {
-  type ProductCategory,
-  type ProductKind,
-  type ProductTexture,
-  SKINCARE_INGREDIENT_CATEGORY_VALUES,
-} from '@aurore/shared'
-
 import slugify from '@sindresorhus/slugify'
 import { count, eq, sql } from 'drizzle-orm'
 
-import {
-  type AutoTagSource,
-  buildOrchestratorInput,
-  detectAllAutoTags,
-  partitionEczemaReview,
-} from '../../../features/auto-tagging'
-import { addTagToIngredient } from '../../../features/ingredient-tags/service'
 import { createIngredient } from '../../../features/ingredients/service'
-import { addTagToProduct } from '../../../features/product-tags/service'
-import { addIngredientToProduct } from '../../../features/products/product-ingredients/product-ingredients.service'
 import { createProduct } from '../../../features/products/service'
-import { db } from '../..'
+import { type DatabaseTransaction, db } from '../..'
 import {
   brandCertifications,
   ingredientDermoProfiles,
@@ -37,21 +21,38 @@ import { ingredientData } from '../data/ingredients'
 import { FILLER_SLUGS } from '../data/ingredients/skincare/seed-dermo-profiles-fillers'
 import { allIngredientProductTags, allProductData, allProductTagsMap } from '../data/products'
 import { ingredientTagData, productTagData } from '../data/tags'
-import { type ProductTagGroups, seedBatch, toNumeric, toText } from '../utils/batch'
+import { type ProductTagGroups, seedBatch } from '../utils/batch'
 import { cleanDatabase, fetchIdMaps, flattenTagGroups } from '../utils/id-maps'
-import { printValidationReport, validateAllIngredients } from '../utils/markdown-validator'
+import {
+  type IngredientSeed,
+  printValidationReport,
+  validateAllIngredients,
+} from '../utils/markdown-validator'
 import { getOrCreateSeedUser } from './create-user'
-import { mergeProductTagPairs } from './merge-product-tag-pairs'
+import { linkIngredientTags, linkProductIngredients, linkProductTags } from './link-seed-relations'
+import { planIngredientTagPairs, printIngredientTagPlan } from './plan-ingredient-tag-pairs'
+import { planProductTagPairs, printProductTagPlan } from './plan-product-tag-pairs'
 import { seedBlog } from './seed-blog'
 import { seedTestUsers } from './seed-test-users'
 import { seedUserCollection } from './seed-user-collection'
 
-// Lookup in a slug→id map after `pruneRelationshipPairs` guaranteed the key
-// exists. A miss here means the prune step is broken, so throw loudly.
-function requireId(map: Map<string, string>, key: string, entity: string): string {
-  const id = map.get(key)
-  if (id === undefined) throw new Error(`Missing ${entity} id for slug "${key}"`)
-  return id
+interface ExistingSeedState {
+  ingredientSlugs: Set<string>
+  productSlugs: Set<string>
+  tagProductPairs: Set<string>
+  tagIngredientPairs: Set<string>
+  productIngredientPairs: Set<string>
+}
+
+// Reproduces createProduct's slug derivation for filtering (input.slug ??
+// `${name}-${brand}`, then slugify). Needed because seed product entries can
+// omit slug: the filter against existingProductSlugs has to compare the
+// same canonical form the insert path would produce.
+function computeProductSlug(input: { name: string; brand: string; slug?: string }): string {
+  const name = input.name.trim().replace(/\s+/g, ' ')
+  const brand = input.brand.trim().replace(/\s+/g, ' ')
+  const raw = input.slug ?? `${name}${brand ? `-${brand}` : ''}`
+  return slugify(raw)
 }
 
 function warnInvalidEntries() {
@@ -65,112 +66,227 @@ function warnInvalidEntries() {
   console.warn('  Vérifie que la propriété est bien nommée "slug" dans les fichiers source.\n')
 }
 
-// Dedupe (slug, tagSlug) pairs — keeps the first relevance seen. Silent
-// collapse instead of throwing: the obsolete-tag remap and the native
-// category backfill both legitimately produce identical pairs, and the
-// DB treats a re-tag as idempotent.
-function dedupPairs<T extends { slug: string; tagSlug: string }>(pairs: T[], label: string): T[] {
-  const seen = new Set<string>()
-  const kept: T[] = []
-  for (const pair of pairs) {
-    const key = `${pair.slug}::${pair.tagSlug}`
-    if (seen.has(key)) continue
-    seen.add(key)
-    kept.push(pair)
+// Mismatch guard: if the target DB already holds more products than the
+// JS seed files would insert, the operator probably wired the wrong DB
+// (e.g. dev instead of test). Refuse unless SEED_FORCE_RESET=1. The
+// 2026-05-07 incident: dev DB had 3137 snapshot products, seed had 469,
+// and the truncate destroyed 2668 rows.
+async function assertResetTargetsSeedDatabase(tx: DatabaseTransaction): Promise<void> {
+  const [{ value: dbProductCount }] = await tx.select({ value: count() }).from(products)
+  const seedProductCount = allProductData.length
+  if (dbProductCount > seedProductCount && process.env.SEED_FORCE_RESET !== '1') {
+    throw new Error(
+      `Refus du --reset : la DB cible contient ${dbProductCount} produits, le seed JS n'en fournit que ${seedProductCount}. ` +
+        `Vraisemblablement la mauvaise DB (dev au lieu de test ?). ` +
+        `Si tu es sûr, relance avec SEED_FORCE_RESET=1. ` +
+        `Pour récupérer une DB dev écrasée : just db-snapshot-load.`
+    )
   }
-  const dupes = pairs.length - kept.length
-  if (dupes > 0) console.log(`ℹ️  ${dupes} doublon(s) ${label} fusionné(s)`)
-  return kept
 }
 
-// Filters a relationship pair list to rows whose left AND right slug
-// resolved to a created entity. Unresolved slugs are reported once per
-// entity as warnings — the seed keeps going with the valid subset instead
-// of aborting on the first stale reference.
-function pruneRelationshipPairs<T extends Record<string, unknown>>(
-  pairs: T[],
-  leftSlugField: string,
-  rightSlugField: string,
-  leftMap: Map<string, string>,
-  rightMap: Map<string, string>,
-  leftEntityName: string,
-  rightEntityName: string
-): T[] {
-  const missingLeft = new Set<string>()
-  const missingRight = new Set<string>()
-  const kept: T[] = []
-
-  for (const pair of pairs) {
-    const leftSlug = pair[leftSlugField]
-    const rightSlug = pair[rightSlugField]
-    const leftOk = typeof leftSlug === 'string' && leftMap.has(leftSlug)
-    const rightOk = typeof rightSlug === 'string' && rightMap.has(rightSlug)
-
-    if (!leftOk && typeof leftSlug === 'string') missingLeft.add(leftSlug)
-    if (!rightOk && typeof rightSlug === 'string') missingRight.add(rightSlug)
-
-    if (leftOk && rightOk) kept.push(pair)
-  }
-
-  if (missingLeft.size > 0) {
-    console.warn(
-      `\n⚠️  ${missingLeft.size} ${leftEntityName}(s) référencés mais non créés (ignorés) :`
-    )
-    for (const s of missingLeft) {
-      console.warn(`   - ${s}`)
+// Idempotent mode can't rely on per-row try/catch: `seedBatch` catches the error, but the
+// unique-violation has already aborted the whole Postgres transaction, so every later statement
+// fails too. SAVEPOINTs would fix it, but Drizzle's nested-tx counter races ("savepoint sN does
+// not exist"). So we fetch existing slugs/pairs up front and filter the seed inputs before insert.
+async function readExistingSeedState(
+  tx: DatabaseTransaction,
+  idempotent: boolean
+): Promise<ExistingSeedState> {
+  if (!idempotent) {
+    return {
+      ingredientSlugs: new Set<string>(),
+      productSlugs: new Set<string>(),
+      tagProductPairs: new Set<string>(),
+      tagIngredientPairs: new Set<string>(),
+      productIngredientPairs: new Set<string>(),
     }
   }
 
-  if (missingRight.size > 0) {
-    console.warn(
-      `\n⚠️  ${missingRight.size} ${rightEntityName}(s) référencés mais non créés (ignorés) :`
-    )
-    for (const s of missingRight) {
-      console.warn(`   - ${s}`)
-    }
+  console.log('🔎 Lecture de l’état DB existant pour pré-filtrage...')
+  const [existIng, existProd, existTagProd, existTagIng, existProdIng] = await Promise.all([
+    tx.select({ slug: ingredients.slug }).from(ingredients),
+    tx.select({ slug: products.slug }).from(products),
+    tx
+      .select({ pId: productTagLinks.productId, tId: productTagLinks.productTagId })
+      .from(productTagLinks),
+    tx
+      .select({ iId: ingredientTagLinks.ingredientId, tId: ingredientTagLinks.ingredientTagId })
+      .from(ingredientTagLinks),
+    tx
+      .select({ pId: productIngredients.productId, iId: productIngredients.ingredientId })
+      .from(productIngredients),
+  ])
+  const state: ExistingSeedState = {
+    ingredientSlugs: new Set(existIng.map((r) => r.slug)),
+    productSlugs: new Set(existProd.map((r) => r.slug)),
+    tagProductPairs: new Set(existTagProd.map((r) => `${r.pId}::${r.tId}`)),
+    tagIngredientPairs: new Set(existTagIng.map((r) => `${r.iId}::${r.tId}`)),
+    productIngredientPairs: new Set(existProdIng.map((r) => `${r.pId}::${r.iId}`)),
   }
-
-  return kept
-}
-
-// Idempotent-mode filter: keep only pairs not already linked in DB. Pairs
-// whose slugs resolve to no id are dropped silently — pruneRelationshipPairs
-// already warned about them.
-function filterNewPairs<T extends Record<string, unknown>>(
-  idempotent: boolean,
-  pairs: T[],
-  leftSlugField: string,
-  rightSlugField: string,
-  leftMap: Map<string, string>,
-  rightMap: Map<string, string>,
-  existingPairs: Set<string>,
-  label: string
-): T[] {
-  if (!idempotent) return pairs
-  const kept = pairs.filter((pair) => {
-    const leftSlug = pair[leftSlugField]
-    const rightSlug = pair[rightSlugField]
-    if (typeof leftSlug !== 'string' || typeof rightSlug !== 'string') return false
-    const leftId = leftMap.get(leftSlug)
-    const rightId = rightMap.get(rightSlug)
-    if (!leftId || !rightId) return false
-    return !existingPairs.has(`${leftId}::${rightId}`)
-  })
   console.log(
-    `   ${label} à insérer : ${kept.length} (${pairs.length - kept.length} déjà liés, sautés)`
+    `   Existant : ${state.ingredientSlugs.size} ingrédients · ${state.productSlugs.size} produits · ${state.tagProductPairs.size} tag-products · ${state.tagIngredientPairs.size} tag-ingredients · ${state.productIngredientPairs.size} product-ingredients`
   )
-  return kept
+  return state
 }
 
-// Reproduces createProduct's slug derivation for filtering (input.slug ??
-// `${name}-${brand}`, then slugify). Needed because seed product entries can
-// omit slug — the filter against existingProductSlugs has to compare the
-// same canonical form the insert path would produce.
-function computeProductSlug(input: { name: string; brand: string; slug?: string }): string {
-  const name = input.name.trim().replace(/\s+/g, ' ')
-  const brand = input.brand.trim().replace(/\s+/g, ' ')
-  const raw = input.slug ?? `${name}${brand ? `-${brand}` : ''}`
-  return slugify(raw)
+// Validate markdown before touching the DB
+function validateIngredientMarkdown(): IngredientSeed[] {
+  console.log('🔍 Validation du markdown des ingrédients...')
+  const ingredientValidation = validateAllIngredients(ingredientData)
+  printValidationReport(ingredientValidation)
+
+  if (ingredientValidation.summary.valid === 0 && ingredientData.length > 0) {
+    throw new Error('Aucun ingrédient valide - Seed interrompu')
+  }
+  return ingredientValidation.fixed
+}
+
+// Tag definitions (ingredient + product domains are independent). Bulk insert
+// bypasses per-row service calls since seed data is already in the schema's
+// `{slug, label, tagType}` shape. `onConflictDoNothing` on the slug unique idx
+// lets a later run pick up new slugs without erroring on existing ones.
+async function seedTagDefinitions(tx: DatabaseTransaction): Promise<void> {
+  if (ingredientTagData.length > 0) {
+    await tx.insert(ingredientTagTypes).values(ingredientTagData).onConflictDoNothing({
+      target: ingredientTagTypes.slug,
+    })
+  }
+  console.log(`✅ ${ingredientTagData.length} ingredient_tags créés`)
+
+  if (productTagData.length > 0) {
+    await tx.insert(productTagTypes).values(productTagData).onConflictDoNothing({
+      target: productTagTypes.slug,
+    })
+  }
+  console.log(`✅ ${productTagData.length} product_tags créés`)
+}
+
+// Brand-level certifications. Independent of product/tag rows: safe to seed before
+// products since the lookup is by free-text brand, not FK. Idempotent via PK upsert;
+// running it again after editing the curated list refreshes flags + sources.
+async function seedBrandCertificationRows(tx: DatabaseTransaction): Promise<void> {
+  if (BRAND_CERTIFICATION_INSERTS.length > 0) {
+    await tx
+      .insert(brandCertifications)
+      .values(BRAND_CERTIFICATION_INSERTS)
+      .onConflictDoUpdate({
+        target: brandCertifications.brandNormalized,
+        set: {
+          brandDisplay: sql`excluded.brand_display`,
+          isVegan: sql`excluded.is_vegan`,
+          isCrueltyFree: sql`excluded.is_cruelty_free`,
+          isNaturalCertified: sql`excluded.is_natural_certified`,
+          sources: sql`excluded.sources`,
+          notes: sql`excluded.notes`,
+        },
+      })
+  }
+  console.log(`✅ ${BRAND_CERTIFICATION_INSERTS.length} brand_certifications créés`)
+}
+
+async function seedIngredientRows(
+  tx: DatabaseTransaction,
+  input: {
+    userId: string
+    seeds: IngredientSeed[]
+    existingSlugs: Set<string>
+    idempotent: boolean
+    shouldUpdate: boolean
+  }
+): Promise<void> {
+  const ingredientsToInsert = input.idempotent
+    ? input.seeds.filter((i) => !input.existingSlugs.has(i.slug))
+    : input.seeds
+  if (input.idempotent) {
+    const skipped = input.seeds.length - ingredientsToInsert.length
+    console.log(
+      `   Ingrédients à insérer : ${ingredientsToInsert.length} (${skipped} déjà en DB, sautés)`
+    )
+  }
+
+  if (input.shouldUpdate && input.idempotent) {
+    const toUpdate = input.seeds.filter((i) => input.existingSlugs.has(i.slug))
+    console.log(`   Ingrédients à mettre à jour : ${toUpdate.length}`)
+    for (const ing of toUpdate) {
+      await tx
+        .update(ingredients)
+        .set({
+          name: ing.name,
+          description: ing.description ?? '',
+          content: ing.content ?? '',
+          category: ing.category ?? null,
+        })
+        .where(eq(ingredients.slug, ing.slug))
+    }
+    console.log(`   ✅ ${toUpdate.length} ingrédients mis à jour`)
+  }
+
+  await seedBatch(
+    'ingrédients',
+    ingredientsToInsert,
+    (ing) => createIngredient(tx, input.userId, 'admin', ing),
+    (ing) => ing.slug,
+    true
+  )
+}
+
+async function seedProductRows(
+  tx: DatabaseTransaction,
+  input: { userId: string; existingSlugs: Set<string>; idempotent: boolean }
+): Promise<void> {
+  const allProductsCast = [...allProductData] as Parameters<typeof createProduct>[2][]
+  const productsToInsert = input.idempotent
+    ? allProductsCast.filter((p) => !input.existingSlugs.has(computeProductSlug(p)))
+    : allProductsCast
+  if (input.idempotent) {
+    const skipped = allProductsCast.length - productsToInsert.length
+    console.log(
+      `   Produits à insérer : ${productsToInsert.length} (${skipped} déjà en DB, sautés)`
+    )
+  }
+
+  await seedBatch(
+    'produits (manuels)',
+    productsToInsert,
+    // Skip per-product auto-tagging: ingredients aren't linked yet, so it
+    // would emit a partial tag set that PK-collides with the dedicated
+    // auto-tag phase below (which runs with percent-claims). That phase is
+    // the authoritative inserter.
+    (p) => createProduct(input.userId, 'admin', p, tx, { autoTag: false }),
+    (p) => p.slug ?? p.name,
+    true
+  )
+}
+
+async function seedFillerDermoProfiles(
+  tx: DatabaseTransaction,
+  ingredientSlugToId: Map<string, string>
+): Promise<void> {
+  console.log('\n🧪 Seed des profils dermo fillers...')
+  const fillerProfiles = FILLER_SLUGS.flatMap((slug) => {
+    const id = ingredientSlugToId.get(slug)
+    if (!id) return []
+    return [{ ingredientId: id, isFiller: true }]
+  })
+
+  if (fillerProfiles.length > 0) {
+    await tx
+      .insert(ingredientDermoProfiles)
+      .values(fillerProfiles)
+      .onConflictDoUpdate({
+        target: ingredientDermoProfiles.ingredientId,
+        set: { isFiller: true },
+      })
+    console.log(`✅ ${fillerProfiles.length} profils dermo fillers insérés`)
+  }
+
+  const missingFillers = FILLER_SLUGS.filter((s) => !ingredientSlugToId.has(s))
+  if (missingFillers.length > 0) {
+    console.warn(`⚠️  ${missingFillers.length} slugs fillers non trouvés en DB :`)
+    for (const s of missingFillers) {
+      console.warn(`   - ${s}`)
+    }
+  }
 }
 
 export async function seedCore(shouldClean = false, shouldUpdate = false) {
@@ -182,28 +298,13 @@ export async function seedCore(shouldClean = false, shouldUpdate = false) {
       : ' [idempotent]'
   console.log(`🌱 Démarrage du seed CORE (Données de base + Produits manuels)${modeLabel}...\n`)
 
-  // All inserts are atomic: if anything fails mid-way the DB rolls back cleanly
+  // All inserts are atomic: if anything fails midway the DB rolls back cleanly
   await db.transaction(async (tx) => {
     // Bypass RLS for the seeder session (owner role)
     await tx.execute(sql`SET LOCAL app.role = 'admin'`)
 
     if (shouldClean) {
-      // Mismatch guard: if the target DB already holds more products than
-      // the JS seed files would re-insert, the operator probably wired the
-      // wrong DB (e.g. dev instead of test) — refuse unless they opt in
-      // explicitly with `SEED_FORCE_RESET=1`. The 2026-05-07 incident is
-      // exactly this scenario: dev DB had 3137 snapshot products, seed had
-      // 469 squelettes, and the truncate destroyed 2668 rows.
-      const [{ value: dbProductCount }] = await tx.select({ value: count() }).from(products)
-      const seedProductCount = allProductData.length
-      if (dbProductCount > seedProductCount && process.env.SEED_FORCE_RESET !== '1') {
-        throw new Error(
-          `Refus du --reset : la DB cible contient ${dbProductCount} produits, le seed JS n'en fournit que ${seedProductCount}. ` +
-            `Vraisemblablement la mauvaise DB (dev au lieu de test ?). ` +
-            `Si tu es sûr, relance avec SEED_FORCE_RESET=1. ` +
-            `Pour récupérer une DB dev écrasée : make db-snapshot-load.`
-        )
-      }
+      await assertResetTargetsSeedDatabase(tx)
       warnInvalidEntries()
       await cleanDatabase(tx)
     }
@@ -212,53 +313,8 @@ export async function seedCore(shouldClean = false, shouldUpdate = false) {
     const user = await getOrCreateSeedUser()
     console.log(`✅ Utilisateur seed : ${user.email} (${user.id})\n`)
 
-    // In idempotent mode we can't rely on per-row try/catch for uniqueness:
-    // Promise.allSettled in `seedBatch` runs inserts concurrently and a single
-    // unique-violation aborts the outer transaction so every later insert
-    // cascade-fails ("current transaction is aborted"). SAVEPOINTs would fix
-    // the abort but Drizzle's nested-tx counter races under concurrency
-    // ("savepoint sN does not exist"). So we pre-fetch existing slugs/pairs
-    // and filter the seed inputs before they ever hit the DB.
-    let existingIngredientSlugs = new Set<string>()
-    let existingProductSlugs = new Set<string>()
-    let existingTagProductPairs = new Set<string>()
-    let existingTagIngredientPairs = new Set<string>()
-    let existingProductIngredientPairs = new Set<string>()
-
-    if (idempotent) {
-      console.log('🔎 Lecture de l’état DB existant pour pré-filtrage...')
-      const [existIng, existProd, existTagProd, existTagIng, existProdIng] = await Promise.all([
-        tx.select({ slug: ingredients.slug }).from(ingredients),
-        tx.select({ slug: products.slug }).from(products),
-        tx
-          .select({ pId: productTagLinks.productId, tId: productTagLinks.productTagId })
-          .from(productTagLinks),
-        tx
-          .select({ iId: ingredientTagLinks.ingredientId, tId: ingredientTagLinks.ingredientTagId })
-          .from(ingredientTagLinks),
-        tx
-          .select({ pId: productIngredients.productId, iId: productIngredients.ingredientId })
-          .from(productIngredients),
-      ])
-      existingIngredientSlugs = new Set(existIng.map((r) => r.slug))
-      existingProductSlugs = new Set(existProd.map((r) => r.slug))
-      existingTagProductPairs = new Set(existTagProd.map((r) => `${r.pId}::${r.tId}`))
-      existingTagIngredientPairs = new Set(existTagIng.map((r) => `${r.iId}::${r.tId}`))
-      existingProductIngredientPairs = new Set(existProdIng.map((r) => `${r.pId}::${r.iId}`))
-      console.log(
-        `   Existant : ${existingIngredientSlugs.size} ingrédients · ${existingProductSlugs.size} produits · ${existingTagProductPairs.size} tag-products · ${existingTagIngredientPairs.size} tag-ingredients · ${existingProductIngredientPairs.size} product-ingredients`
-      )
-    }
-
-    // Validate markdown before touching the DB
-    console.log('🔍 Validation du markdown des ingrédients...')
-    const ingredientValidation = validateAllIngredients(ingredientData)
-    printValidationReport(ingredientValidation)
-
-    if (ingredientValidation.summary.valid === 0 && ingredientData.length > 0) {
-      throw new Error('Aucun ingrédient valide - Seed interrompu')
-    }
-    const correctedIngredientData = ingredientValidation.fixed
+    const existing = await readExistingSeedState(tx, idempotent)
+    const correctedIngredientData = validateIngredientMarkdown()
 
     // Prepare relation pairs (pure data, no DB) so we can validate before the transaction.
     // `source: 'manual'` marks curated rows so a later auto-tag retag preserves them
@@ -267,487 +323,71 @@ export async function seedCore(shouldClean = false, shouldUpdate = false) {
       allProductTagsMap as Record<string, ProductTagGroups>
     ).map((p) => ({ ...p, source: 'manual' as const }))
 
-    // Auto-derive product tags via the shared orchestrator (10 ordered layers,
-    // including percent-claim, interaction, brand, and peau-normale in addition
-    // to algo-derm/actif-class/kind/formula/cross-signal/avoid) running on every
-    // skincare/solaire/bodycare product. Single source of truth shared with
-    // `features/auto-tagging/runners/backfill/main.ts` — seed-core followed by a
-    // backfill re-run is a no-op on auto-tag pairs (parity test
-    // `features/auto-tagging/tests/auto-tag-orchestrator-parity.test.ts`
-    // enforces this contract).
-    // Brand certifications are inserted later in this same transaction, but
-    // the auto-tag pass runs in-memory (no DB read). Build the lookup
-    // straight from the curated list. The Insert shape has booleans
-    // optional (DB defaults) — coerce to Select shape so the orchestrator's
-    // ReadonlyMap<string, BrandCertification> type matches.
-    const brandCertMap = new Map(
-      BRAND_CERTIFICATION_INSERTS.map((r) => [
-        r.brandNormalized,
-        {
-          brandNormalized: r.brandNormalized,
-          brandDisplay: r.brandDisplay,
-          isVegan: r.isVegan ?? false,
-          isCrueltyFree: r.isCrueltyFree ?? false,
-          isNaturalCertified: r.isNaturalCertified ?? false,
-          sources: r.sources ?? {},
-          notes: r.notes ?? null,
-          updatedAt: new Date().toISOString(),
-        },
-      ])
-    )
-
-    // Exhaustive by construction: a new AutoTagSource fails compilation here
-    // instead of vanishing from the seed stats.
-    const zeroBySource = (): Record<AutoTagSource, number> => ({
-      'algo-derm': 0,
-      'actif-class': 0,
-      kind: 0,
-      formula: 0,
-      'cross-signal': 0,
-      interaction: 0,
-      concentration: 0,
-      brand: 0,
-      'percent-claim': 0,
-    })
-    // `'cross-signal'` source overlaps between secondary and avoid streams —
-    // disambiguate by AutoTagPair.relevance.
-    const secondaryBySource = zeroBySource()
-    const avoidBySource = zeroBySource()
-    const formatBySource = (counts: Record<AutoTagSource, number>): string =>
-      Object.entries(counts)
-        .filter(([, n]) => n > 0)
-        .map(([source, n]) => `${source} ${n}`)
-        .join(' · ')
-    const autoSecondaryPairs: {
-      slug: string
-      tagSlug: string
-      relevance: 'secondary'
-      source: string
-    }[] = []
-    const avoidPairs: {
-      slug: string
-      tagSlug: string
-      relevance: 'avoid'
-      source: string
-    }[] = []
-    // Sentinel queue: products whose description names atopy under a
-    // contraindication. The eczema-atopie tag is withheld (it would invert the
-    // claim) and the product is surfaced for manual review at end of run.
-    // Guards the future import, see partitionEczemaReview.
-    const eczemaReviewQueue: { slug: string; name: string; description: string }[] = []
-    const percentClaimsByProduct = new Map<
-      string,
-      {
-        ingredientSlug: string
-        concentrationValue: number
-        concentrationUnit: string
-      }[]
-    >()
-    for (const row of allIngredientProductTags) {
-      if (!row.ingredientSlug || row.concentrationValue == null || !row.concentrationUnit) continue
-      const arr = percentClaimsByProduct.get(row.productSlug) ?? []
-      arr.push({
-        ingredientSlug: row.ingredientSlug,
-        concentrationValue: Number(row.concentrationValue),
-        concentrationUnit: row.concentrationUnit,
-      })
-      percentClaimsByProduct.set(row.productSlug, arr)
-    }
-    for (const product of allProductData) {
-      const inci = (product as { inci?: string | null }).inci
-      const name = (product as { name?: string | null }).name
-      const description = (product as { description?: string | null }).description
-      const texture = (product as { texture?: ProductTexture | null }).texture
-      // knownConcentrations stays absent at seed time (product_ingredients rows
-      // do not exist yet); the post-seed backfill supplies dose-gated emissions.
-      const pairs = detectAllAutoTags(
-        buildOrchestratorInput(
-          {
-            inci,
-            kind: product.kind as ProductKind,
-            category: product.category as ProductCategory,
-            brand: product.brand,
-            texture: texture ?? null,
-            name: name ?? null,
-            description: description ?? null,
-          },
-          { percentClaims: percentClaimsByProduct.get(product.slug) ?? [] }
-        ),
-        { brandCertifications: brandCertMap }
-      )
-      const { kept, withheld } = partitionEczemaReview(pairs, description)
-      if (withheld) {
-        eczemaReviewQueue.push({
-          slug: product.slug,
-          name: name ?? product.slug,
-          description: description ?? '',
-        })
-      }
-      for (const p of kept) {
-        if (p.relevance === 'avoid') {
-          avoidBySource[p.source] += 1
-          avoidPairs.push({
-            slug: product.slug,
-            tagSlug: p.tagSlug,
-            relevance: 'avoid',
-            source: p.source,
-          })
-        } else {
-          secondaryBySource[p.source] += 1
-          autoSecondaryPairs.push({
-            slug: product.slug,
-            tagSlug: p.tagSlug,
-            relevance: 'secondary',
-            source: p.source,
-          })
-        }
-      }
-    }
-    if (autoSecondaryPairs.length > 0) {
-      console.log(
-        `🏷  Backfill auto-tags: +${autoSecondaryPairs.length} pair(s) (${formatBySource(secondaryBySource)})`
-      )
-    }
-    if (avoidPairs.length > 0) {
-      console.log(
-        `🛡  Backfill avoid: +${avoidPairs.length} pair(s) (${formatBySource(avoidBySource)})`
-      )
-    }
-    if (eczemaReviewQueue.length > 0) {
-      console.warn(
-        `⚠  eczema-atopie review queue: ${eczemaReviewQueue.length} product(s) name atopy under a contraindication — NOT auto-tagged, review manually:`
-      )
-      for (const f of eczemaReviewQueue) {
-        console.warn(`    • ${f.name} [${f.slug}] — ${f.description.slice(0, 160)}`)
-      }
-    }
-
-    // Manual wins every collision, same invariant as write.ts (DELETE scoped
-    // to non-manual) and backfill classify.ts (!isManual). A diverging auto
-    // `avoid` is dropped and reported below: the seed TS is the only home of
-    // curation, so a pair silently replaced here is unrecoverable by retags.
-    const {
-      pairs: productTagPairs,
-      conflicts: avoidManualConflicts,
-      dupes: productTagDupes,
-    } = mergeProductTagPairs({
+    const productTagPlan = planProductTagPairs({
+      products: allProductData,
       manual: manualProductTagPairs,
-      avoid: avoidPairs,
-      auto: autoSecondaryPairs,
+      percentClaims: allIngredientProductTags,
+      brandCertifications: BRAND_CERTIFICATION_INSERTS,
     })
-    if (productTagDupes > 0) console.log(`ℹ️  ${productTagDupes} doublon(s) productTags fusionné(s)`)
-    if (avoidManualConflicts.length > 0) {
-      console.warn(
-        `⚠  ${avoidManualConflicts.length} 'avoid' auto en conflit avec une curation manuelle — ignorés, à arbitrer :`
-      )
-      for (const c of avoidManualConflicts) {
-        console.warn(
-          `    • ${c.slug} · ${c.tagSlug} (manual ${c.manualRelevance} vs avoid ${c.avoidSource})`
-        )
-      }
-    }
+    printProductTagPlan(productTagPlan)
 
     const validProductIngredients = allIngredientProductTags.filter((i) => !!i.ingredientSlug)
 
-    const rawIngredientTagPairs = flattenTagGroups(
-      ingredientTagMap as Record<string, ProductTagGroups>
-    )
-
-    // Drop entries whose tagSlug resolved to `undefined` — these originate
-    // from domain slug references in ingredientTagMap pointing at slugs
-    // removed during a tag split (AJUSTEUR_PH, SOLVANT, AHA, ACNE…). We warn
-    // once with a unique key list so the taxonomy can be reconciled manually;
-    // the seed keeps running.
-    const droppedTagKeys = new Set<string>()
-    const ingredientTagPairs = rawIngredientTagPairs.filter((p) => {
-      if (typeof p.tagSlug !== 'string' || p.tagSlug.length === 0) {
-        droppedTagKeys.add(String(p.tagSlug))
-        return false
-      }
-      return true
+    const ingredientTagPlan = planIngredientTagPairs({
+      pairs: flattenTagGroups(ingredientTagMap as Record<string, ProductTagGroups>),
+      ingredients: correctedIngredientData,
     })
-    if (droppedTagKeys.size > 0) {
-      console.warn(
-        `⚠️  ${rawIngredientTagPairs.length - ingredientTagPairs.length} pair(s) ingredientTags ignorée(s) — slugs inexistants: ${[...droppedTagKeys].join(', ')}`
-      )
-    }
+    printIngredientTagPlan(ingredientTagPlan)
 
-    // Backfill: every ingredient with a native `category` matching an
-    // ingredient_attribute slug (actif, humectant, emollient, filtre-uv,
-    // tensioactif, excipient…) gets a synthetic 'primary' tag pair if the
-    // manual map doesn't already list it. This way the attribute filter
-    // bucket stays in sync with the native column without hand-editing
-    // hundreds of entries. The shared-schemas-vs-tags test guarantees
-    // SKINCARE_INGREDIENT_CATEGORY_VALUES ↔ ingredient_attribute tag slugs.
-    const existing = new Set(ingredientTagPairs.map((p) => `${p.slug}::${p.tagSlug}`))
-    // Whitelist of skincare formulation roles that exist as ingredient_attribute
-    // tag slugs. Supplement ingredients store their functional class in the same
-    // `category` column (carotenoide, plante, neuroactif…) — skip them here so
-    // the backfill never emits tags that aren't in the ingredient taxonomy.
-    const validCategorySlugs = new Set<string>(SKINCARE_INGREDIENT_CATEGORY_VALUES)
-    let backfilled = 0
-    for (const ing of correctedIngredientData) {
-      const category = ing.category
-      if (!category) continue
-      if (!validCategorySlugs.has(category)) continue
-      const key = `${ing.slug}::${category}`
-      if (existing.has(key)) continue
-      ingredientTagPairs.push({ slug: ing.slug, tagSlug: category, relevance: 'primary' })
-      existing.add(key)
-      backfilled++
-    }
-    if (backfilled > 0) {
-      console.log(`🔁 Backfill: +${backfilled} ingredient_attribute tags depuis la colonne native`)
-    }
+    await seedTagDefinitions(tx)
+    await seedBrandCertificationRows(tx)
 
-    const dedupedIngredientTagPairs = dedupPairs(ingredientTagPairs, 'ingredientTags')
+    await seedIngredientRows(tx, {
+      userId: user.id,
+      seeds: correctedIngredientData,
+      existingSlugs: existing.ingredientSlugs,
+      idempotent,
+      shouldUpdate,
+    })
 
-    // 1. Tag definitions (ingredient + product domains are independent).
-    // Bulk insert bypasses per-row service calls because seed data is already
-    // in the `{slug, label, tagType}` shape the schema expects.
-    // Bulk tag defs use `onConflictDoNothing` on the slug unique idx so a
-    // re-run picks up new slugs without erroring on existing ones. Harmless
-    // after `cleanDatabase` (table is empty).
-    if (ingredientTagData.length > 0) {
-      await tx.insert(ingredientTagTypes).values(ingredientTagData).onConflictDoNothing({
-        target: ingredientTagTypes.slug,
-      })
-    }
-    console.log(`✅ ${ingredientTagData.length} ingredient_tags créés`)
+    await seedProductRows(tx, {
+      userId: user.id,
+      existingSlugs: existing.productSlugs,
+      idempotent,
+    })
 
-    if (productTagData.length > 0) {
-      await tx.insert(productTagTypes).values(productTagData).onConflictDoNothing({
-        target: productTagTypes.slug,
-      })
-    }
-    console.log(`✅ ${productTagData.length} product_tags créés`)
-
-    // Brand-level certifications (T4.B). Independent of product/tag rows —
-    // safe to seed before products since the lookup is by free-text brand,
-    // not FK. Idempotent via PK upsert; re-runs after editing the curated
-    // list refresh flags + sources.
-    if (BRAND_CERTIFICATION_INSERTS.length > 0) {
-      await tx
-        .insert(brandCertifications)
-        .values(BRAND_CERTIFICATION_INSERTS)
-        .onConflictDoUpdate({
-          target: brandCertifications.brandNormalized,
-          set: {
-            brandDisplay: sql`excluded.brand_display`,
-            isVegan: sql`excluded.is_vegan`,
-            isCrueltyFree: sql`excluded.is_cruelty_free`,
-            isNaturalCertified: sql`excluded.is_natural_certified`,
-            sources: sql`excluded.sources`,
-            notes: sql`excluded.notes`,
-          },
-        })
-    }
-    console.log(`✅ ${BRAND_CERTIFICATION_INSERTS.length} brand_certifications créés`)
-
-    const ingredientsToInsert = idempotent
-      ? correctedIngredientData.filter((i) => !existingIngredientSlugs.has(i.slug))
-      : correctedIngredientData
-    if (idempotent) {
-      const skipped = correctedIngredientData.length - ingredientsToInsert.length
-      console.log(
-        `   Ingrédients à insérer : ${ingredientsToInsert.length} (${skipped} déjà en DB, sautés)`
-      )
-    }
-
-    if (shouldUpdate && idempotent) {
-      const toUpdate = correctedIngredientData.filter((i) => existingIngredientSlugs.has(i.slug))
-      console.log(`   Ingrédients à mettre à jour : ${toUpdate.length}`)
-      for (const ing of toUpdate) {
-        await tx
-          .update(ingredients)
-          .set({
-            name: ing.name,
-            description: ing.description ?? '',
-            content: ing.content ?? '',
-            category: ing.category ?? null,
-          })
-          .where(eq(ingredients.slug, ing.slug))
-      }
-      console.log(`   ✅ ${toUpdate.length} ingrédients mis à jour`)
-    }
-
-    await seedBatch(
-      'ingrédients',
-      ingredientsToInsert,
-      (ing) => createIngredient(tx, user.id, 'admin', ing),
-      (ing) => ing.slug,
-      true
-    )
-
-    const allProductsCast = [...allProductData] as Parameters<typeof createProduct>[2][]
-    const productsToInsert = idempotent
-      ? allProductsCast.filter((p) => !existingProductSlugs.has(computeProductSlug(p)))
-      : allProductsCast
-    if (idempotent) {
-      const skipped = allProductsCast.length - productsToInsert.length
-      console.log(
-        `   Produits à insérer : ${productsToInsert.length} (${skipped} déjà en DB, sautés)`
-      )
-    }
-
-    await seedBatch(
-      'produits (manuels)',
-      productsToInsert,
-      // Skip per-product auto-tagging: ingredients aren't linked yet, so it
-      // would emit a partial tag set that PK-collides with the dedicated
-      // auto-tag phase below (which runs with percent-claims). That phase is
-      // the authoritative inserter.
-      (p) => createProduct(user.id, 'admin', p, tx, { autoTag: false }),
-      (p) => p.slug ?? p.name,
-      true
-    )
-
-    // 2. Fetch IDs of just-inserted entities within the same transaction
+    // Fetch IDs of just-inserted entities within the same transaction
     const { productSlugToId, productTagSlugToId, ingredientTagSlugToId, ingredientSlugToId } =
       await fetchIdMaps(tx)
 
-    // 3. Relations
-    console.log('\n🔗 Préparation des relations produit-tags...')
-    const prunedProductTagPairs = pruneRelationshipPairs(
-      productTagPairs,
-      'slug',
-      'tagSlug',
+    await linkProductTags(tx, {
+      pairs: productTagPlan.pairs,
       productSlugToId,
       productTagSlugToId,
-      'Produit',
-      'ProductTag'
-    )
-
-    const productTagPairsToInsert = filterNewPairs(
+      existingPairs: existing.tagProductPairs,
       idempotent,
-      prunedProductTagPairs,
-      'slug',
-      'tagSlug',
-      productSlugToId,
-      productTagSlugToId,
-      existingTagProductPairs,
-      'ProductTags'
-    )
-
-    await seedBatch(
-      'productTags',
-      productTagPairsToInsert,
-      ({ slug, tagSlug, relevance, source }) =>
-        addTagToProduct(
-          tx,
-          requireId(productSlugToId, slug, 'product'),
-          requireId(productTagSlugToId, tagSlug, 'productTag'),
-          relevance,
-          source
-        ),
-      ({ slug, tagSlug }) => `${slug} ↔ ${tagSlug}`
-    )
-
-    console.log('\n🔗 Préparation des relations produit-ingrédients...')
-    const prunedProductIngredients = pruneRelationshipPairs(
-      validProductIngredients,
-      'productSlug',
-      'ingredientSlug',
-      productSlugToId,
-      ingredientSlugToId,
-      'Produit',
-      'Ingrédient'
-    )
-
-    const productIngredientsToInsert = filterNewPairs(
-      idempotent,
-      prunedProductIngredients,
-      'productSlug',
-      'ingredientSlug',
-      productSlugToId,
-      ingredientSlugToId,
-      existingProductIngredientPairs,
-      'ProductIngredients'
-    )
-
-    await seedBatch(
-      'productIngredients',
-      productIngredientsToInsert,
-      ({ productSlug, ingredientSlug, notes, concentrationValue, concentrationUnit }) => {
-        if (!ingredientSlug) throw new Error(`Missing ingredientSlug for product ${productSlug}`)
-        return addIngredientToProduct(tx, {
-          productId: requireId(productSlugToId, productSlug, 'product'),
-          ingredientId: requireId(ingredientSlugToId, ingredientSlug, 'ingredient'),
-          notes: toText(notes),
-          concentrationValue: toNumeric(concentrationValue),
-          concentrationUnit: toText(concentrationUnit),
-          concentrationPer: null,
-        })
-      },
-      ({ productSlug, ingredientSlug }) => `${productSlug} ↔ ${ingredientSlug}`
-    )
-
-    console.log('\n🔗 Préparation des relations ingrédient-tags...')
-    const prunedIngredientTagPairs = pruneRelationshipPairs(
-      dedupedIngredientTagPairs,
-      'slug',
-      'tagSlug',
-      ingredientSlugToId,
-      ingredientTagSlugToId,
-      'Ingrédient',
-      'IngredientTag'
-    )
-
-    const ingredientTagPairsToInsert = filterNewPairs(
-      idempotent,
-      prunedIngredientTagPairs,
-      'slug',
-      'tagSlug',
-      ingredientSlugToId,
-      ingredientTagSlugToId,
-      existingTagIngredientPairs,
-      'IngredientTags'
-    )
-
-    await seedBatch(
-      'ingredientTags',
-      ingredientTagPairsToInsert,
-      ({ slug, tagSlug, relevance }) =>
-        addTagToIngredient(
-          tx,
-          requireId(ingredientSlugToId, slug, 'ingredient'),
-          requireId(ingredientTagSlugToId, tagSlug, 'ingredientTag'),
-          relevance
-        ),
-      ({ slug, tagSlug }) => `${slug} ↔ ${tagSlug}`
-    )
-
-    // 4. Dermo profiles — mark all fillers
-    console.log('\n🧪 Seed des profils dermo fillers...')
-    const fillerProfiles = FILLER_SLUGS.flatMap((slug) => {
-      const id = ingredientSlugToId.get(slug)
-      if (!id) return []
-      return [{ ingredientId: id, isFiller: true }]
     })
 
-    if (fillerProfiles.length > 0) {
-      await tx
-        .insert(ingredientDermoProfiles)
-        .values(fillerProfiles)
-        .onConflictDoUpdate({
-          target: ingredientDermoProfiles.ingredientId,
-          set: { isFiller: true },
-        })
-      console.log(`✅ ${fillerProfiles.length} profils dermo fillers insérés`)
-    }
+    await linkProductIngredients(tx, {
+      rows: validProductIngredients,
+      productSlugToId,
+      ingredientSlugToId,
+      existingPairs: existing.productIngredientPairs,
+      idempotent,
+    })
 
-    const missingFillers = FILLER_SLUGS.filter((s) => !ingredientSlugToId.has(s))
-    if (missingFillers.length > 0) {
-      console.warn(`⚠️  ${missingFillers.length} slugs fillers non trouvés en DB :`)
-      for (const s of missingFillers) {
-        console.warn(`   - ${s}`)
-      }
-    }
+    await linkIngredientTags(tx, {
+      pairs: ingredientTagPlan.pairs,
+      ingredientSlugToId,
+      ingredientTagSlugToId,
+      existingPairs: existing.tagIngredientPairs,
+      idempotent,
+    })
 
-    // 5. User collection
+    await seedFillerDermoProfiles(tx, ingredientSlugToId)
+
     await seedUserCollection(tx, user.id, productSlugToId)
 
-    // 6. Test personas (5 users × varied dermo profiles + collections + reviews)
     await seedTestUsers(tx, productSlugToId)
   })
 
@@ -758,7 +398,7 @@ export async function seedCore(shouldClean = false, shouldUpdate = false) {
 
 // Auto-runs when executed directly.
 //
-// Default behavior is idempotent (`shouldClean=false`) — destructive reset
+// Default behavior is idempotent (`shouldClean=false`): destructive reset
 // is opt-in via `--reset`. `--no-clean` is still recognized for legacy
 // callers but is now a no-op (default already idempotent).
 if (import.meta.main || process.argv[1]?.endsWith('seed-core.ts')) {

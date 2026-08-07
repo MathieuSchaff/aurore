@@ -10,6 +10,7 @@ import { z } from 'zod'
 
 import type { AppEnv } from '../../../app-env'
 import { isUniqueViolation } from '../../../lib/helpers'
+import { getRlsDb } from '../../../utils/accessors'
 import { zValidator } from '../../../utils/validator'
 import { requireAdmin, requireJwtAuth, requireNotBanned } from '../../auth/middleware'
 import { withRlsContext } from '../../auth/rls-context.middleware'
@@ -26,19 +27,12 @@ const ingredientTagParams = z.object({ ingredientId: z.uuid(), tagId: z.uuid() }
 
 const ingredientTagsApp = new Hono<AppEnv>()
 
-// One guard per use(): nesting swallows the short-circuit 403 → "Context not finalized" 500.
-ingredientTagsApp.use('*', async (c, next) => {
-  return c.req.method === 'GET' ? next() : requireJwtAuth(c, next)
-})
-ingredientTagsApp.use('*', async (c, next) => {
-  return c.req.method === 'GET' ? next() : requireNotBanned(c, next)
-})
-ingredientTagsApp.use('*', withRlsContext)
+// Guards stay on the endpoints owned by this router so sibling routes are not intercepted
 
 export const ingredientTagRoutes = ingredientTagsApp
 
   .get('/:ingredientId/tags', zValidator('param', ingredientParams), async (c) => {
-    const db = c.get('db')
+    const db = c.get('anonDb')
     const { ingredientId } = c.req.valid('param')
     const items = await listTagsByIngredient(db, ingredientId)
     return c.json(ok(items), HTTP_STATUS.OK)
@@ -46,11 +40,14 @@ export const ingredientTagRoutes = ingredientTagsApp
 
   .post(
     '/:ingredientId/tags',
+    requireJwtAuth,
+    withRlsContext,
+    requireNotBanned,
     requireAdmin,
     zValidator('param', ingredientParams),
     zValidator('json', addIngredientTagSchema),
     async (c) => {
-      const db = c.get('db')
+      const db = getRlsDb(c)
       const { ingredientId } = c.req.valid('param')
       const { tagId, relevance } = c.req.valid('json')
 
@@ -68,10 +65,13 @@ export const ingredientTagRoutes = ingredientTagsApp
 
   .delete(
     '/:ingredientId/tags/:tagId',
+    requireJwtAuth,
+    withRlsContext,
+    requireNotBanned,
     requireAdmin,
     zValidator('param', ingredientTagParams),
     async (c) => {
-      const db = c.get('db')
+      const db = getRlsDb(c)
       const { ingredientId, tagId } = c.req.valid('param')
       const removed = await removeTagFromIngredient(db, ingredientId, tagId)
       if (!removed) throw new TagError('tag_not_found')
@@ -81,11 +81,14 @@ export const ingredientTagRoutes = ingredientTagsApp
 
   .put(
     '/:ingredientId/tags',
+    requireJwtAuth,
+    withRlsContext,
+    requireNotBanned,
     requireAdmin,
     zValidator('param', ingredientParams),
     zValidator('json', replaceIngredientTagsSchema),
     async (c) => {
-      const db = c.get('db')
+      const db = getRlsDb(c)
       const { ingredientId } = c.req.valid('param')
       const { tags } = c.req.valid('json')
       const links = await replaceIngredientTags(db, ingredientId, tags)

@@ -1,22 +1,6 @@
-// Concentration-solver calibration audit: measures how well algo-derm's
-// per-ingredient concentration estimator (Beta posterior + solver QP) matches
-// brand-claimed percentages stored in `product_ingredients.concentration_value`.
-//
-// Read-only on the DB. Per product:
-//   1. analyzeINCI(inci), cold, NO knownConcentrations passed (otherwise the
-//      solver would trivially pin to the claim and the audit becomes circular).
-//   2. For each Aurore claim row, find the matching MatchedEvidence entry by
-//      slug-fuzzy matching against m.evidence.inci + m.evidence.aliases.
-//   3. Compare solverMeanPct / solverCi[Low|High]Pct vs claim.
-//
-// Outputs MAE / RMSE per ingredient slug + CI coverage. Reveals (a) which
-// actives the solver gets right (gating-eligible) vs wrong (calibration-debt
-// in algo-derm), and (b) which claims look like marketing artefacts (claim
-// far outside any plausible posterior).
-//
-// Env:
-//   JSON_OUT        optional: write detailed per-entry rows + slug summary
-//   SLUG            optional: restrict audit to one Aurore ingredient slug
+// Concentration-solver calibration audit: measures how well algo-derm's per-ingredient
+// concentration estimator (Beta posterior + solver QP) matches brand-claimed percentages
+// in `product_ingredients.concentration_value`. Read-only.
 
 import type { ProductKind } from '@aurore/shared'
 
@@ -29,6 +13,8 @@ import { mapKindToContext } from '../../../../lib/algo-derm-product-context'
 import { exitOnError } from '../cli-args'
 import { formatPct } from '../fmt'
 
+// Env: JSON_OUT (write detailed per-entry rows + slug summary), SLUG (restrict to one
+// Aurore ingredient slug).
 const JSON_OUT = process.env.JSON_OUT
 const SLUG_FILTER = process.env.SLUG
 
@@ -150,6 +136,8 @@ async function main() {
     const head = group[0]
     let assessment: ReturnType<typeof analyzeINCI>
     try {
+      // No knownConcentrations passed: otherwise the solver would trivially pin to
+      // the claim and the audit becomes circular.
       assessment = analyzeINCI(head.productInci, {
         context: mapKindToContext(head.productKind as ProductKind),
       })
@@ -168,7 +156,7 @@ async function main() {
       continue
     }
 
-    // Inverted index: slug-form → MatchedEvidence. First write wins so canonical entries shadow aliases.
+    // Inverted index keyed by slug-form, value MatchedEvidence. First write wins so canonical entries shadow aliases.
     const matchedBySlug = new Map<string, MatchedEvidence>()
     const register = (key: string, m: MatchedEvidence): void => {
       const slug = toSlug(key)
@@ -239,6 +227,9 @@ async function main() {
   if (analyzeErrors > 0) console.log(`   ${analyzeErrors} analyzeINCI errors`)
   console.log()
 
+  // MAE/RMSE per slug + CI coverage: which actives the solver gets right (gating-eligible)
+  // vs wrong (calibration debt in algo-derm); claims far outside any plausible posterior
+  // look like marketing artefacts.
   const bySlug = new Map<string, MatchedEntry[]>()
   for (const e of matched) {
     const arr = bySlug.get(e.ingredientSlug) ?? []

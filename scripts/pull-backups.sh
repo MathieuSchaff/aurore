@@ -14,7 +14,7 @@
 #   AURORE_VPS=user@host AURORE_REMOTE_DIR=/srv/aurore/backups \
 #     AURORE_LOCAL_DIR=~/aurore-backups scripts/pull-backups.sh
 #
-# Prérequis : accès SSH par clé au VPS (cf. runbook § Offsite pull).
+# Prérequis : accès SSH par clé au VPS, agent chargé (ssh-add) avant de lancer.
 
 set -euo pipefail
 

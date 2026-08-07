@@ -4,16 +4,11 @@ type AnyRef = RefObject<HTMLElement | null>
 
 /**
  * Click-through outside detection on `mousedown` + `touchstart` (bubble phase,
- * passive). The underlying `click` event is NOT blocked - the target the user
- * tapped still receives its native click.
- *
- * Choice rule (mirror of useCaptureDismiss):
- *  - Use `useClickOutside` when the component lives INSIDE a deliberately
- *    interactive container (drawer with Apply/Reset, form with sibling inputs)
- *    and the outside tap should still activate the target it landed on.
- *  - Use `useCaptureDismiss` for portaled menus / popovers floating over
- *    NON-INTENTIONAL content (app body, product cards) where surprise
- *    navigation on mobile is the failure mode.
+ * passive). The underlying `click` event is NOT blocked: the target the user
+ * tapped still receives its native click. Use this when the component lives
+ * inside a deliberately interactive container (drawer, form) and the outside
+ * tap should still activate its target. Use `useCaptureDismiss` instead for
+ * portaled menus/popovers over content the tap is not meant for.
  */
 export const useClickOutside = (
   refOrRefs: AnyRef | AnyRef[],
@@ -28,7 +23,7 @@ export const useClickOutside = (
   const onClickOutside = useEffectEvent(handleOnClickOutside)
   const refsRef = useRef<AnyRef[]>([])
   // Sync in an effect, not during render: the listener only reads refsRef.current
-  // on a user gesture (post-paint), so the commit-phase write is always in place
+  // on a user gesture (after paint), so the commit-phase write is always in place
   // first. Writing during render bailed the React Compiler on the whole hook.
   useEffect(() => {
     refsRef.current = Array.isArray(refOrRefs) ? refOrRefs : [refOrRefs]

@@ -5,7 +5,7 @@ import slugify from '@sindresorhus/slugify'
 import { and, eq, getTableColumns } from 'drizzle-orm'
 import type { PgColumn, PgTable } from 'drizzle-orm/pg-core'
 
-import type { DB } from '../../../db/index'
+import type { DatabaseTransaction, DbOrTransaction } from '../../../db/index'
 import { isUniqueViolation } from '../../../lib/helpers'
 import { TagError } from '../../product-tags/tag-error'
 
@@ -44,7 +44,7 @@ export interface TagServiceConfig {
 }
 
 export function createTagService<TDef, TOwnerRow, TProjectionRow, TLinkRow>(cfg: TagServiceConfig) {
-  async function create(db: DB, data: CreateTagInput): Promise<TDef> {
+  async function create(db: DatabaseTransaction, data: CreateTagInput): Promise<TDef> {
     createTagSchema.parse(data)
     const slug = data.slug ?? slugify(data.label)
     try {
@@ -63,18 +63,18 @@ export function createTagService<TDef, TOwnerRow, TProjectionRow, TLinkRow>(cfg:
     }
   }
 
-  async function getById(db: DB, id: string): Promise<TDef | undefined> {
+  async function getById(db: DbOrTransaction, id: string): Promise<TDef | undefined> {
     const [tag] = await db.select().from(cfg.defs).where(eq(cfg.defsId, id)).limit(1)
     return tag as TDef | undefined
   }
 
-  async function getBySlug(db: DB, slug: string): Promise<TDef | undefined> {
+  async function getBySlug(db: DbOrTransaction, slug: string): Promise<TDef | undefined> {
     const [tag] = await db.select().from(cfg.defs).where(eq(cfg.defsSlug, slug)).limit(1)
     return tag as TDef | undefined
   }
 
   async function list(
-    db: DB,
+    db: DbOrTransaction,
     params: { category?: string; limit?: number; offset?: number } = {}
   ): Promise<TDef[]> {
     const { category, limit = 100, offset = 0 } = params
@@ -89,7 +89,7 @@ export function createTagService<TDef, TOwnerRow, TProjectionRow, TLinkRow>(cfg:
     return rows as TDef[]
   }
 
-  async function update(db: DB, id: string, data: UpdateTagInput): Promise<TDef> {
+  async function update(db: DatabaseTransaction, id: string, data: UpdateTagInput): Promise<TDef> {
     updateTagSchema.parse(data)
     const patch: Partial<{ label: string; tagType: string; slug: string }> = {}
     if (data.label !== undefined) patch.label = data.label
@@ -97,7 +97,7 @@ export function createTagService<TDef, TOwnerRow, TProjectionRow, TLinkRow>(cfg:
     if (data.slug !== undefined) patch.slug = data.slug
     try {
       const updated = await db
-        // biome-ignore lint/suspicious/noExplicitAny: see create() — generic Drizzle table.
+        // biome-ignore lint/suspicious/noExplicitAny: see create(), generic Drizzle table.
         .update(cfg.defs as any)
         .set(patch)
         .where(eq(cfg.defsId, id))
@@ -112,13 +112,13 @@ export function createTagService<TDef, TOwnerRow, TProjectionRow, TLinkRow>(cfg:
     }
   }
 
-  async function remove(db: DB, id: string): Promise<boolean> {
+  async function remove(db: DatabaseTransaction, id: string): Promise<boolean> {
     const result = await db.delete(cfg.defs).where(eq(cfg.defsId, id)).returning({ id: cfg.defsId })
     return result.length > 0
   }
 
   async function addToOwner(
-    db: DB,
+    db: DatabaseTransaction,
     ownerId: string,
     tagId: string,
     relevance: Relevance = 'secondary',
@@ -133,7 +133,7 @@ export function createTagService<TDef, TOwnerRow, TProjectionRow, TLinkRow>(cfg:
   }
 
   async function addManyToOwner(
-    db: DB,
+    db: DatabaseTransaction,
     ownerId: string,
     tagsInput: TagInputItem[],
     source?: string
@@ -151,7 +151,7 @@ export function createTagService<TDef, TOwnerRow, TProjectionRow, TLinkRow>(cfg:
     return rows as TLinkRow[]
   }
 
-  async function listTagsByOwner(db: DB, ownerId: string): Promise<TProjectionRow[]> {
+  async function listTagsByOwner(db: DbOrTransaction, ownerId: string): Promise<TProjectionRow[]> {
     const rows = await db
       .select(cfg.linkProjection)
       .from(cfg.links)
@@ -161,7 +161,7 @@ export function createTagService<TDef, TOwnerRow, TProjectionRow, TLinkRow>(cfg:
     return rows as TProjectionRow[]
   }
 
-  async function listOwnersByTag(db: DB, tagId: string): Promise<TOwnerRow[]> {
+  async function listOwnersByTag(db: DbOrTransaction, tagId: string): Promise<TOwnerRow[]> {
     const rows = await db
       .select(getTableColumns(cfg.ownerTable))
       .from(cfg.links)
@@ -171,7 +171,11 @@ export function createTagService<TDef, TOwnerRow, TProjectionRow, TLinkRow>(cfg:
     return rows as TOwnerRow[]
   }
 
-  async function removeFromOwner(db: DB, ownerId: string, tagId: string): Promise<boolean> {
+  async function removeFromOwner(
+    db: DatabaseTransaction,
+    ownerId: string,
+    tagId: string
+  ): Promise<boolean> {
     const result = await db
       .delete(cfg.links)
       .where(and(eq(cfg.linkOwnerIdCol, ownerId), eq(cfg.linkTagIdCol, tagId)))
@@ -180,7 +184,7 @@ export function createTagService<TDef, TOwnerRow, TProjectionRow, TLinkRow>(cfg:
   }
 
   async function replaceOwnerTags(
-    db: DB,
+    db: DatabaseTransaction,
     ownerId: string,
     tagsInput: TagInputItem[],
     source?: string

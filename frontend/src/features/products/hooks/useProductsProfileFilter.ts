@@ -46,12 +46,10 @@ type Args = {
   userId: string | null
 }
 
-// D9: "Selon mon profil" is a standing setting, not a per-visit filter. It
-// survives between sessions and starts on as soon as there is something to
-// apply, a portrait or a single declared rule. A toggle that starts off left
-// the portrait and the rules without any visible effect, which is what made the
-// whole /profile screen inert. An explicit value in the URL always wins, so a
-// shared link stays literal.
+// D9: "Selon mon profil" is a standing setting, not a per-visit filter. It survives
+// between sessions and starts on as soon as there's a portrait or a declared rule to
+// apply (a toggle that starts off left /profile with no visible effect). An explicit
+// value in the URL always wins, so a shared link stays literal.
 export function useProductsProfileFilter({ urlValue, userId }: Args) {
   const navigate = useNavigate({ from: '/products/' })
   const isAuthed = !!userId

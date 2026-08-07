@@ -86,7 +86,7 @@ describe('Social posts routes', () => {
     const unknown = await client.social.posts[':postId'].$get({ param: { postId: UNKNOWN_ID } })
     expect(unknown.status as number).toBe(HTTP_STATUS.NOT_FOUND)
 
-    // Admin hides it → must 404 (anti-enum, same as unknown).
+    // Admin hides it, so it must 404, same as unknown, and the two stay indistinguishable.
     await testDb
       .update(socialPosts)
       .set({ moderationStatus: 'hidden' })

@@ -19,7 +19,7 @@ export const Route = createFileRoute('/ingredients/$slug_/edit')({
   },
   loader: ({ context, params }) =>
     context.queryClient.ensureQueryData(ingredientQueries.bySlug(params.slug)).catch((err) => {
-      // Missing ingredient = 404 → notFoundComponent; keep 5xx/429 on the real error UI.
+      // Missing ingredient = 404, route to notFoundComponent; keep 5xx/429 on the real error UI
       if (err instanceof ApiError && err.status === 404) throw notFound()
       throw err
     }),

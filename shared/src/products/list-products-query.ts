@@ -53,8 +53,7 @@ const baseListProductsQuery = z.object({
   // "Selon mon profil": apply the caller's DECLARED rules. "Sans X" (exclude)
   // removes rows containing X; "Avec X" (require) keeps only rows containing at
   // least one required target. include_excluded lifts both effects, annotations
-  // stay. Inferred avoid_for badges are separate: the inferred never hides
-  // (CLAUDE.md §1, brief profile-motifs §7 D3/D8).
+  // stay. Inferred avoid_for badges are separate and never hide rows.
   apply_preferences: booleanQueryParam.optional(),
   include_excluded: booleanQueryParam.optional(),
   // Free-text search across product name + brand. Used as a fallback intent

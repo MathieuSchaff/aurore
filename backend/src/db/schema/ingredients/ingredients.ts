@@ -27,18 +27,18 @@ export const ingredients = pgTable(
       .references(() => users.id, { onDelete: 'cascade' }),
     name: text('name').notNull(),
     slug: text('slug').notNull(),
-    // Substance identity, NOT the slug — see docs/conventions/ingredient-identity.md.
-    // Resolved from algo-derm's curated evidence DB (evidence.inci); groups every
-    // alias of one substance (English / French `huile-*` / INCI / `-hair` shadow)
-    // under one key. Best-effort, NULL when algo-derm has no match. Backfilled by
-    // seed/maintenance/backfill-canonical-key.ts (re-run after seed / algo-derm bump).
+    // Substance identity, NOT the slug. See docs/conventions/ingredient-identity.md.
+    // Usually resolved from algo-derm's evidence.inci; reviewed catalogue overrides
+    // keep identities separate when the vendor merges them or has no record.
+    // Best-effort, NULL when neither source can decide. Backfilled by
+    // seed/maintenance/backfill-canonical-key.ts (run again after seed / algo-derm bump).
     canonicalKey: text('canonical_key'),
     description: text('description').notNull().default(''),
     content: text('content').notNull().default(''),
     type: text('type').notNull().$type<IngredientType>(),
-    // Free-text. Values depend on `type`: skincare/haircare/dental → "actif",
+    // Free-text. Values depend on `type`: skincare/haircare/dental gives "actif",
     // "humectant", "emollient", "filtre-uv", "tensioactif", "excipient".
-    // supplement → "vitamine", "mineral", "carotenoide", "plante", etc.
+    // supplement gives "vitamine", "mineral", "carotenoide", "plante", etc.
     category: text('category'),
     ...moderationColumns,
     ...catalogQualityColumns,

@@ -1,8 +1,8 @@
-import type { DB } from '../..'
+import type { DatabaseTransaction } from '../..'
 import { userProductReviews, userProducts } from '../../schema/products/user-products'
 
 export async function seedUserCollection(
-  tx: DB,
+  tx: DatabaseTransaction,
   userId: string,
   productSlugToId: Map<string, string>
 ) {

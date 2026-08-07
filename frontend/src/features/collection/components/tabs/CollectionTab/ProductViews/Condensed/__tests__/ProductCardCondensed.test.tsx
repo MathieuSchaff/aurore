@@ -15,13 +15,13 @@ vi.mock('@/lib/queries/user-products', async (importOriginal) => {
   }
 })
 
-// Card reads prefs via useQuery — stub it.
+// Card reads prefs via useQuery. Stub it.
 vi.mock('@tanstack/react-query', async () => ({
   ...(await vi.importActual<typeof import('@tanstack/react-query')>('@tanstack/react-query')),
   useQuery: () => ({ data: { criteriaWeights: undefined } }),
 }))
 
-// All ratings at 4/5 unweighted = 16/20 → exercises the score-rare threshold.
+// All ratings at 4/5 unweighted = 16/20, which exercises the score-rare threshold.
 function makeProduct(overrides: Partial<UserProduct> = {}) {
   return makeUserProduct({
     sentiment: 4,
@@ -75,7 +75,7 @@ describe('ProductCardCondensed', () => {
   })
 
   it('renders score corner ornament for high score', () => {
-    // F2: ornament-only signal. All 4/5 unweighted = 16/20 → score-rare.
+    // Ornament-only signal. All 4/5 unweighted = 16/20, which is score-rare.
     const { container } = render(
       <ProductCardCondensed p={makeProduct()} onToggleExpand={vi.fn()} />
     )

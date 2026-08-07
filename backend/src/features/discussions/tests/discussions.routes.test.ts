@@ -144,7 +144,7 @@ describe('Product Discussion Routes', () => {
         withAuth(token)
       )
 
-      // Service throws DiscussionError('thread_not_found') → 404. Route would
+      // Service throws DiscussionError('thread_not_found'), giving 404. Route would
       // otherwise silently accept the reply (the response would be 201) which
       // is the bug the moderation_status filter now blocks.
       expectStatus(res, HTTP_STATUS.NOT_FOUND)
@@ -211,7 +211,7 @@ describe('Product Discussion Routes', () => {
       const thread = threadJson.data
 
       // Enumeration guard: cross-user delete must be indistinguishable from
-      // deleting a thread that never existed. Both → 404 thread_not_found, so the
+      // deleting a thread that never existed. Both give 404 thread_not_found, so the
       // response cannot be used to probe whether a thread id exists.
       const crossUser = await app.request(`/api/products/${slug}/discussions/${thread.id}`, {
         method: 'DELETE',

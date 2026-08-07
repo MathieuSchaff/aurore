@@ -1,7 +1,7 @@
 import { eq } from 'drizzle-orm'
 
 import { env } from '../../config/env'
-import type { Database } from '../../db/index'
+import type { DatabaseTransaction } from '../../db/index'
 import { products } from '../../db/schema/products'
 import { profiles } from '../../db/schema/users'
 import { putToBunny } from './bunny-client'
@@ -11,13 +11,13 @@ import { validateWebpUpload } from './validate-image'
 const AVATAR_MAX_BYTES = 200_000
 const PRODUCT_MAX_BYTES = 500_000
 
-// Cache-bust on the row's updatedAt so the CDN-cached image refreshes after a re-upload.
+// Cache-bust on the row's updatedAt so the CDN-cached image refreshes after a new upload.
 function appendCacheBust(url: string, updatedAt: string): string {
   return `${url}?v=${Math.floor(Date.parse(updatedAt) / 1000)}`
 }
 
 export async function uploadAvatar(
-  db: Database,
+  db: DatabaseTransaction,
   userId: string,
   buffer: Buffer
 ): Promise<{ url: string }> {
@@ -42,7 +42,7 @@ export async function uploadAvatar(
 }
 
 export async function uploadProductImage(
-  db: Database,
+  db: DatabaseTransaction,
   slug: string,
   buffer: Buffer
 ): Promise<{ url: string }> {
@@ -53,7 +53,7 @@ export async function uploadProductImage(
   await putToBunny(key, buffer)
   const storedUrl = `${env.IMAGE_CDN_BASE}/${key}`
 
-  // Update DB only if the product exists; pre-creation uploads skip this step.
+  // Update DB only if the product exists; uploads made before it exists skip this step.
   const [existing] = await db
     .select({ id: products.id })
     .from(products)

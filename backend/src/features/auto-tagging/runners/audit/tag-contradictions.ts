@@ -1,23 +1,8 @@
-// Absence tags whose INCI declares the very thing they deny (report-only).
-//
-// The blind spot this closes: a backfill's red-flag scan only sees links it is about to
-// INSERT. Backfill being insert-only, a product that ALREADY carries the tag is never a
-// candidate, so a lot can report "0 alerts" while leaving liars in the DB. Measured on the
-// 2026-07-30 CSV: 101 candidate `sans-parfum` rows, 0 of the 21 liars among them. This audit
-// reads the links that are already written instead.
-//
-// Ventilated by `source` because the three cases need three different gestures:
-//   algo-derm → the vendored heuristic missed a declaration; the fix is upstream in
-//               heuristic_rules.json and lands through a vendor bump.
-//   formula   → the text-claim veto (passes/formula/absence-claims.ts) has a hole.
-//   manual    → a curated row nobody re-checks. No runner will ever touch it:
-//               reconcile.ts filters `ne(source, 'manual')` and purge-stale obeys the same
-//               rule, so it stays on screen until a human deletes it.
-//
-// A hit is a CONTRADICTION, not a verdict: it says the label declares something that looks
-// incompatible with the tag. Whether the tag or the INCI is the liar is settled against the
-// product's source page, one product at a time. Read-only, never writes.
-// Usage: bun run .../tag-contradictions.ts
+// Absence tags whose INCI declares the very thing they deny (report-only). Read-only.
+// The blind spot this closes: a backfill's red-flag scan only sees links about to INSERT, so
+// a product that already carries the tag is never a candidate: a backfill run can report "0
+// alerts" while liars stay in the DB. Measured on the 2026-07-30 CSV: 101 candidate
+// `sans-parfum` rows, 0 of the 21 liars among them. This audit reads the already-written links.
 
 import { eq, inArray } from 'drizzle-orm'
 
@@ -81,6 +66,10 @@ async function main() {
     else byTag.set(h.tag, [h])
   }
 
+  // Ventilated by `source`: algo-derm = vendored heuristic missed it (fix via heuristic_rules.json
+  // vendor bump); formula = text-claim veto (absence-claims.ts) has a hole; manual = curated row
+  // nobody checks again; reconcile.ts filters `ne(source, 'manual')` and purge-stale obeys the
+  // same rule, so it stays until a human deletes it.
   console.log('| tag | contradictions | dont manual | dont algo-derm | dont autre |')
   console.log('|---|---|---|---|---|')
   for (const tag of TAGS) {

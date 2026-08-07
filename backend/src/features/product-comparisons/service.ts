@@ -9,8 +9,7 @@ import { classifyIngredientSignals } from '@aurore/shared'
 
 import { and, asc, count, eq, inArray } from 'drizzle-orm'
 
-import type { Database, DB } from '../../db'
-import { db } from '../../db'
+import type { DatabaseTransaction } from '../../db'
 import {
   ingredients,
   productComparisonItems,
@@ -25,7 +24,7 @@ import { ProductComparisonError } from './product-comparison-error'
 export async function createComparison(
   userId: string,
   input: CreateComparisonInput,
-  database: DB = db
+  database: DatabaseTransaction
 ): Promise<ComparisonSummary> {
   const ids = input.productIds
   const found = await database
@@ -67,7 +66,7 @@ export async function createComparison(
 export async function getEnrichedComparison(
   userId: string,
   id: string,
-  database: DB = db
+  database: DatabaseTransaction
 ): Promise<EnrichedComparison> {
   const comparison = await database
     .select()
@@ -205,7 +204,7 @@ export async function updateComparison(
   userId: string,
   id: string,
   input: UpdateComparisonInput,
-  database: DB = db
+  database: DatabaseTransaction
 ) {
   const existing = await database.query.productComparisons.findFirst({
     where: and(eq(productComparisons.id, id), eq(productComparisons.userId, userId)),
@@ -242,7 +241,7 @@ export async function updateComparison(
 
 export async function listComparisons(
   userId: string,
-  database: Database = db
+  database: DatabaseTransaction
 ): Promise<ComparisonSummary[]> {
   const rows = await database
     .select({
@@ -268,7 +267,7 @@ export async function listComparisons(
   }))
 }
 
-export async function deleteComparison(userId: string, id: string, database: Database = db) {
+export async function deleteComparison(userId: string, id: string, database: DatabaseTransaction) {
   const existing = await database.query.productComparisons.findFirst({
     where: and(eq(productComparisons.id, id), eq(productComparisons.userId, userId)),
   })

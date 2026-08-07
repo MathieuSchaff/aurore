@@ -7,7 +7,7 @@ import { useAuthStore } from '../../store/auth'
 
 export type RefreshResult = 'ok' | 'failed' | 'cooldown'
 
-// Manual wire type: a typed `api.*` import here would re-introduce the api <-> freshness cycle.
+// Manual wire type: a typed `api.*` import here would bring back the api <-> freshness cycle.
 type RefreshResponse =
   | { success: true; data: { accessToken: string; user: UserPublic } }
   | { success: false; error: string }
@@ -28,7 +28,7 @@ const PROACTIVE_LEAD_MS = 60_000
 // Dedupe concurrent refresh triggers across components.
 let inflightRefresh: Promise<RefreshResult> | null = null
 
-// Exponential backoff: 1s → 2s → 4s → … → 30s cap.
+// Exponential backoff: doubles each failure, from 1s up to a 30s cap.
 let failureCount = 0
 let retryAfter = 0
 
@@ -64,7 +64,7 @@ export function msUntilProactiveRefresh(expiresAt: number): number {
 // so they fall through to their own redirect instead of an error-boundary ejection.
 export async function ensureFresh(queryClient: QueryClient): Promise<RefreshResult> {
   if (inflightRefresh) return inflightRefresh
-  // Cooldown window after recent failure - callers decide whether to wait or log out.
+  // Cooldown window after recent failure: callers decide whether to wait or log out.
   if (clock.now() < retryAfter) return 'cooldown'
 
   inflightRefresh = (async (): Promise<RefreshResult> => {

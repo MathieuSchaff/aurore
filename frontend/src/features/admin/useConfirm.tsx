@@ -37,11 +37,8 @@ type ConfirmFn = {
 
 /**
  * Promise-based confirm modal - drop-in for `window.confirm` but calm.
- * Usage: `if (!(await confirm({ title: '…' }))) return; …`
- *
  * Pass `reason` to also capture a note; confirm() then resolves
  * `{ confirmed, reason }` instead of a bare boolean.
- *
  * Returns `confirm` (async) + `dialog` JSX to render once at the page root.
  */
 export function useConfirm() {

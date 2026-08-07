@@ -7,7 +7,7 @@ confirmation. After any dev write, run `just db-snapshot`.
 
 | Command | What | Env |
 | :--- | :--- | :--- |
-| `just link-ingredients` | Backfills `product_ingredients` from `products.inci` | `WRITE`, `SLUG=<slug>` (one product), `RELINK=1` (every product that has an INCI, not only those with zero links), `LIMIT` (integer ≥ 0, invalid aborts) |
+| `just link-ingredients` | Backfills `product_ingredients` from `products.inci` | `WRITE`, `SLUG=<slug>` (one product), `RELINK=1` (every product that has an INCI, not only those with zero links), `ONLY_SLUGS=a,b` (with `RELINK=1`: insert only these derived slugs, no delete), `LIMIT` (integer ≥ 0, invalid aborts) |
 
 This is the **only** path that links imported products — the seed only covers the TS fixtures,
 the ingest does not link, and the service path is manual admin work. Run it after every ingest.
@@ -15,9 +15,12 @@ the ingest does not link, and the service path is manual admin work. Run it afte
 | Fact | Detail |
 | :--- | :--- |
 | Resolution order per token | Direct index hit, then the algo-derm alias (with botanical stripping), then the evidence-to-slug bridge |
-| Writing reconciles, it does not replace | A link still derived is left alone; a stale link is removed only when its `source` is `linker`; an empty target deletes nothing. This holds for `SLUG=` too |
+| Writing reconciles, it does not replace | A link still derived is left alone; a stale link is removed only when its `source` is `linker`. An empty target caused by missing or malformed input deletes nothing, including with `SLUG=`. An explicit ambiguous fallback follows the exception below. |
+| Scoped relink | `ONLY_SLUGS` is for a bounded creation lot when a full relink contains separately owned drift. It keeps the normal resolver and identity guard, but inserts only the named slugs and never deletes. |
 | Provenance | `source` defaults to `manual`; only the linker writes `linker`. An unmarked writer is treated as human and never deleted |
 | One substance, one link | Two ingredient rows can share a `canonical_key`. Only the first in INCI order — the most concentrated — is kept; the other insert is held back, not written |
+| Ambiguous fallback | A `canonical_key` fallback with several candidates of the preferred `ingredients.type` is reported and left unlinked. During `RELINK`, a stale `linker` row for that ambiguous key is removed; manual rows survive. Direct INCI index hits stay authoritative; row or alphabetical order never decides a fallback. |
+| Proprietary evidence | A curated Angiopausine/Comedoclastin link suppresses the generic `Silybum Marianum Fruit Extract` fallback for that product, so one token never appears twice. |
 | No count cap | INCI order is concentration order, so a cap loses the low-dose active |
 
 The dry-run report names the zero-link buckets:

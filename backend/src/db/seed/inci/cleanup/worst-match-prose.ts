@@ -1,26 +1,13 @@
-// One-shot: targeted fixes for worst-match products carrying marketing prose
-// instead of real INCI content.
-//
-// Covers cases that slipped through existing cleanup scripts:
-//   - LED device (Medicube): no INCI, only product description → NULL.
-//   - Marketing preamble with unlisted claims (Eucerin Aquaphor): strip
-//     "SANS CONSERVATEUR, SANS COLORANT, NON COMÉDOGÈNE, CLINIQUEMENT PROUVÉ"
-//     prefix; the INCI body starts at CERA MICROCRISTALLINA.
-//   - Korean-beauty usage-instruction prefix (Mixsoon × 2): "Ingrédients :"
-//     marker exists but post-strip INCI has <5 commas, so prose.ts quality
-//     gate excluded them. Strip prefix and keep the short collagen-film INCI.
-//   - Eve Lom (× 3): SharePoint span soup; rationale sits on the entries.
-//   - Sales pitch stored as INCI on three sunscreens (Yepoda × 2, Biarritz) → NULL.
-//
-// Mary&May (mary-may-blackberry) was dropped: it once carried pure marketing
-// prose, but the row now holds a valid INCI. NULLing it would destroy data.
-//
-// Destructive fixes fail closed when the source no longer matches the known
-// bad payload. Dry-run by default. Pass --apply to UPDATE transactionally.
+// One-shot: targeted fixes for worst-match products carrying marketing prose instead of
+// real INCI content. Covers cases that slipped through clean-inci.ts. See the
+// per-entry comment in FIXES below for each product's rationale.
+// Mary&May (mary-may-blackberry) was dropped: it once carried pure marketing prose, but the
+// row now holds a valid INCI. NULLing it would destroy data.
 import { SQL } from 'bun'
 
 import { planWorstMatchFix, type WorstMatchFix } from './worst-match-prose-plan'
 
+// Dry-run by default. Pass --apply to UPDATE transactionally.
 const apply = process.argv.includes('--apply')
 
 const sql = new SQL(process.env.DATABASE_URL ?? 'postgres://app:devpassword@app_db:5432/appdb')
@@ -43,8 +30,8 @@ const FIXES: WorstMatchFix[] = [
     value: 'CERA MICROCRISTALLINA, CERESIN, LANOLIN ALCOHOL, PANTHENOL, GLYCERIN, BISABOLOL',
   },
 
-  // prose.ts skipped these because post-strip INCI has only 3 commas (4 ingredients),
-  // below the MIN_COMMAS=5 quality gate. Extracting manually is safe here.
+  // The automated pass skipped these: the stripped INCI has only 3 commas (4 ingredients),
+  // below its comma count gate. Extracting manually is safe here.
   {
     slug: 'mixsoon-melting-collagen-cheek-film',
     action: 'strip-after',
@@ -124,6 +111,7 @@ for (const fix of FIXES) {
   }
 
   const plan = planWorstMatchFix(fix, row.inci)
+  // Fails closed: reject means the source no longer matches the known bad payload.
   if (plan.kind === 'reject') {
     throw new Error(`REFUSE ${fix.slug}: ${plan.reason}`)
   }

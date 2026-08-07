@@ -1,47 +1,29 @@
 import { beforeAll, describe, expect, it } from 'bun:test'
 
-import type { Hono } from 'hono'
-
-import type { AppEnv } from '../../../app-env'
 import { testDb } from '../../../tests/db.test.config'
 import { setupDbTests } from '../../../tests/db-setup'
 import { createTestApp } from '../../../tests/helpers/createTestApp'
-import { authPatch, setupAndLogin } from '../../../tests/helpers/route-test-helpers'
-import { TEST_CREDENTIALS } from '../../../tests/helpers/test-credentials'
+import type { TestApp } from '../../../tests/helpers/createTestClient'
+import { authPatch } from '../../../tests/helpers/route-test-helpers'
 import { getPublicProfileByUsername } from '../service'
+import { seedProfileOwner } from './profile-test.setup'
 
 // Service-level matrix for getPublicProfileByUsername. Exercises RLS
 // gate (master `profile_public`) and the per-field projection so we
-// have proof the toggles actually mask data — there is no public HTTP
+// have proof the toggles actually mask data; there is no public HTTP
 // route yet, this is the only consumer.
-
-async function setupOwner(app: Hono<AppEnv>, username: string) {
-  const token = await setupAndLogin(app, TEST_CREDENTIALS.toto)
-  await authPatch(app, '/api/profile', token, {
-    username,
-    bio: 'My bio',
-    avatarUrl: 'https://example.com/me.png',
-    links: [{ label: 'IG', url: 'https://instagram.com/me' }],
-  })
-  await authPatch(app, '/api/profile/dermo', token, {
-    skinTypes: ['peau-mixte'],
-    fitzpatrickType: 3,
-    skinConcerns: ['rosacee'],
-  })
-  return token
-}
 
 setupDbTests()
 
 describe('getPublicProfileByUsername', () => {
-  let app: Hono<AppEnv>
+  let app: TestApp
 
   beforeAll(async () => {
     app = await createTestApp()
   })
 
   it('returns null when master profilePublic is false', async () => {
-    await setupOwner(app, 'matt-private')
+    await seedProfileOwner(app, 'matt-private')
 
     const view = await getPublicProfileByUsername(testDb, 'matt-private')
     expect(view).toBeNull()
@@ -53,7 +35,7 @@ describe('getPublicProfileByUsername', () => {
   })
 
   it('exposes only username when master is on and all sub-flags are off', async () => {
-    const token = await setupOwner(app, 'matt-shy')
+    const token = await seedProfileOwner(app, 'matt-shy')
     await authPatch(app, '/api/profile/privacy-settings', token, { profilePublic: true })
 
     const view = await getPublicProfileByUsername(testDb, 'matt-shy')
@@ -69,7 +51,7 @@ describe('getPublicProfileByUsername', () => {
   })
 
   it('exposes each profile field when its sub-flag is on', async () => {
-    const token = await setupOwner(app, 'matt-bio')
+    const token = await seedProfileOwner(app, 'matt-bio')
     await authPatch(app, '/api/profile/privacy-settings', token, {
       profilePublic: true,
       bioPublic: true,
@@ -87,7 +69,7 @@ describe('getPublicProfileByUsername', () => {
   })
 
   it('exposes each dermo field when its sub-flag is on', async () => {
-    const token = await setupOwner(app, 'matt-skin')
+    const token = await seedProfileOwner(app, 'matt-skin')
     await authPatch(app, '/api/profile/privacy-settings', token, {
       profilePublic: true,
       skinTypesPublic: true,
@@ -105,7 +87,7 @@ describe('getPublicProfileByUsername', () => {
   })
 
   it('exposes every field when all flags are on', async () => {
-    const token = await setupOwner(app, 'matt-open')
+    const token = await seedProfileOwner(app, 'matt-open')
     await authPatch(app, '/api/profile/privacy-settings', token, {
       profilePublic: true,
       bioPublic: true,

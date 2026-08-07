@@ -1,12 +1,10 @@
 /**
  * DB backstop regression (migration 0091): the application pool (app_runtime) may
- * never write role='admin'. This is the fail-closed layer behind the route guard +
- * shared validator — if the validator on the role-write path is ever relaxed, the DB
- * still refuses an admin promotion. Demote->'user' and promote->'contributor' (16b)
- * stay allowed; the table owner (`app`, used by seed/migrations) is exempt.
- *
- * Like user-bans-rls, route tests run as the owner `app` (exempt), so the trigger is
- * only observable under the real app_runtime pool — hence the dedicated connection.
+ * never write role='admin'. This is the fail-closed layer behind the route guard and
+ * shared validator, so a relaxed validator still hits a DB refusal. Demoting to 'user'
+ * and promoting to 'contributor' stay allowed; the table owner (`app`) is exempt.
+ * Route tests run as that owner, so the trigger is only observable on this dedicated
+ * app_runtime connection.
  */
 import { describe, expect, it } from 'bun:test'
 

@@ -78,13 +78,13 @@ const baseProps = {
 const searchCalls = () => requestLog.filter((u) => u.includes('/api/ingredients/search'))
 const resolveCalls = () => requestLog.filter((u) => u.includes('/api/ingredients/by-slugs'))
 
-describe('AsyncSearchSelect — debounce + gating', () => {
+describe('AsyncSearchSelect: debounce + gating', () => {
   it('does not call loadOptionsQuery while below minChars', async () => {
     const user = userEvent.setup()
     renderASS(<AsyncSearchSelect {...baseProps} onToggle={vi.fn()} />)
 
     await user.type(screen.getByRole('combobox'), 'n')
-    // Wait past the debounce — still no request because below minChars (default 2).
+    // Wait past the debounce, still no request because below minChars (default 2).
     await act(async () => {
       await new Promise((r) => setTimeout(r, 80))
     })
@@ -102,7 +102,7 @@ describe('AsyncSearchSelect — debounce + gating', () => {
     await waitFor(() => {
       expect(searchCalls().length).toBeGreaterThan(0)
     })
-    // Debounce collapses 'n', 'ni', 'nia' → one fetch with q=nia.
+    // Debounce collapses 'n', 'ni', 'nia' into one fetch with q=nia.
     expect(searchCalls()).toHaveLength(1)
     expect(searchCalls()[0]).toContain('q=nia')
   })
@@ -125,10 +125,10 @@ describe('AsyncSearchSelect — debounce + gating', () => {
   })
 })
 
-describe('AsyncSearchSelect — resolve chips', () => {
+describe('AsyncSearchSelect: resolve chips', () => {
   it('does not call resolveValuesQuery when selected is empty', async () => {
     renderASS(<AsyncSearchSelect {...baseProps} selected={[]} onToggle={vi.fn()} />)
-    // Nothing async to await — give React Query a tick.
+    // Nothing async to await. Give React Query a tick.
     await act(async () => {
       await new Promise((r) => setTimeout(r, 30))
     })
@@ -153,7 +153,7 @@ describe('AsyncSearchSelect — resolve chips', () => {
   })
 })
 
-describe('AsyncSearchSelect — label cache merge', () => {
+describe('AsyncSearchSelect: label cache merge', () => {
   it('merges labels learned via search into chips', async () => {
     const Harness = () => {
       const [sel, setSel] = useState<string[]>([])
@@ -174,13 +174,13 @@ describe('AsyncSearchSelect — label cache merge', () => {
     const opt = await screen.findByRole('option', { name: /Niacinamide/i })
     await user.click(opt)
 
-    // Chip uses the label, not the slug — confirms label cache is populated by
+    // Chip uses the label, not the slug, which confirms label cache is populated by
     // the search response (not a fresh resolve call).
     expect(screen.getByRole('button', { name: /Retirer Niacinamide/i })).toBeInTheDocument()
   })
 })
 
-describe('AsyncSearchSelect — filtre dropdown', () => {
+describe('AsyncSearchSelect: filtre dropdown', () => {
   it('hides already-selected options from the dropdown', async () => {
     const user = userEvent.setup()
     renderASS(<AsyncSearchSelect {...baseProps} selected={['niacinamide']} onToggle={vi.fn()} />)
@@ -193,7 +193,7 @@ describe('AsyncSearchSelect — filtre dropdown', () => {
   })
 })
 
-describe('AsyncSearchSelect — keyboard', () => {
+describe('AsyncSearchSelect: keyboard', () => {
   it('Enter on the active option toggles it and resets the query', async () => {
     const onToggle = vi.fn()
     const user = userEvent.setup()
@@ -257,7 +257,7 @@ describe('AsyncSearchSelect — keyboard', () => {
   })
 })
 
-describe('AsyncSearchSelect — ARIA', () => {
+describe('AsyncSearchSelect: ARIA', () => {
   it('wires aria-expanded/aria-controls/aria-activedescendant on the input', async () => {
     const user = userEvent.setup()
     renderASS(<AsyncSearchSelect {...baseProps} onToggle={vi.fn()} />)
@@ -280,7 +280,7 @@ describe('AsyncSearchSelect — ARIA', () => {
   })
 })
 
-describe('AsyncSearchSelect — empty + error states', () => {
+describe('AsyncSearchSelect: empty + error states', () => {
   it('shows "Aucun résultat" when search returns []', async () => {
     server.use(
       http.get('*/api/ingredients/search', () => HttpResponse.json({ success: true, data: [] }))
@@ -288,7 +288,7 @@ describe('AsyncSearchSelect — empty + error states', () => {
     const user = userEvent.setup()
     renderASS(<AsyncSearchSelect {...baseProps} onToggle={vi.fn()} />)
     await user.type(screen.getByRole('combobox'), 'zz')
-    // Two nodes match (visible <p> + aria-live region) — assert at least one.
+    // Two nodes match (visible <p> + aria-live region). Assert at least one.
     await waitFor(() => {
       expect(screen.getAllByText(/Aucun résultat/).length).toBeGreaterThan(0)
     })
@@ -353,7 +353,7 @@ describe('AsyncSearchSelect — empty + error states', () => {
     expect(callCount).toBe(2)
   })
 
-  // A16: the button used to invite a click during the very delay its message announced. A 500
+  // The button used to invite a click during the very delay its message announced. A 500
   // carries no delay, so the two cases above must stay clickable: only a 429 refuses.
   it('refuses the retry for as long as a 429 announced', async () => {
     server.use(
@@ -381,7 +381,7 @@ describe('AsyncSearchSelect — empty + error states', () => {
   })
 })
 
-describe('AsyncSearchSelect — click outside', () => {
+describe('AsyncSearchSelect: click outside', () => {
   it('closes the dropdown and clears the query on outside mousedown', async () => {
     const user = userEvent.setup()
     renderASS(
@@ -403,9 +403,9 @@ describe('AsyncSearchSelect — click outside', () => {
   })
 })
 
-describe('AsyncSearchSelect — dropdown positioning regression', () => {
+describe('AsyncSearchSelect: dropdown positioning regression', () => {
   // Regression: effect deps were `[showDropdown]` only, so it fired before the
-  // listbox mounted (ref null, empty coords). `filtered.length` re-triggers it.
+  // listbox mounted (ref null, empty coords). `filtered.length` triggers it again.
   it('sets non-empty inline coords on the dropdown once it shows', async () => {
     const user = userEvent.setup()
     renderASS(<AsyncSearchSelect {...baseProps} onToggle={vi.fn()} />)
@@ -423,7 +423,7 @@ describe('AsyncSearchSelect — dropdown positioning regression', () => {
   })
 })
 
-describe('AsyncSearchSelect — positionnement', () => {
+describe('AsyncSearchSelect: positionnement', () => {
   let rectMock: DOMRect
   let rectSpy: ReturnType<typeof vi.spyOn>
   let originalOffsetHeight: PropertyDescriptor | undefined
@@ -444,7 +444,7 @@ describe('AsyncSearchSelect — positionnement', () => {
       .spyOn(Element.prototype, 'getBoundingClientRect')
       .mockImplementation(() => rectMock)
 
-    // jsdom returns 0 for offsetHeight; force a non-trivial value so the
+    // jsdom returns 0 for offsetHeight; force a value that is not trivial so the
     // flip-up arithmetic has something to compare against.
     originalOffsetHeight = Object.getOwnPropertyDescriptor(HTMLElement.prototype, 'offsetHeight')
     Object.defineProperty(HTMLElement.prototype, 'offsetHeight', {
@@ -463,8 +463,8 @@ describe('AsyncSearchSelect — positionnement', () => {
   })
 
   it('flips above when there is no room below', async () => {
-    // wrapper near viewport bottom (jsdom default innerHeight 768) → spaceBelow
-    // tiny, dropdownHeight (200) larger → placeAbove path.
+    // wrapper near viewport bottom (jsdom default innerHeight 768) makes spaceBelow
+    // tiny, so dropdownHeight (200) is larger and triggers the placeAbove path.
     rectMock = { ...rectMock, top: 740, bottom: 760, y: 740 } as DOMRect
     const user = userEvent.setup()
     renderASS(<AsyncSearchSelect {...baseProps} onToggle={vi.fn()} />)

@@ -1,15 +1,10 @@
 import { sql } from 'drizzle-orm'
 import { boolean, jsonb, pgTable, text, timestamp } from 'drizzle-orm/pg-core'
 
-// Brand-level claims (vegan / cruelty-free / natural-or-organic certified)
-// keyed by `lower(trim(brand))`. Brands are free-text on `products.brand`,
-// no FK. Detector joins by normalized brand so casing/whitespace drift
-// between sources never breaks the lookup.
-//
-// `sources` records provenance per claim so we can re-ingest one source
-// (OBF, PETA, Leaping Bunny, Cosmos…) without losing the others. Empty
-// array for a claim means the claim is currently false; non-empty = true
-// at the row level (mirrored in the boolean columns for fast filter).
+// Brand-level claims (vegan / cruelty-free / natural-or-organic certified) keyed by
+// `lower(trim(brand))`, since `products.brand` is free-text with no FK. `sources` records
+// provenance per claim so one source (OBF, PETA, Leaping Bunny, Cosmos...) can be
+// ingested again without losing the others; empty array means the claim is currently false.
 
 export type BrandCertificationSource =
   | 'manual'

@@ -5,7 +5,6 @@ import {
   buildCanonicalKeyMaps,
   type CorpusSnapshot,
   computeLinks,
-  isDeferredInciToken,
   prepareCorpusReconcile,
   resolveToken,
   scopeReconcilePlan,
@@ -169,7 +168,7 @@ describe('scopeReconcilePlan', () => {
 })
 
 describe('computeLinks', () => {
-  it('links only the four Eugenia extract forms', () => {
+  it('links only the four D1 Eugenia extract forms', () => {
     const d1Tokens = [
       'eugenia caryophyllus clove flower extract*',
       'EUGENIA CARYOPHYLLUS FLOWER EXTRACT',

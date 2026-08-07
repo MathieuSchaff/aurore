@@ -1,17 +1,7 @@
-// Detect kind mistags the name-regex audit (product-kinds.ts) cannot see: products
-// whose NAME carries no kind keyword but whose INCI contradicts the kind. The klorane
-// "cold cream tagged shampoo" class. Signal is INCI composition, independent of the name.
-//
-// Two high-precision, report-only rules (no --write):
-//   1. a rinse-off wash kind (shampoo/body-wash) whose substantial INCI contains no
-//      surfactant at all is almost never a real wash (oil/mask/treatment/colour/styling
-//      mistagged). Dry shampoos are excluded — propellant/starch INCI has no surfactant.
-//   2. the reverse — a leave-on kind (moisturizer/serum/…) whose INCI HEAD leads with a
-//      primary wash detergent is a rinse-off (syndet bar / surgras gel) mistagged. Cetearyl
-//      emulsifier and "SANS:" free-from lists are excluded so neither trips it.
-//
-// Each flags the contradiction, not the correct kind, so an admin triages.
-// Usage: bun run .../kind-inci-coherence.ts
+// Detect kind mistags the name-regex audit (product-kinds.ts) misses: products whose NAME
+// carries no kind keyword but whose INCI contradicts the kind (the klorane "cold cream tagged
+// shampoo" case). Signal is INCI composition, independent of the name. Report-only (no --write):
+// each flags the contradiction, not the correct kind, so an admin triages.
 
 import { withAdminRls } from '../../../../db/rls'
 import { products } from '../../../../db/schema'
@@ -29,13 +19,13 @@ const DRY_SHAMPOO_NAME = /\bshampo+ing?\s+sec\b|\bdry\s+shampoo\b/i
 
 // Cold-process soap saponifies raw fats with lye in-situ, so the INCI lists the oils +
 // "Sodium/Potassium Hydroxide" instead of the finished *-ate salt SURFACTANT catches.
-// In a wash kind, lye alongside fatty oils/butters is saponification — a real soap,
-// legitimately body-wash/shampoo — not a missing surfactant.
+// In a wash kind, lye alongside fatty oils/butters is saponification (a real soap,
+// legitimately body-wash/shampoo), not a missing surfactant.
 const SAPONIFIED_LYE = /\b(?:sodium|potassium)\s+hydroxide\b/i
 const FATTY_MATTER = /\b(?:oil|butter|huile|beurre)\b/i
 
 const WASH_KINDS = new Set(['shampoo', 'body-wash'])
-const MIN_INCI_LEN = 60 // skip marketing one-liners / empty INCI — not enough signal
+const MIN_INCI_LEN = 60 // skip marketing one-liners / empty INCI: not enough signal
 
 // Reverse signal: a leave-on kind whose INCI leads with a PRIMARY wash detergent
 // is a rinse-off (syndet bar / surgras gel) mistagged. Cetearyl/coceth sulfate are
@@ -54,7 +44,7 @@ const WASH_PRIMARY =
   /(?:lauryl|laureth|myreth|coco-?)\s*sulfate|sulfosuccinate|cocoyl\s+isethionate|\bisethionate\b|cocoyl\s+sarcosinate|\bsarcosinate\b|sulfoacetate|cocoyl\s+taurate/i
 const WASH_TOP_N = 4 // primary detergent sits in the first ingredients; deeper = adjuvant/emulsifier
 
-// "SANS : … laurylsulfate" is a free-from claim, not an ingredient list — the surfactant
+// "SANS : … laurylsulfate" is a free-from claim, not an ingredient list: the surfactant
 // token names an ABSENCE. Skip when the head carries such a marker (polluted INCI field).
 const FREE_FROM = /\bsans\b\s*:|\bwithout\b\s*:|\bfree[-\s]?from\b|\b0\s*%/i
 
@@ -74,6 +64,8 @@ type ProductRow = {
   inci: string | null
 }
 
+// A rinse-off wash kind whose substantial INCI has no surfactant at all is almost never
+// a real wash, usually an oil/mask/treatment/colour/styling product mistagged.
 function isWashWithoutSurfactant(p: ProductRow): boolean {
   if (!WASH_KINDS.has(p.kind)) return false
   if (!p.inci || p.inci.length < MIN_INCI_LEN) return false

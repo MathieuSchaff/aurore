@@ -19,7 +19,7 @@ export const Route = createFileRoute('/products/$slug_/edit')({
   },
   loader: ({ context, params }) =>
     context.queryClient.ensureQueryData(productQueries.bySlug(params.slug)).catch((err) => {
-      // Missing product = 404 → notFoundComponent; keep 5xx/429 on the real error UI.
+      // Missing product = 404, route to notFoundComponent; keep 5xx/429 on the real error UI
       if (err instanceof ApiError && err.status === 404) throw notFound()
       throw err
     }),

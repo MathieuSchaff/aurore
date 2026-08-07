@@ -1,9 +1,7 @@
 // Brand-level label emission. Pure lookup, no INCI inspection.
-// Orchestrator pre-loads brand certifications once per run; per-product cost is O(1).
-//
-// Co-fire: vegan may also fire from the INCI absence pass; duplicates collapse
-// via orchestrator dedup (relevance identical, only telemetry differs).
-// cruelty-free and bio-naturel have no INCI emitter; brand is the sole source.
+// Orchestrator loads brand certifications once per run; per-product cost is O(1).
+// vegan may also fire from the INCI absence pass, duplicates collapse via orchestrator
+// dedup. cruelty-free and bio-naturel have no INCI emitter; brand is the sole source.
 
 import { SKINCARE_PRODUCT_TAG_SLUGS, type SkincareProductTagSlug } from '@aurore/shared'
 

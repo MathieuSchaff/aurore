@@ -15,15 +15,14 @@ fallow-baseline:
     npx fallow dupes --save-baseline .fallow/audit-dupes.json --quiet
 
 # anonDb is the anonymous view, so a new site under-scopes (lost personalisation, lost request
-# transaction) instead of escalating — no test and no type catches that. Classification of the
-# frozen sites: docs-private/sessions/db-transaction/rootdb-audit.md
+# transaction) instead of escalating — no test and no type catches that.
 # Freeze the `c.get('anonDb')` surface against scripts/anon-db-allowlist.json. "--update" re-baselines.
 anon-db-gate flags="":
     bun scripts/anon-db-gate.ts {{flags}}
 
-# Dead-code scan via knip (re-export aware, fewer false positives than fallow). DATABASE_URL stub avoids drizzle.config.ts load error (knip only parses imports). Pass "--strict" to also report unlisted deps, types-only, etc.
-knip flags="":
-    DATABASE_URL=postgres://x bunx knip {{flags}} --reporter compact
+# Dead-code scan via knip (re-export aware, fewer false positives than fallow). DATABASE_URL stub avoids drizzle.config.ts load error (knip only parses imports). Pass "--strict" to also report unlisted deps, types-only, etc. Second positional picks the reporter ("sarif" for audit-code).
+knip flags="" reporter="compact":
+    @DATABASE_URL=postgres://x bunx knip {{flags}} --reporter {{reporter}}
 
 # Import cycles. Type-only imports are ignored via .madgerc so TanStack Start's generated
 # Register imports and other erased TypeScript edges do not masquerade as runtime cycles.

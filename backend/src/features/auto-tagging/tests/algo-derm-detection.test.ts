@@ -31,11 +31,10 @@ describe('algo-derm-detection', () => {
   })
 
   test('allow:false tags are never emitted (matifiant, repulpant, sans-savon, eczema-atopie)', () => {
-    // INCI designed to trigger several disabled tags:
-    // - hyaluronic acid + glycerin → repulpant (allow:false)
-    // - niacinamide → matifiant (allow:false — algo-derm path; sensoriel
-    //   detector lives in passes/formula/ and keys on absorbent powders)
-    // - gentle ingredients → would normally fire peaux-atopiques
+    // INCI designed to trigger several disabled tags: hyaluronic acid + glycerin
+    // give repulpant, niacinamide gives matifiant (algo-derm path; the sensoriel
+    // detector lives in passes/formula/ and keys on absorbent powders instead),
+    // and gentle ingredients would normally fire peaux-atopiques.
     // Hypoallergenique is intentionally not in this disabled list.
     const inci = 'Aqua, Glycerin, Sodium Hyaluronate, Niacinamide, Phenoxyethanol'
     const tags = detectAutoTags(inci, 'serum')
@@ -47,7 +46,7 @@ describe('algo-derm-detection', () => {
   })
 
   test('non-avoid tags have relevance=secondary; grossesse_risque fires as avoid', () => {
-    // INCI without grossesse contraindications → all secondary
+    // INCI without grossesse contraindications gives all secondary tags
     const safeInci = 'Aqua, Glycerin, Niacinamide, Tocopherol, Phenoxyethanol'
     const safeTags = detectAutoTags(safeInci, 'serum')
     expect(safeTags.length).toBeGreaterThan(0)
@@ -56,7 +55,7 @@ describe('algo-derm-detection', () => {
       expect(t.confidence).toBeGreaterThanOrEqual(0)
       expect(t.confidence).toBeLessThanOrEqual(1)
     }
-    // INCI with retinoid → grossesse_risque fires as avoid
+    // INCI with retinoid: grossesse_risque fires as avoid
     const retinoidInci = 'Aqua, Retinol, Glycerin, Tocopherol, Phenoxyethanol'
     const retinoidTags = detectAutoTags(retinoidInci, 'serum')
     const avoidTags = retinoidTags.filter((t) => t.relevance === 'avoid')
@@ -113,7 +112,7 @@ describe('algo-derm-detection', () => {
     // Algo-derm fires `non_irritant` on `irritation.risk < 0.35` with
     // `irritation.confidence` proportional to how many ingredients carry
     // irritation evidence. INCI of canonical low-risk actives gives
-    // confidence ≈ 1.0 → passes Aurore's confidenceFloor 0.85 + coverageFloor 0.7 gate.
+    // confidence ≈ 1.0, so it passes Aurore's confidenceFloor 0.85 + coverageFloor 0.7 gate.
     const inci = 'Aqua, Glycerin, Niacinamide, Tocopherol, Sodium Hyaluronate'
     const slugs = new Set(detectAutoTags(inci, 'serum').map((t) => t.slug))
     expect(slugs.has(S.NON_IRRITANT)).toBe(true)
@@ -121,7 +120,7 @@ describe('algo-derm-detection', () => {
 
   test('T2 non_irritant: leave-on with SLS + fragrance does not emit non-irritant', () => {
     // Sodium lauryl sulfate + parfum + 2 EU 26 allergens push leave-on
-    // irritation.risk above 0.35 → algo-derm sets `present: false` at the
+    // irritation.risk above 0.35, so algo-derm sets `present: false` at the
     // source.
     const inci = 'Aqua, Sodium Lauryl Sulfate, Parfum, Limonene, Linalool'
     const slugs = new Set(detectAutoTags(inci, 'moisturizer').map((t) => t.slug))
@@ -172,12 +171,11 @@ describe('algo-derm-detection', () => {
   })
 
   test('dropCounts hook: populates `<reason>:<tagId>` when provided', () => {
-    // This INCI fills multiple drop buckets: allow:false tags (sans_savon)
-    // → disallowed; algo-derm candidates that come back present:false
-    // → not_present (since TAG_DEFS v10, purifiant lands here too — a BHA at
-    // unknown pH is gated to present:false rather than reaching the disallowed
-    // check). Assert both buckets fire without pinning an id — v10 gating
-    // shifts specific ids between buckets.
+    // This INCI fills multiple drop buckets: allow:false tags (sans_savon) land in
+    // disallowed, algo-derm candidates with present:false land in not_present (since
+    // TAG_DEFS v10, purifiant lands here too, since a BHA at unknown pH is gated to
+    // present:false before reaching the disallowed check). Assert both buckets fire
+    // without pinning an id, since v10 gating shifts specific ids between buckets.
     const inci = 'Aqua, Salicylic Acid, Niacinamide, Glycerin'
     const drops = new Map<string, number>()
     detectAutoTags(inci, 'serum', { dropCounts: drops })
@@ -190,7 +188,7 @@ describe('algo-derm-detection', () => {
 
   test('T1 absence family: clean INCI emits silicones/HE/min-oil/allergens on leave-on', () => {
     // No SLS, no dimethicone, no essential oils, no petrolatum, no EU 26 allergens.
-    // Coverage ≥ 0.7 → coverageFloor 0.7 gate passes for the four ungated absence
+    // Coverage ≥ 0.7, so the coverageFloor 0.7 gate passes for the four ungated absence
     // tags. sans-sulfates is formulaType-gated on leave-on (see next test).
     const inci = 'Aqua, Glycerin, Niacinamide, Sodium Hyaluronate, Tocopherol, Panthenol'
     const slugs = new Set(detectAutoTags(inci, 'serum').map((t) => t.slug))

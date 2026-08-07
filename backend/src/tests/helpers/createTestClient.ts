@@ -4,7 +4,7 @@ import { createTestApp } from './createTestApp'
 
 // Enter the /api segment once (like the frontend's `client.api` in lib/api.ts):
 // createTestApp now mirrors prod and mounts every router under /api, so the RPC
-// proxy paths (client.auth.login → /api/auth/login) resolve against the real mount.
+// proxy paths (e.g. client.auth.login resolving to /api/auth/login) hit the real mount.
 export async function createTestClient() {
   const app = await createTestApp()
   return testClient(app).api
@@ -28,7 +28,7 @@ export async function signupAndGetToken(
   password: string
 ): Promise<{ token: string; userId: string }> {
   // Signup no longer establishes a session (ADR 0009): create the account, then
-  // log in to obtain a token. Login works pre-verification via the grace window.
+  // log in to obtain a token. Login works before verification via the grace window.
   const signupRes = await client.auth.signup.$post({ json: { email, password } })
   const signupData = await signupRes.json()
   if (!signupData.success) throw new Error(`signup failed: ${JSON.stringify(signupData)}`)

@@ -69,13 +69,13 @@ describe('GET /api/social/similar', () => {
     expect(data).toEqual({ profiles: [] })
   })
 
-  it('surfaces a discoverable public peer with a shared concern as an ordinal band — never a number', async () => {
+  it('surfaces a discoverable public peer with a shared concern as an ordinal band, never a number', async () => {
     const token = await seedViewer({
       skinConcerns: ['rosacee'],
       skinTypes: ['peau-sensible'],
       fitzpatrickType: 3,
     })
-    // couperose shares the rosacee clinical bucket → top band
+    // couperose shares the rosacee clinical bucket, so it lands in the top band
     await seedPeer('peer-pub', {
       skinConcerns: ['couperose'],
       skinTypes: ['peau-sensible'],
@@ -128,7 +128,7 @@ describe('GET /api/social/similar', () => {
       skinTypes: ['peau-sensible'],
       fitzpatrickType: 3,
     })
-    // Fully disjoint on every axis → éloigné, must not appear.
+    // Fully disjoint on every axis, so éloigné: must not appear.
     await seedPeer('distant', {
       skinConcerns: ['anti-acne'],
       skinTypes: ['peau-grasse'],
@@ -145,7 +145,7 @@ describe('GET /api/social/similar', () => {
       skinTypes: ['peau-sensible'],
       fitzpatrickType: 3,
     })
-    // Each excluded peer shares the concern → would be tres-proche if it leaked.
+    // Each excluded peer shares the concern, so it would be tres-proche if it leaked.
     const shared: Dermo = {
       skinConcerns: ['rosacee'],
       skinTypes: ['peau-sensible'],
@@ -171,8 +171,8 @@ describe('GET /api/social/similar', () => {
       skinTypes: ['peau-sensible'],
       fitzpatrickType: 3,
     })
-    // Empty dermo: nullable axes left null, concerns default to {}. Scores 0 →
-    // éloigné → excluded, but must not throw.
+    // Empty dermo: nullable axes left null, concerns default to {}. Scores 0, so it is
+    // éloigné and excluded, but must not throw.
     await seedPeer('empty', { skinTypes: null, fitzpatrickType: null })
 
     const data = await fetchSimilar(token)
@@ -211,7 +211,7 @@ describe('GET /api/social/similar', () => {
       fitzpatrickType: 3,
     }
     const token = await seedViewer(shared)
-    // Seeded out of alphabetical order; both score 1.0 → tie broken by username.
+    // Seeded out of alphabetical order; both score 1.0, so the tie is broken by username.
     await seedPeer('zoe', shared)
     await seedPeer('amir', shared)
 

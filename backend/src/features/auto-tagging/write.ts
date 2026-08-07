@@ -1,17 +1,10 @@
 // Runtime auto-tag writer. Single-product wrapper used by
-// `features/products/service.ts create/updateProduct()` to derive tags inline
-// at intake. Same orchestrator as the batch backfill; diverges
-// only in I/O shape (one product, fetch what's needed, insert pairs).
-//
-// Idempotent via `onConflictDoNothing` on the (productId, productTagId) PK.
-// Unknown slugs (orchestrator emits a tag whose `product_tags_defs` row is
-// missing) are silently dropped; keeps the runtime path resilient when new
-// orchestrator rules ship before the seed catches up.
+// `features/products/service.ts create/updateProduct()`; same orchestrator as
+// the batch backfill, diverges only in I/O shape.
 
 import { and, eq, ne } from 'drizzle-orm'
 
-import { db } from '../../db'
-import type { DB } from '../../db/index'
+import type { DatabaseTransaction } from '../../db/index'
 import { products, productTagLinks } from '../../db/schema'
 import { logger } from '../../lib/logger'
 import { loadAutoTagFetchBundle, ORCHESTRATOR_PRODUCT_COLUMNS } from './lib/fetch-auto-tag-bundle'
@@ -24,7 +17,7 @@ interface WriteTagsResult {
 
 export async function writeTagsForProduct(
   productId: string,
-  database: DB = db,
+  database: DatabaseTransaction,
   bundle?: AutoTagFetchBundle
 ): Promise<WriteTagsResult> {
   const [product] = await database
@@ -40,6 +33,8 @@ export async function writeTagsForProduct(
   // loaded once, skipping the per-product re-read of the corpus-global certs
   // and tag-defs.
   const resolvedBundle = bundle ?? (await loadAutoTagFetchBundle([productId], database))
+  // Unknown slugs (missing `product_tags_defs` row) are silently dropped here, so the
+  // runtime path stays resilient when orchestrator rules ship before the seed catches up.
   const { pairs, rows: resolved } = computeTagRowsForProduct(product, resolvedBundle)
   const rows = resolved.map((r) => ({
     productId: product.id,
@@ -57,6 +52,7 @@ export async function writeTagsForProduct(
 
     if (rows.length === 0) return { inserted: 0, detected: pairs.length }
 
+    // Idempotent via onConflictDoNothing on (productId, productTagId).
     // Read the driver's count: onConflictDoNothing skips rows whose PK is held
     // by a manual link, so rows.length would over-report. bun-postgres exposes
     // the affected count under `count` (rowCount is absent on this driver).
@@ -93,7 +89,7 @@ export function recordAutoTagSkip(productId: string, meta: AutoTagSkipMeta, err:
 // Intake-only fail-soft wrapper. Seed-core and the backfill runner call
 // `detectAllAutoTags` directly so their failures still propagate.
 export async function writeTagsForProductFailSoft(
-  database: DB,
+  database: DatabaseTransaction,
   productId: string,
   meta: AutoTagSkipMeta
 ): Promise<void> {

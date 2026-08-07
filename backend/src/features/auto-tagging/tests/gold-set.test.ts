@@ -168,7 +168,7 @@ describe('serializeGoldSet', () => {
     const serialized = serializeGoldSet(original)
     const reparsed = validateGoldSet(JSON.parse(serialized), 'reparsed')
     expect(reparsed.annotations.length).toBe(2)
-    // Sorted by slug → 'a-product' first.
+    // Sorted by slug: 'a-product' first.
     expect(reparsed.annotations[0]?.productSlug).toBe('a-product')
     expect(reparsed.annotations[1]?.productSlug).toBe('b-product')
     // present sorted alphabetically.
