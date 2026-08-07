@@ -6,21 +6,19 @@ import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { ingredientLabels } from '../../constants'
 import { IngredientInfoTab } from './IngredientInfoTab'
 
-vi.mock('@tanstack/react-query', async (importOriginal) => {
-  const actual = await importOriginal<typeof import('@tanstack/react-query')>()
-  return { ...actual, useQuery: vi.fn(), useSuspenseQuery: vi.fn() }
-})
+vi.mock('@tanstack/react-query', async () => ({
+  ...(await vi.importActual<typeof import('@tanstack/react-query')>('@tanstack/react-query')),
+  useQuery: vi.fn(),
+  useSuspenseQuery: vi.fn(),
+}))
 
-vi.mock('@tanstack/react-router', async (importOriginal) => {
-  const actual = await importOriginal<typeof import('@tanstack/react-router')>()
-  return {
-    ...actual,
-    Link: vi.fn(({ children }) => children),
-    // Returns a frozen object resolved at module load — beforeEach is too late
-    // because IngredientInfoTab calls getRouteApi() at the top level.
-    getRouteApi: vi.fn(() => ({ useParams: () => ({ slug: 'retinol' }) })),
-  }
-})
+vi.mock('@tanstack/react-router', async () => ({
+  ...(await vi.importActual<typeof import('@tanstack/react-router')>('@tanstack/react-router')),
+  Link: vi.fn(({ children }) => children),
+  // Returns a frozen object resolved at module load — beforeEach is too late
+  // because IngredientInfoTab calls getRouteApi() at the top level.
+  getRouteApi: vi.fn(() => ({ useParams: () => ({ slug: 'retinol' }) })),
+}))
 
 vi.mock('@/lib/queries/ingredients', () => ({
   ingredientQueries: {

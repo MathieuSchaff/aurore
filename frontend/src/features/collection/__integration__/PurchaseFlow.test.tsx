@@ -9,37 +9,31 @@ import { pdsLabels } from '../constants'
 import { CollectionPage } from '../page/CollectionPage'
 import { makeUserProductMock, mockPrefs } from './__fixtures__'
 
-vi.mock('@tanstack/react-router', async (importOriginal) => {
-  const actual = await importOriginal<typeof import('@tanstack/react-router')>()
-  return {
-    ...actual,
-    Link: vi.fn(({ children }) => <a href="/">{children}</a>),
-    // createLink closes over the real internal Link, bypassing the override above.
-    createLink: vi.fn(() => vi.fn(({ children }) => <a href="/">{children}</a>)),
-    useNavigate: vi.fn(() => vi.fn()),
-    getRouteApi: () => ({
-      useNavigate: () => vi.fn(),
-      useSearch: () => ({
-        q: '',
-        sort: 'name',
-        brand: 'all',
-        productType: 'all',
-        sentiment: 'all',
-        repurchase: 'all',
-        minNote: 0,
-        maxPrice: '',
-      }),
+vi.mock('@tanstack/react-router', async () => ({
+  ...(await vi.importActual<typeof import('@tanstack/react-router')>('@tanstack/react-router')),
+  Link: vi.fn(({ children }) => <a href="/">{children}</a>),
+  // createLink closes over the real internal Link, bypassing the override above.
+  createLink: vi.fn(() => vi.fn(({ children }) => <a href="/">{children}</a>)),
+  useNavigate: vi.fn(() => vi.fn()),
+  getRouteApi: () => ({
+    useNavigate: () => vi.fn(),
+    useSearch: () => ({
+      q: '',
+      sort: 'name',
+      brand: 'all',
+      productType: 'all',
+      sentiment: 'all',
+      repurchase: 'all',
+      minNote: 0,
+      maxPrice: '',
     }),
-  }
-})
+  }),
+}))
 
-vi.mock('@tanstack/react-query', async (importOriginal) => {
-  const actual = await importOriginal<any>()
-  return {
-    ...actual,
-    useQuery: vi.fn(),
-  }
-})
+vi.mock('@tanstack/react-query', async () => ({
+  ...(await vi.importActual<typeof import('@tanstack/react-query')>('@tanstack/react-query')),
+  useQuery: vi.fn(),
+}))
 
 const mockUserProducts = [
   makeUserProductMock({

@@ -1,6 +1,5 @@
-import { QueryClientProvider } from '@tanstack/react-query'
-import { fireEvent, render, screen, waitFor } from '@testing-library/react'
-import type { ReactNode } from 'react'
+import { fireEvent, screen, waitFor } from '@testing-library/react'
+import type { ReactElement, ReactNode } from 'react'
 import { describe, expect, it, vi } from 'vitest'
 
 import {
@@ -9,9 +8,13 @@ import {
   useUpdateIngredientTags,
 } from '@/lib/queries/ingredients'
 import { useAuthStore } from '@/store/auth'
-import { createTestQueryClient } from '@/test/utils'
+import { createTestQueryClient, renderWithProviders } from '@/test/utils'
 import { ingredientLabels } from '../../../constants'
 import { IngredientForm } from '../IngredientForm'
+
+function renderForm(ui: ReactElement, queryClient: ReturnType<typeof createTestQueryClient>) {
+  return renderWithProviders(ui, { queryClient })
+}
 
 vi.mock('@/store/auth', () => ({
   useAuthStore: vi.fn(),
@@ -98,10 +101,9 @@ describe('IngredientForm - Conflict Resolution', () => {
 
     vi.spyOn(queryClient, 'fetchQuery').mockResolvedValueOnce(freshIngredient)
 
-    render(
-      <QueryClientProvider client={queryClient}>
-        <IngredientForm mode="edit" ingredient={mockIngredient} onSuccess={mockOnSuccess} />
-      </QueryClientProvider>
+    renderForm(
+      <IngredientForm mode="edit" ingredient={mockIngredient} onSuccess={mockOnSuccess} />,
+      queryClient
     )
 
     const descriptionField = screen.getByLabelText(/Description/)
@@ -116,7 +118,7 @@ describe('IngredientForm - Conflict Resolution', () => {
 
     expect(descriptionField).toHaveValue('Server edited description')
 
-    // Banner description also contains "Ton brouillon" — match by count, not unique.
+    // Banner description also contains "Ton brouillon". Match by count, not unique.
     const draftHints = screen.getAllByText(/Ton brouillon/i)
     expect(draftHints.length).toBeGreaterThanOrEqual(1)
     expect(screen.getByText('My local draft')).toBeInTheDocument()
@@ -153,19 +155,14 @@ describe('IngredientForm - Conflict Resolution', () => {
     ;(useUpdateIngredient as any).mockReturnValue({ isPending: false })
 
     ;(useAuthStore as any).mockReturnValue({ role: 'user' })
-    const { rerender } = render(
-      <QueryClientProvider client={queryClient}>
-        <IngredientForm mode="edit" ingredient={mockIngredient} onSuccess={vi.fn()} />
-      </QueryClientProvider>
+    const { rerender } = renderForm(
+      <IngredientForm mode="edit" ingredient={mockIngredient} onSuccess={vi.fn()} />,
+      queryClient
     )
     expect(screen.queryByLabelText(/Slug/)).not.toBeInTheDocument()
 
     ;(useAuthStore as any).mockReturnValue({ role: 'admin' })
-    rerender(
-      <QueryClientProvider client={queryClient}>
-        <IngredientForm mode="edit" ingredient={mockIngredient} onSuccess={vi.fn()} />
-      </QueryClientProvider>
-    )
+    rerender(<IngredientForm mode="edit" ingredient={mockIngredient} onSuccess={vi.fn()} />)
     expect(screen.getByLabelText(/Slug/)).toBeInTheDocument()
   })
 })
@@ -182,10 +179,9 @@ describe('IngredientForm - cancel link', () => {
     setupHooks()
     const queryClient = createTestQueryClient()
 
-    render(
-      <QueryClientProvider client={queryClient}>
-        <IngredientForm mode="edit" ingredient={mockIngredient} onSuccess={vi.fn()} />
-      </QueryClientProvider>
+    renderForm(
+      <IngredientForm mode="edit" ingredient={mockIngredient} onSuccess={vi.fn()} />,
+      queryClient
     )
 
     expect(screen.getByRole('link', { name: /Annuler/ })).toHaveAttribute(
@@ -200,11 +196,7 @@ describe('IngredientForm - cancel link', () => {
     const queryClient = createTestQueryClient()
     const noSlug = { ...mockIngredient, slug: undefined } as unknown as typeof mockIngredient
 
-    render(
-      <QueryClientProvider client={queryClient}>
-        <IngredientForm mode="edit" ingredient={noSlug} onSuccess={vi.fn()} />
-      </QueryClientProvider>
-    )
+    renderForm(<IngredientForm mode="edit" ingredient={noSlug} onSuccess={vi.fn()} />, queryClient)
 
     expect(screen.getByRole('link', { name: /Annuler/ })).toHaveAttribute('href', '/ingredients')
   })

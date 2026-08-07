@@ -13,37 +13,31 @@ import { defaultCollectionSearch, makeUserProductMock, mockPrefs } from './__fix
 
 let mockSearch = { ...defaultCollectionSearch }
 
-vi.mock('@tanstack/react-router', async (importOriginal) => {
-  const actual = await importOriginal<typeof import('@tanstack/react-router')>()
-  return {
-    ...actual,
-    Link: vi.fn(({ children }) => <a href="/">{children}</a>),
-    // createLink closes over the real internal Link, bypassing the override above.
-    createLink: vi.fn(() => vi.fn(({ children }) => <a href="/">{children}</a>)),
-    // This file's mock shadows the global setup; re-stub useRouter so children
-    // calling it don't reach the real one (no RouterProvider in this test).
-    useRouter: vi.fn(() => ({ state: { location: { pathname: '/' } } })),
-    useNavigate: vi.fn(() => vi.fn()),
-    getRouteApi: () => ({
-      useNavigate: () => (updates: any) => {
-        if (typeof updates.search === 'function') {
-          mockSearch = updates.search(mockSearch)
-        } else {
-          mockSearch = { ...mockSearch, ...updates.search }
-        }
-      },
-      useSearch: () => mockSearch,
-    }),
-  }
-})
+vi.mock('@tanstack/react-router', async () => ({
+  ...(await vi.importActual<typeof import('@tanstack/react-router')>('@tanstack/react-router')),
+  Link: vi.fn(({ children }) => <a href="/">{children}</a>),
+  // createLink closes over the real internal Link, bypassing the override above.
+  createLink: vi.fn(() => vi.fn(({ children }) => <a href="/">{children}</a>)),
+  // This file's mock shadows the global setup; stub useRouter again so children
+  // calling it don't reach the real one (no RouterProvider in this test).
+  useRouter: vi.fn(() => ({ state: { location: { pathname: '/' } } })),
+  useNavigate: vi.fn(() => vi.fn()),
+  getRouteApi: () => ({
+    useNavigate: () => (updates: any) => {
+      if (typeof updates.search === 'function') {
+        mockSearch = updates.search(mockSearch)
+      } else {
+        mockSearch = { ...mockSearch, ...updates.search }
+      }
+    },
+    useSearch: () => mockSearch,
+  }),
+}))
 
-vi.mock('@tanstack/react-query', async (importOriginal) => {
-  const actual = await importOriginal<any>()
-  return {
-    ...actual,
-    useQuery: vi.fn(),
-  }
-})
+vi.mock('@tanstack/react-query', async () => ({
+  ...(await vi.importActual<typeof import('@tanstack/react-query')>('@tanstack/react-query')),
+  useQuery: vi.fn(),
+}))
 
 const mockUserProducts = [
   makeUserProductMock({

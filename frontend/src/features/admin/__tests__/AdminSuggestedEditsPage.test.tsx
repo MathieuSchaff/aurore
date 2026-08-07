@@ -4,36 +4,27 @@ import userEvent from '@testing-library/user-event'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
 import { useReviewSuggestedEdit } from '@/lib/queries/admin'
-import { useAuthStore } from '@/store/auth'
+import { setAuthRole } from '@/test/mocks/auth-store'
 import { renderWithProviders } from '@/test/utils'
 import { AdminSuggestedEditsPage } from '../components/AdminSuggestedEditsPage'
 
-vi.mock('@tanstack/react-query', async (importOriginal) => {
-  const actual = await importOriginal<typeof import('@tanstack/react-query')>()
-  return { ...actual, useSuspenseQuery: vi.fn() }
-})
-vi.mock('@tanstack/react-router', async (importOriginal) => {
-  const actual = await importOriginal<typeof import('@tanstack/react-router')>()
-  return {
-    ...actual,
-    Link: ({ children, to, ...rest }: { children: React.ReactNode; to: string }) => (
-      <a href={to} {...(rest as object)}>
-        {children}
-      </a>
-    ),
-  }
-})
+vi.mock('@tanstack/react-query', async () => ({
+  ...(await vi.importActual<typeof import('@tanstack/react-query')>('@tanstack/react-query')),
+  useSuspenseQuery: vi.fn(),
+}))
+vi.mock('@tanstack/react-router', async () => ({
+  ...(await vi.importActual<typeof import('@tanstack/react-router')>('@tanstack/react-router')),
+  Link: ({ children, to, ...rest }: { children: React.ReactNode; to: string }) => (
+    <a href={to} {...(rest as object)}>
+      {children}
+    </a>
+  ),
+}))
 vi.mock('@/store/auth', () => ({ useAuthStore: vi.fn() }))
 vi.mock('@/lib/queries/admin', async (importOriginal) => {
   const actual = await importOriginal<typeof import('@/lib/queries/admin')>()
   return { ...actual, useReviewSuggestedEdit: vi.fn() }
 })
-
-function setRole(role: 'user' | 'admin' | 'contributor') {
-  vi.mocked(useAuthStore).mockImplementation(
-    (selector: unknown) => (selector as (s: { role: typeof role }) => unknown)({ role }) as never
-  )
-}
 
 const EDIT = {
   id: 'edit-1',
@@ -51,7 +42,7 @@ const EDIT = {
 let review: ReturnType<typeof useReviewSuggestedEdit>['mutate']
 
 beforeEach(() => {
-  setRole('contributor')
+  setAuthRole('contributor')
   vi.mocked(useSuspenseQuery).mockReturnValue({ data: { items: [EDIT] } } as never)
   review = vi.fn() as never
   vi.mocked(useReviewSuggestedEdit).mockReturnValue({ mutate: review, isPending: false } as never)

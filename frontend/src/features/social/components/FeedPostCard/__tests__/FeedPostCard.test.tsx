@@ -2,32 +2,10 @@ import { cleanup, screen } from '@testing-library/react'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 
 import type { FeedItem } from '@/lib/queries/social'
+import { createLinkStub, LinkStub } from '@/test/mocks/router'
 import { renderWithProviders } from '@/test/utils'
 
-vi.mock('@tanstack/react-router', () => ({
-  // Button.tsx calls createLink at module load; stub so the import doesn't throw.
-  createLink: vi.fn(() => vi.fn(({ children }) => children)),
-  Link: ({
-    to,
-    params,
-    children,
-    className,
-  }: {
-    to: string
-    params?: Record<string, string>
-    children: React.ReactNode
-    className?: string
-  }) => {
-    const href = params
-      ? Object.entries(params).reduce((acc, [k, v]) => acc.replace(`$${k}`, v), to)
-      : to
-    return (
-      <a href={href} className={className}>
-        {children}
-      </a>
-    )
-  },
-}))
+vi.mock('@tanstack/react-router', () => ({ createLink: createLinkStub, Link: LinkStub }))
 
 const reactionRowSpy = vi.hoisted(() => vi.fn())
 vi.mock('@/features/social/components/ReactionRow/ReactionRow', () => ({

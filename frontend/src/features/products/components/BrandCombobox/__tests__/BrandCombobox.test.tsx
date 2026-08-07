@@ -1,9 +1,9 @@
-import { type QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { fireEvent, render, screen, waitFor } from '@testing-library/react'
+import type { QueryClient } from '@tanstack/react-query'
+import { fireEvent, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
-import { createTestQueryClient } from '../../../../../test/utils'
+import { createTestQueryClient, renderWithProviders } from '../../../../../test/utils'
 import { BrandCombobox } from '../BrandCombobox'
 
 vi.mock('@/lib/queries/products', () => ({
@@ -30,11 +30,7 @@ describe('BrandCombobox', () => {
       placeholder: 'Chercher une marque',
       ...props,
     }
-    return render(
-      <QueryClientProvider client={queryClient}>
-        <BrandCombobox {...defaultProps} />
-      </QueryClientProvider>
-    )
+    return renderWithProviders(<BrandCombobox {...defaultProps} />, { queryClient })
   }
 
   it('affiche le placeholder correct', () => {

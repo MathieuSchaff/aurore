@@ -1,6 +1,5 @@
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { renderHook, waitFor } from '@testing-library/react'
-import type { ReactNode } from 'react'
+import { QueryClient } from '@tanstack/react-query'
+import { waitFor } from '@testing-library/react'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
 vi.mock('../../api', () => ({
@@ -13,6 +12,7 @@ vi.mock('../../api', () => ({
   },
 }))
 
+import { renderHookWithProviders } from '@/test/utils'
 import { api } from '../../api'
 import { useUpdateComparison } from '../comparisons'
 
@@ -33,10 +33,6 @@ const ENRICHED = { id: ID, name: 'Renamed', createdAt: '2026-06-16T00:00:00.000Z
 describe('useUpdateComparison', () => {
   let queryClient: QueryClient
 
-  function wrapper({ children }: { children: ReactNode }) {
-    return <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
-  }
-
   beforeEach(() => {
     queryClient = new QueryClient({
       defaultOptions: { mutations: { retry: false } },
@@ -51,7 +47,7 @@ describe('useUpdateComparison', () => {
   it('sends id as param + input as json, returns the enriched body', async () => {
     mockPatch.mockResolvedValue(makeResponse({ body: { success: true, data: ENRICHED } }))
 
-    const { result } = renderHook(() => useUpdateComparison(), { wrapper })
+    const { result } = renderHookWithProviders(() => useUpdateComparison(), { queryClient })
     result.current.mutate({ id: ID, input: { name: 'Renamed' } })
 
     await waitFor(() => expect(result.current.isSuccess).toBe(true))
@@ -66,7 +62,7 @@ describe('useUpdateComparison', () => {
     mockPatch.mockResolvedValue(makeResponse({ body: { success: true, data: ENRICHED } }))
     const invalidateSpy = vi.spyOn(queryClient, 'invalidateQueries')
 
-    const { result } = renderHook(() => useUpdateComparison(), { wrapper })
+    const { result } = renderHookWithProviders(() => useUpdateComparison(), { queryClient })
     result.current.mutate({ id: ID, input: { name: 'Renamed' } })
 
     await waitFor(() => expect(result.current.isSuccess).toBe(true))
@@ -82,7 +78,7 @@ describe('useUpdateComparison', () => {
       makeResponse({ status: 500, body: { success: false, error: 'server_error' } })
     )
 
-    const { result } = renderHook(() => useUpdateComparison(), { wrapper })
+    const { result } = renderHookWithProviders(() => useUpdateComparison(), { queryClient })
     result.current.mutate({ id: ID, input: { name: 'Renamed' } })
 
     await waitFor(() => expect(result.current.isError).toBe(true))

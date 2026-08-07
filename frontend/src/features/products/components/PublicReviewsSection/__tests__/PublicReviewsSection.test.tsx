@@ -4,34 +4,10 @@ import { cleanup, screen } from '@testing-library/react'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 
 import { productKeys } from '@/lib/queries/products'
+import { createLinkStub, LinkStub } from '@/test/mocks/router'
 import { createTestQueryClient, renderWithProviders } from '@/test/utils'
 
-// Stub TanStack Router Link so the component test stays router-context-free.
-// Substitutes $param tokens with the provided params so href assertions hold.
-vi.mock('@tanstack/react-router', () => ({
-  // Button.tsx calls createLink at module load; stub so the import doesn't throw.
-  createLink: vi.fn(() => vi.fn(({ children }) => children)),
-  Link: ({
-    to,
-    params,
-    children,
-    className,
-  }: {
-    to: string
-    params?: Record<string, string>
-    children: React.ReactNode
-    className?: string
-  }) => {
-    const href = params
-      ? Object.entries(params).reduce((acc, [k, v]) => acc.replace(`$${k}`, v), to)
-      : to
-    return (
-      <a href={href} className={className}>
-        {children}
-      </a>
-    )
-  },
-}))
+vi.mock('@tanstack/react-router', () => ({ createLink: createLinkStub, Link: LinkStub }))
 
 import { PublicReviewsSection } from '../PublicReviewsSection'
 
