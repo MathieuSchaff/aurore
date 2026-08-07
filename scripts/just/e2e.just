@@ -24,10 +24,21 @@ e2e-reset:
     {{COMPOSE_E2E}} down
     just e2e-up
 
+# Fail-safe: each Playwright release pins its own browser builds, and bumping the
+# package leaves ~/.cache/ms-playwright on the previous ones. Nothing detects it, so
+# the whole suite dies on "Executable doesn't exist" without launching a browser.
+# Idempotent and ~0.5s once the builds are present. BEWARE lines are the unsupported-OS
+# notice on every run; the braces keep grep's no-match status from masking a real failure.
+_e2e-browsers:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    cd frontend
+    bunx playwright install 2>&1 | { grep -v '^BEWARE:' || true; }
+
 # Run Playwright — auto-runs `just e2e-up` if the stack is not already up (webServer in playwright.config)
-e2e:
+e2e: _e2e-browsers
     cd frontend && bunx playwright test
 
 # Run Playwright in interactive UI mode
-e2e-ui:
+e2e-ui: _e2e-browsers
     cd frontend && bunx playwright test --ui
