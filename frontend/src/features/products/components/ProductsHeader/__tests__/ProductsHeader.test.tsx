@@ -197,7 +197,7 @@ describe('ProductsHeader — facet match footer', () => {
     expect(resolved.q).toBeUndefined()
   })
 
-  it('navigates to /products?ingredient=… on ingredient footer click', async () => {
+  it('keeps active ingredient filters on ingredient footer click', async () => {
     render(<ProductsHeader {...baseProps} />, { wrapper: makeWrapper() })
     const input = screen.getByRole('combobox', { name: /rechercher un produit/i })
     await userEvent.type(input, 'vitamine c')
@@ -207,8 +207,24 @@ describe('ProductsHeader — facet match footer', () => {
     const [call] = navigate.mock.calls
     expect(call[0].to).toBe('/products')
     // search is a functional updater.
-    const resolved = call[0].search({})
-    expect(resolved).toMatchObject({ ingredient: ['vitamine-c'], page: 1 })
+    const resolved = call[0].search({ ingredient: ['retinol'] })
+    // A singleton replacement here silently dropped filters added by earlier selections.
+    expect(resolved).toMatchObject({ ingredient: ['retinol', 'vitamine-c'], page: 1 })
+  })
+
+  it('does not duplicate an already active ingredient filter', async () => {
+    render(<ProductsHeader {...baseProps} />, { wrapper: makeWrapper() })
+    const input = screen.getByRole('combobox', { name: /rechercher un produit/i })
+    await userEvent.type(input, 'vitamine c')
+    const entry = await screen.findByRole('option', {
+      name: /voir tous les produits avec vitamine c/i,
+    })
+    await userEvent.click(entry)
+    const [call] = navigate.mock.calls
+    const resolved = call[0].search({ ingredient: ['retinol', 'vitamine-c'] })
+    // Re-selecting a visible active facet runs this updater again; appending blindly duplicates
+    // both the URL value and its chip.
+    expect(resolved.ingredient).toEqual(['retinol', 'vitamine-c'])
   })
 
   it('Enter applies typed text as q even when a facet section matches (sections require explicit selection)', async () => {
