@@ -75,11 +75,11 @@ export function ComboboxPrimitive<T>({
   const itemsRef = useRef<HTMLDivElement>(null)
   const sentinelRef = useRef<HTMLDivElement>(null)
 
-  // showModal() top-layer renders above document.body portals regardless of z-index.
-  // Portal into the dialog element to stay in the same top-layer.
-  // Resolved in an effect: document does not exist during SSR, and the dropdown
-  // cannot open before hydration anyway.
-  const [portalTarget, setPortalTarget] = useState<Element | null>(null)
+  // Use body immediately so an early post-hydration open can render.
+  // Dialog comboboxes move into the top layer once the container ref is available.
+  const [portalTarget, setPortalTarget] = useState<Element | null>(() =>
+    typeof document === 'undefined' ? null : document.body
+  )
   useEffect(() => {
     setPortalTarget(containerRef.current?.closest('dialog') ?? document.body)
   }, [])
