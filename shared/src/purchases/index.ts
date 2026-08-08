@@ -2,11 +2,9 @@ import { z } from 'zod'
 
 import { HTTP_STATUS, type HttpStatus } from '../core'
 
-// SCHEMAS
-
 // Calendar dates (purchasedAt, openedAt, finishedAt, expiresAt) travel as full
 // ISO datetime UTC strings on the wire. Backend boundary truncates to YYYY-MM-DD
-// for the underlying `date` column. See the date convention in CLAUDE.md.
+// for the underlying `date` column. See docs/conventions/dates.md.
 const instantSchema = z.iso.datetime()
 
 export const addPurchaseSchema = z.object({
@@ -39,8 +37,6 @@ export const purchaseSchema = z.object({
   createdAt: instantSchema,
 })
 
-// TYPES
-
 export type AddPurchaseInput = z.infer<typeof addPurchaseSchema>
 export type OpenPurchaseInput = z.infer<typeof openPurchaseSchema>
 export type FinishPurchaseInput = z.infer<typeof finishPurchaseSchema>
@@ -53,8 +49,6 @@ export type PurchaseErrorCode =
   | 'no_active_purchase'
   | 'user_product_not_found'
   | 'purchase_creation_failed'
-
-// HELPERS
 
 export const purchaseErrorMapping = {
   purchase_not_found: HTTP_STATUS.NOT_FOUND,
