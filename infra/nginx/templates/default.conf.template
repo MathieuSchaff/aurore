@@ -105,15 +105,17 @@ server {
     add_header Referrer-Policy "strict-origin-when-cross-origin" always;
     add_header Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=()" always;
     # Sources: self bundle/API, self-hosted fonts, inline styles (React), Bunny CDN + Google account avatars.
+    # blob: is required for the image-upload crop preview (URL.createObjectURL on the picked file).
     # connect-src also allows the Faro RUM collector (browser POSTs telemetry to Grafana Cloud EU).
     # script-src carries a per-request nonce ($request_id, 128-bit random): the SSR app stamps it on
     # its inline hydration scripts (forwarded below as X-CSP-Nonce), so no 'unsafe-inline' is needed.
-    add_header Content-Security-Policy "default-src 'self'; script-src 'self' 'nonce-$request_id'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: https://*.b-cdn.net https://*.googleusercontent.com; connect-src 'self' https://faro-collector-prod-eu-west-2.grafana.net; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none'" always;
+    # https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Content-Security-Policy/upgrade-insecure-requests
+    add_header Content-Security-Policy "default-src 'self'; script-src 'self' 'nonce-$request_id'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: blob: https://*.b-cdn.net https://*.googleusercontent.com; connect-src 'self' https://faro-collector-prod-eu-west-2.grafana.net; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none'; upgrade-insecure-requests" always;
 
     location /nginx-health {
         access_log off;
+        default_type text/plain;
         return 200 "ok";
-        add_header Content-Type text/plain;
     }
 
     # Dynamic sitemap lives on the backend (data = Hono); map the root path crawlers

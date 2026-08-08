@@ -226,9 +226,7 @@ export const jwtAuthRoutes = app
     const ctx = buildAnonAuthContext(c)
     const refreshToken = await extractRefreshToken(c)
 
-    if (refreshToken) {
-      await logout(ctx, refreshToken)
-    }
+    await logout(ctx, refreshToken ?? null, getAuthedUserId(c))
 
     clearRefreshTokenCookie(c)
 
@@ -420,9 +418,7 @@ export const jwtAuthRoutes = app
     const ctx = buildAnonAuthContext(c)
     const { refreshToken } = c.req.valid('json')
 
-    if (refreshToken) {
-      await logout(ctx, refreshToken)
-    }
+    await logout(ctx, refreshToken ?? null, getAuthedUserId(c))
 
     return c.json(ok(null, 'Disconnected'), HTTP_STATUS.OK)
   })

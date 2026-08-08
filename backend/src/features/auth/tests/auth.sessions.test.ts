@@ -77,7 +77,7 @@ describe('Sessions multiples (multi-appareils)', () => {
     expect(login3.success).toBe(true)
     if (!login1.success || !login2.success || !login3.success) return
 
-    await logout(createCtx(), login1.data.refreshToken)
+    await logout(createCtx(), login1.data.refreshToken, login1.data.user.id)
 
     const p1 = await verifyRefreshToken(login1.data.refreshToken, REFRESH_SECRET)
     const p2 = await verifyRefreshToken(login2.data.refreshToken, REFRESH_SECRET)
@@ -171,7 +171,7 @@ describe('Sessions multiples (multi-appareils)', () => {
     expect(loginAlice.success).toBe(true)
     if (!loginToto.success || !loginAlice.success) return
 
-    await logout(createCtx(), loginToto.data.refreshToken)
+    await logout(createCtx(), loginToto.data.refreshToken, loginToto.data.user.id)
 
     const pAlice = await verifyRefreshToken(loginAlice.data.refreshToken, REFRESH_SECRET)
     expect(pAlice).not.toBeNull()

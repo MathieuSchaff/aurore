@@ -4,7 +4,7 @@ import { HTTP_STATUS } from '@aurore/shared'
 
 import { eq } from 'drizzle-orm'
 
-import { products, suggestedEdits } from '../../../db/schema'
+import { ingredients, products, suggestedEdits } from '../../../db/schema'
 import { testDb } from '../../../tests/db.test.config'
 import { setupDbTests } from '../../../tests/db-setup'
 import {
@@ -70,6 +70,7 @@ beforeEach(async () => {
 afterEach(async () => {
   await testDb.delete(suggestedEdits)
   await testDb.delete(products)
+  await testDb.delete(ingredients)
 })
 
 describe('suggested-edits routes', () => {
@@ -89,6 +90,35 @@ describe('suggested-edits routes', () => {
       HTTP_STATUS.CREATED
     )
     expect(body.status).toBe('pending')
+  })
+
+  it('authed user proposes an ingredient correction → 201 pending', async () => {
+    const [ingredient] = await testDb
+      .insert(ingredients)
+      .values({
+        createdBy: userId,
+        name: 'Ingredient test',
+        slug: 'ingredient-test',
+        type: 'skincare',
+      })
+      .returning({ id: ingredients.id })
+    if (!ingredient) throw new Error('ingredient seed failed')
+
+    const edit = await expectOk(
+      client['suggested-edits'].$post(
+        {
+          json: {
+            targetType: 'ingredient',
+            targetId: ingredient.id,
+            field: 'description',
+            proposedValue: 'Description corrigée',
+          },
+        },
+        withAuth(userToken)
+      ),
+      HTTP_STATUS.CREATED
+    )
+    expect(edit).toMatchObject({ targetType: 'ingredient', targetId: ingredient.id })
   })
 
   // 'brand' is not proposable for 'ingredient' (PROPOSABLE_FIELDS.ingredient = ['name','description']).
