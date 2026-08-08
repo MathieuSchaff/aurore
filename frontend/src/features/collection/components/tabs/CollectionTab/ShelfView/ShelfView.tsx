@@ -5,7 +5,7 @@ import {
   type UserProductStatus,
 } from '@aurore/shared'
 
-import { useCallback, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 
 import { ALL_TAB_STATUSES, SHELF_ORDER } from '@/features/collection/constants'
 import type { UserProduct } from '@/lib/queries/user-products'
@@ -28,6 +28,7 @@ interface ShelfViewProps {
 }
 
 const ACTIVE_SHELF_KEY = 'collection:activeShelf'
+const SHELF_TAB_KEYS = new Set<ShelfTabKey>(['all', 'holy_grail', 'repurchase', ...SHELF_ORDER])
 
 export function ShelfView({
   products,
@@ -37,11 +38,18 @@ export function ShelfView({
   onAddClick,
   onCompare,
 }: ShelfViewProps) {
-  const [activeTab, setActiveTab] = useState<ShelfTabKey>(() => {
-    if (typeof window === 'undefined') return 'all'
-    const saved = window.localStorage.getItem(ACTIVE_SHELF_KEY)
-    return (saved as ShelfTabKey) ?? 'all'
-  })
+  const [activeTab, setActiveTab] = useState<ShelfTabKey>('all')
+
+  // Keep the first client tree on the server's default tab, then restore the
+  // browser-only preference after hydration.
+  useEffect(() => {
+    try {
+      const saved = window.localStorage.getItem(ACTIVE_SHELF_KEY) as ShelfTabKey | null
+      if (saved && SHELF_TAB_KEYS.has(saved)) setActiveTab(saved)
+    } catch {
+      /* ignore blocked storage */
+    }
+  }, [])
 
   const [selected, setSelected] = useState<Set<string>>(new Set())
   const selectMode = selected.size > 0

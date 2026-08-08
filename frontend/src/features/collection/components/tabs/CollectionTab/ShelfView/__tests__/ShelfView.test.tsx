@@ -1,4 +1,5 @@
-import { fireEvent, render, screen } from '@testing-library/react'
+import { fireEvent, render, screen, within } from '@testing-library/react'
+import { renderToString } from 'react-dom/server'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
 import type { UserProduct } from '@/lib/queries/user-products'
@@ -182,5 +183,25 @@ describe('ShelfView', () => {
       />
     )
     expect(screen.getByRole('tab', { name: /wishlist/i })).toHaveAttribute('aria-selected', 'true')
+  })
+
+  it('keeps the server snapshot on Tout when another shelf is stored in the browser', () => {
+    window.localStorage.setItem('collection:activeShelf', 'wishlist')
+
+    const container = document.createElement('div')
+    container.innerHTML = renderToString(
+      <ShelfView
+        products={[makeProduct('1', 'wishlist', 'Wish A')]}
+        onStatusChange={noop}
+        onStatusChangeMany={noop}
+        onToggleExpand={noop}
+        onAddClick={noop}
+      />
+    )
+
+    expect(within(container).getByRole('tab', { name: /tout/i })).toHaveAttribute(
+      'aria-selected',
+      'true'
+    )
   })
 })

@@ -3,7 +3,7 @@ import { resolveAvoidSlugs } from '@aurore/shared'
 import { useQuery, useSuspenseQuery } from '@tanstack/react-query'
 import { getRouteApi, Link } from '@tanstack/react-router'
 import { Check, ChevronDown, Copy, ExternalLink, FlaskConical, StickyNote } from 'lucide-react'
-import { lazy, Suspense, useCallback, useMemo } from 'react'
+import { lazy, Suspense, useCallback, useId, useMemo } from 'react'
 
 import { sanitizeUrl } from '../../../../lib/url'
 
@@ -12,6 +12,7 @@ const Markdown = lazy(() => import('react-markdown'))
 
 import { Button } from '@/component/Button/Button'
 import { Badge } from '@/component/DataDisplay/Badge/Badge'
+import { ShowMoreButton } from '@/component/DataDisplay/ShowMoreButton/ShowMoreButton'
 import { FormMessage } from '@/component/Feedback/ui/FormMessage/FormMessage'
 import { IconBox } from '@/component/Layout/IconBox/IconBox'
 import { RichText } from '@/component/Typography/RichText/RichText'
@@ -26,6 +27,7 @@ import { ProductSummary } from '@/features/products/components/ProductSummary/Pr
 import { tagLabel } from '@/features/products/filters'
 import { deriveKpChips } from '@/features/products/kp-chips'
 import { useCopyToClipboard } from '@/hooks/useCopyToClipboard'
+import { useExpandableList } from '@/hooks/useExpandableList'
 import { productQueries } from '@/lib/queries/products'
 import { profileQueries } from '@/lib/queries/profile'
 import { useAuthStore } from '@/store/auth'
@@ -67,6 +69,13 @@ export function ProductInfoTab() {
   const { data: product } = useSuspenseQuery(productQueries.bySlug(slug))
   const hasIngredients = product.ingredients && product.ingredients.length > 0
   const { copied, copy } = useCopyToClipboard()
+  const ingredientsListId = useId()
+  const {
+    visible: visibleIngredients,
+    hiddenCount: hiddenIngredientsCount,
+    isExpanded: ingredientsExpanded,
+    toggle: toggleIngredientsExpanded,
+  } = useExpandableList(product.ingredients ?? [], undefined, slug)
 
   const handleCopyIngredients = useCallback(() => {
     if (!product.ingredients?.length && !product.inci) return
@@ -213,8 +222,8 @@ export function ProductInfoTab() {
               )}
             </Button>
           </SectionHeader>
-          <ul role="list" className="ingredient-list">
-            {product.ingredients.map((ing) => {
+          <ul role="list" id={ingredientsListId} className="ingredient-list">
+            {visibleIngredients.map((ing) => {
               const concentration = formatConcentration(
                 ing.concentrationValue,
                 ing.concentrationUnit,
@@ -259,6 +268,13 @@ export function ProductInfoTab() {
               )
             })}
           </ul>
+          <ShowMoreButton
+            className="ingredient-list__more"
+            hiddenCount={hiddenIngredientsCount}
+            isExpanded={ingredientsExpanded}
+            onToggle={toggleIngredientsExpanded}
+            controlsId={ingredientsListId}
+          />
         </div>
       )}
 

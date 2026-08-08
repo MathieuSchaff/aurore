@@ -6,7 +6,7 @@ const clamp = (v: number, { minY, maxY }: DraggableBounds) => Math.max(minY, Mat
 
 type Options = {
   storageKey: string
-  // Re-invoked on mount and window resize so bounds can react to viewport
+  // Invoked on mount and on every window resize so bounds can react to viewport
   // and DOM-derived obstacles (e.g. nav bars).
   computeBounds: () => DraggableBounds
   dragThreshold?: number
@@ -26,15 +26,19 @@ export function useDraggableY({
   // React Compiler.
   const [initialBounds] = useState(computeBounds)
   const boundsRef = useRef<DraggableBounds>(initialBounds)
-  const [y, setY] = useState(() => {
-    if (typeof window === 'undefined') return 0
-    const raw = window.localStorage.getItem(storageKey)
-    const parsed = raw === null ? 0 : Number(raw)
-    return Number.isFinite(parsed) ? clamp(parsed, initialBounds) : 0
-  })
+  const [y, setY] = useState(0)
   const [dragging, setDragging] = useState(false)
   const dragRef = useRef<{ startClientY: number; startY: number; moved: boolean } | null>(null)
   const suppressClickRef = useRef(false)
+
+  // Read persisted position after mount to match server's 0 on first render.
+  useEffect(() => {
+    const raw = window.localStorage.getItem(storageKey)
+    const parsed = raw === null ? 0 : Number(raw)
+    if (Number.isFinite(parsed) && parsed !== 0) {
+      setY(clamp(parsed, boundsRef.current))
+    }
+  }, [storageKey])
 
   useEffect(() => {
     const onResize = () => {

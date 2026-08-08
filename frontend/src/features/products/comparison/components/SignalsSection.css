@@ -122,6 +122,10 @@
   margin: 0;
 }
 
+.signals-card__more {
+  margin-top: var(--space-1);
+}
+
 .signals-pill {
   display: inline-flex;
   align-items: baseline;

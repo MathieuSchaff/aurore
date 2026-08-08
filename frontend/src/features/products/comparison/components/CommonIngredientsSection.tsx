@@ -1,5 +1,9 @@
 import type { EnrichedComparisonProduct } from '@aurore/shared'
 
+import { useId } from 'react'
+
+import { ShowMoreButton } from '@/component/DataDisplay/ShowMoreButton/ShowMoreButton'
+import { useExpandableList } from '@/hooks/useExpandableList'
 import { computeCommon } from '../helpers/aggregations'
 import './IngredientsSection.css'
 
@@ -32,6 +36,21 @@ export function CommonIngredientsSection({ products }: Props) {
   const sortedActives = actives.toSorted((a, b) => avgPosition(a.slug) - avgPosition(b.slug))
   const sortedOthers = others.toSorted((a, b) => avgPosition(a.slug) - avgPosition(b.slug))
 
+  const productsKey = products.map((p) => p.id).join(',')
+  const listId = useId()
+  const {
+    visible: visibleActives,
+    hiddenCount: hiddenActivesCount,
+    isExpanded: activesExpanded,
+    toggle: toggleActivesExpanded,
+  } = useExpandableList(sortedActives, undefined, productsKey)
+  const {
+    visible: visibleOthers,
+    hiddenCount: hiddenOthersCount,
+    isExpanded: othersExpanded,
+    toggle: toggleOthersExpanded,
+  } = useExpandableList(sortedOthers, undefined, productsKey)
+
   return (
     <section className="terroir">
       <header className="terroir__head">
@@ -57,27 +76,41 @@ export function CommonIngredientsSection({ products }: Props) {
           {sortedActives.length > 0 && (
             <div className="terroir__group">
               <p className="terroir__group-label">Actifs communs</p>
-              <ul role="list" className="terroir__pills">
-                {sortedActives.map((i) => (
+              <ul role="list" id={`${listId}-actives`} className="terroir__pills">
+                {visibleActives.map((i) => (
                   <li key={i.slug} className="terroir-pill terroir-pill--active">
                     <span className="terroir-pill__pos">#{Math.round(avgPosition(i.slug))}</span>
                     {i.inciName}
                   </li>
                 ))}
               </ul>
+              <ShowMoreButton
+                className="terroir__more"
+                hiddenCount={hiddenActivesCount}
+                isExpanded={activesExpanded}
+                onToggle={toggleActivesExpanded}
+                controlsId={`${listId}-actives`}
+              />
             </div>
           )}
           {sortedOthers.length > 0 && (
             <div className="terroir__group">
               <p className="terroir__group-label terroir__group-label--muted">Autres communs</p>
-              <ul role="list" className="terroir__pills">
-                {sortedOthers.map((i) => (
+              <ul role="list" id={`${listId}-others`} className="terroir__pills">
+                {visibleOthers.map((i) => (
                   <li key={i.slug} className="terroir-pill">
                     <span className="terroir-pill__pos">#{Math.round(avgPosition(i.slug))}</span>
                     {i.inciName}
                   </li>
                 ))}
               </ul>
+              <ShowMoreButton
+                className="terroir__more"
+                hiddenCount={hiddenOthersCount}
+                isExpanded={othersExpanded}
+                onToggle={toggleOthersExpanded}
+                controlsId={`${listId}-others`}
+              />
             </div>
           )}
         </>
