@@ -4,8 +4,9 @@ import {
   PRODUCT_CATEGORY_TO_DOMAIN_TAB,
 } from '@aurore/shared'
 
-import { and, count, eq, isNull, or, sql } from 'drizzle-orm'
+import { and, count, eq, isNull, ne, notInArray, or, sql } from 'drizzle-orm'
 
+import { AUTO_TAG_ELIGIBLE_CATEGORIES } from '../../features/auto-tagging/lib/eligibility'
 import type { Database } from '..'
 import { db } from '..'
 import {
@@ -58,6 +59,34 @@ async function checkTagProductDomainConsistency(db: Database): Promise<CheckResu
   return { name: 'tag-product-domain-consistency', severity: 'error', findings }
 }
 
+// Auto-tags surviving on products whose category left the auto-tag corpus. Error-level:
+// every sweeping runner selects via fetchEligibleProducts(), so these links are unreachable
+// by reconcile/purge-stale and stay stale forever. Raw-SQL recategorisation (`.db-fixes`)
+// bypasses the API purge, so this check is the only thing that catches the next one.
+// Fix: `WRITE=1 just autotag-purge-off-corpus`.
+async function checkAutoTagsOutsideCorpus(db: Database): Promise<CheckResult> {
+  const rows = await db
+    .select({
+      productSlug: products.slug,
+      productCategory: products.category,
+      tagSlug: productTagTypes.slug,
+    })
+    .from(productTagLinks)
+    .innerJoin(products, eq(productTagLinks.productId, products.id))
+    .innerJoin(productTagTypes, eq(productTagLinks.productTagId, productTagTypes.id))
+    .where(
+      and(
+        ne(productTagLinks.source, 'manual'),
+        notInArray(products.category, [...AUTO_TAG_ELIGIBLE_CATEGORIES])
+      )
+    )
+
+  const findings: Finding[] = rows.map((r) => ({
+    description: `${r.productSlug} (${r.productCategory}) → auto-tag "${r.tagSlug}"`,
+  }))
+  return { name: 'auto-tags-outside-eligible-corpus', severity: 'error', findings }
+}
+
 // Visible products with no image. Accepted gap (image acquisition is a separate
 // domain), so info-only. Surfaced by brand to spot which brands need a fetch pass.
 async function checkImageCoverage(db: Database): Promise<CheckResult> {
@@ -86,7 +115,7 @@ async function checkImageCoverage(db: Database): Promise<CheckResult> {
 // Visible products with zero linked ingredients, bucketed so the actionable signal
 // (a real INCI list that still resolved to nothing) is not drowned by the legitimate
 // long tail: supplements/accessories carry no INCI, and a comma-less blob is a
-// nutrition table, a material blurb, or scraper-lost separators (P3), never a linking gap.
+// nutrition table, a material blurb, or scraper-lost separators, never a linking gap.
 async function checkProductsWithoutIngredients(db: Database): Promise<CheckResult> {
   const rows = await db
     .select({ slug: products.slug, brand: products.brand, inci: products.inci })
@@ -131,7 +160,7 @@ async function checkProductsWithoutTags(db: Database): Promise<CheckResult> {
 
 // Ingredients used by ≥1 product but lacking a dermo profile row. The dermo SCORE
 // comes from algo-derm at runtime, not this table. The only consumer reads `is_filler`
-// (user-products/dermo-signal), and a missing row defaults to non-filler. So this is a
+// (user-products/dermo-signal), and a missing row defaults to not being a filler. So this is a
 // filler-classification coverage gap, not a scoring blind spot.
 async function checkIngredientsWithoutDermoProfile(db: Database): Promise<CheckResult> {
   const rows = await db
@@ -148,6 +177,7 @@ async function checkIngredientsWithoutDermoProfile(db: Database): Promise<CheckR
 
 const checkers: Checker[] = [
   checkTagProductDomainConsistency,
+  checkAutoTagsOutsideCorpus,
   checkImageCoverage,
   checkProductsWithoutIngredients,
   checkProductsWithoutTags,

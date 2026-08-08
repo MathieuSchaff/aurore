@@ -62,11 +62,19 @@ Backfill and reconcile are two different ways to propagate a detector change.
 Reconcile syncs exactly with the detector output. Backfill is additive and upgrade-only, so it
 is the cautious choice on prod. After a reconcile, backfill finds nothing.
 
+`autotag-backfill` runs in its own one-shot container, never inside the live API container. It
+walks products by stable `id` cursor (`PAGE_SIZE=100` by default), commits each write page, and can
+be restarted from the beginning after a failure: the additive classifier skips pages already
+applied. The runner has a 512 MiB cgroup by default (`AUTOTAG_BACKFILL_MEMORY_LIMIT` overrides it);
+check host headroom before raising that limit. Every production run, including `SLUG` or `LIMIT`,
+is refused outside this isolated service.
+
 | Command | What | Env |
 | :--- | :--- | :--- |
-| `just autotag-backfill` | Additive backfill | `SLUG, WRITE, LIMIT, CONF_OVERRIDE, INCLUDE_DROPPED, TAG` (per-tag plan), `EXCLUDE_TAG`, `SAMPLE` (review CSV, with `SEED` / `CSV_OUT`) |
+| `just autotag-backfill` | Additive backfill | `SLUG, WRITE, LIMIT, PAGE_SIZE, CONF_OVERRIDE, INCLUDE_DROPPED, TAG` (per-tag plan), `EXCLUDE_TAG`, `SAMPLE` (review CSV, with `SEED` / `CSV_OUT`) |
 | `just autotag-reconcile` | Exact sync, manual-safe | `SLUG, WRITE, LIMIT`. Refuses positional arguments |
 | `just autotag-purge-stale` | Deletes the non-manual links of **one** tag the detector no longer emits | `TAG` (required), `WRITE` |
+| `just autotag-purge-off-corpus` | Deletes the non-manual links of products whose category left the auto-tag corpus (`skincare`/`solaire`/`bodycare`). Reconcile and purge-stale cannot see them | `WRITE` |
 | `just autotag-goldset` | Stratified sample of 60–80 products → `data/gold-set/annotations.json`. Idempotent | `SAMPLE_SIZE, POSITIVES_PER_TAG, NEGATIVES_PER_TAG, SEED, GOLD_SET_PATH` |
 | `just catalog-fix-tag-domain` | Fixes `tag_products` rows breaking a domain constraint (skincare tag types on haircare products) | `WRITE` |
 | `just catalog-fix-tag-domain-safe` | The same fix plus `db-snapshot` in one command | `WRITE`. Dev-only |

@@ -1,6 +1,6 @@
 import type { ProductCategory } from '@aurore/shared'
 
-import { eq, inArray } from 'drizzle-orm'
+import { and, asc, eq, gt, inArray } from 'drizzle-orm'
 
 import { db } from '../../../../db'
 import { withAdminRls } from '../../../../db/rls'
@@ -24,6 +24,29 @@ export async function fetchEligibleProducts(opts?: {
       .where(inArray(products.category, [...categories]))
   )
   return opts?.limit ? rows.slice(0, opts.limit) : rows
+}
+
+export async function fetchEligibleProductPage(opts: {
+  afterId: string | null
+  limit: number
+  slug: string | null
+  categories?: readonly ProductCategory[]
+}) {
+  const categories = opts.categories ?? AUTO_TAG_ELIGIBLE_CATEGORIES
+  return withAdminRls((tx) =>
+    tx
+      .select({ id: products.id, slug: products.slug, ...ORCHESTRATOR_PRODUCT_COLUMNS })
+      .from(products)
+      .where(
+        and(
+          inArray(products.category, [...categories]),
+          opts.afterId === null ? undefined : gt(products.id, opts.afterId),
+          opts.slug === null ? undefined : eq(products.slug, opts.slug)
+        )
+      )
+      .orderBy(asc(products.id))
+      .limit(opts.limit)
+  )
 }
 
 // Folds product_tag_links × product_tag_types into per-product slug sets, the
