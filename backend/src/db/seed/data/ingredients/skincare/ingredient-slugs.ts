@@ -641,7 +641,11 @@ export const ACTIFS_ANTI_AGE_REPARATEURS = {
   // biome-ignore format: parser reads slug + INCI comment off one line, wrapping breaks it
   POTASSIUM_DIMETHICONE_PEG_7_PANTHENYL_PHOSPHATE: 'potassium-dimethicone-peg-7-panthenyl-phosphate', // INCI: Potassium Dimethicone PEG-7 Panthenyl Phosphate | panthenyl phosphate silicone derivative
   PHYTONADIONE_EPOXIDE: 'phytonadione-epoxide', // INCI: Phytonadione Epoxide | vitamin K1 epoxide, distinct from phytonadione
-  CHARDON_MARIE: 'chardon-marie', // INCI: Silybum Marianum Seed Extract | regenerating
+  CHARDON_MARIE: 'chardon-marie', // INCI: Silybum Marianum Seed Extract | declared seed extract
+  SILYBUM_MARIANUM_EXTRACT: 'silybum-marianum-extract', // INCI: Silybum Marianum Extract | organ not specified
+  SILYBUM_MARIANUM_FRUIT_EXTRACT: 'silybum-marianum-fruit-extract', // INCI: Silybum Marianum Fruit Extract | generic fruit extract
+  SILYBUM_MARIANUM_SEED_OIL: 'silybum-marianum-seed-oil', // INCI: Silybum Marianum Seed Oil | seed oil, not extract
+  SILYBUM_MARIANUM_ETHYL_ESTER: 'silybum-marianum-ethyl-ester', // INCI: Silybum Marianum Ethyl Ester | declared ester derivative
   HYDROXYPALMITOYL_SPHINGANINE: 'hydroxypalmitoyl-sphinganine', // INCI: Hydroxypalmitoyl Sphinganine | ceramide-like, strengthens the barrier
   TWO_OLEAMIDO_1_3_OCTADECANEDIOL: '2-oleamido-1-3-octadecanediol', // INCI: 2-Oleamido-1,3-Octadecanediol | biomimetic repairing lipid
   PROTEOGLYCAN_COMPLEX: 'proteoglycan-complex', // Proteoglycan complex | skin structure
