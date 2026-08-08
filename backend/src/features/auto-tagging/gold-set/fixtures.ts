@@ -55,6 +55,9 @@ export const GOLD_SET_FOCUS_TAGS = [
   'rougeurs-vasculaires',
   'eclat-teint-uniforme',
   'protection',
+  'hypoallergenique',
+  'non-comedogene',
+  'non-irritant',
 ] as const satisfies readonly SkincareProductTagSlug[]
 
 export type GoldSetFocusTag = (typeof GOLD_SET_FOCUS_TAGS)[number]
@@ -74,7 +77,7 @@ export interface GoldSetAnnotation {
   absent: GoldSetFocusTag[]
   // Bootstrap stamps "" until the annotator fills `present`/`absent`.
   annotatedAt: string
-  // Which focus tag(s) caused this product to be sampled. Non-authoritative.
+  // Which focus tag(s) caused this product to be sampled. Not authoritative.
   sampledFor?: GoldSetFocusTag[]
   notes?: string
 }
