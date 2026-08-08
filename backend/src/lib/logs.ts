@@ -8,7 +8,7 @@ import {
 
 import type { ZodType } from 'zod'
 
-import type { DB } from '../db'
+import type { DbOrTransaction } from '../db'
 import { ingredientEdits, productEdits } from '../db/schema'
 import { areEqual } from './helpers'
 
@@ -47,7 +47,7 @@ export function buildChanges(
 }
 
 export async function logEdit(
-  database: DB,
+  database: DbOrTransaction,
   config: EditTableConfig<unknown>,
   params: {
     entityId: string

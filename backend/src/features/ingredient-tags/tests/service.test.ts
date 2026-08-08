@@ -15,6 +15,21 @@ import {
 
 setupDbTests()
 
+const createTag = (label: string, tagType?: string) =>
+  testDb.transaction((tx) => createIngredientTag(tx, { label, tagType }))
+
+const addTag = (ingredientId: string, tagId: string) =>
+  testDb.transaction((tx) => addTagToIngredient(tx, ingredientId, tagId))
+
+const addManyTags = (ingredientId: string, tagIds: string[]) =>
+  testDb.transaction((tx) => addManyTagsToIngredient(tx, ingredientId, tagIds))
+
+const removeTag = (ingredientId: string, tagId: string) =>
+  testDb.transaction((tx) => removeTagFromIngredient(tx, ingredientId, tagId))
+
+const replaceTags = (ingredientId: string, tagIds: string[]) =>
+  testDb.transaction((tx) => replaceIngredientTags(tx, ingredientId, tagIds))
+
 describe('Ingredient Tags Service', () => {
   let user: any
 
@@ -25,9 +40,9 @@ describe('Ingredient Tags Service', () => {
   describe('addTagToIngredient', () => {
     it('should link a tag to an ingredient', async () => {
       const ingredient = await createTestIngredient(user.id, { name: 'Ingrédient Test' })
-      const tag = await createIngredientTag(testDb, { label: 'Hydratant' })
+      const tag = await createTag('Hydratant')
 
-      const link = await addTagToIngredient(testDb, ingredient.id, tag.id)
+      const link = await addTag(ingredient.id, tag.id)
 
       expect(link).toBeDefined()
       expect(link?.ingredientId).toBe(ingredient.id)
@@ -38,10 +53,10 @@ describe('Ingredient Tags Service', () => {
   describe('addManyTagsToIngredient', () => {
     it('should link multiple tags to an ingredient at once', async () => {
       const ingredient = await createTestIngredient(user.id, { name: 'Ingrédient Test' })
-      const t1 = await createIngredientTag(testDb, { label: 'Peeling' })
-      const t2 = await createIngredientTag(testDb, { label: 'Exfoliant' })
+      const t1 = await createTag('Peeling')
+      const t2 = await createTag('Exfoliant')
 
-      const links = await addManyTagsToIngredient(testDb, ingredient.id, [t1.id, t2.id])
+      const links = await addManyTags(ingredient.id, [t1.id, t2.id])
 
       expect(links).toHaveLength(2)
       const tagIds = links.map((l) => l.ingredientTagId)
@@ -53,9 +68,9 @@ describe('Ingredient Tags Service', () => {
   describe('listTagsByIngredient', () => {
     it('should return tags for a given ingredient', async () => {
       const ingredient = await createTestIngredient(user.id, { name: 'Ingrédient Test' })
-      const tag = await createIngredientTag(testDb, { label: 'Actif', tagType: 'type' })
+      const tag = await createTag('Actif', 'type')
 
-      await addTagToIngredient(testDb, ingredient.id, tag.id)
+      await addTag(ingredient.id, tag.id)
 
       const result = await listTagsByIngredient(testDb, ingredient.id)
 
@@ -69,10 +84,10 @@ describe('Ingredient Tags Service', () => {
     it('should return ingredients for a given tag', async () => {
       const i1 = await createTestIngredient(user.id, { name: 'Ingrédient 1' })
       const i2 = await createTestIngredient(user.id, { name: 'Ingrédient 2' })
-      const tag = await createIngredientTag(testDb, { label: 'Apaisant' })
+      const tag = await createTag('Apaisant')
 
-      await addTagToIngredient(testDb, i1.id, tag.id)
-      await addTagToIngredient(testDb, i2.id, tag.id)
+      await addTag(i1.id, tag.id)
+      await addTag(i2.id, tag.id)
 
       const result = await listIngredientsByTag(testDb, tag.id)
 
@@ -86,10 +101,10 @@ describe('Ingredient Tags Service', () => {
   describe('removeTagFromIngredient', () => {
     it('should remove a tag from an ingredient', async () => {
       const ingredient = await createTestIngredient(user.id, { name: 'Ingrédient Test' })
-      const tag = await createIngredientTag(testDb, { label: 'Temporaire' })
+      const tag = await createTag('Temporaire')
 
-      await addTagToIngredient(testDb, ingredient.id, tag.id)
-      const removed = await removeTagFromIngredient(testDb, ingredient.id, tag.id)
+      await addTag(ingredient.id, tag.id)
+      const removed = await removeTag(ingredient.id, tag.id)
 
       expect(removed).toBe(true)
       const remaining = await listTagsByIngredient(testDb, ingredient.id)
@@ -100,11 +115,11 @@ describe('Ingredient Tags Service', () => {
   describe('replaceIngredientTags', () => {
     it('should replace ingredient tags', async () => {
       const ingredient = await createTestIngredient(user.id, { name: 'Ingrédient Test' })
-      const t1 = await createIngredientTag(testDb, { label: 'Vieux' })
-      const t2 = await createIngredientTag(testDb, { label: 'Neuf' })
+      const t1 = await createTag('Vieux')
+      const t2 = await createTag('Neuf')
 
-      await addTagToIngredient(testDb, ingredient.id, t1.id)
-      await replaceIngredientTags(testDb, ingredient.id, [t2.id])
+      await addTag(ingredient.id, t1.id)
+      await replaceTags(ingredient.id, [t2.id])
 
       const result = await listTagsByIngredient(testDb, ingredient.id)
       expect(result).toHaveLength(1)

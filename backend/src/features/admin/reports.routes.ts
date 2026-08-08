@@ -3,8 +3,9 @@ import { HTTP_STATUS, listReportsQuerySchema, ok, resolveReportBodySchema } from
 import { z } from 'zod'
 
 import { logger } from '../../lib/logger'
+import { getAuthedUserId, getRlsDb } from '../../utils/accessors'
 import { zValidator } from '../../utils/validator'
-import { getAuthedUserId, requireContentModerator } from '../auth/middleware'
+import { requireContentModerator } from '../auth/middleware'
 import { escalateReport, listReports, resolveReport } from '../reports/service'
 import { createAdminGuardedRouter } from './_guarded-router'
 
@@ -15,7 +16,7 @@ const reportIdParam = z.object({ id: z.uuid() })
 export const adminReportsRoutes = createAdminGuardedRouter(requireContentModerator)
   .get('/', zValidator('query', listReportsQuerySchema), async (c) => {
     const filters = c.req.valid('query')
-    const result = await listReports(c.get('db'), filters)
+    const result = await listReports(getRlsDb(c), filters)
     return c.json(ok(result), HTTP_STATUS.OK)
   })
   .patch(
@@ -27,7 +28,7 @@ export const adminReportsRoutes = createAdminGuardedRouter(requireContentModerat
       const { status } = c.req.valid('json')
       const adminId = getAuthedUserId(c)
 
-      const report = await resolveReport(c.get('db'), { id, adminId, status })
+      const report = await resolveReport(getRlsDb(c), { id, adminId, status })
       logger.info({ adminId, reportId: id, status }, 'report resolved')
       return c.json(ok(report), HTTP_STATUS.OK)
     }
@@ -37,7 +38,7 @@ export const adminReportsRoutes = createAdminGuardedRouter(requireContentModerat
     const { id } = c.req.valid('param')
     const moderatorId = getAuthedUserId(c)
 
-    const report = await escalateReport(c.get('db'), { id, moderatorId })
+    const report = await escalateReport(getRlsDb(c), { id, moderatorId })
     logger.info({ moderatorId, reportId: id }, 'report escalated')
     return c.json(ok(report), HTTP_STATUS.OK)
   })

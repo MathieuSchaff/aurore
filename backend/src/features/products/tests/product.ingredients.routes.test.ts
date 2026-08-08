@@ -10,7 +10,7 @@ import { setupDbTests } from '../../../tests/db-setup'
 import { expectRequiresAuth, expectRoleMatrix } from '../../../tests/helpers/authz-matrix'
 import type { TestClient } from '../../../tests/helpers/createTestClient'
 import { createTestEnv, withAuth } from '../../../tests/helpers/createTestClient'
-import { expectOk } from '../../../tests/helpers/expectStatus'
+import { expectError, expectOk } from '../../../tests/helpers/expectStatus'
 import { SKINCARE } from '../../../tests/helpers/product-shapes'
 import { setupAndLoginContributor } from '../../../tests/helpers/route-test-helpers'
 import { TEST_CREDENTIALS } from '../../../tests/helpers/test-credentials'
@@ -174,9 +174,7 @@ describe('Product Ingredients Routes', () => {
       await linkIngredient(product.id, ingredient.id)
       const res = await linkIngredient(product.id, ingredient.id)
 
-      expect(res.status as number).toBe(HTTP_STATUS.CONFLICT)
-      const data = (await res.json()) as { success: boolean; error?: string }
-      expect(data.error).toBe('product_ingredient_already_exists')
+      await expectError(res, HTTP_STATUS.CONFLICT, 'product_ingredient_already_exists')
     })
 
     it('should reject missing ingredientId', async () => {
@@ -231,9 +229,7 @@ describe('Product Ingredients Routes', () => {
         withAuth(contributorToken)
       )
 
-      expect(res.status as number).toBe(HTTP_STATUS.NOT_FOUND)
-      const data = (await res.json()) as { success: boolean; error?: string }
-      expect(data.error).toBe('product_ingredient_not_found')
+      await expectError(res, HTTP_STATUS.NOT_FOUND, 'product_ingredient_not_found')
     })
 
     it('should reject unknown fields (strict schema)', async () => {
@@ -279,9 +275,7 @@ describe('Product Ingredients Routes', () => {
         withAuth(contributorToken)
       )
 
-      expect(res.status as number).toBe(HTTP_STATUS.NOT_FOUND)
-      const data = (await res.json()) as { success: boolean; error?: string }
-      expect(data.error).toBe('product_ingredient_not_found')
+      await expectError(res, HTTP_STATUS.NOT_FOUND, 'product_ingredient_not_found')
     })
 
     expectRequiresAuth(() => app, {
@@ -322,7 +316,7 @@ describe('Product Ingredients Routes', () => {
     })
   })
 
-  describe('PUT /products/:productId/ingredients — role enforcement', () => {
+  describe('PUT /products/:productId/ingredients: role enforcement', () => {
     expectRoleMatrix(
       () => app,
       async () => {

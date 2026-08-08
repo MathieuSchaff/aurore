@@ -19,7 +19,7 @@ export const healthRoute = new Hono<AppEnv>().get('/', (c) => {
 
 async function respondToReadiness(c: Context<AppEnv>, check: ReadinessCheck) {
   try {
-    await check(c.get('db'))
+    await check(c.get('anonDb'))
     return c.json(ok(true), HTTP_STATUS.OK)
   } catch (e) {
     // The request middleware logs probes at info, which Alloy drops, so a 503 here would

@@ -20,13 +20,13 @@ const assess = (inci: string, kind: 'serum' | 'moisturizer' | 'cleanser' | 'body
 // MAPPED_TAG). computeAvoidCandidates no longer handles pregnancy detection;
 // see algo-derm-detection.test.ts and auto-tag-orchestrator-parity.test.ts for
 // end-to-end coverage of the avoid path.
-describe('computeAvoidCandidates — no signal', () => {
+describe('computeAvoidCandidates: no signal', () => {
   test('clean INCI (no actifs, no interactions) → no candidates', () => {
     expect(computeAvoidCandidates('Aqua, Glycerin, Niacinamide, Panthenol', 'serum')).toEqual([])
   })
 })
 
-describe('computeAvoidCandidates — cross-signal stack irritation (X1)', () => {
+describe('computeAvoidCandidates: cross-signal stack irritation', () => {
   test('retinoid + AHA leave-on serum → peau-sensible avoid', () => {
     const got = computeAvoidCandidates(
       'Aqua, Glycerin, Retinol, Glycolic Acid, Niacinamide',
@@ -57,7 +57,7 @@ describe('computeAvoidCandidates — cross-signal stack irritation (X1)', () => 
   })
 })
 
-describe('computeAvoidCandidates — precomputed actifClasses parity', () => {
+describe('computeAvoidCandidates: precomputed actifClasses parity', () => {
   // The optional `actifClasses` arg is a perf optimisation for the pass wrapper.
   // It must produce the same result as the auto-computed path; otherwise the
   // orchestrator path silently diverges from a direct call.
@@ -116,7 +116,7 @@ describe('computeAvoidCandidates — precomputed actifClasses parity', () => {
   }
 })
 
-describe('computeAvoidCandidates — interaction stack avoid', () => {
+describe('computeAvoidCandidates: interaction stack avoid', () => {
   test('alcohol + parfum leave-on serum → peau-sensible interaction avoid', () => {
     const inci = 'Aqua, Alcohol Denat, Parfum, Glycerin'
     const got = computeAvoidCandidates(inci, 'serum', undefined, assess(inci, 'serum'))
@@ -163,13 +163,13 @@ describe('computeAvoidCandidates — interaction stack avoid', () => {
     const inci = 'Aqua, Retinol, Glycolic Acid, Alcohol Denat, Parfum'
     const got = computeAvoidCandidates(inci, 'serum', undefined, assess(inci, 'serum'))
     const peauSensible = got.filter((c) => c.tagSlug === S.PEAU_SENSIBLE)
-    // dedup: same tag from cross-signal AND interaction → first source wins.
+    // dedup: same tag from cross-signal AND interaction, so first source wins.
     expect(peauSensible).toHaveLength(1)
     expect(peauSensible[0].source).toBe('cross-signal')
   })
 })
 
-describe('computeAvoidCandidates — concentration-gated avoid', () => {
+describe('computeAvoidCandidates: concentration-gated avoid', () => {
   // EU-capped actives only: retinol (cap 0.3 %) ≥ 0.25, salicylic (cap 2 %) ≥ 1.5.
   // Both thresholds catch the at-cap signal while skipping trace positions.
   test('retinol pos 4 leave-on cream → peau-sensible concentration', () => {
@@ -228,7 +228,7 @@ describe('computeAvoidCandidates — concentration-gated avoid', () => {
   })
 })
 
-describe('computeAvoidCandidates — null/empty INCI', () => {
+describe('computeAvoidCandidates: null/empty INCI', () => {
   test('null INCI → no candidates', () => {
     expect(computeAvoidCandidates(null, 'serum')).toEqual([])
   })

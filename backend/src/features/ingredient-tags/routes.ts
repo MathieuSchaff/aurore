@@ -4,6 +4,7 @@ import { Hono } from 'hono'
 import { z } from 'zod'
 
 import type { AppEnv } from '../../app-env'
+import { getRlsDb } from '../../utils/accessors'
 import { zValidator } from '../../utils/validator'
 import { requireAdmin, requireJwtAuth, requireNotBanned } from '../auth/middleware'
 import { withRlsContext } from '../auth/rls-context.middleware'
@@ -27,61 +28,75 @@ const listTagsQuery = z.object({
 
 const ingredientTagsApp = new Hono<AppEnv>()
 
-// One guard per use(): nesting swallows the short-circuit 403 → "Context not finalized" 500.
-ingredientTagsApp.use('*', async (c, next) => {
-  return c.req.method === 'GET' ? next() : requireJwtAuth(c, next)
-})
-ingredientTagsApp.use('*', async (c, next) => {
-  return c.req.method === 'GET' ? next() : requireNotBanned(c, next)
-})
-ingredientTagsApp.use('*', async (c, next) => {
-  if (c.req.method === 'GET') return next()
-  return requireAdmin(c, next)
-})
-ingredientTagsApp.use('*', withRlsContext)
+// Guards stay on the endpoints owned by this router so sibling routes are not intercepted
 
 export const ingredientTagDefRoutes = ingredientTagsApp
 
   .get('/', zValidator('query', listTagsQuery), async (c) => {
-    const db = c.get('db')
+    const db = c.get('anonDb')
     const query = c.req.valid('query')
     const tags = await listIngredientTags(db, query)
     return c.json(ok(tags), HTTP_STATUS.OK)
   })
 
-  .post('/', zValidator('json', createTagSchema), async (c) => {
-    const db = c.get('db')
-    const input = c.req.valid('json')
-    const tag = await createIngredientTag(db, input)
-    return c.json(ok(tag), HTTP_STATUS.CREATED)
-  })
+  .post(
+    '/',
+    requireJwtAuth,
+    withRlsContext,
+    requireNotBanned,
+    requireAdmin,
+    zValidator('json', createTagSchema),
+    async (c) => {
+      const db = getRlsDb(c)
+      const input = c.req.valid('json')
+      const tag = await createIngredientTag(db, input)
+      return c.json(ok(tag), HTTP_STATUS.CREATED)
+    }
+  )
 
   .get('/:id', zValidator('param', idParam), async (c) => {
-    const db = c.get('db')
+    const db = c.get('anonDb')
     const { id } = c.req.valid('param')
     const tag = await getIngredientTagById(db, id)
     if (!tag) throw new TagError('tag_not_found')
     return c.json(ok(tag), HTTP_STATUS.OK)
   })
 
-  .patch('/:id', zValidator('param', idParam), zValidator('json', updateTagSchema), async (c) => {
-    const db = c.get('db')
-    const { id } = c.req.valid('param')
-    const input = c.req.valid('json')
-    const tag = await updateIngredientTag(db, id, input)
-    return c.json(ok(tag), HTTP_STATUS.OK)
-  })
+  .patch(
+    '/:id',
+    requireJwtAuth,
+    withRlsContext,
+    requireNotBanned,
+    requireAdmin,
+    zValidator('param', idParam),
+    zValidator('json', updateTagSchema),
+    async (c) => {
+      const db = getRlsDb(c)
+      const { id } = c.req.valid('param')
+      const input = c.req.valid('json')
+      const tag = await updateIngredientTag(db, id, input)
+      return c.json(ok(tag), HTTP_STATUS.OK)
+    }
+  )
 
-  .delete('/:id', zValidator('param', idParam), async (c) => {
-    const db = c.get('db')
-    const { id } = c.req.valid('param')
-    const deleted = await deleteIngredientTag(db, id)
-    if (!deleted) throw new TagError('tag_not_found')
-    return c.json(ok(null), HTTP_STATUS.OK)
-  })
+  .delete(
+    '/:id',
+    requireJwtAuth,
+    withRlsContext,
+    requireNotBanned,
+    requireAdmin,
+    zValidator('param', idParam),
+    async (c) => {
+      const db = getRlsDb(c)
+      const { id } = c.req.valid('param')
+      const deleted = await deleteIngredientTag(db, id)
+      if (!deleted) throw new TagError('tag_not_found')
+      return c.json(ok(null), HTTP_STATUS.OK)
+    }
+  )
 
   .get('/:slug/ingredients', zValidator('param', slugParam), async (c) => {
-    const db = c.get('db')
+    const db = c.get('anonDb')
     const { slug } = c.req.valid('param')
     const tag = await getIngredientTagBySlug(db, slug)
     if (!tag) throw new TagError('tag_not_found')

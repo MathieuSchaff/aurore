@@ -11,15 +11,13 @@ import {
   type TestClient,
   withAuth,
 } from '../../../tests/helpers/createTestClient'
-import { expectOk, expectStatus } from '../../../tests/helpers/expectStatus'
+import { expectError, expectOk, expectStatus } from '../../../tests/helpers/expectStatus'
 import {
   setupAndLogin,
   setupAndLoginAdmin,
   setupAndLoginContributor,
 } from '../../../tests/helpers/route-test-helpers'
 import { TEST_CREDENTIALS } from '../../../tests/helpers/test-credentials'
-
-type ApiErrorBody = { success: false; error: string }
 
 const VALID_INGREDIENT = { name: 'Rétinol', type: 'skincare' } as const
 
@@ -142,10 +140,7 @@ describe('Ingredient Routes', () => {
         withAuth(adminToken)
       )
 
-      expectStatus(res, HTTP_STATUS.CONFLICT)
-      const body = (await res.json()) as unknown as ApiErrorBody
-      expect(body.success).toBe(false)
-      expect(body.error).toBe('ingredient_already_exists')
+      await expectError(res, HTTP_STATUS.CONFLICT, 'ingredient_already_exists')
     })
 
     it('should reject missing name', async () => {
@@ -255,10 +250,7 @@ describe('Ingredient Routes', () => {
     it('should return 404 for unknown slug', async () => {
       const res = await client.ingredients[':slug'].$get({ param: { slug: 'slug-inexistant' } })
 
-      expectStatus(res, HTTP_STATUS.NOT_FOUND)
-      const body = (await res.json()) as unknown as ApiErrorBody
-      expect(body.success).toBe(false)
-      expect(body.error).toBe('ingredient_not_found')
+      await expectError(res, HTTP_STATUS.NOT_FOUND, 'ingredient_not_found')
     })
   })
 
@@ -359,9 +351,7 @@ describe('Ingredient Routes', () => {
         withAuth(contributorToken)
       )
 
-      expectStatus(res, HTTP_STATUS.NOT_FOUND)
-      const body = (await res.json()) as unknown as ApiErrorBody
-      expect(body.error).toBe('ingredient_not_found')
+      await expectError(res, HTTP_STATUS.NOT_FOUND, 'ingredient_not_found')
     })
 
     it('should reject unknown fields (strict schema)', async () => {
@@ -427,9 +417,7 @@ describe('Ingredient Routes', () => {
         withAuth(contributorToken)
       )
 
-      expectStatus(res, HTTP_STATUS.FORBIDDEN)
-      const body = (await res.json()) as unknown as ApiErrorBody
-      expect(body.error).toBe('forbidden')
+      await expectError(res, HTTP_STATUS.FORBIDDEN, 'forbidden')
     })
 
     it('should return 500 for unknown id (ingredient_delete_failed)', async () => {
@@ -441,9 +429,7 @@ describe('Ingredient Routes', () => {
         withAuth(adminToken)
       )
 
-      expectStatus(res, HTTP_STATUS.INTERNAL_SERVER_ERROR)
-      const body = (await res.json()) as unknown as ApiErrorBody
-      expect(body.error).toBe('ingredient_delete_failed')
+      await expectError(res, HTTP_STATUS.INTERNAL_SERVER_ERROR, 'ingredient_delete_failed')
     })
 
     expectRequiresAuth(() => app, {

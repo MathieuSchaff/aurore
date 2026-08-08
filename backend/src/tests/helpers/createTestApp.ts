@@ -96,5 +96,3 @@ export async function createTestApp({ anonDb = testDb }: CreateTestAppOptions = 
 
   return routedApp
 }
-
-export type TestAppType = Awaited<ReturnType<typeof createTestApp>>

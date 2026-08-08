@@ -3,7 +3,7 @@ import { PROPOSABLE_FIELDS } from '@aurore/shared'
 
 import { desc, eq } from 'drizzle-orm'
 
-import type { Database } from '../../db'
+import type { DatabaseTransaction } from '../../db'
 import { ingredients, products, suggestedEdits } from '../../db/schema'
 import { translateUniqueViolation } from '../../lib/catalog'
 import { nowISO } from '../../utils/dates'
@@ -14,7 +14,7 @@ import { SuggestedEditError } from './suggested-edit-error'
 const normalizeString = (s: string) => s.trim().replace(/\s+/g, ' ')
 
 export async function createSuggestedEdit(
-  db: Database,
+  db: DatabaseTransaction,
   args: { proposerId: string; body: CreateSuggestedEditInput }
 ) {
   const [row] = await db
@@ -32,7 +32,10 @@ export async function createSuggestedEdit(
   return row
 }
 
-export async function listSuggestedEdits(db: Database, filters: { status?: SuggestedEditStatus }) {
+export async function listSuggestedEdits(
+  db: DatabaseTransaction,
+  filters: { status?: SuggestedEditStatus }
+) {
   const rows = filters.status
     ? await db
         .select()
@@ -45,9 +48,9 @@ export async function listSuggestedEdits(db: Database, filters: { status?: Sugge
 
 // name/brand can collide with products_name_brand_unique_visible, normalize +
 // re-throw the 23505 so withRlsContext rolls back (catch-and-return on an aborted
-// tx would COMMIT it → spurious 500).
+// tx would COMMIT it, giving a spurious 500).
 function applyToSheet(
-  db: Database,
+  db: DatabaseTransaction,
   edit: {
     targetType: 'product' | 'ingredient'
     targetId: string
@@ -79,7 +82,7 @@ function applyToSheet(
 }
 
 export async function reviewSuggestedEdit(
-  db: Database,
+  db: DatabaseTransaction,
   args: { id: string; reviewerId: string; status: 'accepted' | 'rejected' }
 ) {
   const [edit] = await db.select().from(suggestedEdits).where(eq(suggestedEdits.id, args.id))

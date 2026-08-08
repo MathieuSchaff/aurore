@@ -1,36 +1,13 @@
-// Backfill INCI-derived and kind-derived tags for all skincare/solaire/bodycare
-// products already in DB. Detection logic lives in `features/auto-tagging/orchestrator.ts`,
-// shared with `db/seed/seeders/seed-core.ts` so the two runners cannot drift on which
-// passes run or what relevance precedence applies.
-//
-// Pass order and contents: `passes/registry.ts` (AUTO_TAG_PASSES).
-//
-// Relevance precedence: avoid > primary > secondary. When both signals fire for
-// the same (product, tag), the higher precedence wins. Detected `primary` (kind-
-// derived TYPE_* headline) upserts over existing `secondary` so backfill heals
-// products whose primary was never curated manually. Existing manual `primary`
-// is preserved when the detector only emits `secondary` for that same pair
-// (no demotion).
-//
-// Usage (via `just backfill-auto-tags`):
-//   bun run backend/src/features/auto-tagging/runners/backfill/main.ts            # dry-run
-//   bun run backend/src/features/auto-tagging/runners/backfill/main.ts --write    # apply
-//   bun run backend/src/features/auto-tagging/runners/backfill/main.ts --slug <s> # single product
-//
-// Env tunables:
-//   CONF_OVERRIDE   float: raise every algo-derm per-tag confidenceFloor (computed_score) to this
-//   INCLUDE_DROPPED 1: surface allow:false tags in report (no writes)
-//   LIMIT           int: cap product count
-//   TAG             tag slug: restrict the insert plan to that tag (per-tag view)
-//   EXCLUDE_TAG     tag slug: drop that tag from the insert plan (write-all-except)
-//   SAMPLE          int: draw N to-insert candidates (seeded) into a review CSV
-//   SEED            int: PRNG seed for SAMPLE (default 42)
-//   CSV_OUT         sample CSV path (default /app/backend/tmp/backfill-sample.csv)
+// Backfill INCI-derived and kind-derived tags for all skincare/solaire/bodycare products
+// already in DB. Detection logic lives in `features/auto-tagging/orchestrator.ts` (pass order:
+// `passes/registry.ts` AUTO_TAG_PASSES), shared with `db/seed/seeders/seed-core.ts` so the two
+// runners cannot drift on which passes run or what relevance precedence applies. Usage (via
+// `just backfill-auto-tags`): dry-run by default, --write to apply, --slug <s> for one product.
 
 import { inArray, sql } from 'drizzle-orm'
 
 import { db } from '../../../../db'
-import type { Transaction } from '../../../../db/index'
+import type { DatabaseTransaction } from '../../../../db/index'
 import { withAdminRls } from '../../../../db/rls'
 import { productTagLinks } from '../../../../db/schema'
 import { loadAutoTagFetchBundle } from '../../lib/fetch-auto-tag-bundle'
@@ -44,7 +21,9 @@ import { mulberry32 } from '../rng'
 import { type Candidate, type ClassifyResult, classifyCandidates, type Relevance } from './classify'
 
 const { write: WRITE, slug: SLUG_ARG } = parseWriteSlugArgs()
+// Raise every algo-derm per-tag confidenceFloor/computed_score to this.
 const CONF_OVERRIDE = process.env.CONF_OVERRIDE ? Number(process.env.CONF_OVERRIDE) : null
+// INCLUDE_DROPPED=1: surface allow:false tags in report; still no writes.
 const INCLUDE_DROPPED = process.env.INCLUDE_DROPPED === '1'
 const LIMIT = parseIntEnv('LIMIT')
 const TAG = process.env.TAG || null
@@ -219,6 +198,10 @@ function reportPlan(
   console.log(`   ├ brand          : ${sourceCountInsert.brand}`)
   console.log(`   ├ interaction    : ${sourceCountInsert.interaction}`)
   console.log(`   └ concentration  : ${sourceCountInsert.concentration}`)
+  // Relevance precedence: avoid > primary > secondary. Detected `primary` (kind-derived
+  // TYPE_* headline) upserts over existing `secondary` so backfill heals products whose
+  // primary was never curated manually. Existing manual `primary` is preserved when the
+  // detector only emits `secondary` for that pair (no demotion).
   if (avoidUpserts > 0) {
     console.log(`   Corrections avoid (→avoid)             : ${avoidUpserts}`)
   }
@@ -303,7 +286,7 @@ async function writeSampleCsv(toInsert: readonly Candidate[], subset: ProductRow
 const CHUNK = 500
 
 // onConflictDoNothing preserves manual tags.
-async function insertNewPairs(tx: Transaction, toInsert: Candidate[]): Promise<number> {
+async function insertNewPairs(tx: DatabaseTransaction, toInsert: Candidate[]): Promise<number> {
   let inserted = 0
   for (const batch of chunk(toInsert, CHUNK)) {
     await tx
@@ -328,7 +311,10 @@ async function insertNewPairs(tx: Transaction, toInsert: Candidate[]): Promise<n
 
 // Overrides lower-precedence rows: avoid > secondary/primary, primary > secondary.
 // Drizzle's set clause uses EXCLUDED.{relevance, source}.
-async function upsertExistingPairs(tx: Transaction, toUpsert: Candidate[]): Promise<number> {
+async function upsertExistingPairs(
+  tx: DatabaseTransaction,
+  toUpsert: Candidate[]
+): Promise<number> {
   let upserted = 0
   for (const batch of chunk(toUpsert, CHUNK)) {
     await tx
@@ -359,7 +345,10 @@ async function main() {
   // under-cover the backfill. The write path elevates too; the read must match.
   const allProducts = await fetchEligibleProducts()
   const subset = narrowSubset(allProducts)
-  const bundle = await loadAutoTagFetchBundle(subset.map((p) => p.id))
+  const bundle = await loadAutoTagFetchBundle(
+    subset.map((p) => p.id),
+    db
+  )
   const tagIdToType = new Map([...bundle.tagSlugToInfo.values()].map((t) => [t.id, t.tagType]))
   const { existingMap, productsWithCuratedPrimary, manualPairs } = await fetchExistingState(
     tagIdToType,

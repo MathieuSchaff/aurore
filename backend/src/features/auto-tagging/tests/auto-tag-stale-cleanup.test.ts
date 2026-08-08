@@ -18,7 +18,7 @@ import { createAutoTagProduct, getTagDefBySlug, getTagLinks } from './db-helpers
 const RICH_INCI =
   'Aqua, Niacinamide, Retinol, Glycerin, Tocopherol, Phenoxyethanol, Hyaluronic Acid'
 
-describe('writeTagsForProduct — stale auto-tag cleanup on INCI change', () => {
+describe('writeTagsForProduct: stale auto-tag cleanup on INCI change', () => {
   beforeEach(async () => {
     await cleanDatabase()
     await testDb.insert(productTagTypes).values(productTagData)
@@ -48,15 +48,12 @@ describe('writeTagsForProduct — stale auto-tag cleanup on INCI change', () => 
     const inciDerivedBefore = before.filter((r) => inciSources.has(r.source))
     expect(inciDerivedBefore.length).toBeGreaterThan(0)
 
-    // Inject a manual tag (the orchestrator must never have emitted this slug
-    // for this product, otherwise the test confuses "preserved manual" with
-    // "re-emitted auto"). `eczema` is a concern slug not derivable from this
-    // INCI in the test fixture.
-    // `keratose-pilaire` is emitted by `formula/keratose-pilaire.ts` only when the
-    // name/description names KP. This fixture names neither, so the orchestrator never
-    // emits it — safe marker for "row the orchestrator does not own".
+    // Inject a manual tag the orchestrator never emits for this product, so the
+    // test can't confuse "preserved manual" with "re-emitted auto". `keratose-pilaire`
+    // only comes from `formula/keratose-pilaire.ts` when the name/description
+    // names KP, and this fixture names neither.
     const manualDef = await getTagDefBySlug('keratose-pilaire')
-    await addTagToProduct(testDb, product.id, manualDef.id, 'secondary')
+    await testDb.transaction((tx) => addTagToProduct(tx, product.id, manualDef.id, 'secondary'))
 
     // Confirm the manual row landed with source = 'manual'.
     const [manualRow] = await getTagLinks(product.id, manualDef.id)
@@ -64,14 +61,16 @@ describe('writeTagsForProduct — stale auto-tag cleanup on INCI change', () => 
 
     // Trigger retag by emptying the INCI. updateProduct's trigger now fires
     // on any AUTOTAG_INPUT_FIELDS change; INCI is in that set.
-    await updateProduct(user.id, product.id, { inci: '' }, undefined, testDb)
+    await testDb.transaction((tx) =>
+      updateProduct(user.id, product.id, { inci: '' }, undefined, tx)
+    )
 
     const after = await testDb
       .select()
       .from(productTagLinks)
       .where(eq(productTagLinks.productId, product.id))
 
-    // INCI-derived auto rows are gone — that's the bug-1 fix.
+    // INCI-derived auto rows are gone, that's the bug-1 fix.
     const inciDerivedAfter = after.filter((r) => inciSources.has(r.source))
     expect(inciDerivedAfter).toHaveLength(0)
 
@@ -104,17 +103,19 @@ describe('writeTagsForProduct — stale auto-tag cleanup on INCI change', () => 
     expect(beforeAutoIds.size).toBeGreaterThan(0)
 
     const manualDef = await getTagDefBySlug('keratose-pilaire')
-    await addTagToProduct(testDb, product.id, manualDef.id, 'secondary')
+    await testDb.transaction((tx) => addTagToProduct(tx, product.id, manualDef.id, 'secondary'))
 
     // Different INCI with zero overlap on RICH_INCI's actives (no Retinol,
     // Niacinamide, Hyaluronic Acid). The orchestrator's emission set must
-    // differ — proving DELETE+INSERT really diffs, not just merges.
-    await updateProduct(
-      user.id,
-      product.id,
-      { inci: 'Aqua, Glycerin, Squalane, Bisabolol, Allantoin, Phenoxyethanol' },
-      undefined,
-      testDb
+    // differ, proving DELETE+INSERT really diffs, not just merges.
+    await testDb.transaction((tx) =>
+      updateProduct(
+        user.id,
+        product.id,
+        { inci: 'Aqua, Glycerin, Squalane, Bisabolol, Allantoin, Phenoxyethanol' },
+        undefined,
+        tx
+      )
     )
 
     const afterAutoIds = new Set(

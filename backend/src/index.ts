@@ -63,7 +63,7 @@ app.use(
   })
 )
 app.use('*', async (c, next) => {
-  c.set('db', db)
+  c.set('anonDb', db)
   c.set('env', Bun.env.NODE_ENV === 'production' ? 'production' : 'development')
   c.set('jwtSecret', env.JWT_SECRET)
   c.set('refreshSecret', env.REFRESH_SECRET)

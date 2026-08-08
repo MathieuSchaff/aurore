@@ -199,7 +199,7 @@ describe('updateIngredient — exhaustive', () => {
       )
 
       expect(updated.name).toBe('Multi All Renamed')
-      expect(updated.slug).toBe('multi-all') // slug immutable (C-4)
+      expect(updated.slug).toBe('multi-all') // slug immutable
       expect(updated.description).toBe('Nouvelle desc')
       expect(updated.content).toBe('Nouveau contenu')
       expect(updated.category).toBe('excipient')
@@ -227,9 +227,9 @@ describe('updateIngredient — exhaustive', () => {
     })
   })
 
-  // Slug is immutable after creation (C-4): renaming never re-derives it, and a
+  // Slug is immutable after creation: renaming never re-derives it, and a
   // slug field in the payload is rejected by the strict update schema.
-  describe('slug immutability (C-4)', () => {
+  describe('slug immutability', () => {
     it('should not change slug when the name changes', async () => {
       const created = await createTestIngredient(user.id, { name: 'Acide Original' })
 

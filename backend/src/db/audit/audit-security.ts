@@ -1,18 +1,14 @@
 /**
- * Scans existing DB rows for suspicious content that pre-dates the safeUrl/HTML
- * validation introduced in the security hardening pass.
- *
- * Run with: bun run src/db/audit/audit-security.ts
- * Env:
- *   CSV_OUT=/tmp/findings.csv: export all findings to CSV
- *   WRITE=1: apply auto-fixes for high-severity fixable findings
+ * Scans existing DB rows for suspicious content that predates the safeUrl/HTML validation.
+ * Run: bun run src/db/audit/audit-security.ts
+ * Env: CSV_OUT=path exports findings to CSV; WRITE=1 applies auto-fixes for fixable findings.
  */
 
 import { writeFile } from 'node:fs/promises'
 
 import { eq } from 'drizzle-orm'
 
-import type { DB } from '..'
+import type { Database } from '..'
 import { db } from '..'
 import { profiles } from '../schema/auth/users'
 import { articles } from '../schema/blog/articles'
@@ -41,9 +37,9 @@ type Finding = {
 }
 
 type CheckResult = { name: string; findings: Finding[] }
-type Checker = (db: DB) => Promise<CheckResult>
+type Checker = (db: Database) => Promise<CheckResult>
 
-async function checkProductUrls(db: DB): Promise<CheckResult> {
+async function checkProductUrls(db: Database): Promise<CheckResult> {
   const rows = await db
     .select({
       id: products.id,
@@ -87,7 +83,7 @@ async function checkProductUrls(db: DB): Promise<CheckResult> {
   return { name: 'product-urls', findings }
 }
 
-async function checkProductTextFields(db: DB): Promise<CheckResult> {
+async function checkProductTextFields(db: Database): Promise<CheckResult> {
   const rows = await db
     .select({
       id: products.id,
@@ -125,7 +121,7 @@ async function checkProductTextFields(db: DB): Promise<CheckResult> {
 
 // name and brand are rendered in product cards, worth auditing even though React
 // auto-escapes JSX (guards against future unsafe render patterns).
-async function checkProductNameFields(db: DB): Promise<CheckResult> {
+async function checkProductNameFields(db: Database): Promise<CheckResult> {
   const rows = await db
     .select({ id: products.id, slug: products.slug, name: products.name, brand: products.brand })
     .from(products)
@@ -168,7 +164,7 @@ async function checkProductNameFields(db: DB): Promise<CheckResult> {
   return { name: 'product-name-fields', findings }
 }
 
-async function checkProfileUrls(db: DB): Promise<CheckResult> {
+async function checkProfileUrls(db: Database): Promise<CheckResult> {
   const rows = await db
     .select({ userId: profiles.userId, avatarUrl: profiles.avatarUrl, links: profiles.links })
     .from(profiles)
@@ -200,7 +196,7 @@ async function checkProfileUrls(db: DB): Promise<CheckResult> {
         field: 'links[].url',
         value: maliciousUrl,
         fixable: true,
-        // Re-fetch current links to avoid clobbering concurrent fixes on the same profile.
+        // Fetch current links again to avoid clobbering concurrent fixes on the same profile.
         applyFix: async () => {
           const current = await db
             .select({ links: profiles.links })
@@ -218,7 +214,7 @@ async function checkProfileUrls(db: DB): Promise<CheckResult> {
   return { name: 'profile-urls', findings }
 }
 
-async function checkProfileTextFields(db: DB): Promise<CheckResult> {
+async function checkProfileTextFields(db: Database): Promise<CheckResult> {
   const rows = await db
     .select({ userId: profiles.userId, bio: profiles.bio, username: profiles.username })
     .from(profiles)
@@ -248,7 +244,7 @@ async function checkProfileTextFields(db: DB): Promise<CheckResult> {
   return { name: 'profile-text-fields', findings }
 }
 
-async function checkArticleUrls(db: DB): Promise<CheckResult> {
+async function checkArticleUrls(db: Database): Promise<CheckResult> {
   const rows = await db
     .select({ id: articles.id, slug: articles.slug, coverImageUrl: articles.coverImageUrl })
     .from(articles)
@@ -273,7 +269,7 @@ async function checkArticleUrls(db: DB): Promise<CheckResult> {
   return { name: 'article-urls', findings }
 }
 
-async function checkArticleTitles(db: DB): Promise<CheckResult> {
+async function checkArticleTitles(db: Database): Promise<CheckResult> {
   const rows = await db
     .select({
       id: articles.id,
@@ -310,7 +306,7 @@ async function checkArticleTitles(db: DB): Promise<CheckResult> {
 
 // Article content is expected to contain HTML, look for dangerous patterns only.
 // Not auto-fixable: stripping content blindly could corrupt the article.
-async function checkArticleContent(db: DB): Promise<CheckResult> {
+async function checkArticleContent(db: Database): Promise<CheckResult> {
   const rows = await db.select({ slug: articles.slug, content: articles.content }).from(articles)
 
   const findings: Finding[] = []
@@ -329,8 +325,8 @@ async function checkArticleContent(db: DB): Promise<CheckResult> {
   return { name: 'article-content', findings }
 }
 
-// Non-HTTPS URLs: low severity, not auto-fixed (could break the link).
-async function checkNonHttpsUrls(db: DB): Promise<CheckResult> {
+// URLs that are not HTTPS: low severity, not auto-fixed (could break the link).
+async function checkNonHttpsUrls(db: Database): Promise<CheckResult> {
   const findings: Finding[] = []
 
   const productRows = await db
@@ -411,7 +407,7 @@ async function checkNonHttpsUrls(db: DB): Promise<CheckResult> {
 }
 
 // Embedded URLs in text: spam vector. Not auto-fixed, needs human decision.
-async function checkEmbeddedUrlsInText(db: DB): Promise<CheckResult> {
+async function checkEmbeddedUrlsInText(db: Database): Promise<CheckResult> {
   const findings: Finding[] = []
 
   const productRows = await db

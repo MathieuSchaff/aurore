@@ -2,17 +2,13 @@ import { sql, TransactionRollbackError } from 'drizzle-orm'
 import type { Context, Next } from 'hono'
 
 import type { AppEnv } from '../../app-env'
-import { getAuthedUserRole } from './middleware'
+import { getAuthedUserRole } from '../../utils/accessors'
 
-// Wraps authenticated requests in a tx and sets RLS context (app.user_id, app.role).
-// Must run after requireJwtAuth. Skips when userId is absent (public routes).
+// Wraps authenticated requests in a transaction and binds the PostgreSQL RLS context.
+// Must run after requireJwtAuth. Public requests without userId pass through unchanged.
 //
-// Invariant: services must re-throw DB errors. If a service swallows a DB error,
-// c.error stays null and this middleware commits an already-aborted tx, producing 500.
-//
-// Hono's onError fires before this middleware resumes, leaving the pg tx aborted.
-// We detect this via c.error and call tx.rollback() explicitly, then suppress the
-// resulting TransactionRollbackError so the already-set 4xx response propagates cleanly.
+// A propagated error or final HTTP status >= 400 rolls back the request transaction.
+// Only the rollback requested here is suppressed; unexpected rollback errors propagate.
 export const withRlsContext = async (c: Context<AppEnv>, next: Next) => {
   const userId = c.get('userId')
 
@@ -20,26 +16,34 @@ export const withRlsContext = async (c: Context<AppEnv>, next: Next) => {
     await next()
     return
   }
-
-  const baseDb = c.get('db')
+  if (c.get('requestDb')) {
+    throw new Error('withRlsContext: requestDb is already set')
+  }
+  const anonDb = c.get('anonDb')
   // Throws if userId is set but role is not: programmer error (requireJwtAuth not chained).
   const role = getAuthedUserRole(c)
-
+  let rollbackRequested = false
   try {
-    await baseDb.transaction(async (tx) => {
+    await anonDb.transaction(async (tx) => {
       // SET LOCAL only accepts literal strings, making concatenation an injection risk.
       // set_config() takes a parameterized value, so it is safe.
       await tx.execute(sql`SELECT set_config('app.user_id', ${userId}, true)`)
       await tx.execute(sql`SELECT set_config('app.role', ${role}, true)`)
-      c.set('db', tx as unknown as typeof baseDb)
+
+      c.set('requestDb', tx)
+
       await next()
-      if (c.error) {
+      if (c.error || c.res.status >= 400) {
+        rollbackRequested = true
         tx.rollback()
       }
     })
   } catch (e) {
-    // Suppress expected rollback error; 4xx response is already set in c.res.
-    if (e instanceof TransactionRollbackError) return
+    // Preserve the downstream response after the rollback requested above.
+    if (e instanceof TransactionRollbackError && rollbackRequested) return
     throw e
+  } finally {
+    // Never expose a transaction after its callback has completed.
+    c.set('requestDb', undefined)
   }
 }

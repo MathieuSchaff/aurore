@@ -1,6 +1,6 @@
 import { sql } from 'drizzle-orm'
 
-import type { DB } from '../db/index'
+import type { DbOrTransaction } from '../db/index'
 import { nowISO } from '../utils/dates'
 import { isUniqueViolation } from './helpers'
 
@@ -23,7 +23,7 @@ export function resolveCatalogQuality(role: CatalogRole, userId: string) {
   }
 }
 
-// Re-throws a Postgres unique violation (23505) as a domain conflict error so
+// Catches a Postgres unique violation (23505) and throws a domain conflict error so
 // the withRlsContext transaction rolls back instead of committing an aborted tx
 // (a swallowed 23505 surfaces as a 500). Any other error propagates unchanged.
 export function translateUniqueViolation(e: unknown, toConflict: () => Error): never {
@@ -53,7 +53,7 @@ export function stripAdminFields<T extends Partial<Record<AdminFields, unknown>>
 // rows via a SECURITY DEFINER function so hidden rows still count, hiding spam
 // must not refill the quota. Contributors and admins are exempt.
 export async function assertWithinSubmissionRateLimit(
-  database: DB,
+  database: DbOrTransaction,
   countFn: SubmissionCountFn,
   userId: string,
   role: CatalogRole,
@@ -61,7 +61,7 @@ export async function assertWithinSubmissionRateLimit(
 ): Promise<void> {
   if (role === 'admin' || role === 'contributor') return
 
-  // Same doctrine as the HTTP limiters (rateLimiter.ts skipLimiter): non-prod skips the cap.
+  // Same doctrine as the HTTP limiters (rateLimiter.ts skipLimiter): outside production, skip the cap.
   // Scoped to 'development' only: e2e runs NODE_ENV=development and creates >10 products as
   // one seed user across 3 browser projects, tripping the 10/hr cap. Tests run NODE_ENV=test
   // and need it enforced to assert product_rate_limited.

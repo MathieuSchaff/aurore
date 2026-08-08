@@ -3,7 +3,7 @@ import type { SkinConcern, SkinType } from '@aurore/shared'
 import { analyzeINCI, cleanInciString, type ProductAssessment, type UserProfile } from 'algo-derm'
 import { and, eq, inArray } from 'drizzle-orm'
 
-import { type Database, type DB, db } from '../../db'
+import type { DbOrTransaction } from '../../db'
 import { userDermoProfiles } from '../../db/schema/auth/users'
 import { ingredients } from '../../db/schema/ingredients/ingredients'
 import { products } from '../../db/schema/products/products'
@@ -60,7 +60,7 @@ export type DermoScoreOutcome =
 export async function computeProductDermoScore(
   productSlug: string,
   userId: string | null,
-  database: Database = db
+  database: DbOrTransaction
 ): Promise<DermoScoreOutcome> {
   const [product] = await database
     .select({
@@ -121,7 +121,7 @@ function sortPreferred(rows: LinkRow[], category: string): LinkRow[] {
 export async function attachIngredientSlugs(
   assessment: ProductAssessment,
   category: string,
-  database: Database
+  database: DbOrTransaction
 ): Promise<LinkedAssessment> {
   const { topDrivers, topBenefitDrivers } = assessment.explanation
 
@@ -174,7 +174,7 @@ export async function attachIngredientSlugs(
 
 export async function loadAlgoDermProfile(
   userId: string,
-  database: DB
+  database: DbOrTransaction
 ): Promise<UserProfile | undefined> {
   const [row] = await database
     .select({

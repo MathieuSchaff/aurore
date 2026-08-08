@@ -10,6 +10,15 @@ import { createSuggestedEdit, listSuggestedEdits, reviewSuggestedEdit } from '..
 
 setupDbTests()
 
+const createEdit = (args: Parameters<typeof createSuggestedEdit>[1]) =>
+  testDb.transaction((tx) => createSuggestedEdit(tx, args))
+
+const listEdits = (filters: Parameters<typeof listSuggestedEdits>[1]) =>
+  testDb.transaction((tx) => listSuggestedEdits(tx, filters))
+
+const reviewEdit = (args: Parameters<typeof reviewSuggestedEdit>[1]) =>
+  testDb.transaction((tx) => reviewSuggestedEdit(tx, args))
+
 let proposerId: string
 let reviewerId: string
 let productId: string
@@ -37,7 +46,7 @@ beforeEach(async () => {
 
 describe('suggested-edits service', () => {
   it('createSuggestedEdit inserts a pending row', async () => {
-    const row = await createSuggestedEdit(testDb, {
+    const row = await createEdit({
       proposerId,
       body: {
         targetType: 'product',
@@ -51,17 +60,17 @@ describe('suggested-edits service', () => {
   })
 
   it('listSuggestedEdits filters by status, newest first', async () => {
-    await createSuggestedEdit(testDb, {
+    await createEdit({
       proposerId,
       body: { targetType: 'product', targetId: productId, field: 'name', proposedValue: 'A' },
     })
-    const { items } = await listSuggestedEdits(testDb, { status: 'pending' })
+    const { items } = await listEdits({ status: 'pending' })
     expect(items.length).toBe(1)
     expect(items[0]?.status).toBe('pending')
   })
 
   it('ACCEPT applies the proposed value to the product sheet field + stamps reviewer', async () => {
-    const edit = await createSuggestedEdit(testDb, {
+    const edit = await createEdit({
       proposerId,
       body: {
         targetType: 'product',
@@ -70,7 +79,7 @@ describe('suggested-edits service', () => {
         proposedValue: 'Accepted Name',
       },
     })
-    const result = await reviewSuggestedEdit(testDb, {
+    const result = await reviewEdit({
       id: edit.id,
       reviewerId,
       status: 'accepted',
@@ -86,7 +95,7 @@ describe('suggested-edits service', () => {
   })
 
   it('REJECT leaves the sheet untouched', async () => {
-    const edit = await createSuggestedEdit(testDb, {
+    const edit = await createEdit({
       proposerId,
       body: {
         targetType: 'product',
@@ -95,7 +104,7 @@ describe('suggested-edits service', () => {
         proposedValue: 'Should Not Apply',
       },
     })
-    await reviewSuggestedEdit(testDb, { id: edit.id, reviewerId, status: 'rejected' })
+    await reviewEdit({ id: edit.id, reviewerId, status: 'rejected' })
     const [p] = await testDb
       .select({ name: products.name })
       .from(products)
@@ -104,19 +113,17 @@ describe('suggested-edits service', () => {
   })
 
   it('ACCEPT on a non-pending edit throws', async () => {
-    const edit = await createSuggestedEdit(testDb, {
+    const edit = await createEdit({
       proposerId,
       body: { targetType: 'product', targetId: productId, field: 'name', proposedValue: 'X' },
     })
-    await reviewSuggestedEdit(testDb, { id: edit.id, reviewerId, status: 'accepted' })
-    await expect(
-      reviewSuggestedEdit(testDb, { id: edit.id, reviewerId, status: 'accepted' })
-    ).rejects.toThrow()
+    await reviewEdit({ id: edit.id, reviewerId, status: 'accepted' })
+    await expect(reviewEdit({ id: edit.id, reviewerId, status: 'accepted' })).rejects.toThrow()
   })
 
   it('ACCEPT 404s a missing edit', async () => {
     await expect(
-      reviewSuggestedEdit(testDb, {
+      reviewEdit({
         id: '00000000-0000-7000-8000-000000000000',
         reviewerId,
         status: 'accepted',
@@ -126,7 +133,7 @@ describe('suggested-edits service', () => {
 
   // Covers the applyToSheet 0-row branch: the edit exists but its target is gone.
   it('ACCEPT on an edit whose target sheet is gone throws', async () => {
-    const edit = await createSuggestedEdit(testDb, {
+    const edit = await createEdit({
       proposerId,
       body: {
         targetType: 'product',
@@ -135,8 +142,6 @@ describe('suggested-edits service', () => {
         proposedValue: 'X',
       },
     })
-    await expect(
-      reviewSuggestedEdit(testDb, { id: edit.id, reviewerId, status: 'accepted' })
-    ).rejects.toThrow()
+    await expect(reviewEdit({ id: edit.id, reviewerId, status: 'accepted' })).rejects.toThrow()
   })
 })

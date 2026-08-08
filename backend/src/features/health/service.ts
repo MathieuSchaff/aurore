@@ -1,8 +1,8 @@
 import { sql } from 'drizzle-orm'
 
-import type { AppEnv } from '../../app-env'
+import type { Database } from '../../db'
 
-export type ReadinessCheck = (db: AppEnv['Variables']['db']) => Promise<unknown>
+export type ReadinessCheck = (db: Database) => Promise<unknown>
 
 // An exhausted pool does not reject: a new statement queues behind it for as long as the
 // leak lasts, so an untimed probe hangs instead of reporting the outage. Cap the wait so

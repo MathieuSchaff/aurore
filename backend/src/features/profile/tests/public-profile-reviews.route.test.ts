@@ -2,17 +2,13 @@ import { beforeAll, describe, expect, it } from 'bun:test'
 
 import { HTTP_STATUS } from '@aurore/shared'
 
-import { eq } from 'drizzle-orm'
-import type { Hono } from 'hono'
-
-import type { AppEnv } from '../../../app-env'
-import { profiles } from '../../../db/schema/auth/users'
-import { products } from '../../../db/schema/products/products'
 import { userProductReviews, userProducts } from '../../../db/schema/products/user-products'
 import { testDb } from '../../../tests/db.test.config'
 import { setupDbTests } from '../../../tests/db-setup'
 import { createTestApp } from '../../../tests/helpers/createTestApp'
-import { createTestUser } from '../../../tests/helpers/test-factories'
+import type { TestApp } from '../../../tests/helpers/createTestClient'
+import { createTestProduct } from '../../../tests/helpers/test-factories'
+import { seedPublicAuthor } from './profile-test.setup'
 
 setupDbTests()
 
@@ -23,15 +19,12 @@ type ReviewSeed = {
   moderationStatus?: 'visible' | 'hidden'
 }
 
-let productSeq = 0
-
 // Seed a profile (public by default) with one product review owned by them.
 async function seedReviewer(
   username: string,
   review: ReviewSeed = {},
   profile: { profilePublic?: boolean; forcedPrivateByAdmin?: boolean } = {}
 ) {
-  const { profilePublic = true, forcedPrivateByAdmin = false } = profile
   const {
     comment = 'Belle texture, peau apaisée.',
     isPublic = true,
@@ -39,26 +32,12 @@ async function seedReviewer(
     moderationStatus = 'visible',
   } = review
 
-  const owner = await createTestUser(`${username}@social.test`, 'Azerty123!')
-  await testDb
-    .update(profiles)
-    .set({ username, profilePublic, forcedPrivateByAdmin })
-    .where(eq(profiles.userId, owner.id))
-
-  productSeq += 1
-  const [product] = await testDb
-    .insert(products)
-    .values({
-      createdBy: owner.id,
-      name: `Sérum ${username}`,
-      brand: 'BrandX',
-      category: 'skincare',
-      kind: 'serum',
-      unit: 'dropper',
-      slug: `serum-${username}-${productSeq}`,
-    })
-    .returning()
-  if (!product) throw new Error('product seed failed')
+  const owner = await seedPublicAuthor(username, profile)
+  const product = await createTestProduct(owner.id, {
+    name: `Sérum ${username}`,
+    brand: 'BrandX',
+    unit: 'dropper',
+  })
 
   const [up] = await testDb
     .insert(userProducts)
@@ -81,48 +60,40 @@ async function seedReviewer(
   return { ownerId: owner.id, product }
 }
 
-async function fetchReviews(app: Hono<AppEnv>, username: string) {
-  const res = await app.request(`/api/profiles/${username}/reviews`)
-  return res
-}
-
 describe('GET /profiles/:username/reviews', () => {
-  let app: Hono<AppEnv>
+  let app: TestApp
 
   beforeAll(async () => {
     app = await createTestApp()
   })
 
-  it("lists a user's public reviews with the explicit product", async () => {
-    const { product } = await seedReviewer('reviewer-pub')
-
-    const res = await fetchReviews(app, 'reviewer-pub')
+  async function reviewsOf(username: string) {
+    const res = await app.request(`/api/profiles/${username}/reviews`)
     expect(res.status).toBe(HTTP_STATUS.OK)
     const body = (await res.json()) as {
       success: true
       data: {
         reviews: Array<{
           comment: string | null
+          tolerance: number | null
+          efficacy: number | null
           product: { slug: string; name: string }
           reviewer: { username: string }
         }>
       }
     }
-    expect(body.data.reviews).toHaveLength(1)
-    expect(body.data.reviews[0].comment).toBe('Belle texture, peau apaisée.')
-    expect(body.data.reviews[0].product).toEqual({ slug: product.slug, name: product.name })
-    expect(body.data.reviews[0].reviewer.username).toBe('reviewer-pub')
-  })
-
-  async function reviewsOf(username: string) {
-    const res = await fetchReviews(app, username)
-    expect(res.status).toBe(HTTP_STATUS.OK)
-    const body = (await res.json()) as {
-      success: true
-      data: { reviews: Array<{ tolerance: number | null; efficacy: number | null }> }
-    }
     return body.data.reviews
   }
+
+  it("lists a user's public reviews with the explicit product", async () => {
+    const { product } = await seedReviewer('reviewer-pub')
+
+    const reviews = await reviewsOf('reviewer-pub')
+    expect(reviews).toHaveLength(1)
+    expect(reviews[0].comment).toBe('Belle texture, peau apaisée.')
+    expect(reviews[0].product).toEqual({ slug: product.slug, name: product.name })
+    expect(reviews[0].reviewer.username).toBe('reviewer-pub')
+  })
 
   it('excludes a private review', async () => {
     await seedReviewer('reviewer-priv', { isPublic: false })
@@ -147,7 +118,7 @@ describe('GET /profiles/:username/reviews', () => {
     expect(reviews[0].efficacy).toBeNull()
   })
 
-  it('returns an empty list for a non-public profile (master gate)', async () => {
+  it('returns an empty list for a profile that is not public (master gate)', async () => {
     await seedReviewer('reviewer-shy', {}, { profilePublic: false })
     expect(await reviewsOf('reviewer-shy')).toHaveLength(0)
   })

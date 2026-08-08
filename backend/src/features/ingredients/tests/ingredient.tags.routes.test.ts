@@ -23,7 +23,7 @@ import { TEST_CREDENTIALS } from '../../../tests/helpers/test-credentials'
 // Insert directly via service since the HTTP route requires admin and tests
 // need the tag as a fixture, not to assert creation behaviour.
 async function createTag(name = 'Anti-âge') {
-  const tag = await createIngredientTag(testDb, { label: name })
+  const tag = await testDb.transaction((tx) => createIngredientTag(tx, { label: name }))
   return { id: tag.id, slug: tag.slug }
 }
 

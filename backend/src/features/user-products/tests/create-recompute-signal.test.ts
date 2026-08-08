@@ -14,7 +14,7 @@ import {
   type TestClient,
   withAuth,
 } from '../../../tests/helpers/createTestClient'
-import { expectOk } from '../../../tests/helpers/expectStatus'
+import { expectOk, expectStatus } from '../../../tests/helpers/expectStatus'
 import { createTestProduct } from '../../../tests/helpers/test-factories'
 
 setupDbTests()
@@ -28,11 +28,11 @@ async function countScores(userId: string) {
 }
 
 // The POST endpoint upserts; before this fix only PATCH/DELETE recomputed the
-// dermo signal, so a product created (or re-added) as avoided / Holy-Grail left
+// dermo signal, so a product created (or added again) as avoided / Holy-Grail left
 // the suspicion/favorite scores stale. A seeded orphan score is reconciled away
 // whenever recalculateAllSignalsForUser runs against a collection with no signal
 // candidates, so its survival is the observable for "did the recompute fire".
-describe('user-products mutations — dermo signal recompute', () => {
+describe('user-products mutations: dermo signal recompute', () => {
   let client: TestClient
   let token: string
   let userId: string
@@ -66,7 +66,7 @@ describe('user-products mutations — dermo signal recompute', () => {
       withAuth(token)
     )
 
-    expect(res.status as number).toBe(HTTP_STATUS.CREATED)
+    expectStatus(res, HTTP_STATUS.CREATED)
     expect(await countScores(userId)).toBe(1)
   })
 
@@ -76,11 +76,11 @@ describe('user-products mutations — dermo signal recompute', () => {
       withAuth(token)
     )
 
-    expect(res.status as number).toBe(HTTP_STATUS.CREATED)
+    expectStatus(res, HTTP_STATUS.CREATED)
     expect(await countScores(userId)).toBe(0)
   })
 
-  it('recomputes when re-adding flips an existing product to avoided (upsert)', async () => {
+  it('recomputes when adding it again flips an existing product to avoided (upsert)', async () => {
     await client['user-products'].$post(
       { json: { productId, status: 'in_stock' } },
       withAuth(token)

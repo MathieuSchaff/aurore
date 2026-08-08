@@ -9,7 +9,7 @@ import { products } from '../../../db/schema/products/products'
 import { testDb } from '../../../tests/db.test.config'
 import { setupDbTests } from '../../../tests/db-setup'
 import { createTestApp } from '../../../tests/helpers/createTestApp'
-import { createTestUser } from '../../../tests/helpers/test-factories'
+import { createTestArticle, createTestUser } from '../../../tests/helpers/test-factories'
 import { resetSitemapCache } from '../service'
 
 setupDbTests()
@@ -58,13 +58,7 @@ describe('Sitemap route', () => {
 
   it('lists the static hubs and one hub per non-empty blog category', async () => {
     const author = await createTestUser()
-    await testDb.insert(articles).values({
-      createdBy: author.id,
-      title: 'Publié skincare',
-      slug: 'publie-skincare',
-      category: 'skincare',
-      publishedAt: '2026-01-01T10:00:00.000Z',
-    })
+    await createTestArticle(author.id, { title: 'Publié skincare' })
 
     const xml = await (await app.request('/api/sitemap.xml')).text()
 
@@ -163,12 +157,9 @@ describe('Sitemap route', () => {
     const author = await createTestUser()
     const first = await (await app.request('/api/sitemap.xml')).text()
 
-    await testDb.insert(articles).values({
-      createdBy: author.id,
+    await createTestArticle(author.id, {
       title: 'Publié après le premier rendu',
       slug: 'apres-premier-rendu',
-      category: 'skincare',
-      publishedAt: '2026-01-01T10:00:00.000Z',
     })
 
     expect(await (await app.request('/api/sitemap.xml')).text()).toBe(first)

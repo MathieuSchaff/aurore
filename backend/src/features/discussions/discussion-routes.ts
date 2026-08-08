@@ -4,13 +4,9 @@ import { Hono } from 'hono'
 import { z } from 'zod'
 
 import type { AppEnv } from '../../app-env'
+import { getAuthedUserId, getRlsDb } from '../../utils/accessors'
 import { zValidator } from '../../utils/validator'
-import {
-  getAuthedUserId,
-  requireJwtAuth,
-  requireNotBanned,
-  requireNotBannedScope,
-} from '../auth/middleware'
+import { requireJwtAuth, requireNotBanned, requireNotBannedScope } from '../auth/middleware'
 import { withRlsContext } from '../auth/rls-context.middleware'
 import {
   createReply,
@@ -30,25 +26,14 @@ const replyParam = z.object({
   replyId: z.uuid(),
 })
 
-// GET = anonymous OK. Non-GET = auth + ban-check. Split into two middleware so
-// requireNotBanned's short-circuit 403 propagates back through Hono compose
-// (see products/routes.ts for the same fix).
 export function createDiscussionRoutes(entityType: EntityType) {
   const app = new Hono<AppEnv>()
 
-  app.use('*', async (c, next) => {
-    if (c.req.method === 'GET') return next()
-    return requireJwtAuth(c, next)
-  })
-  app.use('*', async (c, next) => {
-    if (c.req.method === 'GET') return next()
-    return requireNotBanned(c, next)
-  })
-  app.use('*', withRlsContext)
+  // Guards stay on the endpoints owned by this router so sibling routes are not intercepted
 
   return app
     .get('/:slug/discussions', zValidator('param', slugParam), async (c) => {
-      const db = c.get('db')
+      const db = c.get('anonDb')
       const { slug } = c.req.valid('param')
       const threads = await listThreads(slug, entityType, db)
       return c.json(ok(threads), HTTP_STATUS.OK)
@@ -56,11 +41,14 @@ export function createDiscussionRoutes(entityType: EntityType) {
 
     .post(
       '/:slug/discussions',
+      requireJwtAuth,
+      withRlsContext,
+      requireNotBanned,
       requireNotBannedScope('discussion_post'),
       zValidator('param', slugParam),
       zValidator('json', createThreadSchema),
       async (c) => {
-        const db = c.get('db')
+        const db = getRlsDb(c)
         const userId = getAuthedUserId(c)
         const { slug } = c.req.valid('param')
         const input = c.req.valid('json')
@@ -70,27 +58,37 @@ export function createDiscussionRoutes(entityType: EntityType) {
     )
 
     .get('/:slug/discussions/:threadId', zValidator('param', threadParam), async (c) => {
-      const db = c.get('db')
+      const db = c.get('anonDb')
       const { threadId } = c.req.valid('param')
       const thread = await getThreadWithReplies(threadId, db)
       return c.json(ok(thread), HTTP_STATUS.OK)
     })
 
-    .delete('/:slug/discussions/:threadId', zValidator('param', threadParam), async (c) => {
-      const db = c.get('db')
-      const userId = getAuthedUserId(c)
-      const { threadId } = c.req.valid('param')
-      await deleteThread(userId, threadId, db)
-      return c.body(null, 204)
-    })
+    .delete(
+      '/:slug/discussions/:threadId',
+      requireJwtAuth,
+      withRlsContext,
+      requireNotBanned,
+      zValidator('param', threadParam),
+      async (c) => {
+        const db = getRlsDb(c)
+        const userId = getAuthedUserId(c)
+        const { threadId } = c.req.valid('param')
+        await deleteThread(userId, threadId, db)
+        return c.body(null, 204)
+      }
+    )
 
     .post(
       '/:slug/discussions/:threadId/replies',
+      requireJwtAuth,
+      withRlsContext,
+      requireNotBanned,
       requireNotBannedScope('discussion_post'),
       zValidator('param', threadParam),
       zValidator('json', createReplySchema),
       async (c) => {
-        const db = c.get('db')
+        const db = getRlsDb(c)
         const userId = getAuthedUserId(c)
         const { threadId } = c.req.valid('param')
         const input = c.req.valid('json')
@@ -101,9 +99,12 @@ export function createDiscussionRoutes(entityType: EntityType) {
 
     .delete(
       '/:slug/discussions/:threadId/replies/:replyId',
+      requireJwtAuth,
+      withRlsContext,
+      requireNotBanned,
       zValidator('param', replyParam),
       async (c) => {
-        const db = c.get('db')
+        const db = getRlsDb(c)
         const userId = getAuthedUserId(c)
         const { replyId } = c.req.valid('param')
         await deleteReply(userId, replyId, db)

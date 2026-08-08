@@ -2,17 +2,17 @@ import type { AdminDashboard } from '@aurore/shared'
 
 import { eq, gt, isNull, or, sql } from 'drizzle-orm'
 
-import type { Database } from '../../db'
+import type { DatabaseTransaction } from '../../db'
 import { contentReports, roleRequests, userBans } from '../../db/schema'
 import { profiles } from '../../db/schema/auth/users'
 import { discussionReplies, discussionThreads } from '../../db/schema/products/discussions'
 import { userProductReviews } from '../../db/schema/products/user-products'
 import { nowISO } from '../../utils/dates'
 
-export async function getAdminDashboard(db: Database): Promise<AdminDashboard> {
+export async function getAdminDashboard(db: DatabaseTransaction): Promise<AdminDashboard> {
   const nowIso = nowISO()
 
-  // Sequential on purpose: this route sits behind applyAuthedGuards, so `db` is
+  // Sequential on purpose: this service receives `requestDb`, so it is
   // always the RLS transaction, i.e. one connection. Fanning these counts out with
   // Promise.all is what wedged that connection "idle in transaction" in fetchProductMeta,
   // and ten wedged connections exhaust the Bun SQL pool and take the whole API down.

@@ -35,8 +35,7 @@ import {
   sql,
 } from 'drizzle-orm'
 
-import { db } from '../../db'
-import type { Database, DB } from '../../db/index'
+import type { DatabaseTransaction, DbOrTransaction } from '../../db/index'
 import { ingredients, productIngredients } from '../../db/schema'
 import { userIngredientPreferences } from '../../db/schema/ingredients/user-ingredient-preferences'
 import { type Product, products } from '../../db/schema/products'
@@ -75,7 +74,7 @@ export async function createProduct(
   userId: string,
   role: CatalogRole,
   input: CreateProductInput,
-  database: DB = db,
+  database: DatabaseTransaction,
   options: { autoTag?: boolean } = {}
 ) {
   try {
@@ -144,7 +143,7 @@ export async function createProduct(
     translateUniqueViolation(e, () => new ProductError('product_already_exists'))
   }
 }
-async function getProductRow(condition: SQL, database: Database) {
+async function getProductRow(condition: SQL, database: DbOrTransaction) {
   const row = await database
     .select({
       id: products.id,
@@ -175,20 +174,20 @@ async function getProductRow(condition: SQL, database: Database) {
   return row[0] ?? null
 }
 
-export async function getProductById(id: string, database: Database = db) {
+export async function getProductById(id: string, database: DatabaseTransaction) {
   const row = await getProductRow(eq(products.id, id), database)
   if (!row) throw new ProductError('product_not_found')
   return row
 }
 
-export async function getProductBySlug(slug: string, database: Database = db) {
+export async function getProductBySlug(slug: string, database: DbOrTransaction) {
   const row = await getProductRow(eq(products.slug, slug), database)
   if (!row) throw new ProductError('product_not_found')
   return row
 }
 
 // Single round-trip so Layout/Info/Edit/Sheet share one cache entry.
-export async function getProductFullBySlug(slug: string, database: Database = db) {
+export async function getProductFullBySlug(slug: string, database: DbOrTransaction) {
   const product = await getProductBySlug(slug, database)
   // Sequential: same connection-wedging reason as fetchProductMeta, an authed
   // caller runs these inside the RLS transaction.
@@ -271,8 +270,8 @@ export async function updateProduct(
   userId: string,
   id: string,
   data: UpdateProductInput,
-  summary?: string,
-  database = db
+  summary: string | undefined,
+  database: DatabaseTransaction
 ): Promise<Product> {
   for (const field of NORMALIZED_STRING_FIELDS) {
     const v = data[field]
@@ -375,7 +374,7 @@ export async function updateProduct(
 export async function verifyProduct(
   actorId: string,
   id: string,
-  database: DB = db
+  database: DatabaseTransaction
 ): Promise<Product> {
   const [row] = await database
     .update(products)
@@ -462,7 +461,7 @@ function productSearchMatch(q: string) {
 
 // Flat additive filter dispatch. Cyclomatic == number of optional filters; splitting relocates
 // the count without improving clarity. Behaviour covered by listProducts filter tests.
-function buildListConditions(filters: ListProductsFilters, database: Database): SQL[] {
+function buildListConditions(filters: ListProductsFilters, database: DbOrTransaction): SQL[] {
   const conditions: SQL[] = []
 
   conditions.push(inArray(products.category, [...PRODUCT_DOMAIN_DB_CATEGORIES[filters.category]]))
@@ -586,7 +585,7 @@ type ProductMeta = {
 // additive user_products_select_for_public_review policy widens SELECT to other users' public-review rows,
 // so the filter scopes the read back to the caller. Shared by the list meta and the /shelf-status overlay.
 export async function getShelfStatusByProductIds(
-  database: Database,
+  database: DbOrTransaction,
   userId: string,
   productIds: string[]
 ): Promise<{ productId: string; status: UserProductStatus }[]> {
@@ -601,7 +600,7 @@ async function fetchProductMeta(
   items: { id: string }[],
   filters: ListProductsFilters,
   userId: string | null,
-  database: Database
+  database: DbOrTransaction
 ): Promise<ProductMeta> {
   const matchesByProduct = new Map<string, string[]>()
   const tagsByProduct = new Map<string, ProductSummary['tags']>()
@@ -691,7 +690,7 @@ type DeclaredPreferences = {
 }
 
 async function loadDeclaredPreferences(
-  database: Database,
+  database: DbOrTransaction,
   userId: string
 ): Promise<DeclaredPreferences | null> {
   const ingredientPrefs = await database
@@ -735,7 +734,7 @@ async function loadDeclaredPreferences(
 
 // One EXISTS per target family; both key on indexed columns
 // (ingredients_canonical_key_idx, product_ingredients_product_idx, product_tag_links PK).
-function declaredTargetHits(keys: string[], tagIds: string[], database: Database): SQL[] {
+function declaredTargetHits(keys: string[], tagIds: string[], database: DbOrTransaction): SQL[] {
   const hits: SQL[] = []
   if (keys.length > 0) {
     hits.push(
@@ -775,7 +774,7 @@ async function fetchDeclaredMatches(
   itemIds: string[],
   declared: DeclaredPreferences,
   includeExcluded: boolean,
-  database: Database
+  database: DbOrTransaction
 ): Promise<{ requireByProduct: Map<string, string[]>; excludeByProduct: Map<string, string[]> }> {
   const requireByProduct = new Map<string, string[]>()
   const excludeByProduct = new Map<string, string[]>()
@@ -850,7 +849,7 @@ async function fetchDeclaredMatches(
 
 export async function listProducts(
   filters: ListProductsFilters,
-  database: Database = db,
+  database: DbOrTransaction,
   userId: string | null = null
 ): Promise<ProductsPage> {
   const page = filters.page ?? 1
@@ -992,7 +991,7 @@ export type FilterOptions = {
 }
 
 export async function getFilterOptions(
-  database: Database = db,
+  database: DbOrTransaction,
   category?: ProductDomainTab
 ): Promise<FilterOptions> {
   const dbCategories = category ? [...PRODUCT_DOMAIN_DB_CATEGORIES[category]] : null
@@ -1033,7 +1032,7 @@ export async function getFilterOptions(
   }
 }
 export async function getDistinctBrands(
-  database: Database = db,
+  database: DbOrTransaction,
   category?: ProductDomainTab
 ): Promise<string[]> {
   const rows = await database
@@ -1047,7 +1046,7 @@ export async function getDistinctBrands(
 }
 
 export async function deleteProduct(
-  database: Database,
+  database: DatabaseTransaction,
   role: 'user' | 'admin' | 'contributor',
   id: string
 ): Promise<void> {
@@ -1062,7 +1061,7 @@ export async function deleteProduct(
 export async function findSimilarProducts(
   name: string,
   brand: string,
-  database: Database = db
+  database: DbOrTransaction
 ): Promise<ProductSearchResult[]> {
   const trimmedName = name.trim()
   const trimmedBrand = brand.trim()
@@ -1102,7 +1101,7 @@ export async function findSimilarProducts(
 
 export async function getProductsByIds(
   ids: string[],
-  database: Database = db
+  database: DbOrTransaction
 ): Promise<{ id: string; name: string; brand: string }[]> {
   if (ids.length === 0) return []
   return database
@@ -1113,7 +1112,7 @@ export async function getProductsByIds(
 
 export async function searchProducts(
   filters: { q: string; limit?: number; offset?: number; category?: ProductDomainTab },
-  database: Database = db
+  database: DbOrTransaction
 ): Promise<ProductSearchPage> {
   const limit = filters.limit ?? 8
   const offset = filters.offset ?? 0
@@ -1144,7 +1143,11 @@ export async function searchProducts(
   return { items, hasMore, nextOffset: offset + limit }
 }
 
-export async function previewSlug(name: string, brand: string, database: DB = db): Promise<string> {
+export async function previewSlug(
+  name: string,
+  brand: string,
+  database: DatabaseTransaction
+): Promise<string> {
   const normalizedName = normalizeString(name)
   const normalizedBrand = normalizeString(brand)
   const raw = `${normalizedName}${normalizedBrand ? `-${normalizedBrand}` : ''}`

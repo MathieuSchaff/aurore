@@ -2,34 +2,16 @@ import { beforeAll, describe, expect, it } from 'bun:test'
 
 import { HTTP_STATUS, type PublicProfileView } from '@aurore/shared'
 
-import type { Hono } from 'hono'
-
-import type { AppEnv } from '../../../app-env'
 import { setupDbTests } from '../../../tests/db-setup'
 import { createTestApp } from '../../../tests/helpers/createTestApp'
-import { authPatch, setupAndLogin } from '../../../tests/helpers/route-test-helpers'
-import { TEST_CREDENTIALS } from '../../../tests/helpers/test-credentials'
-
-async function seedOwner(app: Hono<AppEnv>, username: string) {
-  const token = await setupAndLogin(app, TEST_CREDENTIALS.toto)
-  await authPatch(app, '/api/profile', token, {
-    username,
-    bio: 'My bio',
-    avatarUrl: 'https://example.com/me.png',
-    links: [{ label: 'IG', url: 'https://instagram.com/me' }],
-  })
-  await authPatch(app, '/api/profile/dermo', token, {
-    skinTypes: ['peau-mixte'],
-    fitzpatrickType: 3,
-    skinConcerns: ['rosacee'],
-  })
-  return token
-}
+import type { TestApp } from '../../../tests/helpers/createTestClient'
+import { authPatch } from '../../../tests/helpers/route-test-helpers'
+import { seedProfileOwner } from './profile-test.setup'
 
 setupDbTests()
 
 describe('GET /profiles/:username/public', () => {
-  let app: Hono<AppEnv>
+  let app: TestApp
 
   beforeAll(async () => {
     app = await createTestApp()
@@ -41,14 +23,14 @@ describe('GET /profiles/:username/public', () => {
   })
 
   it('returns 404 when the master profilePublic flag is off', async () => {
-    await seedOwner(app, 'matt-private')
+    await seedProfileOwner(app, 'matt-private')
 
     const res = await app.request('/api/profiles/matt-private/public')
     expect(res.status).toBe(HTTP_STATUS.NOT_FOUND)
   })
 
   it('returns username only when master is on and sub-flags are off', async () => {
-    const token = await seedOwner(app, 'matt-shy')
+    const token = await seedProfileOwner(app, 'matt-shy')
     await authPatch(app, '/api/profile/privacy-settings', token, { profilePublic: true })
 
     const res = await app.request('/api/profiles/matt-shy/public')
@@ -66,7 +48,7 @@ describe('GET /profiles/:username/public', () => {
   })
 
   it('returns every field when all flags are on', async () => {
-    const token = await seedOwner(app, 'matt-open')
+    const token = await seedProfileOwner(app, 'matt-open')
     await authPatch(app, '/api/profile/privacy-settings', token, {
       profilePublic: true,
       bioPublic: true,
@@ -93,7 +75,7 @@ describe('GET /profiles/:username/public', () => {
 
   it('rejects empty username param (zValidator)', async () => {
     const res = await app.request('/api/profiles/%20/public')
-    // trim+min(1) → 400 (zValidator default)
+    // trim+min(1) gives 400 (zValidator default)
     expect(res.status).toBe(HTTP_STATUS.BAD_REQUEST)
   })
 })

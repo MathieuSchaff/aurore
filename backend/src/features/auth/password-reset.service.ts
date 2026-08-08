@@ -8,11 +8,11 @@ import { err, ok } from '@aurore/shared'
 
 import { and, eq, isNotNull, isNull, lt, or, sql } from 'drizzle-orm'
 
-import type { DB } from '../../db/index'
+import type { Database } from '../../db/index'
 import { passwordResets, users } from '../../db/schema'
 import { logger } from '../../lib/logger'
 import { sendPasswordResetEmail } from './email.service'
-import { revokeAllUserRefreshTokens } from './refresh-token.service'
+import { revokeAllUserRefreshTokensTx } from './refresh-token.service'
 import type { AuthContext } from './service'
 import { generateRawToken, hashToken } from './token.utils'
 import { getUser } from './user.utils'
@@ -24,7 +24,7 @@ const TOKEN_EXPIRY_MS = 60 * 60 * 1000
 const PASSWORD_HASH_OPTIONS: Parameters<typeof Bun.password.hash>[1] =
   process.env.NODE_ENV === 'test' ? { algorithm: 'bcrypt', cost: 4 } : undefined
 
-export async function createPasswordResetToken(db: DB, userId: string): Promise<string> {
+export async function createPasswordResetToken(db: Database, userId: string): Promise<string> {
   const rawToken = generateRawToken()
   const tokenHash = hashToken(rawToken)
   const expiresAt = new Date(Date.now() + TOKEN_EXPIRY_MS).toISOString()
@@ -62,7 +62,7 @@ export async function createPasswordResetToken(db: DB, userId: string): Promise<
 
 // Enumeration-safe (ADR 0010): unknown-email and existing-email branches return the
 // SAME neutral `ok({ pending: true })`, no session, with the reset link delivered
-// only by email to the address owner. Any divergence (code, status, latency) re-leaks
+// only by email to the address owner. Any divergence (code, status, latency) leaks again
 // existence. Mirror of signup() in service.ts.
 export async function requestPasswordReset(
   ctx: AuthContext,
@@ -75,9 +75,9 @@ export async function requestPasswordReset(
     // changePassword's !passwordHash guard): stay neutral so neither leaks existence
     // and a Google-only account can't have a password silently grafted on by reset.
     if (!user?.passwordHash) {
-      // Timing equalization: the real branch awaits createPasswordResetToken — both the
+      // Timing equalization: the real branch awaits createPasswordResetToken, both the
       // token hash AND a DB transaction. Mirror both here (the discarded hash plus a
-      // no-op transactional read) or the faster dummy branch re-leaks existence over
+      // no-op transactional read) or the faster dummy branch leaks existence again over
       // enough samples. Mirror of login's DUMMY_HASH discipline.
       hashToken(generateRawToken())
       await ctx.db.transaction(async (tx) => {
@@ -118,9 +118,9 @@ export async function resetPassword(
   try {
     const tokenHash = hashToken(rawToken)
 
-    // Cheap pre-check before the ~70 ms argon2 hash: a bogus token must not cost a
-    // password hash (/reset-password has no failure-counting limiter → CPU-exhaustion).
-    // The tx below re-validates under a row lock, so this non-locking read is TOCTOU-safe.
+    // Cheap check before the ~70 ms argon2 hash: a bogus token must not cost a
+    // password hash. /reset-password has no failure-counting limiter, so that would allow CPU exhaustion.
+    // The tx below validates again under a row lock, so this read that does not lock is TOCTOU-safe.
     const [pre] = await ctx.db
       .select()
       .from(passwordResets)
@@ -145,7 +145,7 @@ export async function resetPassword(
     // the email and clears any brute-force lockout (the owner has regained access).
     return await ctx.db.transaction(async (tx) => {
       // FOR UPDATE serialises concurrent resets of the same token: the second request
-      // blocks until the first commits, then re-reads used_at set → invalid_token.
+      // blocks until the first commits, then reads again with used_at set, so it hits invalid_token.
       // Without the lock both could pass the single-use guard and rotate the password.
       const [row] = await tx
         .select()
@@ -178,7 +178,7 @@ export async function resetPassword(
         })
         .where(eq(users.id, row.userId))
 
-      await revokeAllUserRefreshTokens(ctx.db, row.userId, tx)
+      await revokeAllUserRefreshTokensTx(tx, row.userId)
 
       return ok(null)
     })

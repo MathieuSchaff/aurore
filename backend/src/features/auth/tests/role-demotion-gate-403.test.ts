@@ -1,4 +1,4 @@
-import { beforeAll, beforeEach, describe, expect, it } from 'bun:test'
+import { beforeAll, beforeEach, describe, it } from 'bun:test'
 
 import { HTTP_STATUS } from '@aurore/shared'
 
@@ -13,25 +13,19 @@ import {
   type TestClient,
   withAuth,
 } from '../../../tests/helpers/createTestClient'
+import { expectError } from '../../../tests/helpers/expectStatus'
+import { login } from '../../../tests/helpers/login'
 import { TEST_CREDENTIALS } from '../../../tests/helpers/test-credentials'
 import { createTestContributorUser } from '../../../tests/helpers/test-factories'
 
 // Demotion does not revoke the access token (~15min TTL), so a freshly demoted
 // contributor still carries role:'contributor' in its JWT claim. The gates must
-// re-source the role from the DB, else the demoted user keeps catalog/moderation
+// source the role from the DB, else the demoted user keeps catalog/moderation
 // powers until the next refresh.
 const ANY_UUID = '019d0000-0000-7000-8000-00000000abcd'
 
-async function login(client: TestClient, email: string, password: string): Promise<string> {
-  const res = await client.auth.login.$post({ json: { email, password } })
-  const data = await res.json()
-  if (!data.success) throw new Error('login failed in role-demotion test setup')
-  return data.data.accessToken
-}
-
 async function expectForbidden(res: { status: number; json: () => Promise<unknown> }) {
-  expect(res.status).toBe(HTTP_STATUS.FORBIDDEN)
-  expect(((await res.json()) as { error?: string }).error).toBe('forbidden')
+  await expectError(res, HTTP_STATUS.FORBIDDEN, 'forbidden')
 }
 
 setupDbTests()
@@ -48,9 +42,9 @@ describe('Role gates read the fresh DB role, not the stale JWT claim', () => {
   beforeEach(async () => {
     const { rawEmail, rawPassword } = TEST_CREDENTIALS.toto
     const user = await createTestContributorUser(rawEmail, rawPassword)
-    // Token minted while still contributor — this is the stale claim under test.
+    // Token minted while still contributor: this is the stale claim under test.
     token = await login(client, rawEmail, rawPassword)
-    // Demote after the token was issued (simulates demoteToUser mid-token-life).
+    // Demote after the token was issued (simulates demoteToUser while the token is still valid).
     await testDb.update(users).set({ role: 'user' }).where(eq(users.id, user.id))
   })
 

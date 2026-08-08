@@ -1,34 +1,20 @@
 // Per-tag hit-rate budgets: calibration drift detector for auto-tagging.
-//
-// Each entry caps the proportion of products (within a category) that may fire
-// a given tag. The `CHECK=1` mode of `runners/audit/main.ts` validates the
-// current corpus against this table:
-//
-//   FAIL: hit_rate > max  (regression: tag fires on too much of the corpus)
-//   FAIL: min defined and hit_rate < min  (structural tag stopped firing)
-//   FAIL: tag fires but has no budget entry  (explicit budget required per
-//         emitter — hardened 2026-05-13, see runners/audit/check.ts)
+
+// Each entry caps the proportion of products (within a category) that may fire a given
+// tag. The `CHECK=1` mode of `runners/audit/main.ts` validates the corpus against this
+// table:
+
+//   FAIL: hit_rate > max (regression: tag fires on too much of the corpus)
+//   FAIL: min defined and hit_rate < min (structural tag stopped firing)
+//   FAIL: tag fires but has no budget entry (explicit budget required per emitter,
+//         hardened 2026-05-13, see runners/audit/check.ts)
 //   OK: within bounds
-//
-// Why per-category: skincare/solaire/bodycare have different INCI distributions
-// (sunscreens are filter-heavy, body washes are surfactant-heavy). A single
-// global budget would either accept noise on one category or false-fail on
-// another. Categories listed in `AUTO_TAG_ELIGIBLE_CATEGORIES` (orchestrator).
-//
-// How to (re)seed: run `DUMP_BUDGETS=1 just audit-auto-tags`, paste the emitted
-// block here, then tighten the sensitive tags (comedogene, non-comedogene,
-// peau-sensible, hypoallergenique) by hand. The auto baseline is
-// `max = min(1, ceil(current_hit_rate * 1.5, 0.05))`: generous headroom on
-// most tags but too loose for safety-relevant signals.
-//
-// `min` is optional. Set it for tags that MUST fire on a category (e.g. a
-// kind-derived `zone-visage` on skincare). Absent → only the max cap applies.
-//
-// Tags with `allow: false` in TAG_CONFIG are excluded; they already drop
-// upstream and never need a budget. Tags re-emitted from `passes/formula/*`
-// (peaux_atopiques, repulpant, matifiant) are covered here under their Aurore
-// slugs; their algo-derm candidates fall as `unmapped` and don't show in the
-// per-tag hit counts.
+
+// To (re)seed: run `DUMP_BUDGETS=1 just audit-auto-tags`, paste the emitted block here,
+// then tighten the sensitive tags (comedogene, non-comedogene, peau-sensible,
+// hypoallergenique) by hand. Auto baseline is
+// `max = min(1, ceil(current_hit_rate * 1.5, 0.05))`: generous headroom on most tags
+// but too loose for safety-relevant signals.
 
 import type { SkincareProductTagSlug } from '@aurore/shared'
 
@@ -37,14 +23,25 @@ import { AUTO_TAG_ELIGIBLE_CATEGORIES } from '../orchestrator'
 const BUDGET_CATEGORIES = AUTO_TAG_ELIGIBLE_CATEGORIES
 export type BudgetCategory = (typeof BUDGET_CATEGORIES)[number]
 
+// `min` is optional, set it for tags that must fire on a category (e.g. a kind-derived
+// `zone-visage` on skincare); when absent only the max cap applies.
 interface TagBudget {
   min?: number
   max: number
 }
 
+// Per-category because skincare/solaire/bodycare have different INCI distributions
+// (sunscreens are filter-heavy, body washes are surfactant-heavy); a single global
+// budget would accept noise on one category or false-fail on another. Categories
+// listed in `AUTO_TAG_ELIGIBLE_CATEGORIES` (orchestrator).
 export type TagBudgetTable = Partial<
   Record<BudgetCategory, Partial<Record<SkincareProductTagSlug, TagBudget>>>
 >
+
+// Tags with `allow: false` in TAG_CONFIG are excluded, they already drop upstream and
+// never need a budget. Tags re-emitted from `passes/formula/*` (peaux_atopiques,
+// repulpant, matifiant) are covered here under their Aurore slugs; their algo-derm
+// candidates fall as `unmapped` and don't show in the per-tag hit counts.
 
 // Sensitives:
 //   - `comedogene`: leave-on only, safety-relevant. Tight cap.
@@ -69,7 +66,7 @@ export const TAG_HIT_RATE_BUDGET: TagBudgetTable = {
     'acne-imperfections': { max: 0.35 }, // hit_rate=22.5%
     'non-irritant': { max: 0.25 }, // hit_rate=20.2% · rebaselined after the fragrance gate (32.4% before); tight so a broken gate trips the check
     deshydratation: { max: 0.3 }, // hit_rate=19.6%
-    hypoallergenique: { max: 0.18 }, // hit_rate=16.3% · tightened (sensitive)
+    hypoallergenique: { max: 0.19 }, // hit_rate=18.3% · tightened (sensitive), rebaselined after the canonical_key/dermo-profiles resync (dev DB was stale vs the resolver code, not a rule change)
     'barriere-cutanee': { max: 0.15 }, // hit_rate=7.2%
     reparateur: { max: 0.15 }, // hit_rate=7.2%
     'eclat-teint-uniforme': { max: 0.15 }, // hit_rate=6.7%
@@ -100,7 +97,7 @@ export const TAG_HIT_RATE_BUDGET: TagBudgetTable = {
     'sebo-regulateur': { max: 0.25 }, // hit_rate=22.6% · rebaselined v23 (algo-derm internals raised benefit-axis firing)
     hyperpigmentation: { max: 0.15 }, // hit_rate=7.2%
     'rougeurs-vasculaires': { max: 0.1 }, // hit_rate=6.3%
-    'non-comedogene': { max: 0.15 }, // hit_rate=14.8% · tightened (sensitive), rebaselined v28 (v27 already 14.6%)
+    'non-comedogene': { max: 0.16 }, // hit_rate=15.3% · tightened (sensitive), rebaselined after the canonical_key/dermo-profiles resync (dev DB was stale vs the resolver code, not a rule change)
     apaisant: { max: 0.1 }, // hit_rate=4.1%
     comedogene: { max: 0.08 }, // hit_rate=3.6% · tightened (sensitive)
     protection: { max: 0.05 }, // hit_rate=2.9%

@@ -37,6 +37,12 @@ async function createReviewer(email: string, username: string, profilePublic = f
 // Support product: nothing asserts its fields, only its slug is read back.
 const seedProduct = (ownerId: string) => createTestProduct(ownerId, { name: 'Cream' })
 
+const stampReviewCreatedAt = (userProductId: string, createdAt: string) =>
+  testDb
+    .update(userProductReviews)
+    .set({ createdAt })
+    .where(eq(userProductReviews.userProductId, userProductId))
+
 async function setDermoProfile(
   userId: string,
   opts: {
@@ -103,7 +109,7 @@ describe('listPublicReviewsForProduct', () => {
     const owner = await createReviewer('gate@public-rev.test', 'gate-rev')
     const product = await seedProduct(owner.id)
     const up = await collect(owner.id, product.id)
-    // public + comment, ratings NOT opted in → axes hidden
+    // public + comment, ratings NOT opted in, so axes hidden
     await upsertUPReview(owner.id, up.id, {
       tolerance: 5,
       efficacy: 4,
@@ -118,7 +124,7 @@ describe('listPublicReviewsForProduct', () => {
       comment: 'hidden numbers',
     })
 
-    // opt in → axes revealed (isPublic must survive a ratings-only toggle)
+    // opt in reveals axes (isPublic must survive a ratings-only toggle)
     await upsertUPReview(owner.id, up.id, { ratingsPublic: true })
     const shown = await listPublicReviewsForProduct(testDb, product.slug)
     expect(shown.reviews).toHaveLength(1)
@@ -131,7 +137,7 @@ describe('listPublicReviewsForProduct', () => {
     const product = await seedProduct(owner.id)
     const up = await collect(owner.id, product.id)
     const wsUp = await collect(ws.id, product.id)
-    // seed-style legacy rows: public but comment-less (null) or whitespace-only — both unlisted.
+    // seed-style legacy rows: public but comment-less (null) or whitespace-only, both unlisted.
     await testDb.insert(userProductReviews).values([
       { userProductId: up.id, tolerance: 4, isPublic: true },
       { userProductId: wsUp.id, tolerance: 4, comment: '   ', isPublic: true },
@@ -197,10 +203,13 @@ describe('listPublicReviewsForProduct', () => {
     const b = await createReviewer('second@public-rev.test', 'second-rev')
     const product = await seedProduct(a.id)
     const aUP = await collect(a.id, product.id)
-    await upsertUPReview(a.id, aUP.id, { comment: 'older', isPublic: true })
-    await new Promise((r) => setTimeout(r, 10))
     const bUP = await collect(b.id, product.id)
+    await upsertUPReview(a.id, aUP.id, { comment: 'older', isPublic: true })
     await upsertUPReview(b.id, bUP.id, { comment: 'newer', isPublic: true })
+    // Stamped rather than slept between the two writes: the ordering under test
+    // is the column's, not the wall clock's.
+    await stampReviewCreatedAt(aUP.id, '2026-03-01T00:00:00.000Z')
+    await stampReviewCreatedAt(bUP.id, '2026-03-02T00:00:00.000Z')
 
     const result = await listPublicReviewsForProduct(testDb, product.slug)
     expect(result.reviews.map((r) => r.reviewer.username)).toEqual(['second-rev', 'first-rev'])

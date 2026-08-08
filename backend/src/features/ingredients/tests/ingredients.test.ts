@@ -33,8 +33,14 @@ function filters(input: Record<string, string> = {}) {
 }
 
 async function makeTag(name: string, category?: string) {
-  return createIngredientTag(testDb, { label: name, tagType: category })
+  return testDb.transaction((tx) => createIngredientTag(tx, { label: name, tagType: category }))
 }
+
+const addTag = (
+  ingredientId: string,
+  tagId: string,
+  relevance?: Parameters<typeof addTagToIngredient>[3]
+) => testDb.transaction((tx) => addTagToIngredient(tx, ingredientId, tagId, relevance))
 
 const createIng = (
   userId: string,
@@ -217,7 +223,7 @@ describe('Ingredient Service', () => {
       // Untagged witness: a silently dropped axis would return it too.
       await createTestIngredient(user.id, { name: 'Squalane' })
       const tag = await makeTag('Anti-âge', 'concern')
-      await addTagToIngredient(testDb, i1.id, tag.id)
+      await addTag(i1.id, tag.id)
 
       const result = await listIngredients(testDb, filters({ concern: 'anti-age' }))
       expect(result.total).toBe(1)
@@ -229,7 +235,7 @@ describe('Ingredient Service', () => {
       // Untagged witness: a silently dropped axis would return it too.
       await createTestIngredient(user.id, { name: 'Acide hyaluronique' })
       const tag = await makeTag('Céramides', 'actif_class')
-      await addTagToIngredient(testDb, i1.id, tag.id)
+      await addTag(i1.id, tag.id)
 
       const result = await listIngredients(testDb, filters({ actif_class: tag.slug }))
       expect(result.total).toBe(1)
@@ -241,7 +247,7 @@ describe('Ingredient Service', () => {
         const reactive = await makeTag('Peau réactive', 'skin_type')
         const retinol = await createTestIngredient(user.id, { name: 'Rétinol' })
         const gentle = await createTestIngredient(user.id, { name: 'Hydratant doux' })
-        await addTagToIngredient(testDb, retinol.id, reactive.id, 'avoid')
+        await addTag(retinol.id, reactive.id, 'avoid')
 
         const result = await listIngredients(testDb, filters({ avoid_for: reactive.slug }))
         expect(result.items.map((i) => i.name).sort()).toEqual(['Hydratant doux', 'Rétinol'])
@@ -254,7 +260,7 @@ describe('Ingredient Service', () => {
       it('does not flag ingredients where the tag relevance is primary or secondary', async () => {
         const reactive = await makeTag('Peau réactive', 'skin_type')
         const dedicated = await createTestIngredient(user.id, { name: 'Allantoïne' })
-        await addTagToIngredient(testDb, dedicated.id, reactive.id, 'primary')
+        await addTag(dedicated.id, reactive.id, 'primary')
 
         const result = await listIngredients(testDb, filters({ avoid_for: reactive.slug }))
         expect(result.items[0]?.profileMatches).toEqual([])

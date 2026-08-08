@@ -10,7 +10,7 @@ import type {
 
 import { and, desc, eq, ne, sql } from 'drizzle-orm'
 
-import type { Database } from '../../db'
+import type { DatabaseTransaction } from '../../db'
 import {
   discussionReplies,
   discussionThreads,
@@ -41,7 +41,7 @@ function buildUpdates(args: ModerateArgs) {
 }
 
 export async function moderateReview(
-  db: Database,
+  db: DatabaseTransaction,
   args: ModerateArgs
 ): Promise<ModerateContentResult> {
   const [row] = await db
@@ -58,7 +58,7 @@ export async function moderateReview(
 }
 
 export async function moderateThread(
-  db: Database,
+  db: DatabaseTransaction,
   args: ModerateArgs
 ): Promise<ModerateContentResult> {
   const [row] = await db
@@ -75,7 +75,7 @@ export async function moderateThread(
 }
 
 export async function moderateReply(
-  db: Database,
+  db: DatabaseTransaction,
   args: ModerateArgs
 ): Promise<ModerateContentResult> {
   const [row] = await db
@@ -92,12 +92,12 @@ export async function moderateReply(
 }
 
 export async function moderateProduct(
-  db: Database,
+  db: DatabaseTransaction,
   args: ModerateArgs
 ): Promise<ModerateContentResult> {
   if (args.body.status === 'visible') {
     // Unhiding can collide with a visible row that claimed this product's name+brand
-    // while it was hidden. Pre-check surfaces that row (409 + details) instead
+    // while it was hidden. The check below surfaces that row (409 + details) instead
     // of a bare 23505. The full slug index keeps this product's slug reserved meanwhile.
     const [self] = await db
       .select({ name: products.name, brand: products.brand })
@@ -138,18 +138,18 @@ export async function moderateProduct(
     if (!row) return { success: false, error: 'not_found' }
     return { success: true, data: row }
   } catch (e) {
-    // Re-throw so withRlsContext rolls back; a catch-and-return on an aborted tx would COMMIT it (500).
+    // Throw again so withRlsContext rolls back; a catch-and-return on an aborted tx would COMMIT it (500).
     translateUniqueViolation(e, () => new ProductError('product_already_exists'))
   }
 }
 
 export async function moderateIngredient(
-  db: Database,
+  db: DatabaseTransaction,
   args: ModerateArgs
 ): Promise<ModerateContentResult> {
   if (args.body.status === 'visible') {
     // Unhiding can collide with an ingredient that claimed this slug while hidden
-    // (partial-visible slug index). Pre-check surfaces that row (409 + details).
+    // (partial-visible slug index). The check below surfaces that row (409 + details).
     const [self] = await db
       .select({ slug: ingredients.slug })
       .from(ingredients)
@@ -193,7 +193,10 @@ type ModerateProfileArgs = {
   body: ModerateProfileInput
 }
 
-export async function previewReview(db: Database, id: string): Promise<ContentPreviewResult> {
+export async function previewReview(
+  db: DatabaseTransaction,
+  id: string
+): Promise<ContentPreviewResult> {
   const [row] = await db
     .select({
       id: userProductReviews.id,
@@ -213,7 +216,10 @@ export async function previewReview(db: Database, id: string): Promise<ContentPr
   return { success: true, data: { kind: 'review', ...row } }
 }
 
-export async function previewThread(db: Database, id: string): Promise<ContentPreviewResult> {
+export async function previewThread(
+  db: DatabaseTransaction,
+  id: string
+): Promise<ContentPreviewResult> {
   const [row] = await db
     .select({
       id: discussionThreads.id,
@@ -233,7 +239,10 @@ export async function previewThread(db: Database, id: string): Promise<ContentPr
   return { success: true, data: { kind: 'thread', ...row } }
 }
 
-export async function previewReply(db: Database, id: string): Promise<ContentPreviewResult> {
+export async function previewReply(
+  db: DatabaseTransaction,
+  id: string
+): Promise<ContentPreviewResult> {
   const [row] = await db
     .select({
       id: discussionReplies.id,
@@ -252,7 +261,10 @@ export async function previewReply(db: Database, id: string): Promise<ContentPre
   return { success: true, data: { kind: 'reply', ...row } }
 }
 
-export async function previewProduct(db: Database, id: string): Promise<ContentPreviewResult> {
+export async function previewProduct(
+  db: DatabaseTransaction,
+  id: string
+): Promise<ContentPreviewResult> {
   const [row] = await db
     .select({
       id: products.id,
@@ -273,7 +285,10 @@ export async function previewProduct(db: Database, id: string): Promise<ContentP
   return { success: true, data: { kind: 'product', ...row } }
 }
 
-export async function previewIngredient(db: Database, id: string): Promise<ContentPreviewResult> {
+export async function previewIngredient(
+  db: DatabaseTransaction,
+  id: string
+): Promise<ContentPreviewResult> {
   const [row] = await db
     .select({
       id: ingredients.id,
@@ -295,7 +310,7 @@ export async function previewIngredient(db: Database, id: string): Promise<Conte
 
 // withRlsContext binds the caller's role; the moderation select policy covers hidden rows, no admin bypass needed.
 export async function listCatalogQueue(
-  db: Database,
+  db: DatabaseTransaction,
   filters: CatalogQueueQuery
 ): Promise<CatalogQueueResponse> {
   const status = filters.status ?? 'visible'
@@ -343,7 +358,7 @@ export async function listCatalogQueue(
 }
 
 export async function moderateProfileVisibility(
-  db: Database,
+  db: DatabaseTransaction,
   args: ModerateProfileArgs
 ): Promise<ModerateProfileResult> {
   const updates = args.body.forcedPrivate

@@ -1,7 +1,7 @@
 import { analyzeINCI, cleanInciString } from 'algo-derm'
 import { and, eq, inArray, isNotNull, ne, or } from 'drizzle-orm'
 
-import type { DB } from '../../db'
+import type { DatabaseTransaction } from '../../db'
 import { userIngredientAnalysisScore } from '../../db/schema/ingredients/user-ingredient-analysis-score'
 import { productIngredients } from '../../db/schema/products/product-ingredients'
 import { products } from '../../db/schema/products/products'
@@ -20,7 +20,7 @@ const NEUTRAL = 50
 export async function calculateCompatibilityScores(
   userId: string,
   productIds: string[],
-  db: DB
+  db: DatabaseTransaction
 ): Promise<Record<string, number | null>> {
   const result: Record<string, number | null> = {}
   for (const id of productIds) result[id] = null
@@ -107,7 +107,10 @@ function toSortedMotifs(acc: AxisAcc): AxisMotif[] {
 // Count recurring benefit/risk axes across the shelf. Never a score, ranking,
 // or verdict (product vision). 'avoided' products are excluded: a rejected
 // formula is not part of the shelf's signal.
-export async function getCollectionFormulaMotifs(userId: string, db: DB): Promise<FormulaMotifs> {
+export async function getCollectionFormulaMotifs(
+  userId: string,
+  db: DatabaseTransaction
+): Promise<FormulaMotifs> {
   const rows = await db
     .select({
       id: products.id,
