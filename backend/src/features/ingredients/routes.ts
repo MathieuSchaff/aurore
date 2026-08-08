@@ -35,6 +35,7 @@ import {
   listIngredientEdits,
   listIngredients,
   listIngredientsBySlugs,
+  searchIngredientIdentities,
   searchIngredients,
   updateIngredient,
   verifyIngredient,
@@ -81,6 +82,14 @@ export const ingredientRoutes = ingredientsApp
     const { q, type } = c.req.valid('query')
 
     const results = await searchIngredients(db, q, { type })
+
+    return c.json(ok(results), HTTP_STATUS.OK)
+  })
+  .get('/search-identities', zValidator('query', searchQuery), async (c) => {
+    const db = c.get('anonDb')
+    const { q, type } = c.req.valid('query')
+
+    const results = await searchIngredientIdentities(db, q, { type })
 
     return c.json(ok(results), HTTP_STATUS.OK)
   })

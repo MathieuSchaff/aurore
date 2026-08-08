@@ -14,7 +14,7 @@ import {
 } from '@aurore/shared'
 
 import slugify from '@sindresorhus/slugify'
-import { and, count, desc, eq, inArray, or, type SQL, sql } from 'drizzle-orm'
+import { and, count, desc, eq, inArray, isNotNull, or, type SQL, sql } from 'drizzle-orm'
 
 import type { Database, DatabaseTransaction, DbOrTransaction } from '../../db/index'
 import { ingredientEdits, ingredients } from '../../db/schema/ingredients/ingredients'
@@ -390,6 +390,58 @@ export async function searchIngredients(
     .from(ingredients)
     .where(and(type ? eq(ingredients.type, type) : undefined, search.matches))
     .orderBy(search.rank, desc(search.similarity), ingredients.name)
+    .limit(limit)
+}
+
+export async function searchIngredientIdentities(
+  database: Database,
+  query: string,
+  opts: { limit?: number; type?: IngredientType } = {}
+) {
+  const { limit = 10, type } = opts
+  const search = buildIngredientSearch(query)
+  if (!search) return []
+
+  // Row-level search must keep aliases; only preference search collapses them.
+  const representatives = database
+    .selectDistinctOn([ingredients.canonicalKey], {
+      ...ingredientSearchColumns,
+      searchRank: search.rank.as('search_rank'),
+      searchSimilarity: search.similarity.as('search_similarity'),
+    })
+    .from(ingredients)
+    .where(
+      and(
+        isNotNull(ingredients.canonicalKey),
+        type ? eq(ingredients.type, type) : undefined,
+        search.matches
+      )
+    )
+    .orderBy(
+      ingredients.canonicalKey,
+      search.rank,
+      desc(search.similarity),
+      ingredients.name,
+      ingredients.slug
+    )
+    .as('ingredient_identity_representatives')
+
+  return database
+    .select({
+      id: representatives.id,
+      name: representatives.name,
+      slug: representatives.slug,
+      type: representatives.type,
+      category: representatives.category,
+      canonicalKey: sql<string>`${representatives.canonicalKey}`,
+    })
+    .from(representatives)
+    .orderBy(
+      representatives.searchRank,
+      desc(representatives.searchSimilarity),
+      representatives.name,
+      representatives.slug
+    )
     .limit(limit)
 }
 
