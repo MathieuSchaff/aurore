@@ -106,7 +106,7 @@ export function useIngredientFormSubmit(args: Args) {
         id: ingredient.id,
         data: {
           name: args.form.name.trim(),
-          // slug is immutable after creation (C-4) — not sent on edit.
+          // slug is immutable after creation, so not sent on edit.
           category: trimmedField(args.form.category),
           description: trimmedField(args.form.description),
           content: trimmedField(args.form.content),

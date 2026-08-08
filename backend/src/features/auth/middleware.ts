@@ -3,6 +3,7 @@ import { type BanScope, err, HTTP_STATUS } from '@aurore/shared'
 import type { Context, Next } from 'hono'
 
 import type { AppEnv } from '../../app-env'
+import { getRlsDb } from '../../utils/accessors'
 import { isUserBanned, isUserBannedForScope } from './ban.service'
 import { verifyAccessToken } from './jwt.utils'
 import { getUserRole } from './user.utils'
@@ -29,13 +30,14 @@ export const requireJwtAuth = async (c: Context<AppEnv>, next: Next) => {
   await next()
 }
 
-// Must run after requireJwtAuth. Uses admin pool (c.get('db')), not RLS,
-// because this is an identity-layer gate, not a user-scoped data read.
+// Requires requireJwtAuth then withRlsContext. The ban query uses requestDb so
+// user_bans RLS sees the authenticated user identity and role.
 export const requireNotBanned = async (c: Context<AppEnv>, next: Next) => {
   const userId = c.get('userId')
   if (!userId) return c.json(err('unauthorized'), HTTP_STATUS.UNAUTHORIZED)
 
-  const ban = await isUserBanned(c.get('db'), userId, 'global')
+  const requestDb = getRlsDb(c)
+  const ban = await isUserBanned(requestDb, userId, 'global')
   if (ban) {
     return c.json(
       err('banned', { expiresAt: ban.expiresAt, reason: ban.reason }),
@@ -53,14 +55,16 @@ export const requireAdmin = async (c: Context<AppEnv>, next: Next) => {
   await next()
 }
 
-// admin OR contributor. Applied per-route on write verbs; RLS is the DB-level backstop (VULN-5).
+// Requires requireJwtAuth then withRlsContext. The fresh DB role closes the stale-JWT
+// demotion window for catalogue writes; RLS remains the DB-level backstop.
 export const requireCatalogWrite = async (c: Context<AppEnv>, next: Next) => {
   const userId = c.get('userId')
-  const db = c.get('db')
   if (!userId) {
     return c.json(err('unauthorized'), HTTP_STATUS.UNAUTHORIZED)
   }
-  const role = await getUserRole(db, userId)
+
+  const requestDb = getRlsDb(c)
+  const role = await getUserRole(requestDb, userId)
   if (role !== 'admin' && role !== 'contributor') {
     return c.json(err('forbidden'), HTTP_STATUS.FORBIDDEN)
   }
@@ -70,13 +74,15 @@ export const requireCatalogWrite = async (c: Context<AppEnv>, next: Next) => {
 // admin OR contributor. Contributor ("modérateur") has reversible, content-scoped
 // actions (hide/restore reviews, report queue). Irreversible account-level actions
 // (force-private, bans) stay behind requireAdmin.
+// Requires requireJwtAuth then withRlsContext, and re-sources the role from the DB.
 export const requireContentModerator = async (c: Context<AppEnv>, next: Next) => {
   const userId = c.get('userId')
-  const db = c.get('db')
   if (!userId) {
     return c.json(err('unauthorized'), HTTP_STATUS.UNAUTHORIZED)
   }
-  const role = await getUserRole(db, userId)
+
+  const requestDb = getRlsDb(c)
+  const role = await getUserRole(requestDb, userId)
   if (role !== 'admin' && role !== 'contributor') {
     return c.json(err('forbidden'), HTTP_STATUS.FORBIDDEN)
   }
@@ -84,13 +90,14 @@ export const requireContentModerator = async (c: Context<AppEnv>, next: Next) =>
 }
 
 // Checks action-specific scope only; 'global' is already enforced by requireNotBanned.
-// Pair with requireJwtAuth + requireNotBanned in the router chain.
+// Requires requireJwtAuth, then withRlsContext, then requireNotBanned in the router chain.
 export const requireNotBannedScope =
   (scope: Exclude<BanScope, 'global'>) => async (c: Context<AppEnv>, next: Next) => {
     const userId = c.get('userId')
     if (!userId) return c.json(err('unauthorized'), HTTP_STATUS.UNAUTHORIZED)
 
-    const ban = await isUserBannedForScope(c.get('db'), userId, scope)
+    const requestDb = getRlsDb(c)
+    const ban = await isUserBannedForScope(requestDb, userId, scope)
     if (ban) {
       return c.json(
         err('banned', { expiresAt: ban.expiresAt, reason: ban.reason, scope }),
@@ -113,21 +120,4 @@ export const optionalJwtAuth = async (c: Context<AppEnv>, next: Next) => {
     c.set('userRole', payload.role)
   }
   return next()
-}
-
-// Throws if requireJwtAuth did not run: loud programmer error instead of silent undefined.
-export function getAuthedUserId(c: Context<AppEnv>): string {
-  const userId = c.get('userId')
-  if (userId === undefined)
-    throw new Error('getAuthedUserId: requireJwtAuth must run before this route')
-  return userId
-}
-
-export function getAuthedUserRole(
-  c: Context<AppEnv>
-): NonNullable<AppEnv['Variables']['userRole']> {
-  const role = c.get('userRole')
-  if (role === undefined)
-    throw new Error('getAuthedUserRole: requireJwtAuth must run before this route')
-  return role
 }

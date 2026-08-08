@@ -4,6 +4,7 @@ import { Hono } from 'hono'
 import { z } from 'zod'
 
 import type { AppEnv } from '../../../app-env'
+import { getRlsDb } from '../../../utils/accessors'
 import { zValidator } from '../../../utils/validator'
 import {
   requireCatalogWrite,
@@ -19,19 +20,12 @@ const productParams = z.object({ productId: z.uuid() })
 
 const productTagsApp = new Hono<AppEnv>()
 
-// One guard per use(): nesting swallows the short-circuit 403 → "Context not finalized" 500.
-productTagsApp.use('*', async (c, next) => {
-  return c.req.method === 'GET' ? next() : requireJwtAuth(c, next)
-})
-productTagsApp.use('*', async (c, next) => {
-  return c.req.method === 'GET' ? next() : requireNotBanned(c, next)
-})
-productTagsApp.use('*', withRlsContext)
+// Guards stay on the endpoints owned by this router so sibling routes are not intercepted.
 
 export const productTagRoutes = productTagsApp
 
   .get('/:productId/tags', zValidator('param', productParams), async (c) => {
-    const db = c.get('db')
+    const db = c.get('anonDb')
     const { productId } = c.req.valid('param')
     const items = await listTagsByProduct(db, productId)
     return c.json(ok(items), HTTP_STATUS.OK)
@@ -39,12 +33,15 @@ export const productTagRoutes = productTagsApp
 
   .put(
     '/:productId/tags',
+    requireJwtAuth,
+    withRlsContext,
+    requireNotBanned,
     requireNotBannedScope('product_edit'),
     requireCatalogWrite,
     zValidator('param', productParams),
     zValidator('json', replaceProductTagsSchema),
     async (c) => {
-      const db = c.get('db')
+      const db = getRlsDb(c)
       const { productId } = c.req.valid('param')
       const { tags } = c.req.valid('json')
       const tagIds = tags.map((t) => (typeof t === 'string' ? t : t.tagId))

@@ -1,21 +1,4 @@
-// Regression guard for `sans-sulfates` on CLEANSERS (report-only).
-//
-// `sans-sulfates` is a CLEANSER-ONLY absence claim: algo-derm withholds it on
-// every other kind via `relevantKinds: ["cleanser", "gentle_cleanser"]`
-// (absence.ts) — the claim only discriminates where a washing sulfate could
-// occur. So a leave-on cream carrying `sodium cetearyl sulfate` is correctly
-// NOT tagged; flagging it would be a false FN (the bug this file used to have).
-//
-// The real failure mode this guards: a CLEANSER whose only sulfate token is
-// `cetearyl sulfate` (a C16-18 fatty-alcohol co-emulsifier, not a foaming
-// washing sulfate) being DENIED the claim. algo-derm already excludes `cetearyl`
-// from its `sulfate_surfactant` heuristic group, so this should report 0 FN; a
-// non-zero count means that exclusion regressed. `coceth sulfate` is
-// milder/ambiguous and reported separately for review.
-//
-// A cleanser carrying a real washing sulfate (SLS/SLES) legitimately loses the
-// claim and is excluded. Read-only.
-// Usage: bun run .../sans-sulfates-coherence.ts
+// Regression guard for `sans-sulfates` on CLEANSERS (report-only). Read-only.
 
 import { eq } from 'drizzle-orm'
 
@@ -28,8 +11,9 @@ import { exitOnError } from '../cli-args'
 const SANS_SULFATES_SLUG = 'sans-sulfates'
 
 // Partition the canonical sulfate token list. Olefin sulfonate is not a sulfate.
-const EMULSIFIER = ['cetearyl sulfate'] // co-emulsifier, not a washing sulfate
-const COCETH = ['coceth sulfate'] // milder anionic, ambiguous — review
+// cetearyl sulfate: C16-18 fatty-alcohol co-emulsifier, not a washing sulfate.
+const EMULSIFIER = ['cetearyl sulfate']
+const COCETH = ['coceth sulfate'] // milder anionic, ambiguous: review
 const WASHING = IONIC_SURFACTANT_PATTERNS.filter(
   (p) => p.includes('sulfate') && !EMULSIFIER.includes(p) && !COCETH.includes(p)
 )
@@ -75,6 +59,10 @@ async function main() {
 
   let scanned = 0
   for (const p of subset) {
+    // `sans-sulfates` is a CLEANSER-ONLY claim: algo-derm withholds it on every other kind
+    // (absence.ts relevantKinds), since it only discriminates where a washing sulfate could
+    // occur. A leave-on cream carrying `sodium cetearyl sulfate` is correctly NOT tagged;
+    // flagging it here would be a false FN (the bug this file used to have).
     if (p.kind !== 'cleanser') continue
     if (!p.inci?.trim()) continue
     scanned++
@@ -86,7 +74,7 @@ async function main() {
       if (g) hits.push({ token: ing, position: i, group: g })
     })
     if (hits.length === 0) continue
-    // A washing sulfate legitimately breaks the claim — out of scope.
+    // A washing sulfate legitimately breaks the claim, out of scope.
     if (hits.some((h) => h.group === 'washing')) continue
 
     const row = {

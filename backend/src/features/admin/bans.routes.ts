@@ -17,14 +17,16 @@ import { z } from 'zod'
 import type { AppEnv } from '../../app-env'
 import { db as baseDb } from '../../db'
 import { logger } from '../../lib/logger'
+import { getAuthedUserId, getAuthedUserRole, getRlsDb } from '../../utils/accessors'
+import { rateLimiterFunc } from '../../utils/rateLimiter'
 import { zValidator } from '../../utils/validator'
-import { applyAuthedGuards } from '../auth/authed-guards'
 import {
-  getAuthedUserId,
-  getAuthedUserRole,
   requireAdmin,
   requireContentModerator,
+  requireJwtAuth,
+  requireNotBanned,
 } from '../auth/middleware'
+import { withRlsContext } from '../auth/rls-context.middleware'
 import { createBan, getBanScope, liftBan, listUserBans, listUsers, updateBan } from './bans.service'
 import { getAdminDashboard } from './dashboard.service'
 import { logModerationAction } from './moderation-audit.service'
@@ -33,12 +35,26 @@ import { demoteToUser } from './roles.service'
 const userIdParam = z.object({ id: z.uuid() })
 const banIdParam = z.object({ banId: z.uuid() })
 
-// Blanket guards (rate limit/JWT/not-banned/RLS) via applyAuthedGuards.
-// Authz is per-route, not blanket: this router mounts at '/api/admin', a prefix
-// shared with moderation/reports, so a blanket authz guard would leak onto those siblings
-// and block contributor-reachable routes.
-// Contributors handle content-scoped bans; global lockout and admin tools stay admin-only.
-const app = applyAuthedGuards(new Hono<AppEnv>())
+// This router mounts on the shared '/api/admin' prefix. Scope the common chain to
+// the paths it owns so it cannot wrap sibling routers such as /admin/moderation.
+const protectedPaths = [
+  '/users',
+  '/users/:id/bans',
+  '/users/:id/role',
+  '/bans/:banId',
+  '/dashboard',
+] as const
+
+const app = new Hono<AppEnv>()
+for (const path of protectedPaths) {
+  app.use(path, rateLimiterFunc)
+  app.use(path, requireJwtAuth)
+  app.use(path, withRlsContext)
+  app.use(path, requireNotBanned)
+}
+
+// Authz remains per-route: contributors handle content-scoped bans, while global
+// lockout, role management and dashboard access stay admin-only.
 
 export const adminBansRoutes = app
   .post(
@@ -56,8 +72,8 @@ export const adminBansRoutes = app
       if (getAuthedUserRole(c) !== 'admin' && body.scope === 'global') {
         return c.json(err('forbidden'), HTTP_STATUS.FORBIDDEN)
       }
-
-      const result = await createBan(c.get('db'), { actorId, targetUserId, body })
+      const requestDb = getRlsDb(c)
+      const result = await createBan(requestDb, { actorId, targetUserId, body })
 
       if (!isApiSuccess(result)) {
         return c.json(err(result.error), errorToStatus(result.error, adminBanErrorMapping))
@@ -72,7 +88,8 @@ export const adminBansRoutes = app
   )
   .get('/users/:id/bans', requireContentModerator, zValidator('param', userIdParam), async (c) => {
     const { id: targetUserId } = c.req.valid('param')
-    const rows = await listUserBans(c.get('db'), targetUserId)
+    const requestDb = getRlsDb(c)
+    const rows = await listUserBans(requestDb, targetUserId)
     return c.json(ok(rows), HTTP_STATUS.OK)
   })
   .delete('/bans/:banId', requireContentModerator, zValidator('param', banIdParam), async (c) => {
@@ -85,13 +102,13 @@ export const adminBansRoutes = app
     // Either path prevents the lift; the RLS DELETE is the prod enforcement
     // (tested in tests/integration/user-bans-rls.test.ts).
     if (getAuthedUserRole(c) !== 'admin') {
-      const scope = await getBanScope(c.get('db'), banId)
+      const scope = await getBanScope(getRlsDb(c), banId)
       if (scope === 'global') {
         return c.json(err('forbidden'), HTTP_STATUS.FORBIDDEN)
       }
     }
 
-    const result = await liftBan(c.get('db'), banId)
+    const result = await liftBan(getRlsDb(c), banId)
 
     if (!isApiSuccess(result)) {
       return c.json(err(result.error), errorToStatus(result.error, adminBanErrorMapping))
@@ -121,7 +138,7 @@ export const adminBansRoutes = app
       const body = c.req.valid('json')
       const adminId = getAuthedUserId(c)
 
-      const result = await updateBan(c.get('db'), banId, body)
+      const result = await updateBan(getRlsDb(c), banId, body)
 
       if (!isApiSuccess(result)) {
         return c.json(err(result.error), errorToStatus(result.error, adminBanErrorMapping))
@@ -161,7 +178,7 @@ export const adminBansRoutes = app
       const body = c.req.valid('json')
       const adminId = getAuthedUserId(c)
 
-      const result = await demoteToUser(c.get('db'), {
+      const result = await demoteToUser(getRlsDb(c), {
         adminId,
         targetUserId,
         role: body.role,
@@ -186,10 +203,10 @@ export const adminBansRoutes = app
     }
   )
   .get('/users', requireAdmin, async (c) => {
-    const items = await listUsers(c.get('db'))
+    const items = await listUsers(getRlsDb(c))
     return c.json(ok({ items }), HTTP_STATUS.OK)
   })
   .get('/dashboard', requireAdmin, async (c) => {
-    const dashboard = await getAdminDashboard(c.get('db'))
+    const dashboard = await getAdminDashboard(getRlsDb(c))
     return c.json(ok(dashboard), HTTP_STATUS.OK)
   })

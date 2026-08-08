@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it } from 'bun:test'
 
-import type { DB } from '../../../db'
+import type { Database } from '../../../db'
 import { getSitemapXml, resetSitemapCache } from '../service'
 
 // The two guards below are invisible from the route: both paths end on a 200 with
@@ -18,7 +18,7 @@ function createStubDb({ failing = false } = {}) {
       selectCount += 1
       return { from: () => query() }
     },
-  } as unknown as DB
+  } as unknown as Database
 
   return { db, selectsRun: () => selectCount }
 }

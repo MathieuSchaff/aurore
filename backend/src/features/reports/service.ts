@@ -2,13 +2,13 @@ import type { CreateReportInput, ListReportsResponse, ReportStatus } from '@auro
 
 import { and, desc, eq, isNotNull } from 'drizzle-orm'
 
-import type { Database } from '../../db'
+import type { DatabaseTransaction } from '../../db'
 import { contentReports } from '../../db/schema'
 import { nowISO } from '../../utils/dates'
 import { ReportError } from './report-error'
 
 export async function createReport(
-  db: Database,
+  db: DatabaseTransaction,
   args: { reporterId: string; body: CreateReportInput }
 ) {
   const [row] = await db
@@ -26,7 +26,7 @@ export async function createReport(
 }
 
 export async function listReports(
-  db: Database,
+  db: DatabaseTransaction,
   filters: { status?: ReportStatus; escalated?: 'true' }
 ): Promise<ListReportsResponse> {
   const conditions = []
@@ -43,7 +43,7 @@ export async function listReports(
 }
 
 export async function resolveReport(
-  db: Database,
+  db: DatabaseTransaction,
   args: { id: string; adminId: string; status: 'resolved' | 'dismissed' }
 ) {
   const [row] = await db
@@ -64,7 +64,10 @@ export async function resolveReport(
 // escalated, then resolves normally. The admin surfaces it via the escalated filter.
 // Re-escalating overwrites attribution (last escalator wins), same posture as
 // resolveReport's reviewedBy; the UI hides the action once escalated.
-export async function escalateReport(db: Database, args: { id: string; moderatorId: string }) {
+export async function escalateReport(
+  db: DatabaseTransaction,
+  args: { id: string; moderatorId: string }
+) {
   const [row] = await db
     .update(contentReports)
     .set({ escalatedAt: nowISO(), escalatedBy: args.moderatorId })

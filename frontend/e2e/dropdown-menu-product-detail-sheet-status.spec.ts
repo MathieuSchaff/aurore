@@ -22,7 +22,7 @@ test.describe('DropdownMenu × ProductDetailSheet — status picker', () => {
     await expect(firstCard).toBeVisible({ timeout: 15_000 })
     await firstCard.click()
 
-    // La Sheet ouvre via showModal() → <dialog open> dans le top layer.
+    // La Sheet ouvre via showModal() : <dialog open> dans le top layer.
     const sheet = page.getByRole('dialog')
     await expect(sheet).toBeVisible({ timeout: 10_000 })
 
@@ -107,11 +107,11 @@ test.describe('DropdownMenu × ProductDetailSheet — status picker', () => {
     await page.keyboard.press('ArrowDown')
     await expect(items.nth(2)).toBeFocused()
 
-    // End → dernier
+    // End : dernier
     await page.keyboard.press('End')
     await expect(items.last()).toBeFocused()
 
-    // Home → premier
+    // Home : premier
     await page.keyboard.press('Home')
     await expect(items.first()).toBeFocused()
   })

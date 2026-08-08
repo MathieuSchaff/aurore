@@ -1,16 +1,8 @@
 // Gold-set annotations for auto-tag precision/recall measurement.
-//
-// Hand-maintained corpus; each product is judged on the focus tags.
-// Drives precision/recall/F1/Brier/ECE per tag so
-// calibration changes can be verified against stable ground truth.
-//
-// Selective annotation: `present` = annotator confirms the tag fits, `absent` =
-// explicitly does not, otherwise `unrated`. Unrated tags are excluded from
-// per-tag metrics, keeping the corpus maintainable without exhaustive judgments.
-//
-// Schema is narrow by design: no annotator confidence, no relevance distinction.
-// Gold targets `secondary` membership; `avoid` correctness is validated via
-// safety-net tests, not the gold set.
+// Hand-maintained corpus; `present`/`absent` are explicit annotator judgments,
+// everything else is `unrated` and excluded from per-tag metrics.
+// Schema is narrow on purpose: no confidence, no relevance. Gold targets
+// `secondary` membership; `avoid` correctness is checked by safety-net tests instead.
 
 import path from 'node:path'
 
@@ -28,15 +20,8 @@ export const DEFAULT_GOLD_SET_PATH = path.resolve(
   'annotations.json'
 )
 
-// Focus tags covered by this benchmark:
-//   - 9 actif-class clusters (positionCap: ∞)
-//   - 3 sensoriel Tier-1 (formula heuristics)
-//   - 3 acid clusters (positionCap=10 drift preserved by design)
-//   - algo-derm concerns
-//   - formula-pass concerns
-//
-// `satisfies` catches slug renames at compile time instead of silently skewing
-// benchmark metrics at runtime.
+// Focus tags for this benchmark. Acid clusters keep positionCap=10 drift by design.
+// `satisfies` catches slug renames at compile time instead of skewing metrics at runtime.
 export const GOLD_SET_FOCUS_TAGS = [
   'retinoids',
   'vitamin-c',

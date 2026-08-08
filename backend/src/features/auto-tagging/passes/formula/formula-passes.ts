@@ -1,14 +1,8 @@
-// Formula pass family (ADR-0001).
-//
-// Every formula detector emits `source: 'formula'`, `relevance: 'secondary'`,
-// so the family is one declarative table instead of N hand-written `Pass`
-// objects. `formulaPass` stamps the shared metadata; each row binds the
-// `PassContext` fields its detector reads. Detector signatures are unchanged:
-// they stay directly unit-tested in `tests/formula.test.ts`.
-//
-// Order is load-bearing: it is the pass-4 dedup tiebreaker (first-emitting pass
-// owns the source attribution) and is pinned by the orchestrator parity test.
-// `peauNormalePass` is not here: it runs last and reads `prior` (own file).
+// Formula pass family (ADR-0001). Every detector emits `source: 'formula'`,
+// `relevance: 'secondary'`, so the family is one declarative table instead of N
+// hand-written `Pass` objects. `formulaPass` stamps the shared metadata; each row binds
+// the `PassContext` fields its detector reads. Detector signatures are unchanged, they
+// stay directly unit-tested in `tests/formula.test.ts`.
 
 import type { SkincareProductTagSlug } from '@aurore/shared'
 
@@ -88,10 +82,10 @@ function formulaPass(
 }
 
 // Name-positioning variant: keeps the tested detector as the emit oracle, then
-// re-derives the matched name/description substring (audit evidence) from the same
+// derives the matched name/description substring (audit evidence) again from the same
 // exported regex: single source, so detector and evidence cannot drift.
-// `positionRe` must be non-global: a /g flag carries lastIndex across calls and
-// would intermittently drop the re-derived evidence.
+// `positionRe` must not be global: a /g flag carries lastIndex across calls and
+// would intermittently drop the derived evidence.
 function namePass(
   name: string,
   detect: (ctx: PassContext) => readonly SkincareProductTagSlug[],
@@ -123,7 +117,10 @@ function namePass(
   }
 }
 
-// Pass 4. Same order as the pre-cutover orchestrator (preserves dedup outcomes).
+// Pass 4. Same order the orchestrator had before the cutover: order is load-bearing, it's the
+// pass-4 dedup tiebreaker (first-emitting pass owns the source attribution) and is
+// pinned by the orchestrator parity test. `peauNormalePass` is not here: it runs last
+// and reads `prior` (own file).
 export const FORMULA_PASSES: readonly Pass[] = [
   formulaPass('formula:occlusif', (c) => detectOcclusifTags(c.inci, c.normalizedIngredients)),
   formulaPass('formula:semi-occlusif', (c) =>

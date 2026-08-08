@@ -20,7 +20,7 @@ describe('skinSimilarity', () => {
   })
 
   // Doctrine encoded in the threshold: a matching skin type + phototype alone
-  // cannot reach the top band — "très proche" must always mean a shared skin
+  // cannot reach the top band: "très proche" must always mean a shared skin
   // problem, never merely a matching phototype.
   it('never reaches the top band on skin type + phototype alone', () => {
     const a: SkinSimilarityInput = {
@@ -55,7 +55,7 @@ describe('skinSimilarity', () => {
   })
 
   // A missing Fitzpatrick on both sides drops that component and renormalizes:
-  // absent data reads as neutral, not a penalty — same band as a full match.
+  // absent data reads as neutral, not a penalty, same band as a full match.
   it('does not penalize a missing Fitzpatrick (renormalizes)', () => {
     const a: SkinSimilarityInput = {
       skinConcerns: ['rosacee'],
@@ -103,7 +103,7 @@ describe('projectConcernsToBuckets', () => {
   })
 
   it('fans one concern out to several buckets when the taxonomy does', () => {
-    // post-acne → acné-imperfections + réparation
+    // post-acne fans to acné-imperfections and réparation
     expect(projectConcernsToBuckets(['post-acne']).size).toBe(2)
   })
 })

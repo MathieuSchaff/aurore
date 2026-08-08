@@ -10,8 +10,8 @@ import {
 } from '../data/ingredients/ingredient-slugs'
 
 // KNOWN_ALIASES: intentional duplicate values in INGREDIENT_SLUGS.
-// HAEMATOCOCCUS_PLUVIALIS → astaxanthine skincare slug
-// AVOBENZONE → BUTYL_METHOXYDIBENZOYLMETHANE
+// HAEMATOCOCCUS_PLUVIALIS maps to the astaxanthine skincare slug
+// AVOBENZONE maps to BUTYL_METHOXYDIBENZOYLMETHANE
 const KNOWN_ALIASES = 2
 
 describe('ingredient slugs aggregate', () => {

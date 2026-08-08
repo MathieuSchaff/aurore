@@ -1,24 +1,11 @@
 // Bulk product creation from a scraped JSONL lot, the CATALOGUE-lane ingest
 // described in docs/commands/catalog.md. Every row goes through createProduct so
 // validation, cleanInci and auto-tagging follow the exact same path as the app.
-//
-// Input: one JSON object per line, fields = CreateProductInput.
-// Optional classifications file: { [slug]: "DROP" | { kind?, category?, ... } }
-// (classification verdicts, kept versioned; overrides are merged over the JSONL row).
-//
+
 // Usage (run in-container, cwd /app/backend, see `just ingest-catalogue`):
 //   bun run src/db/seed/ingest/catalogue/main.ts lot.jsonl                            # dry-run
 //   bun run src/db/seed/ingest/catalogue/main.ts lot.jsonl --classifications c.json   # with verdicts
 //   bun run src/db/seed/ingest/catalogue/main.ts lot.jsonl --write                    # apply
-//
-// Gate: any invalid row, in-lot dup or DB name+brand dup is a blocker. The run
-// exits 1 (dry-run AND write) without writing anything, unless --allow-partial.
-// Every run writes tmp/data-runs/<lot>-<ts>/plan.json (counters + blockers +
-// lot sha256); a write also appends apply.jsonl (one line per attempted row).
-//
-// Env: SEED_OWNER_EMAIL, catalogue owner (default seed@seed.com). The owner must
-// already exist AND be admin (dev: `just db-seed`, prod: `just db-prod-admin`);
-// this script never creates or promotes accounts.
 
 import { createHash } from 'node:crypto'
 import { appendFileSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs'
@@ -71,6 +58,7 @@ function parseArgs(): { jsonlPath: string; classificationsPath: string | null } 
   return { jsonlPath: resolve(jsonlPath), classificationsPath }
 }
 
+// One CreateProductInput row per line (JSONL).
 function readJsonl(path: string): Record<string, unknown>[] {
   return readFileSync(path, 'utf-8')
     .split('\n')
@@ -90,12 +78,14 @@ async function main() {
   console.log(`   mode=${WRITE ? 'WRITE' : 'DRY-RUN'} · lot=${jsonlPath}\n`)
 
   const rows = readJsonl(jsonlPath)
+  // Optional classifications file: { [slug]: "DROP" | { kind?, category?, ... } },
+  // merged over the JSONL row.
   const verdicts: Record<string, Verdict> = classificationsPath
     ? (JSON.parse(readFileSync(resolve(classificationsPath), 'utf-8')) as Record<string, Verdict>)
     : {}
 
   // Read as admin so hidden rows count too. The name+brand unique index is
-  // partial (visible only) and createProduct's pre-check is visible-only, so a
+  // partial (visible only) and createProduct checks visible rows only, so a
   // dup against a hidden product would INSERT cleanly, so this dry-run set is the
   // only place it can be refused. Slug idempotence (seed-core mechanic) needs
   // hidden slugs too: the slug index is full, a hidden slug still collides.
@@ -141,9 +131,10 @@ async function main() {
       console.warn(`   ✗ line ${i + 1} (${rawSlug ?? '?'}): ${parsed.error.issues[0]?.message}`)
       continue
     }
-    // A non-slugify-stable slug gets rewritten by createProduct: stored slug ≠
-    // input slug → auto-tag keyed by slug misses and re-runs stop being idempotent.
-    // The schema regex already rejects most shapes; this is the exact authority.
+    // A non-slugify-stable slug gets rewritten by createProduct, so the stored
+    // slug differs from the input slug: auto-tag keyed by slug misses and later runs
+    // stop being idempotent. The schema regex already rejects most shapes; this
+    // is the exact authority.
     if (parsed.data.slug && slugify(parsed.data.slug) !== parsed.data.slug) {
       invalid++
       blockers.push({ line: i + 1, slug: parsed.data.slug, reason: 'slug not slugify-stable' })
@@ -227,8 +218,9 @@ async function main() {
   )
   console.log(`   plan : ${runDir}/plan.json`)
 
-  // GATE A: a lot with blockers is refused as a whole, never a silent partial
-  // apply. --allow-partial acknowledges the loss explicitly (kept in plan.json).
+  // GATE A: any invalid row, in-lot dup or DB name+brand dup is refused as a
+  // whole, never a silent partial apply. --allow-partial acknowledges the loss
+  // explicitly (kept in plan.json).
   if (blockers.length > 0) {
     if (!ALLOW_PARTIAL) {
       console.error(`\n✗ ${blockers.length} blocker(s) — lot refusé, rien n'a été écrit.`)
@@ -243,7 +235,7 @@ async function main() {
     return
   }
 
-  // The owner must pre-exist: an ingest run must never be able to mint an admin
+  // The owner must already exist: an ingest run must never be able to mint an admin
   // account with a known password (or silently promote a mistyped email) on prod.
   const ownerEmail = process.env.SEED_OWNER_EMAIL ?? 'seed@seed.com'
   const owner = await getUser(db, ownerEmail)
@@ -264,8 +256,8 @@ async function main() {
     try {
       // One transaction per product: a race (concurrent write, slug collision)
       // still surfaces as a 23505 that aborts its whole transaction. Per-row,
-      // the failure skips one line instead of killing the run. Any non-ProductError
-      // is unexpected and fail-fast on purpose (already-created rows stay committed).
+      // the failure skips one line instead of killing the run. Any error that is not a
+      // ProductError is unexpected and fail-fast on purpose (already-created rows stay committed).
       await withAdminRls((tx) => createProduct(owner.id, 'admin', c.input, tx, { autoTag: true }))
       created++
       appendFileSync(journalPath, `${JSON.stringify({ slug: c.slug, status: 'created' })}\n`)

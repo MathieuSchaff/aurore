@@ -1,7 +1,10 @@
 import { beforeAll, describe } from 'bun:test'
 
+import { setupDbTests } from '../../../tests/db-setup'
 import { expectRequiresAuth } from '../../../tests/helpers/authz-matrix'
 import { createTestEnv, type TestApp } from '../../../tests/helpers/createTestClient'
+
+setupDbTests()
 
 // The auth guard runs before any lookup or body validation, so the ids below
 // never need to exist and the mutating cases need no payload.
@@ -17,7 +20,7 @@ beforeAll(async () => {
 // suggested-edits install the prelude with a blanket use('*') over a prefix they
 // own, so any one of their routes proves the whole router. security-events has the
 // same shape and is already covered in security/tests/security-events-admin.routes.test.ts.
-describe('admin routers — blanket prelude', () => {
+describe('admin routers: blanket prelude', () => {
   for (const path of [
     '/api/admin/moderation/catalog',
     '/api/admin/reports',
@@ -33,8 +36,8 @@ describe('admin routers — blanket prelude', () => {
 // bans.routes.ts is the exception: it shares the '/api/admin' prefix with its
 // siblings, so it registers the prelude path by path over an explicit list rather
 // than with use('*'). A route added without its path being appended to that list
-// would be reachable unauthenticated — hence one case per protected path.
-describe('admin bans router — per-path prelude', () => {
+// would be reachable unauthenticated, hence one case per protected path.
+describe('admin bans router: per-path prelude', () => {
   const cases = [
     { method: 'GET', path: '/api/admin/users' },
     { method: 'GET', path: `/api/admin/users/${GHOST}/bans` },

@@ -553,7 +553,7 @@ describe('actif-class roleAtDose gate (cap-marginal AHA, ADR-0014)', () => {
     expect(ev?.matchedToken).toBe('lactic acid')
   })
 
-  // Near the knee confidence collapses → ignore the dose, fall back to the name-gate.
+  // Near the knee confidence collapses, so ignore the dose and fall back to the name-gate.
   test('low-confidence role falls back to the name-gate (neutral name drops)', () => {
     expect(
       detectActifClassesWithEvidence(

@@ -8,19 +8,20 @@ import {
   type TestClient,
   withAuth,
 } from '../../../tests/helpers/createTestClient'
-import { expectOk } from '../../../tests/helpers/expectStatus'
+import { expectError, expectOk, expectStatus } from '../../../tests/helpers/expectStatus'
 import { createTestUser } from '../../../tests/helpers/test-factories'
 
-async function mobileLogin(client: TestClient, email: string, password: string) {
-  const res = await client.auth.mobile.login.$post({ json: { email, password } })
-  const data = await res.json()
-  return { res, data }
+function mobileLogin(client: TestClient, email: string, password: string) {
+  return client.auth.mobile.login.$post({ json: { email, password } })
 }
 
-async function mobileSignup(client: TestClient, email: string, password: string) {
-  const res = await client.auth.mobile.signup.$post({ json: { email, password } })
-  const data = await res.json()
-  return { res, data }
+function mobileSignup(client: TestClient, email: string, password: string) {
+  return client.auth.mobile.signup.$post({ json: { email, password } })
+}
+
+// Success path: the tokens the logout/refresh suites need to act on.
+function mobileSession(client: TestClient, email: string, password: string) {
+  return expectOk(mobileLogin(client, email, password))
 }
 
 setupDbTests()
@@ -34,49 +35,36 @@ describe('Auth Routes (mobile)', () => {
 
   describe('POST /auth/mobile/signup', () => {
     it('returns a neutral pending response with no tokens', async () => {
-      const { res, data } = await mobileSignup(client, 'newuser@test.com', 'TestPass123!')
+      const res = await mobileSignup(client, 'newuser@test.com', 'TestPass123!')
 
-      expect(res.status).toBe(HTTP_STATUS.OK)
-      expect(data.success).toBe(true)
-      if (!data.success) throw new Error('mobile signup failed')
-      expect(data.data).toEqual({ pending: true })
-      expect((data.data as { accessToken?: string }).accessToken).toBeUndefined()
-      expect((data.data as { refreshToken?: string }).refreshToken).toBeUndefined()
+      const data = await expectOk(res)
+      expect(data).toEqual({ pending: true })
+      expect((data as { accessToken?: string }).accessToken).toBeUndefined()
+      expect((data as { refreshToken?: string }).refreshToken).toBeUndefined()
       expect(res.headers.get('Set-Cookie')).toBeNull()
     })
 
     it('should reject invalid email', async () => {
-      const { res, data } = await mobileSignup(client, 'invalid-email', 'TestPass123!')
-
-      expect(res.status).toBe(HTTP_STATUS.BAD_REQUEST)
-      expect(data.success).toBe(false)
+      await expectError(
+        mobileSignup(client, 'invalid-email', 'TestPass123!'),
+        HTTP_STATUS.BAD_REQUEST
+      )
     })
 
     it('should reject weak password', async () => {
-      const { res, data } = await mobileSignup(client, 'test@test.com', 'weak')
-
-      expect(res.status).toBe(HTTP_STATUS.BAD_REQUEST)
-      expect(data.success).toBe(false)
+      await expectError(mobileSignup(client, 'test@test.com', 'weak'), HTTP_STATUS.BAD_REQUEST)
     })
 
     it('returns the same neutral response for an existing email', async () => {
       await createTestUser('existing@test.com', 'TestPass123!')
 
-      const { res, data } = await mobileSignup(client, 'existing@test.com', 'TestPass123!')
-
-      expect(res.status).toBe(HTTP_STATUS.OK)
-      expect(data.success).toBe(true)
-      if (!data.success) throw new Error('expected neutral pending')
-      expect(data.data).toEqual({ pending: true })
+      const data = await expectOk(mobileSignup(client, 'existing@test.com', 'TestPass123!'))
+      expect(data).toEqual({ pending: true })
     })
 
     it('should normalize email on signup', async () => {
-      const { res, data } = await mobileSignup(client, '  NewUser@TEST.COM  ', 'TestPass123!')
-
-      expect(res.status).toBe(HTTP_STATUS.OK)
-      expect(data.success).toBe(true)
-      if (!data.success) throw new Error('mobile signup failed')
-      expect(data.data).toEqual({ pending: true })
+      const data = await expectOk(mobileSignup(client, '  NewUser@TEST.COM  ', 'TestPass123!'))
+      expect(data).toEqual({ pending: true })
     })
   })
 
@@ -84,45 +72,42 @@ describe('Auth Routes (mobile)', () => {
     it('should login and return tokens in body', async () => {
       await createTestUser('login@test.com', 'TestPass123!')
 
-      const { res, data } = await mobileLogin(client, 'login@test.com', 'TestPass123!')
+      const res = await mobileLogin(client, 'login@test.com', 'TestPass123!')
 
-      expect(res.status).toBe(HTTP_STATUS.OK)
-      expect(data.success).toBe(true)
-      if (!data.success) throw new Error('mobile login failed')
-      expect(data.data.user.email).toBe('login@test.com')
-      expect(data.data.accessToken).toBeDefined()
-      expect(data.data.refreshToken).toBeDefined()
+      const session = await expectOk(res)
+      expect(session.user.email).toBe('login@test.com')
+      expect(session.accessToken).toBeDefined()
+      expect(session.refreshToken).toBeDefined()
 
-      const cookie = res.headers.get('Set-Cookie')
-      expect(cookie).toBeNull()
+      expect(res.headers.get('Set-Cookie')).toBeNull()
     })
 
     it('should reject wrong password', async () => {
       await createTestUser('login@test.com', 'TestPass123!')
 
-      const { res, data } = await mobileLogin(client, 'login@test.com', 'WrongPass123!')
-
-      expect(res.status).toBe(HTTP_STATUS.UNAUTHORIZED)
-      expect(data.success).toBe(false)
-      if (!data.success) expect(data.error).toBe('invalid_credentials')
+      await expectError(
+        mobileLogin(client, 'login@test.com', 'WrongPass123!'),
+        HTTP_STATUS.UNAUTHORIZED,
+        'invalid_credentials'
+      )
     })
 
     it('should reject non-existent user', async () => {
-      const { res, data } = await mobileLogin(client, 'notfound@test.com', 'TestPass123!')
-
-      expect(res.status).toBe(HTTP_STATUS.UNAUTHORIZED)
-      expect(data.success).toBe(false)
-      if (!data.success) expect(data.error).toBe('invalid_credentials')
+      await expectError(
+        mobileLogin(client, 'notfound@test.com', 'TestPass123!'),
+        HTTP_STATUS.UNAUTHORIZED,
+        'invalid_credentials'
+      )
     })
 
     it('should reject invalid email format', async () => {
-      const { res } = await mobileLogin(client, 'not-an-email', 'TestPass123!')
+      const res = await mobileLogin(client, 'not-an-email', 'TestPass123!')
       expect(res.status).toBe(HTTP_STATUS.BAD_REQUEST)
     })
 
     it('should reject empty body', async () => {
       const res = await client.auth.mobile.login.$post({
-        // @ts-expect-error — exercising the validator with an empty body
+        // @ts-expect-error: exercising the validator with an empty body
         json: {},
       })
       expect(res.status).toBe(HTTP_STATUS.BAD_REQUEST)
@@ -132,9 +117,11 @@ describe('Auth Routes (mobile)', () => {
   describe('POST /auth/mobile/refresh', () => {
     it('should rotate tokens via body', async () => {
       await createTestUser('refresh@test.com', 'TestPass123!')
-      const { data: loginData } = await mobileLogin(client, 'refresh@test.com', 'TestPass123!')
-      if (!loginData.success) throw new Error('mobile login failed')
-      const oldRefreshToken = loginData.data.refreshToken
+      const { refreshToken: oldRefreshToken } = await mobileSession(
+        client,
+        'refresh@test.com',
+        'TestPass123!'
+      )
 
       const data = await expectOk(
         client.auth.mobile.refresh.$post({
@@ -153,10 +140,7 @@ describe('Auth Routes (mobile)', () => {
         json: {},
       })
 
-      expect(res.status).toBe(HTTP_STATUS.BAD_REQUEST)
-      const data = await res.json()
-      expect(data.success).toBe(false)
-      if (!data.success) expect(data.error).toBe('missing_refresh_token')
+      await expectError(res, HTTP_STATUS.BAD_REQUEST, 'missing_refresh_token')
     })
 
     it('should fail with invalid refresh token', async () => {
@@ -164,17 +148,16 @@ describe('Auth Routes (mobile)', () => {
         json: { refreshToken: 'invalid.token.here' },
       })
 
-      expect(res.status).toBe(HTTP_STATUS.UNAUTHORIZED)
-      const data = await res.json()
-      expect(data.success).toBe(false)
-      if (!data.success) expect(data.error).toBe('invalid_token')
+      await expectError(res, HTTP_STATUS.UNAUTHORIZED, 'invalid_token')
     })
 
     it('should invalidate old refresh token after rotation', async () => {
       await createTestUser('refresh@test.com', 'TestPass123!')
-      const { data: loginData } = await mobileLogin(client, 'refresh@test.com', 'TestPass123!')
-      if (!loginData.success) throw new Error('mobile login failed')
-      const oldRefresh = loginData.data.refreshToken
+      const { refreshToken: oldRefresh } = await mobileSession(
+        client,
+        'refresh@test.com',
+        'TestPass123!'
+      )
 
       const res1 = await client.auth.mobile.refresh.$post({
         json: { refreshToken: oldRefresh },
@@ -191,12 +174,11 @@ describe('Auth Routes (mobile)', () => {
   describe('POST /auth/mobile/logout', () => {
     it('should logout with refresh token in body', async () => {
       await createTestUser('logout@test.com', 'TestPass123!')
-      const { data: loginData } = await mobileLogin(client, 'logout@test.com', 'TestPass123!')
-      if (!loginData.success) throw new Error('mobile login failed')
+      const session = await mobileSession(client, 'logout@test.com', 'TestPass123!')
 
       const res = await client.auth.mobile.logout.$post(
-        { json: { refreshToken: loginData.data.refreshToken } },
-        withAuth(loginData.data.accessToken)
+        { json: { refreshToken: session.refreshToken } },
+        withAuth(session.accessToken)
       )
 
       expect(res.status).toBe(HTTP_STATUS.OK)
@@ -208,35 +190,29 @@ describe('Auth Routes (mobile)', () => {
       const res = await client.auth.mobile.logout.$post({
         json: {},
       })
-      // Middleware-issued 401 is outside the route's inferred status union.
-      expect(res.status as number).toBe(HTTP_STATUS.UNAUTHORIZED)
+      expectStatus(res, HTTP_STATUS.UNAUTHORIZED)
     })
 
     it('should invalidate refresh token after logout', async () => {
       await createTestUser('logout@test.com', 'TestPass123!')
-      const { data: loginData } = await mobileLogin(client, 'logout@test.com', 'TestPass123!')
-      if (!loginData.success) throw new Error('mobile login failed')
+      const session = await mobileSession(client, 'logout@test.com', 'TestPass123!')
 
       await client.auth.mobile.logout.$post(
-        { json: { refreshToken: loginData.data.refreshToken } },
-        withAuth(loginData.data.accessToken)
+        { json: { refreshToken: session.refreshToken } },
+        withAuth(session.accessToken)
       )
 
       const refreshRes = await client.auth.mobile.refresh.$post({
-        json: { refreshToken: loginData.data.refreshToken },
+        json: { refreshToken: session.refreshToken },
       })
       expect(refreshRes.status).toBe(HTTP_STATUS.UNAUTHORIZED)
     })
 
     it('should succeed even without refresh token in body', async () => {
       await createTestUser('logout@test.com', 'TestPass123!')
-      const { data: loginData } = await mobileLogin(client, 'logout@test.com', 'TestPass123!')
-      if (!loginData.success) throw new Error('mobile login failed')
+      const session = await mobileSession(client, 'logout@test.com', 'TestPass123!')
 
-      const res = await client.auth.mobile.logout.$post(
-        { json: {} },
-        withAuth(loginData.data.accessToken)
-      )
+      const res = await client.auth.mobile.logout.$post({ json: {} }, withAuth(session.accessToken))
 
       expect(res.status).toBe(HTTP_STATUS.OK)
       const data = await res.json()

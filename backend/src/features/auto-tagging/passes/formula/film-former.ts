@@ -48,21 +48,14 @@ export function detectOcclusifTags(
 
 // Emollient occlusion (TEWL reduction without forming an impermeable film).
 // Distinct from `occlusif` (petrolatum/lanolin/waxes, true film-formers).
-// Position cap is tighter (top 5) than occlusif (top 8): below pos 5 these
-// emollients are present at trace level and don't drive sensoriel/barrier
-// behavior. Mutex with `occlusif`: a petrolatum-led formula is functionally
-// occlusif even if squalane sits at pos 4, emitting both blurs the
-// semantic split.
-//
-// Pattern coverage:
-//   - `squalane`: substring stops at the trailing 'ne' so `squalene`
-//     (animal-derived sebum lipid, INCI distinct) does NOT match.
-//   - `dimethicone` + `dimethiconol`: explicit list (substring `dimethicone`
-//     does not match `dimethiconol`). Cyclic silicones (cyclomethicone,
-//     cyclopentasiloxane) excluded, volatile, evaporate from skin.
-//   - `isohexadecane`: branched hydrocarbon emollient.
 
+// `squalane` substring stops at the trailing 'ne' so `squalene` (animal-derived sebum
+// lipid, INCI distinct) doesn't match. `dimethicone`/`dimethiconol` are listed explicitly
+// since substring `dimethicone` misses `dimethiconol`. Cyclic silicones (cyclomethicone,
+// cyclopentasiloxane) are excluded: volatile, they evaporate from skin.
 const SEMI_OCCLUSIF_PATTERNS = ['squalane', 'dimethicone', 'dimethiconol', 'isohexadecane']
+// Tighter than occlusif's top 8: below pos 5 these emollients are trace-level and
+// don't drive sensoriel/barrier behavior.
 const SEMI_OCCLUSIF_POSITION_CAP = 5
 
 const SEMI_OCCLUSIF_RINSE_OFF_KINDS = new Set<ProductKind>([
@@ -83,9 +76,8 @@ export function detectSemiOcclusif(
   const ingredients = resolveIngredients(inci, hoistedIngredients)
   if (ingredients.length === 0) return []
 
-  // Mutex with occlusif: if a true film-former is present in top 8, the
-  // formula is occlusif; emitting semi-occlusif on top would dilute the
-  // distinction.
+  // Mutex with occlusif: a petrolatum-led formula is functionally occlusif even if
+  // squalane sits at pos 4; emitting both would blur the semantic split.
   const occlusifLimit = Math.min(ingredients.length, OCCLUSIVE_POSITION_CAP)
   for (let i = 0; i < occlusifLimit; i++) {
     if (OCCLUSIVE_PATTERNS.some((p) => ingredients[i].includes(p))) return []

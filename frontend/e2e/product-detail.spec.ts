@@ -654,11 +654,12 @@ test.describe('Product detail — Profil de la formule', () => {
   // Both tests fetch-then-modify the detail endpoint under test. Deliberate
   // deviation from e2e.md (do not mock the stack): the assertions need a tag
   // mix no seed product guarantees. Only data.tags is rewritten.
+
   // The detail route is ssr:true, so a cold page.goto resolves its loader on the
   // server where page.route is blind: the mock below would never render. Entering
   // through a client-side navigation puts the fetch back in the browser.
-  // profile_filter is pinned so the standing setting cannot drop the target card.
   async function clientNavigateToDetail(page: Page, slug: string): Promise<void> {
+    // profile_filter is pinned so the standing setting cannot drop the target card.
     await gotoSettled(page, '/products?sort=name&profile_filter=false')
     const productLink = page.locator(`.list-card--product a[href="/products/${slug}"]`).first()
     await productLink.waitFor({ state: 'visible' })

@@ -10,27 +10,15 @@ import {
   type TestClient,
   withAuth,
 } from '../../../tests/helpers/createTestClient'
-import { createTestUser } from '../../../tests/helpers/test-factories'
-import { createProduct } from '../../products/service'
+import { expectError, expectOk, expectStatus } from '../../../tests/helpers/expectStatus'
+import { createTestProduct, createTestUser } from '../../../tests/helpers/test-factories'
 import { upsertDermoProfile } from '../../profile/service'
 
 setupDbTests()
 
-async function seedProduct(inci: string | null) {
+async function seedProduct(inci?: string) {
   const user = await createTestUser()
-  return createProduct(
-    user.id,
-    'admin',
-    {
-      name: inci ? 'Sérum inci' : 'Sérum no inci',
-      brand: 'Brand',
-      kind: 'serum',
-      unit: 'pump',
-      category: 'skincare',
-      inci: inci ?? undefined,
-    },
-    testDb
-  )
+  return createTestProduct(user.id, { name: inci ? 'Sérum inci' : 'Sérum no inci', inci })
 }
 
 describe('GET /products/:slug/dermo-score', () => {
@@ -43,25 +31,18 @@ describe('GET /products/:slug/dermo-score', () => {
   it('returns 200 with an assessment when the product has INCI', async () => {
     const product = await seedProduct('Aqua, Glycerin, Niacinamide, Parfum')
 
-    const res = await client.products[':slug']['dermo-score'].$get({
-      param: { slug: product.slug },
-    })
-
-    expect(res.status as number).toBe(HTTP_STATUS.OK)
+    await expectOk(client.products[':slug']['dermo-score'].$get({ param: { slug: product.slug } }))
   })
 
-  // inci_missing is a missing resource, not malformed input — must be 404, not 400.
+  // inci_missing is a missing resource, not malformed input, so it must be 404, not 400.
   it('returns 404 with inci_missing when the product has no INCI', async () => {
-    const product = await seedProduct(null)
+    const product = await seedProduct()
 
-    const res = await client.products[':slug']['dermo-score'].$get({
-      param: { slug: product.slug },
-    })
-
-    expect(res.status as number).toBe(HTTP_STATUS.NOT_FOUND)
-    const body = await res.json()
-    if (body.success) throw new Error('expected failure body')
-    expect(body.error).toBe('inci_missing')
+    await expectError(
+      client.products[':slug']['dermo-score'].$get({ param: { slug: product.slug } }),
+      HTTP_STATUS.NOT_FOUND,
+      'inci_missing'
+    )
   })
 
   it('returns 404 for an unknown slug', async () => {
@@ -69,35 +50,51 @@ describe('GET /products/:slug/dermo-score', () => {
       param: { slug: 'does-not-exist' },
     })
 
-    expect(res.status as number).toBe(HTTP_STATUS.NOT_FOUND)
+    expectStatus(res, HTTP_STATUS.NOT_FOUND)
   })
 
-  // optionalJwtAuth: a valid bearer loads the user profile and personalizes the
-  // score, so a sensitive-skin user must see higher irritation risk than anon.
-  it('personalizes the score when a valid bearer carries a sensitive profile', async () => {
+  // optionalJwtAuth wiring: a valid bearer must reach the service as a userId, so
+  // the profiled score stops matching the anonymous one. Which way it shifts is
+  // the service's rule, asserted in dermo-score.service.test.ts.
+  it('personalizes the score when a valid bearer carries a profile', async () => {
     const { token, userId } = await signupAndGetToken(
       client,
       'sensitive@dermo-route.test',
       'Azerty123!seed'
     )
-    await upsertDermoProfile(testDb, userId, { skinTypes: ['peau-sensible'] })
+    await testDb.transaction((tx) =>
+      upsertDermoProfile(tx, userId, { skinTypes: ['peau-sensible'] })
+    )
     const product = await seedProduct('Aqua, Glycerin, Alcohol Denat, Parfum, Limonene')
 
-    const anon = await client.products[':slug']['dermo-score'].$get({
-      param: { slug: product.slug },
-    })
-    const authed = await client.products[':slug']['dermo-score'].$get(
-      { param: { slug: product.slug } },
-      withAuth(token)
+    const anon = await expectOk(
+      client.products[':slug']['dermo-score'].$get({ param: { slug: product.slug } })
+    )
+    const authed = await expectOk(
+      client.products[':slug']['dermo-score'].$get(
+        { param: { slug: product.slug } },
+        withAuth(token)
+      )
     )
 
-    expect(anon.status as number).toBe(HTTP_STATUS.OK)
-    expect(authed.status as number).toBe(HTTP_STATUS.OK)
-    const anonBody = await anon.json()
-    const authedBody = await authed.json()
-    if (!anonBody.success || !authedBody.success) throw new Error('expected success bodies')
-    expect(authedBody.data.productAxisRisk.irritation.risk).toBeGreaterThan(
-      anonBody.data.productAxisRisk.irritation.risk
+    expect(authed.productAxisRisk.irritation.risk).not.toBe(anon.productAxisRisk.irritation.risk)
+  })
+
+  // The endpoint is public: optionalJwtAuth falls through on a bearer it cannot
+  // verify instead of rejecting it, so a stale token still gets the anonymous score.
+  it('falls through anonymously when the bearer is invalid', async () => {
+    const product = await seedProduct('Aqua, Glycerin, Niacinamide, Parfum')
+
+    const anon = await expectOk(
+      client.products[':slug']['dermo-score'].$get({ param: { slug: product.slug } })
     )
+    const bogus = await expectOk(
+      client.products[':slug']['dermo-score'].$get(
+        { param: { slug: product.slug } },
+        withAuth('not-a-valid-jwt')
+      )
+    )
+
+    expect(bogus).toEqual(anon)
   })
 })

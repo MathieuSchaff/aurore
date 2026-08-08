@@ -27,12 +27,11 @@ const viewTransition = {
 
 const KEEP_VT_TYPES = new Set(['shared-element', 'tab-switch'])
 
-// startViewTransition snapshots then synchronously re-renders the whole page
-// before animating; on slow CPUs that freezes the main thread ~840ms per nav. We
-// only pay that for the transitions that earn it: the list and detail hero morph
-// (shared-element) and the detail tab swap. Every other nav (section fades,
-// generic fallback) skips VT and stays instant. Mobile (<=767px) / reduced-motion
-// skip everything.
+// startViewTransition snapshots then synchronously renders the whole page again before
+// animating; on slow CPUs that freezes the main thread ~840ms per nav. We only pay
+// that for transitions that earn it: shared-element hero morph and the tab swap.
+// Everything else (section fades, fallback) skips VT and stays instant. Mobile
+// (<=767px) / reduced-motion skip everything.
 function viewTransitionForNav(from: ParsedLocation | undefined, to: ParsedLocation, skip: boolean) {
   if (skip) return false
   const types = resolveTransitionType({
@@ -76,12 +75,12 @@ export function getRouter() {
     defaultViewTransition: false,
     // Stamp Start's inline hydration scripts with the per-request nonce so the
     // strict CSP (script-src 'self' 'nonce-…') lets them run. Undefined on the
-    // client and during any non-proxied request; the nonce only matters server-side.
+    // client and during any request that isn't proxied; the nonce only matters server-side.
     ssr: { nonce: getCspNonce() },
   })
 
   // Dehydrates the per-request server Query cache into the SSR payload and
-  // hydrates it into the client cache, so components re-using the loaders'
+  // hydrates it into the client cache, so components reusing the loaders'
   // queries (useSuspenseQuery) don't refetch what SSR already fetched. Also
   // installs the QueryClientProvider wrap.
   setupRouterSsrQueryIntegration({ router, queryClient })
@@ -100,7 +99,7 @@ export function getRouter() {
 
     const skipVt = window.matchMedia('(max-width: 767px), (prefers-reduced-motion: reduce)')
     // Router reads options.defaultViewTransition live when it commits a nav (after
-    // this event fires), so deciding per-nav here scopes VT without re-passing context.
+    // this event fires), so deciding per-nav here scopes VT without passing context down again.
     router.subscribe('onBeforeNavigate', ({ fromLocation, toLocation }) => {
       router.options.defaultViewTransition = viewTransitionForNav(
         fromLocation,

@@ -2,6 +2,7 @@
 // detectAutoTags per product, and build the AuditState the reporters consume.
 // Read-only on DB. Reporting + env dispatch live in main.ts; CHECK in check.ts.
 
+import { db } from '../../../../db'
 import { fetchKnownConcentrationsByProduct } from '../../../../lib/fetch-known-concentrations'
 import { buildPassContext } from '../../lib/build-pass-context'
 import { buildOrchestratorInput } from '../../lib/orchestrator-input'
@@ -233,7 +234,7 @@ function processProduct(
     }
   )
   const assessment = ctx.assessment
-  // Always defined when INCI is non-empty (TS narrowing only); guarded before
+  // Always defined when INCI is not empty (TS narrowing only); guarded before
   // the counters so a broken invariant cannot count a product it then skips.
   if (!assessment) return
   state.withInci++
@@ -266,7 +267,10 @@ export async function fetchAuditStats(): Promise<{ state: AuditState; subsetLeng
   const subset = await fetchEligibleProductSubset()
   // Labels each emitted tag as agree (already present) vs new (proposal).
   const existingByProduct = await fetchProductTagSlugsByProduct()
-  const concentrationsByProduct = await fetchKnownConcentrationsByProduct(subset.map((p) => p.id))
+  const concentrationsByProduct = await fetchKnownConcentrationsByProduct(
+    subset.map((p) => p.id),
+    db
+  )
 
   const state = initState()
   for (const p of subset) processProduct(p, state, existingByProduct, concentrationsByProduct)

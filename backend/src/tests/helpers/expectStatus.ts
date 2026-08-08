@@ -1,9 +1,7 @@
-// Hono's testClient narrows `res.status` to the literal union of statuses the
-// route returns via `c.json(..., STATUS)`. Routes that throw errors and rely
-// on the global error handler expose only the success status in their type,
-// so `expect(res.status).toBe(HTTP_STATUS.NOT_FOUND)` clashes. This helper
-// erases the narrowing for assertions where we know the runtime status
-// differs from the type-level union.
+// Hono's testClient narrows `res.status` to the literal union the route returns via
+// `c.json(..., STATUS)`. Routes that throw and rely on the global error handler expose
+// only the success status in their type, so `expect(res.status).toBe(HTTP_STATUS.NOT_FOUND)`
+// clashes. This helper erases the narrowing for those assertions.
 
 import { expect } from 'bun:test'
 
@@ -18,7 +16,7 @@ type OkEnvelope<T> = { success: true; data: T } | { success: false }
 type JsonResponse<T> = { status: number; json(): Promise<OkEnvelope<T>> }
 
 // The typed overload infers T from a testClient response. A bare `Response`
-// (app.request) types json() as unknown, so those callers name T themselves —
+// (app.request) types json() as unknown, so those callers name T themselves:
 // same escape hatch expectError already offers on the failure side.
 export function expectOk<T>(
   resOrPromise: JsonResponse<T> | Promise<JsonResponse<T>>,

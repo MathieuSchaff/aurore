@@ -1,4 +1,4 @@
-import type { CreateIngredientInput, Email, RawPassword } from '@aurore/shared'
+import type { CreateArticleInput, CreateIngredientInput, Email, RawPassword } from '@aurore/shared'
 
 import { eq } from 'drizzle-orm'
 
@@ -6,6 +6,7 @@ import { users } from '../../db/schema'
 import { signup } from '../../features/auth/service'
 import { createCtx } from '../../features/auth/tests/auth-test.setup'
 import { getUser } from '../../features/auth/user.utils'
+import { createArticle } from '../../features/blog/service'
 import { createIngredient } from '../../features/ingredients/service'
 import { createProduct } from '../../features/products/service'
 import type { CatalogRole } from '../../lib/catalog'
@@ -28,7 +29,7 @@ export async function createTestUser(
 
   // Signup is enumeration-safe and returns no user (ADR 0009). It always reports
   // success (new or existing email), so fetch the row; this also makes the
-  // factory idempotent across re-use of the same email.
+  // factory idempotent across reuse of the same email.
   const user = await getUser(ctx.db, email as Email)
   if (!user) {
     throw new Error(`User not found after signup: ${email}`)
@@ -78,6 +79,23 @@ export function createTestIngredient(
 ) {
   return testDb.transaction((tx) =>
     createIngredient(tx, userId, role, { type: 'skincare', ...overrides })
+  )
+}
+
+// Published by default with a fixed instant: a draft is the exception, and the
+// callers that need one pass publishedAt: null. Slug is derived from the title
+// unless overridden, exactly as the route does.
+export function createTestArticle(
+  userId: string,
+  overrides: Partial<CreateArticleInput> & Pick<CreateArticleInput, 'title'>
+) {
+  return testDb.transaction((tx) =>
+    createArticle(tx, userId, {
+      category: 'skincare',
+      content: 'Contenu de test.',
+      publishedAt: '2026-01-01T10:00:00.000Z',
+      ...overrides,
+    })
   )
 }
 

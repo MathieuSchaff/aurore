@@ -14,9 +14,9 @@ import {
 } from '@aurore/shared'
 
 import slugify from '@sindresorhus/slugify'
-import { and, count, eq, inArray, or, type SQL, sql } from 'drizzle-orm'
+import { and, count, desc, eq, inArray, isNotNull, or, type SQL, sql } from 'drizzle-orm'
 
-import type { DB } from '../../db/index'
+import type { Database, DatabaseTransaction, DbOrTransaction } from '../../db/index'
 import { ingredientEdits, ingredients } from '../../db/schema/ingredients/ingredients'
 import { ingredientTagLinks, ingredientTagTypes } from '../../db/schema/tags/tags'
 import {
@@ -59,7 +59,7 @@ const TRACKED_FIELDS = ['name', 'description', 'content', 'type', 'category'] as
 // Mutable copy because drizzle inArray rejects readonly arrays.
 const ALL_FILTER_CATEGORIES = [...ALL_INGREDIENT_FILTER_CATEGORIES]
 
-export async function listIngredients(database: DB, filters: ListIngredientsSearchFilters) {
+export async function listIngredients(database: Database, filters: ListIngredientsSearchFilters) {
   const conditions: SQL[] = []
   const page = filters.page ?? 1
   const limit = filters.limit ?? 20
@@ -109,9 +109,8 @@ export async function listIngredients(database: DB, filters: ListIngredientsSear
   // Mirrors products. Never excludes rows.
   const avoidSlugs = filters.avoid_for ? filters.avoid_for.split(',').filter(Boolean) : []
 
-  // Promise.all is safe here, unlike the product list reads: withRlsContext is mounted but GET
-  // skips requireJwtAuth, so userId is never set and the middleware never opens a transaction.
-  // `database` stays the pool even for an authed caller. Verified against the Postgres log.
+  // Promise.all is safe because the HTTP route deliberately passes anonDb and this
+  // public-read service requires Database rather than DatabaseTransaction.
   const [items, [{ total }]] = await Promise.all([
     database
       .select({
@@ -164,7 +163,7 @@ export async function listIngredients(database: DB, filters: ListIngredientsSear
 }
 
 export async function createIngredient(
-  database: DB,
+  database: DatabaseTransaction,
   userId: string,
   role: CatalogRole,
   input: CreateIngredientInput
@@ -214,7 +213,7 @@ export async function createIngredient(
   }
 }
 
-export async function getIngredientById(database: DB, id: string) {
+export async function getIngredientById(database: DatabaseTransaction, id: string) {
   const [ingredient] = await database
     .select()
     .from(ingredients)
@@ -225,7 +224,7 @@ export async function getIngredientById(database: DB, id: string) {
   return normalizeIngredient(ingredient)
 }
 
-export async function getIngredientBySlug(database: DB, slug: string) {
+export async function getIngredientBySlug(database: DbOrTransaction, slug: string) {
   const [ingredient] = await database
     .select()
     .from(ingredients)
@@ -237,7 +236,7 @@ export async function getIngredientBySlug(database: DB, slug: string) {
 }
 
 export async function updateIngredient(
-  database: DB,
+  database: DatabaseTransaction,
   userId: string,
   id: string,
   data: UpdateIngredientInput,
@@ -280,12 +279,9 @@ export async function updateIngredient(
     .returning()
 
   if (!newIngredient) {
-    // 0-row UPDATE. With an optimistic lock set, the row moved under us (or is now
-    // RLS-locked), so return 409 and the client reloads (the optimistic-lock conflict wins over the 403).
-    // Otherwise getIngredientById above already proved the row is visible, so a
-    // 0-row update means it exists but the caller may not edit it (now verified or
-    // not theirs), so return 403. Never read rowCount (bun-postgres footgun). slug is
-    // immutable and moderation_status isn't patchable here, so no 23505 is reachable.
+    // 0-row UPDATE: with a lock set, the row moved under us, so 409 (client reloads, wins over 403).
+    // Otherwise getIngredientById already proved the row is visible, so 0 rows means the
+    // caller can't edit it, so 403. Never read rowCount (bun-postgres footgun).
     if (expectedUpdatedAt) throw new IngredientError('ingredient_update_conflict')
     throw new IngredientError('unauthorized_access')
   }
@@ -305,7 +301,7 @@ export async function updateIngredient(
 // Stamp an ingredient as verified. Route guard (requireCatalogWrite) limits
 // callers to admin/contributor; only sets the quality stamp. One-way:
 // un-verify is out of scope.
-export async function verifyIngredient(database: DB, actorId: string, id: string) {
+export async function verifyIngredient(database: DatabaseTransaction, actorId: string, id: string) {
   const [row] = await database
     .update(ingredients)
     .set({
@@ -320,7 +316,7 @@ export async function verifyIngredient(database: DB, actorId: string, id: string
 }
 
 export async function deleteIngredient(
-  database: DB,
+  database: DatabaseTransaction,
   role: 'user' | 'admin' | 'contributor',
   id: string
 ) {
@@ -334,7 +330,7 @@ export async function deleteIngredient(
   if (!rows[0]) throw new IngredientError('ingredient_delete_failed')
 }
 
-export async function listIngredientEdits(database: DB, ingredientId: string) {
+export async function listIngredientEdits(database: DbOrTransaction, ingredientId: string) {
   const rows = await database
     .select()
     .from(ingredientEdits)
@@ -343,20 +339,11 @@ export async function listIngredientEdits(database: DB, ingredientId: string) {
   return rows.map(normalizeEdit)
 }
 
-// Fuzzy search aligned with `searchProducts`: accent-folded substring fallback
-// catches short queries below the trigram floor, with similarity for typos.
-export async function searchIngredients(
-  database: DB,
-  query: string,
-  opts: { limit?: number; type?: IngredientType } = {}
-) {
-  const { limit = 10, type } = opts
+function buildIngredientSearch(query: string) {
   const q = query.trim()
-  if (!q) return []
+  if (!q) return null
   const escaped = escapeLike(q)
-  // Explicit rank: similarity alone over-rewards short contains-matches
-  // against long prefix-matches, making the dropdown order feel random.
-  const rank = sql`CASE
+  const rank = sql<number>`CASE
         WHEN search_norm(${ingredients.name}) = search_norm(${q})
           OR search_norm(${ingredients.slug}) = search_norm(${q}) THEN 0
         WHEN search_norm(${ingredients.name}) LIKE search_norm(${escaped}) || '%' ESCAPE '\\'
@@ -365,43 +352,101 @@ export async function searchIngredients(
           OR search_norm(${ingredients.slug}) LIKE '%' || search_norm(${escaped}) || '%' ESCAPE '\\' THEN 2
         ELSE 3
       END`
+  const similarity = sql<number>`GREATEST(
+        similarity(search_norm(${ingredients.name}), search_norm(${q})),
+        similarity(search_norm(${ingredients.slug}), search_norm(${q}))
+      )`
+  const matches = or(
+    sql`search_norm(${ingredients.name}) LIKE '%' || search_norm(${escaped}) || '%' ESCAPE '\\'`,
+    sql`search_norm(${ingredients.slug}) LIKE '%' || search_norm(${escaped}) || '%' ESCAPE '\\'`,
+    sql`search_norm(${ingredients.name}) % search_norm(${q})`,
+    sql`search_norm(${ingredients.slug}) % search_norm(${q})`
+  )
+  return { rank, similarity, matches }
+}
+
+const ingredientSearchColumns = {
+  id: ingredients.id,
+  name: ingredients.name,
+  slug: ingredients.slug,
+  type: ingredients.type,
+  category: ingredients.category,
+  canonicalKey: ingredients.canonicalKey,
+}
+
+// Fuzzy search aligned with `searchProducts`: accent-folded substring fallback
+// catches short queries below the trigram floor, with similarity for typos.
+export async function searchIngredients(
+  database: Database,
+  query: string,
+  opts: { limit?: number; type?: IngredientType } = {}
+) {
+  const { limit = 10, type } = opts
+  const search = buildIngredientSearch(query)
+  if (!search) return []
+
   return database
-    .select({
-      id: ingredients.id,
-      name: ingredients.name,
-      slug: ingredients.slug,
-      type: ingredients.type,
-      category: ingredients.category,
-      // Rule composer autocomplete: a preference can only attach to a keyed
-      // substance (D8); unkeyed rows are dropped server-response-side.
-      canonicalKey: ingredients.canonicalKey,
+    .select(ingredientSearchColumns)
+    .from(ingredients)
+    .where(and(type ? eq(ingredients.type, type) : undefined, search.matches))
+    .orderBy(search.rank, desc(search.similarity), ingredients.name)
+    .limit(limit)
+}
+
+export async function searchIngredientIdentities(
+  database: Database,
+  query: string,
+  opts: { limit?: number; type?: IngredientType } = {}
+) {
+  const { limit = 10, type } = opts
+  const search = buildIngredientSearch(query)
+  if (!search) return []
+
+  // Row-level search must keep aliases; only preference search collapses them.
+  const representatives = database
+    .selectDistinctOn([ingredients.canonicalKey], {
+      ...ingredientSearchColumns,
+      searchRank: search.rank.as('search_rank'),
+      searchSimilarity: search.similarity.as('search_similarity'),
     })
     .from(ingredients)
     .where(
       and(
+        isNotNull(ingredients.canonicalKey),
         type ? eq(ingredients.type, type) : undefined,
-        or(
-          sql`search_norm(${ingredients.name}) LIKE '%' || search_norm(${escaped}) || '%' ESCAPE '\\'`,
-          sql`search_norm(${ingredients.slug}) LIKE '%' || search_norm(${escaped}) || '%' ESCAPE '\\'`,
-          // % is the indexable form of similarity() > threshold (GIN trgm).
-          sql`search_norm(${ingredients.name}) % search_norm(${q})`,
-          sql`search_norm(${ingredients.slug}) % search_norm(${q})`
-        )
+        search.matches
       )
     )
     .orderBy(
-      rank,
-      sql`GREATEST(
-            similarity(search_norm(${ingredients.name}), search_norm(${q})),
-            similarity(search_norm(${ingredients.slug}), search_norm(${q}))
-          ) DESC`,
-      ingredients.name
+      ingredients.canonicalKey,
+      search.rank,
+      desc(search.similarity),
+      ingredients.name,
+      ingredients.slug
+    )
+    .as('ingredient_identity_representatives')
+
+  return database
+    .select({
+      id: representatives.id,
+      name: representatives.name,
+      slug: representatives.slug,
+      type: representatives.type,
+      category: representatives.category,
+      canonicalKey: sql<string>`${representatives.canonicalKey}`,
+    })
+    .from(representatives)
+    .orderBy(
+      representatives.searchRank,
+      desc(representatives.searchSimilarity),
+      representatives.name,
+      representatives.slug
     )
     .limit(limit)
 }
 
 export async function getIngredientFilterOptions(
-  database: DB,
+  database: Database,
   domain?: IngredientType
 ): Promise<IngredientFilterOptions> {
   const ingredientScope = domain ? eq(ingredients.type, domain) : undefined
@@ -436,7 +481,7 @@ export async function getIngredientFilterOptions(
   return { tags }
 }
 
-export async function listAllIngredientOptions(database: DB, type?: IngredientType) {
+export async function listAllIngredientOptions(database: Database, type?: IngredientType) {
   return database
     .select({
       id: ingredients.id,
@@ -450,7 +495,7 @@ export async function listAllIngredientOptions(database: DB, type?: IngredientTy
 
 // Batch lookup used by the async ingredient filter to resolve `name` for
 // chips deep-linked from the URL (a slug list with no labels in cache).
-export async function listIngredientsBySlugs(database: DB, slugs: string[]) {
+export async function listIngredientsBySlugs(database: Database, slugs: string[]) {
   if (slugs.length === 0) return []
   return database
     .select({ slug: ingredients.slug, name: ingredients.name })

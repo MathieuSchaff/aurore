@@ -104,7 +104,7 @@ describe('POST /products/formula-preview', () => {
       expect(niciToken?.ingredient?.id).toBe(inserted.id)
       expect(niciToken?.ingredient?.name).toBe('Niacinamide')
 
-      // Unknown token (Glycerin, no fixture) → canonicalKey may or may not resolve,
+      // Unknown token (Glycerin, no fixture): canonicalKey may or may not resolve,
       // but ingredient must be null since we inserted nothing for it.
       const glycerinToken = tokens.find((t) => normalize(t.raw) === normalize('Glycerin'))
       expect(glycerinToken?.ingredient).toBeNull()
@@ -141,7 +141,7 @@ describe('POST /products/formula-preview', () => {
 
       expect(data.data.autoTagEligible).toBe(true)
       expect(Array.isArray(data.data.suggestedTags)).toBe(true)
-      // Non-empty guard: a serum with this INCI always emits at least the
+      // Guard against an empty list: a serum with this INCI always emits at least the
       // kind-derived tags; an empty array would make the loop below vacuous.
       expect(data.data.suggestedTags.length).toBeGreaterThan(0)
 
@@ -178,7 +178,7 @@ describe('POST /products/formula-preview', () => {
       const pData = await positive.json()
       if (!cData.success || !pData.success) throw new Error('preview failed')
 
-      // Positive control first: same product, plain positioning → suggested.
+      // Positive control first: same product, plain positioning gives suggested.
       expect(pData.data.suggestedTags.map((t) => t.tagSlug)).toContain('eczema-atopie')
       expect(cData.data.suggestedTags.map((t) => t.tagSlug)).not.toContain('eczema-atopie')
     })

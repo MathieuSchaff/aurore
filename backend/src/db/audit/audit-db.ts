@@ -6,7 +6,7 @@ import {
 
 import { and, count, eq, isNull, or, sql } from 'drizzle-orm'
 
-import type { DB } from '..'
+import type { Database } from '..'
 import { db } from '..'
 import {
   ingredientDermoProfiles,
@@ -22,9 +22,9 @@ import {
 type Severity = 'error' | 'info'
 type Finding = { description: string }
 type CheckResult = { name: string; severity: Severity; findings: Finding[] }
-type Checker = (db: DB) => Promise<CheckResult>
+type Checker = (db: Database) => Promise<CheckResult>
 
-async function checkTagProductDomainConsistency(db: DB): Promise<CheckResult> {
+async function checkTagProductDomainConsistency(db: Database): Promise<CheckResult> {
   const rows = await db
     .select({
       productSlug: products.slug,
@@ -60,7 +60,7 @@ async function checkTagProductDomainConsistency(db: DB): Promise<CheckResult> {
 
 // Visible products with no image. Accepted gap (image acquisition is a separate
 // domain), so info-only. Surfaced by brand to spot which brands need a fetch pass.
-async function checkImageCoverage(db: DB): Promise<CheckResult> {
+async function checkImageCoverage(db: Database): Promise<CheckResult> {
   const rows = await db
     .select({ brand: products.brand, n: count() })
     .from(products)
@@ -87,7 +87,7 @@ async function checkImageCoverage(db: DB): Promise<CheckResult> {
 // (a real INCI list that still resolved to nothing) is not drowned by the legitimate
 // long tail: supplements/accessories carry no INCI, and a comma-less blob is a
 // nutrition table, a material blurb, or scraper-lost separators (P3), never a linking gap.
-async function checkProductsWithoutIngredients(db: DB): Promise<CheckResult> {
+async function checkProductsWithoutIngredients(db: Database): Promise<CheckResult> {
   const rows = await db
     .select({ slug: products.slug, brand: products.brand, inci: products.inci })
     .from(products)
@@ -118,7 +118,7 @@ async function checkProductsWithoutIngredients(db: DB): Promise<CheckResult> {
 }
 
 // Visible products with zero tag links (invisible to the catalogue filters).
-async function checkProductsWithoutTags(db: DB): Promise<CheckResult> {
+async function checkProductsWithoutTags(db: Database): Promise<CheckResult> {
   const rows = await db
     .select({ slug: products.slug, brand: products.brand })
     .from(products)
@@ -133,7 +133,7 @@ async function checkProductsWithoutTags(db: DB): Promise<CheckResult> {
 // comes from algo-derm at runtime, not this table. The only consumer reads `is_filler`
 // (user-products/dermo-signal), and a missing row defaults to non-filler. So this is a
 // filler-classification coverage gap, not a scoring blind spot.
-async function checkIngredientsWithoutDermoProfile(db: DB): Promise<CheckResult> {
+async function checkIngredientsWithoutDermoProfile(db: Database): Promise<CheckResult> {
   const rows = await db
     .select({ slug: ingredients.slug })
     .from(ingredients)

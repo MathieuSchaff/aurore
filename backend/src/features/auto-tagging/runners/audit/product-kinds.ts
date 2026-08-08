@@ -1,13 +1,5 @@
 // Detect products where kind doesn't match name signal (e.g., "Baume Yeux" kind=moisturizer).
-// Upstream kind bugs propagate as FPs to texture, kind-tag, and formula detectors.
-//
-// Read-only. Confidence tiers (certain/likely) rank signal strength for human review;
-// the former --write mode was removed after ~31 confirmed FPs in the "certain" tier.
-// Apply reviewed fixes via `.db-fixes/` SQL (`just db-fix`).
-//
-// Usage:
-//   bun run .../product-kinds.ts            # full corpus
-//   bun run .../product-kinds.ts --slug s   # single product
+// Upstream kind bugs propagate as FPs to texture, kind-tag, and formula detectors. Read-only.
 
 import { PRODUCT_KINDS, type ProductCategory, type ProductKind } from '@aurore/shared'
 
@@ -23,6 +15,7 @@ if (WRITE) {
   process.exit(1)
 }
 
+// Confidence tiers rank signal strength for human review.
 type Confidence = 'certain' | 'likely'
 
 interface KindRule {
@@ -35,7 +28,7 @@ interface KindRule {
   why: string
 }
 
-// PRODUCT_KINDS is grouped by category; reverse to kind → category.
+// PRODUCT_KINDS is grouped by category; this builds the reverse, kind to category.
 const KIND_TO_CATEGORY: Record<ProductKind, ProductCategory> = (() => {
   const map = {} as Record<ProductKind, ProductCategory>
   for (const [cat, kinds] of Object.entries(PRODUCT_KINDS)) {
@@ -204,7 +197,7 @@ const RULES: KindRule[] = [
   {
     name: 'body-lotion',
     match: /\bcorps\b|\bbody\b/i,
-    // " + " catches multi-product gift sets.
+    // " + " catches gift sets that bundle several products.
     forbidden:
       /\bdouche|\bshower|\bgommage|\bscrub|\bhuile|\boil\b|\bcheveux|\bhair\b|\bwash\b|\blavant|\bnettoyant|\bcleanser|\bcleansing|\bsavon\b|\bsoap\b|\bpain\b|\blingettes?\b|\bwipes?\b|\bmist\b|\bbrume\b|\bspf\d|\bsolaire\b|\bsunscreen\b|\bautobronzant|\bself[-\s]?tan|\bapr[eéè]s[-\s]?soleil|\bafter[-\s]?sun|\bmasque\b|\bmask\b|\bs[eé]rum\b|\sserum\b|\s\+\s|\bm[eé]nopause\b/i,
     expected: 'body-lotion',
@@ -234,7 +227,7 @@ const RULES: KindRule[] = [
     forbidden:
       /\bcorps\b|\bbody\b|\bcheveux\b|\bcapi[ll]?aire\b|\bcuir\s+chevelu\b|\bscalp\b|\bshampo+ing?\b|\bshampoo\b|\bdouche\b|\bshower\b|\bl[èe]vres?\b|\blip\b|\byeux\b|\beye\b|\bmains?\b|\bhand\b|\bpieds?\b|\bfoot\b|\bp[eé]eling\b|\bmousse\s+cr[eé]pitante|\bautobronzant|\bapr[eèé]s[-\s]?soleil|\bafter[-\s]?sun|\bspf\d|\bsolaire\b|\bsunscreen\b/i,
     expected: 'cleanser',
-    // A cleansing oil rinses off → cleanser (matches the ingest reconciler, which
+    // A cleansing oil rinses off, so it counts as cleanser (matches the ingest reconciler, which
     // flips kind=oil cleansing names). Cleansing balms keep their kind (dual-use,
     // admin's call); exfoliants/masks/patches too.
     okIfKindIn: new Set<ProductKind>([

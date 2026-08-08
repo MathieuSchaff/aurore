@@ -41,6 +41,7 @@ describe('login', () => {
     const creds = await createTestToto()
 
     const result = await login(createCtx(), creds.email, creds.password)
+    expect(result.success).toBe(true)
     if (!result.success) return
 
     const payload = await verifyAccessToken(result.data.accessToken, JWT_SECRET)
@@ -54,6 +55,7 @@ describe('login', () => {
     const creds = await createTestToto()
 
     const result = await login(createCtx(), creds.email, creds.password)
+    expect(result.success).toBe(true)
     if (!result.success) return
 
     const refreshPayload = await verifyRefreshToken(result.data.refreshToken, REFRESH_SECRET)
@@ -70,6 +72,7 @@ describe('login', () => {
     const creds = await createTestToto()
 
     const result = await login(createCtx(), creds.email, creds.password)
+    expect(result.success).toBe(true)
     if (!result.success) return
 
     const refreshPayload = await verifyRefreshToken(result.data.refreshToken, REFRESH_SECRET)
@@ -211,8 +214,10 @@ describe('login', () => {
     if (!result.success) return
 
     const refreshPayload = await verifyRefreshToken(result.data.refreshToken, REFRESH_SECRET)
+    expect(refreshPayload).not.toBeNull()
     if (!refreshPayload) return
     const stored = await findValidRefreshToken(testDb, refreshPayload.jti)
+    expect(stored).not.toBeNull()
     if (!stored) return
     expect(stored.ip).toBe('192.168.1.1')
     expect(stored.userAgent).toBe('TestBrowser/1.0')
@@ -227,8 +232,10 @@ describe('login', () => {
     if (!result.success) return
 
     const refreshPayload = await verifyRefreshToken(result.data.refreshToken, REFRESH_SECRET)
+    expect(refreshPayload).not.toBeNull()
     if (!refreshPayload) return
     const stored = await findValidRefreshToken(testDb, refreshPayload.jti)
+    expect(stored).not.toBeNull()
     if (!stored) return
     expect(stored.ip).toBeNull()
     expect(stored.userAgent).toBeNull()
@@ -240,6 +247,7 @@ describe('login', () => {
     const result1 = await login(createCtx(), creds.email, creds.password)
     const result2 = await login(createCtx(), creds.email, creds.password)
 
+    expect(result1.success && result2.success).toBe(true)
     if (!result1.success || !result2.success) return
     expect(result1.data.accessToken).not.toBe(result2.data.accessToken)
     expect(result1.data.refreshToken).not.toBe(result2.data.refreshToken)
@@ -251,6 +259,7 @@ describe('login', () => {
     const result1 = await login(createCtx(), creds.email, creds.password)
     const result2 = await login(createCtx(), creds.email, creds.password)
 
+    expect(result1.success && result2.success).toBe(true)
     if (!result1.success || !result2.success) return
     expect(result1.data.user.id).toBe(result2.data.user.id)
   })
@@ -259,6 +268,7 @@ describe('login', () => {
     const creds = await createTestToto()
 
     const result = await login(createCtx(), creds.email, creds.password)
+    expect(result.success).toBe(true)
     if (!result.success) return
 
     const user = result.data.user as Record<string, unknown>
@@ -348,7 +358,7 @@ describe('login lockout', () => {
 
     const sixth = await login(createCtx(), creds.email, TEST_CREDENTIALS.invalide.mauvaisMotDePasse)
     expect(sixth.success).toBe(false)
-    // Lockout no longer surfaces a distinct code (anti-enumeration); assert the DB state instead.
+    // Lockout no longer surfaces a distinct code, which would let accounts be enumerated; assert the DB state instead.
     if (!sixth.success) expect(sixth.error).toBe('invalid_credentials')
 
     const { users: usersTable } = await import('../../../db/schema')

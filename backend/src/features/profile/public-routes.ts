@@ -1,9 +1,10 @@
 import { err, HTTP_STATUS, ok, USERNAME_MAX_LENGTH } from '@aurore/shared'
 
-import { Hono } from 'hono'
+import { type Context, Hono } from 'hono'
 import { z } from 'zod'
 
 import type { AppEnv } from '../../app-env'
+import { getRlsDb } from '../../utils/accessors'
 import { zValidator } from '../../utils/validator'
 import { optionalJwtAuth } from '../auth/middleware'
 import { withRlsContext } from '../auth/rls-context.middleware'
@@ -17,6 +18,10 @@ const usernameParam = z.object({
 
 const app = new Hono<AppEnv>()
 
+function getProfileReadDb(c: Context<AppEnv>) {
+  return c.get('userId') ? getRlsDb(c) : c.get('anonDb')
+}
+
 // Anonymous reads allowed; optionalJwtAuth populates identity when present so
 // withRlsContext can bind app_runtime for logged-in callers (defense-in-depth
 // the service projection is the primary gate).
@@ -25,23 +30,23 @@ app.use('*', withRlsContext)
 
 export const publicProfileRoutes = app
   .get('/:username/public', zValidator('param', usernameParam), async (c) => {
-    const db = c.get('db')
+    const db = getProfileReadDb(c)
     const { username } = c.req.valid('param')
     const view = await getPublicProfileByUsername(db, username)
     if (!view) return c.json(err('not_found'), HTTP_STATUS.NOT_FOUND)
     return c.json(ok(view), HTTP_STATUS.OK)
   })
-  // Unknown/non-public users collapse to an empty list, same shape as a public
-  // user with no reviews.
+  // Users that are unknown or not public collapse to an empty list, same shape
+  // as a public user with no reviews.
   .get('/:username/reviews', zValidator('param', usernameParam), async (c) => {
-    const db = c.get('db')
+    const db = getProfileReadDb(c)
     const { username } = c.req.valid('param')
     const reviews = await listPublicReviewsByUser(db, username)
     return c.json(ok(reviews), HTTP_STATUS.OK)
   })
-  // Same master gate as the reviews trail: unknown/non-public users collapse to [].
+  // Same master gate as the reviews trail: unknown or not public collapses to [].
   .get('/:username/posts', zValidator('param', usernameParam), async (c) => {
-    const db = c.get('db')
+    const db = getProfileReadDb(c)
     const { username } = c.req.valid('param')
     const posts = await listPostsByAuthor(db, username)
     return c.json(ok(posts), HTTP_STATUS.OK)

@@ -4,17 +4,10 @@ import { SKINCARE_PRODUCT_TAG_SLUGS } from './skincare/tag-slugs'
 const S = SKINCARE_PRODUCT_TAG_SLUGS
 
 // User concern slugs (SKIN_CONCERNS) and product tag concern slugs evolved
-// in parallel and don't share vocab. This table is the *only* place the
-// drift is documented — every other layer (backend listProducts avoid_for,
-// frontend profile filter) goes through `resolveAvoidSlugs`.
-//
-// Some user concerns are clinically distinct but the product taxonomy only
-// has a generic tag (e.g. rosacee/couperose/flushs all → rougeurs-vasculaires).
-// That's intentional: the product tag *is* generic — splitting it would force
-// arbitrary retagging without clinical data per product.
-//
-// `microbiome` previously lived in SKIN_CONCERNS but had no product tag
-// counterpart (no avoid data, no positive data). Removed from the enum.
+// separately and don't share vocab. This table is the only place the drift
+// is documented; every other layer goes through `resolveAvoidSlugs`. Some
+// user concerns (rosacee/couperose/flushs) share one generic product tag on
+// purpose, to avoid retagging without per-product clinical data.
 export const USER_CONCERN_TO_PRODUCT_TAGS: Record<SkinConcern, readonly string[]> = {
   // identities — user slug = product slug
   'barriere-cutanee': [S.BARRIERE_CUTANEE],
@@ -23,7 +16,7 @@ export const USER_CONCERN_TO_PRODUCT_TAGS: Record<SkinConcern, readonly string[]
   deshydratation: [S.DESHYDRATATION],
   hyperpigmentation: [S.HYPERPIGMENTATION],
   'keratose-pilaire': [S.KERATOSE_PILAIRE],
-  // 1→1 renames (user lay term → product clinical term)
+  // 1:1 renames from user lay term to product clinical term
   'anti-acne': [S.ACNE_IMPERFECTIONS],
   'anti-taches': [S.HYPERPIGMENTATION],
   cicatrisation: [S.REPARATION],

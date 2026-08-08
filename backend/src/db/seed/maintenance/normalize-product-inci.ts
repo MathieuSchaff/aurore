@@ -1,22 +1,13 @@
 #!/usr/bin/env bun
 
-/**
- * normalize-product-inci.ts — rewrite products.inci to its governed canonical
- * form (algo-derm cleanInci → canonical), so the same substance reads
- * identically across the catalogue. Shares normalizeInci with the create/update
- * write path, so backfill and live writes can never drift.
- *
- * Guardrail (see normalizeInci): keep the original when cleaning halves the
- * token count. Unknown tokens (FR / exotic) pass through unchanged.
- *
- * Scoped to skincare-eligible categories: non-skincare rows (supplements,
- * dental, fibres) carry usage prose in `inci`, not ingredients — normalizing
- * them fabricates plausible-looking INCI from garbage.
- *
- * Usage:
- *   bun run src/db/seed/maintenance/normalize-product-inci.ts          # dry-run
- *   bun run src/db/seed/maintenance/normalize-product-inci.ts --write  # apply
- */
+// Rewrites products.inci to its governed canonical form (algo-derm cleanInci,
+// then canonical), so the same substance reads identically across the catalogue.
+// Shares normalizeInci with the create/update write path, so backfill and live
+// writes can never drift.
+
+// Usage:
+//   bun run src/db/seed/maintenance/normalize-product-inci.ts          # dry-run
+//   bun run src/db/seed/maintenance/normalize-product-inci.ts --write  # apply
 
 import type { ProductCategory } from '@aurore/shared'
 
@@ -29,6 +20,9 @@ import { products } from '../../schema/products'
 
 const WRITE = process.argv.includes('--write')
 
+// Scoped to skincare-eligible categories: rows outside skincare (supplements, dental,
+// fibres) carry usage prose in `inci`, not ingredients, so normalizing them would
+// fabricate plausible-looking INCI from garbage.
 // Mirrors AUTO_TAG_ELIGIBLE_CATEGORIES (auto-tagging/orchestrator); kept local to
 // avoid pulling the tagging engine into a seed script.
 const NORMALIZE_CATEGORIES: ProductCategory[] = ['skincare', 'solaire', 'bodycare']
@@ -46,6 +40,8 @@ async function main() {
   for (const r of rows) {
     if (!r.inci) continue
     const result = normalizeInci(r.inci)
+    // Guardrail (see normalizeInci): keep the original when cleaning halves the
+    // token count. Unknown tokens (FR / exotic) pass through unchanged.
     if (result.guardrailTripped) {
       skippedGuardrail++
       if (guardrailDrops.length < 6)

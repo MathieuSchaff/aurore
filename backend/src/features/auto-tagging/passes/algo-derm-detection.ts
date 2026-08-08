@@ -1,17 +1,8 @@
 // INCI-derived auto-tag detection for skincare products via algo-derm.
-//
-// Single source of truth for the per-tag policy. Consumed by `algoDermPass`
-// (orchestrator pass 1) and directly by the pass-1 audits
-// (`runners/audit/stats.ts`, `runners/audit/gold-set.ts`).
-//
-// `tagProduct` from algo-derm emits its candidate tags; `TAG_CONFIG` below
-// decides which are kept (the version guard pins the calibration, count the
-// `allow: true` entries there, not here). Dropped candidates: fire on too much
-// of the corpus (`sans-savon`), are re-emitted with chemistry-aware or
-// positioning gating by a formula pass (`matifiant`, `repulpant`,
-// `eczema-atopie`, the R5 concern gates, `sebo-regulateur`), are redundant
-// with the actif-class clusters (`keratolytique` → AHA/BHA/PHA/urea/enzymes),
-// or are false precision on a claim INCI can't verify (`vegan` → brand-cert only).
+// Single source of truth for the per-tag policy, consumed by `algoDermPass` (orchestrator
+// pass 1) and the pass-1 audits (`runners/audit/stats.ts`, `runners/audit/gold-set.ts`).
+// `tagProduct` emits candidate tags; `TAG_CONFIG` below decides which are kept, drop
+// reason documented next to each tag.
 
 import type { ProductKind } from '@aurore/shared'
 import { SKINCARE_PRODUCT_TAG_SLUGS, type SkincareProductTagSlug } from '@aurore/shared'
@@ -41,17 +32,8 @@ if (TAG_DEFS_VERSION !== CALIBRATED_FOR_TAG_DEFS_VERSION) {
   )
 }
 
-// Per-tag gating policy. Two independent floors:
-//
-// - `coverageFloor`: minimum `assessment.coverage.ratio`. For absence tags,
-//   this is the only gate (algo-derm sets confidence = min(coverage, 0.95)).
-//   For computed tags, stacks on top of `confidenceFloor` and overrides the
-//   global COMPUTED_COVERAGE_FLOOR when set.
-// - `confidenceFloor`: minimum `candidate.confidence`. Only meaningful for
-//   computed_score; absence tags have confidence ≡ coverage by construction.
-//
-// This split replaces the legacy `minConf` field whose semantics silently
-// changed per source (absence: coverage floor; computed: confidence floor).
+// Per-tag gating policy: two independent floors (coverageFloor, confidenceFloor below).
+// Replaces the legacy `minConf` field, whose meaning silently changed per source.
 export type TagRule = {
   // Absent only for allow:false entries with no Aurore counterpart (e.g. `keratolytique`).
   auroreSlug?: SkincareProductTagSlug
@@ -66,7 +48,11 @@ export type TagRule = {
   // only discriminate where the excluded class is used (sans-sulfates: washing
   // sulfates occur in wash products, so the absence is non-informative on leave-on).
   rinseOffOnly?: boolean
+  // Minimum `assessment.coverage.ratio`. For absence tags it's the only gate
+  // (confidence = min(coverage, 0.95)); for computed tags it stacks on top of
+  // confidenceFloor and overrides the global COMPUTED_COVERAGE_FLOOR when set.
   coverageFloor?: number
+  // Minimum `candidate.confidence`, meaningful only for computed_score.
   confidenceFloor?: number
   // Post-floor predicate for assessment-derived disqualifiers that don't fit
   // numeric gates (e.g. declarationOnlyRisk: Annex III trace allergens
@@ -84,10 +70,11 @@ export type TagRule = {
 // structurally noisy tags; allow @ 0.85 + excludeRinseOff for comedogenicity;
 // matifiant dropped despite small set size (semantic mismatch).
 export const TAG_CONFIG: Readonly<Record<string, TagRule>> = {
-  // peaux_atopiques / repulpant / matifiant are intentionally unmapped here:
-  // algo-derm fires them on 22-78 % of corpus; formula detectors in passes/formula/
-  // gate on chemistry-aware co-presence. Unmapped candidates are dropped: expected,
-  // not drift. Boundary rule (map vs re-emit): ADR 0004.
+  // peaux_atopiques / repulpant / matifiant are intentionally unmapped: algo-derm fires
+  // them on 22-78 % of corpus; formula detectors in passes/formula/ gate on chemistry-aware
+  // co-presence instead. Unmapped candidates are dropped by design, not drift
+  // (ADR-0004 draws the map-vs-re-emit boundary).
+
   // Concerns (computed_score)
   // algo-derm fires on sebum/exfoliating actives regardless of positioning.
   // Re-emitted by the formula name pass, which requires acne/blemish wording.
@@ -188,16 +175,13 @@ export const TAG_CONFIG: Readonly<Record<string, TagRule>> = {
     // the upstream threshold ever loosens past 0.33.
     skipIf: (a) => a.declarationOnlyRisk,
   },
-  // Fires on irritation.risk < 0.35. Mirrors hypoallergenique floors.
-  // No skipIf: declarationOnlyRisk is allergenicity-specific (Annex III traces)
-  // and has no irritation-axis equivalent in algo-derm.
-  //
-  // requiresAbsence: algo-derm grades Parfum irritation 3/5, but weights it by
-  // rank, so fragrance sitting late in a long INCI scores near zero —
-  // `Aqua, Glycerin, Cetearyl Alcohol, Parfum, Limonene, Linalool` fired at
-  // confidence 0.95. Aurore does not carry a non-irritant claim on a perfumed
-  // formula whatever the axis says, and fragrance reaches an INCI three ways:
-  // the Parfum token, the 26 separately declared allergens, or essential oils.
+  // Fires on irritation.risk < 0.35, mirrors hypoallergenique floors. No skipIf:
+  // declarationOnlyRisk is allergenicity-specific, no irritation-axis equivalent.
+
+  // requiresAbsence: algo-derm weights Parfum irritation by rank, so fragrance late in
+  // a long INCI scores near zero (a formula with `Parfum, Limonene, Linalool` at the tail
+  // fired at confidence 0.95). Aurore never claims non-irritant on a perfumed formula,
+  // regardless of axis score.
   'non-irritant': {
     auroreSlug: S.NON_IRRITANT,
     confidenceFloor: 0.85,

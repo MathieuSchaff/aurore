@@ -1,15 +1,12 @@
 #!/usr/bin/env bun
 
-/**
- * fix-tag-domain-consistency.ts — Delete tag_products rows where the tag's
- * tagType is invalid for the product's domain (e.g. skin_type on a haircare
- * product). Root cause: multi-domain migration April 2026 left skincare tagType
- * slugs assigned to haircare products.
- *
- * Usage:
- *   bun run src/db/seed/maintenance/fix-tag-domain-consistency.ts            # dry-run
- *   bun run src/db/seed/maintenance/fix-tag-domain-consistency.ts --write    # apply
- */
+// Deletes tag_products rows where the tag's tagType is invalid for the product's
+// domain (e.g. skin_type on a haircare product). Root cause: the April 2026
+// migration to multiple domains left skincare tagType slugs assigned to haircare products.
+
+// Usage:
+//   bun run src/db/seed/maintenance/fix-tag-domain-consistency.ts            # dry-run
+//   bun run src/db/seed/maintenance/fix-tag-domain-consistency.ts --write    # apply
 
 import {
   DOMAIN_NEUTRAL_PRODUCT_TAG_TYPES,
@@ -69,7 +66,7 @@ async function main() {
     return
   }
 
-  // Delete in batches — each row is uniquely identified by (productTagId, productId).
+  // Delete in batches, each row is uniquely identified by (productTagId, productId).
   // One admin tx so RLS accepts the DELETEs on the app_runtime connection.
   let deleted = 0
   await withAdminRls(async (tx) => {

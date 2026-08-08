@@ -129,13 +129,10 @@ function ProdSpfIcon({ size = 24 }: { size?: number }) {
   )
 }
 
-// Specific unit shapes only - generic containers (bottle, stick, bar, pack,
-// sachet, cartridge) fall through to the kind map so the icon reflects what
-// the product *is*, not just its outer container.
-// Render functions, not component refs: a dynamic JSX element type
-// (`const Icon = …; <Icon />`) bails the whole component out of the
-// React Compiler. Returning ReactNode from a static-typed map keeps it
-// optimizable.
+// Specific unit shapes only: generic containers (bottle, stick, bar, pack,
+// sachet, cartridge) fall through to the kind map so the icon reflects the product itself.
+// Render functions, not component refs: a dynamic JSX element type (`const Icon = …; <Icon />`)
+// bails the whole component out of the React Compiler.
 type IconRender = (size: number) => React.ReactNode
 
 const UNIT_TO_ICON: Record<string, IconRender> = {
@@ -215,7 +212,7 @@ const KIND_FALLBACK: Record<string, IconRender> = {
   vitamine: (size) => <Sun size={size} />,
 }
 
-// priority: specific unit shape → kind archetype → Package
+// priority order: specific unit shape, then kind archetype, then Package
 function getProductIcon(unit: string | null | undefined, kind: string): IconRender {
   const normalizedUnit = unit?.toLowerCase().trim()
   if (normalizedUnit && UNIT_TO_ICON[normalizedUnit]) {

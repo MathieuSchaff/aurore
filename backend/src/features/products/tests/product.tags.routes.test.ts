@@ -10,7 +10,7 @@ import {
   type TestClient,
   withAuth,
 } from '../../../tests/helpers/createTestClient'
-import { expectOk, expectStatus } from '../../../tests/helpers/expectStatus'
+import { expectError, expectOk, expectStatus } from '../../../tests/helpers/expectStatus'
 import { SKINCARE } from '../../../tests/helpers/product-shapes'
 import {
   setupAndLoginAdmin,
@@ -18,7 +18,6 @@ import {
 } from '../../../tests/helpers/route-test-helpers'
 import { TEST_CREDENTIALS } from '../../../tests/helpers/test-credentials'
 
-type ApiErrorBody = { success: false; error: string; details?: unknown }
 const VALID_PRODUCT = { name: 'Sérum Vitamine C', brand: 'The Inkey List', ...SKINCARE } as const
 
 async function createProduct(
@@ -285,14 +284,12 @@ describe('Product Tags Routes', () => {
         withAuth(contributorToken)
       )
 
-      expectStatus(res, HTTP_STATUS.BAD_REQUEST)
-      const body = (await res.json()) as unknown as ApiErrorBody & {
-        details: { domain: string; invalidTags: Array<{ slug: string; tagType: string }> }
-      }
-      expect(body.success).toBe(false)
-      expect(body.error).toBe('tag_domain_mismatch')
-      expect(body.details.domain).toBe('skincare')
-      expect(body.details.invalidTags).toEqual([{ slug: 'cheveux-boucles', tagType: 'hair_type' }])
+      const body = await expectError<{
+        domain: string
+        invalidTags: Array<{ slug: string; tagType: string }>
+      }>(res, HTTP_STATUS.BAD_REQUEST, 'tag_domain_mismatch')
+      expect(body.details?.domain).toBe('skincare')
+      expect(body.details?.invalidTags).toEqual([{ slug: 'cheveux-boucles', tagType: 'hair_type' }])
     })
 
     it('should reject the whole batch when one tag mismatches and preserve existing links', async () => {

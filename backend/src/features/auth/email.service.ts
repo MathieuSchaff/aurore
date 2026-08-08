@@ -5,7 +5,7 @@ import { logger } from '../../lib/logger'
 
 function brevoErrorMeta(e: unknown): { errName: string; statusCode?: number } {
   if (e instanceof BrevoError) {
-    return { errName: e.name, statusCode: e.statusCode } // e typé → e.statusCode OK
+    return { errName: e.name, statusCode: e.statusCode } // narrowed to BrevoError, so statusCode exists
   }
   return { errName: e instanceof Error ? e.name : 'UnknownError' }
 }

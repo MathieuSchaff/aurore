@@ -7,7 +7,7 @@ import {
 
 import { and, desc, eq, inArray } from 'drizzle-orm'
 
-import type { DB } from '../../db'
+import type { DatabaseTransaction } from '../../db'
 import { profiles } from '../../db/schema/auth/users'
 import { ingredients } from '../../db/schema/ingredients/ingredients'
 import { products } from '../../db/schema/products/products'
@@ -16,7 +16,7 @@ import { surfaceColumns, toSurfaceView } from './posts.service'
 import { rankSimilarProfiles } from './service'
 
 // A bounded recent window: the feed reads the newest visible posts from the
-// cohort, then (for similarity order) re-groups them by closeness. Caps the
+// cohort, then (for similarity order) groups them by closeness. Caps the
 // query regardless of order so a prolific cohort can't unbound the response.
 const FEED_CAP = 60
 
@@ -25,7 +25,7 @@ const FEED_CAP = 60
 // Filtered by tone (one at a time) and optional concern (bucket-expanded), ordered
 // by recency or similarity, never by reactions.
 export async function feed(
-  db: DB,
+  db: DatabaseTransaction,
   viewerUserId: string,
   { tone, concern, order }: FeedQuery
 ): Promise<SocialFeedResponse> {
@@ -45,7 +45,7 @@ export async function feed(
     ),
     eq(socialPosts.tone, tone),
     // profilePublic mirrors the cohort's master gate so the feed SQL upholds it even
-    // though inArray already bounds rows to the (public) cohort — defense-in-depth.
+    // though inArray already bounds rows to the (public) cohort, defense-in-depth.
     eq(profiles.profilePublic, true),
     eq(profiles.forcedPrivateByAdmin, false),
   ]

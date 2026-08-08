@@ -1,19 +1,8 @@
-// Supplement Product Tag definitions — single source of truth.
-// One {key, slug, label, category} per tag; the legacy *_TAG_SLUGS object and
-// the taxonomy (tag-taxonomy.ts) are derived from this array.
-//
-// goal / restriction: slugs aligned with SUPPLEMENT_INGREDIENT_TAG_SLUGS when
-// applicable (independent DB rows for ingredient vs product). A few new
-// product-only slugs: `peau-cheveux-ongles`, `stress-anxiete`,
-// `recuperation-musculaire`, `autour-sport`, `interaction-thyroide`.
-//
-// `matin-supplement` / `soir-supplement`: suffixed to avoid a DB collision
-// with the skincare slugs (routine_step.matin, routine_step.soir) — same
-// reason as haircare `brillance-cheveux` / `hydratation-cheveux`.
-//
-// product_type: reuses the 5 slugs historically placed in
-// SKINCARE_PRODUCT_TAG_SLUGS (gelule, capsule, poudre, sirop, gummy) and adds
-// 4 new ones (comprime, ampoule-buvable, huile-orale, spray-sublingual).
+// Single source of truth: legacy *_TAG_SLUGS and the taxonomy (tag-taxonomy.ts)
+// are derived from this array. goal / restriction stay aligned with
+// SUPPLEMENT_INGREDIENT_TAG_SLUGS where applicable, plus a few product-only slugs.
+// `matin-supplement` / `soir-supplement` are suffixed to avoid colliding with
+// the skincare routine_step slugs, same reason as haircare's `brillance-cheveux`.
 
 import { deriveTagSlugs, type ProductTagDef } from '../../tag-taxonomy-builder'
 
@@ -53,7 +42,7 @@ export const SUPPLEMENT_PRODUCT_TAG_DEFS = [
   // Moment
   // Suffixed `MATIN_SUPPLEMENT` / `SOIR_SUPPLEMENT` keep distinct DB slug
   // values vs `SUPPLEMENT_INGREDIENT_TAG_SLUGS.MATIN` (same display, distinct
-  // row — same pattern as haircare `brillance-cheveux`).
+  // row, same pattern as haircare `brillance-cheveux`).
   { key: 'MATIN_SUPPLEMENT', slug: 'matin-supplement', label: 'Matin', category: 'moment' },
   { key: 'SOIR_SUPPLEMENT', slug: 'soir-supplement', label: 'Soir', category: 'moment' },
   { key: 'AVEC_REPAS', slug: 'avec-repas', label: 'Avec repas', category: 'moment' },

@@ -40,6 +40,7 @@ describe('Sessions multiples (multi-appareils)', () => {
     const p1 = await verifyRefreshToken(login1.data.refreshToken, REFRESH_SECRET)
     const p2 = await verifyRefreshToken(login2.data.refreshToken, REFRESH_SECRET)
     const p3 = await verifyRefreshToken(login3.data.refreshToken, REFRESH_SECRET)
+    expect(Boolean(p1 && p2 && p3)).toBe(true)
     if (!p1 || !p2 || !p3) return
 
     const s1 = await findValidRefreshToken(testDb, p1.jti)
@@ -82,12 +83,12 @@ describe('Sessions multiples (multi-appareils)', () => {
     const p2 = await verifyRefreshToken(login2.data.refreshToken, REFRESH_SECRET)
     const p3 = await verifyRefreshToken(login3.data.refreshToken, REFRESH_SECRET)
 
-    if (p1) {
-      const s1 = await findValidRefreshToken(testDb, p1.jti)
-      expect(s1).toBeNull()
-    }
+    expect(Boolean(p1 && p2 && p3)).toBe(true)
+    if (!p1 || !p2 || !p3) return
 
-    if (!p2 || !p3) return
+    const s1 = await findValidRefreshToken(testDb, p1.jti)
+    expect(s1).toBeNull()
+
     const s2 = await findValidRefreshToken(testDb, p2.jti)
     const s3 = await findValidRefreshToken(testDb, p3.jti)
     expect(s2).not.toBeNull()
@@ -117,6 +118,7 @@ describe('Sessions multiples (multi-appareils)', () => {
 
     const p1 = await verifyRefreshToken(login1.data.refreshToken, REFRESH_SECRET)
     const p2 = await verifyRefreshToken(login2.data.refreshToken, REFRESH_SECRET)
+    expect(Boolean(p1 && p2)).toBe(true)
     if (!p1 || !p2) return
 
     const s1 = await findValidRefreshToken(testDb, p1.jti)
@@ -142,6 +144,7 @@ describe('Sessions multiples (multi-appareils)', () => {
     await revokeAllUserRefreshTokens(testDb, loginToto.data.user.id)
 
     const pAlice = await verifyRefreshToken(loginAlice.data.refreshToken, REFRESH_SECRET)
+    expect(pAlice).not.toBeNull()
     if (!pAlice) return
     const sAlice = await findValidRefreshToken(testDb, pAlice.jti)
     expect(sAlice).not.toBeNull()
@@ -171,6 +174,7 @@ describe('Sessions multiples (multi-appareils)', () => {
     await logout(createCtx(), loginToto.data.refreshToken)
 
     const pAlice = await verifyRefreshToken(loginAlice.data.refreshToken, REFRESH_SECRET)
+    expect(pAlice).not.toBeNull()
     if (!pAlice) return
     const sAlice = await findValidRefreshToken(testDb, pAlice.jti)
     expect(sAlice).not.toBeNull()
@@ -181,6 +185,7 @@ describe('Sessions multiples (multi-appareils)', () => {
     await createTestUser(creds.rawEmail, creds.rawPassword)
 
     const loginResult = await login(createCtx(), creds.email, creds.password)
+    expect(loginResult.success).toBe(true)
     if (!loginResult.success) return
 
     await revokeAllUserRefreshTokens(testDb, loginResult.data.user.id)
@@ -190,6 +195,7 @@ describe('Sessions multiples (multi-appareils)', () => {
     if (!reloginResult.success) return
 
     const p = await verifyRefreshToken(reloginResult.data.refreshToken, REFRESH_SECRET)
+    expect(p).not.toBeNull()
     if (!p) return
     const stored = await findValidRefreshToken(testDb, p.jti)
     expect(stored).not.toBeNull()
@@ -217,8 +223,10 @@ describe('Sessions multiples (multi-appareils)', () => {
       if (!result.success) continue
 
       const payload = await verifyRefreshToken(result.data.refreshToken, REFRESH_SECRET)
+      expect(payload).not.toBeNull()
       if (!payload) continue
       const stored = await findValidRefreshToken(testDb, payload.jti)
+      expect(stored).not.toBeNull()
       if (!stored) continue
 
       expect(stored.ip).toBe(appareil.ip)

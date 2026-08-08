@@ -9,6 +9,7 @@ import {
   type TestApp,
   type TestClient,
 } from '../../../tests/helpers/createTestClient'
+import { expectError } from '../../../tests/helpers/expectStatus'
 import { unsafeEmail } from '../../../tests/helpers/unsafe'
 
 setupDbTests()
@@ -71,10 +72,7 @@ describe('Auth Routes > POST /auth/change-password', () => {
       { headers: { Authorization: `Bearer ${userToken}` } }
     )
 
-    expect(res.status).toBe(HTTP_STATUS.UNAUTHORIZED)
-    const data = await res.json()
-    expect(data.success).toBe(false)
-    if (!data.success) expect(data.error).toBe('invalid_credentials')
+    await expectError(res, HTTP_STATUS.UNAUTHORIZED, 'invalid_credentials')
   })
 
   it('should reject weak new password', async () => {
@@ -107,10 +105,7 @@ describe('Auth Routes > POST /auth/change-password', () => {
       {},
       { headers: { Cookie: oldRefreshCookie } }
     )
-    expect(refreshRes.status).toBe(HTTP_STATUS.UNAUTHORIZED)
-    const refreshData = await refreshRes.json()
-    expect(refreshData.success).toBe(false)
-    if (!refreshData.success) expect(refreshData.error).toBe('invalid_token')
+    await expectError(refreshRes, HTTP_STATUS.UNAUTHORIZED, 'invalid_token')
   })
 
   expectRequiresAuth(() => app, {

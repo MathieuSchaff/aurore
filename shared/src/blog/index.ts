@@ -2,28 +2,26 @@ import { z } from 'zod'
 
 import { HTTP_STATUS, type HttpStatus, safeUrl } from '../core'
 
-// CATEGORIES
-
 // Functional taxonomy for blog content (guides, monographies, benchmarks,
-// routines, etc.). Inspired by VRAC content audit. DB schema TBD — pure TS for now.
+// routines, etc.). Inspired by VRAC content audit. DB schema TBD, pure TS for now.
 export const BLOG_CATEGORIES = {
-  // Soins peau (rosacée, acné, kératose, ingrédients topiques)
+  // Skin care: rosacea, acne, keratosis, topical ingredients
   SKINCARE: 'skincare',
-  // Cheveux : shampoings, leave-in, soins capillaires
+  // Hair: shampoos, leave-in, scalp care
   HAIRCARE: 'haircare',
-  // Hygiène bucco-dentaire
+  // Oral hygiene
   DENTAL: 'dental',
-  // Alimentation : super-aliments, fruits/légumes, profils nutritionnels
+  // Food: superfoods, fruit and vegetables, nutritional profiles
   NUTRITION: 'nutrition',
-  // Compléments alimentaires : monographies, vitamines, minéraux, formes problématiques
+  // Dietary supplements: monographs, vitamins, minerals, problematic forms
   SUPPLEMENTS: 'supplements',
-  // Plantes médicinales : phytothérapie, adaptogènes, champignons
+  // Medicinal plants: phytotherapy, adaptogens, mushrooms
   PHYTOTHERAPIE: 'phytotherapie',
-  // Routines & protocoles (skincare cycling, layering, séquences)
+  // Routines and protocols: skincare cycling, layering, sequences
   ROUTINES: 'routines',
-  // Articles techniques approfondis (mécanismes moléculaires, pharmacologie, deep dives)
+  // Deep technical articles: molecular mechanisms, pharmacology, deep dives
   SCIENCE: 'science',
-  // Bien-être global : sommeil, stress, longévité, axe intestin-cerveau, mental
+  // Whole-body wellbeing: sleep, stress, longevity, gut-brain axis, mental health
   LIFESTYLE: 'lifestyle',
 } as const
 
@@ -47,8 +45,6 @@ export const BLOG_CATEGORY_LABELS: Record<BlogCategory, string> = {
   science: 'Science approfondie',
   lifestyle: 'Bien-être global',
 }
-
-// SCHEMAS
 
 const uuid = z.uuid()
 
@@ -117,11 +113,13 @@ export const articleSearchSchema = z.object({
   q: z.string().optional(),
   page: z.coerce.number().min(1).default(1),
   limit: z.coerce.number().min(1).max(50).default(20),
-  // null = brouillons inclus, true = uniquement publiés
-  publishedOnly: z.coerce.boolean().default(true),
+  // false includes drafts (admin only), true keeps published articles only.
+  // Not z.coerce.boolean(): query params arrive as strings and Boolean('false')
+  // is true, which made the admin draft view unreachable.
+  publishedOnly: z
+    .union([z.boolean(), z.enum(['true', 'false']).transform((v) => v === 'true')])
+    .default(true),
 })
-
-// TYPES
 
 export type CreateArticleInput = z.infer<typeof createArticleSchema>
 export type UpdateArticleInput = z.infer<typeof updateArticleSchema>
@@ -151,8 +149,6 @@ export type ArticleErrorCode =
   | 'slug_already_exists'
   | 'unauthorized_access'
   | 'database_error'
-
-// HELPERS
 
 export const articleErrorMapping = {
   article_not_found: HTTP_STATUS.NOT_FOUND,

@@ -61,14 +61,14 @@ describe('Purchase Service', () => {
 
     it('should throw if user product not found', async () => {
       const fakeId = crypto.randomUUID()
-      expect(
+      await expect(
         addPurch(user.id, fakeId, { purchasedAt: '2026-03-22T00:00:00.000Z' })
       ).rejects.toThrow(PurchaseError)
     })
 
     it('should throw if user product belongs to another user', async () => {
       const otherUser = await createTestUser('other@test.com')
-      expect(
+      await expect(
         addPurch(otherUser.id, userProduct.id, { purchasedAt: '2026-03-22T00:00:00.000Z' })
       ).rejects.toThrow(PurchaseError)
     })
@@ -85,7 +85,7 @@ describe('Purchase Service', () => {
 
     it('should throw if user product not found', async () => {
       const fakeId = crypto.randomUUID()
-      expect(getPurch(user.id, fakeId)).rejects.toThrow(PurchaseError)
+      await expect(getPurch(user.id, fakeId)).rejects.toThrow(PurchaseError)
     })
   })
 
@@ -109,16 +109,16 @@ describe('Purchase Service', () => {
       const p2 = await addPurch(user.id, userProduct.id, {
         purchasedAt: '2026-03-21T00:00:00.000Z',
       })
-      expect(openPurch(user.id, p2.id, { openedAt: '2026-03-22T00:00:00.000Z' })).rejects.toThrow(
-        PurchaseError
-      )
+      await expect(
+        openPurch(user.id, p2.id, { openedAt: '2026-03-22T00:00:00.000Z' })
+      ).rejects.toThrow(PurchaseError)
     })
 
     it('should throw if purchase not found', async () => {
       const fakeId = crypto.randomUUID()
-      expect(openPurch(user.id, fakeId, { openedAt: '2026-03-22T00:00:00.000Z' })).rejects.toThrow(
-        PurchaseError
-      )
+      await expect(
+        openPurch(user.id, fakeId, { openedAt: '2026-03-22T00:00:00.000Z' })
+      ).rejects.toThrow(PurchaseError)
     })
   })
 
@@ -135,7 +135,7 @@ describe('Purchase Service', () => {
     })
 
     it('should throw if no active purchase exists', async () => {
-      expect(
+      await expect(
         finishPurch(user.id, userProduct.id, { finishedAt: '2026-03-22T00:00:00.000Z' })
       ).rejects.toThrow(PurchaseError)
     })

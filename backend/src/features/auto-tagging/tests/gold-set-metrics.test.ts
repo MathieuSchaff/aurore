@@ -43,7 +43,7 @@ describe('computeECE', () => {
   })
 
   test('perfectly calibrated single bin → 0', () => {
-    // All predictions 0.7, with 70 % positive rate → ECE = |0.7 - 0.7| = 0
+    // All predictions 0.7, with 70 % positive rate: ECE = |0.7 - 0.7| = 0
     const samples: Sample[] = []
     for (let i = 0; i < 7; i++) samples.push(s(0.7, 1))
     for (let i = 0; i < 3; i++) samples.push(s(0.7, 0))
@@ -51,24 +51,24 @@ describe('computeECE', () => {
   })
 
   test('overconfident model → ECE > 0', () => {
-    // All predictions 0.9 but accuracy 0.5 → bin 8 (0.8-0.9): |0.9 - 0.5| = 0.4
+    // All predictions 0.9 but accuracy 0.5: bin 8 (0.8-0.9), |0.9 - 0.5| = 0.4
     const samples: Sample[] = []
     for (let i = 0; i < 5; i++) samples.push(s(0.9, 1))
     for (let i = 0; i < 5; i++) samples.push(s(0.9, 0))
-    // 0.9 → binIndex(0.9, 10) = floor(0.9 * 10) = 9; the bin range is [0.9, 1.0)
+    // binIndex(0.9, 10) = floor(0.9 * 10) = 9; the bin range is [0.9, 1.0)
     // weight = 10/10 = 1; |avg_conf - acc| = |0.9 - 0.5| = 0.4
     expect(computeECE(samples)).toBeCloseTo(0.4, 5)
   })
 
   test('confidence == 1 lands in last bin (not overflow)', () => {
-    // p=1.0 with y=1 → perfect; bin 9 stat: avg_conf=1, acc=1 → ECE = 0
+    // p=1.0 with y=1 is perfect; bin 9 stat: avg_conf=1, acc=1, so ECE = 0
     const samples: Sample[] = [s(1, 1), s(1, 1), s(1, 1)]
     expect(computeECE(samples)).toBeCloseTo(0, 5)
   })
 
   test('mixed calibration across bins → weighted-avg ECE', () => {
-    // Bin 0 (0.0-0.1): 4 samples, all p=0.05, all y=0 → ECE_bin = |0.05 - 0| = 0.05, weight 4/10
-    // Bin 9 (0.9-1.0): 6 samples, all p=0.95, all y=1 → ECE_bin = |0.95 - 1| = 0.05, weight 6/10
+    // Bin 0 (0.0-0.1): 4 samples, all p=0.05, all y=0, ECE_bin = |0.05 - 0| = 0.05, weight 4/10
+    // Bin 9 (0.9-1.0): 6 samples, all p=0.95, all y=1, ECE_bin = |0.95 - 1| = 0.05, weight 6/10
     // Total: 0.05 * 0.4 + 0.05 * 0.6 = 0.05
     const samples: Sample[] = [
       s(0.05, 0),
@@ -169,7 +169,7 @@ describe('computePerTagMetrics', () => {
   })
 
   test('mixed precision/recall realistic case', () => {
-    // 3 TP + 1 FP + 1 FN + 5 TN → P=3/4, R=3/4, F1=3/4
+    // 3 TP + 1 FP + 1 FN + 5 TN gives P=3/4, R=3/4, F1=3/4
     const m = computePerTagMetrics('peptides', [
       { p: 0.9, y: 1, predicted: true }, // TP
       { p: 0.9, y: 1, predicted: true }, // TP
@@ -249,10 +249,10 @@ describe('macroAverage', () => {
 
 describe('microAverage', () => {
   test('pools TP/FP/FN across tags before computing', () => {
-    // tag A: TP=10 FP=0 FN=0 → P=1 R=1
-    // tag B: TP=0 FP=10 FN=10 → P=0 R=0
-    // micro: TP=10 FP=10 FN=10 → P=0.5 R=0.5 F1=0.5
-    // (macro would average to P=0.5 R=0.5 — same here, but micro/macro
+    // tag A: TP=10 FP=0 FN=0, so P=1 R=1
+    // tag B: TP=0 FP=10 FN=10, so P=0 R=0
+    // micro: TP=10 FP=10 FN=10, so P=0.5 R=0.5 F1=0.5
+    // (macro would average to P=0.5 R=0.5, same here, but micro/macro
     // differ when sample counts differ across tags.)
     const m = microAverage([
       {
@@ -288,8 +288,8 @@ describe('microAverage', () => {
   })
 
   test('macro and micro differ when class sizes are imbalanced', () => {
-    // tag A (rare, 10 rated): TP=8 FP=2 FN=0 TN=0 → P=0.8 R=1
-    // tag B (common, 100 rated): TP=20 FP=80 FN=0 TN=0 → P=0.2 R=1
+    // tag A (rare, 10 rated): TP=8 FP=2 FN=0 TN=0, so P=0.8 R=1
+    // tag B (common, 100 rated): TP=20 FP=80 FN=0 TN=0, so P=0.2 R=1
     // macro P = (0.8 + 0.2) / 2 = 0.5
     // micro P = (8 + 20) / (10 + 100) = 28/110 ≈ 0.255
     const tags: PerTagMetrics[] = [

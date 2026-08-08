@@ -132,14 +132,14 @@ export function productEditFormToCreateInput(form: ProductEditFormInput): Create
   }
 }
 
-// PATCH /api/products/:id - empty + previously set → null (clear); empty + was empty → undefined.
+// PATCH /api/products/:id: empty + previously set becomes null (clear); empty + was empty becomes undefined.
 export function productEditFormToUpdateInput(
   form: ProductEditFormInput,
   original: ProductDetail
 ): UpdateProductInput {
   const clearOrOmit = <T>(trimmed: string, value: T | null, originalValue: unknown) => {
     if (trimmed === '') return originalValue != null ? null : undefined
-    // Unchanged → omit. Re-sending an untouched value re-validates it, which
+    // Unchanged values are omitted. Re-sending an untouched value re-validates it, which
     // rejects legacy data that predates a stricter rule (e.g. a long
     // space-separated inci) and 400s an unrelated edit.
     if (value === originalValue) return undefined

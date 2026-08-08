@@ -2,13 +2,16 @@ import { err, ok } from '@aurore/shared'
 
 import { and, eq, isNull, sql } from 'drizzle-orm'
 
-import type { DB } from '../../db/index'
+import type { Database, DbOrTransaction } from '../../db/index'
 import { emailVerifications, users, usersSafe } from '../../db/schema'
 import { generateRawToken, hashToken } from './token.utils'
 
 const TOKEN_EXPIRY_MS = 60 * 60 * 1000
 
-export async function createVerificationToken(db: DB, userId: string): Promise<string> {
+export async function createVerificationToken(
+  db: DbOrTransaction,
+  userId: string
+): Promise<string> {
   const rawToken = generateRawToken()
   const tokenHash = hashToken(rawToken)
   const expiresAt = new Date(Date.now() + TOKEN_EXPIRY_MS).toISOString()
@@ -28,7 +31,7 @@ export async function createVerificationToken(db: DB, userId: string): Promise<s
   return rawToken
 }
 
-export async function verifyEmailToken(db: DB, rawToken: string) {
+export async function verifyEmailToken(db: Database, rawToken: string) {
   const tokenHash = hashToken(rawToken)
 
   const [row] = await db
@@ -72,7 +75,7 @@ export async function verifyEmailToken(db: DB, rawToken: string) {
   return ok(row.userId)
 }
 
-export async function hasVerifiedEmail(db: DB, userId: string): Promise<boolean> {
+export async function hasVerifiedEmail(db: Database, userId: string): Promise<boolean> {
   const [row] = await db
     .select({ emailVerifiedAt: usersSafe.emailVerifiedAt })
     .from(usersSafe)

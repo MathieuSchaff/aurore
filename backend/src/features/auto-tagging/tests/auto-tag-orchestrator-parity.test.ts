@@ -1,16 +1,8 @@
-// Parity contract for the auto-tag orchestrator. Both `db/seed/seeders/seed-core`
-// (initial seed) and `runners/backfill` (rehydrate) consume
-// `detectAllAutoTags` as their single tag-emission path — so the test of
-// runner parity reduces to verifying the orchestrator behaves consistently:
-//   - same input twice → identical output
-//   - eligibility honored (skincare/solaire/bodycare only)
-//   - avoid wins over secondary on intra-product dedup
-//   - empty INCI still emits kind tags (avoid needs INCI-derived actifs)
-//   - representative fixture products yield the expected pair set
-//
-// If a runner ever bypasses the orchestrator (inline detection pass), this
-// test won't catch it directly — the contract is enforced by the runners
-// importing from `auto-tag-orchestrator` and nothing else for tag derivation.
+// Parity contract for the auto-tag orchestrator. Both `db/seed/seeders/plan-product-tag-pairs`
+// and `runners/backfill` consume `detectAllAutoTags` as their single tag-emission
+// path, so this test verifies determinism, eligibility, avoid-over-secondary
+// dedup, and expected pair sets. It only catches drift as long as runners import
+// from `auto-tag-orchestrator` for tag derivation.
 
 import { describe, expect, test } from 'bun:test'
 
@@ -35,7 +27,7 @@ describe('AUTO_TAG_ELIGIBLE_CATEGORIES', () => {
   })
 })
 
-describe('detectAllAutoTags — eligibility gating', () => {
+describe('detectAllAutoTags: eligibility gating', () => {
   test('haircare product → empty pairs', () => {
     const got = detectAllAutoTags({
       inci: 'Aqua, Sodium Lauryl Sulfate, Cocamidopropyl Betaine',
@@ -63,7 +55,7 @@ describe('detectAllAutoTags — eligibility gating', () => {
   })
 })
 
-describe('detectAllAutoTags — determinism', () => {
+describe('detectAllAutoTags: determinism', () => {
   test('same product input → identical pair set across calls (parity contract)', () => {
     const product: OrchestratorInput = {
       inci: 'Aqua, Glycerin, Niacinamide, Retinol, Tocopherol, Phenoxyethanol',
@@ -83,7 +75,7 @@ describe('detectAllAutoTags — determinism', () => {
   })
 })
 
-describe('detectAllAutoTags — relevance precedence', () => {
+describe('detectAllAutoTags: relevance precedence', () => {
   test('retinoid serum: grossesse-compatible emitted as avoid (not secondary)', () => {
     const got = detectAllAutoTags({
       inci: 'Aqua, Glycerin, Retinol, Tocopherol, Phenoxyethanol',
@@ -115,7 +107,7 @@ describe('detectAllAutoTags — relevance precedence', () => {
   })
 })
 
-describe('detectAllAutoTags — pass coverage on representative products', () => {
+describe('detectAllAutoTags: pass coverage on representative products', () => {
   test('retinoid serum (skincare): algo-derm + actif-class + kind + cross-signal + avoid all fire', () => {
     const got = detectAllAutoTags({
       inci: 'Aqua, Glycerin, Retinol, Tocopherol, Phenoxyethanol',
@@ -161,7 +153,7 @@ describe('detectAllAutoTags — pass coverage on representative products', () =>
   })
 
   // cernes-poches moved to a name/claim gate (formula:cernes-poches-name); caffeine/peptide
-  // in the INCI no longer fires the concern — only cernes/poches positioning does. zone-yeux
+  // in the INCI no longer fires the concern, only cernes/poches positioning does. zone-yeux
   // still fires from the eye-cream kind. See passes/formula/cernes-poches.ts.
   test('eye cream naming anti-poches: cernes-poches fires from name', () => {
     const got = detectAllAutoTags({
@@ -232,7 +224,7 @@ describe('detectAllAutoTags — pass coverage on representative products', () =>
   })
 
   // keratose-pilaire moved to a name/claim gate (formula:keratose-pilaire-name); urea in
-  // the INCI no longer fires the concern — only KP positioning does. See
+  // the INCI no longer fires the concern, only KP positioning does. See
   // passes/formula/keratose-pilaire.ts.
   test('KP-named body lotion (bodycare): keratose-pilaire fires from name', () => {
     const slugs = slugsOf(
@@ -248,7 +240,7 @@ describe('detectAllAutoTags — pass coverage on representative products', () =>
   })
 
   // reparation-cutanee moved to a name/claim gate (formula:reparation-cutanee-name);
-  // INCI actives alone no longer fire the concern — see passes/formula/reparation-cutanee.ts.
+  // INCI actives alone no longer fire the concern. See passes/formula/reparation-cutanee.ts.
   test('plumping serum: repulpant fires from INCI', () => {
     const slugs = slugsOf(
       detectAllAutoTags({
@@ -284,8 +276,8 @@ describe('detectAllAutoTags — pass coverage on representative products', () =>
     )
     expect(slugs).toContain(S.TEXTURE_CREME)
     // peau-normale is a residual pass: it abstains once algo-derm classifies skin_type
-    // (peau-seche/peau-sensible here). Asserting the abstention is stable — unlike asserting it
-    // fires — and guards the pass-order-drift failure mode (README, "Failure modes"). Positive
+    // (peau-seche/peau-sensible here). Asserting the abstention is stable (unlike asserting it
+    // fires) and guards the pass-order-drift failure mode (README, "Failure modes"). Positive
     // firing is covered by its unit test + the gold-set bench, not a synthetic orchestrator fixture.
     expect(slugs).not.toContain(S.PEAU_NORMALE)
   })

@@ -1,11 +1,11 @@
 // Bridge: an algo-derm IngredientEvidence back to an aurore ingredient slug.
-// Pure — no DB, no IO. The runner resolves a raw INCI token to canonical evidence
+// Pure: no DB, no IO. The runner resolves a raw INCI token to canonical evidence
 // via algo-derm's alias index, then this maps that evidence onto our own taxonomy.
 import { normalize } from 'algo-derm'
 
 import { type InciIndex, normalizeInciToken } from '../index'
 
-// Structural subset of algo-derm's IngredientEvidence — only what the bridge reads.
+// Structural subset of algo-derm's IngredientEvidence, only what the bridge reads.
 // Keeps this module decoupled from the algo-derm type surface (and trivially testable).
 interface EvidenceLike {
   inci: string
@@ -13,8 +13,8 @@ interface EvidenceLike {
 }
 
 /**
- * B2 first (canonical INCI token → slug via the aurore inci index), then B1
- * (humanised-slug word equality) as a fallback. First non-null wins.
+ * B2 first (canonical INCI token to slug via the aurore inci index), then B1
+ * (humanised-slug word equality) as a fallback. The first match that is not null wins.
  */
 export function bridgeEvidenceToSlug(
   evidence: EvidenceLike,
@@ -36,7 +36,7 @@ export function bridgeEvidenceToSlug(
   return null
 }
 
-/** Reverse map for B1: `normalize('vitamin c')` → `'vitamin-c'`. First slug wins on collision. */
+/** Reverse map for B1: `normalize('vitamin c')` gives `'vitamin-c'`. First slug wins on collision. */
 export function buildSlugByHumanized(slugs: Iterable<string>): Map<string, string> {
   const map = new Map<string, string>()
   for (const slug of slugs) {

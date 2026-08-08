@@ -1,29 +1,6 @@
-// Dry-run audit for INCI-derived auto-tags. Read-only.
-//
-// Reads every product in AUTO_TAG_ELIGIBLE_CATEGORIES with non-empty INCI,
-// runs analyzeINCI + detectAutoTags with TAG_CONFIG, reports per-tag stats:
-//   hit, agree (hit ∩ existing manual), new (hit \ existing), avg_conf.
-//
-// State aggregation lives in stats.ts, CHECK mode in check.ts, env flags in
-// env.ts; this file owns the reporters + the thin orchestrator (main).
-//
-// Companion backfill runner: runners/backfill/main.ts.
-//
-// Env:
-//   CONF_OVERRIDE    optional   : override confidenceFloor for all tags (debug)
-//   CSV_OUT          optional   : path for per-pair CSV
-//   LIMIT            optional   : cap product count (debug)
-//   INCLUDE_DROPPED  optional 1 : include allow:false tags in report (debug)
-//   DUMP_BUDGETS     optional 1 : emit TAG_HIT_RATE_BUDGET draft for tag-budgets.ts
-//                                 (max = ceil(hit_rate*1.5, step=0.05))
-//   CHECK            optional 1 : validate hit rates vs TAG_HIT_RATE_BUDGET; exit 1 on FAIL.
-//                                 Tags absent from budget table = FAIL (explicit budget required
-//                                 for every emitter; hardened 2026-05-13 after A3 baseline).
-//   DUMP_BENEFITS    optional 1 : per-axis benefit-score quantile table (P25..P95) for B3
-//                                 calibration; per-category and per-category×kind breakdowns.
-//   BENEFITS_OUT     optional   : raw (slug,category,kind,axis,benefit,confidence) CSV
-//   DISABLE_FLOORS   optional 1 : bypass confidenceFloor/coverageFloor gates to inspect
-//                                 raw confidence distribution (skin_type tuning).
+// Dry-run audit for INCI-derived auto-tags. Read-only. State aggregation lives in stats.ts,
+// CHECK mode in check.ts, env flags in env.ts; this file owns the reporters + the thin
+// orchestrator (main). Companion backfill runner: runners/backfill/main.ts.
 
 import { AUTO_TAG_ELIGIBLE_CATEGORIES } from '../../orchestrator'
 import { TAG_CONFIG, type TagRule } from '../../passes/algo-derm-detection'
@@ -42,7 +19,7 @@ import {
 } from './env'
 import { type AuditState, BENEFIT_AXES, fetchAuditStats } from './stats'
 
-// +/-=allow, c=confidenceFloor, v=coverageFloor, L=excludeRinseOff.
+// ✓/✗ = allow, c=confidenceFloor, v=coverageFloor, L=excludeRinseOff.
 function formatRule(r: TagRule): string {
   const parts: string[] = [r.allow ? '✓' : '✗']
   if (r.confidenceFloor !== undefined) parts.push(`c=${r.confidenceFloor.toFixed(2)}`)
@@ -206,6 +183,7 @@ function reportDrops(state: AuditState): void {
   }
 }
 
+// CSV_OUT (optional): path for per-pair CSV.
 async function writeCsv(state: AuditState): Promise<void> {
   if (!CSV_OUT) return
   await Bun.write(CSV_OUT, state.csvRows.join('\n'))
@@ -238,6 +216,9 @@ function dumpBudgets(state: AuditState): void {
   console.log(`}`)
 }
 
+// DUMP_BENEFITS=1: per-axis benefit-score quantile table (P25..P95) for B3 calibration,
+// per-category and per-category×kind breakdowns. BENEFITS_OUT (optional): raw
+// (slug,category,kind,axis,benefit,confidence) CSV.
 async function dumpBenefits(state: AuditState): Promise<void> {
   console.log(`\n📈 DUMP_BENEFITS — per-axis benefit-score distributions`)
   console.log(`   sample = one product × axis (eligible category, non-empty INCI)`)
@@ -261,6 +242,7 @@ async function dumpBenefits(state: AuditState): Promise<void> {
   }
 }
 
+// CONF_OVERRIDE (optional): override confidenceFloor for all tags (debug); must be in [0,1].
 function validateEnv(): void {
   if (
     CONF_OVERRIDE !== null &&
@@ -270,6 +252,9 @@ function validateEnv(): void {
   }
 }
 
+// INCLUDE_DROPPED (optional 1): include allow:false tags in report (debug). LIMIT (optional):
+// cap product count (debug). DISABLE_FLOORS (optional 1, consumed in stats.ts): bypass
+// confidenceFloor/coverageFloor gates to inspect raw confidence distribution (skin_type tuning).
 function logHeader(): void {
   const allowedCount = Object.values(TAG_CONFIG).filter((r) => r.allow).length
   console.log(`🔍 Audit auto-tags (dry-run)`)
@@ -288,6 +273,9 @@ async function main() {
   validateEnv()
   logHeader()
 
+  // Reads every product in AUTO_TAG_ELIGIBLE_CATEGORIES with an INCI that isn't empty, runs analyzeINCI +
+  // detectAutoTags with TAG_CONFIG: hit, agree (hit and existing manual), new (hit minus
+  // existing), avg_conf.
   const { state, subsetLength } = await fetchAuditStats()
 
   reportCoverage(state, subsetLength)
@@ -302,6 +290,9 @@ async function main() {
 
   if (DUMP_BUDGETS) dumpBudgets(state)
 
+  // CHECK=1: validate hit rates vs TAG_HIT_RATE_BUDGET, exit 1 on FAIL. Tags absent from the
+  // budget table = FAIL: every emitter needs an explicit budget, so a missing one is caught
+  // instead of passing silently.
   let failCount = 0
   if (CHECK) failCount = runCheck(state)
 

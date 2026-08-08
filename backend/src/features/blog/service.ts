@@ -9,7 +9,7 @@ import { articleListItemSchema, articleResponseSchema, BLOG_CATEGORY_VALUES } fr
 import slugify from '@sindresorhus/slugify'
 import { and, asc, eq, ilike, isNotNull, type SQL, sql } from 'drizzle-orm'
 
-import type { DB } from '../../db'
+import type { DatabaseTransaction, DbOrTransaction } from '../../db'
 import { articles } from '../../db/schema/blog/articles'
 import { escapeLike, isUniqueViolation } from '../../lib/helpers'
 import { normalizeInstant } from '../../utils/dates'
@@ -46,7 +46,11 @@ function toApiArticle(row: ArticleRow) {
   return devAssertSchema(articleResponseSchema, mapped, 'toApiArticle')
 }
 
-export async function listArticles(db: DB, filters: ArticleSearchFilters, isAdmin = false) {
+export async function listArticles(
+  db: DbOrTransaction,
+  filters: ArticleSearchFilters,
+  isAdmin = false
+) {
   const page = filters.page ?? 1
   const limit = Math.min(filters.limit ?? 20, 50)
   const offset = (page - 1) * limit
@@ -68,32 +72,34 @@ export async function listArticles(db: DB, filters: ArticleSearchFilters, isAdmi
 
   const where = conditions.length > 0 ? and(...conditions) : undefined
 
-  // Promise.all is safe here, unlike the product list reads: the articles router never mounts
-  // withRlsContext, so `db` stays the pool even for an authed caller. Verified against the log.
-  const [rows, [{ total }]] = await Promise.all([
-    db
-      .select({
-        id: articles.id,
-        title: articles.title,
-        slug: articles.slug,
-        excerpt: articles.excerpt,
-        category: articles.category,
-        coverImageUrl: articles.coverImageUrl,
-        publishedAt: articles.publishedAt,
-        updatedAt: articles.updatedAt,
-      })
-      .from(articles)
-      .where(where)
-      .orderBy(asc(articles.publishedAt))
-      .limit(limit)
-      .offset(offset),
-    db.select({ total: sql<number>`cast(count(*) as integer)` }).from(articles).where(where),
-  ])
+  // Sequential on purpose: authenticated reads use one RLS transaction connection.
+  const rows = await db
+    .select({
+      id: articles.id,
+      title: articles.title,
+      slug: articles.slug,
+      excerpt: articles.excerpt,
+      category: articles.category,
+      coverImageUrl: articles.coverImageUrl,
+      publishedAt: articles.publishedAt,
+      updatedAt: articles.updatedAt,
+    })
+    .from(articles)
+    .where(where)
+    .orderBy(asc(articles.publishedAt))
+    .limit(limit)
+    .offset(offset)
+  const [{ total }] = await db
+    .select({ total: sql<number>`cast(count(*) as integer)` })
+    .from(articles)
+    .where(where)
 
   return { items: rows.map(toApiArticleListItem), total }
 }
 
-export async function getCategoryCounts(db: DB): Promise<Record<BlogCategory, number>> {
+export async function getCategoryCounts(
+  db: DbOrTransaction
+): Promise<Record<BlogCategory, number>> {
   const rows = await db
     .select({
       category: articles.category,
@@ -114,7 +120,7 @@ export async function getCategoryCounts(db: DB): Promise<Record<BlogCategory, nu
 // Drafts are an admin-only surface: without includeDrafts, an unpublished slug
 // must be indistinguishable from a missing one (same article_not_found).
 export async function getArticleBySlug(
-  db: DB,
+  db: DbOrTransaction,
   slug: string,
   opts: { includeDrafts?: boolean } = {}
 ) {
@@ -126,7 +132,11 @@ export async function getArticleBySlug(
   return toApiArticle(article)
 }
 
-export async function createArticle(db: DB, userId: string, input: CreateArticleInput) {
+export async function createArticle(
+  db: DatabaseTransaction,
+  userId: string,
+  input: CreateArticleInput
+) {
   try {
     const slug = input.slug ? slugify(input.slug) : slugify(input.title)
     const [article] = await db
@@ -147,7 +157,11 @@ export async function createArticle(db: DB, userId: string, input: CreateArticle
   }
 }
 
-export async function updateArticle(db: DB, slug: string, input: UpdateArticleInput) {
+export async function updateArticle(
+  db: DatabaseTransaction,
+  slug: string,
+  input: UpdateArticleInput
+) {
   const existing = await getArticleBySlug(db, slug, { includeDrafts: true })
   try {
     const newSlug = input.slug ? slugify(input.slug) : undefined
@@ -165,7 +179,7 @@ export async function updateArticle(db: DB, slug: string, input: UpdateArticleIn
   }
 }
 
-export async function deleteArticle(db: DB, slug: string) {
+export async function deleteArticle(db: DatabaseTransaction, slug: string) {
   const existing = await getArticleBySlug(db, slug, { includeDrafts: true })
   try {
     await db.delete(articles).where(eq(articles.id, existing.id))

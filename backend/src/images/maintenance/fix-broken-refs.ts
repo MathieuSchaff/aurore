@@ -1,33 +1,11 @@
 #!/usr/bin/env bun
 /**
- * fix-broken-image-refs.ts: Reconcile image_url drift between Bunny CDN
- * inventory and DB products, driven by output/image-mapping.json gaps.
- *
- * Three operations, all idempotent, dry-run by default:
- *
- *   1. RENAME: product.image_url points at <old>.webp that exists on Bunny
- *      but the DB slug has been canonicalised. Copy <old>.webp → <slug>.webp,
- *      UPDATE products.image_url to the new URL, DELETE <old>.webp.
- *
- *   2. NULLIFY: product.image_url points at <old>.webp that is NOT on Bunny
- *      (image lost). Set image_url = NULL so the gap is explicit.
- *
- *   3. ORPHAN_CLEANUP: webp on Bunny with no matching DB slug AND not used
- *      as a rename source. DELETE the file.
- *
- * Required env:
- *   BUNNY_STORAGE_ZONE
- *   BUNNY_STORAGE_PASSWORD
- *   APP_DATABASE_URL (or DATABASE_URL)
- *
- * Optional env:
- *   BUNNY_STORAGE_HOSTNAME    default: storage.bunnycdn.com
- *   BUNNY_STORAGE_PREFIX      default: products/
- *   IMAGE_CDN_BASE            required for rename URL rewrite (e.g. https://aurore-cdn.b-cdn.net)
- *
- * Usage:
- *   bun run backend/src/images/maintenance/fix-broken-refs.ts          # dry-run
- *   bun run backend/src/images/maintenance/fix-broken-refs.ts --apply  # execute
+ * Reconciles image_url drift between Bunny CDN inventory and DB products, driven by
+ * output/image-mapping.json gaps. Three idempotent ops, dry-run by default: RENAME
+ * (canonicalised slug, copy <old>.webp to <slug>.webp and update image_url), NULLIFY
+ * (image lost off Bunny, set image_url = NULL), ORPHAN_CLEANUP (webp with no DB slug
+ * and not a rename source, delete it). Required env: BUNNY_STORAGE_ZONE,
+ * BUNNY_STORAGE_PASSWORD, APP_DATABASE_URL; IMAGE_CDN_BASE for rename URL rewrite.
  */
 
 import { readFileSync } from 'node:fs'

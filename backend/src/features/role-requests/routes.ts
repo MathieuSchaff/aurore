@@ -14,9 +14,9 @@ import { z } from 'zod'
 
 import type { AppEnv } from '../../app-env'
 import { logger } from '../../lib/logger'
+import { getAuthedUserId, getRlsDb } from '../../utils/accessors'
 import { zValidator } from '../../utils/validator'
 import { applyAuthedGuards } from '../auth/authed-guards'
-import { getAuthedUserId } from '../auth/middleware'
 import { cancelRoleRequest, getMyRoleRequest, submitRoleRequest } from './service'
 
 const requestIdParam = z.object({ id: z.uuid() })
@@ -28,7 +28,7 @@ export const roleRequestsRoutes = app
     const userId = getAuthedUserId(c)
     const body = c.req.valid('json')
 
-    const result = await submitRoleRequest(c.get('db'), { userId, body })
+    const result = await submitRoleRequest(getRlsDb(c), { userId, body })
     if (!isApiSuccess(result)) {
       return c.json(err(result.error), errorToStatus(result.error, submitRoleRequestErrorMapping))
     }
@@ -38,14 +38,14 @@ export const roleRequestsRoutes = app
   })
   .get('/me', async (c) => {
     const userId = getAuthedUserId(c)
-    const request = await getMyRoleRequest(c.get('db'), userId)
+    const request = await getMyRoleRequest(getRlsDb(c), userId)
     return c.json(ok(request), HTTP_STATUS.OK)
   })
   .post('/:id/cancel', zValidator('param', requestIdParam), async (c) => {
     const userId = getAuthedUserId(c)
     const { id } = c.req.valid('param')
 
-    const result = await cancelRoleRequest(c.get('db'), { userId, id })
+    const result = await cancelRoleRequest(getRlsDb(c), { userId, id })
     if (!isApiSuccess(result)) {
       return c.json(err(result.error), errorToStatus(result.error, cancelRoleRequestErrorMapping))
     }

@@ -59,6 +59,7 @@ describe('refresh', () => {
     )
 
     const result = await refresh(createCtx({ ip: '127.0.0.1', userAgent: 'Test' }), refreshToken)
+    expect(result.success).toBe(true)
     if (!result.success) return
 
     const payload = await verifyAccessToken(result.data.accessToken, JWT_SECRET)
@@ -77,6 +78,7 @@ describe('refresh', () => {
       createCtx({ ip: '192.168.1.1', userAgent: 'NouveauBrowser/2.0' }),
       refreshToken
     )
+    expect(result.success).toBe(true)
     if (!result.success) return
 
     const newPayload = await verifyRefreshToken(result.data.refreshToken, REFRESH_SECRET)
@@ -96,6 +98,7 @@ describe('refresh', () => {
     const { refreshToken } = await connecterEtRecupererTokens(creds.rawEmail, creds.rawPassword)
 
     const oldPayload = await verifyRefreshToken(refreshToken, REFRESH_SECRET)
+    expect(oldPayload).not.toBeNull()
     if (!oldPayload) return
 
     await refresh(createCtx({ ip: '127.0.0.1', userAgent: 'Test' }), refreshToken)
@@ -127,13 +130,13 @@ describe('refresh', () => {
       expect(replayResult.error).toBe('invalid_token')
     }
 
-    if (refreshResult.success) {
-      const newPayload = await verifyRefreshToken(refreshResult.data.refreshToken, REFRESH_SECRET)
-      if (!newPayload) return
+    if (!refreshResult.success) return
+    const newPayload = await verifyRefreshToken(refreshResult.data.refreshToken, REFRESH_SECRET)
+    expect(newPayload).not.toBeNull()
+    if (!newPayload) return
 
-      const newStored = await findValidRefreshToken(testDb, newPayload.jti)
-      expect(newStored).toBeNull()
-    }
+    const newStored = await findValidRefreshToken(testDb, newPayload.jti)
+    expect(newStored).toBeNull()
   })
 
   it('devrait échouer avec un refresh token invalide', async () => {
@@ -207,6 +210,7 @@ describe('refresh', () => {
     await refresh(createCtx({ ip: '127.0.0.1', userAgent: 'Test' }), tokensToto.refreshToken)
 
     const pAlice = await verifyRefreshToken(tokensAlice.refreshToken, REFRESH_SECRET)
+    expect(pAlice).not.toBeNull()
     if (!pAlice) return
     const sAlice = await findValidRefreshToken(testDb, pAlice.jti)
     expect(sAlice).not.toBeNull()
@@ -237,6 +241,7 @@ describe('refresh', () => {
       creds.email as unknown as Email,
       creds.password as unknown as RawPassword
     )
+    expect(loginResult.success).toBe(true)
     if (!loginResult.success) return
 
     await testDb

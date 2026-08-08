@@ -9,7 +9,7 @@ import {
 
 import { eq } from 'drizzle-orm'
 
-import type { DB } from '../../db'
+import type { DatabaseTransaction } from '../../db'
 import { userPreferences } from '../../db/schema/auth/user-preferences'
 import { profiles, userDermoProfiles, usersSafe } from '../../db/schema/auth/users'
 import { userIngredientAnalysisScore } from '../../db/schema/ingredients/user-ingredient-analysis-score'
@@ -27,7 +27,7 @@ import { nowISO } from '../../utils/dates'
 // otherwise walk away with every user's rows. discussion_threads/replies are
 // not RLS-scoped at all, hence the explicit author_id filter.
 
-export async function exportUserData(db: DB, userId: string): Promise<UserExport> {
+export async function exportUserData(db: DatabaseTransaction, userId: string): Promise<UserExport> {
   // Reads are intentionally sequential: bun-sql + drizzle currently mis-bind
   // result-format codes when many SELECTs are pipelined through a single tx
   // connection (observed as "bind message has N result formats but query has
@@ -298,9 +298,9 @@ export async function exportUserData(db: DB, userId: string): Promise<UserExport
   }
 }
 
-// Hand-kept audit list for the GDPR export. The routes test maps each entry to
+// Hand-kept audit list for the RGPD export. The routes test maps each entry to
 // a JSON section, so a name added here without a section fails to typecheck.
-// Nothing catches the reverse: when a user-scoped table is added, re-run
+// Nothing catches the reverse: when a user-scoped table is added, run
 // `grep -rl 'tenantPolicies\|fkTenantPolicies' backend/src/db/schema/` and
 // decide explicitly whether it belongs in the export.
 export const USER_EXPORT_TENANT_TABLES = [
@@ -326,7 +326,7 @@ const lastExportAt = new Map<string, number>()
 export type RateLimitResult = { ok: true } | { ok: false; retryAfterSec: number }
 
 // Per-user export throttle. In-memory Map is intentional: one VPS, one
-// process, low traffic. If the topology grows (multi-replica, fan-out via
+// process, low traffic. If the topology grows (several replicas, fan-out via
 // queue), swap for the hono-rate-limiter pattern with a shared store.
 export function checkExportRateLimit(userId: string, now: number = Date.now()): RateLimitResult {
   const last = lastExportAt.get(userId)

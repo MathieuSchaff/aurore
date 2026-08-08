@@ -7,7 +7,7 @@ import { HOLY_GRAIL_SENTIMENT } from '@aurore/shared'
 
 import { and, eq, inArray, notInArray, sql } from 'drizzle-orm'
 
-import type { DB } from '../../db'
+import type { DatabaseTransaction } from '../../db'
 import { ingredientDermoProfiles } from '../../db/schema/ingredients/ingredient-dermo-profiles'
 import { userIngredientAnalysisScore } from '../../db/schema/ingredients/user-ingredient-analysis-score'
 import { userProducts } from '../../db/schema/user-products'
@@ -26,7 +26,10 @@ function isGood(sentiment: number | null, tolerance: number | null): boolean {
 
 // Any single mutation (review, status/sentiment flip, deletion) shifts the bad/good
 // totals for every ingredient in the collection, so we always recompute the full set.
-export async function recalculateAllSignalsForUser(userId: string, db: DB): Promise<void> {
+export async function recalculateAllSignalsForUser(
+  userId: string,
+  db: DatabaseTransaction
+): Promise<void> {
   const collection = await db.query.userProducts.findMany({
     where: eq(userProducts.userId, userId),
     columns: { status: true, sentiment: true },
@@ -68,7 +71,7 @@ export async function recalculateAllSignalsForUser(userId: string, db: DB): Prom
     return
   }
 
-  // Ingredients without a dermo profile row are treated as non-filler.
+  // Ingredients without a dermo profile row are treated as not being fillers.
   const fillerRows = await db
     .select({ ingredientId: ingredientDermoProfiles.ingredientId })
     .from(ingredientDermoProfiles)

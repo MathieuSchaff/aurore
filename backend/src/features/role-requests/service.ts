@@ -11,12 +11,12 @@ import type {
 
 import { and, desc, eq } from 'drizzle-orm'
 
-import type { Database } from '../../db'
+import type { DatabaseTransaction } from '../../db'
 import { roleRequests, users, usersSafe } from '../../db/schema'
 import { nowISO } from '../../utils/dates'
 
 export async function submitRoleRequest(
-  db: Database,
+  db: DatabaseTransaction,
   { userId, body }: { userId: string; body: SubmitRoleRequestInput }
 ): Promise<SubmitRoleRequestResult> {
   const [requester] = await db
@@ -35,11 +35,11 @@ export async function submitRoleRequest(
     .where(and(eq(roleRequests.userId, userId), eq(roleRequests.status, 'pending')))
     .limit(1)
 
-  // The partial unique index is the race-proof backstop; this pre-check yields the clean 409.
+  // The partial unique index is the race-proof backstop; this check yields the clean 409.
   if (pending) return { success: false, error: 'already_pending' }
 
   // onConflictDoNothing covers the partial unique index: a concurrent submit that slips
-  // past the pre-check no-ops here (empty returning) instead of throwing a raw 23505.
+  // past the check above no-ops here (empty returning) instead of throwing a raw 23505.
   const [row] = await db
     .insert(roleRequests)
     .values({ userId, motivation: body.motivation, motivationLink: body.motivationLink ?? null })
@@ -51,7 +51,7 @@ export async function submitRoleRequest(
 }
 
 export async function getMyRoleRequest(
-  db: Database,
+  db: DatabaseTransaction,
   userId: string
 ): Promise<RoleRequestView | null> {
   const [row] = await db
@@ -66,7 +66,7 @@ export async function getMyRoleRequest(
 }
 
 export async function cancelRoleRequest(
-  db: Database,
+  db: DatabaseTransaction,
   { userId, id }: { userId: string; id: string }
 ): Promise<CancelRoleRequestResult> {
   // RLS tenant_isolation already restricts to own rows; the userId filter is defence in depth.
@@ -80,7 +80,7 @@ export async function cancelRoleRequest(
   if (existing.status !== 'pending') return { success: false, error: 'not_pending' }
 
   // userId + status in the WHERE make the transition atomic: a concurrent admin review
-  // that resolves the row first leaves 0 rows here → not_pending, not a stale overwrite.
+  // that resolves the row first leaves 0 rows here, giving not_pending, not a stale overwrite.
   const [row] = await db
     .update(roleRequests)
     .set({ status: 'cancelled' })
@@ -98,7 +98,7 @@ export async function cancelRoleRequest(
 }
 
 export async function listRoleRequests(
-  db: Database,
+  db: DatabaseTransaction,
   filters: ListRoleRequestsQuery
 ): Promise<ListRoleRequestsResponse> {
   const rows = await db
@@ -111,7 +111,7 @@ export async function listRoleRequests(
 }
 
 export async function reviewRoleRequest(
-  db: Database,
+  db: DatabaseTransaction,
   { id, adminId, review }: { id: string; adminId: string; review: ReviewRoleRequestInput }
 ): Promise<ReviewRoleRequestResult> {
   const [existing] = await db.select().from(roleRequests).where(eq(roleRequests.id, id)).limit(1)
@@ -132,12 +132,11 @@ export async function reviewRoleRequest(
     return { success: true, data: row }
   }
 
-  // Approve resolves the request and promotes the requester in the same tx — withRlsContext
+  // Approve resolves the request and promotes the requester in the same tx: withRlsContext
   // opened it with app.role='admin', so the users write passes admin_bypass. Only a plain
-  // user is promoted (role='user' guard): if their role changed since submitting we still
-  // resolve the request but skip the write, and the 0091 backstop forbids admin promotion.
-  // status guard makes approve atomic: a concurrent review that already resolved the row
-  // leaves 0 rows → not_pending, so the promotion below never runs on a lost race.
+  // user is promoted; if their role changed since submitting we skip the write instead
+  // (0091 backstop forbids admin promotion). Status guard makes approve atomic: a
+  // concurrent review that resolved the row first leaves 0 rows, so no promotion runs.
   const [row] = await db
     .update(roleRequests)
     .set({ status: 'approved', reviewedBy: adminId, reviewedAt })

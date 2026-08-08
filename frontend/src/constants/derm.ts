@@ -67,7 +67,7 @@ export const CONFIDENCE_FACTOR_PHRASE: Record<string, string> = {
 // formula must say so, silence is reserved for errors and missing INCI.
 export const NO_SIGNAL_PHRASE = 'Rien de notable dans cette formule.'
 
-// Skin-profile slugs → risk axes that matter to that user, used to highlight
+// Maps skin-profile slugs to the risk axes that matter to that user, used to highlight
 // relevant signals without re-deriving the backend's profile mapping.
 export const PROFILE_RELEVANT_AXES: Record<string, ReadonlyArray<RiskAxis>> = {
   'peau-sensible': ['irritation', 'allergenicity'],

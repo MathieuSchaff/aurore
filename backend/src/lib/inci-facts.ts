@@ -1,15 +1,14 @@
 // Product facts read off the raw INCI. They are true for every user, so they are computed
 // once here, with algo-derm directly, and shipped in the product payload, instead of the
-// browser re-deriving them from a hand-copied split rule it cannot import.
+// browser deriving them itself from a hand-copied split rule it cannot import.
 
 import { splitINCI } from 'algo-derm'
 
 // `splitINCI` cuts on commas. Its period fallback needs a comma-sparse list (at most two),
-// which a real INCI never is. So a `;` the scraper used as a list comma, and a footnote legend
-// welded to the last token (`limonene**. * issu de l'agriculture biologique`), both hide what
-// follows them. Not a subset of the seed's `foldScraperDelimiters`: this one adds the period,
-// and drops that one's HTML-entity guard and mangled-dash fold, which serve the linking path
-// and would move verdicts here.
+// which a real INCI never is, so a `;` used as a list comma or a footnote legend welded to
+// the last token (`limonene**. * issu de l'agriculture biologique`) both hide what follows.
+// Not a subset of the seed's `foldScraperDelimiters`: this one adds the period and drops
+// that one's HTML-entity guard and mangled-dash fold, which serve the linking path only.
 function foldWeldedSeparators(inci: string): string {
   return inci.replace(/;/g, ',').replace(/\.(?!\d)/g, ',')
 }

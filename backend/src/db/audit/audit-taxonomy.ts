@@ -1,17 +1,8 @@
-// Taxonomy-coherence audit (read-only, no orchestrator, pure DB shape).
-//
-// Catches structural taxonomy noise the pipeline audits can't see because they
-// measure detector-vs-DB agreement, not whether a tag is meaningful:
-//   1. absence claims ("sans-X") applied to product kinds where X never occurs
-//      in the whole catalogue → the tag asserts the absence of something that
-//      was never plausible = zero information.
-//   2. product_type_v2 carrying an action ("exfoliation") that co-occurs with a
-//      real format → the format axis is not mutually exclusive (axis leak).
-//   3. concern vs skin_effect tags sharing a root (reparation/reparateur,
-//      rougeurs/apaisant) → the two axes duplicate; surfaced to inform a human
-//      taxonomy decision, not to fail the run.
-//
-// All findings are 'info': taxonomy shape ≠ data corruption.
+// Taxonomy-coherence audit (read-only, no orchestrator, pure DB shape). Catches
+// structural taxonomy noise the pipeline audits can't see, since those measure
+// detector-vs-DB agreement, not whether a tag is meaningful: absence claims never
+// plausible, axis leaks, and concern/skin_effect tags duplicating the same root.
+// All findings are 'info': taxonomy shape, not data corruption.
 
 import { sql } from 'drizzle-orm'
 
@@ -36,7 +27,7 @@ const CONCERN_EFFECT_PAIRS: ReadonlyArray<{ concern: string; effect: string }> =
   { concern: 'rougeurs-vasculaires', effect: 'apaisant' },
 ]
 
-// 1. "sans-X" on kinds where X never appears in the catalogue → non-informative.
+// 1. "sans-X" on kinds where X never appears in the catalogue: not informative.
 async function checkAbsenceClaimImplausibleKind(): Promise<CheckResult> {
   const findings: Finding[] = []
   for (const claim of ABSENCE_CLAIMS) {
@@ -73,8 +64,8 @@ async function checkAbsenceClaimImplausibleKind(): Promise<CheckResult> {
   return { name: 'absence-claim-implausible-kind', severity: 'info', findings }
 }
 
-// 2. type-exfoliation (an action) co-occurring with a real product_type_v2 format.
-//    No category scope: product_type_v2 spans skincare/bodycare/solaire — the leak too.
+// 2. type-exfoliation (an action) appearing together with a real product_type_v2 format.
+//    No category scope: product_type_v2 spans skincare/bodycare/solaire, and the leak too.
 async function checkProductTypeAxisLeak(): Promise<CheckResult> {
   const rows = await db.execute(sql`
     WITH exf AS (
@@ -105,7 +96,7 @@ async function checkProductTypeAxisLeak(): Promise<CheckResult> {
   return { name: 'product-type-axis-leak', severity: 'info', findings }
 }
 
-// 3. concern ⇄ skin_effect same-root duplication (co-occurrence + Jaccard).
+// 3. concern ⇄ skin_effect same-root duplication (count of products carrying both + Jaccard).
 async function checkConcernEffectDuplication(): Promise<CheckResult> {
   const findings: Finding[] = []
   for (const pair of CONCERN_EFFECT_PAIRS) {

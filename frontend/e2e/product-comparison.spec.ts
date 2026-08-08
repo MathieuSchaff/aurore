@@ -1,7 +1,7 @@
 // Happy-path oracle for the product comparison flow.
 // Picks two catalogue products that share an ingredient (populated state), saves,
 // and asserts the editorial-shelf bands render on the detail route.
-// Creates a real comparison row in the e2e DB — `just e2e-reset` for a clean slate.
+// Creates a real comparison row in the e2e DB. `just e2e-reset` for a clean slate.
 
 import { expect, test } from '@playwright/test'
 
@@ -23,7 +23,6 @@ test('happy path: build a comparison and read its bands', async ({ page }) => {
   const picker = page.getByRole('combobox', { name: 'Produits à comparer' })
   await expect(picker).toBeVisible({ timeout: 15_000 })
 
-  // --- 1. Pick the two products via the async search combobox ---
   await picker.fill('CeraVe')
   await page.getByRole('option', { name: PRODUCT_A }).click()
   // commitOption clears the query; the selected chip confirms the pick.
@@ -41,13 +40,11 @@ test('happy path: build a comparison and read its bands', async ({ page }) => {
   await expect(page.getByText('Sélectionne au moins 2 produits')).toHaveCount(0)
   await expect(page.getByText('Prêt à comparer')).toBeVisible()
 
-  // --- 2. Save via the ready-state CTA → redirect to the detail route ---
   const saveBtn = page.getByRole('button', { name: 'Enregistrer la comparaison' })
   await expect(saveBtn).toBeEnabled({ timeout: 5_000 })
   await saveBtn.click()
   await expect(page).toHaveURL(/\/products\/compare\/[^/]+$/, { timeout: 20_000 })
 
-  // --- 3. Editorial-shelf bands — assert DOM text, not the CSS-uppercased render ---
   // Hero title is `text-transform: uppercase` in CSS but title-case in the DOM;
   // a case-insensitive regex dodges both the casing and the apostrophe variant.
   await expect(page.getByText(/cabinet d.analyse/i)).toBeVisible({ timeout: 15_000 })
@@ -66,7 +63,7 @@ test('happy path: build a comparison and read its bands', async ({ page }) => {
   await expect(page.getByRole('heading', { name: 'Différences' })).toBeVisible()
   await expect(page.getByRole('heading', { name: 'Le terroir partagé' })).toBeVisible()
 
-  // --- 4. Populated-pair proof: the common-ingredients band is not the empty state ---
+  // Populated-pair proof: the common-ingredients band is not the empty state.
   await expect(page.getByText(/Aucun ingrédient n.apparaît dans toutes les formules/)).toHaveCount(
     0
   )

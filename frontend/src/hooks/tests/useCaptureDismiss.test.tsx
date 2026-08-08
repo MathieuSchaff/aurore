@@ -71,7 +71,7 @@ describe('useCaptureDismiss', () => {
 
     underlyingButton.click()
 
-    // Capture-phase listener fired first + stopPropagation → button's own handler never ran.
+    // Capture-phase listener fired first and called stopPropagation, so the button's own handler never ran.
     expect(underlyingClick).not.toHaveBeenCalled()
 
     document.body.removeChild(ref.current)
@@ -126,7 +126,7 @@ describe('useCaptureDismiss', () => {
     document.body.removeChild(ref.current)
   })
 
-  it('enabled toggle: listener re-attaches when enabled flips back to true', () => {
+  it('enabled toggle: listener attaches again when enabled flips back to true', () => {
     const handler = vi.fn()
     const ref = { current: document.createElement('div') }
     document.body.appendChild(ref.current)

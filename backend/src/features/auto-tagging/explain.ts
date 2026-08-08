@@ -1,11 +1,7 @@
 // Read-only trace of the auto-tag pipeline for a single INCI.
-//
-// Reads the orchestrator's one dispatch through the AutoTagTraceSink: per-pass
-// proposals + merge verdicts (onPass) and algo-derm drop reasons (dropCounts).
-// `final` IS detectAllAutoTags' own return value, so the trace cannot fork from
-// it. explainInci adds only interpretation on top: the pre-promote winner per
-// slug (last accepted proposal, derived from the sink's event order — never
-// from object identity) and primary-promotion events.
+// `final` IS detectAllAutoTags' own return value, so the trace cannot fork from it.
+// explainInci only adds interpretation: the winner per slug before promotion (from
+// the sink's event order, never object identity) and primary-promotion events.
 
 import type { SkincareProductTagSlug } from '@aurore/shared'
 
@@ -89,9 +85,9 @@ export function explainInci(
     },
   })
 
-  // Pre-promote winner per slug = the LAST accepted proposal (sink contract),
-  // identified by event order. Its relevance is the pre-promote relevance the
-  // promotion detection below compares against.
+  // Winner per slug before promotion = the LAST accepted proposal (sink contract),
+  // identified by event order. Its relevance is the one the promotion detection
+  // below compares against.
   let scanIdx = 0
   const winnerIdxBySlug = new Map<SkincareProductTagSlug, number>()
   const winnerBySlug = new Map<

@@ -66,8 +66,8 @@ describe('cross-signal-detection', () => {
     expect(tags).toEqual([])
   })
 
-  // C5: retinoids on a body leave-on kind re-emit anti-age; rinse-off and
-  // non-retinoid actifs must not.
+  // Retinoids on a body leave-on kind re-emit anti-age; rinse-off and
+  // actifs that are not retinoids must not.
   test.each([
     [[S.RETINOIDS], 'body-lotion', true],
     [[S.RETINOIDS], 'body-oil', true],
@@ -84,7 +84,7 @@ describe('cross-signal-detection', () => {
   })
 })
 
-describe('cross-signal — moment-crise (T1.9)', () => {
+describe('cross-signal: moment-crise', () => {
   test('spot-treatment + BHA actif → moment-crise', () => {
     const tags = detectCrossSignalTags([S.BHA], 'spot-treatment')
     expect(tags).toContain(S.MOMENT_CRISE)
@@ -128,7 +128,7 @@ describe('cross-signal — moment-crise (T1.9)', () => {
   })
 })
 
-describe('detectCrossSignalAvoidTags — X1 stack irritation', () => {
+describe('detectCrossSignalAvoidTags: X1 stack irritation', () => {
   test('retinoids + AHA leave-on (serum) → peau-sensible avoid', () => {
     const tags = detectCrossSignalAvoidTags([S.RETINOIDS, S.AHA], 'serum')
     expect(tags).toContain(S.PEAU_SENSIBLE)
@@ -156,7 +156,7 @@ describe('detectCrossSignalAvoidTags — X1 stack irritation', () => {
   })
 })
 
-describe('detectInteractionAvoidTags — X3 axis mapping', () => {
+describe('detectInteractionAvoidTags: X3 axis mapping', () => {
   const assess = (inci: string, kind: 'serum' | 'cleanser' | 'moisturizer') =>
     analyzeINCI(inci, { context: mapKindToContext(kind) })
 
@@ -192,7 +192,7 @@ describe('detectInteractionAvoidTags — X3 axis mapping', () => {
   })
 })
 
-describe('detectConcentrationAvoidTags — dose-gating (3c)', () => {
+describe('detectConcentrationAvoidTags: dose-gating (3c)', () => {
   // Drive the real algo-derm solver: `knownConcentrations` pins an ingredient
   // (claimPct == solverMeanPct == truth); without it the solver only guesses.
   const assess = (inci: string, kind: 'serum' | 'cleanser', known?: Record<string, number>) =>
@@ -200,7 +200,7 @@ describe('detectConcentrationAvoidTags — dose-gating (3c)', () => {
       context: { ...mapKindToContext(kind), ...(known ? { knownConcentrations: known } : {}) },
     })
 
-  // Capped actives (EU regulatoryCapPct) → gate on solverMeanPct directly.
+  // Capped actives (EU regulatoryCapPct) gate on solverMeanPct directly.
   // The solver clamps to the cap, so a pin is NOT required to trust the dose.
   test('salicylic unpinned (solver clamps to cap 2) → peau-sensible', () => {
     const a = assess('Aqua, Salicylic Acid, Glycerin, Phenoxyethanol', 'serum')
@@ -222,7 +222,7 @@ describe('detectConcentrationAvoidTags — dose-gating (3c)', () => {
     expect(detectConcentrationAvoidTags(a, 'serum')).toEqual([])
   })
 
-  // Uncapped actives → require a real pin (claimPct). The unpinned solver
+  // Uncapped actives require a real pin (claimPct). The unpinned solver
   // overshoots in trace zones, so we only trust a curated concentration.
   test('azelaic pinned 15% → peau-sensible', () => {
     const a = assess('Aqua, Azelaic Acid, Glycerin', 'serum', { 'azelaic acid': 15 })
@@ -282,7 +282,7 @@ describe('detectConcentrationAvoidTags — dose-gating (3c)', () => {
   })
 })
 
-describe('detectInteractionSecondaryTags — X3 photosensitivity → moment-soir', () => {
+describe('detectInteractionSecondaryTags: X3 photosensitivity → moment-soir', () => {
   const assess = (inci: string, kind: 'serum' | 'cleanser') =>
     analyzeINCI(inci, { context: mapKindToContext(kind) })
 

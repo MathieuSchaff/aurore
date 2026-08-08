@@ -11,11 +11,10 @@ import {
   type TestClient,
   withAuth,
 } from '../../../tests/helpers/createTestClient'
-import { expectOk, expectStatus } from '../../../tests/helpers/expectStatus'
+import { expectError, expectOk, expectStatus } from '../../../tests/helpers/expectStatus'
 import { setupAndLoginAdmin } from '../../../tests/helpers/route-test-helpers'
 import { TEST_CREDENTIALS } from '../../../tests/helpers/test-credentials'
 
-type ApiErrorBody = { success: false; error: string }
 const VALID_TAG = { label: 'Anti-âge' }
 
 setupDbTests()
@@ -103,10 +102,7 @@ describe('Product Tag Routes', () => {
         withAuth(adminToken)
       )
 
-      expectStatus(res, HTTP_STATUS.CONFLICT)
-      const body = (await res.json()) as unknown as ApiErrorBody
-      expect(body.success).toBe(false)
-      expect(body.error).toBe('tag_already_exists')
+      await expectError(res, HTTP_STATUS.CONFLICT, 'tag_already_exists')
     })
 
     it('should reject missing label', async () => {
@@ -157,10 +153,7 @@ describe('Product Tag Routes', () => {
         param: { id: crypto.randomUUID() },
       })
 
-      expectStatus(res, HTTP_STATUS.NOT_FOUND)
-      const body = (await res.json()) as unknown as ApiErrorBody
-      expect(body.success).toBe(false)
-      expect(body.error).toBe('tag_not_found')
+      await expectError(res, HTTP_STATUS.NOT_FOUND, 'tag_not_found')
     })
 
     it('should return 400 for an invalid UUID', async () => {
@@ -202,9 +195,7 @@ describe('Product Tag Routes', () => {
         withAuth(adminToken)
       )
 
-      expectStatus(res, HTTP_STATUS.NOT_FOUND)
-      const body = (await res.json()) as unknown as ApiErrorBody
-      expect(body.error).toBe('tag_not_found')
+      await expectError(res, HTTP_STATUS.NOT_FOUND, 'tag_not_found')
     })
 
     it('should return 409 when updating to a conflicting slug', async () => {
@@ -216,9 +207,7 @@ describe('Product Tag Routes', () => {
         withAuth(adminToken)
       )
 
-      expectStatus(res, HTTP_STATUS.CONFLICT)
-      const body = (await res.json()) as unknown as ApiErrorBody
-      expect(body.error).toBe('tag_already_exists')
+      await expectError(res, HTTP_STATUS.CONFLICT, 'tag_already_exists')
     })
 
     expectRequiresAuth(() => app, {
@@ -266,9 +255,7 @@ describe('Product Tag Routes', () => {
         withAuth(adminToken)
       )
 
-      expectStatus(res, HTTP_STATUS.NOT_FOUND)
-      const body = (await res.json()) as unknown as ApiErrorBody
-      expect(body.error).toBe('tag_not_found')
+      await expectError(res, HTTP_STATUS.NOT_FOUND, 'tag_not_found')
     })
 
     expectRequiresAuth(() => app, {
