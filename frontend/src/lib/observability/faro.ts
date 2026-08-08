@@ -8,6 +8,8 @@ import {
 
 let initialized = false
 
+type PushEvent = (name: string, attributes?: Record<string, string>, domain?: string) => void
+
 function stringifyContextValue(value: unknown): string {
   if (typeof value === 'string') return value
   if (typeof value === 'number' || typeof value === 'boolean' || value == null) {
@@ -37,13 +39,37 @@ export function scrubUrl(raw: string): string {
     return raw.split('?')[0]
   }
 }
+
+export function installCspViolationReporting(target: Document, pushEvent: PushEvent): () => void {
+  const onViolation = (event: SecurityPolicyViolationEvent) => {
+    pushEvent(
+      'csp_violation',
+      {
+        blocked_uri: scrubUrl(event.blockedURI),
+        column_number: String(event.columnNumber),
+        disposition: event.disposition,
+        document_uri: scrubUrl(event.documentURI),
+        effective_directive: event.effectiveDirective,
+        line_number: String(event.lineNumber),
+        source_file: scrubUrl(event.sourceFile),
+        status_code: String(event.statusCode),
+        violated_directive: event.violatedDirective,
+      },
+      'security'
+    )
+  }
+
+  target.addEventListener('securitypolicyviolation', onViolation)
+  return () => target.removeEventListener('securitypolicyviolation', onViolation)
+}
+
 export function initFaro(): Faro | null {
   const url = import.meta.env.VITE_FARO_URL
   if (!url) return null
   if (initialized) return faro
 
   initialized = true
-  return initializeFaro({
+  const instance = initializeFaro({
     url,
     app: {
       name: 'aurore-frontend',
@@ -61,6 +87,11 @@ export function initFaro(): Faro | null {
     },
     instrumentations: [...getWebInstrumentations(), new ReactIntegration()],
   })
+
+  installCspViolationReporting(document, (name, attributes, domain) => {
+    instance.api.pushEvent(name, attributes, domain)
+  })
+  return instance
 }
 
 export function captureFrontendError(error: unknown, context?: Record<string, unknown>): void {
