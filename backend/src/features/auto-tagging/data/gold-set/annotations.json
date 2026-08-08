@@ -2749,6 +2749,16 @@
       "notes": "eczema-atopie: absent — ne nomme pas atopie/eczéma (Option-A STRICT); détecteur a tiré sur signature oat/céramide, positionné anti-âge"
     },
     {
+      "productSlug": "clarins-nutri-lumiere-jour-emulsion-revitalisante",
+      "kind": "moisturizer",
+      "category": "skincare",
+      "present": [],
+      "absent": ["hypoallergenique", "non-comedogene", "non-irritant"],
+      "annotatedAt": "2026-08-09",
+      "sampledFor": ["non-comedogene"],
+      "notes": "Source fabricant Clarins : https://bnl.clarins.com/nl/nutri-lumiere-day-emulsion-C080033180.html"
+    },
+    {
       "productSlug": "clarins-soin-levres-et-contour-multi-regenerant",
       "kind": "lip-care",
       "category": "skincare",
@@ -3287,6 +3297,26 @@
       "notes": "soin hydratant, hydratation (lead, rate par l'algo)"
     },
     {
+      "productSlug": "cosrx-hydrium-watery-toner",
+      "kind": "toner",
+      "category": "skincare",
+      "present": [],
+      "absent": ["hypoallergenique", "non-comedogene", "non-irritant"],
+      "annotatedAt": "2026-08-09",
+      "sampledFor": ["non-comedogene"],
+      "notes": "Source fabricant COSRX : https://www.cosrx.com/collections/toners/products/hydrium-watery-toner"
+    },
+    {
+      "productSlug": "cosrx-lightweight-soothing-moisturizer",
+      "kind": "moisturizer",
+      "category": "skincare",
+      "present": ["non-irritant"],
+      "absent": ["hypoallergenique", "non-comedogene"],
+      "annotatedAt": "2026-08-09",
+      "sampledFor": ["non-irritant"],
+      "notes": "Source fabricant COSRX : https://www.cosrx.com/products/ac-collection-lightweight-soothing-moisturizer"
+    },
+    {
       "productSlug": "cosrx-low-ph-niacinamide-micellar-cleansing-water",
       "kind": "cleanser",
       "category": "skincare",
@@ -3478,6 +3508,16 @@
       "annotatedAt": "2026-05-25",
       "sampledFor": ["rougeurs-vasculaires"],
       "notes": "rougeurs-vasculaires: absent — HA hydratation"
+    },
+    {
+      "productSlug": "cosrx-ultimate-nourishing-rice-overnight-mask",
+      "kind": "moisturizer",
+      "category": "skincare",
+      "present": [],
+      "absent": ["hypoallergenique", "non-comedogene", "non-irritant"],
+      "annotatedAt": "2026-08-09",
+      "sampledFor": ["non-comedogene"],
+      "notes": "Source fabricant COSRX : https://www.cosrx.com/collections/dullness/products/ultimate-nourishing-rice-overnight-spa-mask"
     },
     {
       "productSlug": "cyla-creme-filante",
@@ -4016,6 +4056,26 @@
       "annotatedAt": "2026-06-19",
       "sampledFor": ["aha"],
       "notes": "cap-marginal AHA hit, human-judged 2026-06-19"
+    },
+    {
+      "productSlug": "doctor-rogers-day-preventive-treatment-refill",
+      "kind": "serum",
+      "category": "skincare",
+      "present": ["hypoallergenique", "non-irritant"],
+      "absent": ["non-comedogene"],
+      "annotatedAt": "2026-08-09",
+      "sampledFor": ["non-irritant"],
+      "notes": "Sources fabricant Doctor Rogers : https://www.doctorrogers.com/pages/faq ; https://www.doctorrogers.com/products/day-preventive-treatment"
+    },
+    {
+      "productSlug": "doctor-rogers-night-repair-treatment",
+      "kind": "serum",
+      "category": "skincare",
+      "present": ["hypoallergenique", "non-irritant"],
+      "absent": ["non-comedogene"],
+      "annotatedAt": "2026-08-09",
+      "sampledFor": ["hypoallergenique"],
+      "notes": "Sources fabricant Doctor Rogers : https://www.doctorrogers.com/pages/faq ; https://www.doctorrogers.com/products/night-repair-treatment"
     },
     {
       "productSlug": "dr-althea-345-relief-cream",
@@ -4930,6 +4990,16 @@
       "annotatedAt": "2026-05-09",
       "sampledFor": ["aha"],
       "notes": "GLYCOLIC ACID pos-3 + LACTIC ACID pos-10 (aha). SALICYLIC ACID at pos-14 — past positionCap:10 → bha unrated (low conc, likely antimicrobial). Toner format."
+    },
+    {
+      "productSlug": "ducray-keracnyl-pp-creme-anti-imperfections-30ml-275209",
+      "kind": "moisturizer",
+      "category": "skincare",
+      "present": ["hypoallergenique", "non-comedogene"],
+      "absent": ["non-irritant"],
+      "annotatedAt": "2026-08-09",
+      "sampledFor": ["hypoallergenique"],
+      "notes": "Sources fabricant Ducray : https://www.ducray.com/fr-fr/acne/routines-de-soin/contre-les-boutons ; https://www.ducray.com/fr-fr/p/keracnyl-pp-creme-anti-imperfections-3282770141320-14c39aab"
     },
     {
       "productSlug": "ducray-keracnyl-stop-bouton-gel-assechant-10ml-279032",
@@ -6746,6 +6816,16 @@
       "annotatedAt": "2026-05-25",
       "sampledFor": ["deshydratation"],
       "notes": "soin HA, hydratation (lead, rate par l'algo)"
+    },
+    {
+      "productSlug": "innisfree-jeju-orchid-enriched-cream",
+      "kind": "moisturizer",
+      "category": "skincare",
+      "present": [],
+      "absent": ["hypoallergenique", "non-comedogene", "non-irritant"],
+      "annotatedAt": "2026-08-09",
+      "sampledFor": ["non-irritant"],
+      "notes": "Source fabricant Innisfree : https://sg.innisfree.com/products/jeju-orchid-enriched-cream-50ml"
     },
     {
       "productSlug": "innisfree-jeju-orchid-eye-cream",
@@ -9230,6 +9310,16 @@
       "notes": "LACTIC ACID pos-10 (exactly at cap). TOCOPHERYL ACETATE confirmed."
     },
     {
+      "productSlug": "loccitane-immortelle-serum-reset-nuit-50ml",
+      "kind": "serum",
+      "category": "skincare",
+      "present": ["non-comedogene"],
+      "absent": ["hypoallergenique", "non-irritant"],
+      "annotatedAt": "2026-08-09",
+      "sampledFor": ["hypoallergenique"],
+      "notes": "Source fabricant L'Occitane : https://au.loccitane.com/immortelle-overnight-reset-oil-in-serum-27OR030I24.html"
+    },
+    {
       "productSlug": "mad-about-skin-serum-copper-peptide",
       "kind": "serum",
       "category": "skincare",
@@ -11178,6 +11268,16 @@
       "notes": "toner glow, 0 positionnement pigment"
     },
     {
+      "productSlug": "nuxe-serum-yeux-eclat",
+      "kind": "eye-cream",
+      "category": "skincare",
+      "present": [],
+      "absent": ["hypoallergenique", "non-comedogene", "non-irritant"],
+      "annotatedAt": "2026-08-09",
+      "sampledFor": ["non-irritant"],
+      "notes": "Source fabricant NUXE : https://fr.nuxe.com/products/serum-yeux-eclat"
+    },
+    {
       "productSlug": "nuxe-spray-solaire-delicieux-haute-protection-spf50-visage-et-corps-150ml-g2",
       "kind": "sunscreen",
       "category": "solaire",
@@ -12830,6 +12930,16 @@
       "annotatedAt": "2026-05-25",
       "sampledFor": ["eclat-teint-uniforme", "hyperpigmentation"],
       "notes": "masque 'Brightening' + taches (positionnement pigment) ; eclat-teint: present — taches brunes et teint terne → éclat cristallin"
+    },
+    {
+      "productSlug": "skin-and-out-supershtars",
+      "kind": "spot-treatment",
+      "category": "skincare",
+      "present": ["non-comedogene"],
+      "absent": ["hypoallergenique", "non-irritant"],
+      "annotatedAt": "2026-08-09",
+      "sampledFor": ["non-irritant"],
+      "notes": "Source fabricant Skin & Out : https://www.skinandout.fr/products/supershtars"
     },
     {
       "productSlug": "skin-repair-rx-dermatological-moisturizing-lotion",
