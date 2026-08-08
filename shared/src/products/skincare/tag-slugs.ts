@@ -1,10 +1,6 @@
-// Skincare Product Tag definitions — single source of truth.
-// One {key, slug, label, category[, subgroup]} per tag, in DISPLAY order; the
-// legacy *_TAG_SLUGS object, labels, taxonomy and the concern/characteristic
-// display sub-groups (tag-taxonomy.ts) are all derived from this array.
-// Categories: concern, skin_type, skin_zone, product_type_v2, texture,
-//             routine_step_v2, routine_moment, skin_effect, sensation,
-//             product_characteristic, actif_class.
+// Single source of truth, in DISPLAY order: legacy *_TAG_SLUGS, labels, the
+// taxonomy and the concern/characteristic display sub-groups (tag-taxonomy.ts)
+// are all derived from this array of {key, slug, label, category[, subgroup]}.
 
 import { SHARED_SKINCARE_ACTIF_CLASS_DEFS } from '../../ingredients/skincare/tag-slugs'
 import { deriveTagSlugs, type ProductTagDef } from '../../tag-taxonomy-builder'

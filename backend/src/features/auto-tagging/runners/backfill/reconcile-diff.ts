@@ -1,16 +1,15 @@
-// Pure per-product diff for the reconcile dry-run (no DB / no env imports, so
-// it unit-tests without a database — mirror of classify.ts for the backfill).
-// Decides which stored auto rows the current orchestrator would insert, delete
-// or re-level, and which wanted tags a manual row shadows; reconcile.ts feeds
-// it the loaded maps and only counts/prints. The WRITE path never uses this:
-// it applies writeTagsForProduct directly.
+// Pure per-product diff for the reconcile dry-run (no DB / no env imports, so it unit-tests
+// without a database, mirroring classify.ts for the backfill). Decides which stored auto rows
+// the current orchestrator would insert, delete, or move to another relevance, and which wanted tags a manual
+// row shadows; reconcile.ts feeds it the loaded maps and only counts/prints. The WRITE path
+// never uses this: it applies writeTagsForProduct directly.
 
 import type { AutoTagRelevance } from '../../orchestrator'
 
 export interface ReconcileProductState {
-  // tagId → relevance the orchestrator wants persisted (kernel `rows`).
+  // tagId to relevance the orchestrator wants persisted (kernel `rows`).
   want: ReadonlyMap<string, AutoTagRelevance>
-  // tagId → relevance currently stored with source != 'manual'.
+  // tagId to relevance currently stored with source != 'manual'.
   stored: ReadonlyMap<string, string>
   // tagIds whose PK is held by a source = 'manual' row.
   manual: ReadonlySet<string>
@@ -33,7 +32,7 @@ export function diffReconcileProduct(state: ReconcileProductState): ReconcilePro
     const storedRel = state.stored.get(tagId)
     if (storedRel === undefined) {
       // A manual row on the PK makes the insert a no-op (onConflictDoNothing
-      // yields to the human tag) — tracked apart to avoid phantom inserts.
+      // yields to the human tag), tracked apart to avoid phantom inserts.
       if (state.manual.has(tagId)) manualShadowed.push(tagId)
       else inserts.push(tagId)
     } else if (storedRel !== wantedRel) {

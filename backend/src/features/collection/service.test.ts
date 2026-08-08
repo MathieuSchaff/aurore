@@ -23,9 +23,9 @@ const formulaMotifs = (userId: string) =>
 const compatScores = (userId: string, productIds: string[]) =>
   testDb.transaction((tx) => calculateCompatibilityScores(userId, productIds, tx))
 
-// Rich, widely-recognized INCI: glycerin → hydrating benefit, tocopherol → antioxidant,
-// parfum → fragrance heuristic note. analyzeINCI uses algo-derm's bundled evidence, so
-// these assertions don't depend on the aurore DB seed.
+// Rich, widely-recognized INCI: glycerin gives a hydrating benefit, tocopherol an
+// antioxidant one, parfum a fragrance heuristic note. analyzeINCI uses algo-derm's
+// bundled evidence, so these assertions don't depend on the aurore DB seed.
 const MOTIF_INCI = 'Aqua, Glycerin, Niacinamide, Panthenol, Tocopherol, Parfum'
 
 let user: TestUser
@@ -120,7 +120,7 @@ describe('calculateCompatibilityScores', () => {
 
     const scores = await compatScores(user.id, [product])
 
-    // mean signal = (0.6 + -0.6) / 2 = 0 → neutral 50.
+    // mean signal = (0.6 + -0.6) / 2 = 0, so neutral 50.
     expect(scores[product]).toBe(50)
   })
 
@@ -159,7 +159,7 @@ describe('getCollectionFormulaMotifs', () => {
   it('aggregates recurring axes and excludes avoided products', async () => {
     await shelveProduct('motif-agg-a', { inci: MOTIF_INCI })
     await shelveProduct('motif-agg-b', { inci: MOTIF_INCI })
-    // Same formula but rejected — must not feed the shelf's signal.
+    // Same formula but rejected, so it must not feed the shelf's signal.
     await shelveProduct('motif-agg-c', { inci: MOTIF_INCI, status: 'avoided' })
 
     const motifs = await formulaMotifs(user.id)
@@ -168,7 +168,7 @@ describe('getCollectionFormulaMotifs', () => {
     expect(motifs.benefits.some((b) => b.axis === 'hydrating')).toBe(true)
     expect(motifs.benefits.every((b) => b.count === 2)).toBe(true)
     expect(motifs.notes.length).toBeGreaterThan(0)
-    // avoided excluded → no axis can reach 3.
+    // avoided excluded, so no axis can reach 3.
     expect(motifs.notes.every((n) => n.count <= 2)).toBe(true)
   })
 })

@@ -1,11 +1,6 @@
-// Read-only. Splits ingredients into the four states that matter for dermo-profile
+// Read-only. Splits ingredients into the states that matter for dermo-profile
 // coverage, so a "missing profile" is attributed to the right layer instead of being
-// read as an aurore defect. Worth re-running after every algo-derm bump.
-//   keyed-no-data    — algo-derm knows the substance but records no comedogenicity/functions
-//   keyed-data-lost  — algo-derm HAS data yet the row carries no profile  -> aurore bug
-//   unkeyed-matchable — no canonical_key but the alias index resolves it  -> coverage to claim
-//   unkeyed-blocked  — resolvable but the match is a known conflation     -> must stay unkeyed
-//   unkeyed-unknown  — algo-derm does not know it at all                  -> nothing to do
+// read as an aurore defect. Worth running again after every algo-derm bump.
 
 import { MERGED_EVIDENCE_DB } from 'algo-derm/engine'
 import { isNotNull } from 'drizzle-orm'
@@ -46,10 +41,15 @@ const profiled = new Set(
 )
 
 const buckets = {
+  // algo-derm knows the substance but records no comedogenicity/functions
   'keyed-no-data': [] as string[],
+  // algo-derm HAS data yet the row carries no profile: aurore bug
   'keyed-data-lost': [] as string[],
+  // no canonical_key but the alias index resolves it: coverage to claim
   'unkeyed-matchable': [] as string[],
+  // resolvable but the match is a known conflation: must stay unkeyed
   'unkeyed-blocked': [] as string[],
+  // algo-derm does not know it at all: nothing to do
   'unkeyed-unknown': [] as string[],
 }
 

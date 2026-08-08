@@ -6,12 +6,10 @@ import { matchesNamePositioning } from './name-positioning'
 const S = SKINCARE_PRODUCT_TAG_SLUGS
 
 // Positioning gate for `reparateur` (re-emits an algo-derm slug, ADR-0004).
-// algo-derm fires `reparateur` on ubiquitous barrier actives (ceramides,
-// panthenol) regardless of positioning — the identical barrierSupport signal as
-// `barriere-cutanee` (algo-derm marks them ≡). So `reparateur` reuses the exact
-// barriere-cutanee positioning vocabulary (réparateur/repair claims) rather than
-// a parallel copy that could drift. Both slugs are emitted on the same products
-// by design; the consumer dedups barriere-cutanee ⊇ reparateur downstream.
+// algo-derm fires `reparateur` on the same barrierSupport signal as `barriere-cutanee`
+// (it marks them equivalent), so this reuses the barriere-cutanee positioning regex
+// instead of a parallel copy that could drift. Both slugs fire on the same products
+// by design; the consumer dedups downstream.
 export function detectReparateurFromName(
   name: string | null | undefined,
   description: string | null | undefined

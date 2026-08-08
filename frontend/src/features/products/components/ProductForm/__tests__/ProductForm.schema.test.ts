@@ -128,13 +128,13 @@ describe('productEditFormToUpdateInput', () => {
 
   it('omits a field when it stays empty AND original is null (nothing to clear)', () => {
     const result = productEditFormToUpdateInput(form({ texture: '' }), original)
-    // texture: '' + original null → undefined (omit)
+    // texture: '' + original null gives undefined (omit)
     expect(result.texture).toBeUndefined()
   })
 
   it('sends null when a previously-set field is cleared (explicit unset)', () => {
     const result = productEditFormToUpdateInput(form({ priceEuros: '' }), original)
-    // priceEuros cleared + original had priceCents → null
+    // priceEuros cleared + original had priceCents gives null
     expect(result.priceCents).toBeNull()
   })
 

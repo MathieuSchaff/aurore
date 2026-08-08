@@ -1,32 +1,11 @@
 #!/usr/bin/env bun
 
 /**
- * build-image-mapping.ts: Generate output/image-mapping.json from the
- * authoritative CDN inventory (Bunny Storage), cross-checked against DB
- * product slugs and the local images-normalized/ staging dir.
- *
- * Replaces the Python one-shot used during the initial Pharmashop import
- * (bidirectional prefix match across 3 local stores). The mapping today
- * answers a single question: "for which slugs does products/<slug>.webp
- * exist on Bunny CDN?" patch-image-urls.ts then writes the CDN URL.
- *
- * The local images-normalized/ dir is a transient staging area cleaned
- * after upload, so it cannot be the source of truth. Bunny list is.
- *
- * Output:
- *   output/image-mapping.json   { mapping: {slug: {source, file}}, summary, gaps }
- *
- * Required env:
- *   BUNNY_STORAGE_ZONE
- *   BUNNY_STORAGE_PASSWORD
- *   APP_DATABASE_URL (or DATABASE_URL)
- *
- * Optional env:
- *   BUNNY_STORAGE_HOSTNAME    default: storage.bunnycdn.com
- *   BUNNY_STORAGE_PREFIX      default: products/
- *
- * Usage:
- *   bun run backend/src/images/maintenance/build-mapping.ts [--dry]
+ * Generates output/image-mapping.json from the authoritative CDN inventory (Bunny
+ * Storage), cross-checked against DB product slugs. The local images-normalized/ dir
+ * is a transient staging area cleaned after upload, so Bunny is the source of truth.
+ * Required env: BUNNY_STORAGE_ZONE, BUNNY_STORAGE_PASSWORD, APP_DATABASE_URL (or DATABASE_URL).
+ * Usage: bun run backend/src/images/maintenance/build-mapping.ts [--dry]
  */
 
 import { existsSync, mkdirSync, readdirSync, writeFileSync } from 'node:fs'

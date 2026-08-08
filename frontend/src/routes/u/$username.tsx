@@ -10,7 +10,7 @@ export const Route = createFileRoute('/u/$username')({
     context.queryClient
       .ensureQueryData(profileQueries.publicByUsername(params.username))
       .catch((err) => {
-        // A missing profile throws Error('not_found') (not ApiError) → route to notFoundComponent.
+        // A missing profile throws Error('not_found') (not ApiError), routed to notFoundComponent.
         if (err instanceof Error && err.message === 'not_found') throw notFound()
         throw err
       }),

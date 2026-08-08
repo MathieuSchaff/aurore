@@ -5,13 +5,10 @@ import { matchesNamePositioning } from './name-positioning'
 const S = SKINCARE_PRODUCT_TAG_SLUGS
 
 // Positioning gate for `peau-seche` (re-emits an algo-derm slug, ADR-0004).
-// Same story as peau-grasse: algo-derm fired the skin-type tag off an inflated
-// benefit-axis confidence (25% of skincare), the mirror of peau-grasse — both
-// firing on half the catalogue is noise. No gold set for the skin-type tags, so
-// this gates on the explicit dry-skin phrase in the NAME only (precision ~1.0,
-// marketed-for doctrine). `\b` anchor keeps the verb forms sécher/dessécher/assécher
-// out (those need a preceding "peau" anyway). Recall conservative on purpose; the
-// dryness/hydration FUNCTION stays covered by deshydratation.
+// Same story as peau-grasse: algo-derm's benefit-axis confidence fires this
+// skin-type tag far too often with no gold set to tune against, so gate on the explicit dry-skin
+// phrase in the NAME only. The `\b` anchor keeps verb forms (sécher/dessécher/assécher)
+// out; the dryness/hydration function stays covered by deshydratation.
 export const PEAU_SECHE_POSITION_RE = /peaux? s[eè]ches?\b|dry skin|for dry/i
 
 export function detectPeauSecheFromName(

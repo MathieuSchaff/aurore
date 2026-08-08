@@ -1,10 +1,8 @@
-// Safety net for the deterministic kind → tag table (roadmap 1d).
-//
-// The kindPass wrapper test only proves the pass delegates to detectKindTags;
-// both sides read the same table, so dropping ZONE_VISAGE from `cleanser` stays
-// green there. These fixtures restate the filter-critical mapping independently,
-// so a regression that makes a kind invisible to TYPE_*/ZONE_*/MOMENT_* filters
-// fails here.
+// Safety net for the deterministic kind-to-tag table (roadmap 1d).
+// The kindPass wrapper test only proves the pass delegates to detectKindTags; both
+// sides read the same table, so dropping ZONE_VISAGE from `cleanser` stays green
+// there. These fixtures restate the mapping independently, so a regression that
+// makes a kind invisible to TYPE_*/ZONE_*/MOMENT_* filters fails here.
 
 import { describe, expect, test } from 'bun:test'
 
@@ -17,7 +15,7 @@ import {
   type SkincareProductTagSlug,
 } from '@aurore/shared'
 
-describe('detectKindTags — pinned fixtures', () => {
+describe('detectKindTags: pinned fixtures', () => {
   const cases: Array<[ProductKind, SkincareProductTagSlug[]]> = [
     ['serum', [S.TYPE_SERUM, S.STEP_TRAITEMENT, S.ZONE_VISAGE]],
     ['cleanser', [S.TYPE_NETTOYANT, S.STEP_NETTOYAGE_2, S.ZONE_VISAGE]],
@@ -58,7 +56,7 @@ describe('kind table invariants', () => {
   })
 })
 
-describe('detectKindTags — unmapped kinds', () => {
+describe('detectKindTags: unmapped kinds', () => {
   test('supplement kind has no type tag (intentional)', () => {
     expect(detectKindTags('gelule')).toEqual([])
     expect(detectKindPrimaryType('gelule')).toBeNull()

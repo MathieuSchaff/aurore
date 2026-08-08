@@ -23,7 +23,7 @@ export const Route = createFileRoute('/blog/admin/edit/$slug')({
   },
   loader: ({ context, params }) =>
     context.queryClient.ensureQueryData(articleQueries.bySlug(params.slug)).catch((err) => {
-      // Missing article = 404 → notFoundComponent; keep 5xx/429 on the real error UI.
+      // Missing article = 404, route to notFoundComponent; keep 5xx/429 on the real error UI
       if (err instanceof ApiError && err.status === 404) throw notFound()
       throw err
     }),

@@ -1,23 +1,10 @@
 /**
- * upload-product-image.ts: Unified pipeline to publish a product image
- * to Bunny CDN and link it in the DB.
- *
- * Replaces ad-hoc fetch-images-<brand>.ts one-shot scripts. Accepts an image
- * from any source (URL, local file, in-memory bytes), normalises to webp,
- * uploads to Bunny `products/<slug>.webp`, updates products.image_url.
- *
- * Required env (when calling apply mode):
- *   BUNNY_STORAGE_ZONE
- *   BUNNY_STORAGE_PASSWORD
- *   IMAGE_CDN_BASE              public CDN base (e.g. https://aurore-cdn.b-cdn.net)
- *   APP_DATABASE_URL (or DATABASE_URL)
- *
- * Optional env:
- *   BUNNY_STORAGE_HOSTNAME    default: storage.bunnycdn.com
- *   BUNNY_STORAGE_PREFIX      default: products/
- *
- * The function does NOT regenerate snapshot/data.sql. Run `just db-snapshot`
- * after a batch to persist DB changes to the committable snapshot.
+ * Unified pipeline to publish a product image to Bunny CDN and link it in the DB.
+ * Replaces ad-hoc fetch-images-<brand>.ts one-shot scripts: accepts an image from any
+ * source (URL, local file, in-memory bytes), normalises to webp, updates products.image_url.
+ * Required env (apply mode): BUNNY_STORAGE_ZONE, BUNNY_STORAGE_PASSWORD, IMAGE_CDN_BASE,
+ * APP_DATABASE_URL (or DATABASE_URL). Does NOT regenerate snapshot/data.sql; run
+ * `just db-snapshot` after a batch.
  */
 
 import { execFileSync } from 'node:child_process'

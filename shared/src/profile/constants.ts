@@ -7,7 +7,8 @@ export const USERNAME_MAX_LENGTH = 32
 export const BIO_MAX_LENGTH = 500
 
 // These values are tag slugs from the `skin_type` category in the tags table.
-// They must stay in sync with seed-tags.ts.
+// They must stay in sync with the `skin_type` entries of ../products/skincare/tag-slugs.ts,
+// which is what the seed writes into that table.
 export const SKIN_TYPES = [
   'peau-seche',
   'peau-mixte',
@@ -19,9 +20,8 @@ export const SKIN_TYPES = [
 // User-facing concern slugs shown in the dermo profile UI. Distinct from the
 // product tag `concern` taxonomy (see USER_CONCERN_TO_PRODUCT_TAGS for the
 // translation): user vocab favors lay terms ("anti-acne") while product tags
-// use clinical names ("acne-imperfections").
-// Excluded: `lumiere-bleue`, `pollution`, `photo-protection`. Marketing
-// claims, not user conditions.
+// use clinical names ("acne-imperfections"). Excludes `lumiere-bleue`,
+// `pollution`, `photo-protection`: marketing claims, not user conditions.
 export const SKIN_CONCERNS = [
   'anti-rougeurs',
   'rosacee',

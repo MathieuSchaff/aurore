@@ -1,12 +1,8 @@
-// Local-only auth-boot regression guard against the production SSR build: run the
-// runtime server, front it with a proxy that mocks the whole /api boundary (browser
-// AND server-side fetches hit it — the build pins VITE_API_URL to the proxy), then
-// drive headless chromium through the four boot outcomes: failed refresh, hint gone
-// before hydration, restored session, anonymous visitor, plus the products count
-// hydration regression. Every page also fails on hydration-mismatch console errors.
-// Shell markers are asserted via aur-* classes on purpose: the same vocabulary works
-// for the raw SSR HTML string and the hydrated DOM. Not shipped to prod (lives under
-// e2e/). Run via `just test-auth-ssr`.
+// Local-only auth-boot regression guard against the production SSR build. Runs the
+// runtime server behind a proxy that mocks the whole /api boundary — browser AND
+// server-side fetches hit it, since the build pins VITE_API_URL to the proxy. Shell
+// markers are asserted via aur-* classes on purpose: the same vocabulary works for
+// the raw SSR HTML string and the hydrated DOM. Run via `just test-auth-ssr`.
 import { resolve } from 'node:path'
 
 import { type Browser, chromium, expect, type Page } from '@playwright/test'

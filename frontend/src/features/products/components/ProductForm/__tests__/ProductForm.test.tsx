@@ -167,7 +167,7 @@ describe('ProductForm', () => {
     renderForm(<ProductForm mode="edit" product={mockProduct} onSuccess={onSuccess} />, queryClient)
 
     const submit = screen.getByRole('button', { name: 'Enregistrer' })
-    // Pristine edit form: dirty=false → submit disabled.
+    // Pristine edit form: dirty=false, so submit is disabled.
     expect(submit).toBeDisabled()
 
     fireEvent.change(screen.getByLabelText(/^Nom/), { target: { value: 'Renamed Product' } })

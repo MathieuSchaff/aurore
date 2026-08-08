@@ -1,15 +1,5 @@
 // Targets weak (<70% INCI match-rate) products on 10 brands and pulls clean
-// English INCI from INCIDecoder. Three phases: crawl, match, fetch.
-//
-// Phase 1 (--crawl)  : iterate /brands/<slug>?offset=N until empty, dump
-//                       {brand: [{slug,name}]} to /tmp/incidecoder-index.json.
-// Phase 2 (--match)  : load DB weak products (<70%), score fuzzy match against
-//                       index, write /tmp/incidecoder-matches.json (manual review).
-// Phase 3 (--fetch)  : fetch each matched product page, parse #ingredlist-short
-//                       <a class="ingred-link">, write /tmp/incidecoder-inci.json.
-// Phase 4 (--apply)  : UPDATE products SET inci WHERE slug IN (…). Idempotent
-//                       (skips if existing INCI is already a strict superset
-//                       in terms of normalized matched ingredients).
+// English INCI from INCIDecoder, in four phases: --crawl, --match, --fetch, --apply.
 //
 // Run via: docker exec -w /app/backend -e DATABASE_URL=… app_api bun src/db/seed/ingest/incidecoder/main.ts --crawl
 
@@ -127,6 +117,7 @@ function extractINCIFromProduct(html: string): string[] | null {
   return out
 }
 
+// --crawl: iterate /brands/<slug>?offset=N until empty, dump index to /tmp/incidecoder-index.json.
 async function phaseCrawl(): Promise<void> {
   const index: BrandIndex = {}
   for (const idSlug of Object.values(TARGET_BRANDS_DB)) {
@@ -154,6 +145,7 @@ type MatchResult = {
   url: string | null
 }
 
+// --match: fuzzy-match DB weak products against the index, write /tmp/incidecoder-matches.json for manual review.
 async function phaseMatch(): Promise<void> {
   const aliasIndex = buildAliasIndex(MERGED_EVIDENCE_DB)
   const sql = new SQL(process.env.DATABASE_URL ?? 'postgres://app:devpassword@app_db:5432/appdb')
@@ -236,6 +228,7 @@ async function phaseMatch(): Promise<void> {
 
 type FetchedINCI = { db: WeakProduct; url: string; inci: string[]; rawINCI: string }
 
+// --fetch: fetch each matched product page, parse the ingredient list, write /tmp/incidecoder-inci.json.
 async function phaseFetch(scoreThreshold: number): Promise<void> {
   const matchRaw = await Bun.file(MATCH_PATH).text()
   const matches: MatchResult[] = JSON.parse(matchRaw)
@@ -265,6 +258,8 @@ async function phaseFetch(scoreThreshold: number): Promise<void> {
   console.log(`wrote ${INCI_PATH} (${out.length} products)`)
 }
 
+// --apply: UPDATE products SET inci WHERE slug IN (…). Idempotent: skips a
+// product whose existing INCI already covers the matched ingredients.
 async function phaseApply(): Promise<void> {
   const aliasIndex = buildAliasIndex(MERGED_EVIDENCE_DB)
   const raw = await Bun.file(INCI_PATH).text()

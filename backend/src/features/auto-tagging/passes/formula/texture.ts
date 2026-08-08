@@ -47,7 +47,7 @@ export function detectTextureRiche(
 
 // Hoisted above texture-legere/non-gras so multiple detectors can compose them.
 // Aligned with algo-derm `silicone` heuristic (data/rules/heuristic_rules.json).
-// Excluded: 'amodimethicone' (haircare only), 'siloxane'/'silanol' (too broad, over-tags end-group variants).
+// Excluded: 'amodimethicone' (haircare only), 'siloxane'/'silanol' (too broad, they also tag end-group variants).
 const SILICONE_LIGHT_PATTERNS = [
   'dimethicone',
   'dimethiconol',
@@ -86,7 +86,7 @@ const VEGETABLE_OIL_PATTERNS = [
 
 // Light, watery feel: water or glycerin in top 3, no butter/wax/petrolatum/
 // vegetable-oil in top 8, leave-on only. Vegetable oils excluded so an oil-
-// driven emulsion is not double-tagged with `texture-creme` (F2 mutex).
+// driven emulsion is not double-tagged with `texture-creme`, they are mutually exclusive
 
 const WATER_TOKENS = ['aqua', 'water', 'eau']
 const HEAVY_EXCLUSION_PATTERNS = [
@@ -126,8 +126,8 @@ export function detectTextureLegere(
   return [S.TEXTURE_LEGERE]
 }
 
-// Silicone in top 5, no vegetable oil in top 5. `absorption-rapide` was
-// previously co-emitted but dropped: same INCI signal, marketing-style duplicate.
+// Silicone in top 5, no vegetable oil in top 5. `absorption-rapide` was previously emitted
+// alongside it but dropped: same INCI signal, marketing-style duplicate.
 
 const NON_GRAS_KINDS = new Set<ProductKind>(['serum', 'eye-cream'])
 
@@ -173,12 +173,11 @@ export function detectTextureFromField(
   return slug ? [slug] : []
 }
 
-// INCI fallback for gel texture (no admin-curated field): gel-former in top 5,
-// no oily/heavy/silicone base. Precision-focused: easier to miss a gel than to
-// mislabel a cream as gel.
-// `mousse` and `stick` have no INCI fallback: foaming surfactants can't
-// distinguish a foam-pump mousse from a liquid cleanser, and stick chemistry
-// (wax-heavy) overlaps with `baume` without a reliable INCI marker.
+// INCI fallback for gel texture (no admin-curated field): gel-former in top 5, no
+// oily/heavy/silicone base. Precision-focused: easier to miss a gel than to mislabel
+// a cream as gel. `mousse` and `stick` have no INCI fallback: foaming surfactants can't
+// distinguish a foam-pump mousse from a liquid cleanser, and stick chemistry (wax-heavy)
+// overlaps with `baume` without a reliable INCI marker.
 
 const GEL_FORMER_PATTERNS = [
   'carbomer',
@@ -245,26 +244,15 @@ export function detectTextureGelInci(
 
 // Default for kinds where cream is the expected format. Eye-cream excluded:
 // too heterogeneous (patches, gels, serums, real creams) for a kind-based default.
-//
-// Vetos (any → skip):
-//   1. Ionic surfactant top 5 → cleanser mistag.
-//   2. ≥ 2 butter/wax top 8 → defer to `texture-riche`.
-//   3. Vegetable oil or butter/wax at pos 1 → face-oil mistag.
-//   4. No water in top 5 → oil-led formula.
-//   5. Gel-former top 5 + no oily phase top 8 → `texture-gel` wins.
-//   6. Water at pos 1 + no emulsifier top 8 + no oily phase → serum/essence.
-//
-// Below TEXTURE_CREME_MIN_INCI_FOR_VETO, vetos are unreliable, trust kind.
 // Mutex with `texture-legere` enforced via VEGETABLE_OIL_PATTERNS in HEAVY_EXCLUSION_PATTERNS.
 
 const TEXTURE_CREME_DEFAULT_KINDS = new Set<ProductKind>(['moisturizer', 'foot-cream'])
 
-// O/W emulsifiers and co-emulsifiers commonly seen at top 8 in a cream phase.
-// Includes fatty alcohols (cetearyl/cetyl/stearyl/behenyl), glyceryl/sorbitan
-// stearates, PEG/steareth/ceteareth ethoxylates, polysorbates, glucoside-
-// based natural emulsifiers, and polymeric emulsifiers (polyacrylate-13,
-// Sepiplus family). Hyphen on `polyacrylate-13` to avoid matching the gel
-// thickener `sodium polyacrylate`.
+// O/W emulsifiers and co-emulsifiers commonly seen at top 8 in a cream phase: fatty
+// alcohols (cetearyl/cetyl/stearyl/behenyl), glyceryl/sorbitan stearates, PEG/steareth/
+// ceteareth ethoxylates, polysorbates, glucoside-based natural emulsifiers, and polymeric
+// emulsifiers (polyacrylate-13, Sepiplus family). Hyphen on `polyacrylate-13` avoids
+// matching the gel thickener `sodium polyacrylate`.
 const EMULSIFIER_PATTERNS = [
   'cetearyl alcohol',
   'cetyl alcohol',
@@ -328,23 +316,23 @@ export function detectTextureCremeInci(
   const top8 = inciWindow(ingredients, 8)
   const firstIng = ingredients[0]
 
-  // Veto 1: ionic surfactant top 5 → cleanser mistag
+  // Veto 1: ionic surfactant top 5, cleanser mistag
   if (top5.some((ing) => IONIC_SURFACTANT_PATTERNS.some((p) => ing.includes(p)))) return []
 
-  // Veto 2: ≥ 2 distinct butter/wax top 8 → texture-riche wins
+  // Veto 2: >= 2 distinct butter/wax top 8, texture-riche wins
   const butterWaxCount = top8.filter((ing) =>
     BUTTER_WAX_PATTERNS.some((p) => ing.includes(p))
   ).length
   if (butterWaxCount >= 2) return []
 
-  // Veto 3: vegetable oil or butter/wax at pos 1 → face-oil mistag
+  // Veto 3: vegetable oil or butter/wax at pos 1, face-oil mistag
   if (
     VEGETABLE_OIL_PATTERNS.some((p) => firstIng.includes(p)) ||
     BUTTER_WAX_PATTERNS.some((p) => firstIng.includes(p))
   )
     return []
 
-  // Veto 4: no water in top 5 → oil-led formula
+  // Veto 4: no water in top 5, oil-led formula
   if (!top5.some((ing) => WATER_TOKENS.some((t) => ing.includes(t)))) return []
 
   const hasOilyPhase = top8.some(
@@ -357,11 +345,11 @@ export function detectTextureCremeInci(
       ing.includes('lanolin')
   )
 
-  // Veto 5: gel-former top 5 + no oily phase top 8 → texture-gel wins
+  // Veto 5: gel-former top 5 + no oily phase top 8, texture-gel wins
   if (top5.some((ing) => GEL_FORMER_PATTERNS.some((p) => ing.includes(p))) && !hasOilyPhase)
     return []
 
-  // Veto 6: water at pos 1 + no emulsifier top 8 + no oily phase → serum/essence
+  // Veto 6: water at pos 1 + no emulsifier top 8 + no oily phase, serum/essence
   if (
     WATER_TOKENS.some((t) => firstIng.includes(t)) &&
     !top8.some((ing) => EMULSIFIER_PATTERNS.some((p) => ing.includes(p))) &&
@@ -372,12 +360,9 @@ export function detectTextureCremeInci(
   return [S.TEXTURE_CREME]
 }
 
-// Name-based texture hint for eye-cream: INCI alone is insufficient (sparse or
-// conflicting). Priority: abstain > baume > gel > creme > null.
-//   'abstain': definitively not a leave-on cream (serum, patch, ampoule, etc.)
-//   'baume'/'gel': conflict with INCI gate, defer to admin curation
-//   'creme': name confirms cream, fires on sparse INCI
-//   null: INCI gate is authoritative
+// Name-based texture hint for eye-cream, INCI alone is insufficient (sparse or
+// conflicting). Priority order: abstain > baume > gel > creme > null. See
+// detectTextureCremeEyeInci below for what each hint does to the INCI gate.
 
 type EyeCreamTextureHint = 'creme' | 'baume' | 'gel' | 'abstain' | null
 
@@ -398,13 +383,7 @@ function textureHintFromName(name: string | null | undefined): EyeCreamTextureHi
 
 // Texture-creme for eye-cream: excluded from the F2 kind-based default because
 // eye-cream spans patches, hydrogels, serums and real creams. Uses name hint +
-// INCI gate (water top 3 + emulsifier top 8). If gate passes but name signals
-// baume or gel, defer to admin curation.
-//
-// Vetos (subset of F2):
-//   1. Ionic surfactant top 5 → cleanser mistag.
-//   2. ≥ 2 butter/wax top 8 → defer to `texture-riche`.
-//   3. Gel-former top 5 → `texture-gel` wins.
+// INCI gate (water top 3 + emulsifier top 8).
 
 export function detectTextureCremeEyeInci(
   inci: string | null | undefined,
@@ -418,7 +397,7 @@ export function detectTextureCremeEyeInci(
 
   const hint = textureHintFromName(name)
 
-  // Name says serum / patch / ampoule / etc. → skip regardless of INCI
+  // Name says serum / patch / ampoule / etc., skip regardless of INCI
   if (hint === 'abstain') return []
 
   const ingredients = resolveIngredients(inci, hoistedIngredients)
@@ -433,22 +412,22 @@ export function detectTextureCremeEyeInci(
   const top5 = inciWindow(ingredients, 5)
   const top8 = inciWindow(ingredients, 8)
 
-  // Veto 1: ionic surfactant top 5 → cleanser mistag
+  // Veto 1: ionic surfactant top 5, cleanser mistag
   if (top5.some((ing) => IONIC_SURFACTANT_PATTERNS.some((p) => ing.includes(p)))) return []
 
-  // Veto 2: ≥ 2 distinct butter/wax top 8 → texture-riche wins
+  // Veto 2: >= 2 distinct butter/wax top 8, texture-riche wins
   const butterWaxCount = top8.filter((ing) =>
     BUTTER_WAX_PATTERNS.some((p) => ing.includes(p))
   ).length
   if (butterWaxCount >= 2) return []
 
-  // Veto 3: gel-former top 5 → texture-gel wins
+  // Veto 3: gel-former top 5, texture-gel wins
   if (top5.some((ing) => GEL_FORMER_PATTERNS.some((p) => ing.includes(p)))) return []
 
   if (!top3.some((ing) => WATER_TOKENS.some((t) => ing.includes(t)))) return []
   if (!top8.some((ing) => EMULSIFIER_PATTERNS.some((p) => ing.includes(p)))) return []
 
-  // INCI gate passes but name signals a conflicting texture → defer to admin
+  // INCI gate passes but name signals a conflicting texture, defer to admin
   if (hint === 'baume' || hint === 'gel') return []
 
   return [S.TEXTURE_CREME]
@@ -456,7 +435,7 @@ export function detectTextureCremeEyeInci(
 
 // `balm` kind already gets `texture-baume` via kind-tag detection.
 // Eye-cream and moisturizer don't: they cover heterogeneous ranges. Name-driven
-// fallback (F6 Q3) because butter/wax INCI thresholds don't generalise to
+// fallback because butter/wax INCI thresholds don't generalise to
 // leave-on balms with mixed phases. Only fires when `products.texture` is unset.
 
 const TEXTURE_BAUME_NAME_KINDS = new Set<ProductKind>(['eye-cream', 'moisturizer'])
@@ -479,7 +458,7 @@ export function detectTextureBaumeFromName(
   return [S.TEXTURE_BAUME]
 }
 
-// `texture-stick` is non-derivable from INCI alone: wax-stick chemistry overlaps
+// `texture-stick` is not derivable from INCI alone: wax-stick chemistry overlaps
 // balm/sunscreen without a reliable INCI marker. Name-driven fallback when
 // `products.texture` is unset. Leave-on kinds only: sun sticks land in
 // `moisturizer`/`sunscreen`, corrector sticks in `spot-treatment`.

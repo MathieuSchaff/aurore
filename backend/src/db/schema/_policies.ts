@@ -44,11 +44,9 @@ export function fkTenantPolicies(name: string, ownershipExpr: SQL) {
 }
 
 // Catalog tables: public SELECT, writes gated by app.role.
-//   - <name>_select_public : USING (true). MUST NOT be gated by auth.role(),
-//     anonymous GETs skip withRlsContext, so app.role is empty; gating SELECT
-//     would break public browsing.
-//   - <name>_write_role : INSERT/UPDATE/DELETE gated by app.role.
-// writeRole 'contributor' → admin OR contributor ; 'admin' → admin only
+// select_public must stay USING(true): anonymous GETs skip withRlsContext, so
+// app.role is empty there and gating SELECT would break public browsing.
+// write_role: writeRole 'contributor' allows admin or contributor, 'admin' allows admin only
 // (tag definitions + ingredient↔tag links).
 export function catalogPolicies(name: string, writeRole: 'contributor' | 'admin') {
   const roleCheck =
@@ -73,21 +71,17 @@ export function catalogPolicies(name: string, writeRole: 'contributor' | 'admin'
 }
 
 // Catalog SUBMISSION tables (products, ingredients): user-generated, public-read,
-// two-axis model: catalog_quality (unverified/verified) + moderation_status
-// (visible/hidden). Distinct from catalogPolicies (tag defs, role-gated writes).
-//
-// Field-level integrity (no self-promotion to 'verified', admin-only moderation)
-// lives in the service field-strip + the verify CHECK, NOT here: the privileged
-// UPDATE branch lets contributors write any column at the RLS layer.
+// two-axis model: catalog_quality (unverified/verified) + moderation_status (visible/hidden).
+// Field-level integrity (no self-promotion to 'verified', admin-only moderation) lives in
+// the service field-strip + the verify CHECK, not here: the RLS UPDATE branch lets
+// contributors write any column.
 export function catalogSubmissionPolicies(name: string, createdByColumn: AnyPgColumn) {
   return [
-    // Public reads see 'visible' rows; the moderator (admin∨contributor) also sees
-    // 'hidden' so a reported sheet can be reviewed/restored. The owner
-    // sees their own 'hidden' rows ONLY while app.own_submissions is set (the
-    // /me/submissions path) — plain browse stays honest, the author's hidden sheet
-    // never resurfaces in the public grid. This owner clause is the DB-layer scope
-    // for getMySubmissions; its createdBy filter is then defence-in-depth, not the
-    // sole guard against leaking other users' hidden rows.
+    // Public reads see 'visible' rows; moderators (admin/contributor) also see 'hidden'
+    // for review. The owner sees their own 'hidden' rows only while app.own_submissions
+    // is set (/me/submissions path), so plain browse never leaks the author's hidden sheet.
+    // This owner clause is the DB-layer scope for getMySubmissions; its createdBy filter
+    // is defence-in-depth, not the sole guard against leaking other users' hidden rows.
     pgPolicy(`${name}_select_visible`, {
       as: 'permissive',
       for: 'select',

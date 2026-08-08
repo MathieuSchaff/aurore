@@ -1,12 +1,8 @@
 #!/usr/bin/env bun
 /**
- * audit-bunny-images.ts — Cross-check Bunny Storage inventory against the DB for
- * each image surface (products.image_url under products/, articles.cover_image_url
- * under blog/). Reports orphans (on Bunny, no DB ref), broken refs (DB url but
- * file absent), and reachability of a random sample.
- *
+ * Cross-checks Bunny Storage inventory against the DB image refs (products.image_url,
+ * articles.cover_image_url). Reports orphans, broken refs, and sample reachability.
  * Required env: BUNNY_STORAGE_ZONE, BUNNY_STORAGE_PASSWORD, APP_DATABASE_URL (or DATABASE_URL).
- * Optional env: BUNNY_STORAGE_HOSTNAME (default storage.bunnycdn.com), IMAGE_CDN_BASE.
  */
 
 import { SQL } from 'bun'
@@ -63,7 +59,7 @@ for (const t of TARGETS) {
     } else if (!r.u || r.u === '') {
       noImage++
     } else {
-      external.push(r.slug) // non-Bunny host still referenced — a regression
+      external.push(r.slug) // non-Bunny host still referenced: a regression
     }
   }
   console.log(

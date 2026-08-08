@@ -1,15 +1,7 @@
-// Builds the algo-derm `knownConcentrations` map from product_ingredients rows.
-//
-// algo-derm's solver does normalize(key) + an exact Map lookup against the INCI
-// tokens, so each ingredient is keyed twice for the best chance of binding:
-//   - the name: gets algo-derm's FR→Latin translation ("Acide Azélaïque").
-//   - the slug with hyphens→spaces, English INCI-ish, binds actives whose
-//     French name never matches the token ("salicylic-acid" → "salicylic acid").
-// Hyphens must become spaces because normalize() keeps them. Measured bind:
-// name-only 64% → name+slug 73% over the curated corpus.
-//
-// Only %-unit rows in (0, 100] are pinned, IU/mg/mcg are not concentrations,
-// and the solver clamps but a 0%/negative claim would break feasibility.
+// Builds the algo-derm `knownConcentrations` map from product_ingredients rows. The solver
+// does normalize(key) + an exact Map lookup, so each ingredient is keyed twice: name (FR->Latin)
+// and slug with hyphens as spaces, binding actives whose French name misses the token (bind
+// rate 64% to 73%). Only %-unit rows in (0, 100] are pinned; a 0%/negative claim breaks it.
 
 export type ConcentrationRow = {
   name: string

@@ -1,25 +1,5 @@
-// Cross-signal tag enrichment: derives MOMENT_* and usage context tags by
-// combining actif-class detection results with the product's kind.
-//
-// These tags can't be derived from INCI alone or kind alone; they need both:
-//   - RETINOIDS actif → moment-soir   (photosensitizing, must be used at night)
-//   - AHA actif       → moment-soir   (photosensitizing when used as leave-on)
-//   - BHA actif       → moment-soir   (ditto, for leave-on formats)
-//   - VITAMIN_C actif → moment-matin  (UV-synergistic antioxidant; also fires
-//     on sunscreen kind; kind-tag already emits moment-matin, but the combo
-//     SPF + vit-C is a recognized morning stack, reaffirmed at cross-signal
-//     level so audit pipelines can attribute the pair)
-//   - ENZYMES_EXFOLIANTS + exfoliant kind → moment-hebdomadaire (mask/peel use)
-//   - hydroquinone in INCI + leave-on → moment-soir (oxidizes in UV;
-//     prescription-grade depigmentant, banned in EU OTC but still seen)
-//   - RETINOIDS actif + body leave-on → anti-age concern (algo-derm fires
-//     anti-age via tagProduct, but body INCI tend to have lower coverage and
-//     get gated by the computed_score floor; we re-emit here unconditionally)
-//   - spot-treatment kind + (BHA OR benzoyl peroxide top 5 OR azelaic top 5) → moment-crise
-//     (acute breakout treatment, episodic use)
-//
-// Rinse-off kinds (cleanser, body-wash, mask, patch) are excluded from
-// leave-on photosensitivity warnings; context.leaveOn matters here.
+// Cross-signal tag enrichment: derives MOMENT_* and usage context tags by combining
+// actif-class detection with the product's kind. Neither signal alone is enough.
 
 import type { ProductKind } from '@aurore/shared'
 import { SKINCARE_PRODUCT_TAG_SLUGS, type SkincareProductTagSlug } from '@aurore/shared'
@@ -51,7 +31,7 @@ const LEAVE_ON_KINDS = new Set<string>([
 
 const PERIODIC_EXFOLIANT_KINDS = new Set<string>(['exfoliant', 'mask', 'patch'])
 
-// Excludes rinse-off (body-wash, body-scrub) and non-skincare (deodorant).
+// Excludes rinse-off (body-wash, body-scrub) and products that are not skincare (deodorant).
 const BODY_LEAVE_ON_KINDS = new Set<string>(['body-lotion', 'body-oil', 'hand-cream', 'foot-cream'])
 
 export function detectCrossSignalTags(
@@ -76,6 +56,7 @@ export function detectCrossSignalTags(
     tags.add(S.MOMENT_SOIR)
   }
 
+  // Periodic-use kinds (mask, peel): AHA/BHA/enzyme exfoliants get moment-hebdomadaire.
   if (
     (actifSet.has(S.AHA) || actifSet.has(S.BHA) || actifSet.has(S.ENZYMES_EXFOLIANTS)) &&
     isPeriodic
@@ -85,12 +66,13 @@ export function detectCrossSignalTags(
 
   // Sunscreen not in LEAVE_ON_KINDS (would conflict with retinoid/AHA/BHA
   // night paths); included here explicitly because SPF + vit-C is the
-  // canonical morning combo (X2).
+  // canonical morning combo
   if (actifSet.has(S.VITAMIN_C) && (isLeaveOn || kind === 'sunscreen')) {
     tags.add(S.MOMENT_MATIN)
   }
 
-  // Hydroquinone: Rx-only EU, not in actif-class taxonomy; detect inline.
+  // Hydroquinone: oxidizes in UV so it's night-only. Rx-grade, banned from EU OTC but
+  // still seen; not in actif-class taxonomy, so detect inline.
   if (isLeaveOn && ingredients.length > 0) {
     if (ingredients.some((ing) => ing.includes('hydroquinone'))) {
       tags.add(S.MOMENT_SOIR)
@@ -119,8 +101,8 @@ export function detectCrossSignalTags(
   return [...tags]
 }
 
-// Tags at relevance='avoid': retinoids + (AHA OR BHA) on leave-on → peau-sensible
-// avoid. Stacking vitamin-A with chemical exfoliants is a classic dermo over-routine,
+// Tags at relevance='avoid': retinoids with AHA or BHA on leave-on gives peau-sensible
+// avoid. Stacking vitamin-A with chemical exfoliants is a classic overloaded dermo routine,
 // unsafe for sensitive skin without clinician supervision.
 export function detectCrossSignalAvoidTags(
   actifClasses: SkincareProductTagSlug[],
@@ -138,25 +120,25 @@ export function detectCrossSignalAvoidTags(
   return tags
 }
 
-// Axis → avoid tag mapping (X3). Mitigations (adjustment <= 0) skipped.
-// Leave-on only: rinse-off dilutes cumulative effect below clinical threshold
-// (Lodén 2003; same rationale as comedogene excludeRinseOff).
-//   - irritation | allergenicity → peau-sensible (cumulative barrier insult)
-//   - dryness → peau-seche (alcohol+acid stacks amplify TEWL)
-// comedogenicity and fungalAcne require acneProne profile gating; not emitted at seed.
-// photosensitivity → moment-soir (secondary, not avoid) via detectInteractionSecondaryTags.
+// Axis-to-avoid tag mapping. Mitigations (adjustment <= 0) skipped.
+// comedogenicity and fungalAcne need acneProne profile gating, not emitted at seed.
+// photosensitivity gives moment-soir (secondary, not avoid) via detectInteractionSecondaryTags.
 export function detectInteractionAvoidTags(
   assessment: ProductAssessment,
   kind: ProductKind
 ): SkincareProductTagSlug[] {
+  // Rinse-off dilutes cumulative effect below clinical threshold (Lodén 2003; same
+  // rationale as comedogene excludeRinseOff).
   if (!LEAVE_ON_KINDS.has(kind)) return []
 
   const tags = new Set<SkincareProductTagSlug>()
   for (const interaction of assessment.interactions) {
     if (interaction.adjustment <= 0) continue
+    // Cumulative barrier insult.
     if (interaction.axes.includes('irritation') || interaction.axes.includes('allergenicity')) {
       tags.add(S.PEAU_SENSIBLE)
     }
+    // Alcohol+acid stacks amplify TEWL.
     if (interaction.axes.includes('dryness')) {
       tags.add(S.PEAU_SECHE)
     }
@@ -165,8 +147,8 @@ export function detectInteractionAvoidTags(
 }
 
 // Same leave-on gating and mitigation skip as detectInteractionAvoidTags, but
-// emits at relevance=secondary. photosensitivity → moment-soir extends coverage
-// to multi-essential-oil stacks (bergaptene-class furocoumarins) that don't
+// emits at relevance=secondary. photosensitivity gives moment-soir, extending coverage
+// to stacks of several essential oils (bergaptene-class furocoumarins) that don't
 // trigger any actif-class.
 export function detectInteractionSecondaryTags(
   assessment: ProductAssessment,
@@ -184,25 +166,20 @@ export function detectInteractionSecondaryTags(
   return [...tags]
 }
 
-// Dose-gated peau-sensible avoid. Two regimes:
-//
-// CAPPED (EU regulatoryCapPct): solver clamps to cap, so solverMeanPct is robust
-// with or without a curated pin. Threshold = cap x 0.83 to catch at-cap doses
-// while sparing dermo-friendly traces (LRP Retinol B3 0.3 %, Cicaplast trace SA):
-//   - retinol      cap = 0.3 % -> >= 0.25 %
-//   - salicylic    cap = 2.0 % -> >= 1.5 %
-//
-// UNCAPPED: unpinned QP solver overshoots in trace zones (azelaic at INCI pos 2
-// -> solver ~16 % regardless of real dose). Trust only when claimPct is defined
-// (algo-derm pinned to a curated concentration, Phase 3b). Unpinned matches skipped.
-// Gentle actives (bakuchiol, HPR ester) absent: high dose does not make them irritants.
-//
-// Leave-on only: rinse-off contact time too short for dose to matter.
+// CAPPED (EU regulatoryCapPct): solver clamps to cap, so solverMeanPct stays accurate with
+// or without a curated pin. Threshold is cap x 0.83 to catch at-cap doses while sparing
+// dermo-friendly traces (LRP Retinol B3 0.3 %, Cicaplast trace SA):
+//   - retinol cap 0.3 % needs >= 0.25 %
+//   - salicylic cap 2.0 % needs >= 1.5 %
 const CAPPED_DOSE_RULES: Record<string, number> = {
   retinol: 0.25,
   'salicylic acid': 1.5,
 }
 
+// UNCAPPED: unpinned QP solver overshoots in trace zones (azelaic at INCI pos 2 hits
+// solver ~16 % regardless of real dose). Trust only when claimPct is defined (algo-derm
+// pinned to a curated concentration, Phase 3b); unpinned matches are skipped. Gentle
+// actives (bakuchiol, HPR ester) absent: high dose does not make them irritants.
 const PINNED_DOSE_RULES: Record<string, number> = {
   'glycolic acid': 8,
   'lactic acid': 5,
@@ -211,10 +188,12 @@ const PINNED_DOSE_RULES: Record<string, number> = {
   retinal: 0.05,
 }
 
+// Dose-gated peau-sensible avoid, combining CAPPED_DOSE_RULES and PINNED_DOSE_RULES above.
 export function detectConcentrationAvoidTags(
   assessment: ProductAssessment,
   kind: ProductKind
 ): SkincareProductTagSlug[] {
+  // Rinse-off contact time is too short for dose to matter.
   if (!LEAVE_ON_KINDS.has(kind)) return []
 
   const tags = new Set<SkincareProductTagSlug>()

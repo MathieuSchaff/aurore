@@ -1,11 +1,11 @@
 import { USER_CONCERN_TO_PRODUCT_TAGS } from '../products/user-concern-bridge'
 import type { SkinConcern, SkinType } from '../profile'
 
-// Skin similarity as a lens to find "people like me" (#1). Three sub-signals,
+// Skin similarity as a lens to find "people like me" (#1). Three signals,
 // composited into an INTERNAL score used only to rank; the surfaced output is
 // always an ordinal band, never a number (#1 anti-"4.5 stars" guard).
 
-// Matched subset of UserDermoProfile — the metric needs only these 3 axes, so
+// Matched subset of UserDermoProfile: the metric needs only these 3 axes, so
 // it takes a structural shape rather than the full entity (decoupled from
 // userId / notes / timestamps).
 export type SkinSimilarityInput = {
@@ -33,11 +33,11 @@ export const BAND_THRESHOLDS = {
   proche: 0.25,
 } as const
 
-// Fitzpatrick spans 1..6 → widest gap is 5. Ordinal distance, not set overlap.
+// Fitzpatrick spans 1..6, so the widest gap is 5. Ordinal distance, not set overlap.
 const FITZ_MAX_DELTA = 5
 
 // Project the 22 user concerns onto the ~12 clinical buckets via the existing
-// drift table — read-only on the table, NOT resolveAvoidSlugs' avoidance
+// drift table; read-only on the table, NOT resolveAvoidSlugs' avoidance
 // semantics (#1). The family collapse comes for free: anti-rougeurs / rosacee
 // / couperose / flushs all land on `rougeurs-vasculaires`, so two people who
 // named the condition differently still match.
@@ -59,7 +59,7 @@ function jaccard(a: ReadonlySet<string>, b: ReadonlySet<string>): number {
   return union === 0 ? 0 : intersection / union
 }
 
-// Raw composite in [0,1]. INTERNAL ONLY — ranks, never displays (#1). A missing
+// Raw composite in [0,1]. INTERNAL ONLY: ranks, never displays (#1). A missing
 // Fitzpatrick on either side drops that component and renormalizes over the
 // present weights, so absent data reads as neutral rather than a penalty.
 export function skinSimilarityScore(a: SkinSimilarityInput, b: SkinSimilarityInput): number {

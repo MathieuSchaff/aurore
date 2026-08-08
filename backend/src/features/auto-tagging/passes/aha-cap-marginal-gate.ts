@@ -11,21 +11,16 @@ import type { RoleAtDose } from 'algo-derm'
 // peel/peeling, gommage, resurfacing.
 const EXFOLIATION_NAME_RE = /exfolia|foliant|peel|gommage|resurfa/
 
-// The name-gate keyword list (exfolia|peel|...) misses acid-named products (e.g. "Chestnut
-// AHA Essence"), wrongly dropping real exfoliant actives sitting deep in rinse-off INCI.
-// The solver % rescues them: a cap-marginal AHA the name doesn't vouch for is kept when the
-// solver puts it at a confidently functional dose. Threshold 2% (not 1%) so solver noise
-// (MAE 4pts) near the pH-adjuster boundary can't rescue a true pH adjuster: only the
-// unambiguous actives, not 1% cleansers.
+// The name-gate misses acid-named products (e.g. "Chestnut AHA Essence"), wrongly dropping
+// real exfoliant actives deep in rinse-off INCI. The solver % rescues them when confidently
+// functional. Threshold is 2%, not 1%: solver noise (MAE 4pts) near the pH-adjuster boundary
+// must not rescue a true pH adjuster.
 const AHA_RESCUE_PCT_MIN = 2
 
-// roleAtDose (algo-derm v21+): a dose-conditioned exfoliant-vs-pH-adjuster signal on
-// each matched AHA. When confident it is authoritative over the name-gate: a sub-c50
-// dose is a pH adjuster even under an exfoliant-positioned name (e.g. a 40% urea peel
-// whose lactic acid sits sub-1%), and an active dose is kept even when the name keyword
-// list misses it. Near the curve knee confidence collapses, so fall back to the
-// name-gate + %-rescue. c50 is the curve midpoint; the confidence floor is gold-set
-// calibrated.
+// roleAtDose (algo-derm v21+): a dose-conditioned exfoliant-vs-pH-adjuster signal, authoritative
+// over the name-gate when confident (a sub-c50 dose is a pH adjuster even under an
+// exfoliant-positioned name, e.g. a 40% urea peel with sub-1% lactic acid). Near the curve
+// knee confidence collapses, so fall back to name-gate + %-rescue. c50 is gold-set calibrated.
 const AHA_ROLE_DOSE_C50 = 0.5
 const AHA_ROLE_CONFIDENCE_MIN = 0.5
 

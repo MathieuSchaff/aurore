@@ -1,33 +1,15 @@
-// Pure logic for the OBF brand-label ingestion (T4.D). The runner that
-// wraps this module owns I/O (download, gunzip, DB upsert) so the
-// per-brand aggregation + threshold rules stay unit-testable on small
-// fixtures.
-//
-// OBF data shape (CSV, tab-separated):
-//   brands_tags  e.g. "xx:l-oreal,xx:cerave"        — language-prefixed slugs
-//   labels_tags  e.g. "en:vegan,en:cruelty-free,fr:ecocert" — multi-language
-//
-// Brand-level claim rule (OR-combined to cope with OBF tagging sparsity):
-//   1. Ratio rule: matched / total >= ratioThreshold AND total >= minProducts.
-//      Captures brands that consistently tag their lineup (small / focused
-//      organic labels, cosmos-certified houses).
-//   2. Count rule: matched >= minLabelCount.
-//      Captures big brands where most rows lack labels (Garnier has 758
-//      products on OBF, only 40 tag vegan — 5 % ratio. The 40 are still
-//      strong evidence the brand line is vegan).
-//
-// Either rule firing flips the claim to true. False positives stay rare
-// because crowdsourced OBF labels for vegan / cruelty-free / cosmos are
-// label-bearing (ingredient packaging or certification logo on box) — a
-// few mistags don't reach minLabelCount=3 across thousands of beauty rows.
-// PETA / Leaping Bunny scrapers (T4.E) will refine with brand-level
-// ground truth.
+// Pure logic for the OBF brand-label ingestion. The runner that wraps this
+// module owns I/O (download, gunzip, DB upsert) so the per-brand aggregation
+// and threshold rules stay unit-testable on small fixtures.
 
 import type {
   BrandCertificationSource,
   BrandCertificationSources,
 } from '../../../schema/products/brand-certifications'
 
+// OBF CSV columns, language-prefixed slugs:
+//   brands_tags  e.g. "xx:l-oreal,xx:cerave"
+//   labels_tags  e.g. "en:vegan,en:cruelty-free,fr:ecocert" (multiple languages)
 export interface ObfRow {
   brandTags: string[]
   labelTags: string[]
@@ -36,7 +18,7 @@ export interface ObfRow {
 // OBF slug format: lowercase ASCII, accents stripped, any non-[a-z0-9] run
 // collapsed to a single `-`. Mirrors the OBF Perl `prodsuf:get_string_id_for_lang`
 // well enough for our top-corpus brands (verified manually against the dump:
-// "L'Oréal" → "l-oreal", "La Roche-Posay" → "la-roche-posay", "Avène" → "avene").
+// "L'Oréal" gives "l-oreal", "La Roche-Posay" gives "la-roche-posay", "Avène" gives "avene").
 export function brandToObfSlug(brand: string): string {
   return brand
     .normalize('NFD')
@@ -46,22 +28,15 @@ export function brandToObfSlug(brand: string): string {
     .replace(/^-+|-+$/g, '')
 }
 
-// Strip the language prefix from an OBF tag. `xx:l-oreal` → `l-oreal`.
-// `en:vegan` → `vegan`. Tags without a prefix (rare) pass through.
+// Strip the language prefix from an OBF tag: `xx:l-oreal` gives `l-oreal`,
+// `en:vegan` gives `vegan`. Tags without a prefix (rare) pass through.
 export function stripObfPrefix(tag: string): string {
   const colon = tag.indexOf(':')
   return colon === -1 ? tag : tag.slice(colon + 1)
 }
 
-// Map OBF label slugs to our brand-level certification flags. Multi-source
-// labels collapse onto the same flag (e.g. `cosmos-organic`, `cosmos-natural`,
-// `ecocert`, `bio` all flip `naturalCertified`). Unrecognized labels are
-// silently dropped — keeps the rule set conservative.
-//
-// Important : `en:bio` and `en:organic` are inconsistently used in OBF
-// (some FR-only brands tag `fr:cosmetique-bio-charte-cosmebio` instead).
-// We accept the union and trust the per-brand ratio threshold to discount
-// outliers.
+// Map OBF label slugs to our brand-level certification flags. Labels coming from
+// several sources can collapse onto the same flag.
 const VEGAN_LABELS = new Set(['vegan'])
 const CRUELTY_FREE_LABELS = new Set([
   'cruelty-free',
@@ -73,6 +48,10 @@ const CRUELTY_FREE_LABELS = new Set([
 // `naturel` is excluded on purpose: it is a self-declared marketing tag, not
 // a certification, and the flag it feeds is named isNaturalCertified. We keep
 // regulated `organic`/`bio` (EU-governed terms) plus the named schemes.
+
+// `en:bio` / `en:organic` are used inconsistently in OBF (some FR-only brands
+// tag `fr:cosmetique-bio-charte-cosmebio` instead), so we accept the union and
+// trust the per-brand ratio threshold to discount outliers.
 const NATURAL_LABELS = new Set([
   'organic',
   'cosmos-organic',
@@ -89,6 +68,7 @@ const NATURAL_LABELS = new Set([
 
 export type CertFlag = 'vegan' | 'crueltyFree' | 'naturalCertified'
 
+// Unrecognized labels are silently dropped to keep the rule set conservative.
 export function classifyLabel(prefixedTag: string): CertFlag | null {
   const slug = stripObfPrefix(prefixedTag)
   if (VEGAN_LABELS.has(slug)) return 'vegan'
@@ -117,11 +97,11 @@ export interface AggregateOptions {
   minProducts: number
   // Absolute label-count fallback : a brand qualifies if at least
   // `minLabelCount` of its OBF products carry the matching label, even
-  // when the ratio is low. Default 3 — high enough to filter noise on
+  // when the ratio is low. Default 3, high enough to filter noise on
   // small brands but reachable for big ones with sparse tagging.
   minLabelCount: number
   // Set of OBF brand slugs we care about (= our corpus + manual seed).
-  // Rows whose brands don't intersect this set are skipped — keeps the
+  // Rows whose brands don't intersect this set are skipped, which keeps the
   // rollup dataset small and relevant.
   brandWhitelist?: ReadonlySet<string>
 }
@@ -159,8 +139,14 @@ export function aggregateBrandClaims(
   for (const [obfSlug, s] of stats) {
     const ratio = (n: number) => (s.total === 0 ? 0 : n / s.total)
     const meetsRule = (n: number) => {
+      // Ratio rule: catches brands that consistently tag their lineup.
       const ratioPass = s.total >= options.minProducts && ratio(n) >= options.ratioThreshold
+      // Count rule: catches big brands where most rows lack labels (Garnier:
+      // 758 products, only 40 tag vegan = 5% ratio, but 40 is still strong evidence).
       const countPass = n >= options.minLabelCount
+      // OR-combined (OBF tagging is sparse). False positives stay rare:
+      // crowdsourced OBF labels are backed by real packaging/logo, so a few
+      // mistags don't reach minLabelCount across thousands of rows.
       return ratioPass || countPass
     }
 
@@ -186,7 +172,7 @@ export function aggregateBrandClaims(
 // Merge an OBF rollup into an existing sources jsonb without dropping
 // claims from other sources (manual seed, future PETA/LB scrapers). For
 // each claim where OBF asserts true, append `obf` to that claim's source
-// list (dedup). Existing claims stay even if OBF didn't assert them — we
+// list (dedup). Existing claims stay even if OBF didn't assert them: we
 // only ADD evidence, never remove it.
 export function mergeObfSourcesIntoExisting(
   existing: BrandCertificationSources,
@@ -205,7 +191,7 @@ export function mergeObfSourcesIntoExisting(
   return out
 }
 
-// CSV parsing — OBF dumps use tab separators with no embedded tabs. Empty
+// CSV parsing: OBF dumps use tab separators with no embedded tabs. Empty
 // fields stay empty strings; trailing newline is dropped. Streaming-safe
 // (one line at a time) so we don't keep the full 120 MB decompressed CSV
 // in memory simultaneously while building rollups.

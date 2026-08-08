@@ -1,9 +1,6 @@
-// Generic helpers shared by every tag domain.
-//
-// Each domain declares one source-of-truth array of tag definitions
-// (`*_TAG_DEFS`) carrying {key, slug, category[, label, subgroup]} per tag. These
-// helpers derive the runtime views shared by products and ingredients so the
-// declared vocabulary cannot drift from its consumers.
+// Generic helpers shared by every tag domain. Each domain declares one
+// source-of-truth array (`*_TAG_DEFS`); these helpers derive the runtime
+// views shared by products and ingredients so vocabulary can't drift.
 
 type TagDef<C extends string = string> = {
   readonly key: string

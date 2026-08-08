@@ -13,16 +13,16 @@ export const Route = createFileRoute('/ingredients/$slug/')({
   ssr: true,
   loader: async ({ context, params }) => {
     const { queryClient } = context
-    // Hoisted from post-mount into the loader to kill the serial RTT after the detail.
-    // products keys on the slug alone → start it in parallel with bySlug; tags needs the id.
-    // Non-critical (products list + tag pills) → swallow so a secondary failure can't error the page.
+    // Hoisted out of mount and into the loader to kill the serial RTT after the detail.
+    // products keys on the slug alone, so start it in parallel with bySlug; tags needs the id.
+    // Not critical (products list + tag pills): swallow so a secondary failure can't error the page.
     const products = queryClient
       .ensureQueryData(ingredientQueries.products(params.slug))
       .catch(() => null)
     const ingredient = await queryClient
       .ensureQueryData(ingredientQueries.bySlug(params.slug))
       .catch((err) => {
-        // Missing ingredient = 404 → notFoundComponent; keep 5xx/429 on the real error UI.
+        // Missing ingredient = 404, route to notFoundComponent; keep 5xx/429 on the real error UI
         if (err instanceof ApiError && err.status === 404) throw notFound()
         throw err
       })

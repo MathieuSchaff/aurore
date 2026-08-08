@@ -69,7 +69,7 @@ async function seedIngredient(createdBy: string, name: string) {
   return ingredient
 }
 
-// No shared factory for discussions — the repo convention is a local helper.
+// No shared factory for discussions: the repo convention is a local helper.
 async function seedThread(productId: string, authorId: string, title = 'T', content = 'c') {
   const [thread] = await testDb
     .insert(discussionThreads)
@@ -172,7 +172,7 @@ describe('POST /admin/moderation/* + public read filters', () => {
 
     expect((await publicReviews(productSlug)).reviews.length).toBe(0)
 
-    // Restore → row reappears
+    // Restore: row reappears
     const restore = await client.admin.moderation.reviews[':id'].$patch(
       {
         param: { id: reviewId },
@@ -262,7 +262,7 @@ describe('POST /admin/moderation/* + public read filters', () => {
 
   // Contributors can use the reversible content moderation subset.
   // The review path also proves the new user_product_reviews
-  // RLS policy fires under app.role='contributor' (else the UPDATE touches 0 rows → 404).
+  // RLS policy fires under app.role='contributor' (else the UPDATE touches 0 rows, so 404).
   it('contributor hides a review (200) and it drops from public reviews', async () => {
     const { productSlug, reviewId } = await setupProductAndReview({ userId })
 
@@ -301,7 +301,7 @@ describe('POST /admin/moderation/* + public read filters', () => {
     expect(hideReply.status).toBe(HTTP_STATUS.OK)
   })
 
-  it('contributor GET preview review (200) — owns the queue, can inspect', async () => {
+  it('contributor GET preview review (200): owns the queue, can inspect', async () => {
     const { reviewId } = await setupProductAndReview({ userId })
     const res = await client.admin.moderation.reviews[':id'].$get(
       { param: { id: reviewId } },
@@ -321,7 +321,7 @@ describe('POST /admin/moderation/* + public read filters', () => {
 
   // Catalog-sheet hide opens to moderators. The route guard + service persistence
   // are proven here; the RLS public-absence
-  // (anon/user can't SELECT hidden, contributor can) lives in catalog-rls.test.ts —
+  // (anon/user can't SELECT hidden, contributor can) lives in catalog-rls.test.ts:
   // this harness runs as the table owner and bypasses RLS.
   it('contributor hides a product sheet (200) and restores it', async () => {
     const product = await seedProduct(userId, { name: 'Spam Serum', brand: 'SpamBrand' })
@@ -386,7 +386,7 @@ describe('POST /admin/moderation/* + public read filters', () => {
     expectStatus(ingredientRes, HTTP_STATUS.FORBIDDEN)
   })
 
-  // S2: the moderator previews a reported sheet (even hidden) before deciding —
+  // The moderator previews a reported sheet (even hidden) before deciding;
   // mirrors the review/thread/reply preview path.
   it('contributor GET preview product (200) returns the sheet even when hidden', async () => {
     const product = await seedProduct(userId, {

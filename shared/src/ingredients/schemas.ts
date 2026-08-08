@@ -56,7 +56,7 @@ export const createIngredientSchema = z
   })
   .superRefine((data, ctx) => refineTypeCategory(data.type, data.category, ctx))
 
-// slug is immutable after creation (C-4): not re-derived on rename, not
+// slug is immutable after creation: not derived again on rename, not
 // client-settable. Renaming an ingredient keeps its original slug so bookmarks
 // and the unique-key invariant hold.
 export const updateIngredientSchema = z
@@ -106,7 +106,7 @@ export const listIngredientsSearchSchema = z.object({
   ...tagAxisShape,
   // Domain: comma-separated `IngredientType` values.
   ingredient_type: z.string().optional(),
-  // Profile-derived avoid tags (skin types + concerns). Flags rows post-fetch
+  // Profile-derived avoid tags (skin types + concerns). Flags rows after the fetch
   // as `profileMatches`; never excludes, keeps the catalog visible.
   avoid_for: z.string().optional(),
   // Pagination / sort

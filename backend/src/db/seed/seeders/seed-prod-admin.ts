@@ -1,14 +1,11 @@
 #!/usr/bin/env bun
 
-/**
- * seed-prod-admin.ts — create the production catalogue owner from ADMIN_EMAIL /
- * ADMIN_PASSWORD. The whole catalogue is owned by a single admin (products /
- * ingredients / articles .created_by), so prod needs exactly one real admin
- * before db-catalogue-load can resolve __OWNER_ID__. Idempotent: reuses the row
- * if the email already exists. Prints the resulting id on the last line.
- *
- * Usage: bun run src/db/seed/seeders/seed-prod-admin.ts
- */
+// Creates the production catalogue owner from ADMIN_EMAIL / ADMIN_PASSWORD. The
+// whole catalogue is owned by a single admin (products / ingredients / articles
+// .created_by), so prod needs exactly one real admin before db-catalogue-load
+// can resolve __OWNER_ID__.
+
+// Usage: bun run src/db/seed/seeders/seed-prod-admin.ts
 
 import type { Email, RawPassword } from '@aurore/shared'
 
@@ -23,8 +20,10 @@ if (!email || !password) {
   process.exit(1)
 }
 
+// Idempotent: reuses the row if the email already exists.
 const user = await getOrCreateSeedUser(email as Email, password as RawPassword)
 
 console.log(`✓ prod admin ready: ${email}`)
+// Last line: callers (db-catalogue-load) capture this as the owner id.
 console.log(user.id)
 process.exit(0)

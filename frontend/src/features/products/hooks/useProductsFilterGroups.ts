@@ -20,7 +20,7 @@ type FilterOptions = {
 type IngredientLookupRow = { slug: string; name: string }
 const toIngredientOption = (i: IngredientLookupRow) => ({ value: i.slug, label: i.name })
 
-// Tab and ingredient domains match 1:1 except tab "complement" → type "supplement".
+// Tab and ingredient domains match 1:1 except tab "complement" maps to type "supplement".
 // Exported: ProductsHeader scopes its facet suggestions with the same mapping.
 export const TAB_INGREDIENT_TYPE: Record<ProductDomainTab, IngredientType> = {
   skincare: 'skincare',

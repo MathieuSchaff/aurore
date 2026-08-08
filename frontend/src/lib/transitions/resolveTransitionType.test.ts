@@ -3,7 +3,7 @@ import { describe, expect, it } from 'vitest'
 import { resolveTransitionType } from './resolveTransitionType'
 
 // Only list<->detail and the detail tab swap run a VT; every other nav resolves
-// to false (skipped) — see main.tsx KEEP_VT_TYPES.
+// to false (skipped). See main.tsx KEEP_VT_TYPES.
 type Case = {
   name: string
   from: string | null
@@ -67,7 +67,7 @@ const cases: Case[] = [
     expected: ['tab-switch'],
   },
   {
-    // Different slugs are NOT a tab swap → skipped (no longer falls through to a slide).
+    // Different slugs are NOT a tab swap, so skipped (no longer falls through to a slide).
     name: 'discussions → detail with different slug = skipped',
     from: '/products/abc/discussions',
     to: '/products/xyz',

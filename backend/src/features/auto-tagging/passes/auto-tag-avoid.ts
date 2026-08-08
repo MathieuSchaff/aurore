@@ -21,7 +21,7 @@ export interface AvoidCandidate {
 }
 
 // `actifClasses`: pass precomputed to skip a redundant `detectActifClasses` call.
-// `assessment`: when provided, interaction avoid (cumulative irritation -> peau-sensible)
+// `assessment`: when provided, interaction avoid (cumulative irritation gives peau-sensible)
 // runs. Production runners must hoist `analyzeINCI` and forward it; tests can omit.
 export function computeAvoidCandidates(
   inci: string | null | undefined,

@@ -75,7 +75,7 @@ describe('Product Comparison Routes', () => {
     const token = await setupAndLogin(app, TEST_CREDENTIALS.toto)
     const a = await createProduct(client, contributorToken, PRODUCT_A)
 
-    // Single product fails the zod min(2) → 400 from validator middleware.
+    // Single product fails the zod min(2), so 400 from validator middleware.
     const res = await app.request('/api/product-comparisons', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
@@ -122,7 +122,7 @@ describe('Product Comparison Routes', () => {
     expect(res.status).toBe(HTTP_STATUS.OK)
   })
 
-  // Oracle: PATCH response reflects the written input — updated name and the
+  // Oracle: PATCH response reflects the written input, updated name and the
   // new productIds in order. Regression guard on the update/enrich path.
   it('PATCH response reflects the written input', async () => {
     const token = await setupAndLogin(app, TEST_CREDENTIALS.toto)

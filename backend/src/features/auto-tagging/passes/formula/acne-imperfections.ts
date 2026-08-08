@@ -5,11 +5,10 @@ import { matchesNamePositioning } from './name-positioning'
 const S = SKINCARE_PRODUCT_TAG_SLUGS
 
 // Positioning gate for `acne-imperfections` (re-emits an algo-derm slug, ADR-0004).
-// algo-derm keys on sebum/exfoliating actives in the INCI (salicylic acid, zinc,
-// niacinamide) regardless of positioning. The gate requires the acne/blemish
-// lexical field in the name/claim.
-// The pore/sebum FN (purifiant, désobstrue les pores) carry no acne positioning and are
-// covered by the separate pores-sebum gate, not lost.
+// algo-derm keys on sebum/exfoliating actives (salicylic acid, zinc, niacinamide)
+// regardless of positioning; the gate requires the acne/blemish lexical field in the
+// name/claim. Pore/sebum FN (purifiant, désobstrue les pores) have no acne positioning
+// and stay covered by the separate pores-sebum gate, not lost.
 export const ACNE_POSITION_RE = /acn[eé]|\bimperfections?\b|blemish|\bboutons?\b|com[eé]don/i
 
 // Brightening / vitamin-C products use "blemish" for pigment spots (not acne), and

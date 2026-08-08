@@ -1,10 +1,9 @@
 /**
  * Regression test: seedDemoData must run inside the RLS-context transaction.
- *
- * createTestApp injects the owner (superuser) testDb, which bypasses RLS entirely.
- * This test forces the demo route to use a real app_runtime pool so RLS WITH CHECK
- * is enforced. If seedDemoData were moved back outside the transaction, every INSERT
- * it makes would fail with "new row violates row-level security policy".
+ * createTestApp injects the owner (superuser) testDb, which bypasses RLS entirely, so
+ * this test forces the demo route onto a real app_runtime pool where RLS WITH CHECK is
+ * enforced. If seedDemoData moved back outside the transaction, every INSERT it makes
+ * would fail with "new row violates row-level security policy".
  */
 import { describe, expect, it } from 'bun:test'
 
@@ -24,7 +23,7 @@ const appRuntimeDb = await createAppRuntimeDb()
 
 setupDbTests()
 
-describe('POST /auth/demo — RLS enforcement via app_runtime', () => {
+describe('POST /auth/demo: RLS enforcement via app_runtime', () => {
   it('creates a demo account with seed data when app_runtime pool is the db handle', async () => {
     const { jwtAuthRoutes } = await import('../../features/auth/routes')
     const app = createRlsApp(appRuntimeDb).route('/auth', jwtAuthRoutes)

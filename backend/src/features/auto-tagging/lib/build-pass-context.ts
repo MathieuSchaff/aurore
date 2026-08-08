@@ -1,10 +1,5 @@
-// Builds a `PassContext` once per product (ADR-0001).
-//
-// Split INCI and analyze once, shared across all passes.
-//
-// Marketing preamble is stripped before splitINCI so position-rules
-// (top-8 butter/wax for texture-riche, etc.) don't fire on prose chunks
-// (~589 seed products with French/Korean brand prose ahead of the INCI list).
+// Builds a `PassContext` once per product (ADR-0001): split INCI and analyze once, shared
+// across all passes.
 
 import { analyzeINCI, normalize, splitINCI } from 'algo-derm'
 
@@ -19,6 +14,9 @@ export function buildPassContext(
   options: OrchestratorOptions
 ): PassContext {
   const hasInci = !!product.inci?.trim()
+  // Strip marketing preamble before splitINCI: position-rules (top-8 butter/wax for
+  // texture-riche, etc.) must not fire on prose chunks. ~589 seed products have
+  // French/Korean brand prose ahead of the INCI list.
   const cleanedInci = hasInci ? stripMarketingPreamble(product.inci ?? '') : ''
   const ingredients = hasInci ? splitINCI(cleanedInci) : []
   const normalizedIngredients = hasInci ? ingredients.map(normalize) : []
