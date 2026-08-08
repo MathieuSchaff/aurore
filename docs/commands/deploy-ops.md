@@ -72,6 +72,15 @@ archived all the same.
 | `just sweep-demos` | Delete demo accounts past their 24h TTL (the cron entrypoint) |
 | `just demo-sweep-cron-install` | Install the 4am cron on the VPS |
 | `just backup-cron-install` | Install the 3am backup cron on the VPS |
+| `just backup-offsite-pull` | Pull encrypted VPS backups to the laptop and verify size, GPG envelope and SHA-256 manifest |
+| `just backup-offsite-timer-install` | Install, without enabling, the laptop user-systemd timer (daily at 04:00, persistent after missed runs) |
+| `just backup-offsite-status` | Show the next scheduled pull and the latest service result |
+
+The offsite pull never decrypts a backup and stores no credential. It uses the existing
+`ssh aurore` access, downloads only missing `backup_prod_*.sql.gz.gpg` files atomically, and never
+deletes the local history. Its default destination is `~/.local/state/aurore/offsite-backups`;
+override it with `AURORE_LOCAL_DIR` in `~/.config/aurore/backup-pull.conf`. The VPS keeps seven days,
+so a laptop left offline longer than that can have a gap.
 
 ## Monitoring
 
