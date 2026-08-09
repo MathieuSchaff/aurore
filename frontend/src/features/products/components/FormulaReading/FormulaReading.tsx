@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import { Link } from '@tanstack/react-router'
-import { ChevronDown, GitMerge, Info, Scale, Sparkles } from 'lucide-react'
+import { Bookmark, ChevronDown, GitMerge, Info, Scale, Sparkles } from 'lucide-react'
 import { useId, useMemo, useState } from 'react'
 
 import { Button } from '@/component/Button/Button'
@@ -11,12 +11,16 @@ import {
   DOSE_SIGNAL_MIN_CONFIDENCE,
   DOSE_SIGNAL_MIN_DOSE_FACTOR,
   DOSE_SIGNAL_PHRASE,
+  INTERACTION_PHRASE,
   NO_SIGNAL_PHRASE,
   PROFILE_RELEVANT_AXES,
   RISK_AXIS_PHRASE,
 } from '@/constants/derm'
+import { AVOIDED_HEADING, avoidedInFormulaPhrase } from '@/constants/preferences'
 import { IngredientMarkButtons } from '@/features/profile/components/IngredientMarkButtons/IngredientMarkButtons'
 import { productQueries } from '@/lib/queries/products'
+import { preferenceTargetQueries } from '@/lib/queries/profile'
+import { avoidedIngredientNames } from './avoidedIngredients'
 import { formatRegulatoryFindings } from './regulatoryFindings'
 import './FormulaReading.css'
 
@@ -62,6 +66,10 @@ export function FormulaReading({
   linkedIngredients,
 }: FormulaReadingProps) {
   const { data: assessment, isError } = useQuery(productQueries.dermoScore(slug, userKey))
+  const { data: preferenceTargets } = useQuery({
+    ...preferenceTargetQueries.list(),
+    enabled: !!userKey,
+  })
   const [declareOpen, setDeclareOpen] = useState(false)
   const declareListId = useId()
 
@@ -84,6 +92,14 @@ export function FormulaReading({
     }
     return [...nameByKey].map(([canonicalKey, name]) => ({ canonicalKey, name }))
   }, [linkedIngredients])
+
+  // The query is client-side on an SSR'd page, so `preferenceTargets` is
+  // undefined while it loads and when it fails alike; showing nothing then is
+  // the honest default — a mention is never denied, only deferred.
+  const avoidedNames = useMemo(
+    () => avoidedIngredientNames(declarable, preferenceTargets?.ingredients),
+    [declarable, preferenceTargets]
+  )
 
   // Loading and errors stay silent; an assessed formula with nothing to
   // surface must say so instead (a mute vanish reads the same as a failure).
@@ -109,13 +125,19 @@ export function FormulaReading({
   const drivers = explanation.topDrivers.filter(
     (d) => d.source !== 'interaction' && d.axes.length > 0
   )
+  // The lib's own `note` is English curator prose; only a rule with FR phrasing
+  // reaches the page, the rest go quiet rather than leak it.
+  const interactionLines = interactions
+    .map((i) => ({ id: i.id, phrase: INTERACTION_PHRASE[i.id] }))
+    .filter((i): i is { id: string; phrase: string } => !!i.phrase)
   // Benefit drivers carry no `source` and are never interaction-derived; keep all.
   const benefitDrivers = explanation.topBenefitDrivers.filter((d) => d.axes.length > 0)
   const hasSignal =
+    avoidedNames.length > 0 ||
     benefitDrivers.length > 0 ||
     drivers.length > 0 ||
     regulatoryLines.length > 0 ||
-    interactions.length > 0
+    interactionLines.length > 0
 
   const caveats = explanation.confidenceFactors
     .map((f) => CONFIDENCE_FACTOR_PHRASE[f.factor])
@@ -126,6 +148,16 @@ export function FormulaReading({
       <SectionHeader title="Lecture de la formule" as="h2" />
 
       {!hasSignal && <p className="formula-reading__empty">{NO_SIGNAL_PHRASE}</p>}
+
+      {avoidedNames.length > 0 && (
+        <div className="formula-reading__group">
+          <h3 className="formula-reading__subhead">
+            <Bookmark size={13} aria-hidden="true" />
+            {AVOIDED_HEADING}
+          </h3>
+          <p className="formula-reading__explainer">{avoidedInFormulaPhrase(avoidedNames)}</p>
+        </div>
+      )}
 
       {benefitDrivers.length > 0 && (
         <div className="formula-reading__group">
@@ -202,16 +234,16 @@ export function FormulaReading({
         </div>
       )}
 
-      {interactions.length > 0 && (
+      {interactionLines.length > 0 && (
         <div className="formula-reading__group">
           <h3 className="formula-reading__subhead">
             <GitMerge size={13} aria-hidden="true" />
             Interactions
           </h3>
           <ul role="list" className="formula-reading__list">
-            {interactions.map((i) => (
+            {interactionLines.map((i) => (
               <li key={i.id} className="formula-reading__item">
-                {i.note}
+                {i.phrase}
               </li>
             ))}
           </ul>
