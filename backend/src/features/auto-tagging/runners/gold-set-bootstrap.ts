@@ -12,7 +12,6 @@ import { db } from '../../../db'
 import { productTagLinks, productTagTypes } from '../../../db/schema'
 import {
   DEFAULT_GOLD_SET_PATH,
-  GOLD_SET_FOCUS_TAGS,
   GOLD_SET_SCHEMA_VERSION,
   type GoldSetAnnotation,
   type GoldSetFile,
@@ -20,6 +19,7 @@ import {
   loadGoldSet,
   serializeGoldSet,
 } from '../gold-set/fixtures'
+import { parseGoldSetSampleTags } from '../gold-set/sample-tags'
 import { fetchEligibleProducts } from './audit/db'
 import { exitOnError } from './cli-args'
 import { mulberry32 } from './rng'
@@ -31,6 +31,7 @@ const POSITIVES_PER_TAG = Number(process.env.POSITIVES_PER_TAG ?? 4)
 const NEGATIVES_PER_TAG = Number(process.env.NEGATIVES_PER_TAG ?? 2)
 const SEED = Number(process.env.SEED ?? 42)
 const GOLD_SET_PATH = process.env.GOLD_SET_PATH ?? DEFAULT_GOLD_SET_PATH
+const SAMPLE_TAGS = parseGoldSetSampleTags(process.env.TAGS)
 
 interface ProductRow {
   id: string
@@ -92,7 +93,7 @@ async function fetchTagsByProduct(): Promise<Map<string, Set<string>>> {
   const focusTagDefIds = await db
     .select({ id: productTagTypes.id, slug: productTagTypes.slug })
     .from(productTagTypes)
-    .where(inArray(productTagTypes.slug, [...GOLD_SET_FOCUS_TAGS]))
+    .where(inArray(productTagTypes.slug, SAMPLE_TAGS))
 
   const tagPairs =
     focusTagDefIds.length === 0
@@ -127,15 +128,15 @@ async function fetchTagsByProduct(): Promise<Map<string, Set<string>>> {
 // Positives: products that carry the tag, spanning kinds so the metric isn't serum-only.
 function buildPools(eligible: ProductRow[], tagsByProduct: Map<string, Set<string>>): PoolsState {
   const poolsByTag = new Map<GoldSetFocusTag, Pools>()
-  for (const tag of GOLD_SET_FOCUS_TAGS) poolsByTag.set(tag, { positives: [], negatives: [] })
+  for (const tag of SAMPLE_TAGS) poolsByTag.set(tag, { positives: [], negatives: [] })
 
   // Track dominant kind per tag so negatives are drawn from the same kind.
   const kindFreqByTag = new Map<GoldSetFocusTag, Map<string, number>>()
-  for (const tag of GOLD_SET_FOCUS_TAGS) kindFreqByTag.set(tag, new Map())
+  for (const tag of SAMPLE_TAGS) kindFreqByTag.set(tag, new Map())
 
   for (const p of eligible) {
     const productTags = tagsByProduct.get(p.id) ?? new Set<string>()
-    for (const tag of GOLD_SET_FOCUS_TAGS) {
+    for (const tag of SAMPLE_TAGS) {
       if (!productTags.has(tag)) continue
       const pools = poolsByTag.get(tag)
       const freq = kindFreqByTag.get(tag)
@@ -154,7 +155,7 @@ function addNegativesToPools(
   tagsByProduct: Map<string, Set<string>>,
   { poolsByTag, kindFreqByTag }: PoolsState
 ): void {
-  for (const tag of GOLD_SET_FOCUS_TAGS) {
+  for (const tag of SAMPLE_TAGS) {
     const freq = kindFreqByTag.get(tag)
     const pools = poolsByTag.get(tag)
     if (!freq || !pools) continue
@@ -179,7 +180,7 @@ function logPoolsTable({ poolsByTag, kindFreqByTag }: PoolsState): void {
   console.log(`📋 Pools par tag`)
   const rows: Array<{ tag: GoldSetFocusTag; '+': number; '-': number; 'dominant kind': string }> =
     []
-  for (const tag of GOLD_SET_FOCUS_TAGS) {
+  for (const tag of SAMPLE_TAGS) {
     const pools = poolsByTag.get(tag)
     const freq = kindFreqByTag.get(tag)
     if (!pools || !freq) continue
@@ -194,7 +195,7 @@ function logPoolsTable({ poolsByTag, kindFreqByTag }: PoolsState): void {
   console.table(rows)
 }
 
-// sampledFor accumulates every tag that selected the same product (multi-tag products).
+// sampledFor accumulates every tag that selected the same product: one product can be drawn by several tags.
 function drawSelection(state: PoolsState): Map<string, SelectionEntry> {
   // Seeded PRNG: same SEED + DB state gives the same draw.
   const rng = mulberry32(SEED >>> 0)
@@ -220,11 +221,11 @@ function drawRound(
   side: 'positives' | 'negatives'
 ): void {
   const quotaUsed = new Map<GoldSetFocusTag, number>()
-  for (const tag of GOLD_SET_FOCUS_TAGS) quotaUsed.set(tag, 0)
+  for (const tag of SAMPLE_TAGS) quotaUsed.set(tag, 0)
   let madeProgress = true
   while (selected.size < SAMPLE_SIZE && madeProgress) {
     madeProgress = false
-    for (const tag of GOLD_SET_FOCUS_TAGS) {
+    for (const tag of SAMPLE_TAGS) {
       if (selected.size >= SAMPLE_SIZE) break
       const used = quotaUsed.get(tag) ?? 0
       if (used >= perTagCap) continue

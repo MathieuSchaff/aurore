@@ -140,7 +140,7 @@ autotag-explain:
             --kind "${KIND:-serum}" --category "${CATEGORY:-skincare}" "$INCI"
     fi
 
-# Stratified sample of 60-80 products → data/gold-set/annotations.json (idempotent). Env: SAMPLE_SIZE, POSITIVES_PER_TAG, NEGATIVES_PER_TAG, SEED, GOLD_SET_PATH.
+# Stratified sample of 60-80 products → data/gold-set/annotations.json (idempotent). Env: TAGS (optional comma-separated focus subset), SAMPLE_SIZE, POSITIVES_PER_TAG, NEGATIVES_PER_TAG, SEED, GOLD_SET_PATH.
 [group('autotag')]
 autotag-goldset:
     #!/usr/bin/env bash
@@ -150,6 +150,7 @@ autotag-goldset:
     target_compose
     printf "{{CYAN}}Gold-set bootstrap ($TARGET)...{{NC}}\n"
     $COMPOSE exec \
+        ${TAGS:+-e TAGS="$TAGS"} \
         ${SAMPLE_SIZE:+-e SAMPLE_SIZE="$SAMPLE_SIZE"} \
         ${POSITIVES_PER_TAG:+-e POSITIVES_PER_TAG="$POSITIVES_PER_TAG"} \
         ${NEGATIVES_PER_TAG:+-e NEGATIVES_PER_TAG="$NEGATIVES_PER_TAG"} \
