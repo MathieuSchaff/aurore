@@ -202,6 +202,23 @@ backup-cron-install:
     sudo chmod 644 /etc/cron.d/aurore-backup
     printf "{{GREEN}}✓ Cron installed — daily backup at 3am{{NC}}\n"
 
+# [Laptop] Incrementally copy encrypted prod backups over SSH, verify their GPG envelope and
+# refresh the local SHA-256 manifest. Default destination: ~/.local/state/aurore/offsite-backups.
+[group('db')]
+backup-offsite-pull:
+    @scripts/pull-backups.sh
+
+# [Laptop] Install (without enabling) the daily 04:00 user-systemd timer for the offsite pull.
+[group('db')]
+backup-offsite-timer-install:
+    @scripts/install-backup-pull-timer.sh
+
+# [Laptop] Show timer schedule and the latest pull result.
+[group('db')]
+backup-offsite-status:
+    @systemctl --user list-timers aurore-backup-pull.timer --no-pager
+    @systemctl --user status aurore-backup-pull.service --no-pager || true
+
 # ─── Snapshot (dev-only — committable file, dev source of truth) ────────────
 
 # Dump data → backend/src/db/snapshot/data.sql (committable, dev source of truth)
