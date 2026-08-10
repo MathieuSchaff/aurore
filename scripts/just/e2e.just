@@ -1,7 +1,8 @@
 import '_vars.just'
 import 'dev.just'
 
-# Launch E2E stack (tmpfs DB + migrate + restore data.sql: full catalog/personas/fixtures, not seed-core) on isolated ports 5174/3001/5434 — runs alongside just dev.
+[doc('Launch E2E stack (tmpfs DB + migrate + restore data.sql: full catalog/personas/fixtures, not seed-core) on isolated ports 5174/3001/5434. Runs alongside just dev.')]
+[group('e2e')]
 e2e-up: ts-build
     {{COMPOSE_E2E}} up -d --build
     @printf "{{CYAN}}Waiting for DB...{{NC}}\n"
@@ -15,11 +16,13 @@ e2e-up: ts-build
     @until curl -sf http://localhost:5174 >/dev/null; do sleep 1; done
     @printf "{{GREEN}}✓ E2E stack ready on http://localhost:5174{{NC}}\n"
 
-# Stop E2E stack (tmpfs DB lost)
+[doc('Stop E2E stack (tmpfs DB lost)')]
+[group('e2e')]
 e2e-down:
     {{COMPOSE_E2E}} down
 
-# Recreate E2E stack from scratch.
+[doc('Recreate E2E stack from scratch.')]
+[group('e2e')]
 e2e-reset:
     {{COMPOSE_E2E}} down
     just e2e-up
@@ -29,16 +32,17 @@ e2e-reset:
 # the whole suite dies on "Executable doesn't exist" without launching a browser.
 # Idempotent and ~0.5s once the builds are present. BEWARE lines are the unsupported-OS
 # notice on every run; the braces keep grep's no-match status from masking a real failure.
+[script]
 _e2e-browsers:
-    #!/usr/bin/env bash
-    set -euo pipefail
     cd frontend
     bunx playwright install 2>&1 | { grep -v '^BEWARE:' || true; }
 
-# Run Playwright — auto-runs `just e2e-up` if the stack is not already up (webServer in playwright.config)
+[doc('Run Playwright: auto-runs `just e2e-up` if the stack is not already up (webServer in playwright.config)')]
+[group('e2e')]
 e2e: _e2e-browsers
     cd frontend && bunx playwright test
 
-# Run Playwright in interactive UI mode
+[doc('Run Playwright in interactive UI mode')]
+[group('e2e')]
 e2e-ui: _e2e-browsers
     cd frontend && bunx playwright test --ui

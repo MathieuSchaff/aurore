@@ -2,15 +2,17 @@
 # Shared helpers for env-driven recipes (db/audit/data/images/inci).
 # Sourced inside recipe shebang blocks:
 #   source {{justfile_directory()}}/scripts/just/_lib.sh
-# Requires COMPOSE_DEV / COMPOSE_PROD in the environment (exported from _vars.just).
+# Requires COMPOSE_DEV / COMPOSE_PROD / TARGET in the environment (exported from _vars.just).
 
-# Set $COMPOSE from $TARGET (dev|prod). Aborts the recipe on an invalid TARGET.
+# Set $COMPOSE from $TARGET. Only prod is tested: _vars.just already refused anything but
+# dev|prod before the recipe started, so there is no third case left to reject here.
 target_compose() {
-    case "${TARGET:-dev}" in
-        dev)  COMPOSE="$COMPOSE_DEV" ;;
-        prod) COMPOSE="$COMPOSE_PROD"; assert_prod_stack ;;
-        *)    printf '\033[0;31mTARGET invalide: dev|prod (got '\''%s'\'')\033[0m\n' "${TARGET:-}" >&2; exit 1 ;;
-    esac
+    if [ "$TARGET" = prod ]; then
+        COMPOSE="$COMPOSE_PROD"
+        assert_prod_stack
+    else
+        COMPOSE="$COMPOSE_DEV"
+    fi
 }
 
 # TARGET=prod split-brain guard: `compose -p aurore exec` matches whatever
@@ -37,18 +39,18 @@ assert_prod_stack() {
     esac
 }
 
-# Standard runner for env-driven data recipes: resolves TARGET, guards prod
+# Standard runner for env-driven data recipes: resolves $COMPOSE, guards prod
 # writes, prints the banner, then runs the script in the api container.
-# Reads WRITE from the environment (appends --write + prod confirmation).
+# Reads $WRITE, which every caller declares as a `--write` recipe option: unset here means the
+# recipe forgot the parameter, and `set -u` says so instead of silently running a dry-run.
 # SEED_OWNER_EMAIL is forwarded for the catalogue ingest; harmless elsewhere.
 # Usage: data_run <label> <script.ts> [script args…]
 data_run() {
     local label="$1" script="$2" mode
     shift 2
-    TARGET="${TARGET:-dev}"
     target_compose
-    if [ "$TARGET" = prod ] && [ -n "${WRITE:-}" ]; then confirm_prod "WRITE ($label)"; fi
-    mode=$([ -n "${WRITE:-}" ] && echo "WRITE" || echo "dry-run")
+    if [ "$TARGET" = prod ] && [ -n "$WRITE" ]; then confirm_prod "WRITE ($label)"; fi
+    mode=$([ -n "$WRITE" ] && echo "WRITE" || echo "dry-run")
     printf '\033[0;36m%s (%s, %s)...\033[0m\n' "$label" "$mode" "$TARGET"
     $COMPOSE exec -w /app/backend ${SEED_OWNER_EMAIL:+-e SEED_OWNER_EMAIL="$SEED_OWNER_EMAIL"} api \
         bun run "$script" "$@" ${WRITE:+--write}
@@ -60,7 +62,7 @@ audit_out() {
     local dir
     dir="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)/.audit-out/db"
     mkdir -p "$dir"
-    printf '%s/%s.%s.md\n' "$dir" "$1" "${TARGET:-dev}"
+    printf '%s/%s.%s.md\n' "$dir" "$1" "$TARGET"
 }
 
 # Typed prod confirmation. Args: LABEL [PHRASE=PROD]. Aborts on mismatch.
