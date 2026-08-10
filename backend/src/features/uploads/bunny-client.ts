@@ -11,7 +11,7 @@ export async function putToBunny(key: string, buffer: Buffer): Promise<void> {
         AccessKey: env.BUNNY_STORAGE_PASSWORD,
         'Content-Type': 'image/webp',
       },
-      body: buffer,
+      body: new Uint8Array(buffer),
     })
   } catch {
     throw new UploadError('upload_storage_failed')
