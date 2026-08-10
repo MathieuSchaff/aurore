@@ -32,7 +32,7 @@ catalog-fix-tag-domain:
     source {{justfile_directory()}}/scripts/just/_lib.sh
     data_run "catalog-fix-tag-domain" "src/db/seed/maintenance/fix-tag-domain-consistency.ts"
 
-# Backfill auto-tags. Env: SLUG, WRITE (apply), LIMIT, CONF_OVERRIDE, INCLUDE_DROPPED, TAG (per-tag plan), EXCLUDE_TAG (write-all-except), SAMPLE (review CSV, with SEED/CSV_OUT).
+# Backfill auto-tags in an isolated one-shot container. Env: SLUG, WRITE (apply), LIMIT, PAGE_SIZE, CONF_OVERRIDE, INCLUDE_DROPPED, TAG (per-tag plan), EXCLUDE_TAG (write-all-except), SAMPLE (review CSV, with SEED/CSV_OUT).
 [group('autotag')]
 autotag-backfill:
     #!/usr/bin/env bash
@@ -43,16 +43,18 @@ autotag-backfill:
     if [ "$TARGET" = prod ] && [ -n "${WRITE:-}" ]; then confirm_prod "WRITE (autotag-backfill)"; fi
     MODE=$([ -n "${WRITE:-}" ] && echo "WRITE" || echo "dry-run")
     printf "{{CYAN}}Backfill auto-tags ($MODE, $TARGET)...{{NC}}\n"
-    $COMPOSE exec \
+    mkdir -p backend/tmp
+    $COMPOSE run --rm --no-deps \
         ${CONF_OVERRIDE:+-e CONF_OVERRIDE="$CONF_OVERRIDE"} \
         ${LIMIT:+-e LIMIT="$LIMIT"} \
+        ${PAGE_SIZE:+-e PAGE_SIZE="$PAGE_SIZE"} \
         ${INCLUDE_DROPPED:+-e INCLUDE_DROPPED="$INCLUDE_DROPPED"} \
         ${TAG:+-e TAG="$TAG"} \
         ${EXCLUDE_TAG:+-e EXCLUDE_TAG="$EXCLUDE_TAG"} \
         ${SAMPLE:+-e SAMPLE="$SAMPLE"} \
         ${SEED:+-e SEED="$SEED"} \
         ${CSV_OUT:+-e CSV_OUT="$CSV_OUT"} \
-        -w /app/backend api bun run src/features/auto-tagging/runners/backfill/main.ts \
+        autotag-backfill bun run src/features/auto-tagging/runners/backfill/main.ts \
         ${WRITE:+--write} \
         ${SLUG:+--slug "$SLUG"}
 
@@ -98,6 +100,21 @@ autotag-purge-stale:
     $COMPOSE exec \
         -e TAG="$TAG" \
         -w /app/backend api bun run src/features/auto-tagging/runners/backfill/purge-stale-tag.ts \
+        ${WRITE:+--write}
+
+# Delete non-manual links of products whose category left the auto-tag corpus (skincare/solaire/bodycare). Env: WRITE (apply). TARGET: dev|prod.
+[group('autotag')]
+autotag-purge-off-corpus:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    source {{justfile_directory()}}/scripts/just/_lib.sh
+    TARGET="${TARGET:-dev}"
+    target_compose
+    if [ "$TARGET" = prod ] && [ -n "${WRITE:-}" ]; then confirm_prod "WRITE (autotag-purge-off-corpus)"; fi
+    MODE=$([ -n "${WRITE:-}" ] && echo "WRITE" || echo "dry-run")
+    printf "{{CYAN}}Purge auto-tags hors corpus ($MODE, $TARGET)...{{NC}}\n"
+    $COMPOSE exec \
+        -w /app/backend api bun run src/features/auto-tagging/runners/backfill/purge-off-corpus.ts \
         ${WRITE:+--write}
 
 # Explain auto-tag pipeline: SLUG=<slug> traces a real product (full input: name/desc/brand/texture), INCI="..." traces one raw INCI (INCI-only, blind to name/claim passes), COUNTS=1 aggregates the catalogue. Read-only. Env: SLUG, INCI, KIND (serum), CATEGORY (skincare), COUNTS=1.

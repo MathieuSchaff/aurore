@@ -1,8 +1,6 @@
 // Backfill INCI-derived and kind-derived tags for all skincare/solaire/bodycare products
-// already in DB. Detection logic lives in `features/auto-tagging/orchestrator.ts` (pass order:
-// `passes/registry.ts` AUTO_TAG_PASSES), shared with `db/seed/seeders/seed-core.ts` so the two
-// runners cannot drift on which passes run or what relevance precedence applies. Usage (via
-// `just backfill-auto-tags`): dry-run by default, --write to apply, --slug <s> for one product.
+// already in DB. Each page is planned and written independently so memory stays tied to
+// PAGE_SIZE and an interrupted write can converge on a plain rerun.
 
 import { inArray, sql } from 'drizzle-orm'
 
@@ -12,13 +10,15 @@ import { withAdminRls } from '../../../../db/rls'
 import { productTagLinks } from '../../../../db/schema'
 import { loadAutoTagFetchBundle } from '../../lib/fetch-auto-tag-bundle'
 import { type AutoTagFetchBundle, computeTagRowsForProduct } from '../../lib/orchestrator-input'
-import type { AutoTagSource } from '../../orchestrator'
 import { TAG_CONFIG } from '../../passes/algo-derm-detection'
-import { fetchEligibleProducts } from '../audit/db'
+import { fetchEligibleProductPage } from '../audit/db'
 import { chunk } from '../chunk'
 import { exitOnError, parseIntEnv, parseWriteSlugArgs } from '../cli-args'
-import { mulberry32 } from '../rng'
-import { type Candidate, type ClassifyResult, classifyCandidates, type Relevance } from './classify'
+import { type Candidate, classifyCandidates, type Relevance } from './classify'
+import { filterBackfillPlan } from './filter'
+import { runBackfillPages } from './pagination'
+import { type BackfillReportSnapshot, type BackfillSampleRow, createBackfillReport } from './report'
+import { assertSafeBackfillExecution } from './safety'
 
 const { write: WRITE, slug: SLUG_ARG } = parseWriteSlugArgs()
 // Raise every algo-derm per-tag confidenceFloor/computed_score to this.
@@ -26,24 +26,38 @@ const CONF_OVERRIDE = process.env.CONF_OVERRIDE ? Number(process.env.CONF_OVERRI
 // INCLUDE_DROPPED=1: surface allow:false tags in report; still no writes.
 const INCLUDE_DROPPED = process.env.INCLUDE_DROPPED === '1'
 const LIMIT = parseIntEnv('LIMIT')
+const PAGE_SIZE = parseIntEnv('PAGE_SIZE') ?? 100
 const TAG = process.env.TAG || null
 const EXCLUDE_TAG = process.env.EXCLUDE_TAG || null
 const SAMPLE = parseIntEnv('SAMPLE')
 const SEED = parseIntEnv('SEED') ?? 42
 const CSV_OUT = process.env.CSV_OUT || '/app/backend/tmp/backfill-sample.csv'
 
-type ProductRow = Awaited<ReturnType<typeof fetchEligibleProducts>>[number]
+type ProductRow = Awaited<ReturnType<typeof fetchEligibleProductPage>>[number]
 
 // Only product_type_v2 primaries count as "auto": concern primaries must not
 // block V2 from firing on products V1 already touched (see classify.ts gate).
 const AUTO_PRIMARY_TAG_TYPES = new Set(['product_type_v2'])
 
 function validateParams(): void {
+  assertSafeBackfillExecution({
+    nodeEnv: process.env.NODE_ENV,
+    isolatedRunner: process.env.AUTOTAG_BACKFILL_RUNNER === 'isolated',
+  })
   if (
     CONF_OVERRIDE !== null &&
     (Number.isNaN(CONF_OVERRIDE) || CONF_OVERRIDE < 0 || CONF_OVERRIDE > 1)
   ) {
     throw new Error(`CONF_OVERRIDE must be in [0,1], got "${process.env.CONF_OVERRIDE}"`)
+  }
+  if (LIMIT !== null && LIMIT < 0) {
+    throw new Error(`LIMIT must be a non-negative integer, got "${process.env.LIMIT}"`)
+  }
+  if (PAGE_SIZE < 1) {
+    throw new Error(`PAGE_SIZE must be a positive integer, got "${process.env.PAGE_SIZE}"`)
+  }
+  if (SAMPLE !== null && SAMPLE < 0) {
+    throw new Error(`SAMPLE must be a non-negative integer, got "${process.env.SAMPLE}"`)
   }
 }
 
@@ -51,24 +65,12 @@ function logHeader(): void {
   const allowedTagCount = Object.values(TAG_CONFIG).filter((r) => r.allow).length
   console.log('🏷  Backfill auto-tags')
   console.log(
-    `   mode=${WRITE ? 'WRITE' : 'DRY-RUN'} · ${allowedTagCount} algo-derm tags allow=true${
+    `   mode=${WRITE ? 'WRITE' : 'DRY-RUN'} · page_size=${PAGE_SIZE} · ${allowedTagCount} algo-derm tags allow=true${
       CONF_OVERRIDE !== null ? ` · conf_override=${CONF_OVERRIDE}` : ''
     }${SLUG_ARG ? ` · slug=${SLUG_ARG}` : ''}${LIMIT !== null ? ` · limit=${LIMIT}` : ''}${
       TAG ? ` · tag=${TAG}` : ''
     }${SAMPLE !== null ? ` · sample=${SAMPLE} seed=${SEED}` : ''}\n`
   )
-}
-
-function narrowSubset(allProducts: ProductRow[]): ProductRow[] {
-  const subset = SLUG_ARG
-    ? allProducts.filter((p) => p.slug === SLUG_ARG)
-    : LIMIT !== null
-      ? allProducts.slice(0, LIMIT)
-      : allProducts
-  if (SLUG_ARG && subset.length === 0) {
-    throw new Error(`Product slug "${SLUG_ARG}" not found in DB (or not in an eligible category)`)
-  }
-  return subset
 }
 
 // Loads tagType per tagId to distinguish curated primaries from V1 auto primaries.
@@ -105,11 +107,11 @@ async function fetchExistingState(
   return { existingMap, productsWithCuratedPrimary, manualPairs }
 }
 
-// Orchestrator already dedups intra-product (avoid > secondary). This map
+// Orchestrator already dedups within a product (avoid > secondary). This map
 // translates tagSlug to tagId and drops candidates whose slug is unknown
 // to the current product_tags_defs (legacy slug remap).
 function detectCandidates(
-  subset: ProductRow[],
+  subset: readonly ProductRow[],
   bundle: AutoTagFetchBundle
 ): {
   candidateMap: Map<string, Candidate>
@@ -150,45 +152,14 @@ function detectCandidates(
   return { candidateMap, noInci, eczemaReviewQueue }
 }
 
-interface PlanStats {
-  sourceCountInsert: Record<AutoTagSource, number>
-  avoidUpserts: number
-  primaryPromotions: number
-}
-
-// Pure derivation, no printing: reportPlan renders it, main reuses it after write.
-function derivePlanStats(result: ClassifyResult): PlanStats {
-  const sourceCountInsert: Record<AutoTagSource, number> = {
-    'algo-derm': 0,
-    'actif-class': 0,
-    kind: 0,
-    formula: 0,
-    'cross-signal': 0,
-    interaction: 0,
-    concentration: 0,
-    brand: 0,
-    'percent-claim': 0,
-  }
-  for (const c of result.toInsert) sourceCountInsert[c.source]++
-  return {
-    sourceCountInsert,
-    avoidUpserts: result.toUpsert.length - result.primaryUpserts,
-    primaryPromotions: result.primaryInserts + result.primaryUpserts,
-  }
-}
-
-function reportPlan(
-  subset: ProductRow[],
-  noInci: number,
-  candidateCount: number,
-  result: ClassifyResult,
-  stats: PlanStats
-): void {
-  const { sourceCountInsert, avoidUpserts, primaryPromotions } = stats
-  console.log(`📊 Produits : ${subset.length} scannés · ${noInci} sans INCI`)
-  console.log(`   Candidats (après dédup intra-produit) : ${candidateCount}`)
-  console.log(`   Déjà à jour                           : ${result.skipped}`)
-  console.log(`   À insérer                             : ${result.toInsert.length}`)
+function reportPlan(report: BackfillReportSnapshot): void {
+  const { sourceCountInsert, avoidUpserts, primaryPromotions } = report
+  console.log(
+    `📊 Produits : ${report.products} scannés en ${report.pages} lot(s) · ${report.noInci} sans INCI`
+  )
+  console.log(`   Candidats (après dédup intra-produit) : ${report.candidateCount}`)
+  console.log(`   Déjà à jour                           : ${report.skipped}`)
+  console.log(`   À insérer                             : ${report.insertCount}`)
   console.log(`   ├ algo-derm      : ${sourceCountInsert['algo-derm']}`)
   console.log(`   ├ actif-class    : ${sourceCountInsert['actif-class']}`)
   console.log(`   ├ kind           : ${sourceCountInsert.kind}`)
@@ -210,19 +181,19 @@ function reportPlan(
   }
 
   if (SLUG_ARG) {
-    const all = [...result.toInsert, ...result.toUpsert]
-    if (all.length > 0) {
+    if (report.planDetails.length > 0) {
       console.log('\n   Tags :')
-      for (const c of all) {
-        const action = result.toUpsert.includes(c) ? 'UPSERT' : 'INSERT'
-        console.log(`     [${action} ${c.relevance}] [${c.source}] ${c.tagSlug}`)
+      for (const { action, candidate } of report.planDetails) {
+        console.log(
+          `     [${action} ${candidate.relevance}] [${candidate.source}] ${candidate.tagSlug}`
+        )
       }
     }
     return
   }
 
-  reportTagBreakdown(result.toInsert)
-  if (TAG) reportTagDetail(result.toInsert)
+  reportTagBreakdown(report.tagInsertCounts)
+  if (TAG) reportTagDetail(report.insertDetails, report.insertCount)
 }
 
 // Global per-tag view of the insert plan, the sampling entry point: innocuity
@@ -230,12 +201,10 @@ function reportPlan(
 // any mass write.
 const TAG_BREAKDOWN_MAX = 40
 
-function reportTagBreakdown(toInsert: readonly Candidate[]): void {
-  if (toInsert.length === 0) return
-  const byTag = new Map<string, number>()
-  for (const c of toInsert) byTag.set(c.tagSlug, (byTag.get(c.tagSlug) ?? 0) + 1)
-  const rows = [...byTag.entries()].sort((a, b) => b[1] - a[1])
-  console.log(`\n   À insérer par tag (${byTag.size} tags) :`)
+function reportTagBreakdown(tagInsertCounts: ReadonlyMap<string, number>): void {
+  if (tagInsertCounts.size === 0) return
+  const rows = [...tagInsertCounts.entries()].sort((a, b) => b[1] - a[1])
+  console.log(`\n   À insérer par tag (${tagInsertCounts.size} tags) :`)
   for (const [slug, n] of rows.slice(0, TAG_BREAKDOWN_MAX)) {
     console.log(`     ${String(n).padStart(5)}  ${slug}`)
   }
@@ -247,40 +216,43 @@ function reportTagBreakdown(toInsert: readonly Candidate[]): void {
 
 const TAG_DETAIL_MAX = 50
 
-function reportTagDetail(toInsert: readonly Candidate[]): void {
+function reportTagDetail(toInsert: readonly Candidate[], insertCount: number): void {
   console.log(`\n   Produits à taguer [${TAG}] :`)
-  for (const c of toInsert.slice(0, TAG_DETAIL_MAX)) {
+  for (const c of toInsert) {
     console.log(`     [${c.relevance}] [${c.source}] ${c.slug}`)
   }
-  if (toInsert.length > TAG_DETAIL_MAX) {
-    console.log(`     … +${toInsert.length - TAG_DETAIL_MAX} de plus (SAMPLE=N pour un tirage CSV)`)
+  if (insertCount > TAG_DETAIL_MAX) {
+    console.log(`     … +${insertCount - TAG_DETAIL_MAX} de plus (SAMPLE=N pour un tirage CSV)`)
   }
 }
 
 const csvField = (v: string): string => (/[",\n]/.test(v) ? `"${v.replace(/"/g, '""')}"` : v)
 
-// Seeded review sample of the insert plan. Same SEED + same DB state = same
-// draw, so a human review of the CSV stays reproducible.
-async function writeSampleCsv(toInsert: readonly Candidate[], subset: ProductRow[]): Promise<void> {
-  const byId = new Map(subset.map((p) => [p.id, p]))
-  const pool = [...toInsert]
-  const rng = mulberry32(SEED >>> 0)
-  for (let i = pool.length - 1; i > 0; i--) {
-    const j = Math.floor(rng() * (i + 1))
-    ;[pool[i], pool[j]] = [pool[j] as Candidate, pool[i] as Candidate]
-  }
-  const drawn = pool.slice(0, SAMPLE ?? pool.length)
+async function writeSampleCsv(sample: readonly BackfillSampleRow[]): Promise<void> {
   const rows = ['product_slug,product_name,tag_slug,relevance,source,inci']
-  for (const c of drawn) {
-    const p = byId.get(c.productId)
+  for (const { candidate, productName, inci } of sample) {
     rows.push(
-      [c.slug, p?.name ?? '', c.tagSlug, c.relevance, c.source, p?.inci ?? '']
+      [candidate.slug, productName, candidate.tagSlug, candidate.relevance, candidate.source, inci]
         .map(csvField)
         .join(',')
     )
   }
   await Bun.write(CSV_OUT, `${rows.join('\n')}\n`)
-  console.log(`\n📄 Échantillon (seed=${SEED}) : ${CSV_OUT} (${drawn.length} lignes)`)
+  console.log(`\n📄 Échantillon (seed=${SEED}) : ${CSV_OUT} (${sample.length} lignes)`)
+}
+
+async function reportPeakMemory(): Promise<void> {
+  const processPeakMiB = process.resourceUsage().maxRSS / 1024
+  try {
+    const bytes = Number((await Bun.file('/sys/fs/cgroup/memory.peak').text()).trim())
+    if (Number.isFinite(bytes)) {
+      console.log(`   Pic mémoire (cgroup) : ${(bytes / 1024 / 1024).toFixed(1)} MiB`)
+      return
+    }
+  } catch {
+    // Hosts that aren't Linux still expose the process peak below.
+  }
+  console.log(`   Pic mémoire (process) : ${processPeakMiB.toFixed(1)} MiB`)
 }
 
 const CHUNK = 500
@@ -340,59 +312,85 @@ async function main() {
   validateParams()
   logHeader()
 
-  // fetchEligibleProducts elevates RLS in-tx: products_select_visible hides
-  // non-`visible` rows from app_runtime, and a plain read would silently
-  // under-cover the backfill. The write path elevates too; the read must match.
-  const allProducts = await fetchEligibleProducts()
-  const subset = narrowSubset(allProducts)
-  const bundle = await loadAutoTagFetchBundle(
-    subset.map((p) => p.id),
-    db
-  )
-  const tagIdToType = new Map([...bundle.tagSlugToInfo.values()].map((t) => [t.id, t.tagType]))
-  const { existingMap, productsWithCuratedPrimary, manualPairs } = await fetchExistingState(
-    tagIdToType,
-    subset.map((p) => p.id)
-  )
+  const reportAccumulator = createBackfillReport({ sampleSize: SAMPLE, seed: SEED })
+  let requestedTagDetected = TAG === null
+  let inserted = 0
 
-  const { candidateMap, noInci, eczemaReviewQueue } = detectCandidates(subset, bundle)
-  const result = classifyCandidates(
-    candidateMap,
-    existingMap,
-    productsWithCuratedPrimary,
-    manualPairs
-  )
+  await runBackfillPages<ProductRow>(
+    { pageSize: PAGE_SIZE, limit: LIMIT, slug: SLUG_ARG },
+    {
+      fetchPage: fetchEligibleProductPage,
+      processPage: async (products) => {
+        const productIds = products.map((product) => product.id)
+        const bundle = await loadAutoTagFetchBundle(productIds, db)
+        const tagIdToType = new Map(
+          [...bundle.tagSlugToInfo.values()].map((tag) => [tag.id, tag.tagType])
+        )
+        const { existingMap, productsWithCuratedPrimary, manualPairs } = await fetchExistingState(
+          tagIdToType,
+          productIds
+        )
+        const { candidateMap, noInci, eczemaReviewQueue } = detectCandidates(products, bundle)
+        let result = classifyCandidates(
+          candidateMap,
+          existingMap,
+          productsWithCuratedPrimary,
+          manualPairs
+        )
 
-  if (TAG || EXCLUDE_TAG) {
-    if (TAG) {
-      const known = [...candidateMap.values()].some((c) => c.tagSlug === TAG)
-      if (!known) console.warn(`⚠  TAG="${TAG}" absent des candidats détectés (typo ?)`)
+        if (TAG !== null && !requestedTagDetected) {
+          requestedTagDetected = [...candidateMap.values()].some(
+            (candidate) => candidate.tagSlug === TAG
+          )
+        }
+        if (TAG || EXCLUDE_TAG) {
+          result = filterBackfillPlan(result, { tag: TAG, excludeTag: EXCLUDE_TAG })
+        }
+
+        reportAccumulator.addPage({
+          products,
+          noInci,
+          candidateCount: candidateMap.size,
+          result,
+          eczemaReviewQueue,
+        })
+
+        if (WRITE && (result.toInsert.length > 0 || result.toUpsert.length > 0)) {
+          inserted += await withAdminRls(async (tx) => {
+            const pageInserted = await insertNewPairs(tx, result.toInsert)
+            await upsertExistingPairs(tx, result.toUpsert)
+            return pageInserted
+          })
+        }
+      },
     }
-    const keep = (c: Candidate): boolean =>
-      (TAG === null || c.tagSlug === TAG) && (EXCLUDE_TAG === null || c.tagSlug !== EXCLUDE_TAG)
-    result.toInsert = result.toInsert.filter(keep)
-    result.toUpsert = result.toUpsert.filter(keep)
-    // Counters are computed over the full plan; re-derive them for the slice
-    // (toUpsert rows are either avoid corrections or primary promotions).
-    result.primaryInserts = result.toInsert.filter((c) => c.relevance === 'primary').length
-    result.primaryUpserts = result.toUpsert.filter((c) => c.relevance === 'primary').length
+  )
+
+  const report = reportAccumulator.snapshot()
+  if (SLUG_ARG && report.products === 0) {
+    throw new Error(`Product slug "${SLUG_ARG}" not found in DB (or not in an eligible category)`)
+  }
+  if (!requestedTagDetected) {
+    console.warn(`⚠  TAG="${TAG}" absent des candidats détectés (typo ?)`)
   }
 
-  const stats = derivePlanStats(result)
-  reportPlan(subset, noInci, candidateMap.size, result, stats)
+  reportPlan(report)
+  await reportPeakMemory()
+  if (SAMPLE !== null) await writeSampleCsv(report.sample)
 
-  if (SAMPLE !== null) await writeSampleCsv(result.toInsert, subset)
-
-  if (eczemaReviewQueue.length > 0) {
+  if (report.eczemaReviewCount > 0) {
     console.warn(
-      `⚠  eczema-atopie review queue: ${eczemaReviewQueue.length} product(s) name atopy under a contraindication — NOT auto-tagged, review manually:`
+      `⚠  eczema-atopie review queue: ${report.eczemaReviewCount} product(s) name atopy under a contraindication — NOT auto-tagged, review manually:`
     )
-    for (const f of eczemaReviewQueue) {
+    for (const f of report.eczemaReviewSample) {
       console.warn(`    • ${f.name} [${f.slug}] — ${f.description.slice(0, 160)}`)
     }
+    if (report.eczemaReviewCount > report.eczemaReviewSample.length) {
+      console.warn(`    … +${report.eczemaReviewCount - report.eczemaReviewSample.length} de plus`)
+    }
   }
 
-  if (result.toInsert.length === 0 && result.toUpsert.length === 0) {
+  if (report.insertCount === 0 && report.upsertCount === 0) {
     console.log('\n✨ Rien à insérer. Base à jour.')
     return
   }
@@ -401,14 +399,8 @@ async function main() {
     return
   }
 
-  const inserted = await withAdminRls(async (tx) => {
-    const n = await insertNewPairs(tx, result.toInsert)
-    await upsertExistingPairs(tx, result.toUpsert)
-    return n
-  })
-
   console.log(
-    `\n✅ ${inserted} insérées · ${stats.avoidUpserts} corrections avoid · ${stats.primaryPromotions} promotions primary.\n`
+    `\n✅ ${inserted} insérées · ${report.avoidUpserts} corrections avoid · ${report.primaryPromotions} promotions primary.\n`
   )
 }
 

@@ -45,6 +45,11 @@ Only configuration is synced by a deploy — the code ships as a prebuilt CI ima
 A one-off catalogue correction is an idempotent SQL file, never a raw `UPDATE`: a raw update
 skips INCI cleaning and auto-tag re-emission.
 
+Route the defect before writing the file: a row a runner recomputes (linker links, auto-tags,
+`canonical_key`, dermo profiles) is never patched by SQL — fix the emitter and re-derive, or the
+next run undoes the fix. Every fix file opens with a three-line header carrying that triage:
+`-- Root cause:` / `-- Why data-fix:` / `-- Re-derive:`.
+
 | Command | What |
 | :--- | :--- |
 | `just db-fix <file.sql>` | Apply a staged SQL file atomically (single transaction, stop on first error) |

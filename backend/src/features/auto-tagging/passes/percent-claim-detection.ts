@@ -38,9 +38,22 @@ const CLAIM_RULES: readonly ClaimRule[] = [
   },
   {
     tagSlug: SKINCARE_PRODUCT_TAG_SLUGS.TYROSINASE_INHIBITORS,
-    ingredientSlugs: ['azelaic-acid', 'tranexamic-acid'],
-    minPct: 0.5,
-    maxPct: 30,
+    ingredientSlugs: [
+      'kojic-acid',
+      'arbutin',
+      'alpha-arbutin',
+      'beta-arbutin',
+      'hexylresorcinol',
+      '4-hexylresorcinol',
+      'butylresorcinol',
+      '4-butylresorcinol',
+      '4-n-butylresorcinol',
+      'rucinol',
+      'isobutylamido-thiazolyl-resorcinol',
+      'thiamidol',
+    ],
+    minPct: 0.01,
+    maxPct: 7,
   },
   {
     tagSlug: SKINCARE_PRODUCT_TAG_SLUGS.VITAMIN_C,
@@ -51,14 +64,14 @@ const CLAIM_RULES: readonly ClaimRule[] = [
 ] as const
 
 // French marketing vocabulary that signals usage instructions or product
-// descriptions mixed into the ingredient list. Targets multi-word phrases to
+// descriptions mixed into the ingredient list. Targets phrases of several words to
 // avoid matching legit compound INCI like "peau" inside botanical names.
 const PROSE_VOCAB =
   /\b(recommandé|recommended|conseils?\b|appliquer|utilisation|conviendra|destiné|adapt[éeas]+\s+aux|idéal\s+pour|aide\s+à|permet\s+de|riche\s+en|grâce\s+à|enrichi\s+en|bienfait|sans\s+rinçage|tous\s+types\s+de\s+peau|peaux?\s+(sèches?|grasses?|mixtes?|sensibles?|matures?|atopiques?))\b/i
 
 // Compound INCI tokens (synonyms in parens) max at ~5-6 words. Tokens with
 // 15+ words signal split failure: bullet/period/semicolon separators not
-// recognized by splitINCI, multi-product kits concatenated, or encoding
+// recognized by splitINCI, kits of several products concatenated, or encoding
 // corruption (e.g. garancia trousse INCI with `?` chars).
 const MAX_LEGIT_WORDS_PER_TOKEN = 15
 
