@@ -12,7 +12,7 @@ import type {
 } from '@aurore/shared'
 import { err, ok } from '@aurore/shared'
 
-import { eq, sql } from 'drizzle-orm'
+import { eq } from 'drizzle-orm'
 
 import type { Database, DatabaseTransaction } from '../../db/index'
 import { bindRlsContext } from '../../db/rls'
@@ -20,6 +20,7 @@ import { users, usersSafe } from '../../db/schema'
 import { isUniqueViolation } from '../../lib/helpers'
 import { logger } from '../../lib/logger'
 import { nowISO } from '../../utils/dates'
+import { deleteDemoUser } from './demo-cleanup'
 import {
   sendAccountLockedEmail,
   sendAlreadyRegisteredEmail,
@@ -80,7 +81,7 @@ async function registerFailedLogin(
     .update(users)
     .set({ failedLoginAttempts: nextAttempts, lockedUntil })
     .where(eq(users.id, userId))
-  // justLocked = this attempt crossed the threshold (not a repeat once already past it post-expiry).
+  // justLocked = this attempt crossed the threshold (not a repeat once already past it, even after the lock expired).
   return { justLocked: lockedUntil !== null && currentAttempts < LOGIN_LOCKOUT_THRESHOLD }
 }
 
@@ -116,7 +117,7 @@ export async function createTokenPair(
 
 // Enumeration-safe (ADR 0009): new-email and existing-email branches return the
 // SAME neutral `ok({ pending: true })`, no session, equal timing; only an email to
-// the owner reveals existence. Any divergence (code, status, session, latency) re-leaks.
+// the owner reveals existence. Any divergence (code, status, session, latency) leaks again.
 export async function signup(
   ctx: AuthContext,
   email: Email,
@@ -127,7 +128,7 @@ export async function signup(
 
     if (existingUser) {
       // The new-email branch hashes (~70 ms); this one must too, or fast-vs-slow
-      // re-leaks existence. Mirror login's DUMMY_HASH discipline. Result discarded.
+      // leaks existence again. Mirror login's DUMMY_HASH discipline. Result discarded.
       await Bun.password.hash(password, PASSWORD_HASH_OPTIONS)
       // Truth delivered off the response path: the HTTP reply is byte-identical
       // to the new-email branch.
@@ -269,7 +270,7 @@ export async function refresh(ctx: AuthContext, rawRefreshToken: string): Promis
         .where(eq(usersSafe.id, user.id))
         .limit(1)
       if (demo?.expiresAt && Date.parse(demo.expiresAt) < Date.now()) {
-        await revokeAllUserRefreshTokens(ctx.db, user.id)
+        await deleteDemoUser(user.id)
         return err('invalid_token')
       }
     }
@@ -295,19 +296,42 @@ export async function refresh(ctx: AuthContext, rawRefreshToken: string): Promis
   }
 }
 
-export async function logout(ctx: AuthContext, rawRefreshToken: string): Promise<LogoutResult> {
+export async function logout(
+  ctx: AuthContext,
+  rawRefreshToken: string | null,
+  authenticatedUserId: string
+): Promise<LogoutResult> {
   try {
+    if (await deleteDemoUser(authenticatedUserId)) return ok(null)
+  } catch (e) {
+    // Logout stays best-effort, but a cleanup outage must not prevent revoking
+    // a valid refresh token for the authenticated account below.
+    logger.error({ err: e, userId: authenticatedUserId }, 'Demo cleanup during logout failed')
+  }
+
+  try {
+    if (!rawRefreshToken) return ok(null)
     const payload = await verifyRefreshToken(rawRefreshToken, ctx.refreshSecret)
-    if (payload) await revokeRefreshToken(ctx.db, payload.jti, payload.sub)
+    if (payload?.sub !== authenticatedUserId) {
+      if (payload) {
+        logger.warn(
+          { authenticatedUserId, refreshUserId: payload.sub },
+          'Logout refresh token belongs to another user'
+        )
+      }
+      return ok(null)
+    }
+
+    await revokeRefreshToken(ctx.db, payload.jti, authenticatedUserId)
     return ok(null)
-  } catch {
-    logger.error('Logout failed')
+  } catch (e) {
+    logger.error({ err: e, userId: authenticatedUserId }, 'Logout failed')
     return ok(null)
   }
 }
 
 // Authenticated route: runs on the request transaction (requestDb), never the pool.
-// Least privilege — app_runtime reads the hash only through the SECURITY DEFINER fn,
+// Least privilege: app_runtime reads the hash only through the SECURITY DEFINER fn,
 // and refresh_tokens RLS confines the revoke to the caller's own sessions.
 export async function changePassword(
   tx: DatabaseTransaction,
@@ -385,12 +409,9 @@ export async function createDemo(
       // createTokenPair runs after the tx commits, so a failure here would leave an
       // inaccessible orphan (passwordHash=null, no token). Delete it before surfacing.
       logger.error({ err: e }, 'Demo token creation failed, removing orphan user')
-      await ctx.db
-        .transaction(async (tx) => {
-          await tx.execute(sql`SET LOCAL app.role = 'admin'`)
-          await tx.delete(users).where(eq(users.id, user.id))
-        })
-        .catch((cleanupErr) => logger.error({ err: cleanupErr }, 'Demo orphan cleanup failed'))
+      await deleteDemoUser(user.id).catch((cleanupErr) =>
+        logger.error({ err: cleanupErr }, 'Demo orphan cleanup failed')
+      )
       return err('server_error')
     }
   } catch (e) {

@@ -45,6 +45,7 @@ describe('POST /auth/demo', () => {
 
   it('rejects refresh once the demo session has expired', async () => {
     const demoRes = await client.auth.demo.$post()
+    const demo = await expectOk(demoRes, HTTP_STATUS.CREATED)
     const cookie = demoRes.headers.getSetCookie().find((c) => c.startsWith('refresh_token=')) ?? ''
     expect(cookie).toContain('refresh_token=')
 
@@ -56,5 +57,11 @@ describe('POST /auth/demo', () => {
 
     const res = await client.auth.refresh.$post({}, { headers: { Cookie: cookie } })
     await expectError(res, HTTP_STATUS.UNAUTHORIZED, 'invalid_token')
+
+    const [remaining] = await testDb
+      .select({ id: users.id })
+      .from(users)
+      .where(eq(users.id, demo.user.id))
+    expect(remaining).toBeUndefined()
   })
 })
