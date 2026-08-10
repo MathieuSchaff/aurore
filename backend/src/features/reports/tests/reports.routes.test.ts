@@ -2,7 +2,15 @@ import { afterEach, beforeAll, beforeEach, describe, expect, it } from 'bun:test
 
 import { HTTP_STATUS } from '@aurore/shared'
 
-import { contentReports } from '../../../db/schema'
+import {
+  contentReports,
+  discussionReplies,
+  discussionThreads,
+  ingredients,
+  products,
+  userProductReviews,
+  userProducts,
+} from '../../../db/schema'
 import { testDb } from '../../../tests/db.test.config'
 import { setupDbTests } from '../../../tests/db-setup'
 import {
@@ -30,7 +38,7 @@ const OTHER_TARGET = '019d0000-0000-7000-8000-00000000abc2'
 
 setupDbTests()
 
-describe('Content reports — user POST + admin GET/PATCH', () => {
+describe('Content reports: user POST + admin GET/PATCH', () => {
   let client: TestClient
   let userId: string
   let adminId: string
@@ -69,7 +77,7 @@ describe('Content reports — user POST + admin GET/PATCH', () => {
     const report = await expectOk(
       client.reports.$post(
         {
-          json: { targetType: 'review', targetId: ANY_TARGET, reason: 'spam advertising' },
+          json: { targetType: 'profile', targetId: userId, reason: 'spam advertising' },
         },
         withAuth(userToken)
       ),
@@ -78,8 +86,8 @@ describe('Content reports — user POST + admin GET/PATCH', () => {
 
     expect(report).toMatchObject({
       reporterId: userId,
-      targetType: 'review',
-      targetId: ANY_TARGET,
+      targetType: 'profile',
+      targetId: userId,
       reason: 'spam advertising',
       status: 'open',
       reviewedBy: null,
@@ -87,11 +95,25 @@ describe('Content reports — user POST + admin GET/PATCH', () => {
     })
   })
 
-  // S2 (ADR-0006): a catalogue sheet is « Signaler »-able like a review.
+  // ADR-0006: a catalogue sheet is « Signaler »-able like a review.
   it('user POSTs a report on a product sheet → 201', async () => {
+    const [product] = await testDb
+      .insert(products)
+      .values({
+        createdBy: userId,
+        name: 'Produit à signaler',
+        brand: 'Marque test',
+        category: 'skincare',
+        kind: 'serum',
+        unit: 'pump',
+        slug: 'produit-a-signaler',
+      })
+      .returning({ id: products.id })
+    if (!product) throw new Error('product seed failed')
+
     const report = await expectOk(
       client.reports.$post(
-        { json: { targetType: 'product', targetId: ANY_TARGET, reason: 'fiche spam / pub' } },
+        { json: { targetType: 'product', targetId: product.id, reason: 'fiche spam / pub' } },
         withAuth(userToken)
       ),
       HTTP_STATUS.CREATED
@@ -100,14 +122,92 @@ describe('Content reports — user POST + admin GET/PATCH', () => {
   })
 
   it('user POSTs a report on an ingredient sheet → 201', async () => {
+    const [ingredient] = await testDb
+      .insert(ingredients)
+      .values({
+        createdBy: userId,
+        name: 'Ingrédient à signaler',
+        slug: 'ingredient-a-signaler',
+        type: 'skincare',
+      })
+      .returning({ id: ingredients.id })
+    if (!ingredient) throw new Error('ingredient seed failed')
+
     const report = await expectOk(
       client.reports.$post(
-        { json: { targetType: 'ingredient', targetId: OTHER_TARGET, reason: 'fiche douteuse' } },
+        {
+          json: { targetType: 'ingredient', targetId: ingredient.id, reason: 'fiche douteuse' },
+        },
         withAuth(userToken)
       ),
       HTTP_STATUS.CREATED
     )
     expect(report.targetType).toBe('ingredient')
+  })
+
+  it('user POST rejects a missing target', async () => {
+    const res = await client.reports.$post(
+      {
+        json: { targetType: 'product', targetId: ANY_TARGET, reason: 'fiche disparue' },
+      },
+      withAuth(userToken)
+    )
+
+    expect(res.status as number).toBe(HTTP_STATUS.NOT_FOUND)
+  })
+
+  it('user POSTs reports on a visible review, thread, and reply', async () => {
+    const [product] = await testDb
+      .insert(products)
+      .values({
+        createdBy: adminId,
+        name: 'Produit avec contenu signalable',
+        brand: 'Marque test',
+        category: 'skincare',
+        kind: 'serum',
+        unit: 'pump',
+        slug: 'produit-avec-contenu-signalable',
+      })
+      .returning({ id: products.id })
+    if (!product) throw new Error('product seed failed')
+
+    const [userProduct] = await testDb
+      .insert(userProducts)
+      .values({ userId: adminId, productId: product.id })
+      .returning({ id: userProducts.id })
+    if (!userProduct) throw new Error('user product seed failed')
+    const [review] = await testDb
+      .insert(userProductReviews)
+      .values({ userProductId: userProduct.id, isPublic: true, comment: 'Avis public' })
+      .returning({ id: userProductReviews.id })
+    if (!review) throw new Error('review seed failed')
+
+    const [thread] = await testDb
+      .insert(discussionThreads)
+      .values({ productId: product.id, authorId: adminId, title: 'Sujet', content: 'Contenu' })
+      .returning({ id: discussionThreads.id })
+    if (!thread) throw new Error('thread seed failed')
+    const [reply] = await testDb
+      .insert(discussionReplies)
+      .values({ threadId: thread.id, authorId: adminId, content: 'Réponse' })
+      .returning({ id: discussionReplies.id })
+    if (!reply) throw new Error('reply seed failed')
+
+    const targets = [
+      { targetType: 'review' as const, targetId: review.id },
+      { targetType: 'thread' as const, targetId: thread.id },
+      { targetType: 'reply' as const, targetId: reply.id },
+    ]
+    for (const target of targets) {
+      const report = await expectOk(
+        client.reports.$post(
+          { json: { ...target, reason: 'Contenu à modérer' } },
+          withAuth(userToken)
+        ),
+        HTTP_STATUS.CREATED
+      )
+      expect(report).toMatchObject(target)
+    }
   })
 
   it('user POST rejects whitespace-only reason', async () => {
@@ -233,7 +333,7 @@ describe('Content reports — user POST + admin GET/PATCH', () => {
     expect(res.status as number).toBe(HTTP_STATUS.FORBIDDEN)
   })
 
-  // S1 (ADR-0006): the report queue is owned by the moderator (contributor),
+  // ADR-0006: the report queue is owned by the moderator (contributor),
   // not admin-exclusively. List + resolve/dismiss open to admin∨contributor.
   it('contributor GETs the report queue → 200', async () => {
     const res = await client.admin.reports.$get({ query: {} }, withAuth(contributorToken))
@@ -261,7 +361,7 @@ describe('Content reports — user POST + admin GET/PATCH', () => {
     expect(updated.status).toBe('resolved')
   })
 
-  // S3 (ADR-0006): escalate-to-admin. Orthogonal to status — the report stays
+  // ADR-0006: escalate-to-admin. Orthogonal to status: the report stays
   // open while escalated; escalatedBy records the moderator who handed it up.
   it('contributor escalates a report → escalatedAt + escalatedBy set, status stays open', async () => {
     const [report] = await testDb

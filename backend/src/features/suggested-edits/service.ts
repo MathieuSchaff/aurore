@@ -6,6 +6,7 @@ import { desc, eq } from 'drizzle-orm'
 import type { DatabaseTransaction } from '../../db'
 import { ingredients, products, suggestedEdits } from '../../db/schema'
 import { translateUniqueViolation } from '../../lib/catalog'
+import { lockVisiblePolymorphicTarget } from '../../lib/polymorphic-target'
 import { nowISO } from '../../utils/dates'
 import { ProductError } from '../products/product-error'
 import { SuggestedEditError } from './suggested-edit-error'
@@ -17,6 +18,10 @@ export async function createSuggestedEdit(
   db: DatabaseTransaction,
   args: { proposerId: string; body: CreateSuggestedEditInput }
 ) {
+  if (!(await lockVisiblePolymorphicTarget(db, args.body.targetType, args.body.targetId))) {
+    throw new SuggestedEditError('not_found')
+  }
+
   const [row] = await db
     .insert(suggestedEdits)
     .values({
@@ -47,7 +52,7 @@ export async function listSuggestedEdits(
 }
 
 // name/brand can collide with products_name_brand_unique_visible, normalize +
-// re-throw the 23505 so withRlsContext rolls back (catch-and-return on an aborted
+// throw the 23505 again so withRlsContext rolls back (catch-and-return on an aborted
 // tx would COMMIT it, giving a spurious 500).
 function applyToSheet(
   db: DatabaseTransaction,
