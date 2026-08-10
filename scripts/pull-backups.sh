@@ -1,42 +1,132 @@
 #!/usr/bin/env bash
-# Pull (offsite) des backups chiffrés prod depuis le VPS vers ce poste.
-#
-# Modèle PULL : c'est le poste qui tire par SSH. Le VPS n'a aucun accès
-# au store offsite → un VPS compromis ne peut ni lire (GPG asymétrique)
-# ni effacer cette copie. Le script ne déchiffre rien : les .gpg restent
-# chiffrés de bout en bout (la priv key vit dans le password manager).
-#
-# Le VPS purge à 7 jours (db-backup-clean) ; ce poste ACCUMULE (pas de
-# --delete) → l'offsite garde un historique plus long que la source.
-#
-# Usage:
-#   AURORE_VPS=user@host scripts/pull-backups.sh
-#   AURORE_VPS=user@host AURORE_REMOTE_DIR=/srv/aurore/backups \
-#     AURORE_LOCAL_DIR=~/aurore-backups scripts/pull-backups.sh
-#
-# Prérequis : accès SSH par clé au VPS, agent chargé (ssh-add) avant de lancer.
+# Pull encrypted production backups without deleting local or remote archives.
 
 set -euo pipefail
 
-VPS="${AURORE_VPS:-}"
-REMOTE_DIR="${AURORE_REMOTE_DIR:-aurore/backups}"
-LOCAL_DIR="${AURORE_LOCAL_DIR:-$HOME/aurore-backups}"
+vps="${AURORE_VPS:-aurore}"
+remote_dir="${AURORE_REMOTE_DIR:-~/aurore/backups}"
+state_root="${XDG_STATE_HOME:-${HOME}/.local/state}"
+local_dir="${AURORE_LOCAL_DIR:-${state_root}/aurore/offsite-backups}"
+ssh_bin="${AURORE_SSH_BIN:-ssh}"
+scp_bin="${AURORE_SCP_BIN:-scp}"
+gpg_bin="${AURORE_GPG_BIN:-gpg}"
 
-if [ -z "$VPS" ]; then
-    echo "✗ AURORE_VPS non défini (ex: AURORE_VPS=deploy@vps.example)" >&2
-    exit 2
+case "${vps}" in
+  *[!A-Za-z0-9_.@-]*|'')
+    printf 'invalid AURORE_VPS: %s\n' "${vps}" >&2
+    exit 1
+    ;;
+esac
+case "${remote_dir}" in
+  *[!A-Za-z0-9_./~-]*|'')
+    printf 'invalid AURORE_REMOTE_DIR: %s\n' "${remote_dir}" >&2
+    exit 1
+    ;;
+esac
+case "${local_dir}" in
+  ''|'/'|"${HOME}"|"${state_root}")
+    printf 'offsite destination too broad, refused: %s\n' "${local_dir}" >&2
+    exit 1
+    ;;
+esac
+
+umask 077
+mkdir -p -- "${local_dir}/.partial"
+chmod 700 -- "${local_dir}" "${local_dir}/.partial"
+
+exec 9>"${local_dir}/.pull.lock"
+if ! flock -n 9; then
+  printf 'an offsite pull is already running\n' >&2
+  exit 75
 fi
 
-mkdir -p "$LOCAL_DIR"
+if [[ -e "${local_dir}/SHA256SUMS" ]]; then
+  (
+    cd "${local_dir}"
+    sha256sum --check --strict --quiet SHA256SUMS
+  )
+fi
 
-echo "→ Pull $VPS:$REMOTE_DIR/backup_prod_*.sql.gz.gpg → $LOCAL_DIR"
-# --ignore-existing : .gpg immuables, pas de re-transfert. include/exclude :
-# ne tire que les backups prod chiffrés, rien d'autre du dossier distant.
-rsync -a --ignore-existing \
-    --include='backup_prod_*.sql.gz.gpg' --exclude='*' \
-    "$VPS:$REMOTE_DIR/" "$LOCAL_DIR/"
+remote_resolved="$("${ssh_bin}" "${vps}" "realpath -- ${remote_dir}")"
+case "${remote_resolved}" in
+  /*) ;;
+  *)
+    printf 'remote path is not absolute: %s\n' "${remote_resolved}" >&2
+    exit 1
+    ;;
+esac
+case "${remote_resolved}" in
+  *[!A-Za-z0-9_./-]*)
+    printf 'remote path has unsupported characters: %s\n' "${remote_resolved}" >&2
+    exit 1
+    ;;
+esac
 
-count=$(find "$LOCAL_DIR" -maxdepth 1 -name 'backup_prod_*.sql.gz.gpg' | wc -l)
-latest=$(ls -1t "$LOCAL_DIR"/backup_prod_*.sql.gz.gpg 2>/dev/null | head -1 || true)
-echo "✓ Offsite à jour — $count backup(s) en local ($LOCAL_DIR)"
-[ -n "$latest" ] && echo "  dernier : $(basename "$latest")"
+mapfile -t remote_files < <(
+  "${ssh_bin}" "${vps}" \
+    "find ${remote_resolved} -maxdepth 1 -type f -name 'backup_prod_*.sql.gz.gpg' -printf '%f\t%s\n' | sort"
+)
+if (( ${#remote_files[@]} == 0 )); then
+  printf 'no encrypted prod backup on %s:%s\n' "${vps}" "${remote_resolved}" >&2
+  exit 1
+fi
+
+downloaded=0
+verified=0
+temporary=''
+cleanup_temporary() {
+  if [[ -n "${temporary}" && -e "${temporary}" ]]; then
+    rm -- "${temporary}"
+  fi
+}
+trap cleanup_temporary EXIT
+
+for entry in "${remote_files[@]}"; do
+  IFS=$'\t' read -r name expected_bytes <<<"${entry}"
+  if [[ ! "${name}" =~ ^backup_prod_[0-9]{8}_[0-9]{6}\.sql\.gz\.gpg$ ]]; then
+    printf 'unexpected remote name, refused: %s\n' "${name}" >&2
+    exit 1
+  fi
+  if [[ ! "${expected_bytes}" =~ ^[1-9][0-9]*$ ]]; then
+    printf 'invalid remote size for %s: %s\n' "${name}" "${expected_bytes}" >&2
+    exit 1
+  fi
+
+  target="${local_dir}/${name}"
+  if [[ -e "${target}" ]]; then
+    local_bytes="$(stat -c '%s' -- "${target}")"
+    if [[ "${local_bytes}" != "${expected_bytes}" ]]; then
+      printf 'size mismatch for %s: local=%s remote=%s\n' \
+        "${name}" "${local_bytes}" "${expected_bytes}" >&2
+      exit 1
+    fi
+  else
+    temporary="$(mktemp --tmpdir="${local_dir}/.partial" "${name}.XXXXXX")"
+    "${scp_bin}" -p -- "${vps}:${remote_resolved}/${name}" "${temporary}"
+    local_bytes="$(stat -c '%s' -- "${temporary}")"
+    if [[ "${local_bytes}" != "${expected_bytes}" ]]; then
+      printf 'incomplete download for %s: local=%s remote=%s\n' \
+        "${name}" "${local_bytes}" "${expected_bytes}" >&2
+      exit 1
+    fi
+    "${gpg_bin}" --batch --list-packets "${temporary}" >/dev/null 2>&1
+    chmod 600 -- "${temporary}"
+    mv -- "${temporary}" "${target}"
+    temporary=''
+    ((downloaded += 1))
+  fi
+
+  "${gpg_bin}" --batch --list-packets "${target}" >/dev/null 2>&1
+  ((verified += 1))
+done
+
+manifest_tmp="$(mktemp --tmpdir="${local_dir}/.partial" SHA256SUMS.XXXXXX)"
+(
+  cd "${local_dir}"
+  sha256sum -- backup_prod_*.sql.gz.gpg | LC_ALL=C sort
+) >"${manifest_tmp}"
+chmod 600 -- "${manifest_tmp}"
+mv -- "${manifest_tmp}" "${local_dir}/SHA256SUMS"
+
+printf 'offsite up to date: %s verified, %s downloaded; destination=%s\n' \
+  "${verified}" "${downloaded}" "${local_dir}"
