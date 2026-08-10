@@ -20,6 +20,10 @@ export const HUMECTANTS = {
   BETAINE: 'betaine', // INCI: Betaine | osmolyte humectant, often derived from beet
   PENTYLENE_GLYCOL: 'pentylene-glycol', // INCI: Pentylene Glycol | humectant + mild preservative
   PROPYLENE_GLYCOL: 'propylene-glycol', // INCI: Propylene Glycol | humectant/solvent
+  // add-to-db backlog, lot 3.
+  HEXYLENE_GLYCOL: 'hexylene-glycol', // INCI: Hexylene Glycol | glycol solvent/humectant, mild co-surfactant
+  // add-to-db backlog, lot 5.
+  GLYCERETH_26: 'glycereth-26', // INCI: Glycereth-26 | polyethylene glycol glyceryl ether, humectant
   GLYCERYL_GLUCOSIDE: 'glyceryl-glucoside', // INCI: Glyceryl Glucoside | humectant
   ACETYL_GLUCOSAMINE: 'acetyl-glucosamine', // INCI: Acetyl Glucosamine | amino derivative of glucose, humectant + mild brightening
   SNOW_MUSHROOM: 'snow-mushroom', // INCI: Tremella Fuciformis Extract / Polysaccharide | natural super-humectant
@@ -40,6 +44,9 @@ export const HUMECTANTS = {
   TREHALOSE: 'trehalose', // INCI: Trehalose | protective osmolyte, stabilizing humectant
   GLYCINE: 'glycine', // INCI: Glycine | hydrating and soothing amino acid
   MANNITOL: 'mannitol', // INCI: Mannitol | sugar humectant, often used in soothing complexes
+  // add-to-db backlog (algo-derm has full evidence, no DB row yet) — distinct from the v27
+  // coverage-stub return: this one carries a real CIR-graded humectant profile.
+  GLUCOSE: 'glucose', // INCI: Glucose | simple sugar, humectant and skin conditioner
   IMPERATA_CYLINDRICA_ROOT: 'imperata-cylindrica-root', // INCI: Imperata Cylindrica Root Extract | herbaceous extract, hydrating osmolyte
   DISODIUM_ACETYL_GLUCOSAMINE_PHOSPHATE: 'disodium-acetyl-glucosamine-phosphate', // INCI: Disodium Acetyl Glucosamine Phosphate | glucosamine derivative, hydrating, brightening
   ACETAMIDOETHOXYETHANOL: 'acetamidoethoxyethanol', // INCI: Acetamidoethoxyethanol (Hydromanil) | long-lasting biomimetic humectant
@@ -75,7 +82,17 @@ export const HUMECTANTS = {
 
 export const BARRIERE_EMOLLIENTS_OCCLUSIFS = {
   CETEARYL_ALCOHOL: 'cetearyl-alcohol', // INCI: Cetearyl Alcohol | fatty alcohol, emollient and thickener, non-drying
+  // add-to-db backlog, lot 4.
+  ARACHIDYL_ALCOHOL: 'arachidyl-alcohol', // INCI: Arachidyl Alcohol | C20 fatty alcohol, emulsion-stabilising thickener
+  // add-to-db backlog, lot 5. Sugar-derived emulsifier typically blended with the fatty alcohol
+  // above (Montanov 202-type pairing); graded barrier-support benefit in the algo-derm evidence.
+  ARACHIDYL_GLUCOSIDE: 'arachidyl-glucoside', // INCI: Arachidyl Glucoside | non-ionic emulsifier, barrier-support benefit
   GLYCERYL_STEARATE: 'glyceryl-stearate', // INCI: Glyceryl Stearate | emollient emulsifier, texture agent
+  // add-to-db backlog. Self-emulsifying variant of the emollient above: same core ester, an
+  // added co-emulsifier (usually a soap) removes the need for a separate emulsifier in the batch.
+  GLYCERYL_STEARATE_SE: 'glyceryl-stearate-se', // INCI: Glyceryl Stearate SE | self-emulsifying glyceryl stearate, moderate comedogenicity signal
+  // Olive-derived emulsifier (Olivem 1000-type), mild non-ionic surfactant per CIR.
+  CETEARYL_OLIVATE: 'cetearyl-olivate', // INCI: Cetearyl Olivate | olive-derived emulsifier
   AVOCADO_OIL: 'avocado-oil', // INCI: Persea Gratissima (Avocado) Oil | avocado oil, nourishing and regenerating
   CERAMIDES: 'ceramides', // INCI: Ceramide (general) or blend (Ceramide NP, AP, EOP...)
   CERAMIDE_NP: 'ceramide-np', // INCI: Ceramide NP (Ceramide 3)
@@ -138,6 +155,14 @@ export const BARRIERE_EMOLLIENTS_OCCLUSIFS = {
   HUILE_COTON: 'huile-coton', // INCI: Gossypium Herbaceum Seed Oil | cottonseed oil
   ETHYLHEXYL_PALMITATE: 'ethylhexyl-palmitate', // INCI: Ethylhexyl Palmitate / Ethyl Hexyl Palmitate | esterified emollient
   CETEARYL_ETHYLHEXANOATE: 'cetearyl-ethylhexanoate', // INCI: Cetearyl Ethylhexanoate | C16-C18 fatty ester, distinct from Cetyl Ethylhexanoate
+  // add-to-db backlog, lot 3.
+  CETYL_ETHYLHEXANOATE: 'cetyl-ethylhexanoate', // INCI: Cetyl Ethylhexanoate | light branched-chain ester, non-greasy emollient
+  DIBUTYL_ADIPATE: 'dibutyl-adipate', // INCI: Dibutyl Adipate | light emollient ester, also film-forming/plasticiser
+  // add-to-db backlog, lot 5.
+  DIISOSTEARYL_MALATE: 'diisostearyl-malate', // INCI: Diisostearyl Malate | branched diester emollient, common in lip/stick formulas
+  // add-to-db backlog. Also a common solvent for solid UV filters, same role as
+  // butyloctyl-salicylate above.
+  C12_15_ALKYL_BENZOATE: 'c12-15-alkyl-benzoate', // INCI: C12-15 Alkyl Benzoate | dry-touch emollient ester, UV-filter solvent
   SHOREA_STENOPTERA_SEED_BUTTER: 'shorea-stenoptera-seed-butter', // INCI: Shorea Stenoptera Seed Butter | illipe butter, distinct from shea butter
   C15_19_ALKANE: 'c15-19-alkane', // INCI: C15-19 Alkane | biomimetic alkane, dry emollient, silicone alternative
   C10_18_TRIGLYCERIDES: 'c10-18-triglycerides', // INCI: C10-18 Triglycerides | biomimetic solid triglycerides, structuring emollient
@@ -429,6 +454,11 @@ export const ANTIOXYDANTS_VITAMINES = {
   // Moved out of the supplements and haircare files: both are topical antioxidants here.
   BETA_CAROTENE: 'beta-carotene', // provitamin A carotenoid, antioxidant and tinting
   EUTERPE_OLERACEA_EXTRACT: 'euterpe-oleracea-extract', // acai, polyphenol antioxidant
+  // add-to-db backlog, lot 2. Synthetic antioxidants, CIR-graded.
+  HYDROXYACETOPHENONE: 'hydroxyacetophenone', // INCI: Hydroxyacetophenone | antioxidant, preservative booster
+  BHT: 'bht', // INCI: BHT | phenolic antioxidant, EU concentration cap
+  PENTAERYTHRITYL_TETRA_DI_T_BUTYL_HYDROXYHYDROCINNAMATE:
+    'pentaerythrityl-tetra-di-t-butyl-hydroxyhydrocinnamate', // INCI: Pentaerythrityl Tetra-Di-T-Butyl Hydroxyhydrocinnamate | hindered-phenol formulation stabilizer
 } as const
 
 export const APAISANTS_ANTI_INFLAMMATOIRES = {
@@ -577,6 +607,11 @@ export const FILTRES_UV = {
   ETHYLHEXYL_TRIAZONE: 'ethylhexyl-triazone', // Uvinul T 150
   TRIASORB: 'triasorb', // Ultra broad-spectrum filter
   IRON_OXIDE: 'oxide-de-fer', // INCI: Iron Oxides | mineral pigments, visible-light / HEV protection
+  // add-to-db backlog, lot 4. Distinct CAS/EC from Iron Oxides above (canonical_key CI 77491,
+  // red): CI 77492 is the yellow oxide, CI 77499 the black, neither collapses to it.
+  CI_77492: 'ci-77492', // INCI: CI 77492 | yellow iron oxide, mineral pigment
+  CI_77499: 'ci-77499', // INCI: CI 77499 | black iron oxide, mineral pigment
+  ALUMINUM_HYDROXIDE: 'aluminum-hydroxide', // INCI: Aluminum Hydroxide | inert mineral coating for UV filters, opacifier
   DROMETRIZOLE_TRISILOXANE: 'drometrizole-trisiloxane', // INCI: Drometrizole Trisiloxane | photostable UVA filter (Mexoryl XL)
   BUTYL_METHOXYDIBENZOYLMETHANE: 'butyl-methoxydibenzoylmethane', // INCI: Butyl Methoxydibenzoylmethane | UVA filter (Avobenzone)
   AVOBENZONE: 'butyl-methoxydibenzoylmethane', // Alias
@@ -630,6 +665,10 @@ export const PROBIOTIQUES_PREBIOTIQUES_POSTBIOTIQUES = {
   LACTOBACILLUS_FERMENT_LYSATE: 'lactobacillus-ferment-lysate', // INCI: Lactobacillus Ferment Lysate | lactobacillus postbiotic, distinct from the ferment
   LACTOBACILLUS_EXTRACELLULAR_VESICLES: 'lactobacillus-extracellular-vesicles', // INCI: Lactobacillus Extracellular Vesicles | non-living vesicles, distinct from ferments and lysates
   SACCHAROMYCES_LYSATE_EXTRACT: 'saccharomyces-lysate-extract', // INCI: Saccharomyces Lysate Extract | yeast postbiotic lysate, distinct from the ferment filtrate
+  // Lot 3 of the v27 candidate return, family E. Lactobacillus nu is the microorganism, not its
+  // ferment (lactobacillus-ferment above) — same distinction as ferment vs. lysate vs. vesicles.
+  LACTOBACILLUS: 'lactobacillus', // INCI: Lactobacillus | probiotic microorganism, distinct from Lactobacillus Ferment
+  ALTEROMONAS_FERMENT_EXTRACT: 'alteromonas-ferment-extract', // INCI: Alteromonas Ferment Extract | marine postbiotic, skin conditioning
 } as const
 
 export const ACTIFS_ANTI_AGE_REPARATEURS = {
@@ -701,6 +740,14 @@ export const TENSIOACTIFS_NETTOYANTS = {
   COCO_BETAINE: 'coco-betaine', // pure betaine, amphoteric co-surfactant
   GLYCOL_DISTEARATE: 'glycol-distearate', // crystalline pearlising agent, opacifier
   PEG_120_METHYL_GLUCOSE_DIOLEATE: 'peg-120-methyl-glucose-dioleate', // thickener for anionic systems
+  // Lot 3 of the v27 candidate return, family C: coco-derived cleansers, same family as
+  // sodium-coco-sulfate above (already resolved, out of this lot).
+  POTASSIUM_COCOYL_GLYCINATE: 'potassium-cocoyl-glycinate', // INCI: Potassium Cocoyl Glycinate | mild amino acid surfactant
+  SODIUM_COCOYL_ALANINATE: 'sodium-cocoyl-alaninate', // INCI: Sodium Cocoyl Alaninate | mild amino acid surfactant
+  COCONUT_ACID: 'coconut-acid', // INCI: Coconut Acid | coconut-derived fatty acid, cleansing and emulsifying
+  POTASSIUM_COCOATE: 'potassium-cocoate', // INCI: Potassium Cocoate | potassium soap of coconut fatty acids, cleansing and emulsifying
+  // add-to-db backlog, lot 2.
+  POTASSIUM_CETYL_PHOSPHATE: 'potassium-cetyl-phosphate', // INCI: Potassium Cetyl Phosphate | anionic phosphate ester emulsifier, common in sunscreens
 } as const
 
 export const TEXTURANTS_FONCTIONNELS = {
@@ -721,10 +768,14 @@ export const TEXTURANTS_FONCTIONNELS = {
   BAMBOU_CHARCOAL_HAIR: 'bambou-charcoal-hair', // bamboo-sourced charcoal, mild adsorbent
   KAOLIN: 'kaolin', // INCI: Kaolin | mineral clay, absorbent, purifying, texturizing (powder or suspension)
   BENTONITE: 'bentonite', // INCI: Bentonite | montmorillonite clay, powerful absorbent and purifying
+  // add-to-db backlog. Inert plant-derived polysaccharide, CIR-graded very low dermal risk.
+  MICROCRYSTALLINE_CELLULOSE: 'microcrystalline-cellulose', // INCI: Microcrystalline Cellulose | thickener, absorbent, bulking agent
   CORN_STARCH_MODIFIED: 'corn-starch-modified', // INCI: Corn Starch Modified / Distarch Phosphate | modified corn starch, mattifying absorbent texturizer
   BIOSACCHARIDE_GUM_4: 'biosaccharide-gum-4', // INCI: Biosaccharide Gum-4 | biotech polysaccharide, anti-pollution
   AMMONIUM_ACRYLOYLDIMETHYLTAURATE_VP_COPOLYMER: 'ammonium-acryloyldimethyltaurate-vp-copolymer', // INCI: Ammonium Acryloyldimethyltaurate/VP Copolymer | rheology gelling agent (Aristoflex AVC)
   CHITOSAN: 'chitosan', // INCI: Chitosan | deacetylated chitin biopolymer, film-forming humectant
+  // add-to-db backlog, lot 4.
+  ACACIA_SENEGAL_GUM: 'acacia-senegal-gum', // INCI: Acacia Senegal Gum | gum arabic, natural film-forming thickener
   // Aromatic and citrus oils live here alongside the existing menthe-poivree / verveine entries.
   // Bergamot carries two spellings for one material: the oil always comes from the peel.
   CITRUS_AURANTIUM_BERGAMIA_PEEL_OIL: 'citrus-aurantium-bergamia-peel-oil', // INCI: Citrus Aurantium Bergamia Peel Oil / Citrus Aurantium Bergamia Fruit Oil | bergamot, furocoumarin-bearing
@@ -786,6 +837,13 @@ export const TEXTURANTS_FONCTIONNELS = {
   // Never declared in any slug file: the domain map gave it no domain, so the guard dropped it
   // in every category. Synthetic rheology polymer, distinct INCI from the VP copolymer above.
   AMMONIUM_POLYACRYLOYLDIMETHYL_TAURATE: 'ammonium-polyacryloyldimethyl-taurate', // INCI: Ammonium Polyacryloyldimethyl Taurate | rheology gelling agent
+  // add-to-db backlog, lot 2.
+  POLYISOBUTENE: 'polyisobutene', // INCI: Polyisobutene | synthetic hydrocarbon polymer, film-forming, no benefit axis scored
+  POLYACRYLATE_CROSSPOLYMER_6: 'polyacrylate-crosspolymer-6', // INCI: Polyacrylate Crosspolymer-6 | cross-linked acrylate thickener, cold-process emulsion stabilizer
+  // add-to-db backlog, lot 3.
+  DISTEARDIMONIUM_HECTORITE: 'disteardimonium-hectorite', // INCI: Disteardimonium Hectorite | modified clay, rheology modifier for oil-rich formulas
+  // add-to-db backlog, lot 5.
+  MAGNESIUM_SULFATE: 'magnesium-sulfate', // INCI: Magnesium Sulfate | inert mineral salt (Epsom salt), bulking/viscosity adjuster
 } as const
 
 export const DIVERS_NON_CLASSES = {
@@ -802,6 +860,77 @@ export const DIVERS_NON_CLASSES = {
   CHONDRUS_CRISPUS_POWDER: 'chondrus-crispus-powder', // INCI: Chondrus Crispus Powder | abrasive powder, not the extract
   RUBUS_IDAEUS_SEED_OIL: 'rubus-idaeus-seed-oil', // INCI: Rubus Idaeus Seed Oil | distinct from fruit extract
   MALACHITE_EXTRACT: 'malachite-extract', // INCI: Malachite Extract | mineral-derived extract
+
+  // Lot 2 of the same v27 candidate return: family A (polyglyceryl esters) and B (alkanes).
+  // Numbers are part of the INCI identity: polyglyceryl-2 is not polyglyceryl-20, same trap as
+  // Acetyl Hexapeptide-3 / -37.
+  POLYGLYCERYL_4_OLEATE: 'polyglyceryl-4-oleate', // INCI: Polyglyceryl-4 Oleate | emulsifier
+  POLYGLYCERYL_3_POLYRICINOLEATE: 'polyglyceryl-3-polyricinoleate', // INCI: Polyglyceryl-3 Polyricinoleate | emulsifier, viscosity controlling
+  POLYGLYCERYL_2_TRIISOSTEARATE: 'polyglyceryl-2-triisostearate', // INCI: Polyglyceryl-2 Triisostearate | emulsifier
+  POLYGLYCERYL_2_DIISOSTEARATE: 'polyglyceryl-2-diisostearate', // INCI: Polyglyceryl-2 Diisostearate | emulsifier
+  POLYGLYCERYL_6_LAURATE: 'polyglyceryl-6-laurate', // INCI: Polyglyceryl-6 Laurate | emulsifier
+  POLYGLYCERYL_6_DISTEARATE: 'polyglyceryl-6-distearate', // INCI: Polyglyceryl-6 Distearate | emulsifier
+  POLYGLYCERYL_2_STEARATE: 'polyglyceryl-2-stearate', // INCI: Polyglyceryl-2 Stearate | emulsifier
+  // add-to-db backlog, not the v27 return: higher polymerisation degree than the polyglyceryl-2/
+  // 3/4/6 esters above, CIR-graded mild surfactant/solubilizer rather than a coverage stub.
+  POLYGLYCERYL_10_LAURATE: 'polyglyceryl-10-laurate', // INCI: Polyglyceryl-10 Laurate | mild non-ionic surfactant, solubilizer
+  // add-to-db backlog, lot 5.
+  POLYGLYCERYL_3_METHYLGLUCOSE_DISTEARATE: 'polyglyceryl-3-methylglucose-distearate', // INCI: Polyglyceryl-3 Methylglucose Distearate | mild emulsifier, natural-marketed formulas
+  // Tridecane and undecane are near-always co-listed as a plant-derived pair, but CosIng grades
+  // them under different functions (perfuming vs. emollient) — that gap comes from the export,
+  // not from Aurore's read, and is left unsmoothed in the fiches.
+  TRIDECANE: 'tridecane', // INCI: Tridecane | C13 alkane, perfuming per CosIng
+  UNDECANE: 'undecane', // INCI: Undecane | C11 alkane, skin conditioning / emollient per CosIng
+  C9_12_ALKANE: 'c9-12-alkane', // INCI: C9-12 Alkane | solvent
+  COCONUT_ALKANES: 'coconut-alkanes', // INCI: Coconut Alkanes | emollient, solvent
+
+  // Lot 4 of the same v27 candidate return: family F (esters and emollients, minus
+  // isoamyl-laurate and propylheptyl-caprylate above, already declared 2026-07-31), family I
+  // (silicone / cationic polymer) and family J (generic vegetable oil).
+  BIS_DIGLYCERYL_POLYACYLADIPATE_2: 'bis-diglyceryl-polyacyladipate-2', // INCI: Bis-Diglyceryl Polyacyladipate-2 | polymeric emollient ester
+  SORBITAN_PALMITATE: 'sorbitan-palmitate', // INCI: Sorbitan Palmitate | non-ionic emulsifier
+  // Pigment surface-treatment agent, near-exclusive to sunscreens and tinted formulas: the
+  // interest is co-occurrence with UV filters, not a dermal axis of its own.
+  ISOPROPYL_TITANIUM_TRIISOSTEARATE: 'isopropyl-titanium-triisostearate', // INCI: Isopropyl Titanium Triisostearate | titanium dioxide surface-treatment agent, emollient/emulsifier
+  GLYCERYL_UNDECYLENATE: 'glyceryl-undecylenate', // INCI: Glyceryl Undecylenate | undecylenic acid glyceryl ester, emollient/emulsifier
+  SODIUM_STEAROYL_LACTYLATE: 'sodium-stearoyl-lactylate', // INCI: Sodium Stearoyl Lactylate | anionic emulsifier
+  SUCROSE_LAURATE: 'sucrose-laurate', // INCI: Sucrose Laurate | sugar ester, mild cleansing/emulsifying, distinct from sucrose-stearate
+  // Ester of lauroyl sarcosine, distinct from sodium-lauroyl-sarcosinate above: different cation
+  // and different esterifying alcohol.
+  ISOPROPYL_LAUROYL_SARCOSINATE: 'isopropyl-lauroyl-sarcosinate', // INCI: Isopropyl Lauroyl Sarcosinate | sarcosinate ester, skin conditioning
+  // Long combined form, distinct from both hydroxypropyl-guar (line above, TEXTURANTS_FONCTIONNELS)
+  // and guar-hydroxypropyltrimonium-chloride (haircare): three separate INCI identities.
+  // biome-ignore format: parser reads slug + INCI comment off one line, wrapping breaks it
+  HYDROXYPROPYL_GUAR_HYDROXYPROPYLTRIMONIUM_CHLORIDE: 'hydroxypropyl-guar-hydroxypropyltrimonium-chloride', // INCI: Hydroxypropyl Guar Hydroxypropyltrimonium Chloride | cationic guar, antistatic/conditioning
+  VINYL_DIMETHICONE: 'vinyl-dimethicone', // INCI: Vinyl Dimethicone | silicone, viscosity controlling
+  // add-to-db backlog, lot 5. One official CosIng identity carrying an internal slash, not an
+  // alias list — no `INCI:` marker, same trap as the family-G entries below (a marker would mint
+  // a truncated `DIMETHICONE` key). Distinct from vinyl-dimethicone above.
+  DIMETHICONE_VINYL_DIMETHICONE_CROSSPOLYMER: 'dimethicone-vinyl-dimethicone-crosspolymer', // silicone elastomer gel, soft-focus texturizer
+  OLUS_OIL: 'olus-oil', // INCI: Olus Oil | vegetable-oil blend of unspecified composition, emollient
+
+  // Lot 5 of the same v27 candidate return: family G (compound INCI with an internal slash),
+  // family H (simple molecules) and family K (below-threshold, treated with the lot). The two
+  // Eugenia Caryophyllus tokens of family K (Flower Extract, Bud Extract) are out of this lot:
+  // D1 (2026-08-07, commit fa9bdabc) already merged both onto eugenia-caryophyllus-extract with
+  // canonical_key intentionally NULL, superseding the split this doc used to call for.
+  // No `INCI:` marker on the three family-G entries below and the family-K Tocopheryl one: each
+  // name is one official CosIng identity carrying an internal slash, not an alias list, so a
+  // marker would mint a truncated key (same trap as Cedrus Atlantica / Avena Sativa Leaf/Stem
+  // Extract above). The bridge reaches them by humanised slug equality instead.
+  PHYTOSTERYL_ISOSTEARYL_CETYL_STEARYL_BEHENYL_DIMER_DILINOLEATE:
+    'phytosteryl-isostearyl-cetyl-stearyl-behenyl-dimer-dilinoleate', // hair/skin conditioning polymer ester
+  OLEIC_LINOLEIC_LINOLENIC_POLYGLYCERIDES: 'oleic-linoleic-linolenic-polyglycerides', // polyglyceryl ester of unsaturated fatty acids, emulsifier
+  CASTOR_OIL_IPDI_COPOLYMER: 'castor-oil-ipdi-copolymer', // film-forming castor oil / isophorone diisocyanate copolymer
+  TRIHEPTANOIN: 'triheptanoin', // INCI: Triheptanoin | branched-chain medium triglyceride, emollient
+  DEXTRAN: 'dextran', // INCI: Dextran | bacterial polysaccharide, binder/thickener, distinct from sodium-dextran-sulfate
+  GLYCOLIPIDS: 'glycolipids', // INCI: Glycolipids | CosIng class name, not a single defined species
+  TOCOPHERYL_LINOLEATE_OLEATE: 'tocopheryl-linoleate-oleate', // vitamin E ester blend, distinct from Tocopheryl Linoleate alone (CAS 36148-84-2)
+  KOJIC_DIPALMITATE: 'kojic-dipalmitate', // INCI: Kojic Dipalmitate | lipophilic kojic acid ester, distinct from kojic-acid
+  DIMETHYLMETHOXY_CHROMANYL_PALMITATE: 'dimethylmethoxy-chromanyl-palmitate', // INCI: Dimethylmethoxy Chromanyl Palmitate | substituted chroman ester
+  // Absent from the 2020 CosIng snapshot algo-derm indexes (secondClass identity, no cosingRef):
+  // likely a newer INCI or a supplier delivery-system name. Distinct from centella-asiatica above.
+  CENTELLA_ASIATICA_VESICLES: 'centella-asiatica-vesicles', // INCI: Centella Asiatica (Indian Pennywort) Vesicles | vesicular delivery form
 
   HUMECTANTS_EMOLLIENTS_OCCLUSIFS: 'humectants-emollients-occlusifs', // General category
   PEPTIDES: 'peptides', // General category
@@ -840,6 +969,10 @@ export const DIVERS_NON_CLASSES = {
   GLYCERYL_CAPRYLATE_CAPRATE: 'glyceryl-caprylate-caprate', // INCI: Glyceryl Caprylate/Caprate | multifunctional natural preservative, emollient
   MELANIN: 'melanin', // INCI: Melanin | biomimetic tinting and photoprotective pigment (UV/HEV)
   HYDROLYZED_YEAST_PROTEIN: 'hydrolyzed-yeast-protein', // INCI: Hydrolyzed Yeast Protein | beta-glucan-rich yeast hydrolysate, fortifying
+  // Lot 3 of the v27 candidate return, family E. Yeast Extract is kept distinct from the
+  // hydrolysate above — same source organism, different processing and identity.
+  YEAST_EXTRACT: 'yeast-extract', // INCI: Yeast Extract | soluble yeast extract, skin conditioning and protecting
+  YEAST_AMINO_ACIDS: 'yeast-amino-acids', // INCI: Yeast Amino Acids | yeast-derived amino acid blend, humectant
   MELIA_AZADIRACHTA: 'melia-azadirachta', // INCI: Melia Azadirachta Leaf Extract | neem leaf, purifying
   HOLY_BASIL: 'holy-basil', // INCI: Ocimum Sanctum Leaf Extract | holy basil (tulsi), antioxidant and soothing
   CORALLINA_OFFICINALIS: 'corallina-officinalis', // INCI: Corallina Officinalis Extract | red algae, mineral source
@@ -877,7 +1010,16 @@ export const DIVERS_NON_CLASSES = {
   EVERNIA_PRUNASTRI_EXTRACT: 'evernia-prunastri-extract', // INCI: Evernia Prunastri Extract | oakmoss, a natural mixture
   EVERNIA_FURFURACEA_EXTRACT: 'evernia-furfuracea-extract', // INCI: Evernia Furfuracea Extract | treemoss, a natural mixture
   METHYL_2_OCTYNOATE: 'methyl-2-octynoate', // INCI: Methyl 2-Octynoate | violet-leaf note, concentration-capped
+  // EU 2023/1545 expanded the fragrance-allergen list beyond the 26 legacy Annex III substances
+  // above: pinene (alpha/beta family) is one of the new entries, own labelling threshold and
+  // peroxide-value condition.
+  PINENE: 'pinene', // INCI: Pinene | pine/citrus terpene, SCCS-listed contact allergen (alpha/beta family)
+  // add-to-db backlog, lot 4. Same EU 2023/1545 expansion as pinene above, own Annex III/343
+  // entry; kept distinct from terpinen-4-ol per algo-derm's evidence note.
+  TERPINEOL: 'terpineol', // INCI: Terpineol | pine/citrus terpene alcohol, SCCS-listed contact allergen
   PHENYLPROPANOL: 'phenylpropanol', // INCI: Phenylpropanol | aromatic alcohol, fragrance and preservative booster
+  // add-to-db backlog, lot 3. Same role as phenylpropanol above, distinct molecule.
+  PHENETHYL_ALCOHOL: 'phenethyl-alcohol', // INCI: Phenethyl Alcohol | aromatic alcohol, fragrance solvent and preservative booster
   RASPBERRY_KETONE: 'raspberry-ketone', // INCI: Raspberry Ketone | raspberry aroma molecule, tyrosinase substrate
   ALGAE_EXTRACT: 'algae-extract', // INCI: Algae Extract | generic algal extract, species not declared
   SEA_SALT: 'sea-salt', // INCI: Sea Salt | mineral salt, abrasive and texture agent
