@@ -5,17 +5,17 @@
   // implicitly, and many CLI scripts are launched via `bun run path/to/script.ts` (justfile recipes,
   // ad-hoc tooling). Listing them explicitly stops fallow from treating them as unreachable.
   "entry": [
-    "backend/src/db/seed/runners/*.ts",
-    "backend/src/db/seed/scripts/**/*.ts",
     "backend/src/db/seed/tests/**/*.test.ts",
     "backend/src/db/migrate.ts",
     "backend/drizzle.config.ts",
-    "frontend/src/main.tsx",
+    "backend/hono-docs.ts",
     "frontend/src/router.tsx",
+    "scripts/*.ts",
 
     // bun:test discovers these
     "backend/src/**/*.test.ts",
     "backend/src/tests/**/*.ts",
+    "shared/src/**/*.test.ts",
 
     // vitest frontend
     "frontend/src/**/*.test.{ts,tsx}",
@@ -26,6 +26,7 @@
     "frontend/playwright.config.ts",
 
     // CLI scripts run via bun directly or justfile recipes
+    "backend/src/**/*.cli.ts",
     "backend/src/db/audit/**/*.ts",
     "backend/src/db/seed/maintenance/**/*.ts",
     "backend/src/db/seed/ingest/**/main.ts",
@@ -38,18 +39,19 @@
     "frontend/src/styles/tokens/breakpoints.css"
   ],
 
-  // workspace packages (bun symlink), pino-pretty (string reference in transport config),
-  // NB: fallow 2.77+ does not resolve the @aurore/shared symlink — every export
-  // consumed via `@aurore/shared` appears unused even though it isn't. New files
-  // also trigger unresolved-import for the same reason (symlink not followed).
-  // Verify shared/src/* findings via grep before acting.
+  // @aurore/shared: fallow resolves the symlink (verified on 3.10.0 — dropping this entry
+  // surfaces no unresolved-import), but attributes the package to a single workspace. It reports
+  // it unused in frontend/package.json "(imported in backend)" while 148 frontend files import it.
+  // pino-pretty: string reference in the transport config, never imported.
   // typescript-5: only consumer is scripts/audit-comments.ts, which is gitignored (local-only
   // tooling), so no analyser can see the import that justifies the dependency.
   "ignoreDependencies": ["@aurore/shared", "pino-pretty", "react-doctor", "typescript-5"],
-  "ignoreUnresolvedImports": ["@aurore/shared"],
 
   // docs-private/wiki carries its own package.json (Starlight). It is not application code and
   // is gitignored, so it must not be analysed nor reported as an undeclared workspace.
+  // Do NOT add routeTree.gen.ts here: it is the only edge from the router to the 53 route files,
+  // so ignoring it strands every route and its components (8 unused files becomes 144). Its two
+  // unused generated types are the cheaper noise.
   "ignorePatterns": ["vendor/**", ".fallow/**", "**/*.d.ts", "node_modules/**", "docs-private/**"],
 
   // Complexity gates aligned with fallow defaults (20 cyclomatic / 15 cognitive)
@@ -60,11 +62,13 @@
 
   // mild mode avoids flagging structurally similar seed data objects
   // ignoreImports drops false positives from Biome-sorted import blocks
-  // minLines 25: sub-25-line clones are boilerplate noise (679→21); threshold caps the printed list
+  // minLines 25: sub-25-line clones are boilerplate noise (679→21)
+  // threshold is a percentage of duplicated lines, not a cap on the printed list. The repo sits
+  // at 0.1%, so the previous value of 8 could never fire; 3 leaves room to grow without silence.
   "duplicates": {
     "mode": "mild",
     "minLines": 25,
-    "threshold": 8,
+    "threshold": 3,
     "ignoreImports": true
   }
 }

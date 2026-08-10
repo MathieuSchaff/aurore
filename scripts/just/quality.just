@@ -1,26 +1,35 @@
 import '_vars.just'
 
-# Check code with Biome
+[doc('Check code with Biome')]
+[group('quality')]
 lint:
     bunx biome check .
 
-# Fix lint issues
+[doc('Fix lint issues')]
+[group('quality')]
 lint-fix:
     bunx biome check --write .
 
-# Save audit baseline (reset after big cleanup)
+# The `-` prefixes are load-bearing: --save-baseline writes the file and *then* exits non-zero
+# on the findings it just recorded, which would abort the recipe after the first line and leave
+# the other two baselines missing. `just audit-code` reads audit-health.json / audit-dupes.json.
+[doc('Save audit baseline (reset after big cleanup)')]
+[group('quality')]
 fallow-baseline:
-    npx fallow dead-code --save-baseline .fallow/audit-dead-code.json --quiet
-    npx fallow health --save-baseline .fallow/audit-health.json --quiet
-    npx fallow dupes --save-baseline .fallow/audit-dupes.json --quiet
+    -npx fallow dead-code --save-baseline .fallow/audit-dead-code.json --quiet
+    -npx fallow health --save-baseline .fallow/audit-health.json --quiet
+    -npx fallow dupes --save-baseline .fallow/audit-dupes.json --quiet
 
 # anonDb is the anonymous view, so a new site under-scopes (lost personalisation, lost request
 # transaction) instead of escalating — no test and no type catches that.
 # Freeze the `c.get('anonDb')` surface against scripts/anon-db-allowlist.json. "--update" re-baselines.
+[doc("Freeze the c.get('anonDb') surface against scripts/anon-db-allowlist.json. --update re-baselines.")]
+[group('quality')]
 anon-db-gate flags="":
     bun scripts/anon-db-gate.ts {{flags}}
 
-# Dead-code scan via knip (re-export aware, fewer false positives than fallow). DATABASE_URL stub avoids drizzle.config.ts load error (knip only parses imports). Pass "--strict" to also report unlisted deps, types-only, etc. Second positional picks the reporter ("sarif" for audit-code).
+[doc('Dead-code scan via knip (re-export aware, fewer false positives than fallow). DATABASE_URL stub avoids drizzle.config.ts load error (knip only parses imports). Pass "--strict" to also report unlisted deps, types-only, etc. Second positional picks the reporter ("sarif" for audit-code).')]
+[group('quality')]
 knip flags="" reporter="compact":
     @DATABASE_URL=postgres://x bunx knip {{flags}} --reporter {{reporter}}
 
@@ -34,28 +43,38 @@ knip flags="" reporter="compact":
 # typescript crashes on "Cannot read properties of undefined (reading 'Cjs')". The temp cwd
 # keeps Node from walking up into node_modules/. The madge devDependency stays in
 # package.json to pin the major used here; it is not what actually runs.
+#
+# frontend/tsconfig.madge.json teaches madge the "@/*" alias; see that file for why the
+# regular tsconfig cannot be used. --warning surfaces whatever still fails to resolve, so the
+# next such blind spot shows up instead of being counted as clean.
+[doc('Circular-dependency scan via madge, frontend @/* alias resolved.')]
+[group('quality')]
+[script]
 cycles:
-    #!/usr/bin/env bash
-    set -euo pipefail
     repo="$PWD"
     iso="${TMPDIR:-/tmp}/aurore-madge-iso"
     mkdir -p "$iso"
     cp "$repo/.madgerc" "$iso/.madgerc"
     cd "$iso"
-    npx -y -p madge@8 -p typescript@5.9 madge --circular --extensions ts,tsx \
+    npx -y -p madge@8 -p typescript@5.9 madge --warning --circular --extensions ts,tsx \
+        --ts-config "$repo/frontend/tsconfig.madge.json" \
         --exclude '(dist|node_modules|db/seed/data)/' \
         "$repo/backend/src" "$repo/frontend/src" "$repo/shared/src"
 
-# Test prod CSP against prod build, locally, no Docker (builds dist, serves w/ nginx CSP, headless chromium, fails on violation). Test-only.
+[doc('Test prod CSP against prod build, locally, no Docker (builds dist, serves w/ nginx CSP, headless chromium, fails on violation). Test-only.')]
+[group('quality')]
 test-csp:
     cd frontend && VITE_API_URL=http://localhost:3000 bunx vite build && bun e2e/csp/check.ts
 
 # Test auth boot convergence against the production SSR build, locally, no Docker.
 # VITE_API_URL points at the check's mock proxy so server-side fetches cannot
 # silently reach a live dev backend on 3000.
+[doc('Test auth boot convergence against the production SSR build, locally, no Docker.')]
+[group('quality')]
 test-auth-ssr:
     cd frontend && VITE_API_URL=http://127.0.0.1:4190 bunx vite build && bun e2e/auth-ssr/check.ts
 
-# Regenerate the OpenAPI spec from the backend AppType (static ts-morph analysis, no runtime). Serve it via the dev API at /api/docs.
+[doc('Regenerate the OpenAPI spec from the backend AppType (static ts-morph analysis, no runtime). Serve it via the dev API at /api/docs.')]
+[group('dev')]
 docs:
     cd backend && bunx @rcmade/hono-docs generate --config ./hono-docs.ts

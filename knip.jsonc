@@ -8,9 +8,8 @@
     "backend/drizzle.config.ts",
     "docs/**"
   ],
-  "ignoreDependencies": ["algo-derm"],
   "tags": ["-knipignore"],
-  "ignoreBinaries": ["biome", "fallow", "knip", "madge", "drizzle-kit", "magick"],
+  "ignoreBinaries": ["magick"],
   "workspaces": {
     ".": {
       "entry": ["scripts/**/*.{ts,js,mjs}"],
@@ -18,7 +17,6 @@
     },
     "backend": {
       "entry": [
-        "src/index.ts",
         "src/db/migrate.ts",
         "src/**/main.ts",
         "src/**/*.cli.ts",
@@ -26,7 +24,6 @@
         "src/db/seed/maintenance/*.ts",
         "src/db/seed/inci/**/*.ts",
         "src/db/seed/**/audit-*.ts",
-        "src/db/seed/**/benchmark-*.ts",
         "src/db/seed/**/scan-*.ts",
         "src/db/seed/**/fix-*.ts",
         "src/db/seed/**/index.ts",
@@ -41,19 +38,18 @@
         "src/instrumentation.ts",
         "hono-docs.ts"
       ],
+      // knip hints that "scripts/**/*.ts" matches nothing: today every nested script is a test,
+      // already covered by the entry patterns. Kept so a future non-test nested script is scanned.
       "project": ["src/**/*.ts", "scripts/**/*.ts"],
-      "ignoreDependencies": ["@types/bun", "pino-pretty"]
+      "ignoreDependencies": ["pino-pretty"]
     },
     "frontend": {
+      // The vite/vitest/playwright plugins already contribute their own config files and
+      // routeTree.gen.ts, so listing them here again is redundant.
       "entry": [
         "src/router.tsx",
         "src/client.tsx",
         "src/start.ts",
-        "src/routeTree.gen.ts",
-        "vite.config.ts",
-        "vitest.config.ts",
-        "playwright.config.ts",
-        "postcss.config.js",
         "e2e/**/*.spec.ts",
         "e2e/helpers/*.ts",
         "e2e/csp/check.ts",
@@ -67,7 +63,6 @@
       "ignoreDependencies": [
         "@tanstack/router-cli",
         "@tanstack/react-router-devtools",
-        "katex",
         "rollup-plugin-visualizer",
         // Pulled in by CSS @import in src/styles/index.css, which knip does not parse.
         "@fontsource/dm-sans",
@@ -76,7 +71,7 @@
       ]
     },
     "shared": {
-      "entry": ["src/index.ts", "**/*.test.ts"],
+      "entry": ["**/*.test.ts"],
       "project": ["src/**/*.ts"]
     }
   }

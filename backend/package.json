@@ -10,11 +10,6 @@
       "types": "./dist/index.d.ts",
       "bun": "./src/index.ts",
       "default": "./src/index.ts"
-    },
-    "./app": {
-      "types": "./dist/app.d.ts",
-      "bun": "./src/app.ts",
-      "default": "./src/app.ts"
     }
   },
   "scripts": {

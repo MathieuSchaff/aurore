@@ -2,20 +2,20 @@
 
 AUDIT_CODE_OUT := '.audit-out/code'
 
-# Full code audit: probes, then HTML/CSV reports, then the diff against the previous run. OPEN=1 also opens the reports.
+# Plain bash (no -e, no pipefail) keeps every report being written when one probe fails, but a
+# bare "Done" then reads as a clean audit: knip and cycles both exited 1 under a "Done" once.
+[doc('Full code audit: probes, then HTML/CSV reports, then the diff against the previous run. OPEN=1 also opens the reports.')]
+[group('audit')]
+[script('bash')]
 audit-code:
-    #!/usr/bin/env bash
-    # set +e keeps every report being written when one probe fails, but a bare "Done" then
-    # reads as a clean audit: knip and cycles both exited 1 under a "Done" once. Each probe
-    # records its own status (PIPESTATUS[0], since tee would otherwise mask it) and the
-    # summary names the failures. Exit stays 0 — knip and react-doctor exit 1 on findings
+    # Each probe records its own status (PIPESTATUS[0], since tee would otherwise mask it) and
+    # the summary names the failures. Exit stays 0 — knip and react-doctor exit 1 on findings
     # that are triaged, not blocking.
     #
     # raw/ is the audit: every probe writes there and nothing outside the repo toolchain is
     # needed to read it. sarif/ and json/ are a bonus for `just audit-report`, which is the
     # only recipe that depends on sarif-tools. A probe with no machine-readable format keeps
     # raw/ as its single output rather than getting a hand-rolled converter.
-    set +e
     repo="$PWD"
     out='{{ AUDIT_CODE_OUT }}'
     mkdir -p "$out"/raw "$out"/json
@@ -54,14 +54,24 @@ audit-code:
     just cycles 2>&1 | tee "$out/raw/cycles.txt"
     [ ${PIPESTATUS[0]} -eq 0 ] || failed+=("cycles")
     printf "{{ CYAN }}=== fallow health (complexity/CRAP) ==={{ NC }}\n"
-    npx fallow health 2>&1 | tee "$out/raw/health.txt"
+    # Without a baseline the repo's ~200 standing complexity findings make this exit 1 forever,
+    # so the gate says nothing. With one, it fails only on regressions. Baselines live in the
+    # gitignored .fallow/ (run `just fallow-baseline`), so a fresh clone falls back to absolute
+    # mode. Not passing --coverage here on purpose: it adds exact per-function CRAP findings the
+    # baseline was not recorded with, which reads as a regression. Use it ad hoc, or regenerate
+    # the baseline with the same flag.
+    health_args=()
+    [ -f .fallow/audit-health.json ] && health_args+=(--baseline .fallow/audit-health.json)
+    npx fallow health "${health_args[@]}" 2>&1 | tee "$out/raw/health.txt"
     [ ${PIPESTATUS[0]} -eq 0 ] || failed+=("fallow-health")
     # --sarif-file claims to write "in addition to" the primary format, but is a no-op in
     # fallow 3.10.0 — it silently writes nothing. --output-file does work, hence a second run.
     npx fallow health --format sarif --quiet --output-file "$out/sarif/fallow-health.sarif" >/dev/null 2>&1
     check_sarif "$out/sarif/fallow-health.sarif"
     printf "{{ CYAN }}=== fallow dupes ==={{ NC }}\n"
-    npx fallow dupes 2>&1 | tee "$out/raw/dupes.txt"
+    dupes_args=()
+    [ -f .fallow/audit-dupes.json ] && dupes_args+=(--baseline .fallow/audit-dupes.json)
+    npx fallow dupes "${dupes_args[@]}" 2>&1 | tee "$out/raw/dupes.txt"
     [ ${PIPESTATUS[0]} -eq 0 ] || failed+=("fallow-dupes")
     npx fallow dupes --format sarif --quiet --output-file "$out/sarif/fallow-dupes.sarif" >/dev/null 2>&1
     check_sarif "$out/sarif/fallow-dupes.sarif"
@@ -93,10 +103,10 @@ audit-code:
     [ -n "${OPEN:-}" ] && just audit-open
     exit 0
 
-# Aggregate the SARIF reports into HTML + CSV (needs sarif-tools). Output → .audit-out/code/
+[doc('Aggregate the SARIF reports into HTML + CSV (needs sarif-tools). Output → .audit-out/code/')]
+[group('audit')]
+[script]
 audit-report:
-    #!/usr/bin/env bash
-    set -euo pipefail
     out='{{ AUDIT_CODE_OUT }}'
     if ! command -v sarif >/dev/null 2>&1; then
         printf "{{ YELLOW }}sarif-tools not installed — 'uv tool install sarif-tools' or 'pipx install sarif-tools'.{{ NC }}\n"
@@ -117,20 +127,20 @@ audit-report:
     sarif csv --output "$out/findings.csv" "$out/sarif"
     printf "{{ GREEN }}%s/{code,complexity}.html + findings.csv{{ NC }}\n" "$out"
 
-# Open the aggregated audit reports in a browser
+[doc('Open the aggregated audit reports in a browser')]
+[group('audit')]
+[script]
 audit-open:
-    #!/usr/bin/env bash
-    set -euo pipefail
     out='{{ AUDIT_CODE_OUT }}'
     for f in "$out/code.html" "$out/complexity.html"; do
         [ -f "$f" ] || { printf "{{ RED }}%s missing — run 'just audit-report'.{{ NC }}\n" "$f"; exit 1; }
         xdg-open "$f"
     done
 
-# Diff the current SARIF run against an earlier one. Defaults to the run just before it; audit-code calls this on its own.
+[doc('Diff the current SARIF run against an earlier one. Defaults to the run just before it; audit-code calls this on its own.')]
+[group('audit')]
+[script('bash', '-uo', 'pipefail')]
 audit-diff previous=(AUDIT_CODE_OUT + '/sarif-prev'):
-    #!/usr/bin/env bash
-    set -uo pipefail
     out='{{ AUDIT_CODE_OUT }}'
     command -v sarif > /dev/null 2>&1 || { printf "{{ YELLOW }}sarif-tools not installed.{{ NC }}\n"; exit 0; }
     if [ ! -d '{{ previous }}' ]; then
@@ -144,10 +154,10 @@ audit-diff previous=(AUDIT_CODE_OUT + '/sarif-prev'):
     sarif diff '{{ previous }}' "$out/sarif" | tee "$out/diff.txt"
     sarif diff -o "$out/diff.json" '{{ previous }}' "$out/sarif" > /dev/null
 
-# Pin the current SARIF run as a named reference point. Usage: just audit-snapshot before-refactor
+[doc('Pin the current SARIF run as a named reference point. Usage: just audit-snapshot before-refactor')]
+[group('audit')]
+[script]
 audit-snapshot name:
-    #!/usr/bin/env bash
-    set -euo pipefail
     out='{{ AUDIT_CODE_OUT }}'
     # sarif-prev/ is rotated by audit-code on every run, so a pin parked there would not survive.
     [ '{{ name }}' != 'prev' ] || { printf "{{ RED }}'prev' is taken by the automatic rotation — pick another name.{{ NC }}\n"; exit 1; }
