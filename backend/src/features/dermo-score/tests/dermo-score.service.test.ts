@@ -1,5 +1,6 @@
-import { beforeEach, describe, expect, it } from 'bun:test'
+import { beforeEach, describe, expect, it, setSystemTime, spyOn } from 'bun:test'
 
+import * as algoDerm from 'algo-derm'
 import { analyzeINCI } from 'algo-derm'
 import { buildAliasIndex, lookupIngredient, MERGED_EVIDENCE_DB } from 'algo-derm/engine'
 
@@ -50,6 +51,42 @@ describe('computeProductDermoScore', () => {
     // Parfum / Limonene), not just ingredient coverage, catches engine regressions.
     expect(a.overallRisk).toBeGreaterThan(0)
     expect(a.productAxisRisk.irritation.risk).toBeGreaterThan(0)
+  })
+
+  it('returns non-dermatological ingredient signals outside the score', async () => {
+    const p = await createTestProduct(user.id, {
+      name: 'Sérum avec repères de composition',
+      brand: 'Brand',
+      inci: 'Aqua, PTFE, Magnesium Potassium Fluorosilicate',
+    })
+
+    const result = await computeProductDermoScore(p.slug, null, testDb)
+
+    if (!result.ok) throw new Error('expected ok=true')
+    expect(result.assessment.ingredientSignals).toEqual([
+      expect.objectContaining({ ingredient: 'PTFE', kind: 'pfas', confidence: 'high' }),
+    ])
+  })
+
+  it('evaluates regulatory rules at the current UTC calendar date', async () => {
+    setSystemTime(new Date('2026-08-10T23:30:00.000Z'))
+    const analyzeSpy = spyOn(algoDerm, 'analyzeINCI')
+    try {
+      const p = await createTestProduct(user.id, {
+        name: 'Sérum daté',
+        brand: 'Brand',
+        inci: 'Aqua, Niacinamide',
+      })
+
+      await computeProductDermoScore(p.slug, null, testDb)
+
+      expect(analyzeSpy.mock.calls.at(-1)?.[1]).toEqual(
+        expect.objectContaining({ asOfDate: '2026-08-10' })
+      )
+    } finally {
+      analyzeSpy.mockRestore()
+      setSystemTime()
+    }
   })
 
   it('falls back to the anonymous score when the user has no dermo profile', async () => {
