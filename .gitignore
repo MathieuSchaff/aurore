@@ -118,6 +118,12 @@ frontend/public/mock-products
 !docs/screenshots/*.png
 
 # =========================
+# One-shot investigation probes. Biome and fallow read this file, so ignoring them here
+# also keeps their near-identical bodies out of the lint and duplication reports.
+# =========================
+**/.probe-*.ts
+
+# =========================
 # Manual image-fetcher scripts (one-shot maintenance, output goes to CDN)
 # =========================
 backend/src/db/seed/data/image-fetchers/
