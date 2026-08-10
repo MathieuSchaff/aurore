@@ -1,5 +1,14 @@
-# Shared variables — imported by the root justfile and every scripts/just/*.just.
+# Shared variables, imported by the root justfile and every scripts/just/*.just.
 # Just dedupes imports, so importing it multiple times is fine.
+
+# TARGET stays an env var: it has to survive `_lib.sh` (sourced bash), nested `just` calls and
+# `just prod-ssh 'TARGET=prod … just x'`, none of which see a recipe parameter. Exporting it here
+# gives every recipe body a value, so no recipe repeats `TARGET="${TARGET:-dev}"`.
+export TARGET := env('TARGET', 'dev')
+
+# Validated at assignment, so an invalid value aborts before any command runs, whichever recipe
+# was aimed at, since a typo here is a typo whatever the target. `just --list` is not affected.
+_target_valid := if TARGET =~ '^(dev|prod)$' { '' } else { error('TARGET invalide: dev|prod, reçu ' + TARGET) }
 
 GREEN  := '\033[0;32m'
 YELLOW := '\033[0;33m'

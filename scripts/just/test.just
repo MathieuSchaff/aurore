@@ -13,7 +13,8 @@ APP_TEST_DB_URL := "postgres://app_runtime:testpassword@localhost:5433/appdb_tes
 # Reusing a long-lived test DB lets its schema drift from what the migrations
 # describe (drizzle only applies the missing ones), which surfaces as flaky RLS
 # failures — hence the recreate-by-default. `keep` also spares a concurrent run's DB.
-# Recreate the test DB and apply migrations — pass `keep` to reuse a running one.
+[doc('Recreate the test DB and apply migrations — pass `keep` to reuse a running one.')]
+[group('test')]
 test-db-up keep="":
     @if [ "{{keep}}" = "keep" ] && {{COMPOSE_TEST}} exec db-test pg_isready -U app -d appdb_test >/dev/null 2>&1; then \
         printf "{{CYAN}}Reusing running test DB (omit 'keep' to recreate).{{NC}}\n"; \
@@ -27,11 +28,13 @@ test-db-up keep="":
     cd backend && DATABASE_URL={{TEST_DB_URL}} APP_DATABASE_URL={{APP_TEST_DB_URL}} bun run src/db/migrate.ts
     @printf "{{GREEN}}✓ Test DB ready{{NC}}\n"
 
-# Stop test DB
+[doc('Stop test DB')]
+[group('test')]
 test-db-down:
     {{COMPOSE_TEST}} down
 
-# Seed CORE into test DB — requires test-db-up
+[doc('Seed CORE into test DB — requires test-db-up')]
+[group('test')]
 test-db-seed:
     @printf "{{CYAN}}Seeding CORE into test DB...{{NC}}\n"
     cd backend && export $(grep -v '^\#' ../.env.dev | xargs) && DATABASE_URL={{TEST_DB_URL}} APP_DATABASE_URL={{APP_TEST_DB_URL}} bun run src/db/seed/seeders/seed-core.ts --reset
@@ -39,53 +42,63 @@ test-db-seed:
 
 # ─────────────────────────── Run once ───────────────────────────
 
-# Run ALL tests — shared (pure) + backend (full cycle) + frontend
+[doc('Run ALL tests — shared (pure) + backend (full cycle) + frontend')]
+[group('test')]
 test: test-shared test-backend test-frontend
 
-# Run shared unit tests — pure, no DB, optional filter
+[doc('Run shared unit tests — pure, no DB, optional filter')]
+[group('test')]
 test-shared args="":
     cd shared && bun test {{args}}
     @printf "{{GREEN}}✓ Shared tests done{{NC}}\n"
 
-# Run backend tests — brings DB up, optional filter
+[doc('Run backend tests — brings DB up, optional filter')]
+[group('test')]
 test-backend args="": test-db-up
     DATABASE_URL={{TEST_DB_URL}} APP_DATABASE_URL={{APP_TEST_DB_URL}} bun --cwd ./backend test {{args}}
     @printf "{{GREEN}}✓ Backend tests done{{NC}}\n"
 
-# Run frontend tests
+[doc('Run frontend tests')]
+[group('test')]
 test-frontend:
     cd frontend && bunx vitest run
     @printf "{{GREEN}}✓ Frontend tests done{{NC}}\n"
 
-# Run backend tests — DB assumed up, optional filter — fast inner loop
+[doc('Run backend tests — DB assumed up, optional filter — fast inner loop')]
+[group('test')]
 test-dev args="":
     cd backend && DATABASE_URL={{TEST_DB_URL}} APP_DATABASE_URL={{APP_TEST_DB_URL}} bun test {{args}}
 
 # ─────────────────────────── Watch ───────────────────────────
 
-# Watch backend tests — brings DB up first
+[doc('Watch backend tests — brings DB up first')]
+[group('test')]
 test-watch: test-db-up
     cd backend && DATABASE_URL={{TEST_DB_URL}} APP_DATABASE_URL={{APP_TEST_DB_URL}} bun test --watch
 
-# Watch backend tests — DB assumed up, optional filter
+[doc('Watch backend tests — DB assumed up, optional filter')]
+[group('test')]
 test-dev-watch args="":
     cd backend && DATABASE_URL={{TEST_DB_URL}} APP_DATABASE_URL={{APP_TEST_DB_URL}} bun test --watch {{args}}
 
 # ──────────────────── Coverage (feeds fallow health --coverage) ────────────────────
 
-# Backend coverage (lcov) → backend/coverage/
+[doc('Backend coverage (lcov) → backend/coverage/')]
+[group('test')]
 test-backend-coverage args="": test-db-up
     DATABASE_URL={{TEST_DB_URL}} APP_DATABASE_URL={{APP_TEST_DB_URL}} bun --cwd ./backend test --coverage --coverage-reporter=lcov --coverage-reporter=text --coverage-dir=./coverage {{args}}
     @printf "{{GREEN}}✓ Backend coverage written to backend/coverage/{{NC}}\n"
 
-# Frontend coverage (lcov) → frontend/coverage/
+[doc('Frontend coverage (lcov) → frontend/coverage/')]
+[group('test')]
 test-frontend-coverage:
     cd frontend && bunx vitest run --coverage
     @printf "{{GREEN}}✓ Frontend coverage written to frontend/coverage/{{NC}}\n"
 
 # ──────────────── Perf regression guard (baseline cleanDatabase = 903, must not rise) ────────────────
 
-# Bench backend suite — captures wall-time + full log to /tmp/aurore-backend-test.log
+[doc('Bench backend suite — captures wall-time + full log to /tmp/aurore-backend-test.log')]
+[group('test')]
 test-bench: test-db-up
     @printf "{{CYAN}}Benching backend tests (output → /tmp/aurore-backend-test.log)...{{NC}}\n"
     cd backend && /usr/bin/time -f "wall=%es cpu=%P max-rss=%MKB" -o /tmp/aurore-backend-test.time \
@@ -96,7 +109,8 @@ test-bench: test-db-up
     @printf "{{CYAN}}cleanDatabase fires (baseline 903):{{NC}} "
     @grep -c "Cleaning database" /tmp/aurore-backend-test.log
 
-# Re-read cleanDatabase fires from the last test-bench log (no re-bench)
+[doc('Re-read cleanDatabase fires from the last test-bench log (no re-bench)')]
+[group('test')]
 test-clean-count:
     @if [ ! -f /tmp/aurore-backend-test.log ]; then \
         printf "{{CYAN}}No log yet — run 'just test-bench' first.{{NC}}\n"; \

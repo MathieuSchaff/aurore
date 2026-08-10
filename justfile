@@ -1,8 +1,12 @@
 set shell := ["bash", "-c"]
 
-# Default (bare `just`): show the recruiter/contributor path, not every ops recipe.
+# `[script]` bodies run as one file, like the shebang they replace. Recipes that need laxer
+# flags keep their own `[script('bash', …)]`.
+set script-interpreter := ['bash', '-euo', 'pipefail']
+
+[doc('Default (bare `just`): show the recruiter/contributor path, not every ops recipe.')]
 default:
-    @printf "{{ CYAN }}Aurore — common commands{{ NC }}\n"
+    @printf "{{ CYAN }}Aurore: common commands{{ NC }}\n"
     @printf "  First clone: just init, then just dev-fresh\n"
     @printf "  Daily dev:   just dev\n"
     @printf "  Tests:       just test\n"
