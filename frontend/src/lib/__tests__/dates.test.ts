@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
 import {
   compareInstant,
@@ -81,6 +81,18 @@ describe('formatRelative', () => {
   const ago = (ms: number) => new Date(Date.now() - ms).toISOString()
   const HOUR = 3_600_000
   const DAY = 24 * HOUR
+
+  // The unit thresholds are exclusive, so a future instant built at exactly +1 day falls back to
+  // hours as soon as a millisecond elapses between the fixture and the Date.now() inside the
+  // formatter. Freeze the clock rather than pad the offsets: the boundary is what the test pins.
+  beforeEach(() => {
+    vi.useFakeTimers()
+    vi.setSystemTime(new Date('2026-05-22T14:30:00.000Z'))
+  })
+
+  afterEach(() => {
+    vi.useRealTimers()
+  })
 
   it('picks the largest fitting unit, FR, with addSuffix', () => {
     expect(formatRelative(ago(3 * HOUR))).toBe('il y a 3 heures')
