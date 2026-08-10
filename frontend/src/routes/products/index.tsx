@@ -3,6 +3,7 @@ import { createFileRoute, stripSearchParams } from '@tanstack/react-router'
 import { productsSearchDefaults, productsSearchSchema } from '@/features/products/filters'
 import { deriveAvoidFor, productsListApiFilters } from '@/features/products/helpers'
 import { ProductsPage } from '@/features/products/pages/ProductsPage/ProductsPage'
+import { readOptOut } from '@/features/products/standingProfileFilter'
 import { awaitBootRefresh } from '@/lib/auth/awaitBootRefresh'
 import { isServer } from '@/lib/helpers/isServer'
 import { convergeShelfStatusForList, productQueries } from '@/lib/queries/products'
@@ -31,7 +32,11 @@ export const Route = createFileRoute('/products/')({
     const filters = productsListApiFilters(deps, avoidFor, !!userId)
 
     if (userId) {
-      void convergeShelfStatusForList(context.queryClient, filters, userId)
+      // The boot refresh invalidates this loader, which runs again while the page is
+      // still holding the anonymous key. Converging under the user key there would
+      // fetch a list nobody reads; the statuses go onto the entry on screen instead.
+      const holding = deps.profile_filter === undefined && !readOptOut(userId)
+      void convergeShelfStatusForList(context.queryClient, filters, userId, holding ? null : userId)
       return
     }
 

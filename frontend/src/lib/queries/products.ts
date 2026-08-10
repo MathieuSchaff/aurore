@@ -362,7 +362,7 @@ function applyShelfStatusOverlay(
 export function applyShelfStatusOverlayToListCache(
   qc: QueryClient,
   filters: ListProductsFilters,
-  userKey: string,
+  userKey: string | null,
   requestedIds: ReadonlySet<string>,
   statusByProductId: ReadonlyMap<string, UserProductStatus>
 ): void {
@@ -374,11 +374,13 @@ export function applyShelfStatusOverlayToListCache(
 
 // Ensures one product list has a shelf-status overlay. The list fetch is the normal
 // catalogue fetch for that navigation; the overlay only reads statuses for its ids.
+// A null userKey targets the anonymous cache entry the page is still showing, so the
+// statuses land on it instead of paying for a second list under the user's key.
 export async function convergeShelfStatusForList(
   qc: QueryClient,
   filters: ListProductsFilters,
   userId: string,
-  userKey: string = userId
+  userKey: string | null = userId
 ): Promise<void> {
   try {
     const listData = await qc.ensureQueryData(productQueries.list(filters, userKey))
