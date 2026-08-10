@@ -1,40 +1,33 @@
 {
   "compilerOptions": {
-    /* 1. Monorepo setup */
-    "composite": true, // needed so other projects can reference this one
-    "rootDir": "./src", // where the source code is
-    "outDir": "./dist", // where the type files (.d.ts) go
+    "composite": true,
+    "rootDir": "./src",
+    "outDir": "./dist",
 
-    /* 2. Types (the contract) */
-    "declaration": true, // emit .d.ts so the frontend can see the types
-    "declarationMap": false, // no type-to-JS map here (faster)
-    "emitDeclarationOnly": true, // only emit types; Bun runs the code
+    "declaration": true, // the frontend reads backend types straight from this emit
+    "declarationMap": false,
+    "emitDeclarationOnly": true, // Bun runs the TS, so only the types need emitting
 
-    /* 3. Runtime (Bun / modern JS) */
-    "target": "ESNext", // use the newest JS features Bun supports
-    "module": "ESNext", // use modern import/export
-    "moduleResolution": "Bundler", // find modules like Bun or Vite do
-    "lib": ["ESNext"], // load the newest JS globals
-    "types": ["bun"], // add Bun globals (Bun.file, etc.)
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "lib": ["ESNext"],
+    "types": ["bun"],
 
-    /* 4. Strictness */
-    "strict": true, // turn on all safety checks
-    "skipLibCheck": true, // skip type checks in node_modules (faster)
-    "esModuleInterop": true, // ease importing old CommonJS modules
-    "isolatedModules": true // required by fast bundlers like Bun
+    "strict": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "isolatedModules": true
   },
 
-  /* 5. Include / exclude */
-  "include": ["src/**/*"], // build everything in src
+  "include": ["src/**/*"],
   "exclude": [
     "node_modules",
     "dist",
-    "src/**/*.test.ts", // skip test files
-    "src/db/seed/output/seeds" // raw scraper input (gitignored)
+    "src/**/*.test.ts",
+    "src/db/seed/output" // raw scraper output, gitignored, mirrors .gitignore
   ],
 
-  /* references must be at the JSON root */
-  "references": [
-    { "path": "../shared" } // backend depends on shared
-  ]
+  // references must sit at the JSON root, not under compilerOptions
+  "references": [{ "path": "../shared" }]
 }

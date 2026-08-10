@@ -1,0 +1,11 @@
+{
+  // Not a build config. Read only by `just cycles`: madge cannot see the "@/*" alias, which
+  // lives in vite.config.ts. tsconfig.app.json is unusable there: it declares paths but no
+  // baseUrl, and madge resolves paths off baseUrl, so half the frontend graph drops out.
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  }
+}

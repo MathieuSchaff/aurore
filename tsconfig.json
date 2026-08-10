@@ -29,5 +29,5 @@
       "path": "./frontend"
     }
   ],
-  "exclude": ["node_modules", "dist", ".turbo"]
+  "exclude": ["node_modules", "dist"]
 }
