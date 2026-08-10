@@ -99,7 +99,7 @@ describe('prepareCorpusReconcile', () => {
   })
 
   it('removes an old automatic link when its canonical fallback is ambiguous', async () => {
-    const token = 'Oenothera Biennis (Evening Primrose) Seed Extract*°'
+    const token = 'Oenothera Biennis Flower Extract*°'
     const canonicalKey = 'Oenothera Biennis Flower Extract'
 
     const snapshot = corpusSnapshot()
@@ -254,7 +254,7 @@ describe('computeLinks', () => {
   })
 
   it('refuses a canonical key with two candidates in the preferred domain', () => {
-    const token = 'Oenothera Biennis (Evening Primrose) Seed Extract*°'
+    const token = 'Oenothera Biennis Flower Extract*°'
     const key = 'Oenothera Biennis Flower Extract'
     const carriers = ['candidate-a', 'candidate-b']
 
@@ -321,7 +321,7 @@ describe('computeLinks', () => {
 
     it('keeps the shared sheet when the substance has none for that domain', () => {
       // What CATEGORY_DOMAIN_ALLOWLIST is for: a shared active with no domain sheet must still
-      // link, or the fix silently un-links every actif a shampoo declares.
+      // link, or the fix silently drops the link for every actif a shampoo declares.
       expect(linksOf('Aqua, Retinol', 'haircare')).toContain('retinol')
     })
 
@@ -334,12 +334,15 @@ describe('computeLinks', () => {
     // Locks the 53-link regression of the first cut: the excipient list holds only bare slugs,
     // so a filler must be caught on both sides of the swap. The probe token resolves through
     // canonicalKeyToSlug (unbridged with empty maps, asserted below by the test that keeps the
-    // Oenothera seed extract unbridged), which is the only route that lets a test aim the
+    // Oenothera flower extract unbridged), which is the only route that lets a test aim the
     // resolution at either twin of a real filler.
-    const PROBE_TOKEN = 'Oenothera Biennis (Evening Primrose) Seed Extract*°'
+    const PROBE_TOKEN = 'Oenothera Biennis Flower Extract*°'
     const probeKey = (() => {
       const probe = resolveToken(PROBE_TOKEN, new Map(), new Map())
-      if (probe?.kind !== 'unbridged') throw new Error('probe token now bridges, pick another')
+      // Distinguish the two ways a probe stops being usable: a new aurore sheet bridges it, or an
+      // upstream resolution change drops it. Both need a new token, but not the same follow-up.
+      if (probe === null) throw new Error('probe token no longer resolves, pick another')
+      if (probe.kind !== 'unbridged') throw new Error('probe token now bridges, pick another')
       return probe.evidenceInci
     })()
     const fillerMaps = buildCanonicalKeyMaps([
@@ -360,7 +363,7 @@ describe('computeLinks', () => {
       expect(result.slugs).toHaveLength(0)
     })
 
-    it('re-checks the excipient list when the swap lands on a filler', () => {
+    it('checks the excipient list again when the swap lands on a filler', () => {
       const result = computeLinks(
         PROBE_TOKEN,
         'skincare',
@@ -423,17 +426,39 @@ describe('computeLinks', () => {
     })
   })
 
-  // The token must stay OFF the blocklist, which cuts before the algo-derm bridge: a future
-  // Oenothera extract fiche would silently never link (the Avena Sativa trap). Asserting only the
-  // absent oil slug would also pass if it were blocked, hence the unbridged assertion. Both fiches
-  // declare the oil; stripBotanicalParts folds the seed extract onto the flower record.
-  it('leaves an Oenothera seed extract unbridged rather than on the oil fiche', () => {
+  // Both Oenothera fiches declare the oil. The seed extract used to fold onto the flower record
+  // through stripBotanicalParts; algo-derm's organ guard now refuses a hit whose INCI names an
+  // organ the query never did, so the token resolves to nothing at all rather than to the wrong
+  // organ. Kept as a regression lock: if the guard ever loosens, the seed extract must still not
+  // land on the oil sheet.
+  it('resolves an Oenothera seed extract to nothing rather than to the flower or oil record', () => {
     const raw = 'Oenothera Biennis (Evening Primrose) Seed Extract*°'
 
     const result = computeLinks(raw, 'skincare', new Map(), new Map())
 
-    expect(result.slugs).not.toContain('huile-onagre')
-    expect(result.slugs).not.toContain('evening-primrose-oil')
+    expect(resolveToken(raw, new Map(), new Map())).toBeNull()
+    expect(result.slugs).toEqual([])
+    // Not blocked either: the blocklist cuts before the algo-derm bridge, so a token listed there
+    // would keep a future Oenothera extract fiche from ever linking (the Avena Sativa trap).
+    expect(result.blocked).toEqual([])
+  })
+
+  // The oil declaration still links, which is what proves the genus is off the blocklist: the
+  // assertions above would all pass on a blocked token.
+  it('keeps the Oenothera oil declaration on its fiche', () => {
+    expect(computeLinks('Oenothera Biennis Oil', 'skincare', new Map(), new Map()).slugs).toEqual([
+      'huile-onagre',
+    ])
+  })
+
+  // Guards the probe token the filler tests aim through: no aurore sheet declares the flower
+  // extract, so algo-derm resolves it and the bridge finds nothing.
+  it('leaves the Oenothera flower extract unbridged', () => {
+    const raw = 'Oenothera Biennis Flower Extract*°'
+
+    const result = computeLinks(raw, 'skincare', new Map(), new Map())
+
+    expect(result.slugs).toEqual([])
     expect(result.unbridged).toContain(raw)
   })
 })
