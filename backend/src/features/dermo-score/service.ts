@@ -1,6 +1,13 @@
 import type { SkinConcern, SkinType } from '@aurore/shared'
 
-import { analyzeINCI, cleanInciString, type ProductAssessment, type UserProfile } from 'algo-derm'
+import {
+  analyzeINCI,
+  cleanInciString,
+  type IngredientSignal,
+  ingredientSignals,
+  type ProductAssessment,
+  type UserProfile,
+} from 'algo-derm'
 import { and, eq, inArray } from 'drizzle-orm'
 
 import type { DbOrTransaction } from '../../db'
@@ -9,6 +16,7 @@ import { ingredients } from '../../db/schema/ingredients/ingredients'
 import { products } from '../../db/schema/products/products'
 import { mapKindToContext } from '../../lib/algo-derm-product-context'
 import { fetchKnownConcentrationsByProduct } from '../../lib/fetch-known-concentrations'
+import { instantToCalendar, nowISO } from '../../utils/dates'
 import { ProductError } from '../products/product-error'
 
 const SENSITIVE_SKIN_TYPES: ReadonlyArray<SkinType> = ['peau-sensible']
@@ -47,6 +55,7 @@ type BenefitDriver = ProductAssessment['explanation']['topBenefitDrivers'][numbe
 // ProductAssessment with each explanation driver carrying the slug of its
 // ingredient page, so the frontend can link labels without a second request.
 export type LinkedAssessment = Omit<ProductAssessment, 'explanation'> & {
+  ingredientSignals: IngredientSignal[]
   explanation: Omit<ProductAssessment['explanation'], 'topDrivers' | 'topBenefitDrivers'> & {
     topDrivers: (RiskDriver & { ingredientSlug: string | null })[]
     topBenefitDrivers: (BenefitDriver & { ingredientSlug: string | null })[]
@@ -86,10 +95,19 @@ export async function computeProductDermoScore(
   )
   const context = { ...mapKindToContext(product.kind), knownConcentrations }
 
-  const assessment = analyzeINCI(inci, { profile, context })
+  const assessment = analyzeINCI(inci, {
+    profile,
+    context,
+    asOfDate: instantToCalendar(nowISO()),
+  })
   return {
     ok: true,
-    assessment: await attachIngredientSlugs(assessment, product.category, database),
+    assessment: await attachIngredientSlugs(
+      assessment,
+      product.category,
+      database,
+      ingredientSignals(assessment)
+    ),
   }
 }
 
@@ -121,7 +139,8 @@ function sortPreferred(rows: LinkRow[], category: string): LinkRow[] {
 export async function attachIngredientSlugs(
   assessment: ProductAssessment,
   category: string,
-  database: DbOrTransaction
+  database: DbOrTransaction,
+  signals: IngredientSignal[] = []
 ): Promise<LinkedAssessment> {
   const { topDrivers, topBenefitDrivers } = assessment.explanation
 
@@ -161,6 +180,7 @@ export async function attachIngredientSlugs(
   const resolve = (inciKey: string | undefined) => (inciKey && slugByKey.get(inciKey)) || null
   return {
     ...assessment,
+    ingredientSignals: signals,
     explanation: {
       ...assessment.explanation,
       topDrivers: topDrivers.map((d) => ({

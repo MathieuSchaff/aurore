@@ -67,18 +67,25 @@ export const CONFIDENCE_FACTOR_PHRASE: Record<string, string> = {
 // formula must say so, silence is reserved for errors and missing INCI.
 export const NO_SIGNAL_PHRASE = 'Rien de notable dans cette formule.'
 
-// Interaction rules, keyed by algo-derm rule id. The lib ships an English
-// `note` per rule, written for a curator: clinical register, citations, and in
-// places a fear framing ("teratogenicity", "contact-allergy epidemic") the
-// vision rules out. Rewritten here rather than translated.
-//
-// An unmapped id renders nothing. A new upstream rule going quiet is the right
-// default — better than leaking an English clinical sentence onto the page —
-// so a vendor bump has to add its phrase here to surface the rule.
-//
-// Five entries cannot fire today and are mapped anyway, so that supplying the
-// missing input never leaks raw prose: `pregnant` is hardcoded false in
-// dermo-score/service.ts, and no product supplies `estimatedPH`.
+// Composition signals are deliberately separate from the skin score. Keys pair
+// the upstream family with its confidence so a vendor addition stays silent
+// until Aurore has reviewed its French wording.
+export const INGREDIENT_SIGNAL_PHRASE: Record<string, string> = {
+  'pfas/high':
+    'Famille des PFAS identifiée dans le nom INCI. Cette présence ne renseigne ni la quantité, ni les effets du produit.',
+  'pfas/low':
+    'Fragment fluoré repéré dans le nom INCI. Ce repère ne renseigne ni la quantité, ni les effets du produit.',
+  'cyclic_siloxane/high':
+    'Silicone cyclique identifiée dans la liste INCI. La liste ne donne pas sa concentration ; le cadre applicable dépend aussi du type de produit.',
+  'synthetic_polymer/low':
+    'Polymère synthétique repéré dans la liste INCI. Elle ne précise pas s’il est utilisé comme particule solide ni s’il entre dans le champ de la restriction.',
+}
+
+// Interaction rules, keyed by algo-derm rule id. Rewritten here instead of translated: the
+// lib's English notes are clinical and fear-based, which the vision rules out. An unmapped id
+// renders nothing, so a vendor bump must add its phrase here first. Some ids cannot fire yet
+// (`pregnant` is hardcoded false, no product supplies `estimatedPH`) and are mapped anyway,
+// so supplying the input never leaks raw English.
 export const INTERACTION_PHRASE: Record<string, string> = {
   'alcohol+fragrance':
     'Alcool dénaturé et parfum ensemble — une association que les peaux réactives tolèrent souvent moins bien.',
@@ -116,6 +123,32 @@ export const INTERACTION_PHRASE: Record<string, string> = {
     'Peroxyde de benzoyle et rétinoïde ensemble — le peroxyde dégrade le rétinoïde, et l’association tiraille davantage.',
   'vitamin-c-low-ph':
     'Vitamine C pure à pH bas — c’est la condition de sa stabilité, et cela peut picoter.',
+}
+
+// Scope of a borrowed official cap, keyed by algo-derm's `scopeId`. A cap like
+// 7,34 % is one product family's limit (Homosalate's face limit, not a
+// sunscreen's), and reads as the product's own limit if shown bare. The
+// renderer drops it when unmapped. No parentheses: already inside one.
+export const REGULATORY_SCOPE_PHRASE: Record<string, string> = {
+  'face-products-excluding-aerosol-sprays': 'pour les produits visage, hors sprays aérosols',
+  'leave-on-products': 'pour les produits sans rinçage',
+  'rinse-off-products': 'pour les produits à rincer',
+  'rinse-off-products-leave-on-not-permitted':
+    'pour les produits à rincer, l’usage sans rinçage n’étant pas autorisé',
+  'anti-dandruff-shampoos': 'pour les shampooings antipelliculaires',
+  'oral-care-products-as-fluoride': 'pour les produits bucco-dentaires, exprimé en fluor',
+  'artificial-nail-preparations-professional':
+    'pour les préparations pour ongles artificiels, en usage professionnel',
+  'oxidative-hair-dyes-after-mixing':
+    'pour les colorations capillaires d’oxydation, mesuré sur les cheveux après mélange',
+  'deodorants-antiperspirants-anhydrous':
+    'pour les déodorants et anti-transpirants, exprimé en forme anhydre',
+  'preservative-use-as-benzalkonium-chloride':
+    'pour l’usage comme conservateur, exprimé en chlorure de benzalkonium',
+  'toothpastes-and-mouthwashes': 'pour les dentifrices et bains de bouche',
+  mouthwashes: 'pour les bains de bouche',
+  'listed-hygiene-products':
+    'pour une liste de produits d’hygiène : dentifrices, savons mains et corps, gels douche, déodorants hors spray, poudres et fonds de teint, nettoyants pour ongles',
 }
 
 // Maps skin-profile slugs to the risk axes that matter to that user, used to highlight
