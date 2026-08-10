@@ -1,6 +1,6 @@
 import { describe, expect, test } from 'bun:test'
 
-import { GOLD_SET_FOCUS_TAGS } from '../gold-set/fixtures'
+import { GOLD_SET_FOCUS_TAGS, isGoldSetFocusTag } from '../gold-set/fixtures'
 import { FOCUS_TAG_LAYER, GOLD_SET_LAYERS, layerOf, summarizeByLayer } from '../gold-set/layers'
 import type { PerTagMetrics } from '../gold-set/metrics'
 
@@ -16,7 +16,13 @@ describe('gold-set layer taxonomy', () => {
     }
   })
 
-  test('focus tags split 12 actif-class / 17 formula / 1 algo-derm / 0 brand-cert', () => {
+  test('claim tags are measurable focus tags', () => {
+    expect(isGoldSetFocusTag('hypoallergenique')).toBe(true)
+    expect(isGoldSetFocusTag('non-comedogene')).toBe(true)
+    expect(isGoldSetFocusTag('non-irritant')).toBe(true)
+  })
+
+  test('focus tags split 12 actif-class / 17 formula / 4 algo-derm / 0 brand-cert', () => {
     const counts: Record<string, number> = {
       'algo-derm': 0,
       'actif-class': 0,
@@ -24,7 +30,7 @@ describe('gold-set layer taxonomy', () => {
       formula: 0,
     }
     for (const tag of GOLD_SET_FOCUS_TAGS) counts[FOCUS_TAG_LAYER[tag]]++
-    expect(counts).toEqual({ 'algo-derm': 1, 'actif-class': 12, 'brand-cert': 0, formula: 17 })
+    expect(counts).toEqual({ 'algo-derm': 4, 'actif-class': 12, 'brand-cert': 0, formula: 17 })
   })
 
   test('layerOf resolves representative tags', () => {
@@ -46,6 +52,9 @@ describe('gold-set layer taxonomy', () => {
     expect(layerOf('barriere-cutanee')).toBe('formula')
     expect(layerOf('apaisant')).toBe('formula')
     expect(layerOf('protection')).toBe('algo-derm')
+    expect(layerOf('hypoallergenique')).toBe('algo-derm')
+    expect(layerOf('non-comedogene')).toBe('algo-derm')
+    expect(layerOf('non-irritant')).toBe('algo-derm')
   })
 })
 
@@ -72,7 +81,7 @@ describe('summarizeByLayer', () => {
 
   test('reports structural focusTagCount per layer regardless of metrics presence', () => {
     const byLayer = Object.fromEntries(summarizeByLayer([]).map((l) => [l.layer, l.focusTagCount]))
-    expect(byLayer).toEqual({ 'algo-derm': 1, 'actif-class': 12, 'brand-cert': 0, formula: 17 })
+    expect(byLayer).toEqual({ 'algo-derm': 4, 'actif-class': 12, 'brand-cert': 0, formula: 17 })
   })
 
   test('rolls up rated counts plus macro/micro for a populated layer', () => {

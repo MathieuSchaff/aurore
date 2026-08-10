@@ -47,6 +47,11 @@ export const FOCUS_TAG_LAYER = {
   // protection stays algo-derm: its re-emission is a deterministic sunscreen-kind/SPF
   // signal, not a name/claim positioning gate. Last concern left in this layer.
   protection: 'algo-derm',
+  // Product-claim labels emitted by the algo-derm adapter. They need explicit
+  // annotations: corpus hit-rate caps alone cannot judge their precision.
+  hypoallergenique: 'algo-derm',
+  'non-comedogene': 'algo-derm',
+  'non-irritant': 'algo-derm',
 } as const satisfies Record<GoldSetFocusTag, GoldSetLayer>
 
 export function layerOf(tag: GoldSetFocusTag): GoldSetLayer {
