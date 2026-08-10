@@ -150,7 +150,7 @@ install-deps-ci:
 vendor-algo-derm:
     #!/usr/bin/env bash
     set -euo pipefail
-    REF="${ALGO_DERM_REF:-v30-aurore}"
+    REF="${ALGO_DERM_REF:-v35-aurore}"
     printf "{{CYAN}}Build algo-derm @ %s...{{NC}}\n" "$REF"
     WT="$(mktemp -d)"
     trap 'git -C {{ALGO_DERM_DIR}} worktree remove --force "$WT" >/dev/null 2>&1 || true' EXIT
