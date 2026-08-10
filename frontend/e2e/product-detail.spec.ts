@@ -373,6 +373,50 @@ test.describe('Product detail — Lecture de la formule', () => {
     throw new Error('no seed product with an INCI in the first 10 skincare products')
   }
 
+  test('shows composition signals separately from the skin reading', async ({ page }) => {
+    const slug = await findSlugWithInci(page)
+    const assessment = {
+      explanation: {
+        topDrivers: [],
+        topBenefitDrivers: [],
+        confidenceFactors: [],
+      },
+      regulatoryFindings: [],
+      interactions: [],
+      coverage: { matched: 1, total: 4 },
+      matchedEvidence: [],
+      ingredientSignals: [
+        {
+          ingredient: 'PTFE',
+          kind: 'pfas',
+          confidence: 'high',
+          note: 'Raw upstream wording must not reach the page.',
+        },
+        {
+          ingredient: 'Polyethylene',
+          kind: 'synthetic_polymer',
+          confidence: 'low',
+          note: 'Raw upstream wording must not reach the page.',
+        },
+      ],
+    }
+
+    await page.route('**/api/products/*/dermo-score', (route) =>
+      route.fulfill({ json: { data: assessment } })
+    )
+
+    await page.goto(`/products/${slug}`)
+
+    const section = page.locator('.formula-reading')
+    await expect(section.getByRole('heading', { name: 'Repères de composition' })).toBeVisible({
+      timeout: 15_000,
+    })
+    await expect(section.getByText(/famille des PFAS/i)).toBeVisible()
+    await expect(section.getByText(/particule solide/)).toBeVisible()
+    await expect(section.getByText('Raw upstream wording must not reach the page.')).toHaveCount(0)
+    await expect(section.getByText('Rien de notable dans cette formule')).toHaveCount(0)
+  })
+
   test('tag shows only for drivers whose roleAtDose passes the cut', async ({ page }) => {
     const slug = await findSlugWithInci(page)
 

@@ -21,6 +21,7 @@ import { IngredientMarkButtons } from '@/features/profile/components/IngredientM
 import { productQueries } from '@/lib/queries/products'
 import { preferenceTargetQueries } from '@/lib/queries/profile'
 import { avoidedIngredientNames } from './avoidedIngredients'
+import { formatIngredientSignals } from './ingredientSignals'
 import { formatRegulatoryFindings } from './regulatoryFindings'
 import './FormulaReading.css'
 
@@ -53,7 +54,7 @@ interface FormulaReadingProps {
   profileSlugs: ReadonlySet<string>
   // Rows of product_ingredients, the only source the catalogue filter can honour.
   // Driver labels below are parsed from products.inci and diverge from it, so a
-  // rule declared on a driver could hide this very product (D10).
+  // rule declared on a driver could hide this very product.
   linkedIngredients: readonly LinkedIngredient[]
 }
 
@@ -105,7 +106,15 @@ export function FormulaReading({
   // surface must say so instead (a mute vanish reads the same as a failure).
   if (isError || !assessment) return null
 
-  const { explanation, regulatoryFindings, interactions, coverage, matchedEvidence } = assessment
+  const {
+    explanation,
+    ingredientSignals,
+    regulatoryFindings,
+    interactions,
+    coverage,
+    matchedEvidence,
+  } = assessment
+  const ingredientSignalLines = formatIngredientSignals(ingredientSignals ?? [])
   const regulatoryLines = formatRegulatoryFindings(regulatoryFindings)
   // roleAtDose exists only for ingredients with an authored role curve (today:
   // exfoliants); absence means "no dose signal", not "not dosed to act".
@@ -136,6 +145,7 @@ export function FormulaReading({
     avoidedNames.length > 0 ||
     benefitDrivers.length > 0 ||
     drivers.length > 0 ||
+    ingredientSignalLines.length > 0 ||
     regulatoryLines.length > 0 ||
     interactionLines.length > 0
 
@@ -214,6 +224,23 @@ export function FormulaReading({
         </div>
       )}
 
+      {ingredientSignalLines.length > 0 && (
+        <div className="formula-reading__group">
+          <h3 className="formula-reading__subhead">Repères de composition</h3>
+          <p className="formula-reading__explainer">
+            Ces repères décrivent la composition. Ils restent séparés de la lecture cutanée.
+          </p>
+          <ul role="list" className="formula-reading__list">
+            {ingredientSignalLines.map((line) => (
+              <li key={line.key} className="formula-reading__item">
+                <span className="formula-reading__label">{line.label}</span>
+                <span className="formula-reading__phrase"> — {line.text}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+
       {regulatoryLines.length > 0 && (
         <div className="formula-reading__group">
           <h3 className="formula-reading__subhead">
@@ -221,7 +248,7 @@ export function FormulaReading({
             Cadre réglementaire
           </h3>
           <p className="formula-reading__explainer">
-            Limites officielles de concentration ou d'usage — courant pour les actifs réglementés.
+            Restrictions et interdictions officielles applicables à certains ingrédients.
           </p>
           <ul role="list" className="formula-reading__list">
             {regulatoryLines.map((line) => (
