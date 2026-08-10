@@ -1,12 +1,10 @@
 # Auto-tagging audits (read-only dry-runs against algo-derm + formula passes).
 
-# Dry-run auto-tagging via algo-derm (read-only). Env: CONF_OVERRIDE, CSV_OUT, LIMIT, INCLUDE_DROPPED, DUMP_BUDGETS, CHECK, DUMP_BENEFITS, BENEFITS_OUT, DISABLE_FLOORS.
+[doc('Dry-run auto-tagging via algo-derm (read-only). Env: CONF_OVERRIDE, CSV_OUT, LIMIT, INCLUDE_DROPPED, DUMP_BUDGETS, CHECK, DUMP_BENEFITS, BENEFITS_OUT, DISABLE_FLOORS.')]
 [group('audit')]
+[script]
 audit-auto-tags:
-    #!/usr/bin/env bash
-    set -euo pipefail
     source {{justfile_directory()}}/scripts/just/_lib.sh
-    TARGET="${TARGET:-dev}"
     target_compose
     printf "{{CYAN}}Audit auto-tags dry-run ($TARGET) → .audit-out/db/audit-auto-tags.$TARGET.md{{NC}}\n"
     $COMPOSE exec \
@@ -22,25 +20,21 @@ audit-auto-tags:
         -w /app/backend api bun run src/features/auto-tagging/runners/audit/main.ts \
         | tee "$(audit_out audit-auto-tags)"
 
-# Calibration drift: hit_rate per (slug,category) vs TAG_HIT_RATE_BUDGET; exit 1 on FAIL, out-of-budget → WARN (warn-only).
+[doc('Calibration drift: hit_rate per (slug,category) vs TAG_HIT_RATE_BUDGET; exit 1 on FAIL, out-of-budget → WARN (warn-only).')]
 [group('audit')]
+[script]
 audit-auto-tags-check:
-    #!/usr/bin/env bash
-    set -euo pipefail
     source {{justfile_directory()}}/scripts/just/_lib.sh
-    TARGET="${TARGET:-dev}"
     target_compose
     printf "{{CYAN}}Audit auto-tags CHECK ($TARGET) → .audit-out/db/audit-auto-tags-check.$TARGET.md{{NC}}\n"
     $COMPOSE exec -e CHECK=1 -w /app/backend api bun run src/features/auto-tagging/runners/audit/main.ts \
         | tee "$(audit_out audit-auto-tags-check)"
 
-# Detect kind mistags the name-regex misses, via INCI signal (wash kind w/o surfactant). Read-only, report-only.
+[doc('Detect kind mistags the name-regex misses, via INCI signal (wash kind w/o surfactant). Read-only, report-only.')]
 [group('audit')]
+[script]
 audit-kind-inci:
-    #!/usr/bin/env bash
-    set -euo pipefail
     source {{justfile_directory()}}/scripts/just/_lib.sh
-    TARGET="${TARGET:-dev}"
     target_compose
     printf "{{CYAN}}Audit kind⇄INCI coherence ($TARGET) → .audit-out/db/audit-kind-inci.$TARGET.md{{NC}}\n"
     $COMPOSE exec -w /app/backend api bun run src/features/auto-tagging/runners/audit/kind-inci-coherence.ts \
@@ -49,66 +43,57 @@ audit-kind-inci:
 # Detect visible SPF products (name or kind=sunscreen) with no filtre-uv ingredient linked.
 # Report-only: the cause is an empty/weak source INCI (scrape), not a linking bug. Catches a
 # new hole right after a catalogue ingest.
+[doc('Visible SPF products with no filtre-uv ingredient linked. Report-only.')]
 [group('audit')]
+[script]
 audit-uv-filters:
-    #!/usr/bin/env bash
-    set -euo pipefail
     source {{justfile_directory()}}/scripts/just/_lib.sh
-    TARGET="${TARGET:-dev}"
     target_compose
     printf "{{CYAN}}Audit UV filter coverage ($TARGET) → .audit-out/db/audit-uv-filters.$TARGET.md{{NC}}\n"
     $COMPOSE exec -w /app/backend api bun run src/features/auto-tagging/runners/audit/uv-filters-coverage.ts \
         | tee "$(audit_out audit-uv-filters)"
 
-# Detect sans-sulfates false negatives: leave-on products denied the claim by a cetearyl/coceth emulsifier. Read-only.
+[doc('Detect sans-sulfates false negatives: leave-on products denied the claim by a cetearyl/coceth emulsifier. Read-only.')]
 [group('audit')]
+[script]
 audit-sans-sulfates:
-    #!/usr/bin/env bash
-    set -euo pipefail
     source {{justfile_directory()}}/scripts/just/_lib.sh
-    TARGET="${TARGET:-dev}"
     target_compose
     printf "{{CYAN}}Audit sans-sulfates coherence ($TARGET) → .audit-out/db/audit-sans-sulfates.$TARGET.md{{NC}}\n"
     $COMPOSE exec -w /app/backend api bun run src/features/auto-tagging/runners/audit/sans-sulfates-coherence.ts \
         | tee "$(audit_out audit-sans-sulfates)"
 
-# Detect absence tags (sans-parfum, sans-silicones, …) whose own INCI declares the thing they deny. Read-only, report-only.
+[doc('Detect absence tags (sans-parfum, sans-silicones, …) whose own INCI declares the thing they deny. Read-only, report-only.')]
 [group('audit')]
+[script]
 audit-tag-contradictions:
-    #!/usr/bin/env bash
-    set -euo pipefail
     source {{justfile_directory()}}/scripts/just/_lib.sh
-    TARGET="${TARGET:-dev}"
     target_compose
     printf "{{CYAN}}Audit absence-tag contradictions ($TARGET) → .audit-out/db/audit-tag-contradictions.$TARGET.md{{NC}}\n"
     $COMPOSE exec -w /app/backend api bun run src/features/auto-tagging/runners/audit/tag-contradictions.ts \
         | tee "$(audit_out audit-tag-contradictions)"
 
-# Audit products.kind mistags via name patterns. Read-only. Apply reviewed fixes via `just db-fix`. Env: SLUG (single product).
+[doc('Audit products.kind mistags via name patterns. Read-only. Apply reviewed fixes via `just db-fix`.')]
 [group('audit')]
-audit-product-kinds:
-    #!/usr/bin/env bash
-    set -euo pipefail
+[arg('SLUG', long='slug', help='restrict to a single product slug')]
+[script]
+audit-product-kinds $SLUG="":
     source {{justfile_directory()}}/scripts/just/_lib.sh
-    TARGET="${TARGET:-dev}"
     target_compose
     printf "{{CYAN}}Audit product kinds (read-only, $TARGET) → .audit-out/db/audit-product-kinds.$TARGET.md{{NC}}\n"
     $COMPOSE exec -w /app/backend api bun run src/features/auto-tagging/runners/audit/product-kinds.ts \
         ${SLUG:+--slug "$SLUG"} \
         | tee "$(audit_out audit-product-kinds)"
 
-# Snapshot/diff orchestrator output. Env: CSV_OUT (required), BASELINE, LIMIT.
+[doc('Snapshot/diff orchestrator output. Env: LIMIT.')]
 [group('audit')]
-audit-orchestrator-diff:
-    #!/usr/bin/env bash
-    set -euo pipefail
-    if [ -z "${CSV_OUT:-}" ]; then
-        printf "{{RED}}CSV_OUT requis (e.g. CSV_OUT=/tmp/out.csv just audit-orchestrator-diff){{NC}}\n"; exit 1
-    fi
+[arg('CSV_OUT', long='csv-out', help='destination CSV (required)')]
+[arg('BASELINE', long='baseline', help='earlier CSV to diff against; omit to snapshot')]
+[script]
+audit-orchestrator-diff $CSV_OUT $BASELINE="":
     source {{justfile_directory()}}/scripts/just/_lib.sh
-    TARGET="${TARGET:-dev}"
     target_compose
-    MODE=$([ -n "${BASELINE:-}" ] && echo "DIFF" || echo "SNAPSHOT")
+    MODE=$([ -n "$BASELINE" ] && echo "DIFF" || echo "SNAPSHOT")
     printf "{{CYAN}}Audit orchestrator ($MODE, $TARGET)...{{NC}}\n"
     $COMPOSE exec \
         -e CSV_OUT="$CSV_OUT" \
@@ -116,13 +101,11 @@ audit-orchestrator-diff:
         ${LIMIT:+-e LIMIT="$LIMIT"} \
         -w /app/backend api bun run src/features/auto-tagging/runners/audit/orchestrator-diff.ts
 
-# Dry-run pharmacological cluster audit (pass 2). Env: LIMIT.
+[doc('Dry-run pharmacological cluster audit (pass 2). Env: LIMIT, DUMP_DRIFT (rows that changed cluster), DUMP_NEW (rows the pass newly claims).')]
 [group('audit')]
+[script]
 audit-actif-class:
-    #!/usr/bin/env bash
-    set -euo pipefail
     source {{justfile_directory()}}/scripts/just/_lib.sh
-    TARGET="${TARGET:-dev}"
     target_compose
     printf "{{CYAN}}Audit actif-class dry-run ($TARGET) → .audit-out/db/audit-actif-class.$TARGET.md{{NC}}\n"
     $COMPOSE exec \
@@ -132,16 +115,15 @@ audit-actif-class:
         -w /app/backend api bun run src/features/auto-tagging/runners/audit/actif-class.ts \
         | tee "$(audit_out audit-actif-class)"
 
-# Audit AHA/BHA/PHA manual overrides. Env: CSV_OUT, CSV_DIR, LIMIT, WRITE (destructive), APPLY_FROM_CSV.
+[doc('Audit AHA/BHA/PHA manual overrides. Read-only unless --write, which DELETES. Env: CSV_OUT, CSV_DIR, LIMIT, APPLY_FROM_CSV.')]
 [group('audit')]
-audit-aha-bha-pha:
-    #!/usr/bin/env bash
-    set -euo pipefail
+[arg('WRITE', long='write', value='1', help='⚠ DELETE the pairs listed in APPLY_FROM_CSV')]
+[script]
+audit-aha-bha-pha $WRITE="":
     source {{justfile_directory()}}/scripts/just/_lib.sh
-    TARGET="${TARGET:-dev}"
     target_compose
-    if [ -n "${WRITE:-}" ]; then
-        printf "{{RED}}⚠ WRITE mode ($TARGET) — DELETE pairs from ${APPLY_FROM_CSV:-?}{{NC}}\n"
+    if [ -n "$WRITE" ]; then
+        printf "{{RED}}⚠ WRITE mode ($TARGET): DELETE pairs from ${APPLY_FROM_CSV:-?}{{NC}}\n"
         if [ "$TARGET" = prod ]; then confirm_prod "DESTRUCTIVE (aha-bha-pha)"; fi
     else
         printf "{{CYAN}}Audit AHA/BHA/PHA overrides read-only ($TARGET) → .audit-out/db/audit-aha-bha-pha.$TARGET.md{{NC}}\n"
@@ -155,13 +137,14 @@ audit-aha-bha-pha:
         -w /app/backend api bun run src/features/auto-tagging/runners/audit/aha-bha-pha-overrides.ts \
         | tee "$(audit_out audit-aha-bha-pha)"
 
-# Benchmark orchestrator vs gold-set (precision/recall/Brier/ECE per tag). Env: GOLD_SET_PATH, CSV_OUT, STRICT.
+[doc('Benchmark orchestrator vs gold-set (precision/recall/Brier/ECE per tag).')]
 [group('audit')]
-audit-gold-set:
-    #!/usr/bin/env bash
-    set -euo pipefail
+[arg('GOLD_SET_PATH', long='gold-set', help='annotations.json to benchmark against')]
+[arg('CSV_OUT', long='csv-out', help='also write per-tag metrics to this CSV')]
+[arg('STRICT', long='strict', value='1', help='exit 1 when a tag misses its threshold')]
+[script]
+audit-gold-set $GOLD_SET_PATH="" $CSV_OUT="" $STRICT="":
     source {{justfile_directory()}}/scripts/just/_lib.sh
-    TARGET="${TARGET:-dev}"
     target_compose
     printf "{{CYAN}}Gold-set benchmark ($TARGET) → .audit-out/db/audit-gold-set.$TARGET.md{{NC}}\n"
     $COMPOSE exec \
@@ -171,13 +154,13 @@ audit-gold-set:
         -w /app/backend api bun run src/features/auto-tagging/runners/audit/gold-set.ts \
         | tee "$(audit_out audit-gold-set)"
 
-# Audit algo-derm concentration solver vs brand-claim % (product_ingredients.concentration_value); per-slug + global MAE/RMSE + CI coverage. Env: JSON_OUT, SLUG.
+[doc('Audit algo-derm concentration solver vs brand-claim % (product_ingredients.concentration_value); per-slug + global MAE/RMSE + CI coverage.')]
 [group('audit')]
-audit-concentration-solver:
-    #!/usr/bin/env bash
-    set -euo pipefail
+[arg('SLUG', long='slug', help='restrict to a single product slug')]
+[arg('JSON_OUT', long='json-out', help='also write the raw result as JSON to this path')]
+[script]
+audit-concentration-solver $SLUG="" $JSON_OUT="":
     source {{justfile_directory()}}/scripts/just/_lib.sh
-    TARGET="${TARGET:-dev}"
     target_compose
     printf "{{CYAN}}Concentration solver audit ($TARGET) → .audit-out/db/audit-concentration-solver.$TARGET.md{{NC}}\n"
     $COMPOSE exec \

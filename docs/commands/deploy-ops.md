@@ -2,7 +2,7 @@
 
 ## Reaching prod from a laptop
 
-`TARGET=prod` from a laptop **aborts** — the local Compose project would match the dev stack, so
+`TARGET=prod` from a laptop **aborts**: the local Compose project would match the dev stack, so
 the guard refuses rather than write to the wrong database. Everything goes through SSH.
 
 | Command | What |
@@ -20,17 +20,17 @@ the guard refuses rather than write to the wrong database. Everything goes throu
 Any recipe can be run remotely:
 
 ```bash
-just prod-ssh 'TARGET=prod WRITE=1 just <recipe>'
+just prod-ssh 'TARGET=prod just <recipe> --write'
 ```
 
 ## Deploy (runs on the VPS)
 
 | Command | What |
 | :--- | :--- |
-| `just deploy` | One shot, gated by typing `DEPLOY`: sync config, pull the prebuilt images, up, migrate, health. `manifest unknown` means the CI build has not pushed yet — wait |
-| `just prod-migrate` | Apply migrations in-container and realign the `app_runtime` role password. Idempotent, safe to re-run |
+| `just deploy` | One shot, gated by typing `DEPLOY`: sync config, pull the prebuilt images, up, migrate, health. `manifest unknown` means the CI build has not pushed yet. Wait |
+| `just prod-migrate` | Apply migrations in-container and realign the `app_runtime` role password. Idempotent, safe to run again |
 | `just prod-health` | Container health snapshot (the last step of a deploy) |
-| `just prod` | Start the prod stack here — on the VPS, or locally to smoke-test the prod build |
+| `just prod` | Start the prod stack here: on the VPS, or locally to smoke-test the prod build |
 | `just prod-logs` | Follow every prod service log, raw |
 | `just nginx-reload` | Reload the nginx config without downtime |
 | `just ssl-init <domain> <email>` | Certbot certificate for the apex and `www` |
@@ -38,7 +38,7 @@ just prod-ssh 'TARGET=prod WRITE=1 just <recipe>'
 | `just prod-docker-prune` | Reclaim disk from superseded deploy images and build cache. Keeps 14 days so a rollback still has an image; running images untouched |
 | `just env-prod-check` | Internal guard of `prod`: requires `.env.prod` |
 
-Only configuration is synced by a deploy — the code ships as a prebuilt CI image.
+Only configuration is synced by a deploy: the code ships as a prebuilt CI image.
 
 ## Data fixes
 
@@ -46,7 +46,7 @@ A one-off catalogue correction is an idempotent SQL file, never a raw `UPDATE`: 
 skips INCI cleaning and auto-tag re-emission.
 
 Route the defect before writing the file: a row a runner recomputes (linker links, auto-tags,
-`canonical_key`, dermo profiles) is never patched by SQL — fix the emitter and re-derive, or the
+`canonical_key`, dermo profiles) is never patched by SQL. Fix the emitter and derive it again, or the
 next run undoes the fix. Every fix file opens with a three-line header carrying that triage:
 `-- Root cause:` / `-- Why data-fix:` / `-- Re-derive:`.
 
@@ -57,12 +57,12 @@ next run undoes the fix. Every fix file opens with a three-line header carrying 
 Order: apply in dev, review, then `TARGET=prod just db-fix <same file>`.
 
 `db-fix` is the one exception to the split-brain guard: it never resolves a local Compose stack,
-it opens the SSH connection itself. Run it **from the laptop** with `TARGET=prod` — do not wrap
+it opens the SSH connection itself. Run it **from the laptop** with `TARGET=prod`. Do not wrap
 it in `just prod-ssh`.
 
 On dev the file is kept for review. On prod it is archived to `.db-fixes/applied/` once applied,
 so it cannot be replayed by accident. Read the counters the script prints before believing it
-did anything — a fix whose targets do not exist yet resolves zero rows, does nothing, and gets
+did anything: a fix whose targets do not exist yet resolves zero rows, does nothing, and gets
 archived all the same.
 
 ## Crons
@@ -91,10 +91,10 @@ lives in the repo and syncs with a deploy. Requires `GRAFANA_CLOUD_*` in `.env.p
 | :--- | :--- |
 | `just mon-up` | Start the agent (on the VPS) |
 | `just mon-deploy` | Start it on the VPS from the laptop (config must already be synced) |
-| `just mon-restart` | Recreate after a config edit — Alloy needs a restart to reload |
+| `just mon-restart` | Recreate after a config edit: Alloy needs a restart to reload |
 | `just mon-down` | Stop it, keeping the small positions/WAL volume |
 | `just mon-ps` | Agent container status |
-| `just mon-logs [n]` | Tail the agent — check it connects with no 401 or 403 |
+| `just mon-logs [n]` | Tail the agent: check it connects with no 401 or 403 |
 
 ## Cleanup
 
@@ -102,5 +102,5 @@ lives in the repo and syncs with a deploy. Requires `GRAFANA_CLOUD_*` in `.env.p
 | :--- | :--- |
 | `just stop` | Stop every stack: dev, prod, test, e2e |
 | `just clean-soft` | Remove containers, keep volumes, clean TS output. The DB survives |
-| `just clean` | ⚠️ Remove containers, volumes and images — this destroys the local `pgdata` |
+| `just clean` | **Trap:** removes containers, volumes and images. This destroys the local `pgdata` |
 | `just clean-install` | Wipe `node_modules` (Docker root-owned) and reinstall. Keeps `bun.lock` |

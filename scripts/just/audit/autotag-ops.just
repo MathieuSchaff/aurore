@@ -3,7 +3,7 @@
 #  explain traces, catalog-fix-tag-domain fixes.)
 #
 # ── backfill vs reconcile: two ways to propagate a detector change ──
-# Options via env BEFORE just:  WRITE=1 just autotag-backfill   (else dry-run)
+# Applying is an option:  just autotag-backfill --write   (else dry-run). Other knobs via env.
 #
 #   ┌──────────────────────────────────────────────────────┬──────────┬───────────────────┐
 #   │                                                      │ backfill │     reconcile     │
@@ -24,24 +24,23 @@
 # nor downgrades (safe, e.g. cautious prod). reconcile ⊇ backfill → after a reconcile,
 # backfill finds 0 to insert.
 
-# Fix tag_products rows violating domain constraints (skincare tagTypes on haircare products). Env: WRITE=1 (apply). TARGET: dev|prod (prod+WRITE → confirm).
+[doc('Fix tag_products rows violating domain constraints (skincare tagTypes on haircare products). Dry-run unless --write. TARGET: dev|prod (prod + --write → confirm).')]
 [group('catalog')]
-catalog-fix-tag-domain:
-    #!/usr/bin/env bash
-    set -euo pipefail
+[arg('WRITE', long='write', value='1', help='apply instead of the dry-run')]
+[script]
+catalog-fix-tag-domain $WRITE="":
     source {{justfile_directory()}}/scripts/just/_lib.sh
     data_run "catalog-fix-tag-domain" "src/db/seed/maintenance/fix-tag-domain-consistency.ts"
 
-# Backfill auto-tags in an isolated one-shot container. Env: SLUG, WRITE (apply), LIMIT, PAGE_SIZE, CONF_OVERRIDE, INCLUDE_DROPPED, TAG (per-tag plan), EXCLUDE_TAG (write-all-except), SAMPLE (review CSV, with SEED/CSV_OUT).
+[doc('Backfill auto-tags in an isolated one-shot container. Dry-run unless --write. Env: SLUG, LIMIT, PAGE_SIZE, CONF_OVERRIDE, INCLUDE_DROPPED, TAG (per-tag plan), EXCLUDE_TAG (write-all-except), SAMPLE (review CSV, with SEED/CSV_OUT).')]
 [group('autotag')]
-autotag-backfill:
-    #!/usr/bin/env bash
-    set -euo pipefail
+[arg('WRITE', long='write', value='1', help='apply instead of the dry-run')]
+[script]
+autotag-backfill $WRITE="":
     source {{justfile_directory()}}/scripts/just/_lib.sh
-    TARGET="${TARGET:-dev}"
     target_compose
-    if [ "$TARGET" = prod ] && [ -n "${WRITE:-}" ]; then confirm_prod "WRITE (autotag-backfill)"; fi
-    MODE=$([ -n "${WRITE:-}" ] && echo "WRITE" || echo "dry-run")
+    if [ "$TARGET" = prod ] && [ -n "$WRITE" ]; then confirm_prod "WRITE (autotag-backfill)"; fi
+    MODE=$([ -n "$WRITE" ] && echo "WRITE" || echo "dry-run")
     printf "{{CYAN}}Backfill auto-tags ($MODE, $TARGET)...{{NC}}\n"
     mkdir -p backend/tmp
     $COMPOSE run --rm --no-deps \
@@ -58,26 +57,15 @@ autotag-backfill:
         ${WRITE:+--write} \
         ${SLUG:+--slug "$SLUG"}
 
-# Reconcile auto-tags to current orchestrator: drop stale rows + fix relevance downgrades (manual-safe; backfill is additive/upgrade-only). Env: SLUG, WRITE, LIMIT. TARGET: dev|prod.
+[doc('Reconcile auto-tags to current orchestrator: drop stale rows + fix relevance downgrades (manual-safe; backfill is additive/upgrade-only). Dry-run unless --write. Env: SLUG, LIMIT. TARGET: dev|prod.')]
 [group('autotag')]
-autotag-reconcile *args:
-    #!/usr/bin/env bash
-    set -euo pipefail
-    # `just autotag-reconcile --write` is the intuitive guess but flags ride env
-    # vars here (4 independent knobs: WRITE/SLUG/LIMIT/TARGET). Catch the stray arg
-    # and point at the right form instead of just's cryptic "no such recipe".
-    ARGS="{{args}}"
-    if [ -n "$ARGS" ]; then
-        printf "{{RED}}'%s' n'est pas un argument.{{NC}} Les options passent par variable d'env, AVANT 'just' :\n" "$ARGS"
-        printf "  {{CYAN}}WRITE=1 just autotag-reconcile{{NC}}   # applique (sinon dry-run)\n"
-        printf "  autres : SLUG=… LIMIT=… TARGET=prod\n"
-        exit 2
-    fi
+[arg('WRITE', long='write', value='1', help='apply instead of the dry-run')]
+[script]
+autotag-reconcile $WRITE="":
     source {{justfile_directory()}}/scripts/just/_lib.sh
-    TARGET="${TARGET:-dev}"
     target_compose
-    if [ "$TARGET" = prod ] && [ -n "${WRITE:-}" ]; then confirm_prod "WRITE (autotag-reconcile)"; fi
-    MODE=$([ -n "${WRITE:-}" ] && echo "WRITE" || echo "dry-run")
+    if [ "$TARGET" = prod ] && [ -n "$WRITE" ]; then confirm_prod "WRITE (autotag-reconcile)"; fi
+    MODE=$([ -n "$WRITE" ] && echo "WRITE" || echo "dry-run")
     printf "{{CYAN}}Reconcile auto-tags ($MODE, $TARGET)...{{NC}}\n"
     $COMPOSE exec \
         ${LIMIT:+-e LIMIT="$LIMIT"} \
@@ -85,45 +73,41 @@ autotag-reconcile *args:
         ${WRITE:+--write} \
         ${SLUG:+--slug "$SLUG"}
 
-# Delete non-manual links of ONE tag the detector no longer emits (tag-scoped reconcile slice; full reconcile also re-inserts). Env: TAG (required), WRITE (apply). TARGET: dev|prod.
+[doc('Delete non-manual links of ONE tag the detector no longer emits (tag-scoped reconcile slice; full reconcile also re-inserts). Dry-run unless --write. Env: TAG (required). TARGET: dev|prod.')]
 [group('autotag')]
-autotag-purge-stale:
-    #!/usr/bin/env bash
-    set -euo pipefail
+[arg('WRITE', long='write', value='1', help='apply instead of the dry-run')]
+[script]
+autotag-purge-stale $WRITE="":
     source {{justfile_directory()}}/scripts/just/_lib.sh
-    TARGET="${TARGET:-dev}"
     target_compose
     if [ -z "${TAG:-}" ]; then printf "{{RED}}TAG=<tagSlug> requis{{NC}}\n"; exit 1; fi
-    if [ "$TARGET" = prod ] && [ -n "${WRITE:-}" ]; then confirm_prod "WRITE (autotag-purge-stale $TAG)"; fi
-    MODE=$([ -n "${WRITE:-}" ] && echo "WRITE" || echo "dry-run")
+    if [ "$TARGET" = prod ] && [ -n "$WRITE" ]; then confirm_prod "WRITE (autotag-purge-stale $TAG)"; fi
+    MODE=$([ -n "$WRITE" ] && echo "WRITE" || echo "dry-run")
     printf "{{CYAN}}Purge stale auto-tag links ($MODE, $TARGET, tag=$TAG)...{{NC}}\n"
     $COMPOSE exec \
         -e TAG="$TAG" \
         -w /app/backend api bun run src/features/auto-tagging/runners/backfill/purge-stale-tag.ts \
         ${WRITE:+--write}
 
-# Delete non-manual links of products whose category left the auto-tag corpus (skincare/solaire/bodycare). Env: WRITE (apply). TARGET: dev|prod.
+[doc('Delete non-manual links of products whose category left the auto-tag corpus (skincare/solaire/bodycare). Dry-run unless --write. TARGET: dev|prod.')]
 [group('autotag')]
-autotag-purge-off-corpus:
-    #!/usr/bin/env bash
-    set -euo pipefail
+[arg('WRITE', long='write', value='1', help='apply instead of the dry-run')]
+[script]
+autotag-purge-off-corpus $WRITE="":
     source {{justfile_directory()}}/scripts/just/_lib.sh
-    TARGET="${TARGET:-dev}"
     target_compose
-    if [ "$TARGET" = prod ] && [ -n "${WRITE:-}" ]; then confirm_prod "WRITE (autotag-purge-off-corpus)"; fi
-    MODE=$([ -n "${WRITE:-}" ] && echo "WRITE" || echo "dry-run")
+    if [ "$TARGET" = prod ] && [ -n "$WRITE" ]; then confirm_prod "WRITE (autotag-purge-off-corpus)"; fi
+    MODE=$([ -n "$WRITE" ] && echo "WRITE" || echo "dry-run")
     printf "{{CYAN}}Purge auto-tags hors corpus ($MODE, $TARGET)...{{NC}}\n"
     $COMPOSE exec \
         -w /app/backend api bun run src/features/auto-tagging/runners/backfill/purge-off-corpus.ts \
         ${WRITE:+--write}
 
-# Explain auto-tag pipeline: SLUG=<slug> traces a real product (full input: name/desc/brand/texture), INCI="..." traces one raw INCI (INCI-only, blind to name/claim passes), COUNTS=1 aggregates the catalogue. Read-only. Env: SLUG, INCI, KIND (serum), CATEGORY (skincare), COUNTS=1.
+[doc('Explain auto-tag pipeline: SLUG=<slug> traces a real product (full input: name/desc/brand/texture), INCI="..." traces one raw INCI (INCI-only, blind to name/claim passes), COUNTS=1 aggregates the catalogue. Read-only. Env: SLUG, INCI, KIND (serum), CATEGORY (skincare), COUNTS=1.')]
 [group('autotag')]
+[script]
 autotag-explain:
-    #!/usr/bin/env bash
-    set -euo pipefail
     source {{justfile_directory()}}/scripts/just/_lib.sh
-    TARGET="${TARGET:-dev}"
     target_compose
     if [ -n "${COUNTS:-}" ]; then
         printf "{{CYAN}}Explain auto-tags — catalogue counts ($TARGET)...{{NC}}\n"
@@ -140,13 +124,11 @@ autotag-explain:
             --kind "${KIND:-serum}" --category "${CATEGORY:-skincare}" "$INCI"
     fi
 
-# Stratified sample of 60-80 products → data/gold-set/annotations.json (idempotent). Env: TAGS (optional comma-separated focus subset), SAMPLE_SIZE, POSITIVES_PER_TAG, NEGATIVES_PER_TAG, SEED, GOLD_SET_PATH.
+[doc('Stratified sample of 60-80 products → data/gold-set/annotations.json (idempotent). Env: TAGS (optional comma-separated focus subset), SAMPLE_SIZE, POSITIVES_PER_TAG, NEGATIVES_PER_TAG, SEED, GOLD_SET_PATH.')]
 [group('autotag')]
+[script]
 autotag-goldset:
-    #!/usr/bin/env bash
-    set -euo pipefail
     source {{justfile_directory()}}/scripts/just/_lib.sh
-    TARGET="${TARGET:-dev}"
     target_compose
     printf "{{CYAN}}Gold-set bootstrap ($TARGET)...{{NC}}\n"
     $COMPOSE exec \

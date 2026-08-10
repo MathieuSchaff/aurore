@@ -10,29 +10,23 @@ import '_vars.just'
 
 # ─── Schema (dev-only, host-running) ────────────────────────────────────────
 
-# Apply Drizzle migrations. TARGET-aware (cd backend && export .env.<target>).
+[doc('Apply Drizzle migrations. TARGET-aware (cd backend && export .env.<target>).')]
 [group('db')]
+[script]
 db-migrate:
-    #!/usr/bin/env bash
-    set -euo pipefail
     source {{justfile_directory()}}/scripts/just/_lib.sh
-    TARGET="${TARGET:-dev}"
-    case "$TARGET" in
-        dev)  ENV_FILE="../.env.dev" ;;
-        prod) ENV_FILE="../.env.prod" ;;
-        *)    printf "{{RED}}TARGET invalide: dev|prod (got '$TARGET'){{NC}}\n"; exit 1 ;;
-    esac
+    ENV_FILE="../.env.$TARGET"
     if [ "$TARGET" = prod ]; then confirm_prod "MIGRATE"; fi
     printf "{{CYAN}}Applying migrations ($TARGET)...{{NC}}\n"
     cd backend && set -a && source "$ENV_FILE" && set +a && bun run src/db/migrate.ts
 
-# Generate migration files from schema (dev-only)
+[doc('Generate migration files from schema (dev-only)')]
 [group('db')]
 db-generate:
     @printf "{{CYAN}}Generating migration files...{{NC}}\n"
     cd backend && set -a && source ../.env.dev && set +a && bunx drizzle-kit generate
 
-# ⚠️ Bypass migrations — loses FORCE RLS + auth.* (prefer db-migrate). Dev-only.
+[doc('⚠️ Bypass migrations: loses FORCE RLS + auth.* (prefer db-migrate). Dev-only.')]
 [group('db')]
 db-push:
     @printf "{{CYAN}}Schema sync (push)...{{NC}}\n"
@@ -41,68 +35,61 @@ db-push:
 
 # ─── Stats (read-only) ──────────────────────────────────────────────────────
 
-# DB stats (product/ingredient/tag/user counts). Read-only.
+[doc('DB stats (product/ingredient/tag/user counts). Read-only.')]
 [group('db')]
+[script]
 db-stats:
-    #!/usr/bin/env bash
-    set -euo pipefail
     source {{justfile_directory()}}/scripts/just/_lib.sh
-    TARGET="${TARGET:-dev}"
     target_compose
     printf "{{CYAN}}DB stats ($TARGET)...{{NC}}\n"
     $COMPOSE exec -w /app/backend api bun run src/db/audit/stats-db.ts
 
 # ─── Seed (write, idempotent) ───────────────────────────────────────────────
 
-# Push CORE seed deltas (idempotent, preserves user-state).
+[doc('Push CORE seed deltas (idempotent, preserves user-state).')]
 [group('db')]
+[script]
 db-seed:
-    #!/usr/bin/env bash
-    set -euo pipefail
     source {{justfile_directory()}}/scripts/just/_lib.sh
-    TARGET="${TARGET:-dev}"
     target_compose
     if [ "$TARGET" = prod ]; then confirm_prod "SEED"; fi
     LOG="{{justfile_directory()}}/.audit-out/db/seed.log"
     mkdir -p "$(dirname "$LOG")"
     printf "{{CYAN}}Pushing CORE seed deltas (idempotent, $TARGET)...{{NC}}\n"
     $COMPOSE exec -w /app/backend api bun run src/db/seed/seeders/seed-core.ts 2>&1 | tee "$LOG"
-    # seed leaves ingredients.canonical_key NULL — resolve substance identity from algo-derm
+    # seed leaves ingredients.canonical_key NULL: resolve substance identity from algo-derm
     $COMPOSE exec -w /app/backend api bun run src/db/seed/maintenance/backfill-canonical-key.ts --write
-    printf "{{GREEN}}✓ CORE seed deltas pushed ($TARGET) — log: .audit-out/db/seed.log{{NC}}\n"
+    printf "{{GREEN}}✓ CORE seed deltas pushed ($TARGET), log: .audit-out/db/seed.log{{NC}}\n"
 
-# Update existing seed entries (name/description/content/category) without touching user-data.
+[doc('Update existing seed entries (name/description/content/category) without touching user-data.')]
 [group('db')]
+[script]
 db-seed-update:
-    #!/usr/bin/env bash
-    set -euo pipefail
     source {{justfile_directory()}}/scripts/just/_lib.sh
-    TARGET="${TARGET:-dev}"
     target_compose
     if [ "$TARGET" = prod ]; then confirm_prod "SEED UPDATE"; fi
     LOG="{{justfile_directory()}}/.audit-out/db/seed.log"
     mkdir -p "$(dirname "$LOG")"
     printf "{{CYAN}}Updating existing CORE seed entries ($TARGET)...{{NC}}\n"
     $COMPOSE exec -w /app/backend api bun run src/db/seed/seeders/seed-core.ts --update 2>&1 | tee "$LOG"
-    printf "{{GREEN}}✓ CORE seed updated ($TARGET) — log: .audit-out/db/seed.log{{NC}}\n"
+    printf "{{GREEN}}✓ CORE seed updated ($TARGET), log: .audit-out/db/seed.log{{NC}}\n"
 
-# Seed + audit (recommended after reseed). Composite, inherits TARGET.
+[doc('Seed + audit (recommended after reseed). Composite, inherits TARGET.')]
 [group('db')]
 db-seed-safe: db-seed audit-db
 
-# Fix tag-domain then persist dev snapshot in one command. WRITE=1 applies (else dry no-op). Dev-only.
+[doc('Fix tag-domain then persist dev snapshot in one command. Dry no-op unless --write. Dev-only.')]
 [group('catalog')]
-catalog-fix-tag-domain-safe: catalog-fix-tag-domain db-snapshot
+[arg('WRITE', long='write', value='1', help='apply instead of the dry-run')]
+catalog-fix-tag-domain-safe $WRITE="": (catalog-fix-tag-domain WRITE) db-snapshot
 
 # ─── Destructive (DOUBLE confirmation on prod) ──────────────────────────────
 
-# ⚠️ Destructive seed (TRUNCATE + reseed). Typed 'I DESTROY PROD' confirmation on prod.
+[doc("⚠️ Destructive seed (TRUNCATE + reseed). Typed 'I DESTROY PROD' confirmation on prod.")]
 [group('db')]
+[script]
 db-seed-reset:
-    #!/usr/bin/env bash
-    set -euo pipefail
     source {{justfile_directory()}}/scripts/just/_lib.sh
-    TARGET="${TARGET:-dev}"
     target_compose
     printf "{{YELLOW}}⚠ ATTENTION: --reset will TRUNCATE products + ingredients + tag relations!\n"
     printf "  If the target DB has more products than the JS seed, the guard will refuse unless SEED_FORCE_RESET=1.{{NC}}\n"
@@ -115,13 +102,11 @@ db-seed-reset:
     $COMPOSE exec -w /app/backend api bun run src/db/seed/seeders/seed-core.ts --reset
     printf "{{GREEN}}✓ CORE seed (--reset) done ($TARGET){{NC}}\n"
 
-# Wipe DB completely (public schema). Destructive.
+[doc('Wipe DB completely (public schema). Destructive.')]
 [group('db')]
+[script]
 db-clean:
-    #!/usr/bin/env bash
-    set -euo pipefail
     source {{justfile_directory()}}/scripts/just/_lib.sh
-    TARGET="${TARGET:-dev}"
     target_compose
     printf "{{YELLOW}}⚠ ATTENTION: All data will be deleted!{{NC}}\n"
     if [ "$TARGET" = prod ]; then
@@ -133,19 +118,17 @@ db-clean:
     $COMPOSE exec -T db psql -U app -d appdb -c "DO \$\$ DECLARE r record; BEGIN FOR r IN (SELECT tablename FROM pg_tables WHERE schemaname='public') LOOP EXECUTE 'TRUNCATE ' || quote_ident(r.tablename) || ' RESTART IDENTITY CASCADE'; END LOOP; END \$\$;"
     printf "{{GREEN}}✓ Database wiped ($TARGET).{{NC}}\n"
 
-# Full reset: wipe + migrate + seed. Composite, inherits TARGET.
+[doc('Full reset: wipe + migrate + seed. Composite, inherits TARGET.')]
 [group('db')]
 db-reset: db-clean db-migrate db-seed
 
 # ─── Backup / restore ───────────────────────────────────────────────────────
 
-# Create SQL backup. Prod = gzip + GPG (recipient backup@aurore.local). Dev = plain .sql.
+[doc('Create SQL backup. Prod = gzip + GPG (recipient backup@aurore.local). Dev = plain .sql.')]
 [group('db')]
+[script]
 db-backup:
-    #!/usr/bin/env bash
-    set -euo pipefail
     source {{justfile_directory()}}/scripts/just/_lib.sh
-    TARGET="${TARGET:-dev}"
     target_compose
     mkdir -p ./backups
     TS=$(date +%Y%m%d_%H%M%S)
@@ -156,20 +139,18 @@ db-backup:
             | gpg --batch --yes --trust-model always \
                   --encrypt --recipient backup@aurore.local \
                   --output "$BK"
-        [ -s "$BK" ] || { printf "{{RED}}Backup vide ou échoué: $BK{{NC}}\n"; exit 1; }
+        [ -s "$BK" ] || { printf "{{RED}}Backup empty or failed: $BK{{NC}}\n"; exit 1; }
     else
         BK="./backups/backup_${TS}.sql"
         $COMPOSE exec -T db pg_dump -U app appdb > "$BK"
     fi
     printf "{{GREEN}}✓ Backup created ($TARGET): $BK{{NC}}\n"
 
-# Restore a backup. Usage: just db-restore ./backups/xxx.sql
+[doc('Restore a backup. Usage: just db-restore ./backups/xxx.sql')]
 [group('db')]
+[script]
 db-restore file:
-    #!/usr/bin/env bash
-    set -euo pipefail
     source {{justfile_directory()}}/scripts/just/_lib.sh
-    TARGET="${TARGET:-dev}"
     target_compose
     if [ "$TARGET" = prod ]; then confirm_prod "RESTORE from {{file}}" "I DESTROY PROD"; fi
     printf "{{CYAN}}Restoring {{file}} ($TARGET)...{{NC}}\n"
@@ -180,52 +161,53 @@ db-restore file:
     esac
     printf "{{GREEN}}✓ Restore done ($TARGET){{NC}}\n"
 
-# [VPS] Alias of `TARGET=prod just db-backup` — the installed backup cron calls it by name.
+[doc('[VPS] Alias of `TARGET=prod just db-backup`: the installed backup cron calls it by name.')]
 [group('db')]
 db-backup-prod:
     @TARGET=prod just db-backup
 
-# [VPS] Delete backups older than 7 days (.sql.gz.gpg + legacy .sql.gz from the transition window).
+[doc('[VPS] Delete backups older than 7 days (.sql.gz.gpg + legacy .sql.gz from the transition window).')]
 [group('db')]
 db-backup-clean:
     find ./backups \( -name "*.sql.gz.gpg" -o -name "*.sql.gz" \) -mtime +7 -delete
     @printf "{{GREEN}}✓ Old backups deleted{{NC}}\n"
 
-# [VPS] Install daily cron (3am) for backups
+# Plain bash on purpose: banner then tolerant commands, no strict flags.
+[doc('[VPS] Install daily cron (3am) for backups')]
 [group('db')]
+[script('bash')]
 backup-cron-install:
-    #!/usr/bin/env bash
     printf "{{YELLOW}}Installing backup cron at /etc/cron.d/aurore-backup{{NC}}\n"
     # Parens so the redirect covers both steps, not just the last one.
     echo "0 3 * * * root cd $(pwd) && (just db-backup-prod && just db-backup-clean) >> /var/log/aurore-backup.log 2>&1" \
         | sudo tee /etc/cron.d/aurore-backup > /dev/null
     sudo chmod 644 /etc/cron.d/aurore-backup
-    printf "{{GREEN}}✓ Cron installed — daily backup at 3am{{NC}}\n"
+    printf "{{GREEN}}✓ Cron installed: daily backup at 3am{{NC}}\n"
 
 # [Laptop] Incrementally copy encrypted prod backups over SSH, verify their GPG envelope and
 # refresh the local SHA-256 manifest. Default destination: ~/.local/state/aurore/offsite-backups.
+[doc('[Laptop] Pull encrypted prod backups over SSH, verify GPG, refresh the SHA-256 manifest.')]
 [group('db')]
 backup-offsite-pull:
     @scripts/pull-backups.sh
 
-# [Laptop] Install (without enabling) the daily 04:00 user-systemd timer for the offsite pull.
+[doc('[Laptop] Install (without enabling) the daily 04:00 user-systemd timer for the offsite pull.')]
 [group('db')]
 backup-offsite-timer-install:
     @scripts/install-backup-pull-timer.sh
 
-# [Laptop] Show timer schedule and the latest pull result.
+[doc('[Laptop] Show timer schedule and the latest pull result.')]
 [group('db')]
 backup-offsite-status:
     @systemctl --user list-timers aurore-backup-pull.timer --no-pager
     @systemctl --user status aurore-backup-pull.service --no-pager || true
 
-# ─── Snapshot (dev-only — committable file, dev source of truth) ────────────
+# ─── Snapshot (dev-only, committable file, dev source of truth) ────────────
 
-# Dump data → backend/src/db/snapshot/data.sql (committable, dev source of truth)
+[doc('Dump data → backend/src/db/snapshot/data.sql (committable, dev source of truth)')]
 [group('db')]
+[script]
 db-snapshot:
-    #!/usr/bin/env bash
-    set -euo pipefail
     mkdir -p backend/src/db/snapshot
     TMP="{{SNAPSHOT_FILE}}.tmp"
     # pin pg_dump's random \restrict token so unchanged data dumps byte-identical (ADR 0015)
@@ -240,20 +222,19 @@ db-snapshot:
         | sort -u | grep -vE '@(seed\.local|seed\.com|demo\.local)$' || true)
     if [ -n "$STRAY" ]; then
         rm -f "$TMP"
-        printf "{{RED}}❌ Non-seed address in the dump — snapshot NOT written:{{NC}}\n%s\n" "$STRAY"
+        printf "{{RED}}❌ Non-seed address in the dump, snapshot NOT written:{{NC}}\n%s\n" "$STRAY"
         printf "{{YELLOW}}Scrub the account on dev first (see .db-fixes/), then re-run.{{NC}}\n"
         exit 1
     fi
     mv "$TMP" {{SNAPSHOT_FILE}}
     printf "{{GREEN}}✓ Snapshot written: {{SNAPSHOT_FILE}} ($(wc -l < {{SNAPSHOT_FILE}}) lines, $(du -h {{SNAPSHOT_FILE}} | cut -f1)){{NC}}\n"
 
-# Reload snapshot/data.sql into DB — requires migrated schema. Dev-only.
+[doc('Reload snapshot/data.sql into DB (requires migrated schema). Dev-only. Env: ASSUME_YES=1 (skip the confirmation, used by db-snapshot-reset).')]
 [group('db')]
+[script]
 db-snapshot-load:
-    #!/usr/bin/env bash
-    set -euo pipefail
     if [ ! -f "{{SNAPSHOT_FILE}}" ]; then
-        printf "{{RED}}❌ No snapshot at {{SNAPSHOT_FILE}} — run `just db-snapshot` first{{NC}}\n"
+        printf "{{RED}}❌ No snapshot at {{SNAPSHOT_FILE}}. Run `just db-snapshot` first{{NC}}\n"
         exit 1
     fi
     printf "{{YELLOW}}⚠ TRUNCATE all public tables + reload snapshot{{NC}}\n"
@@ -268,7 +249,7 @@ db-snapshot-load:
     {{COMPOSE_DEV}} exec -T db psql -U app -d appdb -v ON_ERROR_STOP=1 < {{SNAPSHOT_FILE}} > /dev/null
     printf "{{GREEN}}✓ Snapshot loaded{{NC}}\n"
 
-# Clean + migrate + load snapshot (alternative to db-reset which uses seed TS). Dev-only.
+[doc('Clean + migrate + load snapshot (alternative to db-reset which uses seed TS). Dev-only.')]
 [group('db')]
 db-snapshot-reset: db-clean db-migrate
     {{COMPOSE_DEV}} exec -T db psql -U app -d appdb -v ON_ERROR_STOP=1 < {{SNAPSHOT_FILE}} > /dev/null
@@ -276,10 +257,10 @@ db-snapshot-reset: db-clean db-migrate
 
 # Catalogue-only snapshot for prod seeding (no users/reviews/runtime). Owner FK
 # rewritten to __OWNER_ID__. Dev-only (reads dev DB); run after a reconcile.
+[doc('Catalogue-only snapshot for prod seeding (no users/reviews/runtime). Dev-only.')]
 [group('db')]
+[script]
 db-catalogue-snapshot:
-    #!/usr/bin/env bash
-    set -euo pipefail
     mkdir -p backend/src/db/snapshot
     OWNER=$({{COMPOSE_DEV}} exec -T db psql -U app -d appdb -tAc \
         "SELECT created_by FROM products GROUP BY created_by ORDER BY count(*) DESC LIMIT 1")
@@ -297,36 +278,33 @@ db-catalogue-snapshot:
     LEAK=$(grep -c "@seed.local\|@seed.com" {{CATALOGUE_FILE}} || true)
     printf "{{GREEN}}✓ Catalogue snapshot: {{CATALOGUE_FILE}} ($(wc -l < {{CATALOGUE_FILE}}) lines, $(du -h {{CATALOGUE_FILE}} | cut -f1)); seed-email lines: $LEAK{{NC}}\n"
 
-# Create the prod catalogue owner from ADMIN_EMAIL/ADMIN_PASSWORD (idempotent).
+[doc('Create the prod catalogue owner from ADMIN_EMAIL/ADMIN_PASSWORD (idempotent).')]
 [group('db')]
+[script]
 db-prod-admin:
-    #!/usr/bin/env bash
-    set -euo pipefail
     source {{justfile_directory()}}/scripts/just/_lib.sh
-    TARGET="${TARGET:-dev}"
     target_compose
     $COMPOSE exec -w /app/backend api bun run src/db/seed/seeders/seed-prod-admin.ts
 
 # Load catalogue.sql into a freshly-migrated DB, owned by the db-prod-admin user.
 # Refuses if products already populated. Run db-prod-admin first.
+[doc('Load catalogue.sql into a freshly-migrated DB as db-prod-admin. Refuses a populated DB.')]
 [group('db')]
+[script]
 db-catalogue-load:
-    #!/usr/bin/env bash
-    set -euo pipefail
     source {{justfile_directory()}}/scripts/just/_lib.sh
-    TARGET="${TARGET:-dev}"
     target_compose
-    [ -f "{{CATALOGUE_FILE}}" ] || { printf "{{RED}}❌ No {{CATALOGUE_FILE}} — run just db-catalogue-snapshot{{NC}}\n"; exit 1; }
+    [ -f "{{CATALOGUE_FILE}}" ] || { printf "{{RED}}❌ No {{CATALOGUE_FILE}}. Run just db-catalogue-snapshot{{NC}}\n"; exit 1; }
     OWNER_EMAIL=$($COMPOSE exec -T api printenv ADMIN_EMAIL || true)
     [ -n "$OWNER_EMAIL" ] || { printf "{{RED}}❌ ADMIN_EMAIL not set in env{{NC}}\n"; exit 1; }
     OWNER_ID=$($COMPOSE exec -T db psql -U app -d appdb -tAc "SELECT id FROM users WHERE email='$OWNER_EMAIL'")
-    [ -n "$OWNER_ID" ] || { printf "{{RED}}❌ admin %s not found — run TARGET=%s just db-prod-admin first{{NC}}\n" "$OWNER_EMAIL" "$TARGET"; exit 1; }
+    [ -n "$OWNER_ID" ] || { printf "{{RED}}❌ admin %s not found. Run TARGET=%s just db-prod-admin first{{NC}}\n" "$OWNER_EMAIL" "$TARGET"; exit 1; }
     N=$($COMPOSE exec -T db psql -U app -d appdb -tAc "SELECT count(*) FROM products")
-    [ "$N" = "0" ] || { printf "{{RED}}❌ products already has %s rows — refusing to clobber{{NC}}\n" "$N"; exit 1; }
+    [ "$N" = "0" ] || { printf "{{RED}}❌ products already has %s rows, refusing to clobber{{NC}}\n" "$N"; exit 1; }
     if [ "$TARGET" = prod ]; then confirm_prod "CATALOGUE LOAD"; fi
     # Dump owns the full catalogue: truncate every dump-written table safe from
-    # user-data cascade (NOT products/ingredients — guard proves them empty, their
-    # CASCADE wipes user rows) so a pre-seed/ingest write can't dup-abort the load.
+    # user-data cascade (NOT products/ingredients: guard proves them empty, their
+    # CASCADE wipes user rows) so a write from seed or ingest can't abort the load on a duplicate.
     # public.-qualified: runs before the dump resets search_path to ''.
     { echo "TRUNCATE public.articles, public.brand_certifications, public.ingredient_dermo_profiles, public.ingredient_tag_types, public.ingredient_tag_links, public.product_ingredients, public.product_tag_types, public.product_tag_links CASCADE;"
       sed "s/__OWNER_ID__/$OWNER_ID/g" {{CATALOGUE_FILE}}
