@@ -15,7 +15,7 @@ const inciBase = noHtml(z.string().max(5000)).refine(
 
 // Only accept slugs the service would store verbatim (slugify() output shape).
 // Anything else gets silently rewritten on insert/update, so stored ≠ submitted:
-// slug-keyed consumers (auto-tag backfill, external links, re-ingest) then miss the row.
+// slug-keyed consumers (auto-tag backfill, external links, ingest) then miss the row.
 const stableSlug = z
   .string()
   .max(100)
@@ -136,7 +136,7 @@ export const productsByIdsQuery = z.object({
 })
 
 // Shelf-status overlay: per-product status for ids already on screen (the token needed to read it
-// exists only post-refresh, so it cannot ship with the anonymous list fetch). Cap matches the list limit.
+// exists only after a refresh, so it cannot ship with the anonymous list fetch). Cap matches the list limit.
 export const productsShelfStatusQuery = z.object({
   ids: z
     .string()
@@ -146,8 +146,6 @@ export const productsShelfStatusQuery = z.object({
 
 // No comma-refine: the preview endpoint exists precisely to show parse results
 // on a raw INCI string the user may not have formatted yet.
-// consumed via @aurore/shared; fallow cannot resolve the workspace symlink
-// fallow-ignore-next-line unused-export
 export const productFormulaPreviewSchema = z
   .object({
     inci: noHtml(z.string().trim().min(1).max(5000)),
@@ -160,8 +158,6 @@ export const productFormulaPreviewSchema = z
   })
   .refine(isKindValidForCategory, { message: 'kind is not valid for the given category' })
 
-// consumed via @aurore/shared; fallow cannot resolve the workspace symlink
-// fallow-ignore-next-line unused-type
 export type ProductFormulaPreviewInput = z.infer<typeof productFormulaPreviewSchema>
 
 export const patentSchema = z.object({
