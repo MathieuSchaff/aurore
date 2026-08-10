@@ -1,9 +1,11 @@
 import type { EnrichedComparisonProduct } from '@aurore/shared'
 
 import { AlertTriangle, Sparkle, Zap } from 'lucide-react'
-import type { ReactNode } from 'react'
+import { type ReactNode, useId } from 'react'
 
+import { ShowMoreButton } from '@/component/DataDisplay/ShowMoreButton/ShowMoreButton'
 import { IconBox } from '@/component/Layout/IconBox/IconBox'
+import { useExpandableList } from '@/hooks/useExpandableList'
 import { computeAlerts, computeConflicts, computeSharedActives } from '../helpers/aggregations'
 import './SignalsSection.css'
 
@@ -38,9 +40,19 @@ function SignalCard({ tone, title, hint, count, icon, children }: CardProps) {
 
 export function SignalsSection({ products }: Props) {
   const actives = computeSharedActives(products)
+  // Alerts and conflicts are inferred safety signals: never capped, never masked.
   const alerts = computeAlerts(products)
   const conflicts = computeConflicts(products)
   const total = products.length
+
+  const productsKey = products.map((p) => p.id).join(',')
+  const activesListId = useId()
+  const {
+    visible: visibleActives,
+    hiddenCount: hiddenActivesCount,
+    isExpanded: activesExpanded,
+    toggle: toggleActivesExpanded,
+  } = useExpandableList(actives, undefined, productsKey)
 
   if (actives.length === 0 && alerts.length === 0 && conflicts.length === 0) {
     return (
@@ -65,13 +77,20 @@ export function SignalsSection({ products }: Props) {
             count={actives.length}
             icon={<Sparkle size={16} aria-hidden="true" />}
           >
-            <ul role="list" className="signals-card__items">
-              {actives.map((i) => (
+            <ul role="list" id={activesListId} className="signals-card__items">
+              {visibleActives.map((i) => (
                 <li key={i.slug} className="signals-pill">
                   {i.inciName}
                 </li>
               ))}
             </ul>
+            <ShowMoreButton
+              className="signals-card__more"
+              hiddenCount={hiddenActivesCount}
+              isExpanded={activesExpanded}
+              onToggle={toggleActivesExpanded}
+              controlsId={activesListId}
+            />
           </SignalCard>
         )}
 
