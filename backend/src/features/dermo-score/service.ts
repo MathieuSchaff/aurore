@@ -14,6 +14,7 @@ import type { DbOrTransaction } from '../../db'
 import { userDermoProfiles } from '../../db/schema/auth/users'
 import { ingredients } from '../../db/schema/ingredients/ingredients'
 import { products } from '../../db/schema/products/products'
+import { benefitDriversWithHumanEvidence } from '../../lib/algo-derm-benefit-evidence'
 import { mapKindToContext } from '../../lib/algo-derm-product-context'
 import { fetchKnownConcentrationsByProduct } from '../../lib/fetch-known-concentrations'
 import { instantToCalendar, nowISO } from '../../utils/dates'
@@ -133,7 +134,7 @@ function sortPreferred(rows: LinkRow[], category: string): LinkRow[] {
 }
 
 // `driver.inci` and `ingredients.canonical_key` come from the same algo-derm
-// alias index (evidence.inci), so the join is raw string equality — no
+// alias index (evidence.inci), so the join is raw string equality, no
 // normalization. Interaction drivers carry a rule id, never an ingredient.
 // Exported for tests only.
 export async function attachIngredientSlugs(
@@ -142,7 +143,8 @@ export async function attachIngredientSlugs(
   database: DbOrTransaction,
   signals: IngredientSignal[] = []
 ): Promise<LinkedAssessment> {
-  const { topDrivers, topBenefitDrivers } = assessment.explanation
+  const { topDrivers } = assessment.explanation
+  const topBenefitDrivers = benefitDriversWithHumanEvidence(assessment)
 
   const keys = new Set<string>()
   for (const d of topDrivers) {

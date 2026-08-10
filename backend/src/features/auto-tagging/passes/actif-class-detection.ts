@@ -17,10 +17,10 @@ export type { ConcentrationLookup, RoleAtDoseLookup } from './aha-cap-marginal-g
 
 const DEFAULT_POSITION_CAP = 12
 
-// Clusters that need a secondary scan against the raw lowercase INCI (pre-normalize).
+// Clusters that need a secondary scan against the raw lowercase INCI (before normalizing).
 // algo-derm `applyCompositeFerment` strips the substrate from ferment names by design
 // (postbiotic risk is organism-driven). For polyphenols the substrate IS the actif
-// source, so re-scan raw INCI to recover those hits. No position cap here because the
+// source, so scan the raw INCI again to recover those hits. No position cap here because the
 // raw string is unsplit; polyphenols already use positionCap: Infinity anyway.
 const RAW_SCAN_SLUGS = new Set<SkincareProductTagSlug>([SKINCARE_PRODUCT_TAG_SLUGS.POLYPHENOLS])
 
@@ -149,7 +149,7 @@ export const ACTIF_CLASS_DEFS: ActifClassDef[] = [
   {
     slug: SKINCARE_PRODUCT_TAG_SLUGS.ENZYMES_EXFOLIANTS,
     // Bio-actives dosed mg-range; manual corpus tags at any position (median 20, p90 38).
-    // `lipase` added: missed by prior pattern list in multi-enzyme exfoliants.
+    // `lipase` added: missed by prior pattern list in exfoliants carrying several enzymes.
     // `protease` catches generic enzyme listings; named variants covered separately.
     patterns: ['papain', 'bromelain', 'subtilisin', 'protease', 'lipase'],
     positionCap: Number.POSITIVE_INFINITY,
@@ -157,7 +157,7 @@ export const ACTIF_CLASS_DEFS: ActifClassDef[] = [
   {
     slug: SKINCARE_PRODUCT_TAG_SLUGS.CERAMIDES,
     // Sub-1% dosing, listed deep in INCI (median pos 27, p90 39), so cap removed.
-    // `phytosphingosine` rejected: 0 recall gain, 24 over-tags on soothing products.
+    // `phytosphingosine` rejected: 0 recall gain, 24 false tags on soothing products.
 
     // Letter forms cover the Motta code (fatty acid x sphingoid base) beyond the
     // np/eop/ns/ap/as seen in the corpus today. Numbered names stay even though the
@@ -189,7 +189,7 @@ export const ACTIF_CLASS_DEFS: ActifClassDef[] = [
     slug: SKINCARE_PRODUCT_TAG_SLUGS.HYALURONIC_ACID,
     // <=1% cosmetic dosing; functional at any position (100% of only_db drift past
     // pos 10, median 19, p90 34). `hyaluron` catches all variants including
-    // crosspolymer, modified, and non-standard spelling forms.
+    // crosspolymer, modified, and spelling forms that aren't standard.
     patterns: ['hyaluron'],
     positionCap: Number.POSITIVE_INFINITY,
   },
@@ -228,8 +228,8 @@ export const ACTIF_CLASS_DEFS: ActifClassDef[] = [
       // Both plant name and alt INCI form (standardized flavonolignan complex).
       'silybum marianum',
       'silymarin',
-      // Theobroma cacao over-tags trace cacao extracts.
-      // Manual baseline judges trace cacao extract as non-functional polyphenol dose.
+      // Theobroma cacao would tag trace cacao extracts too.
+      // Manual baseline judges trace cacao extract as a polyphenol dose that isn't functional.
     ],
     positionCap: Number.POSITIVE_INFINITY,
   },
@@ -240,6 +240,10 @@ export const ACTIF_CLASS_DEFS: ActifClassDef[] = [
     patterns: [
       'kojic acid',
       'arbutin',
+      // French spelling of the same molecule. algo-derm carries the alias since
+      // v36, but this pass matches raw INCI tokens, so it needs its own entry:
+      // the exact match makes it a miss rather than a substring hit on `arbutin`.
+      'arbutine',
       'alpha-arbutin',
       'beta-arbutin',
       'hexylresorcinol',
@@ -272,7 +276,7 @@ export const ACTIF_CLASS_DEFS: ActifClassDef[] = [
 ]
 
 // Slug-only view for callers that only need membership. Insertion order mirrors
-// the evidence map, so output is byte-identical to the pre-evidence implementation.
+// the evidence map, so output is byte-identical to what the pass emitted before that map existed.
 export function detectActifClasses(
   inci: string | null | undefined,
   hoistedIngredients?: readonly string[],

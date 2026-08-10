@@ -6,6 +6,7 @@ import { userIngredientAnalysisScore } from '../../db/schema/ingredients/user-in
 import { productIngredients } from '../../db/schema/products/product-ingredients'
 import { products } from '../../db/schema/products/products'
 import { userProducts } from '../../db/schema/products/user-products'
+import { benefitDriversWithHumanEvidence } from '../../lib/algo-derm-benefit-evidence'
 import { mapKindToContext } from '../../lib/algo-derm-product-context'
 import { fetchKnownConcentrationsByProduct } from '../../lib/fetch-known-concentrations'
 import { loadAlgoDermProfile } from '../dermo-score/service'
@@ -148,10 +149,11 @@ export async function getCollectionFormulaMotifs(
       ...mapKindToContext(row.kind),
       knownConcentrations: concentrationsByProduct.get(row.id),
     }
-    const { explanation } = analyzeINCI(inci, { profile, context })
+    const assessment = analyzeINCI(inci, { profile, context })
+    const { explanation } = assessment
     productsAnalyzed++
 
-    const benefitAxes = new Set(explanation.topBenefitDrivers.flatMap((d) => d.axes))
+    const benefitAxes = new Set(benefitDriversWithHumanEvidence(assessment).flatMap((d) => d.axes))
     const noteAxes = new Set(
       explanation.topDrivers
         .filter((d) => d.source !== 'interaction' && d.axes.length > 0)
