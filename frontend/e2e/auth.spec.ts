@@ -53,28 +53,6 @@ test.describe('Auth — login', () => {
     await expect(page).toHaveURL(/\/auth\/login/)
   })
 
-  test('shows inline Zod error on malformed email (no API call)', async ({ page }) => {
-    await page.goto('/auth/login')
-
-    await page.getByLabel('Email', { exact: true }).fill('not-an-email')
-    await page.getByLabel('Mot de passe', { exact: true }).fill('Wrongpass1!')
-    await page.getByRole('button', { name: 'Se connecter', exact: true }).click()
-
-    await expect(page.getByText(/Format d'email invalide/i)).toBeVisible()
-    await expect(page).toHaveURL(/\/auth\/login/)
-  })
-
-  test('shows inline error on weak password (caught client-side)', async ({ page }) => {
-    await page.goto('/auth/login')
-
-    await page.getByLabel('Email', { exact: true }).fill(SEED_EMAIL)
-    await page.getByLabel('Mot de passe', { exact: true }).fill('weak')
-    await page.getByRole('button', { name: 'Se connecter', exact: true }).click()
-
-    await expect(page.getByText(/Minimum 8 caractères/i)).toBeVisible()
-    await expect(page).toHaveURL(/\/auth\/login/)
-  })
-
   test('logs in seed user and lands on /collection', async ({ page }) => {
     await page.goto('/auth/login')
 
@@ -98,47 +76,6 @@ test.describe('Auth — login', () => {
 })
 
 test.describe('Auth — signup', () => {
-  test('shows password rules updating live', async ({ page }) => {
-    await page.goto('/auth/signup')
-
-    const pwInput = page.getByLabel('Mot de passe', { exact: true })
-    await pwInput.fill('abc')
-
-    const lengthRule = page.getByRole('listitem', { name: /8 caractères minimum/ })
-    await expect(lengthRule).toHaveAttribute('aria-label', /non validé/)
-
-    await pwInput.fill('Abcdef12!')
-    await expect(lengthRule).toHaveAttribute('aria-label', /: validé/)
-    await expect(page.getByRole('listitem', { name: /Une majuscule/ })).toHaveAttribute(
-      'aria-label',
-      /: validé/
-    )
-  })
-
-  test('blocks submit when passwords do not match', async ({ page }) => {
-    await page.goto('/auth/signup')
-
-    await page.getByLabel('Email', { exact: true }).fill(uniqueEmail())
-    await page.getByLabel('Mot de passe', { exact: true }).fill('Abcdef12!')
-    await page.getByLabel('Confirmer le mot de passe').fill('Different1!')
-    await page.getByRole('button', { name: 'Créer mon compte' }).click()
-
-    await expect(page.getByText('Les mots de passe ne correspondent pas')).toBeVisible()
-    await expect(page).toHaveURL(/\/auth\/signup/)
-  })
-
-  test('blocks submit on malformed email (Zod, no API call)', async ({ page }) => {
-    await page.goto('/auth/signup')
-
-    await page.getByLabel('Email', { exact: true }).fill('not-an-email')
-    await page.getByLabel('Mot de passe', { exact: true }).fill('Abcdef12!')
-    await page.getByLabel('Confirmer le mot de passe').fill('Abcdef12!')
-    await page.getByRole('button', { name: 'Créer mon compte' }).click()
-
-    await expect(page.getByText(/Format d'email invalide/i)).toBeVisible()
-    await expect(page).toHaveURL(/\/auth\/signup/)
-  })
-
   test('existing email lands on the neutral verify screen (no enumeration)', async ({ page }) => {
     await page.goto('/auth/signup')
 

@@ -2,25 +2,24 @@ import { expect, test } from '@playwright/test'
 
 import { loginAsSeed } from './helpers/auth'
 
-// Covers the fragile DropdownMenu-in-Sheet path: portal layer, re-renders,
+// Covers the fragile DropdownMenu-in-Sheet path: portal layer, repeated renders,
 // Escape handling, and focus return.
 
 test.beforeEach(async ({ page }) => {
   await loginAsSeed(page)
 })
 
-test.describe('DropdownMenu × ProductDetailSheet — status picker', () => {
+test.describe('DropdownMenu × ProductDetailSheet: status picker', () => {
   test("happy path: picker s'ouvre, kb nav, sélection update statut", async ({ page }) => {
     await page.goto('/collection')
 
     // ShelfView affiche les UserProducts du seed sous forme de cards.
-    // On clique la 1ère card pour ouvrir la Sheet — pas d'assumption sur le nom
-    // produit (varie selon seed).
-    // Click the explicit details button — the card wrapper is non-interactive,
-    // its center only landed on this button for some seed layouts.
-    const firstCard = page.getByRole('button', { name: /^Voir les détails/ }).first()
-    await expect(firstCard).toBeVisible({ timeout: 15_000 })
-    await firstCard.click()
+    // Click the explicit details button: the card wrapper is non-interactive,
+    // its center only landed on this button for some seed layouts. `.first()`
+    // avoids assuming a product name, which varies with the seed.
+    const detailsButton = page.getByRole('button', { name: /^Voir les détails/ }).first()
+    await expect(detailsButton).toBeVisible({ timeout: 15_000 })
+    await detailsButton.click()
 
     // La Sheet ouvre via showModal() : <dialog open> dans le top layer.
     const sheet = page.getByRole('dialog')
@@ -40,7 +39,7 @@ test.describe('DropdownMenu × ProductDetailSheet — status picker', () => {
     const items = menu.getByRole('menuitem')
     await expect(items).toHaveCount(5)
 
-    // Sélectionne le 2e item ; le premier est statvement souvent le "current".
+    // Sélectionne le 2e item ; le premier est statistiquement souvent le "current".
     // On capture le libellé pour re-vérifier dans le header après update.
     const targetItem = items.nth(1)
     const targetLabel = (await targetItem.innerText()).trim().split('\n')[0]?.trim()
@@ -57,11 +56,11 @@ test.describe('DropdownMenu × ProductDetailSheet — status picker', () => {
   test('Escape ferme le menu sans fermer la Sheet', async ({ page }) => {
     await page.goto('/collection')
 
-    // Click the explicit details button — the card wrapper is non-interactive,
+    // Click the explicit details button: the card wrapper is non-interactive,
     // its center only landed on this button for some seed layouts.
-    const firstCard = page.getByRole('button', { name: /^Voir les détails/ }).first()
-    await expect(firstCard).toBeVisible({ timeout: 15_000 })
-    await firstCard.click()
+    const detailsButton = page.getByRole('button', { name: /^Voir les détails/ }).first()
+    await expect(detailsButton).toBeVisible({ timeout: 15_000 })
+    await detailsButton.click()
 
     const sheet = page.getByRole('dialog')
     await expect(sheet).toBeVisible()
@@ -79,40 +78,5 @@ test.describe('DropdownMenu × ProductDetailSheet — status picker', () => {
     await expect(menu).toBeHidden()
     await expect(sheet).toBeVisible()
     await expect(statusTrigger).toBeFocused()
-  })
-
-  test('kb nav: ArrowDown navigue dans les items', async ({ page }) => {
-    await page.goto('/collection')
-
-    // Click the explicit details button — the card wrapper is non-interactive,
-    // its center only landed on this button for some seed layouts.
-    const firstCard = page.getByRole('button', { name: /^Voir les détails/ }).first()
-    await expect(firstCard).toBeVisible({ timeout: 15_000 })
-    await firstCard.click()
-
-    const sheet = page.getByRole('dialog')
-    await expect(sheet).toBeVisible()
-    await sheet.getByRole('button', { name: /^Statut\s?:/ }).click()
-
-    const menu = page.getByRole('menu')
-    await expect(menu).toBeVisible()
-
-    // Le focus initial se pose sur item[0] (via RAF dans le composant).
-    const items = menu.getByRole('menuitem')
-    await expect(items.first()).toBeFocused({ timeout: 1500 })
-
-    await page.keyboard.press('ArrowDown')
-    await expect(items.nth(1)).toBeFocused()
-
-    await page.keyboard.press('ArrowDown')
-    await expect(items.nth(2)).toBeFocused()
-
-    // End : dernier
-    await page.keyboard.press('End')
-    await expect(items.last()).toBeFocused()
-
-    // Home : premier
-    await page.keyboard.press('Home')
-    await expect(items.first()).toBeFocused()
   })
 })

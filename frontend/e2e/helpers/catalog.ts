@@ -1,6 +1,7 @@
 import { expect, type Page } from '@playwright/test'
 
 import { type Credentials, loginAs, SEED_EMAIL, SEED_PASSWORD } from './auth'
+import { waitForHydration } from './hydration'
 
 // Admin user: auto-verifies created products; use for UI moderation + admin API calls.
 const ADMIN: Credentials = { email: SEED_EMAIL, password: SEED_PASSWORD }
@@ -17,11 +18,31 @@ function bearer(token: string) {
   return { authorization: `Bearer ${token}` }
 }
 
+// Alphabetical first on skincare = a stable pick. We avoid the /products list
+// + "first card" approach because the default sort=newest makes the first card
+// volatile across parallel tests that create products mid-run. Specs that WRITE
+// this product belong in a *.mutation.spec.ts file (see e2e.md): it is the same
+// row for every project, and later seed products fail client-side validation.
+export async function resolveFirstSkincareSlug(page: Page): Promise<string> {
+  const res = await page.request.get('/api/products?category=skincare&sort=name&limit=1')
+  expect(res.ok()).toBe(true)
+  const json = await res.json()
+  return json.data.items[0].slug as string
+}
+
+export async function gotoFirstProductDetail(page: Page): Promise<string> {
+  const slug = await resolveFirstSkincareSlug(page)
+  await page.goto(`/products/${slug}`)
+  await expect(page).toHaveURL(new RegExp(`/products/${slug}$`), { timeout: 15_000 })
+  await waitForHydration(page)
+  return slug
+}
+
 export type CatalogFixture = { id: string; slug: string; name: string }
 
 // Creates a real product as the seed user, so it lands unverified + visible (the moderation
 // "À vérifier" queue / a "pending" submission). Unique name keeps the slug + (name,brand)
-// visible-unique index collision-free across re-runs.
+// visible-unique index collision-free across runs
 export async function createProduct(
   page: Page,
   token: string,
