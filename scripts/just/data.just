@@ -8,7 +8,7 @@ import '_vars.just'
 #   WRITE=1 just ingest-peta                          # dev write
 #   TARGET=prod REFRESH=1 WRITE=1 just ingest-peta    # prod write (confirmation)
 
-# Probe PETA brand by brand (~220) → cruelty-free into brand_certifications. Env: REFRESH (re-fetch), WRITE (apply), STRICT_PRUNE (drop stale `peta` rows).
+[doc('Probe PETA brand by brand (~220) → cruelty-free into brand_certifications. Env: REFRESH (re-fetch), WRITE (apply), STRICT_PRUNE (drop stale `peta` rows).')]
 [group('ingest')]
 [script]
 ingest-peta:
@@ -17,7 +17,7 @@ ingest-peta:
         ${REFRESH:+--refresh} \
         ${STRICT_PRUNE:+--strict-prune}
 
-# Open Beauty Facts dump (~17 MB) → aggregate vegan/cruelty-free/natural claims per brand (≥THRESHOLD) → brand_certifications. Env: DOWNLOAD, WRITE, THRESHOLD (default 0.5), NO_WHITELIST.
+[doc('Open Beauty Facts dump (~17 MB) → aggregate vegan/cruelty-free/natural claims per brand (≥THRESHOLD) → brand_certifications. Env: DOWNLOAD, WRITE, THRESHOLD (default 0.5), NO_WHITELIST.')]
 [group('ingest')]
 [script]
 ingest-obf:

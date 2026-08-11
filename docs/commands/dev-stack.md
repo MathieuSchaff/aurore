@@ -10,6 +10,7 @@ Start the app, typecheck, containers, ports.
 | `just dev-fresh` | Clean + install + types + up | Preserves `pgdata`. Offers the snapshot restore when the DB is empty |
 | `just setup-hooks` | Install git hooks only | Needs mise. `just init` skips it rather than failing |
 | `just install-deps` | Install deps from the repo root (host) | — |
+| `just install-deps-ci` | Same, `--frozen-lockfile` | CI only: any lockfile drift fails the job |
 
 ## Daily
 

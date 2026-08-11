@@ -24,14 +24,14 @@
 # nor downgrades (safe, e.g. cautious prod). reconcile ⊇ backfill → after a reconcile,
 # backfill finds 0 to insert.
 
-# Fix tag_products rows violating domain constraints (skincare tagTypes on haircare products). Env: WRITE=1 (apply). TARGET: dev|prod (prod+WRITE → confirm).
+[doc('Fix tag_products rows violating domain constraints (skincare tagTypes on haircare products). Env: WRITE=1 (apply). TARGET: dev|prod (prod+WRITE → confirm).')]
 [group('catalog')]
 [script]
 catalog-fix-tag-domain:
     source {{justfile_directory()}}/scripts/just/_lib.sh
     data_run "catalog-fix-tag-domain" "src/db/seed/maintenance/fix-tag-domain-consistency.ts"
 
-# Backfill auto-tags in an isolated one-shot container. Env: SLUG, WRITE (apply), LIMIT, PAGE_SIZE, CONF_OVERRIDE, INCLUDE_DROPPED, TAG (per-tag plan), EXCLUDE_TAG (write-all-except), SAMPLE (review CSV, with SEED/CSV_OUT).
+[doc('Backfill auto-tags in an isolated one-shot container. Env: SLUG, WRITE (apply), LIMIT, PAGE_SIZE, CONF_OVERRIDE, INCLUDE_DROPPED, TAG (per-tag plan), EXCLUDE_TAG (write-all-except), SAMPLE (review CSV, with SEED/CSV_OUT).')]
 [group('autotag')]
 [script]
 autotag-backfill:
@@ -56,7 +56,7 @@ autotag-backfill:
         ${WRITE:+--write} \
         ${SLUG:+--slug "$SLUG"}
 
-# Reconcile auto-tags to current orchestrator: drop stale rows + fix relevance downgrades (manual-safe; backfill is additive/upgrade-only). Env: SLUG, WRITE, LIMIT. TARGET: dev|prod.
+[doc('Reconcile auto-tags to current orchestrator: drop stale rows + fix relevance downgrades (manual-safe; backfill is additive/upgrade-only). Env: SLUG, WRITE, LIMIT. TARGET: dev|prod.')]
 [group('autotag')]
 [script]
 autotag-reconcile *args:
@@ -82,7 +82,7 @@ autotag-reconcile *args:
         ${WRITE:+--write} \
         ${SLUG:+--slug "$SLUG"}
 
-# Delete non-manual links of ONE tag the detector no longer emits (tag-scoped reconcile slice; full reconcile also re-inserts). Env: TAG (required), WRITE (apply). TARGET: dev|prod.
+[doc('Delete non-manual links of ONE tag the detector no longer emits (tag-scoped reconcile slice; full reconcile also re-inserts). Env: TAG (required), WRITE (apply). TARGET: dev|prod.')]
 [group('autotag')]
 [script]
 autotag-purge-stale:
@@ -98,7 +98,7 @@ autotag-purge-stale:
         -w /app/backend api bun run src/features/auto-tagging/runners/backfill/purge-stale-tag.ts \
         ${WRITE:+--write}
 
-# Delete non-manual links of products whose category left the auto-tag corpus (skincare/solaire/bodycare). Env: WRITE (apply). TARGET: dev|prod.
+[doc('Delete non-manual links of products whose category left the auto-tag corpus (skincare/solaire/bodycare). Env: WRITE (apply). TARGET: dev|prod.')]
 [group('autotag')]
 [script]
 autotag-purge-off-corpus:
@@ -112,7 +112,7 @@ autotag-purge-off-corpus:
         -w /app/backend api bun run src/features/auto-tagging/runners/backfill/purge-off-corpus.ts \
         ${WRITE:+--write}
 
-# Explain auto-tag pipeline: SLUG=<slug> traces a real product (full input: name/desc/brand/texture), INCI="..." traces one raw INCI (INCI-only, blind to name/claim passes), COUNTS=1 aggregates the catalogue. Read-only. Env: SLUG, INCI, KIND (serum), CATEGORY (skincare), COUNTS=1.
+[doc('Explain auto-tag pipeline: SLUG=<slug> traces a real product (full input: name/desc/brand/texture), INCI="..." traces one raw INCI (INCI-only, blind to name/claim passes), COUNTS=1 aggregates the catalogue. Read-only. Env: SLUG, INCI, KIND (serum), CATEGORY (skincare), COUNTS=1.')]
 [group('autotag')]
 [script]
 autotag-explain:
@@ -134,7 +134,7 @@ autotag-explain:
             --kind "${KIND:-serum}" --category "${CATEGORY:-skincare}" "$INCI"
     fi
 
-# Stratified sample of 60-80 products → data/gold-set/annotations.json (idempotent). Env: TAGS (optional comma-separated focus subset), SAMPLE_SIZE, POSITIVES_PER_TAG, NEGATIVES_PER_TAG, SEED, GOLD_SET_PATH.
+[doc('Stratified sample of 60-80 products → data/gold-set/annotations.json (idempotent). Env: TAGS (optional comma-separated focus subset), SAMPLE_SIZE, POSITIVES_PER_TAG, NEGATIVES_PER_TAG, SEED, GOLD_SET_PATH.')]
 [group('autotag')]
 [script]
 autotag-goldset:

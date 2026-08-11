@@ -53,6 +53,7 @@ data-fix needs another pass.
 | `just audit-kind-inci` | Kind mistags the name regex misses, via INCI signal (a wash kind with no surfactant) | — |
 | `just audit-sans-sulfates` | Sulfate-free false negatives: leave-on products denied the claim by a cetearyl or coceth emulsifier | — |
 | `just audit-tag-contradictions` | Absence tags (`sans-parfum`, `sans-silicones`, …) whose own INCI declares the thing they deny | — |
+| `just audit-uv-filters` | Visible SPF products (name or `kind=sunscreen`) with no `filtre-uv` ingredient linked. Report-only: the cause is a weak source INCI, not a linking bug | - |
 | `just audit-actif-class` | Dry-run of the pharmacological clusters (pass 2) | `LIMIT, DUMP_DRIFT, DUMP_NEW` |
 | `just audit-aha-bha-pha` | Manual AHA/BHA/PHA overrides. ⚠️ `WRITE=1` here means DELETE from a CSV | `CSV_OUT, CSV_DIR, LIMIT, WRITE, APPLY_FROM_CSV` |
 | `just audit-concentration-solver` | Solver percentages against brand claims: MAE, RMSE, CI coverage | `JSON_OUT, SLUG` |

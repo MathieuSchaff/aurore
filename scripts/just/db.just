@@ -10,7 +10,7 @@ import '_vars.just'
 
 # ─── Schema (dev-only, host-running) ────────────────────────────────────────
 
-# Apply Drizzle migrations. TARGET-aware (cd backend && export .env.<target>).
+[doc('Apply Drizzle migrations. TARGET-aware (cd backend && export .env.<target>).')]
 [group('db')]
 [script]
 db-migrate:
@@ -25,13 +25,13 @@ db-migrate:
     printf "{{CYAN}}Applying migrations ($TARGET)...{{NC}}\n"
     cd backend && set -a && source "$ENV_FILE" && set +a && bun run src/db/migrate.ts
 
-# Generate migration files from schema (dev-only)
+[doc('Generate migration files from schema (dev-only)')]
 [group('db')]
 db-generate:
     @printf "{{CYAN}}Generating migration files...{{NC}}\n"
     cd backend && set -a && source ../.env.dev && set +a && bunx drizzle-kit generate
 
-# ⚠️ Bypass migrations — loses FORCE RLS + auth.* (prefer db-migrate). Dev-only.
+[doc('⚠️ Bypass migrations — loses FORCE RLS + auth.* (prefer db-migrate). Dev-only.')]
 [group('db')]
 db-push:
     @printf "{{CYAN}}Schema sync (push)...{{NC}}\n"
@@ -40,7 +40,7 @@ db-push:
 
 # ─── Stats (read-only) ──────────────────────────────────────────────────────
 
-# DB stats (product/ingredient/tag/user counts). Read-only.
+[doc('DB stats (product/ingredient/tag/user counts). Read-only.')]
 [group('db')]
 [script]
 db-stats:
@@ -52,7 +52,7 @@ db-stats:
 
 # ─── Seed (write, idempotent) ───────────────────────────────────────────────
 
-# Push CORE seed deltas (idempotent, preserves user-state).
+[doc('Push CORE seed deltas (idempotent, preserves user-state).')]
 [group('db')]
 [script]
 db-seed:
@@ -68,7 +68,7 @@ db-seed:
     $COMPOSE exec -w /app/backend api bun run src/db/seed/maintenance/backfill-canonical-key.ts --write
     printf "{{GREEN}}✓ CORE seed deltas pushed ($TARGET) — log: .audit-out/db/seed.log{{NC}}\n"
 
-# Update existing seed entries (name/description/content/category) without touching user-data.
+[doc('Update existing seed entries (name/description/content/category) without touching user-data.')]
 [group('db')]
 [script]
 db-seed-update:
@@ -82,17 +82,17 @@ db-seed-update:
     $COMPOSE exec -w /app/backend api bun run src/db/seed/seeders/seed-core.ts --update 2>&1 | tee "$LOG"
     printf "{{GREEN}}✓ CORE seed updated ($TARGET) — log: .audit-out/db/seed.log{{NC}}\n"
 
-# Seed + audit (recommended after reseed). Composite, inherits TARGET.
+[doc('Seed + audit (recommended after reseed). Composite, inherits TARGET.')]
 [group('db')]
 db-seed-safe: db-seed audit-db
 
-# Fix tag-domain then persist dev snapshot in one command. WRITE=1 applies (else dry no-op). Dev-only.
+[doc('Fix tag-domain then persist dev snapshot in one command. WRITE=1 applies (else dry no-op). Dev-only.')]
 [group('catalog')]
 catalog-fix-tag-domain-safe: catalog-fix-tag-domain db-snapshot
 
 # ─── Destructive (DOUBLE confirmation on prod) ──────────────────────────────
 
-# ⚠️ Destructive seed (TRUNCATE + reseed). Typed 'I DESTROY PROD' confirmation on prod.
+[doc("⚠️ Destructive seed (TRUNCATE + reseed). Typed 'I DESTROY PROD' confirmation on prod.")]
 [group('db')]
 [script]
 db-seed-reset:
@@ -110,7 +110,7 @@ db-seed-reset:
     $COMPOSE exec -w /app/backend api bun run src/db/seed/seeders/seed-core.ts --reset
     printf "{{GREEN}}✓ CORE seed (--reset) done ($TARGET){{NC}}\n"
 
-# Wipe DB completely (public schema). Destructive.
+[doc('Wipe DB completely (public schema). Destructive.')]
 [group('db')]
 [script]
 db-clean:
@@ -127,13 +127,13 @@ db-clean:
     $COMPOSE exec -T db psql -U app -d appdb -c "DO \$\$ DECLARE r record; BEGIN FOR r IN (SELECT tablename FROM pg_tables WHERE schemaname='public') LOOP EXECUTE 'TRUNCATE ' || quote_ident(r.tablename) || ' RESTART IDENTITY CASCADE'; END LOOP; END \$\$;"
     printf "{{GREEN}}✓ Database wiped ($TARGET).{{NC}}\n"
 
-# Full reset: wipe + migrate + seed. Composite, inherits TARGET.
+[doc('Full reset: wipe + migrate + seed. Composite, inherits TARGET.')]
 [group('db')]
 db-reset: db-clean db-migrate db-seed
 
 # ─── Backup / restore ───────────────────────────────────────────────────────
 
-# Create SQL backup. Prod = gzip + GPG (recipient backup@aurore.local). Dev = plain .sql.
+[doc('Create SQL backup. Prod = gzip + GPG (recipient backup@aurore.local). Dev = plain .sql.')]
 [group('db')]
 [script]
 db-backup:
@@ -156,7 +156,7 @@ db-backup:
     fi
     printf "{{GREEN}}✓ Backup created ($TARGET): $BK{{NC}}\n"
 
-# Restore a backup. Usage: just db-restore ./backups/xxx.sql
+[doc('Restore a backup. Usage: just db-restore ./backups/xxx.sql')]
 [group('db')]
 [script]
 db-restore file:
@@ -172,19 +172,19 @@ db-restore file:
     esac
     printf "{{GREEN}}✓ Restore done ($TARGET){{NC}}\n"
 
-# [VPS] Alias of `TARGET=prod just db-backup` — the installed backup cron calls it by name.
+[doc('[VPS] Alias of `TARGET=prod just db-backup` — the installed backup cron calls it by name.')]
 [group('db')]
 db-backup-prod:
     @TARGET=prod just db-backup
 
-# [VPS] Delete backups older than 7 days (.sql.gz.gpg + legacy .sql.gz from the transition window).
+[doc('[VPS] Delete backups older than 7 days (.sql.gz.gpg + legacy .sql.gz from the transition window).')]
 [group('db')]
 db-backup-clean:
     find ./backups \( -name "*.sql.gz.gpg" -o -name "*.sql.gz" \) -mtime +7 -delete
     @printf "{{GREEN}}✓ Old backups deleted{{NC}}\n"
 
-# [VPS] Install daily cron (3am) for backups
 # Plain bash on purpose: banner then tolerant commands, no strict flags.
+[doc('[VPS] Install daily cron (3am) for backups')]
 [group('db')]
 [script('bash')]
 backup-cron-install:
@@ -197,16 +197,17 @@ backup-cron-install:
 
 # [Laptop] Incrementally copy encrypted prod backups over SSH, verify their GPG envelope and
 # refresh the local SHA-256 manifest. Default destination: ~/.local/state/aurore/offsite-backups.
+[doc('[Laptop] Pull encrypted prod backups over SSH, verify GPG, refresh the SHA-256 manifest.')]
 [group('db')]
 backup-offsite-pull:
     @scripts/pull-backups.sh
 
-# [Laptop] Install (without enabling) the daily 04:00 user-systemd timer for the offsite pull.
+[doc('[Laptop] Install (without enabling) the daily 04:00 user-systemd timer for the offsite pull.')]
 [group('db')]
 backup-offsite-timer-install:
     @scripts/install-backup-pull-timer.sh
 
-# [Laptop] Show timer schedule and the latest pull result.
+[doc('[Laptop] Show timer schedule and the latest pull result.')]
 [group('db')]
 backup-offsite-status:
     @systemctl --user list-timers aurore-backup-pull.timer --no-pager
@@ -214,7 +215,7 @@ backup-offsite-status:
 
 # ─── Snapshot (dev-only — committable file, dev source of truth) ────────────
 
-# Dump data → backend/src/db/snapshot/data.sql (committable, dev source of truth)
+[doc('Dump data → backend/src/db/snapshot/data.sql (committable, dev source of truth)')]
 [group('db')]
 [script]
 db-snapshot:
@@ -239,7 +240,7 @@ db-snapshot:
     mv "$TMP" {{SNAPSHOT_FILE}}
     printf "{{GREEN}}✓ Snapshot written: {{SNAPSHOT_FILE}} ($(wc -l < {{SNAPSHOT_FILE}}) lines, $(du -h {{SNAPSHOT_FILE}} | cut -f1)){{NC}}\n"
 
-# Reload snapshot/data.sql into DB — requires migrated schema. Dev-only.
+[doc('Reload snapshot/data.sql into DB — requires migrated schema. Dev-only. Env: ASSUME_YES=1 (skip the confirmation, used by db-snapshot-reset).')]
 [group('db')]
 [script]
 db-snapshot-load:
@@ -259,7 +260,7 @@ db-snapshot-load:
     {{COMPOSE_DEV}} exec -T db psql -U app -d appdb -v ON_ERROR_STOP=1 < {{SNAPSHOT_FILE}} > /dev/null
     printf "{{GREEN}}✓ Snapshot loaded{{NC}}\n"
 
-# Clean + migrate + load snapshot (alternative to db-reset which uses seed TS). Dev-only.
+[doc('Clean + migrate + load snapshot (alternative to db-reset which uses seed TS). Dev-only.')]
 [group('db')]
 db-snapshot-reset: db-clean db-migrate
     {{COMPOSE_DEV}} exec -T db psql -U app -d appdb -v ON_ERROR_STOP=1 < {{SNAPSHOT_FILE}} > /dev/null
@@ -267,6 +268,7 @@ db-snapshot-reset: db-clean db-migrate
 
 # Catalogue-only snapshot for prod seeding (no users/reviews/runtime). Owner FK
 # rewritten to __OWNER_ID__. Dev-only (reads dev DB); run after a reconcile.
+[doc('Catalogue-only snapshot for prod seeding (no users/reviews/runtime). Dev-only.')]
 [group('db')]
 [script]
 db-catalogue-snapshot:
@@ -287,7 +289,7 @@ db-catalogue-snapshot:
     LEAK=$(grep -c "@seed.local\|@seed.com" {{CATALOGUE_FILE}} || true)
     printf "{{GREEN}}✓ Catalogue snapshot: {{CATALOGUE_FILE}} ($(wc -l < {{CATALOGUE_FILE}}) lines, $(du -h {{CATALOGUE_FILE}} | cut -f1)); seed-email lines: $LEAK{{NC}}\n"
 
-# Create the prod catalogue owner from ADMIN_EMAIL/ADMIN_PASSWORD (idempotent).
+[doc('Create the prod catalogue owner from ADMIN_EMAIL/ADMIN_PASSWORD (idempotent).')]
 [group('db')]
 [script]
 db-prod-admin:
@@ -298,6 +300,7 @@ db-prod-admin:
 
 # Load catalogue.sql into a freshly-migrated DB, owned by the db-prod-admin user.
 # Refuses if products already populated. Run db-prod-admin first.
+[doc('Load catalogue.sql into a freshly-migrated DB as db-prod-admin. Refuses a populated DB.')]
 [group('db')]
 [script]
 db-catalogue-load:

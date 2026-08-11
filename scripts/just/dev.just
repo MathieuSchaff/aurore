@@ -2,15 +2,18 @@ import '_vars.just'
 
 ALGO_DERM_DIR := "../algo-derm"
 
-# Launch dev environment after host-side TypeScript preflight
+[doc('Launch dev environment after host-side TypeScript preflight')]
+[group('dev')]
 dev: ts-build _db-guard
     {{COMPOSE_DEV}} up --build
 
-# Stop dev environment
+[doc('Stop dev environment')]
+[group('dev')]
 dev-down:
     {{COMPOSE_DEV}} down
 
-# Launch dev in background after host-side TypeScript preflight
+[doc('Launch dev in background after host-side TypeScript preflight')]
+[group('dev')]
 dev-d: ts-build _db-guard
     {{COMPOSE_DEV}} up -d --build
 
@@ -49,6 +52,8 @@ _db-guard:
 # /api → the running dev backend. Faithful browser-facing transport, unlike
 # `vite preview` (HTTP/1.1, no compression, no cache headers). Prereq: `just dev-d`.
 # Open https://localhost and accept the self-signed cert. Teardown: `just profile-prod-down`.
+[doc('Prod-like LCP profiling stack (real edge nginx + prod SSR build). Prereq: just dev-d.')]
+[group('dev')]
 [script]
 profile-prod: ts-build
     if [ -z "$(docker ps -q -f name=app_api -f status=running)" ]; then
@@ -74,26 +79,30 @@ profile-prod: ts-build
     docker exec aurore_profile_edge nginx -s reload 2>/dev/null || true
     printf "{{GREEN}}✓ Profiling up → https://localhost (accept the self-signed cert). Down: just profile-prod-down{{NC}}\n"
 
-# Tear down the LCP profiling stack + detach the dev backend from its network
+[doc('Tear down the LCP profiling stack + detach the dev backend from its network')]
+[group('dev')]
 profile-prod-down:
     docker network disconnect aurore-profile_profilenet app_api 2>/dev/null || true
     {{COMPOSE_PROFILE}} down
     @printf "{{GREEN}}✓ Profiling stack down{{NC}}\n"
 
-# Full clean + install + types + docker (preserves pgdata)
+[doc('Full clean + install + types + docker (preserves pgdata)')]
+[group('dev')]
 dev-fresh: ts-clean install-deps ts-build
     {{COMPOSE_DEV}} down 2>/dev/null || true
     just _db-guard
     {{COMPOSE_DEV}} up --build
 
-# Full rebuild without cache (after adding dependencies)
+[doc('Full rebuild without cache (after adding dependencies)')]
+[group('dev')]
 dev-rebuild: ts-build
     {{COMPOSE_DEV}} down
     {{COMPOSE_DEV}} build --no-cache
     just _db-guard
     {{COMPOSE_DEV}} up
 
-# First-time setup: deps + env template + hooks
+[doc('First-time setup: deps + env template + hooks')]
+[group('setup')]
 [script]
 init: install-deps
     # Compose creates missing bind-mount sources as root, which the api container
@@ -119,19 +128,22 @@ init: install-deps
     fi
     printf "{{GREEN}}✓ Project ready. Next: just dev-fresh{{NC}}\n"
 
-# Install git hooks through mise; fresh clones are trusted before mise runs.
+[doc('Install git hooks through mise; fresh clones are trusted before mise runs.')]
+[group('setup')]
 setup-hooks:
     mise trust --quiet
     mise exec -- lefthook install
     @printf "{{GREEN}}✓ Git hooks installed{{NC}}\n"
 
-# Install deps from root (host)
+[doc('Install deps from root (host)')]
+[group('setup')]
 install-deps:
     @printf "{{CYAN}}Installing monorepo dependencies...{{NC}}\n"
     bun install
     @printf "{{GREEN}}✓ Dependencies installed{{NC}}\n"
 
-# Install deps in CI: the lockfile is law, any drift fails the job.
+[doc('Install deps in CI: the lockfile is law, any drift fails the job.')]
+[group('setup')]
 install-deps-ci:
     @printf "{{CYAN}}Installing monorepo dependencies (frozen lockfile)...{{NC}}\n"
     bun install --frozen-lockfile
@@ -144,6 +156,8 @@ install-deps-ci:
 # bump CALIBRATED_FOR_TAG_DEFS_VERSION, cut a fresh `vNN-aurore` pin branch in
 # algo-derm at the target commit, then point the default below at it (a named pin,
 # not `main`, since `main` is usually the active algo-derm checkout → worktree clash).
+[doc('Rebuild the algo-derm tarball in vendor/ from a pinned ref (+ bun install --force). Env: ALGO_DERM_REF (pin branch, default v36-aurore).')]
+[group('setup')]
 [script]
 vendor-algo-derm:
     REF="${ALGO_DERM_REF:-v36-aurore}"
@@ -176,29 +190,34 @@ vendor-algo-derm:
     bun install --force
     printf "{{GREEN}}✓ Deps reinstalled (algo-derm@%s from tarball, host cache purged){{NC}}\n" "$REF"
 
-# Full backend rebuild (volumes + image)
+[doc('Full backend rebuild (volumes + image)')]
+[group('dev')]
 reinstall-backend:
     {{COMPOSE_DEV}} down
     {{COMPOSE_DEV}} build --no-cache api
     {{COMPOSE_DEV}} up -d
     @printf "{{GREEN}}✓ Backend reinstalled{{NC}}\n"
 
-# Watch TypeScript (generates types for editor)
+[doc('Watch TypeScript (generates types for editor)')]
+[group('types')]
 ts-check:
     bunx tsc -b --watch
 
-# Host-side preflight: TanStack routes + TypeScript project check
+[doc('Host-side preflight: TanStack routes + TypeScript project check')]
+[group('types')]
 ts-build:
     @printf "{{CYAN}}Generating TanStack routes...{{NC}}\n"
     cd frontend && bunx @tanstack/router-cli generate
     @printf "{{CYAN}}TypeScript global check...{{NC}}\n"
     bunx tsc -b
 
-# Verify types without watch (end of session, incremental). Solution graph includes backend tests.
+[doc('Verify types without watch (end of session, incremental). Solution graph includes backend tests.')]
+[group('types')]
 ts-verify:
     bunx tsc -b
 
-# Remove all dist/ and TS caches
+[doc('Remove all dist/ and TS caches')]
+[group('types')]
 ts-clean:
     @printf "{{YELLOW}}Cleaning types...{{NC}}\n"
     rm -rf shared/dist backend/dist frontend/dist

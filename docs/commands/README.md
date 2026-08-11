@@ -3,7 +3,8 @@
 Every command you can run, grouped by the task you are trying to do. One table per file:
 command, what it does, what it writes.
 
-`just --list` is the live list of recipes. These pages carry what a recipe name cannot say —
+`just --list` is the live list of recipes, grouped the same way as the pages below
+(`just --groups` names the groups). These pages carry what a recipe name cannot say —
 env vars, outputs, order, and the traps.
 
 | Page | Use it when |

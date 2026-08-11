@@ -16,8 +16,8 @@ import 'code.just'
 #   TARGET=prod WRITE=1 just backfill-auto-tags     # prod, confirmation required
 #   just audit-db-full                               # all read-only audits in one go
 
-# Run all read-only DB audits in sequence; never aborts mid-run, exits 1 if any failed. TARGET: dev|prod.
 # No -e: every audit must run, the exit code is decided at the end.
+[doc('Run all read-only DB audits in sequence; never aborts mid-run, exits 1 if any failed. TARGET: dev|prod.')]
 [group('audit')]
 [script('bash', '-uo', 'pipefail')]
 audit-db-full:

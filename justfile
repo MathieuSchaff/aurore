@@ -4,7 +4,7 @@ set shell := ["bash", "-c"]
 # flags keep their own `[script('bash', …)]`.
 set script-interpreter := ['bash', '-euo', 'pipefail']
 
-# Default (bare `just`): show the recruiter/contributor path, not every ops recipe.
+[doc('Default (bare `just`): show the recruiter/contributor path, not every ops recipe.')]
 default:
     @printf "{{ CYAN }}Aurore — common commands{{ NC }}\n"
     @printf "  First clone: just init, then just dev-fresh\n"

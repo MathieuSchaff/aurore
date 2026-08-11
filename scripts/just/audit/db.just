@@ -1,6 +1,6 @@
 # Live DB consistency / security / CDN-ref integrity audits (read-only).
 
-# Audit DB consistency (seed drift, relational integrity); full untruncated report → .audit-out/db/audit-db.$TARGET.md.
+[doc('Audit DB consistency (seed drift, relational integrity); full untruncated report → .audit-out/db/audit-db.$TARGET.md.')]
 [group('audit')]
 [script]
 audit-db:
@@ -11,7 +11,7 @@ audit-db:
     $COMPOSE exec -e AUDIT_DB_FULL=1 -w /app/backend api bun run src/db/audit/audit-db.ts \
         | tee "$(audit_out audit-db)"
 
-# Taxonomy-coherence audit (read-only): absence-claims on implausible kinds, product-type axis leak, concern⇄effect duplication. Info-only.
+[doc('Taxonomy-coherence audit (read-only): absence-claims on implausible kinds, product-type axis leak, concern⇄effect duplication. Info-only.')]
 [group('audit')]
 [script]
 audit-taxonomy:
@@ -22,7 +22,7 @@ audit-taxonomy:
     $COMPOSE exec -w /app/backend api bun run src/db/audit/audit-taxonomy.ts \
         | tee "$(audit_out audit-taxonomy)"
 
-# Scan DB rows for suspicious URLs / HTML injection; exit 1 on high-severity. Env: WRITE=1 (auto-fix), CSV_OUT (export). TARGET: dev|prod (prod+WRITE → confirm).
+[doc('Scan DB rows for suspicious URLs / HTML injection; exit 1 on high-severity. Env: WRITE=1 (auto-fix), CSV_OUT (export). TARGET: dev|prod (prod+WRITE → confirm).')]
 [group('audit')]
 [script]
 audit-security:
@@ -38,7 +38,7 @@ audit-security:
         -w /app/backend api bun run src/db/audit/audit-security.ts \
         | tee "$(audit_out audit-security)"
 
-# Authoritative CDN⇄DB audit: Bunny orphans, broken DB refs, reachability sample. Read-only.
+[doc('Authoritative CDN⇄DB audit: Bunny orphans, broken DB refs, reachability sample. Read-only.')]
 [group('audit')]
 [script]
 audit-cdn:

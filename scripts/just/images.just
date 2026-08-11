@@ -45,7 +45,7 @@ image-build-mapping:
     printf "{{CYAN}}Build image mapping ($TARGET)...{{NC}}\n"
     $COMPOSE exec -w /app/backend api bun run src/images/maintenance/build-mapping.ts
 
-# Reconcile DB image_url ⇄ Bunny from image-mapping.json (rename/nullify/cleanup). Writes DB+CDN. Env: WRITE (omit = dry-run). TARGET: dev|prod (prod+WRITE → confirm).
+[doc('Reconcile DB image_url ⇄ Bunny from image-mapping.json (rename/nullify/cleanup). Writes DB+CDN. Env: WRITE (omit = dry-run). TARGET: dev|prod (prod+WRITE → confirm).')]
 [group('images')]
 [script]
 image-fix-refs:

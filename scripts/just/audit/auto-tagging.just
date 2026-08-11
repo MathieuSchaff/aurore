@@ -1,6 +1,6 @@
 # Auto-tagging audits (read-only dry-runs against algo-derm + formula passes).
 
-# Dry-run auto-tagging via algo-derm (read-only). Env: CONF_OVERRIDE, CSV_OUT, LIMIT, INCLUDE_DROPPED, DUMP_BUDGETS, CHECK, DUMP_BENEFITS, BENEFITS_OUT, DISABLE_FLOORS.
+[doc('Dry-run auto-tagging via algo-derm (read-only). Env: CONF_OVERRIDE, CSV_OUT, LIMIT, INCLUDE_DROPPED, DUMP_BUDGETS, CHECK, DUMP_BENEFITS, BENEFITS_OUT, DISABLE_FLOORS.')]
 [group('audit')]
 [script]
 audit-auto-tags:
@@ -21,7 +21,7 @@ audit-auto-tags:
         -w /app/backend api bun run src/features/auto-tagging/runners/audit/main.ts \
         | tee "$(audit_out audit-auto-tags)"
 
-# Calibration drift: hit_rate per (slug,category) vs TAG_HIT_RATE_BUDGET; exit 1 on FAIL, out-of-budget → WARN (warn-only).
+[doc('Calibration drift: hit_rate per (slug,category) vs TAG_HIT_RATE_BUDGET; exit 1 on FAIL, out-of-budget → WARN (warn-only).')]
 [group('audit')]
 [script]
 audit-auto-tags-check:
@@ -32,7 +32,7 @@ audit-auto-tags-check:
     $COMPOSE exec -e CHECK=1 -w /app/backend api bun run src/features/auto-tagging/runners/audit/main.ts \
         | tee "$(audit_out audit-auto-tags-check)"
 
-# Detect kind mistags the name-regex misses, via INCI signal (wash kind w/o surfactant). Read-only, report-only.
+[doc('Detect kind mistags the name-regex misses, via INCI signal (wash kind w/o surfactant). Read-only, report-only.')]
 [group('audit')]
 [script]
 audit-kind-inci:
@@ -46,6 +46,7 @@ audit-kind-inci:
 # Detect visible SPF products (name or kind=sunscreen) with no filtre-uv ingredient linked.
 # Report-only: the cause is an empty/weak source INCI (scrape), not a linking bug. Catches a
 # new hole right after a catalogue ingest.
+[doc('Visible SPF products with no filtre-uv ingredient linked. Report-only.')]
 [group('audit')]
 [script]
 audit-uv-filters:
@@ -56,7 +57,7 @@ audit-uv-filters:
     $COMPOSE exec -w /app/backend api bun run src/features/auto-tagging/runners/audit/uv-filters-coverage.ts \
         | tee "$(audit_out audit-uv-filters)"
 
-# Detect sans-sulfates false negatives: leave-on products denied the claim by a cetearyl/coceth emulsifier. Read-only.
+[doc('Detect sans-sulfates false negatives: leave-on products denied the claim by a cetearyl/coceth emulsifier. Read-only.')]
 [group('audit')]
 [script]
 audit-sans-sulfates:
@@ -67,7 +68,7 @@ audit-sans-sulfates:
     $COMPOSE exec -w /app/backend api bun run src/features/auto-tagging/runners/audit/sans-sulfates-coherence.ts \
         | tee "$(audit_out audit-sans-sulfates)"
 
-# Detect absence tags (sans-parfum, sans-silicones, …) whose own INCI declares the thing they deny. Read-only, report-only.
+[doc('Detect absence tags (sans-parfum, sans-silicones, …) whose own INCI declares the thing they deny. Read-only, report-only.')]
 [group('audit')]
 [script]
 audit-tag-contradictions:
@@ -78,7 +79,7 @@ audit-tag-contradictions:
     $COMPOSE exec -w /app/backend api bun run src/features/auto-tagging/runners/audit/tag-contradictions.ts \
         | tee "$(audit_out audit-tag-contradictions)"
 
-# Audit products.kind mistags via name patterns. Read-only. Apply reviewed fixes via `just db-fix`. Env: SLUG (single product).
+[doc('Audit products.kind mistags via name patterns. Read-only. Apply reviewed fixes via `just db-fix`. Env: SLUG (single product).')]
 [group('audit')]
 [script]
 audit-product-kinds:
@@ -90,7 +91,7 @@ audit-product-kinds:
         ${SLUG:+--slug "$SLUG"} \
         | tee "$(audit_out audit-product-kinds)"
 
-# Snapshot/diff orchestrator output. Env: CSV_OUT (required), BASELINE, LIMIT.
+[doc('Snapshot/diff orchestrator output. Env: CSV_OUT (required), BASELINE, LIMIT.')]
 [group('audit')]
 [script]
 audit-orchestrator-diff:
@@ -108,7 +109,7 @@ audit-orchestrator-diff:
         ${LIMIT:+-e LIMIT="$LIMIT"} \
         -w /app/backend api bun run src/features/auto-tagging/runners/audit/orchestrator-diff.ts
 
-# Dry-run pharmacological cluster audit (pass 2). Env: LIMIT.
+[doc('Dry-run pharmacological cluster audit (pass 2). Env: LIMIT, DUMP_DRIFT (rows that changed cluster), DUMP_NEW (rows the pass newly claims).')]
 [group('audit')]
 [script]
 audit-actif-class:
@@ -123,7 +124,7 @@ audit-actif-class:
         -w /app/backend api bun run src/features/auto-tagging/runners/audit/actif-class.ts \
         | tee "$(audit_out audit-actif-class)"
 
-# Audit AHA/BHA/PHA manual overrides. Env: CSV_OUT, CSV_DIR, LIMIT, WRITE (destructive), APPLY_FROM_CSV.
+[doc('Audit AHA/BHA/PHA manual overrides. Env: CSV_OUT, CSV_DIR, LIMIT, WRITE (destructive), APPLY_FROM_CSV.')]
 [group('audit')]
 [script]
 audit-aha-bha-pha:
@@ -145,7 +146,7 @@ audit-aha-bha-pha:
         -w /app/backend api bun run src/features/auto-tagging/runners/audit/aha-bha-pha-overrides.ts \
         | tee "$(audit_out audit-aha-bha-pha)"
 
-# Benchmark orchestrator vs gold-set (precision/recall/Brier/ECE per tag). Env: GOLD_SET_PATH, CSV_OUT, STRICT.
+[doc('Benchmark orchestrator vs gold-set (precision/recall/Brier/ECE per tag). Env: GOLD_SET_PATH, CSV_OUT, STRICT.')]
 [group('audit')]
 [script]
 audit-gold-set:
@@ -160,7 +161,7 @@ audit-gold-set:
         -w /app/backend api bun run src/features/auto-tagging/runners/audit/gold-set.ts \
         | tee "$(audit_out audit-gold-set)"
 
-# Audit algo-derm concentration solver vs brand-claim % (product_ingredients.concentration_value); per-slug + global MAE/RMSE + CI coverage. Env: JSON_OUT, SLUG.
+[doc('Audit algo-derm concentration solver vs brand-claim % (product_ingredients.concentration_value); per-slug + global MAE/RMSE + CI coverage. Env: JSON_OUT, SLUG.')]
 [group('audit')]
 [script]
 audit-concentration-solver:

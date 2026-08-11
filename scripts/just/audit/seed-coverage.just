@@ -2,7 +2,7 @@
 # (without tags / ingredients) lives in `just audit-db`; the ingredient-tag
 # audit below is the one DB-live exception in this file.
 
-# Seed ingredient slug sync: missing in data, ghosts, duplicates. Read-only.
+[doc('Seed ingredient slug sync: missing in data, ghosts, duplicates. Read-only.')]
 [group('audit')]
 [script]
 audit-ingredients-sync:
@@ -13,7 +13,7 @@ audit-ingredients-sync:
     $COMPOSE exec -w /app/backend api bun run src/db/seed/maintenance/audit-ingredients-sync.ts \
         | tee "$(audit_out audit-ingredients-sync)"
 
-# Live-DB ingredient tag coverage: ingredients with no tag at all. Read-only.
+[doc('Live-DB ingredient tag coverage: ingredients with no tag at all. Read-only.')]
 [group('audit')]
 [script]
 audit-ingredient-tags-coverage:
@@ -24,7 +24,7 @@ audit-ingredient-tags-coverage:
     $COMPOSE exec -w /app/backend api bun run src/db/seed/maintenance/audit-ingredient-tags-coverage.ts \
         | tee "$(audit_out audit-ingredient-tags-coverage)"
 
-# INCI corpus audit: unmatched tokens, pathological INCI. Env: FULL.
+[doc('INCI corpus audit: unmatched tokens, pathological INCI. Env: FULL.')]
 [group('audit')]
 [script]
 audit-inci-quality:
