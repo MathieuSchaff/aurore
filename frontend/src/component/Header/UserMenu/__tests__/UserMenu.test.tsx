@@ -1,15 +1,12 @@
-import { useQuery } from '@tanstack/react-query'
-import { fireEvent, render, screen } from '@testing-library/react'
+import { fireEvent, screen } from '@testing-library/react'
+import { HttpResponse, http } from 'msw'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
 import { useLogout } from '@/lib/queries/auth'
 import { useAuthStore } from '@/store/auth'
+import { server } from '@/test/msw/server'
+import { renderWithProviders } from '@/test/utils'
 import { UserMenu } from '../UserMenu'
-
-vi.mock('@tanstack/react-query', async () => ({
-  ...(await vi.importActual<typeof import('@tanstack/react-query')>('@tanstack/react-query')),
-  useQuery: vi.fn(),
-}))
 
 vi.mock('@tanstack/react-router', async () => ({
   ...(await vi.importActual<typeof import('@tanstack/react-router')>('@tanstack/react-router')),
@@ -23,34 +20,28 @@ vi.mock('@/lib/queries/auth', () => ({
   useLogout: vi.fn(),
 }))
 
-vi.mock('@/store/auth', () => ({
-  useAuthStore: vi.fn(),
-}))
-
-// Delegate to the selector-aware mock: the component now reads several distinct fields
-// (accessToken, role, bootRefreshPending), so a flat mockReturnValue feeds them all the
-// same boolean and breaks the bootRefreshPending branch.
 function setAuthState(isAuthenticated: boolean) {
   setAuthStore({ accessToken: isAuthenticated ? 'tok' : null, role: 'user' })
 }
 
-// Selector-aware mock: applies the component's selector to a fake auth state so
-// useAuthStore(s => !!s.accessToken) and useAuthStore(s => s.role === 'admin')
-// each resolve correctly (mockReturnValue can't, it ignores the selector).
 function setAuthStore(state: {
   accessToken: string | null
   role: 'user' | 'admin' | 'contributor'
 }) {
-  vi.mocked(useAuthStore).mockImplementation(
-    (selector: unknown) => (selector as (s: typeof state) => unknown)(state) as never
-  )
+  useAuthStore.setState(state)
 }
 
+// Counts the /profile fetches so the `enabled` gate can be asserted on the wire
+// rather than on the arguments handed to useQuery.
+let profileHits = 0
+
 function setProfile(profile: { username?: string; avatarUrl?: string | null } | null) {
-  vi.mocked(useQuery).mockReturnValue({
-    data: profile,
-    isLoading: false,
-  } as unknown as ReturnType<typeof useQuery>)
+  server.use(
+    http.get('*/api/profile', () => {
+      profileHits += 1
+      return HttpResponse.json({ success: true, data: profile })
+    })
+  )
 }
 
 function openMenu() {
@@ -60,6 +51,7 @@ function openMenu() {
 describe('UserMenu', () => {
   beforeEach(() => {
     vi.clearAllMocks()
+    profileHits = 0
     setAuthState(false)
     setProfile({ username: 'mathieu', avatarUrl: null })
     vi.mocked(useLogout).mockReturnValue({
@@ -70,7 +62,7 @@ describe('UserMenu', () => {
 
   it('shows auth shortcuts in the dropdown when the user is not authenticated', () => {
     setAuthState(false)
-    render(<UserMenu />)
+    renderWithProviders(<UserMenu />)
     openMenu()
 
     expect(screen.getByText(/Connexion/)).toBeInTheDocument()
@@ -80,7 +72,7 @@ describe('UserMenu', () => {
 
   it('shows profile + logout entries when the user is authenticated', () => {
     setAuthState(true)
-    render(<UserMenu />)
+    renderWithProviders(<UserMenu />)
     openMenu()
 
     expect(screen.getByText(/Profil/)).toBeInTheDocument()
@@ -95,7 +87,7 @@ describe('UserMenu', () => {
       isPending: false,
     } as unknown as ReturnType<typeof useLogout>)
     setAuthState(true)
-    render(<UserMenu />)
+    renderWithProviders(<UserMenu />)
     openMenu()
 
     fireEvent.click(screen.getByText(/Déconnexion/))
@@ -106,7 +98,7 @@ describe('UserMenu', () => {
   // « Modération » reaches admins and contributors, and points at the reports queue.
   it('shows the Modération link to /admin/reports for an admin', () => {
     setAuthStore({ accessToken: 'tok', role: 'admin' })
-    render(<UserMenu />)
+    renderWithProviders(<UserMenu />)
     openMenu()
 
     const link = screen.getByRole('link', { name: /Modération/i })
@@ -115,7 +107,7 @@ describe('UserMenu', () => {
 
   it('shows the Modération link for a contributor', () => {
     setAuthStore({ accessToken: 'tok', role: 'contributor' })
-    render(<UserMenu />)
+    renderWithProviders(<UserMenu />)
     openMenu()
 
     expect(screen.getByRole('link', { name: /Modération/i })).toBeInTheDocument()
@@ -123,37 +115,39 @@ describe('UserMenu', () => {
 
   it('hides Modération from a plain user', () => {
     setAuthStore({ accessToken: 'tok', role: 'user' })
-    render(<UserMenu />)
+    renderWithProviders(<UserMenu />)
     openMenu()
 
     expect(screen.queryByText(/Modération/i)).not.toBeInTheDocument()
   })
 
-  it('does not probe /profile when unauthenticated (enabled gated on accessToken)', () => {
+  it('does not probe /profile when unauthenticated (enabled gated on accessToken)', async () => {
     setAuthStore({ accessToken: null, role: 'user' })
-    render(<UserMenu />)
+    renderWithProviders(<UserMenu />)
 
-    expect(useQuery).toHaveBeenCalledWith(expect.objectContaining({ enabled: false }))
+    await screen.findByRole('button', { name: 'Menu utilisateur' })
+    expect(profileHits).toBe(0)
   })
 
   it('does not expose a cached profile after the session ends', () => {
     setAuthState(false)
     setProfile({ username: 'mathieu', avatarUrl: null })
 
-    render(<UserMenu />)
+    renderWithProviders(<UserMenu />)
 
     expect(screen.getByRole('img', { name: 'Avatar par défaut' })).toBeInTheDocument()
     expect(screen.queryByRole('img', { name: 'Avatar de mathieu' })).not.toBeInTheDocument()
   })
 
-  it('renders the username next to the avatar only in the drawer variant', () => {
+  it('renders the username next to the avatar only in the drawer variant', async () => {
     setAuthState(true)
     setProfile({ username: 'mathieu', avatarUrl: null })
 
-    const { rerender } = render(<UserMenu variant="bar" />)
+    const { rerender } = renderWithProviders(<UserMenu variant="bar" />)
+    await screen.findByRole('img', { name: 'Avatar de mathieu' })
     expect(screen.queryByText('mathieu')).not.toBeInTheDocument()
 
     rerender(<UserMenu variant="drawer" />)
-    expect(screen.getByText('mathieu')).toBeInTheDocument()
+    expect(await screen.findByText('mathieu')).toBeInTheDocument()
   })
 })

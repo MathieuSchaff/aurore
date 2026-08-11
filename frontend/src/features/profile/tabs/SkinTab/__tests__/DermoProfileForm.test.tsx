@@ -1,34 +1,36 @@
-import { useSuspenseQuery } from '@tanstack/react-query'
-import { fireEvent, render, screen } from '@testing-library/react'
+import { fireEvent, screen } from '@testing-library/react'
+import { HttpResponse, http } from 'msw'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
 import { useUpdateDermoProfile } from '@/lib/queries/profile'
+import { server } from '@/test/msw/server'
+import { renderWithProviders } from '@/test/utils'
 import { DermoProfileForm } from '../DermoProfileForm'
 
-vi.mock('@tanstack/react-query', async () => ({
-  ...(await vi.importActual<typeof import('@tanstack/react-query')>('@tanstack/react-query')),
-  useSuspenseQuery: vi.fn(),
-}))
+vi.mock('@/lib/queries/profile', async (importOriginal) => {
+  const actual = await importOriginal<typeof import('@/lib/queries/profile')>()
+  return { ...actual, useUpdateDermoProfile: vi.fn() }
+})
 
-vi.mock('@/lib/queries/profile', () => ({
-  profileQueries: { dermo: vi.fn(() => ({ queryKey: ['profile', 'dermo'] })) },
-  useUpdateDermoProfile: vi.fn(),
-}))
-
-function setDermo(dermo: {
+function serveDermo(dermo: {
   skinTypes?: string[]
   fitzpatrickType?: number | null
   skinConcerns?: string[]
   privateNotes?: string | null
 }) {
-  vi.mocked(useSuspenseQuery).mockReturnValue({
-    data: {
-      skinTypes: dermo.skinTypes ?? [],
-      fitzpatrickType: dermo.fitzpatrickType ?? null,
-      skinConcerns: dermo.skinConcerns ?? [],
-      privateNotes: dermo.privateNotes ?? null,
-    },
-  } as unknown as ReturnType<typeof useSuspenseQuery>)
+  server.use(
+    http.get('*/api/profile/dermo', () =>
+      HttpResponse.json({
+        success: true,
+        data: {
+          skinTypes: dermo.skinTypes ?? [],
+          fitzpatrickType: dermo.fitzpatrickType ?? null,
+          skinConcerns: dermo.skinConcerns ?? [],
+          privateNotes: dermo.privateNotes ?? null,
+        },
+      })
+    )
+  )
 }
 
 function setMutation(overrides: Partial<ReturnType<typeof useUpdateDermoProfile>> = {}) {
@@ -46,26 +48,26 @@ function setMutation(overrides: Partial<ReturnType<typeof useUpdateDermoProfile>
 describe('DermoProfileForm', () => {
   beforeEach(() => {
     vi.clearAllMocks()
-    setDermo({})
+    serveDermo({})
     setMutation()
   })
 
-  it('keeps submit disabled until a field becomes dirty', () => {
-    render(<DermoProfileForm />)
-    expect(screen.getByRole('button', { name: 'Enregistrer' })).toBeDisabled()
+  it('keeps submit disabled until a field becomes dirty', async () => {
+    renderWithProviders(<DermoProfileForm />)
+    expect(await screen.findByRole('button', { name: 'Enregistrer' })).toBeDisabled()
 
     fireEvent.click(screen.getByRole('button', { name: 'Mixte' }))
 
     expect(screen.getByRole('button', { name: 'Enregistrer' })).not.toBeDisabled()
   })
 
-  it('submits the form with current skinTypes / fitz / concerns / notes', () => {
+  it('submits the form with current skinTypes / fitz / concerns / notes', async () => {
     const mutate = setMutation()
-    setDermo({ skinTypes: ['peau-mixte'], fitzpatrickType: 3 })
-    render(<DermoProfileForm />)
+    serveDermo({ skinTypes: ['peau-mixte'], fitzpatrickType: 3 })
+    renderWithProviders(<DermoProfileForm />)
 
     // Dirty up: pick a concern chip.
-    fireEvent.click(screen.getByRole('button', { name: 'Acné' }))
+    fireEvent.click(await screen.findByRole('button', { name: 'Acné' }))
 
     fireEvent.click(screen.getByRole('button', { name: 'Enregistrer' }))
 
@@ -78,26 +80,28 @@ describe('DermoProfileForm', () => {
     })
   })
 
-  it('coerces empty privateNotes to null so the DB row stores SQL NULL, not ""', () => {
+  it('coerces empty privateNotes to null so the DB row stores SQL NULL, not ""', async () => {
     const mutate = setMutation()
-    render(<DermoProfileForm />)
+    renderWithProviders(<DermoProfileForm />)
 
-    fireEvent.click(screen.getByRole('button', { name: 'Sensible' }))
+    fireEvent.click(await screen.findByRole('button', { name: 'Sensible' }))
     fireEvent.click(screen.getByRole('button', { name: 'Enregistrer' }))
 
     expect(mutate.mock.calls[0][0].privateNotes).toBeNull()
   })
 
-  it('surfaces the error banner when the update fails', () => {
+  it('surfaces the error banner when the update fails', async () => {
     setMutation({ isError: true })
-    render(<DermoProfileForm />)
-    expect(screen.getByText('Une erreur est survenue lors de la sauvegarde.')).toBeInTheDocument()
+    renderWithProviders(<DermoProfileForm />)
+    expect(
+      await screen.findByText('Une erreur est survenue lors de la sauvegarde.')
+    ).toBeInTheDocument()
   })
 
-  it('associates section descriptions and the character hint with their controls', () => {
-    render(<DermoProfileForm />)
+  it('associates section descriptions and the character hint with their controls', async () => {
+    renderWithProviders(<DermoProfileForm />)
 
-    expect(screen.getByRole('group', { name: 'Type de peau' })).toHaveAccessibleDescription(
+    expect(await screen.findByRole('group', { name: 'Type de peau' })).toHaveAccessibleDescription(
       "Sélectionnez jusqu'à 3 types."
     )
     expect(screen.getByRole('textbox', { name: 'Notes privées' })).toHaveAccessibleDescription(

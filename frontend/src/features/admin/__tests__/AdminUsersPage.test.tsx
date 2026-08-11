@@ -1,13 +1,11 @@
-import { useSuspenseQuery } from '@tanstack/react-query'
+import type { AdminUserListItem } from '@aurore/shared'
+
 import { fireEvent, screen } from '@testing-library/react'
-import { beforeEach, describe, expect, it, vi } from 'vitest'
+import { HttpResponse, http } from 'msw'
+import { describe, expect, it, vi } from 'vitest'
 
+import { server } from '@/test/msw/server'
 import { renderWithProviders } from '@/test/utils'
-
-vi.mock('@tanstack/react-query', async () => ({
-  ...(await vi.importActual<typeof import('@tanstack/react-query')>('@tanstack/react-query')),
-  useSuspenseQuery: vi.fn(),
-}))
 
 vi.mock('@tanstack/react-router', async () => ({
   ...(await vi.importActual<typeof import('@tanstack/react-router')>('@tanstack/react-router')),
@@ -19,7 +17,7 @@ vi.mock('@tanstack/react-router', async () => ({
 import { AdminUsersPage } from '../components/AdminUsersPage'
 import { adminLabels } from '../constants'
 
-const baseUsers = [
+const baseUsers: AdminUserListItem[] = [
   {
     id: '019d0000-0000-7000-8000-00000000aaaa',
     email: 'alice@seed.local',
@@ -38,31 +36,27 @@ const baseUsers = [
   },
 ]
 
-function mockUsers(items: typeof baseUsers) {
-  vi.mocked(useSuspenseQuery).mockReturnValue({
-    data: { items },
-  } as unknown as ReturnType<typeof useSuspenseQuery>)
+function serveUsers(items: AdminUserListItem[]) {
+  server.use(
+    http.get('*/api/admin/users', () => HttpResponse.json({ success: true, data: { items } }))
+  )
 }
 
 describe('AdminUsersPage', () => {
-  beforeEach(() => {
-    vi.clearAllMocks()
-  })
-
-  it('renders all users when search is empty', () => {
-    mockUsers(baseUsers)
+  it('renders all users when search is empty', async () => {
+    serveUsers(baseUsers)
     renderWithProviders(<AdminUsersPage />)
 
-    expect(screen.getByText('alice@seed.local')).toBeInTheDocument()
+    expect(await screen.findByText('alice@seed.local')).toBeInTheDocument()
     expect(screen.getByText('bob@seed.local')).toBeInTheDocument()
     expect(screen.getByText(/2 compte\(s\)/)).toBeInTheDocument()
   })
 
-  it('filters the table when typing in the search input (case-insensitive)', () => {
-    mockUsers(baseUsers)
+  it('filters the table when typing in the search input (case-insensitive)', async () => {
+    serveUsers(baseUsers)
     renderWithProviders(<AdminUsersPage />)
 
-    const search = screen.getByLabelText(/Rechercher par email/i)
+    const search = await screen.findByLabelText(/Rechercher par email/i)
     fireEvent.change(search, { target: { value: 'ALICE' } })
 
     expect(screen.getByText('alice@seed.local')).toBeInTheDocument()
@@ -70,27 +64,27 @@ describe('AdminUsersPage', () => {
     expect(screen.getByText(/1 filtré/)).toBeInTheDocument()
   })
 
-  it('shows the contextual empty state when search has no match', () => {
-    mockUsers(baseUsers)
+  it('shows the contextual empty state when search has no match', async () => {
+    serveUsers(baseUsers)
     renderWithProviders(<AdminUsersPage />)
 
-    fireEvent.change(screen.getByLabelText(/Rechercher par email/i), {
+    fireEvent.change(await screen.findByLabelText(/Rechercher par email/i), {
       target: { value: 'nope' },
     })
     expect(screen.getByText(adminLabels.emptyUsersFiltered)).toBeInTheDocument()
   })
 
-  it('renders the "Forcé" pill only for users with forcedPrivateByAdmin', () => {
-    mockUsers(baseUsers)
+  it('renders the "Forcé" pill only for users with forcedPrivateByAdmin', async () => {
+    serveUsers(baseUsers)
     renderWithProviders(<AdminUsersPage />)
 
     // bob has forcedPrivateByAdmin = true; one pill must appear.
-    expect(screen.getAllByText('Forcé')).toHaveLength(1)
+    expect(await screen.findAllByText('Forcé')).toHaveLength(1)
   })
 
-  it('shows the no-users empty state when the list is empty', () => {
-    mockUsers([])
+  it('shows the no-users empty state when the list is empty', async () => {
+    serveUsers([])
     renderWithProviders(<AdminUsersPage />)
-    expect(screen.getByText(adminLabels.emptyUsers)).toBeInTheDocument()
+    expect(await screen.findByText(adminLabels.emptyUsers)).toBeInTheDocument()
   })
 })

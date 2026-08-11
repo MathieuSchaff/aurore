@@ -1,31 +1,12 @@
 import type { UserPublic } from '@aurore/shared'
 
-import { render, screen } from '@testing-library/react'
+import { screen } from '@testing-library/react'
+import { HttpResponse, http } from 'msw'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 
 import { useAuthStore } from '@/store/auth'
-import { makeUserProduct } from '@/test/utils'
-
-// Per-test query data, keyed by `queryKey.join('.')`. vi.hoisted so the mock
-// factory (hoisted above imports) can read it.
-const { mockQuery } = vi.hoisted(() => ({
-  mockQuery: { data: {} as Record<string, unknown>, errors: {} as Record<string, boolean> },
-}))
-
-vi.mock('@tanstack/react-query', async () => ({
-  ...(await vi.importActual<typeof import('@tanstack/react-query')>('@tanstack/react-query')),
-  useQuery: (opts: { queryKey: unknown[] }) => {
-    const key = opts.queryKey.join('.')
-    const isError = mockQuery.errors[key] ?? false
-    return {
-      data: isError ? undefined : mockQuery.data[key],
-      isLoading: false,
-      isPending: false,
-      isError,
-      refetch: vi.fn(),
-    }
-  },
-}))
+import { server } from '@/test/msw/server'
+import { makeUserProduct, renderWithProviders } from '@/test/utils'
 
 vi.mock('@tanstack/react-router', async () => ({
   ...(await vi.importActual<typeof import('@tanstack/react-router')>('@tanstack/react-router')), // Expose `to`/`search.tab`/`hash` so doorway deep-links are assertable.
@@ -62,45 +43,62 @@ import { HomeHub } from '../HomeHub'
 
 const fakeUser = { id: 'u1', username: 'lea' } as unknown as UserPublic
 
-function setQueries(data: Record<string, unknown>) {
-  mockQuery.data = data
+// The hub reads four independent endpoints; each test declares the four payloads
+// it needs, and `dermoFails` drives the degraded-portrait branch.
+function serveQueries(data: {
+  me: unknown
+  dermo?: unknown
+  list: unknown
+  privacy: unknown
+  dermoFails?: boolean
+}) {
+  server.use(
+    http.get('*/api/profile', () => HttpResponse.json({ success: true, data: data.me })),
+    http.get('*/api/profile/dermo', () =>
+      data.dermoFails
+        ? new HttpResponse(null, { status: 500 })
+        : HttpResponse.json({ success: true, data: data.dermo })
+    ),
+    http.get('*/api/user-products', () => HttpResponse.json({ success: true, data: data.list })),
+    http.get('*/api/profile/privacy-settings', () =>
+      HttpResponse.json({ success: true, data: data.privacy })
+    )
+  )
 }
 
 afterEach(() => {
   useAuthStore.setState({ user: null, role: 'user' })
-  mockQuery.data = {}
-  mockQuery.errors = {}
 })
 
 describe('HomeHub', () => {
-  it('renders a calm onboarding hub for a brand-new account', () => {
+  it('renders a calm onboarding hub for a brand-new account', async () => {
     useAuthStore.setState({ user: fakeUser, role: 'user' })
-    setQueries({
-      'profile.me': { createdAt: null },
-      'profile.dermo': {
+    serveQueries({
+      me: { createdAt: null },
+      dermo: {
         skinTypes: [],
         fitzpatrickType: null,
         skinConcerns: [],
         privateNotes: null,
       },
-      'user-products.list': [],
-      'profile.privacy': { discoverable: false },
+      list: [],
+      privacy: { discoverable: false },
     })
 
-    render(<HomeHub />)
+    renderWithProviders(<HomeHub />)
 
-    expect(screen.getByText(/Vos produits, vos notes et les raisons/)).toBeInTheDocument()
-    expect(screen.getByText(/Aucun produit pour l'instant/)).toBeInTheDocument()
-    expect(screen.getByText('Compléter mon profil')).toBeInTheDocument()
+    expect(await screen.findByText(/Vos produits, vos notes et les raisons/)).toBeInTheDocument()
+    expect(await screen.findByText(/Aucun produit pour l'instant/)).toBeInTheDocument()
+    expect(await screen.findByText('Compléter mon profil')).toBeInTheDocument()
     // Discovery off: land on the account tab that holds the toggle, not a dead-end.
-    const discoverCta = screen.getByText('Activer la découverte').closest('a')
+    const discoverCta = (await screen.findByText('Activer la découverte')).closest('a')
     expect(discoverCta).toHaveAttribute('href', '/profile')
     expect(discoverCta).toHaveAttribute('data-tab', 'account')
-    // …and deep-links to the toggle so it isn't lost mid-page.
+    // …and deep-links to the toggle so it isn't lost partway down the page.
     expect(discoverCta).toHaveAttribute('data-hash', 'discoverable')
   })
 
-  it('surfaces the last decision and live doorways for a returning user', () => {
+  it('surfaces the last decision and live doorways for a returning user', async () => {
     useAuthStore.setState({ user: fakeUser, role: 'user' })
     const recent = makeUserProduct({
       id: 'recent',
@@ -109,27 +107,29 @@ describe('HomeHub', () => {
       updatedAt: '2026-06-20T00:00:00.000Z',
       product: { ...makeUserProduct().product, brand: 'The Ordinary', name: 'Niacinamide 10%' },
     })
-    setQueries({
-      'profile.me': { createdAt: '2026-01-15T00:00:00.000Z' },
-      'profile.dermo': {
+    serveQueries({
+      me: { createdAt: '2026-01-15T00:00:00.000Z' },
+      dermo: {
         skinTypes: ['peau-mixte'],
         fitzpatrickType: 3,
         skinConcerns: ['anti-acne'],
         privateNotes: 'secret',
       },
-      'user-products.list': [recent],
-      'profile.privacy': { discoverable: true },
+      list: [recent],
+      privacy: { discoverable: true },
     })
 
-    render(<HomeHub />)
+    renderWithProviders(<HomeHub />)
 
     // Hero reprise line (one node) + doorway "Dernier ajout" line (another node).
-    expect(screen.getByText(/vous avez classé .*En stock/)).toBeInTheDocument()
-    expect(screen.getByText(/Dernier ajout : The Ordinary — Niacinamide 10%/)).toBeInTheDocument()
+    expect(await screen.findByText(/vous avez classé .*En stock/)).toBeInTheDocument()
+    expect(
+      await screen.findByText(/Dernier ajout : The Ordinary — Niacinamide 10%/)
+    ).toBeInTheDocument()
     // Doorway A cta flips to "Ouvrir ma collection" once a recent item exists.
-    expect(screen.getByText('Ouvrir ma collection')).toBeInTheDocument()
+    expect(await screen.findByText('Ouvrir ma collection')).toBeInTheDocument()
     // Discovery on: the doorway opens the people tab directly.
-    const discoverCta = screen.getByText('Découvrir').closest('a')
+    const discoverCta = (await screen.findByText('Découvrir')).closest('a')
     expect(discoverCta).toHaveAttribute('href', '/profile')
     expect(discoverCta).toHaveAttribute('data-tab', 'people')
     // On: no scroll hash needed (the people tab is the content itself).
@@ -139,19 +139,19 @@ describe('HomeHub', () => {
     expect(screen.queryByText(/secret/)).not.toBeInTheDocument()
   })
 
-  it('surfaces a calm retry instead of an endless spinner when the skin query errors', () => {
+  it('surfaces a calm retry instead of an endless spinner when the skin query errors', async () => {
     useAuthStore.setState({ user: fakeUser, role: 'user' })
-    setQueries({
-      'profile.me': { createdAt: null },
-      'user-products.list': [],
-      'profile.privacy': { discoverable: false },
+    serveQueries({
+      me: { createdAt: null },
+      list: [],
+      privacy: { discoverable: false },
+      dermoFails: true,
     })
-    mockQuery.errors = { 'profile.dermo': true }
 
-    render(<HomeHub />)
+    renderWithProviders(<HomeHub />)
 
-    expect(screen.getByText(/Votre portrait n'a pas pu se charger/)).toBeInTheDocument()
-    expect(screen.getByText('Réessayer')).toBeInTheDocument()
+    expect(await screen.findByText(/Votre portrait n'a pas pu se charger/)).toBeInTheDocument()
+    expect(await screen.findByText('Réessayer')).toBeInTheDocument()
     expect(screen.queryByText('Chargement de votre portrait…')).not.toBeInTheDocument()
   })
 })

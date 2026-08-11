@@ -1,17 +1,13 @@
 import type { RoleRequestView } from '@aurore/shared'
 
-import { useSuspenseQuery } from '@tanstack/react-query'
 import { screen, waitFor, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
+import { HttpResponse, http } from 'msw'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
 import { useReviewRoleRequest } from '@/lib/queries/admin'
+import { server } from '@/test/msw/server'
 import { renderWithProviders } from '@/test/utils'
-
-vi.mock('@tanstack/react-query', async () => ({
-  ...(await vi.importActual<typeof import('@tanstack/react-query')>('@tanstack/react-query')),
-  useSuspenseQuery: vi.fn(),
-}))
 
 vi.mock('@/lib/queries/admin', async (importOriginal) => {
   const actual = await importOriginal<typeof import('@/lib/queries/admin')>()
@@ -33,10 +29,12 @@ const pendingRequest: RoleRequestView = {
   updatedAt: '2026-06-01T10:00:00Z',
 }
 
-function setupQuery(items: RoleRequestView[]) {
-  vi.mocked(useSuspenseQuery).mockReturnValue({ data: { items } } as unknown as ReturnType<
-    typeof useSuspenseQuery
-  >)
+function serveRequests(items: RoleRequestView[]) {
+  server.use(
+    http.get('*/api/admin/role-requests', () =>
+      HttpResponse.json({ success: true, data: { items } })
+    )
+  )
 }
 
 function setupMutation() {
@@ -53,12 +51,12 @@ function setupMutation() {
 describe('AdminRoleRequestsPage', () => {
   beforeEach(() => vi.clearAllMocks())
 
-  it('renders the header, four status tabs (pending selected), and the pending row', () => {
-    setupQuery([pendingRequest])
+  it('renders the header, four status tabs (pending selected), and the pending row', async () => {
+    serveRequests([pendingRequest])
     setupMutation()
     renderWithProviders(<AdminRoleRequestsPage />)
 
-    expect(screen.getByRole('heading', { name: 'Demandes modérateur' })).toBeInTheDocument()
+    expect(await screen.findByRole('heading', { name: 'Demandes modérateur' })).toBeInTheDocument()
     expect(screen.getByText('1 demande(s)')).toBeInTheDocument()
     expect(screen.getByRole('tab', { name: 'En attente' })).toHaveAttribute('aria-selected', 'true')
     expect(screen.getByRole('tab', { name: 'Acceptée' })).toBeInTheDocument()
@@ -67,20 +65,20 @@ describe('AdminRoleRequestsPage', () => {
     expect(screen.getByText(pendingRequest.motivation)).toBeInTheDocument()
   })
 
-  it('shows the empty state when there are no requests', () => {
-    setupQuery([])
+  it('shows the empty state when there are no requests', async () => {
+    serveRequests([])
     setupMutation()
     renderWithProviders(<AdminRoleRequestsPage />)
 
-    expect(screen.getByText('Aucune demande dans cette vue.')).toBeInTheDocument()
+    expect(await screen.findByText('Aucune demande dans cette vue.')).toBeInTheDocument()
   })
 
   it('approves a request with decision=approve after confirmation', async () => {
-    setupQuery([pendingRequest])
+    serveRequests([pendingRequest])
     const mutate = setupMutation()
     renderWithProviders(<AdminRoleRequestsPage />)
 
-    await userEvent.click(screen.getByRole('button', { name: 'Approuver' }))
+    await userEvent.click(await screen.findByRole('button', { name: 'Approuver' }))
     const dialog = await screen.findByRole('alertdialog')
     await userEvent.click(within(dialog).getByRole('button', { name: 'Approuver' }))
 
@@ -96,11 +94,11 @@ describe('AdminRoleRequestsPage', () => {
   })
 
   it('rejects with decision=reject and the entered reason', async () => {
-    setupQuery([pendingRequest])
+    serveRequests([pendingRequest])
     const mutate = setupMutation()
     renderWithProviders(<AdminRoleRequestsPage />)
 
-    await userEvent.click(screen.getByRole('button', { name: 'Refuser' }))
+    await userEvent.click(await screen.findByRole('button', { name: 'Refuser' }))
     const dialog = await screen.findByRole('alertdialog')
     await userEvent.type(
       within(dialog).getByLabelText(/Raison du refus/),
@@ -120,11 +118,11 @@ describe('AdminRoleRequestsPage', () => {
   })
 
   it('blocks the reject confirmation while the reason is empty', async () => {
-    setupQuery([pendingRequest])
+    serveRequests([pendingRequest])
     const mutate = setupMutation()
     renderWithProviders(<AdminRoleRequestsPage />)
 
-    await userEvent.click(screen.getByRole('button', { name: 'Refuser' }))
+    await userEvent.click(await screen.findByRole('button', { name: 'Refuser' }))
     const dialog = await screen.findByRole('alertdialog')
     expect(within(dialog).getByRole('button', { name: 'Refuser' })).toBeDisabled()
     expect(mutate).not.toHaveBeenCalled()
