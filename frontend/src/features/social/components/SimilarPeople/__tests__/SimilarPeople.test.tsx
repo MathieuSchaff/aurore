@@ -1,45 +1,51 @@
-import { fireEvent, render, screen } from '@testing-library/react'
+import { fireEvent, screen } from '@testing-library/react'
+import { HttpResponse, http } from 'msw'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
 import { createLinkStub, LinkStub } from '@/test/mocks/router'
+import { server } from '@/test/msw/server'
+import { renderWithProviders } from '@/test/utils'
 
 vi.mock('@tanstack/react-router', () => ({ createLink: createLinkStub, Link: LinkStub }))
 
-const useQueryMock = vi.fn()
-vi.mock('@tanstack/react-query', async () => ({
-  ...(await vi.importActual<typeof import('@tanstack/react-query')>('@tanstack/react-query')),
-  useQuery: (opts: unknown) => useQueryMock(opts),
-}))
-
 import { SimilarPeople } from '../SimilarPeople'
+
+// Picking a concern must switch endpoint, not just render again: the search URL is
+// recorded so the switch is asserted on the request the component actually sent.
+let lastSearchConcern: string | null = null
 
 describe('SimilarPeople', () => {
   beforeEach(() => {
-    useQueryMock.mockReset()
-    useQueryMock.mockReturnValue({
-      data: { profiles: [{ username: 'lea', band: 'tres-proche' }] },
-      isLoading: false,
-    })
+    lastSearchConcern = null
+    server.use(
+      http.get('*/api/social/similar', () =>
+        HttpResponse.json({
+          success: true,
+          data: { profiles: [{ username: 'lea', band: 'tres-proche' }] },
+        })
+      ),
+      http.get('*/api/social/profiles/search', ({ request }) => {
+        lastSearchConcern = new URL(request.url).searchParams.get('concern')
+        return HttpResponse.json({
+          success: true,
+          data: { profiles: [{ username: 'lea', band: 'tres-proche' }] },
+        })
+      })
+    )
   })
 
-  function lastQueryKey() {
-    const last = useQueryMock.mock.calls.at(-1)
-    if (!last) throw new Error('useQuery was never called')
-    return (last[0] as { queryKey: unknown[] }).queryKey
-  }
+  it('shows the passive similar list by default', async () => {
+    renderWithProviders(<SimilarPeople />)
 
-  it('shows the passive similar list by default', () => {
-    render(<SimilarPeople />)
-
-    expect(screen.getByRole('link', { name: 'lea' })).toBeInTheDocument()
-    expect(lastQueryKey()).toEqual(['social', 'similar'])
+    expect(await screen.findByRole('link', { name: 'lea' })).toBeInTheDocument()
+    expect(lastSearchConcern).toBeNull()
   })
 
-  it('switches to concern search when a concern is picked', () => {
-    render(<SimilarPeople />)
+  it('switches to concern search when a concern is picked', async () => {
+    renderWithProviders(<SimilarPeople />)
 
-    fireEvent.click(screen.getByRole('radio', { name: 'Rosacée' }))
+    fireEvent.click(await screen.findByRole('radio', { name: 'Rosacée' }))
 
-    expect(lastQueryKey()).toEqual(['social', 'profiles', 'search', 'rosacee'])
+    await vi.waitFor(() => expect(lastSearchConcern).toBe('rosacee'))
   })
 })

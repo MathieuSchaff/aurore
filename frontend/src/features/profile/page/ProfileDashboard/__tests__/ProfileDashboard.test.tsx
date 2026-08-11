@@ -1,15 +1,11 @@
-import { useQuery, useSuspenseQuery } from '@tanstack/react-query'
-import { fireEvent, render, screen } from '@testing-library/react'
+import { fireEvent, screen } from '@testing-library/react'
+import { HttpResponse, http } from 'msw'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
 import { useUpdateProfile } from '@/lib/queries/profile'
+import { server } from '@/test/msw/server'
+import { renderWithProviders } from '@/test/utils'
 import { ProfileDashboard } from '../ProfileDashboard'
-
-vi.mock('@tanstack/react-query', async () => ({
-  ...(await vi.importActual<typeof import('@tanstack/react-query')>('@tanstack/react-query')),
-  useQuery: vi.fn(),
-  useSuspenseQuery: vi.fn(),
-}))
 
 const { mockUseSearch, mockNavigate, LinkMock } = vi.hoisted(() => ({
   mockUseSearch: vi.fn(() => ({ tab: 'profile' })),
@@ -27,29 +23,22 @@ vi.mock('@tanstack/react-router', () => ({
   getRouteApi: () => ({ useSearch: mockUseSearch, useNavigate: () => mockNavigate }),
 }))
 
-// Composition leaf like the stubs below; its composer pulls real
-// useInfiniteQuery + a QueryClient this harness deliberately has none of.
+// Composition leaf like the stubs below; its composer pulls its own infinite query.
 vi.mock('../../../components/PreferenceMarks/PreferenceMarks', () => ({
   PreferenceMarks: () => <div data-testid="preference-marks" />,
 }))
 
-vi.mock('@/lib/queries/profile', () => ({
-  profileQueries: {
-    me: vi.fn(() => ({ queryKey: ['profile', 'me'] })),
-    dermo: vi.fn(() => ({ queryKey: ['profile', 'dermo'] })),
-  },
-  preferenceTargetQueries: {
-    list: vi.fn(() => ({
-      queryKey: ['profile', 'preference-targets'],
-      queryFn: () => ({ ingredients: [], tags: [] }),
-    })),
-  },
-  useUpdateProfile: vi.fn(),
-  useDeleteIngredientPreference: vi.fn(() => ({ mutate: vi.fn(), isPending: false })),
-  useDeleteTagPreference: vi.fn(() => ({ mutate: vi.fn(), isPending: false })),
-}))
+vi.mock('@/lib/queries/profile', async (importOriginal) => {
+  const actual = await importOriginal<typeof import('@/lib/queries/profile')>()
+  return {
+    ...actual,
+    useUpdateProfile: vi.fn(),
+    useDeleteIngredientPreference: vi.fn(() => ({ mutate: vi.fn(), isPending: false })),
+    useDeleteTagPreference: vi.fn(() => ({ mutate: vi.fn(), isPending: false })),
+  }
+})
 
-// Sub-components are composition leaves; stub them so the dashboard's own
+// Child components are composition leaves; stub them so the dashboard's own
 // wiring (hero, tabs, edit state, scroll-to-section) is what's under test.
 vi.mock('../../../components/ProfileAvatar/ProfileAvatar', () => ({
   ProfileAvatar: ({ username }: { username?: string }) => (
@@ -90,29 +79,33 @@ vi.mock('../../../tabs/PreferencesTab/PreferenceSettings', () => ({
   PreferenceSettings: () => <div data-testid="preference-settings" />,
 }))
 
-function setProfile(profile: {
+function serveProfile(profile: {
   username?: string
   bio?: string | null
   avatarUrl?: string | null
   createdAt?: string
   links?: Array<{ url: string; label: string }>
 }) {
-  vi.mocked(useSuspenseQuery).mockReturnValue({
-    data: {
-      username: profile.username ?? 'mathieu',
-      bio: profile.bio ?? null,
-      avatarUrl: profile.avatarUrl ?? null,
-      createdAt: profile.createdAt ?? null,
-      links: profile.links ?? [],
-    },
-  } as unknown as ReturnType<typeof useSuspenseQuery>)
+  server.use(
+    http.get('*/api/profile', () =>
+      HttpResponse.json({
+        success: true,
+        data: {
+          username: profile.username ?? 'mathieu',
+          bio: profile.bio ?? null,
+          avatarUrl: profile.avatarUrl ?? null,
+          createdAt: profile.createdAt ?? null,
+          links: profile.links ?? [],
+        },
+      })
+    )
+  )
 }
 
-function setDermo(dermo: unknown) {
-  vi.mocked(useQuery).mockReturnValue({
-    data: dermo,
-    isLoading: false,
-  } as unknown as ReturnType<typeof useQuery>)
+function serveDermo(dermo: unknown) {
+  server.use(
+    http.get('*/api/profile/dermo', () => HttpResponse.json({ success: true, data: dermo }))
+  )
 }
 
 function setUpdateProfile(overrides: Partial<ReturnType<typeof useUpdateProfile>> = {}) {
@@ -132,36 +125,36 @@ describe('ProfileDashboard', () => {
   beforeEach(() => {
     vi.clearAllMocks()
     mockUseSearch.mockReturnValue({ tab: 'profile' })
-    setProfile({ bio: 'Hello world' })
-    setDermo(null)
+    serveProfile({ bio: 'Hello world' })
+    serveDermo(null)
     setUpdateProfile()
   })
 
   // One identity object, so the bio lives in the hero and nowhere else.
-  it('renders the bio once, inside the profile hero', () => {
-    setProfile({ username: 'mathieu', bio: 'Skincare nerd' })
-    render(<ProfileDashboard />)
+  it('renders the bio once, inside the profile hero', async () => {
+    serveProfile({ username: 'mathieu', bio: 'Skincare nerd' })
+    renderWithProviders(<ProfileDashboard />)
 
-    expect(screen.getByRole('heading', { name: 'mathieu' })).toBeInTheDocument()
+    expect(await screen.findByRole('heading', { name: 'mathieu' })).toBeInTheDocument()
     expect(screen.getAllByText('Skincare nerd')).toHaveLength(1)
   })
 
-  it('shows the panel for the tab selected in the URL', () => {
+  it('shows the panel for the tab selected in the URL', async () => {
     mockUseSearch.mockReturnValue({ tab: 'account' })
-    render(<ProfileDashboard />)
+    renderWithProviders(<ProfileDashboard />)
 
-    expect(screen.getByTestId('account-settings').closest('[role="tabpanel"]')).not.toHaveAttribute(
-      'hidden'
-    )
+    expect(
+      (await screen.findByTestId('account-settings')).closest('[role="tabpanel"]')
+    ).not.toHaveAttribute('hidden')
     expect(screen.getByRole('heading', { level: 2, name: 'Compte' })).toHaveClass('sr-only')
   })
 
-  it('navigates to the clicked tab instead of holding it in local state', () => {
-    render(<ProfileDashboard />)
+  it('navigates to the clicked tab instead of holding it in local state', async () => {
+    renderWithProviders(<ProfileDashboard />)
 
-    expect(screen.getByTestId('account-settings').closest('[role="tabpanel"]')).toHaveAttribute(
-      'hidden'
-    )
+    expect(
+      (await screen.findByTestId('account-settings')).closest('[role="tabpanel"]')
+    ).toHaveAttribute('hidden')
 
     fireEvent.click(screen.getByRole('tab', { name: /Compte/ }))
 
@@ -170,11 +163,11 @@ describe('ProfileDashboard', () => {
     expect(arg.search({ tab: 'profile' })).toEqual({ tab: 'account' })
   })
 
-  it('fires updateProfile.mutate when the identity form submits', () => {
+  it('fires updateProfile.mutate when the identity form submits', async () => {
     const { mutate } = setUpdateProfile()
-    render(<ProfileDashboard />)
+    renderWithProviders(<ProfileDashboard />)
 
-    fireEvent.click(screen.getByRole('button', { name: 'Modifier mes informations' }))
+    fireEvent.click(await screen.findByRole('button', { name: 'Modifier mes informations' }))
     fireEvent.click(screen.getByRole('button', { name: 'submit-identity' }))
 
     expect(mutate).toHaveBeenCalledTimes(1)

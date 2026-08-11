@@ -1,15 +1,13 @@
-import { useSuspenseQuery } from '@tanstack/react-query'
+import type { CatalogQueueItem } from '@aurore/shared'
+
 import { fireEvent, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
+import { HttpResponse, http } from 'msw'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
 import { useModerateContent, useVerifyCatalogItem } from '@/lib/queries/admin'
+import { server } from '@/test/msw/server'
 import { renderWithProviders } from '@/test/utils'
-
-vi.mock('@tanstack/react-query', async () => ({
-  ...(await vi.importActual<typeof import('@tanstack/react-query')>('@tanstack/react-query')),
-  useSuspenseQuery: vi.fn(),
-}))
 
 vi.mock('@/lib/queries/admin', async (importOriginal) => {
   const actual = await importOriginal<typeof import('@/lib/queries/admin')>()
@@ -23,20 +21,7 @@ vi.mock('@/lib/queries/admin', async (importOriginal) => {
 import { AdminCatalogPage } from '../components/AdminCatalogPage'
 import { adminLabels } from '../constants'
 
-type CatalogItem = {
-  kind: 'product' | 'ingredient'
-  id: string
-  name: string
-  brand: string | null
-  slug: string
-  catalogQuality: 'unverified' | 'verified'
-  moderationStatus: 'visible' | 'hidden'
-  authorId: string | null
-  authorUsername: string | null
-  createdAt: string
-}
-
-const UNVERIFIED_PRODUCT: CatalogItem = {
+const UNVERIFIED_PRODUCT: CatalogQueueItem = {
   kind: 'product',
   id: 'prod-aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee',
   name: 'Crème mystère',
@@ -49,34 +34,37 @@ const UNVERIFIED_PRODUCT: CatalogItem = {
   createdAt: '2026-05-30T10:00:00Z',
 }
 
-const HIDDEN_PRODUCT: CatalogItem = {
+const HIDDEN_PRODUCT: CatalogQueueItem = {
   ...UNVERIFIED_PRODUCT,
   id: 'prod-hidden-0000-0000-0000-000000000000',
   name: 'Fiche masquée',
   moderationStatus: 'hidden',
 }
 
-const AUTHORED_PRODUCT: CatalogItem = {
+const AUTHORED_PRODUCT: CatalogQueueItem = {
   ...UNVERIFIED_PRODUCT,
   id: 'prod-authored-0000-0000-0000-000000000000',
   name: 'Fiche signée',
   authorUsername: 'mathieu',
 }
 
-// The component reads `status` off the query options to branch « À vérifier » vs
-// « Masqués » — capture the status arg so a tab switch can be asserted on the query.
+// The « À vérifier » / « Masqués » tabs differ only by the status sent to the API,
+// so the handler records it and a tab switch is asserted on the request itself.
 let lastQueryStatus: string | undefined
 
-function setupQuery(items: CatalogItem[]) {
+function serveCatalog(items: CatalogQueueItem[]) {
   lastQueryStatus = undefined
-  vi.mocked(useSuspenseQuery).mockImplementation((options: { queryKey: readonly unknown[] }) => {
-    const params = options.queryKey[2] as { status?: string } | undefined
-    lastQueryStatus = params?.status
-    const view = params?.status === 'hidden' ? 'hidden' : 'visible'
-    return {
-      data: { items: items.filter((i) => i.moderationStatus === view) },
-    } as unknown as ReturnType<typeof useSuspenseQuery>
-  })
+  server.use(
+    http.get('*/api/admin/moderation/catalog', ({ request }) => {
+      const status = new URL(request.url).searchParams.get('status') ?? undefined
+      lastQueryStatus = status
+      const view = status === 'hidden' ? 'hidden' : 'visible'
+      return HttpResponse.json({
+        success: true,
+        data: { items: items.filter((i) => i.moderationStatus === view) },
+      })
+    })
+  )
 }
 
 function setupMutations() {
@@ -107,12 +95,15 @@ describe('AdminCatalogPage', () => {
     vi.clearAllMocks()
   })
 
-  it('renders both tab bars and an unverified product row with its actions', () => {
-    setupQuery([UNVERIFIED_PRODUCT])
+  it('renders both tab bars and an unverified product row with its actions', async () => {
+    serveCatalog([UNVERIFIED_PRODUCT])
     setupMutations()
     renderWithProviders(<AdminCatalogPage />)
 
-    expect(screen.getByRole('tab', { name: 'Produits' })).toHaveAttribute('aria-selected', 'true')
+    expect(await screen.findByRole('tab', { name: 'Produits' })).toHaveAttribute(
+      'aria-selected',
+      'true'
+    )
     expect(screen.getByRole('tab', { name: 'Ingrédients' })).toBeInTheDocument()
     expect(screen.getByRole('tab', { name: 'À vérifier' })).toHaveAttribute('aria-selected', 'true')
     expect(screen.getByRole('tab', { name: 'Masqués' })).toBeInTheDocument()
@@ -122,30 +113,30 @@ describe('AdminCatalogPage', () => {
     expect(screen.getByRole('button', { name: 'Masquer' })).toBeInTheDocument()
   })
 
-  it('renders the contributor username, falling back to a truncated authorId when absent', () => {
-    setupQuery([AUTHORED_PRODUCT, UNVERIFIED_PRODUCT])
+  it('renders the contributor username, falling back to a truncated authorId when absent', async () => {
+    serveCatalog([AUTHORED_PRODUCT, UNVERIFIED_PRODUCT])
     setupMutations()
     renderWithProviders(<AdminCatalogPage />)
 
-    expect(screen.getByText('mathieu')).toBeInTheDocument()
+    expect(await screen.findByText('mathieu')).toBeInTheDocument()
     // UNVERIFIED_PRODUCT has no username, so it falls back to the first 8 chars of its authorId.
     expect(screen.getByText('usr-auth')).toBeInTheDocument()
   })
 
-  it('shows the empty state when the view has no fiches', () => {
-    setupQuery([])
+  it('shows the empty state when the view has no fiches', async () => {
+    serveCatalog([])
     setupMutations()
     renderWithProviders(<AdminCatalogPage />)
 
-    expect(screen.getByText(adminLabels.emptyCatalogQueue)).toBeInTheDocument()
+    expect(await screen.findByText(adminLabels.emptyCatalogQueue)).toBeInTheDocument()
   })
 
   it('verifies a fiche with kind+id after confirmation', async () => {
-    setupQuery([UNVERIFIED_PRODUCT])
+    serveCatalog([UNVERIFIED_PRODUCT])
     const { verify } = setupMutations()
     renderWithProviders(<AdminCatalogPage />)
 
-    await userEvent.click(screen.getByRole('button', { name: 'Vérifier' }))
+    await userEvent.click(await screen.findByRole('button', { name: 'Vérifier' }))
     await confirmDialog('Vérifier')
 
     await waitFor(() => {
@@ -157,11 +148,11 @@ describe('AdminCatalogPage', () => {
   })
 
   it('hides a fiche with target=products + status=hidden after confirmation', async () => {
-    setupQuery([UNVERIFIED_PRODUCT])
+    serveCatalog([UNVERIFIED_PRODUCT])
     const { moderate } = setupMutations()
     renderWithProviders(<AdminCatalogPage />)
 
-    await userEvent.click(screen.getByRole('button', { name: 'Masquer' }))
+    await userEvent.click(await screen.findByRole('button', { name: 'Masquer' }))
     await confirmDialog('Masquer')
 
     await waitFor(() => {
@@ -172,25 +163,25 @@ describe('AdminCatalogPage', () => {
     })
   })
 
-  it('queries status=hidden and shows Restaurer (no Vérifier) in the Masqués view', () => {
-    setupQuery([HIDDEN_PRODUCT])
+  it('queries status=hidden and shows Restaurer (no Vérifier) in the Masqués view', async () => {
+    serveCatalog([HIDDEN_PRODUCT])
     setupMutations()
     renderWithProviders(<AdminCatalogPage />)
 
-    fireEvent.click(screen.getByRole('tab', { name: 'Masqués' }))
+    fireEvent.click(await screen.findByRole('tab', { name: 'Masqués' }))
 
+    expect(await screen.findByText('Fiche masquée')).toBeInTheDocument()
     expect(lastQueryStatus).toBe('hidden')
-    expect(screen.getByText('Fiche masquée')).toBeInTheDocument()
     expect(screen.getByRole('button', { name: 'Restaurer' })).toBeInTheDocument()
     expect(screen.queryByRole('button', { name: 'Vérifier' })).not.toBeInTheDocument()
   })
 
   it('forwards the moderator note typed on hide as body.reason', async () => {
-    setupQuery([UNVERIFIED_PRODUCT])
+    serveCatalog([UNVERIFIED_PRODUCT])
     const { moderate } = setupMutations()
     renderWithProviders(<AdminCatalogPage />)
 
-    await userEvent.click(screen.getByRole('button', { name: 'Masquer' }))
+    await userEvent.click(await screen.findByRole('button', { name: 'Masquer' }))
     await userEvent.type(await screen.findByLabelText('Note du modérateur'), 'spam')
     await confirmDialog('Masquer')
 
@@ -207,7 +198,7 @@ describe('AdminCatalogPage', () => {
   })
 
   it('surfaces an error banner when a hide mutation fails', async () => {
-    setupQuery([UNVERIFIED_PRODUCT])
+    serveCatalog([UNVERIFIED_PRODUCT])
     const verify = vi.fn()
     const moderate = vi.fn((_vars, opts?: { onError?: () => void }) => opts?.onError?.())
     vi.mocked(useVerifyCatalogItem).mockReturnValue({
@@ -220,14 +211,14 @@ describe('AdminCatalogPage', () => {
     } as unknown as ReturnType<typeof useModerateContent>)
     renderWithProviders(<AdminCatalogPage />)
 
-    await userEvent.click(screen.getByRole('button', { name: 'Masquer' }))
+    await userEvent.click(await screen.findByRole('button', { name: 'Masquer' }))
     await confirmDialog('Masquer')
 
     expect(await screen.findByText(/action a échoué/i)).toBeInTheDocument()
   })
 
   it('surfaces an error banner when a verify mutation fails', async () => {
-    setupQuery([UNVERIFIED_PRODUCT])
+    serveCatalog([UNVERIFIED_PRODUCT])
     const verify = vi.fn((_vars, opts?: { onError?: () => void }) => opts?.onError?.())
     const moderate = vi.fn()
     vi.mocked(useVerifyCatalogItem).mockReturnValue({
@@ -240,7 +231,7 @@ describe('AdminCatalogPage', () => {
     } as unknown as ReturnType<typeof useModerateContent>)
     renderWithProviders(<AdminCatalogPage />)
 
-    await userEvent.click(screen.getByRole('button', { name: 'Vérifier' }))
+    await userEvent.click(await screen.findByRole('button', { name: 'Vérifier' }))
     await confirmDialog('Vérifier')
 
     expect(await screen.findByText(/action a échoué/i)).toBeInTheDocument()

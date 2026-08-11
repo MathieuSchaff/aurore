@@ -1,30 +1,17 @@
-import { QueryClient } from '@tanstack/react-query'
 import { cleanup, screen } from '@testing-library/react'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 
 import { renderWithProviders } from '@/test/utils'
 import { LifecycleSection } from '../LifecycleSection'
 
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      retry: false,
-    },
-  },
+vi.mock('@/lib/queries/purchases', async (importOriginal) => {
+  const actual = await importOriginal<typeof import('@/lib/queries/purchases')>()
+  return {
+    ...actual,
+    useOpenPurchase: vi.fn(() => ({ mutate: vi.fn() })),
+    useFinishPurchase: vi.fn(() => ({ mutate: vi.fn() })),
+  }
 })
-
-vi.mock('@tanstack/react-query', async () => ({
-  ...(await vi.importActual<typeof import('@tanstack/react-query')>('@tanstack/react-query')),
-  useQuery: vi.fn(() => ({ data: [] })),
-}))
-
-vi.mock('@/lib/queries/purchases', () => ({
-  purchaseQueries: {
-    byUserProduct: vi.fn(() => ({ queryKey: ['purchases'] })),
-  },
-  useOpenPurchase: vi.fn(() => ({ mutate: vi.fn() })),
-  useFinishPurchase: vi.fn(() => ({ mutate: vi.fn() })),
-}))
 
 describe('LifecycleSection', () => {
   afterEach(() => {
@@ -36,8 +23,8 @@ describe('LifecycleSection', () => {
     onAddPurchase: vi.fn(),
   }
 
-  it('affiche un message si aucun achat disponible', () => {
-    renderWithProviders(<LifecycleSection {...defaultProps} />, { queryClient })
-    expect(screen.getByText(/Aucun achat enregistré/)).toBeInTheDocument()
+  it('affiche un message si aucun achat disponible', async () => {
+    renderWithProviders(<LifecycleSection {...defaultProps} />)
+    expect(await screen.findByText(/Aucun achat enregistré/)).toBeInTheDocument()
   })
 })

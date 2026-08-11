@@ -1,17 +1,14 @@
-import { useSuspenseQuery } from '@tanstack/react-query'
 import { screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
+import { HttpResponse, http } from 'msw'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
 import { useReviewSuggestedEdit } from '@/lib/queries/admin'
-import { setAuthRole } from '@/test/mocks/auth-store'
+import { useAuthStore } from '@/store/auth'
+import { server } from '@/test/msw/server'
 import { renderWithProviders } from '@/test/utils'
 import { AdminSuggestedEditsPage } from '../components/AdminSuggestedEditsPage'
 
-vi.mock('@tanstack/react-query', async () => ({
-  ...(await vi.importActual<typeof import('@tanstack/react-query')>('@tanstack/react-query')),
-  useSuspenseQuery: vi.fn(),
-}))
 vi.mock('@tanstack/react-router', async () => ({
   ...(await vi.importActual<typeof import('@tanstack/react-router')>('@tanstack/react-router')),
   Link: ({ children, to, ...rest }: { children: React.ReactNode; to: string }) => (
@@ -20,7 +17,6 @@ vi.mock('@tanstack/react-router', async () => ({
     </a>
   ),
 }))
-vi.mock('@/store/auth', () => ({ useAuthStore: vi.fn() }))
 vi.mock('@/lib/queries/admin', async (importOriginal) => {
   const actual = await importOriginal<typeof import('@/lib/queries/admin')>()
   return { ...actual, useReviewSuggestedEdit: vi.fn() }
@@ -42,21 +38,25 @@ const EDIT = {
 let review: ReturnType<typeof useReviewSuggestedEdit>['mutate']
 
 beforeEach(() => {
-  setAuthRole('contributor')
-  vi.mocked(useSuspenseQuery).mockReturnValue({ data: { items: [EDIT] } } as never)
+  useAuthStore.setState({ role: 'contributor' })
+  server.use(
+    http.get('*/api/admin/suggested-edits', () =>
+      HttpResponse.json({ success: true, data: { items: [EDIT] } })
+    )
+  )
   review = vi.fn() as never
   vi.mocked(useReviewSuggestedEdit).mockReturnValue({ mutate: review, isPending: false } as never)
 })
 
 describe('AdminSuggestedEditsPage', () => {
-  it('renders a pending suggestion with the proposed value', () => {
+  it('renders a pending suggestion with the proposed value', async () => {
     renderWithProviders(<AdminSuggestedEditsPage />)
-    expect(screen.getByText('Corrected')).toBeInTheDocument()
+    expect(await screen.findByText('Corrected')).toBeInTheDocument()
   })
 
   it('accepts after confirmation', async () => {
     renderWithProviders(<AdminSuggestedEditsPage />)
-    await userEvent.click(screen.getByRole('button', { name: 'Accepter' }))
+    await userEvent.click(await screen.findByRole('button', { name: 'Accepter' }))
     const confirmDialog = await screen.findByRole('alertdialog')
     await userEvent.click(
       Array.from(confirmDialog.querySelectorAll('button')).find(
