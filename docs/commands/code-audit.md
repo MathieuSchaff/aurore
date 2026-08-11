@@ -6,16 +6,15 @@ Static analysis and bundle analysis. No Docker, no DB.
 
 | Command | What |
 | :--- | :--- |
-| `just audit-code` | The whole thing: probes, then the HTML/CSV reports, then the diff against the previous run |
-| `OPEN=1 just audit-code` | Same, and opens the two HTML reports at the end |
+| `just audit-code` | The whole thing: probes, then the map and the reports, opened in a browser |
+| `NO_OPEN=1 just audit-code` | Same, without the browser window (for an agent, CI, or a remote shell) |
 
 That is the only command to remember. It runs knip, biome, `tsc -b`, madge, fallow health, fallow
-dupes, anon-db-gate and react-doctor in that order, then calls `audit-report` and `audit-diff`
-itself — both degrade to a message when their prerequisites are missing, so neither can break the
-run.
+dupes, anon-db-gate and react-doctor in that order, then calls `audit-report` itself, which
+degrades to a message when its prerequisites are missing rather than breaking the run.
 
-It never aborts mid-run: each probe records its own status and the summary names the failures.
-Exit stays 0 — knip and react-doctor exit 1 on findings that are triaged, not blocking. A bare
+It never aborts midrun: each probe records its own status and the summary names the failures.
+Exit stays 0: knip and react-doctor exit 1 on findings that are triaged, not blocking. A bare
 "Done" is not a clean audit; read the summary line.
 
 ### Where the output lands
@@ -23,98 +22,150 @@ Exit stays 0 — knip and react-doctor exit 1 on findings that are triaged, not 
 ```
 .audit-out/code/
 ├── raw/         knip biome tsc cycles health dupes anon-db-gate react-doctor  (.txt)
-├── sarif/       biome knip fallow-health fallow-dupes                          (.sarif)
-├── sarif-prev/  the same four, from the run before — rotated automatically
-├── json/        react-doctor.json
-├── code.html · complexity.html · findings.csv        written by audit-report
-└── diff.txt · diff.json                              written by audit-diff
+├── sarif/       biome knip react-doctor fallow-health fallow-dupes             (.sarif)
+├── sarif-full/  fallow without its baseline: the standing debt, wiped each run
+├── json/        fallow-health.json: score, hotspots, css, styling findings
+├── status.json  every probe's exit code
+├── summary.json the whole run in one file, for an agent          written by audit-report
+└── map.html · report.html                            written by audit-report
 ```
+
+**`summary.json` is the agent entry point.** ~12 KB, one read: totals by level, every probe with its
+exit code and finding count, the health and styling scores, the top 15 hotspots, the top 20 rules
+and files, and the standing-debt count. The three text probes carry their full output inline, since
+none of them exceeds a kilobyte. It exists because nothing else answers "what did this run find" in
+one read: `report.html` is 56 KB of markup, `raw/health.txt` ~3000 lines, `json/fallow-health.json`
+~1.7 MB, and the counts are spread over five SARIF files. `status.json` alone is a trap: a baselined
+fallow exits 0 on top of a backlog, so a green exit code is not evidence of a clean tree;
+`totals.standing_debt` is. Detail stays where it was; this file points at it.
 
 **`raw/` is the audit.** Every probe writes there and reading it needs nothing beyond the repo
 toolchain. `sarif/` and `json/` are a bonus for the reporting recipes below; a probe with no
 machine-readable format (`tsc`, madge, `anon-db-gate`) lives in `raw/` only.
 
+react-doctor has no SARIF reporter either, but it is the only probe whose findings turn over on
+ordinary work, so `scripts/react-doctor-sarif.ts` converts its JSON rather than leaving it out of
+the report. madge, `tsc` and `anon-db-gate` keep their raw text: it is rendered verbatim in the
+report with the probe's exit code, which is all three of them need. A dependency *graph* image
+would want graphviz for a hairball nobody reads.
+
 Each tool that has both formats runs twice, because none of them emits two formats in one pass:
 Biome's `--reporter-file` and react-doctor's `--json-out` write *instead of* stdout. Every probe
 runs in under two seconds, so the second pass costs about five seconds over the whole audit.
 
-## The steps on their own
-
-`audit-code` calls these itself. Run them by hand only to redo a step without re-probing —
-regenerating the HTML or re-reading a diff costs nothing, since all three only re-read JSON
-already on disk.
+## The one step on its own
 
 | Command | What |
 | :--- | :--- |
-| `just audit-report` | Aggregates `sarif/` into `code.html`, `complexity.html`, `findings.csv` |
-| `just audit-open` | `xdg-open` on both HTML reports |
-| `just audit-diff [dir]` | Compares `sarif/` against `sarif-prev/` by default, or any pinned run |
-| `just audit-snapshot <name>` | Pins `sarif/` as `sarif-<name>/`, to diff against much later |
+| `just audit-report` | `fallow viz` → `map.html`, then `report.html`, then opens both |
 
-`audit-report`, `audit-open` and `audit-diff` are the only parts that need a tool outside the
-repo: `uv tool install sarif-tools` (or `pipx`). Without it they print an install hint and exit 0.
+`audit-code` calls it itself. Run it by hand only to rebuild the two pages without probing again: it
+reads the JSON already on disk, so it costs about a second. It is one recipe rather than three
+because there is no case for building a report and not looking at it. `NO_OPEN=1` covers the
+only exception, which is having no browser to open into.
 
-### How the comparison finds a previous run
+`report.html` is generated by `scripts/audit-report.ts` and needs nothing outside the repo. There
+is no longer any dependency outside the toolchain: `sarif-tools` is gone with the CSV and the diff.
 
-There is no snapshot step to remember. `audit-code` rotates `sarif/` to `sarif-prev/` *before*
-probing — what sits in `sarif/` at that moment is by definition the previous run. The move also
-empties `sarif/`, so a probe that fails to write leaves a gap instead of last run's file passing
-for fresh output. The first ever run has no `sarif-prev/` and skips the diff.
+### What the report shows
 
-`audit-snapshot <name>` is for the other case: pinning a reference point you choose (before a big
-refactor, say) that the per-run rotation must not overwrite. `prev` is rejected as a name for
-exactly that reason.
+- **Every probe has a chip, including the ones at zero.** A probe that found nothing and a probe
+  that never ran look identical from the findings alone, so the chips read their state from
+  `status.json`, and the fallow chips say `baselined` next to their count. That is the answer to
+  "fallow health says 0": it means no regression, and the standing debt has its own section.
+- **A finding is `path:line:col`, a rule id and the full message**, with the rule's explanation
+  printed once rather than on every hit. The location links to `zed://`, and `copy path` puts the
+  repo-relative `path:line` on the clipboard for any other editor.
+- **The fallow health score, vital signs and hotspots come from `json/fallow-health.json`.** The
+  SARIF export carries only the complexity findings and the refactoring targets, so the score with
+  its penalty breakdown and the churn-weighted hotspot ranking would otherwise never be seen.
+  Hotspots are the ranking that matters: complexity says a file is hard to change, churn says it is
+  also being changed. That run is baseline-free: a score is absolute state, not a delta.
+- **The styling grade and the dead-CSS-class list come from the same JSON**, via `fallow health
+  --css`. The grade is scored apart from the code one and gates nothing. Of the three cleanup lists
+  `css_analytics` carries, only the dead classes are shown: `unreferenced_keyframes` cannot see an
+  `animation:` shorthand whose value holds a `var()`, which here is every one of them, and
+  `unused_at_rules` reads the `@layer a, b, c;` ordering statement as dead layers.
+- Filter by text, severity, tool or new-only; group by file, rule or tool.
 
-`audit-diff` prints to the terminal and writes `diff.txt`; `diff.json` carries the same data
-structured. Two passes, because `sarif diff -o` suppresses the readable output entirely.
+### The codebase map
 
-**Its grain is the rule code, not the site.** The `+N/-N` headline counts rule codes that appeared
-or disappeared; a code that survives with a different count gets its own `20 -> 18` line below,
-which the headline does not reflect — read the lines, not the total. A finding that *moves* from
-one file to another keeps its code and its count, so it shows as no change at all. For that,
-compare `findings.csv` between runs: it carries the location.
+`map.html` (~200 ms, first step of `audit-report`) is `fallow viz`: a treemap and an import graph over the
+whole repo, recoloured by five lenses (overview, unused, duplication, boundaries, complexity)
+with a most-depended-on-files table and a complexity hotspot list. It is the only view here that
+shows *shape* rather than a list, and it is the one to open when the question is "where is the mass"
+rather than "what broke". Self-contained HTML, no network.
 
-Three things worth knowing before trusting the HTML:
+### The report does not compare two runs
 
-- **Two reports, not one, on purpose.** fallow contributes over half the findings and its
-  severities are complexity bands, so a merged report buries the handful of real Biome and knip
-  errors under a wall of CRAP scores.
-- **`sarif html` groups by rule and drops the per-finding message.** It labels each group from
-  the *first* finding's message, which renders fallow's quoted function names as `' ...`.
-  `findings.csv` keeps the message — that is the file to grep.
+Every run stands on its own. There used to be a `sarif diff` step, an `audit-snapshot` pin to feed
+it, and a `sarif-prev/` rotation behind a per-site `new` marker. All three are gone: what the audit
+is for is the current state of the tree, and a run-to-run delta was never what got read. `sarif/` is
+wiped before probing so a probe that fails to write leaves a gap instead of last run's file passing
+for fresh output.
+
+Four things worth knowing:
+
+- **The fallow SARIF is baselined, like the text run.** It reports regressions, not standing debt,
+  so a fallow chip at 0 means "nothing new" and not "nothing to fix": the backlog it accepts is
+  in the report's own standing-debt section, rebuilt each run from `sarif-full/`. Without the
+  baseline the SARIF carried all ~200 legacy findings and the report was the same immutable wall
+  every run.
+- **`sarif-tools` is not used at all any more.** `sarif html` grouped by rule code and dropped the
+  location, so its page could name a rule and a count but never open a finding;
+  `scripts/audit-report.ts` replaced it. `findings.csv` went with the diff: nothing in the repo
+  read it.
 - **fallow's `--sarif-file` is a no-op** in 3.10.0. It is documented as writing "in addition to"
   the primary format and silently writes nothing; `--output-file` is what works.
+- **`--css` findings cannot be baselined**, so they only ever reach the JSON pass. The baseline file
+  stores complexity/CRAP counts and refactoring targets and has no slot for a styling rule:
+  `--save-baseline --css` writes a byte-identical file and every styling finding comes back as a
+  regression on the next run. Baselined they would be a permanent wall, and would pin the health
+  probe's exit code at 1 forever. They are kept out of `sarif-full/` too, where 162 styling rows
+  buried the 154 code ones. The styling findings get their own section, with the severity and
+  confidence the SARIF export drops.
 
 ## One tool at a time
 
 | Command | Tool | What it is good at |
 | :--- | :--- | :--- |
-| `just knip [flags] [reporter]` | knip | Dead files, exports, types, deps. Re-export aware, follows the workspace symlink. `--strict` also reports unlisted deps and types-only issues. Second positional picks the reporter — `just knip "" sarif` is what `audit-code` calls, since repeating `--reporter` interleaves both formats into the same stdout |
+| `just knip [flags] [reporter]` | knip | Dead files, exports, types, deps. Re-export aware, follows the workspace symlink. `--strict` also reports unlisted deps and types-only issues. Second positional picks the reporter: `just knip "" sarif` is what `audit-code` calls, since repeating `--reporter` interleaves both formats into the same stdout |
 | `just lint` / `just lint-fix` | Biome | Lint, unused locals, format. `lint-fix` writes |
 | `just ts-verify` | `tsc -b` | Type errors across project references |
 | `just cycles` | madge | Import cycles. Type-only imports ignored via `.madgerc`; seed blog data excluded |
 | `npx fallow health` | fallow | Complexity, hotspots, CRAP score |
 | `npx fallow dupes` | fallow | Duplication (suffix array) |
 | `npx fallow audit --format compact` | fallow | New issues versus `main` only |
-| `just fallow-baseline` | fallow | Re-save the baselines after a big cleanup |
+| `npx fallow viz` | fallow | Interactive treemap + import graph (`map.html`) |
+| `npx fallow list --entry-points` | fallow | What fallow thinks the entry points are (the first thing to check when it calls live code dead) |
+| `npx fallow inspect <file>` | fallow | Trace, dead-code, duplication and complexity evidence for one file, before deleting anything |
+| `just fallow-baseline` | fallow | Re-save the baselines after a big cleanup **or a `.fallowrc.jsonc` threshold change** |
 | `just anon-db-gate [--update]` | own script | Freezes the `c.get('anonDb')` surface against `scripts/anon-db-allowlist.json`. Also runs in CI |
 | `cd frontend && npx react-doctor --verbose --no-score` | react-doctor | React patterns, a11y, perf |
 | `bunx biome format --write .` | Biome | Format only (`just lint-fix` already includes it) |
 
 Two notes that save a triage round:
 
-- **madge over-reports.** Every new hit needs an individual check — lazy imports and erased
+- **madge overreports.** Every new hit needs an individual check: lazy imports and erased
   type edges can read as runtime cycles.
+- **fallow only sees files git tracks.** A gitignored script is invisible to every probe, so a
+  `scripts/*` entry that is not un-ignored is analysed by nothing at all, and, if a `just` recipe
+  calls it, is missing from a fresh clone too.
+- **CRAP is relaxed on the CLI entry points, and only CRAP.** Its coverage term is estimated from
+  export references, so anything invoked by a justfile recipe estimates at zero coverage whatever
+  its callees' tests say; 101 of 144 high-crap findings sat on four such surfaces. The
+  `health.thresholdOverrides` block in `.fallowrc.jsonc` carries the derivation. Cyclomatic and
+  cognitive are untouched there: they measure the code instead of guessing at its tests.
 - **`fallow dead-code` globally is not used here.** It is blind across workspaces; knip covers
   that ground with far fewer false positives.
 - **`anon-db-gate` fails on a site that disappears too**, not only on a new one: the grain is
   file + count, and a count that no longer matches means the list has rotted. `--update`
-  re-baselines and parks unknown files on group `?`, which keeps failing until they are classified.
+  writes the baseline again and parks unknown files on group `?`, which keeps failing until they are classified.
 
 ## Bundle analysis
 
 The tracked `frontend/vite.config.ts` already carries all three tools. No separate config, no
-`--config` flag — everything is gated by `ANALYZE` or by the dev server.
+`--config` flag: everything is gated by `ANALYZE` or by the dev server.
 
 | Tool | Command | Output | Gate |
 | :--- | :--- | :--- | :--- |
@@ -131,11 +182,11 @@ terminal, the `stats.html` treemap, and the devtools panel.
 | devtools shows | Rolldown module graph, why a module landed in a chunk, chunking, perf |
 | The build does not exit | While the devtools server runs. Kill it with `fuser -k 9999/tcp` |
 | Inspect is off in preview | `vite preview` serves a frozen build, so transform inspection is meaningless there |
-| Without `ANALYZE` | Normal and prod builds emit no `stats.html` and no panel — that gate is what keeps `profile-prod` and CI working |
+| Without `ANALYZE` | Normal and prod builds emit no `stats.html` and no panel: that gate is what keeps `profile-prod` and CI working |
 
 Build output lives in `frontend/.output/` (`public/` + `server/`), not `dist/`.
 
 ## Comparing against prod
 
-`just profile-prod` serves the built SSR frontend behind a real nginx edge (HTTP/2 + TLS) —
-see [dev-stack.md](dev-stack.md).
+`just profile-prod` serves the built SSR frontend behind a real nginx edge (HTTP/2 + TLS).
+See [dev-stack.md](dev-stack.md).

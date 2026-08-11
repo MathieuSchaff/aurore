@@ -17,7 +17,7 @@ frontend/stats.html
 *.tsbuildinfo
 *.d.ts
 *.d.ts.map
-# Bun runs TS directly — compiled JS in src/ = accidental tsc run
+# Bun runs TS directly: compiled JS in src/ = accidental tsc run
 backend/src/**/*.js
 
 # =========================
@@ -97,6 +97,10 @@ scripts/*
 # CI runs this one, so it has to be tracked, unlike the local-only scripts above.
 !scripts/anon-db-gate.ts
 !scripts/anon-db-allowlist.json
+# `just audit-report` calls both, so a clone without them has a broken recipe, not a missing
+# local convenience.
+!scripts/audit-report.ts
+!scripts/react-doctor-sarif.ts
 # =========================
 backend/src/db/seed/output/
 backend/src/output
@@ -138,7 +142,7 @@ backend/src/images/fetchers/*.ts
 /reports/
 
 # =========================
-# Staged one-shot DB fixes (just db-fix) — never committed; README documents the convention
+# Staged one-shot DB fixes (just db-fix), never committed; README documents the convention
 # =========================
 .db-fixes/*
 !.db-fixes/README.md

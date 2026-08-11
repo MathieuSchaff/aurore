@@ -39,9 +39,9 @@
     "frontend/src/styles/tokens/breakpoints.css"
   ],
 
-  // @aurore/shared: fallow resolves the symlink (verified on 3.10.0 — dropping this entry
+  // @aurore/shared: fallow resolves the symlink (verified on 3.10.0, dropping this entry
   // surfaces no unresolved-import), but attributes the package to a single workspace. It reports
-  // it unused in frontend/package.json "(imported in backend)" while 148 frontend files import it.
+  // it unused in frontend/package.json "(imported in backend)" while the frontend imports it widely.
   // pino-pretty: string reference in the transport config, never imported.
   // typescript-5: only consumer is scripts/audit-comments.ts, which is gitignored (local-only
   // tooling), so no analyser can see the import that justifies the dependency.
@@ -55,9 +55,29 @@
   "ignorePatterns": ["vendor/**", ".fallow/**", "**/*.d.ts", "node_modules/**", "docs-private/**"],
 
   // Complexity gates aligned with fallow defaults (20 cyclomatic / 15 cognitive)
+  //
+  // thresholdOverrides relaxes CRAP, and only CRAP, on the CLI entry points. CRAP is
+  // complexity squared against a *coverage estimate* derived from export references, and a script
+  // whose only caller is a justfile recipe estimates at zero coverage no matter how tested its
+  // callees are. 101 of the 144 high-crap findings sit on these four surfaces for that reason
+  // alone. 420 is not a taste number: a function at the cyclomatic ceiling of 20 scores 20² + 20
+  // at zero coverage, so this ceiling makes CRAP silent below the gate and leaves cyclomatic and
+  // cognitive (which measure the code rather than guess at its tests) enforced as before.
   "health": {
     "maxCyclomatic": 20,
-    "maxCognitive": 15
+    "maxCognitive": 15,
+    "thresholdOverrides": [
+      {
+        "files": [
+          "scripts/*.ts",
+          "backend/src/features/auto-tagging/runners/**",
+          "backend/src/db/seed/**",
+          "backend/src/db/audit/**"
+        ],
+        "maxCrap": 420,
+        "reason": "CLI entry points: CRAP's coverage term is estimated from export references, which reads as zero for anything a justfile recipe invokes directly"
+      }
+    ]
   },
 
   // mild mode avoids flagging structurally similar seed data objects
