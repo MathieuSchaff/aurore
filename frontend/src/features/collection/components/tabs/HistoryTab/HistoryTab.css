@@ -74,13 +74,6 @@
   margin-top: 0.1rem;
 }
 
-.coll-hist-row-bottom {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-top: 0.25rem;
-}
-
 .coll-hist-price {
   font-family: var(--font-display);
   font-feature-settings: "onum" 1;
@@ -93,12 +86,6 @@
   position: absolute;
   top: 0.75rem;
   right: 0.5rem;
-}
-
-/* Lift the open row so its dropdown is not covered by the next rows. */
-.coll-history-row.is-menu-open {
-  position: relative;
-  z-index: var(--z-dropdown);
 }
 
 @media (--sm) {
@@ -189,40 +176,6 @@
   color: var(--text-primary);
 }
 
-.coll-hist-menu {
-  position: absolute;
-  right: 0;
-  top: calc(100% + 4px);
-  z-index: var(--z-dropdown);
-  background: var(--bg-card);
-  border: var(--border-width) solid var(--bg-muted);
-  border-radius: var(--radius-md);
-  box-shadow: var(--shadow-md);
-  min-width: 120px;
-  overflow: hidden;
-}
-
-.coll-hist-menu-item {
-  display: block;
-  width: 100%;
-  padding: 0.625rem 0.875rem;
-  text-align: left;
-  font-size: 0.85rem;
-  font-weight: var(--font-medium);
-  color: var(--text-primary);
-  background: transparent;
-  border: none;
-  cursor: pointer;
-}
-
-.coll-hist-menu-item:hover {
-  background: var(--bg-muted);
-}
-
-.coll-hist-menu-item--danger {
-  color: var(--color-error);
-}
-
 .coll-empty-state {
   display: flex;
   flex-direction: column;
@@ -238,7 +191,7 @@
   opacity: 0.3;
 }
 
-/* Subtle text link - calm CTA without a filled-button shout. */
+/* Subtle text link: calm CTA without a filled-button shout. */
 .coll-empty-link {
   display: inline-flex;
   align-items: center;

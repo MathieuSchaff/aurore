@@ -67,19 +67,6 @@
     transform: scale(1.1);
   }
 
-  .prod-icon-box {
-    width: 44px;
-    height: 44px;
-    border-radius: var(--radius-md);
-    background: oklch(from var(--pcc-accent) l c h / 0.08);
-    border: 2px solid oklch(from var(--pcc-accent) l c h / 0.3);
-    color: var(--pcc-accent);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-  }
-
   /* Opaque backing disc so the floating badge reads cleanly over the rounded
      corner on every engine (replaces the Chrome-only corner-shape scoop). */
   .prod-sentiment-toggle {
@@ -263,7 +250,7 @@
     align-items: center;
   }
 
-  /* Calm, indicative affinity chip — never a number or verdict (product vision). */
+  /* Calm, indicative affinity chip, never a number or verdict (product vision). */
   .pcc-compat {
     display: inline-flex;
     align-items: center;
@@ -360,13 +347,6 @@
   .prod-score-corner.score-rare {
     border-width: 0 28px 28px 0;
     border-color: transparent oklch(75% 0.18 300) transparent transparent;
-  }
-
-  .prod-card.status-holy-grail {
-    background: var(--bg-card);
-    box-shadow:
-      0 6px 20px oklch(from var(--card-accent, var(--color-primary)) l c h / 0.22),
-      0 2px 6px oklch(from var(--card-accent, var(--color-primary)) l c h / 0.1);
   }
 
   @keyframes sentimentPop {

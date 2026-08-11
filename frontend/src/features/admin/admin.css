@@ -248,29 +248,6 @@
   margin-block-start: var(--space-3);
 }
 
-.admin-toggle-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--space-3);
-}
-
-.admin-toggle-row__label {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-1);
-}
-
-.admin-toggle-row__label strong {
-  color: var(--text-primary);
-  font-weight: var(--font-medium);
-}
-
-.admin-toggle-row__label span {
-  color: var(--text-muted);
-  font-size: var(--text-xs);
-}
-
 .admin-filter-bar {
   display: flex;
   flex-wrap: wrap;
@@ -341,15 +318,6 @@
   padding: var(--space-3) var(--space-4);
   border: 1px solid var(--border-default);
   white-space: pre-wrap;
-}
-
-.admin-error-message {
-  display: inline-block;
-  max-inline-size: 42ch;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  font-size: var(--text-sm);
 }
 
 .admin-error-detail {
