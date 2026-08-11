@@ -36,7 +36,7 @@
   aspect-ratio: 4 / 3;
 }
 
-.list-card--product .list-card__icon-wrap .product-image__img {
+.list-card__icon-wrap .product-image__img {
   padding: var(--space-2);
   /* Melts the photo's own white/grey backdrop into the cream tile; the slight
      brightness lift pushes grey studio backdrops toward white first. Safe here
@@ -53,7 +53,8 @@
 }
 
 /* Kind and brand share one quiet caps line: "Exfoliant · Cyla". */
-.list-card--product .list-card__kicker {
+.list-card--product .list-card__kicker,
+.list-card--product .list-card__price-wrap {
   display: flex;
   align-items: baseline;
   gap: var(--space-1);
@@ -75,7 +76,7 @@
 
 /* Category dot: a filled mark reads at any lightness, so it carries the color
    safely where accent-tinted caps text would fail contrast on light surfaces. */
-.list-card--product .list-card__kind::before {
+.list-card__kind::before {
   content: "";
   width: 6px;
   height: 6px;
@@ -95,7 +96,7 @@
   text-overflow: ellipsis;
 }
 
-.list-card--product .list-card__brand::before {
+.list-card__brand::before {
   content: "·";
   margin-right: var(--space-1);
   color: var(--text-muted);
@@ -221,10 +222,6 @@
 }
 
 .list-card--product .list-card__price-wrap {
-  display: flex;
-  align-items: baseline;
-  gap: var(--space-1);
-  min-width: 0;
   flex: 1;
 }
 
@@ -252,11 +249,7 @@
   flex-shrink: 0;
 }
 
-.list-card--product .list-card__footer .button {
-  flex-shrink: 0;
-}
-
-.list-card--product .list-card__shelf-flag {
+.list-card__shelf-flag {
   display: inline-flex;
   align-items: center;
   gap: 4px;

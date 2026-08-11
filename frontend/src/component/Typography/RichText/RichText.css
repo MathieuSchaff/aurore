@@ -18,7 +18,6 @@
     border-radius: var(--radius-md);
   }
 
-  & .table-wrapper,
   & figure {
     max-width: 100%;
     overflow-x: auto;

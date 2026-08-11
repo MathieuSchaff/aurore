@@ -26,9 +26,6 @@
 .ingredient-info-skeleton__section {
   margin-top: var(--space-8);
   margin-bottom: var(--space-8);
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-4);
 }
 
 .ingredient-info-skeleton__tags {
@@ -54,6 +51,7 @@
   border-left: 3px solid var(--border-default);
 }
 
+.ingredient-info-skeleton__section,
 .ingredient-discussion-skeleton {
   display: flex;
   flex-direction: column;

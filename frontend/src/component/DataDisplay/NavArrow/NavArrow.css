@@ -7,7 +7,6 @@
 }
 
 .list-card:hover .nav-arrow,
-.link-card:hover .nav-arrow,
 a:hover .nav-arrow {
   color: var(--color-primary);
   transform: translateX(2px);
