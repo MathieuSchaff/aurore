@@ -1,30 +1,13 @@
 import { expect, type Page, test } from '@playwright/test'
 
 import { loginAsSeed, registerFreshUser } from './helpers/auth'
-import { gotoHydrated, gotoSettled, waitForHydration, waitForSettledUrl } from './helpers/hydration'
+import { gotoFirstProductDetail, resolveFirstSkincareSlug } from './helpers/catalog'
+import { gotoSettled, waitForHydration, waitForSettledUrl } from './helpers/hydration'
 
 function isApi(req: { url(): string }, path: string | RegExp): boolean {
   const u = req.url()
   if (typeof path === 'string') return u.endsWith(`/api${path}`)
   return path.test(u)
-}
-
-// Alphabetical first on skincare = a stable pick. We avoid the /products list
-// + "first card" approach because the default sort=newest makes the first card
-// volatile across parallel tests that create products mid-run.
-async function resolveFirstSkincareSlug(page: Page): Promise<string> {
-  const res = await page.request.get('/api/products?category=skincare&sort=name&limit=1')
-  expect(res.ok()).toBe(true)
-  const json = await res.json()
-  return json.data.items[0].slug as string
-}
-
-async function gotoFirstProductDetail(page: Page): Promise<string> {
-  const slug = await resolveFirstSkincareSlug(page)
-  await page.goto(`/products/${slug}`)
-  await expect(page).toHaveURL(new RegExp(`/products/${slug}$`), { timeout: 15_000 })
-  await waitForHydration(page)
-  return slug
 }
 
 function detailedCollectionAction(page: Page) {
@@ -38,10 +21,8 @@ test.beforeEach(async ({ page }) => {
 })
 
 test.describe('Product detail — Modifier', () => {
-  // Two tests below write `notes` on the same seed product (first skincare
-  // alphabetical); in parallel the second overwrites what the first asserts.
-  test.describe.configure({ mode: 'serial' })
-
+  // Read-only tests. The tests that PATCH this product live in
+  // product-edit.mutation.spec.ts (single-project file, see e2e.md).
   test('"Modifier" button navigates to edit page with form prefilled', async ({ page }) => {
     const slug = await gotoFirstProductDetail(page)
 
@@ -62,63 +43,6 @@ test.describe('Product detail — Modifier', () => {
     ).toBeVisible()
   })
 
-  test('editing notes PATCHes /api/products/:id and detail shows the new value', async ({
-    page,
-  }) => {
-    const slug = await gotoFirstProductDetail(page)
-    await page.getByRole('link', { name: /Modifier/ }).click()
-    await expect(page).toHaveURL(new RegExp(`/products/${slug}/edit$`))
-
-    const stamp = Date.now()
-    const newNote = `e2e edit ${stamp}`
-    const notes = page.locator('#edit-notes')
-    await notes.fill(newNote)
-
-    const patchPromise = page.waitForRequest(
-      (req) => req.method() === 'PATCH' && /\/api\/products\/[0-9a-f-]{36}$/.test(req.url())
-    )
-
-    await page.getByRole('button', { name: /^Enregistrer$|^Enregistrement…$/ }).click()
-
-    const req = await patchPromise
-    expect(req.postDataJSON()).toMatchObject({ notes: newNote })
-    expect(req.headers().authorization).toMatch(/^Bearer /)
-
-    // ProductForm.onSuccess navigates back to /products/<slug> with the (potentially updated) slug.
-    await expect(page).toHaveURL(/\/products\/[^/]+$/, { timeout: 15_000 })
-    await expect(page.getByText(newNote)).toBeVisible()
-  })
-
-  // Editing notes must omit unchanged fields from the PATCH body. Re-sending an
-  // untouched inci would re-validate it, which 400s legacy data that predates the
-  // comma-or-short write rule (long space-separated inci). The omission is the
-  // guard, asserted directly here; the backend tests cover the rule + preservation.
-  test('editing notes omits the unchanged inci field and does not 400', async ({ page }) => {
-    const slug = await gotoFirstProductDetail(page)
-    await page.getByRole('link', { name: /Modifier/ }).click()
-    await expect(page).toHaveURL(new RegExp(`/products/${slug}/edit$`))
-
-    const newNote = `e2e legacy-inci ${Date.now()}`
-    await page.locator('#edit-notes').fill(newNote)
-
-    const patchPromise = page.waitForRequest(
-      (req) => req.method() === 'PATCH' && /\/api\/products\/[0-9a-f-]{36}$/.test(req.url())
-    )
-    const respPromise = page.waitForResponse(
-      (res) =>
-        res.request().method() === 'PATCH' && /\/api\/products\/[0-9a-f-]{36}$/.test(res.url())
-    )
-    await page.getByRole('button', { name: /^Enregistrer$|^Enregistrement…$/ }).click()
-
-    const req = await patchPromise
-    // Unchanged inci is omitted, not re-sent.
-    expect('inci' in req.postDataJSON()).toBe(false)
-    expect((await respPromise).status()).toBe(200)
-
-    await expect(page).toHaveURL(/\/products\/[^/]+$/, { timeout: 15_000 })
-    await expect(page.getByText(newNote)).toBeVisible()
-  })
-
   test('"Annuler" returns to detail without firing PATCH', async ({ page }) => {
     const slug = await gotoFirstProductDetail(page)
     await page.getByRole('link', { name: /Modifier/ }).click()
@@ -134,85 +58,6 @@ test.describe('Product detail — Modifier', () => {
 
     await expect(page).toHaveURL(new RegExp(`/products/${slug}$`))
     expect(patched).toBe(false)
-  })
-})
-
-test.describe('Product edit — clearing nullable fields', () => {
-  // Both tests mutate the same seed product (first skincare alphabetical) and
-  // assert against its URL field; running them in parallel races on setup.
-  test.describe.configure({ mode: 'serial' })
-
-  // Returns slug + id of the first skincare product, with `url` pre-set to a
-  // known sentinel so we have something to clear.
-  async function ensureProductWithUrl(
-    page: Page,
-    sentinel: string
-  ): Promise<{ slug: string; id: string }> {
-    const slug = await resolveFirstSkincareSlug(page)
-    const detail = await page.request.get(`/api/products/${slug}`)
-    const id = (await detail.json()).data.id as string
-    const token = await loginAsSeed(page)
-    const setup = await page.request.patch(`/api/products/${id}`, {
-      headers: { authorization: `Bearer ${token}` },
-      data: { url: sentinel },
-    })
-    expect(setup.ok(), `setup PATCH failed (${setup.status()})`).toBe(true)
-    return { slug, id }
-  }
-
-  test('clearing the url sends url:null and detail no longer shows the link', async ({ page }) => {
-    const { slug } = await ensureProductWithUrl(page, 'https://e2e-clear-url.example.com')
-
-    await gotoHydrated(page, `/products/${slug}/edit`)
-    await expect(page.locator('#edit-url')).toHaveValue('https://e2e-clear-url.example.com')
-
-    await page.locator('#edit-url').fill('')
-
-    const patchPromise = page.waitForRequest(
-      (req) => req.method() === 'PATCH' && /\/api\/products\/[0-9a-f-]{36}$/.test(req.url())
-    )
-    await page.getByRole('button', { name: /^Enregistrer$|^Enregistrement…$/ }).click()
-    const req = await patchPromise
-
-    // The fix: empty input on a previously-set nullable field becomes `null`,
-    // not omitted. Backend then clears the column.
-    expect(req.postDataJSON()).toMatchObject({ url: null })
-
-    await expect(page).toHaveURL(/\/products\/[^/]+$/, { timeout: 15_000 })
-
-    // Re-fetch the canonical state from the API: url must be null after clear.
-    const finalSlug = page.url().split('/').pop() as string
-    const after = await page.request.get(`/api/products/${finalSlug}`)
-    expect((await after.json()).data.url).toBeNull()
-  })
-
-  test('clearing url while editing notes applies BOTH changes', async ({ page }) => {
-    const { slug } = await ensureProductWithUrl(page, 'https://e2e-mixed-change.example.com')
-
-    await page.goto(`/products/${slug}/edit`)
-    await expect(page.locator('#edit-url')).toHaveValue('https://e2e-mixed-change.example.com')
-
-    const newNote = `e2e mixed ${Date.now()}`
-    await page.locator('#edit-url').fill('')
-    await page.locator('#edit-notes').fill(newNote)
-
-    const patchPromise = page.waitForRequest(
-      (req) => req.method() === 'PATCH' && /\/api\/products\/[0-9a-f-]{36}$/.test(req.url())
-    )
-    await page.getByRole('button', { name: /^Enregistrer$|^Enregistrement…$/ }).click()
-    const req = await patchPromise
-
-    // Both fields must be present in the same PATCH body.
-    expect(req.postDataJSON()).toMatchObject({ url: null, notes: newNote })
-
-    await expect(page).toHaveURL(/\/products\/[^/]+$/, { timeout: 15_000 })
-    await expect(page.getByText(newNote)).toBeVisible()
-
-    const finalSlug = page.url().split('/').pop() as string
-    const after = await page.request.get(`/api/products/${finalSlug}`)
-    const data = (await after.json()).data
-    expect(data.url).toBeNull()
-    expect(data.notes).toBe(newNote)
   })
 })
 
