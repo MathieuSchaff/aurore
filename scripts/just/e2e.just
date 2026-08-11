@@ -1,7 +1,7 @@
 import '_vars.just'
 import 'dev.just'
 
-[doc('Launch E2E stack (tmpfs DB + migrate + restore data.sql: full catalog/personas/fixtures, not seed-core) on isolated ports 5174/3001/5434 — runs alongside just dev.')]
+[doc('Launch E2E stack (tmpfs DB + migrate + restore data.sql: full catalog/personas/fixtures, not seed-core) on isolated ports 5174/3001/5434. Runs alongside just dev.')]
 [group('e2e')]
 e2e-up: ts-build
     {{COMPOSE_E2E}} up -d --build
@@ -37,7 +37,7 @@ _e2e-browsers:
     cd frontend
     bunx playwright install 2>&1 | { grep -v '^BEWARE:' || true; }
 
-[doc('Run Playwright — auto-runs `just e2e-up` if the stack is not already up (webServer in playwright.config)')]
+[doc('Run Playwright: auto-runs `just e2e-up` if the stack is not already up (webServer in playwright.config)')]
 [group('e2e')]
 e2e: _e2e-browsers
     cd frontend && bunx playwright test

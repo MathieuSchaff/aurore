@@ -1,4 +1,4 @@
-# Shared variables — imported by the root justfile and every scripts/just/*.just.
+# Shared variables, imported by the root justfile and every scripts/just/*.just.
 # Just dedupes imports, so importing it multiple times is fine.
 
 # TARGET stays an env var: it has to survive `_lib.sh` (sourced bash), nested `just` calls and

@@ -123,7 +123,7 @@ audit-aha-bha-pha $WRITE="":
     source {{justfile_directory()}}/scripts/just/_lib.sh
     target_compose
     if [ -n "$WRITE" ]; then
-        printf "{{RED}}⚠ WRITE mode ($TARGET) — DELETE pairs from ${APPLY_FROM_CSV:-?}{{NC}}\n"
+        printf "{{RED}}⚠ WRITE mode ($TARGET): DELETE pairs from ${APPLY_FROM_CSV:-?}{{NC}}\n"
         if [ "$TARGET" = prod ]; then confirm_prod "DESTRUCTIVE (aha-bha-pha)"; fi
     else
         printf "{{CYAN}}Audit AHA/BHA/PHA overrides read-only ($TARGET) → .audit-out/db/audit-aha-bha-pha.$TARGET.md{{NC}}\n"

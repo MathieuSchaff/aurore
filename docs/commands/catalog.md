@@ -16,7 +16,7 @@ command runs inside the backend container from `/app/backend`, so a host file at
 | :--- | :--- | :--- |
 | 1. Dry-run | `just ingest-catalogue <jsonl>` | Validates, checks duplicates, writes a plan. Blockers → exit 1, nothing written |
 | 2. Apply | `just catalogue-apply <jsonl>` | Ingest (Gate A) then catalogue gate (Gate B). Dev-only |
-| 3. Link | `just link-ingredients` | Ingredient links are **not** created by the ingest — see [data-writes.md](data-writes.md) |
+| 3. Link | `just link-ingredients` | Ingredient links are **not** created by the ingest. See [data-writes.md](data-writes.md) |
 
 | Output | Path |
 | :--- | :--- |
@@ -36,10 +36,10 @@ Options, all env vars in front of the command:
 
 | Command | What | Notes |
 | :--- | :--- | :--- |
-| `just catalogue-gate` | **Gate B**: `audit-db-full` + `audit-cdn`, then `db-snapshot` | The snapshot runs only if everything passes — no catalogue ships with a red DB or broken images. Dev-only |
+| `just catalogue-gate` | **Gate B**: `audit-db-full` + `audit-cdn`, then `db-snapshot` | The snapshot runs only if everything passes: no catalogue ships with a red DB or broken images. Dev-only |
 | `just catalogue-apply <jsonl>` | **Gate A + Gate B**: `ingest-catalogue --write` then `catalogue-gate` | Dev-only |
 
-Do not run `just db-snapshot` alone after importing products — use the gate, so the audits run
+Do not run `just db-snapshot` alone after importing products. Use the gate, so the audits run
 before the snapshot changes.
 
 ## Production boundary
@@ -65,15 +65,15 @@ just prod-ssh 'TARGET=prod just ingest-catalogue path/to/products.jsonl --write'
 
 | Command | What | Env |
 | :--- | :--- | :--- |
-| `just catalog-scan-dups [dump]` | Scans a SQL dump for four duplicate signals: misspelled slug, kits and lots, near-identical INCI within a brand, base + refill. Defaults to the committed snapshot | — |
+| `just catalog-scan-dups [dump]` | Scans a SQL dump for four duplicate signals: misspelled slug, kits and lots, near-identical INCI within a brand, base + refill. Defaults to the committed snapshot | - |
 | `just catalog-backfill-canonical-key` | Fills `ingredients.canonical_key` from algo-derm evidence. Run it again after a seed, a reset, or an algo-derm bump | `--write` |
 | `just catalog-backfill-dermo-profiles` | Fills `ingredient_dermo_profiles` (comedogenicity, functions) from algo-derm evidence | `--write` |
 | `just catalog-normalize-inci` | Rewrites `products.inci` into the governed canonical form (the same normalizer the create/update path uses) | `--write` |
 | `just catalog-hide-kit-packs` | Soft-hides bundle products (coffret, kit, gift set, trio, lot de N). Idempotent | `--write`, `DELETE` |
 
 A slug is a catalogue row; a `canonical_key` is a substance. Two rows can deliberately share a
-key — `-hair` shadows, and English/French pairs.
+key: `-hair` shadows, and English/French pairs.
 
-⚠️ A one-off catalogue data correction is an idempotent SQL file applied with `just db-fix`, not
-a raw `UPDATE` — a raw update short-circuits INCI cleaning and auto-tag re-emission. See
+**Trap.** A one-off catalogue data correction is an idempotent SQL file applied with `just db-fix`,
+not a raw `UPDATE`: a raw update short-circuits INCI cleaning and auto-tag re-emission. See
 [deploy-ops.md](deploy-ops.md).

@@ -16,7 +16,7 @@ import '_vars.just'
 [script]
 image-upload $WRITE="":
     if [ -z "${SLUG:-}" ] && [ -z "${BATCH:-}" ]; then
-        printf "{{RED}}SLUG ou BATCH requis (env vars){{NC}}\n"; exit 1
+        printf "{{RED}}SLUG or BATCH required (env vars){{NC}}\n"; exit 1
     fi
     source {{justfile_directory()}}/scripts/just/_lib.sh
     target_compose

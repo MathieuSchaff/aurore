@@ -48,7 +48,7 @@ ingest-incidecoder phase:
 
 # Bulk-create products from a JSONL lot via createProduct (validation + cleanInci + auto-tag).
 # Arg = path relative to backend/. Env: CLASSIFICATIONS (verdicts json),
-# SEED_OWNER_EMAIL (owner, default seed@seed.com, must pre-exist, never created here),
+# SEED_OWNER_EMAIL (owner, default seed@seed.com, must already exist, never created here),
 # ALLOW_PARTIAL (accept a lot with blockers, else GATE A: exit 1, nothing written).
 # Run record → backend/tmp/data-runs/<lot>-<ts>/ (plan.json, apply.jsonl).
 # TARGET=prod from the laptop aborts (assert_prod_stack in _lib.sh). For real prod
@@ -79,7 +79,7 @@ catalogue-gate: audit-db-full audit-cdn db-snapshot
 [script]
 catalogue-apply jsonl:
     if [ "$TARGET" = prod ]; then
-        printf 'catalogue-apply est dev-only (db-snapshot lit la dev DB).\n' >&2
+        printf 'catalogue-apply is dev-only (db-snapshot reads the dev DB).\n' >&2
         printf "Prod: just prod-ssh 'TARGET=prod just ingest-catalogue --write <lot>'\n" >&2
         exit 1
     fi
@@ -101,7 +101,7 @@ catalog-scan-dups backup="src/db/snapshot/data.sql":
     $COMPOSE exec -w /app/backend api bun run src/db/seed/maintenance/scan-db-duplicates.ts {{backup}}
 
 # Backfill ingredients.canonical_key from algo-derm evidence (substance identity).
-# Re-run after a fresh `db-seed`/`db-reset` (seed leaves it NULL) or an algo-derm bump.
+# Run it again after a fresh `db-seed`/`db-reset` (seed leaves it NULL) or an algo-derm bump.
 # Persist with `db-snapshot` after.
 [doc("Backfill ingredients.canonical_key from algo-derm evidence. Dry-run unless --write")]
 [group('catalog')]
@@ -113,7 +113,7 @@ catalog-backfill-canonical-key $WRITE="":
 
 # Backfill ingredient_dermo_profiles (comedogenicity, functions) from algo-derm
 # evidence, joined via canonical_key. Run catalog-backfill-canonical-key first.
-# Re-run after an algo-derm bump. Persist with `db-snapshot`.
+# Run it again after an algo-derm bump. Persist with `db-snapshot`.
 [doc("Backfill ingredient_dermo_profiles (comedogenicity, functions) from algo-derm evidence. Dry-run unless --write")]
 [group('catalog')]
 [arg('WRITE', long='write', value='1', help='apply instead of the dry-run')]
@@ -134,7 +134,7 @@ catalog-normalize-inci $WRITE="":
     data_run "Normalize products.inci" src/db/seed/maintenance/normalize-product-inci.ts
 
 # Soft-hide (default) or delete bundles (coffret/kit/gift-set/trio-set/lot-de-N), not standalone formulas.
-# Slug regex shared with catalog-scan-dups. Idempotent, safe to re-run after new imports.
+# Slug regex shared with catalog-scan-dups. Idempotent, safe to run again after new imports.
 # Env: DELETE (hard delete instead of soft-hide). TARGET=prod from the laptop
 # aborts (assert_prod_stack). For real prod run via `just prod-ssh 'TARGET=prod DELETE=1 just catalog-hide-kit-packs --write'`.
 [doc("Soft-hide/delete bundle products (coffret/kit/gift-set/trio-set/lot-de-N). Idempotent. Dry-run unless --write. Env: DELETE")]

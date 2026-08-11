@@ -11,7 +11,7 @@ prod: env-prod-check
 prod-logs:
     {{COMPOSE_PROD}} logs -f
 
-[doc("[VPS] Apply prod migrations (in-container) + realign app_runtime role password (mig 0013 sets a placeholder via IF NOT EXISTS → pool can't auth until ALTER ROLE matches APP_RUNTIME_PASSWORD). Idempotent, safe to re-run.")]
+[doc("[VPS] Apply prod migrations (in-container) + realign app_runtime role password (mig 0013 sets a placeholder via IF NOT EXISTS → pool can't auth until ALTER ROLE matches APP_RUNTIME_PASSWORD). Idempotent, safe to run again.")]
 [group('prod')]
 [script]
 prod-migrate:
@@ -100,7 +100,7 @@ prod-psql-ro:
     ssh -t aurore 'docker exec -it -e PGOPTIONS="-c role=dev_readonly" app_db psql -U app -d appdb'
 
 # Apply a staged one-shot SQL fix from .db-fixes/ (gitignored). Atomic: -1 + ON_ERROR_STOP.
-# Dev keeps the file so you can review, then re-run with TARGET=prod. Prod runs over ssh
+# Dev keeps the file so you can review, then run it again with TARGET=prod. Prod runs over ssh
 # then archives the file to .db-fixes/applied/ so it can never be replayed by accident.
 # Usage: just db-fix .db-fixes/xxx.sql   →   TARGET=prod just db-fix .db-fixes/xxx.sql
 [doc('Apply a staged one-shot SQL fix from .db-fixes/. Usage: just db-fix .db-fixes/xxx.sql')]
@@ -165,7 +165,7 @@ demo-sweep-cron-install:
     echo "0 4 * * * $(id -un) cd $(pwd) && TARGET=prod $JUST_BIN sweep-demos >> $HOME/aurore-demo-sweep.log 2>&1" \
         | sudo tee /etc/cron.d/aurore-demo-sweep > /dev/null
     sudo chmod 644 /etc/cron.d/aurore-demo-sweep
-    printf "{{GREEN}}✓ Cron installed — daily demo sweep at 4am{{NC}}\n"
+    printf "{{GREEN}}✓ Cron installed: daily demo sweep at 4am{{NC}}\n"
 
 [doc('Stop all containers')]
 [group('dev')]
@@ -209,7 +209,7 @@ ssl-init domain email:
 [group('prod')]
 [script('bash')]
 firewall-setup:
-    printf '\033[0;33m⚠ SSH (port 22) will be allowed first — do not interrupt\033[0m\n'
+    printf '\033[0;33m⚠ SSH (port 22) will be allowed first. Do not interrupt\033[0m\n'
     read -p "Continue? [y/N] " confirm && [ "$confirm" = "y" ] || exit 1
     sudo ufw allow OpenSSH
     sudo ufw allow 80/tcp

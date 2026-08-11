@@ -1,6 +1,6 @@
 import '_vars.just'
 
-# ─── Observability — Alloy agent on the VPS, logs/metrics/traces to Grafana Cloud. ───
+# ─── Observability: Alloy agent on the VPS, logs/metrics/traces to Grafana Cloud. ───
 # No local Loki/Grafana: view everything on grafana.net (no tunnel). Config ships
 # in-repo; sync it to the box with `just deploy` (or git pull) first, then bring the
 # agent up. Requires GRAFANA_CLOUD_* in .env.prod.
