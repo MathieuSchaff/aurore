@@ -4,7 +4,7 @@ Every command you can run, grouped by the task you are trying to do. One table p
 command, what it does, what it writes.
 
 `just --list` is the live list of recipes, grouped the same way as the pages below
-(`just --groups` names the groups). These pages carry what a recipe name cannot say —
+(`just --groups` names the groups). These pages carry what a recipe name cannot say:
 env vars, outputs, order, and the traps.
 
 | Page | Use it when |
@@ -29,9 +29,10 @@ These hold for every recipe below.
 | `TARGET` | `dev` (default) or `prod`. Selects the Compose stack and the `.env.<target>` file. Any other value aborts before the recipe starts, whichever recipe was asked for. |
 | Dry-run by default | Anything that writes previews first. `--write` applies. |
 | Prod confirmation | Prod + write asks for a typed word: `PROD`, `I DESTROY PROD` when destructive, `DEPLOY` for a deploy. |
-| Split-brain guard | `TARGET=prod` from a laptop **aborts** — the local Compose project would match the dev stack. Real prod goes through `just prod-ssh '<cmd>'`. |
+| Split-brain guard | `TARGET=prod` from a laptop **aborts**: the local Compose project would match the dev stack. Real prod goes through `just prod-ssh '<cmd>'`. Guards only the recipes that resolve a Compose stack; `just db-fix` opens its own SSH connection and so runs for real from the laptop. See [deploy-ops.md](deploy-ops.md). |
 | Audit reports | DB audits write `.audit-out/db/<name>.<TARGET>.md`. Code audits write `.audit-out/*.txt`. |
 | After a dev write | Run `just db-snapshot` so the next reset keeps the change. |
+| **Trap:** marks a surprise | A row or a callout opens on **Trap:** when the command does something its name does not announce: data that does not come back, a flag whose meaning is inverted, state that running it again will not fix. A section that is already a warning (`## Destructive`, `## Traps`, `## Troubleshooting`) does not repeat it row by row. |
 
 ## Requirements
 
