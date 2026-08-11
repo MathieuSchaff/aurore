@@ -3,6 +3,7 @@ import { describe, expect, it } from 'vitest'
 import type { ProductDetail } from '@/lib/queries/products'
 import {
   emptyProductEditForm,
+  firstBlockingIssue,
   productEditFormToCreateInput,
   productEditFormToUpdateInput,
   productToEditForm,
@@ -132,6 +133,16 @@ describe('productEditFormToUpdateInput', () => {
     expect(result.texture).toBeUndefined()
   })
 
+  // Seed rows hold '' in nullable columns. Emitting null there put an untouched field
+  // in the PATCH, and the backend 500s parsing '' as the `old` side of an enum diff.
+  it('omits a field whose original is already an empty string (nothing to clear)', () => {
+    const emptyStrings = makeProductDetail({ amountUnit: '', inci: '', notes: '' })
+    const result = productEditFormToUpdateInput(productToEditForm(emptyStrings), emptyStrings)
+    expect(result.amountUnit).toBeUndefined()
+    expect(result.inci).toBeUndefined()
+    expect(result.notes).toBeUndefined()
+  })
+
   it('sends null when a previously-set field is cleared (explicit unset)', () => {
     const result = productEditFormToUpdateInput(form({ priceEuros: '' }), original)
     // priceEuros cleared + original had priceCents gives null
@@ -151,5 +162,62 @@ describe('productEditFormToUpdateInput', () => {
   it('sends the new priceCents (rounded) when priceEuros changes', () => {
     const result = productEditFormToUpdateInput(form({ priceEuros: '19.99' }), original)
     expect(result.priceCents).toBe(1999)
+  })
+})
+
+describe('firstBlockingIssue', () => {
+  // Both seed shapes that used to block a sane edit: an inci past the cap, and a
+  // totalAmount under the min.
+  const legacy = makeProductDetail({
+    inci: 'a'.repeat(8059),
+    totalAmount: 0,
+    notes: null,
+  })
+
+  function editForm(overrides: Partial<ReturnType<typeof emptyProductEditForm>> = {}) {
+    return { ...productToEditForm(legacy), ...overrides }
+  }
+
+  it('lets an edit through when only untouched fields are out of bounds', () => {
+    expect(firstBlockingIssue(editForm({ notes: 'une note saine' }), legacy)).toBeNull()
+  })
+
+  it('blocks when the author actually touched the out-of-bounds field', () => {
+    const touched = editForm({ inci: `${'a'.repeat(8059)} et une virgule de plus` })
+    expect(firstBlockingIssue(touched, legacy)).toBe(
+      'La liste INCI ne peut pas dépasser 5000 caractères.'
+    )
+  })
+
+  it('names the field in French rather than leaking the Zod default', () => {
+    const clean = makeProductDetail()
+    expect(
+      firstBlockingIssue({ ...productToEditForm(clean), notes: 'x'.repeat(5001) }, clean)
+    ).toBe('Les notes ne peuvent pas dépasser 5000 caractères.')
+    expect(firstBlockingIssue({ ...productToEditForm(clean), url: 'pas-une-url' }, clean)).toBe(
+      'URL invalide.'
+    )
+  })
+
+  it('validates every field in create mode, where nothing is omitted from the payload', () => {
+    const form = { ...emptyProductEditForm(), name: 'Test', brand: 'BrandX', kind: 'serum' }
+    expect(firstBlockingIssue({ ...form, unit: 'pump' }, null)).toBeNull()
+    expect(firstBlockingIssue({ ...form, unit: 'pump', inci: 'a'.repeat(5001) }, null)).toBe(
+      'La liste INCI ne peut pas dépasser 5000 caractères.'
+    )
+  })
+
+  it('still blocks a required field the author cleared', () => {
+    expect(firstBlockingIssue(editForm({ name: '' }), legacy)).toBe(
+      'Le nom du produit est obligatoire.'
+    )
+  })
+
+  // A blank-but-not-empty name only fails once trim() runs before min(1). The empty-string
+  // case above passes even without the trim, so it cannot catch losing it.
+  it('blocks a name made only of whitespace', () => {
+    expect(firstBlockingIssue(editForm({ name: '   ' }), legacy)).toBe(
+      'Le nom du produit est obligatoire.'
+    )
   })
 })

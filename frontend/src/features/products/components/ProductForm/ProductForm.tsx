@@ -298,7 +298,12 @@ export function ProductForm({
   const formAriaLabel = computeFormAriaLabel(mode, product)
 
   return (
-    <form className="product-edit-form" onSubmit={handleSubmit} aria-label={formAriaLabel}>
+    <form
+      className="product-edit-form"
+      onSubmit={handleSubmit}
+      aria-label={formAriaLabel}
+      noValidate
+    >
       <FormError error={error} fieldError={fieldError} />
       <DuplicateWarning mode={mode} products={similarProducts} />
 
