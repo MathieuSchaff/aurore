@@ -6,13 +6,13 @@ import { defineConfig } from 'vitest/config'
 export default defineConfig({
   plugins: [react()],
   test: {
-    environment: 'jsdom',
+    environment: 'happy-dom',
     globals: true,
     setupFiles: ['./src/test/setup.ts'],
     css: false,
     exclude: ['node_modules', 'dist', 'e2e/**'],
     coverage: {
-      // istanbul (not v8) — fallow `--coverage` requires coverage-final.json
+      // istanbul (not v8): fallow `--coverage` requires coverage-final.json
       provider: 'istanbul',
       reporter: ['text-summary', 'json', 'lcov', 'html'],
       reportsDirectory: './coverage',
