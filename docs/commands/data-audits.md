@@ -1,6 +1,6 @@
 # Data audits
 
-Read-only. Nothing here writes unless a row says `WRITE`. Reports land in
+Read-only. Nothing here writes unless a row lists `--write`. Reports land in
 `.audit-out/db/<name>.<TARGET>.md`.
 
 ## Everything at once
@@ -17,7 +17,7 @@ This is also Gate B of `just catalogue-gate`, together with `audit-cdn` and `db-
 | :--- | :--- | :--- |
 | `just audit-db` | Integrity: tag/domain coherence (error level), image coverage, products with no ingredients (bucketed: no INCI, no comma, real INCI with zero links), products with no tags, products with no dermo profile | — |
 | `just audit-taxonomy` | Taxonomy coherence: absence claims on implausible kinds, product-type axis leaking, concern/effect duplication. Info only | — |
-| `just audit-security` | Suspicious URLs and HTML injection in rows. Exits 1 on high severity | `WRITE=1` auto-fixes, `CSV_OUT` exports |
+| `just audit-security` | Suspicious URLs and HTML injection in rows. Exits 1 on high severity | `--write` auto-fixes, `CSV_OUT` exports |
 | `just audit-cdn` | Authoritative CDN/DB reconciliation: Bunny orphans, broken DB references, reachability sample | — |
 | `just db-stats` | Row counts | — |
 
@@ -55,7 +55,7 @@ data-fix needs another pass.
 | `just audit-tag-contradictions` | Absence tags (`sans-parfum`, `sans-silicones`, …) whose own INCI declares the thing they deny | — |
 | `just audit-uv-filters` | Visible SPF products (name or `kind=sunscreen`) with no `filtre-uv` ingredient linked. Report-only: the cause is a weak source INCI, not a linking bug | - |
 | `just audit-actif-class` | Dry-run of the pharmacological clusters (pass 2) | `LIMIT, DUMP_DRIFT, DUMP_NEW` |
-| `just audit-aha-bha-pha` | Manual AHA/BHA/PHA overrides. ⚠️ `WRITE=1` here means DELETE from a CSV | `CSV_OUT, CSV_DIR, LIMIT, WRITE, APPLY_FROM_CSV` |
+| `just audit-aha-bha-pha` | Manual AHA/BHA/PHA overrides. **Trap:** `--write` here means DELETE from a CSV | `--write`, `CSV_OUT, CSV_DIR, LIMIT, APPLY_FROM_CSV` |
 | `just audit-concentration-solver` | Solver percentages against brand claims: MAE, RMSE, CI coverage | `JSON_OUT, SLUG` |
 | `just audit-orchestrator-diff` | CSV snapshot and diff of the orchestrator output | `CSV_OUT` (required), `BASELINE, LIMIT` |
 

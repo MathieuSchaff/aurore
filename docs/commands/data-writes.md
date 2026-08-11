@@ -1,13 +1,16 @@
 # Data writes
 
-Everything here is dry-run by default. `WRITE=1` applies. Prod plus write asks for a typed
+Everything here is dry-run by default; `--write` applies. Prod plus write asks for a typed
 confirmation. After any dev write, run `just db-snapshot`.
+
+Settings in `UPPERCASE` are env vars set before `just`; `--kebab-case` ones are typed after the
+recipe name and `just --usage <recipe>` prints them.
 
 ## Ingredient linker
 
 | Command | What | Env |
 | :--- | :--- | :--- |
-| `just link-ingredients` | Backfills `product_ingredients` from `products.inci` | `WRITE`, `SLUG=<slug>` (one product), `RELINK=1` (every product that has an INCI, not only those with zero links), `ONLY_SLUGS=a,b` (with `RELINK=1`: insert only these derived slugs, no delete), `LIMIT` (integer ≥ 0, invalid aborts) |
+| `just link-ingredients` | Backfills `product_ingredients` from `products.inci` | `--write`, `SLUG=<slug>` (one product), `RELINK=1` (every product that has an INCI, not only those with zero links), `ONLY_SLUGS=a,b` (with `RELINK=1`: insert only these derived slugs, no delete), `LIMIT` (integer ≥ 0, invalid aborts) |
 
 This is the **only** path that links imported products — the seed only covers the TS fixtures,
 the ingest does not link, and the service path is manual admin work. Run it after every ingest.
@@ -38,8 +41,8 @@ The dry-run report names the zero-link buckets:
 
 | Command | What | Env |
 | :--- | :--- | :--- |
-| `just inci-cleanup <script>` | One cleanup: `clean-inci`, `resplit-single-token` or `worst-match-prose` | `WRITE`, `LIMIT` (resplit only) |
-| `just inci-cleanup-all` | The three in sequence | `WRITE` |
+| `just inci-cleanup <script>` | One cleanup: `clean-inci`, `resplit-single-token` or `worst-match-prose` | `--write`, `LIMIT` (resplit only) |
+| `just inci-cleanup-all` | The three in sequence | `--write` |
 
 | Script | What | Guardrail |
 | :--- | :--- | :--- |
@@ -71,13 +74,13 @@ is refused outside this isolated service.
 
 | Command | What | Env |
 | :--- | :--- | :--- |
-| `just autotag-backfill` | Additive backfill | `SLUG, WRITE, LIMIT, PAGE_SIZE, CONF_OVERRIDE, INCLUDE_DROPPED, TAG` (per-tag plan), `EXCLUDE_TAG`, `SAMPLE` (review CSV, with `SEED` / `CSV_OUT`) |
-| `just autotag-reconcile` | Exact sync, manual-safe | `SLUG, WRITE, LIMIT`. Refuses positional arguments |
-| `just autotag-purge-stale` | Deletes the non-manual links of **one** tag the detector no longer emits | `TAG` (required), `WRITE` |
-| `just autotag-purge-off-corpus` | Deletes the non-manual links of products whose category left the auto-tag corpus (`skincare`/`solaire`/`bodycare`). Reconcile and purge-stale cannot see them | `WRITE` |
+| `just autotag-backfill` | Additive backfill | `--write`, `SLUG, LIMIT, PAGE_SIZE, CONF_OVERRIDE, INCLUDE_DROPPED, TAG` (per-tag plan), `EXCLUDE_TAG`, `SAMPLE` (review CSV, with `SEED` / `CSV_OUT`) |
+| `just autotag-reconcile` | Exact sync, manual-safe | `--write`, `SLUG, LIMIT` |
+| `just autotag-purge-stale` | Deletes the nonmanual links of **one** tag the detector no longer emits | `TAG` (required), `--write` |
+| `just autotag-purge-off-corpus` | Deletes the nonmanual links of products whose category left the auto-tag corpus (`skincare`/`solaire`/`bodycare`). Reconcile and purge-stale cannot see them | `--write` |
 | `just autotag-goldset` | Stratified sample of 60–80 products → `data/gold-set/annotations.json`. Idempotent | `SAMPLE_SIZE, POSITIVES_PER_TAG, NEGATIVES_PER_TAG, SEED, GOLD_SET_PATH` |
-| `just catalog-fix-tag-domain` | Fixes `tag_products` rows breaking a domain constraint (skincare tag types on haircare products) | `WRITE` |
-| `just catalog-fix-tag-domain-safe` | The same fix plus `db-snapshot` in one command | `WRITE`. Dev-only |
+| `just catalog-fix-tag-domain` | Fixes `tag_products` rows breaking a domain constraint (skincare tag types on haircare products) | `--write` |
+| `just catalog-fix-tag-domain-safe` | The same fix plus `db-snapshot` in one command | `--write`. Dev-only |
 
 To persist a single isolated tag, write it directly rather than running `db-seed` — a full seed
 churns the snapshot for nothing.
@@ -89,9 +92,9 @@ The pipeline is Bunny CDN. Staging defaults to `backend/src/output` on the host;
 
 | Command | What | Env |
 | :--- | :--- | :--- |
-| `just image-upload` | Upload one image, or a JSON batch, to Bunny and update the DB | `SLUG` or `BATCH` (one required), `URL, FILE, WRITE, NO_DB, NO_STAGED, CONCURRENCY` |
+| `just image-upload` | Upload one image, or a JSON batch, to Bunny and update the DB | `--write`, `SLUG` or `BATCH` (one required), `URL, FILE, NO_DB, NO_STAGED, CONCURRENCY` |
 | `just image-build-mapping` | Build `output/image-mapping.json` from the Bunny ∩ DB inventory | Prerequisite of `image-fix-refs`. Local artifact |
-| `just image-fix-refs` | Reconcile `image_url` against Bunny from the mapping: rename, nullify, cleanup. Writes **both** DB and CDN | `WRITE` |
+| `just image-fix-refs` | Reconcile `image_url` against Bunny from the mapping: rename, nullify, cleanup. Writes **both** DB and CDN | `--write` |
 
 | Trap | Detail |
 | :--- | :--- |

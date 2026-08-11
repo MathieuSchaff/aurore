@@ -59,7 +59,7 @@ huile-argan      >--->  "Argania Spinosa Kernel Oil"
 ## Maintenance
 
 - **Re-run after a fresh seed or an algo-derm bump:**
-  `WRITE=1 just catalog-backfill-canonical-key` then `just db-snapshot`.
+  `just catalog-backfill-canonical-key --write` then `just db-snapshot`.
 - `just db-seed` already re-runs the backfill (seed inserts leave the column NULL).
 - The backfill resets the column first, so it reflects the current algo-derm evidence DB —
   a dropped alias drops its key unless a reviewed catalogue identity owns it.

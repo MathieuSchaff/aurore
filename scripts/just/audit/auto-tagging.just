@@ -115,13 +115,14 @@ audit-actif-class:
         -w /app/backend api bun run src/features/auto-tagging/runners/audit/actif-class.ts \
         | tee "$(audit_out audit-actif-class)"
 
-[doc('Audit AHA/BHA/PHA manual overrides. Env: CSV_OUT, CSV_DIR, LIMIT, WRITE (destructive), APPLY_FROM_CSV.')]
+[doc('Audit AHA/BHA/PHA manual overrides. Read-only unless --write, which DELETES. Env: CSV_OUT, CSV_DIR, LIMIT, APPLY_FROM_CSV.')]
 [group('audit')]
+[arg('WRITE', long='write', value='1', help='⚠ DELETE the pairs listed in APPLY_FROM_CSV')]
 [script]
-audit-aha-bha-pha:
+audit-aha-bha-pha $WRITE="":
     source {{justfile_directory()}}/scripts/just/_lib.sh
     target_compose
-    if [ -n "${WRITE:-}" ]; then
+    if [ -n "$WRITE" ]; then
         printf "{{RED}}⚠ WRITE mode ($TARGET) — DELETE pairs from ${APPLY_FROM_CSV:-?}{{NC}}\n"
         if [ "$TARGET" = prod ]; then confirm_prod "DESTRUCTIVE (aha-bha-pha)"; fi
     else

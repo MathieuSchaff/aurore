@@ -24,9 +24,9 @@ These hold for every recipe below.
 
 | Rule | Detail |
 | :--- | :--- |
-| Parameters are env vars | `TARGET=prod WRITE=1 LIMIT=50 just <recipe>`. Only a finite choice (`<phase>`, `<script>`) or a path (`<file>`, `<jsonl>`) stays positional. |
+| Parameters are env vars | `TARGET=prod LIMIT=50 just <recipe>`. Only a finite choice (`<phase>`, `<script>`) or a path (`<file>`, `<jsonl>`) stays positional. |
 | `TARGET` | `dev` (default) or `prod`. Selects the Compose stack and the `.env.<target>` file. Any other value aborts before the recipe starts, whichever recipe was asked for. |
-| Dry-run by default | Anything that writes previews first. `WRITE=1` applies. |
+| Dry-run by default | Anything that writes previews first. `--write` applies. |
 | Prod confirmation | Prod + write asks for a typed word: `PROD`, `I DESTROY PROD` when destructive, `DEPLOY` for a deploy. |
 | Split-brain guard | `TARGET=prod` from a laptop **aborts** — the local Compose project would match the dev stack. Real prod goes through `just prod-ssh '<cmd>'`. |
 | Audit reports | DB audits write `.audit-out/db/<name>.<TARGET>.md`. Code audits write `.audit-out/*.txt`. |

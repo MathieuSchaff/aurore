@@ -78,9 +78,10 @@ db-seed-update:
 [group('db')]
 db-seed-safe: db-seed audit-db
 
-[doc('Fix tag-domain then persist dev snapshot in one command. WRITE=1 applies (else dry no-op). Dev-only.')]
+[doc('Fix tag-domain then persist dev snapshot in one command. Dry no-op unless --write. Dev-only.')]
 [group('catalog')]
-catalog-fix-tag-domain-safe: catalog-fix-tag-domain db-snapshot
+[arg('WRITE', long='write', value='1', help='apply instead of the dry-run')]
+catalog-fix-tag-domain-safe $WRITE="": (catalog-fix-tag-domain WRITE) db-snapshot
 
 # ─── Destructive (DOUBLE confirmation on prod) ──────────────────────────────
 

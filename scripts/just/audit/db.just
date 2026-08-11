@@ -20,14 +20,17 @@ audit-taxonomy:
     $COMPOSE exec -w /app/backend api bun run src/db/audit/audit-taxonomy.ts \
         | tee "$(audit_out audit-taxonomy)"
 
-[doc('Scan DB rows for suspicious URLs / HTML injection; exit 1 on high-severity. Env: WRITE=1 (auto-fix), CSV_OUT (export). TARGET: dev|prod (prod+WRITE → confirm).')]
+# Also reached by `audit-db-full`, which passes no option: the sweep stays read-only whatever
+# the caller's environment, which the env form could not guarantee.
+[doc('Scan DB rows for suspicious URLs / HTML injection; exit 1 on high-severity. Read-only unless --write (auto-fix). Env: CSV_OUT (export). TARGET: dev|prod (prod + --write → confirm).')]
 [group('audit')]
+[arg('WRITE', long='write', value='1', help='auto-fix the rows instead of only reporting')]
 [script]
-audit-security:
+audit-security $WRITE="":
     source {{justfile_directory()}}/scripts/just/_lib.sh
     target_compose
-    if [ "$TARGET" = prod ] && [ -n "${WRITE:-}" ]; then confirm_prod "WRITE (audit-security)"; fi
-    MODE=$([ -n "${WRITE:-}" ] && echo "WRITE" || echo "dry-run")
+    if [ "$TARGET" = prod ] && [ -n "$WRITE" ]; then confirm_prod "WRITE (audit-security)"; fi
+    MODE=$([ -n "$WRITE" ] && echo "WRITE" || echo "dry-run")
     printf "{{CYAN}}Security audit ($MODE, $TARGET) → .audit-out/db/audit-security.$TARGET.md{{NC}}\n"
     $COMPOSE exec \
         ${WRITE:+-e WRITE="$WRITE"} \

@@ -41,15 +41,16 @@ assert_prod_stack() {
 
 # Standard runner for env-driven data recipes: resolves $COMPOSE, guards prod
 # writes, prints the banner, then runs the script in the api container.
-# Reads WRITE from the environment (appends --write + prod confirmation).
+# Reads $WRITE, which every caller declares as a `--write` recipe option: unset here means the
+# recipe forgot the parameter, and `set -u` says so instead of silently running a dry-run.
 # SEED_OWNER_EMAIL is forwarded for the catalogue ingest; harmless elsewhere.
 # Usage: data_run <label> <script.ts> [script args…]
 data_run() {
     local label="$1" script="$2" mode
     shift 2
     target_compose
-    if [ "$TARGET" = prod ] && [ -n "${WRITE:-}" ]; then confirm_prod "WRITE ($label)"; fi
-    mode=$([ -n "${WRITE:-}" ] && echo "WRITE" || echo "dry-run")
+    if [ "$TARGET" = prod ] && [ -n "$WRITE" ]; then confirm_prod "WRITE ($label)"; fi
+    mode=$([ -n "$WRITE" ] && echo "WRITE" || echo "dry-run")
     printf '\033[0;36m%s (%s, %s)...\033[0m\n' "$label" "$mode" "$TARGET"
     $COMPOSE exec -w /app/backend ${SEED_OWNER_EMAIL:+-e SEED_OWNER_EMAIL="$SEED_OWNER_EMAIL"} api \
         bun run "$script" "$@" ${WRITE:+--write}

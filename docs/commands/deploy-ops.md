@@ -20,7 +20,7 @@ the guard refuses rather than write to the wrong database. Everything goes throu
 Any recipe can be run remotely:
 
 ```bash
-just prod-ssh 'TARGET=prod WRITE=1 just <recipe>'
+just prod-ssh 'TARGET=prod just <recipe> --write'
 ```
 
 ## Deploy (runs on the VPS)
