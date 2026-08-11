@@ -88,7 +88,8 @@
   text-wrap: balance;
 }
 
-.aur-about-hero__title em {
+.aur-about-hero__title em,
+.aur-about-cta__title em {
   /* Global `* { font-family }` blocks inheritance; restore the display face. */
   font-family: inherit;
   font-style: italic;
@@ -276,7 +277,8 @@
   align-items: start;
 }
 
-.aur-about-story__col p {
+.aur-about-story__col p,
+.aur-about-collab__body p {
   font-size: var(--text-base);
   line-height: var(--leading-relaxed);
   color: var(--text-secondary);
@@ -631,13 +633,6 @@
   align-items: center;
 }
 
-.aur-about-collab__body p {
-  font-size: var(--text-base);
-  line-height: var(--leading-relaxed);
-  color: var(--text-secondary);
-  margin: 0 0 var(--space-4) 0;
-}
-
 .aur-about-collab__list {
   list-style: none;
   padding: 0;
@@ -763,14 +758,6 @@
   text-wrap: balance;
 }
 
-.aur-about-cta__title em {
-  /* Global `* { font-family }` blocks inheritance; restore the display face. */
-  font-family: inherit;
-  font-style: italic;
-  color: var(--text-secondary);
-  font-weight: var(--font-normal);
-}
-
 .aur-about-cta__sub {
   font-size: var(--text-base);
   color: var(--text-secondary);
@@ -873,7 +860,7 @@
   .aur-about-note,
   .aur-about-hero__content,
   .aur-about-hero__visual {
-    /* biome-ignore lint/complexity/noImportantStyles: a11y override - prefers-reduced-motion must beat author specificity */
+    /* biome-ignore lint/complexity/noImportantStyles: a11y override, prefers-reduced-motion must beat author specificity */
     animation: none !important;
   }
 }

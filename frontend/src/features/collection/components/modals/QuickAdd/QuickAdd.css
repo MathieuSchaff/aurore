@@ -109,12 +109,6 @@
   gap: 1.25rem;
 }
 
-.qa-field {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
 .qa-status-grid--spaced {
   margin-top: 0.5rem;
 }
