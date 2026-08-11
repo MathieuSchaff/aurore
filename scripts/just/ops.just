@@ -10,9 +10,8 @@ prod-logs:
     {{COMPOSE_PROD}} logs -f
 
 # [VPS] Apply prod migrations (in-container) + realign app_runtime role password (mig 0013 sets a placeholder via IF NOT EXISTS → pool can't auth until ALTER ROLE matches APP_RUNTIME_PASSWORD). Idempotent, safe to re-run.
+[script]
 prod-migrate:
-    #!/usr/bin/env bash
-    set -euo pipefail
     source {{justfile_directory()}}/scripts/just/_lib.sh
     # SKIP_CONFIRM=1 lets `deploy` gate once instead of prompting twice.
     if [ "${SKIP_CONFIRM:-}" != "1" ]; then confirm_prod "MIGRATE"; fi
@@ -31,9 +30,8 @@ prod-health:
     {{COMPOSE_PROD}} ps --format "table {{{{.Name}}\t{{{{.Status}}\t{{{{.Health}}"
 
 # [VPS] One-shot prod deploy: sync config → pull images → up → migrate → health.
+[script]
 deploy: env-prod-check
-    #!/usr/bin/env bash
-    set -euo pipefail
     source {{justfile_directory()}}/scripts/just/_lib.sh
     # Single 'DEPLOY' gate skips prod-migrate's own prompt. Migrate execs inside the
     # api container so it runs after `up`; additive migrations boot fine on the old
@@ -93,9 +91,8 @@ prod-psql-ro:
 # Dev keeps the file so you can review, then re-run with TARGET=prod. Prod runs over ssh
 # then archives the file to .db-fixes/applied/ so it can never be replayed by accident.
 # Usage: just db-fix .db-fixes/xxx.sql   →   TARGET=prod just db-fix .db-fixes/xxx.sql
+[script]
 db-fix file:
-    #!/usr/bin/env bash
-    set -euo pipefail
     source {{justfile_directory()}}/scripts/just/_lib.sh
     [ -f "{{file}}" ] || { printf "{{RED}}❌ no file: {{file}}{{NC}}\n"; exit 1; }
     TARGET="${TARGET:-dev}"
@@ -133,9 +130,8 @@ prod-moderation:
     ssh aurore 'docker exec -e PGOPTIONS="-c role=dev_readonly" app_db psql -U app -d appdb -P pager=off -c "SELECT created_at, action, actor_id, target_user_id, details FROM moderation_actions ORDER BY created_at DESC LIMIT 20;"'
 
 # Delete demo accounts past their 24h TTL (cron entrypoint). TARGET: dev|prod.
+[script]
 sweep-demos:
-    #!/usr/bin/env bash
-    set -euo pipefail
     source {{justfile_directory()}}/scripts/just/_lib.sh
     TARGET="${TARGET:-dev}"
     target_compose
@@ -143,9 +139,8 @@ sweep-demos:
     $COMPOSE exec -w /app/backend api bun run src/features/auth/sweep-expired-demos.cli.ts
 
 # [VPS] Install daily cron (4am) to purge expired demo accounts. Runs as the invoking user with an absolute just path (cron PATH excludes ~/.local/bin).
+[script]
 demo-sweep-cron-install:
-    #!/usr/bin/env bash
-    set -euo pipefail
     printf "{{YELLOW}}Installing demo-sweep cron at /etc/cron.d/aurore-demo-sweep{{NC}}\n"
     JUST_BIN="$(command -v just)"
     echo "0 4 * * * $(id -un) cd $(pwd) && TARGET=prod $JUST_BIN sweep-demos >> $HOME/aurore-demo-sweep.log 2>&1" \
@@ -169,9 +164,8 @@ shell-db:
     {{COMPOSE_DEV}} exec db psql -U app -d appdb
 
 # [VPS] Generate SSL certificates for the apex + www hostnames. Usage: just ssl-init <domain> <email>
+[script]
 ssl-init domain email:
-    #!/usr/bin/env bash
-    set -euo pipefail
     DOMAIN="{{domain}}"
     PRIMARY="${DOMAIN#www.}"
     WWW="www.${PRIMARY}"
@@ -188,8 +182,9 @@ ssl-init domain email:
         --no-eff-email
 
 # [VPS] Configure ufw: allow SSH/HTTP/HTTPS, block everything else
+# Plain bash on purpose: the prompt reads better than an -e abort in the middle of a rule.
+[script('bash')]
 firewall-setup:
-    #!/usr/bin/env bash
     printf '\033[0;33m⚠ SSH (port 22) will be allowed first — do not interrupt\033[0m\n'
     read -p "Continue? [y/N] " confirm && [ "$confirm" = "y" ] || exit 1
     sudo ufw allow OpenSSH
@@ -199,8 +194,9 @@ firewall-setup:
     sudo ufw status verbose
 
 # Remove containers, volumes and images
+# Plain bash on purpose: teardown must reach the last stack even if an earlier one is absent.
+[script('bash')]
 clean:
-    #!/usr/bin/env bash
     printf '\033[0;33m⚠ This will delete all Docker data\033[0m\n'
     read -p "Continue? [y/N] " confirm && [ "$confirm" = "y" ] || exit 1
     {{COMPOSE_DEV}} down -v 2>/dev/null || true

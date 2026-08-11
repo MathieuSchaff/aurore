@@ -2,9 +2,8 @@
 
 # Dry-run auto-tagging via algo-derm (read-only). Env: CONF_OVERRIDE, CSV_OUT, LIMIT, INCLUDE_DROPPED, DUMP_BUDGETS, CHECK, DUMP_BENEFITS, BENEFITS_OUT, DISABLE_FLOORS.
 [group('audit')]
+[script]
 audit-auto-tags:
-    #!/usr/bin/env bash
-    set -euo pipefail
     source {{justfile_directory()}}/scripts/just/_lib.sh
     TARGET="${TARGET:-dev}"
     target_compose
@@ -24,9 +23,8 @@ audit-auto-tags:
 
 # Calibration drift: hit_rate per (slug,category) vs TAG_HIT_RATE_BUDGET; exit 1 on FAIL, out-of-budget → WARN (warn-only).
 [group('audit')]
+[script]
 audit-auto-tags-check:
-    #!/usr/bin/env bash
-    set -euo pipefail
     source {{justfile_directory()}}/scripts/just/_lib.sh
     TARGET="${TARGET:-dev}"
     target_compose
@@ -36,9 +34,8 @@ audit-auto-tags-check:
 
 # Detect kind mistags the name-regex misses, via INCI signal (wash kind w/o surfactant). Read-only, report-only.
 [group('audit')]
+[script]
 audit-kind-inci:
-    #!/usr/bin/env bash
-    set -euo pipefail
     source {{justfile_directory()}}/scripts/just/_lib.sh
     TARGET="${TARGET:-dev}"
     target_compose
@@ -50,9 +47,8 @@ audit-kind-inci:
 # Report-only: the cause is an empty/weak source INCI (scrape), not a linking bug. Catches a
 # new hole right after a catalogue ingest.
 [group('audit')]
+[script]
 audit-uv-filters:
-    #!/usr/bin/env bash
-    set -euo pipefail
     source {{justfile_directory()}}/scripts/just/_lib.sh
     TARGET="${TARGET:-dev}"
     target_compose
@@ -62,9 +58,8 @@ audit-uv-filters:
 
 # Detect sans-sulfates false negatives: leave-on products denied the claim by a cetearyl/coceth emulsifier. Read-only.
 [group('audit')]
+[script]
 audit-sans-sulfates:
-    #!/usr/bin/env bash
-    set -euo pipefail
     source {{justfile_directory()}}/scripts/just/_lib.sh
     TARGET="${TARGET:-dev}"
     target_compose
@@ -74,9 +69,8 @@ audit-sans-sulfates:
 
 # Detect absence tags (sans-parfum, sans-silicones, …) whose own INCI declares the thing they deny. Read-only, report-only.
 [group('audit')]
+[script]
 audit-tag-contradictions:
-    #!/usr/bin/env bash
-    set -euo pipefail
     source {{justfile_directory()}}/scripts/just/_lib.sh
     TARGET="${TARGET:-dev}"
     target_compose
@@ -86,9 +80,8 @@ audit-tag-contradictions:
 
 # Audit products.kind mistags via name patterns. Read-only. Apply reviewed fixes via `just db-fix`. Env: SLUG (single product).
 [group('audit')]
+[script]
 audit-product-kinds:
-    #!/usr/bin/env bash
-    set -euo pipefail
     source {{justfile_directory()}}/scripts/just/_lib.sh
     TARGET="${TARGET:-dev}"
     target_compose
@@ -99,9 +92,8 @@ audit-product-kinds:
 
 # Snapshot/diff orchestrator output. Env: CSV_OUT (required), BASELINE, LIMIT.
 [group('audit')]
+[script]
 audit-orchestrator-diff:
-    #!/usr/bin/env bash
-    set -euo pipefail
     if [ -z "${CSV_OUT:-}" ]; then
         printf "{{RED}}CSV_OUT requis (e.g. CSV_OUT=/tmp/out.csv just audit-orchestrator-diff){{NC}}\n"; exit 1
     fi
@@ -118,9 +110,8 @@ audit-orchestrator-diff:
 
 # Dry-run pharmacological cluster audit (pass 2). Env: LIMIT.
 [group('audit')]
+[script]
 audit-actif-class:
-    #!/usr/bin/env bash
-    set -euo pipefail
     source {{justfile_directory()}}/scripts/just/_lib.sh
     TARGET="${TARGET:-dev}"
     target_compose
@@ -134,9 +125,8 @@ audit-actif-class:
 
 # Audit AHA/BHA/PHA manual overrides. Env: CSV_OUT, CSV_DIR, LIMIT, WRITE (destructive), APPLY_FROM_CSV.
 [group('audit')]
+[script]
 audit-aha-bha-pha:
-    #!/usr/bin/env bash
-    set -euo pipefail
     source {{justfile_directory()}}/scripts/just/_lib.sh
     TARGET="${TARGET:-dev}"
     target_compose
@@ -157,9 +147,8 @@ audit-aha-bha-pha:
 
 # Benchmark orchestrator vs gold-set (precision/recall/Brier/ECE per tag). Env: GOLD_SET_PATH, CSV_OUT, STRICT.
 [group('audit')]
+[script]
 audit-gold-set:
-    #!/usr/bin/env bash
-    set -euo pipefail
     source {{justfile_directory()}}/scripts/just/_lib.sh
     TARGET="${TARGET:-dev}"
     target_compose
@@ -173,9 +162,8 @@ audit-gold-set:
 
 # Audit algo-derm concentration solver vs brand-claim % (product_ingredients.concentration_value); per-slug + global MAE/RMSE + CI coverage. Env: JSON_OUT, SLUG.
 [group('audit')]
+[script]
 audit-concentration-solver:
-    #!/usr/bin/env bash
-    set -euo pipefail
     source {{justfile_directory()}}/scripts/just/_lib.sh
     TARGET="${TARGET:-dev}"
     target_compose

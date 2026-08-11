@@ -10,9 +10,8 @@ import '_vars.just'
 
 # Probe PETA brand by brand (~220) → cruelty-free into brand_certifications. Env: REFRESH (re-fetch), WRITE (apply), STRICT_PRUNE (drop stale `peta` rows).
 [group('ingest')]
+[script]
 ingest-peta:
-    #!/usr/bin/env bash
-    set -euo pipefail
     source {{justfile_directory()}}/scripts/just/_lib.sh
     data_run "Ingest PETA cruelty-free" src/db/seed/ingest/peta-cruelty-free/main.ts \
         ${REFRESH:+--refresh} \
@@ -20,9 +19,8 @@ ingest-peta:
 
 # Open Beauty Facts dump (~17 MB) → aggregate vegan/cruelty-free/natural claims per brand (≥THRESHOLD) → brand_certifications. Env: DOWNLOAD, WRITE, THRESHOLD (default 0.5), NO_WHITELIST.
 [group('ingest')]
+[script]
 ingest-obf:
-    #!/usr/bin/env bash
-    set -euo pipefail
     source {{justfile_directory()}}/scripts/just/_lib.sh
     data_run "Ingest OBF brand labels" src/db/seed/ingest/obf-brand-labels/main.ts \
         ${DOWNLOAD:+--download} \
@@ -34,9 +32,8 @@ ingest-obf:
 # Usage: just ingest-incidecoder crawl  (then match, fetch, apply)  ·  TARGET=prod … apply
 [doc("Fetch clean INCI from INCIDecoder for weak-INCI products (crawl|match|fetch|apply)")]
 [group('ingest')]
+[script]
 ingest-incidecoder phase:
-    #!/usr/bin/env bash
-    set -euo pipefail
     case "{{phase}}" in
         crawl|match|fetch|apply) ;;
         *) printf "{{RED}}phase invalide: crawl|match|fetch|apply{{NC}}\n"; exit 1 ;;
@@ -58,9 +55,8 @@ ingest-incidecoder phase:
 # Runbook: docs/commands/catalog.md.
 [doc("Bulk-create products from a JSONL lot via createProduct (validation + cleanInci + auto-tag). Env: WRITE, ALLOW_PARTIAL, CLASSIFICATIONS, SEED_OWNER_EMAIL")]
 [group('ingest')]
+[script]
 ingest-catalogue jsonl:
-    #!/usr/bin/env bash
-    set -euo pipefail
     source {{justfile_directory()}}/scripts/just/_lib.sh
     data_run "Ingest catalogue {{jsonl}}" src/db/seed/ingest/catalogue/main.ts {{jsonl}} \
         ${ALLOW_PARTIAL:+--allow-partial} \
@@ -78,9 +74,8 @@ catalogue-gate: audit-db-full audit-cdn db-snapshot
 # Dev-only like catalogue-gate. Prod stays `just prod-ssh '… just ingest-catalogue …'`.
 [doc("Catalogue happy path: write the lot (Gate A) then catalogue-gate (Gate B + snapshot). Dev-only")]
 [group('catalog')]
+[script]
 catalogue-apply jsonl:
-    #!/usr/bin/env bash
-    set -euo pipefail
     if [ "${TARGET:-dev}" = prod ]; then
         printf 'catalogue-apply est dev-only (db-snapshot lit la dev DB).\n' >&2
         printf "Prod: just prod-ssh 'TARGET=prod WRITE=1 just ingest-catalogue <lot>'\n" >&2
@@ -96,9 +91,8 @@ catalogue-apply jsonl:
 # Arg = path relative to backend/ (default = committed snapshot), ex: just catalog-scan-dups src/db/my-dump.sql
 [doc("Scan a SQL dump → 4 duplicate signals (misspelled slug, kits/lots, near-identical INCI, base+refill). Read-only")]
 [group('catalog')]
+[script]
 catalog-scan-dups backup="src/db/snapshot/data.sql":
-    #!/usr/bin/env bash
-    set -euo pipefail
     source {{justfile_directory()}}/scripts/just/_lib.sh
     TARGET="${TARGET:-dev}"
     target_compose
@@ -110,9 +104,8 @@ catalog-scan-dups backup="src/db/snapshot/data.sql":
 # Env: WRITE (omit = dry-run). Persist with `db-snapshot` after.
 [doc("Backfill ingredients.canonical_key from algo-derm evidence. Env: WRITE (omit = dry-run)")]
 [group('catalog')]
+[script]
 catalog-backfill-canonical-key:
-    #!/usr/bin/env bash
-    set -euo pipefail
     source {{justfile_directory()}}/scripts/just/_lib.sh
     data_run "Backfill canonical_key" src/db/seed/maintenance/backfill-canonical-key.ts
 
@@ -121,9 +114,8 @@ catalog-backfill-canonical-key:
 # Re-run after an algo-derm bump. Env: WRITE (omit = dry-run). Persist with `db-snapshot`.
 [doc("Backfill ingredient_dermo_profiles (comedogenicity, functions) from algo-derm evidence. Env: WRITE (omit = dry-run)")]
 [group('catalog')]
+[script]
 catalog-backfill-dermo-profiles:
-    #!/usr/bin/env bash
-    set -euo pipefail
     source {{justfile_directory()}}/scripts/just/_lib.sh
     data_run "Backfill dermo profiles" src/db/seed/maintenance/backfill-dermo-profiles.ts
 
@@ -132,9 +124,8 @@ catalog-backfill-dermo-profiles:
 # Persist with `db-snapshot` after a WRITE.
 [doc("Rewrite products.inci to governed canonical form (algo-derm cleanInci). Env: WRITE (omit = dry-run)")]
 [group('catalog')]
+[script]
 catalog-normalize-inci:
-    #!/usr/bin/env bash
-    set -euo pipefail
     source {{justfile_directory()}}/scripts/just/_lib.sh
     data_run "Normalize products.inci" src/db/seed/maintenance/normalize-product-inci.ts
 
@@ -144,8 +135,7 @@ catalog-normalize-inci:
 # aborts (assert_prod_stack). For real prod run via `just prod-ssh 'TARGET=prod WRITE=1 DELETE=1 just catalog-hide-kit-packs'`.
 [doc("Soft-hide/delete bundle products (coffret/kit/gift-set/trio-set/lot-de-N). Idempotent. Env: WRITE (omit for dry-run), DELETE")]
 [group('catalog')]
+[script]
 catalog-hide-kit-packs:
-    #!/usr/bin/env bash
-    set -euo pipefail
     source {{justfile_directory()}}/scripts/just/_lib.sh
     data_run "Hide kit/pack products" src/db/seed/maintenance/hide-kit-pack-products.ts ${DELETE:+--delete}

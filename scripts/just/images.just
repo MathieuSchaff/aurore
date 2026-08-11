@@ -12,9 +12,8 @@ import '_vars.just'
 # WRITE (omit = dry-run), NO_DB, NO_STAGED, CONCURRENCY.
 [doc("Upload an image to Bunny CDN + update DB. Env: SLUG|BATCH, URL, FILE, WRITE (omit = dry-run), NO_DB, NO_STAGED, CONCURRENCY")]
 [group('images')]
+[script]
 image-upload:
-    #!/usr/bin/env bash
-    set -euo pipefail
     if [ -z "${SLUG:-}" ] && [ -z "${BATCH:-}" ]; then
         printf "{{RED}}SLUG ou BATCH requis (env vars){{NC}}\n"; exit 1
     fi
@@ -38,9 +37,8 @@ image-upload:
 # image-fix-refs). Writes a local artifact only (no DB, no CDN), so no mode flag.
 [doc("Build output/image-mapping.json from the Bunny ∩ DB inventory (prerequisite of image-fix-refs). Local artifact, no mode")]
 [group('images')]
+[script]
 image-build-mapping:
-    #!/usr/bin/env bash
-    set -euo pipefail
     source {{justfile_directory()}}/scripts/just/_lib.sh
     TARGET="${TARGET:-dev}"
     target_compose
@@ -49,9 +47,8 @@ image-build-mapping:
 
 # Reconcile DB image_url ⇄ Bunny from image-mapping.json (rename/nullify/cleanup). Writes DB+CDN. Env: WRITE (omit = dry-run). TARGET: dev|prod (prod+WRITE → confirm).
 [group('images')]
+[script]
 image-fix-refs:
-    #!/usr/bin/env bash
-    set -euo pipefail
     source {{justfile_directory()}}/scripts/just/_lib.sh
     TARGET="${TARGET:-dev}"
     target_compose

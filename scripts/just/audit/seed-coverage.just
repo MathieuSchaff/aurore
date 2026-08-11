@@ -4,9 +4,8 @@
 
 # Seed ingredient slug sync: missing in data, ghosts, duplicates. Read-only.
 [group('audit')]
+[script]
 audit-ingredients-sync:
-    #!/usr/bin/env bash
-    set -euo pipefail
     source {{justfile_directory()}}/scripts/just/_lib.sh
     TARGET="${TARGET:-dev}"
     target_compose
@@ -16,9 +15,8 @@ audit-ingredients-sync:
 
 # Live-DB ingredient tag coverage: ingredients with no tag at all. Read-only.
 [group('audit')]
+[script]
 audit-ingredient-tags-coverage:
-    #!/usr/bin/env bash
-    set -euo pipefail
     source {{justfile_directory()}}/scripts/just/_lib.sh
     TARGET="${TARGET:-dev}"
     target_compose
@@ -28,9 +26,8 @@ audit-ingredient-tags-coverage:
 
 # INCI corpus audit: unmatched tokens, pathological INCI. Env: FULL.
 [group('audit')]
+[script]
 audit-inci-quality:
-    #!/usr/bin/env bash
-    set -euo pipefail
     source {{justfile_directory()}}/scripts/just/_lib.sh
     TARGET="${TARGET:-dev}"
     target_compose

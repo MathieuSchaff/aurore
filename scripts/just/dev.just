@@ -17,9 +17,8 @@ dev-d: ts-build _db-guard
 # Fail-safe: bring db up first and offer a snapshot restore if the dev DB is
 # empty. A volume wipe (just clean / down -v / prune) otherwise leaves the stack
 # silently 500ing. `just dev` boots fine but every query hits a schemaless DB.
+[script]
 _db-guard:
-    #!/usr/bin/env bash
-    set -euo pipefail
     {{COMPOSE_DEV}} up -d db
     for _ in $(seq 1 30); do
         {{COMPOSE_DEV}} exec -T db pg_isready -U app -d appdb >/dev/null 2>&1 && break
@@ -50,9 +49,8 @@ _db-guard:
 # /api → the running dev backend. Faithful browser-facing transport, unlike
 # `vite preview` (HTTP/1.1, no compression, no cache headers). Prereq: `just dev-d`.
 # Open https://localhost and accept the self-signed cert. Teardown: `just profile-prod-down`.
+[script]
 profile-prod: ts-build
-    #!/usr/bin/env bash
-    set -euo pipefail
     if [ -z "$(docker ps -q -f name=app_api -f status=running)" ]; then
         printf "{{RED}}app_api absent — run 'just dev-d' first (profiling reuses the dev backend).{{NC}}\n"
         exit 1
@@ -96,9 +94,8 @@ dev-rebuild: ts-build
     {{COMPOSE_DEV}} up
 
 # First-time setup: deps + env template + hooks
+[script]
 init: install-deps
-    #!/usr/bin/env bash
-    set -euo pipefail
     # Compose creates missing bind-mount sources as root, which the api container
     # (uid 1000) then cannot write to. Own them from the host first.
     mkdir -p backend/openapi backend/tmp backend/src/output frontend/.tanstack
@@ -147,9 +144,8 @@ install-deps-ci:
 # bump CALIBRATED_FOR_TAG_DEFS_VERSION, cut a fresh `vNN-aurore` pin branch in
 # algo-derm at the target commit, then point the default below at it (a named pin,
 # not `main`, since `main` is usually the active algo-derm checkout → worktree clash).
+[script]
 vendor-algo-derm:
-    #!/usr/bin/env bash
-    set -euo pipefail
     REF="${ALGO_DERM_REF:-v36-aurore}"
     printf "{{CYAN}}Build algo-derm @ %s...{{NC}}\n" "$REF"
     WT="$(mktemp -d)"

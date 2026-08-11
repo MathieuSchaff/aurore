@@ -12,9 +12,8 @@ import '_vars.just'
 
 # Apply Drizzle migrations. TARGET-aware (cd backend && export .env.<target>).
 [group('db')]
+[script]
 db-migrate:
-    #!/usr/bin/env bash
-    set -euo pipefail
     source {{justfile_directory()}}/scripts/just/_lib.sh
     TARGET="${TARGET:-dev}"
     case "$TARGET" in
@@ -43,9 +42,8 @@ db-push:
 
 # DB stats (product/ingredient/tag/user counts). Read-only.
 [group('db')]
+[script]
 db-stats:
-    #!/usr/bin/env bash
-    set -euo pipefail
     source {{justfile_directory()}}/scripts/just/_lib.sh
     TARGET="${TARGET:-dev}"
     target_compose
@@ -56,9 +54,8 @@ db-stats:
 
 # Push CORE seed deltas (idempotent, preserves user-state).
 [group('db')]
+[script]
 db-seed:
-    #!/usr/bin/env bash
-    set -euo pipefail
     source {{justfile_directory()}}/scripts/just/_lib.sh
     TARGET="${TARGET:-dev}"
     target_compose
@@ -73,9 +70,8 @@ db-seed:
 
 # Update existing seed entries (name/description/content/category) without touching user-data.
 [group('db')]
+[script]
 db-seed-update:
-    #!/usr/bin/env bash
-    set -euo pipefail
     source {{justfile_directory()}}/scripts/just/_lib.sh
     TARGET="${TARGET:-dev}"
     target_compose
@@ -98,9 +94,8 @@ catalog-fix-tag-domain-safe: catalog-fix-tag-domain db-snapshot
 
 # ⚠️ Destructive seed (TRUNCATE + reseed). Typed 'I DESTROY PROD' confirmation on prod.
 [group('db')]
+[script]
 db-seed-reset:
-    #!/usr/bin/env bash
-    set -euo pipefail
     source {{justfile_directory()}}/scripts/just/_lib.sh
     TARGET="${TARGET:-dev}"
     target_compose
@@ -117,9 +112,8 @@ db-seed-reset:
 
 # Wipe DB completely (public schema). Destructive.
 [group('db')]
+[script]
 db-clean:
-    #!/usr/bin/env bash
-    set -euo pipefail
     source {{justfile_directory()}}/scripts/just/_lib.sh
     TARGET="${TARGET:-dev}"
     target_compose
@@ -141,9 +135,8 @@ db-reset: db-clean db-migrate db-seed
 
 # Create SQL backup. Prod = gzip + GPG (recipient backup@aurore.local). Dev = plain .sql.
 [group('db')]
+[script]
 db-backup:
-    #!/usr/bin/env bash
-    set -euo pipefail
     source {{justfile_directory()}}/scripts/just/_lib.sh
     TARGET="${TARGET:-dev}"
     target_compose
@@ -165,9 +158,8 @@ db-backup:
 
 # Restore a backup. Usage: just db-restore ./backups/xxx.sql
 [group('db')]
+[script]
 db-restore file:
-    #!/usr/bin/env bash
-    set -euo pipefail
     source {{justfile_directory()}}/scripts/just/_lib.sh
     TARGET="${TARGET:-dev}"
     target_compose
@@ -192,9 +184,10 @@ db-backup-clean:
     @printf "{{GREEN}}✓ Old backups deleted{{NC}}\n"
 
 # [VPS] Install daily cron (3am) for backups
+# Plain bash on purpose: banner then tolerant commands, no strict flags.
 [group('db')]
+[script('bash')]
 backup-cron-install:
-    #!/usr/bin/env bash
     printf "{{YELLOW}}Installing backup cron at /etc/cron.d/aurore-backup{{NC}}\n"
     # Parens so the redirect covers both steps, not just the last one.
     echo "0 3 * * * root cd $(pwd) && (just db-backup-prod && just db-backup-clean) >> /var/log/aurore-backup.log 2>&1" \
@@ -223,9 +216,8 @@ backup-offsite-status:
 
 # Dump data → backend/src/db/snapshot/data.sql (committable, dev source of truth)
 [group('db')]
+[script]
 db-snapshot:
-    #!/usr/bin/env bash
-    set -euo pipefail
     mkdir -p backend/src/db/snapshot
     TMP="{{SNAPSHOT_FILE}}.tmp"
     # pin pg_dump's random \restrict token so unchanged data dumps byte-identical (ADR 0015)
@@ -249,9 +241,8 @@ db-snapshot:
 
 # Reload snapshot/data.sql into DB — requires migrated schema. Dev-only.
 [group('db')]
+[script]
 db-snapshot-load:
-    #!/usr/bin/env bash
-    set -euo pipefail
     if [ ! -f "{{SNAPSHOT_FILE}}" ]; then
         printf "{{RED}}❌ No snapshot at {{SNAPSHOT_FILE}} — run `just db-snapshot` first{{NC}}\n"
         exit 1
@@ -277,9 +268,8 @@ db-snapshot-reset: db-clean db-migrate
 # Catalogue-only snapshot for prod seeding (no users/reviews/runtime). Owner FK
 # rewritten to __OWNER_ID__. Dev-only (reads dev DB); run after a reconcile.
 [group('db')]
+[script]
 db-catalogue-snapshot:
-    #!/usr/bin/env bash
-    set -euo pipefail
     mkdir -p backend/src/db/snapshot
     OWNER=$({{COMPOSE_DEV}} exec -T db psql -U app -d appdb -tAc \
         "SELECT created_by FROM products GROUP BY created_by ORDER BY count(*) DESC LIMIT 1")
@@ -299,9 +289,8 @@ db-catalogue-snapshot:
 
 # Create the prod catalogue owner from ADMIN_EMAIL/ADMIN_PASSWORD (idempotent).
 [group('db')]
+[script]
 db-prod-admin:
-    #!/usr/bin/env bash
-    set -euo pipefail
     source {{justfile_directory()}}/scripts/just/_lib.sh
     TARGET="${TARGET:-dev}"
     target_compose
@@ -310,9 +299,8 @@ db-prod-admin:
 # Load catalogue.sql into a freshly-migrated DB, owned by the db-prod-admin user.
 # Refuses if products already populated. Run db-prod-admin first.
 [group('db')]
+[script]
 db-catalogue-load:
-    #!/usr/bin/env bash
-    set -euo pipefail
     source {{justfile_directory()}}/scripts/just/_lib.sh
     TARGET="${TARGET:-dev}"
     target_compose

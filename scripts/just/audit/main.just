@@ -17,10 +17,10 @@ import 'code.just'
 #   just audit-db-full                               # all read-only audits in one go
 
 # Run all read-only DB audits in sequence; never aborts mid-run, exits 1 if any failed. TARGET: dev|prod.
+# No -e: every audit must run, the exit code is decided at the end.
 [group('audit')]
+[script('bash', '-uo', 'pipefail')]
 audit-db-full:
-    #!/usr/bin/env bash
-    set -uo pipefail
     source {{justfile_directory()}}/scripts/just/_lib.sh
     export TARGET="${TARGET:-dev}"
     audits=(audit-db audit-taxonomy audit-security audit-product-kinds audit-actif-class

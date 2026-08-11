@@ -2,9 +2,8 @@
 
 # Audit DB consistency (seed drift, relational integrity); full untruncated report → .audit-out/db/audit-db.$TARGET.md.
 [group('audit')]
+[script]
 audit-db:
-    #!/usr/bin/env bash
-    set -euo pipefail
     source {{justfile_directory()}}/scripts/just/_lib.sh
     TARGET="${TARGET:-dev}"
     target_compose
@@ -14,9 +13,8 @@ audit-db:
 
 # Taxonomy-coherence audit (read-only): absence-claims on implausible kinds, product-type axis leak, concern⇄effect duplication. Info-only.
 [group('audit')]
+[script]
 audit-taxonomy:
-    #!/usr/bin/env bash
-    set -euo pipefail
     source {{justfile_directory()}}/scripts/just/_lib.sh
     TARGET="${TARGET:-dev}"
     target_compose
@@ -26,9 +24,8 @@ audit-taxonomy:
 
 # Scan DB rows for suspicious URLs / HTML injection; exit 1 on high-severity. Env: WRITE=1 (auto-fix), CSV_OUT (export). TARGET: dev|prod (prod+WRITE → confirm).
 [group('audit')]
+[script]
 audit-security:
-    #!/usr/bin/env bash
-    set -euo pipefail
     source {{justfile_directory()}}/scripts/just/_lib.sh
     TARGET="${TARGET:-dev}"
     target_compose
@@ -43,9 +40,8 @@ audit-security:
 
 # Authoritative CDN⇄DB audit: Bunny orphans, broken DB refs, reachability sample. Read-only.
 [group('audit')]
+[script]
 audit-cdn:
-    #!/usr/bin/env bash
-    set -euo pipefail
     source {{justfile_directory()}}/scripts/just/_lib.sh
     TARGET="${TARGET:-dev}"
     target_compose

@@ -26,17 +26,15 @@
 
 # Fix tag_products rows violating domain constraints (skincare tagTypes on haircare products). Env: WRITE=1 (apply). TARGET: dev|prod (prod+WRITE → confirm).
 [group('catalog')]
+[script]
 catalog-fix-tag-domain:
-    #!/usr/bin/env bash
-    set -euo pipefail
     source {{justfile_directory()}}/scripts/just/_lib.sh
     data_run "catalog-fix-tag-domain" "src/db/seed/maintenance/fix-tag-domain-consistency.ts"
 
 # Backfill auto-tags in an isolated one-shot container. Env: SLUG, WRITE (apply), LIMIT, PAGE_SIZE, CONF_OVERRIDE, INCLUDE_DROPPED, TAG (per-tag plan), EXCLUDE_TAG (write-all-except), SAMPLE (review CSV, with SEED/CSV_OUT).
 [group('autotag')]
+[script]
 autotag-backfill:
-    #!/usr/bin/env bash
-    set -euo pipefail
     source {{justfile_directory()}}/scripts/just/_lib.sh
     TARGET="${TARGET:-dev}"
     target_compose
@@ -60,9 +58,8 @@ autotag-backfill:
 
 # Reconcile auto-tags to current orchestrator: drop stale rows + fix relevance downgrades (manual-safe; backfill is additive/upgrade-only). Env: SLUG, WRITE, LIMIT. TARGET: dev|prod.
 [group('autotag')]
+[script]
 autotag-reconcile *args:
-    #!/usr/bin/env bash
-    set -euo pipefail
     # `just autotag-reconcile --write` is the intuitive guess but flags ride env
     # vars here (4 independent knobs: WRITE/SLUG/LIMIT/TARGET). Catch the stray arg
     # and point at the right form instead of just's cryptic "no such recipe".
@@ -87,9 +84,8 @@ autotag-reconcile *args:
 
 # Delete non-manual links of ONE tag the detector no longer emits (tag-scoped reconcile slice; full reconcile also re-inserts). Env: TAG (required), WRITE (apply). TARGET: dev|prod.
 [group('autotag')]
+[script]
 autotag-purge-stale:
-    #!/usr/bin/env bash
-    set -euo pipefail
     source {{justfile_directory()}}/scripts/just/_lib.sh
     TARGET="${TARGET:-dev}"
     target_compose
@@ -104,9 +100,8 @@ autotag-purge-stale:
 
 # Delete non-manual links of products whose category left the auto-tag corpus (skincare/solaire/bodycare). Env: WRITE (apply). TARGET: dev|prod.
 [group('autotag')]
+[script]
 autotag-purge-off-corpus:
-    #!/usr/bin/env bash
-    set -euo pipefail
     source {{justfile_directory()}}/scripts/just/_lib.sh
     TARGET="${TARGET:-dev}"
     target_compose
@@ -119,9 +114,8 @@ autotag-purge-off-corpus:
 
 # Explain auto-tag pipeline: SLUG=<slug> traces a real product (full input: name/desc/brand/texture), INCI="..." traces one raw INCI (INCI-only, blind to name/claim passes), COUNTS=1 aggregates the catalogue. Read-only. Env: SLUG, INCI, KIND (serum), CATEGORY (skincare), COUNTS=1.
 [group('autotag')]
+[script]
 autotag-explain:
-    #!/usr/bin/env bash
-    set -euo pipefail
     source {{justfile_directory()}}/scripts/just/_lib.sh
     TARGET="${TARGET:-dev}"
     target_compose
@@ -142,9 +136,8 @@ autotag-explain:
 
 # Stratified sample of 60-80 products → data/gold-set/annotations.json (idempotent). Env: TAGS (optional comma-separated focus subset), SAMPLE_SIZE, POSITIVES_PER_TAG, NEGATIVES_PER_TAG, SEED, GOLD_SET_PATH.
 [group('autotag')]
+[script]
 autotag-goldset:
-    #!/usr/bin/env bash
-    set -euo pipefail
     source {{justfile_directory()}}/scripts/just/_lib.sh
     TARGET="${TARGET:-dev}"
     target_compose

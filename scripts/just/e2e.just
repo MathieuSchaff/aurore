@@ -29,9 +29,8 @@ e2e-reset:
 # the whole suite dies on "Executable doesn't exist" without launching a browser.
 # Idempotent and ~0.5s once the builds are present. BEWARE lines are the unsupported-OS
 # notice on every run; the braces keep grep's no-match status from masking a real failure.
+[script]
 _e2e-browsers:
-    #!/usr/bin/env bash
-    set -euo pipefail
     cd frontend
     bunx playwright install 2>&1 | { grep -v '^BEWARE:' || true; }
 

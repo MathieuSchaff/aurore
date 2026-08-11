@@ -1,5 +1,9 @@
 set shell := ["bash", "-c"]
 
+# `[script]` bodies run as one file, like the shebang they replace. Recipes that need laxer
+# flags keep their own `[script('bash', …)]`.
+set script-interpreter := ['bash', '-euo', 'pipefail']
+
 # Default (bare `just`): show the recruiter/contributor path, not every ops recipe.
 default:
     @printf "{{ CYAN }}Aurore — common commands{{ NC }}\n"

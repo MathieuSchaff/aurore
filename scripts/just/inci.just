@@ -24,9 +24,8 @@ import '_vars.just'
 # products with one SLUG run per product.
 [doc("Backfill INCI links → product_ingredients. Env: WRITE (omit = dry-run), SLUG (reconcile 1 product), RELINK (reconcile all), ONLY_SLUGS (additive scope, ingredient slugs), LIMIT (integer >= 0)")]
 [group('inci')]
+[script]
 link-ingredients:
-    #!/usr/bin/env bash
-    set -euo pipefail
     source {{justfile_directory()}}/scripts/just/_lib.sh
     TARGET="${TARGET:-dev}"
     target_compose
@@ -39,9 +38,8 @@ link-ingredients:
 # Dry-run by default; WRITE=1 commits. Env: TARGET, WRITE, LIMIT (resplit).
 [doc("One-shot INCI cleanup (clean-inci|resplit-single-token|worst-match-prose). Env: WRITE (omit = dry-run), LIMIT")]
 [group('inci')]
+[script]
 inci-cleanup script:
-    #!/usr/bin/env bash
-    set -euo pipefail
     source {{justfile_directory()}}/scripts/just/_lib.sh
     TARGET="${TARGET:-dev}"
     target_compose
@@ -54,9 +52,8 @@ inci-cleanup script:
 # Dry-run by default; WRITE=1 commits. Run `just db-snapshot` after a WRITE.
 [doc("The 3 INCI cleanups in sequence. Env: WRITE (omit = dry-run); db-snapshot after a WRITE")]
 [group('inci')]
+[script]
 inci-cleanup-all:
-    #!/usr/bin/env bash
-    set -euo pipefail
     source {{justfile_directory()}}/scripts/just/_lib.sh
     TARGET="${TARGET:-dev}"
     target_compose
