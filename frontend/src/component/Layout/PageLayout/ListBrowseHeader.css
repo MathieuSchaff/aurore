@@ -46,7 +46,7 @@
     padding: var(--space-2);
   }
 
-  .list-browse-header__tools > .button.primary {
+  .list-browse-header__tools > .button--primary {
     min-height: 42px;
   }
 

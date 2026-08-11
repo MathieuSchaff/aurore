@@ -56,7 +56,7 @@ const ButtonLinkBase = forwardRef<HTMLAnchorElement, ButtonLinkBaseProps>(
       ref={ref}
       className={clsx(
         'button',
-        variant,
+        `button--${variant}`,
         size,
         fullWidth && 'full-width',
         loading && 'loading',
@@ -87,7 +87,7 @@ export const Button = (props: ButtonProps) => {
 
   const classes = clsx(
     'button',
-    variant,
+    `button--${variant}`,
     size,
     fullWidth && 'full-width',
     loading && 'loading',
