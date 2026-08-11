@@ -18,6 +18,18 @@ interface EditTableConfig<TChanges> {
   schema: ZodType<TChanges>
 }
 
+// Legacy rows still store '' where the convention says null. Left alone it reaches the enum
+// members of productChangesSchema, the parse throws, and a valid product edit returns 500.
+// Fold both sides, or an unchanged '' would be logged as a change.
+function normalizeForDiff(value: unknown): unknown {
+  if (value == null || value === '') return null
+
+  // Treat empty object as null so the diff stays simple.
+  if (typeof value === 'object' && Object.keys(value).length === 0) return null
+
+  return value
+}
+
 export function buildChanges(
   oldEntity: Record<string, unknown>,
   newEntity: Record<string, unknown>,
@@ -26,17 +38,8 @@ export function buildChanges(
   const changes: Record<string, FieldChange<unknown>> = {}
 
   for (const key of trackedFields) {
-    let oldVal = oldEntity[key]
-
-    // Treat empty object as null so the diff stays simple.
-    if (
-      oldVal == null ||
-      (typeof oldVal === 'object' && oldVal !== null && Object.keys(oldVal).length === 0)
-    ) {
-      oldVal = null
-    }
-
-    const newVal = newEntity[key] ?? null
+    const oldVal = normalizeForDiff(oldEntity[key])
+    const newVal = normalizeForDiff(newEntity[key])
 
     if (!areEqual(oldVal, newVal)) {
       changes[key] = { old: oldVal, new: newVal }
