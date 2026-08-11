@@ -68,10 +68,9 @@ services:
       - appnet
 
   autotag-backfill:
+    # No build here. Each overlay points this one-shot at the image `api` runs: its own build gets
+    # a separate tag that no rebuild loop refreshes, so it goes stale without a sign.
     profiles: ["maintenance"]
-    build:
-      context: ../../..
-      dockerfile: infra/docker/images/backend/Dockerfile
     depends_on:
       db:
         condition: service_healthy

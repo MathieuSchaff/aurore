@@ -8,6 +8,8 @@ services:
       - "5432:5432"
 
   api:
+    # Named because autotag-backfill reuses this image instead of building its own.
+    image: aurore-api:latest
     build:
       context: ../../..
       dockerfile: infra/docker/images/backend/Dockerfile
@@ -61,7 +63,7 @@ services:
       - ../../../bun.lock:/app/bun.lock:ro
 
       - ../../../frontend/package.json:/app/frontend/package.json:ro
-      # No index.html under TanStack Start — the __root route owns the document.
+      # No index.html under TanStack Start. The __root route owns the document.
       - ../../../frontend/public:/app/frontend/public:ro
       - ../../../frontend/src:/app/frontend/src
       # Same filesystem as src/ so the route generator's atomic rename works (EXDEV otherwise).
@@ -91,10 +93,11 @@ services:
       start_period: 10s
 
   autotag-backfill:
-    build:
-      context: ../../..
-      dockerfile: infra/docker/images/backend/Dockerfile
-      target: dev
+    # Reuse api's image. Source is bind-mounted below, but node_modules comes from the image, and
+    # `reinstall-backend` only rebuilds api. never = fail if api was never built, instead of
+    # pulling a same-named image from Docker Hub.
+    image: aurore-api:latest
+    pull_policy: never
     user: "${UID:-1000}:${GID:-1000}"
     volumes:
       - ../../../package.json:/app/package.json:ro
