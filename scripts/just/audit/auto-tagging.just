@@ -73,10 +73,11 @@ audit-tag-contradictions:
     $COMPOSE exec -w /app/backend api bun run src/features/auto-tagging/runners/audit/tag-contradictions.ts \
         | tee "$(audit_out audit-tag-contradictions)"
 
-[doc('Audit products.kind mistags via name patterns. Read-only. Apply reviewed fixes via `just db-fix`. Env: SLUG (single product).')]
+[doc('Audit products.kind mistags via name patterns. Read-only. Apply reviewed fixes via `just db-fix`.')]
 [group('audit')]
+[arg('SLUG', long='slug', help='restrict to a single product slug')]
 [script]
-audit-product-kinds:
+audit-product-kinds $SLUG="":
     source {{justfile_directory()}}/scripts/just/_lib.sh
     target_compose
     printf "{{CYAN}}Audit product kinds (read-only, $TARGET) → .audit-out/db/audit-product-kinds.$TARGET.md{{NC}}\n"
@@ -84,16 +85,15 @@ audit-product-kinds:
         ${SLUG:+--slug "$SLUG"} \
         | tee "$(audit_out audit-product-kinds)"
 
-[doc('Snapshot/diff orchestrator output. Env: CSV_OUT (required), BASELINE, LIMIT.')]
+[doc('Snapshot/diff orchestrator output. Env: LIMIT.')]
 [group('audit')]
+[arg('CSV_OUT', long='csv-out', help='destination CSV (required)')]
+[arg('BASELINE', long='baseline', help='earlier CSV to diff against; omit to snapshot')]
 [script]
-audit-orchestrator-diff:
-    if [ -z "${CSV_OUT:-}" ]; then
-        printf "{{RED}}CSV_OUT requis (e.g. CSV_OUT=/tmp/out.csv just audit-orchestrator-diff){{NC}}\n"; exit 1
-    fi
+audit-orchestrator-diff $CSV_OUT $BASELINE="":
     source {{justfile_directory()}}/scripts/just/_lib.sh
     target_compose
-    MODE=$([ -n "${BASELINE:-}" ] && echo "DIFF" || echo "SNAPSHOT")
+    MODE=$([ -n "$BASELINE" ] && echo "DIFF" || echo "SNAPSHOT")
     printf "{{CYAN}}Audit orchestrator ($MODE, $TARGET)...{{NC}}\n"
     $COMPOSE exec \
         -e CSV_OUT="$CSV_OUT" \
@@ -137,10 +137,13 @@ audit-aha-bha-pha $WRITE="":
         -w /app/backend api bun run src/features/auto-tagging/runners/audit/aha-bha-pha-overrides.ts \
         | tee "$(audit_out audit-aha-bha-pha)"
 
-[doc('Benchmark orchestrator vs gold-set (precision/recall/Brier/ECE per tag). Env: GOLD_SET_PATH, CSV_OUT, STRICT.')]
+[doc('Benchmark orchestrator vs gold-set (precision/recall/Brier/ECE per tag).')]
 [group('audit')]
+[arg('GOLD_SET_PATH', long='gold-set', help='annotations.json to benchmark against')]
+[arg('CSV_OUT', long='csv-out', help='also write per-tag metrics to this CSV')]
+[arg('STRICT', long='strict', value='1', help='exit 1 when a tag misses its threshold')]
 [script]
-audit-gold-set:
+audit-gold-set $GOLD_SET_PATH="" $CSV_OUT="" $STRICT="":
     source {{justfile_directory()}}/scripts/just/_lib.sh
     target_compose
     printf "{{CYAN}}Gold-set benchmark ($TARGET) → .audit-out/db/audit-gold-set.$TARGET.md{{NC}}\n"
@@ -151,10 +154,12 @@ audit-gold-set:
         -w /app/backend api bun run src/features/auto-tagging/runners/audit/gold-set.ts \
         | tee "$(audit_out audit-gold-set)"
 
-[doc('Audit algo-derm concentration solver vs brand-claim % (product_ingredients.concentration_value); per-slug + global MAE/RMSE + CI coverage. Env: JSON_OUT, SLUG.')]
+[doc('Audit algo-derm concentration solver vs brand-claim % (product_ingredients.concentration_value); per-slug + global MAE/RMSE + CI coverage.')]
 [group('audit')]
+[arg('SLUG', long='slug', help='restrict to a single product slug')]
+[arg('JSON_OUT', long='json-out', help='also write the raw result as JSON to this path')]
 [script]
-audit-concentration-solver:
+audit-concentration-solver $SLUG="" $JSON_OUT="":
     source {{justfile_directory()}}/scripts/just/_lib.sh
     target_compose
     printf "{{CYAN}}Concentration solver audit ($TARGET) → .audit-out/db/audit-concentration-solver.$TARGET.md{{NC}}\n"

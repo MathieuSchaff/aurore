@@ -44,20 +44,23 @@ data-fix needs another pass.
 
 ## Auto-tagging
 
-| Command | What | Env |
+Settings in `UPPERCASE` are env vars set before `just`; settings in `--kebab-case` are options
+typed after the recipe name, and `just --usage <recipe>` prints them.
+
+| Command | What | Settings |
 | :--- | :--- | :--- |
 | `just audit-auto-tags` | Full dry-run of the detector against the DB: hit / agree / new pairs per tag | `CONF_OVERRIDE, CSV_OUT, LIMIT, INCLUDE_DROPPED, DUMP_BUDGETS, DUMP_BENEFITS, BENEFITS_OUT, DISABLE_FLOORS, CHECK` |
 | `just audit-auto-tags-check` | Calibration drift: hit rate per (slug, category) against the budget. Exits 1 on FAIL, out-of-budget warns | — |
-| `just audit-gold-set` | Benchmark the orchestrator against the gold set: precision, recall, Brier, ECE per tag | `GOLD_SET_PATH, CSV_OUT, STRICT` |
-| `just audit-product-kinds` | `products.kind` mistags via name patterns. Read-only on purpose — the "certain" tier held ~31 false positives. Apply reviewed fixes with `just db-fix` | `SLUG` |
+| `just audit-gold-set` | Benchmark the orchestrator against the gold set: precision, recall, Brier, ECE per tag | `--gold-set`, `--csv-out`, `--strict` |
+| `just audit-product-kinds` | `products.kind` mistags via name patterns. Read-only on purpose: the "certain" tier held ~31 false positives. Apply reviewed fixes with `just db-fix` | `--slug` |
 | `just audit-kind-inci` | Kind mistags the name regex misses, via INCI signal (a wash kind with no surfactant) | — |
 | `just audit-sans-sulfates` | Sulfate-free false negatives: leave-on products denied the claim by a cetearyl or coceth emulsifier | — |
 | `just audit-tag-contradictions` | Absence tags (`sans-parfum`, `sans-silicones`, …) whose own INCI declares the thing they deny | — |
 | `just audit-uv-filters` | Visible SPF products (name or `kind=sunscreen`) with no `filtre-uv` ingredient linked. Report-only: the cause is a weak source INCI, not a linking bug | - |
 | `just audit-actif-class` | Dry-run of the pharmacological clusters (pass 2) | `LIMIT, DUMP_DRIFT, DUMP_NEW` |
 | `just audit-aha-bha-pha` | Manual AHA/BHA/PHA overrides. **Trap:** `--write` here means DELETE from a CSV | `--write`, `CSV_OUT, CSV_DIR, LIMIT, APPLY_FROM_CSV` |
-| `just audit-concentration-solver` | Solver percentages against brand claims: MAE, RMSE, CI coverage | `JSON_OUT, SLUG` |
-| `just audit-orchestrator-diff` | CSV snapshot and diff of the orchestrator output | `CSV_OUT` (required), `BASELINE, LIMIT` |
+| `just audit-concentration-solver` | Solver percentages against brand claims: MAE, RMSE, CI coverage | `--slug`, `--json-out` |
+| `just audit-orchestrator-diff` | CSV snapshot and diff of the orchestrator output | `--csv-out` (required), `--baseline`, `LIMIT` |
 
 | Trap | Detail |
 | :--- | :--- |

@@ -7,12 +7,12 @@ import 'code.just'
 
 # Audit DB + auto-tagging pipeline (audits + backfill + gold-set).
 # TARGET: env var (dev default | prod). Interactive confirmation when TARGET=prod + write/apply.
-# Writing is `--write`; other settings still go through env vars.
+# Writing is `--write`; the other settings are env vars unless `just --usage <recipe>` lists them.
 #
 # Examples:
 #   LIMIT=50 just audit-actif-class
-#   SLUG=<product-slug> just audit-product-kinds
-#   CSV_OUT=/tmp/orch.csv just audit-orchestrator-diff
+#   just audit-product-kinds --slug <product-slug>
+#   just audit-orchestrator-diff --csv-out /tmp/orch.csv
 #   TARGET=prod just autotag-backfill --write        # prod, confirmation required
 #   just audit-db-full                               # all read-only audits in one go
 

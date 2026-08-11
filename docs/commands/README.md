@@ -25,6 +25,7 @@ These hold for every recipe below.
 | Rule | Detail |
 | :--- | :--- |
 | Parameters are env vars | `TARGET=prod LIMIT=50 just <recipe>`. Only a finite choice (`<phase>`, `<script>`) or a path (`<file>`, `<jsonl>`) stays positional. |
+| …except typed options | A few recipes take `--kebab-case` options instead: `just <recipe> --slug x`. `just --usage <recipe>` prints them, and an unknown option is refused instead of ignored. Per-recipe pages mark which form applies. |
 | `TARGET` | `dev` (default) or `prod`. Selects the Compose stack and the `.env.<target>` file. Any other value aborts before the recipe starts, whichever recipe was asked for. |
 | Dry-run by default | Anything that writes previews first. `--write` applies. |
 | Prod confirmation | Prod + write asks for a typed word: `PROD`, `I DESTROY PROD` when destructive, `DEPLOY` for a deploy. |
