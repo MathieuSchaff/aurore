@@ -18,6 +18,11 @@ const route = getRouteApi('/ingredients/$slug')
 
 type IngredientTab = 'infos' | 'discussions'
 
+const TAB_OPTIONS: TabOption<IngredientTab>[] = [
+  { id: 'infos', label: 'Infos' },
+  { id: 'discussions', label: 'Discussions', icon: <MessageSquare size={14} /> },
+]
+
 export function IngredientLayout() {
   const { slug } = route.useParams()
   const { data: ingredient } = useSuspenseQuery(ingredientQueries.bySlug(slug))
@@ -26,11 +31,6 @@ export function IngredientLayout() {
 
   const isDiscussions = location.pathname.includes('/discussions')
   const activeTab: IngredientTab = isDiscussions ? 'discussions' : 'infos'
-
-  const tabOptions: TabOption<IngredientTab>[] = [
-    { id: 'infos', label: 'Infos' },
-    { id: 'discussions', label: 'Discussions', icon: <MessageSquare size={14} /> },
-  ]
 
   function handleTabChange(id: IngredientTab) {
     if (id === 'infos') {
@@ -81,7 +81,7 @@ export function IngredientLayout() {
       />
 
       <Tabs
-        options={tabOptions}
+        options={TAB_OPTIONS}
         activeTab={activeTab}
         onTabChange={handleTabChange}
         variant="underline"
