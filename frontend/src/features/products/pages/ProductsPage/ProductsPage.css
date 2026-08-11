@@ -20,7 +20,7 @@
   background: oklch(from var(--color-primary) l c h / 0.06);
 }
 
-.button.bare.products-chips-toggle {
+.button--bare.products-chips-toggle {
   flex: 1 1 auto;
   gap: 8px;
   padding: 8px var(--space-6);
@@ -32,12 +32,12 @@
     color var(--transition-fast) ease;
 }
 
-.button.bare.products-chips-toggle strong {
+.button--bare.products-chips-toggle strong {
   color: var(--text-primary);
   font-weight: 700;
 }
 
-.button.bare.products-chips-toggle:hover:not(:disabled) {
+.button--bare.products-chips-toggle:hover:not(:disabled) {
   color: var(--text-primary);
 }
 
@@ -55,7 +55,7 @@
   transform: rotate(180deg);
 }
 
-.button.bare.products-chips-toggle__edit {
+.button--bare.products-chips-toggle__edit {
   flex: 0 0 auto;
   align-items: center;
   margin-right: var(--space-6);
@@ -67,7 +67,7 @@
   transition: background var(--transition-fast) ease;
 }
 
-.button.bare.products-chips-toggle__edit:hover:not(:disabled) {
+.button--bare.products-chips-toggle__edit:hover:not(:disabled) {
   color: var(--color-primary);
   text-decoration: underline;
 }
@@ -157,11 +157,11 @@
 }
 
 @media (--mobile) {
-  .button.bare.products-chips-toggle {
+  .button--bare.products-chips-toggle {
     padding: 8px var(--space-4);
   }
 
-  .button.bare.products-chips-toggle__edit {
+  .button--bare.products-chips-toggle__edit {
     margin-right: var(--space-4);
   }
 

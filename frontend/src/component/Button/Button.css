@@ -59,28 +59,28 @@
   cursor: wait;
 }
 
-.button.primary {
+.button--primary {
   background: var(--color-primary);
   color: var(--color-primary-text);
   border: none;
   box-shadow: 0 2px 8px oklch(from var(--color-primary) l c h / 0.3);
 }
 
-.button.primary:hover:not(:disabled) {
+.button--primary:hover:not(:disabled) {
   background: var(--color-primary-hover);
   box-shadow: 0 4px 16px oklch(from var(--color-primary) l c h / 0.4);
   transform: translateY(-1px);
 }
 
-.button.secondary,
-.button.default {
+.button--secondary,
+.button--default {
   background: var(--bg-muted);
   box-shadow: inset 0 0 0 1px var(--border-default);
   color: var(--text-secondary);
 }
 
-.button.secondary:hover:not(:disabled),
-.button.default:hover:not(:disabled) {
+.button--secondary:hover:not(:disabled),
+.button--default:hover:not(:disabled) {
   color: var(--color-primary-text);
   background: var(--color-primary);
   box-shadow:
@@ -88,13 +88,13 @@
     0 4px 12px oklch(from var(--color-primary) l c h / 0.3);
 }
 
-.button.outline {
+.button--outline {
   background: transparent;
   box-shadow: inset 0 0 0 1px var(--border-strong);
   color: var(--color-primary);
 }
 
-.button.outline:hover:not(:disabled) {
+.button--outline:hover:not(:disabled) {
   background: oklch(from var(--color-primary) l c h / 0.1);
   color: var(--color-primary-hover);
   box-shadow:
@@ -102,7 +102,7 @@
     0 2px 8px oklch(from var(--color-primary) l c h / 0.15);
 }
 
-.button.ghost {
+.button--ghost {
   background: transparent;
   color: var(--color-primary);
   font-weight: var(--font-bold);
@@ -111,12 +111,12 @@
   font-size: var(--text-xs);
 }
 
-.button.ghost:hover:not(:disabled) {
+.button--ghost:hover:not(:disabled) {
   background: var(--bg-hover);
   color: var(--color-primary-hover);
 }
 
-.button.danger-ghost {
+.button--danger-ghost {
   background: transparent;
   color: var(--color-accent-on);
   font-weight: var(--font-bold);
@@ -126,16 +126,11 @@
 }
 
 /* Hover state reads through the background shift; text stays on the AA-safe tone. */
-.button.danger-ghost:hover:not(:disabled) {
+.button--danger-ghost:hover:not(:disabled) {
   background: var(--color-accent-subtle);
 }
 
-.button.nav-item {
-  padding: 0.5rem 1rem;
-  font-size: var(--text-xs);
-}
-
-.button.bare {
+.button--bare {
   background: none;
   color: inherit;
   border: none;
@@ -153,9 +148,9 @@
   text-align: left;
 }
 
-.button.bare.sm,
-.button.bare.md,
-.button.bare.lg {
+.button--bare.sm,
+.button--bare.md,
+.button--bare.lg {
   padding: 0;
   font-size: inherit;
   font-weight: inherit;
@@ -163,7 +158,7 @@
 
 /* Themes whose accent is too light under white text (terracota/ardoise light) override
    --button-accent-from/-to with a darker ramp; the rest fall back to the raw accent. */
-.button.accent {
+.button--accent {
   background: linear-gradient(
     135deg,
     var(--button-accent-from, var(--color-accent)) 0%,
@@ -175,7 +170,7 @@
   box-shadow: 0 2px 12px oklch(from var(--color-accent) l c h / 0.35);
 }
 
-.button.accent:hover:not(:disabled) {
+.button--accent:hover:not(:disabled) {
   background: linear-gradient(
     135deg,
     var(--button-accent-to, var(--color-accent-hover)) 0%,
@@ -194,8 +189,8 @@
     transition: none;
   }
 
-  .button.primary:hover:not(:disabled),
-  .button.accent:hover:not(:disabled) {
+  .button--primary:hover:not(:disabled),
+  .button--accent:hover:not(:disabled) {
     transform: none;
   }
 }
