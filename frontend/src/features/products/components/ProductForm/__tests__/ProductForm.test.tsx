@@ -54,7 +54,7 @@ vi.mock('@/lib/queries/product-tags', () => ({
   },
 }))
 
-// Sub-components that fetch on their own — short-circuit them so the form
+// Child components that fetch on their own. Short-circuit them so the form
 // can be exercised without their network surface.
 vi.mock('@/features/products/components/BrandCombobox/BrandCombobox', () => ({
   BrandCombobox: ({
@@ -154,7 +154,7 @@ describe('ProductForm', () => {
     expect(screen.getByLabelText(/^Nom/)).toHaveValue('Crème mystère')
     expect(screen.getByLabelText('Marque')).toHaveValue('BrandX')
 
-    // Brand arrived pre-confirmed, so picking kind + unit alone unlocks submit — no brand re-entry.
+    // Brand arrived already confirmed, so picking kind + unit alone unlocks submit, no brand re-entry.
     fireEvent.click(screen.getByRole('radio', { name: 'Sérum' }))
     fireEvent.click(screen.getByRole('radio', { name: 'Pompe' }))
     expect(screen.getByRole('button', { name: 'Enregistrer' })).not.toBeDisabled()
@@ -176,6 +176,16 @@ describe('ProductForm', () => {
     fireEvent.click(submit)
 
     expect(mockSubmit).toHaveBeenCalledTimes(1)
+  })
+
+  // Native constraint validation blocks the submit with an ephemeral browser bubble:
+  // nothing in the DOM, nothing for a screen reader. Every message goes through Zod.
+  it('opts out of native constraint validation', () => {
+    const queryClient = createTestQueryClient()
+
+    renderForm(<ProductForm mode="edit" product={mockProduct} onSuccess={vi.fn()} />, queryClient)
+
+    expect(screen.getByRole('form', { name: /Modifier/ })).toHaveAttribute('novalidate')
   })
 
   it('points the edit cancel link at the product detail page', () => {

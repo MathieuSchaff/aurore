@@ -14,16 +14,24 @@ import { z } from 'zod'
 
 import type { ProductDetail } from '@/lib/queries/products'
 
-export const productEditFormSchema = z.object({
-  name: z.string().trim().min(1, 'Le nom du produit est obligatoire.').max(200),
+const productEditFormSchema = z.object({
+  name: z
+    .string()
+    .trim()
+    .min(1, 'Le nom du produit est obligatoire.')
+    .max(200, 'Le nom ne peut pas dépasser 200 caractères.'),
   slug: z
     .string()
     .trim()
-    .max(100)
+    .max(100, 'Le slug ne peut pas dépasser 100 caractères.')
     .refine((v) => v === '' || /^[a-z0-9-]+$/.test(v), {
       message: 'Slug invalide : minuscules, chiffres et tirets uniquement.',
     }),
-  brand: z.string().trim().min(1, 'La marque est obligatoire.').max(200),
+  brand: z
+    .string()
+    .trim()
+    .min(1, 'La marque est obligatoire.')
+    .max(200, 'La marque ne peut pas dépasser 200 caractères.'),
   category: z.enum(PRODUCT_CATEGORY_VALUES),
   kind: z.string().trim().min(1, 'La catégorie est obligatoire.').max(100),
   unit: z
@@ -58,12 +66,20 @@ export const productEditFormSchema = z.object({
     .refine((v) => v === '' || (PRODUCT_TEXTURE_VALUES as readonly string[]).includes(v), {
       message: 'Texture invalide.',
     }),
-  inci: z.string().max(5000),
-  description: z.string().max(5000),
-  notes: z.string().max(5000),
+  inci: z.string().max(5000, 'La liste INCI ne peut pas dépasser 5000 caractères.'),
+  description: z.string().max(5000, 'La description ne peut pas dépasser 5000 caractères.'),
+  notes: z.string().max(5000, 'Les notes ne peuvent pas dépasser 5000 caractères.'),
   // Empty = cleared, otherwise must be a valid URL.
-  url: z.union([z.literal(''), z.url('URL invalide.').max(2000)]),
-  imageUrl: z.union([z.literal(''), z.url('URL image invalide.').max(2000)]),
+  url: z.union([
+    z.literal(''),
+    z.url('URL invalide.').max(2000, 'Le lien produit ne peut pas dépasser 2000 caractères.'),
+  ]),
+  imageUrl: z.union([
+    z.literal(''),
+    z
+      .url('URL image invalide.')
+      .max(2000, "L'URL de l'image ne peut pas dépasser 2000 caractères."),
+  ]),
 })
 
 export type ProductEditFormInput = z.infer<typeof productEditFormSchema>
@@ -108,6 +124,27 @@ export function productToEditForm(p: ProductDetail): ProductEditFormInput {
   }
 }
 
+// Submit-time validation is scoped to the fields the author actually touched, mirroring
+// `clearOrOmit` below: a value the PATCH will not carry must not block an unrelated edit.
+// Seed rows predate today's bounds (inci over 5000 chars, totalAmount at 0), and validating
+// them full-form made an untouched field reject a sane note change.
+// `original` null = create mode, where every field is submitted and so validated.
+export function firstBlockingIssue(
+  form: ProductEditFormInput,
+  original: ProductDetail | null
+): string | null {
+  const parsed = productEditFormSchema.safeParse(form)
+  if (parsed.success) return null
+
+  const pristine = original ? productToEditForm(original) : null
+  for (const issue of parsed.error.issues) {
+    const field = issue.path[0] as keyof ProductEditFormInput | undefined
+    if (pristine && field != null && form[field] === pristine[field]) continue
+    return issue.message
+  }
+  return null
+}
+
 // Wire format for POST /api/products: empty = omit (undefined).
 export function productEditFormToCreateInput(form: ProductEditFormInput): CreateProductInput {
   const priceEuros = form.priceEuros.trim()
@@ -138,8 +175,11 @@ export function productEditFormToUpdateInput(
   original: ProductDetail
 ): UpdateProductInput {
   const clearOrOmit = <T>(trimmed: string, value: T | null, originalValue: unknown) => {
-    if (trimmed === '') return originalValue != null ? null : undefined
-    // Unchanged values are omitted. Re-sending an untouched value re-validates it, which
+    // A column already holding '' has nothing to clear: sending null would drag an
+    // untouched field into the PATCH, and the backend 500s parsing '' as the `old`
+    // side of an enum diff (seed rows carry '' in amountUnit).
+    if (trimmed === '') return originalValue != null && originalValue !== '' ? null : undefined
+    // Unchanged values are omitted. Sending an untouched value again validates it, which
     // rejects legacy data that predates a stricter rule (e.g. a long
     // space-separated inci) and 400s an unrelated edit.
     if (value === originalValue) return undefined

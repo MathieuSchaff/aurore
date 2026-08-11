@@ -8,8 +8,8 @@ import {
   type ProductFormField,
 } from '@/features/products/components/ProductForm/formErrors'
 import {
+  firstBlockingIssue,
   type ProductEditFormInput,
-  productEditFormSchema,
   productEditFormToCreateInput,
   productEditFormToUpdateInput,
 } from '@/features/products/components/ProductForm/ProductForm.schema'
@@ -123,17 +123,20 @@ export function useProductFormSubmit(args: Args) {
   async function handleSubmit(e: React.SubmitEvent<HTMLFormElement>) {
     e.preventDefault()
 
-    const parsed = productEditFormSchema.safeParse(args.form)
-    if (!parsed.success) {
-      setError(parsed.error.issues[0]?.message ?? 'Formulaire invalide.')
+    const blocking = firstBlockingIssue(args.form, args.mode === 'edit' ? args.product : null)
+    if (blocking) {
+      setError(blocking)
       return
     }
 
     try {
+      // Both wire converters trim every field themselves, so the raw form is equivalent to
+      // the schema output, which is unavailable here, the parse having been allowed to fail
+      // on untouched fields.
       const nextSlug =
         args.mode === 'create'
-          ? await submitCreate(parsed.data)
-          : await submitEdit(parsed.data, args.product)
+          ? await submitCreate(args.form)
+          : await submitEdit(args.form, args.product)
       args.onSuccess(nextSlug)
     } catch (err) {
       const { field, message } = extractFormError(err, PRODUCT_FORM_ERRORS)
