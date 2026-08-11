@@ -26,6 +26,13 @@ import type { ProfileTab } from './tabs'
 
 const routeApi = getRouteApi('/_authenticated/profile')
 
+const TAB_OPTIONS: TabOption<ProfileTab>[] = [
+  { id: 'profile', label: 'Profil', icon: <Sparkles size={18} /> },
+  { id: 'preferences', label: 'Réglages', icon: <Settings size={18} /> },
+  { id: 'account', label: 'Compte', icon: <Shield size={18} /> },
+  { id: 'people', label: 'Des gens comme vous', icon: <Users size={18} /> },
+]
+
 export const ProfileDashboard = () => {
   const { data: profile } = useSuspenseQuery(profileQueries.me())
   const { data: dermo } = useQuery(profileQueries.dermo())
@@ -68,29 +75,6 @@ export const ProfileDashboard = () => {
     ? 'Une erreur est survenue lors de la mise à jour.'
     : null
 
-  const tabOptions: TabOption<ProfileTab>[] = [
-    {
-      id: 'profile',
-      label: 'Profil',
-      icon: <Sparkles size={18} />,
-    },
-    {
-      id: 'preferences',
-      label: 'Réglages',
-      icon: <Settings size={18} />,
-    },
-    {
-      id: 'account',
-      label: 'Compte',
-      icon: <Shield size={18} />,
-    },
-    {
-      id: 'people',
-      label: 'Des gens comme vous',
-      icon: <Users size={18} />,
-    },
-  ]
-
   return (
     <div className="profile-dashboard">
       <div id="profile-section-hero">
@@ -118,7 +102,7 @@ export const ProfileDashboard = () => {
       </div>
 
       <Tabs
-        options={tabOptions}
+        options={TAB_OPTIONS}
         activeTab={activeTab}
         onTabChange={(next) => navigate({ search: (prev) => ({ ...prev, tab: next }) })}
         variant="underline"

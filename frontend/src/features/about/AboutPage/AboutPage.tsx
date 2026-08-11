@@ -144,34 +144,34 @@ function AboutStory() {
   )
 }
 
-function AboutPain() {
-  const items = [
-    {
-      head: 'Trop d’onglets, jamais le bon.',
-      sub: 'On rouvre la même fiche produit pour la quatrième fois.',
-    },
-    {
-      head: 'Des avis contradictoires.',
-      sub: 'Et aucun moyen de les ranger à côté de la composition.',
-    },
-    {
-      head: 'Des produits qui se ressemblent.',
-      sub: 'Trois sérums, trois INCI, et toujours la même question : lequel ?',
-    },
-    {
-      head: 'Du jargon INCI.',
-      sub: 'On finit par sauter les passages qu’on ne comprend pas.',
-    },
-    {
-      head: 'Pas de mémoire personnelle.',
-      sub: 'Aucun historique de ce qu’on a déjà testé, aimé, abandonné.',
-    },
-    {
-      head: 'Comparer reste pénible.',
-      sub: 'Deux fenêtres côte à côte, et l’œil qui zigzague.',
-    },
-  ]
+const painPoints = [
+  {
+    head: 'Trop d’onglets, jamais le bon.',
+    sub: 'On rouvre la même fiche produit pour la quatrième fois.',
+  },
+  {
+    head: 'Des avis contradictoires.',
+    sub: 'Et aucun moyen de les ranger à côté de la composition.',
+  },
+  {
+    head: 'Des produits qui se ressemblent.',
+    sub: 'Trois sérums, trois INCI, et toujours la même question : lequel ?',
+  },
+  {
+    head: 'Du jargon INCI.',
+    sub: 'On finit par sauter les passages qu’on ne comprend pas.',
+  },
+  {
+    head: 'Pas de mémoire personnelle.',
+    sub: 'Aucun historique de ce qu’on a déjà testé, aimé, abandonné.',
+  },
+  {
+    head: 'Comparer reste pénible.',
+    sub: 'Deux fenêtres côte à côte, et l’œil qui zigzague.',
+  },
+]
 
+function AboutPain() {
   return (
     <section className="aur-about-section" aria-labelledby="aur-about-pain-title">
       <SectionHeader
@@ -197,7 +197,7 @@ function AboutPain() {
         </div>
 
         <ol role="list" className="aur-about-pain__list">
-          {items.map((item, i) => (
+          {painPoints.map((item, i) => (
             <li className="aur-about-pain__item" key={item.head}>
               <span className="aur-about-pain__num">{String(i + 1).padStart(2, '0')}</span>
               <div className="aur-about-pain__text">
