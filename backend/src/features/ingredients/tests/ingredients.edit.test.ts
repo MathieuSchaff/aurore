@@ -35,7 +35,7 @@ const lastChanges = async (ingredientId: string) => {
   return edits[0]?.changes as Record<string, { old: unknown; new: unknown }>
 }
 
-describe('updateIngredient — exhaustive', () => {
+describe('updateIngredient (exhaustive)', () => {
   beforeEach(async () => {
     user = await createTestUser()
   })
@@ -227,7 +227,7 @@ describe('updateIngredient — exhaustive', () => {
     })
   })
 
-  // Slug is immutable after creation: renaming never re-derives it, and a
+  // Slug is immutable after creation: renaming never derives it again, and a
   // slug field in the payload is rejected by the strict update schema.
   describe('slug immutability', () => {
     it('should not change slug when the name changes', async () => {
@@ -312,14 +312,17 @@ describe('updateIngredient — exhaustive', () => {
       expect(changes.category.new).toBeNull()
     })
 
-    it('should record empty string → value for description', async () => {
+    it('should record empty string → value for description, folding the old side to null', async () => {
+      // `description` is NOT NULL DEFAULT '' in the DB, so '' is its empty state. It still folds
+      // to null: buildChanges is shared, and on the product side that '' hit an enum member of
+      // the changes schema and made the PATCH throw.
       const created = await createTestIngredient(user.id, { name: 'Audit Empty To Desc' })
       expect(created.description).toBe('')
 
       await updIng(user.id, created.id, { description: 'Rempli' }, 'Ajout desc')
 
       const changes = await lastChanges(created.id)
-      expect(changes.description.old).toBe('')
+      expect(changes.description.old).toBeNull()
       expect(changes.description.new).toBe('Rempli')
     })
 
