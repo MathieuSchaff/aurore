@@ -1,3 +1,6 @@
+// @vitest-environment jsdom
+// happy-dom reports stepMismatch on value="22.50" with step="0.01" (float rounding),
+// so constraint validation blocks the implicit form submission this flow asserts.
 import { screen, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
