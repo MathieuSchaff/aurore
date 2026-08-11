@@ -7,7 +7,6 @@
 [script]
 audit-ingredients-sync:
     source {{justfile_directory()}}/scripts/just/_lib.sh
-    TARGET="${TARGET:-dev}"
     target_compose
     printf "{{CYAN}}Audit synchro ingrédients ($TARGET) → .audit-out/db/audit-ingredients-sync.$TARGET.md{{NC}}\n"
     $COMPOSE exec -w /app/backend api bun run src/db/seed/maintenance/audit-ingredients-sync.ts \
@@ -18,7 +17,6 @@ audit-ingredients-sync:
 [script]
 audit-ingredient-tags-coverage:
     source {{justfile_directory()}}/scripts/just/_lib.sh
-    TARGET="${TARGET:-dev}"
     target_compose
     printf "{{CYAN}}Audit couverture tags ingrédients ($TARGET) → .audit-out/db/audit-ingredient-tags-coverage.$TARGET.md{{NC}}\n"
     $COMPOSE exec -w /app/backend api bun run src/db/seed/maintenance/audit-ingredient-tags-coverage.ts \
@@ -29,7 +27,6 @@ audit-ingredient-tags-coverage:
 [script]
 audit-inci-quality:
     source {{justfile_directory()}}/scripts/just/_lib.sh
-    TARGET="${TARGET:-dev}"
     target_compose
     printf "{{CYAN}}Audit INCI quality ($TARGET)...{{NC}}\n"
     $COMPOSE exec \

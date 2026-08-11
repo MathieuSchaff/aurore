@@ -36,7 +36,6 @@ catalog-fix-tag-domain:
 [script]
 autotag-backfill:
     source {{justfile_directory()}}/scripts/just/_lib.sh
-    TARGET="${TARGET:-dev}"
     target_compose
     if [ "$TARGET" = prod ] && [ -n "${WRITE:-}" ]; then confirm_prod "WRITE (autotag-backfill)"; fi
     MODE=$([ -n "${WRITE:-}" ] && echo "WRITE" || echo "dry-run")
@@ -71,7 +70,6 @@ autotag-reconcile *args:
         exit 2
     fi
     source {{justfile_directory()}}/scripts/just/_lib.sh
-    TARGET="${TARGET:-dev}"
     target_compose
     if [ "$TARGET" = prod ] && [ -n "${WRITE:-}" ]; then confirm_prod "WRITE (autotag-reconcile)"; fi
     MODE=$([ -n "${WRITE:-}" ] && echo "WRITE" || echo "dry-run")
@@ -87,7 +85,6 @@ autotag-reconcile *args:
 [script]
 autotag-purge-stale:
     source {{justfile_directory()}}/scripts/just/_lib.sh
-    TARGET="${TARGET:-dev}"
     target_compose
     if [ -z "${TAG:-}" ]; then printf "{{RED}}TAG=<tagSlug> requis{{NC}}\n"; exit 1; fi
     if [ "$TARGET" = prod ] && [ -n "${WRITE:-}" ]; then confirm_prod "WRITE (autotag-purge-stale $TAG)"; fi
@@ -103,7 +100,6 @@ autotag-purge-stale:
 [script]
 autotag-purge-off-corpus:
     source {{justfile_directory()}}/scripts/just/_lib.sh
-    TARGET="${TARGET:-dev}"
     target_compose
     if [ "$TARGET" = prod ] && [ -n "${WRITE:-}" ]; then confirm_prod "WRITE (autotag-purge-off-corpus)"; fi
     MODE=$([ -n "${WRITE:-}" ] && echo "WRITE" || echo "dry-run")
@@ -117,7 +113,6 @@ autotag-purge-off-corpus:
 [script]
 autotag-explain:
     source {{justfile_directory()}}/scripts/just/_lib.sh
-    TARGET="${TARGET:-dev}"
     target_compose
     if [ -n "${COUNTS:-}" ]; then
         printf "{{CYAN}}Explain auto-tags — catalogue counts ($TARGET)...{{NC}}\n"
@@ -139,7 +134,6 @@ autotag-explain:
 [script]
 autotag-goldset:
     source {{justfile_directory()}}/scripts/just/_lib.sh
-    TARGET="${TARGET:-dev}"
     target_compose
     printf "{{CYAN}}Gold-set bootstrap ($TARGET)...{{NC}}\n"
     $COMPOSE exec \

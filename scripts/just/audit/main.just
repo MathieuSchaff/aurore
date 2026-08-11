@@ -22,7 +22,6 @@ import 'code.just'
 [script('bash', '-uo', 'pipefail')]
 audit-db-full:
     source {{justfile_directory()}}/scripts/just/_lib.sh
-    export TARGET="${TARGET:-dev}"
     audits=(audit-db audit-taxonomy audit-security audit-product-kinds audit-actif-class
         audit-kind-inci audit-uv-filters audit-sans-sulfates audit-tag-contradictions audit-aha-bha-pha
         audit-auto-tags audit-auto-tags-check audit-gold-set audit-concentration-solver)

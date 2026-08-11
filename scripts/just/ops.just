@@ -109,7 +109,6 @@ prod-psql-ro:
 db-fix file:
     source {{justfile_directory()}}/scripts/just/_lib.sh
     [ -f "{{file}}" ] || { printf "{{RED}}❌ no file: {{file}}{{NC}}\n"; exit 1; }
-    TARGET="${TARGET:-dev}"
     if [ "$TARGET" = "prod" ]; then
         confirm_prod "DATA FIX from {{file}}"
         ssh aurore 'docker exec -i app_db psql -U app -d appdb -1 -v ON_ERROR_STOP=1' < "{{file}}"
@@ -153,7 +152,6 @@ prod-moderation:
 [script]
 sweep-demos:
     source {{justfile_directory()}}/scripts/just/_lib.sh
-    TARGET="${TARGET:-dev}"
     target_compose
     printf "{{CYAN}}Sweeping expired demo accounts ($TARGET)...{{NC}}\n"
     $COMPOSE exec -w /app/backend api bun run src/features/auth/sweep-expired-demos.cli.ts

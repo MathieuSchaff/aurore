@@ -5,7 +5,6 @@
 [script]
 audit-auto-tags:
     source {{justfile_directory()}}/scripts/just/_lib.sh
-    TARGET="${TARGET:-dev}"
     target_compose
     printf "{{CYAN}}Audit auto-tags dry-run ($TARGET) → .audit-out/db/audit-auto-tags.$TARGET.md{{NC}}\n"
     $COMPOSE exec \
@@ -26,7 +25,6 @@ audit-auto-tags:
 [script]
 audit-auto-tags-check:
     source {{justfile_directory()}}/scripts/just/_lib.sh
-    TARGET="${TARGET:-dev}"
     target_compose
     printf "{{CYAN}}Audit auto-tags CHECK ($TARGET) → .audit-out/db/audit-auto-tags-check.$TARGET.md{{NC}}\n"
     $COMPOSE exec -e CHECK=1 -w /app/backend api bun run src/features/auto-tagging/runners/audit/main.ts \
@@ -37,7 +35,6 @@ audit-auto-tags-check:
 [script]
 audit-kind-inci:
     source {{justfile_directory()}}/scripts/just/_lib.sh
-    TARGET="${TARGET:-dev}"
     target_compose
     printf "{{CYAN}}Audit kind⇄INCI coherence ($TARGET) → .audit-out/db/audit-kind-inci.$TARGET.md{{NC}}\n"
     $COMPOSE exec -w /app/backend api bun run src/features/auto-tagging/runners/audit/kind-inci-coherence.ts \
@@ -51,7 +48,6 @@ audit-kind-inci:
 [script]
 audit-uv-filters:
     source {{justfile_directory()}}/scripts/just/_lib.sh
-    TARGET="${TARGET:-dev}"
     target_compose
     printf "{{CYAN}}Audit UV filter coverage ($TARGET) → .audit-out/db/audit-uv-filters.$TARGET.md{{NC}}\n"
     $COMPOSE exec -w /app/backend api bun run src/features/auto-tagging/runners/audit/uv-filters-coverage.ts \
@@ -62,7 +58,6 @@ audit-uv-filters:
 [script]
 audit-sans-sulfates:
     source {{justfile_directory()}}/scripts/just/_lib.sh
-    TARGET="${TARGET:-dev}"
     target_compose
     printf "{{CYAN}}Audit sans-sulfates coherence ($TARGET) → .audit-out/db/audit-sans-sulfates.$TARGET.md{{NC}}\n"
     $COMPOSE exec -w /app/backend api bun run src/features/auto-tagging/runners/audit/sans-sulfates-coherence.ts \
@@ -73,7 +68,6 @@ audit-sans-sulfates:
 [script]
 audit-tag-contradictions:
     source {{justfile_directory()}}/scripts/just/_lib.sh
-    TARGET="${TARGET:-dev}"
     target_compose
     printf "{{CYAN}}Audit absence-tag contradictions ($TARGET) → .audit-out/db/audit-tag-contradictions.$TARGET.md{{NC}}\n"
     $COMPOSE exec -w /app/backend api bun run src/features/auto-tagging/runners/audit/tag-contradictions.ts \
@@ -84,7 +78,6 @@ audit-tag-contradictions:
 [script]
 audit-product-kinds:
     source {{justfile_directory()}}/scripts/just/_lib.sh
-    TARGET="${TARGET:-dev}"
     target_compose
     printf "{{CYAN}}Audit product kinds (read-only, $TARGET) → .audit-out/db/audit-product-kinds.$TARGET.md{{NC}}\n"
     $COMPOSE exec -w /app/backend api bun run src/features/auto-tagging/runners/audit/product-kinds.ts \
@@ -99,7 +92,6 @@ audit-orchestrator-diff:
         printf "{{RED}}CSV_OUT requis (e.g. CSV_OUT=/tmp/out.csv just audit-orchestrator-diff){{NC}}\n"; exit 1
     fi
     source {{justfile_directory()}}/scripts/just/_lib.sh
-    TARGET="${TARGET:-dev}"
     target_compose
     MODE=$([ -n "${BASELINE:-}" ] && echo "DIFF" || echo "SNAPSHOT")
     printf "{{CYAN}}Audit orchestrator ($MODE, $TARGET)...{{NC}}\n"
@@ -114,7 +106,6 @@ audit-orchestrator-diff:
 [script]
 audit-actif-class:
     source {{justfile_directory()}}/scripts/just/_lib.sh
-    TARGET="${TARGET:-dev}"
     target_compose
     printf "{{CYAN}}Audit actif-class dry-run ($TARGET) → .audit-out/db/audit-actif-class.$TARGET.md{{NC}}\n"
     $COMPOSE exec \
@@ -129,7 +120,6 @@ audit-actif-class:
 [script]
 audit-aha-bha-pha:
     source {{justfile_directory()}}/scripts/just/_lib.sh
-    TARGET="${TARGET:-dev}"
     target_compose
     if [ -n "${WRITE:-}" ]; then
         printf "{{RED}}⚠ WRITE mode ($TARGET) — DELETE pairs from ${APPLY_FROM_CSV:-?}{{NC}}\n"
@@ -151,7 +141,6 @@ audit-aha-bha-pha:
 [script]
 audit-gold-set:
     source {{justfile_directory()}}/scripts/just/_lib.sh
-    TARGET="${TARGET:-dev}"
     target_compose
     printf "{{CYAN}}Gold-set benchmark ($TARGET) → .audit-out/db/audit-gold-set.$TARGET.md{{NC}}\n"
     $COMPOSE exec \
@@ -166,7 +155,6 @@ audit-gold-set:
 [script]
 audit-concentration-solver:
     source {{justfile_directory()}}/scripts/just/_lib.sh
-    TARGET="${TARGET:-dev}"
     target_compose
     printf "{{CYAN}}Concentration solver audit ($TARGET) → .audit-out/db/audit-concentration-solver.$TARGET.md{{NC}}\n"
     $COMPOSE exec \

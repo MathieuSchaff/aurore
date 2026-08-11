@@ -27,7 +27,6 @@ import '_vars.just'
 [script]
 link-ingredients:
     source {{justfile_directory()}}/scripts/just/_lib.sh
-    TARGET="${TARGET:-dev}"
     target_compose
     if [ "$TARGET" = prod ] && [ -n "${WRITE:-}" ]; then confirm_prod "WRITE (link-ingredients)"; fi
     MODE=$([ -n "${WRITE:-}" ] && echo "WRITE" || echo "dry-run")
@@ -41,7 +40,6 @@ link-ingredients:
 [script]
 inci-cleanup script:
     source {{justfile_directory()}}/scripts/just/_lib.sh
-    TARGET="${TARGET:-dev}"
     target_compose
     if [ "$TARGET" = prod ] && [ -n "${WRITE:-}" ]; then confirm_prod "WRITE (inci-cleanup {{script}})"; fi
     MODE=$([ -n "${WRITE:-}" ] && echo "WRITE" || echo "dry-run")
@@ -55,7 +53,6 @@ inci-cleanup script:
 [script]
 inci-cleanup-all:
     source {{justfile_directory()}}/scripts/just/_lib.sh
-    TARGET="${TARGET:-dev}"
     target_compose
     if [ "$TARGET" = prod ] && [ -n "${WRITE:-}" ]; then confirm_prod "WRITE (inci-cleanup-all)"; fi
     MODE=$([ -n "${WRITE:-}" ] && echo "WRITE" || echo "dry-run")

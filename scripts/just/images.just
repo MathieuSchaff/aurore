@@ -18,7 +18,6 @@ image-upload:
         printf "{{RED}}SLUG ou BATCH requis (env vars){{NC}}\n"; exit 1
     fi
     source {{justfile_directory()}}/scripts/just/_lib.sh
-    TARGET="${TARGET:-dev}"
     target_compose
     if [ "$TARGET" = prod ] && [ -n "${WRITE:-}" ] && [ -z "${NO_DB:-}" ]; then confirm_prod "WRITE (image-upload)"; fi
     MODE=$([ -n "${WRITE:-}" ] && echo "WRITE" || echo "dry-run")
@@ -40,7 +39,6 @@ image-upload:
 [script]
 image-build-mapping:
     source {{justfile_directory()}}/scripts/just/_lib.sh
-    TARGET="${TARGET:-dev}"
     target_compose
     printf "{{CYAN}}Build image mapping ($TARGET)...{{NC}}\n"
     $COMPOSE exec -w /app/backend api bun run src/images/maintenance/build-mapping.ts
@@ -50,7 +48,6 @@ image-build-mapping:
 [script]
 image-fix-refs:
     source {{justfile_directory()}}/scripts/just/_lib.sh
-    TARGET="${TARGET:-dev}"
     target_compose
     if [ "$TARGET" = prod ] && [ -n "${WRITE:-}" ]; then confirm_prod "WRITE DB+CDN (image-fix-refs)"; fi
     MODE=$([ -n "${WRITE:-}" ] && echo "WRITE" || echo "dry-run")

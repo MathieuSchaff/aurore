@@ -39,7 +39,6 @@ ingest-incidecoder phase:
         *) printf "{{RED}}phase invalide: crawl|match|fetch|apply{{NC}}\n"; exit 1 ;;
     esac
     source {{justfile_directory()}}/scripts/just/_lib.sh
-    TARGET="${TARGET:-dev}"
     target_compose
     if [ "$TARGET" = prod ] && [ "{{phase}}" = "apply" ]; then confirm_prod "WRITE (incidecoder apply)"; fi
     printf "{{CYAN}}Ingest INCIDecoder phase {{phase}} ($TARGET)...{{NC}}\n"
@@ -76,7 +75,7 @@ catalogue-gate: audit-db-full audit-cdn db-snapshot
 [group('catalog')]
 [script]
 catalogue-apply jsonl:
-    if [ "${TARGET:-dev}" = prod ]; then
+    if [ "$TARGET" = prod ]; then
         printf 'catalogue-apply est dev-only (db-snapshot lit la dev DB).\n' >&2
         printf "Prod: just prod-ssh 'TARGET=prod WRITE=1 just ingest-catalogue <lot>'\n" >&2
         exit 1
@@ -94,7 +93,6 @@ catalogue-apply jsonl:
 [script]
 catalog-scan-dups backup="src/db/snapshot/data.sql":
     source {{justfile_directory()}}/scripts/just/_lib.sh
-    TARGET="${TARGET:-dev}"
     target_compose
     printf "{{CYAN}}Scan DB duplicates from {{backup}} ($TARGET)...{{NC}}\n"
     $COMPOSE exec -w /app/backend api bun run src/db/seed/maintenance/scan-db-duplicates.ts {{backup}}

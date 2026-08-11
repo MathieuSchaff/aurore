@@ -15,12 +15,7 @@ import '_vars.just'
 [script]
 db-migrate:
     source {{justfile_directory()}}/scripts/just/_lib.sh
-    TARGET="${TARGET:-dev}"
-    case "$TARGET" in
-        dev)  ENV_FILE="../.env.dev" ;;
-        prod) ENV_FILE="../.env.prod" ;;
-        *)    printf "{{RED}}TARGET invalide: dev|prod (got '$TARGET'){{NC}}\n"; exit 1 ;;
-    esac
+    ENV_FILE="../.env.$TARGET"
     if [ "$TARGET" = prod ]; then confirm_prod "MIGRATE"; fi
     printf "{{CYAN}}Applying migrations ($TARGET)...{{NC}}\n"
     cd backend && set -a && source "$ENV_FILE" && set +a && bun run src/db/migrate.ts
@@ -45,7 +40,6 @@ db-push:
 [script]
 db-stats:
     source {{justfile_directory()}}/scripts/just/_lib.sh
-    TARGET="${TARGET:-dev}"
     target_compose
     printf "{{CYAN}}DB stats ($TARGET)...{{NC}}\n"
     $COMPOSE exec -w /app/backend api bun run src/db/audit/stats-db.ts
@@ -57,7 +51,6 @@ db-stats:
 [script]
 db-seed:
     source {{justfile_directory()}}/scripts/just/_lib.sh
-    TARGET="${TARGET:-dev}"
     target_compose
     if [ "$TARGET" = prod ]; then confirm_prod "SEED"; fi
     LOG="{{justfile_directory()}}/.audit-out/db/seed.log"
@@ -73,7 +66,6 @@ db-seed:
 [script]
 db-seed-update:
     source {{justfile_directory()}}/scripts/just/_lib.sh
-    TARGET="${TARGET:-dev}"
     target_compose
     if [ "$TARGET" = prod ]; then confirm_prod "SEED UPDATE"; fi
     LOG="{{justfile_directory()}}/.audit-out/db/seed.log"
@@ -97,7 +89,6 @@ catalog-fix-tag-domain-safe: catalog-fix-tag-domain db-snapshot
 [script]
 db-seed-reset:
     source {{justfile_directory()}}/scripts/just/_lib.sh
-    TARGET="${TARGET:-dev}"
     target_compose
     printf "{{YELLOW}}⚠ ATTENTION: --reset will TRUNCATE products + ingredients + tag relations!\n"
     printf "  If the target DB has more products than the JS seed, the guard will refuse unless SEED_FORCE_RESET=1.{{NC}}\n"
@@ -115,7 +106,6 @@ db-seed-reset:
 [script]
 db-clean:
     source {{justfile_directory()}}/scripts/just/_lib.sh
-    TARGET="${TARGET:-dev}"
     target_compose
     printf "{{YELLOW}}⚠ ATTENTION: All data will be deleted!{{NC}}\n"
     if [ "$TARGET" = prod ]; then
@@ -138,7 +128,6 @@ db-reset: db-clean db-migrate db-seed
 [script]
 db-backup:
     source {{justfile_directory()}}/scripts/just/_lib.sh
-    TARGET="${TARGET:-dev}"
     target_compose
     mkdir -p ./backups
     TS=$(date +%Y%m%d_%H%M%S)
@@ -161,7 +150,6 @@ db-backup:
 [script]
 db-restore file:
     source {{justfile_directory()}}/scripts/just/_lib.sh
-    TARGET="${TARGET:-dev}"
     target_compose
     if [ "$TARGET" = prod ]; then confirm_prod "RESTORE from {{file}}" "I DESTROY PROD"; fi
     printf "{{CYAN}}Restoring {{file}} ($TARGET)...{{NC}}\n"
@@ -294,7 +282,6 @@ db-catalogue-snapshot:
 [script]
 db-prod-admin:
     source {{justfile_directory()}}/scripts/just/_lib.sh
-    TARGET="${TARGET:-dev}"
     target_compose
     $COMPOSE exec -w /app/backend api bun run src/db/seed/seeders/seed-prod-admin.ts
 
@@ -305,7 +292,6 @@ db-prod-admin:
 [script]
 db-catalogue-load:
     source {{justfile_directory()}}/scripts/just/_lib.sh
-    TARGET="${TARGET:-dev}"
     target_compose
     [ -f "{{CATALOGUE_FILE}}" ] || { printf "{{RED}}❌ No {{CATALOGUE_FILE}} — run just db-catalogue-snapshot{{NC}}\n"; exit 1; }
     OWNER_EMAIL=$($COMPOSE exec -T api printenv ADMIN_EMAIL || true)

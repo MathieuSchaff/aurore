@@ -5,7 +5,6 @@
 [script]
 audit-db:
     source {{justfile_directory()}}/scripts/just/_lib.sh
-    TARGET="${TARGET:-dev}"
     target_compose
     printf "{{CYAN}}DB audit ($TARGET) → .audit-out/db/audit-db.$TARGET.md{{NC}}\n"
     $COMPOSE exec -e AUDIT_DB_FULL=1 -w /app/backend api bun run src/db/audit/audit-db.ts \
@@ -16,7 +15,6 @@ audit-db:
 [script]
 audit-taxonomy:
     source {{justfile_directory()}}/scripts/just/_lib.sh
-    TARGET="${TARGET:-dev}"
     target_compose
     printf "{{CYAN}}Taxonomy audit ($TARGET) → .audit-out/db/audit-taxonomy.$TARGET.md{{NC}}\n"
     $COMPOSE exec -w /app/backend api bun run src/db/audit/audit-taxonomy.ts \
@@ -27,7 +25,6 @@ audit-taxonomy:
 [script]
 audit-security:
     source {{justfile_directory()}}/scripts/just/_lib.sh
-    TARGET="${TARGET:-dev}"
     target_compose
     if [ "$TARGET" = prod ] && [ -n "${WRITE:-}" ]; then confirm_prod "WRITE (audit-security)"; fi
     MODE=$([ -n "${WRITE:-}" ] && echo "WRITE" || echo "dry-run")
@@ -43,7 +40,6 @@ audit-security:
 [script]
 audit-cdn:
     source {{justfile_directory()}}/scripts/just/_lib.sh
-    TARGET="${TARGET:-dev}"
     target_compose
     printf "{{CYAN}}Audit CDN⇄DB ($TARGET) → .audit-out/db/audit-cdn.$TARGET.md{{NC}}\n"
     $COMPOSE exec -w /app/backend api bun run src/images/audit/bunny.ts \
