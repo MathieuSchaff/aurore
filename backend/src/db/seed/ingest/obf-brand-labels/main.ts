@@ -2,11 +2,11 @@
 // (~17 MB gz, ~120 MB raw, ~64k cosmetics rows) and aggregates per-brand
 // vegan / cruelty-free / natural claims into `brand_certifications`
 // (source `obf`). Manual seed preserved: only add evidence, lift false to
-// true — never overwrite a manual `true` back to false.
+// true, never overwrite a manual `true` back to false.
 
 // Usage:
 //   bun run backend/src/db/seed/ingest/obf-brand-labels/main.ts                   # dry-run, cached dump
-//   bun run backend/src/db/seed/ingest/obf-brand-labels/main.ts --download        # force re-download
+//   bun run backend/src/db/seed/ingest/obf-brand-labels/main.ts --download        # force a fresh download
 //   bun run backend/src/db/seed/ingest/obf-brand-labels/main.ts --write           # apply DB upserts
 //   bun run backend/src/db/seed/ingest/obf-brand-labels/main.ts --threshold 0.7   # stricter ratio
 
@@ -18,7 +18,7 @@ import { sql } from 'drizzle-orm'
 
 import { db } from '../../..'
 import { withAdminRls } from '../../../rls'
-import { brandCertifications, products } from '../../../schema'
+import { brandCertifications, normalizeBrand, products } from '../../../schema'
 import type {
   BrandCertification,
   BrandCertificationInsert,
@@ -94,32 +94,37 @@ function* csvLines(rawCsv: string): Generator<string> {
   }
 }
 
-async function main() {
-  console.log('🌐 Ingest OBF brand-level labels')
-  console.log(
-    `   mode=${WRITE ? 'WRITE' : 'DRY-RUN'} · ratio≥${RATIO_THRESHOLD}@n≥${MIN_PRODUCTS} OR count≥${MIN_LABEL_COUNT}${
-      NO_WHITELIST ? ' · all-brands' : ' · corpus-only'
-    }\n`
+interface CorpusScope {
+  whitelist: Set<string> | undefined
+  corpusSlugToDisplay: Map<string, string> | undefined
+}
+
+interface MergePlan {
+  inserts: BrandCertificationInsert[]
+  updates: { brandNormalized: string; row: BrandCertificationInsert }[]
+  newRows: number
+  liftedFlags: number
+  mergedSources: number
+}
+
+// OBF slugs of brands present in `products.brand` (after slugification).
+// --no-whitelist ingests every OBF brand instead (much larger result set,
+// mostly irrelevant).
+async function resolveCorpusScope(): Promise<CorpusScope> {
+  if (NO_WHITELIST) return { whitelist: undefined, corpusSlugToDisplay: undefined }
+  const corpusBrands = await withAdminRls((tx) =>
+    tx.selectDistinct({ brand: products.brand }).from(products)
   )
-
-  // Whitelist: OBF slugs of brands present in `products.brand` (after
-  // slugification). --no-whitelist ingests every OBF brand instead (much
-  // larger result set, mostly irrelevant).
-  let whitelist: Set<string> | undefined
-  let corpusSlugToDisplay: Map<string, string> | undefined
-  if (!NO_WHITELIST) {
-    const corpusBrands = await withAdminRls((tx) =>
-      tx.selectDistinct({ brand: products.brand }).from(products)
-    )
-    corpusSlugToDisplay = new Map()
-    for (const r of corpusBrands) {
-      if (r.brand) corpusSlugToDisplay.set(brandToObfSlug(r.brand), r.brand)
-    }
-    whitelist = new Set(corpusSlugToDisplay.keys())
-    console.log(`🎯 Whitelist : ${whitelist.size} marques uniques du corpus produits`)
+  const corpusSlugToDisplay = new Map<string, string>()
+  for (const r of corpusBrands) {
+    if (r.brand) corpusSlugToDisplay.set(brandToObfSlug(r.brand), r.brand)
   }
+  const whitelist = new Set(corpusSlugToDisplay.keys())
+  console.log(`🎯 Whitelist : ${whitelist.size} marques uniques du corpus produits`)
+  return { whitelist, corpusSlugToDisplay }
+}
 
-  // Decompress + parse
+async function readObfRows(): Promise<{ brandTags: string[]; labelTags: string[] }[]> {
   const gz = await ensureDump()
   console.log('🗜  Décompression...')
   const raw = gunzipSync(gz)
@@ -131,44 +136,35 @@ async function main() {
   const columns = resolveObfColumns(text.slice(0, headerEnd))
 
   let rowCount = 0
-  let parsedCount = 0
   const rows: { brandTags: string[]; labelTags: string[] }[] = []
   for (const line of csvLines(text)) {
     rowCount++
     const row = parseObfCsvLine(line, columns)
-    if (row) {
-      parsedCount++
-      rows.push(row)
-    }
+    if (row) rows.push(row)
   }
-  console.log(`📊 OBF : ${rowCount} lignes · ${parsedCount} parsées avec brand|label`)
+  console.log(`📊 OBF : ${rowCount} lignes · ${rows.length} parsées avec brand|label`)
+  return rows
+}
 
-  const rollups = aggregateBrandClaims(rows, {
-    ratioThreshold: RATIO_THRESHOLD,
-    minProducts: MIN_PRODUCTS,
-    minLabelCount: MIN_LABEL_COUNT,
-    ...(whitelist ? { brandWhitelist: whitelist } : {}),
-  })
-  console.log(`   ${rollups.size} marques agrégées (post-whitelist)\n`)
+// Corpus brands that produced zero OBF rows are usually a slug mismatch
+// between brandToObfSlug and OBF's canonical id (apostrophes, ampersands,
+// numbers), a silent miss the ratio rule can never surface. List them so
+// the gap is auditable instead of invisible.
+function reportUnmatchedCorpusBrands(
+  scope: CorpusScope,
+  rollups: Map<string, BrandClaimRollup>
+): void {
+  const { whitelist, corpusSlugToDisplay } = scope
+  if (!whitelist || !corpusSlugToDisplay) return
+  const unmatched = [...whitelist].filter((slug) => !rollups.has(slug))
+  console.log(`🔍 Corpus sans produit OBF : ${unmatched.length}/${whitelist.size}`)
+  if (unmatched.length === 0) return
+  const names = unmatched.map((slug) => corpusSlugToDisplay.get(slug) ?? slug).sort()
+  const shown = names.slice(0, 30)
+  console.log(`   ${shown.join(', ')}${names.length > 30 ? ` … (+${names.length - 30})` : ''}\n`)
+}
 
-  // Unmatched corpus brands
-  // Corpus brands that produced zero OBF rows are usually a slug mismatch
-  // between brandToObfSlug and OBF's canonical id (apostrophes, ampersands,
-  // numbers), a silent miss the ratio rule can never surface. List them so
-  // the gap is auditable instead of invisible.
-  if (whitelist && corpusSlugToDisplay) {
-    const unmatched = [...whitelist].filter((slug) => !rollups.has(slug))
-    console.log(`🔍 Corpus sans produit OBF : ${unmatched.length}/${whitelist.size}`)
-    if (unmatched.length > 0) {
-      const names = unmatched.map((slug) => corpusSlugToDisplay?.get(slug) ?? slug).sort()
-      const shown = names.slice(0, 30)
-      console.log(
-        `   ${shown.join(', ')}${names.length > 30 ? ` … (+${names.length - 30})` : ''}\n`
-      )
-    }
-  }
-
-  // Per-claim summary
+function reportClaims(rollups: Map<string, BrandClaimRollup>): void {
   let veganClaim = 0
   let crueltyFreeClaim = 0
   let naturalClaim = 0
@@ -182,24 +178,27 @@ async function main() {
   console.log(`   cruelty-free  : ${crueltyFreeClaim}`)
   console.log(`   natural-cert  : ${naturalClaim}\n`)
 
-  if (process.argv.includes('--verbose')) {
-    const claimed = [...rollups.values()].filter(
-      (r) => r.vegan.claim || r.crueltyFree.claim || r.naturalCertified.claim
+  if (!process.argv.includes('--verbose')) return
+  const claimed = [...rollups.values()].filter(
+    (r) => r.vegan.claim || r.crueltyFree.claim || r.naturalCertified.claim
+  )
+  claimed.sort((a, b) => b.total - a.total)
+  console.log('📋 Marques claimées (verbose) :')
+  if (claimed.length > 0)
+    console.table(
+      claimed.map((r) => ({
+        slug: r.obfSlug,
+        vegan: r.vegan.claim ? `${r.vegan.count}/${r.total}` : '',
+        cf: r.crueltyFree.claim ? `${r.crueltyFree.count}/${r.total}` : '',
+        nat: r.naturalCertified.claim ? `${r.naturalCertified.count}/${r.total}` : '',
+      }))
     )
-    claimed.sort((a, b) => b.total - a.total)
-    console.log('📋 Marques claimées (verbose) :')
-    if (claimed.length > 0)
-      console.table(
-        claimed.map((r) => ({
-          slug: r.obfSlug,
-          vegan: r.vegan.claim ? `${r.vegan.count}/${r.total}` : '',
-          cf: r.crueltyFree.claim ? `${r.crueltyFree.count}/${r.total}` : '',
-          nat: r.naturalCertified.claim ? `${r.naturalCertified.count}/${r.total}` : '',
-        }))
-      )
-  }
+}
 
-  // Load existing brand_certifications + build merge plan
+async function buildMergePlan(
+  rollups: Map<string, BrandClaimRollup>,
+  corpusSlugToDisplay: Map<string, string> | undefined
+): Promise<MergePlan> {
   const existing = await db.select().from(brandCertifications)
   const existingByObfSlug = new Map<string, BrandCertification>()
   for (const row of existing) {
@@ -218,12 +217,16 @@ async function main() {
 
     const ex = existingByObfSlug.get(rollup.obfSlug)
     if (!ex) {
-      // New brand discovered by OBF. Store with display = obfSlug as fallback
-      // (unknown true display name; admin can rename later via DB).
+      // New brand discovered by OBF. Key on normalizeBrand(display), the same
+      // function both readers use to look up a row; obfSlug alone (dashes,
+      // no accents) never matches that lookup. Use the corpus's raw brand
+      // text when whitelist mode resolved it; fall back to obfSlug only when
+      // the true display name is unknown (--no-whitelist).
       newRows++
+      const display = corpusSlugToDisplay?.get(rollup.obfSlug) ?? rollup.obfSlug
       inserts.push({
-        brandNormalized: rollup.obfSlug,
-        brandDisplay: rollup.obfSlug,
+        brandNormalized: normalizeBrand(display),
+        brandDisplay: display,
         isVegan: rollup.vegan.claim,
         isCrueltyFree: rollup.crueltyFree.claim,
         isNaturalCertified: rollup.naturalCertified.claim,
@@ -262,23 +265,23 @@ async function main() {
     })
   }
 
+  return { inserts, updates, newRows, liftedFlags, mergedSources }
+}
+
+function reportMergePlan(plan: MergePlan): void {
   console.log(`📝 Plan de merge :`)
-  console.log(`   Nouvelles marques OBF (insert)        : ${newRows}`)
-  console.log(`   Existantes — flags liftés false→true   : ${liftedFlags}`)
-  console.log(`   Existantes — sources jsonb enrichies   : ${mergedSources}\n`)
+  console.log(`   Nouvelles marques OBF (insert)        : ${plan.newRows}`)
+  console.log(`   Existantes — flags liftés false→true   : ${plan.liftedFlags}`)
+  console.log(`   Existantes — sources jsonb enrichies   : ${plan.mergedSources}\n`)
+}
 
-  if (!WRITE) {
-    console.log('Run avec --write pour appliquer.')
-    return
-  }
-
-  // Write
-  if (inserts.length > 0) {
+async function applyMergePlan(plan: MergePlan): Promise<void> {
+  if (plan.inserts.length > 0) {
     const CHUNK = 200
-    for (let i = 0; i < inserts.length; i += CHUNK) {
+    for (let i = 0; i < plan.inserts.length; i += CHUNK) {
       await db
         .insert(brandCertifications)
-        .values(inserts.slice(i, i + CHUNK))
+        .values(plan.inserts.slice(i, i + CHUNK))
         .onConflictDoUpdate({
           target: brandCertifications.brandNormalized,
           set: {
@@ -289,10 +292,10 @@ async function main() {
           },
         })
     }
-    console.log(`✅ ${inserts.length} insert/upsert (nouvelles marques)`)
+    console.log(`✅ ${plan.inserts.length} insert/upsert (nouvelles marques)`)
   }
 
-  for (const u of updates) {
+  for (const u of plan.updates) {
     await db
       .update(brandCertifications)
       .set({
@@ -303,7 +306,40 @@ async function main() {
       })
       .where(sql`${brandCertifications.brandNormalized} = ${u.brandNormalized}`)
   }
-  console.log(`✅ ${updates.length} updates (existantes mergées)\n`)
+  console.log(`✅ ${plan.updates.length} updates (existantes mergées)\n`)
+}
+
+async function main() {
+  console.log('🌐 Ingest OBF brand-level labels')
+  console.log(
+    `   mode=${WRITE ? 'WRITE' : 'DRY-RUN'} · ratio≥${RATIO_THRESHOLD}@n≥${MIN_PRODUCTS} OR count≥${MIN_LABEL_COUNT}${
+      NO_WHITELIST ? ' · all-brands' : ' · corpus-only'
+    }\n`
+  )
+
+  const scope = await resolveCorpusScope()
+  const rows = await readObfRows()
+
+  const rollups = aggregateBrandClaims(rows, {
+    ratioThreshold: RATIO_THRESHOLD,
+    minProducts: MIN_PRODUCTS,
+    minLabelCount: MIN_LABEL_COUNT,
+    ...(scope.whitelist ? { brandWhitelist: scope.whitelist } : {}),
+  })
+  console.log(`   ${rollups.size} marques agrégées (post-whitelist)\n`)
+
+  reportUnmatchedCorpusBrands(scope, rollups)
+  reportClaims(rollups)
+
+  const plan = await buildMergePlan(rollups, scope.corpusSlugToDisplay)
+  reportMergePlan(plan)
+
+  if (!WRITE) {
+    console.log('Run avec --write pour appliquer.')
+    return
+  }
+
+  await applyMergePlan(plan)
 }
 
 function buildSourcesFromRollup(rollup: BrandClaimRollup): BrandCertificationSources {
