@@ -23,6 +23,7 @@ import { preferenceTargetQueries } from '@/lib/queries/profile'
 import { avoidedIngredientNames } from './avoidedIngredients'
 import { formatIngredientSignals } from './ingredientSignals'
 import { formatRegulatoryFindings } from './regulatoryFindings'
+import { filterRiskDriversAtDose } from './riskDrivers'
 import './FormulaReading.css'
 
 type RiskAxis = keyof typeof RISK_AXIS_PHRASE
@@ -83,7 +84,7 @@ export function FormulaReading({
   }, [profileSlugs])
 
   // Unkeyed sheets carry no identity a preference can attach to, so they are
-  // absent (F3). Two sheets can share a key; keep the first name.
+  // absent. Two sheets can share a key; keep the first name.
   const declarable = useMemo(() => {
     const nameByKey = new Map<string, string>()
     for (const i of linkedIngredients) {
@@ -96,7 +97,7 @@ export function FormulaReading({
 
   // The query is client-side on an SSR'd page, so `preferenceTargets` is
   // undefined while it loads and when it fails alike; showing nothing then is
-  // the honest default — a mention is never denied, only deferred.
+  // the honest default: a mention is never denied, only deferred.
   const avoidedNames = useMemo(
     () => avoidedIngredientNames(declarable, preferenceTargets?.ingredients),
     [declarable, preferenceTargets]
@@ -131,8 +132,9 @@ export function FormulaReading({
   // Keep ingredient/heuristic signals only; interaction rules render in their own
   // section with a human note (their topDrivers label is a raw rule id). Drop drivers
   // with no axis: matched evidence that carries no concern is noise here.
-  const drivers = explanation.topDrivers.filter(
-    (d) => d.source !== 'interaction' && d.axes.length > 0
+  const drivers = filterRiskDriversAtDose(
+    explanation.topDrivers.filter((d) => d.source !== 'interaction' && d.axes.length > 0),
+    matchedEvidence
   )
   // The lib's own `note` is English curator prose; only a rule with FR phrasing
   // reaches the page, the rest go quiet rather than leak it.
