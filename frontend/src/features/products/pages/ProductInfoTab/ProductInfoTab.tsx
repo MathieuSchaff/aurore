@@ -191,14 +191,6 @@ export function ProductInfoTab() {
         </details>
       )}
 
-      {product.inci && (
-        <FormulaReading
-          slug={slug}
-          userKey={user?.id ?? null}
-          profileSlugs={profileSlugs}
-          linkedIngredients={product.ingredients ?? []}
-        />
-      )}
       {hasIngredients && (
         <div className="product-section">
           <SectionHeader title="Ingrédients" count={product.ingredients.length}>
@@ -276,6 +268,15 @@ export function ProductInfoTab() {
             controlsId={ingredientsListId}
           />
         </div>
+      )}
+
+      {product.inci && (
+        <FormulaReading
+          slug={slug}
+          userKey={user?.id ?? null}
+          profileSlugs={profileSlugs}
+          linkedIngredients={product.ingredients ?? []}
+        />
       )}
 
       {product.notes && (

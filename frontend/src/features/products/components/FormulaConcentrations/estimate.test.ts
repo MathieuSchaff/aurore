@@ -44,6 +44,17 @@ describe('readConcentration', () => {
     ).toEqual({ kind: 'unestimable' })
   })
 
+  it('degrades a solver band wider than half its mean', () => {
+    expect(
+      readConcentration({
+        ...base,
+        solverMeanPct: 10,
+        solverCiLowPct: 6,
+        solverCiHighPct: 12,
+      })
+    ).toEqual({ kind: 'unestimable' })
+  })
+
   it('unestimable on absurd data', () => {
     expect(readConcentration({ meanPct: 0, ciLowPct: 0, ciHighPct: 0 })).toEqual({
       kind: 'unestimable',
