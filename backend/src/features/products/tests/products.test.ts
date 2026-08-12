@@ -25,6 +25,7 @@ import {
 import { ProductError } from '../product-error'
 import { addIngredientToProduct } from '../product-ingredients/product-ingredients.service'
 import {
+  createProduct,
   deleteProduct,
   findSimilarProducts,
   getDistinctBrands,
@@ -220,6 +221,38 @@ describe('Product Service', () => {
 
       expect(updated.notes).toBe('safe edit')
       expect(updated.inci).toBe(legacyInci)
+    })
+
+    // `''` and null both mean "no formula on file", and readers already carry a
+    // `btrim(inci) <> ''` guard everywhere. The write side settles it instead.
+    it('stores a blank inci as null, on create and on edit', async () => {
+      const created = await testDb.transaction((tx) =>
+        createProduct(
+          user.id,
+          'admin',
+          {
+            name: 'Blank Inci',
+            brand: 'Generic',
+            category: 'skincare',
+            kind: 'serum',
+            unit: 'pump',
+            inci: '   ',
+          },
+          tx,
+          { autoTag: false }
+        )
+      )
+      expect(created.inci).toBeNull()
+
+      const filled = await testDb.transaction((tx) =>
+        updateProduct(user.id, created.id, { inci: 'Aqua, Glycerin' }, undefined, tx)
+      )
+      expect(filled.inci).toBe('Aqua, Glycerin')
+
+      const cleared = await testDb.transaction((tx) =>
+        updateProduct(user.id, created.id, { inci: '' }, undefined, tx)
+      )
+      expect(cleared.inci).toBeNull()
     })
   })
 
