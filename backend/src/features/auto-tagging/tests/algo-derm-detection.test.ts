@@ -15,7 +15,7 @@ describe('algo-derm-detection', () => {
   })
 
   test('comedogenic ingredient on leave-on product → comedogene tag', () => {
-    // Coconut oil is a direct keyword match in algo-derm — high confidence.
+    // Coconut oil is a direct keyword match in algo-derm, high confidence.
     const inci = 'Aqua, Coconut Oil, Glycerin'
     const tags = detectAutoTags(inci, 'moisturizer')
     const slugs = tags.map((t) => t.slug)
@@ -64,14 +64,14 @@ describe('algo-derm-detection', () => {
   })
 
   test('confOverride raises confidenceFloor globally (computed_score only)', () => {
-    // peau-sensible at confidenceFloor 0.5 — should appear normally on a gentle INCI.
+    // peau-sensible at confidenceFloor 0.5, should appear normally on a gentle INCI.
     const inci = 'Aqua, Glycerin, Panthenol, Allantoin, Centella Asiatica Extract'
     const baseline = detectAutoTags(inci, 'serum')
     const tightened = detectAutoTags(inci, 'serum', { confOverride: 0.99 })
     // confOverride 0.99 is so strict only computed_score candidates with
     // confidence ≈ 1 survive. Absence tags (sans-X) are unaffected by
     // confOverride (their confidence ≡ coverage; gate via coverageMinOverride
-    // — same raise-only semantics).
+    // with the same raise-only semantics).
     expect(tightened.length).toBeLessThanOrEqual(baseline.length)
   })
 
@@ -140,7 +140,7 @@ describe('algo-derm-detection', () => {
   })
 
   test('R3 per-tag coverageMin: non-comedogene needs ≥ 0.60 coverage', () => {
-    // INCI dominated by unknown fillers — coverage will sit between the global
+    // INCI dominated by unknown fillers: coverage will sit between the global
     // floor (0.30) and the non-comedogene floor (0.60). Other computed tags
     // pass through, but non-comedogene must not.
     const inci = 'Aqua, Acme XR-7, Synthetic Polymer Z, Proprietary Blend Q, Glycerin, Niacinamide'
@@ -149,7 +149,7 @@ describe('algo-derm-detection', () => {
   })
 
   test('R3 disableFloors bypasses both coverage and confidence floors', () => {
-    // Same low-coverage INCI — bypassing floors must be at least as permissive
+    // Same low-coverage INCI: bypassing floors must be at least as permissive
     // as the gated baseline. `disableFloors` skips both coverageFloor and
     // confidenceFloor (per-tag + global), so non-comedogene can surface even
     // when comedogenicity.confidence < 0.90.
@@ -161,7 +161,7 @@ describe('algo-derm-detection', () => {
 
   test('purifiant + sebo-regulateur gated out of the algo-derm layer (both allow:false)', () => {
     // Salicylic acid fires both in algo-derm regardless of positioning. purifiant was
-    // always dropped; sebo-regulateur is now allow:false too — re-emitted only by the
+    // always dropped; sebo-regulateur is now allow:false too, re-emitted only by the
     // formula name pass when sebum/mattifying wording is present. A bare INCI with no
     // positioning must emit neither at this layer.
     const inci = 'Aqua, Salicylic Acid, Niacinamide, Glycerin'
@@ -210,7 +210,7 @@ describe('algo-derm-detection', () => {
     expect(rinseOff.has(S.SANS_SULFATES)).toBe(true)
   })
 
-  // T1: the offending ingredient family present in INCI suppresses its absence claim.
+  // The offending ingredient family present in INCI suppresses its absence claim.
   // (Lavandula angustifolia rides algo-derm's `essential_oil` heuristic.)
   test.each([
     [S.SANS_SULFATES, 'Aqua, Sodium Lauryl Sulfate, Glycerin, Cocamidopropyl Betaine', 'cleanser'],
@@ -227,9 +227,31 @@ describe('algo-derm-detection', () => {
     expect(slugs.has(slug)).toBe(false)
   })
 
+  test('a banned perfuming ingredient suppresses sans-allergenes-parfumants', () => {
+    // Butylphenyl Methylpropional left Annex III when the EU banned it, so algo-derm's
+    // labelling-list heuristic no longer sees it and the absence tag fired on a formula
+    // carrying it. The regulatory finding is what disqualifies the claim.
+    const inci =
+      'Aqua, Butylene Glycol, Glycerin, Phenoxyethanol, Hydrolyzed Wheat Protein, Ethylhexylglycerin, 1,2-Hexanediol, Sodium Benzoate, Dipropylene Glycol, Pentylene Glycol, Butylphenyl Methylpropional'
+    const drops = new Map<string, number>()
+    const slugs = new Set(
+      detectAutoTags(inci, 'moisturizer', { dropCounts: drops }).map((t) => t.slug)
+    )
+    expect(slugs.has(S.SANS_ALLERGENES_PARFUMANTS)).toBe(false)
+    expect(drops.get('skip_if:sans-allergenes-parfumants')).toBe(1)
+    // Same formula minus the banned molecule keeps the claim: the gate is the finding,
+    // not the length of the INCI.
+    const clean = new Set(
+      detectAutoTags(inci.replace(', Butylphenyl Methylpropional', ''), 'moisturizer').map(
+        (t) => t.slug
+      )
+    )
+    expect(clean.has(S.SANS_ALLERGENES_PARFUMANTS)).toBe(true)
+  })
+
   test('dropCounts hook: rinse-off comedogene drop labelled rinse_off_excluded', () => {
     // Coconut oil + cleanser kind trips excludeRinseOff after low_confidence
-    // and coverage_floor pass — assert the right reason label.
+    // and coverage_floor pass; assert the right reason label.
     const inci = 'Aqua, Coconut Oil, Glycerin'
     const drops = new Map<string, number>()
     detectAutoTags(inci, 'cleanser', { dropCounts: drops })
