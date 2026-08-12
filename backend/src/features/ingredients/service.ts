@@ -65,7 +65,7 @@ export async function listIngredients(database: Database, filters: ListIngredien
   const limit = filters.limit ?? 20
   const offset = (page - 1) * limit
 
-  // All tag filters share the same sub-query shape: "ingredient has at least
+  // All tag filters share the same subquery shape: "ingredient has at least
   // one row in ingredient_tags whose tag slug is in this list". AND across
   // axes, OR within an axis.
   const addTagGroup = (slugs: string[]) => {
@@ -105,7 +105,7 @@ export async function listIngredients(database: Database, filters: ListIngredien
 
   const orderBy = filters.sort === 'random' ? sql`random()` : ingredients.name
 
-  // avoid_for is computed post-fetch as per-ingredient profileMatches (badge UX)
+  // avoid_for is computed after the fetch as per-ingredient profileMatches (badge UX)
   // Mirrors products. Never excludes rows.
   const avoidSlugs = filters.avoid_for ? filters.avoid_for.split(',').filter(Boolean) : []
 
@@ -180,12 +180,12 @@ export async function createIngredient(
     () => new IngredientError('ingredient_rate_limited')
   )
 
-  // Non-admins cannot pick a custom slug; derive from name to prevent taxonomy squatting.
+  // Users who are not admins cannot pick a custom slug; derive from name to prevent taxonomy squatting.
   const slug = input.slug && role === 'admin' ? slugify(input.slug) : slugify(input.name)
 
   try {
     // Reject as a duplicate (409 + existing) if a public ingredient already has this
-    // slug. Only public ones count, so a hidden/rejected one never blocks re-submission.
+    // slug. Only public ones count, so a hidden/rejected one never blocks a new submission.
     // This check can be raced by a concurrent insert; the 23505 catch below is the backstop.
     const [existing] = await database
       .select({ id: ingredients.id, slug: ingredients.slug, name: ingredients.name })
@@ -299,8 +299,8 @@ export async function updateIngredient(
 }
 
 // Stamp an ingredient as verified. Route guard (requireCatalogWrite) limits
-// callers to admin/contributor; only sets the quality stamp. One-way:
-// un-verify is out of scope.
+// callers to admin/contributor; only sets the quality stamp. Once a row is
+// verified it stays verified, there is no way back.
 export async function verifyIngredient(database: DatabaseTransaction, actorId: string, id: string) {
   const [row] = await database
     .update(ingredients)
@@ -386,7 +386,18 @@ export async function searchIngredients(
   if (!search) return []
 
   return database
-    .select(ingredientSearchColumns)
+    .select({
+      ...ingredientSearchColumns,
+      // The catalogue filter reads product_ingredients, which drops excipients and
+      // overly common tokens on purpose. Without this flag the filter offers Glycerin
+      // and then matches nothing, which reads as a bug instead of a boundary.
+      // Table-qualified by hand: drizzle interpolates a column ref unqualified, so
+      // the outer `ingredients.id` would bind inside the subquery and never match.
+      filterable: sql<boolean>`exists (
+        select 1 from product_ingredients
+        where product_ingredients.ingredient_id = ingredients.id
+      )`,
+    })
     .from(ingredients)
     .where(and(type ? eq(ingredients.type, type) : undefined, search.matches))
     .orderBy(search.rank, desc(search.similarity), ingredients.name)

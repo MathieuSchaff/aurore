@@ -29,11 +29,19 @@ export function Listbox({ id, label, filtered, activeIndex, onSelect, onScroll, 
             role="option"
             id={`${id}-option-${index}`}
             aria-selected={isActive}
+            aria-disabled={opt.disabled || undefined}
             tabIndex={-1}
             className={`search-select__option-wrapper${isActive ? ' search-select__option--active' : ''}`}
-            onClick={() => onSelect(opt)}
+            // Kept in the list rather than hidden: the point is to answer the search,
+            // not to make the ingredient look absent from the catalogue.
+            onClick={() => {
+              if (!opt.disabled) onSelect(opt)
+            }}
           >
             <span className="search-select__option">{opt.label}</span>
+            {opt.disabled && opt.disabledReason && (
+              <span className="ui-combobox-empty">{opt.disabledReason}</span>
+            )}
           </div>
         )
       })}
