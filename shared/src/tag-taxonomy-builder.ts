@@ -14,6 +14,9 @@ export type LabeledTagDef<C extends string = string> = TagDef<C> & {
 
 export type ProductTagDef<C extends string = string> = LabeledTagDef<C> & {
   readonly subgroup?: string
+  // Still detected, stored and audited, but never shown. Used for slugs whose
+  // wording is a manufacturer claim Aurore has no source to carry (docs/adr/0017).
+  readonly internalOnly?: boolean
 }
 
 // Map a defs array to its `{KEY: slug}` object, preserving each key->slug pair as
@@ -47,25 +50,29 @@ export function buildTagCategoryMap<S extends string, C extends string>(
 // Product taxonomy carries both category and display label. Its key order
 // follows defs order, which is the canonical order declared by each domain.
 export function buildProductTagTaxonomy<S extends string, C extends string>(
-  defs: readonly { slug: S; category: C; label: string }[]
-): Record<S, { category: C; label: string }> {
-  const out = {} as Record<S, { category: C; label: string }>
+  defs: readonly { slug: S; category: C; label: string; internalOnly?: boolean }[]
+): Record<S, { category: C; label: string; internalOnly: boolean }> {
+  const out = {} as Record<S, { category: C; label: string; internalOnly: boolean }>
   for (const def of defs) {
-    out[def.slug] = { category: def.category, label: def.label }
+    out[def.slug] = {
+      category: def.category,
+      label: def.label,
+      internalOnly: def.internalOnly === true,
+    }
   }
   return out
 }
 
-// Display sub-groups (e.g. concern functional/aesthetic). Picks only defs whose
+// Display subgroups (e.g. concern functional/aesthetic). Picks only defs whose
 // subgroup is in `groups`; order follows defs order within each group.
 export function buildTagSubgroups<S extends string, G extends string>(
-  defs: readonly { slug: S; subgroup?: string }[],
+  defs: readonly { slug: S; subgroup?: string; internalOnly?: boolean }[],
   groups: readonly G[]
 ): Record<G, readonly S[]> {
   const out = {} as Record<G, S[]>
   for (const group of groups) out[group] = []
   for (const def of defs) {
-    if (def.subgroup === undefined) continue
+    if (def.subgroup === undefined || def.internalOnly === true) continue
     const bucket = out[def.subgroup as G]
     if (bucket) bucket.push(def.slug)
   }

@@ -1,5 +1,5 @@
 // Single source of truth, in DISPLAY order: legacy *_TAG_SLUGS, labels, the
-// taxonomy and the concern/characteristic display sub-groups (tag-taxonomy.ts)
+// taxonomy and the concern/characteristic display subgroups (tag-taxonomy.ts)
 // are all derived from this array of {key, slug, label, category[, subgroup]}.
 
 import { SHARED_SKINCARE_ACTIF_CLASS_DEFS } from '../../ingredients/skincare/tag-slugs'
@@ -22,7 +22,7 @@ export const SKINCARE_PRODUCT_TAG_CATEGORIES = [
 export type SkincareProductTagCategory = (typeof SKINCARE_PRODUCT_TAG_CATEGORIES)[number]
 
 export const SKINCARE_PRODUCT_TAG_DEFS = [
-  // Concerns — functional (treat)
+  // Concerns: functional (treat)
   {
     key: 'ACNE_IMPERFECTIONS',
     slug: 'acne-imperfections',
@@ -80,7 +80,7 @@ export const SKINCARE_PRODUCT_TAG_DEFS = [
     category: 'concern',
     subgroup: 'functional',
   },
-  // Concerns — aesthetic (improve)
+  // Concerns: aesthetic (improve)
   {
     key: 'ECLAT_TEINT',
     slug: 'eclat-teint-uniforme',
@@ -280,7 +280,7 @@ export const SKINCARE_PRODUCT_TAG_DEFS = [
   { key: 'NON_GRAS', slug: 'non-gras', label: 'Non gras', category: 'sensation' },
   { key: 'FINI_MAT', slug: 'fini-mat', label: 'Fini mat', category: 'sensation' },
 
-  // Product characteristics — tolerance
+  // Product characteristics: tolerance
   {
     key: 'SANS_PARFUM',
     slug: 'sans-parfum',
@@ -337,12 +337,16 @@ export const SKINCARE_PRODUCT_TAG_DEFS = [
     category: 'product_characteristic',
     subgroup: 'tolerance',
   },
+  // internalOnly: the wording is a manufacturer claim, the detection reads the
+  // INCI. Aurore has no source to carry the claim, so the slug feeds audits and
+  // hit-rate budgets only (docs/adr/0017).
   {
     key: 'HYPOALLERGENIQUE',
     slug: 'hypoallergenique',
     label: 'Hypoallergénique',
     category: 'product_characteristic',
     subgroup: 'tolerance',
+    internalOnly: true,
   },
   {
     key: 'NON_IRRITANT',
@@ -350,6 +354,7 @@ export const SKINCARE_PRODUCT_TAG_DEFS = [
     label: 'Non irritant',
     category: 'product_characteristic',
     subgroup: 'tolerance',
+    internalOnly: true,
   },
   {
     key: 'GROSSESSE_COMPATIBLE',
@@ -358,7 +363,7 @@ export const SKINCARE_PRODUCT_TAG_DEFS = [
     category: 'product_characteristic',
     subgroup: 'tolerance',
   },
-  // Product characteristics — ethique
+  // Product characteristics: ethique
   {
     key: 'BIO_NATUREL',
     slug: 'bio-naturel',
@@ -380,7 +385,7 @@ export const SKINCARE_PRODUCT_TAG_DEFS = [
     category: 'product_characteristic',
     subgroup: 'ethique',
   },
-  // Product characteristics — technique
+  // Product characteristics: technique
   {
     key: 'FILTRES_MINERAUX',
     slug: 'filtres-mineraux',
@@ -402,13 +407,16 @@ export const SKINCARE_PRODUCT_TAG_DEFS = [
     category: 'product_characteristic',
     subgroup: 'technique',
   },
-  // Product characteristics — comedogenicite
+  // Product characteristics: comedogenicite
+  // internalOnly for the same reason as hypoallergenique/non-irritant above.
+  // `comedogene` stays displayed: it reads the formula without borrowing a claim.
   {
     key: 'NON_COMEDOGENE',
     slug: 'non-comedogene',
     label: 'Non comédogène',
     category: 'product_characteristic',
     subgroup: 'comedogenicite',
+    internalOnly: true,
   },
   {
     key: 'COMEDOGENE',
@@ -418,10 +426,10 @@ export const SKINCARE_PRODUCT_TAG_DEFS = [
     subgroup: 'comedogenicite',
   },
 
-  // Actif class (pharmacological clusters) — shared base mirrored from the
+  // Actif class (pharmacological clusters): shared base mirrored from the
   // ingredient taxonomy, plus product-only extras (urea). Auto-derived at seed
   // time from a product's INCI via algo-derm normalize + substring match
-  // (see backend/src/db/seed/utils/actif-class-detection.ts).
+  // (see backend/src/features/auto-tagging/passes/actif-class-detection.ts).
   ...SHARED_SKINCARE_ACTIF_CLASS_DEFS,
   { key: 'UREA', slug: 'urea', label: 'Urée', category: 'actif_class' },
 ] as const satisfies readonly ProductTagDef<SkincareProductTagCategory>[]

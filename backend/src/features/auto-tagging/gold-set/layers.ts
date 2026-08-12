@@ -48,7 +48,8 @@ export const FOCUS_TAG_LAYER = {
   // signal, not a name/claim positioning gate. Last concern left in this layer.
   protection: 'algo-derm',
   // Product-claim labels emitted by the algo-derm adapter. They need explicit
-  // annotations: corpus hit-rate caps alone cannot judge their precision.
+  // annotations: corpus hit-rate caps alone cannot judge their precision. Since
+  // docs/adr/0017 they are internal-only, so their F1 gates nothing user-facing.
   hypoallergenique: 'algo-derm',
   'non-comedogene': 'algo-derm',
   'non-irritant': 'algo-derm',
