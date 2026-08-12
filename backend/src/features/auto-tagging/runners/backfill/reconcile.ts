@@ -1,6 +1,6 @@
 // Full corpus reconcile: align every eligible product's auto-tags to the current orchestrator.
 // Unlike `main.ts` (additive + relevance-upgrade only), this also removes stale rows and
-// corrects relevance downgrades via `writeTagsForProduct` (DELETE non-manual + INSERT) per
+// corrects relevance downgrades via `writeTagsForProduct` (DELETE auto + INSERT) per
 // product; manual rows (source='manual') are never touched. See README "Propagating an
 // orchestrator change to the existing corpus".
 import { and, eq, inArray, ne } from 'drizzle-orm'
@@ -15,7 +15,7 @@ import { diffReconcileProduct } from './reconcile-diff'
 import { writeReconciledProducts } from './reconcile-write'
 
 const { write: WRITE, slug: SLUG_ARG } = parseWriteSlugArgs()
-// Usage (via `just reconcile-auto-tags`): dry-run by default, --write to apply, --slug <s>
+// Usage (via `just autotag-reconcile`): dry-run by default, --write to apply, --slug <s>
 // for a single product. LIMIT: cap product count.
 const LIMIT = parseIntEnv('LIMIT')
 
@@ -32,7 +32,7 @@ async function main() {
 
   if (WRITE) {
     // Load the fetch set once for the whole corpus; the per-product writer would
-    // otherwise re-scan the corpus-global brand-certs and tag-defs N times.
+    // otherwise scan the corpus-global brand-certs and tag-defs N times.
     const bundle = await loadAutoTagFetchBundle(
       prods.map((p) => p.id),
       db
