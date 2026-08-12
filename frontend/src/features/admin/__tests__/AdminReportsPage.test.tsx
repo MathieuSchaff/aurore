@@ -1,16 +1,11 @@
-import { useQuery, useSuspenseQuery } from '@tanstack/react-query'
 import { fireEvent, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
+import { HttpResponse, http } from 'msw'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
 import { useEscalateReport, useModerateContent, useResolveReport } from '@/lib/queries/admin'
+import { server } from '@/test/msw/server'
 import { renderWithProviders } from '@/test/utils'
-
-vi.mock('@tanstack/react-query', async () => ({
-  ...(await vi.importActual<typeof import('@tanstack/react-query')>('@tanstack/react-query')),
-  useSuspenseQuery: vi.fn(),
-  useQuery: vi.fn(),
-}))
 
 vi.mock('@tanstack/react-router', async () => ({
   ...(await vi.importActual<typeof import('@tanstack/react-router')>('@tanstack/react-router')),
@@ -31,24 +26,11 @@ vi.mock('@/lib/queries/admin', async (importOriginal) => {
   }
 })
 
-vi.mock('@/store/auth', () => ({ useAuthStore: vi.fn() }))
+import type { ReportView } from '@aurore/shared'
 
-import { setAuthRole } from '@/test/mocks/auth-store'
+import { useAuthStore } from '@/store/auth'
 import { AdminReportsPage } from '../components/AdminReportsPage'
 import { adminLabels } from '../constants'
-
-type ReportItem = {
-  id: string
-  targetType: 'review' | 'thread' | 'reply' | 'profile' | 'product' | 'ingredient'
-  targetId: string
-  reason: string
-  reporterId: string
-  reviewedBy: string | null
-  status: 'open' | 'resolved' | 'dismissed'
-  escalatedAt: string | null
-  escalatedBy: string | null
-  createdAt: string
-}
 
 const REPORTER = {
   id: 'usr-reporter',
@@ -68,7 +50,7 @@ const TARGET_USER = {
   forcedPrivateByAdmin: true,
 }
 
-const baseReports: ReportItem[] = [
+const baseReports: ReportView[] = [
   {
     id: 'rep-1',
     targetType: 'review',
@@ -76,6 +58,7 @@ const baseReports: ReportItem[] = [
     reason: 'Propos insultants',
     reporterId: REPORTER.id,
     reviewedBy: null,
+    reviewedAt: null,
     status: 'open',
     escalatedAt: null,
     escalatedBy: null,
@@ -88,6 +71,7 @@ const baseReports: ReportItem[] = [
     reason: 'Profil suspect',
     reporterId: REPORTER.id,
     reviewedBy: null,
+    reviewedAt: null,
     status: 'open',
     escalatedAt: null,
     escalatedBy: null,
@@ -95,35 +79,20 @@ const baseReports: ReportItem[] = [
   },
 ]
 
-function setupQueries(reports: ReportItem[], preview: unknown = null) {
-  vi.mocked(useSuspenseQuery).mockImplementation((options: { queryKey: readonly unknown[] }) => {
-    const tag = options.queryKey[1] as string
-    if (tag === 'reports') {
-      return { data: { items: reports } } as unknown as ReturnType<typeof useSuspenseQuery>
-    }
-    throw new Error(`unmocked suspense query: ${String(tag)}`)
-  })
-  // users() + contentPreview() are both useQuery; branch on the key tag.
-  vi.mocked(useQuery).mockImplementation((options: { queryKey?: readonly unknown[] }) => {
-    const tag = options?.queryKey?.[1] as string | undefined
-    if (tag === 'users') {
-      return {
-        data: { items: [REPORTER, TARGET_USER] },
-        isLoading: false,
-        isError: false,
-      } as unknown as ReturnType<typeof useQuery>
-    }
-    if (tag === 'preview') {
-      return { data: preview, isLoading: false, isError: false } as unknown as ReturnType<
-        typeof useQuery
-      >
-    }
-    return {
-      data: null,
-      isLoading: false,
-      isError: false,
-    } as unknown as ReturnType<typeof useQuery>
-  })
+// The page pulls three endpoints: the queue, the user directory it joins reporter
+// and target emails from, and the moderation preview opened by « Voir ».
+function serveQueries(reports: ReportView[], preview: unknown = null) {
+  server.use(
+    http.get('*/api/admin/reports', () =>
+      HttpResponse.json({ success: true, data: { items: reports } })
+    ),
+    http.get('*/api/admin/users', () =>
+      HttpResponse.json({ success: true, data: { items: [REPORTER, TARGET_USER] } })
+    ),
+    http.get('*/api/admin/moderation/:target/:id', () =>
+      HttpResponse.json({ success: true, data: preview })
+    )
+  )
 }
 
 function setupMutations() {
@@ -148,15 +117,15 @@ function setupMutations() {
 describe('AdminReportsPage', () => {
   beforeEach(() => {
     vi.clearAllMocks()
-    setAuthRole('admin')
+    useAuthStore.setState({ role: 'admin' })
   })
 
-  it('renders the header count and status tabs', () => {
-    setupQueries(baseReports)
+  it('renders the header count and status tabs', async () => {
+    serveQueries(baseReports)
     setupMutations()
     renderWithProviders(<AdminReportsPage />)
 
-    expect(screen.getByRole('heading', { name: /Signalements/i })).toBeInTheDocument()
+    expect(await screen.findByRole('heading', { name: /Signalements/i })).toBeInTheDocument()
     expect(screen.getByText('2 entrée(s)')).toBeInTheDocument()
 
     expect(screen.getByRole('tab', { name: 'Ouverts' })).toHaveAttribute('aria-selected', 'true')
@@ -164,31 +133,31 @@ describe('AdminReportsPage', () => {
     expect(screen.getByRole('tab', { name: 'Rejetés' })).toHaveAttribute('aria-selected', 'false')
   })
 
-  it('shows the empty state when there are no reports', () => {
-    setupQueries([])
+  it('shows the empty state when there are no reports', async () => {
+    serveQueries([])
     setupMutations()
     renderWithProviders(<AdminReportsPage />)
 
-    expect(screen.getByText(adminLabels.emptyReports)).toBeInTheDocument()
+    expect(await screen.findByText(adminLabels.emptyReports)).toBeInTheDocument()
   })
 
-  it('renders the reporter email and a code snippet for content-type targets', () => {
-    setupQueries([baseReports[0]])
+  it('renders the reporter email and a code snippet for content-type targets', async () => {
+    serveQueries([baseReports[0]])
     setupMutations()
     renderWithProviders(<AdminReportsPage />)
 
-    expect(screen.getByText('snitch@seed.local')).toBeInTheDocument()
+    expect(await screen.findByText('snitch@seed.local')).toBeInTheDocument()
     expect(screen.getByText('Propos insultants')).toBeInTheDocument()
     // Code snippet truncates id to 8 chars: review#rev-aaaa
     expect(screen.getByText(/review#rev-aaaa/)).toBeInTheDocument()
   })
 
-  it('renders a user-snapshot block + "Voir le profil" link when targetType is profile', () => {
-    setupQueries([baseReports[1]])
+  it('renders a user-snapshot block + "Voir le profil" link when targetType is profile', async () => {
+    serveQueries([baseReports[1]])
     setupMutations()
     renderWithProviders(<AdminReportsPage />)
 
-    expect(screen.getByText('spammer@seed.local')).toBeInTheDocument()
+    expect(await screen.findByText('spammer@seed.local')).toBeInTheDocument()
     // forcedPrivateByAdmin pill must appear for the target user.
     expect(screen.getByText(adminLabels.pillForced)).toBeInTheDocument()
     const link = screen.getByRole('link', { name: /Voir le profil/i })
@@ -196,11 +165,11 @@ describe('AdminReportsPage', () => {
   })
 
   it('calls the resolve mutation with status=resolved after confirmation', async () => {
-    setupQueries([baseReports[0]])
+    serveQueries([baseReports[0]])
     const { resolve } = setupMutations()
     renderWithProviders(<AdminReportsPage />)
 
-    await userEvent.click(screen.getByRole('button', { name: 'Résoudre' }))
+    await userEvent.click(await screen.findByRole('button', { name: 'Résoudre' }))
 
     // useConfirm opens an alertdialog with "Confirmer"-style action button; we used confirmLabel='Résoudre'.
     const confirmDialog = await screen.findByRole('alertdialog')
@@ -219,11 +188,11 @@ describe('AdminReportsPage', () => {
   })
 
   it('does not call the mutation when the user cancels the confirmation', async () => {
-    setupQueries([baseReports[0]])
+    serveQueries([baseReports[0]])
     const { resolve } = setupMutations()
     renderWithProviders(<AdminReportsPage />)
 
-    await userEvent.click(screen.getByRole('button', { name: 'Rejeter' }))
+    await userEvent.click(await screen.findByRole('button', { name: 'Rejeter' }))
     const confirmDialog = await screen.findByRole('alertdialog')
     await userEvent.click(
       Array.from(confirmDialog.querySelectorAll('button')).find(
@@ -239,42 +208,44 @@ describe('AdminReportsPage', () => {
 
   // Contributors own the queue but get a content-only view: no account PII,
   // no admin-only profile/global-ban affordances.
-  it('hides reporter email from a contributor (no account PII)', () => {
-    setAuthRole('contributor')
-    setupQueries([baseReports[0]])
+  it('hides reporter email from a contributor (no account PII)', async () => {
+    useAuthStore.setState({ role: 'contributor' })
+    serveQueries([baseReports[0]])
     setupMutations()
     renderWithProviders(<AdminReportsPage />)
 
+    // The report itself is still shown: the moderator can act on content.
+    expect(await screen.findByText('Propos insultants')).toBeInTheDocument()
     expect(screen.queryByText('snitch@seed.local')).not.toBeInTheDocument()
-    // The report itself is still shown — the moderator can act on content.
-    expect(screen.getByText('Propos insultants')).toBeInTheDocument()
   })
 
-  it('hides the « Voir le profil » link + target email from a contributor', () => {
-    setAuthRole('contributor')
-    setupQueries([baseReports[1]])
+  it('hides the « Voir le profil » link + target email from a contributor', async () => {
+    useAuthStore.setState({ role: 'contributor' })
+    serveQueries([baseReports[1]])
     setupMutations()
     renderWithProviders(<AdminReportsPage />)
 
+    expect(await screen.findByText('Profil suspect')).toBeInTheDocument()
     expect(screen.queryByText('spammer@seed.local')).not.toBeInTheDocument()
     expect(screen.queryByRole('link', { name: /Voir le profil/i })).not.toBeInTheDocument()
   })
 
   // A catalogue-sheet report previews the fiche and moderates it through the same panel.
   it('previews a product-sheet report and hides the fiche', async () => {
-    const productReport: ReportItem = {
+    const productReport: ReportView = {
       id: 'rep-prod',
       targetType: 'product',
       targetId: 'prod-aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee',
       reason: 'Fiche pub / spam',
       reporterId: REPORTER.id,
       reviewedBy: null,
+      reviewedAt: null,
       status: 'open',
       escalatedAt: null,
       escalatedBy: null,
       createdAt: '2026-05-30T10:00:00Z',
     }
-    setupQueries([productReport], {
+    serveQueries([productReport], {
       kind: 'product',
       id: productReport.targetId,
       name: 'Spam Serum',
@@ -289,7 +260,7 @@ describe('AdminReportsPage', () => {
     const { moderate } = setupMutations()
     renderWithProviders(<AdminReportsPage />)
 
-    await userEvent.click(screen.getByRole('button', { name: 'Voir' }))
+    await userEvent.click(await screen.findByRole('button', { name: 'Voir' }))
     expect(await screen.findByText('Spam Serum')).toBeInTheDocument()
 
     await userEvent.click(screen.getByRole('button', { name: 'Masquer' }))
@@ -308,25 +279,30 @@ describe('AdminReportsPage', () => {
     })
   })
 
-  it('switches the active tab when the user picks a different status', () => {
-    setupQueries(baseReports)
+  it('switches the active tab when the user picks a different status', async () => {
+    serveQueries(baseReports)
     setupMutations()
     renderWithProviders(<AdminReportsPage />)
 
-    fireEvent.click(screen.getByRole('tab', { name: 'Résolus' }))
+    fireEvent.click(await screen.findByRole('tab', { name: 'Résolus' }))
 
-    expect(screen.getByRole('tab', { name: 'Résolus' })).toHaveAttribute('aria-selected', 'true')
+    // Switching status refetches through useSuspenseQuery, so the tab bar unmounts
+    // until the new page resolves. Wait for it rather than reading the torn frame.
+    expect(await screen.findByRole('tab', { name: 'Résolus' })).toHaveAttribute(
+      'aria-selected',
+      'true'
+    )
     expect(screen.getByRole('tab', { name: 'Ouverts' })).toHaveAttribute('aria-selected', 'false')
   })
 
   // Escalation is orthogonal to status: a row stays open while escalated.
   // The « Escaladés » view is admin-only.
   it('escalates an open report after confirmation', async () => {
-    setupQueries([baseReports[0]])
+    serveQueries([baseReports[0]])
     const { escalate } = setupMutations()
     renderWithProviders(<AdminReportsPage />)
 
-    await userEvent.click(screen.getByRole('button', { name: 'Escalader' }))
+    await userEvent.click(await screen.findByRole('button', { name: 'Escalader' }))
     const confirmDialog = await screen.findByRole('alertdialog')
     await userEvent.click(
       Array.from(confirmDialog.querySelectorAll('button')).find(
@@ -342,34 +318,35 @@ describe('AdminReportsPage', () => {
     })
   })
 
-  it('shows the Escaladé badge and hides the escalate button on an escalated report', () => {
-    const escalated: ReportItem = {
+  it('shows the Escaladé badge and hides the escalate button on an escalated report', async () => {
+    const escalated: ReportView = {
       ...baseReports[0],
       escalatedAt: '2026-05-31T10:00:00Z',
       escalatedBy: 'usr-modo',
     }
-    setupQueries([escalated])
+    serveQueries([escalated])
     setupMutations()
     renderWithProviders(<AdminReportsPage />)
 
-    expect(screen.getByText('Escaladé')).toBeInTheDocument()
+    expect(await screen.findByText('Escaladé')).toBeInTheDocument()
     expect(screen.queryByRole('button', { name: 'Escalader' })).not.toBeInTheDocument()
   })
 
-  it('shows the Escaladés tab for an admin', () => {
-    setupQueries(baseReports)
+  it('shows the Escaladés tab for an admin', async () => {
+    serveQueries(baseReports)
     setupMutations()
     renderWithProviders(<AdminReportsPage />)
 
-    expect(screen.getByRole('tab', { name: 'Escaladés' })).toBeInTheDocument()
+    expect(await screen.findByRole('tab', { name: 'Escaladés' })).toBeInTheDocument()
   })
 
-  it('hides the Escaladés tab from a contributor', () => {
-    setAuthRole('contributor')
-    setupQueries(baseReports)
+  it('hides the Escaladés tab from a contributor', async () => {
+    useAuthStore.setState({ role: 'contributor' })
+    serveQueries(baseReports)
     setupMutations()
     renderWithProviders(<AdminReportsPage />)
 
+    await screen.findByRole('tab', { name: 'Ouverts' })
     expect(screen.queryByRole('tab', { name: 'Escaladés' })).not.toBeInTheDocument()
   })
 })

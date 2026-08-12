@@ -1,15 +1,12 @@
-import { render, screen } from '@testing-library/react'
-import { beforeEach, describe, expect, it, vi } from 'vitest'
+import { screen, waitFor } from '@testing-library/react'
+import { HttpResponse, http } from 'msw'
+import { describe, expect, it, vi } from 'vitest'
 
 import { createLinkStub, LinkStub } from '@/test/mocks/router'
+import { server } from '@/test/msw/server'
+import { createTestQueryClient, renderWithProviders } from '@/test/utils'
 
 vi.mock('@tanstack/react-router', () => ({ createLink: createLinkStub, Link: LinkStub }))
-
-const useQueryMock = vi.fn()
-vi.mock('@tanstack/react-query', async () => ({
-  ...(await vi.importActual<typeof import('@tanstack/react-query')>('@tanstack/react-query')),
-  useQuery: (opts: unknown) => useQueryMock(opts),
-}))
 
 // The reaction row is a smart child with its own queries; isolate the surface test
 // from it (own suite) but spy on its props to pin the reactable wiring.
@@ -23,30 +20,32 @@ vi.mock('@/features/social/components/ReactionRow/ReactionRow', () => ({
 
 import { ProfilePostsSection } from '../ProfilePostsSection'
 
+function servePosts(posts: unknown[]) {
+  server.use(
+    http.get('*/api/profiles/:username/posts', () =>
+      HttpResponse.json({ success: true, data: { posts } })
+    )
+  )
+}
+
 describe('ProfilePostsSection', () => {
-  beforeEach(() => useQueryMock.mockReset())
-
-  it('renders a post content, its tone label and the linked product anchor', () => {
-    useQueryMock.mockReturnValue({
-      data: {
-        posts: [
-          {
-            id: '1',
-            content: 'Cette crème calme tout.',
-            tone: 'coup-de-gueule',
-            concernSlug: null,
-            productAnchor: { slug: 'creme-x', name: 'Crème X' },
-            ingredientAnchor: null,
-            createdAt: '2026-06-25T00:00:00.000Z',
-            author: { username: 'lea', profilePublic: true },
-          },
-        ],
+  it('renders a post content, its tone label and the linked product anchor', async () => {
+    servePosts([
+      {
+        id: '1',
+        content: 'Cette crème calme tout.',
+        tone: 'coup-de-gueule',
+        concernSlug: null,
+        productAnchor: { slug: 'creme-x', name: 'Crème X' },
+        ingredientAnchor: null,
+        createdAt: '2026-06-25T00:00:00.000Z',
+        author: { username: 'lea', profilePublic: true },
       },
-    })
+    ])
 
-    render(<ProfilePostsSection username="lea" />)
+    renderWithProviders(<ProfilePostsSection username="lea" />)
 
-    expect(screen.getByText('Cette crème calme tout.')).toBeInTheDocument()
+    expect(await screen.findByText('Cette crème calme tout.')).toBeInTheDocument()
     expect(screen.getByText('Coup de gueule')).toBeInTheDocument()
     expect(screen.getByRole('link', { name: 'Crème X' })).toHaveAttribute(
       'href',
@@ -54,31 +53,37 @@ describe('ProfilePostsSection', () => {
     )
   })
 
-  it('renders nothing when there are no posts (clean absence)', () => {
-    useQueryMock.mockReturnValue({ data: { posts: [] } })
-    const { container } = render(<ProfilePostsSection username="lea" />)
+  it('renders nothing when there are no posts (clean absence)', async () => {
+    servePosts([])
+    // An empty section renders nothing either way, so wait for the fetch to settle
+    // before asserting, otherwise the assertion only proves the loading state.
+    const queryClient = createTestQueryClient()
+    const { container } = renderWithProviders(<ProfilePostsSection username="lea" />, {
+      queryClient,
+    })
+
+    await waitFor(() => expect(queryClient.isFetching()).toBe(0))
     expect(container).toBeEmptyDOMElement()
   })
 
-  it('binds each ReactionRow to its post (reactableType=post, reactableId=post.id)', () => {
+  it('binds each ReactionRow to its post (reactableType=post, reactableId=post.id)', async () => {
     reactionRowSpy.mockClear()
-    useQueryMock.mockReturnValue({
-      data: {
-        posts: [
-          {
-            id: 'p-7',
-            content: 'x',
-            tone: 'principal',
-            concernSlug: null,
-            productAnchor: null,
-            ingredientAnchor: null,
-            createdAt: '2026-06-25T00:00:00.000Z',
-            author: { username: 'lea', profilePublic: true },
-          },
-        ],
+    servePosts([
+      {
+        id: 'p-7',
+        content: 'x',
+        tone: 'principal',
+        concernSlug: null,
+        productAnchor: null,
+        ingredientAnchor: null,
+        createdAt: '2026-06-25T00:00:00.000Z',
+        author: { username: 'lea', profilePublic: true },
       },
-    })
-    render(<ProfilePostsSection username="lea" />)
-    expect(reactionRowSpy).toHaveBeenCalledWith({ reactableType: 'post', reactableId: 'p-7' })
+    ])
+    renderWithProviders(<ProfilePostsSection username="lea" />)
+
+    await waitFor(() =>
+      expect(reactionRowSpy).toHaveBeenCalledWith({ reactableType: 'post', reactableId: 'p-7' })
+    )
   })
 })

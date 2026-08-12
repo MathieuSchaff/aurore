@@ -1,13 +1,11 @@
-import { useSuspenseQuery } from '@tanstack/react-query'
+import type { AdminDashboard } from '@aurore/shared'
+
 import { screen } from '@testing-library/react'
-import { beforeEach, describe, expect, it, vi } from 'vitest'
+import { HttpResponse, http } from 'msw'
+import { describe, expect, it, vi } from 'vitest'
 
+import { server } from '@/test/msw/server'
 import { renderWithProviders } from '@/test/utils'
-
-vi.mock('@tanstack/react-query', async () => ({
-  ...(await vi.importActual<typeof import('@tanstack/react-query')>('@tanstack/react-query')),
-  useSuspenseQuery: vi.fn(),
-}))
 
 vi.mock('@tanstack/react-router', async () => ({
   ...(await vi.importActual<typeof import('@tanstack/react-router')>('@tanstack/react-router')),
@@ -21,27 +19,13 @@ vi.mock('@tanstack/react-router', async () => ({
 import { AdminDashboardPage } from '../components/AdminDashboardPage'
 import { adminLabels } from '../constants'
 
-function mockDashboard(data: {
-  openReports: number
-  activeBans: number
-  hiddenReviews: number
-  hiddenThreads: number
-  hiddenReplies: number
-  forcedPrivateProfiles: number
-  pendingRoleRequests: number
-}) {
-  vi.mocked(useSuspenseQuery).mockReturnValue({ data } as unknown as ReturnType<
-    typeof useSuspenseQuery
-  >)
+function serveDashboard(data: AdminDashboard) {
+  server.use(http.get('*/api/admin/dashboard', () => HttpResponse.json({ success: true, data })))
 }
 
 describe('AdminDashboardPage', () => {
-  beforeEach(() => {
-    vi.clearAllMocks()
-  })
-
-  it('renders all five moderation stat cards with their counts', () => {
-    mockDashboard({
+  it('renders all five moderation stat cards with their counts', async () => {
+    serveDashboard({
       openReports: 7,
       activeBans: 2,
       hiddenReviews: 3,
@@ -52,7 +36,7 @@ describe('AdminDashboardPage', () => {
     })
     renderWithProviders(<AdminDashboardPage />)
 
-    expect(screen.getByText(adminLabels.statOpenReports)).toBeInTheDocument()
+    expect(await screen.findByText(adminLabels.statOpenReports)).toBeInTheDocument()
     expect(screen.getByText('7')).toBeInTheDocument()
 
     expect(screen.getByText(adminLabels.statActiveBans)).toBeInTheDocument()
@@ -68,8 +52,8 @@ describe('AdminDashboardPage', () => {
     expect(screen.getByText('6')).toBeInTheDocument()
   })
 
-  it('breaks down hidden content by kind in the third card', () => {
-    mockDashboard({
+  it('breaks down hidden content by kind in the third card', async () => {
+    serveDashboard({
       openReports: 0,
       activeBans: 0,
       hiddenReviews: 12,
@@ -80,11 +64,11 @@ describe('AdminDashboardPage', () => {
     })
     renderWithProviders(<AdminDashboardPage />)
 
-    expect(screen.getByText(/12 review · 4 thread · 9 reply/)).toBeInTheDocument()
+    expect(await screen.findByText(/12 review · 4 thread · 9 reply/)).toBeInTheDocument()
   })
 
-  it('renders all stat cards as links to deep-link admin pages', () => {
-    mockDashboard({
+  it('renders all stat cards as links to deep-link admin pages', async () => {
+    serveDashboard({
       openReports: 0,
       activeBans: 0,
       hiddenReviews: 0,
@@ -95,6 +79,7 @@ describe('AdminDashboardPage', () => {
     })
     renderWithProviders(<AdminDashboardPage />)
 
+    await screen.findByText(adminLabels.statOpenReports)
     const links = screen.getAllByRole('link')
     // 5 stat cards = 5 links: /admin/reports (x2) + /admin/users (x2) + /admin/role-requests (x1).
     expect(links).toHaveLength(5)
