@@ -194,7 +194,7 @@ describe('parseInciFromSlugLine', () => {
     expect(r).toEqual({ slug: 'sls-hair', tokens: ['Sodium Lauryl Sulfate'] })
   })
 
-  it('splits multi-name comments on slash and "ou"', () => {
+  it('splits multi-name comments on slash', () => {
     const r = parseInciFromSlugLine(
       `  CLOVE: 'clove', // INCI: Eugenia Caryophyllus Bud Oil / Eugenol | analgésique`
     )
