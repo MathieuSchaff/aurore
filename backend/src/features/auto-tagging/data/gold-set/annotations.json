@@ -3065,18 +3065,20 @@
       "kind": "moisturizer",
       "category": "skincare",
       "present": [],
-      "absent": [],
-      "annotatedAt": "",
-      "sampledFor": ["tyrosinase-inhibitors"]
+      "absent": ["tyrosinase-inhibitors"],
+      "annotatedAt": "2026-08-12",
+      "sampledFor": ["tyrosinase-inhibitors"],
+      "notes": "tyrosinase-inhibitors: absent — acide azélaïque seul ; inhibition compétitive faible et sur tyrosinase de champignon, la classe reste littérale (inhibition directe de la tyrosinase humaine) ; Glycyrrhiza Glabra Root Extract = extrait végétal, hors classe moléculaire"
     },
     {
       "productSlug": "cos-de-baha-azelaic-acid-10-serum",
       "kind": "serum",
       "category": "skincare",
       "present": [],
-      "absent": [],
-      "annotatedAt": "",
-      "sampledFor": ["tyrosinase-inhibitors"]
+      "absent": ["tyrosinase-inhibitors"],
+      "annotatedAt": "2026-08-12",
+      "sampledFor": ["tyrosinase-inhibitors"],
+      "notes": "tyrosinase-inhibitors: absent — acide azélaïque seul ; inhibition compétitive faible et sur tyrosinase de champignon, la classe reste littérale (inhibition directe de la tyrosinase humaine)"
     },
     {
       "productSlug": "cosrx-5-pdrn-b5-vital-soothing-toner",
@@ -4832,10 +4834,10 @@
       "kind": "serum",
       "category": "skincare",
       "present": [],
-      "absent": ["deshydratation", "pores-sebum"],
-      "annotatedAt": "2026-05-25",
+      "absent": ["deshydratation", "pores-sebum", "tyrosinase-inhibitors"],
+      "annotatedAt": "2026-08-12",
       "sampledFor": ["deshydratation", "pores-sebum", "tyrosinase-inhibitors"],
-      "notes": "Added from Dr Sam's product with structured % concentration claim(s). | deshydratation: anti-age/eclat (lead)"
+      "notes": "Added from Dr Sam's product with structured % concentration claim(s). | deshydratation: anti-age/eclat (lead) | tyrosinase-inhibitors: absent — acide azélaïque seul ; inhibition compétitive faible et sur tyrosinase de champignon, la classe reste littérale (inhibition directe de la tyrosinase humaine)"
     },
     {
       "productSlug": "dr-sams-flawless-lip",
@@ -4887,20 +4889,20 @@
       "kind": "spot-treatment",
       "category": "skincare",
       "present": ["pores-sebum"],
-      "absent": ["hyperpigmentation"],
-      "annotatedAt": "2026-05-25",
+      "absent": ["hyperpigmentation", "tyrosinase-inhibitors"],
+      "annotatedAt": "2026-08-12",
       "sampledFor": ["bha", "pores-sebum", "tyrosinase-inhibitors"],
-      "notes": "Added from Dr Sam's product with structured % concentration claim(s). · hp: spot acné azélaïque/salicylique; 'dark marks' secondaire (flip→P PIH) | pores-sebum: spot azelaic+salicylic ciblant blackheads (pore)"
+      "notes": "Added from Dr Sam's product with structured % concentration claim(s). · hp: spot acné azélaïque/salicylique; 'dark marks' secondaire (flip→P PIH) | pores-sebum: spot azelaic+salicylic ciblant blackheads (pore) | tyrosinase-inhibitors: absent — acide azélaïque seul ; inhibition compétitive faible et sur tyrosinase de champignon, la classe reste littérale (inhibition directe de la tyrosinase humaine)"
     },
     {
       "productSlug": "dr-sams-flawless-neutralising-gel-roller",
       "kind": "spot-treatment",
       "category": "skincare",
       "present": [],
-      "absent": [],
-      "annotatedAt": "",
+      "absent": ["tyrosinase-inhibitors"],
+      "annotatedAt": "2026-08-12",
       "sampledFor": ["bha", "tyrosinase-inhibitors"],
-      "notes": "Added from Dr Sam's product with structured % concentration claim(s)."
+      "notes": "Added from Dr Sam's product with structured % concentration claim(s). | tyrosinase-inhibitors: absent — acide azélaïque seul ; inhibition compétitive faible et sur tyrosinase de champignon, la classe reste littérale (inhibition directe de la tyrosinase humaine)"
     },
     {
       "productSlug": "dr-sams-flawless-nightly-eye-serum",
@@ -6268,10 +6270,10 @@
       "kind": "serum",
       "category": "skincare",
       "present": [],
-      "absent": [],
-      "annotatedAt": "",
+      "absent": ["tyrosinase-inhibitors"],
+      "annotatedAt": "2026-08-12",
       "sampledFor": ["tyrosinase-inhibitors"],
-      "notes": "Added from Geek & Gorgeous product with structured % concentration claim(s)."
+      "notes": "Added from Geek & Gorgeous product with structured % concentration claim(s). | tyrosinase-inhibitors: absent — aucune molécule de la classe à l'INCI"
     },
     {
       "productSlug": "geek-gorgeous-b-bomb",
@@ -7712,11 +7714,11 @@
       "productSlug": "isntree-hyper-niacinamide-20-serum",
       "kind": "serum",
       "category": "skincare",
-      "present": ["hyperpigmentation"],
+      "present": ["hyperpigmentation", "tyrosinase-inhibitors"],
       "absent": [],
-      "annotatedAt": "2026-05-25",
+      "annotatedAt": "2026-08-12",
       "sampledFor": ["hyperpigmentation"],
-      "notes": "arbutine + niacinamide 20% éclaircir (actif dépigment spécifique)"
+      "notes": "arbutine + niacinamide 20% éclaircir (actif dépigment spécifique) | tyrosinase-inhibitors: présent — « Arbutine » (graphie FR, pos. 6) : mesure la voie alias ouverte au pin v36"
     },
     {
       "productSlug": "isntree-hyper-retinol-ex-1-0-serum",
@@ -10758,10 +10760,11 @@
       "productSlug": "murad-vita-c-glycolic-serum-deluxe-travel-size",
       "kind": "serum",
       "category": "skincare",
-      "present": [],
+      "present": ["tyrosinase-inhibitors"],
       "absent": [],
-      "annotatedAt": "",
-      "sampledFor": ["tyrosinase-inhibitors"]
+      "annotatedAt": "2026-08-12",
+      "sampledFor": ["tyrosinase-inhibitors"],
+      "notes": "tyrosinase-inhibitors: présent — Hexylresorcinol à l'INCI (molécule de la classe littérale)"
     },
     {
       "productSlug": "mustela-creme-nourrissante-cold-cream-a-la-cire-d-abeille-bio",
@@ -10904,11 +10907,11 @@
       "productSlug": "nooance-creme-eclat-intense",
       "kind": "moisturizer",
       "category": "skincare",
-      "present": [],
+      "present": ["tyrosinase-inhibitors"],
       "absent": ["anti-age", "reparation-cutanee"],
-      "annotatedAt": "2026-05-25",
+      "annotatedAt": "2026-08-12",
       "sampledFor": ["reparation-cutanee", "retinoids", "tyrosinase-inhibitors", "vitamin-c"],
-      "notes": "Added from Nooance product with structured % concentration claim(s). | anti-age: absent — éclaircissante anti-taches, rétinol encapsulé secondaire (hyperpig) | reparation-cutanee: absent — detector FP (ubiquitous active), no repair positioning"
+      "notes": "Added from Nooance product with structured % concentration claim(s). | anti-age: absent — éclaircissante anti-taches, rétinol encapsulé secondaire (hyperpig) | reparation-cutanee: absent — detector FP (ubiquitous active), no repair positioning | tyrosinase-inhibitors: présent — Kojic Acid + Alpha-Arbutin à l'INCI"
     },
     {
       "productSlug": "nooance-elixir-aux-prebiotiques",
@@ -10925,10 +10928,10 @@
       "kind": "serum",
       "category": "skincare",
       "present": [],
-      "absent": ["deshydratation", "eczema-atopie", "pores-sebum"],
-      "annotatedAt": "2026-05-25",
+      "absent": ["deshydratation", "eczema-atopie", "pores-sebum", "tyrosinase-inhibitors"],
+      "annotatedAt": "2026-08-12",
       "sampledFor": ["deshydratation", "eczema-atopie", "pores-sebum", "tyrosinase-inhibitors"],
-      "notes": "Added from Nooance product with structured % concentration claim(s). | deshydratation: cica/reparation barriere (lead barriere) | eczema-atopie: absent — ne nomme pas atopie/eczéma (Option-A STRICT); détecteur a tiré sur signature oat/céramide, positionné exfoliant/acide"
+      "notes": "Added from Nooance product with structured % concentration claim(s). | deshydratation: cica/reparation barriere (lead barriere) | eczema-atopie: absent — ne nomme pas atopie/eczéma (Option-A STRICT); détecteur a tiré sur signature oat/céramide, positionné exfoliant/acide | tyrosinase-inhibitors: absent — acide azélaïque seul ; inhibition compétitive faible et sur tyrosinase de champignon, la classe reste littérale (inhibition directe de la tyrosinase humaine)"
     },
     {
       "productSlug": "nooance-serum-bulles-d-hydratation",
@@ -11022,10 +11025,10 @@
       "kind": "serum",
       "category": "skincare",
       "present": ["apaisant"],
-      "absent": [],
-      "annotatedAt": "",
+      "absent": ["tyrosinase-inhibitors"],
+      "annotatedAt": "2026-08-12",
       "sampledFor": ["apaisant", "tyrosinase-inhibitors"],
-      "notes": "Added from Nooance product with structured % concentration claim(s). | apaisant: ligne anti-rougeurs (lead)"
+      "notes": "Added from Nooance product with structured % concentration claim(s). | apaisant: ligne anti-rougeurs (lead) | tyrosinase-inhibitors: absent — acide tranéxamique (voie plasmine/UV) et niacinamide (transfert des mélanosomes) : ni l'un ni l'autre n'inhibe la tyrosinase ; Glycyrrhiza Glabra Root Extract = extrait végétal, hors classe moléculaire"
     },
     {
       "productSlug": "nooance-soin-concentre-retinol-nuit",
@@ -11059,10 +11062,10 @@
       "kind": "serum",
       "category": "skincare",
       "present": [],
-      "absent": ["anti-age", "rougeurs-vasculaires"],
-      "annotatedAt": "",
+      "absent": ["anti-age", "rougeurs-vasculaires", "tyrosinase-inhibitors"],
+      "annotatedAt": "2026-08-12",
       "sampledFor": ["ceramides", "rougeurs-vasculaires", "tyrosinase-inhibitors", "vitamin-c"],
-      "notes": "Added from Nooance product with structured % concentration claim(s). | anti-age: absent — brightening/anti-taches (hyperpigmentation) | rougeurs-vasculaires: absent — anti-taches (taches rouges = post-acné, pas vasculaire)"
+      "notes": "Added from Nooance product with structured % concentration claim(s). | anti-age: absent — brightening/anti-taches (hyperpigmentation) | rougeurs-vasculaires: absent — anti-taches (taches rouges = post-acné, pas vasculaire) | tyrosinase-inhibitors: absent — acide tranéxamique (voie plasmine/UV) et niacinamide (transfert des mélanosomes) : ni l'un ni l'autre n'inhibe la tyrosinase ; Glycyrrhiza Glabra Root Extract = extrait végétal, hors classe moléculaire"
     },
     {
       "productSlug": "noreva-sensidiane-ar-plus",
@@ -12491,10 +12494,10 @@
       "kind": "serum",
       "category": "skincare",
       "present": [],
-      "absent": ["hyperpigmentation", "rougeurs-vasculaires"],
-      "annotatedAt": "2026-05-25",
+      "absent": ["hyperpigmentation", "rougeurs-vasculaires", "tyrosinase-inhibitors"],
+      "annotatedAt": "2026-08-12",
       "sampledFor": ["tyrosinase-inhibitors"],
-      "notes": "Added from Regimen Lab product with structured % concentration claim(s). · hp: azélaïque 10% positionné anti-rougeurs/acné, 0 pigment | rougeurs-vasculaires: absent — azélaïque sans claim rosacée/rougeurs"
+      "notes": "Added from Regimen Lab product with structured % concentration claim(s). · hp: azélaïque 10% positionné anti-rougeurs/acné, 0 pigment | rougeurs-vasculaires: absent — azélaïque sans claim rosacée/rougeurs | tyrosinase-inhibitors: absent — acide azélaïque seul ; inhibition compétitive faible et sur tyrosinase de champignon, la classe reste littérale (inhibition directe de la tyrosinase humaine)"
     },
     {
       "productSlug": "regimen-lab-cream",
@@ -12519,11 +12522,11 @@
       "productSlug": "regimen-lab-level-serum",
       "kind": "serum",
       "category": "skincare",
-      "present": [],
+      "present": ["tyrosinase-inhibitors"],
       "absent": [],
-      "annotatedAt": "",
+      "annotatedAt": "2026-08-12",
       "sampledFor": ["tyrosinase-inhibitors"],
-      "notes": "Added from Regimen Lab product with structured % concentration claim(s)."
+      "notes": "Added from Regimen Lab product with structured % concentration claim(s). | tyrosinase-inhibitors: présent — Alpha-Arbutin + Hexylresorcinol à l'INCI"
     },
     {
       "productSlug": "regimen-lab-tabula-rasa",
@@ -12615,7 +12618,7 @@
       "absent": [],
       "annotatedAt": "",
       "sampledFor": ["retinoids", "tyrosinase-inhibitors"],
-      "notes": "Added from Remedy Science product with structured % concentration claim(s)."
+      "notes": "Added from Remedy Science product with structured % concentration claim(s). | tyrosinase-inhibitors: laissé non noté — Kojic Dipalmitate est un ester du kojique, dérivé non instruit (comme phenylethyl resorcinol) ; un verdict non sourcé vaut moins qu'un verdict manquant"
     },
     {
       "productSlug": "remedy-gel-cleanser",
@@ -14153,10 +14156,10 @@
       "kind": "serum",
       "category": "skincare",
       "present": [],
-      "absent": ["rougeurs-vasculaires"],
-      "annotatedAt": "",
+      "absent": ["rougeurs-vasculaires", "tyrosinase-inhibitors"],
+      "annotatedAt": "2026-08-12",
       "sampledFor": ["rougeurs-vasculaires", "tyrosinase-inhibitors"],
-      "notes": "Added from SVR product with structured % concentration claim(s). | rougeurs-vasculaires: absent — azélaïque+zinc+salicylique anti-imperfections (acné, sans claim rosacée)"
+      "notes": "Added from SVR product with structured % concentration claim(s). | rougeurs-vasculaires: absent — azélaïque+zinc+salicylique anti-imperfections (acné, sans claim rosacée) | tyrosinase-inhibitors: absent — acide azélaïque seul ; inhibition compétitive faible et sur tyrosinase de champignon, la classe reste littérale (inhibition directe de la tyrosinase humaine)"
     },
     {
       "productSlug": "svr-sebiaclear-creme-spf50",
@@ -14173,10 +14176,10 @@
       "kind": "spot-treatment",
       "category": "skincare",
       "present": [],
-      "absent": ["pores-sebum"],
-      "annotatedAt": "2026-05-25",
+      "absent": ["pores-sebum", "tyrosinase-inhibitors"],
+      "annotatedAt": "2026-08-12",
       "sampledFor": ["pores-sebum", "tyrosinase-inhibitors"],
-      "notes": "Added from SVR product with structured % concentration claim(s)."
+      "notes": "Added from SVR product with structured % concentration claim(s). | tyrosinase-inhibitors: absent — acide azélaïque seul ; inhibition compétitive faible et sur tyrosinase de champignon, la classe reste littérale (inhibition directe de la tyrosinase humaine)"
     },
     {
       "productSlug": "svr-sebiaclear-gel-moussant",
@@ -14594,10 +14597,10 @@
       "kind": "serum",
       "category": "skincare",
       "present": [],
-      "absent": [],
-      "annotatedAt": "",
+      "absent": ["tyrosinase-inhibitors"],
+      "annotatedAt": "2026-08-12",
       "sampledFor": ["tyrosinase-inhibitors"],
-      "notes": "Added from The Ordinary product with structured % concentration claim(s)."
+      "notes": "Added from The Ordinary product with structured % concentration claim(s). | tyrosinase-inhibitors: absent — acide azélaïque seul ; inhibition compétitive faible et sur tyrosinase de champignon, la classe reste littérale (inhibition directe de la tyrosinase humaine)"
     },
     {
       "productSlug": "the-ordinary-barrier-support-soothing-serum",
@@ -14930,10 +14933,10 @@
       "kind": "serum",
       "category": "skincare",
       "present": [],
-      "absent": ["eczema-atopie", "pores-sebum"],
-      "annotatedAt": "2026-05-25",
+      "absent": ["eczema-atopie", "pores-sebum", "tyrosinase-inhibitors"],
+      "annotatedAt": "2026-08-12",
       "sampledFor": ["eczema-atopie", "pores-sebum", "tyrosinase-inhibitors"],
-      "notes": "Added from Theramid product with structured % concentration claim(s). | eczema-atopie: absent — ne nomme pas atopie/eczéma (Option-A STRICT); détecteur a tiré sur signature oat/céramide, positionné exfoliant/acide"
+      "notes": "Added from Theramid product with structured % concentration claim(s). | eczema-atopie: absent — ne nomme pas atopie/eczéma (Option-A STRICT); détecteur a tiré sur signature oat/céramide, positionné exfoliant/acide | tyrosinase-inhibitors: absent — acide azélaïque seul ; inhibition compétitive faible et sur tyrosinase de champignon, la classe reste littérale (inhibition directe de la tyrosinase humaine)"
     },
     {
       "productSlug": "theramid-bakuchiol-firming-cream",
@@ -15005,11 +15008,11 @@
       "productSlug": "theramid-even-in",
       "kind": "serum",
       "category": "skincare",
-      "present": [],
+      "present": ["tyrosinase-inhibitors"],
       "absent": [],
-      "annotatedAt": "",
+      "annotatedAt": "2026-08-12",
       "sampledFor": ["tyrosinase-inhibitors"],
-      "notes": "Added from Theramid product with structured % concentration claim(s)."
+      "notes": "Added from Theramid product with structured % concentration claim(s). | tyrosinase-inhibitors: présent — Arbutin + Kojic Acid + Hexylresorcinol à l'INCI"
     },
     {
       "productSlug": "theramid-hapca-filler",
