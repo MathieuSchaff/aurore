@@ -45,7 +45,7 @@ export function ThreadForm({ entityType, slug }: ThreadFormProps) {
   }
 
   return (
-    <form className="thread-form" onSubmit={handleSubmit}>
+    <form className="thread-form ui-form-panel" onSubmit={handleSubmit}>
       <SectionHeader title="Nouvelle discussion" as="h3" />
       <Input
         label="Sujet"
@@ -65,7 +65,7 @@ export function ThreadForm({ entityType, slug }: ThreadFormProps) {
         rows={4}
         required
       />
-      {/* Suffixed labels: PostComposer's "Publier"/"Annuler" can be open on the same tab, accessible names must differ. */}
+      {/* Suffixed labels, same reason as the message label above. */}
       <FormActions
         onCancel={() => setOpen(false)}
         cancelLabel="Annuler la discussion"

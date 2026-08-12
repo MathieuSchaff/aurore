@@ -8,7 +8,7 @@ import type { ProductDetail } from '@/lib/queries/products'
 import './FormulaProfile.css'
 
 // Descriptive categories only: what is in the formula, when and where it is
-// used — never suitability, concerns, or a verdict. Array order = display
+// used, never suitability, concerns, or a verdict. Array order = display
 // order: most formula-specific first, not META.order (filter-menu order).
 const PROFILE_CATEGORIES = ['actif_class', 'skin_effect', 'routine_step_v2', 'skin_zone'] as const
 const SKINCARE_FILTER_LABELS = new Map(
@@ -36,7 +36,7 @@ export function FormulaProfile({ tags }: FormulaProfileProps) {
           <Fragment key={g.category}>
             <dt className="formula-profile__label">{g.label}</dt>
             <dd className="formula-profile__cell">
-              <ul role="list" className="formula-profile__chips">
+              <ul role="list" className="formula-profile__chips ui-wrap-list">
                 {g.tags.map((t) => (
                   <li key={t.tagSlug}>
                     <Badge variant="chip">{t.tagName}</Badge>

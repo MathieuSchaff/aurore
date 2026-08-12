@@ -1,5 +1,6 @@
-import { AlertCircle } from 'lucide-react'
 import { useId } from 'react'
+
+import { FieldError } from '../FieldError/FieldError'
 import './Textarea.css'
 
 type TextareaProps = React.ComponentProps<'textarea'> & {
@@ -55,12 +56,7 @@ export const Textarea = ({
         {...props}
         aria-describedby={describedBy}
       />
-      {error && (
-        <span id={errorId} className="textarea-error" role="alert">
-          <AlertCircle size={16} />
-          {error}
-        </span>
-      )}
+      {error && <FieldError id={errorId}>{error}</FieldError>}
     </div>
   )
 }

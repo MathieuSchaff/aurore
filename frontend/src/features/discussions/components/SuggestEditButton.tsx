@@ -69,12 +69,12 @@ export function SuggestEditButton({ targetType, targetId }: SuggestEditButtonPro
         <span>{SUGGEST_LABELS.action}</span>
       </Button>
       {open && (
-        <Modal onClose={close} role="dialog" size="sm" className="suggest-modal">
-          <Modal.Title className="suggest-modal__title">{SUGGEST_LABELS.title}</Modal.Title>
+        <Modal onClose={close} role="dialog" size="sm" className="dialog-prompt">
+          <Modal.Title className="dialog-prompt__title">{SUGGEST_LABELS.title}</Modal.Title>
           {done ? (
             <>
-              <p className="suggest-modal__message">{SUGGEST_LABELS.successMessage}</p>
-              <div className="suggest-modal__actions">
+              <p className="dialog-prompt__message">{SUGGEST_LABELS.successMessage}</p>
+              <div className="dialog-prompt__actions">
                 <Button onClick={close}>Fermer</Button>
               </div>
             </>
@@ -103,7 +103,7 @@ export function SuggestEditButton({ targetType, targetId }: SuggestEditButtonPro
                 />
               )}
               {error && <FormMessage variant="error">{error}</FormMessage>}
-              <div className="suggest-modal__actions">
+              <div className="dialog-prompt__actions">
                 <Button variant="ghost" onClick={close} type="button">
                   {SUGGEST_LABELS.cancel}
                 </Button>

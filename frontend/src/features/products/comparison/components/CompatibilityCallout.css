@@ -47,16 +47,6 @@
   background: var(--tone);
 }
 
-.cmp-callout__headline {
-  margin: 0;
-  font-family: var(--font-display);
-  font-feature-settings: var(--font-features-display);
-  font-size: var(--text-2xl);
-  font-weight: var(--font-normal);
-  letter-spacing: var(--tracking-tight);
-  color: var(--text-primary);
-}
-
 .cmp-callout__verdict {
   margin: 0;
   font-family: var(--font-display);

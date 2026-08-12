@@ -41,7 +41,11 @@ export function PageHeader({
           <div className="page-header__meta">{meta}</div>
         )}
       </div>
-      {actions && <div className={clsx('page-header__actions', actionsClassName)}>{actions}</div>}
+      {actions && (
+        <div className={clsx('page-header__actions', 'ui-page-actions', actionsClassName)}>
+          {actions}
+        </div>
+      )}
     </div>
   )
 }

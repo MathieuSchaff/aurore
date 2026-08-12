@@ -76,13 +76,6 @@
   white-space: nowrap;
 }
 
-.list-page-layout__actions {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-3);
-  width: 100%;
-}
-
 .list-page-layout__actions > * {
   width: 100%;
 }

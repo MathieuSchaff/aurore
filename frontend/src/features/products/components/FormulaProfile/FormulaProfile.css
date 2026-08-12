@@ -17,12 +17,3 @@
 .formula-profile__cell {
   margin: 0;
 }
-
-.formula-profile__chips {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-2);
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}

@@ -61,18 +61,18 @@ export function ReportContentButton({ targetType, targetId, hidden }: ReportCont
         <Flag size={14} aria-hidden="true" />
       </Button>
       {open && (
-        <Modal onClose={close} role="dialog" size="sm" className="report-modal">
-          <Modal.Title className="report-modal__title">Signaler ce contenu</Modal.Title>
+        <Modal onClose={close} role="dialog" size="sm" className="dialog-prompt">
+          <Modal.Title className="dialog-prompt__title">Signaler ce contenu</Modal.Title>
           {done ? (
             <>
-              <p className="report-modal__message">{REPORT_LABELS.successMessage}</p>
-              <div className="report-modal__actions">
+              <p className="dialog-prompt__message">{REPORT_LABELS.successMessage}</p>
+              <div className="dialog-prompt__actions">
                 <Button onClick={close}>Fermer</Button>
               </div>
             </>
           ) : (
             <form onSubmit={handleSubmit}>
-              <p className="report-modal__message">
+              <p className="dialog-prompt__message">
                 Décrivez brièvement ce qui pose problème. Votre signalement reste privé.
               </p>
               <Textarea
@@ -84,7 +84,7 @@ export function ReportContentButton({ targetType, targetId, hidden }: ReportCont
                 placeholder="Ex : propos insultants, contenu hors-sujet, etc."
               />
               {error && <FormMessage variant="error">{error}</FormMessage>}
-              <div className="report-modal__actions">
+              <div className="dialog-prompt__actions">
                 <Button variant="ghost" onClick={close} type="button">
                   Annuler
                 </Button>

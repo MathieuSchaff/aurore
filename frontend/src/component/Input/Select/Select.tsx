@@ -1,5 +1,7 @@
-import { AlertCircle, ChevronDown } from 'lucide-react'
+import { ChevronDown } from 'lucide-react'
 import { useId } from 'react'
+
+import { FieldError } from '../FieldError/FieldError'
 import './Select.css'
 
 export type SelectOption<V extends string = string> = {
@@ -88,12 +90,7 @@ export function Select<V extends string = string>({
         </select>
         <ChevronDown className="select-chevron" size={16} aria-hidden="true" />
       </div>
-      {error && (
-        <span id={errorId} className="select-error" role="alert">
-          <AlertCircle size={16} />
-          {error}
-        </span>
-      )}
+      {error && <FieldError id={errorId}>{error}</FieldError>}
     </div>
   )
 }

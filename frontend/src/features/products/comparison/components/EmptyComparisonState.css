@@ -61,13 +61,6 @@
   margin: 0;
 }
 
-.empty-comparison__desc {
-  font-size: var(--text-sm);
-  color: var(--text-muted);
-  max-width: 36ch;
-  margin: 0;
-}
-
 /* Global .button defaults to align-self: flex-start; recenter in this column. */
 .empty-comparison__cta {
   align-self: center;

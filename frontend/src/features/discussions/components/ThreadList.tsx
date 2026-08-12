@@ -26,13 +26,13 @@ export function ThreadList({ threads, entityType, slug, isLoggedIn }: ThreadList
       />
       {isLoggedIn && <ThreadForm entityType={entityType} slug={slug} />}
       {threads.length === 0 ? (
-        <p className="discussions-empty">Aucune discussion pour l'instant.</p>
+        <p className="discussions-empty ui-empty-panel">Aucune discussion pour l'instant.</p>
       ) : (
         <div className="thread-list">
           {threads.map((thread) => {
             const content = (
               <>
-                <p className="thread-item__title">{thread.title}</p>
+                <p className="thread-item__title ui-title-sm">{thread.title}</p>
                 <div className="thread-item__meta">
                   <AuthorLine
                     authorId={thread.authorId}
