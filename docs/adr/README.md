@@ -7,22 +7,28 @@ Canonical ADRs for Aurore. This directory is tracked in git.
 | # | Title | Status | Date |
 |---|-------|--------|------|
 | [0001](./0001-auto-tag-passes-return-self-tagged-proposals.md) | Auto-tag passes return self-tagged proposals | accepted | 2026-05-19 |
-| [0003](./0003-backup-encryption-asymmetric-gpg.md) | Backup encryption — asymmetric GPG | accepted | 2026-05-19 |
+| [0003](./0003-backup-encryption-asymmetric-gpg.md) | Backup encryption: asymmetric GPG | accepted | 2026-05-19 |
 | [0004](./0004-formula-passes-re-emit-algo-derm-slugs.md) | Formula passes re-emit algo-derm slugs | accepted | 2026-05-24 |
-| [0005](./0005-public-reviews-opt-in-attributable-ratings.md) | Public reviews — opt-in, attributable ratings | accepted | 2026-05-27 |
+| [0005](./0005-public-reviews-opt-in-attributable-ratings.md) | Public reviews: opt-in, attributable ratings | accepted | 2026-05-27 |
 | [0006](./0006-contributor-gains-content-moderation.md) | Contributor gains content moderation | accepted | 2026-05-30 |
 | [0007](./0007-error-handling-strategy.md) | Hybrid error handling strategy | accepted | 2026-06-02 |
 | [0008](./0008-role-demotion-enforced-fresh-at-gates.md) | Role demotion enforced fresh at gates | accepted | 2026-06-02 |
-| [0009](./0009-signup-enumeration-safe.md) | Signup is enumeration-safe — neutral response, truth only by email | accepted | 2026-06-17 |
-| [0010](./0010-forgot-password-enumeration-safe.md) | Forgot-password is enumeration-safe — neutral request, reset only by email | accepted | 2026-06-17 |
-| [0011](./0011-home-is-dual-audience.md) | Home (`/`) is dual-audience — never redirect authenticated users away | accepted | 2026-06-25 |
+| [0009](./0009-signup-enumeration-safe.md) | Signup is enumeration-safe: neutral response, truth only by email | accepted | 2026-06-17 |
+| [0010](./0010-forgot-password-enumeration-safe.md) | Forgot-password is enumeration-safe: neutral request, reset only by email | accepted | 2026-06-17 |
+| [0011](./0011-home-is-dual-audience.md) | Home (`/`) is dual-audience: never redirect authenticated users away | accepted | 2026-06-25 |
 | [0012](./0012-discoverability-opt-in-decoupled.md) | Profile discoverability is opt-in matching consent, decoupled from display | accepted | 2026-06-25 |
-| [0013](./0013-reactions-signed-counterless.md) | Reactions are signed and counter-less — a list of who, never a tally | accepted | 2026-06-25 |
+| [0013](./0013-reactions-signed-counterless.md) | Reactions are signed and counterless: a list of who, never a tally | accepted | 2026-06-25 |
 | [0014](./0014-role-at-dose-narrow-name-gate-override.md) | roleAtDose is a narrow name-gate override for cap-marginal AHA | accepted | 2026-07-02 |
 | [0015](./0015-db-snapshots-plain-git-no-lfs.md) | DB snapshots are plain-text git blobs, not LFS | accepted | 2026-07-22 |
 | [0016](./0016-tag-reconciliation-stays-per-kernel.md) | Tag reconciliation stays per-kernel; no shared policy module | accepted | 2026-07-23 |
+| [0017](./0017-claim-tags-are-internal-only.md) | Claim-worded tags stay internal-only: computed, audited, never displayed | accepted | 2026-08-12 |
 
-Next available: **0017**. Name: `NNNN-short-imperative-verb-phrase.md`.
+No **0002**: *AutoTag skip events ride trackError as transport* (accepted 2026-05-19) was deleted
+along with the errors feature it named, in `feat(observability): add the Grafana, OTel and Faro
+stack`. The decision still holds, its transport no longer exists: skips leave as a structured
+`logger.warn` from `backend/src/features/auto-tagging/write.ts`, keyed on `AUTOTAG_SKIP_EVENT_KIND`.
+
+Next available: **0018**. Name: `NNNN-short-imperative-verb-phrase.md`.
 
 ## Template
 
@@ -43,8 +49,8 @@ Context that made this decision non-trivial. Trade-offs that mattered.
 
 ## Considered options
 
-- **A. Option name** — description. Rejected: reason.
-- **B. Option name** — **Chosen.** Reason.
+- **A. Option name**: description. Rejected: reason.
+- **B. Option name**: **Chosen.** Reason.
 
 ## Consequences
 
