@@ -5,13 +5,13 @@ scope: backend/src/**/*.test.ts
 runner: bun:test
 ---
 
-# Règles tests backend — Aurore
+# Règles tests backend (Aurore)
 
 À lire **avant** de créer ou modifier un fichier `*.test.ts` côté backend. Convention stabilisée 2026-05-22 après audit + 6 commits sur `main`. Lint pre-commit te rattrape si tu oublies.
 
 ---
 
-## TL;DR — décision en 10 secondes
+## TL;DR : décision en 10 secondes
 
 ```
 Mon test touche la DB ?
@@ -55,7 +55,7 @@ setupDbTests()
 
 Effet : enregistre `beforeAll(ping DB)` + `beforeEach(cleanDatabase)` **scopés à ce fichier**. Les tests purs des autres fichiers ne paient rien.
 
-**Pourquoi pas d'auto-detect** : preload bun:test global = clean sur 1559 tests même les 632 purs. C'était le bottleneck initial (baseline ~130 s). Opt-in scoped = pollueur paie.
+**Pourquoi pas d'auto-detect** : preload bun:test global = clean sur toute la suite, même sur les tests purs. C'était le bottleneck initial (baseline ~130 s). Opt-in scoped = pollueur paie.
 
 ## 3. Fixture par test : l'ordre des hooks, pas le pattern
 
@@ -63,7 +63,7 @@ Si ton fichier a besoin de créer un fixture spécifique avant chaque test, la s
 est que le clean tourne **avant** la création du fixture. Bun:test exécute les `beforeEach` dans leur
 ordre d'enregistrement, donc deux écritures marchent.
 
-**A. `setupDbTests()` + `beforeEach` local** — à préférer pour un fichier neuf :
+**A. `setupDbTests()` + `beforeEach` local**, à préférer pour un fichier neuf :
 
 ```ts
 setupDbTests()          // top-level, AVANT le describe : son clean s'enregistre en premier
@@ -76,7 +76,7 @@ describe('...', () => {
 })
 ```
 
-**B. Self-cleaner** — historique, le fichier fait son ménage lui-même et n'appelle pas `setupDbTests()` :
+**B. Self-cleaner** (historique), le fichier fait son ménage lui-même et n'appelle pas `setupDbTests()` :
 
 ```ts
 let user: User
@@ -91,10 +91,10 @@ bas du fichier, ou depuis l'intérieur d'un `describe`) : son clean global wipe 
 `createTestUser` qui vient de se faire. En A, l'appel top-level en tête de fichier l'empêche par
 construction.
 
-Ne convertis pas un self-cleaner sans raison — mais si tu le fais, place `setupDbTests()` en tête de
+Ne convertis pas un self-cleaner sans raison, mais si tu le fais, place `setupDbTests()` en tête de
 fichier et vérifie le compte de tests avant/après.
 
-Liste des self-cleaners restants (référence, régénérable — un test qui appelle `cleanDatabase()` sans `setupDbTests()`) :
+Liste des self-cleaners restants (référence, régénérable : un test qui appelle `cleanDatabase()` sans `setupDbTests()`) :
 
 ```
 db/seed/utils/batch.test.ts
@@ -136,9 +136,9 @@ Deux régressions classiques dans les tests DB :
 
 Critère par **symbole**, pas par chemin. Couvre les re-exports locaux (`auth-test.setup.ts`).
 
-## 6. Note `createTestUser` (depuis commit `f26e9d02`)
+## 6. Note `createTestUser`
 
-`createTestUser` coûte ~1 ms en test (bcrypt cost=4 sous `NODE_ENV=test`), pas 71 ms (argon2id prod). Ne pas optimiser en bypassant `signup()` — la perf est déjà là, garder le flow réel `signup → hash → store` (le signup n'émet plus de JWT, ADR 0009).
+`createTestUser` coûte ~1 ms en test (bcrypt cost=4 sous `NODE_ENV=test`), pas 71 ms (argon2id prod). Ne pas optimiser en bypassant `signup()` : la perf est déjà là, garder le flow réel `signup → hash → store` (le signup n'émet plus de JWT, ADR 0009).
 
 Production reste sur argon2id default, gate par `process.env.NODE_ENV === 'test'` dans `backend/src/features/auth/service.ts`.
 
@@ -146,14 +146,14 @@ Production reste sur argon2id default, gate par `process.env.NODE_ENV === 'test'
 
 ## Interdits
 
-- ❌ Snapshots backend (algo-derm évolue → faux positifs garantis). `toEqual` lisible > snapshot fragile.
-- ❌ Renommage `*.unit.test.ts` / `*.db.test.ts`. Critère "import db-setup" suffit, grepable.
-- ❌ `console.log` / `warn` / `debug` dev cruft dans les `.test.ts`. Sweep complet 2026-05-22 doit rester vert :
+- Snapshots backend (algo-derm évolue → faux positifs garantis). `toEqual` lisible > snapshot fragile.
+- Renommage `*.unit.test.ts` / `*.db.test.ts`. Critère "import db-setup" suffit, grepable.
+- `console.log` / `warn` / `debug` dev cruft dans les `.test.ts`. Sweep complet 2026-05-22 doit rester vert :
   ```bash
   rg 'console\.(log|warn|debug)' backend/src --type ts -g '*.test.ts'
   ```
-- ❌ Affaiblir l'isolation des tests `integration/*` pour gagner 5 s.
-- ❌ Mocker la DB. Tests backend tapent la vraie Postgres test (Docker), pas un mock.
+- Affaiblir l'isolation des tests `integration/*` pour gagner 5 s.
+- Mocker la DB. Tests backend tapent la vraie Postgres test (Docker), pas un mock.
 
 ---
 
@@ -163,7 +163,7 @@ Production reste sur argon2id default, gate par `process.env.NODE_ENV === 'test'
 |---|---|
 | Tests backend full cycle | `just test-backend` |
 | Tests backend sans relancer DB | `just test-dev "<pattern>"` |
-| Watch mode | `just test-dev-watch "<pattern>"` |
+| Watch mode | `just test-watch "<pattern>"` |
 | Bench wall-time | `just test-bench` (log dans `/tmp/aurore-backend-test.log`) |
 | Compte `cleanDatabase` fires | `just test-clean-count` (baseline 903, ne doit pas monter) |
 

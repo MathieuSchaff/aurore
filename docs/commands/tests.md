@@ -28,12 +28,11 @@ the root loader, or the server-hint context changed.
 | Command | What | Notes |
 | :--- | :--- | :--- |
 | `just test-db-up` | Recreate the test DB and apply migrations | `just test-db-up keep` reuses a running one |
-| `just test-db-down` | Stop the test DB | — |
+| `just test-db-down` | Stop the test DB | - |
 | `just test-db-seed` | Seed CORE into the test DB | Requires `test-db-up` |
-| `just test-backend [args]` | Full backend suite, brings the DB up | — |
+| `just test-backend [args]` | Full backend suite, brings the DB up | - |
 | `just test-dev [args]` | Backend suite, DB assumed up | The fast loop |
-| `just test-dev-watch [args]` | Same, watch mode | — |
-| `just test-watch` | Watch, brings the DB up first | — |
+| `just test-watch [args]` | Backend suite in watch mode | Reuses a running test DB, starts one otherwise |
 | `just test-backend-coverage [args]` | Backend coverage | → `backend/coverage/` (lcov) |
 
 Targeted runs take a path or a substring:
@@ -53,8 +52,8 @@ restart. Authoring rules: [`docs/conventions/backend-tests.md`](../conventions/b
 | `just test-shared [args]` | Shared unit tests | Pure, no DB |
 | `just test-frontend` | Vitest suite | Components, hooks, forms, query serialization |
 | `just test-frontend-coverage` | Frontend coverage | → `frontend/coverage/` (lcov, istanbul provider) |
-| `cd frontend && bunx vitest` | Vitest watch mode | — |
-| `cd frontend && bunx vitest --ui` | Vitest web UI | — |
+| `cd frontend && bunx vitest` | Vitest watch mode | - |
+| `cd frontend && bunx vitest --ui` | Vitest web UI | - |
 
 ## E2E
 
@@ -63,10 +62,10 @@ from the committed snapshot (full catalogue + personas), not from `seed-core`.
 
 | Command | What | Notes |
 | :--- | :--- | :--- |
-| `just e2e-up` | Up + migrate + restore the snapshot | ⚠️ An already-running stack keeps a stale schema — re-run this after a new migration |
+| `just e2e-up` | Up + migrate + restore the snapshot | **Trap:** an already-running stack keeps a stale schema, run this again after a new migration |
 | `just e2e` | Run the Playwright suites | Auto-runs `e2e-up` if nothing serves 5174. Failures → `frontend/test-results/` |
-| `just e2e-ui` | Playwright interactive mode | ⚠️ `*.mutation.spec.ts` share seed rows in source order — run the whole file, never a single test, and `e2e-reset` between passes |
-| `just e2e-reset` | Recreate the stack from scratch | — |
+| `just e2e-ui` | Playwright interactive mode | **Trap:** `*.mutation.spec.ts` share seed rows in source order, run the whole file, never a single test, and `e2e-reset` between passes |
+| `just e2e-reset` | Recreate the stack from scratch | - |
 | `just e2e-down` | Stop it | The tmpfs DB is lost |
 
 Usual flow: `just dev-down` → `just e2e-up` → `just e2e`.
@@ -86,12 +85,12 @@ dependencies, Docker config, migrations, or the DB snapshot changed.
 | Command | What | Output |
 | :--- | :--- | :--- |
 | `just test-bench` | Time the backend suite | `/tmp/aurore-backend-test.log` and `.time` |
-| `just test-clean-count` | Re-read the `cleanDatabase` fire count from the last bench log | No re-bench. Baseline 903 — it must not climb |
+| `just test-clean-count` | Read the `cleanDatabase` fire count again from the last bench log | Runs no bench of its own. Baseline 903: it must not climb |
 
 ## Traps
 
 | Trap | Consequence |
 | :--- | :--- |
-| Two test runs at once | They share the test DB and destroy each other's state — the failures look real but are not |
+| Two test runs at once | They share the test DB and destroy each other's state: the failures look real but are not |
 | Playwright `reuseExistingServer: true` | A stale E2E container survives between runs |
 | New frontend package without `just e2e-up` | The Docker image keeps the old `node_modules` |
