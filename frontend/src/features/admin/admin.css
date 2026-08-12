@@ -349,9 +349,6 @@
   color: var(--text-secondary);
 }
 
-/* .admin-confirm* rules moved to useConfirm.css (co-located with the hook,
-   so the modal styles load wherever useConfirm is used, not only here). */
-
 .admin-dashboard {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));

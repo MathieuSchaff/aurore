@@ -43,13 +43,6 @@
   font-weight: 600;
 }
 
-.page-header__actions {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-3);
-  width: 100%;
-}
-
 .page-header__actions > * {
   width: 100%;
 }

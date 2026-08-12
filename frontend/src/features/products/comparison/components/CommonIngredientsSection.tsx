@@ -56,7 +56,7 @@ export function CommonIngredientsSection({ products }: Props) {
       <header className="terroir__head">
         <div>
           <p className="terroir__eyebrow">Terrain commun</p>
-          <h2 className="terroir__title">
+          <h2 className="terroir__title ui-display-heading">
             Le <em>terroir</em> partagé
           </h2>
         </div>

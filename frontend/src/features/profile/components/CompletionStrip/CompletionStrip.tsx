@@ -74,7 +74,7 @@ export function CompletionStrip({ profile, dermo, onEditSection }: CompletionStr
 
   return (
     <aside className="completion-strip" aria-label="Compléter le profil">
-      <div className="completion-strip__header">
+      <div className="completion-strip__header ui-header-row">
         <div className="completion-strip__intro">
           <Overline>À votre rythme</Overline>
           <p className="completion-strip__text">

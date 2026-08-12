@@ -75,7 +75,7 @@ export function ComboboxPrimitive<T>({
   const itemsRef = useRef<HTMLDivElement>(null)
   const sentinelRef = useRef<HTMLDivElement>(null)
 
-  // Use body immediately so an early post-hydration open can render.
+  // Use body immediately so an open right after hydration can render.
   // Dialog comboboxes move into the top layer once the container ref is available.
   const [portalTarget, setPortalTarget] = useState<Element | null>(() =>
     typeof document === 'undefined' ? null : document.body
@@ -88,12 +88,12 @@ export function ComboboxPrimitive<T>({
   useFlipPlacement(containerRef, dropdownRef, isOpen, [totalEntries])
 
   // useCaptureDismiss (not useClickOutside): portaled dropdown sits over real click targets.
-  // Multi-ref: both trigger container and portaled dropdown count as "inside".
+  // Two refs: both the trigger container and the portaled dropdown count as "inside".
   useCaptureDismiss([containerRef, dropdownRef], dismiss, { enabled: isOpen })
 
   useScrollActiveOptionIntoView(highlightedIndex, isOpen, listboxId)
 
-  // useEffectEvent: read onLoadMore fresh without re-subscribing the observer on every
+  // useEffectEvent: read onLoadMore fresh without subscribing the observer again on every
   // parent render (caller passes an inline arrow whose identity changes each render).
   const loadMore = useEffectEvent(() => onLoadMore?.())
   useEffect(() => {
@@ -141,19 +141,19 @@ export function ComboboxPrimitive<T>({
                 {onRetry && (
                   <button
                     type="button"
-                    className="combobox-primitive__retry"
+                    className="combobox-primitive__retry ui-combobox-retry"
                     onClick={onRetry}
                     disabled={remaining > 0}
                   >
                     Réessayer
                     {/* Hidden from the reader: this container is role="alert", so a ticking
-                        number inside it would re-fire the announcement every second. */}
+                        number inside it would fire the announcement again every second. */}
                     {remaining > 0 && <span aria-hidden="true"> ({remaining} s)</span>}
                   </button>
                 )}
               </div>
             ) : isLoading ? (
-              <output className="combobox-primitive__status">Chargement…</output>
+              <output className="combobox-primitive__status ui-combobox-empty">Chargement…</output>
             ) : (
               <>
                 <div
@@ -229,12 +229,16 @@ export function ComboboxPrimitive<T>({
                       />
                       {/* Outside the aria-hidden sentinel so its role=status announces. */}
                       {isLoadingMore && (
-                        <output className="combobox-primitive__status">Chargement…</output>
+                        <output className="combobox-primitive__status ui-combobox-empty">
+                          Chargement…
+                        </output>
                       )}
                     </>
                   )}
                   {totalEntries === 0 && !footer && inputValue.trim() !== '' && (
-                    <output className="combobox-primitive__empty">{emptyMessage}</output>
+                    <output className="combobox-primitive__empty ui-combobox-empty">
+                      {emptyMessage}
+                    </output>
                   )}
                 </div>
                 {footer && <div className="combobox-primitive__footer">{footer}</div>}

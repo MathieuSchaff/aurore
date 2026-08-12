@@ -21,22 +21,9 @@ h6 {
   letter-spacing: var(--tracking-tight);
 }
 
-[style*="text-transform: uppercase"],
-.uppercase,
-.all-caps,
-label.uppercase,
-span.uppercase,
-.caption {
-  letter-spacing: var(--tracking-widest);
-}
-
 /* Wider tracking on uppercase for a more "luxurious" feel. */
-*:where([class], [style]) {
-  &:is([style*="text-transform: uppercase"]),
-  &:is(.uppercase),
-  &:is(.all-caps) {
-    letter-spacing: var(--tracking-widest);
-  }
+[style*="text-transform: uppercase"] {
+  letter-spacing: var(--tracking-widest);
 }
 
 /* Old-style + tabular numerals for prices (magazine feel + aligned columns). */

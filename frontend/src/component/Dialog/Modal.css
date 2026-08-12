@@ -29,6 +29,33 @@
   max-width: 600px;
 }
 
+.dialog-prompt {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-5);
+}
+
+.dialog-prompt__title {
+  margin: 0;
+  color: var(--text-primary);
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+}
+
+.dialog-prompt__message {
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: var(--text-sm);
+}
+
+.dialog-prompt__actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--space-2);
+  margin-block-start: var(--space-2);
+}
+
 @keyframes dialogModalIn {
   from {
     opacity: 0;

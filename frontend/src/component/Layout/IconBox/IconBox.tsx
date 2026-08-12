@@ -1,6 +1,5 @@
 import clsx from 'clsx'
 import type { ReactNode } from 'react'
-import './IconBox.css'
 
 interface IconBoxProps {
   children: ReactNode
@@ -9,7 +8,7 @@ interface IconBoxProps {
 
 export function IconBox({ children, className }: IconBoxProps) {
   return (
-    <div className={clsx('icon-box', className)} aria-hidden="true">
+    <div className={clsx('ui-centered', className)} aria-hidden="true">
       {children}
     </div>
   )

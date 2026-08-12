@@ -28,7 +28,7 @@ export function SimilarPeopleList({ profiles }: SimilarPeopleListProps) {
   }
 
   return (
-    <ul role="list" className="similar-people">
+    <ul role="list" className="similar-people ui-stack-list">
       {surfaced.map((profile) => {
         const label = SIMILARITY_BAND_LABELS[profile.band]
         return (

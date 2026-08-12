@@ -52,14 +52,6 @@
   flex: 0 0 7rem;
 }
 
-.product-edit-form__actions {
-  display: flex;
-  justify-content: flex-end;
-  gap: var(--space-3);
-  padding-top: var(--space-4);
-  border-top: var(--rule-section);
-}
-
 .product-edit-ingredients {
   display: flex;
   flex-direction: column;

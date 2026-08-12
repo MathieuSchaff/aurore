@@ -28,16 +28,6 @@
   margin: 0 0 var(--space-1);
 }
 
-.terroir__title {
-  margin: 0;
-  font-family: var(--font-display);
-  font-feature-settings: var(--font-features-display);
-  font-size: var(--text-2xl);
-  font-weight: var(--font-normal);
-  letter-spacing: var(--tracking-tight);
-  color: var(--text-primary);
-}
-
 .terroir__title em {
   /* Global `* { font-family }` blocks inheritance; restore the display face. */
   font-family: inherit;

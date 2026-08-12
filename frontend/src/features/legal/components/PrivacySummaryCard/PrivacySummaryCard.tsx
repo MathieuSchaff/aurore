@@ -16,7 +16,7 @@ export function PrivacySummaryCard({
         <span className="privacy-summary__icon" aria-hidden="true">
           {icon}
         </span>
-        <h3 className="privacy-summary__card-title">{title}</h3>
+        <h3 className="privacy-summary__card-title ui-title-sm">{title}</h3>
       </div>
       <p>{children}</p>
     </div>
