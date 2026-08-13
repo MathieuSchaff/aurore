@@ -1,4 +1,4 @@
-import { HTTP_STATUS, ok, replaceProductTagsSchema } from '@aurore/shared'
+import { HTTP_STATUS, isDisplayedProductTag, ok, replaceProductTagsSchema } from '@aurore/shared'
 
 import { Hono } from 'hono'
 import { z } from 'zod'
@@ -20,15 +20,18 @@ const productParams = z.object({ productId: z.uuid() })
 
 const productTagsApp = new Hono<AppEnv>()
 
-// Guards stay on the endpoints owned by this router so sibling routes are not intercepted.
+// Guards stay on the endpoints owned by this router so sibling routes are not intercepted
 
 export const productTagRoutes = productTagsApp
 
+  // Anonymous read, so it filters: internal-only slugs never leave for a client
+  // (docs/adr/0017). The PUT below and the edit form's own payload keep the full
+  // list, which is what lets an admin save without erasing them.
   .get('/:productId/tags', zValidator('param', productParams), async (c) => {
     const db = c.get('anonDb')
     const { productId } = c.req.valid('param')
     const items = await listTagsByProduct(db, productId)
-    return c.json(ok(items), HTTP_STATUS.OK)
+    return c.json(ok(items.filter((item) => isDisplayedProductTag(item.tagSlug))), HTTP_STATUS.OK)
   })
 
   .put(

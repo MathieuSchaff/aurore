@@ -129,6 +129,44 @@ describe('Product Tags Routes', () => {
       expect(data.data).toEqual([])
     })
 
+    // docs/adr/0017: the claim tags stay detected and stored, but this read is anonymous,
+    // so they must not leave. The PUT path keeps them, which is what lets an admin save
+    // without erasing them.
+    it('should omit internal-only tags from the anonymous read', async () => {
+      const product = await createProduct(client, contributorToken)
+      const claim = await createProductTag(client, adminToken, {
+        label: 'Hypoallergénique',
+        tagType: 'product_characteristic',
+        slug: 'hypoallergenique',
+      })
+      const shown = await createProductTag(client, adminToken, {
+        label: 'Comédogène',
+        tagType: 'product_characteristic',
+        slug: 'comedogene',
+      })
+
+      await client.products[':productId'].tags.$put(
+        {
+          param: { productId: product.id },
+          json: {
+            tags: [
+              { tagId: claim.id, relevance: 'secondary' },
+              { tagId: shown.id, relevance: 'secondary' },
+            ],
+          },
+        },
+        withAuth(contributorToken)
+      )
+
+      const res = await client.products[':productId'].tags.$get({
+        param: { productId: product.id },
+      })
+      const data = await res.json()
+      if (!data.success) throw new Error('list tags failed')
+
+      expect(data.data.map((t) => t.tagSlug)).toEqual(['comedogene'])
+    })
+
     it('should return 400 for a non-UUID productId', async () => {
       const res = await client.products[':productId'].tags.$get({
         param: { productId: 'not-a-uuid' },
@@ -332,7 +370,7 @@ describe('Product Tags Routes', () => {
     })
   })
 
-  describe('PUT /products/:productId/tags — role enforcement', () => {
+  describe('PUT /products/:productId/tags (role enforcement)', () => {
     expectRoleMatrix(
       () => app,
       async () => {
