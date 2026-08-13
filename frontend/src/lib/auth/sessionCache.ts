@@ -1,8 +1,5 @@
 import type { QueryClient } from '@tanstack/react-query'
 
-// Query roots serving the same payload to every visitor. Kept as string literals rather than
-// imported from the key factories: `lib/queries/*` imports `lib/api`, which imports the caller
-// of this module, so importing them back would close an import cycle.
 const PUBLIC_QUERY_ROOTS: ReadonlySet<string> = new Set([
   'articles',
   'brands',
@@ -12,14 +9,18 @@ const PUBLIC_QUERY_ROOTS: ReadonlySet<string> = new Set([
   'products',
 ])
 
-// Lives under a public root but holds the signed-in user's own view of the catalog
-// (`productKeys.shelfStatuses()`), so it goes with the session.
+// Same root as the catalogue,
+// but this one is which products the user owns
+// Keep it and the next account reads the previous user collection
 const USER_SCOPED_SUBTREES: ReadonlyArray<readonly [string, string]> = [
   ['products', 'shelf-status'],
 ]
 
-// An unknown key shape counts as session-scoped: dropping a public query costs a refetch,
-// keeping a user-scoped one leaks the previous session into the next render.
+// if a user is disconnected and was on the products page
+// we don't want the product page to be refetch,
+// so we don't want to kill the query list of products
+// but just what was the specific data of the user
+// the userStatus for exemple
 function isSessionScoped(queryKey: readonly unknown[]): boolean {
   const [root, second] = queryKey
   if (typeof root !== 'string' || !PUBLIC_QUERY_ROOTS.has(root)) return true
@@ -28,10 +29,37 @@ function isSessionScoped(queryKey: readonly unknown[]): boolean {
   )
 }
 
+type CachedProductList = { items?: { userStatus?: unknown }[] }
+
+// we do'nt delete all the list of products, but we delete
+// the user status that can be displayed if a user is connected
+// like when a user  has a product in his collection
+function withoutShelfStatus(
+  productList: CachedProductList | undefined
+): CachedProductList | undefined {
+  if (productList?.items === undefined) return productList
+  return {
+    ...productList,
+    items: productList?.items?.map((product) => {
+      return { ...product, userStatus: null }
+    }),
+  }
+}
+
+function clearShelfStatusInListCache(queryClient: QueryClient): void {
+  // Two segments only, so every list is caught whatever its filters and its user
+  for (const query of queryClient.getQueryCache().findAll({ queryKey: ['products', 'list'] })) {
+    queryClient.setQueryData<CachedProductList>(query.queryKey, withoutShelfStatus)
+  }
+}
+
 /**
- * Drop every cached query that could carry the ending session's data.
- * Public catalog and editorial queries survive, so the page the user is reading does not blank out.
+ * Runs when a session dies on its own, never on logout: logout calls queryClient.clear().
+ * Everything that belongs to the session goes.
+ * The catalogue stays, so the page being read does not blank out, and the private field
+ * on its rows is erased
  */
 export function dropSessionScopedQueries(queryClient: QueryClient): void {
   queryClient.removeQueries({ predicate: (query) => isSessionScoped(query.queryKey) })
+  clearShelfStatusInListCache(queryClient)
 }
