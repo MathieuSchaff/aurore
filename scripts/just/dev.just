@@ -31,7 +31,7 @@ _db-guard:
     # tripping `set -e -o pipefail`; an empty COUNT is the restore signal.
     COUNT=$({{COMPOSE_DEV}} exec -T db psql -U app -d appdb -tAc "SELECT count(*) FROM products" 2>/dev/null | tr -dc '0-9' || true)
     if [ -n "$COUNT" ] && [ "$COUNT" -gt 0 ]; then exit 0; fi
-    printf "{{RED}}⚠ Dev DB is empty (no products table, or 0 rows) — wiped volume, or a first clone.{{NC}}\n"
+    printf "{{RED}}⚠ Dev DB is empty (no products table, or 0 rows): wiped volume, or a first clone.{{NC}}\n"
     printf "{{YELLOW}}  Manual restore: just db-migrate && just db-snapshot-load{{NC}}\n"
     if [ ! -t 0 ]; then
         printf "{{YELLOW}}  (non-interactive → booting on an empty DB){{NC}}\n"
@@ -57,7 +57,7 @@ _db-guard:
 [script]
 profile-prod: ts-build
     if [ -z "$(docker ps -q -f name=app_api -f status=running)" ]; then
-        printf "{{RED}}app_api absent — run 'just dev-d' first (profiling reuses the dev backend).{{NC}}\n"
+        printf "{{RED}}app_api absent. Run 'just dev-d' first (profiling reuses the dev backend).{{NC}}\n"
         exit 1
     fi
     cd frontend && VITE_API_URL=http://api:3000 bunx vite build && cd ..
@@ -116,7 +116,7 @@ init: install-deps
             SECRET="$secret" perl -i -pe "s{^$var=.*}{$var=\$ENV{SECRET}}" .env.dev
         done
         printf "{{GREEN}}→ .env.dev created with generated JWT secrets{{NC}}\n"
-        printf "{{YELLOW}}  Third-party keys (Brevo, Google, Bunny) stay placeholders — the app runs without them.{{NC}}\n"
+        printf "{{YELLOW}}  Third-party keys (Brevo, Google, Bunny) stay placeholders: the app runs without them.{{NC}}\n"
     else
         printf "{{CYAN}}→ .env.dev already exists, skipping{{NC}}\n"
     fi
@@ -156,11 +156,11 @@ install-deps-ci:
 # bump CALIBRATED_FOR_TAG_DEFS_VERSION, cut a fresh `vNN-aurore` pin branch in
 # algo-derm at the target commit, then point the default below at it (a named pin,
 # not `main`, since `main` is usually the active algo-derm checkout → worktree clash).
-[doc('Rebuild the algo-derm tarball in vendor/ from a pinned ref (+ bun install --force). Env: ALGO_DERM_REF (pin branch, default v38-aurore).')]
+[doc('Rebuild the algo-derm tarball in vendor/ from a pinned ref (+ bun install --force). Env: ALGO_DERM_REF (pin branch, default v39-aurore).')]
 [group('setup')]
 [script]
 vendor-algo-derm:
-    REF="${ALGO_DERM_REF:-v38-aurore}"
+    REF="${ALGO_DERM_REF:-v39-aurore}"
     printf "{{CYAN}}Build algo-derm @ %s...{{NC}}\n" "$REF"
     WT="$(mktemp -d)"
     trap 'git -C {{ALGO_DERM_DIR}} worktree remove --force "$WT" >/dev/null 2>&1 || true' EXIT
@@ -175,7 +175,7 @@ vendor-algo-derm:
     # -a: compiled index.js carries non-ASCII bytes, so plain grep treats it as binary and drops the match.
     got="$(tar -xzOf vendor/algo-derm.tgz package/dist/engine/tags/index.js | grep -aoE 'TAG_DEFS_VERSION = [0-9]+' | grep -oE '[0-9]+$' | head -1)"
     if [ "$got" != "$want" ]; then
-        printf "{{RED}}refusing: built TAG_DEFS_VERSION=%s but Aurore is calibrated for %s — re-run audits + bump CALIBRATED_FOR first.{{NC}}\n" "$got" "$want"
+        printf "{{RED}}refusing: built TAG_DEFS_VERSION=%s but Aurore is calibrated for %s. Re-run audits + bump CALIBRATED_FOR first.{{NC}}\n" "$got" "$want"
         exit 1
     fi
     printf "{{GREEN}}✓ vendor/algo-derm.tgz updated (TAG_DEFS v%s, ref %s){{NC}}\n" "$got" "$REF"

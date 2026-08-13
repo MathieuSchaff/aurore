@@ -924,7 +924,7 @@
 
     "ajv-formats": ["ajv-formats@3.0.1", "", { "dependencies": { "ajv": "^8.0.0" } }, "sha512-8iUql50EUR+uUcdRQ3HDqa6EVyo3docL8g5WJ3FNcWmu62IbkGUue/pEyLBW8VGKKucTPgqeks4fIU1DA4yowQ=="],
 
-    "algo-derm": ["algo-derm@../vendor/algo-derm.tgz", {}, "sha512-MGcbEe7wBC9fx6AIe825x/XgcbUxFywyRvcjaVerDSgEPSRXge2o0v1lZF5pUE3tj7+ptAnp96ci5S8GFqG+nQ=="],
+    "algo-derm": ["algo-derm@../vendor/algo-derm.tgz", {}, "sha512-baDEQXNWZwBTWdwXQhryqjbSSalWbtgYpl+ewLLEFqsggVcyaxwan+r4FF9IUEXyI7hDg4WEZF4DhrJ4fRSP6w=="],
 
     "ansi-escapes": ["ansi-escapes@7.3.0", "", { "dependencies": { "environment": "^1.0.0" } }, "sha512-BvU8nYgGQBxcmMuEeUEmNTvrMVjJNSH7RgW24vXexN4Ven6qCvy4TntnvlnwnMLTVlcRQQdbRY8NKnaIoeWDNg=="],
 
