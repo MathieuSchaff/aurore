@@ -6,6 +6,7 @@ import type {
   UpdateUserProductInput,
   UpdateUserProductReviewInput,
 } from '@aurore/shared'
+import { isDisplayedProductTag } from '@aurore/shared'
 
 import { and, desc, eq, isNotNull, sql } from 'drizzle-orm'
 
@@ -30,8 +31,25 @@ const REVIEW_PUBLIC_EXCLUDE = {
 // `source` tells the INCI linker whether it owns a link. Internal bookkeeping, not product data.
 const LINK_PUBLIC_EXCLUDE = { source: false } as const
 
+// Internal-only tag slugs stay in the DB and in the audits but never leave for a client
+// (docs/adr/0017). Stripped after the query, not in it: a drizzle `with` cannot filter a
+// joined row on the joined table's own column.
+function stripInternalTags<
+  T extends { product: { productTagLinks: { productTag: { slug: string } }[] } },
+>(row: T): T {
+  return {
+    ...row,
+    product: {
+      ...row.product,
+      productTagLinks: row.product.productTagLinks.filter((link) =>
+        isDisplayedProductTag(link.productTag.slug)
+      ),
+    },
+  }
+}
+
 export async function getUserProducts(userId: string, db: DatabaseTransaction) {
-  return await db.query.userProducts.findMany({
+  const rows = await db.query.userProducts.findMany({
     where: eq(userProducts.userId, userId),
     with: {
       review: { columns: REVIEW_PUBLIC_EXCLUDE },
@@ -43,8 +61,8 @@ export async function getUserProducts(userId: string, db: DatabaseTransaction) {
               productTag: true,
             },
           },
-          // Collection list only reads ingredient id+name (useCollectionAnalysis);
-          // the full row (description/content markdown) was ~100x over-fetch per load.
+          // Collection list only reads ingredient id+name;
+          // the full row (description/content markdown) fetched ~100x too much per load.
           productIngredients: {
             columns: LINK_PUBLIC_EXCLUDE,
             with: {
@@ -55,6 +73,7 @@ export async function getUserProducts(userId: string, db: DatabaseTransaction) {
       },
     },
   })
+  return rows.map(stripInternalTags)
 }
 
 export async function getUserProductById(
@@ -87,7 +106,7 @@ export async function getUserProductById(
   if (!row) {
     throw new UserProductError('user_product_not_found')
   }
-  return row
+  return stripInternalTags(row)
 }
 
 export async function getUserProductByProductId(
@@ -120,7 +139,7 @@ export async function getUserProductByProductId(
   if (!row) {
     throw new UserProductError('user_product_not_found')
   }
-  return row
+  return stripInternalTags(row)
 }
 
 export async function createUserProduct(
@@ -160,7 +179,7 @@ export async function createUserProduct(
       throw new UserProductError('user_product_creation_failed')
     }
 
-    // Append-only: log initial transition (null to status) or re-status via upsert; skip idle upserts.
+    // Append-only: log initial transition (null to status) or a later status change via upsert; skip idle upserts.
     const fromStatus = existing?.status ?? null
     if (fromStatus !== result.status) {
       await tx.insert(userProductStatusLog).values({
@@ -391,7 +410,7 @@ function toPublicReviewView(row: PublicReviewRow): PublicReviewView {
   }
 }
 
-// ADR 0005: RLS filters non-public rows; ratings exposed only when author opted in.
+// ADR 0005: RLS filters rows that are not public; ratings exposed only when author opted in.
 // Aurore never computes or aggregates scores.
 export async function listPublicReviewsForProduct(
   db: DbOrTransaction,
@@ -424,7 +443,7 @@ export async function listPublicReviewsForProduct(
 
 // Profile-surface mirror of listPublicReviewsForProduct, keyed on the author's username.
 // Same guards plus the master profilePublic gate: the product page shows public reviews
-// even from non-public profiles, a profile page must not. Recent capped sample, never a wall.
+// even from profiles that are not public, a profile page must not. Recent capped sample, never a wall.
 const PROFILE_REVIEWS_SAMPLE_CAP = 12
 
 export async function listPublicReviewsByUser(
@@ -449,7 +468,7 @@ export async function listPublicReviewsByUser(
         eq(profiles.username, username),
         isNotNull(profiles.username),
         // Primary gate for the profile surface: RLS (profiles_select_for_public_review)
-        // exposes review pseudonyms even for non-public profiles on the product page,
+        // exposes review pseudonyms even for profiles that are not public on the product page,
         // so the stricter profile-page rule is enforced here, not by RLS.
         eq(profiles.profilePublic, true),
         eq(profiles.forcedPrivateByAdmin, false),

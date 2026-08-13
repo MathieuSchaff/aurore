@@ -197,7 +197,9 @@ export async function getProductFullBySlug(slug: string, database: DbOrTransacti
   const ingredients = await listIngredientsByProduct(database, product.id)
   // Unfiltered on purpose: ProductEditPage seeds its tag form from this payload
   // and posts it back, so dropping internal-only slugs here would erase them on
-  // every admin save. The detail page filters at render instead.
+  // every admin save. Nothing renders them today because the detail page reads
+  // `tags` through PROFILE_CATEGORIES, which lists no product_characteristic —
+  // an exclusion by scope, not a guard. Widening that list would show the claims.
   const tags = await listTagsByProduct(database, product.id)
   // Not a spread: a rename in computeInciFacts must break the build, not the payload keys.
   const { inciCount, hasFragrance } = computeInciFacts(product.inci)
