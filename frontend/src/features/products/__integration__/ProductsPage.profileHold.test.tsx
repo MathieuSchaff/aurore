@@ -14,6 +14,7 @@ import { screen, waitFor } from '@testing-library/react'
 import { HttpResponse, http } from 'msw'
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 
+import { setProfileFilterOff } from '@/features/products/profileFilterSetting'
 import { Route as ProductsIndexRouteImport } from '@/routes/products/index'
 import { useAuthStore } from '@/store/auth'
 import { server } from '@/test/msw/server'
@@ -40,7 +41,7 @@ function renderProducts() {
   const queryClient = makeClient()
   const router = createRouter({
     routeTree,
-    history: createMemoryHistory({ initialEntries: ['/products/'] }),
+    history: createMemoryHistory({ initialEntries: ['/products'] }),
     defaultPendingMs: 0,
     context: {
       queryClient,
@@ -99,10 +100,11 @@ beforeEach(() => {
 
 afterEach(() => {
   releaseProfile()
+  setProfileFilterOff(USER_ID, false)
   useAuthStore.setState({ accessToken: null, user: null, bootRefreshAttempted: false })
 })
 
-describe('ProductsPage — standing profile filter hold (A20b)', () => {
+describe('ProductsPage: standing profile filter hold', () => {
   it('keeps the anonymous list key until the standing setting resolves', async () => {
     const { queryClient } = renderProducts()
     await screen.findByText(/Hydrating Cleanser/)
@@ -143,5 +145,27 @@ describe('ProductsPage — standing profile filter hold (A20b)', () => {
         ?.items
       expect(items?.find((item) => item.id === FIRST_PRODUCT_ID)?.userStatus).toBe('in_stock')
     })
+  })
+
+  // The account that turned the toggle off has no rules to apply, so no replace is
+  // coming and the response cannot differ from the anonymous one already on screen.
+  // Under the old key this account paid a second list fetch under its own identity
+  it('never leaves the anonymous list key for an account that opted out', async () => {
+    setProfileFilterOff(USER_ID, true)
+    const { queryClient } = renderProducts()
+    await screen.findByText(/Hydrating Cleanser/)
+
+    releaseProfile()
+
+    // Gate on the settle, not on a delay: an anonymous key observed before the profile
+    // queries land proves nothing, since nothing has had the chance to flip it yet
+    await waitFor(() => {
+      expect(queryClient.getQueryState(['profile', 'dermo'])?.status).toBe('success')
+      expect(queryClient.getQueryState(['profile', 'preference-targets'])?.status).toBe('success')
+    })
+
+    // toEqual and not toContain: a second entry under the user identity is exactly the
+    // fetch this account used to pay for a list it was already reading
+    expect(listUserKeys(queryClient)).toEqual([null])
   })
 })
