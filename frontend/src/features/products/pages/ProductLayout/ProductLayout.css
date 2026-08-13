@@ -4,7 +4,289 @@
   margin-bottom: var(--space-8);
 }
 
-.product-section--cta {
+.product-detail__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-areas:
+    "hero"
+    "rail"
+    "body";
+  row-gap: var(--space-5);
+}
+
+.product-hero {
+  grid-area: hero;
   display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.product-rail {
+  grid-area: rail;
+  min-width: 0;
+}
+
+.product-detail__body {
+  grid-area: body;
+  min-width: 0;
+}
+
+@media (--lg) {
+  .detail-page-layout__content.product-detail {
+    max-width: 64rem;
+  }
+
+  .product-detail__grid {
+    grid-template-columns: minmax(0, 1fr) 16.5rem;
+    grid-template-areas:
+      "hero rail"
+      "body rail";
+    column-gap: var(--space-12);
+  }
+
+  .product-hero {
+    padding-top: var(--space-4);
+  }
+
+  .product-rail__card {
+    position: sticky;
+    top: calc(var(--nav-height) + var(--space-6));
+  }
+}
+
+.product-hero__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: var(--text-xs);
+  font-weight: var(--font-semibold);
+  letter-spacing: var(--tracking-widest);
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.product-hero__eyebrow a {
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition:
+    color var(--transition-fast) ease,
+    border-color var(--transition-fast) ease;
+}
+
+.product-hero__eyebrow a:hover {
+  color: var(--text-primary);
+  border-bottom-color: currentColor;
+}
+
+.product-hero__dot {
+  width: 3px;
+  height: 3px;
+  border-radius: var(--radius-full);
+  background: currentColor;
+  opacity: 0.4;
+}
+
+.product-hero__title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-feature-settings: var(--font-features-display);
+  font-size: clamp(1.75rem, 2.2vw + 1rem, 2.625rem);
+  font-weight: var(--font-bold);
+  letter-spacing: var(--tracking-tight);
+  line-height: var(--leading-tight);
+  color: var(--text-primary);
+  text-wrap: balance;
+}
+
+.product-hero__chips {
+  margin-top: var(--space-1);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  align-items: center;
+}
+
+.product-rail__card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  padding: var(--space-5);
+  background: var(--bg-card);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-card);
+}
+
+.product-rail__media {
+  position: relative;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--border-default);
+}
+
+.product-rail__media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  background: radial-gradient(
+    circle at 18% 12%,
+    oklch(from var(--color-accent) l c h / 0.16),
+    transparent 60%
+  );
+}
+
+.product-rail__facts {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-2);
+  margin: 0;
+}
+
+.product-rail__price {
+  font-family: var(--font-display);
+  font-feature-settings:
+    "onum" 1,
+    "tnum" 1;
+  font-size: var(--text-2xl);
+  font-weight: var(--font-bold);
+  color: var(--text-primary);
+  line-height: var(--leading-none);
+  white-space: nowrap;
+}
+
+.product-rail__amount {
+  font-feature-settings: "tnum" 1;
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.product-rail__actions {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--space-2);
+}
+
+.product-rail__actions .product-collection-action {
+  display: flex;
+}
+
+.product-rail__actions .product-collection-action .product-collection-action__save.button {
+  flex: 1;
+}
+
+.product-rail__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-1);
+  padding-top: var(--space-3);
+  border-top: 1px dashed var(--border-default);
+}
+
+.product-rail__meta .button {
+  min-width: 0;
+  white-space: normal;
+  text-align: start;
+  justify-content: flex-start;
+}
+
+.product-link {
+  display: inline-flex;
+  align-items: center;
   justify-content: center;
+  gap: var(--space-2);
+  min-width: 0;
+  max-width: 100%;
+  padding: var(--space-2) var(--space-4);
+  background: var(--bg-card);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-full);
+  color: var(--text-primary);
+  text-decoration: none;
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  white-space: nowrap;
+  transition:
+    border-color var(--transition-fast) ease,
+    background var(--transition-fast) ease,
+    color var(--transition-fast) ease;
+}
+
+.product-link:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary-dark, var(--color-primary));
+  background: var(--color-primary-subtle, var(--bg-muted));
+}
+
+.product-link:focus-visible {
+  outline: 2px solid var(--color-focus, var(--color-primary));
+  outline-offset: 2px;
+}
+
+.product-link__domain {
+  color: var(--text-muted);
+  font-size: var(--text-xs);
+  margin-left: var(--space-1);
+  padding-left: var(--space-2);
+  border-left: 1px solid var(--border-default);
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.product-rail__card .product-link {
+  align-self: stretch;
+}
+
+@media (--below-lg) {
+  .product-rail__card {
+    display: grid;
+    grid-template-columns: 6.5rem minmax(0, 1fr);
+    grid-template-areas:
+      "media facts"
+      "media actions"
+      "link link"
+      "meta meta";
+    column-gap: var(--space-4);
+    row-gap: var(--space-3);
+    align-items: center;
+    padding: var(--space-4);
+  }
+
+  .product-rail__media {
+    grid-area: media;
+    align-self: start;
+  }
+
+  .product-rail__facts {
+    grid-area: facts;
+    justify-content: flex-start;
+    gap: var(--space-3);
+  }
+
+  .product-rail__actions {
+    grid-area: actions;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .product-link {
+    grid-area: link;
+    justify-self: start;
+  }
+
+  .product-rail__meta {
+    grid-area: meta;
+    padding-top: var(--space-2);
+  }
 }
