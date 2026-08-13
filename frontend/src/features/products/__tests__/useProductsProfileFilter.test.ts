@@ -35,11 +35,11 @@ function mockProfileQueries({ portrait = true, settled = true } = {}) {
   })
 }
 
-function setup(urlValue: boolean | undefined = undefined, userId: string | null = USER_ID) {
-  return renderHook(() => useProductsProfileFilter({ urlValue, userId }))
+function setup(urlProfileFilter: boolean | undefined = undefined, userId: string | null = USER_ID) {
+  return renderHook(() => useProductsProfileFilter({ urlProfileFilter, userId }))
 }
 
-describe('useProductsProfileFilter — standing setting', () => {
+describe('useProductsProfileFilter: standing setting', () => {
   beforeEach(() => {
     navigateMock.mockClear()
     window.localStorage.clear()
@@ -85,7 +85,7 @@ describe('useProductsProfileFilter — standing setting', () => {
     expect(navigateMock).toHaveBeenCalledTimes(1)
   })
 
-  // A20b: the queries can land after a card click already pushed the product
+  // The queries can land after a card click already pushed the product
   // location. Replacing then would commit over it and bounce the visitor back.
   it('does not replace once a card click has left the list', () => {
     pathname = '/products/cerave-hydrating-cleanser'
@@ -94,7 +94,7 @@ describe('useProductsProfileFilter — standing setting', () => {
   })
 })
 
-describe('useProductsProfileFilter — unresolved', () => {
+describe('useProductsProfileFilter: unresolved', () => {
   beforeEach(() => {
     navigateMock.mockClear()
     window.localStorage.clear()
@@ -113,7 +113,7 @@ describe('useProductsProfileFilter — unresolved', () => {
     expect(setup().result.current.unresolved).toBe(false)
   })
 
-  // A20c: the replace only commits on an effect, one render after the queries settle.
+  // The replace only commits on an effect, one render after the queries settle.
   // Releasing on settle flips the cache key with the URL still unstated and pays a
   // list fetch of the very filters the replace immediately discards.
   it('holds past the settle while a replace is still coming', () => {
@@ -153,15 +153,15 @@ describe('useProductsProfileFilter — unresolved', () => {
 
   it('stays released once the replace has committed', () => {
     const { result, rerender } = renderHook(
-      ({ urlValue }: { urlValue: boolean | undefined }) =>
-        useProductsProfileFilter({ urlValue, userId: USER_ID }),
-      { initialProps: { urlValue: undefined as boolean | undefined } }
+      ({ urlProfileFilter }: { urlProfileFilter: boolean | undefined }) =>
+        useProductsProfileFilter({ urlProfileFilter, userId: USER_ID }),
+      { initialProps: { urlProfileFilter: undefined as boolean | undefined } }
     )
     expect(result.current.unresolved).toBe(true)
     // A background refetch keeps status 'success', so the hold cannot come back and
     // strand the page on the anonymous key after the list already swapped.
     mockProfileQueries()
-    rerender({ urlValue: true })
+    rerender({ urlProfileFilter: true })
     expect(result.current.unresolved).toBe(false)
   })
 })

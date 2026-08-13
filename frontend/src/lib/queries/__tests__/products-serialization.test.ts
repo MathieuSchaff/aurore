@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest'
 
 import { buildListProductsQuery } from '../products'
 
-describe('buildListProductsQuery — empty', () => {
+describe('buildListProductsQuery: empty', () => {
   it('returns an empty object when no filters are set', () => {
     expect(buildListProductsQuery({})).toEqual({})
   })
@@ -17,7 +17,7 @@ describe('buildListProductsQuery — empty', () => {
   })
 })
 
-describe('buildListProductsQuery — array filters', () => {
+describe('buildListProductsQuery: array filters', () => {
   it('joins a single string value as-is', () => {
     expect(buildListProductsQuery({ brand: 'CeraVe' })).toEqual({ brand: 'CeraVe' })
   })
@@ -39,7 +39,6 @@ describe('buildListProductsQuery — array filters', () => {
       product_characteristic: ['vegan', 'non-comedogene'],
       routine_step: ['matin'],
       ingredient: ['niacinamide'],
-      avoid_for: ['peau-sensible'],
     })
     expect(q).toEqual({
       brand: 'A',
@@ -51,7 +50,6 @@ describe('buildListProductsQuery — array filters', () => {
       product_characteristic: 'vegan,non-comedogene',
       routine_step: 'matin',
       ingredient: 'niacinamide',
-      avoid_for: 'peau-sensible',
     })
   })
 
@@ -97,7 +95,7 @@ describe('buildListProductsQuery — array filters', () => {
   })
 })
 
-describe('buildListProductsQuery — sort', () => {
+describe('buildListProductsQuery: sort', () => {
   it('includes sort when set', () => {
     expect(buildListProductsQuery({ sort: 'price_asc' })).toEqual({ sort: 'price_asc' })
   })
@@ -107,7 +105,7 @@ describe('buildListProductsQuery — sort', () => {
   })
 })
 
-describe('buildListProductsQuery — price range', () => {
+describe('buildListProductsQuery: price range', () => {
   it('stringifies priceMin', () => {
     expect(buildListProductsQuery({ priceMin: 1500 })).toEqual({ priceMin: '1500' })
   })
@@ -128,7 +126,7 @@ describe('buildListProductsQuery — price range', () => {
   })
 })
 
-describe('buildListProductsQuery — pagination', () => {
+describe('buildListProductsQuery: pagination', () => {
   it('stringifies page and limit', () => {
     expect(buildListProductsQuery({ page: 3, limit: 20 })).toEqual({
       page: '3',
@@ -143,7 +141,7 @@ describe('buildListProductsQuery — pagination', () => {
   })
 })
 
-describe('buildListProductsQuery — adversarial / edge-case inputs', () => {
+describe('buildListProductsQuery: adversarial / edge-case inputs', () => {
   // Empty string is falsy and filtered; [''] is truthy and leaks through.
   it('single empty string is filtered out', () => {
     expect(buildListProductsQuery({ brand: '' })).toEqual({})
@@ -200,11 +198,6 @@ describe('buildListProductsQuery — adversarial / edge-case inputs', () => {
     expect(q.concern).toBe('acne,acne')
   })
 
-  it('serializes multiple avoid_for slugs as CSV', () => {
-    const q = buildListProductsQuery({ avoid_for: ['peau-sensible', 'comedogene'] })
-    expect(q.avoid_for).toBe('peau-sensible,comedogene')
-  })
-
   it('ignores extra properties not handled by addParam', () => {
     const filters = { brand: 'CeraVe', unknown_key: 'value' } as Parameters<
       typeof buildListProductsQuery
@@ -215,7 +208,7 @@ describe('buildListProductsQuery — adversarial / edge-case inputs', () => {
   })
 })
 
-describe('buildListProductsQuery — category and kind', () => {
+describe('buildListProductsQuery: category and kind', () => {
   it('serializes a domain tab category', () => {
     const q = buildListProductsQuery({ category: 'haircare' })
     expect(q.category).toBe('haircare')

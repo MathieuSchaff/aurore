@@ -49,11 +49,11 @@ const booleanQueryParam = z.union([
 const baseListProductsQuery = z.object({
   brand: z.string().optional(),
   ingredient: z.string().optional(),
-  avoid_for: z.string().optional(),
   // "Selon mon profil": apply the caller's DECLARED rules. "Sans X" (exclude)
   // removes rows containing X; "Avec X" (require) keeps only rows containing at
   // least one required target. include_excluded lifts both effects, annotations
-  // stay. Inferred avoid_for badges are separate and never hide rows.
+  // stay. The same flag also turns on the inferred avoid badges, which the server
+  // derives from the caller's portrait and which never hide rows.
   apply_preferences: booleanQueryParam.optional(),
   include_excluded: booleanQueryParam.optional(),
   // Free-text search across product name + brand. Used as a fallback intent
