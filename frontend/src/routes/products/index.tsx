@@ -1,13 +1,12 @@
 import { createFileRoute, stripSearchParams } from '@tanstack/react-router'
 
 import { productsSearchDefaults, productsSearchSchema } from '@/features/products/filters'
-import { deriveAvoidFor, productsListApiFilters } from '@/features/products/helpers'
+import { productsListApiFilters } from '@/features/products/helpers'
 import { ProductsPage } from '@/features/products/pages/ProductsPage/ProductsPage'
-import { readOptOut } from '@/features/products/standingProfileFilter'
+import { isProfileFilterUndecided } from '@/features/products/profileFilterSetting'
 import { awaitBootRefresh } from '@/lib/auth/awaitBootRefresh'
 import { isServer } from '@/lib/helpers/isServer'
 import { convergeShelfStatusForList, productQueries } from '@/lib/queries/products'
-import { resolveDermoForList } from '@/lib/queries/profile'
 import { seoHead } from '@/lib/seo'
 import { useAuthStore } from '@/store/auth'
 
@@ -23,19 +22,17 @@ export const Route = createFileRoute('/products/')({
   },
   loader: async ({ context, deps }) => {
     // Cold authenticated sessions wait for the root boot probe; anonymous visitors
-    // fetch right away. Skip on the server: hasSessionHint reads document.cookie.
-    if (!isServer) await awaitBootRefresh(context.queryClient)
+    // fetch right away.
+    await awaitBootRefresh(context.queryClient)
 
     const userId = useAuthStore.getState().user?.id ?? null
-    const dermo = await resolveDermoForList(context.queryClient, userId, deps.profile_filter)
-    const avoidFor = deriveAvoidFor(dermo, deps.profile_filter)
-    const filters = productsListApiFilters(deps, avoidFor, !!userId)
+    const filters = productsListApiFilters(deps, !!userId)
 
     if (userId) {
       // The boot refresh invalidates this loader, which runs again while the page is
       // still holding the anonymous key. Converging under the user key there would
       // fetch a list nobody reads; the statuses go onto the entry on screen instead.
-      const holding = deps.profile_filter === undefined && !readOptOut(userId)
+      const holding = isProfileFilterUndecided(deps.profile_filter, userId)
       void convergeShelfStatusForList(context.queryClient, filters, userId, holding ? null : userId)
       return
     }
