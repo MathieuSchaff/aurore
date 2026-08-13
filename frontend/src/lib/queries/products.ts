@@ -24,7 +24,7 @@ import { type ApiData, api } from '../api'
 import { ApiError, throwIfNotOk } from '../helpers/apiError'
 import { applyOptimisticUpdates, optimisticCacheUpdate } from './optimistic'
 
-// Pre-serialization shape; local because Hono RPC expects Record<string,string>.
+// Shape before serialization; local because Hono RPC expects Record<string,string>.
 export type ListProductsFilters = {
   category?: ProductDomainTab
   kind?: string | string[]
@@ -102,11 +102,12 @@ export const productQueries = {
       staleTime: 5 * 60 * 1000,
     }),
 
-  // userKey gives each user their own cached list, so login/logout swaps in the right
-  // personalized fields (shelf status) instead of showing the previous user's.
-  list: (filters: ListProductsFilters = {}, userKey: string | null = null) =>
+  // Identity enters the key only when the rules can reshape the response
+  // (apply_preferences); without them an authed visitor reads the anonymous entry instead
+  // of paying a second fetch for rows that cannot differ. Shelf status rides the overlay
+  list: (filters: ListProductsFilters = {}, userId: string | null = null) =>
     queryOptions({
-      queryKey: [...productKeys.list(filters), userKey] as const,
+      queryKey: [...productKeys.list(filters), filters.apply_preferences ? userId : null] as const,
       queryFn: async () => {
         // Cast: Hono RPC's Zod union vs. our stringified record; accepted at runtime.
         const query = buildListProductsQuery(filters) as Parameters<
@@ -114,7 +115,7 @@ export const productQueries = {
         >[0]['query']
         const res = await api.products.$get({ query })
         // throwIfNotOk (not `if (!res.ok)`) to keep the backend code+retryAfter on the
-        // ApiError so a 429 surfaces "retry in Ns"; re-narrow the union after.
+        // ApiError so a 429 surfaces "retry in Ns"; narrow the union again after.
         await throwIfNotOk(res)
         const json = await res.json()
         if (!json.success) throw new ApiError('http_error', res.status)
@@ -213,7 +214,7 @@ export const productQueries = {
       staleTime: 30 * 1000,
     }),
 
-  // Flat (non-paginated) variant for AsyncSearchSelect typeahead.
+  // Flat (not paginated) variant for AsyncSearchSelect typeahead.
   searchFlat: (q: string) =>
     queryOptions({
       queryKey: [...productKeys.all, 'search-flat', q] as const,
@@ -359,11 +360,11 @@ function applyShelfStatusOverlay(
 export function applyShelfStatusOverlayToListCache(
   qc: QueryClient,
   filters: ListProductsFilters,
-  userKey: string | null,
+  userId: string | null,
   requestedIds: ReadonlySet<string>,
   statusByProductId: ReadonlyMap<string, UserProductStatus>
 ): void {
-  qc.setQueryData<ProductListData>(productQueries.list(filters, userKey).queryKey, (current) => {
+  qc.setQueryData<ProductListData>(productQueries.list(filters, userId).queryKey, (current) => {
     if (!current) return current
     return applyShelfStatusOverlay(current, requestedIds, statusByProductId)
   })
@@ -371,23 +372,22 @@ export function applyShelfStatusOverlayToListCache(
 
 // Ensures one product list has a shelf-status overlay. The list fetch is the normal
 // catalogue fetch for that navigation; the overlay only reads statuses for its ids.
-// A null userKey targets the anonymous cache entry the page is still showing, so the
-// statuses land on it instead of paying for a second list under the user's key.
+// Both sides go through productQueries.list, so the statuses land on the entry the page
+// is reading: the anonymous one while the filters carry no rules
 export async function convergeShelfStatusForList(
   qc: QueryClient,
   filters: ListProductsFilters,
-  userId: string,
-  userKey: string | null = userId
+  userId: string
 ): Promise<void> {
   try {
-    const listData = await qc.ensureQueryData(productQueries.list(filters, userKey))
+    const listData = await qc.ensureQueryData(productQueries.list(filters, userId))
     const productIds = listData.items.map((item) => item.id)
     if (productIds.length === 0) return
 
     const statusByProductId = await qc.ensureQueryData(
       productQueries.shelfStatus(userId, productIds)
     )
-    applyShelfStatusOverlayToListCache(qc, filters, userKey, new Set(productIds), statusByProductId)
+    applyShelfStatusOverlayToListCache(qc, filters, userId, new Set(productIds), statusByProductId)
   } catch {
     // Best-effort: the catalogue remains usable; later navigation/refetch can retry the overlay.
   }
