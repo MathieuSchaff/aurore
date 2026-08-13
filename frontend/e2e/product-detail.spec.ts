@@ -20,7 +20,7 @@ test.beforeEach(async ({ page }) => {
   await loginAsSeed(page)
 })
 
-test.describe('Product detail — Modifier', () => {
+test.describe('Product detail: Modifier', () => {
   // Read-only tests. The tests that PATCH this product live in
   // product-edit.mutation.spec.ts (single-project file, see e2e.md).
   test('"Modifier" button navigates to edit page with form prefilled', async ({ page }) => {
@@ -61,11 +61,11 @@ test.describe('Product detail — Modifier', () => {
   })
 })
 
-test.describe('Product detail — Ajouter à la collection (top-right)', () => {
+test.describe('Product detail: Ajouter à la collection (top-right)', () => {
   test('opens modal seeded with the current product', async ({ page }) => {
     await gotoFirstProductDetail(page)
     const productName = await page.getByRole('heading', { level: 1 }).innerText()
-    const brand = await page.locator('.detail-hero__eyebrow a').innerText()
+    const brand = await page.locator('.product-hero__eyebrow a').innerText()
 
     await detailedCollectionAction(page).click()
 
@@ -127,7 +127,7 @@ test.describe('Product detail — Ajouter à la collection (top-right)', () => {
   })
 })
 
-test.describe('Product detail — Discussions tab', () => {
+test.describe('Product detail: Discussions tab', () => {
   test('switching to Discussions updates URL and shows form opener', async ({ page }) => {
     const slug = await gotoFirstProductDetail(page)
 
@@ -204,7 +204,7 @@ test.describe('Product detail — Discussions tab', () => {
   })
 })
 
-test.describe('Product detail — Lecture de la formule', () => {
+test.describe('Product detail: Lecture de la formule', () => {
   // FormulaReading only mounts when the product has an INCI.
   async function findSlugWithInci(page: Page): Promise<string> {
     const list = await page.request.get('/api/products?category=skincare&sort=name&limit=10')
@@ -539,7 +539,7 @@ test.describe('Product detail — Lecture de la formule', () => {
   })
 })
 
-test.describe('Product detail — Profil de la formule', () => {
+test.describe('Product detail: Profil de la formule', () => {
   // Both tests fetch-then-modify the detail endpoint under test. Deliberate
   // deviation from e2e.md (do not mock the stack): the assertions need a tag
   // mix no seed product guarantees. Only data.tags is rewritten.

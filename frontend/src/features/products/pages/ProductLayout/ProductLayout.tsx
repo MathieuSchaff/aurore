@@ -10,17 +10,18 @@ import {
   useRouter,
   useRouterState,
 } from '@tanstack/react-router'
-import { MessageSquare, Pencil } from 'lucide-react'
+import { ExternalLink, MessageSquare, Pencil } from 'lucide-react'
 import { useCallback } from 'react'
 
-import { Badge, type BadgeVariant } from '@/component/DataDisplay/Badge/Badge'
 import { CatalogQualityBadge } from '@/component/DataDisplay/CatalogQualityBadge/CatalogQualityBadge'
-import { DetailHero } from '@/component/Layout/DetailHero/DetailHero'
 import { DetailPageLayout } from '@/component/Layout/PageLayout/DetailPageLayout'
-import { PageTopActions, PageTopActionsRight } from '@/component/Layout/PageLayout/PageTopActions'
+import { PageTopActions } from '@/component/Layout/PageLayout/PageTopActions'
 import { type TabOption, Tabs } from '@/component/Tabs/Tabs'
+import { ReportContentButton } from '@/features/discussions/components/ReportContentButton'
+import { SuggestEditButton } from '@/features/discussions/components/SuggestEditButton'
 import { ProductCollectionAction } from '@/features/products/components/ProductCollectionAction/ProductCollectionAction'
 import { productQueries } from '@/lib/queries/products'
+import { sanitizeUrl } from '@/lib/url'
 import { useAuthStore } from '@/store/auth'
 import '@/features/products/styles/kinds.css'
 import '@/features/products/pages/ProductInfoTab/ProductInfoTab.css'
@@ -33,27 +34,20 @@ import { ProductImage } from '@/features/products/components/ProductImage/Produc
 const route = getRouteApi('/products/$slug')
 const eurFormatter = new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' })
 
-function getBadgeVariant(kind: string): BadgeVariant {
-  switch (kind) {
-    case 'complement':
-      return 'complement'
-    case 'skincare':
-      return 'skincare'
-    case 'huile':
-      return 'huile'
-    case 'vitamine':
-      return 'vitamine'
-    default:
-      return 'default'
-  }
-}
-
 type ProductTab = 'infos' | 'discussions'
 
 const TAB_OPTIONS: TabOption<ProductTab>[] = [
   { id: 'infos', label: 'Infos' },
   { id: 'discussions', label: 'Discussions', icon: <MessageSquare size={14} /> },
 ]
+
+function getDomain(url: string): string | null {
+  try {
+    return new URL(url).hostname.replace(/^www\./, '')
+  } catch {
+    return null
+  }
+}
 
 export function ProductLayout() {
   const { slug } = route.useParams()
@@ -62,7 +56,7 @@ export function ProductLayout() {
   const navigate = useNavigate()
   const router = useRouter()
   const canGoBack = useCanGoBack()
-  // Subscribe to a boolean, not the whole location, to skip re-renders on search-param churn.
+  // Subscribe to a boolean, not the whole location, to skip renders
   const isDiscussions = useRouterState({
     select: (s) => s.location.pathname.includes('/discussions'),
   })
@@ -72,6 +66,12 @@ export function ProductLayout() {
     product.priceCents != null && product.priceCents > 0
       ? eurFormatter.format(product.priceCents / 100)
       : null
+  const amountFormatted =
+    product.totalAmount != null && product.totalAmount > 0
+      ? `${product.totalAmount} ${product.amountUnit ?? product.unit}`
+      : null
+  const safeUrl = sanitizeUrl(product.url)
+  const externalDomain = safeUrl ? getDomain(safeUrl) : null
 
   const handleTabChange = useCallback(
     (id: ProductTab) => {
@@ -97,49 +97,16 @@ export function ProductLayout() {
   }, [canGoBack, router, navigate])
 
   return (
-    <DetailPageLayout banner={true}>
+    <DetailPageLayout banner={true} contentClassName="product-detail">
       <PageTopActions>
         <BackButton onClick={handleBack} prominence="strong">
           Retour aux produits
         </BackButton>
-        <PageTopActionsRight>
-          {/* Edit route is auth-gated; hide the affordance for anon instead of a login redirect. */}
-          {user && (
-            <ButtonLink
-              to="/products/$slug/edit"
-              params={{ slug }}
-              variant="secondary"
-              className="action-edit"
-              aria-label="Modifier ce produit"
-            >
-              <Pencil size={14} />
-              <span className="action-edit__label">Modifier</span>
-            </ButtonLink>
-          )}
-          <ProductCollectionAction
-            product={{
-              id: product.id,
-              name: product.name,
-              brand: product.brand,
-              priceCents: product.priceCents,
-            }}
-          />
-        </PageTopActionsRight>
       </PageTopActions>
 
-      <DetailHero
-        className="product-hero"
-        media={
-          <ProductImage
-            kind={product.kind}
-            unit={product.unit}
-            imageUrl={product.imageUrl}
-            size={168}
-            className="product-hero__image"
-          />
-        }
-        eyebrow={
-          <>
+      <div className="product-detail__grid">
+        <header className="product-hero">
+          <p className="product-hero__eyebrow">
             <Link
               to="/products"
               search={{ brand: [product.brand] }}
@@ -147,39 +114,88 @@ export function ProductLayout() {
             >
               {product.brand}
             </Link>
-            <span className="detail-hero__dot" aria-hidden="true" />
+            <span className="product-hero__dot" aria-hidden="true" />
             <span>{getProductKindLabel(product.kind)}</span>
-          </>
-        }
-        title={product.name}
-        titleViewTransition={`product-name-${slug}`}
-        chips={
-          <>
-            <Badge variant={getBadgeVariant(product.kind)} className="product-hero__kind">
-              {getProductKindLabel(product.kind)}
-            </Badge>
+          </p>
+          <h1
+            className="product-hero__title"
+            style={{ viewTransitionName: `product-name-${slug}` }}
+          >
+            {product.name}
+          </h1>
+          <div className="product-hero__chips">
             <CatalogQualityBadge quality={product.catalogQuality} />
-            {product.totalAmount != null && product.totalAmount > 0 && (
-              <span className="product-hero__amount">
-                {product.totalAmount} {product.amountUnit ?? product.unit}
-              </span>
+          </div>
+        </header>
+
+        <aside className="product-rail" aria-label="Fiche produit">
+          <div className="product-rail__card">
+            <div className="product-rail__media">
+              <ProductImage
+                kind={product.kind}
+                unit={product.unit}
+                imageUrl={product.imageUrl}
+                fill
+              />
+            </div>
+            {(priceFormatted || amountFormatted) && (
+              <p className="product-rail__facts">
+                {priceFormatted && <span className="product-rail__price">{priceFormatted}</span>}
+                {amountFormatted && <span className="product-rail__amount">{amountFormatted}</span>}
+              </p>
             )}
-          </>
-        }
-        aside={priceFormatted ? <span className="product-price">{priceFormatted}</span> : undefined}
-      />
+            <div className="product-rail__actions">
+              <ProductCollectionAction
+                product={{
+                  id: product.id,
+                  name: product.name,
+                  brand: product.brand,
+                  priceCents: product.priceCents,
+                }}
+              />
+              {user && (
+                <ButtonLink
+                  to="/products/$slug/edit"
+                  params={{ slug }}
+                  variant="secondary"
+                  aria-label="Modifier ce produit"
+                >
+                  <Pencil size={14} />
+                  <span>Modifier</span>
+                </ButtonLink>
+              )}
+            </div>
+            {safeUrl !== null && (
+              <a href={safeUrl} target="_blank" rel="noopener noreferrer" className="product-link">
+                <ExternalLink size={14} aria-hidden="true" />
+                <span>Voir le produit</span>
+                {externalDomain && <span className="product-link__domain">{externalDomain}</span>}
+                <span className="sr-only"> (nouvel onglet)</span>
+              </a>
+            )}
+            {user && (
+              <div className="product-rail__meta">
+                <SuggestEditButton targetType="product" targetId={product.id} />
+                <ReportContentButton targetType="product" targetId={product.id} />
+              </div>
+            )}
+          </div>
+        </aside>
 
-      <Tabs
-        options={TAB_OPTIONS}
-        activeTab={activeTab}
-        onTabChange={handleTabChange}
-        variant="underline"
-        ariaLabel="Sections du produit"
-        hasPanels={false}
-      />
+        <div className="product-detail__body">
+          <Tabs
+            options={TAB_OPTIONS}
+            activeTab={activeTab}
+            onTabChange={handleTabChange}
+            variant="underline"
+            ariaLabel="Sections du produit"
+            hasPanels={false}
+          />
 
-      <div style={{ viewTransitionName: 'tab-content' }}>
-        <Outlet />
+          <div style={{ viewTransitionName: 'tab-content' }}>
+            <Outlet />
+          </div>
+        </div>
       </div>
     </DetailPageLayout>
   )

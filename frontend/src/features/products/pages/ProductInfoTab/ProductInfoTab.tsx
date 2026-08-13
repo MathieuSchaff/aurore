@@ -2,10 +2,8 @@ import { resolveAvoidSlugs } from '@aurore/shared'
 
 import { useQuery, useSuspenseQuery } from '@tanstack/react-query'
 import { getRouteApi, Link } from '@tanstack/react-router'
-import { Check, ChevronDown, Copy, ExternalLink, FlaskConical, StickyNote } from 'lucide-react'
+import { Check, ChevronDown, Copy, FlaskConical, StickyNote } from 'lucide-react'
 import { lazy, Suspense, useCallback, useId, useMemo } from 'react'
-
-import { sanitizeUrl } from '../../../../lib/url'
 
 // Defer ~50KB gzip; description is below the fold on first paint.
 const Markdown = lazy(() => import('react-markdown'))
@@ -18,8 +16,6 @@ import { IconBox } from '@/component/Layout/IconBox/IconBox'
 import { RichText } from '@/component/Typography/RichText/RichText'
 import { SectionHeader } from '@/component/Typography/SectionHeader/SectionHeader'
 import { SKIN_CONCERN_LABELS, SKIN_TYPE_LABELS } from '@/constants/skin'
-import { ReportContentButton } from '@/features/discussions/components/ReportContentButton'
-import { SuggestEditButton } from '@/features/discussions/components/SuggestEditButton'
 import { FormulaConcentrations } from '@/features/products/components/FormulaConcentrations/FormulaConcentrations'
 import { FormulaProfile } from '@/features/products/components/FormulaProfile/FormulaProfile'
 import { FormulaReading } from '@/features/products/components/FormulaReading/FormulaReading'
@@ -53,15 +49,6 @@ function profileLabel(slug: string): string {
     SKIN_CONCERN_LABELS[slug as keyof typeof SKIN_CONCERN_LABELS] ??
     tagLabel(slug)
   )
-}
-
-function getDomain(url: string | null): string | null {
-  if (!url) return null
-  try {
-    return new URL(url).hostname.replace(/^www\./, '')
-  } catch {
-    return null
-  }
 }
 
 export function ProductInfoTab() {
@@ -125,9 +112,6 @@ export function ProductInfoTab() {
     [profileSlugs, product.tags, product.inci]
   )
 
-  const safeUrl = sanitizeUrl(product.url)
-  const externalDomain = getDomain(safeUrl)
-
   return (
     <>
       {warnings.length > 0 && (
@@ -163,32 +147,30 @@ export function ProductInfoTab() {
 
       <FormulaProfile tags={product.tags} />
 
-      {product.description && (
-        <details className="product-section product-inci product-brand-copy" open>
-          <summary className="product-inci__summary">
-            <span>Texte de la marque</span>
-            <ChevronDown size={14} className="product-inci__chevron" aria-hidden="true" />
-          </summary>
-          {/* Manufacturer copy: commercial voice, not vetted by Aurore - keep it boxed off. */}
-          <div className="product-brand-copy__body">
-            <p className="product-brand-copy__note">Voix commerciale, non vérifiée par Aurore.</p>
-            <RichText className="product-description">
-              <Suspense fallback={<p>{product.description}</p>}>
-                <Markdown>{product.description}</Markdown>
-              </Suspense>
-            </RichText>
-          </div>
-        </details>
+      {product.inci && (
+        <FormulaReading
+          slug={slug}
+          userKey={user?.id ?? null}
+          profileSlugs={profileSlugs}
+          linkedIngredients={product.ingredients ?? []}
+        />
       )}
 
-      {product.inci && (
-        <details className="product-section product-inci" open>
-          <summary className="product-inci__summary">
-            <span>Composition INCI complète</span>
-            <ChevronDown size={14} className="product-inci__chevron" aria-hidden="true" />
-          </summary>
-          <p className="product-inci__body">{product.inci}</p>
-        </details>
+      {product.notes && (
+        <aside
+          className="product-section product-notes-block"
+          aria-labelledby="product-notes-title"
+        >
+          <IconBox className="product-notes-block__icon">
+            <StickyNote size={14} />
+          </IconBox>
+          <div>
+            <h3 id="product-notes-title" className="product-notes-block__title">
+              Notes
+            </h3>
+            <p className="product-notes-block__body">{product.notes}</p>
+          </div>
+        </aside>
       )}
 
       {hasIngredients && (
@@ -270,51 +252,37 @@ export function ProductInfoTab() {
         </div>
       )}
 
-      {product.inci && (
-        <FormulaReading
-          slug={slug}
-          userKey={user?.id ?? null}
-          profileSlugs={profileSlugs}
-          linkedIngredients={product.ingredients ?? []}
-        />
-      )}
-
-      {product.notes && (
-        <aside
-          className="product-section product-notes-block"
-          aria-labelledby="product-notes-title"
-        >
-          <IconBox className="product-notes-block__icon">
-            <StickyNote size={14} />
-          </IconBox>
-          <div>
-            <h3 id="product-notes-title" className="product-notes-block__title">
-              Notes
-            </h3>
-            <p className="product-notes-block__body">{product.notes}</p>
-          </div>
-        </aside>
-      )}
-
-      {safeUrl !== null && (
-        <div className="product-section product-section--cta">
-          <a href={safeUrl} target="_blank" rel="noopener noreferrer" className="product-link">
-            <ExternalLink size={14} aria-hidden="true" />
-            <span>Voir le produit</span>
-            {externalDomain && <span className="product-link__domain">{externalDomain}</span>}
-            <span className="sr-only"> (nouvel onglet)</span>
-          </a>
-        </div>
-      )}
-
-      {user && (
-        <div className="product-section">
-          <ReportContentButton targetType="product" targetId={product.id} />
-          <SuggestEditButton targetType="product" targetId={product.id} />
-        </div>
-      )}
-
       {product.inci && <FormulaConcentrations slug={slug} userKey={user?.id ?? null} />}
+
+      {/* Raw technical detail stays behind a closed disclosure: group-before-detail,
+          the INCI wall is available on demand, never part of the first read. */}
+      {product.inci && (
+        <details className="product-section product-inci">
+          <summary className="product-inci__summary">
+            <span>Composition INCI complète</span>
+            <ChevronDown size={14} className="product-inci__chevron" aria-hidden="true" />
+          </summary>
+          <p className="product-inci__body">{product.inci}</p>
+        </details>
+      )}
+
+      {product.description && (
+        <details className="product-section product-inci product-brand-copy">
+          <summary className="product-inci__summary">
+            <span>Texte de la marque</span>
+            <ChevronDown size={14} className="product-inci__chevron" aria-hidden="true" />
+          </summary>
+          {/* Manufacturer copy: commercial voice, not vetted by Aurore. Keep it boxed off. */}
+          <div className="product-brand-copy__body">
+            <p className="product-brand-copy__note">Voix commerciale, non vérifiée par Aurore.</p>
+            <RichText className="product-description">
+              <Suspense fallback={<p>{product.description}</p>}>
+                <Markdown>{product.description}</Markdown>
+              </Suspense>
+            </RichText>
+          </div>
+        </details>
+      )}
     </>
   )
 }
