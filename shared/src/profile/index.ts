@@ -10,7 +10,7 @@ const profileLinkSchema = z.object({
   url: safeUrl,
 })
 
-const profilePublicSchema = z.object({
+export const profilePublicSchema = z.object({
   userId: z.uuid(),
   username: z.string().max(USERNAME_MAX_LENGTH).nullable().optional(),
   bio: z.string().max(BIO_MAX_LENGTH).nullable().optional(),
@@ -55,7 +55,7 @@ const profileStatsSchema = z.object({
 })
 
 // Master `profilePublic` gates all field-level flags: when false, no field is
-// exposed regardless of its sub-flag. `discoverable` is separate consent to
+// exposed regardless of its own flag. `discoverable` is separate consent to
 // matching (similarity engine may rank this profile) and is independent from
 // `skinConcernsPublic`: a profile can be matched via a shared bucket without
 // exposing raw concerns. Opt-in, defaults off.

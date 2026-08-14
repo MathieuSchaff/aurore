@@ -92,7 +92,7 @@ export async function verifyRefreshToken(
 }
 
 export async function extractRefreshToken(c: Context<AppEnv>): Promise<string | null> {
-  const fromCookie = getCookie(c, REFRESH_TOKEN_COOKIE)
+  const fromCookie = getRefreshTokenCookie(c)
   if (fromCookie) return fromCookie
 
   // Mobile clients cannot read HttpOnly cookies, so accept token from JSON body.
@@ -107,6 +107,10 @@ export async function extractRefreshToken(c: Context<AppEnv>): Promise<string | 
   }
 
   return null
+}
+
+export function getRefreshTokenCookie(c: Context<AppEnv>): string | null {
+  return getCookie(c, REFRESH_TOKEN_COOKIE) ?? null
 }
 
 export function setRefreshTokenCookie(

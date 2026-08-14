@@ -19,10 +19,8 @@ import { eq } from 'drizzle-orm'
 import type { Context } from 'hono'
 import { Hono } from 'hono'
 import { deleteCookie, getCookie, setCookie } from 'hono/cookie'
-import { csrf } from 'hono/csrf'
 
 import type { AppEnv } from '../../app-env'
-import { env } from '../../config/env'
 import { withAdminRls } from '../../db/rls'
 import { usersSafe } from '../../db/schema'
 import { getAuthedUserId, getRlsDb } from '../../utils/accessors'
@@ -80,49 +78,13 @@ function checkResendLimit(userId: string): boolean {
   return true
 }
 
-// Prod: the browser Origin must equal FRONTEND_URL exactly. Dev: a real phone reaches
-// the Vite server by LAN IP, so its Origin (http://192.168.x.x:5173) never matches
-// FRONTEND_URL (localhost). Bodyless auth POSTs (demo/logout/refresh) send no JSON
-// content-type, so Hono csrf falls back to the Origin check and 403s them. Accept
-// same-port private-network origins in non-prod only; prod stays strict.
-const DEV_FRONTEND_PORT = (() => {
-  try {
-    return new URL(env.FRONTEND_URL).port
-  } catch {
-    return ''
-  }
-})()
-
-const isPrivateHost = (host: string): boolean =>
-  host === 'localhost' ||
-  host === '::1' ||
-  host.endsWith('.local') ||
-  /^127\./.test(host) ||
-  /^10\./.test(host) ||
-  /^192\.168\./.test(host) ||
-  /^172\.(1[6-9]|2\d|3[01])\./.test(host)
-
-const isTrustedCsrfOrigin = (origin: string): boolean => {
-  if (origin === env.FRONTEND_URL) return true
-  if (env.NODE_ENV === 'production' || !origin) return false
-  try {
-    const u = new URL(origin)
-    return u.protocol === 'http:' && u.port === DEV_FRONTEND_PORT && isPrivateHost(u.hostname)
-  } catch {
-    return false
-  }
-}
-
 const app = new Hono<AppEnv>()
 
 app.use('*', rateLimiterFunc)
-// In-process tests have no Origin header; csrf would 403 every POST.
-if (env.NODE_ENV !== 'test') {
-  app.use('*', csrf({ origin: isTrustedCsrfOrigin }))
-}
 
-// Pre-identity auth flows use anonDb. Authenticated routes that read RLS-protected
-// data must establish requestDb before checking bans or entering their handler.
+// Auth flows that run before identity is known use anonDb. Authenticated routes that
+// read RLS-protected data must establish requestDb before checking bans or entering
+// their handler.
 app.use('/logout', requireJwtAuth)
 app.use('/session', requireJwtAuth)
 app.use('/mobile/logout', requireJwtAuth)
