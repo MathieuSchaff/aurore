@@ -1,5 +1,5 @@
 {
-  "total": 29,
+  "total": 30,
   "groups": {
     "A": "structural — opens the request transaction",
     "B": "pre-identity auth — no identity exists yet to bind into the GUCs",
@@ -8,6 +8,7 @@
     "E": "unconditional anonymous read — the router mounts no optionalJwtAuth"
   },
   "sites": [
+    { "file": "backend/src/features/auth/middleware.ts", "count": 1, "groups": ["B"] },
     { "file": "backend/src/features/auth/rls-context.middleware.ts", "count": 1, "groups": ["A"] },
     { "file": "backend/src/features/auth/routes.ts", "count": 1, "groups": ["B"] },
     { "file": "backend/src/features/blog/routes.ts", "count": 1, "groups": ["D"] },

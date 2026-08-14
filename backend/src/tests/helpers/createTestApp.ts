@@ -1,6 +1,7 @@
 import { Hono } from 'hono'
 
 import type { AppEnv } from '../../app-env'
+import { requireTrustedMutationOrigin } from '../../middleware/mutation-origin'
 import { globalErrorHandler } from '../../utils/errors/error-handler'
 import { testDb } from '../db.test.config'
 import { JWT_SECRET, REFRESH_SECRET } from '../helpers/secrets'
@@ -17,6 +18,7 @@ export async function createTestApp({ anonDb = testDb }: CreateTestAppOptions = 
 
   // Dynamically import routes to avoid circular dependencies during test initialization
   const { jwtAuthRoutes } = await import('../../features/auth/routes')
+  const { ssrBootRoutes } = await import('../../features/auth/ssr-boot.routes')
   const { HEALTH_PATH, healthRoute, READY_PATH, readyRoute } = await import(
     '../../features/health/routes'
   )
@@ -58,12 +60,15 @@ export async function createTestApp({ anonDb = testDb }: CreateTestAppOptions = 
     c.set('frontendUrl', 'http://localhost:5173')
     await next()
   })
+  app.use('/api/*', requireTrustedMutationOrigin)
 
   // Mirror production mounting (index.ts): every router under /api, and products
   // via the productsFeature composite, so a prefix/composition regression cannot
   // pass here. Chain reassigned to preserve route types for testClient RPC inference.
+  // fallow-ignore-next-line code-duplication
   const routedApp = app
     .route('/api/auth', jwtAuthRoutes)
+    .route('/api', ssrBootRoutes)
     .route(HEALTH_PATH, healthRoute)
     .route(READY_PATH, readyRoute)
     .route('/api/profile', profileRoute)

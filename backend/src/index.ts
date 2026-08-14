@@ -14,7 +14,7 @@ import { adminReportsRoutes } from './features/admin/reports.routes'
 import { adminRoleRequestsRoutes } from './features/admin/role-requests.routes'
 import { adminSecurityEventsRoutes } from './features/admin/security-events.routes'
 import { adminSuggestedEditsRoutes } from './features/admin/suggested-edits.routes'
-import { jwtAuthRoutes } from './features/auth'
+import { jwtAuthRoutes, ssrBootRoutes } from './features/auth'
 import { articleRoutes } from './features/blog'
 import { meRoutes } from './features/catalog-submissions/routes'
 import { collectionRoutes } from './features/collection/routes'
@@ -38,6 +38,7 @@ import { uploadsRoutes } from './features/uploads'
 import { userProductRoutes } from './features/user-products'
 import { logger } from './lib/logger'
 import { otelTracingMiddleware } from './lib/observability/hono-tracing'
+import { requireTrustedMutationOrigin } from './middleware/mutation-origin'
 import { requestLoggingMiddleware } from './middleware/request-logging'
 import { globalErrorHandler } from './utils/errors/error-handler'
 import { globalRateLimiterFunc } from './utils/rateLimiter'
@@ -70,12 +71,13 @@ app.use('*', async (c, next) => {
   c.set('frontendUrl', env.FRONTEND_URL)
   await next()
 })
-
 app.use('*', otelTracingMiddleware)
 app.use('*', globalRateLimiterFunc)
+app.use('/api/*', requireTrustedMutationOrigin)
 
 const routes = app
   .route('/api/auth', jwtAuthRoutes)
+  .route('/api', ssrBootRoutes)
   .route(HEALTH_PATH, healthRoute)
   .route(READY_PATH, readyRoute)
   .route('/api/profile', profileRoute)
