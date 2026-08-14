@@ -21,6 +21,11 @@ const REFRESH_TOKEN_COOKIE = 'refresh_token'
 const REFRESH_TOKEN_COOKIE_PATH = '/'
 const LEGACY_REFRESH_TOKEN_COOKIE_PATH = '/api/auth'
 
+function clearLegacySessionHintCookie(c: Context<AppEnv>) {
+  // Keep expiring hints issued by older releases until the compatibility window closes.
+  deleteCookie(c, SESSION_HINT_COOKIE, { path: '/' })
+}
+
 export async function generateAccessToken(
   userId: string,
   role: 'user' | 'admin' | 'contributor',
@@ -128,21 +133,13 @@ export function setRefreshTokenCookie(
   })
   // Keep clearing the old path while migrated sessions can still carry a revoked cookie there.
   deleteCookie(c, REFRESH_TOKEN_COOKIE, { path: LEGACY_REFRESH_TOKEN_COOKIE_PATH })
-  // Non-httpOnly boot hint (never the token): lets the SPA skip the refresh probe when absent.
-  // Same maxAge as the refresh token so the browser expires both together.
-  setCookie(c, SESSION_HINT_COOKIE, '1', {
-    httpOnly: false,
-    secure: isProd,
-    sameSite: 'Lax',
-    path: '/',
-    maxAge: JWT_CONFIG.refreshTokenExpiry,
-  })
+  clearLegacySessionHintCookie(c)
 }
 
 export function clearRefreshTokenCookie(c: Context<AppEnv>) {
   deleteCookie(c, REFRESH_TOKEN_COOKIE, { path: REFRESH_TOKEN_COOKIE_PATH })
   deleteCookie(c, REFRESH_TOKEN_COOKIE, { path: LEGACY_REFRESH_TOKEN_COOKIE_PATH })
-  deleteCookie(c, SESSION_HINT_COOKIE, { path: '/' })
+  clearLegacySessionHintCookie(c)
 }
 
 export function hashJti(jti: string): string {

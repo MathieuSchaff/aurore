@@ -3,7 +3,7 @@ import { expect, type Page, test } from '@playwright/test'
 import { loginAsSeed, registerFreshUser, SEED_EMAIL, SEED_PASSWORD } from './helpers/auth'
 import { waitForHydration } from './helpers/hydration'
 
-// Seed user is created and pre-verified by `seed-core` (see backend/src/db/seed/runners/create-user.ts).
+// Seed user is created and verified upfront by `seed-core` (see backend/src/db/seed/seeders/create-user.ts).
 
 // Random unique email per signup to avoid collisions across runs: snapshot-once
 // seed keeps prior signups in the DB.
@@ -20,7 +20,7 @@ async function expectBannedHeading(page: Page) {
 
 // The catalogue can arrive in the SSR HTML without a client GET. Opening the
 // menu proves hydration and the boot effect have completed.
-async function gotoProductsSettled(page: Page) {
+async function gotoProductsAndOpenUserMenu(page: Page) {
   await page.goto('/products')
   await expect(page.getByRole('heading', { name: 'Produits' })).toBeVisible({
     timeout: 15_000,
@@ -30,7 +30,12 @@ async function gotoProductsSettled(page: Page) {
   await expect(page.getByRole('menu', { name: 'Menu utilisateur' })).toBeVisible()
 }
 
-test.describe('Auth — login', () => {
+async function expectNoSessionHint(page: Page) {
+  const cookies = await page.context().cookies()
+  expect(cookies.some((cookie) => cookie.name === 'aurore_session')).toBe(false)
+}
+
+test.describe('Auth: login', () => {
   test('shows error on invalid credentials', async ({ page }) => {
     await page.goto('/auth/login')
 
@@ -105,7 +110,7 @@ test.describe('Auth — login', () => {
   })
 })
 
-test.describe('Auth — signup', () => {
+test.describe('Auth: signup', () => {
   test('existing email lands on the neutral verify screen (no enumeration)', async ({ page }) => {
     await page.goto('/auth/signup')
 
@@ -137,7 +142,7 @@ test.describe('Auth — signup', () => {
   })
 })
 
-test.describe('Auth — banned user', () => {
+test.describe('Auth: banned user', () => {
   test('login as banned user redirects to /auth/banned with suspension message', async ({
     page,
   }) => {
@@ -170,7 +175,7 @@ test.describe('Auth — banned user', () => {
   })
 })
 
-test.describe('Auth — demo', () => {
+test.describe('Auth: demo', () => {
   test('demo button creates a demo session and lands on /collection with banner', async ({
     page,
   }) => {
@@ -206,7 +211,7 @@ test.describe('Auth: SSR boot issue (cold-load probe gate)', () => {
       if (r.url().includes('/api/auth/refresh')) refreshCalls.push(r.url())
     })
 
-    await gotoProductsSettled(page)
+    await gotoProductsAndOpenUserMenu(page)
 
     expect(refreshCalls).toEqual([])
   })
@@ -224,13 +229,24 @@ test.describe('Auth: SSR boot issue (cold-load probe gate)', () => {
     await refreshReq
   })
 
-  test('UI logout makes the next boot anonymous', async ({ page }) => {
+  test('login, cold-load refresh and logout work without a session hint', async ({ page }) => {
+    await page
+      .context()
+      .addCookies([{ name: 'aurore_session', value: '1', url: 'http://localhost:5174' }])
     await loginAsSeed(page)
+    await expectNoSessionHint(page)
+
+    const refreshRequest = page.waitForRequest(
+      (request) => request.url().includes('/api/auth/refresh') && request.method() === 'POST'
+    )
     await page.goto('/collection')
     await expect(page.getByRole('heading', { name: 'Ma Collection' })).toBeVisible({
       timeout: 15_000,
     })
     await waitForHydration(page)
+    await refreshRequest
+    await expectNoSessionHint(page)
+
     await page.getByRole('button', { name: 'Menu utilisateur' }).click()
     const menu = page.getByRole('menu', { name: 'Menu utilisateur' })
     await expect(menu).toBeVisible()
@@ -239,19 +255,20 @@ test.describe('Auth: SSR boot issue (cold-load probe gate)', () => {
     // Let the logout redirect fully commit before navigating away, else goto('/products')
     // races a still-in-flight nav back to /auth/login (webkit throws, firefox aborts).
     await expect(page.getByRole('heading', { name: 'Connexion' })).toBeVisible()
+    await expectNoSessionHint(page)
 
     const refreshCalls: string[] = []
     page.on('request', (r) => {
       if (r.url().includes('/api/auth/refresh')) refreshCalls.push(r.url())
     })
-    await gotoProductsSettled(page)
+    await gotoProductsAndOpenUserMenu(page)
     expect(refreshCalls).toEqual([])
   })
 })
 
 // The root /auth/refresh probe does not gate the public shell. These cases pin protected-route
 // self-heal and the synchronous role guards.
-test.describe('Auth — optimistic boot (cold load, logged in)', () => {
+test.describe('Auth: optimistic boot (cold load, logged in)', () => {
   test('cold load on a protected route self-heals without redirect to login', async ({ page }) => {
     // API login sets the refresh cookie without populating the SPA store, so the goto is a
     // genuine cold boot. The guard must wait for the deduped client probe before deciding.
