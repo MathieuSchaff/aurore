@@ -1,5 +1,5 @@
 // Local-only auth-boot regression guard against the production SSR build. Runs the
-// runtime server behind a proxy that mocks the whole /api boundary — browser AND
+// runtime server behind a proxy that mocks the whole /api boundary: browser AND
 // server-side fetches hit it, since the build pins VITE_API_URL to the proxy. Shell
 // markers are asserted via aur-* classes on purpose: the same vocabulary works for
 // the raw SSR HTML string and the hydrated DOM. Run via `just test-auth-ssr`.
@@ -28,7 +28,7 @@ const SSR_PROFILE = {
 }
 
 // A stale process from a crashed run would make waitForPort succeed against an old
-// build and silently validate the wrong bundle — fail fast instead.
+// build and silently validate the wrong bundle, so fail fast instead.
 async function assertPortFree(port: number) {
   try {
     await fetch(`http://127.0.0.1:${port}/favicon.svg`)
@@ -183,49 +183,18 @@ async function handleApiRequest(request: Request, url: URL): Promise<Response | 
   }
 }
 
-try {
-  ssr = Bun.spawn(['bun', 'run', SERVER], {
-    env: {
-      ...process.env,
-      HOST: '127.0.0.1',
-      PORT: String(SSR_PORT),
-    },
-    stdout: 'ignore',
-    stderr: 'pipe',
-  })
-  if (ssr.stderr instanceof ReadableStream) {
-    ssrLogPump = collectServerLogs(ssr.stderr, ssrLogs)
-  }
-  await waitForPort(ssr, SSR_PORT)
-
-  proxy = Bun.serve({
-    hostname: '127.0.0.1',
-    port: PROXY_PORT,
-    async fetch(request) {
-      const url = new URL(request.url)
-      const apiResponse = await handleApiRequest(request, url)
-      if (apiResponse) return apiResponse
-
-      const upstreamHeaders = new Headers(request.headers)
-      if (url.searchParams.has('server-hint-only')) {
-        upstreamHeaders.set('cookie', 'aurore_session=1')
-      }
-      return fetch(`http://127.0.0.1:${SSR_PORT}${url.pathname}${url.search}`, {
-        headers: upstreamHeaders,
-        redirect: 'manual',
-      })
-    },
-  })
-
-  browser = await chromium.launch({ args: ['--no-sandbox'] })
-
-  // Raw SSR HTML, hinted: neutral shell, marketing never in the payload.
-  const serverHtml = await fetch(BASE_URL, {
-    headers: { cookie: 'aurore_session=1' },
+// An unresolved SSR boot stays neutral until the client can probe.
+async function assertUnresolvedBootStaysNeutral() {
+  const serverUnknownHtml = await fetch(BASE_URL, {
+    headers: { cookie: 'refresh_token=ssr-timeout' },
   }).then((response) => response.text())
-  expect(serverHtml).toContain('aur-hub-boot')
-  expect(serverHtml).not.toContain('aur-opening')
+  expect(serverUnknownHtml).toContain('aur-hub-boot')
+  expect(serverUnknownHtml).not.toContain('aur-opening')
+}
 
+// Both documents in one function: the authenticated boot count is asserted
+// against the baseline taken before the anonymous fetch.
+async function assertDocumentsMatchCookieIdentity() {
   const bootCallsBeforeAnonymous = bootCallCount
   const serverProductsResponse = await fetch(`${BASE_URL}/products`)
   const serverProductsHtml = await serverProductsResponse.text()
@@ -243,14 +212,13 @@ try {
   expect(authenticatedDocument.headers.get('cache-control')).toBe('private, no-store')
   expect(authenticatedHtml).toContain(SSR_PROFILE.username)
   expect(bootCallCount).toBe(bootCallsBeforeAnonymous + 1)
+}
 
+async function assertBootTimeoutRecoversOnClient(browser: Browser) {
   const fallbackContext = await browser.newContext({
     extraHTTPHeaders: { 'x-auth-ssr-result': 'success' },
   })
-  await fallbackContext.addCookies([
-    { name: 'aurore_session', value: '1', url: BASE_URL },
-    { name: 'refresh_token', value: 'ssr-timeout', url: BASE_URL },
-  ])
+  await fallbackContext.addCookies([{ name: 'refresh_token', value: 'ssr-timeout', url: BASE_URL }])
   const fallbackPage = await fallbackContext.newPage()
   const assertFallbackHydration = watchHydration(fallbackPage)
   const fallbackRefresh = fallbackPage.waitForResponse(
@@ -285,14 +253,18 @@ try {
   assertFallbackHydration()
 
   await fallbackContext.close()
+}
 
-  // Raw SSR HTML, anonymous: marketing served directly, never the skeleton.
+// Raw SSR HTML, anonymous: marketing served directly, never the skeleton.
+async function assertAnonymousHtmlServesMarketing() {
   const serverAnonymousHtml = await fetch(BASE_URL).then((response) => response.text())
   expect(serverAnonymousHtml).toContain('aur-opening')
   expect(serverAnonymousHtml).not.toContain('aur-hub-boot')
+}
 
-  // The list query must settle before SSR renders its total. Otherwise dehydration
-  // ships this mocked count after the server rendered 0 and React rejects hydration.
+// The list query must settle before SSR renders its total. Otherwise dehydration
+// ships this mocked count after the server rendered 0 and React rejects hydration.
+async function assertProductsTotalSurvivesHydration(browser: Browser) {
   const productsContext = await browser.newContext()
   const productsPage = await productsContext.newPage()
   const assertProductsHydration = watchHydration(productsPage)
@@ -307,10 +279,12 @@ try {
   assertProductsHydration()
 
   await productsContext.close()
+}
 
-  // Scenario 1 — hinted boot, refresh 401: skeleton resolves to the anonymous home.
+// An authenticated SSR identity dies when the client refresh returns 401.
+async function assertFailedRefreshDropsSsrIdentity(browser: Browser) {
   const context = await browser.newContext()
-  await context.addCookies([{ name: 'aurore_session', value: '1', url: BASE_URL }])
+  await context.addCookies([{ name: 'refresh_token', value: 'ssr-authenticated', url: BASE_URL }])
   const page = await context.newPage()
   const assertFailedHydration = watchHydration(page)
   const refreshSettled = page.waitForResponse(
@@ -327,30 +301,34 @@ try {
   assertFailedHydration()
 
   await context.close()
+}
 
-  // Scenario 2 — hint seen by the SSR only, gone in the browser: anonymous decision
-  // without any refresh request, skeleton still resolves.
-  const noClientHintContext = await browser.newContext()
-  const noClientHintPage = await noClientHintContext.newPage()
-  const assertNoClientHintHydration = watchHydration(noClientHintPage)
+// A stale hint cannot override an anonymous SSR boot decision.
+async function assertStaleHintNeverOverridesAnonymousBoot(browser: Browser) {
+  const staleHintContext = await browser.newContext()
+  await staleHintContext.addCookies([{ name: 'aurore_session', value: '1', url: BASE_URL }])
+  const staleHintPage = await staleHintContext.newPage()
+  const assertStaleHintHydration = watchHydration(staleHintPage)
   const failedRefreshCountBeforeNavigation = failedRefreshCount
 
-  await noClientHintPage.goto(`${BASE_URL}/?server-hint-only=1`, {
-    waitUntil: 'domcontentloaded',
-  })
+  await staleHintPage.goto(BASE_URL, { waitUntil: 'domcontentloaded' })
 
-  await expect(noClientHintPage.locator('.aur-opening')).toBeVisible()
-  await expect(noClientHintPage.locator('.aur-hub-boot')).toHaveCount(0)
+  await expect(staleHintPage.locator('.aur-opening')).toBeVisible()
+  await expect(staleHintPage.locator('.aur-hub-boot')).toHaveCount(0)
   expect(failedRefreshCount).toBe(failedRefreshCountBeforeNavigation)
-  assertNoClientHintHydration()
+  assertStaleHintHydration()
 
-  await noClientHintContext.close()
+  await staleHintContext.close()
+}
 
-  // Scenario 3 — hinted boot, refresh 200: authenticated hub, marketing never mounts.
+// An authenticated SSR boot refreshes once and never mounts marketing.
+async function assertAuthenticatedBootNeverMountsMarketing(browser: Browser) {
   const restoredContext = await browser.newContext({
     extraHTTPHeaders: { 'x-auth-ssr-result': 'success' },
   })
-  await restoredContext.addCookies([{ name: 'aurore_session', value: '1', url: BASE_URL }])
+  await restoredContext.addCookies([
+    { name: 'refresh_token', value: 'ssr-authenticated', url: BASE_URL },
+  ])
   const restoredPage = await restoredContext.newPage()
   const assertRestoredHydration = watchHydration(restoredPage)
   const successfulBeforeRestored = successfulRefreshCount
@@ -391,8 +369,10 @@ try {
   assertRestoredHydration()
 
   await restoredContext.close()
+}
 
-  // Scenario 4 — visitor without any hint cookie: marketing home, zero refresh calls.
+// A visitor without a refresh cookie gets marketing and zero refresh calls.
+async function assertVisitorWithoutCookieNeverRefreshes(browser: Browser) {
   const anonymousContext = await browser.newContext()
   const anonymousPage = await anonymousContext.newPage()
   const assertAnonymousHydration = watchHydration(anonymousPage)
@@ -408,6 +388,49 @@ try {
   assertAnonymousHydration()
 
   await anonymousContext.close()
+}
+
+try {
+  ssr = Bun.spawn(['bun', 'run', SERVER], {
+    env: {
+      ...process.env,
+      HOST: '127.0.0.1',
+      PORT: String(SSR_PORT),
+    },
+    stdout: 'ignore',
+    stderr: 'pipe',
+  })
+  if (ssr.stderr instanceof ReadableStream) {
+    ssrLogPump = collectServerLogs(ssr.stderr, ssrLogs)
+  }
+  await waitForPort(ssr, SSR_PORT)
+
+  proxy = Bun.serve({
+    hostname: '127.0.0.1',
+    port: PROXY_PORT,
+    async fetch(request) {
+      const url = new URL(request.url)
+      const apiResponse = await handleApiRequest(request, url)
+      if (apiResponse) return apiResponse
+
+      return fetch(`http://127.0.0.1:${SSR_PORT}${url.pathname}${url.search}`, {
+        headers: request.headers,
+        redirect: 'manual',
+      })
+    },
+  })
+
+  browser = await chromium.launch({ args: ['--no-sandbox'] })
+
+  await assertUnresolvedBootStaysNeutral()
+  await assertDocumentsMatchCookieIdentity()
+  await assertBootTimeoutRecoversOnClient(browser)
+  await assertAnonymousHtmlServesMarketing()
+  await assertProductsTotalSurvivesHydration(browser)
+  await assertFailedRefreshDropsSsrIdentity(browser)
+  await assertStaleHintNeverOverridesAnonymousBoot(browser)
+  await assertAuthenticatedBootNeverMountsMarketing(browser)
+  await assertVisitorWithoutCookieNeverRefreshes(browser)
 } finally {
   await browser?.close()
   proxy?.stop()

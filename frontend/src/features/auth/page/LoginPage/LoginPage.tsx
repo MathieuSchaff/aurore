@@ -7,8 +7,8 @@ import { useState } from 'react'
 
 import { Button } from '../../../../component/Button/Button'
 import { FormMessage } from '../../../../component/Feedback/ui/FormMessage/FormMessage'
-import { hasSessionHint } from '../../../../lib/auth/sessionHint'
 import { useLogin } from '../../../../lib/queries/auth'
+import { useAuthStore } from '../../../../store/auth'
 import { AuthDivider } from '../../components/AuthDivider/AuthDivider'
 import { AuthField } from '../../components/AuthField/AuthField'
 import { DemoCallout } from '../../components/DemoCallout/DemoCallout'
@@ -25,16 +25,22 @@ export const LOGIN_ERRORS: Record<LoginErrorCode, string> = {
   server_error: 'Une erreur est survenue, réessayez plus tard',
 }
 
+export const LOGIN_SUBTITLES = {
+  returning: 'Content de vous revoir sur Aurore',
+  anonymous: 'Retrouvez votre collection et vos notes',
+} as const
+
 export const LoginPage = () => {
   const [errors, setErrors] = useState<FieldErrors>({})
   // Spin the button past the mutation, through the route load, until the
-  // destination paints - the loader keeps the old form on screen otherwise.
+  // destination paints: the loader keeps the old form on screen otherwise.
   const [redirecting, setRedirecting] = useState(false)
 
   const navigate = useNavigate()
   const { redirect } = useSearch({ from: '/auth/login' })
   const login = useLogin()
   const queryClient = useQueryClient()
+  const hasKnownIdentity = useAuthStore((state) => state.user !== null)
 
   const handleSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -73,9 +79,7 @@ export const LoginPage = () => {
       <div className="auth-page__header">
         <h1 className="auth-page__title">Connexion</h1>
         <p className="auth-page__subtitle">
-          {hasSessionHint()
-            ? 'Content de vous revoir sur Aurore'
-            : 'Retrouvez votre collection et vos notes'}
+          {hasKnownIdentity ? LOGIN_SUBTITLES.returning : LOGIN_SUBTITLES.anonymous}
         </p>
       </div>
 

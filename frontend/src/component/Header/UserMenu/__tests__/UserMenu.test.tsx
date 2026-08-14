@@ -53,6 +53,12 @@ describe('UserMenu', () => {
   beforeEach(() => {
     vi.clearAllMocks()
     profileHits = 0
+    useAuthStore.setState({
+      accessToken: null,
+      user: null,
+      bootRefreshAttempted: true,
+      bootRefreshPending: false,
+    })
     setAuthState(false)
     setProfile({ username: 'mathieu', avatarUrl: null })
     vi.mocked(useLogout).mockReturnValue({
