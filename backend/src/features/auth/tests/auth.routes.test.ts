@@ -22,13 +22,25 @@ function extractCookie(res: { headers: Headers }): string {
   return res.headers.get('Set-Cookie') ?? ''
 }
 
+function getRefreshSetCookies(res: { headers: Headers }): string[] {
+  return res.headers.getSetCookie().filter((cookie) => cookie.startsWith('refresh_token='))
+}
+
+function getActiveRefreshSetCookie(res: { headers: Headers }): string {
+  return getRefreshSetCookies(res).find((cookie) => !cookie.includes('Max-Age=0')) ?? ''
+}
+
+function extractActiveRefreshCookie(res: { headers: Headers }): string {
+  return getActiveRefreshSetCookie(res).split(';', 1)[0] ?? ''
+}
+
 // The shared `login` helper drops the response; the cookie-based flows here need
 // both the Set-Cookie header and the body token off the same call.
 async function loginAndGetCookies(client: TestClient, email: string, password: string) {
   const res = await client.auth.login.$post({ json: { email, password } })
   const data = await res.json()
   if (!data.success) throw new Error(`login failed for ${email}`)
-  return { res, cookie: extractCookie(res), accessToken: data.data.accessToken }
+  return { res, cookie: extractActiveRefreshCookie(res), accessToken: data.data.accessToken }
 }
 
 setupDbTests()
@@ -167,7 +179,7 @@ describe('Auth Routes (browser)', () => {
   })
 
   describe('POST /auth/login', () => {
-    it('should login existing user and set refresh token cookie', async () => {
+    it('sets the refresh cookie at the root path', async () => {
       const creds = await createTestToto()
 
       const res = await client.auth.login.$post({
@@ -179,9 +191,10 @@ describe('Auth Routes (browser)', () => {
       expect(session.accessToken).toBeDefined()
       expect((session as { refreshToken?: string }).refreshToken).toBeUndefined()
 
-      const cookie = extractCookie(res)
+      const cookie = getActiveRefreshSetCookie(res)
       expect(cookie).toContain('refresh_token=')
       expect(cookie).toContain('HttpOnly')
+      expect(cookie).toMatch(/(?:^|; )Path=\/(?:;|$)/)
     })
 
     it('should reject wrong password', async () => {
@@ -275,6 +288,26 @@ describe('Auth Routes (browser)', () => {
       expect(newCookie).toContain('refresh_token=')
     })
 
+    it('rotates a legacy-path session and expires its old cookie', async () => {
+      const creds = await createTestToto()
+      const { cookie: legacyCookie } = await loginAndGetCookies(
+        client,
+        creds.rawEmail,
+        creds.rawPassword
+      )
+
+      const res = await client.auth.refresh.$post({}, { headers: { Cookie: legacyCookie } })
+
+      const data = await expectOk(res)
+      expect(data.accessToken).toBeDefined()
+
+      // Without this deletion, the revoked legacy cookie wins on the next refresh.
+      const legacyDeletion = getRefreshSetCookies(res).find(
+        (cookie) => cookie.includes('Max-Age=0') && cookie.includes('Path=/api/auth')
+      )
+      expect(legacyDeletion).toBeDefined()
+    })
+
     it('should fail without refresh token', async () => {
       const res = await client.auth.refresh.$post({})
 
@@ -319,7 +352,7 @@ describe('Auth Routes (browser)', () => {
         const data = await expectOk(res)
         expect(data.accessToken).toBeDefined()
 
-        currentCookie = extractCookie(res)
+        currentCookie = extractActiveRefreshCookie(res)
         expect(currentCookie).toContain('refresh_token=')
       }
     })
@@ -335,7 +368,7 @@ describe('Auth Routes (browser)', () => {
   })
 
   describe('POST /auth/logout', () => {
-    it('should logout and clear refresh cookie', async () => {
+    it('clears refresh cookies at both the root and legacy paths', async () => {
       const creds = await createTestToto()
       const { cookie, accessToken } = await loginAndGetCookies(
         client,
@@ -357,8 +390,14 @@ describe('Auth Routes (browser)', () => {
       const data = await res.json()
       expect(data.success).toBe(true)
 
-      const setCookie = extractCookie(res)
-      expect(setCookie).toContain('refresh_token=;')
+      const clearedRefreshCookies = getRefreshSetCookies(res).filter((cookie) =>
+        cookie.includes('Max-Age=0')
+      )
+      expect(clearedRefreshCookies).toHaveLength(2)
+      expect(clearedRefreshCookies.some((cookie) => /(?:^|; )Path=\/(?:;|$)/.test(cookie))).toBe(
+        true
+      )
+      expect(clearedRefreshCookies.some((cookie) => cookie.includes('Path=/api/auth'))).toBe(true)
     })
 
     it('deletes a demo account immediately', async () => {
@@ -370,7 +409,7 @@ describe('Auth Routes (browser)', () => {
           {},
           {
             headers: {
-              Cookie: extractCookie(demoResponse),
+              Cookie: extractActiveRefreshCookie(demoResponse),
               Authorization: `Bearer ${demo.accessToken}`,
             },
           }
@@ -696,7 +735,7 @@ describe('Auth Routes (browser)', () => {
 
       const refreshRes = await client.auth.refresh.$post({}, { headers: { Cookie: cookie } })
       const { accessToken: newAccessToken } = await expectOk(refreshRes)
-      const newCookie = extractCookie(refreshRes)
+      const newCookie = extractActiveRefreshCookie(refreshRes)
 
       const sessionData = await expectOk(client.auth.session.$get({}, withAuth(newAccessToken)))
       expect(sessionData.authenticated).toBe(true)

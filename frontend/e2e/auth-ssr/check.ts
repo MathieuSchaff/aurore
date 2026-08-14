@@ -106,6 +106,7 @@ try {
 
         failedRefreshCount++
         const headers = new Headers({ 'content-type': 'application/json' })
+        headers.append('set-cookie', 'refresh_token=; Max-Age=0; Path=/; HttpOnly')
         headers.append('set-cookie', 'refresh_token=; Max-Age=0; Path=/api/auth; HttpOnly')
         headers.append('set-cookie', 'aurore_session=; Max-Age=0; Path=/')
         return new Response(JSON.stringify({ success: false, error: 'invalid_refresh_token' }), {

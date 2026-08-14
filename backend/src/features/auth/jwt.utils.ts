@@ -17,6 +17,9 @@ const JWT_CONFIG = {
   accessTokenExpiry: 15 * 60,
   refreshTokenExpiry: 7 * 24 * 60 * 60,
 } as const
+const REFRESH_TOKEN_COOKIE = 'refresh_token'
+const REFRESH_TOKEN_COOKIE_PATH = '/'
+const LEGACY_REFRESH_TOKEN_COOKIE_PATH = '/api/auth'
 
 export async function generateAccessToken(
   userId: string,
@@ -89,7 +92,7 @@ export async function verifyRefreshToken(
 }
 
 export async function extractRefreshToken(c: Context<AppEnv>): Promise<string | null> {
-  const fromCookie = getCookie(c, 'refresh_token')
+  const fromCookie = getCookie(c, REFRESH_TOKEN_COOKIE)
   if (fromCookie) return fromCookie
 
   // Mobile clients cannot read HttpOnly cookies, so accept token from JSON body.
@@ -112,13 +115,15 @@ export function setRefreshTokenCookie(
   env: 'development' | 'production'
 ) {
   const isProd = env === 'production'
-  setCookie(c, 'refresh_token', token, {
+  setCookie(c, REFRESH_TOKEN_COOKIE, token, {
     httpOnly: true,
     secure: isProd,
     sameSite: 'Lax',
-    path: '/api/auth',
+    path: REFRESH_TOKEN_COOKIE_PATH,
     maxAge: JWT_CONFIG.refreshTokenExpiry,
   })
+  // Keep clearing the old path while migrated sessions can still carry a revoked cookie there.
+  deleteCookie(c, REFRESH_TOKEN_COOKIE, { path: LEGACY_REFRESH_TOKEN_COOKIE_PATH })
   // Non-httpOnly boot hint (never the token): lets the SPA skip the refresh probe when absent.
   // Same maxAge as the refresh token so the browser expires both together.
   setCookie(c, SESSION_HINT_COOKIE, '1', {
@@ -131,7 +136,8 @@ export function setRefreshTokenCookie(
 }
 
 export function clearRefreshTokenCookie(c: Context<AppEnv>) {
-  deleteCookie(c, 'refresh_token', { path: '/api/auth' })
+  deleteCookie(c, REFRESH_TOKEN_COOKIE, { path: REFRESH_TOKEN_COOKIE_PATH })
+  deleteCookie(c, REFRESH_TOKEN_COOKIE, { path: LEGACY_REFRESH_TOKEN_COOKIE_PATH })
   deleteCookie(c, SESSION_HINT_COOKIE, { path: '/' })
 }
 
