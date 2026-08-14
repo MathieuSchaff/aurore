@@ -115,3 +115,38 @@ test('hydration keeps the SSR identity without refetching session data', async (
   expect(sessionReads).toEqual([])
   expect(profileReads).toEqual([])
 })
+
+test('public page stays available when the client rejects its seeded session', async ({ page }) => {
+  await loginAsSeed(page)
+  const boot = (
+    (await (await page.request.get('/api/boot')).json()) as {
+      data: SsrBootResponse
+    }
+  ).data
+  if (!boot.session.authenticated || !boot.profile.username) {
+    throw new Error('seed user has no authenticated navbar profile')
+  }
+  await page.route('**/api/auth/refresh', (route) =>
+    route.fulfill({
+      status: 401,
+      contentType: 'application/json',
+      body: JSON.stringify({ success: false, error: 'invalid_refresh_token' }),
+    })
+  )
+  const refreshResponse = page.waitForResponse(
+    (response) =>
+      new URL(response.url()).pathname === '/api/auth/refresh' &&
+      response.request().method() === 'POST'
+  )
+
+  const documentResponse = await page.goto('/products')
+  if (!documentResponse) throw new Error('no navigation response for /products')
+  expect(await documentResponse.text()).toContain(boot.profile.username)
+  await waitForHydration(page)
+  expect((await refreshResponse).status()).toBe(401)
+
+  await expect(page.getByRole('heading', { name: 'Produits' })).toBeVisible()
+  await expect(page.locator('.list-card--product').first()).toBeVisible()
+  await page.getByRole('button', { name: 'Menu utilisateur' }).click()
+  await expect(page.getByRole('menuitem', { name: 'Connexion' })).toBeVisible()
+})

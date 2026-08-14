@@ -25,7 +25,6 @@ describe('useBootRefresh', () => {
   beforeEach(() => {
     queryClient = new QueryClient()
     __resetFreshness()
-    document.cookie = 'aurore_session=1; path=/'
     useAuthStore.setState({
       accessToken: null,
       tokenExpiresAt: null,
@@ -42,12 +41,11 @@ describe('useBootRefresh', () => {
   })
 
   afterEach(() => {
-    document.cookie = 'aurore_session=; max-age=0; path=/'
     queryClient.clear()
     vi.clearAllMocks()
   })
 
-  it('reconciles active route data after restoring a hinted session', async () => {
+  it('reconciles active route data after restoring an authenticated boot', async () => {
     const invalidate = vi.fn().mockResolvedValue(undefined)
     mockUseRouter.mockReturnValue({ invalidate } as unknown as ReturnType<typeof useRouter>)
     const user = {
@@ -63,7 +61,7 @@ describe('useBootRefresh', () => {
       json: () => Promise.resolve({ success: true, data: { accessToken, user } }),
     } as Response)
 
-    renderHookWithProviders(() => useBootRefresh(), { queryClient })
+    renderHookWithProviders(() => useBootRefresh('authenticated'), { queryClient })
 
     await waitFor(() => expect(invalidate).toHaveBeenCalledOnce())
     expect(useAuthStore.getState()).toMatchObject({
@@ -72,5 +70,81 @@ describe('useBootRefresh', () => {
       bootRefreshAttempted: true,
       bootRefreshPending: false,
     })
+  })
+
+  it('settles an anonymous boot without probing refresh', async () => {
+    const invalidate = vi.fn().mockResolvedValue(undefined)
+    mockUseRouter.mockReturnValue({ invalidate } as unknown as ReturnType<typeof useRouter>)
+
+    renderHookWithProviders(() => useBootRefresh('anonymous'), { queryClient })
+
+    await waitFor(() => expect(useAuthStore.getState().bootRefreshAttempted).toBe(true))
+    expect(mockHttpClient).not.toHaveBeenCalled()
+    expect(useAuthStore.getState().bootRefreshPending).toBe(false)
+    expect(invalidate).not.toHaveBeenCalled()
+  })
+
+  it('keeps an unknown boot pending only while the refresh probe is unresolved', async () => {
+    const invalidate = vi.fn().mockResolvedValue(undefined)
+    mockUseRouter.mockReturnValue({ invalidate } as unknown as ReturnType<typeof useRouter>)
+    let resolveRefresh: ((response: Response) => void) | undefined
+    mockHttpClient.mockReturnValue(
+      new Promise<Response>((resolve) => {
+        resolveRefresh = resolve
+      })
+    )
+
+    renderHookWithProviders(() => useBootRefresh('unknown'), { queryClient })
+
+    await waitFor(() => expect(useAuthStore.getState().bootRefreshPending).toBe(true))
+    expect(useAuthStore.getState().bootRefreshAttempted).toBe(true)
+    expect(mockHttpClient).toHaveBeenCalledOnce()
+
+    resolveRefresh?.({ ok: false } as Response)
+    await waitFor(() => expect(useAuthStore.getState().bootRefreshPending).toBe(false))
+    expect(invalidate).not.toHaveBeenCalled()
+  })
+
+  it('drops a seeded session after an authenticated boot probe fails', async () => {
+    const invalidate = vi.fn().mockResolvedValue(undefined)
+    mockUseRouter.mockReturnValue({ invalidate } as unknown as ReturnType<typeof useRouter>)
+    const seededUser = {
+      id: 'u1',
+      email: 'admin@example.com',
+      emailVerified: true,
+      role: 'admin',
+      isDemo: false,
+    } as UserPublic
+    useAuthStore.setState({ user: seededUser, role: 'admin', emailVerified: true })
+    queryClient.setQueryData(['session'], {
+      authenticated: true,
+      userId: seededUser.id,
+      user: seededUser,
+      role: seededUser.role,
+    })
+    queryClient.setQueryData(['profile'], { username: 'Aurore' })
+    const productListKey = ['products', 'list', {}, seededUser.id] as const
+    queryClient.setQueryData(productListKey, {
+      items: [{ id: 'p1', userStatus: 'owned' }],
+      total: 1,
+    })
+    mockHttpClient.mockResolvedValue({ ok: false } as Response)
+
+    renderHookWithProviders(() => useBootRefresh('authenticated'), { queryClient })
+
+    await waitFor(() => expect(useAuthStore.getState().user).toBeNull())
+    expect(useAuthStore.getState()).toMatchObject({
+      accessToken: null,
+      role: 'user',
+      bootRefreshAttempted: true,
+      bootRefreshPending: false,
+    })
+    expect(queryClient.getQueryData(['session'])).toBeUndefined()
+    expect(queryClient.getQueryData(['profile'])).toBeUndefined()
+    expect(queryClient.getQueryData(productListKey)).toEqual({
+      items: [{ id: 'p1', userStatus: null }],
+      total: 1,
+    })
+    expect(invalidate).not.toHaveBeenCalled()
   })
 })

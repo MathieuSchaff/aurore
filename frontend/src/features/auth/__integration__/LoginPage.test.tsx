@@ -2,6 +2,7 @@ import { screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
+import { useAuthStore } from '../../../store/auth'
 import { renderWithProviders } from '../../../test/utils'
 
 const navigateMock = vi.fn()
@@ -24,7 +25,7 @@ vi.mock('../../../lib/queries/auth', async (importOriginal) => {
 })
 
 import { useLogin } from '../../../lib/queries/auth'
-import { LOGIN_ERRORS, LoginPage } from '../page/LoginPage/LoginPage'
+import { LOGIN_ERRORS, LOGIN_SUBTITLES, LoginPage } from '../page/LoginPage/LoginPage'
 
 const mutate = vi.fn()
 
@@ -61,6 +62,24 @@ describe('LoginPage', () => {
     searchMock.mockReturnValue({})
     mutate.mockReset()
     setMutationResult()
+    useAuthStore.getState().clearAuth()
+  })
+
+  it('welcomes an identity restored by the SSR boot', () => {
+    useAuthStore.setState({
+      user: {
+        id: 'u1',
+        email: 'user@example.com',
+        createdAt: '2026-08-14T10:00:00.000Z',
+        emailVerified: true,
+        role: 'user',
+        isDemo: false,
+      },
+    })
+
+    renderWithProviders(<LoginPage />)
+
+    expect(screen.getByText(LOGIN_SUBTITLES.returning)).toBeVisible()
   })
 
   it('shows inline Zod error on invalid email format', async () => {
@@ -75,7 +94,7 @@ describe('LoginPage', () => {
     renderWithProviders(<LoginPage />)
     await fillAndSubmit(VALID_EMAIL, 'short')
 
-    // passwordSchema reports a stack of regex/length issues — first one is min length.
+    // passwordSchema reports a stack of regex/length issues, first one is min length.
     expect(await screen.findByText(/Minimum 8 caractères/i)).toBeVisible()
     expect(mutate).not.toHaveBeenCalled()
   })
