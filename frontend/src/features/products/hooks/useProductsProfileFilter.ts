@@ -63,12 +63,18 @@ export function useProductsProfileFilter({ urlValue, userId }: Args) {
   // anonymous cache key rather than pay a second list fetch when it lands. Monotone
   // by construction: a settled query never returns to pending, and `urlValue` is
   // defined for good once the replace below commits.
+  //
+  // `hasSomethingToApply` extends the hold past the settle: the replace only commits on
+  // the effect below, one render later, so releasing as soon as the queries land flips
+  // userKey with the URL still unstated and buys a whole list fetch of the very same
+  // filters that the replace then throws away (A20c). When nothing is to be applied no
+  // replace is coming, so the hold ends there and the user key is the right one to fetch.
   const unresolved =
     isAuthed &&
     urlValue === undefined &&
     !capExpired &&
     !readOptOut(userId) &&
-    (dermoQuery.isPending || targetsQuery.isPending)
+    (dermoQuery.isPending || targetsQuery.isPending || hasSomethingToApply)
 
   useEffect(() => {
     if (!isAuthed || urlValue !== undefined || !hasSomethingToApply || readOptOut(userId)) return

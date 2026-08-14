@@ -108,9 +108,26 @@ describe('useProductsProfileFilter — unresolved', () => {
     expect(setup().result.current.unresolved).toBe(true)
   })
 
-  it('releases as soon as both profile queries settle', () => {
-    mockProfileQueries()
+  it('releases on settle when no replace is coming', () => {
+    mockProfileQueries({ portrait: false })
     expect(setup().result.current.unresolved).toBe(false)
+  })
+
+  // A20c: the replace only commits on an effect, one render after the queries settle.
+  // Releasing on settle flips the cache key with the URL still unstated and pays a
+  // list fetch of the very filters the replace immediately discards.
+  it('holds past the settle while a replace is still coming', () => {
+    mockProfileQueries()
+    expect(setup().result.current.unresolved).toBe(true)
+  })
+
+  it('releases when the replace outlasts the cap', () => {
+    vi.useFakeTimers()
+    mockProfileQueries()
+    const { result } = setup()
+    expect(result.current.unresolved).toBe(true)
+    act(() => vi.advanceTimersByTime(700))
+    expect(result.current.unresolved).toBe(false)
   })
 
   it('never holds for an anonymous visitor', () => {
@@ -134,13 +151,17 @@ describe('useProductsProfileFilter — unresolved', () => {
     expect(result.current.unresolved).toBe(false)
   })
 
-  it('stays released once the queries have settled', () => {
-    const { result, rerender } = setup()
+  it('stays released once the replace has committed', () => {
+    const { result, rerender } = renderHook(
+      ({ urlValue }: { urlValue: boolean | undefined }) =>
+        useProductsProfileFilter({ urlValue, userId: USER_ID }),
+      { initialProps: { urlValue: undefined as boolean | undefined } }
+    )
     expect(result.current.unresolved).toBe(true)
     // A background refetch keeps status 'success', so the hold cannot come back and
     // strand the page on the anonymous key after the list already swapped.
     mockProfileQueries()
-    rerender()
+    rerender({ urlValue: true })
     expect(result.current.unresolved).toBe(false)
   })
 })
