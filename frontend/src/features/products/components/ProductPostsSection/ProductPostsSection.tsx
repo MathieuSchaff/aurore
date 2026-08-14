@@ -18,7 +18,7 @@ function AuthorName({ author }: { author: SocialPostSurfaceView['author'] }) {
   if (author.profilePublic) {
     return (
       <Link
-        className="product-posts__author-link"
+        className="product-posts__author-link ui-author-link"
         to="/u/$username"
         params={{ username: author.username }}
       >
@@ -48,7 +48,7 @@ export function ProductPostsSection({ slug, composer }: { slug: string; composer
       {posts.length > 0 && (
         <ul role="list" className="product-posts__list">
           {posts.map((post) => (
-            <li key={post.id} className="product-posts__item">
+            <li key={post.id} className="product-posts__item ui-content-card">
               <header className="product-posts__header">
                 <AuthorName author={post.author} />
                 <Time iso={post.createdAt} style="monthYear" className="product-posts__date" />

@@ -1,5 +1,6 @@
-import { AlertCircle } from 'lucide-react'
 import { useId } from 'react'
+
+import { FieldError } from './FieldError/FieldError'
 import './Input.css'
 
 type InputProps = React.ComponentProps<'input'> & {
@@ -56,12 +57,7 @@ export const Input = ({
         data-error={!!error || undefined}
         {...props}
       />
-      {error && (
-        <span id={errorId} className="input-error" role="alert">
-          <AlertCircle size={16} />
-          {error}
-        </span>
-      )}
+      {error && <FieldError id={errorId}>{error}</FieldError>}
     </div>
   )
 }

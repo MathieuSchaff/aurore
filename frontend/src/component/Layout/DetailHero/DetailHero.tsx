@@ -6,15 +6,15 @@ import './DetailHero.css'
 interface DetailHeroProps {
   /** ProductImage, IconBox, etc. Sized by the caller. */
   media: ReactNode
-  /** Overline above the title - brand · kind for products, category for ingredients. */
+  /** Overline above the title: brand · kind for products, category for ingredients. */
   eyebrow?: ReactNode
   /** Rendered as h1. */
   title: ReactNode
   /** View Transition name on the title (cross-route morphs). */
   titleViewTransition?: string
-  /** Chip row under the title - Badge, amount, count. */
+  /** Chip row under the title: Badge, amount, count. */
   chips?: ReactNode
-  /** Right-aligned aside - price or status. */
+  /** Right-aligned aside: price or status. */
   aside?: ReactNode
   className?: string
 }
@@ -30,7 +30,7 @@ export function DetailHero({
 }: DetailHeroProps) {
   return (
     <header className={clsx('detail-hero', aside && 'detail-hero--has-aside', className)}>
-      <div className="detail-hero__media">{media}</div>
+      <div className="detail-hero__media ui-centered">{media}</div>
       <div className="detail-hero__body">
         {eyebrow && <p className="detail-hero__eyebrow">{eyebrow}</p>}
         <h1

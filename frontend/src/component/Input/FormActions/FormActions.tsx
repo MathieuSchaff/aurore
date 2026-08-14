@@ -1,4 +1,6 @@
+import clsx from 'clsx'
 import { Check, X } from 'lucide-react'
+import type { ReactNode } from 'react'
 
 import { Button } from '../../Button/Button'
 import './FormActions.css'
@@ -14,6 +16,20 @@ type FormActionsProps = {
   separator?: boolean
 }
 
+type FormActionsBarProps = {
+  children: ReactNode
+  className?: string
+  separator?: boolean
+}
+
+export function FormActionsBar({ children, className, separator = true }: FormActionsBarProps) {
+  return (
+    <div className={clsx('form-actions-bar', !separator && 'form-actions-bar--bare', className)}>
+      {children}
+    </div>
+  )
+}
+
 export function FormActions({
   onCancel,
   cancelLabel = 'Annuler',
@@ -24,7 +40,7 @@ export function FormActions({
   separator = true,
 }: FormActionsProps) {
   return (
-    <div className={separator ? 'form-actions-bar' : 'form-actions-bar form-actions-bar--bare'}>
+    <FormActionsBar separator={separator}>
       {onCancel && (
         <Button type="button" variant="outline" size={size} onClick={onCancel} disabled={isPending}>
           <X size={size === 'sm' ? 14 : 16} />
@@ -35,6 +51,6 @@ export function FormActions({
         <Check size={size === 'sm' ? 14 : 16} />
         {submitLabel}
       </Button>
-    </div>
+    </FormActionsBar>
   )
 }

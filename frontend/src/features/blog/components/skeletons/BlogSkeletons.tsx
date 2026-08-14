@@ -10,7 +10,7 @@ export function BlogListSkeleton() {
       {CARD_PLACEHOLDERS.map((n) => (
         <div key={n} className="blog-list-skeleton__card">
           <Skeleton className="blog-list-skeleton__cover" />
-          <div className="blog-list-skeleton__body">
+          <div className="blog-list-skeleton__body ui-skeleton-body">
             <Skeleton width="85%" height="1.25rem" />
             <Skeleton width="100%" height="0.875rem" />
             <Skeleton width="60%" height="0.875rem" />

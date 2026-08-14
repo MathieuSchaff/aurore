@@ -11,8 +11,6 @@ import { POST_TONE_LABELS } from '@/constants/skin'
 import { useAnnounce } from '@/hooks/useAnnounce'
 import { useCreatePost } from '@/lib/queries/social'
 
-import './PostComposer.css'
-
 const TONE_OPTIONS = POST_TONES.map((value) => ({ value, label: POST_TONE_LABELS[value] }))
 
 // Product is the implicit anchor here, so the composer can stay compact.
@@ -49,7 +47,7 @@ export function PostComposer({ productId, slug }: { productId: string; slug: str
   }
 
   return (
-    <form className="post-composer" onSubmit={handleSubmit}>
+    <form className="post-composer ui-form-panel" onSubmit={handleSubmit}>
       <SectionHeader title="Nouvelle publication" as="h3" />
       <ChipGroup
         mode="exclusive"

@@ -8,14 +8,6 @@
   border-radius: var(--radius-lg);
 }
 
-.ingredient-edit-form__actions {
-  display: flex;
-  justify-content: flex-end;
-  gap: var(--space-3);
-  padding-top: var(--space-4);
-  border-top: var(--rule-section);
-}
-
 @media (--sm-only) {
   .ingredient-edit-form {
     padding: var(--space-4);

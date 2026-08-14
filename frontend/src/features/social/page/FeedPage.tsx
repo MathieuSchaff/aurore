@@ -31,7 +31,7 @@ export function FeedPage() {
   const { data, isFetching, isPending, isError, refetch } = useQuery(
     socialQueries.feed({ tone, order, concern })
   )
-  // Concern scope is drawn from the viewer's own problématiques — a stable source
+  // Concern scope is drawn from the viewer's own problématiques, a stable source
   // independent of the filtered result (so chips never vanish as you filter).
   const { data: dermo } = useQuery(profileQueries.dermo())
 
@@ -62,7 +62,7 @@ export function FeedPage() {
           hasPanels={false}
           ariaLabel="Ton des publications"
         />
-        <div className="feed-filters__row">
+        <div className="feed-filters__row ui-split-row">
           {concernChips.length > 1 && (
             <ChipGroup
               options={concernChips}
@@ -91,7 +91,7 @@ export function FeedPage() {
         </div>
         {order === 'similarity' && (
           // The affinity sort runs over a bounded recent window, not the whole
-          // cohort — name the scope so "Affinité" doesn't over-promise.
+          // cohort: name the scope so "Affinité" does not promise more than it covers.
           <p className="feed-filters__note">Trié par affinité, parmi les publications récentes.</p>
         )}
       </div>

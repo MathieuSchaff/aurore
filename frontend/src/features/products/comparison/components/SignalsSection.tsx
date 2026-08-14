@@ -124,10 +124,10 @@ export function SignalsSection({ products }: Props) {
             count={conflicts.length}
             icon={<Zap size={16} aria-hidden="true" />}
           >
-            <ul role="list" className="signals-card__conflicts">
+            <ul role="list" className="signals-card__conflicts ui-stack-list">
               {conflicts.map((c) => (
                 <li key={`${c.a}-${c.b}`} className="signals-conflict">
-                  <p className="signals-conflict__pair">
+                  <p className="signals-conflict__pair ui-title-sm">
                     {c.a} <span aria-hidden="true">↔</span> {c.b}
                   </p>
                   {c.note && <p className="signals-conflict__note">{c.note}</p>}

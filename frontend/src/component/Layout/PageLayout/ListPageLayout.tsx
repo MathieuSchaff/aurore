@@ -70,7 +70,7 @@ function Header({
               <div className="list-page-layout__meta">{meta}</div>
             )}
           </div>
-          {actions && <div className="list-page-layout__actions">{actions}</div>}
+          {actions && <div className="list-page-layout__actions ui-page-actions">{actions}</div>}
         </>
       )}
     </div>

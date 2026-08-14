@@ -49,7 +49,7 @@ export function SearchSelect({
   const PAGE_SIZE = 50
   const [visibleCount, setVisibleCount] = useState(PAGE_SIZE)
 
-  // Pre-fold labels once per options change to avoid re-normalizing on each keystroke.
+  // Fold labels once per options change to avoid normalizing on each keystroke.
   const foldedOptions = useMemo(
     () => options.map((o) => ({ option: o, foldedLabel: foldText(o.label) })),
     [options]
@@ -126,7 +126,7 @@ export function SearchSelect({
         )}
 
         {isOpen && query && filtered.length === 0 && (
-          <p className="search-select__empty">Aucun résultat</p>
+          <p className="search-select__empty ui-combobox-empty">Aucun résultat</p>
         )}
 
         <div className="sr-only" aria-live="assertive" aria-atomic="true">

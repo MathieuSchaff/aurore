@@ -66,7 +66,7 @@ export function FormulaPreview({
     [allTags]
   )
   const selectedTagIdSet = useMemo(() => new Set(selectedTagIds), [selectedTagIds])
-  // Snapshot the analyzed inputs; drift detection avoids phantom re-runs while
+  // Snapshot the analyzed inputs; drift detection avoids phantom runs while
   // flagging results that no longer reflect the form (tags depend on category/kind).
   const [analyzedKey, setAnalyzedKey] = useState<string | null>(null)
   const currentKey = `${category}\u0000${kind}\u0000${inci}`
@@ -120,7 +120,7 @@ export function FormulaPreview({
   return (
     <section className="formula-preview" aria-labelledby="formula-preview-title">
       <div className="formula-preview__header">
-        <h2 className="formula-preview__title" id="formula-preview-title">
+        <h2 className="formula-preview__title ui-title-sm" id="formula-preview-title">
           Lecture de la formule
         </h2>
         <Button
@@ -161,7 +161,7 @@ export function FormulaPreview({
               </h3>
               <ul
                 role="list"
-                className="formula-preview__chips"
+                className="formula-preview__chips ui-wrap-list"
                 aria-label="Ingrédients reliés au catalogue"
               >
                 {matched.map((t) => {
@@ -216,7 +216,7 @@ export function FormulaPreview({
               </h3>
               <ul
                 role="list"
-                className="formula-preview__chips"
+                className="formula-preview__chips ui-wrap-list"
                 aria-label="Ingrédients reconnus sans fiche"
               >
                 {knownNoRecord.map((t) => (
@@ -239,7 +239,7 @@ export function FormulaPreview({
               </h3>
               <ul
                 role="list"
-                className="formula-preview__chips"
+                className="formula-preview__chips ui-wrap-list"
                 aria-label="Ingrédients non reconnus"
               >
                 {unknown.map((t) => (
@@ -264,7 +264,11 @@ export function FormulaPreview({
                 <p className="formula-preview__microcopy">Aucun tag suggéré pour cette liste.</p>
               ) : (
                 <>
-                  <ul role="list" className="formula-preview__chips" aria-label="Tags suggérés">
+                  <ul
+                    role="list"
+                    className="formula-preview__chips ui-wrap-list"
+                    aria-label="Tags suggérés"
+                  >
                     {result.suggestedTags.map((st) => {
                       const tag = tagsBySlug.get(st.tagSlug)
                       if (!tag) return null

@@ -58,26 +58,33 @@ export function DropdownStatus({
   return (
     <>
       {showError && (
-        <p className="search-select__empty search-select__empty--error" role="alert">
+        <p
+          className="search-select__empty search-select__empty--error ui-combobox-empty"
+          role="alert"
+        >
           <span>{errorMessage}</span>
           {onRetry && (
             <button
               type="button"
-              className="search-select__retry"
+              className="search-select__retry ui-combobox-retry"
               onClick={onRetry}
               disabled={remaining > 0}
             >
               Réessayer
               {/* Hidden from the reader: this <p> is role="alert", so a ticking number inside it
-                  would re-fire the whole announcement every second. */}
+                  would fire the whole announcement again every second. */}
               {remaining > 0 && <span aria-hidden="true"> ({remaining} s)</span>}
             </button>
           )}
         </p>
       )}
-      {showNoResult && <p className="search-select__empty">Aucun résultat</p>}
-      {showMinChars && <p className="search-select__empty">Tapez au moins {minChars} caractères</p>}
-      {showLoading && <p className="search-select__empty">Recherche…</p>}
+      {showNoResult && <p className="search-select__empty ui-combobox-empty">Aucun résultat</p>}
+      {showMinChars && (
+        <p className="search-select__empty ui-combobox-empty">
+          Tapez au moins {minChars} caractères
+        </p>
+      )}
+      {showLoading && <p className="search-select__empty ui-combobox-empty">Recherche…</p>}
 
       <div className="sr-only" aria-live="assertive" aria-atomic="true">
         {announcement}

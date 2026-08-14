@@ -19,7 +19,7 @@ export function CompatibilityCallout({ products }: Props) {
         <span className="cmp-callout__eyebrow-dot" aria-hidden="true" />
         Lecture d'ensemble
       </p>
-      <p className="cmp-callout__headline">{headline}</p>
+      <p className="cmp-callout__headline ui-display-heading">{headline}</p>
       <p className="cmp-callout__verdict">{verdict}</p>
       <p className="cmp-callout__common">
         <span className="cmp-callout__common-dot" aria-hidden="true" />

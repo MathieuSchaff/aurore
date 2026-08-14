@@ -31,7 +31,7 @@ export function DiffSection({ products }: Props) {
   return (
     <section className="diff-section">
       <header className="diff-section__header">
-        <h2 className="diff-section__title">Différences</h2>
+        <h2 className="diff-section__title ui-display-heading">Différences</h2>
         <p className="diff-section__lede">
           Ce que chaque formule porte en propre. Différent ne veut pas dire mieux.
         </p>
