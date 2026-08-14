@@ -11,6 +11,7 @@ import type {
 import {
   DENTAL_PRODUCT_TAG_CATEGORIES,
   HAIRCARE_PRODUCT_TAG_CATEGORIES,
+  isDisplayedProductTag,
   PRODUCT_DOMAIN_DB_CATEGORIES,
   type ProductDomainTab,
   resolveAvoidSlugs,
@@ -192,6 +193,9 @@ export async function getProductFullBySlug(slug: string, database: DbOrTransacti
   // Sequential: same connection-wedging reason as fetchProductMeta, an authed
   // caller runs these inside the RLS transaction.
   const ingredients = await listIngredientsByProduct(database, product.id)
+  // Unfiltered on purpose: ProductEditPage seeds its tag form from this payload
+  // and posts it back, so dropping internal-only slugs here would erase them on
+  // every admin save. The detail page filters at render instead.
   const tags = await listTagsByProduct(database, product.id)
   // Not a spread: a rename in computeInciFacts must break the build, not the payload keys.
   const { inciCount, hasFragrance } = computeInciFacts(product.inci)
@@ -661,6 +665,7 @@ async function fetchProductMeta(
   }
 
   for (const row of positiveTagRows) {
+    if (!isDisplayedProductTag(row.slug)) continue
     const list = tagsByProduct.get(row.productId) ?? []
     list.push({
       slug: row.slug,
@@ -1023,7 +1028,10 @@ export async function getFilterOptions(
     .groupBy(productTagTypes.id, productTagTypes.slug)
 
   const tagCounts: Record<string, number> = {}
-  for (const r of tagRows) tagCounts[r.slug] = r.count
+  for (const r of tagRows) {
+    if (!isDisplayedProductTag(r.slug)) continue
+    tagCounts[r.slug] = r.count
+  }
 
   return {
     kinds: kindRows.map((r) => r.kind),

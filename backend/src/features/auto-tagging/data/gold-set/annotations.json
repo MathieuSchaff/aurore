@@ -2387,6 +2387,16 @@
       "sampledFor": ["aha"]
     },
     {
+      "productSlug": "biologique-recherche-le-grand-serum",
+      "kind": "serum",
+      "category": "skincare",
+      "present": [],
+      "absent": ["hypoallergenique", "non-comedogene", "non-irritant"],
+      "annotatedAt": "2026-08-12",
+      "sampledFor": ["hypoallergenique"],
+      "notes": "Source fabricant Biologique Recherche : https://biologique-recherche.com/products/le-grand-serum"
+    },
+    {
       "productSlug": "bye-bye-blackhead-30-days-miracle-green-tea-tox-bubble-cleanser",
       "kind": "cleanser",
       "category": "skincare",
@@ -4056,6 +4066,16 @@
       "annotatedAt": "2026-06-19",
       "sampledFor": ["aha"],
       "notes": "cap-marginal AHA hit, human-judged 2026-06-19"
+    },
+    {
+      "productSlug": "dexyane-ultra-rich-cleansing-gel",
+      "kind": "cleanser",
+      "category": "skincare",
+      "present": [],
+      "absent": ["hypoallergenique", "non-comedogene", "non-irritant"],
+      "annotatedAt": "2026-08-12",
+      "sampledFor": ["hypoallergenique"],
+      "notes": "Source fabricant Ducray : https://www.ducray.com/en-gb/dexyane/dexyane-ultra-rich-cleansing-gel — la page ne porte que fragrance-free, soap-free, high-tolerance cleanser, biodegradable."
     },
     {
       "productSlug": "doctor-rogers-day-preventive-treatment-refill",
@@ -7590,6 +7610,15 @@
       "notes": "Xerolan spray émollient réparateur (barrière) | apaisant: soin peaux sensibles/atopiques apaisant (lead)"
     },
     {
+      "productSlug": "isntree-aloe-fresh-type-soothing-gel",
+      "kind": "body-lotion",
+      "category": "bodycare",
+      "present": [],
+      "absent": [],
+      "annotatedAt": "",
+      "sampledFor": ["non-irritant"]
+    },
+    {
       "productSlug": "isntree-clear-skin-8-aha-essence",
       "kind": "essence",
       "category": "skincare",
@@ -8452,6 +8481,15 @@
       "absent": [],
       "annotatedAt": "",
       "sampledFor": ["pores-sebum"]
+    },
+    {
+      "productSlug": "la-roche-posay-lipikar-ap-m-creme-relipidante",
+      "kind": "moisturizer",
+      "category": "skincare",
+      "present": [],
+      "absent": [],
+      "annotatedAt": "",
+      "sampledFor": ["non-irritant"]
     },
     {
       "productSlug": "la-roche-posay-lipikar-gel-lavant",
@@ -9351,6 +9389,16 @@
       "annotatedAt": "2026-05-25",
       "sampledFor": ["hyaluronic-acid", "reparation-cutanee"],
       "notes": "FR marketing-prose INCI. \"Céramide\" générique pos-27 (untyped, post-functional). Detector typed-ceramide only (NP/AP/NS/NG/AS/EOP/EOS/1/2/3/6) — generic mention rejected same rationale que phytosphingosine (0 recall, +32 FP corpus si activé). Ceramides reclassé absent 2026-05-11. | reparation-cutanee: absent — soothing/neighbor lead despite damage vocab"
+    },
+    {
+      "productSlug": "mary-may-centella-asiatica-serum",
+      "kind": "serum",
+      "category": "skincare",
+      "present": [],
+      "absent": ["hypoallergenique", "non-comedogene", "non-irritant"],
+      "annotatedAt": "2026-08-12",
+      "sampledFor": ["non-comedogene"],
+      "notes": "Source fabricant Mary&May : https://marynmay.com/products/mary-may-centella-asiatica-serum-30ml — « dermatologically tested » seul, aucune des trois revendications."
     },
     {
       "productSlug": "mary-may-cica-houttuynia-tea-tree-calming-mask",
@@ -10463,6 +10511,16 @@
       "notes": "eclat-teint: present — anti-taches et éclat, unifie le teint"
     },
     {
+      "productSlug": "mixsoon-bean-cream",
+      "kind": "moisturizer",
+      "category": "skincare",
+      "present": [],
+      "absent": ["hypoallergenique", "non-comedogene", "non-irritant"],
+      "annotatedAt": "2026-08-12",
+      "sampledFor": ["non-irritant"],
+      "notes": "Source fabricant mixsoon : https://mixsoon.us/products/mixsoon-bean-cream-50ml — « Safety-Tested for Children » seul, aucune des trois revendications."
+    },
+    {
       "productSlug": "mixsoon-bean-hydrogel-eye-patch",
       "kind": "eye-cream",
       "category": "skincare",
@@ -10762,6 +10820,16 @@
       "annotatedAt": "2026-05-25",
       "sampledFor": ["apaisant"],
       "notes": "soin calmant/apaisant (lead)"
+    },
+    {
+      "productSlug": "niche-beauty-lab-rose-calming-cleanser-ph-5-5",
+      "kind": "cleanser",
+      "category": "skincare",
+      "present": [],
+      "absent": ["hypoallergenique", "non-comedogene", "non-irritant"],
+      "annotatedAt": "2026-08-12",
+      "sampledFor": ["hypoallergenique"],
+      "notes": "Source fabricant Niche Beauty Lab : https://nichebeautylab.com/products/rose-calming-cleanser-ph-5-5"
     },
     {
       "productSlug": "niod-ethylated-l-ascorbic-acid-30-network",
@@ -13729,6 +13797,26 @@
       "notes": "eclat-teint: present — brightening illumine le teint"
     },
     {
+      "productSlug": "soskin-hydrasecure-soin-emollient-multifonctions",
+      "kind": "moisturizer",
+      "category": "skincare",
+      "present": [],
+      "absent": ["hypoallergenique", "non-comedogene", "non-irritant"],
+      "annotatedAt": "2026-08-12",
+      "sampledFor": ["non-comedogene"],
+      "notes": "Source fabricant Soskin : https://soskin.fr/products/hydrasecure®-soin-emollient-multifonctions"
+    },
+    {
+      "productSlug": "soskin-serum-ultra-densifyer",
+      "kind": "serum",
+      "category": "skincare",
+      "present": ["non-irritant"],
+      "absent": ["hypoallergenique", "non-comedogene"],
+      "annotatedAt": "2026-08-12",
+      "sampledFor": ["hypoallergenique"],
+      "notes": "Source fabricant Soskin : https://soskin.fr/products/serum-ultra-densifyer — « Il contient des ingrédients non irritants convenant aux peaux sensibilisées ou réactives »."
+    },
+    {
       "productSlug": "svr-ak-secure-dm-protect-prevention-des-cancers-cutanes-50ml",
       "kind": "sunscreen",
       "category": "solaire",
@@ -14928,9 +15016,10 @@
       "kind": "serum",
       "category": "skincare",
       "present": [],
-      "absent": [],
-      "annotatedAt": "",
-      "notes": "Added from Theramid product with structured % concentration claim(s)."
+      "absent": ["hypoallergenique", "non-comedogene", "non-irritant"],
+      "annotatedAt": "2026-08-12",
+      "sampledFor": ["non-comedogene"],
+      "notes": "Source fabricant Theramid : https://nichebeautylab.com/en/products/hapca-filler"
     },
     {
       "productSlug": "theramid-lino-8",
