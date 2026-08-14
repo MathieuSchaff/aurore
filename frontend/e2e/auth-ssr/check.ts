@@ -12,6 +12,20 @@ const PROXY_PORT = 4190
 const SSR_PORT = 4191
 const BASE_URL = `http://127.0.0.1:${PROXY_PORT}`
 const PRODUCTS_TOTAL = 7
+const SSR_USER = {
+  id: '019c0000-0000-7000-8000-000000000001',
+  email: 'ssr-build@example.test',
+  createdAt: '2026-08-14T10:00:00.000Z',
+  emailVerified: true,
+  role: 'user' as const,
+  isDemo: false,
+}
+const SSR_PROFILE = {
+  userId: SSR_USER.id,
+  username: 'ssr-personalized',
+  avatarUrl: null,
+  links: [],
+}
 
 // A stale process from a crashed run would make waitForPort succeed against an old
 // build and silently validate the wrong bundle — fail fast instead.
@@ -56,15 +70,118 @@ function watchHydration(page: Page): () => void {
   return () => expect(problems).toEqual([])
 }
 
+async function collectServerLogs(stream: ReadableStream<Uint8Array>, chunks: string[]) {
+  const reader = stream.getReader()
+  const decoder = new TextDecoder()
+  while (true) {
+    const { done, value } = await reader.read()
+    if (done) break
+    const text = decoder.decode(value, { stream: true })
+    chunks.push(text)
+    process.stderr.write(text)
+  }
+  const tail = decoder.decode()
+  if (tail) {
+    chunks.push(tail)
+    process.stderr.write(tail)
+  }
+}
+
 await assertPortFree(SSR_PORT)
 await assertPortFree(PROXY_PORT)
 
 let ssr: ReturnType<typeof Bun.spawn> | null = null
 let proxy: ReturnType<typeof Bun.serve> | null = null
 let browser: Browser | null = null
+let ssrLogPump: Promise<void> | null = null
+const ssrLogs: string[] = []
 
 let failedRefreshCount = 0
 let successfulRefreshCount = 0
+let bootCallCount = 0
+
+async function handleBootRequest(request: Request): Promise<Response> {
+  bootCallCount++
+  const cookie = request.headers.get('cookie') ?? ''
+  if (cookie.includes('refresh_token=ssr-timeout')) {
+    return new Promise<Response>((resolveResponse) => {
+      const settle = () =>
+        resolveResponse(
+          Response.json({ success: false, error: 'boot_timeout_fixture' }, { status: 504 })
+        )
+      const timer = setTimeout(settle, 3000)
+      request.signal.addEventListener(
+        'abort',
+        () => {
+          clearTimeout(timer)
+          settle()
+        },
+        { once: true }
+      )
+    })
+  }
+
+  const data = cookie.includes('refresh_token=ssr-authenticated')
+    ? {
+        session: {
+          authenticated: true as const,
+          userId: SSR_USER.id,
+          user: SSR_USER,
+          role: SSR_USER.role,
+        },
+        profile: SSR_PROFILE,
+      }
+    : { session: { authenticated: false as const }, profile: null }
+  return Response.json({ success: true, data })
+}
+
+function handleRefreshRequest(request: Request): Response {
+  if (request.headers.get('x-auth-ssr-result') === 'success') {
+    successfulRefreshCount++
+    const accessToken = `h.${btoa(JSON.stringify({ exp: Math.floor(Date.now() / 1000) + 3600 }))}.s`
+    return Response.json({
+      success: true,
+      data: {
+        accessToken,
+        user: {
+          id: 'build-user',
+          email: 'build@example.test',
+          emailVerified: true,
+          role: 'user',
+          isDemo: false,
+        },
+      },
+    })
+  }
+
+  failedRefreshCount++
+  const headers = new Headers({ 'content-type': 'application/json' })
+  headers.append('set-cookie', 'refresh_token=; Max-Age=0; Path=/; HttpOnly')
+  headers.append('set-cookie', 'refresh_token=; Max-Age=0; Path=/api/auth; HttpOnly')
+  headers.append('set-cookie', 'aurore_session=; Max-Age=0; Path=/')
+  return new Response(JSON.stringify({ success: false, error: 'invalid_refresh_token' }), {
+    status: 401,
+    headers,
+  })
+}
+
+async function handleApiRequest(request: Request, url: URL): Promise<Response | null> {
+  switch (url.pathname) {
+    case '/api/boot':
+      return handleBootRequest(request)
+    case '/api/auth/refresh':
+      return handleRefreshRequest(request)
+    case '/api/products':
+      return Response.json({
+        success: true,
+        data: { items: [], total: PRODUCTS_TOTAL, page: 1, limit: 24 },
+      })
+    default:
+      return url.pathname.startsWith('/api/')
+        ? Response.json({ success: false, error: 'not_found' }, { status: 404 })
+        : null
+  }
+}
 
 try {
   ssr = Bun.spawn(['bun', 'run', SERVER], {
@@ -74,8 +191,11 @@ try {
       PORT: String(SSR_PORT),
     },
     stdout: 'ignore',
-    stderr: 'inherit',
+    stderr: 'pipe',
   })
+  if (ssr.stderr instanceof ReadableStream) {
+    ssrLogPump = collectServerLogs(ssr.stderr, ssrLogs)
+  }
   await waitForPort(ssr, SSR_PORT)
 
   proxy = Bun.serve({
@@ -83,46 +203,8 @@ try {
     port: PROXY_PORT,
     async fetch(request) {
       const url = new URL(request.url)
-      if (url.pathname === '/api/auth/refresh') {
-        if (request.headers.get('x-auth-ssr-result') === 'success') {
-          successfulRefreshCount++
-          const accessToken = `h.${btoa(
-            JSON.stringify({ exp: Math.floor(Date.now() / 1000) + 3600 })
-          )}.s`
-          return Response.json({
-            success: true,
-            data: {
-              accessToken,
-              user: {
-                id: 'build-user',
-                email: 'build@example.test',
-                emailVerified: true,
-                role: 'user',
-                isDemo: false,
-              },
-            },
-          })
-        }
-
-        failedRefreshCount++
-        const headers = new Headers({ 'content-type': 'application/json' })
-        headers.append('set-cookie', 'refresh_token=; Max-Age=0; Path=/; HttpOnly')
-        headers.append('set-cookie', 'refresh_token=; Max-Age=0; Path=/api/auth; HttpOnly')
-        headers.append('set-cookie', 'aurore_session=; Max-Age=0; Path=/')
-        return new Response(JSON.stringify({ success: false, error: 'invalid_refresh_token' }), {
-          status: 401,
-          headers,
-        })
-      }
-      if (url.pathname === '/api/products') {
-        return Response.json({
-          success: true,
-          data: { items: [], total: PRODUCTS_TOTAL, page: 1, limit: 24 },
-        })
-      }
-      if (url.pathname.startsWith('/api/')) {
-        return Response.json({ success: false, error: 'not_found' }, { status: 404 })
-      }
+      const apiResponse = await handleApiRequest(request, url)
+      if (apiResponse) return apiResponse
 
       const upstreamHeaders = new Headers(request.headers)
       if (url.searchParams.has('server-hint-only')) {
@@ -144,9 +226,65 @@ try {
   expect(serverHtml).toContain('aur-hub-boot')
   expect(serverHtml).not.toContain('aur-opening')
 
-  const serverProductsHtml = await fetch(`${BASE_URL}/products`).then((response) => response.text())
+  const bootCallsBeforeAnonymous = bootCallCount
+  const serverProductsResponse = await fetch(`${BASE_URL}/products`)
+  const serverProductsHtml = await serverProductsResponse.text()
   expect(serverProductsHtml).toContain('Produits')
   expect(serverProductsHtml).toContain(`<strong>${PRODUCTS_TOTAL}</strong>`)
+  expect(serverProductsResponse.headers.get('cache-control')).toBe('no-cache')
+  expect(serverProductsHtml).not.toContain(SSR_PROFILE.username)
+  expect(serverProductsHtml).not.toContain(SSR_USER.email)
+  expect(bootCallCount).toBe(bootCallsBeforeAnonymous)
+
+  const authenticatedDocument = await fetch(`${BASE_URL}/products`, {
+    headers: { cookie: 'refresh_token=ssr-authenticated' },
+  })
+  const authenticatedHtml = await authenticatedDocument.text()
+  expect(authenticatedDocument.headers.get('cache-control')).toBe('private, no-store')
+  expect(authenticatedHtml).toContain(SSR_PROFILE.username)
+  expect(bootCallCount).toBe(bootCallsBeforeAnonymous + 1)
+
+  const fallbackContext = await browser.newContext({
+    extraHTTPHeaders: { 'x-auth-ssr-result': 'success' },
+  })
+  await fallbackContext.addCookies([
+    { name: 'aurore_session', value: '1', url: BASE_URL },
+    { name: 'refresh_token', value: 'ssr-timeout', url: BASE_URL },
+  ])
+  const fallbackPage = await fallbackContext.newPage()
+  const assertFallbackHydration = watchHydration(fallbackPage)
+  const fallbackRefresh = fallbackPage.waitForResponse(
+    (response) =>
+      response.url().endsWith('/api/auth/refresh') &&
+      response.request().method() === 'POST' &&
+      response.status() === 200
+  )
+  const successfulBeforeFallback = successfulRefreshCount
+  const fallbackStartedAt = performance.now()
+
+  const fallbackDocument = await fallbackPage.goto(`${BASE_URL}/about`, {
+    waitUntil: 'domcontentloaded',
+  })
+  if (!fallbackDocument) throw new Error('no fallback document response')
+  const fallbackDurationMs = performance.now() - fallbackStartedAt
+  const fallbackHtml = await fallbackDocument.text()
+
+  expect(fallbackDocument.status()).toBe(200)
+  expect(fallbackDocument.headers()['cache-control']).toBe('private, no-store')
+  expect(fallbackHtml).not.toContain(SSR_PROFILE.username)
+  expect(fallbackHtml).not.toContain(SSR_USER.email)
+  expect(fallbackDurationMs).toBeGreaterThanOrEqual(1900)
+  await fallbackRefresh
+  await fallbackPage.waitForFunction(() => !Reflect.has(window, '$_TSR'))
+  await fallbackPage.getByRole('button', { name: 'Menu utilisateur' }).click()
+  await expect(fallbackPage.getByRole('menuitem', { name: 'Profil' })).toBeVisible()
+  expect(successfulRefreshCount).toBe(successfulBeforeFallback + 1)
+  await expect.poll(() => ssrLogs.join('')).toContain('"event":"ssr_boot_fallback"')
+  expect(ssrLogs.join('')).toContain('"route":"/api/boot"')
+  expect(ssrLogs.join('')).toContain('"cause":"timeout"')
+  assertFallbackHydration()
+
+  await fallbackContext.close()
 
   // Raw SSR HTML, anonymous: marketing served directly, never the skeleton.
   const serverAnonymousHtml = await fetch(BASE_URL).then((response) => response.text())
@@ -215,6 +353,7 @@ try {
   await restoredContext.addCookies([{ name: 'aurore_session', value: '1', url: BASE_URL }])
   const restoredPage = await restoredContext.newPage()
   const assertRestoredHydration = watchHydration(restoredPage)
+  const successfulBeforeRestored = successfulRefreshCount
   await restoredPage.addInitScript(() => {
     const state = window as typeof window & { __sawAnonymousHome?: boolean }
     state.__sawAnonymousHome = false
@@ -248,7 +387,7 @@ try {
       () => (window as typeof window & { __sawAnonymousHome?: boolean }).__sawAnonymousHome
     )
   ).toBe(false)
-  expect(successfulRefreshCount).toBe(1)
+  expect(successfulRefreshCount).toBe(successfulBeforeRestored + 1)
   assertRestoredHydration()
 
   await restoredContext.close()
@@ -273,6 +412,8 @@ try {
   await browser?.close()
   proxy?.stop()
   ssr?.kill()
+  await ssr?.exited
+  await ssrLogPump
 }
 
 console.log('✓ Auth SSR boot converges after failed, skipped, successful, and absent refreshes')

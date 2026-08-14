@@ -1,13 +1,20 @@
-import type { ChangePasswordInput } from '@aurore/shared'
+import type { ChangePasswordInput, UserPublic } from '@aurore/shared'
 
 import { queryOptions, useMutation, useQueryClient } from '@tanstack/react-query'
 
 import { useAuthStore } from '../../store/auth'
 import { api } from '../api'
 
+export interface AuthSessionCache {
+  authenticated: boolean
+  userId?: string
+  role?: UserPublic['role']
+  user?: UserPublic
+}
+
 export const authQueries = {
   session: () =>
-    queryOptions({
+    queryOptions<AuthSessionCache>({
       queryKey: ['session'],
       queryFn: async () => {
         const res = await api.auth.session.$get()
