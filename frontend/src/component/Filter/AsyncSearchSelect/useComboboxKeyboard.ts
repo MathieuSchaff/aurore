@@ -41,14 +41,18 @@ export function useComboboxKeyboard({
           setActiveIndex(activeIndex > 0 ? activeIndex - 1 : -1)
           if (activeIndex === 0) inputRef.current?.focus()
           break
-        case 'Enter':
+        case 'Enter': {
           e.preventDefault()
-          if (isOpen && activeIndex >= 0 && filtered[activeIndex]) {
-            onSelect(filtered[activeIndex])
-          } else {
+          const active = isOpen && activeIndex >= 0 ? filtered[activeIndex] : undefined
+          // A disabled option stays reachable by arrow so its reason gets read out;
+          // only the commit is refused.
+          if (active && !active.disabled) {
+            onSelect(active)
+          } else if (!active) {
             setIsOpen(true)
           }
           break
+        }
         case 'Escape':
           if (isOpen) {
             e.preventDefault()

@@ -10,9 +10,11 @@ import { testDb } from '../../../tests/db.test.config'
 import { setupDbTests } from '../../../tests/db-setup'
 import {
   createTestIngredient,
+  createTestProduct,
   createTestUser,
   type TestUser,
 } from '../../../tests/helpers/test-factories'
+import { addIngredientToProduct } from '../../products/product-ingredients/product-ingredients.service'
 import { IngredientError } from '../ingredients-error'
 import {
   createIngredient,
@@ -27,7 +29,7 @@ import {
 
 let user: TestUser
 
-// Helper: page/limit have schema defaults, so we parse to satisfy the non-optional types.
+// Helper: page/limit have schema defaults, so we parse to satisfy types that aren't optional.
 function filters(input: Record<string, string> = {}) {
   return listIngredientsSearchSchema.parse(input)
 }
@@ -349,6 +351,22 @@ describe('Ingredient Service', () => {
 
       const unscoped = await searchIngredients(testDb, 'ceramide')
       expect(unscoped).toHaveLength(2)
+    })
+
+    // The catalogue filter reads product_ingredients, which drops excipients on
+    // purpose. Without this flag the drawer offers the option and matches nothing.
+    it('should flag an ingredient no product links as not filterable', async () => {
+      const linked = await createTestIngredient(user.id, { name: 'Niacinamide' })
+      await createTestIngredient(user.id, { name: 'Niacinamide Ester', slug: 'niacinamide-ester' })
+      const product = await createTestProduct(user.id, { name: 'Sérum test' })
+      await testDb.transaction((tx) =>
+        addIngredientToProduct(tx, { productId: product.id, ingredientId: linked.id })
+      )
+
+      const results = await searchIngredients(testDb, 'niacinamide')
+      const byName = new Map(results.map((r) => [r.name, r.filterable]))
+      expect(byName.get('Niacinamide')).toBe(true)
+      expect(byName.get('Niacinamide Ester')).toBe(false)
     })
   })
 
