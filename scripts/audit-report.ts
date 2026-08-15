@@ -306,6 +306,8 @@ const standingRows = [...standingByFile.entries()]
 
 const failedProbes = statuses.filter((s) => s.exit !== 0).map((s) => s.probe)
 
+// One stamp for both outputs, so report.html and summary.json cannot disagree about which run
+// they came from.
 const generatedAt = new Date().toISOString()
 const stampShown = generatedAt.slice(0, 16).replace('T', ' ')
 
@@ -650,4 +652,101 @@ render();
 const target = join(outDir, 'report.html')
 writeFileSync(target, html)
 
-console.log(`audit-report: ${payload.length} finding(s), ${standing.length} standing → ${target}`)
+// Machine-readable twin of the page. Nothing else in .audit-out/ answers "what did this run find"
+// in one read: report.html is 56 KB of markup, raw/health.txt ~3000 lines, json/fallow-health.json
+// ~1.7 MB, and the counts are spread over five SARIF files. status.json carries exit codes only,
+// which is the trap this closes: a baselined fallow exits 0 on top of a backlog, so "all clean"
+// is not a conclusion its exit code supports. Counts and worst offenders here, detail stays put.
+const SUMMARY_TOP = 20
+const truncate = (s: string) =>
+  s.length > 1500 ? `${s.slice(0, 1500)}\n[truncated — see raw/]` : s
+
+const byLevel = { error: 0, warning: 0, note: 0 }
+for (const f of payload) byLevel[f.level] += 1
+
+const RANK: Record<Level, number> = { error: 0, warning: 1, note: 2 }
+const worstOf = (fs: Finding[]) => LEVELS[Math.min(...fs.map((f) => RANK[f.level]))]
+
+const groupCount = <T>(items: T[], key: (t: T) => string) => {
+  const m = new Map<string, T[]>()
+  for (const it of items) {
+    const k = key(it)
+    const seen = m.get(k)
+    if (seen) seen.push(it)
+    else m.set(k, [it])
+  }
+  return [...m.entries()].sort((a, b) => b[1].length - a[1].length)
+}
+
+const summary = {
+  generated_at: generatedAt,
+  totals: {
+    findings: payload.length,
+    by_level: byLevel,
+    // The number that keeps a green run honest: regressions are 0 by construction once a baseline
+    // is cut, and this is the debt sitting behind that 0.
+    standing_debt: standing.length,
+    failed_probes: failedProbes,
+  },
+  probes: probes.map((p) => ({
+    probe: p.key,
+    exit: p.exit ?? null,
+    state: p.state,
+    findings: p.kind === 'sarif' ? p.count : null,
+    baselined: p.note === 'baselined',
+    // The three text probes are under 1 KB each, so the whole audit fits here rather than sending
+    // the reader back to raw/ for a two-line report.
+    output: p.kind === 'text' ? truncate(p.text) : undefined,
+  })),
+  health: score
+    ? {
+        score: score.score,
+        grade: score.grade,
+        penalties: Object.fromEntries(penalties),
+        vitals: Object.fromEntries(
+          VITALS.filter(([k]) => vitals?.[k] !== undefined).map(([k, label]) => [
+            label,
+            vitals?.[k],
+          ])
+        ),
+      }
+    : null,
+  styling: styling
+    ? {
+        score: styling.score,
+        grade: styling.grade,
+        confidence: styling.confidence,
+        penalties: Object.fromEntries(stylingPenalties),
+        findings_by_rule: [...stylingByCode.entries()].map(([code, v]) => ({
+          rule: code,
+          count: v.n,
+          disposition: v.disposition,
+        })),
+        dead_css_classes: deadClasses.length,
+      }
+    : null,
+  hotspots: hotspots.map((h) => ({
+    path: h.path,
+    score: h.score,
+    commits: h.commits,
+    fan_in: h.fan_in,
+    trend: h.trend,
+  })),
+  top_rules: groupCount(payload, (f) => f.ruleId)
+    .slice(0, SUMMARY_TOP)
+    .map(([rule, fs]) => ({ rule, tool: fs[0].tool, level: worstOf(fs), count: fs.length })),
+  worst_files: groupCount(payload, (f) => f.file)
+    .slice(0, SUMMARY_TOP)
+    .map(([file, fs]) => ({ file, count: fs.length, worst: worstOf(fs) })),
+  standing_by_file: [...standingByFile.entries()]
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, SUMMARY_TOP)
+    .map(([file, count]) => ({ file, count })),
+}
+
+const summaryPath = join(outDir, 'summary.json')
+writeFileSync(summaryPath, `${JSON.stringify(summary, null, 2)}\n`)
+
+console.log(
+  `audit-report: ${payload.length} finding(s), ${standing.length} standing, ${health.hotspots?.length ?? 0} hotspots${score ? `, score ${score.score.toFixed(1)} (${score.grade})` : ''}${styling ? `, css ${styling.score.toFixed(1)} (${styling.grade})` : ''}${deadClasses.length ? `, ${deadClasses.length} dead class(es)` : ''} → ${target}, ${summaryPath}`
+)

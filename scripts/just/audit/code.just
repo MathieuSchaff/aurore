@@ -156,7 +156,7 @@ audit-report:
     # Removed rather than kept, so a stale file cannot be mistaken for this run's output. Nothing
     # in the repo read the CSV, and dropping it drops the last dependency outside the toolchain.
     rm -f "$out/code.html" "$out/complexity.html" "$out/diff.txt" "$out/diff.json" "$out/findings.csv"
-    printf "{{ GREEN }}%s/report.html{{ NC }}\n" "$out"
+    printf "{{ GREEN }}%s/report.html{{ NC }} · %s/summary.json (agent-readable)\n" "$out" "$out"
     exit 0
 
 [doc('Open the HTML audit report in a browser')]

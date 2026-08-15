@@ -26,8 +26,18 @@ Exit stays 0 — knip and react-doctor exit 1 on findings that are triaged, not 
 ├── sarif-full/  fallow without its baseline: the standing debt, wiped each run
 ├── json/        fallow-health.json: score, hotspots, css, styling findings
 ├── status.json  every probe's exit code
+├── summary.json the whole run in one file, for an agent          written by audit-report
 └── report.html                            written by audit-report
 ```
+
+**`summary.json` is the agent entry point.** ~12 KB, one read: totals by level, every probe with its
+exit code and finding count, the health and styling scores, the top 15 hotspots, the top 20 rules
+and files, and the standing-debt count. The three text probes carry their full output inline, since
+none of them exceeds a kilobyte. It exists because nothing else answers "what did this run find" in
+one read: `report.html` is 56 KB of markup, `raw/health.txt` ~3000 lines, `json/fallow-health.json`
+~1.7 MB, and the counts are spread over five SARIF files. `status.json` alone is a trap: a baselined
+fallow exits 0 on top of a backlog, so a green exit code is not evidence of a clean tree;
+`totals.standing_debt` is. Detail stays where it was; this file points at it.
 
 **`raw/` is the audit.** Every probe writes there and reading it needs nothing beyond the repo
 toolchain. `sarif/` and `json/` are a bonus for the reporting recipes below; a probe with no
