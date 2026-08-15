@@ -121,7 +121,9 @@ export async function createProduct(
         createdBy: userId,
         name,
         brand,
-        inci: input.inci != null ? normalizeInci(input.inci).value : input.inci,
+        // `''` must not reach the column: every reader would then need the
+        // `btrim(inci) <> ''` guard to tell "no formula on file" from "empty formula".
+        inci: input.inci?.trim() ? normalizeInci(input.inci).value : null,
         kind: normalizeString(input.kind) as ProductKind,
         unit: normalizeString(input.unit) as ProductUnit,
         amountUnit: input.amountUnit ? normalizeString(input.amountUnit) : input.amountUnit,
@@ -285,9 +287,10 @@ export async function updateProduct(
   }
 
   // Canonicalize the INCI list on edit so it stays consistent with create.
-  // Skip null (clearing the field) and empty strings.
-  if (typeof data.inci === 'string' && data.inci.trim().length > 0) {
-    data.inci = normalizeInci(data.inci).value
+  // A blank submission clears the field instead of storing `''`: an emptied form
+  // input means "no formula on file", the same state as null.
+  if (typeof data.inci === 'string') {
+    data.inci = data.inci.trim() ? normalizeInci(data.inci).value : null
   }
 
   // Slug is not regenerated from name: silent changes break bookmarks, SEO, and CDN image filenames.
