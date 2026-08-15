@@ -96,7 +96,7 @@ Three things worth knowing before trusting the HTML:
 | `npx fallow health` | fallow | Complexity, hotspots, CRAP score |
 | `npx fallow dupes` | fallow | Duplication (suffix array) |
 | `npx fallow audit --format compact` | fallow | New issues versus `main` only |
-| `just fallow-baseline` | fallow | Re-save the baselines after a big cleanup |
+| `just fallow-baseline` | fallow | Re-save the baselines after a big cleanup **or a `.fallowrc.jsonc` threshold change** |
 | `just anon-db-gate [--update]` | own script | Freezes the `c.get('anonDb')` surface against `scripts/anon-db-allowlist.json`. Also runs in CI |
 | `cd frontend && npx react-doctor --verbose --no-score` | react-doctor | React patterns, a11y, perf |
 | `bunx biome format --write .` | Biome | Format only (`just lint-fix` already includes it) |
@@ -105,6 +105,11 @@ Two notes that save a triage round:
 
 - **madge over-reports.** Every new hit needs an individual check — lazy imports and erased
   type edges can read as runtime cycles.
+- **CRAP is relaxed on the CLI entry points, and only CRAP.** Its coverage term is estimated from
+  export references, so anything invoked by a justfile recipe estimates at zero coverage whatever
+  its callees' tests say; 101 of 144 high-crap findings sat on four such surfaces. The
+  `health.thresholdOverrides` block in `.fallowrc.jsonc` carries the derivation. Cyclomatic and
+  cognitive are untouched there: they measure the code instead of guessing at its tests.
 - **`fallow dead-code` globally is not used here.** It is blind across workspaces; knip covers
   that ground with far fewer false positives.
 - **`anon-db-gate` fails on a site that disappears too**, not only on a new one: the grain is
