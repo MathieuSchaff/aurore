@@ -82,9 +82,15 @@ audit-code:
     # Version comes from frontend/package.json (react-doctor dependency) — no pin here.
     (cd frontend && npx react-doctor --verbose --no-score 2>&1) | tee "$out/raw/react-doctor.txt"
     [ ${PIPESTATUS[0]} -eq 0 ] || failed+=("react-doctor")
-    # JSON, not SARIF: react-doctor has no SARIF reporter, so this one stays out of the
-    # aggregated HTML. --json-out takes an absolute path because of the subshell cd.
-    (cd frontend && npx react-doctor --verbose --no-score --json --json-out "$repo/$out/json/react-doctor.json" >/dev/null 2>&1)
+    # react-doctor has no SARIF reporter, so the JSON report is converted after the fact; its
+    # findings are the freshest of any probe here and belong in the HTML, not only in raw/.
+    # --json-out takes an absolute path because of the subshell cd. The JSON is a temp file, not
+    # an output: the converter reads it once and nothing else ever does.
+    rd_json="$(mktemp -t react-doctor-XXXXXX.json)"
+    (cd frontend && npx react-doctor --verbose --no-score --json --json-out "$rd_json" >/dev/null 2>&1)
+    bun scripts/react-doctor-sarif.ts "$rd_json" "$out/sarif/react-doctor.sarif" >/dev/null 2>&1
+    rm -f "$rd_json" "$out/json/react-doctor.json"
+    check_sarif "$out/sarif/react-doctor.sarif"
     if [ ${#failed[@]} -eq 0 ]; then
         printf "{{ GREEN }}Done, every probe exited clean. Reports → %s/raw/{{ NC }}\n" "$out"
     else
@@ -121,7 +127,7 @@ audit-report:
     # complexity bands, so merging it with Biome and knip buries the handful of real errors
     # under a wall of CRAP scores. sarif-tools also labels a rule group from the first
     # finding's message, which turns fallow's quoted function names into "' ...".
-    sarif html --output "$out/code.html" "$out/sarif/biome.sarif" "$out/sarif/knip.sarif"
+    sarif html --output "$out/code.html" "$out/sarif/biome.sarif" "$out/sarif/knip.sarif" "$out/sarif/react-doctor.sarif"
     sarif html --output "$out/complexity.html" "$out/sarif/fallow-health.sarif" "$out/sarif/fallow-dupes.sarif"
     # CSV keeps the per-finding message the grouped HTML drops — the format to grep.
     sarif csv --output "$out/findings.csv" "$out/sarif"

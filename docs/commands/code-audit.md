@@ -23,9 +23,8 @@ Exit stays 0 — knip and react-doctor exit 1 on findings that are triaged, not 
 ```
 .audit-out/code/
 ├── raw/         knip biome tsc cycles health dupes anon-db-gate react-doctor  (.txt)
-├── sarif/       biome knip fallow-health fallow-dupes                          (.sarif)
+├── sarif/       biome knip react-doctor fallow-health fallow-dupes                          (.sarif)
 ├── sarif-prev/  the same four, from the run before — rotated automatically
-├── json/        react-doctor.json
 ├── code.html · complexity.html · findings.csv        written by audit-report
 └── diff.txt · diff.json                              written by audit-diff
 ```
@@ -33,6 +32,10 @@ Exit stays 0 — knip and react-doctor exit 1 on findings that are triaged, not 
 **`raw/` is the audit.** Every probe writes there and reading it needs nothing beyond the repo
 toolchain. `sarif/` and `json/` are a bonus for the reporting recipes below; a probe with no
 machine-readable format (`tsc`, madge, `anon-db-gate`) lives in `raw/` only.
+
+react-doctor has no SARIF reporter either, but it is the only probe whose findings turn over on
+ordinary work, so `scripts/react-doctor-sarif.ts` converts its JSON rather than leaving it out of
+the report. The other probes keep their raw output.
 
 Each tool that has both formats runs twice, because none of them emits two formats in one pass:
 Biome's `--reporter-file` and react-doctor's `--json-out` write *instead of* stdout. Every probe

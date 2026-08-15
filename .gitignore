@@ -97,6 +97,7 @@ scripts/*
 # CI runs this one, so it has to be tracked, unlike the local-only scripts above.
 !scripts/anon-db-gate.ts
 !scripts/anon-db-allowlist.json
+!scripts/react-doctor-sarif.ts
 # =========================
 backend/src/db/seed/output/
 backend/src/output
