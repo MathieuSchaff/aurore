@@ -13,6 +13,10 @@ lint-fix:
 # The `-` prefixes are load-bearing: --save-baseline writes the file and *then* exits non-zero
 # on the findings it just recorded, which would abort the recipe after the first line and leave
 # the other two baselines missing. `just audit-code` reads audit-health.json / audit-dupes.json.
+#
+# No --css on the health line: the baseline format has no slot for a styling finding, so the flag
+# writes a byte-identical file and buys nothing. audit-code keeps those findings out of the
+# baselined passes for the same reason.
 [doc('Save audit baseline (reset after big cleanup)')]
 [group('quality')]
 fallow-baseline:

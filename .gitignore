@@ -97,6 +97,9 @@ scripts/*
 # CI runs this one, so it has to be tracked, unlike the local-only scripts above.
 !scripts/anon-db-gate.ts
 !scripts/anon-db-allowlist.json
+# `just audit-report` calls both, so a clone without them has a broken recipe, not a missing
+# local convenience.
+!scripts/audit-report.ts
 !scripts/react-doctor-sarif.ts
 # =========================
 backend/src/db/seed/output/
