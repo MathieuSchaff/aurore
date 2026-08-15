@@ -4,7 +4,7 @@ AUDIT_CODE_OUT := '.audit-out/code'
 
 # Plain bash (no -e, no pipefail) keeps every report being written when one probe fails, but a
 # bare "Done" then reads as a clean audit: knip and cycles both exited 1 under a "Done" once.
-[doc('Full code audit: probes, then the HTML report. OPEN=1 opens the report.')]
+[doc('Full code audit: probes, then the map and the HTML/CSV reports, opened in a browser. NO_OPEN=1 skips the window.')]
 [group('audit')]
 [script('bash')]
 audit-code:
@@ -137,10 +137,9 @@ audit-code:
         printf "{{ YELLOW }}No SARIF written for: %s. The report will be short by that much.{{ NC }}\n" "${nosarif[*]}"
     fi
     just audit-report
-    [ -n "${OPEN:-}" ] && just audit-open
     exit 0
 
-[doc('Rebuild the HTML report from the probe output already on disk.')]
+[doc('Rebuild the map and the report from the probe output already on disk, then open both. NO_OPEN=1 writes them without a browser window.')]
 [group('audit')]
 [script]
 audit-report:
@@ -149,6 +148,12 @@ audit-report:
         printf "{{ RED }}No %s/sarif/. Run 'just audit-code' first.{{ NC }}\n" "$out"
         exit 1
     fi
+    printf "{{ CYAN }}=== fallow viz (codebase map) ==={{ NC }}\n"
+    # Ships with fallow, costs ~200ms, and is the only view of the repo that shows shape rather
+    # than a list: a treemap and an import graph recoloured by dead code, duplication, boundaries
+    # and complexity. --no-open because the browser window is opened once, at the end, for both
+    # pages at a time.
+    npx fallow viz --no-open --out "$out/map.html" 2>&1 | tail -1
     # Own generator instead of `sarif html`: sarif-tools grouped by rule code and dropped the
     # location, so its page could name a finding but never open it. See scripts/audit-report.ts.
     bun scripts/audit-report.ts "$out"
@@ -157,10 +162,10 @@ audit-report:
     # in the repo read the CSV, and dropping it drops the last dependency outside the toolchain.
     rm -f "$out/code.html" "$out/complexity.html" "$out/diff.txt" "$out/diff.json" "$out/findings.csv"
     printf "{{ GREEN }}%s/report.html{{ NC }} · %s/summary.json (agent-readable)\n" "$out" "$out"
+    # Opening is the default because an audit nobody looks at is an audit nobody ran. NO_OPEN is
+    # for the cases with no browser to open into: an agent, a CI job, a remote shell.
+    if [ -z "${NO_OPEN:-}" ]; then
+        xdg-open "$out/report.html" 2>/dev/null
+        xdg-open "$out/map.html" 2>/dev/null
+    fi
     exit 0
-
-[doc('Open the HTML audit report in a browser')]
-[group('audit')]
-[script]
-audit-open:
-    xdg-open '{{ AUDIT_CODE_OUT }}/report.html'

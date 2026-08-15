@@ -297,6 +297,8 @@ const deadClassRows = deadClasses
   )
   .join('')
 
+const hasMap = existsSync(join(outDir, 'map.html'))
+
 const standingByFile = new Map<string, number>()
 for (const f of standing) standingByFile.set(f.file, (standingByFile.get(f.file) ?? 0) + 1)
 const standingRows = [...standingByFile.entries()]
@@ -406,7 +408,7 @@ details.raw > summary { cursor: pointer; padding: .6rem .9rem; font-weight: 600;
 <body>
 <main>
 <h1>Code audit</h1>
-<p class="sub">${stampShown} UTC · ${payload.length} finding${payload.length === 1 ? '' : 's'} · ${probes.length} probes</p>
+<p class="sub">${stampShown} UTC · ${payload.length} finding${payload.length === 1 ? '' : 's'} · ${probes.length} probes${hasMap ? ' · <a href="map.html">codebase map</a>' : ''}</p>
 
 ${
   failedProbes.length
