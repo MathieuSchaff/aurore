@@ -13,8 +13,8 @@ That is the only command to remember. It runs knip, biome, `tsc -b`, madge, fall
 dupes, anon-db-gate and react-doctor in that order, then calls `audit-report` itself, which
 degrades to a message when its prerequisites are missing rather than breaking the run.
 
-It never aborts mid-run: each probe records its own status and the summary names the failures.
-Exit stays 0 — knip and react-doctor exit 1 on findings that are triaged, not blocking. A bare
+It never aborts midrun: each probe records its own status and the summary names the failures.
+Exit stays 0: knip and react-doctor exit 1 on findings that are triaged, not blocking. A bare
 "Done" is not a clean audit; read the summary line.
 
 ### Where the output lands
@@ -129,7 +129,7 @@ Four things worth knowing:
 
 | Command | Tool | What it is good at |
 | :--- | :--- | :--- |
-| `just knip [flags] [reporter]` | knip | Dead files, exports, types, deps. Re-export aware, follows the workspace symlink. `--strict` also reports unlisted deps and types-only issues. Second positional picks the reporter — `just knip "" sarif` is what `audit-code` calls, since repeating `--reporter` interleaves both formats into the same stdout |
+| `just knip [flags] [reporter]` | knip | Dead files, exports, types, deps. Re-export aware, follows the workspace symlink. `--strict` also reports unlisted deps and types-only issues. Second positional picks the reporter: `just knip "" sarif` is what `audit-code` calls, since repeating `--reporter` interleaves both formats into the same stdout |
 | `just lint` / `just lint-fix` | Biome | Lint, unused locals, format. `lint-fix` writes |
 | `just ts-verify` | `tsc -b` | Type errors across project references |
 | `just cycles` | madge | Import cycles. Type-only imports ignored via `.madgerc`; seed blog data excluded |
@@ -146,7 +146,7 @@ Four things worth knowing:
 
 Two notes that save a triage round:
 
-- **madge over-reports.** Every new hit needs an individual check — lazy imports and erased
+- **madge overreports.** Every new hit needs an individual check: lazy imports and erased
   type edges can read as runtime cycles.
 - **fallow only sees files git tracks.** A gitignored script is invisible to every probe, so a
   `scripts/*` entry that is not un-ignored is analysed by nothing at all, and, if a `just` recipe
@@ -160,12 +160,12 @@ Two notes that save a triage round:
   that ground with far fewer false positives.
 - **`anon-db-gate` fails on a site that disappears too**, not only on a new one: the grain is
   file + count, and a count that no longer matches means the list has rotted. `--update`
-  re-baselines and parks unknown files on group `?`, which keeps failing until they are classified.
+  writes the baseline again and parks unknown files on group `?`, which keeps failing until they are classified.
 
 ## Bundle analysis
 
 The tracked `frontend/vite.config.ts` already carries all three tools. No separate config, no
-`--config` flag — everything is gated by `ANALYZE` or by the dev server.
+`--config` flag: everything is gated by `ANALYZE` or by the dev server.
 
 | Tool | Command | Output | Gate |
 | :--- | :--- | :--- | :--- |
@@ -182,11 +182,11 @@ terminal, the `stats.html` treemap, and the devtools panel.
 | devtools shows | Rolldown module graph, why a module landed in a chunk, chunking, perf |
 | The build does not exit | While the devtools server runs. Kill it with `fuser -k 9999/tcp` |
 | Inspect is off in preview | `vite preview` serves a frozen build, so transform inspection is meaningless there |
-| Without `ANALYZE` | Normal and prod builds emit no `stats.html` and no panel — that gate is what keeps `profile-prod` and CI working |
+| Without `ANALYZE` | Normal and prod builds emit no `stats.html` and no panel: that gate is what keeps `profile-prod` and CI working |
 
 Build output lives in `frontend/.output/` (`public/` + `server/`), not `dist/`.
 
 ## Comparing against prod
 
-`just profile-prod` serves the built SSR frontend behind a real nginx edge (HTTP/2 + TLS) —
-see [dev-stack.md](dev-stack.md).
+`just profile-prod` serves the built SSR frontend behind a real nginx edge (HTTP/2 + TLS).
+See [dev-stack.md](dev-stack.md).

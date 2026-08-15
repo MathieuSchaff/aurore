@@ -24,10 +24,10 @@ fallow-baseline:
     -npx fallow health --save-baseline .fallow/audit-health.json --quiet
     -npx fallow dupes --save-baseline .fallow/audit-dupes.json --quiet
 
-# anonDb is the anonymous view, so a new site under-scopes (lost personalisation, lost request
-# transaction) instead of escalating — no test and no type catches that.
-# Freeze the `c.get('anonDb')` surface against scripts/anon-db-allowlist.json. "--update" re-baselines.
-[doc("Freeze the c.get('anonDb') surface against scripts/anon-db-allowlist.json. --update re-baselines.")]
+# anonDb is the anonymous view, so a new site sees too little (lost personalisation, lost request
+# transaction) instead of escalating; no test and no type catches that.
+# Freeze the `c.get('anonDb')` surface against scripts/anon-db-allowlist.json. "--update" rewrites the baseline.
+[doc("Freeze the c.get('anonDb') surface against scripts/anon-db-allowlist.json. --update rewrites the baseline.")]
 [group('quality')]
 anon-db-gate flags="":
     bun scripts/anon-db-gate.ts {{flags}}
@@ -42,7 +42,7 @@ knip flags="" reporter="compact":
 # Seed blog data excluded: index↔article-data barrels are static data, not real coupling.
 #
 # Runs from a temp cwd with TypeScript 5 pinned. madge parses through
-# @typescript-eslint/typescript-estree, which reads ts.Extension — an enum the workspace's
+# @typescript-eslint/typescript-estree, which reads ts.Extension, an enum the workspace's
 # TypeScript 7 native port no longer exposes, so any run that resolves the repo's own
 # typescript crashes on "Cannot read properties of undefined (reading 'Cjs')". The temp cwd
 # keeps Node from walking up into node_modules/. The madge devDependency stays in

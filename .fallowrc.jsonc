@@ -39,9 +39,9 @@
     "frontend/src/styles/tokens/breakpoints.css"
   ],
 
-  // @aurore/shared: fallow resolves the symlink (verified on 3.10.0 — dropping this entry
+  // @aurore/shared: fallow resolves the symlink (verified on 3.10.0, dropping this entry
   // surfaces no unresolved-import), but attributes the package to a single workspace. It reports
-  // it unused in frontend/package.json "(imported in backend)" while 148 frontend files import it.
+  // it unused in frontend/package.json "(imported in backend)" while the frontend imports it widely.
   // pino-pretty: string reference in the transport config, never imported.
   // typescript-5: only consumer is scripts/audit-comments.ts, which is gitignored (local-only
   // tooling), so no analyser can see the import that justifies the dependency.

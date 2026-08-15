@@ -17,7 +17,7 @@ frontend/stats.html
 *.tsbuildinfo
 *.d.ts
 *.d.ts.map
-# Bun runs TS directly — compiled JS in src/ = accidental tsc run
+# Bun runs TS directly: compiled JS in src/ = accidental tsc run
 backend/src/**/*.js
 
 # =========================
@@ -142,7 +142,7 @@ backend/src/images/fetchers/*.ts
 /reports/
 
 # =========================
-# Staged one-shot DB fixes (just db-fix) — never committed; README documents the convention
+# Staged one-shot DB fixes (just db-fix), never committed; README documents the convention
 # =========================
 .db-fixes/*
 !.db-fixes/README.md

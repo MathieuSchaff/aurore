@@ -9,7 +9,7 @@ AUDIT_CODE_OUT := '.audit-out/code'
 [script('bash')]
 audit-code:
     # Each probe records its own status (PIPESTATUS[0], since tee would otherwise mask it) and
-    # the summary names the failures. Exit stays 0 — knip and react-doctor exit 1 on findings
+    # the summary names the failures. Exit stays 0: knip and react-doctor exit 1 on findings
     # that are triaged, not blocking.
     #
     # raw/ is the audit: every probe writes there and nothing outside the repo toolchain is
@@ -82,7 +82,7 @@ audit-code:
     npx fallow health "${health_args[@]}" 2>&1 | tee "$out/raw/health.txt"
     record fallow-health ${PIPESTATUS[0]}
     # --sarif-file claims to write "in addition to" the primary format, but is a no-op in
-    # fallow 3.10.0 — it silently writes nothing. --output-file does work, hence a second run.
+    # fallow 3.10.0: it silently writes nothing. --output-file does work, hence a second run.
     # Same baseline as the text run: without it the SARIF carried all ~200 standing findings, so
     # the report was the same immutable wall every run and nothing could ever read as new. The
     # standing list is not lost: the sarif-full/ pass below keeps it.
@@ -114,7 +114,7 @@ audit-code:
     just anon-db-gate 2>&1 | tee "$out/raw/anon-db-gate.txt"
     record anon-db-gate ${PIPESTATUS[0]}
     printf "{{ CYAN }}=== react-doctor (React patterns/a11y/perf) ==={{ NC }}\n"
-    # Version comes from frontend/package.json (react-doctor dependency) — no pin here.
+    # Version comes from frontend/package.json (react-doctor dependency). No pin here.
     (cd frontend && npx react-doctor --verbose --no-score 2>&1) | tee "$out/raw/react-doctor.txt"
     record react-doctor ${PIPESTATUS[0]}
     # react-doctor has no SARIF reporter, so the JSON report is converted after the fact; its
