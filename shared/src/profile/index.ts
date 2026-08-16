@@ -30,7 +30,7 @@ export const profileUpdateSchema = z
   })
   .strict()
 
-const userDermoProfileSchema = z.object({
+export const userDermoProfileSchema = z.object({
   userId: z.uuid(),
   skinTypes: z.array(z.enum(SKIN_TYPES)).max(3).nullable(),
   fitzpatrickType: z.number().int().min(1).max(6).nullable(),

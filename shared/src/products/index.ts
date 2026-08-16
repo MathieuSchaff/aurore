@@ -20,6 +20,7 @@ export {
 export * from './ingredients'
 export * from './kind-to-tags'
 export * from './kinds'
+export * from './list-products-page'
 export {
   type ComplementListProductsFilters,
   complementListProductsQuery,
@@ -35,6 +36,7 @@ export {
   type SkincareListProductsFilters,
   skincareListProductsQuery,
 } from './list-products-query'
+export * from './product-detail-page'
 export * from './schemas'
 export * from './skincare/tag-slugs'
 export {

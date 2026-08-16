@@ -1,3 +1,5 @@
+import type { UserProductStatus } from '@aurore/shared'
+
 import { expect, type Page } from '@playwright/test'
 
 import { type Credentials, loginAs, SEED_EMAIL, SEED_PASSWORD } from './auth'
@@ -36,6 +38,48 @@ export async function gotoFirstProductDetail(page: Page): Promise<string> {
   await expect(page).toHaveURL(new RegExp(`/products/${slug}$`), { timeout: 15_000 })
   await waitForHydration(page)
   return slug
+}
+
+export type ShelfProductWithInci = {
+  id: string
+  slug: string
+  name: string
+  category: string
+  status: UserProductStatus
+}
+
+const SEEDED_DETAIL_SLUG_BY_BROWSER: Record<string, string> = {
+  chromium: 'cerave-baume-hydratant',
+  firefox: 'avene-cicalfate-creme-reparatrice-protectrice',
+  webkit: 'avene-cleanance-gel-nettoyant',
+}
+
+export async function resolveShelfProductWithInci(
+  page: Page,
+  token: string,
+  browserName: string
+): Promise<ShelfProductWithInci> {
+  const shelfResponse = await page.request.get('/api/user-products', {
+    headers: bearer(token),
+  })
+  expect(shelfResponse.ok(), `shelf read failed (${shelfResponse.status()})`).toBe(true)
+  const shelf = (await shelfResponse.json()).data as {
+    status: UserProductStatus
+    product: { id: string; slug: string; name: string }
+  }[]
+
+  // Parallel shelf writers can expose a transient row between their POST and cleanup
+  const seededSlug = SEEDED_DETAIL_SLUG_BY_BROWSER[browserName]
+  if (!seededSlug) throw new Error(`no seeded detail product mapped for browser "${browserName}"`)
+  const item = shelf.find(({ product }) => product.slug === seededSlug)
+  if (!item) throw new Error(`seed persona has no shelf product "${seededSlug}"`)
+
+  const detailResponse = await page.request.get(`/api/products/${seededSlug}`)
+  expect(detailResponse.ok(), `product detail read failed (${detailResponse.status()})`).toBe(true)
+  const detail = (await detailResponse.json()).data as { category: string; inci?: string | null }
+  if (!detail.inci?.trim()) throw new Error(`seeded detail product "${seededSlug}" has no INCI`)
+
+  return { ...item.product, category: detail.category, status: item.status }
 }
 
 export type CatalogFixture = { id: string; slug: string; name: string }

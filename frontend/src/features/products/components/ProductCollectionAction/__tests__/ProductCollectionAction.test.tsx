@@ -1,4 +1,4 @@
-import type { UserProductStatus } from '@aurore/shared'
+import type { UserProductStatus, UserPublic } from '@aurore/shared'
 
 import { useNavigate, useRouterState } from '@tanstack/react-router'
 import { screen, waitFor } from '@testing-library/react'
@@ -6,6 +6,8 @@ import userEvent from '@testing-library/user-event'
 import toast from 'react-hot-toast'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
+import { statusLabels } from '@/features/collection/constants'
+import { authQueries } from '@/lib/queries/auth'
 import { productQueries } from '@/lib/queries/products'
 import { useCreateUserProduct } from '@/lib/queries/user-products'
 import { useAuthStore } from '@/store/auth'
@@ -54,7 +56,14 @@ const product = {
   priceCents: 1990,
 }
 
-const authenticatedUser = { id: 'user-1' }
+const authenticatedUser: UserPublic = {
+  id: '019c0000-0000-7000-8000-000000000001',
+  email: 'aurore@example.test',
+  createdAt: '2026-08-16T10:00:00.000Z',
+  emailVerified: true,
+  role: 'user',
+  isDemo: false,
+}
 const navigate = vi.fn()
 const mutateAsync = vi.fn()
 let authState: {
@@ -139,6 +148,35 @@ describe('ProductCollectionAction', () => {
 
     expect(mutateAsync).not.toHaveBeenCalled()
     expect(screen.getByRole('dialog')).toHaveAttribute('data-current-status', 'in_stock')
+  })
+
+  it('shows the seeded shelf status while the SSR identity is only in the session cache', () => {
+    authState = {
+      accessToken: null,
+      user: null,
+      bootRefreshAttempted: false,
+      bootRefreshPending: false,
+    }
+    const queryClient = createTestQueryClient()
+    queryClient.setQueryData(authQueries.session().queryKey, {
+      authenticated: true,
+      userId: authenticatedUser.id,
+      user: authenticatedUser,
+      role: authenticatedUser.role,
+    })
+    queryClient.setQueryData(
+      productQueries.shelfStatus(authenticatedUser.id, [product.id]).queryKey,
+      new Map([[product.id, 'wishlist']])
+    )
+
+    renderWithProviders(<ProductCollectionAction product={product} />, { queryClient })
+
+    expect(
+      screen.getByRole('button', {
+        name: new RegExp(`Dans votre collection : ${statusLabels.wishlist.label}`),
+      })
+    ).toBeInTheDocument()
+    expect(screen.queryByRole('button', { name: 'Chargement de votre collection' })).toBeNull()
   })
 
   it('redirects anonymous save and detail intents to login with the current product URL', async () => {

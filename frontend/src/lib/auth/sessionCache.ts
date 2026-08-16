@@ -22,8 +22,9 @@ const USER_SCOPED_SUBTREES: ReadonlyArray<readonly [string, string]> = [
 // but just what was the specific data of the user
 // the userStatus for exemple
 function isSessionScoped(queryKey: readonly unknown[]): boolean {
-  const [root, second] = queryKey
+  const [root, second, third, fourth] = queryKey
   if (typeof root !== 'string' || !PUBLIC_QUERY_ROOTS.has(root)) return true
+  if (root === 'products' && third === 'dermo-score' && typeof fourth === 'string') return true
   return USER_SCOPED_SUBTREES.some(
     ([scopedRoot, scopedSecond]) => scopedRoot === root && scopedSecond === second
   )

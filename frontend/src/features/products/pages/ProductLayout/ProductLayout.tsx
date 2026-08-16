@@ -1,6 +1,6 @@
 import { getProductKindLabel } from '@aurore/shared'
 
-import { useSuspenseQuery } from '@tanstack/react-query'
+import { useQuery, useSuspenseQuery } from '@tanstack/react-query'
 import {
   getRouteApi,
   Link,
@@ -20,6 +20,7 @@ import { type TabOption, Tabs } from '@/component/Tabs/Tabs'
 import { ReportContentButton } from '@/features/discussions/components/ReportContentButton'
 import { SuggestEditButton } from '@/features/discussions/components/SuggestEditButton'
 import { ProductCollectionAction } from '@/features/products/components/ProductCollectionAction/ProductCollectionAction'
+import { authQueries } from '@/lib/queries/auth'
 import { productQueries } from '@/lib/queries/products'
 import { sanitizeUrl } from '@/lib/url'
 import { useAuthStore } from '@/store/auth'
@@ -52,7 +53,9 @@ function getDomain(url: string): string | null {
 export function ProductLayout() {
   const { slug } = route.useParams()
   const { data: product } = useSuspenseQuery(productQueries.bySlug(slug))
-  const user = useAuthStore((s) => s.user)
+  const storeUser = useAuthStore((s) => s.user)
+  const { data: bootSession } = useQuery({ ...authQueries.session(), enabled: false })
+  const hasUser = !!storeUser || bootSession?.authenticated === true
   const navigate = useNavigate()
   const router = useRouter()
   const canGoBack = useCanGoBack()
@@ -153,7 +156,7 @@ export function ProductLayout() {
                   priceCents: product.priceCents,
                 }}
               />
-              {user && (
+              {hasUser && (
                 <ButtonLink
                   to="/products/$slug/edit"
                   params={{ slug }}
@@ -173,7 +176,7 @@ export function ProductLayout() {
                 <span className="sr-only"> (nouvel onglet)</span>
               </a>
             )}
-            {user && (
+            {hasUser && (
               <div className="product-rail__meta">
                 <SuggestEditButton targetType="product" targetId={product.id} />
                 <ReportContentButton targetType="product" targetId={product.id} />

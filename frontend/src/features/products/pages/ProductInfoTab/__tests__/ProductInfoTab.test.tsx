@@ -1,13 +1,16 @@
-import type { UserPublic } from '@aurore/shared'
+import type { ProductDetail, UserDermoProfile, UserPublic } from '@aurore/shared'
 
 import { fireEvent, screen } from '@testing-library/react'
 import { HttpResponse, http } from 'msw'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
 import { useCopyToClipboard } from '@/hooks/useCopyToClipboard'
+import { authQueries } from '@/lib/queries/auth'
+import { productQueries } from '@/lib/queries/products'
+import { profileQueries } from '@/lib/queries/profile'
 import { useAuthStore } from '@/store/auth'
 import { server } from '@/test/msw/server'
-import { renderWithProviders } from '@/test/utils'
+import { createTestQueryClient, renderWithProviders } from '@/test/utils'
 import { ProductInfoTab } from '../ProductInfoTab'
 
 vi.mock('@tanstack/react-router', async () => ({
@@ -173,6 +176,77 @@ describe('ProductInfoTab', () => {
       await screen.findByText(/Peut ne pas convenir à votre profil cutané/)
     ).toBeInTheDocument()
     expect(screen.getByText(/Sensible/)).toBeInTheDocument()
+  })
+
+  it('warns from the seeded SSR identity before the auth store catches up', async () => {
+    const queryClient = createTestQueryClient()
+    const user: UserPublic = {
+      id: '019c0000-0000-7000-8000-000000000001',
+      email: 'aurore@example.test',
+      createdAt: '2026-08-16T10:00:00.000Z',
+      emailVerified: true,
+      role: 'user',
+      isDemo: false,
+    }
+    queryClient.setQueryData(authQueries.session().queryKey, {
+      authenticated: true,
+      userId: user.id,
+      user,
+      role: user.role,
+    })
+    const product: ProductDetail = {
+      id: '019c0000-0000-7000-8000-000000000002',
+      slug: 'product-x',
+      name: 'Product X',
+      brand: 'Aurore',
+      category: 'skincare',
+      kind: 'moisturizer',
+      description: null,
+      inci: null,
+      totalAmount: 50,
+      amountUnit: 'ml',
+      notes: null,
+      url: null,
+      imageUrl: null,
+      unit: 'jar',
+      priceCents: 2500,
+      texture: 'creme',
+      catalogQuality: 'verified',
+      moderationStatus: 'visible',
+      createdBy: '019c0000-0000-7000-8000-000000000003',
+      createdAt: '2026-08-16T08:00:00.000Z',
+      updatedAt: '2026-08-16T08:00:00.000Z',
+      inciCount: 0,
+      hasFragrance: false,
+      ingredients: [],
+      tags: [
+        {
+          productTagId: '019c0000-0000-7000-8000-000000000010',
+          productId: '019c0000-0000-7000-8000-000000000002',
+          tagName: 'Peau sensible',
+          tagSlug: 'peau-sensible',
+          tagCategory: 'skin_type',
+          relevance: 'avoid',
+        },
+      ],
+    }
+    queryClient.setQueryData(productQueries.bySlug('product-x').queryKey, product)
+    const dermoProfile: UserDermoProfile = {
+      userId: user.id,
+      skinTypes: ['peau-sensible'],
+      fitzpatrickType: null,
+      skinConcerns: [],
+      privateNotes: null,
+      createdAt: '2026-08-16T09:00:00.000Z',
+      updatedAt: '2026-08-16T09:00:00.000Z',
+    }
+    queryClient.setQueryData<UserDermoProfile | null>(profileQueries.dermo().queryKey, dermoProfile)
+
+    renderWithProviders(<ProductInfoTab />, { queryClient })
+
+    expect(
+      await screen.findByText(/Peut ne pas convenir à votre profil cutané/)
+    ).toBeInTheDocument()
   })
 
   // The user concern vocab and the product tag vocab drifted apart: 'rosacee' is
