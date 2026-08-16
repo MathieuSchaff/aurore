@@ -5,7 +5,7 @@ import { type Context, Hono, type Next } from 'hono'
 
 import type { AppEnv } from '../../app-env'
 import { db as appRuntimeDb } from '../../db'
-import { userPreferences } from '../../db/schema'
+import { userPreferences, users } from '../../db/schema'
 import { generateAccessToken } from '../../features/auth/jwt.utils'
 import { requireJwtAuth } from '../../features/auth/middleware'
 import { withRlsContext } from '../../features/auth/rls-context.middleware'
@@ -22,6 +22,8 @@ const createRlsTestApp = () => createTestApp({ anonDb: appRuntimeDb })
 
 const REQUEST_DB_AFTER_HEADER = 'x-test-request-db-after-rls'
 
+const ORPHAN_USER_ID = '11111111-2222-3333-4444-555555555555'
+
 const exposeRequestDbAfterRls = async (c: Context<AppEnv>, next: Next) => {
   await next()
   c.header(REQUEST_DB_AFTER_HEADER, c.get('requestDb') ? 'present' : 'absent')
@@ -29,7 +31,8 @@ const exposeRequestDbAfterRls = async (c: Context<AppEnv>, next: Next) => {
 
 describe('withRlsContext', () => {
   it('binds app.user_id for the duration of the request', async () => {
-    const userId = '11111111-2222-3333-4444-555555555555'
+    // A real row is needed: app.role is read from the users table, not from the claim
+    const { id: userId } = await createTestUser('rls-bind-probe@test.local', 'Azerty123!')
 
     const app = await createRlsTestApp()
 
@@ -59,6 +62,54 @@ describe('withRlsContext', () => {
     const body = (await res.json()) as Array<{ uid: string; role: string }>
     expect(body[0]?.uid).toBe(userId)
     expect(body[0]?.role).toBe('user')
+  })
+
+  it('binds the DB role, not the token claim', async () => {
+    const user = await createTestUser('rls-stale-claim@test.local', 'Azerty123!')
+    const app = await createRlsTestApp()
+
+    const probe = new Hono<AppEnv>()
+    probe.use('*', requireJwtAuth)
+    probe.use('*', withRlsContext)
+    probe.get('/rls-role', async (c) => {
+      const rows = await getRlsDb(c).execute(sql`SELECT current_setting('app.role', true) AS role`)
+      return c.json(rows)
+    })
+
+    app.route('/__test_role__', probe)
+
+    // Claim minted as contributor, row demoted right after: the stale claim must not win
+    const token = await generateAccessToken(user.id, 'contributor', JWT_SECRET)
+    await testDb.update(users).set({ role: 'user' }).where(eq(users.id, user.id))
+
+    const res = await app.request('/__test_role__/rls-role', {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+
+    const body = (await res.json()) as Array<{ role: string }>
+    expect(body[0]?.role).toBe('user')
+  })
+
+  it('falls back to the anonymous role when the account is gone', async () => {
+    const app = await createRlsTestApp()
+
+    const probe = new Hono<AppEnv>()
+    probe.use('*', requireJwtAuth)
+    probe.use('*', withRlsContext)
+    probe.get('/rls-orphan', async (c) => {
+      const rows = await getRlsDb(c).execute(sql`SELECT current_setting('app.role', true) AS role`)
+      return c.json(rows)
+    })
+
+    app.route('/__test_orphan__', probe)
+
+    const token = await generateAccessToken(ORPHAN_USER_ID, 'admin', JWT_SECRET)
+    const res = await app.request('/__test_orphan__/rls-orphan', {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+
+    const body = (await res.json()) as Array<{ role: string }>
+    expect(body[0]?.role).toBe('')
   })
 
   it('skips RLS context for unauthenticated (no userId) requests', async () => {

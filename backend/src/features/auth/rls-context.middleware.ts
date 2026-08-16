@@ -3,7 +3,6 @@ import type { Context, Next } from 'hono'
 
 import type { AppEnv } from '../../app-env'
 import { users } from '../../db/schema'
-import { getAuthedUserRole } from '../../utils/accessors'
 
 // Wraps authenticated requests in a transaction and binds the PostgreSQL RLS context.
 // Must run after requireJwtAuth. Public requests without userId pass through unchanged.
@@ -21,20 +20,27 @@ export const withRlsContext = async (c: Context<AppEnv>, next: Next) => {
     throw new Error('withRlsContext: requestDb is already set')
   }
   const anonDb = c.get('anonDb')
-  // Throws if userId is set but role is not: programmer error (requireJwtAuth not chained).
-  const role = getAuthedUserRole(c)
   let rollbackRequested = false
   try {
     await anonDb.transaction(async (tx) => {
+      // Account deletion takes FOR UPDATE before touching owned targets. Holding
+      // KEY SHARE here makes every authenticated request lock in that same order,
+      // account before target, so no write commits after account cleanup.
+      const [account] = await tx
+        .select({ id: users.id, role: users.role })
+        .from(users)
+        .where(eq(users.id, userId))
+        .for('key share')
+
+      // Every policy arbitrates on app.role, so it comes from the row, never from the JWT
+      // claim: a demoted contributor carries a stale claim until its token expires. An
+      // account gone since the token was minted falls back to the anonymous context
+      const role = account?.role ?? ''
+
       // SET LOCAL only accepts literal strings, making concatenation an injection risk.
       // set_config() takes a parameterized value, so it is safe.
       await tx.execute(sql`SELECT set_config('app.user_id', ${userId}, true)`)
       await tx.execute(sql`SELECT set_config('app.role', ${role}, true)`)
-
-      // Account deletion takes FOR UPDATE before touching owned targets. Holding
-      // KEY SHARE here makes every authenticated request lock in that same order,
-      // account before target, so no write commits after account cleanup.
-      await tx.select({ id: users.id }).from(users).where(eq(users.id, userId)).for('key share')
 
       c.set('requestDb', tx)
 
