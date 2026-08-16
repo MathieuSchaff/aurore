@@ -16,7 +16,7 @@ target_compose() {
 }
 
 # TARGET=prod split-brain guard: `compose -p aurore exec` matches whatever
-# "aurore" stack is running on THIS host — on the laptop that is the dev stack,
+# "aurore" stack runs on THIS host, and on the laptop that is the dev stack,
 # so a prod recipe would silently read/write dev. Assert the running db
 # container was created from the prod compose file before proceeding.
 assert_prod_stack() {
@@ -25,18 +25,35 @@ assert_prod_stack() {
         --filter label=com.docker.compose.project=aurore \
         --filter label=com.docker.compose.service=db | head -n1)"
     if [ -z "$cid" ]; then
-        printf '\033[0;31mTARGET=prod: aucun conteneur db du stack aurore ne tourne ici.\033[0m\n' >&2
-        printf 'Depuis le laptop, passe par: just prod-ssh '\''TARGET=prod … just <recette>'\''\n' >&2
+        printf '\033[0;31mTARGET=prod: no aurore stack db container runs here.\033[0m\n' >&2
+        printf 'From the laptop, go through: just prod-ssh '\''TARGET=prod … just <recipe>'\''\n' >&2
         exit 1
     fi
     files="$(docker inspect "$cid" --format '{{index .Config.Labels "com.docker.compose.project.config_files"}}')"
     case "$files" in
         *docker-compose.prod.yml*) ;;
         *)
-            printf '\033[0;31mTARGET=prod mais le stack local n'\''est PAS prod (%s).\033[0m\n' "$files" >&2
-            printf 'Depuis le laptop, passe par: just prod-ssh '\''TARGET=prod … just <recette>'\''\n' >&2
+            printf '\033[0;31mTARGET=prod but the local stack is NOT prod (%s).\033[0m\n' "$files" >&2
+            printf 'From the laptop, go through: just prod-ssh '\''TARGET=prod … just <recipe>'\''\n' >&2
             exit 1 ;;
     esac
+}
+
+# Prod services resolve ${IMAGE_TAG:-latest}, and only `deploy` exports IMAGE_TAG. A `compose run`
+# one-shot would start from the `:latest` cached on the host, which nothing ever refreshes, and run
+# older code than the API. Call this before any `compose run`. An `exec` does not need it.
+pin_prod_image() {
+    local image tag
+    image="$(docker inspect --format '{{.Config.Image}}' app_api 2>/dev/null || true)"
+    tag="${image##*:}"
+    if [ -z "$image" ] || [ "$tag" = "$image" ] || [ "$tag" = latest ]; then
+        printf '\033[0;31mapp_api image cannot be pinned (%s).\033[0m\n' \
+            "${image:-container not found}" >&2
+        printf 'A one-shot would start from :latest. Redeploy with `just deploy` before retrying.\n' >&2
+        exit 1
+    fi
+    export IMAGE_TAG="$tag"
+    printf '\033[0;36mOne-shot pinned to the app_api image (%s)\033[0m\n' "$tag"
 }
 
 # Standard runner for env-driven data recipes: resolves $COMPOSE, guards prod
@@ -68,7 +85,7 @@ audit_out() {
 # Typed prod confirmation. Args: LABEL [PHRASE=PROD]. Aborts on mismatch.
 confirm_prod() {
     local label="$1" phrase="${2:-PROD}" reply
-    printf '\033[0;31m⚠ PROD %s — tape '\''%s'\'' pour confirmer\033[0m\n' "$label" "$phrase"
+    printf '\033[0;31m⚠ PROD %s: type '\''%s'\'' to confirm\033[0m\n' "$label" "$phrase"
     read -r -p "> " reply
-    [ "$reply" = "$phrase" ] || { printf '\033[0;31mabandon\033[0m\n'; exit 1; }
+    [ "$reply" = "$phrase" ] || { printf '\033[0;31maborted\033[0m\n'; exit 1; }
 }
