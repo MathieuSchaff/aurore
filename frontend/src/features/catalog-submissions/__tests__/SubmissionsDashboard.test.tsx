@@ -1,13 +1,9 @@
-import { useSuspenseQuery } from '@tanstack/react-query'
 import { screen } from '@testing-library/react'
+import { HttpResponse, http } from 'msw'
 import { describe, expect, it, vi } from 'vitest'
 
+import { server } from '@/test/msw/server'
 import { renderWithProviders } from '@/test/utils'
-
-vi.mock('@tanstack/react-query', async () => ({
-  ...(await vi.importActual<typeof import('@tanstack/react-query')>('@tanstack/react-query')),
-  useSuspenseQuery: vi.fn(),
-}))
 
 vi.mock('@tanstack/react-router', async (importOriginal) => {
   const actual = await importOriginal<typeof import('@tanstack/react-router')>()
@@ -40,20 +36,11 @@ vi.mock('@tanstack/react-router', async (importOriginal) => {
   return { ...actual, Link: LinkMock, createLink: () => LinkMock }
 })
 
+import type { MySubmissionItem } from '@aurore/shared'
+
 import { SubmissionsDashboard } from '../page/SubmissionsDashboard'
 
-type Submission = {
-  kind: 'product' | 'ingredient'
-  id: string
-  name: string
-  brand: string | null
-  slug: string
-  catalogQuality: 'unverified' | 'verified'
-  moderationStatus: 'visible' | 'hidden'
-  moderationReason: string | null
-  createdAt: string
-  updatedAt: string
-}
+type Submission = MySubmissionItem
 
 const BASE: Submission = {
   kind: 'product',
@@ -68,33 +55,33 @@ const BASE: Submission = {
   updatedAt: '2026-05-30T10:00:00Z',
 }
 
-function setupItems(items: Submission[]) {
-  vi.mocked(useSuspenseQuery).mockReturnValue({
-    data: { items },
-  } as unknown as ReturnType<typeof useSuspenseQuery>)
+function serveItems(items: Submission[]) {
+  server.use(
+    http.get('*/api/me/submissions', () => HttpResponse.json({ success: true, data: { items } }))
+  )
 }
 
 describe('SubmissionsDashboard', () => {
-  it('renders a verified item with its badge and no action', () => {
-    setupItems([{ ...BASE, catalogQuality: 'verified' }])
+  it('renders a verified item with its badge and no action', async () => {
+    serveItems([{ ...BASE, catalogQuality: 'verified' }])
     renderWithProviders(<SubmissionsDashboard />)
 
-    expect(screen.getByText('Vérifiée')).toBeInTheDocument()
+    expect(await screen.findByText('Vérifiée')).toBeInTheDocument()
     expect(screen.queryByRole('link', { name: 'Modifier' })).not.toBeInTheDocument()
     expect(screen.queryByRole('link', { name: 'Resoumettre' })).not.toBeInTheDocument()
   })
 
-  it('renders a pending item with « En lecture » and a Modifier link to the edit route', () => {
-    setupItems([BASE])
+  it('renders a pending item with « En lecture » and a Modifier link to the edit route', async () => {
+    serveItems([BASE])
     renderWithProviders(<SubmissionsDashboard />)
 
-    expect(screen.getByText('En lecture')).toBeInTheDocument()
+    expect(await screen.findByText('En lecture')).toBeInTheDocument()
     const edit = screen.getByRole('link', { name: 'Modifier' })
     expect(edit).toHaveAttribute('href', '/products/$slug/edit')
   })
 
-  it('renders a hidden item with its reason and a kind-aware Resoumettre link', () => {
-    setupItems([
+  it('renders a hidden item with its reason and a kind-aware Resoumettre link', async () => {
+    serveItems([
       {
         ...BASE,
         kind: 'ingredient',
@@ -105,7 +92,7 @@ describe('SubmissionsDashboard', () => {
     ])
     renderWithProviders(<SubmissionsDashboard />)
 
-    expect(screen.getByText('Masquée')).toBeInTheDocument()
+    expect(await screen.findByText('Masquée')).toBeInTheDocument()
     expect(screen.getByText('Doublon d’une fiche existante.')).toBeInTheDocument()
     const resubmit = screen.getByRole('link', { name: 'Resoumettre' })
     const url = new URL(resubmit.getAttribute('href') ?? '', 'http://t')
@@ -113,21 +100,21 @@ describe('SubmissionsDashboard', () => {
     expect(url.searchParams.get('name')).toBe(BASE.name)
   })
 
-  it('Resoumettre on a hidden product prefills name + brand on /products/new', () => {
-    setupItems([{ ...BASE, moderationStatus: 'hidden', moderationReason: 'Spam.' }])
+  it('Resoumettre on a hidden product prefills name + brand on /products/new', async () => {
+    serveItems([{ ...BASE, moderationStatus: 'hidden', moderationReason: 'Spam.' }])
     renderWithProviders(<SubmissionsDashboard />)
 
-    const resubmit = screen.getByRole('link', { name: 'Resoumettre' })
+    const resubmit = await screen.findByRole('link', { name: 'Resoumettre' })
     const url = new URL(resubmit.getAttribute('href') ?? '', 'http://t')
     expect(url.pathname).toBe('/products/new')
     expect(url.searchParams.get('name')).toBe(BASE.name)
     expect(url.searchParams.get('brand')).toBe(BASE.brand)
   })
 
-  it('renders the empty state when there are no submissions', () => {
-    setupItems([])
+  it('renders the empty state when there are no submissions', async () => {
+    serveItems([])
     renderWithProviders(<SubmissionsDashboard />)
 
-    expect(screen.getByText('Aucune soumission')).toBeInTheDocument()
+    expect(await screen.findByText('Aucune soumission')).toBeInTheDocument()
   })
 })

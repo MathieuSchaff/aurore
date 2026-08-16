@@ -1,35 +1,20 @@
-import { useQuery, useSuspenseQuery } from '@tanstack/react-query'
-import { act, fireEvent, render, screen } from '@testing-library/react'
+import type { UserPublic } from '@aurore/shared'
+
+import { fireEvent, screen } from '@testing-library/react'
+import { HttpResponse, http } from 'msw'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
 import { useCopyToClipboard } from '@/hooks/useCopyToClipboard'
 import { useAuthStore } from '@/store/auth'
+import { server } from '@/test/msw/server'
+import { renderWithProviders } from '@/test/utils'
 import { ProductInfoTab } from '../ProductInfoTab'
-
-vi.mock('@tanstack/react-query', async () => ({
-  ...(await vi.importActual<typeof import('@tanstack/react-query')>('@tanstack/react-query')),
-  useQuery: vi.fn(),
-  useSuspenseQuery: vi.fn(),
-}))
 
 vi.mock('@tanstack/react-router', async () => ({
   ...(await vi.importActual<typeof import('@tanstack/react-router')>('@tanstack/react-router')),
   Link: vi.fn(({ children }) => children),
   getRouteApi: vi.fn(() => ({ useParams: () => ({ slug: 'product-x' }) })),
 }))
-
-vi.mock('@/lib/queries/products', () => ({
-  productKeys: { all: ['products'] as const },
-  productQueries: {
-    bySlug: vi.fn(() => ({ queryKey: ['p', 'bySlug'] })),
-  },
-}))
-
-vi.mock('@/lib/queries/profile', () => ({
-  profileQueries: { dermo: vi.fn(() => ({ queryKey: ['profile', 'dermo'] })) },
-}))
-
-vi.mock('@/store/auth', () => ({ useAuthStore: vi.fn() }))
 
 vi.mock('@/hooks/useCopyToClipboard', () => ({ useCopyToClipboard: vi.fn() }))
 
@@ -51,29 +36,37 @@ vi.mock('@/features/discussions/components/SuggestEditButton', () => ({
 }))
 
 function setProduct(overrides: Record<string, unknown> = {}) {
-  vi.mocked(useSuspenseQuery).mockReturnValue({
-    data: {
-      id: 'p1',
-      slug: 'product-x',
-      name: 'Product X',
-      kind: 'moisturizer',
-      description: 'A nice description',
-      inci: null,
-      notes: null,
-      url: null,
-      ingredients: [],
-      tags: [],
-      ...overrides,
-    },
-  } as unknown as ReturnType<typeof useSuspenseQuery>)
+  server.use(
+    http.get('*/api/products/:slug', () =>
+      HttpResponse.json({
+        success: true,
+        data: {
+          id: 'p1',
+          slug: 'product-x',
+          name: 'Product X',
+          kind: 'moisturizer',
+          description: 'A nice description',
+          inci: null,
+          notes: null,
+          url: null,
+          ingredients: [],
+          tags: [],
+          ...overrides,
+        },
+      })
+    )
+  )
 }
 
 function setDermo(profile: { skinTypes?: string[]; skinConcerns?: string[] } | null) {
-  // Only useQuery caller left in ProductInfoTab: the dermo profile.
-  vi.mocked(useQuery).mockReturnValue({
-    data: profile,
-    isLoading: false,
-  } as unknown as ReturnType<typeof useQuery>)
+  server.use(
+    http.get('*/api/profile/dermo', () => HttpResponse.json({ success: true, data: profile }))
+  )
+}
+
+// The dermo query is gated on a signed-in user; the store drives that gate.
+function signIn() {
+  useAuthStore.setState({ user: { id: 'u1' } as UserPublic })
 }
 
 describe('ProductInfoTab', () => {
@@ -81,9 +74,9 @@ describe('ProductInfoTab', () => {
 
   beforeEach(() => {
     vi.clearAllMocks()
+    useAuthStore.setState({ user: null })
     setProduct()
     setDermo(null)
-    vi.mocked(useAuthStore).mockReturnValue(null as never)
     vi.mocked(useCopyToClipboard).mockReturnValue({
       copied: false,
       copy,
@@ -105,11 +98,9 @@ describe('ProductInfoTab', () => {
         },
       ],
     })
-    await act(async () => {
-      render(<ProductInfoTab />)
-    })
+    renderWithProviders(<ProductInfoTab />)
 
-    expect(screen.getByText('Glow serum.')).toBeInTheDocument()
+    expect(await screen.findByText('Glow serum.')).toBeInTheDocument()
     expect(screen.getByText('Niacinamide')).toBeInTheDocument()
     expect(screen.getByText('10 %')).toBeInTheDocument()
   })
@@ -126,21 +117,17 @@ describe('ProductInfoTab', () => {
         { ingredientSlug: 'glycerin', ingredientName: 'Glycerin', ingredientCategory: 'humectant' },
       ],
     })
-    await act(async () => {
-      render(<ProductInfoTab />)
-    })
+    renderWithProviders(<ProductInfoTab />)
 
-    expect(screen.getByText('En bref')).toBeInTheDocument()
+    expect(await screen.findByText('En bref')).toBeInTheDocument()
     expect(screen.getByText(/Composition : actifs et agents hydratants\./)).toBeInTheDocument()
   })
 
   it('boxes the manufacturer copy behind a disclosure with an unverified-voice note', async () => {
     setProduct({ description: 'Buy now at a discount price!' })
-    await act(async () => {
-      render(<ProductInfoTab />)
-    })
+    renderWithProviders(<ProductInfoTab />)
 
-    expect(screen.getByText('Texte de la marque')).toBeInTheDocument()
+    expect(await screen.findByText('Texte de la marque')).toBeInTheDocument()
     expect(screen.getByText('Voix commerciale, non vérifiée par Aurore.')).toBeInTheDocument()
     expect(screen.getByText('Buy now at a discount price!')).toBeInTheDocument()
   })
@@ -164,17 +151,15 @@ describe('ProductInfoTab', () => {
         },
       ],
     })
-    await act(async () => {
-      render(<ProductInfoTab />)
-    })
+    renderWithProviders(<ProductInfoTab />)
 
-    fireEvent.click(screen.getByRole('button', { name: 'Copier la liste des ingrédients' }))
+    fireEvent.click(await screen.findByRole('button', { name: 'Copier la liste des ingrédients' }))
 
     expect(copy).toHaveBeenCalledWith('Niacinamide (10 %), Glycerin')
   })
 
   it('warns when an avoid tag matches the user dermo profile', async () => {
-    vi.mocked(useAuthStore).mockReturnValue({ id: 'u1' } as never)
+    signIn()
     setDermo({ skinTypes: ['peau-sensible'], skinConcerns: [] })
     setProduct({
       tags: [
@@ -182,11 +167,11 @@ describe('ProductInfoTab', () => {
         { tagSlug: 'anti-age', relevance: 'primary' },
       ],
     })
-    await act(async () => {
-      render(<ProductInfoTab />)
-    })
+    renderWithProviders(<ProductInfoTab />)
 
-    expect(screen.getByText(/Peut ne pas convenir à votre profil cutané/)).toBeInTheDocument()
+    expect(
+      await screen.findByText(/Peut ne pas convenir à votre profil cutané/)
+    ).toBeInTheDocument()
     expect(screen.getByText(/Sensible/)).toBeInTheDocument()
   })
 
@@ -194,7 +179,7 @@ describe('ProductInfoTab', () => {
   // only ever tagged 'rougeurs-vasculaires' on a product, so a raw slug comparison
   // never lights the notice for it.
   it('warns when an avoid tag matches a bridged concern slug', async () => {
-    vi.mocked(useAuthStore).mockReturnValue({ id: 'u1' } as never)
+    signIn()
     setDermo({ skinTypes: [], skinConcerns: ['rosacee', 'eczema'] })
     setProduct({
       tags: [
@@ -202,39 +187,38 @@ describe('ProductInfoTab', () => {
         { tagSlug: 'eczema-atopie', relevance: 'avoid' },
       ],
     })
-    await act(async () => {
-      render(<ProductInfoTab />)
-    })
+    renderWithProviders(<ProductInfoTab />)
 
-    expect(screen.getByText(/Peut ne pas convenir à votre profil cutané/)).toBeInTheDocument()
+    expect(
+      await screen.findByText(/Peut ne pas convenir à votre profil cutané/)
+    ).toBeInTheDocument()
     expect(screen.getByText(/Rougeurs/)).toBeInTheDocument()
     expect(screen.getByText(/Eczéma \/ Atopie/)).toBeInTheDocument()
   })
 
   it('still warns on a concern slug identical in both vocabs', async () => {
-    vi.mocked(useAuthStore).mockReturnValue({ id: 'u1' } as never)
+    signIn()
     setDermo({ skinTypes: [], skinConcerns: ['deshydratation'] })
     setProduct({
       tags: [{ tagSlug: 'deshydratation', relevance: 'avoid' }],
     })
-    await act(async () => {
-      render(<ProductInfoTab />)
-    })
+    renderWithProviders(<ProductInfoTab />)
 
-    expect(screen.getByText(/Peut ne pas convenir à votre profil cutané/)).toBeInTheDocument()
+    expect(
+      await screen.findByText(/Peut ne pas convenir à votre profil cutané/)
+    ).toBeInTheDocument()
     expect(screen.getByText(/Déshydratation/)).toBeInTheDocument()
   })
 
   it('does not warn for non-matching avoid tags', async () => {
-    vi.mocked(useAuthStore).mockReturnValue({ id: 'u1' } as never)
+    signIn()
     setDermo({ skinTypes: ['peau-grasse'], skinConcerns: [] })
     setProduct({
       tags: [{ tagSlug: 'peau-sensible', relevance: 'avoid' }],
     })
-    await act(async () => {
-      render(<ProductInfoTab />)
-    })
+    renderWithProviders(<ProductInfoTab />)
 
+    expect(await screen.findByText('En bref')).toBeInTheDocument()
     expect(screen.queryByText(/Peut ne pas convenir/)).not.toBeInTheDocument()
   })
 })
