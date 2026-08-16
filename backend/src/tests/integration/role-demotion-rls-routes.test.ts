@@ -82,8 +82,8 @@ describe('Demoted contributor loses catalog writes before its token expires', ()
     await expectError(res, HTTP_STATUS.FORBIDDEN, 'unauthorized_access')
   })
 
-  // The role also feeds resolveCatalogQuality: sourced from the stale claim, the service
-  // stamps the new row verified and the INSERT policy kills the request with a 500
+  // The role also feeds resolveCatalogQuality: with the stale claim the service stamps
+  // the new row verified and the INSERT policy kills the request with a 500
   it('POST /products lands as an unverified own submission, not a 500', async () => {
     const res = await authPost(app, '/products', token, {
       name: 'Sérum soumis après rétrogradation',
