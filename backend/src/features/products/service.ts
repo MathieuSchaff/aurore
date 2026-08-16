@@ -38,6 +38,7 @@ import {
 
 import type { DatabaseTransaction, DbOrTransaction } from '../../db/index'
 import { ingredients, productIngredients } from '../../db/schema'
+import { userDermoProfiles } from '../../db/schema/auth/users'
 import { userIngredientPreferences } from '../../db/schema/ingredients/user-ingredient-preferences'
 import { type Product, products } from '../../db/schema/products'
 import { userProducts } from '../../db/schema/products/user-products'
@@ -59,7 +60,8 @@ import { listTagsByProduct } from '../product-tags/service'
 import { ProductError } from './product-error'
 import { listIngredientsByProduct } from './product-ingredients/product-ingredients.service'
 
-// Trim + collapse internal whitespace so create and update write identical normalized values.
+// Trim and collapse the spaces inside the string
+// so create and update always write the exact same value.
 const normalizeString = (s: string) => s.trim().replace(/\s+/g, ' ')
 
 const NORMALIZED_STRING_FIELDS = ['name', 'brand', 'kind', 'unit', 'amountUnit'] as const
@@ -90,10 +92,11 @@ export async function createProduct(
     const name = normalizeString(input.name)
     const brand = normalizeString(input.brand)
 
-    // Reject as a duplicate if a public product already has the same name + brand
-    // (compared via norm(), the same normalization the DB unique index uses). Only
-    // public products count, so a hidden/rejected one never blocks re-submission.
-    // This check can be raced by a concurrent insert; the 23505 catch below is the backstop.
+    // Reject if a visible product already has the same name and brand.
+    // We compare with norm(), the same function the DB unique index uses.
+    // Hidden and rejected products don't count, so they never block a new submission.
+    // Two inserts at the same time can both pass this check.
+    // The 23505 catch at the end of the function is the real guard.
     const [existing] = await database
       .select({
         id: products.id,
@@ -121,8 +124,9 @@ export async function createProduct(
         createdBy: userId,
         name,
         brand,
-        // `''` must not reach the column: every reader would then need the
-        // `btrim(inci) <> ''` guard to tell "no formula on file" from "empty formula".
+        // We write null, never ''.
+        // If '' could reach the column, every reader would need a `btrim(inci) <> ''` guard
+        // to tell "we have no formula" from "the formula is empty".
         inci: input.inci?.trim() ? normalizeInci(input.inci).value : null,
         kind: normalizeString(input.kind) as ProductKind,
         unit: normalizeString(input.unit) as ProductUnit,
@@ -134,8 +138,8 @@ export async function createProduct(
 
     if (!product) throw new ProductError('product_creation_failed')
 
-    // Seed passes autoTag:false: it runs a dedicated phase after ingredients are
-    // linked, so tagging here would see no ingredients and PK-collide with the seed phase.
+    // The seed passes autoTag:false. It tags later, once the ingredients are linked.
+    // Tagging here would see zero ingredient, then collide on the primary key with the seed phase.
     if (options.autoTag ?? true) {
       await writeTagsForProductFailSoft(database, product.id, { operation: 'create', userId })
     }
@@ -189,19 +193,20 @@ export async function getProductBySlug(slug: string, database: DbOrTransaction) 
   return row
 }
 
-// Single round-trip so Layout/Info/Edit/Sheet share one cache entry.
+// One call for Layout, Info, Edit and Sheet, so they all share the same cache entry.
 export async function getProductFullBySlug(slug: string, database: DbOrTransaction) {
   const product = await getProductBySlug(slug, database)
-  // Sequential: same connection-wedging reason as fetchProductMeta, an authed
-  // caller runs these inside the RLS transaction.
+  // One after the other, not Promise.all: fetchProductMeta says what breaks when we fan them out
   const ingredients = await listIngredientsByProduct(database, product.id)
-  // Unfiltered on purpose: ProductEditPage seeds its tag form from this payload
-  // and posts it back, so dropping internal-only slugs here would erase them on
-  // every admin save. Nothing renders them today because the detail page reads
-  // `tags` through PROFILE_CATEGORIES, which lists no product_characteristic —
-  // an exclusion by scope, not a guard. Widening that list would show the claims.
+  // We send every tag, even the internal ones.
+  // ProductEditPage fills its tag form from here and posts it back,
+  // so dropping a tag here would erase it on every admin save.
+  // Nothing shows on screen today because the detail page reads `tags` through
+  // PROFILE_CATEGORIES, and that list has no product_characteristic.
+  // That is luck, not a guard. Add it to the list and the marketing claims appear.
   const tags = await listTagsByProduct(database, product.id)
-  // Not a spread: a rename in computeInciFacts must break the build, not the payload keys.
+  // We name the two fields instead of spreading.
+  // A rename in computeInciFacts must break the build, not silently rename a payload key.
   const { inciCount, hasFragrance } = computeInciFacts(product.inci)
   return {
     ...product,
@@ -212,7 +217,8 @@ export async function getProductFullBySlug(slug: string, database: DbOrTransacti
   }
 }
 
-// id/createdBy/createdAt are immutable; quality/moderation/verify stamps are admin-governed.
+// id, createdBy and createdAt never change.
+// The quality, moderation and verify fields are only set by an admin route.
 const EXCLUDED_KEYS = new Set([
   'id',
   'createdBy',
@@ -241,7 +247,7 @@ const TRACKED_FIELDS = [
   'priceCents',
 ] as const
 
-// Any change to these can shift the detected tag set.
+// Edit one of these fields and the detected tags can change, so we tag again.
 const AUTOTAG_INPUT_FIELDS = [
   'inci',
   'kind',
@@ -255,8 +261,9 @@ const AUTOTAG_INPUT_FIELDS = [
   keyof OrchestratorProductFields
 >[]
 
-// A field added to OrchestratorProductFields but missing above would silently
-// stop re-tagging on edits to that column.
+// Add a field to OrchestratorProductFields, forget it in the list above,
+// and edits to that column stop tagging again without any error.
+// The line below breaks the build in that case.
 type MissingAutotagInputField = Exclude<
   keyof OrchestratorProductFields,
   (typeof AUTOTAG_INPUT_FIELDS)[number]
@@ -288,15 +295,16 @@ export async function updateProduct(
     }
   }
 
-  // Canonicalize the INCI list on edit so it stays consistent with create.
-  // A blank submission clears the field instead of storing `''`: an emptied form
-  // input means "no formula on file", the same state as null.
+  // Same normalization as create, so an edited INCI looks like a created one.
+  // An emptied form field writes null, not ''.
+  // The user clearing the field means "we have no formula", which is what null already means.
   if (typeof data.inci === 'string') {
     data.inci = data.inci.trim() ? normalizeInci(data.inci).value : null
   }
 
-  // Slug is not regenerated from name: silent changes break bookmarks, SEO, and CDN image filenames.
-  // Caller must pass slug explicitly to rename.
+  // Renaming a product does not change its slug.
+  // A silent slug change breaks bookmarks, SEO, and the image filenames on the CDN.
+  // To change the slug, the caller has to pass it.
   if (data.slug !== undefined) data.slug = slugify(data.slug)
 
   const setEntries = Object.entries(data).filter(([k]) => !EXCLUDED_KEYS.has(k))
@@ -313,7 +321,7 @@ export async function updateProduct(
     return sql`${sql.identifier(col.name)} = ${v}`
   })
 
-  // Raw SQL to return both new values and old values in one round-trip for the edit log.
+  // Raw SQL because the edit log needs the old values and the new values in one call.
   let result: Record<string, unknown>[]
   try {
     result = (await database.execute(sql`
@@ -333,16 +341,17 @@ export async function updateProduct(
     `)) as Record<string, unknown>[]
   } catch (e) {
     if (e instanceof ProductError) throw e
-    // Name/brand rename can collide with the partial unique index on visible rows.
-    // Re-throw so withRlsContext rolls back; a swallowed 23505 surfaces as 500.
+    // Renaming a name or a brand can hit the unique index on visible products.
+    // We throw again so withRlsContext rolls back.
+    // Swallowing the 23505 here would show the user a 500 instead.
     translateUniqueViolation(e, () => new ProductError('product_already_exists'))
   }
 
   const row = result[0] as Record<string, unknown> | undefined
   if (!row) {
-    // UPDATE matched 0 rows. Under RLS the row may be locked/not owned/invisible.
-    // Disambiguate: 403 if visible (caller can't edit it), 404 if absent.
-    // Never read rowCount (bun-postgres footgun).
+    // The UPDATE touched no row, and with RLS we can't tell why from here.
+    // So we read the row again: it exists means 403, it doesn't mean 404.
+    // Never use rowCount to decide, it lies with bun-postgres.
     const [visible] = await database
       .select({ id: products.id })
       .from(products)
@@ -379,7 +388,7 @@ export async function updateProduct(
   return newProduct as Product
 }
 
-// One-way: un-verify is out of scope.
+// Once a product is verified it stays verified. There is no way back. On purpose.
 export async function verifyProduct(
   actorId: string,
   id: string,
@@ -411,17 +420,17 @@ type ProductSummary = Pick<
   | 'amountUnit'
   | 'imageUrl'
 > & {
-  // Avoid-tag slugs matching the caller's profile. Empty when no profile filter is active.
+  // Avoid tags matching the caller profile. Empty when the profile toggle is off.
   profileMatches: string[]
-  // Declared "Avec" hits: canonical keys + tag labels the row contains.
+  // What this row contains from the user "Avec" rules: canonical keys and tag labels.
   requireMatches: string[]
-  // Declared "Sans" hits, only populated under include_excluded (rows are
-  // excluded otherwise, so there is nothing to annotate).
+  // What this row contains from the user "Sans" rules.
+  // Only filled under include_excluded. Otherwise the row is already gone from the list.
   excludeMatches: string[]
-  // Primary tags only. The card's chips + its "+N" overflow count both key on
-  // relevance='primary'; secondary (~15/product) was pure list over-fetch.
+  // Primary tags only. The card chips and the "+N" counter both read relevance='primary'.
+  // Secondary is around 15 tags per product and nothing displays them.
   tags: { slug: string; tagType: string; relevance: 'primary' | 'secondary' }[]
-  // null when anonymous or unshelved.
+  // null when the caller is not logged in, or has not added the product.
   userStatus: UserProductStatus | null
 }
 export type ProductsPage = {
@@ -429,29 +438,29 @@ export type ProductsPage = {
   total: number
   page: number
   limit: number
-  // Rows the caller's declared rules removed from (or, under include_excluded,
-  // would remove from) this filter set. 0 when inactive.
+  // How many rows the user rules removed from this filter set.
+  // Under include_excluded, how many they would remove. 0 when no rule is active.
   hiddenCount: number
-  // What the rules keyed on, for the banner stating both effects:
+  // What the rules matched on, for the banner:
   // "sans : parfum · avec au moins un de : niacinamide".
   excludedLabels: string[]
   requiredLabels: string[]
 }
 
-// Shared by the autocomplete (`searchProducts`) and the list (`?q=`) so
-// "Voir tous les résultats" recalls and ranks exactly like the dropdown.
+// Used by the autocomplete (`searchProducts`) and by the list (`?q=`),
+// so "Voir tous les résultats" finds and sorts exactly like the dropdown did.
 function productSearchMatch(q: string) {
   const escaped = escapeLike(q)
   return {
     condition: or(
       sql`search_norm(${products.name}) LIKE '%' || search_norm(${escaped}) || '%' ESCAPE '\\'`,
       sql`search_norm(${products.brand}) LIKE '%' || search_norm(${escaped}) || '%' ESCAPE '\\'`,
-      // % is the indexable form of similarity() > threshold (GIN trgm).
+      // % is the form of similarity() > threshold that can use the GIN trgm index.
       sql`search_norm(${products.name}) % search_norm(${q})`,
       sql`search_norm(${products.brand}) % search_norm(${q})`
     ) as SQL,
-    // Explicit rank: similarity alone over-rewards short contains-matches
-    // against long prefix-matches, making the order feel random.
+    // We rank by hand. With similarity alone a short word found in the middle beats
+    // a long name that starts with the query, and the order looks random.
     rank: sql`CASE
         WHEN search_norm(${products.name}) = search_norm(${q})
           OR search_norm(${products.brand}) = search_norm(${q}) THEN 0
@@ -468,8 +477,10 @@ function productSearchMatch(q: string) {
   }
 }
 
-// Flat additive filter dispatch. Cyclomatic == number of optional filters; splitting relocates
-// the count without improving clarity. Behaviour covered by listProducts filter tests.
+// One flat list of ifs, one per optional filter.
+// The complexity score equals the number of filters, so splitting the function
+// moves that number somewhere else without making anything clearer.
+// The listProducts filter tests cover the behaviour.
 function buildListConditions(filters: ListProductsFilters, database: DbOrTransaction): SQL[] {
   const conditions: SQL[] = []
 
@@ -491,8 +502,8 @@ function buildListConditions(filters: ListProductsFilters, database: DbOrTransac
     )
   }
 
-  // EXISTS short-circuits on first match per product via product_ingredients_product_idx.
-  // IN (SELECT ...) previously materialized the full set upfront.
+  // EXISTS stops at the first match for each product, using product_ingredients_product_idx.
+  // The old IN (SELECT ...) built the whole set first.
   if (filters.ingredient) {
     const slugs = Array.isArray(filters.ingredient)
       ? filters.ingredient
@@ -527,8 +538,9 @@ function buildListConditions(filters: ListProductsFilters, database: DbOrTransac
         )
     )
 
-  // matin/soir also match products with no moment tag (universals, usable any moment).
-  // Restrictive moments (hebdomadaire, usage-localise, crise) keep strict EXISTS.
+  // matin and soir also match a product carrying no moment tag at all.
+  // A product with no moment is usable any moment, so it belongs in both.
+  // hebdomadaire, usage-localise and crise stay strict: no tag means no match.
   const ROUTINE_MOMENT_UNIVERSAL = new Set(['moment-matin', 'moment-soir'])
   const routineMomentFilterCondition = (raw: string): SQL => {
     const slugs = raw.split(',').map((s) => s.trim())
@@ -550,9 +562,10 @@ function buildListConditions(filters: ListProductsFilters, database: DbOrTransac
     return or(strict, noMomentTag) as SQL
   }
 
-  // filters is a discriminated union on category; the merged tagType spans all domains, so the
-  // parallel lookup defeats narrowing. Tag fields are all string | undefined, so the cast is sound.
-  // routine_moment only exists in the skincare tuple; the special-case is a no-op elsewhere.
+  // `filters` is a union split on category, but the tagType we loop on covers every domain,
+  // so TypeScript cannot narrow the lookup. Every tag field is string | undefined,
+  // which is why the cast is safe.
+  // routine_moment only exists in skincare, so the special case below does nothing elsewhere.
   const tagFilters = filters as unknown as Record<string, string | undefined>
   for (const tagType of PRODUCT_TAG_CATEGORIES_BY_DOMAIN[filters.category]) {
     const value = tagFilters[tagType]
@@ -590,9 +603,9 @@ type ProductMeta = {
   statusByProduct: Map<string, UserProductStatus>
 }
 
-// The explicit user_id filter is load-bearing, not test-safety: RLS is active (withRlsContext) but the
-// additive user_products_select_for_public_review policy widens SELECT to other users' public-review rows,
-// so the filter scopes the read back to the caller. Shared by the list meta and the /shelf-status overlay.
+// Public review rows can be read by other users
+// so we need to say where userProducts.userId = userId
+// Used by the list meta and by the /shelf-status overlay.
 export async function getShelfStatusByProductIds(
   database: DbOrTransaction,
   userId: string,
@@ -607,9 +620,9 @@ export async function getShelfStatusByProductIds(
 
 async function fetchProductMeta(
   items: { id: string }[],
-  filters: ListProductsFilters,
   userId: string | null,
-  database: DbOrTransaction
+  database: DbOrTransaction,
+  avoidSlugs: string[]
 ): Promise<ProductMeta> {
   const matchesByProduct = new Map<string, string[]>()
   const tagsByProduct = new Map<string, ProductSummary['tags']>()
@@ -619,18 +632,12 @@ async function fetchProductMeta(
     return { matchesByProduct, tagsByProduct, statusByProduct }
   }
 
-  // Post-fetch badge UX: flag rows rather than exclude them. resolveAvoidSlugs maps
-  // user concern vocab to product tag slugs; without it ~70% of avoid badges are invisible.
-  const avoidSlugs = filters.avoid_for
-    ? resolveAvoidSlugs(filters.avoid_for.split(',').filter(Boolean))
-    : []
-
   const itemIds = items.map((i) => i.id)
 
-  // Sequential on purpose: for an authenticated caller `database` is the RLS
-  // transaction, i.e. one connection. Fanning these out with Promise.all wedged
-  // that connection "idle in transaction" right after the tag read, and ten of
-  // them exhaust the Bun SQL pool and take the whole API down.
+  // One after the other, not Promise.all.
+  // For a logged in caller `database` is the RLS transaction, so it is a single connection.
+  // With Promise.all that connection got stuck "idle in transaction" right after the tag read.
+  // Ten of those empty the Bun SQL pool and the whole API goes down.
   const avoidRows =
     avoidSlugs.length > 0
       ? await database
@@ -646,8 +653,9 @@ async function fetchProductMeta(
           )
       : []
 
-  // Primary tags only: the card renders relevance='primary' chips; secondary (~15/product)
-  // was list over-fetch, avoid already lives in profileMatches.
+  // Primary tags only. The card only draws relevance='primary' chips.
+  // Secondary is around 15 tags per product and nobody reads them here.
+  // The avoid tags travel in profileMatches instead.
   const positiveTagRows = await database
     .select({
       productId: productTagLinks.productId,
@@ -692,11 +700,32 @@ type DeclaredPreferences = {
   requireKeys: string[]
   excludeTagIds: string[]
   requireTagIds: string[]
-  // Banner copy: ingredient canonical keys are already human-readable INCI
-  // names ("Parfum"); tags contribute their label.
+  // Text for the banner. An ingredient canonical key is already readable ("Parfum"),
+  // so we use it as is. A tag brings its own label.
   excludeLabels: string[]
   requireLabels: string[]
   tagLabelById: Map<string, string>
+}
+
+// These slugs only add a badge on the product card
+//  they don't help to filter the list of products ( when we fetch products)
+// For exemple: if a user pick "anti-acne" but the products have a the tag "acne-imperfections"
+// then resolveAvoidSlugs map them. 16 of 22 concerns need a rename
+// it most slugs match no tag at all and the badge never shows
+async function loadAvoidSlugs(database: DbOrTransaction, userId: string): Promise<string[]> {
+  const [dermoProfile] = await database
+    .select({
+      skinTypes: userDermoProfiles.skinTypes,
+      skinConcerns: userDermoProfiles.skinConcerns,
+    })
+    .from(userDermoProfiles)
+    // Public profiles can be read by other users
+    // so we need to say where userDermoProfiles.userId = userId
+    .where(eq(userDermoProfiles.userId, userId))
+    .limit(1)
+  if (!dermoProfile) return []
+  const { skinTypes, skinConcerns } = dermoProfile
+  return resolveAvoidSlugs([...(skinTypes ?? []), ...skinConcerns])
 }
 
 async function loadDeclaredPreferences(
@@ -742,8 +771,9 @@ async function loadDeclaredPreferences(
   }
 }
 
-// One EXISTS per target family; both key on indexed columns
-// (ingredients_canonical_key_idx, product_ingredients_product_idx, product_tag_links PK).
+// One EXISTS for the ingredients, one for the tags.
+// Both read indexed columns: ingredients_canonical_key_idx,
+// product_ingredients_product_idx, and the product_tag_links primary key.
 function declaredTargetHits(keys: string[], tagIds: string[], database: DbOrTransaction): SQL[] {
   const hits: SQL[] = []
   if (keys.length > 0) {
@@ -796,7 +826,7 @@ async function fetchDeclaredMatches(
     map.set(productId, list)
   }
 
-  // Excluded rows only exist on screen under include_excluded.
+  // An excluded row is only on screen under include_excluded, so we only look it up then.
   const ingredientKeys = includeExcluded
     ? [...declared.requireKeys, ...declared.excludeKeys]
     : declared.requireKeys
@@ -866,18 +896,23 @@ export async function listProducts(
   const limit = filters.limit ?? 20
   const offset = (page - 1) * limit
 
-  // Declared rules only bite under the profile toggle, and only for an
-  // authenticated caller. RLS scopes the reads; anonymous yields nothing anyway.
+  // The user rules only apply when the profile toggle is on and the caller is logged in.
+  // An anonymous caller reads nothing anyway, RLS makes sure of that.
   const declared =
     filters.apply_preferences && userId ? await loadDeclaredPreferences(database, userId) : null
+  // Same condition as above, same transaction. This is the half read from the dermo profile.
+  // One after the other, not Promise.all: fetchProductMeta says what breaks when we fan them out
+  const avoidSlugs =
+    filters.apply_preferences && userId ? await loadAvoidSlugs(database, userId) : []
   const excludeHits = declared
     ? declaredTargetHits(declared.excludeKeys, declared.excludeTagIds, database)
     : []
   const requireHits = declared
     ? declaredTargetHits(declared.requireKeys, declared.requireTagIds, database)
     : []
-  // Every "Sans" removes on its own; "Avec" rules keep rows containing at least
-  // one required target (OR, since AND would empty the list by the third rule).
+  // Each "Sans" rule removes rows on its own.
+  // The "Avec" rules are joined with OR, so a row needs at least one of them.
+  // With AND the list would already be empty by the third rule.
   const ruleConditions: SQL[] = [
     ...excludeHits.map((hit) => not(hit) as SQL),
     ...(requireHits.length > 0 ? [or(...requireHits) as SQL] : []),
@@ -901,7 +936,7 @@ export async function listProducts(
         return [sql`${products.createdAt} DESC NULLS LAST`]
       case 'name':
         return [products.name]
-      // relevance (and unset sort): rank by match when q is present, else name.
+      // relevance, and no sort at all: rank by match if there is a query, by name if not.
       default: {
         if (!filters.q) return [products.name]
         const match = productSearchMatch(filters.q)
@@ -910,11 +945,9 @@ export async function listProducts(
     }
   })()
 
-  // "N masqués" banner: base count minus ruled count = rows this filter set
-  // loses to the declared rules. The paginated `where` already carries one of
-  // the two, so only the other side is counted here.
-  // Sequential: same connection-wedging reason as fetchProductMeta, an authed
-  // caller runs these inside the RLS transaction.
+  // The "N masqués" banner needs two counts: with the rules and without them.
+  // The `where` above already carries one of the two, so we only count the other side here.
+  // One after the other, not Promise.all: fetchProductMeta says what breaks when we fan them out
   const items = await database
     .select({
       id: products.id,
@@ -949,17 +982,18 @@ export async function listProducts(
 
   const total = countResult[0]?.total ?? 0
   const altTotal = altResult[0]?.total ?? 0
-  // enforceRules: total is the ruled count, alt is the base; shown-back
-  // (include_excluded): total is the base, alt is the ruled count.
+  // The two counts swap places depending on the mode.
+  // Rules on: total is the ruled count, alt is the base count.
+  // include_excluded: total is the base count, alt is the ruled count.
   const hiddenCount = rulesActive
     ? Math.max(0, enforceRules ? altTotal - total : total - altTotal)
     : 0
 
   const { matchesByProduct, tagsByProduct, statusByProduct } = await fetchProductMeta(
     items,
-    filters,
     userId,
-    database
+    database,
+    avoidSlugs
   )
 
   const { requireByProduct, excludeByProduct } = declared
@@ -996,7 +1030,8 @@ export async function listProducts(
 export type FilterOptions = {
   kinds: string[]
   brands: string[]
-  // Only slugs with >=1 product are present. Frontend reads missing slug as count 0 (disabled chip).
+  // A slug is here only if at least one product carries it.
+  // The frontend reads a missing slug as 0 and greys out the chip.
   tagCounts: Record<string, number>
 }
 
@@ -1007,8 +1042,7 @@ export async function getFilterOptions(
   const dbCategories = category ? [...PRODUCT_DOMAIN_DB_CATEGORIES[category]] : null
   const productScope = dbCategories ? inArray(products.category, dbCategories) : undefined
 
-  // Sequential: same connection-wedging reason as fetchProductMeta, an authed
-  // caller runs these inside the RLS transaction.
+  // One after the other, not Promise.all: fetchProductMeta says what breaks when we fan them out
   const kindRows = await database
     .selectDistinct({ kind: products.kind })
     .from(products)
@@ -1094,12 +1128,12 @@ export async function findSimilarProducts(
       and(
         or(
           sql`search_norm(${products.brand}) = search_norm(${trimmedBrand})`,
-          // % pre-filter makes the branch indexable; 0.5 stays the real cutoff.
+          // % lets this branch use the index. 0.5 is still the real cutoff.
           sql`(search_norm(${products.brand}) % search_norm(${trimmedBrand})
             AND similarity(search_norm(${products.brand}), search_norm(${trimmedBrand})) > 0.5)`
         ),
         or(
-          // % is the indexable form of similarity() > threshold (GIN trgm).
+          // % is the form of similarity() > threshold that can use the GIN trgm index.
           sql`search_norm(${products.name}) % search_norm(${trimmedName})`,
           sql`search_norm(${products.name}) LIKE '%' || search_norm(${escapedName}) || '%' ESCAPE '\\'`
         )
@@ -1130,8 +1164,8 @@ export async function searchProducts(
   const limit = filters.limit ?? 8
   const offset = filters.offset ?? 0
   const match = productSearchMatch(filters.q.trim())
-  // Same domain scoping as listProducts: the dropdown must agree with the
-  // "Voir tous les résultats" page it links to.
+  // Same category filter as listProducts.
+  // The dropdown must show the same products as the page it links to.
   const where = filters.category
     ? and(
         match.condition,
@@ -1166,8 +1200,8 @@ export async function previewSlug(
   const raw = `${normalizedName}${normalizedBrand ? `-${normalizedBrand}` : ''}`
   const baseSlug = slugify(raw)
 
-  // Non-alphanumeric names (e.g. '!!') pass Zod min(2) but produce an empty slug.
-  // Return a fallback so the caller never enters an infinite DB loop on slug=''.
+  // A name like '!!' passes the Zod min(2) check but slugify returns ''.
+  // We return a fallback, otherwise the loop below would spin forever on slug=''.
   if (!baseSlug) return 'product'
 
   let candidate = baseSlug

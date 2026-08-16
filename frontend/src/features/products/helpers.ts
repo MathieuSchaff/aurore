@@ -4,23 +4,11 @@ import type { FilterValues } from '@/component/Filter'
 import type { ListProductsFilters, ProductSort } from '@/lib/queries/products'
 import { FILTER_KEYS, type FilterKey, type ProductsSearch, type TagFilterKey } from './filters'
 
-// 24 divides evenly by 2/3/4 columns (auto-fill grid) so non-final pages have no ragged last row
+// 24 divides evenly by 2/3/4 columns (auto-fill grid) so pages other than the last have no ragged last row
 export const PRODUCTS_PAGE_SIZE = 24
 
 export function hasActivePriceRange(priceMin?: number, priceMax?: number): boolean {
   return priceMin !== undefined || priceMax !== undefined
-}
-
-// Single source of truth for avoidFor (skin types + concerns to down-rank), shared by
-// ProductsPage and the /products loader so the prefetched list queryKey matches the
-// component's first render even when dermo is already cached and profile_filter is on.
-type DermoLike = { skinTypes?: readonly string[] | null; skinConcerns: readonly string[] }
-export function deriveAvoidFor(
-  dermo: DermoLike | undefined | null,
-  profileFilter?: boolean
-): string[] {
-  if (!profileFilter || !dermo) return []
-  return [...(dermo.skinTypes ?? []), ...dermo.skinConcerns]
 }
 
 // Discovery mode = untouched listing. Any filter/price/query/sort exits it.
@@ -36,7 +24,6 @@ export function isDiscoveryMode(args: {
 export function buildProductsApiFilters(args: {
   category: ProductDomainTab
   filters: FilterValues<FilterKey>
-  avoidFor: string[]
   sort: ProductSort
   priceMin?: number
   priceMax?: number
@@ -46,7 +33,6 @@ export function buildProductsApiFilters(args: {
 }): ListProductsFilters {
   const hasPriceRange = hasActivePriceRange(args.priceMin, args.priceMax)
   const hasQuery = !!args.q
-  const avoidFor = args.avoidFor.length > 0 ? args.avoidFor : undefined
 
   if (isDiscoveryMode({ hasFilters: args.hasFilters, hasPriceRange, hasQuery, sort: args.sort })) {
     return {
@@ -54,7 +40,6 @@ export function buildProductsApiFilters(args: {
       sort: 'newest',
       limit: PRODUCTS_PAGE_SIZE,
       page: args.page,
-      avoid_for: avoidFor,
     }
   }
 
@@ -75,7 +60,6 @@ export function buildProductsApiFilters(args: {
     brand: brand && brand.length > 0 ? brand : undefined,
     ingredient: ingredient && ingredient.length > 0 ? ingredient : undefined,
     q: args.q,
-    avoid_for: avoidFor,
     sort: args.sort,
     priceMin: args.priceMin,
     priceMax: args.priceMax,
@@ -103,7 +87,6 @@ export function applyDeclaredRules(
 // and ProductsPage call this so the queryKey matches and the prefetch lands.
 export function productsListApiFilters(
   search: ProductsSearch,
-  avoidFor: string[],
   isAuthed: boolean
 ): ListProductsFilters {
   const filters = Object.fromEntries(
@@ -113,7 +96,6 @@ export function productsListApiFilters(
   const base = buildProductsApiFilters({
     category: search.category,
     filters,
-    avoidFor,
     sort: search.sort,
     priceMin: search.priceMin,
     priceMax: search.priceMax,
