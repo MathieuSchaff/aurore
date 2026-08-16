@@ -3,6 +3,8 @@ import type { Hono } from 'hono'
 import type { AppEnv } from '../../app-env'
 import { createTestAdminUser, createTestContributorUser, createTestUser } from './test-factories'
 
+export const ANY_UUID = '019d0000-0000-7000-8000-00000000abcd'
+
 // authBase defaults to '/api/auth' because the shared test harness (createTestApp)
 // mirrors prod and mounts auth under /api. Pass '/auth' for a bare-mounted own app.
 export async function loginAndGetToken(
