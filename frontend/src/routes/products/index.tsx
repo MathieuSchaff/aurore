@@ -1,13 +1,34 @@
+import type { QueryClient } from '@tanstack/react-query'
 import { createFileRoute, stripSearchParams } from '@tanstack/react-router'
 
-import { productsSearchDefaults, productsSearchSchema } from '@/features/products/filters'
+import {
+  type ProductsSearch,
+  productsSearchDefaults,
+  productsSearchSchema,
+} from '@/features/products/filters'
 import { productsListApiFilters } from '@/features/products/helpers'
 import { ProductsPage } from '@/features/products/pages/ProductsPage/ProductsPage'
+import { hasSeededSsrBootProductsPage, selectSsrBootView } from '@/features/products/ssrBootView'
 import { awaitBootRefresh } from '@/lib/auth/awaitBootRefresh'
 import { isServer } from '@/lib/helpers/isServer'
+import { type AuthSessionCache, authQueries } from '@/lib/queries/auth'
 import { convergeShelfStatusForList, productQueries } from '@/lib/queries/products'
 import { seoHead } from '@/lib/seo'
 import { useAuthStore } from '@/store/auth'
+
+function hasAuthenticatedSsrProductsPage(
+  queryClient: QueryClient,
+  search: ProductsSearch
+): boolean {
+  const session = queryClient.getQueryData<AuthSessionCache>(authQueries.session().queryKey)
+  if (!session?.authenticated) return false
+  if (!session.userId) return false
+
+  const selectedView = selectSsrBootView('/products', search)
+  if (selectedView?.view !== 'products') return false
+
+  return hasSeededSsrBootProductsPage(queryClient, selectedView, session.userId)
+}
 
 export const Route = createFileRoute('/products/')({
   validateSearch: productsSearchSchema,
@@ -19,10 +40,13 @@ export const Route = createFileRoute('/products/')({
   search: {
     middlewares: [stripSearchParams(productsSearchDefaults)],
   },
-  loader: async ({ context, deps }) => {
-    // Cold authenticated sessions wait for the root boot probe; anonymous visitors
-    // fetch right away.
-    await awaitBootRefresh(context.queryClient)
+  loader: async ({ context, deps, parentMatchPromise }) => {
+    if (isServer) {
+      await parentMatchPromise
+      if (hasAuthenticatedSsrProductsPage(context.queryClient, deps)) return
+    } else {
+      await awaitBootRefresh(context.queryClient)
+    }
 
     const userId = useAuthStore.getState().user?.id ?? null
     const filters = productsListApiFilters(deps, !!userId)

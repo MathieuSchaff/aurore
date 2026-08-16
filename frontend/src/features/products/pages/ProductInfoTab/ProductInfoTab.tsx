@@ -24,6 +24,7 @@ import { tagLabel } from '@/features/products/filters'
 import { deriveKpChips } from '@/features/products/kp-chips'
 import { useCopyToClipboard } from '@/hooks/useCopyToClipboard'
 import { useExpandableList } from '@/hooks/useExpandableList'
+import { authQueries } from '@/lib/queries/auth'
 import { productQueries } from '@/lib/queries/products'
 import { profileQueries } from '@/lib/queries/profile'
 import { useAuthStore } from '@/store/auth'
@@ -83,17 +84,20 @@ export function ProductInfoTab() {
     void copy(text)
   }, [product.ingredients, copy, product.inci])
 
-  const user = useAuthStore((s) => s.user)
+  const storeUser = useAuthStore((s) => s.user)
+  const { data: bootSession } = useQuery({ ...authQueries.session(), enabled: false })
+  const bootUserId = bootSession?.authenticated ? (bootSession.userId ?? null) : null
+  const userId = storeUser?.id ?? bootUserId
 
   const { data: dermoProfile } = useQuery({
     ...profileQueries.dermo(),
-    enabled: !!user,
+    enabled: !!userId,
   })
 
   const profileSlugs = useMemo(() => {
-    if (!user || !dermoProfile) return new Set<string>()
+    if (!userId || !dermoProfile) return new Set<string>()
     return new Set<string>([...(dermoProfile.skinTypes ?? []), ...dermoProfile.skinConcerns])
-  }, [user, dermoProfile])
+  }, [userId, dermoProfile])
 
   // Same bridge as listProducts: user concern vocab and product tag vocab drifted
   // apart, so a raw comparison only lights the slugs spelled the same in both.
@@ -150,7 +154,7 @@ export function ProductInfoTab() {
       {product.inci && (
         <FormulaReading
           slug={slug}
-          userKey={user?.id ?? null}
+          userKey={userId}
           profileSlugs={profileSlugs}
           linkedIngredients={product.ingredients ?? []}
         />
@@ -252,7 +256,7 @@ export function ProductInfoTab() {
         </div>
       )}
 
-      {product.inci && <FormulaConcentrations slug={slug} userKey={user?.id ?? null} />}
+      {product.inci && <FormulaConcentrations slug={slug} userKey={userId} />}
 
       {/* Raw technical detail stays behind a closed disclosure: group-before-detail,
           the INCI wall is available on demand, never part of the first read. */}

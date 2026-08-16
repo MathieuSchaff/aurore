@@ -9,6 +9,7 @@ import { AppErrorBoundary } from '../component/Feedback/app/AppErrorBoundary/App
 import { GlobalError } from '../component/Feedback/app/GlobalError/GlobalError'
 import { NavigationProgress } from '../component/Feedback/app/NavigationProgress/NavigationProgress'
 import { AppLayout } from '../component/Layout/AppLayout/AppLayout'
+import { seedSsrBootPage, selectSsrBootView } from '../features/products/ssrBootView'
 import { loadSsrBoot } from '../lib/auth/ssrBoot'
 import { useBannedRedirect } from '../lib/auth/useBannedRedirect'
 import { useSessionExpiredRedirect } from '../lib/auth/useSessionExpiredRedirect'
@@ -78,7 +79,7 @@ export const Route = createRootRouteWithContext<RouterContext>()({
   // The root must allow SSR because a child cannot override a disabled ancestor.
   // Public routes opt into runtime SSR individually.
   ssr: true,
-  loader: async ({ context }) => {
+  loader: async ({ context, location }) => {
     if (!import.meta.env.SSR) {
       return {
         bootIssue: 'unknown' as const,
@@ -86,7 +87,8 @@ export const Route = createRootRouteWithContext<RouterContext>()({
       }
     }
 
-    const boot = await loadSsrBoot()
+    const selectedView = selectSsrBootView(location.pathname, location.search)
+    const boot = await loadSsrBoot(selectedView?.query)
     if (boot.issue !== 'unknown') {
       context.queryClient.setQueryData<AuthSessionCache>(
         authQueries.session().queryKey,
@@ -96,6 +98,7 @@ export const Route = createRootRouteWithContext<RouterContext>()({
     if (boot.data.session.authenticated && boot.data.profile) {
       context.queryClient.setQueryData(profileQueries.me().queryKey, boot.data.profile)
     }
+    seedSsrBootPage(context.queryClient, boot.data, selectedView)
 
     return {
       bootIssue: boot.issue,

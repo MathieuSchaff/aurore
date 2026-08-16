@@ -17,9 +17,10 @@ import userEvent from '@testing-library/user-event'
 import { HttpResponse, http } from 'msw'
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 
+import { authQueries } from '@/lib/queries/auth'
 import { Route as ProductsIndexRouteImport } from '@/routes/products/index'
 import { useAuthStore } from '@/store/auth'
-import { PRODUCT_FILTER_OPTIONS } from '@/test/msw/fixtures/products'
+import { PRODUCT_FILTER_OPTIONS, PRODUCTS } from '@/test/msw/fixtures/products'
 import { server } from '@/test/msw/server'
 import { renderWithProviders } from '@/test/utils'
 
@@ -44,7 +45,10 @@ function buildUrl(path: string, search: Record<string, string[]> = {}): string {
   return qs ? `${path}?${qs}` : path
 }
 
-function renderProducts(initialEntries: string[] = ['/products/']) {
+function renderProducts(
+  initialEntries: string[] = ['/products/'],
+  seedQueryClient?: (queryClient: QueryClient) => void
+) {
   const rootRoute = createRootRoute()
   // Attach the file route to a fresh root so the test picks its initial URL via memory history.
   const productsRoute = (
@@ -58,6 +62,7 @@ function renderProducts(initialEntries: string[] = ['/products/']) {
   })
   const routeTree = rootRoute.addChildren([productsRoute as never])
   const queryClient = makeClient()
+  seedQueryClient?.(queryClient)
   const router = createRouter({
     routeTree,
     history: createMemoryHistory({ initialEntries }),
@@ -212,6 +217,50 @@ describe('ProductsPage: integration (URL ↔ filtres ↔ liste)', () => {
     expect(
       screen.queryByRole('button', { name: /Retirer tous les filtres/i })
     ).not.toBeInTheDocument()
+  })
+
+  it('keeps the personalized SSR banner interactive until the client auth store catches up', async () => {
+    server.use(
+      http.get('*/api/products', ({ request }) => {
+        const url = new URL(request.url)
+        if (url.searchParams.get('apply_preferences') !== 'true') return undefined
+
+        return HttpResponse.json({
+          success: true,
+          data: {
+            items: PRODUCTS.map((product) => ({ ...product, userStatus: null })),
+            total: PRODUCTS.length,
+            page: 1,
+            limit: 24,
+            hiddenCount: 1,
+            excludedLabels: ['Niacinamide'],
+            requiredLabels: [],
+          },
+        })
+      })
+    )
+
+    // Let the route loader pass without filling `user`: this isolates the hydration seam
+    // where the root session cache is present but the Zustand identity is not yet replayed
+    useAuthStore.setState({
+      accessToken: 'test-access-token',
+      tokenExpiresAt: Date.now() + 60_000,
+    })
+    const user = userEvent.setup()
+    const { router } = renderProducts(['/products/?profile_filter=true'], (queryClient) => {
+      queryClient.setQueryData(authQueries.session().queryKey, {
+        authenticated: true,
+        userId: '019c0000-0000-7000-8000-000000000001',
+      })
+    })
+
+    const banner = await screen.findByTestId('avoided-banner')
+    await user.click(within(banner).getByRole('button', { name: 'Afficher quand même' }))
+
+    await waitFor(() => {
+      expect(router.state.location.search).toMatchObject({ show_hidden: true })
+    })
+    expect(within(banner).getByRole('button', { name: 'Masquer à nouveau' })).toBeVisible()
   })
 
   it('async ingredient filter: type → click hit → apply pushes slug to URL', async () => {

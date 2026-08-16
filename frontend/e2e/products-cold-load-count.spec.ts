@@ -1,44 +1,85 @@
-import { expect, test } from '@playwright/test'
+import { expect, type Page, test } from '@playwright/test'
 
 import { loginAsPersona, registerFreshUser } from './helpers/auth'
-import { waitForProductsListSettled } from './helpers/hydration'
+import { resolveShelfProductWithInci } from './helpers/catalog'
+import { waitForHydration, waitForProductsListSettled } from './helpers/hydration'
 
-// Permanent probe for a regression that was only ever verified by a hand-captured prod
-// trace. A cold authenticated /products costs the SSR list fetch (anonymous key, no
-// authenticated SSR) plus one more only when the rules reshape the response: the
-// replace-navigate that applies the standing "Selon mon profil" choice. An account
-// with nothing to apply pays nothing on top, since the key follows the rules and not
-// the identity. It caught a third fetch on its first run: the hold released
-// one render before the replace committed, buying a list fetch of the filters the
-// replace then discarded. The unit tests only ever asserted the cache keys, never the
-// fetch count, which is why counting here is the only thing that guards it.
-test('cold authenticated /products issues one list fetch on top of the SSR one', async ({
+function captureRequests(page: Page): string[] {
+  const requests: string[] = []
+  page.on('request', (request) => {
+    requests.push(`${request.method()} ${new URL(request.url()).pathname}`)
+  })
+  return requests
+}
+
+function requestsFor(requests: string[], method: string, pathname: string): string[] {
+  return requests.filter((request) => request === `${method} ${pathname}`)
+}
+
+function authRequests(requests: string[]): string[] {
+  return requests.filter((request) => request.includes(' /api/auth/'))
+}
+
+// The explicit setting keeps the request contract stable across SSR and hydration
+// The cookie-authenticated boot owns the only list read, seeds that exact connected
+// cache key, and the client only exchanges the refresh cookie for its Bearer token
+test('cold authenticated /products reuses the SSR list and probes auth once', async ({
   page,
   browserName,
 }) => {
   await loginAsPersona(page, browserName)
 
-  const listRequests: string[] = []
-  page.on('request', (req) => {
-    if (req.method() === 'GET' && /\/api\/products(\?|$)/.test(req.url()))
-      listRequests.push(req.url())
-  })
+  const requests = captureRequests(page)
+  const refreshResponse = page.waitForResponse(
+    (response) =>
+      response.request().method() === 'POST' &&
+      new URL(response.url()).pathname === '/api/auth/refresh'
+  )
 
-  const document = await page.goto('/products')
+  const document = await page.goto('/products?profile_filter=true')
   if (!document) throw new Error('no navigation response for /products')
 
-  // Half of the count Playwright cannot see: the loader's prefetch runs inside the
-  // nitro server, so only the rendered grid in the served HTML proves it happened.
-  // Without this, a regression moving that fetch to the client still reads as one.
+  // Playwright cannot see the server-side boot read. The rendered grid proves the
+  // response reached the document instead of moving the only list fetch to the client
   expect(await document.text(), 'SSR HTML carries no product grid').toContain('list-card--product')
 
-  // The replace-navigate is the last event that can change the list key.
-  await expect(page).toHaveURL(/[?&]profile_filter=true/, { timeout: 15_000 })
+  expect((await refreshResponse).ok()).toBe(true)
   await waitForProductsListSettled(page)
 
-  expect(listRequests, `browser-side GET /api/products: ${listRequests.join(' | ')}`).toHaveLength(
-    1
+  expect(requestsFor(requests, 'GET', '/api/products')).toEqual([])
+  expect(requestsFor(requests, 'GET', '/api/products/shelf-status')).toEqual([])
+  expect(authRequests(requests)).toEqual(['POST /api/auth/refresh'])
+})
+
+test('cold authenticated product detail reuses every seeded first screen read', async ({
+  page,
+  browserName,
+}) => {
+  const token = await loginAsPersona(page, browserName)
+  const shelfProduct = await resolveShelfProductWithInci(page, token, browserName)
+  const requests = captureRequests(page)
+  const refreshResponse = page.waitForResponse(
+    (response) =>
+      response.request().method() === 'POST' &&
+      new URL(response.url()).pathname === '/api/auth/refresh'
   )
+
+  const document = await page.goto(`/products/${shelfProduct.slug}`)
+  if (!document) throw new Error(`no navigation response for /products/${shelfProduct.slug}`)
+  const html = await document.text()
+  expect(html).toContain(shelfProduct.name)
+  expect(html).toContain('Dans votre collection')
+  expect(html).toContain('Lecture de la formule')
+
+  expect((await refreshResponse).ok()).toBe(true)
+  await waitForHydration(page)
+  await page.waitForLoadState('networkidle')
+
+  expect(requestsFor(requests, 'GET', `/api/products/${shelfProduct.slug}`)).toEqual([])
+  expect(requestsFor(requests, 'GET', `/api/products/${shelfProduct.slug}/dermo-score`)).toEqual([])
+  expect(requestsFor(requests, 'GET', '/api/products/shelf-status')).toEqual([])
+  expect(requestsFor(requests, 'GET', '/api/profile/dermo')).toEqual([])
+  expect(authRequests(requests)).toEqual(['POST /api/auth/refresh'])
 })
 
 // The other half of the contract, and the whole point of keying on the rules: a fresh
@@ -49,11 +90,7 @@ test('cold /products costs no extra list fetch for an account with nothing to ap
 }) => {
   await registerFreshUser(page)
 
-  const listRequests: string[] = []
-  page.on('request', (req) => {
-    if (req.method() === 'GET' && /\/api\/products(\?|$)/.test(req.url()))
-      listRequests.push(req.url())
-  })
+  const requests = captureRequests(page)
 
   // Armed before the navigation: both land within a few hundred ms of hydration, so a
   // waitForResponse created after the goto races the response it is waiting for
@@ -71,7 +108,5 @@ test('cold /products costs no extra list fetch for an account with nothing to ap
   await profileLanded
   await waitForProductsListSettled(page)
 
-  expect(listRequests, `browser-side GET /api/products: ${listRequests.join(' | ')}`).toHaveLength(
-    0
-  )
+  expect(requestsFor(requests, 'GET', '/api/products')).toHaveLength(0)
 })
