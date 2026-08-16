@@ -1,7 +1,7 @@
 # Tests
 
 Backend uses `bun:test` against an isolated PostgreSQL on port 5433. Frontend uses Vitest and
-jsdom. E2E uses Playwright against a Docker stack on isolated ports.
+happy-dom. E2E uses Playwright against a Docker stack on isolated ports.
 
 Naming rule: a recipe **without** `-dev` brings the test DB up first (safe, slower). A recipe
 **with** `-dev` assumes it is already up (fast inner loop). `args` is a `bun test` filter.
@@ -65,7 +65,7 @@ from the committed snapshot (full catalogue + personas), not from `seed-core`.
 | :--- | :--- | :--- |
 | `just e2e-up` | Up + migrate + restore the snapshot | ⚠️ An already-running stack keeps a stale schema — re-run this after a new migration |
 | `just e2e` | Run the Playwright suites | Auto-runs `e2e-up` if nothing serves 5174. Failures → `frontend/test-results/` |
-| `just e2e-ui` | Playwright interactive mode | — |
+| `just e2e-ui` | Playwright interactive mode | ⚠️ `*.mutation.spec.ts` share seed rows in source order — run the whole file, never a single test, and `e2e-reset` between passes |
 | `just e2e-reset` | Recreate the stack from scratch | — |
 | `just e2e-down` | Stop it | The tmpfs DB is lost |
 
