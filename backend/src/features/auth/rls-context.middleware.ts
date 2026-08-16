@@ -35,6 +35,7 @@ export const withRlsContext = async (c: Context<AppEnv>, next: Next) => {
       // Every policy checks app.role, so it comes from the row, never from the JWT
       // claim: a demoted contributor carries a stale claim until its token expires. An
       // account gone since the token was issued falls back to the anonymous context
+      // (docs/adr/0018, which supersedes 0008)
       const role = account?.role ?? ''
 
       // Guards and services after this point read the context role: requireAdmin, the

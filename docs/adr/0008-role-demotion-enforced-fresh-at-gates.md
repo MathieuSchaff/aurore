@@ -1,10 +1,15 @@
 ---
-status: accepted
 date: 2026-06-02
 accepted: 2026-06-02
 ---
 
 # Role demotion is enforced by a fresh DB read at the privileged gates, not via the JWT claim or RLS
+
+> **Superseded on 2026-08-17 by [ADR-0018](0018-fresh-role-sourced-once-per-request.md).** The
+> option this ADR records as *Rejected (still too broad)* under **B2** is what the code does: the
+> role is sourced once per request in `withRlsContext`, so `app.role` and every policy arbitrate on
+> the database row, not the claim. The perf argument below was wrong, `withRlsContext` already
+> issued the select. Read this file as history, not as the current rule.
 
 Roles ride in the access-token JWT claim (15 min TTL). `requireJwtAuth` sets `userRole` from that claim, and the two privileged gates, `requireCatalogWrite` (catalogue curation) and `requireContentModerator` (content moderation, [ADR-0006](0006-contributor-gains-content-moderation.md)), read it. So a `contributor` demoted to `user` (the #16b admin demotion) kept catalogue and moderation powers until the next `/auth/refresh` re-sourced the role: a bounded, self-healing window of up to ~15 min. This ADR closes that window by re-sourcing the role from the DB **inside the two gates**, and records why the obvious "fix it in RLS" alternatives were rejected.
 

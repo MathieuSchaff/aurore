@@ -12,7 +12,7 @@ Canonical ADRs for Aurore. This directory is tracked in git.
 | [0005](./0005-public-reviews-opt-in-attributable-ratings.md) | Public reviews: opt-in, attributable ratings | accepted | 2026-05-27 |
 | [0006](./0006-contributor-gains-content-moderation.md) | Contributor gains content moderation | accepted | 2026-05-30 |
 | [0007](./0007-error-handling-strategy.md) | Hybrid error handling strategy | accepted | 2026-06-02 |
-| [0008](./0008-role-demotion-enforced-fresh-at-gates.md) | Role demotion enforced fresh at gates | accepted | 2026-06-02 |
+| [0008](./0008-role-demotion-enforced-fresh-at-gates.md) | Role demotion enforced fresh at gates | superseded-by-0018 | 2026-06-02 |
 | [0009](./0009-signup-enumeration-safe.md) | Signup is enumeration-safe: neutral response, truth only by email | accepted | 2026-06-17 |
 | [0010](./0010-forgot-password-enumeration-safe.md) | Forgot-password is enumeration-safe: neutral request, reset only by email | accepted | 2026-06-17 |
 | [0011](./0011-home-is-dual-audience.md) | Home (`/`) is dual-audience: never redirect authenticated users away | accepted | 2026-06-25 |
@@ -22,13 +22,14 @@ Canonical ADRs for Aurore. This directory is tracked in git.
 | [0015](./0015-db-snapshots-plain-git-no-lfs.md) | DB snapshots are plain-text git blobs, not LFS | accepted | 2026-07-22 |
 | [0016](./0016-tag-reconciliation-stays-per-kernel.md) | Tag reconciliation stays per-kernel; no shared policy module | accepted | 2026-07-23 |
 | [0017](./0017-claim-tags-are-internal-only.md) | Claim-worded tags stay internal-only: computed, audited, never displayed | accepted | 2026-08-12 |
+| [0018](./0018-fresh-role-sourced-once-per-request.md) | The fresh DB role is sourced once per request in `withRlsContext` | accepted | 2026-08-17 |
 
 No **0002**: *AutoTag skip events ride trackError as transport* (accepted 2026-05-19) was deleted
 along with the errors feature it named, in `feat(observability): add the Grafana, OTel and Faro
 stack`. The decision still holds, its transport no longer exists: skips leave as a structured
 `logger.warn` from `backend/src/features/auto-tagging/write.ts`, keyed on `AUTOTAG_SKIP_EVENT_KIND`.
 
-Next available: **0018**. Name: `NNNN-short-imperative-verb-phrase.md`.
+Next available: **0019**. Name: `NNNN-short-imperative-verb-phrase.md`.
 
 ## Template
 
@@ -63,5 +64,7 @@ Write when:
 - Decision is cross-cutting (multiple packages or features)
 - It changes an existing convention held by real code
 - A future contributor would independently question the choice
+- A fix lands the option an existing ADR records as rejected. Supersede that ADR in the same batch:
+  an ADR that describes the opposite of the code is worse than no ADR, since it reads as the rule
 
 Skip for: local implementation choices, routine CRUD, cosmetic decisions, single-file concerns.
