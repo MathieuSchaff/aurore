@@ -64,6 +64,14 @@ export function authPatch(app: Hono<AppEnv>, path: string, token: string, body: 
   })
 }
 
+export function authPost(app: Hono<AppEnv>, path: string, token: string, body: object) {
+  return app.request(path, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+    body: JSON.stringify(body),
+  })
+}
+
 export function authDelete(app: Hono<AppEnv>, path: string, token: string) {
   return app.request(path, {
     method: 'DELETE',
