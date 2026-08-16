@@ -49,7 +49,7 @@ export interface AbsenceRefuter {
   readonly tag: SkincareProductTagSlug
   // Returns the offending token, not a boolean, so reports can name what tripped it.
   readonly refutingToken: (inci: string | null | undefined) => string | null
-  // A refuter reads declarations, it does not re-implement algo-derm. Where wider than the
+  // A refuter reads declarations, it is not a second implementation of algo-derm. Where wider than the
   // heuristic that emits the tag, that's intentional: the audit surfaces the gap.
   readonly note: string
 }
@@ -79,7 +79,7 @@ const DECLARED_REFUTERS: readonly AbsenceRefuter[] = [
     // even though it is a 2023/1545 addition and stays out of the Annex III set in inci-facts.
     refutingToken: (inci) =>
       fragranceAllergenToken(inci) ?? tokenRule({ patterns: ['\\bmenthol\\b'] })(inci),
-    note: 'Annex III allergens + menthol. The bare Parfum marker is deliberately NOT a refuter — it says nothing about which allergens cross the labelling threshold.',
+    note: 'Annex III allergens + menthol. The bare Parfum marker is deliberately NOT a refuter. It says nothing about which allergens cross the labelling threshold.',
   },
   {
     tag: S.SANS_ALCOOL_DENATURE,
@@ -108,7 +108,7 @@ const DECLARED_REFUTERS: readonly AbsenceRefuter[] = [
         'silicone',
       ],
     }),
-    note: 'WIDER than algo-derm: its silicone heuristic spells out dimethicone/trimethicone/cyclomethicone/amodimethicone but has no bare `methicone`, and no `silsesquioxane` at all, so `Caprylyl Methicone`, `Simethicone` and `Polymethylsilsesquioxane` slip through upstream.',
+    note: 'Algo-derm now carries `\\bmethicone\\b`, `\\bsimethicone\\b` and `\\bpolymethylsilsesquioxane\\b`. What stays wider here is unanchored `methicone`, plus bare `silsesquioxane` and `siloxysilicate` where upstream names one member of each family.',
   },
   {
     tag: S.SANS_HUILES_MINERALES,
@@ -127,7 +127,7 @@ const DECLARED_REFUTERS: readonly AbsenceRefuter[] = [
       // corruptions whose only intact declaration is the gloss.
       keepParentheticals: true,
     }),
-    note: 'WIDER than algo-derm on two spellings of substances it already covers: `Microcrystalline Wax` (it lists only the Latin `cera microcristallina`) and solid `Paraffin` (only `paraffin wax`). `\\bparaffin\\b` is anchored so `C13-14 Isoparaffin` does not trip it.',
+    note: 'Algo-derm now carries `\\bmicrocrystalline wax\\b` and `\\bparaffin\\b`. What stays wider here is unanchored `paraffinum`, where upstream names `paraffinum liquidum` alone. `\\bparaffin\\b` is anchored so `C13-14 Isoparaffin` does not trip it.',
   },
   {
     tag: S.SANS_SAVON,
