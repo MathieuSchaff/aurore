@@ -37,6 +37,11 @@ export const withRlsContext = async (c: Context<AppEnv>, next: Next) => {
       // account gone since the token was minted falls back to the anonymous context
       const role = account?.role ?? ''
 
+      // Downstream guards (requireAdmin) and services (resolveCatalogQuality, rate-limit
+      // tiers) read the context role: overwrite the claim so they arbitrate on the same
+      // row the policies see, instead of stamping writes RLS will then reject
+      c.set('userRole', account?.role)
+
       // SET LOCAL only accepts literal strings, making concatenation an injection risk.
       // set_config() takes a parameterized value, so it is safe.
       await tx.execute(sql`SELECT set_config('app.user_id', ${userId}, true)`)
