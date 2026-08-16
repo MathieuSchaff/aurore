@@ -8,6 +8,7 @@ type ProductTagLink = typeof productTagLinks.$inferSelect
  * Export required: leaks via inferred return, listTagsByProduct used by getProductFullBySlug (TS4058).
  * @knipignore
  */
+// fallow-ignore-next-line unused-type
 export interface ProductTagProjection {
   productTagId: string
   productId: string
