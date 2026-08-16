@@ -12,8 +12,8 @@ APP_TEST_DB_URL := "postgres://app_runtime:testpassword@localhost:5433/appdb_tes
 
 # Reusing a long-lived test DB lets its schema drift from what the migrations
 # describe (drizzle only applies the missing ones), which surfaces as flaky RLS
-# failures — hence the recreate-by-default. `keep` also spares a concurrent run's DB.
-[doc('Recreate the test DB and apply migrations — pass `keep` to reuse a running one.')]
+# failures, hence the recreate-by-default. `keep` also spares a concurrent run's DB.
+[doc('Recreate the test DB and apply migrations. Pass `keep` to reuse a running one.')]
 [group('test')]
 test-db-up keep="":
     @if [ "{{keep}}" = "keep" ] && {{COMPOSE_TEST}} exec db-test pg_isready -U app -d appdb_test >/dev/null 2>&1; then \
@@ -33,7 +33,7 @@ test-db-up keep="":
 test-db-down:
     {{COMPOSE_TEST}} down
 
-[doc('Seed CORE into test DB — requires test-db-up')]
+[doc('Seed CORE into test DB (requires test-db-up)')]
 [group('test')]
 test-db-seed:
     @printf "{{CYAN}}Seeding CORE into test DB...{{NC}}\n"
@@ -42,17 +42,17 @@ test-db-seed:
 
 # ─────────────────────────── Run once ───────────────────────────
 
-[doc('Run ALL tests — shared (pure) + backend (full cycle) + frontend')]
+[doc('Run ALL tests: shared (pure) + backend (full cycle) + frontend')]
 [group('test')]
 test: test-shared test-backend test-frontend
 
-[doc('Run shared unit tests — pure, no DB, optional filter')]
+[doc('Run shared unit tests: pure, no DB, optional filter')]
 [group('test')]
 test-shared args="":
     cd shared && bun test {{args}}
     @printf "{{GREEN}}✓ Shared tests done{{NC}}\n"
 
-[doc('Run backend tests — brings DB up, optional filter')]
+[doc('Run backend tests: brings DB up, optional filter')]
 [group('test')]
 test-backend args="": test-db-up
     DATABASE_URL={{TEST_DB_URL}} APP_DATABASE_URL={{APP_TEST_DB_URL}} bun --cwd ./backend test {{args}}
@@ -64,21 +64,19 @@ test-frontend:
     cd frontend && bunx vitest run
     @printf "{{GREEN}}✓ Frontend tests done{{NC}}\n"
 
-[doc('Run backend tests — DB assumed up, optional filter — fast inner loop')]
+[doc('Run backend tests: DB assumed up, optional filter (fast inner loop)')]
 [group('test')]
 test-dev args="":
     cd backend && DATABASE_URL={{TEST_DB_URL}} APP_DATABASE_URL={{APP_TEST_DB_URL}} bun test {{args}}
 
 # ─────────────────────────── Watch ───────────────────────────
 
-[doc('Watch backend tests — brings DB up first')]
+# The DB cost is paid once at startup, not per iteration, so unlike the run-once
+# recipes, a watch has no reason to split into "-dev" and non-"-dev" variants.
+[doc('Watch backend tests: reuses a running test DB, optional filter')]
 [group('test')]
-test-watch: test-db-up
-    cd backend && DATABASE_URL={{TEST_DB_URL}} APP_DATABASE_URL={{APP_TEST_DB_URL}} bun test --watch
-
-[doc('Watch backend tests — DB assumed up, optional filter')]
-[group('test')]
-test-dev-watch args="":
+test-watch args="":
+    @just test-db-up keep
     cd backend && DATABASE_URL={{TEST_DB_URL}} APP_DATABASE_URL={{APP_TEST_DB_URL}} bun test --watch {{args}}
 
 # ──────────────────── Coverage (feeds fallow health --coverage) ────────────────────
@@ -97,7 +95,7 @@ test-frontend-coverage:
 
 # ──────────────── Perf regression guard (baseline cleanDatabase = 903, must not rise) ────────────────
 
-[doc('Bench backend suite — captures wall-time + full log to /tmp/aurore-backend-test.log')]
+[doc('Bench backend suite: captures wall-time + full log to /tmp/aurore-backend-test.log')]
 [group('test')]
 test-bench: test-db-up
     @printf "{{CYAN}}Benching backend tests (output → /tmp/aurore-backend-test.log)...{{NC}}\n"
@@ -109,11 +107,11 @@ test-bench: test-db-up
     @printf "{{CYAN}}cleanDatabase fires (baseline 903):{{NC}} "
     @grep -c "Cleaning database" /tmp/aurore-backend-test.log
 
-[doc('Re-read cleanDatabase fires from the last test-bench log (no re-bench)')]
+[doc('Read cleanDatabase fires again from the last test-bench log, without a new bench')]
 [group('test')]
 test-clean-count:
     @if [ ! -f /tmp/aurore-backend-test.log ]; then \
-        printf "{{CYAN}}No log yet — run 'just test-bench' first.{{NC}}\n"; \
+        printf "{{CYAN}}No log yet. Run 'just test-bench' first.{{NC}}\n"; \
         exit 1; \
     fi
     @printf "{{CYAN}}cleanDatabase fires in last run:{{NC}} "
