@@ -3,7 +3,11 @@
   /* biome-ignore lint/suspicious/noDuplicateProperties: vh fallback for browsers without dvh */
   min-height: calc(100dvh - var(--nav-height));
   background: var(--bg-page);
+  /* hidden turns the element into a scroll container (overflow-y computes to auto),
+     which re-anchors descendant position:sticky to it and kills viewport stickiness.
+     clip clips without creating a scroll container; hidden stays as the fallback. */
   overflow-x: hidden;
+  overflow-x: clip;
   animation: fade-slide-in var(--transition-base) ease;
 }
 
