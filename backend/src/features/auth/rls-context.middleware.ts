@@ -8,7 +8,7 @@ import { users } from '../../db/schema'
 // Must run after requireJwtAuth. Public requests without userId pass through unchanged.
 //
 // A propagated error or final HTTP status >= 400 rolls back the request transaction.
-// Only the rollback requested here is suppressed; unexpected rollback errors propagate.
+// Only the rollback requested here is suppressed; unexpected rollback errors propagate
 export const withRlsContext = async (c: Context<AppEnv>, next: Next) => {
   const userId = c.get('userId')
 
@@ -25,25 +25,26 @@ export const withRlsContext = async (c: Context<AppEnv>, next: Next) => {
     await anonDb.transaction(async (tx) => {
       // Account deletion takes FOR UPDATE before touching owned targets. Holding
       // KEY SHARE here makes every authenticated request lock in that same order,
-      // account before target, so no write commits after account cleanup.
+      // account before target, so no write commits after account cleanup
       const [account] = await tx
         .select({ id: users.id, role: users.role })
         .from(users)
         .where(eq(users.id, userId))
         .for('key share')
 
-      // Every policy arbitrates on app.role, so it comes from the row, never from the JWT
+      // Every policy checks app.role, so it comes from the row, never from the JWT
       // claim: a demoted contributor carries a stale claim until its token expires. An
-      // account gone since the token was minted falls back to the anonymous context
+      // account gone since the token was issued falls back to the anonymous context
       const role = account?.role ?? ''
 
-      // Downstream guards (requireAdmin) and services (resolveCatalogQuality, rate-limit
-      // tiers) read the context role: overwrite the claim so they arbitrate on the same
-      // row the policies see, instead of stamping writes RLS will then reject
+      // Guards and services after this point read the context role: requireAdmin, the
+      // verified stamp, the submission rate limit. Overwrite the claim so they see the
+      // row the policies see, else the service stamps a demoted user's insert verified
+      // and the INSERT policy kills the request with a 500
       c.set('userRole', account?.role)
 
       // SET LOCAL only accepts literal strings, making concatenation an injection risk.
-      // set_config() takes a parameterized value, so it is safe.
+      // set_config() takes a parameterized value, so it is safe
       await tx.execute(sql`SELECT set_config('app.user_id', ${userId}, true)`)
       await tx.execute(sql`SELECT set_config('app.role', ${role}, true)`)
 
@@ -56,11 +57,11 @@ export const withRlsContext = async (c: Context<AppEnv>, next: Next) => {
       }
     })
   } catch (e) {
-    // Preserve the downstream response after the rollback requested above.
+    // Preserve the downstream response after the rollback requested above
     if (e instanceof TransactionRollbackError && rollbackRequested) return
     throw e
   } finally {
-    // Never expose a transaction after its callback has completed.
+    // Never expose a transaction after its callback has completed
     c.set('requestDb', undefined)
   }
 }
