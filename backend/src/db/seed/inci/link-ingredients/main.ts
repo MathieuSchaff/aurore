@@ -1,6 +1,6 @@
 // Backfill `product_ingredients` from `products.inci`. Reads that column only: no network,
 // no scraping, and it never creates ingredient rows. Dry-run unless `--write`.
-// Idempotent — the eligible query re-selects whatever is unlinked, so a re-run is safe.
+// Idempotent: the eligible query selects whatever is unlinked, so running it again is safe.
 // Flags are documented on the `link-ingredients` just recipe.
 
 import { normalize, splitINCI } from 'algo-derm'
@@ -34,7 +34,7 @@ import { bridgeEvidenceToSlug, buildSlugByHumanized } from './bridge'
 import { type CurrentLink, planReconcile, type ReconcilePlan } from './reconcile'
 
 const { write: WRITE, slug: SLUG_ARG } = parseWriteSlugArgs()
-// Corpus re-link: recompute every product that has an INCI, not just the unlinked ones.
+// Corpus relink: recompute every product that has an INCI, not just the unlinked ones.
 const RELINK = process.argv.includes('--relink')
 const LIMIT = parseIntEnv('LIMIT')
 if (LIMIT !== null && LIMIT < 0) throw new Error(`LIMIT must be at least 0, got "${LIMIT}"`)
@@ -106,7 +106,7 @@ const slugByHumanized = buildSlugByHumanized(Object.values(INGREDIENT_SLUGS))
 // gets the same category filter as a direct hit. See computeLinks domain guard below.
 const slugToDomain = buildSlugDomainMap()
 
-// Drop resolved slugs that are fillers or non-discriminant, whichever raw token produced them.
+// Drop resolved slugs that are fillers or that discriminate nothing, whichever raw token produced them.
 // Union of the is_filler taxonomy (FILLER_SLUGS) and the slugs NON_DISCRIMINANT_TOKENS reaches.
 // Checked on the RESOLVED slug so a synonym that bridges onto a listed substance (e.g.
 // `Gomme Xanthane` maps to xanthan-gum) is caught. resolveToken's raw-token check only sees
@@ -118,7 +118,7 @@ const GENERIC_FALLBACK_BY_PROPRIETARY_SLUG = new Map([
   ['comedoclastin', 'silybum-marianum-fruit-extract'],
 ])
 
-// Parentheses normally carry a non-substantive gloss, so normalizeInciToken folds them away.
+// Parentheses normally carry a gloss that is not substantive, so normalizeInciToken folds them away.
 // These two strings are deferred on purpose: folding them onto the plain Flower/Bud
 // declarations would silently extend the four-product Eugenia Caryophyllus merge to more rows.
 // Keep the deferment ahead of both direct matching and the algo-derm bridge.
@@ -257,8 +257,13 @@ export function resolveToken(
   const completeCandidates = segmentCandidates as ResolutionCandidate[]
   const first = completeCandidates[0]
   if (!first) return null
-  const sharedIdentity = [...first.identities].some((identity) =>
-    completeCandidates.every((segment) => segment.identities.has(identity))
+  // The returned identity is the whole-string one, so segment agreement is only evidence for it
+  // when the candidate shares that identity: agreeing segments naming another substance would
+  // link the token to something none of them declares.
+  const sharedIdentity = [...first.identities].some(
+    (identity) =>
+      candidate.identities.has(identity) &&
+      completeCandidates.every((segment) => segment.identities.has(identity))
   )
   return sharedIdentity ? candidate.result : null
 }
@@ -266,7 +271,7 @@ export function resolveToken(
 // A single "token" carrying this many words is far past the longest real INCI name
 // (~6 words). The string most likely lost its separators upstream. Uppercase share
 // splits glued INCI (`AQUA CYCLOPENTASILOXANE …`) from French prose/nutrition text
-// (descriptions, supplement composition), which is expected non-INCI content.
+// (descriptions, supplement composition), which is expected content that is not INCI.
 const SUSPECT_TOKEN_WORDS = 8
 
 function isUppercaseDominant(s: string): boolean {
@@ -320,7 +325,7 @@ export function computeLinks(
       unbridged.push(raw.trim())
       continue
     }
-    // F2: drop filler/excipient by resolved slug, whichever raw token produced it.
+    // Drop filler/excipient by resolved slug, whichever raw token produced it.
     if (excipients.has(resolved.slug)) {
       blocked.push(resolved.slug)
       continue
@@ -337,7 +342,7 @@ export function computeLinks(
       if (key && !collisions.includes(key)) collisions.push(key)
       continue
     }
-    // Re-checked: the excipient list holds only bare slugs, and the swap can land on one.
+    // Checked again: the excipient list holds only bare slugs, and the swap can land on one.
     if (excipients.has(slug)) {
       blocked.push(slug)
       continue
@@ -374,7 +379,7 @@ export function computeLinks(
 
 async function readEligible(tx: DatabaseTransaction): Promise<EligibleProduct[]> {
   if (SLUG_ARG) {
-    // --slug: load unconditionally (re-link override), ignore the 0-link filter.
+    // --slug: load unconditionally (relink override), ignore the 0-link filter.
     return tx
       .select({
         id: products.id,
@@ -599,7 +604,7 @@ function printReport(s: RunStats): void {
   const topUnbridged = freqTable(s.unbridgedFreq, 20, 'token')
   if (topUnbridged.length > 0) console.table(topUnbridged)
 
-  console.log('top 15 slugs dropped as filler/excipient (F2 slug-level block)')
+  console.log('top 15 slugs dropped as filler/excipient (slug-level block)')
   const topBlocked = freqTable(s.blockedFreq, 15, 'slug')
   if (topBlocked.length > 0) console.table(topBlocked)
 
@@ -772,7 +777,7 @@ function planCorpusReconcile(input: {
     }
     withLinks++
 
-    // Write policy — what gets inserted, kept or deleted — lives in reconcile.ts,
+    // Write policy (what gets inserted, kept or deleted) lives in reconcile.ts,
     // unit-tested separately from this file.
     const plan = scopeReconcilePlan(
       planReconcile(current, targetIds.keys(), canonicalKeyBySlug),
@@ -921,7 +926,7 @@ async function main() {
 
   if (WRITE) {
     await withAdminRls(async (tx) => {
-      // Keep the optimistic re-check true until every planned write commits.
+      // Keep the optimistic check true until every planned write commits.
       await tx.execute(
         sql`LOCK TABLE ingredients, products, product_ingredients IN SHARE ROW EXCLUSIVE MODE`
       )
