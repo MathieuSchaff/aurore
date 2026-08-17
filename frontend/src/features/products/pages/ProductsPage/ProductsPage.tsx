@@ -40,6 +40,7 @@ import { useProductsProfileFilter } from '@/features/products/hooks/useProductsP
 import { useListFilters } from '@/hooks/useListFilters'
 import { isRateLimitError } from '@/lib/helpers/apiError'
 import { useBootPending } from '@/lib/hooks/useBootPending'
+import { authQueries } from '@/lib/queries/auth'
 import {
   applyShelfStatusOverlayToListCache,
   type ListProductsFilters,
@@ -72,14 +73,20 @@ export function ProductsPage() {
   // Unstated in the URL reads as off until the standing choice resolves it.
   const profile_filter = search.profile_filter === true
   const navigate = useNavigate({ from: '/products/' })
+  const queryClient = useQueryClient()
 
   const user = useAuthStore((s) => s.user)
-  const userId = user?.id ?? null
+  // Subscribe without fetching: the cookie-authenticated root boot owns this cache entry
+  // Reading it on the first client render keeps the personalized SSR tree hydratable while
+  // the refresh probe obtains the Bearer token; a rejected probe removes the entry again
+  const { data: bootSession } = useQuery({ ...authQueries.session(), enabled: false })
+  const bootUserId = bootSession?.authenticated ? (bootSession.userId ?? null) : null
+  const userId = user?.id ?? bootUserId
 
   const { setProfileFilter: handleProfileFilterChange, unresolved: profileFilterUnresolved } =
     useProductsProfileFilter({
       urlProfileFilter: search.profile_filter,
-      userId: userId,
+      userId: user?.id ?? null,
     })
 
   // Stable ref: a fresh object every render feeds back into setDraftFilters and loops.
@@ -110,7 +117,6 @@ export function ProductsPage() {
 
   // filter-options (tag counts + brand list) only feeds the drawer; keep it off the
   // cold-load waterfall where it competes with the LCP grid. Prefetched on Filter intent.
-  const queryClient = useQueryClient()
   const { data: filterOptions } = useQuery({
     ...productQueries.filterOptions(category),
     enabled: isDrawerOpen,
@@ -128,7 +134,8 @@ export function ProductsPage() {
   // before the standing setting is known costs a list fetch that the very next render
   // throws away, and the cache key follows the rules, so the grid blanks during the click.
   const bootRefreshPending = useBootPending()
-  const canApplyDeclaredRules = !bootRefreshPending && !profileFilterUnresolved && !!user
+  const canApplyDeclaredRules =
+    !!bootUserId || (!bootRefreshPending && !profileFilterUnresolved && !!user)
 
   const apiFilters = useMemo<ListProductsFilters>(
     () => productsListApiFilters(search, canApplyDeclaredRules),

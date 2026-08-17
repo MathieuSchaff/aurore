@@ -41,4 +41,16 @@ describe('dropSessionScopedQueries', () => {
 
     expect(queryClient.getQueryData(LIST_KEY)).toBeUndefined()
   })
+
+  it('drops personalized dermo scores but keeps the anonymous product reading', () => {
+    const anonymousKey = ['products', 'serum-test', 'dermo-score', null] as const
+    const personalizedKey = ['products', 'serum-test', 'dermo-score', 'user-1'] as const
+    queryClient.setQueryData(anonymousKey, { rating: 'low' })
+    queryClient.setQueryData(personalizedKey, { rating: 'high' })
+
+    dropSessionScopedQueries(queryClient)
+
+    expect(queryClient.getQueryData(anonymousKey)).toEqual({ rating: 'low' })
+    expect(queryClient.getQueryData(personalizedKey)).toBeUndefined()
+  })
 })
