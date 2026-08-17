@@ -30,6 +30,10 @@ function getActiveRefreshSetCookie(res: { headers: Headers }): string {
   return getRefreshSetCookies(res).find((cookie) => !cookie.includes('Max-Age=0')) ?? ''
 }
 
+function getSessionHintSetCookie(res: { headers: Headers }): string {
+  return res.headers.getSetCookie().find((cookie) => cookie.startsWith('aurore_session=')) ?? ''
+}
+
 function extractActiveRefreshCookie(res: { headers: Headers }): string {
   return getActiveRefreshSetCookie(res).split(';', 1)[0] ?? ''
 }
@@ -179,12 +183,13 @@ describe('Auth Routes (browser)', () => {
   })
 
   describe('POST /auth/login', () => {
-    it('sets the refresh cookie at the root path', async () => {
+    it('sets the refresh cookie at the root path and expires the legacy session hint', async () => {
       const creds = await createTestToto()
 
-      const res = await client.auth.login.$post({
-        json: { email: creds.rawEmail, password: creds.rawPassword },
-      })
+      const res = await client.auth.login.$post(
+        { json: { email: creds.rawEmail, password: creds.rawPassword } },
+        { headers: { Cookie: 'aurore_session=1' } }
+      )
 
       const session = await expectOk(res)
       expect(session.user.email).toBe(creds.rawEmail)
@@ -195,6 +200,11 @@ describe('Auth Routes (browser)', () => {
       expect(cookie).toContain('refresh_token=')
       expect(cookie).toContain('HttpOnly')
       expect(cookie).toMatch(/(?:^|; )Path=\/(?:;|$)/)
+
+      const hintDeletion = getSessionHintSetCookie(res)
+      expect(hintDeletion).toContain('Max-Age=0')
+      expect(hintDeletion).toContain('Path=/')
+      expect(hintDeletion).not.toContain('aurore_session=1')
     })
 
     it('should reject wrong password', async () => {
@@ -271,7 +281,7 @@ describe('Auth Routes (browser)', () => {
   })
 
   describe('POST /auth/refresh', () => {
-    it('should rotate tokens with valid refresh cookie', async () => {
+    it('rotates tokens and expires the legacy session hint', async () => {
       const creds = await createTestToto()
       const { cookie: loginCookie } = await loginAndGetCookies(
         client,
@@ -279,13 +289,21 @@ describe('Auth Routes (browser)', () => {
         creds.rawPassword
       )
 
-      const res = await client.auth.refresh.$post({}, { headers: { Cookie: loginCookie } })
+      const res = await client.auth.refresh.$post(
+        {},
+        { headers: { Cookie: `${loginCookie}; aurore_session=1` } }
+      )
 
       const data = await expectOk(res)
       expect(data.accessToken).toBeDefined()
 
       const newCookie = extractCookie(res)
       expect(newCookie).toContain('refresh_token=')
+
+      const hintDeletion = getSessionHintSetCookie(res)
+      expect(hintDeletion).toContain('Max-Age=0')
+      expect(hintDeletion).toContain('Path=/')
+      expect(hintDeletion).not.toContain('aurore_session=1')
     })
 
     it('rotates a legacy-path session and expires its old cookie', async () => {
@@ -423,26 +441,27 @@ describe('Auth Routes (browser)', () => {
       expect(remaining).toBeUndefined()
     })
 
-    it('sets the JS-readable session hint on login and clears it on logout', async () => {
+    it('expires the legacy session hint on logout', async () => {
       const creds = await createTestToto()
-      const {
-        res: login,
-        cookie,
-        accessToken,
-      } = await loginAndGetCookies(client, creds.rawEmail, creds.rawPassword)
-
-      const loginHint = login.headers.getSetCookie().find((c) => c.startsWith('aurore_session='))
-      expect(loginHint).toContain('aurore_session=1')
-      expect(loginHint).not.toContain('HttpOnly') // must be readable by JS at boot
-      expect(loginHint).toContain('Path=/')
+      const { cookie, accessToken } = await loginAndGetCookies(
+        client,
+        creds.rawEmail,
+        creds.rawPassword
+      )
 
       const logout = await client.auth.logout.$post(
         {},
-        { headers: { Cookie: cookie, Authorization: `Bearer ${accessToken}` } }
+        {
+          headers: {
+            Cookie: `${cookie}; aurore_session=1`,
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
       )
-      const logoutHint = logout.headers.getSetCookie().find((c) => c.startsWith('aurore_session='))
-      expect(logoutHint).toBeDefined()
-      expect(logoutHint).not.toContain('aurore_session=1') // cleared
+      const hintDeletion = getSessionHintSetCookie(logout)
+      expect(hintDeletion).toContain('Max-Age=0')
+      expect(hintDeletion).toContain('Path=/')
+      expect(hintDeletion).not.toContain('aurore_session=1')
     })
 
     expectRequiresAuth(() => app, { method: 'POST', path: '/api/auth/logout' })
@@ -469,7 +488,7 @@ describe('Auth Routes (browser)', () => {
       expect(refreshRes.status).toBe(HTTP_STATUS.UNAUTHORIZED)
     })
 
-    it('should allow re-login after logout', async () => {
+    it('should allow logging in again after logout', async () => {
       const creds = await createTestToto()
       const { cookie, accessToken } = await loginAndGetCookies(
         client,
@@ -697,7 +716,7 @@ describe('Auth Routes (browser)', () => {
     })
   })
 
-  describe('POST /auth/login — email_not_verified', () => {
+  describe('POST /auth/login: email_not_verified', () => {
     it('devrait retourner email_not_verified (403) après la grace period', async () => {
       const { users: usersTable } = await import('../../../db/schema')
       const creds = TEST_CREDENTIALS.toto
