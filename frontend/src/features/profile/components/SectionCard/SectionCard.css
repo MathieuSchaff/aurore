@@ -17,13 +17,6 @@
   z-index: 1;
 }
 
-.section-card__header {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: var(--space-3);
-}
-
 .section-card__heading {
   display: flex;
   flex-direction: column;

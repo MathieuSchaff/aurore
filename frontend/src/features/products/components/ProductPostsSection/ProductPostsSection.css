@@ -13,28 +13,11 @@
   list-style: none;
 }
 
-.product-posts__item {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-2);
-  padding: var(--space-4);
-  background: var(--bg-card);
-  border: 1px solid var(--border-default);
-  border-radius: var(--radius-md);
-}
-
 .product-posts__header {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   gap: var(--space-2);
-}
-
-.product-posts__author-link {
-  font-weight: var(--font-semibold);
-  color: var(--color-accent-on);
-  text-decoration: none;
-  border-bottom: 1px dashed currentcolor;
 }
 
 /* Hover keeps the same AA-safe tone; the dashed-to-solid border carries the state change. */

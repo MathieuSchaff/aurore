@@ -10,16 +10,6 @@
   margin-bottom: var(--space-4);
 }
 
-.diff-section__title {
-  font-family: var(--font-display);
-  font-feature-settings: var(--font-features-display);
-  font-size: var(--text-2xl);
-  font-weight: var(--font-normal);
-  letter-spacing: var(--tracking-tight);
-  color: var(--text-primary);
-  margin: 0;
-}
-
 .diff-section__lede {
   font-family: var(--font-display);
   font-size: var(--text-sm);

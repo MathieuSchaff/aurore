@@ -5,6 +5,7 @@ import { ChevronDown } from 'lucide-react'
 import { useState } from 'react'
 
 import { Button } from '@/component/Button/Button'
+import { Overline } from '@/component/Typography/Overline/Overline'
 import { FITZPATRICK_ITEMS, SKIN_CONCERN_LABELS, SKIN_TYPE_LABELS } from '@/constants/skin'
 import './SkinProfileRead.css'
 
@@ -35,7 +36,7 @@ export function SkinProfileRead({ dermo, hideFitzpatrick = false }: SkinProfileR
     <div className="skin-read">
       {hasSkinTypes && (
         <div className="skin-read__row">
-          <span className="skin-read__label">Type de peau</span>
+          <Overline>Type de peau</Overline>
           <div className="skin-read__chips">
             {dermo.skinTypes?.map((t) => (
               <span key={t} className="skin-read__chip">
@@ -48,7 +49,7 @@ export function SkinProfileRead({ dermo, hideFitzpatrick = false }: SkinProfileR
 
       {fitzItem && !hideFitzpatrick && (
         <div className="skin-read__row">
-          <span className="skin-read__label">Phototype</span>
+          <Overline>Phototype</Overline>
           <span
             className={clsx('skin-read__fitz-badge', `skin-read__fitz-badge--${fitzItem.value}`)}
           >
@@ -59,7 +60,7 @@ export function SkinProfileRead({ dermo, hideFitzpatrick = false }: SkinProfileR
 
       {hasConcerns && (
         <div className="skin-read__row">
-          <span className="skin-read__label">Problématiques</span>
+          <Overline>Problématiques</Overline>
           <div className="skin-read__chips skin-read__chips--sm">
             {dermo.skinConcerns?.map((c) => (
               <span key={c} className="skin-read__chip skin-read__chip--sm">
@@ -72,7 +73,7 @@ export function SkinProfileRead({ dermo, hideFitzpatrick = false }: SkinProfileR
 
       {hasNotes && (
         <div className="skin-read__row skin-read__notes-row">
-          <span className="skin-read__label">Notes privées</span>
+          <Overline>Notes privées</Overline>
           <div
             className={clsx(
               'skin-read__notes',

@@ -16,7 +16,7 @@ type Props = {
 
 export function ProductImage({ kind, unit, imageUrl, size = 48, fill, className }: Props) {
   const trimmedUrl = imageUrl?.trim() || null
-  // Reset error during render to avoid an effect tick that flickers icon→image→icon.
+  // Reset error during render to avoid an effect tick that flickers from icon to image and back.
   const [errorUrl, setErrorUrl] = useState<string | null>(null)
   // Tracks the previous URL only to detect a prop change; state (not ref) so a
   // discarded concurrent render can't skip the error reset.
@@ -34,7 +34,7 @@ export function ProductImage({ kind, unit, imageUrl, size = 48, fill, className 
   if (showIcon) {
     return (
       <div
-        className={`product-image product-image--icon ${fillClass} ${className ?? ''}`}
+        className={`product-image product-image--icon ui-centered ${fillClass} ${className ?? ''}`}
         style={sizeStyle}
         aria-hidden="true"
       >
@@ -45,7 +45,7 @@ export function ProductImage({ kind, unit, imageUrl, size = 48, fill, className 
 
   return (
     <div
-      className={`product-image ${fillClass} ${className ?? ''}`}
+      className={`product-image ui-centered ${fillClass} ${className ?? ''}`}
       style={sizeStyle}
       aria-hidden="true"
     >

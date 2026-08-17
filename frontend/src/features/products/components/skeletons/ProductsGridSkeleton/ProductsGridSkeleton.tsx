@@ -23,7 +23,7 @@ export function ProductsGridSkeleton() {
         {CARD_PLACEHOLDERS.map((card) => (
           <li key={card.id} className="products-grid-skeleton__card">
             <Skeleton className="products-grid-skeleton__image" />
-            <div className="products-grid-skeleton__body">
+            <div className="products-grid-skeleton__body ui-skeleton-body">
               <Skeleton width="40%" height="0.6875rem" />
               <Skeleton width={card.lines[0]} height="1rem" />
               <Skeleton width={card.lines[1]} height="1rem" />

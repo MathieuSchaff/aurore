@@ -8,6 +8,7 @@ import { useCallback, useState } from 'react'
 import { Button, ButtonLink } from '@/component/Button/Button'
 import { FormError } from '@/component/Feedback/ui/FormError/FormError'
 import { ChipGroup } from '@/component/Input/ChipGroup/ChipGroup'
+import { FormActionsBar } from '@/component/Input/FormActions/FormActions'
 import { FormField } from '@/component/Input/FormField/FormField'
 import { TagManager } from '@/component/Input/TagManager/TagManager'
 import {
@@ -228,7 +229,7 @@ function IngredientFormActions({
   isPending: boolean
 }) {
   return (
-    <div className="ingredient-edit-form__actions">
+    <FormActionsBar className="ingredient-edit-form__actions">
       {mode === 'edit' && ingredientSlug ? (
         <ButtonLink to="/ingredients/$slug" params={{ slug: ingredientSlug }} variant="outline">
           <XIcon size={16} />
@@ -244,7 +245,7 @@ function IngredientFormActions({
         {!isPending && <Save size={16} />}
         {submitLabel}
       </Button>
-    </div>
+    </FormActionsBar>
   )
 }
 

@@ -126,13 +126,6 @@
   margin: 0;
 }
 
-.comparisons-list-page__empty-desc {
-  font-size: var(--text-sm);
-  color: var(--text-muted);
-  max-width: 36ch;
-  margin: 0;
-}
-
 @media (--sm) {
   .comparisons-list-page {
     padding: var(--space-8) var(--space-6);

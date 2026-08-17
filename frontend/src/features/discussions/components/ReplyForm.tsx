@@ -32,7 +32,7 @@ export function ReplyForm({ entityType, slug, threadId }: ReplyFormProps) {
   }
 
   return (
-    <form className="reply-form" onSubmit={handleSubmit}>
+    <form className="reply-form ui-form-panel" onSubmit={handleSubmit}>
       <SectionHeader title="Répondre" as="h3" />
       <Textarea
         label="Votre réponse"

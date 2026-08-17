@@ -12,13 +12,6 @@
   border: var(--border-width) dashed oklch(from var(--color-primary) l c h / 0.35);
 }
 
-.completion-strip__header {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: var(--space-3);
-}
-
 .completion-strip__intro {
   display: flex;
   flex-direction: column;

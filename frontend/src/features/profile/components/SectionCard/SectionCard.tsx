@@ -45,7 +45,7 @@ export function SectionCard({
 }: SectionCardProps) {
   return (
     <section className={clsx('section-card', className)} aria-labelledby={titleId}>
-      <header className="section-card__header">
+      <header className="section-card__header ui-header-row">
         <div className="section-card__heading">
           <Overline decorative>{overline}</Overline>
           <CardTitle id={titleId}>{title}</CardTitle>

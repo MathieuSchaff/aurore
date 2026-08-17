@@ -18,6 +18,7 @@ import { useCallback, useMemo, useState } from 'react'
 import { Button, ButtonLink } from '@/component/Button/Button'
 import { FormError } from '@/component/Feedback/ui/FormError/FormError'
 import { ChipGroup } from '@/component/Input/ChipGroup/ChipGroup'
+import { FormActionsBar } from '@/component/Input/FormActions/FormActions'
 import { FormField } from '@/component/Input/FormField/FormField'
 import { Input } from '@/component/Input/Input'
 import { Select } from '@/component/Input/Select/Select'
@@ -191,7 +192,7 @@ export function ProductForm({
     isPending,
   })
 
-  // Edit mode coerces DB nulls to '' so IngredientRow only sees strings; persistence re-coerces.
+  // Edit mode coerces DB nulls to '' so IngredientRow only sees strings; persistence coerces them back.
   const ingredientItems = useMemo<IngredientItem[]>(() => {
     if (mode === 'edit') {
       return product.ingredients.map((i) => ({
@@ -601,7 +602,7 @@ function ProductFormActions({
   isPending: boolean
 }) {
   return (
-    <div className="product-edit-form__actions">
+    <FormActionsBar className="product-edit-form__actions">
       {mode === 'edit' && productSlug ? (
         <ButtonLink to="/products/$slug" params={{ slug: productSlug }} variant="outline">
           Annuler
@@ -614,7 +615,7 @@ function ProductFormActions({
       <Button type="submit" variant="primary" disabled={disabled} loading={isPending}>
         {submitLabel}
       </Button>
-    </div>
+    </FormActionsBar>
   )
 }
 

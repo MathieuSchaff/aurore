@@ -4,8 +4,6 @@ import { Button } from '@/component/Button/Button'
 import { Modal } from '@/component/Dialog/Modal'
 import { Textarea } from '@/component/Input/Textarea/Textarea'
 
-import './useConfirm.css'
-
 type ReasonField = {
   label: string
   placeholder?: string
@@ -36,7 +34,7 @@ type ConfirmFn = {
 }
 
 /**
- * Promise-based confirm modal - drop-in for `window.confirm` but calm.
+ * Promise-based confirm modal, drop-in for `window.confirm` but calm.
  * Pass `reason` to also capture a note; confirm() then resolves
  * `{ confirmed, reason }` instead of a bare boolean.
  * Returns `confirm` (async) + `dialog` JSX to render once at the page root.
@@ -67,10 +65,10 @@ export function useConfirm() {
       onClose={() => settle(request.reason ? { confirmed: false, reason: '' } : false)}
       role="alertdialog"
       size="sm"
-      className="admin-confirm"
+      className="dialog-prompt"
     >
-      <Modal.Title className="admin-confirm__title">{request.title}</Modal.Title>
-      {request.message && <p className="admin-confirm__message">{request.message}</p>}
+      <Modal.Title className="dialog-prompt__title">{request.title}</Modal.Title>
+      {request.message && <p className="dialog-prompt__message">{request.message}</p>}
       {request.reason && (
         <Textarea
           label={request.reason.label}
@@ -83,7 +81,7 @@ export function useConfirm() {
           onChange={(e) => setReason(e.target.value)}
         />
       )}
-      <div className="admin-confirm__actions">
+      <div className="dialog-prompt__actions">
         <Button
           variant="ghost"
           onClick={() => settle(request.reason ? { confirmed: false, reason: '' } : false)}
