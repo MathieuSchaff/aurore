@@ -4,6 +4,7 @@ import '_vars.just'
 [group('quality')]
 lint:
     bunx biome check .
+    bun scripts/check-auth-import-boundaries.ts
 
 [doc('Fix lint issues')]
 [group('quality')]
