@@ -75,6 +75,40 @@ test.describe('Auth — login', () => {
 
     await expect(page).toHaveURL(/\/products\/new/, { timeout: 15_000 })
   })
+
+  test('migrates a legacy refresh cookie to the root path', async ({ page, context }) => {
+    await page.goto('/auth/login')
+    await loginAsSeed(page)
+
+    const loginCookies = (await context.cookies()).filter(
+      (cookie) => cookie.name === 'refresh_token'
+    )
+    expect(loginCookies).toHaveLength(1)
+    expect(loginCookies[0]?.path).toBe('/')
+    if (!loginCookies[0]) return
+
+    await context.clearCookies({ name: 'refresh_token' })
+    await context.addCookies([{ ...loginCookies[0], path: '/api/auth' }])
+
+    const refreshStatus = await page.evaluate(async () => {
+      const response = await fetch('/api/auth/refresh', { method: 'POST' })
+      return response.status
+    })
+    expect(refreshStatus).toBe(200)
+
+    const migratedCookies = (await context.cookies()).filter(
+      (cookie) => cookie.name === 'refresh_token'
+    )
+    expect(migratedCookies).toHaveLength(1)
+    expect(migratedCookies[0]?.path).toBe('/')
+
+    const documentRequestPromise = page.waitForRequest(
+      (request) => request.isNavigationRequest() && new URL(request.url()).pathname === '/products'
+    )
+    await page.goto('/products')
+    const documentRequest = await documentRequestPromise
+    expect(await documentRequest.headerValue('cookie')).toContain('refresh_token=')
+  })
 })
 
 test.describe('Auth — signup', () => {
