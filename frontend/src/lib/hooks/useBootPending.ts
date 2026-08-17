@@ -1,11 +1,15 @@
-import { useServerHint } from '@/lib/auth/serverHint'
+import { useQueryClient } from '@tanstack/react-query'
+
+import { type AuthSessionCache, authQueries } from '@/lib/queries/auth'
 import { useAuthStore } from '@/store/auth'
 
-// Keep the server skeleton until the client decides whether a refresh is needed.
 export function useBootPending(): boolean {
+  const queryClient = useQueryClient()
   const bootRefreshPending = useAuthStore((s) => s.bootRefreshPending)
   const bootRefreshAttempted = useAuthStore((s) => s.bootRefreshAttempted)
   const accessToken = useAuthStore((s) => s.accessToken)
-  const serverHint = useServerHint()
-  return bootRefreshPending || (serverHint && !bootRefreshAttempted && !accessToken)
+  const session = queryClient.getQueryData<AuthSessionCache>(authQueries.session().queryKey)
+  const bootDecisionPending =
+    session?.authenticated !== false && !bootRefreshAttempted && !accessToken
+  return bootRefreshPending || bootDecisionPending
 }

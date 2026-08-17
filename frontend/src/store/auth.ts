@@ -16,8 +16,7 @@ interface AuthStore {
   isDemo: boolean
   // Latched after client boot decides whether a refresh is needed.
   bootRefreshAttempted: boolean
-  // True only while the boot probe is in flight (hint user, cold load); drives the neutral nav
-  // skeleton and defers loader convergence (router.invalidate) until the probe settles.
+  // True only while an unknown SSR boot is being resolved by the client probe.
   bootRefreshPending: boolean
   // Set when 401-recovery refresh fails on a live session; RootComponent redirects to /auth/login.
   sessionExpired: boolean
@@ -72,7 +71,7 @@ export const useAuthStore = create<AuthStore>((set) => ({
       sessionExpired: false,
     }),
 
-  // Keep boot latch on after logout to avoid re-probing for a session we know is gone.
+  // Keep boot latch on after logout to avoid probing again for a session we know is gone.
   clearAuth: () =>
     set({
       accessToken: null,

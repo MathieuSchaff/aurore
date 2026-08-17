@@ -2,8 +2,9 @@ import type { QueryClient } from '@tanstack/react-query'
 import { isRedirect, redirect } from '@tanstack/react-router'
 
 import { useAuthStore } from '../../store/auth'
-import { authQueries } from '../queries/auth'
+import { type AuthSessionCache, authQueries } from '../queries/auth'
 import { ensureFresh, isExpired } from './freshness'
+import { dropSessionScopedQueries } from './sessionCache'
 
 type RequireAuthOptions = {
   queryClient: QueryClient
@@ -13,7 +14,7 @@ type RequireAuthOptions = {
 }
 
 // Route guard: local token check, server verify, silent refresh fallback, then redirect.
-// During the refresh cooldown we don't log out - network blips recover via the 401 interceptor.
+// During the refresh cooldown we don't log out: network blips recover via the 401 interceptor.
 export async function requireAuth({
   queryClient,
   href,
@@ -24,6 +25,11 @@ export async function requireAuth({
   // Trust the live store too so demo/login SPA navigations do not immediately
   // fall back to the refresh-cookie path.
   const liveAccessToken = accessToken ?? store.accessToken
+
+  if (!liveAccessToken) {
+    const session = queryClient.getQueryData<AuthSessionCache>(authQueries.session().queryKey)
+    if (session?.authenticated === false) clearAndRedirect(store, queryClient, href)
+  }
 
   if (!liveAccessToken || isExpired()) {
     const result = await ensureFresh(queryClient)
@@ -50,8 +56,7 @@ function clearAndRedirect(
   href: string
 ): never {
   store.clearAuth()
-  // Drop all cached queries on session end (mirrors useLogout, includes user-scoped lists).
-  queryClient.clear()
+  dropSessionScopedQueries(queryClient)
   throw redirect({
     to: '/auth/login',
     search: { redirect: href },

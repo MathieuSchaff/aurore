@@ -44,8 +44,7 @@ export const UserMenu = ({
 }: UserMenuProps) => {
   const navigate = useNavigate()
   const { hasKnownIdentity, isAuthenticated, isContentModerator } = useUserMenuAuthState()
-  // During the optimistic boot probe, render a neutral skeleton instead of the logged-out branch
-  // so a hint user doesn't flash « Se connecter » / login items before the token lands.
+  // An unresolved boot stays neutral instead of flashing the logged-out branch.
   const bootRefreshPending = useBootPending() && !hasKnownIdentity
   // UserMenu mounts on every page (Header in AppLayout); skip the /profile probe until a session exists.
   const { data: profile } = useQuery({ ...profileQueries.me(), enabled: isAuthenticated })
