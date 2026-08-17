@@ -5,8 +5,29 @@ import type { Context, Next } from 'hono'
 import type { AppEnv } from '../../app-env'
 import { getRlsDb } from '../../utils/accessors'
 import { isUserBanned, isUserBannedForScope } from './ban.service'
-import { verifyAccessToken } from './jwt.utils'
+import { getRefreshTokenCookie, verifyAccessToken, verifyRefreshToken } from './jwt.utils'
+import { findValidRefreshToken } from './refresh-token.service'
 import { getUserRole } from './user.utils'
+
+// The browser can send this cookie on cross-site requests. Keep this middleware on read-only routes.
+export const requireSessionCookie = async (c: Context<AppEnv>, next: Next) => {
+  const token = getRefreshTokenCookie(c)
+  if (!token) return next()
+
+  const payload = await verifyRefreshToken(token, c.get('refreshSecret'))
+  if (!payload) return next()
+
+  const db = c.get('anonDb')
+  const storedToken = await findValidRefreshToken(db, payload.jti)
+  if (!storedToken || storedToken.userId !== payload.sub) return next()
+
+  const role = await getUserRole(db, payload.sub)
+  if (!role) return next()
+
+  c.set('userId', payload.sub)
+  c.set('userRole', role)
+  return next()
+}
 
 export const requireJwtAuth = async (c: Context<AppEnv>, next: Next) => {
   const authHeader = c.req.header('Authorization')
@@ -74,7 +95,7 @@ export const requireCatalogWrite = async (c: Context<AppEnv>, next: Next) => {
 // admin OR contributor. Contributor ("modérateur") has reversible, content-scoped
 // actions (hide/restore reviews, report queue). Irreversible account-level actions
 // (force-private, bans) stay behind requireAdmin.
-// Requires requireJwtAuth then withRlsContext, and re-sources the role from the DB.
+// Requires requireJwtAuth then withRlsContext, and sources the role from the DB.
 export const requireContentModerator = async (c: Context<AppEnv>, next: Next) => {
   const userId = c.get('userId')
   if (!userId) {
