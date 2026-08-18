@@ -6,6 +6,8 @@ export type FilterOption = {
   count?: number
   /** Per-option disabled (e.g. count=0); ChipGroup blocks toggling. */
   disabled?: boolean
+  /** Shown under a disabled option so the refusal states its reason on the spot. */
+  disabledReason?: string
 }
 
 // TFnData is the raw API row shape, mapped to FilterOption[] via `select`.
@@ -46,7 +48,7 @@ export type FilterGroupConfig<T extends string> = {
   label: string
   defaultOpen: boolean
   tier: 'essential' | 'advanced'
-  /** Render flat without the collapsible <details> shell — for single-control groups (brand, ingredient). */
+  /** Render flat without the collapsible <details> shell, for single-control groups (brand, ingredient). */
   inline?: boolean
   subFilters: GroupedFilterField<T>[]
 }
