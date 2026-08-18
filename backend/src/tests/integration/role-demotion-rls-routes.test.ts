@@ -1,4 +1,4 @@
-import { beforeEach, describe, it } from 'bun:test'
+import { beforeEach, describe, expect, it } from 'bun:test'
 
 import { HTTP_STATUS } from '@aurore/shared'
 
@@ -6,7 +6,7 @@ import { eq } from 'drizzle-orm'
 import type { Hono } from 'hono'
 
 import type { AppEnv } from '../../app-env'
-import { users } from '../../db/schema'
+import { products, users } from '../../db/schema'
 import { jwtAuthRoutes } from '../../features/auth/routes'
 import { ingredientRoutes } from '../../features/ingredients/routes'
 import { productsFeature } from '../../features/products'
@@ -15,7 +15,7 @@ import { setupDbTests } from '../db-setup'
 import { createAppRuntimeDb } from '../helpers/app-runtime-db'
 import { expectError } from '../helpers/expectStatus'
 import { createRlsApp, loginViaRlsApp } from '../helpers/rls-app'
-import { authPatch } from '../helpers/route-test-helpers'
+import { authPatch, authPost } from '../helpers/route-test-helpers'
 import { TEST_CREDENTIALS } from '../helpers/test-credentials'
 import {
   createTestContributorUser,
@@ -80,5 +80,25 @@ describe('Demoted contributor loses catalog writes before its token expires', ()
       name: 'Renommé après rétrogradation',
     })
     await expectError(res, HTTP_STATUS.FORBIDDEN, 'unauthorized_access')
+  })
+
+  // The role also feeds resolveCatalogQuality: sourced from the stale claim, the service
+  // stamps the new row verified and the INSERT policy kills the request with a 500
+  it('POST /products lands as an unverified own submission, not a 500', async () => {
+    const res = await authPost(app, '/products', token, {
+      name: 'Sérum soumis après rétrogradation',
+      brand: 'Lab',
+      kind: 'serum',
+      unit: 'pump',
+      category: 'skincare',
+    })
+    expect(res.status).toBe(HTTP_STATUS.CREATED)
+
+    const [row] = await testDb
+      .select({ quality: products.catalogQuality, verifiedBy: products.verifiedBy })
+      .from(products)
+      .where(eq(products.name, 'Sérum soumis après rétrogradation'))
+    expect(row?.quality).toBe('unverified')
+    expect(row?.verifiedBy).toBeNull()
   })
 })

@@ -73,7 +73,7 @@ describe('withRlsContext', () => {
     probe.use('*', withRlsContext)
     probe.get('/rls-role', async (c) => {
       const rows = await getRlsDb(c).execute(sql`SELECT current_setting('app.role', true) AS role`)
-      return c.json(rows)
+      return c.json({ rows, ctxRole: c.get('userRole') ?? null })
     })
 
     app.route('/__test_role__', probe)
@@ -86,8 +86,10 @@ describe('withRlsContext', () => {
       headers: { Authorization: `Bearer ${token}` },
     })
 
-    const body = (await res.json()) as Array<{ role: string }>
-    expect(body[0]?.role).toBe('user')
+    const body = (await res.json()) as { rows: Array<{ role: string }>; ctxRole: string | null }
+    expect(body.rows[0]?.role).toBe('user')
+    // Downstream guards and services read the context role: same row, same verdict
+    expect(body.ctxRole).toBe('user')
   })
 
   it('falls back to the anonymous role when the account is gone', async () => {
@@ -98,7 +100,7 @@ describe('withRlsContext', () => {
     probe.use('*', withRlsContext)
     probe.get('/rls-orphan', async (c) => {
       const rows = await getRlsDb(c).execute(sql`SELECT current_setting('app.role', true) AS role`)
-      return c.json(rows)
+      return c.json({ rows, ctxRole: c.get('userRole') ?? null })
     })
 
     app.route('/__test_orphan__', probe)
@@ -108,8 +110,10 @@ describe('withRlsContext', () => {
       headers: { Authorization: `Bearer ${token}` },
     })
 
-    const body = (await res.json()) as Array<{ role: string }>
-    expect(body[0]?.role).toBe('')
+    const body = (await res.json()) as { rows: Array<{ role: string }>; ctxRole: string | null }
+    expect(body.rows[0]?.role).toBe('')
+    // The admin claim of a deleted account must not survive into guards either
+    expect(body.ctxRole).toBeNull()
   })
 
   it('skips RLS context for unauthenticated (no userId) requests', async () => {
