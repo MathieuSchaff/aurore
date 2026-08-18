@@ -1,4 +1,5 @@
 import type { PreferenceStance } from '@aurore/shared'
+import { isDisplayedProductTag } from '@aurore/shared'
 
 import { useQuery } from '@tanstack/react-query'
 import { useState } from 'react'
@@ -34,6 +35,10 @@ export function PreferenceRuleComposer({ stance }: { stance: PreferenceStance })
     if (!tags || query.length < 2) return []
     const folded = foldText(query)
     const matches = tags
+      // Claim tags are an internal signal, never offered for declaration (docs/adr/0017)
+      // The guard cannot move into GET /product-tags: the admin edit forms read the same
+      // route to seed their own tag pickers, and would drop the links they never received
+      .filter((t) => isDisplayedProductTag(t.slug))
       .filter((t) => foldText(t.label).includes(folded) || foldText(t.slug).includes(folded))
       .slice(0, 6)
     return [
