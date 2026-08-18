@@ -14,6 +14,7 @@ export {
   DOMAIN_PRODUCT_FILTER_CATEGORIES,
   getProductTagCategory,
   getProductTagLabel,
+  isDisplayedProductTag,
   productErrorMapping,
 } from './helpers'
 export * from './ingredients'

@@ -33,9 +33,9 @@ export type AllProductTagCategory =
   | DentalProductTagCategory
   | SupplementProductTagCategory
 
-// Maps each domain tab to its tag filter category keys.
-// Used by both frontend (buildProductsApiFilters, filterSearchSchema) and backend
-// (getFilterOptions — future fix).
+// Maps each domain tab to its tag filter category keys. Read on both sides: the
+// frontend builds its filter payload from it, the backend validates tag domains
+// against it.
 export const DOMAIN_PRODUCT_FILTER_CATEGORIES: Record<
   ProductDomainTab,
   readonly AllProductTagCategory[]
@@ -43,11 +43,11 @@ export const DOMAIN_PRODUCT_FILTER_CATEGORIES: Record<
   skincare: skincareProductFilterCategories(),
   haircare: haircareProductFilterCategories(),
   dental: dentalProductFilterCategories(),
-  complement: supplementProductFilterCategories(), // tab "complement" → domaine supplement
+  complement: supplementProductFilterCategories(), // tab "complement" maps to the supplement domain
 }
 
 // Free-from claims (sans-sulfates…) store one tagType `product_characteristic` but apply to every
-// domain; the integrity check accepts it everywhere (NOT a UI filter list — those stay per-domain).
+// domain; the integrity check accepts it everywhere (NOT a UI filter list, those stay per-domain).
 export const DOMAIN_NEUTRAL_PRODUCT_TAG_TYPES: readonly string[] = ['product_characteristic']
 
 const PRODUCT_TAXONOMIES = {
@@ -55,7 +55,10 @@ const PRODUCT_TAXONOMIES = {
   haircare: HAIRCARE_PRODUCT_TAG_TAXONOMY,
   dental: DENTAL_PRODUCT_TAG_TAXONOMY,
   complement: SUPPLEMENT_PRODUCT_TAG_TAXONOMY,
-} as const satisfies Record<ProductDomainTab, Record<string, { category: string; label: string }>>
+} as const satisfies Record<
+  ProductDomainTab,
+  Record<string, { category: string; label: string; internalOnly: boolean }>
+>
 
 // Look up the FR label of a product tag slug across every domain taxonomy.
 // Cross-domain duplicates (vegan, sans-parfum, …) are aligned by construction
@@ -82,16 +85,30 @@ export function getProductTagCategory(
   return undefined
 }
 
+// Guard every user-facing tag surface: product page chips, comparator, catalogue
+// filter options. An internal-only slug stays in the DB and in the audits, it
+// just never reaches a screen. Unknown slugs display, as they always have.
+export function isDisplayedProductTag(slug: string): boolean {
+  for (const tax of Object.values(PRODUCT_TAXONOMIES)) {
+    const meta = (tax as Record<string, { internalOnly: boolean }>)[slug]
+    if (meta) return !meta.internalOnly
+  }
+  return true
+}
+
 // Internal projection used by filter-definition.ts to assemble ordered options
 // from the taxonomy instead of relying on what happens to be seeded server-side.
 export function getProductTagsByCategory(
   domain: ProductDomainTab,
   category: AllProductTagCategory
 ): { slug: string; label: string }[] {
-  const tax = PRODUCT_TAXONOMIES[domain] as Record<string, { category: string; label: string }>
+  const tax = PRODUCT_TAXONOMIES[domain] as Record<
+    string,
+    { category: string; label: string; internalOnly: boolean }
+  >
   const out: { slug: string; label: string }[] = []
   for (const [slug, meta] of Object.entries(tax)) {
-    if (meta.category === category) out.push({ slug, label: meta.label })
+    if (meta.category === category && !meta.internalOnly) out.push({ slug, label: meta.label })
   }
   return out
 }

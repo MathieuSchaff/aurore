@@ -5,7 +5,7 @@ import type {
   EnrichedComparisonProduct,
   UpdateComparisonInput,
 } from '@aurore/shared'
-import { classifyIngredientSignals } from '@aurore/shared'
+import { classifyIngredientSignals, isDisplayedProductTag } from '@aurore/shared'
 
 import { and, asc, count, eq, inArray } from 'drizzle-orm'
 
@@ -156,6 +156,7 @@ export async function getEnrichedComparison(
   for (const row of tagRows) {
     // Comparator UI renders positive tags only, not avoid.
     if (row.relevance !== 'primary' && row.relevance !== 'secondary') continue
+    if (!isDisplayedProductTag(row.slug)) continue
     const list = tagsByProduct.get(row.productId) ?? []
     list.push({
       slug: row.slug,
