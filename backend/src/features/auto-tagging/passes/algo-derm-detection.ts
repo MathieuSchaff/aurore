@@ -20,7 +20,7 @@ import { mapKindToContext, RINSE_OFF_KINDS } from '../../../lib/algo-derm-produc
 const S = SKINCARE_PRODUCT_TAG_SLUGS
 
 // Calibration version guard. Fails fast at module load to prevent silent drift
-// when a new algo-derm tarball changes tag semantics. Bump after re-running
+// when a new algo-derm tarball changes tag semantics. Bump after running
 // `just audit-auto-tags` and confirming per-tag floors still hold.
 const CALIBRATED_FOR_TAG_DEFS_VERSION = 24
 
@@ -46,7 +46,7 @@ export type TagRule = {
   excludeRinseOff?: boolean
   // Inverse of excludeRinseOff: keep only on rinse-off kinds. For claims that
   // only discriminate where the excluded class is used (sans-sulfates: washing
-  // sulfates occur in wash products, so the absence is non-informative on leave-on).
+  // sulfates occur in wash products, so the absence is not informative on leave-on).
   rinseOffOnly?: boolean
   // Minimum `assessment.coverage.ratio`. For absence tags it's the only gate
   // (confidence = min(coverage, 0.95)); for computed tags it stacks on top of
@@ -54,9 +54,9 @@ export type TagRule = {
   coverageFloor?: number
   // Minimum `candidate.confidence`, meaningful only for computed_score.
   confidenceFloor?: number
-  // Post-floor predicate for assessment-derived disqualifiers that don't fit
-  // numeric gates (e.g. declarationOnlyRisk: Annex III trace allergens
-  // declared per regulation but at sub-effect levels). Predicate-based so a
+  // Predicate applied after the floors, for assessment-derived disqualifiers that
+  // don't fit numeric gates (e.g. declarationOnlyRisk: Annex III trace allergens
+  // declared per regulation but below effect levels). Predicate-based so a
   // slug rename doesn't silently break the gate.
   skipIf?: (a: ProductAssessment) => boolean
   // algo-derm candidate ids (detected_absence) that must themselves fire for
@@ -66,13 +66,32 @@ export type TagRule = {
   requiresAbsence?: readonly string[]
 }
 
+const FRAGRANCE_FUNCTIONS = new Set(['FRAGRANCE', 'PERFUMING'])
+
+// True when the formula carries an EU-prohibited ingredient whose declared function is
+// perfuming. Reads the regulatory findings rather than a molecule list so a future ban
+// lands without an Aurore-side edit.
+function hasProhibitedFragrance(a: ProductAssessment): boolean {
+  const subjects = new Set(
+    a.regulatoryFindings
+      .filter((f) => f.region === 'EU' && f.status === 'prohibited')
+      .flatMap((f) => f.subjectIngredients)
+  )
+  if (subjects.size === 0) return false
+  return a.matchedEvidence.some(
+    (m) =>
+      subjects.has(m.inci) &&
+      (m.evidence.identity?.functions ?? []).some((fn) => FRAGRANCE_FUNCTIONS.has(fn))
+  )
+}
+
 // Calibration buckets: allow @ 0.50 (agree >= 36 %); allow:false for
 // structurally noisy tags; allow @ 0.85 + excludeRinseOff for comedogenicity;
 // matifiant dropped despite small set size (semantic mismatch).
 export const TAG_CONFIG: Readonly<Record<string, TagRule>> = {
-  // peaux_atopiques / repulpant / matifiant are intentionally unmapped: algo-derm fires
-  // them on 22-78 % of corpus; formula detectors in passes/formula/ gate on chemistry-aware
-  // co-presence instead. Unmapped candidates are dropped by design, not drift
+  // peaux_atopiques / repulpant / matifiant are intentionally unmapped: algo-derm fires them on
+  // 22-78 % of corpus; formula detectors in passes/formula/ gate on the chemistry-aware presence
+  // of several markers together instead. Unmapped candidates are dropped by design, not drift
   // (ADR-0004 draws the map-vs-re-emit boundary).
 
   // Concerns (computed_score)
@@ -129,7 +148,7 @@ export const TAG_CONFIG: Readonly<Record<string, TagRule>> = {
   'sans-parfum': { auroreSlug: S.SANS_PARFUM, coverageFloor: 0.7, allow: true },
   // Rinse-off only: "sans-sulfates" guards against harsh washing sulfates (SLS/SLES),
   // which only occur in products you lather. On leave-on kinds the absence is trivially
-  // true (lip-care, patches, serums never carry them). Non-informative filter noise.
+  // true (lip-care, patches, serums never carry them). Filter noise that isn't informative.
   'sans-sulfates': {
     auroreSlug: S.SANS_SULFATES,
     coverageFloor: 0.7,
@@ -151,6 +170,11 @@ export const TAG_CONFIG: Readonly<Record<string, TagRule>> = {
     auroreSlug: S.SANS_ALLERGENES_PARFUMANTS,
     coverageFloor: 0.7,
     allow: true,
+    // algo-derm's fragrance_allergen heuristic mirrors the Annex III labelling list
+    // (Reg. 2023/1545), which drops a molecule once it is banned outright: Butylphenyl
+    // Methylpropional left Annex III for Annex II in 2022, so the tag fired on a formula
+    // that carries it. A prohibited perfuming ingredient voids the claim it contradicts.
+    skipIf: hasProhibitedFragrance,
   },
   // Denatured alcohol is a chronic drying irritant; its absence matters for
   // sensitive/atopic skin unlike sans-savon.
@@ -221,7 +245,7 @@ export const TAG_CONFIG: Readonly<Record<string, TagRule>> = {
     excludeRinseOff: true,
   },
   // Fires on comedogenicity.risk <= 0.25: emitted on > 60 % of corpus at 0.5.
-  // Require substantial INCI coverage before claiming non-comedogenicity.
+  // Require substantial INCI coverage before claiming the product is not comedogenic.
   'non-comedogene': {
     auroreSlug: S.NON_COMEDOGENE,
     confidenceFloor: 0.9,
@@ -265,10 +289,10 @@ export interface DetectAutoTagsOptions {
   // Bypass both floor gates entirely. allow, excludeRinseOff, skipIf,
   // candidate.present, and unmapped checks still apply.
   disableFloors?: boolean
-  // Pre-computed assessment from a hoisted analyzeINCI call. Must match
+  // Precomputed assessment from a hoisted analyzeINCI call. Must match
   // (inci, kind): caller responsibility.
   assessment?: ProductAssessment
-  // Pre-split ingredient list; same hoisting rationale as assessment.
+  // Ingredient list already split; same hoisting rationale as assessment.
   ingredients?: readonly string[]
   // Audit hook: bumps ${reason}:${candidate.id} for every dropped candidate.
   // Caller owns the Map. No-op in prod runners.
