@@ -15,6 +15,7 @@ import {
 } from '../../../tests/helpers/createTestClient'
 import { expectError } from '../../../tests/helpers/expectStatus'
 import { login } from '../../../tests/helpers/login'
+import { ANY_UUID, authPatch } from '../../../tests/helpers/route-test-helpers'
 import { TEST_CREDENTIALS } from '../../../tests/helpers/test-credentials'
 import { createTestContributorUser } from '../../../tests/helpers/test-factories'
 
@@ -22,7 +23,6 @@ import { createTestContributorUser } from '../../../tests/helpers/test-factories
 // contributor still carries role:'contributor' in its JWT claim. The gates must
 // source the role from the DB, else the demoted user keeps catalog/moderation
 // powers until the next refresh.
-const ANY_UUID = '019d0000-0000-7000-8000-00000000abcd'
 
 async function expectForbidden(res: { status: number; json: () => Promise<unknown> }) {
   await expectError(res, HTTP_STATUS.FORBIDDEN, 'forbidden')
@@ -54,11 +54,7 @@ describe('Role gates read the fresh DB role, not the stale JWT claim', () => {
   })
 
   it('requireCatalogWrite: demoted user is 403 on PATCH /products/:id/quality', async () => {
-    const res = await app.request(`/api/products/${ANY_UUID}/quality`, {
-      method: 'PATCH',
-      headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
-      body: '{}',
-    })
+    const res = await authPatch(app, `/api/products/${ANY_UUID}/quality`, token, {})
     await expectForbidden(res)
   })
 })

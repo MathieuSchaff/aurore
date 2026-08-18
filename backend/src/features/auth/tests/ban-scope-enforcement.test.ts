@@ -11,11 +11,10 @@ import {
   withAuth,
 } from '../../../tests/helpers/createTestClient'
 import { expectError, expectStatus } from '../../../tests/helpers/expectStatus'
+import { ANY_UUID } from '../../../tests/helpers/route-test-helpers'
 import { createTestContributorUser } from '../../../tests/helpers/test-factories'
 import { clearBanCache } from '../ban.service'
 import { seedBanActors } from './ban-test.setup'
-
-const ANY_UUID = '019d0000-0000-7000-8000-00000000abcd'
 
 setupDbTests()
 
