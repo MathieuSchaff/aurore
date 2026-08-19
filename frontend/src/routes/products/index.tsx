@@ -3,7 +3,6 @@ import { createFileRoute, stripSearchParams } from '@tanstack/react-router'
 import { productsSearchDefaults, productsSearchSchema } from '@/features/products/filters'
 import { productsListApiFilters } from '@/features/products/helpers'
 import { ProductsPage } from '@/features/products/pages/ProductsPage/ProductsPage'
-import { isProfileFilterUndecided } from '@/features/products/profileFilterSetting'
 import { awaitBootRefresh } from '@/lib/auth/awaitBootRefresh'
 import { isServer } from '@/lib/helpers/isServer'
 import { convergeShelfStatusForList, productQueries } from '@/lib/queries/products'
@@ -30,15 +29,14 @@ export const Route = createFileRoute('/products/')({
 
     if (userId) {
       // The boot refresh invalidates this loader, which runs again while the page is
-      // still holding the anonymous key. Converging under the user key there would
-      // fetch a list nobody reads; the statuses go onto the entry on screen instead.
-      const holding = isProfileFilterUndecided(deps.profile_filter, userId)
-      void convergeShelfStatusForList(context.queryClient, filters, userId, holding ? null : userId)
+      // still reading the anonymous entry. No key to pick here: filters without rules
+      // derive the anonymous key, so the statuses go onto the entry on screen
+      void convergeShelfStatusForList(context.queryClient, filters, userId)
       return
     }
 
     // Wait on the server so the rendered total matches the dehydrated cache.
-    // Keep client navigation non-blocking so its first render is not delayed.
+    // Keep client navigation from blocking so its first render is not delayed.
     const listQuery = productQueries.list(filters, null)
     if (isServer) await context.queryClient.prefetchQuery(listQuery)
     else void context.queryClient.prefetchQuery(listQuery)

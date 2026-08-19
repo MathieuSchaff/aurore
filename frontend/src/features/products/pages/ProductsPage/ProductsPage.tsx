@@ -53,7 +53,7 @@ import '@/features/products/styles/kinds.css'
 
 const routeApi = getRouteApi('/products/')
 
-// Tag keys only - domain switch resets tags; brand/ingredient carry over via buildDomainSwitchSearch.
+// Tag keys only: domain switch resets tags; brand/ingredient carry over via buildDomainSwitchSearch.
 const EMPTY_TAG_FILTERS = emptyFilters(TAG_FILTER_KEYS)
 
 const EMPTY_FILTERS = emptyFilters(FILTER_KEYS)
@@ -74,11 +74,12 @@ export function ProductsPage() {
   const navigate = useNavigate({ from: '/products/' })
 
   const user = useAuthStore((s) => s.user)
+  const userId = user?.id ?? null
 
   const { setProfileFilter: handleProfileFilterChange, unresolved: profileFilterUnresolved } =
     useProductsProfileFilter({
       urlProfileFilter: search.profile_filter,
-      userId: user?.id ?? null,
+      userId: userId,
     })
 
   // Stable ref: a fresh object every render feeds back into setDraftFilters and loops.
@@ -118,50 +119,50 @@ export function ProductsPage() {
     void queryClient.prefetchQuery(productQueries.filterOptions(category))
   }, [queryClient, category])
 
-  // While the root boot refresh is in flight, keep the anonymous key. The /products
+  // Declared rules are the user's own avoid/require settings, which `applyDeclaredRules`
+  // turns into `apply_preferences` on the list request. Sending them needs a session that
+  // has finished resolving, hence the three guards below.
+  // While the root boot refresh is in flight, the request carries no rules. The /products
   // loader joins that refresh before starting authenticated product work.
-  // `profileFilterUnresolved` extends the same hold past the refresh: flipping the key
+  // `profileFilterUnresolved` extends the same hold past the refresh: sending the rules
   // before the standing setting is known costs a list fetch that the very next render
-  // throws away, and each key change blanks the grid mid-click.
+  // throws away, and the cache key follows the rules, so the grid blanks during the click.
   const bootRefreshPending = useBootPending()
-  const userKey = bootRefreshPending || profileFilterUnresolved ? null : (user?.id ?? null)
+  const canApplyDeclaredRules = !bootRefreshPending && !profileFilterUnresolved && !!user
 
-  // userKey (not user) so apply_preferences flips together with the cache key:
-  // during boot both stay anonymous, matching the loader's prefetch.
   const apiFilters = useMemo<ListProductsFilters>(
-    () => productsListApiFilters(search, !!userKey),
-    [search, userKey]
+    () => productsListApiFilters(search, canApplyDeclaredRules),
+    [search, canApplyDeclaredRules]
   )
 
   // Random/filtered: long staleTime stops back-nav reshuffle. Discovery: 30s (not 0) so the
   // loader prefetch is honored on cold load instead of triggering an immediate duplicate fetch.
   const staleTime = sort === 'random' || hasFilters ? 5 * 60 * 1000 : 30 * 1000
   const { data, isLoading, isPlaceholderData, error } = useQuery({
-    ...productQueries.list(apiFilters, userKey),
+    ...productQueries.list(apiFilters, userId),
     placeholderData: (prev) => prev,
     staleTime,
   })
   const productIds = useMemo(() => data?.items.map((item) => item.id) ?? [], [data])
   // Don't fetch statuses for placeholder (previous page) ids during a navigation.
-  // userKey, not user.id: while the key is held the loader already overlays the
-  // anonymous entry, and writing under user.id would target a cache entry the page
-  // is not reading.
-  const shelfStatusOptions = productQueries.shelfStatus(userKey, productIds)
+  // Keyed on the real identity, which the loader already uses: the statuses belong to
+  // the visitor whatever entry carries them, so both sides share one fetch.
+  const shelfStatusOptions = productQueries.shelfStatus(userId, productIds)
   const { data: shelfStatus } = useQuery({
     ...shelfStatusOptions,
     enabled: shelfStatusOptions.enabled && !isPlaceholderData,
   })
 
   useEffect(() => {
-    if (!userKey || !shelfStatus) return
+    if (!userId || !shelfStatus) return
     applyShelfStatusOverlayToListCache(
       queryClient,
       apiFilters,
-      userKey,
+      userId,
       new Set(productIds),
       shelfStatus
     )
-  }, [apiFilters, queryClient, shelfStatus, userKey, productIds])
+  }, [apiFilters, queryClient, shelfStatus, userId, productIds])
 
   // Live count for the drawer's in-flight selection; only runs while drawer is open.
   // Same rule gate as the list, otherwise the CTA announces the unruled catalogue
@@ -180,12 +181,12 @@ export function ProductsPage() {
           hasFilters: true,
         }),
         search,
-        !!userKey
+        canApplyDeclaredRules
       ),
-    [category, draftFilters, filters, sort, priceMin, priceMax, q, search, userKey]
+    [category, draftFilters, filters, sort, priceMin, priceMax, q, search, canApplyDeclaredRules]
   )
   const { data: previewData } = useQuery({
-    ...productQueries.list(previewApiFilters, userKey),
+    ...productQueries.list(previewApiFilters, userId),
     enabled: isDrawerOpen,
     placeholderData: (prev) => prev,
     staleTime: 5 * 60 * 1000,
@@ -304,7 +305,7 @@ export function ProductsPage() {
         />
 
         <ListPageLayout.Body maxWidth="var(--list-browse-rail)" isSyncing={isPlaceholderData}>
-          {profile_filter && !!userKey && (
+          {profile_filter && canApplyDeclaredRules && (
             <AvoidedBanner
               hiddenCount={data?.hiddenCount ?? 0}
               excludedLabels={data?.excludedLabels ?? []}
