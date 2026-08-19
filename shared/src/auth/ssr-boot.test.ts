@@ -57,6 +57,7 @@ describe('ssrBootResponseSchema', () => {
         hiddenCount: 0,
         excludedLabels: [],
         requiredLabels: [],
+        rulesApplied: true,
       },
     }
 
@@ -134,6 +135,10 @@ describe('ssrBootResponseSchema', () => {
           interactions: [],
           coverage: { matched: 1, total: 1 },
           matchedEvidence: [],
+        },
+        preferenceTargets: {
+          ingredients: [],
+          tags: [],
         },
       },
     }
