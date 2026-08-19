@@ -1,6 +1,7 @@
 import type { QueryClient } from '@tanstack/react-query'
 
 import { useAuthStore } from '../../store/auth'
+import { isServer } from '../helpers/isServer'
 import { ensureFresh, isExpired } from './freshness'
 import { hasSessionHint } from './sessionHint'
 
@@ -9,6 +10,10 @@ import { hasSessionHint } from './sessionHint'
 // reading `role` now would redirect a real admin away, so we wait on the deduped
 // ensureFresh probe. No session hint means nothing to wait for, so return immediately.
 export async function awaitBootRefresh(queryClient: QueryClient): Promise<void> {
+  // Server render is anonymous by construction, so there is nothing to wait for, and
+  // hasSessionHint would read document.cookie. Callers must not have to know this.
+  if (isServer) return
+
   const store = useAuthStore.getState()
   if (store.accessToken && !isExpired()) return
   if (!hasSessionHint()) return
