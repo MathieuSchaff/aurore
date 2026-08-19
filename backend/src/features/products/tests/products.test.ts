@@ -4,6 +4,7 @@ import { createProductSchema } from '@aurore/shared'
 
 import { eq } from 'drizzle-orm'
 
+import { userDermoProfiles } from '../../../db/schema/auth/users'
 import { productEdits, products } from '../../../db/schema/products'
 import { productTagLinks, productTagTypes } from '../../../db/schema/tags/tags'
 import { createProductTag, replaceProductTags } from '../../../features/product-tags/service'
@@ -572,7 +573,7 @@ describe('Product Service', () => {
         expect(result.items.map((p) => p.name)).toEqual(['Produit matin'])
       })
 
-      it('restrictive moment (hebdomadaire) stays strict — untagged products excluded', async () => {
+      it('restrictive moment (hebdomadaire) stays strict, untagged products excluded', async () => {
         const hebdo = await createTag({
           label: 'Hebdomadaire',
           tagType: 'routine_moment',
@@ -642,7 +643,19 @@ describe('Product Service', () => {
       })
     })
 
-    describe('avoid_for filter', () => {
+    // Inferred avoid badges. The portrait never travels in the query: the service
+    // reads it under apply_preferences, so every case here seeds a dermo row.
+    describe('inferred avoid badges', () => {
+      const seedPortrait = (values: { skinTypes?: string[]; skinConcerns?: string[] }) =>
+        testDb.insert(userDermoProfiles).values({
+          userId: user.id,
+          skinTypes: values.skinTypes,
+          skinConcerns: values.skinConcerns ?? [],
+        } as never)
+
+      const listAsUser = (overrides: Partial<ListFilters> = {}) =>
+        list({ limit: 10, apply_preferences: true, ...overrides }, user.id)
+
       it('flags matching products via profileMatches but does not exclude them', async () => {
         const reactive = await createTag({
           label: 'Peau réactive',
@@ -651,8 +664,9 @@ describe('Product Service', () => {
         const retinol = await createTestProduct(user.id, { name: 'Rétinol fort', brand: 'A' })
         const gentle = await createTestProduct(user.id, { name: 'Hydratant doux', brand: 'B' })
         await replaceTags(retinol.id, [{ tagId: reactive.id, relevance: 'avoid' }])
+        await seedPortrait({ skinTypes: [reactive.slug] })
 
-        const result = await list({ limit: 10, avoid_for: reactive.slug })
+        const result = await listAsUser()
         expect(result.items.map((p) => p.name).sort()).toEqual(['Hydratant doux', 'Rétinol fort'])
         const flagged = result.items.find((p) => p.id === retinol.id)
         expect(flagged?.profileMatches).toEqual([reactive.slug])
@@ -670,19 +684,34 @@ describe('Product Service', () => {
           brand: 'A',
         })
         await replaceTags(dedicated.id, [{ tagId: reactive.id, relevance: 'primary' }])
+        await seedPortrait({ skinTypes: [reactive.slug] })
 
-        const result = await list({ limit: 10, avoid_for: reactive.slug })
+        const result = await listAsUser()
         expect(result.items.map((p) => p.name)).toEqual(['Produit pour peau réactive'])
         expect(result.items[0]?.profileMatches).toEqual([])
       })
 
-      it('returns empty profileMatches when no avoid_for filter is provided', async () => {
-        await createTestProduct(user.id, { name: 'Produit simple', brand: 'A' })
-        const result = await list({ limit: 10 })
+      // The portrait is read only under the personalization toggle: an authenticated
+      // visitor browsing the plain catalogue gets the same rows as anyone else.
+      it('ignores the portrait when apply_preferences is off', async () => {
+        const reactive = await createTag({ label: 'Peau réactive', tagType: 'skin_type' })
+        const retinol = await createTestProduct(user.id, { name: 'Rétinol fort', brand: 'A' })
+        await replaceTags(retinol.id, [{ tagId: reactive.id, relevance: 'avoid' }])
+        await seedPortrait({ skinTypes: [reactive.slug] })
+
+        const result = await list({ limit: 10 }, user.id)
         expect(result.items[0]?.profileMatches).toEqual([])
       })
 
-      // User concern slug (anti-acne) ≠ product tag slug (acne-imperfections).
+      // Declared rules and the portrait ride the same flag but are independent:
+      // a visitor with rules and no portrait row must not fault the list.
+      it('returns empty profileMatches when the user has no portrait row', async () => {
+        await createTestProduct(user.id, { name: 'Produit simple', brand: 'A' })
+        const result = await listAsUser()
+        expect(result.items[0]?.profileMatches).toEqual([])
+      })
+
+      // User concern slug (anti-acne) is not the product tag slug (acne-imperfections).
       // resolveAvoidSlugs bridges the drift; without it the badge stays dark
       // even when relevant `avoid` tags exist.
       it('translates user concern slugs to product tag slugs before matching', async () => {
@@ -696,8 +725,9 @@ describe('Product Service', () => {
           brand: 'A',
         })
         await replaceTags(risky.id, [{ tagId: acne.id, relevance: 'avoid' }])
+        await seedPortrait({ skinConcerns: ['anti-acne'] })
 
-        const result = await list({ limit: 10, avoid_for: 'anti-acne' })
+        const result = await listAsUser()
         const flagged = result.items.find((p) => p.id === risky.id)
         expect(flagged?.profileMatches).toEqual(['acne-imperfections'])
       })
@@ -712,11 +742,9 @@ describe('Product Service', () => {
         })
         const risky = await createTestProduct(user.id, { name: 'Tonique alcool', brand: 'A' })
         await replaceTags(risky.id, [{ tagId: redness.id, relevance: 'avoid' }])
+        await seedPortrait({ skinConcerns: ['anti-rougeurs', 'rosacee', 'couperose', 'flushs'] })
 
-        const result = await list({
-          limit: 10,
-          avoid_for: 'anti-rougeurs,rosacee,couperose,flushs',
-        })
+        const result = await listAsUser()
         const flagged = result.items.find((p) => p.id === risky.id)
         expect(flagged?.profileMatches).toEqual(['rougeurs-vasculaires'])
       })
@@ -784,7 +812,7 @@ describe('Product Service', () => {
           tagType: 'skin_type',
           relevance: 'primary',
         })
-        // secondary tags are list over-fetch; the card only renders primary chips
+        // secondary tags ride along in the list payload; the card only renders primary chips
         expect(tags.map((t) => t.slug)).not.toContain(vegan.slug)
       })
 

@@ -8,6 +8,7 @@ import type {
 
 import { type QueryClient, queryOptions, useMutation, useQueryClient } from '@tanstack/react-query'
 
+import { productKeys } from '@/lib/queries/products'
 import { useAuthStore } from '../../store/auth'
 import { api } from '../api'
 import { throwIfNotOk } from '../helpers/apiError'
@@ -111,7 +112,7 @@ export const preferenceTargetQueries = {
 // the "selon mon profil" exclusion server-side.
 function invalidatePreferenceReads(queryClient: QueryClient) {
   queryClient.invalidateQueries({ queryKey: ['profile', 'preference-targets'] })
-  queryClient.invalidateQueries({ queryKey: ['products', 'list'] })
+  queryClient.invalidateQueries({ queryKey: productKeys.lists() })
 }
 
 export const useUpsertIngredientPreference = () => {
@@ -168,26 +169,6 @@ export const useDeleteTagPreference = () => {
   })
 }
 
-// Seeds from cache (may be undefined), then for an authenticated visitor either blocks on a
-// fresh dermo fetch (personalization filter on) or warms the cache in the background. A failed
-// fetch under an active filter must not blank the whole catalogue: fall back to the cached
-// profile (or none) and let the list render: deriveAvoidFor tolerates null/undefined, so
-// nothing gets excluded.
-export async function resolveDermoForList(
-  qc: QueryClient,
-  userId: string | null,
-  profileFilter?: boolean
-) {
-  let dermo = qc.getQueryData(profileQueries.dermo().queryKey)
-  if (!userId) return dermo
-  if (profileFilter) {
-    dermo = await qc.ensureQueryData(profileQueries.dermo()).catch(() => dermo)
-  } else {
-    void qc.prefetchQuery(profileQueries.dermo())
-  }
-  return dermo
-}
-
 export const useUpdateProfile = () => {
   const queryClient = useQueryClient()
 
@@ -213,7 +194,7 @@ export const useDeleteUser = () => {
       await api.profile.deleteUser.$delete()
     },
     // Mirror logout teardown: without this the store keeps the access token, so
-    // the post-delete redirect to /auth/login bounces back to / as "authenticated".
+    // the redirect to /auth/login after the delete bounces back to / as "authenticated".
     onSuccess: () => {
       useAuthStore.getState().clearAuth()
       queryClient.clear()
@@ -234,6 +215,7 @@ export const useUpdateDermoProfile = () => {
     },
     onSuccess: (data) => {
       queryClient.setQueryData(['profile', 'dermo'], data)
+      queryClient.invalidateQueries({ queryKey: productKeys.lists() })
     },
     meta: { errorMessage: 'Mise à jour du profil dermo impossible.' },
   })
@@ -289,7 +271,7 @@ export const useUpdatePrivacySettings = () => {
   })
 }
 
-// GDPR Art. 20 portability: fresh server dump on every call, never cached (no focus/reconnect refetch).
+// RGPD Article 20 portability: fresh server dump on every call, never cached (no focus/reconnect refetch).
 export class ExportRateLimitError extends Error {
   retryAfterSec: number
   constructor(retryAfterSec: number) {

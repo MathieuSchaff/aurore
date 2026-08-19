@@ -30,7 +30,6 @@ export type ListProductsFilters = {
   kind?: string | string[]
   brand?: string | string[]
   ingredient?: string | string[]
-  avoid_for?: string | string[]
   apply_preferences?: boolean
   include_excluded?: boolean
   q?: string
@@ -56,10 +55,8 @@ export function buildListProductsQuery(
 
   if (filters.category !== undefined) query.category = filters.category
 
-  // avoid_for is profile-derived, not a user-driven tag category.
   const f = filters as Record<string, string | string[] | undefined>
   for (const key of FILTER_KEYS) addParam(key, f[key])
-  addParam('avoid_for', filters.avoid_for)
 
   if (filters.apply_preferences) query.apply_preferences = 'true'
   if (filters.include_excluded) query.include_excluded = 'true'

@@ -76,7 +76,6 @@ describe('buildProductsApiFilters', () => {
     const out = buildProductsApiFilters({
       category: 'skincare',
       filters: emptyFilters(),
-      avoidFor: [],
       sort: 'newest',
       page: 1,
       hasFilters: false,
@@ -86,21 +85,7 @@ describe('buildProductsApiFilters', () => {
       sort: 'newest',
       limit: PRODUCTS_PAGE_SIZE,
       page: 1,
-      avoid_for: undefined,
     })
-  })
-
-  it('includes avoid_for in discovery mode when the profile has slugs', () => {
-    const out = buildProductsApiFilters({
-      category: 'skincare',
-      filters: emptyFilters(),
-      avoidFor: ['peau-sensible'],
-      sort: 'newest',
-      page: 1,
-      hasFilters: false,
-    })
-    expect(out.avoid_for).toEqual(['peau-sensible'])
-    expect(out.limit).toBe(24)
   })
 
   it('switches to paginated mode when filters are active', () => {
@@ -109,7 +94,6 @@ describe('buildProductsApiFilters', () => {
     const out = buildProductsApiFilters({
       category: 'skincare',
       filters,
-      avoidFor: [],
       sort: 'name',
       priceMin: 1000,
       priceMax: 5000,
@@ -130,7 +114,6 @@ describe('buildProductsApiFilters', () => {
     const out = buildProductsApiFilters({
       category: 'skincare',
       filters,
-      avoidFor: [],
       sort: 'name',
       page: 1,
       hasFilters: true,
@@ -139,14 +122,13 @@ describe('buildProductsApiFilters', () => {
     expect(out.skin_type).toBeUndefined()
   })
 
-  it('forwards only domain-relevant keys — haircare does not include skin_type', () => {
+  it('forwards only domain-relevant keys: haircare does not include skin_type', () => {
     const filters = emptyFilters()
     filters.hair_type = ['cheveux-boucles']
     filters.skin_type = ['peau-grasse'] // ignored for haircare
     const out = buildProductsApiFilters({
       category: 'haircare',
       filters,
-      avoidFor: [],
       sort: 'name',
       page: 1,
       hasFilters: true,
@@ -155,13 +137,12 @@ describe('buildProductsApiFilters', () => {
     expect(out.skin_type).toBeUndefined()
   })
 
-  it('forwards brand when set (was silently dropped — bug 7)', () => {
+  it('forwards brand when set (was silently dropped, bug 7)', () => {
     const filters = emptyFilters()
     filters.brand = ['avene', 'bioderma']
     const out = buildProductsApiFilters({
       category: 'skincare',
       filters,
-      avoidFor: [],
       sort: 'name',
       page: 1,
       hasFilters: true,
@@ -169,13 +150,12 @@ describe('buildProductsApiFilters', () => {
     expect(out.brand).toEqual(['avene', 'bioderma'])
   })
 
-  it('forwards ingredient when set (was silently dropped — bug 7)', () => {
+  it('forwards ingredient when set (was silently dropped, bug 7)', () => {
     const filters = emptyFilters()
     filters.ingredient = ['niacinamide']
     const out = buildProductsApiFilters({
       category: 'skincare',
       filters,
-      avoidFor: [],
       sort: 'name',
       page: 1,
       hasFilters: true,
@@ -187,7 +167,6 @@ describe('buildProductsApiFilters', () => {
     const out = buildProductsApiFilters({
       category: 'skincare',
       filters: emptyFilters(),
-      avoidFor: [],
       sort: 'name',
       page: 1,
       hasFilters: true,
@@ -200,7 +179,6 @@ describe('buildProductsApiFilters', () => {
     const out = buildProductsApiFilters({
       category: 'skincare',
       filters: emptyFilters(),
-      avoidFor: [],
       sort: 'price_asc',
       page: 1,
       hasFilters: false,
@@ -213,7 +191,6 @@ describe('buildProductsApiFilters', () => {
     const out = buildProductsApiFilters({
       category: 'skincare',
       filters: emptyFilters(),
-      avoidFor: [],
       sort: 'newest',
       priceMin: 500,
       page: 1,
@@ -227,7 +204,6 @@ describe('buildProductsApiFilters', () => {
     const out = buildProductsApiFilters({
       category: 'skincare',
       filters: emptyFilters(),
-      avoidFor: [],
       sort: 'name',
       q: 'matifiant',
       page: 1,
@@ -240,7 +216,6 @@ describe('buildProductsApiFilters', () => {
     const out = buildProductsApiFilters({
       category: 'skincare',
       filters: emptyFilters(),
-      avoidFor: [],
       sort: 'newest',
       q: 'matifiant',
       page: 1,
@@ -275,7 +250,7 @@ describe('buildResetSearchParams', () => {
   })
 })
 
-describe('buildProductsApiFilters — domain isolation (dental + complement)', () => {
+describe('buildProductsApiFilters: domain isolation (dental + complement)', () => {
   it('dental: excludes skincare, haircare, and supplement tag keys', () => {
     const filters = emptyFilters()
     filters.concern = ['gencives']
@@ -285,7 +260,6 @@ describe('buildProductsApiFilters — domain isolation (dental + complement)', (
     const out = buildProductsApiFilters({
       category: 'dental',
       filters,
-      avoidFor: [],
       sort: 'name',
       page: 1,
       hasFilters: true,
@@ -305,7 +279,6 @@ describe('buildProductsApiFilters — domain isolation (dental + complement)', (
     const out = buildProductsApiFilters({
       category: 'complement',
       filters,
-      avoidFor: [],
       sort: 'name',
       page: 1,
       hasFilters: true,
@@ -317,20 +290,7 @@ describe('buildProductsApiFilters — domain isolation (dental + complement)', (
   })
 })
 
-describe('buildProductsApiFilters — edge cases / adversarial inputs', () => {
-  // Empty string passes through (length > 0); caller must sanitize.
-  it('avoidFor with a single empty string is forwarded as-is', () => {
-    const out = buildProductsApiFilters({
-      category: 'skincare',
-      filters: emptyFilters(),
-      avoidFor: [''],
-      sort: 'name',
-      page: 1,
-      hasFilters: true,
-    })
-    expect(out.avoid_for).toEqual([''])
-  })
-
+describe('buildProductsApiFilters: edge cases / adversarial inputs', () => {
   // Mixed empty + value: length > 0, so the array passes through.
   it('tag filter with empty strings mixed in is forwarded as-is', () => {
     const filters = emptyFilters()
@@ -338,7 +298,6 @@ describe('buildProductsApiFilters — edge cases / adversarial inputs', () => {
     const out = buildProductsApiFilters({
       category: 'skincare',
       filters,
-      avoidFor: [],
       sort: 'name',
       page: 1,
       hasFilters: true,
@@ -352,7 +311,6 @@ describe('buildProductsApiFilters — edge cases / adversarial inputs', () => {
       buildProductsApiFilters({
         category: 'skincare',
         filters: emptyFilters(),
-        avoidFor: [],
         sort: 'name',
         priceMin: 5000,
         priceMax: 100,
@@ -366,7 +324,6 @@ describe('buildProductsApiFilters — edge cases / adversarial inputs', () => {
     const out = buildProductsApiFilters({
       category: 'skincare',
       filters: emptyFilters(),
-      avoidFor: [],
       sort: 'newest',
       priceMin: 5000,
       priceMax: 100,
@@ -383,7 +340,6 @@ describe('buildProductsApiFilters — edge cases / adversarial inputs', () => {
     const out = buildProductsApiFilters({
       category: 'skincare',
       filters: emptyFilters(),
-      avoidFor: [],
       sort: 'name',
       page: -1,
       hasFilters: true,
@@ -395,25 +351,11 @@ describe('buildProductsApiFilters — edge cases / adversarial inputs', () => {
     const out = buildProductsApiFilters({
       category: 'skincare',
       filters: emptyFilters(),
-      avoidFor: [],
       sort: 'name',
       page: 0,
       hasFilters: true,
     })
     expect(out.page).toBe(0)
-  })
-
-  // Dedup is a backend concern; duplicates pass through.
-  it('passes duplicate avoidFor slugs through without deduplication', () => {
-    const out = buildProductsApiFilters({
-      category: 'skincare',
-      filters: emptyFilters(),
-      avoidFor: ['peau-sensible', 'peau-sensible'],
-      sort: 'name',
-      page: 1,
-      hasFilters: true,
-    })
-    expect(out.avoid_for).toEqual(['peau-sensible', 'peau-sensible'])
   })
 })
 

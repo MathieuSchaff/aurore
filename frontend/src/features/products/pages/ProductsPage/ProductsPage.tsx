@@ -30,7 +30,6 @@ import {
   buildDomainSwitchSearch,
   buildProductsApiFilters,
   buildResetSearchParams,
-  deriveAvoidFor,
   hasActivePriceRange,
   PRODUCTS_PAGE_SIZE,
   productsListApiFilters,
@@ -47,7 +46,6 @@ import {
   type ProductSort,
   productQueries,
 } from '@/lib/queries/products'
-import { profileQueries } from '@/lib/queries/profile'
 import { useAuthStore } from '@/store/auth'
 import '@/component/Layout/PageLayout/ListPage.css'
 import './ProductsPage.css'
@@ -77,19 +75,9 @@ export function ProductsPage() {
 
   const user = useAuthStore((s) => s.user)
 
-  const { data: dermoProfile } = useQuery({
-    ...profileQueries.dermo(),
-    enabled: !!user && profile_filter,
-  })
-
-  const avoidFor = useMemo(
-    () => deriveAvoidFor(dermoProfile, profile_filter),
-    [profile_filter, dermoProfile]
-  )
-
   const { setProfileFilter: handleProfileFilterChange, unresolved: profileFilterUnresolved } =
     useProductsProfileFilter({
-      urlValue: search.profile_filter,
+      urlProfileFilter: search.profile_filter,
       userId: user?.id ?? null,
     })
 
@@ -141,8 +129,8 @@ export function ProductsPage() {
   // userKey (not user) so apply_preferences flips together with the cache key:
   // during boot both stay anonymous, matching the loader's prefetch.
   const apiFilters = useMemo<ListProductsFilters>(
-    () => productsListApiFilters(search, avoidFor, !!userKey),
-    [search, avoidFor, userKey]
+    () => productsListApiFilters(search, !!userKey),
+    [search, userKey]
   )
 
   // Random/filtered: long staleTime stops back-nav reshuffle. Discovery: 30s (not 0) so the
@@ -184,7 +172,6 @@ export function ProductsPage() {
         buildProductsApiFilters({
           category,
           filters: draftFilters ?? filters,
-          avoidFor,
           sort,
           priceMin,
           priceMax,
@@ -195,7 +182,7 @@ export function ProductsPage() {
         search,
         !!userKey
       ),
-    [category, draftFilters, filters, avoidFor, sort, priceMin, priceMax, q, search, userKey]
+    [category, draftFilters, filters, sort, priceMin, priceMax, q, search, userKey]
   )
   const { data: previewData } = useQuery({
     ...productQueries.list(previewApiFilters, userKey),
