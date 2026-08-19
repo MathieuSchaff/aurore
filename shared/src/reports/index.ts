@@ -32,7 +32,7 @@ export type ResolveReportInput = z.infer<typeof resolveReportBodySchema>
 
 export const listReportsQuerySchema = z.object({
   status: reportStatusSchema.optional(),
-  // Admin-facing escalated view (ADR-0006 S3). Only ever sent as 'true'; query
+  // Admin-facing escalated view (ADR-0006). Only ever sent as 'true'; query
   // params arrive as strings, so match the literal rather than coerce (a coerced
   // boolean treats any string that isn't empty, incl. 'false', as true).
   escalated: z.literal('true').optional(),
