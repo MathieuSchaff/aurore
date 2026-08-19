@@ -1,15 +1,18 @@
 import { beforeAll, beforeEach, describe, expect, it } from 'bun:test'
 
-import type { CreateProductInput } from '@aurore/shared'
+import type { CreateProductInput, ProductDetailPage } from '@aurore/shared'
 import { HTTP_STATUS } from '@aurore/shared'
 
+import { eq } from 'drizzle-orm'
 import type { Hono } from 'hono'
 
 import type { AppEnv } from '../../../app-env'
+import { ingredients } from '../../../db/schema/ingredients/ingredients'
+import { testDb } from '../../../tests/db.test.config'
 import { setupDbTests } from '../../../tests/db-setup'
 import { expectRequiresAuth } from '../../../tests/helpers/authz-matrix'
 import type { TestClient } from '../../../tests/helpers/createTestClient'
-import { createTestEnv, withAuth } from '../../../tests/helpers/createTestClient'
+import { createTestEnv, signupAndGetToken, withAuth } from '../../../tests/helpers/createTestClient'
 import { expectError, expectOk } from '../../../tests/helpers/expectStatus'
 import { COMPLEMENT, HAIRCARE, SKINCARE } from '../../../tests/helpers/product-shapes'
 import {
@@ -18,6 +21,7 @@ import {
   setupAndLoginContributor,
 } from '../../../tests/helpers/route-test-helpers'
 import { TEST_CREDENTIALS } from '../../../tests/helpers/test-credentials'
+import { createTestIngredient } from '../../../tests/helpers/test-factories'
 
 const VALID_PRODUCT = { name: 'Vitamine C', brand: 'Solgar', ...COMPLEMENT } as const
 
@@ -620,42 +624,66 @@ describe('Product Routes', () => {
     })
   })
 
-  describe('GET /products/shelf-status', () => {
-    it("returns shelf status only for the caller's shelved products", async () => {
-      const shelved = await createProduct()
-      const other = await createProduct({ name: 'Magnésium' })
-      const token = await setupAndLogin(app, TEST_CREDENTIALS.toto)
+  describe('GET /products/:slug/page', () => {
+    it('returns the complete page for the authenticated viewer', async () => {
+      const product = await createProduct()
+      const { token, userId } = await signupAndGetToken(
+        client,
+        'detail-page@products.test',
+        'Azerty123!seed'
+      )
+      const ingredient = await createTestIngredient(userId, {
+        name: 'Niacinamide detail page',
+      })
+      const canonicalKey = 'Niacinamide detail page'
+      await testDb
+        .update(ingredients)
+        .set({ canonicalKey })
+        .where(eq(ingredients.id, ingredient.id))
       await client['user-products'].$post(
-        { json: { productId: shelved.id, status: 'wishlist' } },
+        { json: { productId: product.id, status: 'wishlist' } },
+        withAuth(token)
+      )
+      await client.profile.dermo.$patch({ json: { skinTypes: ['peau-sensible'] } }, withAuth(token))
+      await client.profile['ingredient-preferences'].$put(
+        { json: { canonicalKey, stance: 'exclude' } },
         withAuth(token)
       )
 
-      const overlay = await expectOk(
-        client.products['shelf-status'].$get(
-          { query: { ids: `${shelved.id},${other.id}` } },
-          withAuth(token)
-        )
+      const page = await expectOk<ProductDetailPage>(
+        app.request(`/api/products/${product.slug}/page`, {
+          headers: { Authorization: `Bearer ${token}` },
+        })
       )
-      // Products not on the shelf are omitted; the explicit userId filter (not RLS) scopes the read.
-      expect(overlay).toEqual([{ productId: shelved.id, userStatus: 'wishlist' }])
+
+      expect(page.product.slug).toBe(product.slug)
+      expect(page.userStatus).toBe('wishlist')
+      expect(page.dermoProfile?.skinTypes).toEqual(['peau-sensible'])
+      expect(page.preferenceTargets.ingredients).toEqual([
+        expect.objectContaining({
+          canonicalKey,
+          name: ingredient.name,
+          stance: 'exclude',
+        }),
+      ])
     })
 
-    it('returns an empty overlay for an anonymous caller', async () => {
+    it('returns a neutral page for an anonymous viewer', async () => {
       const product = await createProduct()
-      const overlay = await expectOk(
-        client.products['shelf-status'].$get({ query: { ids: product.id } })
+
+      const page = await expectOk<ProductDetailPage>(
+        app.request(`/api/products/${product.slug}/page`)
       )
-      expect(overlay).toEqual([])
+
+      expect(page.userStatus).toBeNull()
+      expect(page.dermoProfile).toBeNull()
+      expect(page.preferenceTargets).toEqual({ ingredients: [], tags: [] })
     })
 
-    it('returns 400 when an id is not a uuid', async () => {
-      const res = await client.products['shelf-status'].$get({ query: { ids: 'not-a-uuid' } })
-      expect(res.status as number).toBe(HTTP_STATUS.BAD_REQUEST)
-    })
+    it('keeps the product not found response', async () => {
+      const res = await app.request('/api/products/missing-product/page')
 
-    it('returns 400 when ids is missing', async () => {
-      const res = await client.products['shelf-status'].$get({ query: {} as never })
-      expect(res.status as number).toBe(HTTP_STATUS.BAD_REQUEST)
+      expect(res.status).toBe(HTTP_STATUS.NOT_FOUND)
     })
   })
 

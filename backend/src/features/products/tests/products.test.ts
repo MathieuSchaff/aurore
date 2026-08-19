@@ -1,9 +1,11 @@
 import { beforeEach, describe, expect, it } from 'bun:test'
 
-import { createProductSchema } from '@aurore/shared'
+import { createProductSchema, productDetailSchema } from '@aurore/shared'
 
 import { eq } from 'drizzle-orm'
+import { drizzle } from 'drizzle-orm/bun-sql'
 
+import * as schema from '../../../db/schema'
 import { userDermoProfiles } from '../../../db/schema/auth/users'
 import { productEdits, products } from '../../../db/schema/products'
 import { productTagLinks, productTagTypes } from '../../../db/schema/tags/tags'
@@ -31,10 +33,9 @@ import {
   findSimilarProducts,
   getDistinctBrands,
   getFilterOptions,
-  getProductById,
-  getProductBySlug,
   getProductFullBySlug,
   listProducts,
+  previewSlug,
   searchProducts,
   updateProduct,
 } from '../service'
@@ -135,25 +136,11 @@ describe('Product Service', () => {
     })
   })
 
-  describe('Retrieval', () => {
-    it('should return the product by id', async () => {
-      const created = await createTestProduct(user.id, { name: 'Magnésium', brand: 'Solgar' })
-      const fetched = await testDb.transaction((tx) => getProductById(created.id, tx))
-      expect(fetched.id).toBe(created.id)
-    })
-
-    it('should return the product by slug', async () => {
-      const created = await createTestProduct(user.id, { name: 'Coenzyme Q10', brand: 'Solgar' })
-      const fetched = await getProductBySlug(created.slug, testDb)
-      expect(fetched.id).toBe(created.id)
-    })
-  })
-
   describe('updateProduct', () => {
     it('should update product fields', async () => {
       const created = await createTestProduct(user.id, { name: 'Fer', brand: 'Generic' })
       const updated = await testDb.transaction((tx) =>
-        updateProduct(user.id, created.id, { brand: 'Solgar', priceCents: 1800 }, undefined, tx)
+        updateProduct(user.id, created.id, { brand: 'Solgar', priceCents: 1800 }, tx)
       )
       expect(updated.brand).toBe('Solgar')
       expect(updated.priceCents).toBe(1800)
@@ -162,7 +149,7 @@ describe('Product Service', () => {
     it('should create an audit log when fields change', async () => {
       const created = await createTestProduct(user.id, { name: 'Spiruline', brand: 'Generic' })
       await testDb.transaction((tx) =>
-        updateProduct(user.id, created.id, { description: 'Riche' }, 'Edit', tx)
+        updateProduct(user.id, created.id, { description: 'Riche' }, tx)
       )
 
       const edits = await testDb
@@ -176,7 +163,7 @@ describe('Product Service', () => {
       const created = await createTestProduct(user.id, { name: 'Vitamine C', brand: 'Generic' })
       const originalSlug = created.slug
       const updated = await testDb.transaction((tx) =>
-        updateProduct(user.id, created.id, { name: 'Vitamine C plus' }, undefined, tx)
+        updateProduct(user.id, created.id, { name: 'Vitamine C plus' }, tx)
       )
       expect(updated.name).toBe('Vitamine C plus')
       expect(updated.slug).toBe(originalSlug)
@@ -185,7 +172,7 @@ describe('Product Service', () => {
     it('should slugify and update slug when explicitly provided', async () => {
       const created = await createTestProduct(user.id, { name: 'Magnésium', brand: 'Generic' })
       const updated = await testDb.transaction((tx) =>
-        updateProduct(user.id, created.id, { slug: 'Magnésium Bisglycinate' }, undefined, tx)
+        updateProduct(user.id, created.id, { slug: 'Magnésium Bisglycinate' }, tx)
       )
       expect(updated.slug).toBe('magnesium-bisglycinate')
     })
@@ -217,7 +204,7 @@ describe('Product Service', () => {
       if (!row) throw new Error('insert failed')
 
       const updated = await testDb.transaction((tx) =>
-        updateProduct(user.id, row.id, { notes: 'safe edit' }, undefined, tx)
+        updateProduct(user.id, row.id, { notes: 'safe edit' }, tx)
       )
 
       expect(updated.notes).toBe('safe edit')
@@ -246,12 +233,12 @@ describe('Product Service', () => {
       expect(created.inci).toBeNull()
 
       const filled = await testDb.transaction((tx) =>
-        updateProduct(user.id, created.id, { inci: 'Aqua, Glycerin' }, undefined, tx)
+        updateProduct(user.id, created.id, { inci: 'Aqua, Glycerin' }, tx)
       )
       expect(filled.inci).toBe('Aqua, Glycerin')
 
       const cleared = await testDb.transaction((tx) =>
-        updateProduct(user.id, created.id, { inci: '' }, undefined, tx)
+        updateProduct(user.id, created.id, { inci: '' }, tx)
       )
       expect(cleared.inci).toBeNull()
     })
@@ -261,9 +248,11 @@ describe('Product Service', () => {
     it('should permanently remove the product', async () => {
       const created = await createTestProduct(user.id, { name: 'Sélénium', brand: 'Solgar' })
       await testDb.transaction((tx) => deleteProduct(tx, 'admin', created.id))
-      expect(testDb.transaction((tx) => getProductById(created.id, tx))).rejects.toThrow(
-        ProductError
-      )
+      const remaining = await testDb
+        .select({ id: products.id })
+        .from(products)
+        .where(eq(products.id, created.id))
+      expect(remaining).toHaveLength(0)
     })
   })
 
@@ -1095,6 +1084,134 @@ describe('Product Service', () => {
       expect(Array.isArray(result.tags)).toBe(true)
     })
 
+    it('orders ingredients by name with accents next to their base letter', async () => {
+      const product = await createTestProduct(user.id, { name: 'Produit Tri Accents' })
+      // Insertion order and UTF-8 byte order both put Zinc first ('É' sorts
+      // after 'Z' by code point), so a raw or pass-through sort fails here
+      const zinc = await createTestIngredient(user.id, { name: 'Zinc' })
+      const elastine = await createTestIngredient(user.id, { name: 'Élastine' })
+
+      await testDb.transaction((tx) =>
+        addIngredientToProduct(tx, { productId: product.id, ingredientId: zinc.id })
+      )
+      await testDb.transaction((tx) =>
+        addIngredientToProduct(tx, { productId: product.id, ingredientId: elastine.id })
+      )
+
+      const result = await getProductFullBySlug(product.slug, testDb)
+
+      expect(result.ingredients.map((i) => i.ingredientName)).toEqual(['Élastine', 'Zinc'])
+    })
+
+    it('keeps the complete detail projection stable', async () => {
+      const product = await createTestProduct(user.id, {
+        name: 'Sérum projection',
+        brand: 'Brand',
+        inci: 'Aqua, Glycerin, Limonene',
+        description: 'Description fixture',
+        totalAmount: 30,
+        amountUnit: 'ml',
+        url: 'https://example.test/product',
+        imageUrl: 'https://example.test/product.webp',
+        priceCents: 1990,
+        texture: 'gel',
+        notes: 'Notes fixture',
+      })
+      const ingredient = await createTestIngredient(user.id, {
+        name: 'Niacinamide projection',
+        description: 'Ingredient fixture',
+        category: 'actif',
+      })
+      await testDb.transaction((tx) =>
+        addIngredientToProduct(tx, {
+          productId: product.id,
+          ingredientId: ingredient.id,
+          concentrationValue: '5',
+          concentrationUnit: '%',
+          concentrationPer: 'mL',
+          notes: 'Encapsulated',
+        })
+      )
+      const tag = await createTag({
+        label: 'Projection tag',
+        slug: 'projection-tag',
+        tagType: 'claim',
+      })
+      await replaceTags(product.id, [{ tagId: tag.id, relevance: 'avoid' }])
+
+      const result = await getProductFullBySlug(product.slug, testDb)
+
+      expect(() => productDetailSchema.parse(result)).not.toThrow()
+      expect(Date.parse(result.createdAt)).toBe(Date.parse(product.createdAt))
+      expect(Date.parse(result.updatedAt)).toBe(Date.parse(product.updatedAt))
+      expect(result).toEqual({
+        id: product.id,
+        slug: product.slug,
+        name: product.name,
+        brand: product.brand,
+        category: product.category,
+        description: product.description,
+        inci: product.inci,
+        totalAmount: product.totalAmount,
+        amountUnit: product.amountUnit,
+        url: product.url,
+        imageUrl: product.imageUrl,
+        unit: product.unit,
+        priceCents: product.priceCents,
+        kind: product.kind,
+        texture: product.texture,
+        notes: product.notes,
+        catalogQuality: product.catalogQuality,
+        moderationStatus: product.moderationStatus,
+        createdBy: product.createdBy,
+        createdAt: expect.stringMatching(/Z$/),
+        updatedAt: expect.stringMatching(/Z$/),
+        inciCount: 3,
+        hasFragrance: true,
+        ingredients: [
+          {
+            productId: product.id,
+            ingredientId: ingredient.id,
+            concentrationValue: '5',
+            concentrationUnit: '%',
+            concentrationPer: 'mL',
+            notes: 'Encapsulated',
+            ingredientName: ingredient.name,
+            ingredientSlug: ingredient.slug,
+            ingredientCategory: ingredient.category,
+            ingredientDescription: ingredient.description,
+            ingredientCanonicalKey: ingredient.canonicalKey,
+          },
+        ],
+        tags: [
+          {
+            productTagId: tag.id,
+            productId: product.id,
+            relevance: 'avoid',
+            tagName: tag.label,
+            tagSlug: tag.slug,
+            tagCategory: tag.tagType,
+          },
+        ],
+      })
+    })
+
+    it('reads the complete detail in one database query', async () => {
+      const product = await createTestProduct(user.id, {
+        name: 'Sérum single query',
+        brand: 'Brand',
+      })
+      let queryCount = 0
+      const measuredDb = drizzle(testDb.$client, {
+        schema,
+        logger: { logQuery: () => queryCount++ },
+      })
+
+      await getProductFullBySlug(product.slug, measuredDb)
+
+      expect(queryCount).toBe(1)
+    })
+
     // The sheet reads both off the payload; nothing else recomputes them.
     it('should ship the INCI facts the product sheet displays', async () => {
       const product = await createTestProduct(user.id, {
@@ -1114,6 +1231,37 @@ describe('Product Service', () => {
       const result = await getProductFullBySlug(product.slug, testDb)
       expect(result.inciCount).toBe(0)
       expect(result.hasFragrance).toBe(false)
+    })
+  })
+
+  describe('previewSlug', () => {
+    it('finds the first free suffix in one database query', async () => {
+      const baseSlug = 'preview-slug-brand'
+      await createTestProduct(user.id, {
+        name: 'Preview fixture base',
+        brand: 'Brand',
+        slug: baseSlug,
+      })
+      await createTestProduct(user.id, {
+        name: 'Preview fixture one',
+        brand: 'Brand',
+        slug: `${baseSlug}-1`,
+      })
+      await createTestProduct(user.id, {
+        name: 'Preview fixture three',
+        brand: 'Brand',
+        slug: `${baseSlug}-3`,
+      })
+      let queryCount = 0
+      const measuredDb = drizzle(testDb.$client, {
+        schema,
+        logger: { logQuery: () => queryCount++ },
+      })
+
+      const slug = await measuredDb.transaction((tx) => previewSlug('Preview slug', 'Brand', tx))
+
+      expect(slug).toBe(`${baseSlug}-2`)
+      expect(queryCount).toBe(1)
     })
   })
 })
