@@ -14,7 +14,7 @@ export type ConcentrationRead =
   | { kind: 'unestimable' }
 
 // Wider bands look more certain than they are, so keep them qualitative.
-const CONC_BAND_MAX_REL_WIDTH = 1.5
+const CONC_BAND_MAX_REL_WIDTH = 0.5
 
 const wholePctFormatter = new Intl.NumberFormat('fr-FR', { maximumFractionDigits: 0 })
 const decimalPctFormatter = new Intl.NumberFormat('fr-FR', { maximumFractionDigits: 1 })

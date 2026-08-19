@@ -1,5 +1,5 @@
 // FR phrasing for algo-derm risk axes and heuristic flag families.
-// Calm, non-verdict wording per vision: describe a known signal, never rank or diagnose.
+// Calm wording that avoids verdicts per vision: describe a known signal, never rank or diagnose.
 
 type RiskAxis =
   | 'irritation'
@@ -40,10 +40,12 @@ export const BENEFIT_AXIS_PHRASE: Record<BenefitAxis, string> = {
 }
 
 // Dose signal: algo-derm emits continuous roleAtDose.doseFactor/confidence and
-// leaves the boolean "is it active" cut to the consumer (ADR-0014). Prudent
-// defaults pending gold-set calibration; prefer silence over a wrong claim.
+// leaves the boolean "is it active" cut to the consumer (ADR-0014). Keep the
+// positive and excipient confidence cuts separate: recall must not hide more risks.
 export const DOSE_SIGNAL_MIN_DOSE_FACTOR = 0.7
-export const DOSE_SIGNAL_MIN_CONFIDENCE = 0.6
+export const DOSE_SIGNAL_MIN_CONFIDENCE = 0.5
+export const DOSE_EXCIPIENT_MAX_DOSE_FACTOR = 0.3
+export const DOSE_EXCIPIENT_MIN_CONFIDENCE = 0.6
 
 // roleAtDose is a qualitative signal, not a concentration estimate.
 export const DOSE_SIGNAL_PHRASE = 'probablement dosé pour agir'
@@ -152,7 +154,7 @@ export const REGULATORY_SCOPE_PHRASE: Record<string, string> = {
 }
 
 // Maps skin-profile slugs to the risk axes that matter to that user, used to highlight
-// relevant signals without re-deriving the backend's profile mapping.
+// relevant signals without deriving the backend's profile mapping.
 export const PROFILE_RELEVANT_AXES: Record<string, ReadonlyArray<RiskAxis>> = {
   'peau-sensible': ['irritation', 'allergenicity'],
   rosacee: ['irritation'],
