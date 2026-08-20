@@ -14,6 +14,7 @@ import {
   withAuth,
 } from '../../../tests/helpers/createTestClient'
 import { expectError } from '../../../tests/helpers/expectStatus'
+import { ANY_UUID } from '../../../tests/helpers/route-test-helpers'
 import { JWT_SECRET, REFRESH_SECRET } from '../../../tests/helpers/secrets'
 import { globalErrorHandler } from '../../../utils/errors/error-handler'
 import { ingredientTagRoutes } from '../../ingredients/ingredient-tags/routes'
@@ -21,8 +22,6 @@ import { productIngredientRoutes } from '../../products/product-ingredients/rout
 import { productTagRoutes } from '../../products/product-tags/routes'
 import { clearBanCache } from '../ban.service'
 import { seedBanActors } from './ban-test.setup'
-
-const ANY_UUID = '019d0000-0000-7000-8000-00000000abcd'
 
 async function expectBanned(res: { status: number; json: () => Promise<unknown> }) {
   // The guard regression returned 500 ("Context is not finalized") instead of
