@@ -4,6 +4,7 @@ import type { ApiResponse, CommonErrorCode } from '../core'
 import { HTTP_STATUS, type HttpStatus } from '../core'
 
 export * from './cookies'
+export * from './ssr-boot'
 
 export const accessTokenPayloadSchema = z.object({
   sub: z.string(),

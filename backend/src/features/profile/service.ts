@@ -32,7 +32,7 @@ import {
   userDermoProfiles,
 } from '../../db/schema/users'
 import { isUniqueViolation } from '../../lib/helpers'
-import { nowISO } from '../../utils/dates'
+import { normalizeInstant, nowISO } from '../../utils/dates'
 import { ProfileError } from './profile-error'
 
 const DEFAULT_CRITERIA_WEIGHTS: CriteriaWeights = {
@@ -51,8 +51,8 @@ function toProfilePublic(profile: Profile): ProfilePublic {
     bio: profile.bio,
     avatarUrl: profile.avatarUrl,
     links: profile.links,
-    createdAt: profile.createdAt,
-    updatedAt: profile.updatedAt,
+    createdAt: normalizeInstant(profile.createdAt),
+    updatedAt: normalizeInstant(profile.updatedAt),
   }
 }
 
@@ -68,7 +68,7 @@ export async function getProfile(
 // Explicit whitelist, never spread `data` straight into the UPDATE. RLS lets
 // the owner write any column of their own profile row (tenant_isolation), so
 // the API layer is the only thing between an attacker and the moderation
-// columns (forcedPrivateByAdmin, moderatedBy, …). profileUpdateSchema is
+// columns (forcedPrivateByAdmin, forcedPrivateBy, forcedPrivateAt, …). profileUpdateSchema is
 // .strict() today but a future loosen-up must not become a silent escalation.
 export async function updateProfile(
   db: DatabaseTransaction,
@@ -347,7 +347,7 @@ export async function updatePrivacySettings(
 // Projects a public profile view by username, masking each field whose
 // `*_public` flag is false. The master gate is the explicit profilePublic +
 // not-forced WHERE below, NOT RLS: the social `_for_*` policies widen
-// app_runtime to non-public rows that reacted/posted, so dropping it leaks them.
+// app_runtime to rows that are not public but reacted/posted, so dropping it leaks them.
 // Returns null when the username is unknown or the profile is not public.
 export async function getPublicProfileByUsername(
   db: DbOrTransaction,
@@ -412,7 +412,7 @@ export async function listPreferenceTargets(
     .where(eq(userIngredientPreferences.userId, userId))
     .orderBy(userIngredientPreferences.createdAt)
 
-  // Separate lookup, not a JOIN: canonical_key is non-unique on ingredients,
+  // Separate lookup, not a JOIN: canonical_key is not unique on ingredients,
   // a join would duplicate preference rows. First name wins.
   const nameByKey = new Map<string, string>()
   if (ingredientRows.length > 0) {

@@ -54,7 +54,7 @@ export function toPublicUser(user: UserSafe): UserPublic {
   }
 }
 
-export async function getUserRole(db: DatabaseTransaction, userId: string) {
+export async function getUserRole(db: DbOrTransaction, userId: string) {
   const [row] = await db
     .select({ role: usersSafe.role })
     .from(usersSafe)
