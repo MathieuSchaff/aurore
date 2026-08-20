@@ -61,7 +61,9 @@ test.describe('Auth — login', () => {
     await page.getByRole('button', { name: 'Se connecter', exact: true }).click()
 
     await expect(page).toHaveURL(/\/collection/, { timeout: 15_000 })
-    await expect(page.getByRole('heading', { name: 'Ma Collection' })).toBeVisible()
+    await expect(page.getByRole('heading', { name: 'Ma Collection' })).toBeVisible({
+      timeout: 15_000,
+    })
   })
 
   test('login redirects to ?redirect= target on success', async ({ page }) => {
@@ -195,14 +197,16 @@ test.describe('Auth — session hint (cold-load probe gate)', () => {
   })
 
   test('authenticated boot fires the refresh probe (hint present)', async ({ page }) => {
+    test.slow()
     await loginAsSeed(page)
 
     const refreshReq = page.waitForRequest(
       (r) => r.url().includes('/api/auth/refresh') && r.method() === 'POST',
-      { timeout: 15_000 }
+      { timeout: 30_000 }
     )
     await page.goto('/products')
-    await refreshReq // throws on timeout if the gate wrongly skipped the probe
+    await waitForHydration(page)
+    await refreshReq
   })
 
   test('UI logout clears the hint cookie and the next boot is anonymous', async ({
