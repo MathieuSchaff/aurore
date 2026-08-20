@@ -1,11 +1,5 @@
 import type { CommonErrorCode } from '@aurore/shared'
 
-export class SuggestedEditError extends Error {
-  constructor(
-    public code: CommonErrorCode,
-    public details?: unknown
-  ) {
-    super(code)
-    this.name = 'SuggestedEditError'
-  }
-}
+import { DomainError } from '../../utils/errors/domain-error'
+
+export class SuggestedEditError extends DomainError<CommonErrorCode> {}

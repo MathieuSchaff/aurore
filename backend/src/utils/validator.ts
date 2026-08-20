@@ -1,3 +1,5 @@
+import { err, HTTP_STATUS } from '@aurore/shared'
+
 import { zValidator as zv } from '@hono/zod-validator'
 import type { ValidationTargets } from 'hono'
 import { z } from 'zod'
@@ -16,6 +18,6 @@ export const zValidator = <T extends z.ZodType, Target extends keyof ValidationT
   zv(target, schema, (result, c) => {
     if (!result.success) {
       const details: ValidationDetails = z.flattenError(result.error)
-      return c.json({ success: false as const, error: 'invalid_input' as const, details }, 400)
+      return c.json(err('invalid_input', details), HTTP_STATUS.BAD_REQUEST)
     }
   })

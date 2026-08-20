@@ -1,11 +1,5 @@
 import type { ProductIngredientErrorCode } from '@aurore/shared'
 
-export class ProductIngredientError extends Error {
-  constructor(
-    public code: ProductIngredientErrorCode,
-    public details?: unknown
-  ) {
-    super(code)
-    this.name = 'ProductIngredientError'
-  }
-}
+import { DomainError } from '../../../utils/errors/domain-error'
+
+export class ProductIngredientError extends DomainError<ProductIngredientErrorCode> {}
