@@ -1,11 +1,10 @@
 import type { CreateRefreshTokenArgs } from '@aurore/shared'
 
-import { and, eq, isNotNull, isNull, lt, or, sql } from 'drizzle-orm'
+import { and, eq, gt, isNotNull, isNull, lt, or, sql } from 'drizzle-orm'
 
 import type { Database, DatabaseTransaction } from '../../db/index'
 import { bindRlsContext } from '../../db/rls'
 import { refreshTokens } from '../../db/schema'
-import { logger } from '../../lib/logger'
 import { nowISO } from '../../utils/dates'
 import { hashJti } from './jwt.utils'
 
@@ -29,25 +28,46 @@ function mapRefreshTokenRow(row: Record<string, unknown> | undefined): RefreshTo
   }
 }
 
-export async function storeRefreshToken(db: Database, args: CreateRefreshTokenArgs) {
-  const jtiHash = hashJti(args.jti)
+export async function storeRefreshTokenTx(tx: DatabaseTransaction, args: CreateRefreshTokenArgs) {
+  await bindRlsContext(tx, args.userId)
+  await tx.insert(refreshTokens).values({
+    userId: args.userId,
+    jtiHash: hashJti(args.jti),
+    expiresAt: args.expiresAt,
+    ip: args.ip ?? null,
+    userAgent: args.userAgent ?? null,
+  })
+}
 
+export async function storeRefreshToken(db: Database, args: CreateRefreshTokenArgs) {
   try {
-    await db.transaction(async (tx) => {
-      await bindRlsContext(tx, args.userId)
-      await tx.insert(refreshTokens).values({
-        userId: args.userId,
-        jtiHash,
-        expiresAt: args.expiresAt,
-        ip: args.ip ?? null,
-        userAgent: args.userAgent ?? null,
-      })
-    })
+    await db.transaction((tx) => storeRefreshTokenTx(tx, args))
   } catch (error) {
     // jtiHash unique constraint violation: UUIDv7 collision is theoretically possible.
-    logger.error({ err: error }, 'Failed to store refresh token')
-    throw new Error('duplicate_refresh_token')
+    throw new Error('duplicate_refresh_token', { cause: error })
   }
+}
+
+// Conditional update, so two refreshes racing on the same token get one winner:
+// the row lock serializes them and the loser matches zero rows
+export async function consumeRefreshTokenTx(
+  tx: DatabaseTransaction,
+  jti: string,
+  userId: string
+): Promise<boolean> {
+  await bindRlsContext(tx, userId)
+  const consumed = await tx
+    .update(refreshTokens)
+    .set({ revokedAt: sql`now()` })
+    .where(
+      and(
+        eq(refreshTokens.jtiHash, hashJti(jti)),
+        isNull(refreshTokens.revokedAt),
+        gt(refreshTokens.expiresAt, sql`now()`)
+      )
+    )
+    .returning({ id: refreshTokens.id })
+  return consumed.length === 1
 }
 
 // Lookup before identity is known: RLS would filter the row because we don't know userId yet.
