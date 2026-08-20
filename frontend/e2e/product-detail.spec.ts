@@ -218,6 +218,16 @@ test.describe('Product detail: Lecture de la formule', () => {
     throw new Error('no seed product with an INCI in the first 10 skincare products')
   }
 
+  async function gotoWithAssessment(page: Page, slug: string, assessment: unknown): Promise<void> {
+    // A connected cold load receives the real assessment inside the server boot
+    // Clear the cookie so this browser mock still exercises the rendering contract
+    await page.context().clearCookies()
+    await page.route('**/api/products/*/dermo-score', (route) =>
+      route.fulfill({ json: { data: assessment } })
+    )
+    await page.goto(`/products/${slug}`)
+  }
+
   test('shows composition signals separately from the skin reading', async ({ page }) => {
     const slug = await findSlugWithInci(page)
     const assessment = {
@@ -246,11 +256,7 @@ test.describe('Product detail: Lecture de la formule', () => {
       ],
     }
 
-    await page.route('**/api/products/*/dermo-score', (route) =>
-      route.fulfill({ json: { data: assessment } })
-    )
-
-    await page.goto(`/products/${slug}`)
+    await gotoWithAssessment(page, slug, assessment)
 
     const section = page.locator('.formula-reading')
     await expect(section.getByRole('heading', { name: 'Repères de composition' })).toBeVisible({
@@ -355,11 +361,7 @@ test.describe('Product detail: Lecture de la formule', () => {
       ],
     }
 
-    await page.route('**/api/products/*/dermo-score', (route) =>
-      route.fulfill({ json: { data: assessment } })
-    )
-
-    await page.goto(`/products/${slug}`)
+    await gotoWithAssessment(page, slug, assessment)
 
     const section = page.locator('.formula-reading')
     await expect(section).toBeVisible({ timeout: 15_000 })
@@ -421,11 +423,7 @@ test.describe('Product detail: Lecture de la formule', () => {
       ],
     }
 
-    await page.route('**/api/products/*/dermo-score', (route) =>
-      route.fulfill({ json: { data: assessment } })
-    )
-
-    await page.goto(`/products/${slug}`)
+    await gotoWithAssessment(page, slug, assessment)
 
     const section = page.locator('.formula-concentrations')
     await expect(section).toBeVisible({ timeout: 15_000 })
@@ -480,11 +478,7 @@ test.describe('Product detail: Lecture de la formule', () => {
       matchedEvidence: [],
     }
 
-    await page.route('**/api/products/*/dermo-score', (route) =>
-      route.fulfill({ json: { data: assessment } })
-    )
-
-    await page.goto(`/products/${slug}`)
+    await gotoWithAssessment(page, slug, assessment)
 
     const section = page.locator('.formula-reading')
     await expect(section).toBeVisible({ timeout: 15_000 })
@@ -525,11 +519,7 @@ test.describe('Product detail: Lecture de la formule', () => {
       matchedEvidence: [],
     }
 
-    await page.route('**/api/products/*/dermo-score', (route) =>
-      route.fulfill({ json: { data: assessment } })
-    )
-
-    await page.goto(`/products/${slug}`)
+    await gotoWithAssessment(page, slug, assessment)
 
     const section = page.locator('.formula-reading')
     await expect(section).toBeVisible({ timeout: 15_000 })

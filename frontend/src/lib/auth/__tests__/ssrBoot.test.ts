@@ -69,9 +69,35 @@ describe('loadSsrBoot', () => {
 
     expect(fetch).toHaveBeenCalledOnce()
     const [input, init] = vi.mocked(fetch).mock.calls[0] ?? []
-    expect(String(input)).toBe('http://api.test/api/boot')
+    expect(String(input)).toBe('http://api.test/api/boot?')
     const headers = new Headers(init?.headers)
     expect(Object.fromEntries(headers.entries())).toEqual({ cookie: cookieHeader })
+  })
+
+  it('forwards the selected products view and filters', async () => {
+    getRequestHeader.mockReturnValue('refresh_token=opaque-token')
+    vi.mocked(fetch).mockResolvedValue(
+      Response.json({ success: true, data: authenticatedBoot }, { status: 200 })
+    )
+
+    await loadSsrBoot({
+      view: 'products',
+      category: 'skincare',
+      q: 'niacinamide',
+      page: '2',
+      limit: '24',
+    })
+
+    const [input] = vi.mocked(fetch).mock.calls[0] ?? []
+    const requestUrl = new URL(String(input))
+    expect(requestUrl.pathname).toBe('/api/boot')
+    expect(Object.fromEntries(requestUrl.searchParams.entries())).toEqual({
+      view: 'products',
+      category: 'skincare',
+      q: 'niacinamide',
+      page: '2',
+      limit: '24',
+    })
   })
 
   it('returns anonymous when Hono rejects the refresh session', async () => {

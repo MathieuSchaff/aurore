@@ -55,10 +55,9 @@ test('happy path: règles Sans/Avec (geste en contexte, composeur, catalogue fil
     sansGroup.locator('.preference-marks__label', { hasText: 'Niacinamide' })
   ).toBeVisible()
 
-  // Catalogue under "selon mon profil": "Sans" excludes, the banner states the rule.
-  // The SSR render is anonymous, so it carries no declared rule and no banner. The banner
-  // appears only after the boot refresh fetches the list again with the session. Two hops,
-  // which the default 5 s window loses under a loaded worker pool.
+  // Catalogue under "selon mon profil": the connected SSR boot already applies "Sans"
+  // and renders the rule. The first client render keeps that seeded identity while the
+  // refresh obtains its Bearer token, so the personalized banner is immediately interactive
   await gotoHydrated(page, '/products?profile_filter=true')
   const banner = page.getByTestId('avoided-banner')
   await expect(banner).toBeVisible({ timeout: 15_000 })
@@ -66,6 +65,7 @@ test('happy path: règles Sans/Avec (geste en contexte, composeur, catalogue fil
 
   // "Afficher quand même" reverses the exclusion, banner flips, rows come back annotated.
   await banner.getByRole('button', { name: 'Afficher quand même' }).click()
+  await expect(page).toHaveURL(/show_hidden=true/)
   await expect(banner.getByRole('button', { name: 'Masquer à nouveau' })).toBeVisible()
 
   // Direct entry in /profile: the verb is the list you add into, so the

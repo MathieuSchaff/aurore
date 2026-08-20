@@ -6,14 +6,15 @@ import { eq } from 'drizzle-orm'
 import { testClient } from 'hono/testing'
 
 import { db as appRuntimeDb } from '../../../db'
-import { profiles, users } from '../../../db/schema'
+import { profiles, userProducts, users } from '../../../db/schema'
 import { testDb } from '../../../tests/db.test.config'
 import { setupDbTests } from '../../../tests/db-setup'
 import { createTestApp } from '../../../tests/helpers/createTestApp'
 import type { TestApp, TestClient } from '../../../tests/helpers/createTestClient'
 import { expectOk } from '../../../tests/helpers/expectStatus'
 import { REFRESH_SECRET } from '../../../tests/helpers/secrets'
-import { createTestContributorUser } from '../../../tests/helpers/test-factories'
+import { createTestContributorUser, createTestProduct } from '../../../tests/helpers/test-factories'
+import { upsertDermoProfile } from '../../profile/service'
 import { verifyRefreshToken } from '../jwt.utils'
 import { revokeRefreshToken } from '../refresh-token.service'
 
@@ -82,11 +83,88 @@ describe('GET /api/boot', () => {
   })
 
   it('returns an exact anonymous payload when the refresh cookie is absent', async () => {
-    const data = await expectOk(client.boot.$get())
+    const data = await expectOk(client.boot.$get({ query: {} }))
 
     expect(data).toEqual({
       session: { authenticated: false },
       profile: null,
+    })
+  })
+
+  it('returns a personalized products page for a valid session', async () => {
+    const user = await createTestContributorUser(EMAIL, PASSWORD)
+    const product = await createTestProduct(user.id, { name: 'Boot Serum' })
+    await testDb.insert(userProducts).values({
+      userId: user.id,
+      productId: product.id,
+      status: 'wishlist',
+    })
+    const cookie = await loginWithRefreshCookie(app, EMAIL, PASSWORD)
+
+    const response = await app.request(
+      '/api/boot?view=products&category=skincare&sort=name&page=1&limit=24',
+      { headers: { Cookie: cookie } }
+    )
+
+    const data = await expectOk<SsrBootResponse>(response)
+    if (!('page' in data)) throw new Error('products page is missing')
+    expect(data.page).toMatchObject({
+      view: 'products',
+      items: [
+        {
+          id: product.id,
+          slug: product.slug,
+          name: 'Boot Serum',
+          userStatus: 'wishlist',
+        },
+      ],
+      total: 1,
+      page: 1,
+      limit: 24,
+    })
+  })
+
+  it('returns a personalized product detail page for a valid session', async () => {
+    const user = await createTestContributorUser(EMAIL, PASSWORD)
+    const product = await createTestProduct(user.id, {
+      name: 'Boot Detail Serum',
+      inci: 'Aqua, Niacinamide, Alcohol Denat, Parfum',
+    })
+    await testDb.insert(userProducts).values({
+      userId: user.id,
+      productId: product.id,
+      status: 'wishlist',
+    })
+    await testDb.transaction((tx) =>
+      upsertDermoProfile(tx, user.id, {
+        skinTypes: ['peau-sensible'],
+        skinConcerns: ['anti-acne'],
+      })
+    )
+    const cookie = await loginWithRefreshCookie(app, EMAIL, PASSWORD)
+
+    const response = await app.request(`/api/boot?view=product-detail&slug=${product.slug}`, {
+      headers: { Cookie: cookie },
+    })
+
+    const data = await expectOk<SsrBootResponse>(response)
+    if (data.page?.view !== 'product-detail') throw new Error('product detail page is missing')
+    expect(data.page).toMatchObject({
+      view: 'product-detail',
+      product: {
+        id: product.id,
+        slug: product.slug,
+        name: 'Boot Detail Serum',
+      },
+      userStatus: 'wishlist',
+      dermoProfile: {
+        userId: user.id,
+        skinTypes: ['peau-sensible'],
+        skinConcerns: ['anti-acne'],
+      },
+      assessment: {
+        coverage: { total: 4 },
+      },
     })
   })
 
