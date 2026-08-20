@@ -15,9 +15,12 @@ import {
 } from '../../../tests/helpers/createTestClient'
 import { expectError } from '../../../tests/helpers/expectStatus'
 import { login } from '../../../tests/helpers/login'
-import { ANY_UUID, authPatch } from '../../../tests/helpers/route-test-helpers'
+import { ANY_UUID, authDelete, authPatch } from '../../../tests/helpers/route-test-helpers'
 import { TEST_CREDENTIALS } from '../../../tests/helpers/test-credentials'
-import { createTestContributorUser } from '../../../tests/helpers/test-factories'
+import {
+  createTestAdminUser,
+  createTestContributorUser,
+} from '../../../tests/helpers/test-factories'
 
 // Demotion does not revoke the access token (~15min TTL), so a freshly demoted
 // contributor still carries role:'contributor' in its JWT claim. The gates must
@@ -55,6 +58,30 @@ describe('Role gates read the fresh DB role, not the stale JWT claim', () => {
 
   it('requireCatalogWrite: demoted user is 403 on PATCH /products/:id/quality', async () => {
     const res = await authPatch(app, `/api/products/${ANY_UUID}/quality`, token, {})
+    await expectForbidden(res)
+  })
+})
+
+// requireAdmin reads the context role, which withRlsContext overwrites with the DB row:
+// a demoted admin must lose admin routes before its token expires
+describe('requireAdmin reads the fresh DB role, not the stale JWT claim', () => {
+  let app: TestApp
+  let client: TestClient
+  let token: string
+
+  beforeAll(async () => {
+    ;({ app, client } = await createTestEnv())
+  })
+
+  beforeEach(async () => {
+    const { rawEmail, rawPassword } = TEST_CREDENTIALS.alice
+    const admin = await createTestAdminUser(rawEmail, rawPassword)
+    token = await login(client, rawEmail, rawPassword)
+    await testDb.update(users).set({ role: 'user' }).where(eq(users.id, admin.id))
+  })
+
+  it('demoted admin is 403 on DELETE /products/:id', async () => {
+    const res = await authDelete(app, `/api/products/${ANY_UUID}`, token)
     await expectForbidden(res)
   })
 })
