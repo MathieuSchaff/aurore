@@ -1,3 +1,5 @@
+import type { UserPublic } from '@aurore/shared'
+
 import { QueryClient } from '@tanstack/react-query'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
@@ -73,6 +75,19 @@ describe('requireAuth', () => {
     expect(mockEnsureFresh).toHaveBeenCalledWith(queryClient)
   })
 
+  it('redirects an SSR-confirmed anonymous session without probing refresh', async () => {
+    queryClient.setQueryData(['session'], { authenticated: false })
+
+    try {
+      await requireAuth({ queryClient, href: '/collection', accessToken: null })
+      expect.unreachable('should have thrown redirect')
+    } catch {
+      expect(useAuthStore.getState().accessToken).toBeNull()
+    }
+
+    expect(mockEnsureFresh).not.toHaveBeenCalled()
+  })
+
   it('redirects to login when no token and refresh fails', async () => {
     mockEnsureFresh.mockResolvedValue('failed')
 
@@ -86,6 +101,44 @@ describe('requireAuth', () => {
     } catch {
       expect(useAuthStore.getState().accessToken).toBeNull()
     }
+  })
+
+  it('preserves public queries when a seeded session dies before a protected route', async () => {
+    const user = {
+      id: 'u1',
+      email: 'admin@example.com',
+      emailVerified: true,
+      role: 'admin',
+      isDemo: false,
+    } as UserPublic
+    useAuthStore.setState({ user, role: 'admin', emailVerified: true })
+    queryClient.setQueryData(['session'], {
+      authenticated: true,
+      userId: user.id,
+      user,
+      role: user.role,
+    })
+    queryClient.setQueryData(['profile'], { username: 'Aurore' })
+    const productListKey = ['products', 'list', {}, user.id] as const
+    queryClient.setQueryData(productListKey, {
+      items: [{ id: 'p1', userStatus: 'owned' }],
+      total: 1,
+    })
+    mockEnsureFresh.mockResolvedValue('failed')
+
+    try {
+      await requireAuth({ queryClient, href: '/collection', accessToken: null })
+      expect.unreachable('should have thrown redirect')
+    } catch {
+      expect(useAuthStore.getState()).toMatchObject({ user: null, role: 'user' })
+    }
+
+    expect(queryClient.getQueryData(['session'])).toBeUndefined()
+    expect(queryClient.getQueryData(['profile'])).toBeUndefined()
+    expect(queryClient.getQueryData(productListKey)).toEqual({
+      items: [{ id: 'p1', userStatus: null }],
+      total: 1,
+    })
   })
 
   it("redirects when no token and refresh is in 'cooldown'", async () => {

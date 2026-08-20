@@ -57,7 +57,12 @@ const product = {
 const authenticatedUser = { id: 'user-1' }
 const navigate = vi.fn()
 const mutateAsync = vi.fn()
-let authState: { user: typeof authenticatedUser | null; bootRefreshPending: boolean }
+let authState: {
+  accessToken: string | null
+  user: typeof authenticatedUser | null
+  bootRefreshAttempted: boolean
+  bootRefreshPending: boolean
+}
 
 function renderAction(status: UserProductStatus | null = null) {
   const queryClient = createTestQueryClient()
@@ -77,7 +82,12 @@ function renderAction(status: UserProductStatus | null = null) {
 describe('ProductCollectionAction', () => {
   beforeEach(() => {
     vi.clearAllMocks()
-    authState = { user: authenticatedUser, bootRefreshPending: false }
+    authState = {
+      accessToken: 'test-token',
+      user: authenticatedUser,
+      bootRefreshAttempted: true,
+      bootRefreshPending: false,
+    }
     mutateAsync.mockResolvedValue({ id: 'user-product-1', status: 'watched' })
     vi.mocked(useAuthStore).mockImplementation((selector) => selector(authState as never))
     vi.mocked(useNavigate).mockReturnValue(navigate)
@@ -133,7 +143,12 @@ describe('ProductCollectionAction', () => {
 
   it('redirects anonymous save and detail intents to login with the current product URL', async () => {
     const user = userEvent.setup()
-    authState = { user: null, bootRefreshPending: false }
+    authState = {
+      accessToken: null,
+      user: null,
+      bootRefreshAttempted: true,
+      bootRefreshPending: false,
+    }
     renderAction()
 
     await user.click(

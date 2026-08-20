@@ -11,9 +11,8 @@ interface NavSideListProps {
 
 export function NavSideList({ onItemClick, variant = 'drawer' }: NavSideListProps) {
   const pathname = useRouterState({ select: (s) => s.location.pathname })
-  const isAuthenticated = useAuthStore((s) => !!s.accessToken)
-  // Treat a hinted (likely-authed) visitor as authed during the boot probe so the link set
-  // never flashes anon->authed on hydration; mirrors UserMenu's skeleton gate.
+  const isAuthenticated = useAuthStore((s) => !!s.accessToken || s.user !== null)
+  // Keep private links during an unresolved boot so the nav never flashes anonymous.
   const bootPending = useBootPending()
   const effectiveAuthed = isAuthenticated || bootPending
 
@@ -24,7 +23,7 @@ export function NavSideList({ onItemClick, variant = 'drawer' }: NavSideListProp
   })
 
   // Longest matching route wins so a nested link (/products/compare) lights up alone,
-  // while section links stay lit on their sub-pages (/products/:slug).
+  // while section links stay lit on their subpages (/products/:slug).
   const activeTo = items
     .map((item) => item.to as string)
     .filter((to) => pathname === to || pathname.startsWith(`${to}/`))
