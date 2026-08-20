@@ -4,23 +4,32 @@ import './ProductLayoutSkeleton.css'
 
 export function ProductLayoutSkeleton() {
   return (
-    <DetailPageLayout banner={true}>
-      <div className="product-layout-skeleton__hero">
-        <Skeleton width="4rem" height="4rem" radius="var(--radius-lg)" />
-        <div className="product-layout-skeleton__info">
-          <Skeleton width="60%" height="2rem" />
-          <Skeleton width="6rem" height="0.75rem" />
+    <DetailPageLayout banner={true} contentClassName="product-detail">
+      <div className="product-detail__grid">
+        <div className="product-hero product-layout-skeleton__hero">
+          <Skeleton width="8rem" height="0.75rem" />
+          <Skeleton width="70%" height="2.5rem" />
           <Skeleton width="4.5rem" height="1.5rem" radius="var(--radius-full)" />
         </div>
-        <Skeleton width="4rem" height="1.75rem" />
-      </div>
 
-      <div className="product-layout-skeleton__tabs">
-        <Skeleton width="5rem" height="2.25rem" radius="var(--radius-full)" />
-        <Skeleton width="7rem" height="2.25rem" radius="var(--radius-full)" />
-      </div>
+        <aside className="product-rail" aria-hidden="true">
+          <div className="product-rail__card">
+            <div className="product-rail__media product-layout-skeleton__media">
+              <Skeleton width="100%" height="100%" radius="var(--radius-lg)" />
+            </div>
+            <Skeleton width="100%" height="2.25rem" radius="var(--radius-full)" />
+          </div>
+        </aside>
 
-      <ProductInfoSkeleton />
+        <div className="product-detail__body">
+          <div className="product-layout-skeleton__tabs">
+            <Skeleton width="5rem" height="2.25rem" radius="var(--radius-full)" />
+            <Skeleton width="7rem" height="2.25rem" radius="var(--radius-full)" />
+          </div>
+
+          <ProductInfoSkeleton />
+        </div>
+      </div>
     </DetailPageLayout>
   )
 }
