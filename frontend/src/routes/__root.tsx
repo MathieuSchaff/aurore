@@ -11,11 +11,14 @@ import { NavigationProgress } from '../component/Feedback/app/NavigationProgress
 import { AppLayout } from '../component/Layout/AppLayout/AppLayout'
 import { readServerSessionHint } from '../lib/auth/readServerSessionHint'
 import { ServerHintProvider } from '../lib/auth/serverHint'
+import { loadSsrBoot } from '../lib/auth/ssrBoot'
 import { useBannedRedirect } from '../lib/auth/useBannedRedirect'
 import { useSessionExpiredRedirect } from '../lib/auth/useSessionExpiredRedirect'
 import { getCspNonce } from '../lib/csp/nonce'
 import { useBootRefresh } from '../lib/hooks/useBootRefresh'
 import { useTokenRefresh } from '../lib/hooks/useTokenRefresh'
+import { type AuthSessionCache, authQueries } from '../lib/queries/auth'
+import { profileQueries } from '../lib/queries/profile'
 import { NOINDEX_ROBOTS } from '../lib/seo'
 import type { RouterContext } from '../routerContext'
 import { useThemeStore } from '../store/theme'
@@ -79,9 +82,31 @@ export const Route = createRootRouteWithContext<RouterContext>()({
   // The root must allow SSR because a child cannot override a disabled ancestor.
   // Public routes opt into runtime SSR individually.
   ssr: true,
-  // Dehydrated loader data keeps the server and first client render on the same shell.
-  // Keep this request-scoped; never write the hint into the shared auth store.
-  loader: () => ({ serverHint: readServerSessionHint() }),
+  loader: async ({ context }) => {
+    const serverHint = readServerSessionHint()
+    if (!import.meta.env.SSR) {
+      return {
+        serverHint,
+        bootIssue: 'unknown' as const,
+        hasRefreshTokenCookie: false,
+      }
+    }
+
+    const boot = await loadSsrBoot()
+    context.queryClient.setQueryData<AuthSessionCache>(
+      authQueries.session().queryKey,
+      boot.data.session
+    )
+    if (boot.data.session.authenticated && boot.data.profile) {
+      context.queryClient.setQueryData(profileQueries.me().queryKey, boot.data.profile)
+    }
+
+    return {
+      serverHint,
+      bootIssue: boot.issue,
+      hasRefreshTokenCookie: boot.hasRefreshTokenCookie,
+    }
+  },
   head: () => ({
     meta: [
       { charSet: 'utf-8' },
@@ -126,7 +151,9 @@ export const Route = createRootRouteWithContext<RouterContext>()({
   }),
   // Vite's preload-error recovery requires a fresh HTML shell after each deploy.
   // Assets remain content-hashed and keep their independent long-lived cache policy.
-  headers: () => ({ 'Cache-Control': 'no-cache' }),
+  headers: ({ loaderData }) => ({
+    'Cache-Control': loaderData?.hasRefreshTokenCookie ? 'private, no-store' : 'no-cache',
+  }),
   component: RootComponent,
   // The router mounts the shell outside the root catch boundary, so the document
   // survives a root throw. Rendering it from `component` instead would strip

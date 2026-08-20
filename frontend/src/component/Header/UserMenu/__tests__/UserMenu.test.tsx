@@ -2,10 +2,10 @@ import { fireEvent, screen } from '@testing-library/react'
 import { HttpResponse, http } from 'msw'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
-import { useLogout } from '@/lib/queries/auth'
+import { type AuthSessionCache, authQueries, useLogout } from '@/lib/queries/auth'
 import { useAuthStore } from '@/store/auth'
 import { server } from '@/test/msw/server'
-import { renderWithProviders } from '@/test/utils'
+import { createTestQueryClient, renderWithProviders } from '@/test/utils'
 import { UserMenu } from '../UserMenu'
 
 vi.mock('@tanstack/react-router', async () => ({
@@ -16,7 +16,8 @@ vi.mock('@tanstack/react-router', async () => ({
   useNavigate: vi.fn(() => vi.fn()),
 }))
 
-vi.mock('@/lib/queries/auth', () => ({
+vi.mock('@/lib/queries/auth', async (importOriginal) => ({
+  ...(await importOriginal<typeof import('@/lib/queries/auth')>()),
   useLogout: vi.fn(),
 }))
 
@@ -108,6 +109,28 @@ describe('UserMenu', () => {
   it('shows the Modération link for a contributor', () => {
     setAuthStore({ accessToken: 'tok', role: 'contributor' })
     renderWithProviders(<UserMenu />)
+    openMenu()
+
+    expect(screen.getByRole('link', { name: /Modération/i })).toBeInTheDocument()
+  })
+
+  it('uses the dehydrated session role before the auth store is seeded', () => {
+    const queryClient = createTestQueryClient()
+    queryClient.setQueryData<AuthSessionCache>(authQueries.session().queryKey, {
+      authenticated: true,
+      userId: '019c0000-0000-7000-8000-000000000001',
+      role: 'contributor',
+      user: {
+        id: '019c0000-0000-7000-8000-000000000001',
+        email: 'ssr@example.test',
+        createdAt: '2026-08-14T10:00:00.000Z',
+        emailVerified: true,
+        role: 'contributor',
+        isDemo: false,
+      },
+    })
+
+    renderWithProviders(<UserMenu />, { queryClient })
     openMenu()
 
     expect(screen.getByRole('link', { name: /Modération/i })).toBeInTheDocument()
