@@ -78,7 +78,7 @@ describe('withRlsContext', () => {
 
     app.route('/__test_role__', probe)
 
-    // Claim minted as contributor, row demoted right after: the stale claim must not win
+    // Token issued as contributor, row demoted right after: the stale claim must not win
     const token = await generateAccessToken(user.id, 'contributor', JWT_SECRET)
     await testDb.update(users).set({ role: 'user' }).where(eq(users.id, user.id))
 
@@ -88,7 +88,7 @@ describe('withRlsContext', () => {
 
     const body = (await res.json()) as { rows: Array<{ role: string }>; ctxRole: string | null }
     expect(body.rows[0]?.role).toBe('user')
-    // Downstream guards and services read the context role: same row, same verdict
+    // Guards and services read the context role: it must come from the row too
     expect(body.ctxRole).toBe('user')
   })
 
@@ -131,7 +131,7 @@ describe('withRlsContext', () => {
   })
 
   it('rolls back the tx when the handler throws after a DB insert', async () => {
-    // Use a real seeded user so the FK on user_preferences.user_id is satisfied.
+    // Use a real seeded user so the FK on user_preferences.user_id is satisfied
     const user = await createTestUser('rls-rollback-probe@test.local', 'Azerty123!')
 
     const app = await createRlsTestApp()
@@ -154,11 +154,11 @@ describe('withRlsContext', () => {
       headers: { Authorization: `Bearer ${token}` },
     })
 
-    // globalErrorHandler returns 500 for generic errors that are not domain errors.
+    // globalErrorHandler returns 500 for generic errors that are not domain errors
     expect(res.status).toBeGreaterThanOrEqual(500)
     expect(res.headers.get(REQUEST_DB_AFTER_HEADER)).toBe('absent')
 
-    // Confirm the tx rolled back: the row must not exist outside the request tx.
+    // Confirm the tx rolled back: the row must not exist outside the request tx
     const persisted = await testDb
       .select()
       .from(userPreferences)
