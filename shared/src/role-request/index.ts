@@ -43,6 +43,11 @@ export type RoleRequestView = {
 
 export type ListRoleRequestsResponse = { items: RoleRequestView[] }
 
+// canApply comes from the database role, not the bearer: right after an approval the
+// session still says `user` while the account is contributor, and after a demotion
+// the latest request still says `approved`. The client cannot tell those apart
+export type MyRoleRequestResponse = { latest: RoleRequestView | null; canApply: boolean }
+
 export type SubmitRoleRequestErrorCode = CommonErrorCode | 'already_pending' | 'already_elevated'
 
 export const submitRoleRequestErrorMapping = {
