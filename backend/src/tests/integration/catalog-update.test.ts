@@ -125,13 +125,7 @@ describe('catalog update: updateProduct dedup on rename', () => {
 
     const err = await captureError(() =>
       testDb.transaction((tx) =>
-        updateProduct(
-          user.id,
-          movable.id,
-          { name: 'Existing Serum', brand: 'DedupBrand' },
-          undefined,
-          tx
-        )
+        updateProduct(user.id, movable.id, { name: 'Existing Serum', brand: 'DedupBrand' }, tx)
       )
     )
 
@@ -159,7 +153,6 @@ describe('catalog update: updateProduct field-strip', () => {
           verifiedBy: user.id,
           verifiedAt: new Date().toISOString(),
         } as never,
-        undefined,
         tx
       )
     )
@@ -185,7 +178,7 @@ describe('catalog update: updateProduct 0-row disambiguation', () => {
 
     const err = await captureError(() =>
       withRls('user', user.id, (tx) =>
-        updateProduct(user.id, product.id, { name: 'Renamed Serum' }, undefined, tx)
+        updateProduct(user.id, product.id, { name: 'Renamed Serum' }, tx)
       )
     )
 
@@ -198,9 +191,7 @@ describe('catalog update: updateProduct 0-row disambiguation', () => {
     const fakeId = crypto.randomUUID()
 
     const err = await captureError(() =>
-      withRls('user', user.id, (tx) =>
-        updateProduct(user.id, fakeId, { name: 'Ghost Serum' }, undefined, tx)
-      )
+      withRls('user', user.id, (tx) => updateProduct(user.id, fakeId, { name: 'Ghost Serum' }, tx))
     )
 
     expect(err).toBeInstanceOf(ProductError)
@@ -216,7 +207,7 @@ describe('catalog update: updateProduct 0-row disambiguation', () => {
 
     const err = await captureError(() =>
       withRls('user', other.id, (tx) =>
-        updateProduct(other.id, product.id, { name: 'Hijacked Serum' }, undefined, tx)
+        updateProduct(other.id, product.id, { name: 'Hijacked Serum' }, tx)
       )
     )
 
