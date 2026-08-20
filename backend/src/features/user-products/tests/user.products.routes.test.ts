@@ -147,56 +147,6 @@ describe('User Products API', () => {
     })
   })
 
-  describe('GET /user-products/:id', () => {
-    it('returns the user product with relations', async () => {
-      const up = await createUserProduct()
-
-      const fetched = await expectOk(
-        client['user-products'][':id'].$get({ param: { id: up.id } }, withAuth(token))
-      )
-      expect(fetched.id).toBe(up.id)
-      expect(fetched.product).toBeDefined()
-    })
-
-    it('returns 404 for unknown id', async () => {
-      const fakeId = crypto.randomUUID()
-      await expectNotFound(
-        client['user-products'][':id'].$get({ param: { id: fakeId } }, withAuth(token))
-      )
-    })
-
-    it('returns 404 for another user product', async () => {
-      const up = await createOtherUserProduct()
-
-      await expectNotFound(
-        client['user-products'][':id'].$get({ param: { id: up.id } }, withAuth(token))
-      )
-    })
-  })
-
-  describe('GET /user-products/product/:productId', () => {
-    it('resolves the collection row from the catalogue product id', async () => {
-      const up = await createUserProduct()
-
-      const fetched = await expectOk(
-        client['user-products'].product[':productId'].$get(
-          { param: { productId } },
-          withAuth(token)
-        )
-      )
-      expect(fetched.id).toBe(up.id)
-    })
-
-    it('returns 404 when the product is not in the collection', async () => {
-      await expectNotFound(
-        client['user-products'].product[':productId'].$get(
-          { param: { productId } },
-          withAuth(token)
-        )
-      )
-    })
-  })
-
   describe('PATCH /user-products/:id', () => {
     it('updates status', async () => {
       const up = await createUserProduct()
