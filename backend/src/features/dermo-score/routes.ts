@@ -31,6 +31,9 @@ const app = new Hono<AppEnv>()
 app.use('*', optionalJwtAuth)
 app.use('*', withRlsContext)
 
+// The JSDoc below is not a comment, it is the OpenAPI entry for this route: `just docs` extracts it
+// with ts-morph and serves it at /api/docs. It only binds from inside the chain, so moving it above
+// this line disables it silently. Deleted twice as dead scaffolding, restored twice
 export const dermoScoreRoutes = app
   /**
    * @summary Product dermo score
