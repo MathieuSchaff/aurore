@@ -1,8 +1,5 @@
 import type { PurchaseErrorCode } from '@aurore/shared'
 
-export class PurchaseError extends Error {
-  constructor(public code: PurchaseErrorCode) {
-    super(code)
-    this.name = 'PurchaseError'
-  }
-}
+import { DomainError } from '../../utils/errors/domain-error'
+
+export class PurchaseError extends DomainError<PurchaseErrorCode> {}
