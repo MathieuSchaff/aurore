@@ -75,6 +75,21 @@ export async function verifyEmailToken(db: Database, rawToken: string) {
   return ok(row.userId)
 }
 
+// Resend reads both in one go: null means unknown user or already verified,
+// and both cases answer the same neutral OK (no enumeration signal)
+export async function getUnverifiedEmail(
+  db: DbOrTransaction,
+  userId: string
+): Promise<string | null> {
+  const [row] = await db
+    .select({ emailVerifiedAt: usersSafe.emailVerifiedAt, email: usersSafe.email })
+    .from(usersSafe)
+    .where(eq(usersSafe.id, userId))
+    .limit(1)
+  if (!row || row.emailVerifiedAt !== null) return null
+  return row.email
+}
+
 export async function hasVerifiedEmail(db: Database, userId: string): Promise<boolean> {
   const [row] = await db
     .select({ emailVerifiedAt: usersSafe.emailVerifiedAt })
