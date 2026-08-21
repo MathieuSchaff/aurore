@@ -27,9 +27,10 @@ import { describe, expect, it } from 'bun:test'
 import { decodeIdToken } from 'arctic'
 import { eq } from 'drizzle-orm'
 
-import { profiles, users } from '../../../db/schema'
+import { profiles, userBans, users } from '../../../db/schema'
 import { getGoogleInstance } from '../../../lib/artic'
-import { createTestUser } from '../../../tests/helpers/test-factories'
+import { createTestApp } from '../../../tests/helpers/createTestApp'
+import { createTestAdminUser, createTestUser } from '../../../tests/helpers/test-factories'
 import { getGoogleAuthUrl, handleGoogleCallback } from '../google.service'
 import { createCtx, testDb } from './auth-test.setup'
 
@@ -199,5 +200,32 @@ describe('handleGoogleCallback', () => {
     expect(result.success).toBe(false)
     if (result.success) return
     expect(result.error).toBe('server_error')
+  })
+})
+
+describe('GET /auth/google/callback ban gate', () => {
+  it('redirects a banned account to /auth/banned without issuing a refresh cookie', async () => {
+    const user = await createTestUser('googleuser@example.com', 'Azerty123!')
+    const admin = await createTestAdminUser('admin-google@example.com', 'Azerty123!')
+    await testDb
+      .insert(userBans)
+      .values({ userId: user.id, scope: 'global', bannedBy: admin.id, reason: 'spam' })
+    const app = await createTestApp()
+
+    const res = await app.request(
+      '/api/auth/google/callback?code=auth-code&state=test-state-fixed',
+      {
+        headers: {
+          Cookie: 'google_oauth_state=test-state-fixed; google_code_verifier=code-verifier',
+        },
+      }
+    )
+
+    expect(res.status).toBe(302)
+    expect(res.headers.get('location')).toBe('http://localhost:5173/auth/banned')
+    const issued = res.headers
+      .getSetCookie()
+      .some((entry) => entry.startsWith('refresh_token=') && !entry.includes('Max-Age=0'))
+    expect(issued).toBe(false)
   })
 })

@@ -261,4 +261,21 @@ describe('refresh', () => {
     if (result.success) return
     expect(result.error).toBe('email_not_verified')
   })
+
+  it('rotates a token only once when two refreshes race on it', async () => {
+    const creds = TEST_CREDENTIALS.toto
+    await createTestUser(creds.rawEmail, creds.rawPassword)
+    const { refreshToken } = await connecterEtRecupererTokens(creds.rawEmail, creds.rawPassword)
+
+    const results = await Promise.all([
+      refresh(createCtx({ ip: '10.0.0.1', userAgent: 'TabA/1.0' }), refreshToken),
+      refresh(createCtx({ ip: '10.0.0.2', userAgent: 'TabB/1.0' }), refreshToken),
+    ])
+
+    expect(results.filter((result) => result.success)).toHaveLength(1)
+    const [loser] = results.filter((result) => !result.success)
+    expect(loser).toBeDefined()
+    if (!loser || loser.success) return
+    expect(loser.error).toBe('invalid_token')
+  })
 })
