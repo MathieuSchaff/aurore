@@ -5,7 +5,7 @@ import type { UserProductStatus } from '@aurore/shared'
 import { eq } from 'drizzle-orm'
 
 import { userProductStatusLog } from '../../../db/schema/products/user-product-status-log'
-import { userProductReviews, userProducts } from '../../../db/schema/user-products'
+import { userProductReviews, userProducts } from '../../../db/schema/products/user-products'
 import { testDb } from '../../../tests/db.test.config'
 import { cleanDatabase } from '../../../tests/helpers/db-cleaner'
 import {
@@ -16,8 +16,6 @@ import {
 import {
   createUserProduct,
   deleteUserProduct,
-  getUserProductById,
-  getUserProductByProductId,
   getUserProductStatusHistory,
   getUserProducts,
   updateUserProduct,
@@ -30,10 +28,6 @@ import { UserProductError } from '../user-product-error'
 const createUP = (userId: string, input: Parameters<typeof createUserProduct>[1]) =>
   testDb.transaction((tx) => createUserProduct(userId, input, tx))
 const getUPs = (userId: string) => testDb.transaction((tx) => getUserProducts(userId, tx))
-const getUPById = (userId: string, id: string) =>
-  testDb.transaction((tx) => getUserProductById(userId, id, tx))
-const getUPByProductId = (userId: string, productId: string) =>
-  testDb.transaction((tx) => getUserProductByProductId(userId, productId, tx))
 const updateUP = (userId: string, id: string, input: Parameters<typeof updateUserProduct>[2]) =>
   testDb.transaction((tx) => updateUserProduct(userId, id, input, tx))
 const deleteUP = (userId: string, id: string) =>
@@ -110,48 +104,6 @@ describe('User Products Service', () => {
     })
   })
 
-  describe('getUserProductById', () => {
-    it('should return a user product by id', async () => {
-      const created = await collect()
-
-      const fetched = await getUPById(user.id, created.id)
-      expect(fetched?.id).toBe(created.id)
-    })
-
-    it('should throw if not found', async () => {
-      const fakeId = crypto.randomUUID()
-      await expect(getUPById(user.id, fakeId)).rejects.toThrow(UserProductError)
-    })
-
-    it('should throw if the product belongs to another user', async () => {
-      const created = await collect()
-      const otherUser = await createTestUser('other@test.com')
-
-      await expect(getUPById(otherUser.id, created.id)).rejects.toThrow(UserProductError)
-    })
-  })
-
-  describe('getUserProductByProductId', () => {
-    it('should return a user product by productId', async () => {
-      await collect()
-
-      const fetched = await getUPByProductId(user.id, product.id)
-      expect(fetched?.productId).toBe(product.id)
-    })
-
-    it('should throw if not found', async () => {
-      const fakeProductId = crypto.randomUUID()
-      await expect(getUPByProductId(user.id, fakeProductId)).rejects.toThrow(UserProductError)
-    })
-
-    it('should throw if the user has no association with this product', async () => {
-      await collect()
-      const otherUser = await createTestUser('other@test.com')
-
-      await expect(getUPByProductId(otherUser.id, product.id)).rejects.toThrow(UserProductError)
-    })
-  })
-
   describe('updateUserProduct', () => {
     it('should update a user product', async () => {
       const created = await collect()
@@ -183,7 +135,7 @@ describe('User Products Service', () => {
 
       await deleteUP(user.id, created.id)
 
-      await expect(getUPById(user.id, created.id)).rejects.toThrow(UserProductError)
+      expect(await getUPs(user.id)).toHaveLength(0)
     })
 
     it('should throw if user product does not exist', async () => {
