@@ -1,11 +1,7 @@
 import { CryptoHasher } from 'bun'
 
 import type { AccessTokenPayload, RefreshTokenPayload } from '@aurore/shared'
-import {
-  accessTokenPayloadSchema,
-  refreshTokenPayloadSchema,
-  SESSION_HINT_COOKIE,
-} from '@aurore/shared'
+import { accessTokenPayloadSchema, refreshTokenPayloadSchema } from '@aurore/shared'
 
 import type { Context } from 'hono'
 import { deleteCookie, getCookie, setCookie } from 'hono/cookie'
@@ -19,12 +15,6 @@ const JWT_CONFIG = {
 } as const
 const REFRESH_TOKEN_COOKIE = 'refresh_token'
 const REFRESH_TOKEN_COOKIE_PATH = '/'
-const LEGACY_REFRESH_TOKEN_COOKIE_PATH = '/api/auth'
-
-function clearLegacySessionHintCookie(c: Context<AppEnv>) {
-  // Keep expiring hints issued by older releases until the compatibility window closes.
-  deleteCookie(c, SESSION_HINT_COOKIE, { path: '/' })
-}
 
 export async function generateAccessToken(
   userId: string,
@@ -131,15 +121,10 @@ export function setRefreshTokenCookie(
     path: REFRESH_TOKEN_COOKIE_PATH,
     maxAge: JWT_CONFIG.refreshTokenExpiry,
   })
-  // Keep clearing the old path while migrated sessions can still carry a revoked cookie there.
-  deleteCookie(c, REFRESH_TOKEN_COOKIE, { path: LEGACY_REFRESH_TOKEN_COOKIE_PATH })
-  clearLegacySessionHintCookie(c)
 }
 
 export function clearRefreshTokenCookie(c: Context<AppEnv>) {
   deleteCookie(c, REFRESH_TOKEN_COOKIE, { path: REFRESH_TOKEN_COOKIE_PATH })
-  deleteCookie(c, REFRESH_TOKEN_COOKIE, { path: LEGACY_REFRESH_TOKEN_COOKIE_PATH })
-  clearLegacySessionHintCookie(c)
 }
 
 export function hashJti(jti: string): string {
