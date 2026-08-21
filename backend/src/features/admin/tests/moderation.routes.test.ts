@@ -310,7 +310,7 @@ describe('POST /admin/moderation/* + public read filters', () => {
     expect(res.status).toBe(HTTP_STATUS.OK)
   })
 
-  // Admin-only / irreversible subset stays closed to contributor in S1.
+  // Admin-only / irreversible subset stays closed to contributor.
   it('contributor gets 403 on force-private (account-level, admin-only)', async () => {
     const res = await client.admin.moderation.profiles[':userId'].visibility.$patch(
       { param: { userId: ANY_USER_ID }, json: { forcedPrivate: true } },

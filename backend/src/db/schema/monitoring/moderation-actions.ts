@@ -7,7 +7,7 @@ import { users } from '../auth/users'
 
 // Only the moderation acts that leave nothing behind. Ban creation, content moderation,
 // report review, suggested-edit review and role-request review all record their actor on
-// the domain row itself, and duplicating them here would contradict audit-logs.mdx.
+// the domain row itself, and duplicating them here would record the same actor twice.
 export const moderationActionValues = ['ban_lifted', 'ban_updated', 'role_changed'] as const
 
 export type ModerationActionName = (typeof moderationActionValues)[number]

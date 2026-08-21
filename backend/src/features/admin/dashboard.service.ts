@@ -14,7 +14,7 @@ export async function getAdminDashboard(db: DatabaseTransaction): Promise<AdminD
 
   // Sequential on purpose: this service receives `requestDb`, so it is
   // always the RLS transaction, i.e. one connection. Fanning these counts out with
-  // Promise.all is what wedged that connection "idle in transaction" in fetchProductMeta,
+  // Promise.all is what wedged that connection "idle in transaction" in fetchProductRowExtras,
   // and ten wedged connections exhaust the Bun SQL pool and take the whole API down.
   const openReportsRows = await db
     .select({ count: sql<number>`COUNT(*)::int` })
