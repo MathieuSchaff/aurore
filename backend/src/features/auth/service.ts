@@ -2,6 +2,7 @@ import type {
   ApiResponse,
   AuthenticatedResult,
   ChangePasswordResult,
+  CreateRefreshTokenArgs,
   Email,
   HashedPassword,
   LoginResult,
@@ -30,11 +31,13 @@ import { createVerificationToken } from './email-verification.service'
 import { generateAccessToken, generateRefreshToken, verifyRefreshToken } from './jwt.utils'
 import {
   cleanupUserRefreshTokens,
+  consumeRefreshTokenTx,
   findValidRefreshToken,
   revokeAllUserRefreshTokens,
   revokeAllUserRefreshTokensTx,
   revokeRefreshToken,
   storeRefreshToken,
+  storeRefreshTokenTx,
 } from './refresh-token.service'
 import {
   createProfile,
@@ -44,6 +47,8 @@ import {
   getUserById,
   toPublicUser,
 } from './user.utils'
+
+export { getUserRole } from './user-role.service'
 
 export type AuthContext = {
   db: Database
@@ -92,7 +97,9 @@ async function resetFailedLogins(db: Database, userId: string): Promise<void> {
     .where(eq(users.id, userId))
 }
 
-export async function createTokenPair(
+// Signs both tokens without storing the refresh one, so the caller picks the
+// transaction the successor row lands in
+async function issueTokenPair(
   ctx: AuthContext,
   userId: string,
   role: 'user' | 'admin' | 'contributor'
@@ -104,15 +111,24 @@ export async function createTokenPair(
     expiresAt,
   } = await generateRefreshToken(userId, ctx.refreshSecret)
 
-  await storeRefreshToken(ctx.db, {
+  const successor: CreateRefreshTokenArgs = {
     userId,
     jti,
     expiresAt,
     ip: ctx.ip,
     userAgent: ctx.userAgent,
-  })
+  }
+  return { accessToken, refreshToken, successor }
+}
 
-  return { accessToken, refreshToken }
+export async function createTokenPair(
+  ctx: AuthContext,
+  userId: string,
+  role: 'user' | 'admin' | 'contributor'
+) {
+  const { successor, ...tokens } = await issueTokenPair(ctx, userId, role)
+  await storeRefreshToken(ctx.db, successor)
+  return tokens
 }
 
 // Enumeration-safe (ADR 0009): new-email and existing-email branches return the
@@ -279,12 +295,20 @@ export async function refresh(ctx: AuthContext, rawRefreshToken: string): Promis
       const graceCutoffMs = Date.now() - 24 * 60 * 60 * 1000
       if (Date.parse(user.createdAt) < graceCutoffMs) return err('email_not_verified')
     }
-    // Cleanup before createTokenPair: only deletes expired/revoked tokens, not the active
-    // payload.jti. If createTokenPair fails, the caller still holds a valid token.
+    // Cleanup first: it only deletes expired/revoked tokens, never the active payload.jti
     await cleanupUserRefreshTokens(ctx.db, payload.sub)
 
-    const tokens = await createTokenPair(ctx, payload.sub, user.role)
-    await revokeRefreshToken(ctx.db, payload.jti, payload.sub)
+    const { successor, ...tokens } = await issueTokenPair(ctx, payload.sub, user.role)
+    // Consume and replace in one transaction. Two refreshes racing on the same token
+    // used to both succeed and open two sessions; now the loser matches no row and
+    // stops here, and a failed insert rolls the consume back so the caller keeps its token
+    const rotated = await ctx.db.transaction(async (tx) => {
+      const consumed = await consumeRefreshTokenTx(tx, payload.jti, payload.sub)
+      if (!consumed) return false
+      await storeRefreshTokenTx(tx, successor)
+      return true
+    })
+    if (!rotated) return err('invalid_token')
 
     return ok({
       user,
