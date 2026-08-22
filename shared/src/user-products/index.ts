@@ -81,7 +81,7 @@ export const updateUserProductReviewSchema = z.object({
   ratingsPublic: z.boolean().optional(),
 })
 
-// Public reviews surface (#7): only review fields + reviewer pseudonym.
+// Public reviews surface: only review fields + reviewer pseudonym.
 // Sentiment/wouldRepurchase/experience tags stay private (live on user_products).
 export const publicReviewViewSchema = z.object({
   // Exposed so user-facing UI can "report" a review. Already public per
@@ -116,7 +116,7 @@ export const publicProductReviewsResponseSchema = z.object({
   reviews: z.array(publicReviewViewSchema),
 })
 
-// Profile surface (#7 / social T4): same review view, but the product is
+// Profile surface: same review view, but the product is
 // explicit (on a product page it is implicit). Extends, so the gards/projection
 // stay shared and the product-page surface is untouched.
 export const publicProfileReviewViewSchema = publicReviewViewSchema.extend({

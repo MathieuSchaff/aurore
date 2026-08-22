@@ -1,6 +1,6 @@
-// Zod-free core surface: HTTP codes, error mappings, response types and
-// factories. Kept separate from ./schemas so boot code importing HTTP_STATUS or
-// the response helpers doesn't pull zod into the critical path.
+// Core surface that does not import zod: HTTP codes, error mappings, response
+// types and factories. Kept separate from ./schemas so boot code importing
+// HTTP_STATUS or the response helpers does not pull zod into the critical path
 
 export const HTTP_STATUS = {
   OK: 200,
@@ -28,6 +28,7 @@ export const baseErrorMapping = {
   unauthorized: HTTP_STATUS.UNAUTHORIZED,
   forbidden: HTTP_STATUS.FORBIDDEN,
   server_error: HTTP_STATUS.INTERNAL_SERVER_ERROR,
+  http_error: HTTP_STATUS.INTERNAL_SERVER_ERROR,
   rate_limit_exceeded: 429,
 } as const satisfies Record<string, HttpStatus>
 
@@ -37,14 +38,14 @@ export type ApiSuccess<T> = {
   message?: string
 }
 
-export type ApiError<E extends string = string> = {
+export type ApiFailure<E extends string = string, D = unknown> = {
   success: false
   error: E
-  details?: unknown
+  details?: D
 }
 
 /* Always narrow with isApiSuccess before accessing data or error. */
-export type ApiResponse<T, E extends string = string> = ApiSuccess<T> | ApiError<E>
+export type ApiResponse<T, E extends string = string> = ApiSuccess<T> | ApiFailure<E>
 
 export type CommonErrorCode = keyof typeof baseErrorMapping
 
@@ -53,7 +54,7 @@ export type FieldChange<T> = {
   new: T | null
 }
 
-// Shared by both products and ingredients tag-filter modules.
+// Shared by both products and ingredients tag filter modules
 export type FilterTier = 'essential' | 'advanced'
 
 export interface TagCategoryMeta {
@@ -63,7 +64,7 @@ export interface TagCategoryMeta {
   order: number
   // Optional override: when undefined, the drawer falls back to
   // (tier === 'essential'). Set explicitly to keep some essentials
-  // collapsed by default and reduce cognitive load on first open.
+  // collapsed by default and reduce cognitive load on first open
   defaultOpen?: boolean
 }
 
@@ -73,7 +74,7 @@ export const ok = <T>(data: T, message?: string): ApiSuccess<T> => ({
   message,
 })
 
-export const err = <E extends string>(error: E, details?: unknown): ApiError<E> => ({
+export const err = <E extends string, D = unknown>(error: E, details?: D): ApiFailure<E, D> => ({
   success: false,
   error,
   details,
