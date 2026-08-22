@@ -12,7 +12,8 @@ import {
   type TestClient,
   withAuth,
 } from '../../../tests/helpers/createTestClient'
-import { expectError, expectStatus } from '../../../tests/helpers/expectStatus'
+import { expectError, expectOk, expectStatus } from '../../../tests/helpers/expectStatus'
+import { TEST_CREDENTIALS } from '../../../tests/helpers/test-credentials'
 import { _banCacheSize, clearBanCache } from '../ban.service'
 import { seedBanActors } from './ban-test.setup'
 
@@ -119,5 +120,80 @@ describe('Ban enforcement (requireNotBanned)', () => {
 
     const body = await expectError<BannedDetails>(res, HTTP_STATUS.FORBIDDEN, 'banned')
     expect(body.details?.reason).toBe('recent')
+  })
+})
+
+// Every route that hands out a fresh token must refuse a banned account, like /login does
+describe('Ban gate at token emission', () => {
+  let client: TestClient
+  let userId: string
+  let adminId: string
+  const { rawEmail, rawPassword } = TEST_CREDENTIALS.toto
+
+  beforeAll(async () => {
+    client = await createTestClient()
+  })
+
+  beforeEach(async () => {
+    clearBanCache()
+    ;({ userId, adminId } = await seedBanActors(client))
+  })
+
+  afterEach(() => {
+    clearBanCache()
+  })
+
+  function banGlobally() {
+    return testDb
+      .insert(userBans)
+      .values({ userId, scope: 'global', bannedBy: adminId, reason: 'spam' })
+  }
+
+  function refreshCookieOf(res: { headers: Headers }): string {
+    const cookie = res.headers
+      .getSetCookie()
+      .find((entry) => entry.startsWith('refresh_token=') && !entry.includes('Max-Age=0'))
+    if (!cookie) throw new Error('no refresh cookie issued')
+    return cookie.split(';', 1)[0] ?? ''
+  }
+
+  it('rejects /mobile/login with 403 banned when the account has an active global ban', async () => {
+    await banGlobally()
+
+    const res = await client.auth.mobile.login.$post({
+      json: { email: rawEmail, password: rawPassword },
+    })
+
+    const body = await expectError<BannedDetails>(res, HTTP_STATUS.FORBIDDEN, 'banned')
+    expect(body.details).toEqual({ reason: 'spam', expiresAt: null })
+  })
+
+  it('rejects /refresh with 403 banned and clears the cookie when the ban lands after login', async () => {
+    const loginRes = await client.auth.login.$post({
+      json: { email: rawEmail, password: rawPassword },
+    })
+    const cookie = refreshCookieOf(loginRes)
+    await banGlobally()
+
+    const res = await client.auth.refresh.$post({}, { headers: { Cookie: cookie } })
+
+    await expectError(res, HTTP_STATUS.FORBIDDEN, 'banned')
+    const cleared = res.headers
+      .getSetCookie()
+      .some((entry) => entry.startsWith('refresh_token=') && entry.includes('Max-Age=0'))
+    expect(cleared).toBe(true)
+  })
+
+  it('rejects /mobile/refresh with 403 banned when the ban lands after login', async () => {
+    const session = await expectOk(
+      client.auth.mobile.login.$post({ json: { email: rawEmail, password: rawPassword } })
+    )
+    await banGlobally()
+
+    const res = await client.auth.mobile.refresh.$post({
+      json: { refreshToken: session.refreshToken },
+    })
+
+    await expectError(res, HTTP_STATUS.FORBIDDEN, 'banned')
   })
 })
