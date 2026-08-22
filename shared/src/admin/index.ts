@@ -1,28 +1,14 @@
 import { z } from 'zod'
 
+import { type BanScope, banScopeSchema } from '../auth/ban'
 import type { ApiResponse, CommonErrorCode, HttpStatus } from '../core'
 import { HTTP_STATUS } from '../core'
 
-// Mirror of the DB `ban_scope` enum (backend/src/db/schema/auth/user-bans.ts).
-// Keep in sync if a new scope is added.
-export const banScopeSchema = z.enum([
-  'global',
-  'ingredient_edit',
-  'product_edit',
-  'product_create',
-  'ingredient_create',
-  'discussion_post',
-  'review_publish',
-  'social_post',
-])
-
-export type BanScope = z.infer<typeof banScopeSchema>
-
 export const createBanBodySchema = z.object({
   scope: banScopeSchema,
-  // Trim before length check so whitespace-only payloads are rejected.
+  // Trim before length check so whitespace-only payloads are rejected
   reason: z.string().trim().min(1).max(500).optional(),
-  // ISO 8601 UTC. Backend rejects past timestamps as invalid_input.
+  // ISO 8601 UTC. Backend rejects past timestamps as invalid_input
   expiresAt: z.iso.datetime().optional(),
 })
 
@@ -45,11 +31,18 @@ export type CreateBanResponse = {
   createdAt: string
 }
 
+export const adminBanStatusSchema = z.enum(['active', 'expired'])
+export type AdminBanStatus = z.infer<typeof adminBanStatusSchema>
+
+export type AdminBanListItem = CreateBanResponse & {
+  status: AdminBanStatus
+}
+
 export type CreateBanResult = ApiResponse<CreateBanResponse, AdminBanErrorCode>
 
 // PATCH body: scope is immutable (creating a new ban is the right move for a
 // different scope). Both fields nullable so admin can clear reason or make a
-// ban permanent (null expiresAt).
+// ban permanent (null expiresAt)
 export const updateBanBodySchema = z
   .object({
     reason: z.string().trim().min(1).max(500).nullable().optional(),
@@ -63,25 +56,24 @@ export type UpdateBanInput = z.infer<typeof updateBanBodySchema>
 
 export type UpdateBanResult = ApiResponse<CreateBanResponse, AdminBanErrorCode>
 
-export type AdminUserListItem = {
+export type AdminUserAccount = {
   id: string
   email: string
   role: 'user' | 'admin' | 'contributor'
   emailVerifiedAt: string | null
   createdAt: string
   // From profiles.forcedPrivateByAdmin (LEFT JOIN, defaulted to false if no
-  // profile row yet). Lets the admin UI hydrate the force-private toggle.
+  // profile row yet). Lets the admin UI hydrate the force-private toggle
   forcedPrivateByAdmin: boolean
 }
 
 export type ListUsersResponse = {
-  items: AdminUserListItem[]
+  items: AdminUserAccount[]
 }
 
-// Admin-only demotion of a contributor back to a plain user. The only
-// allowed target role is 'user'; promotion goes through the separate role-request
-// flow. reason is operational context, persisted in the append-only moderation
-// audit trail because users.role itself is overwritten in place.
+// Admin-only demotion of a contributor back to a plain user. Only target role is
+// 'user'; promotion goes through the separate role-request flow. reason is kept in
+// the append-only moderation audit trail because users.role gets overwritten in place
 export const updateRoleBodySchema = z.object({
   role: z.literal('user'),
   reason: z.string().trim().min(1).max(500).optional(),
@@ -103,7 +95,7 @@ export type UpdateRoleResponse = {
 
 export type UpdateRoleResult = ApiResponse<UpdateRoleResponse, AdminRoleErrorCode>
 
-// Mirror of the DB `moderation_status` enum (backend/src/db/schema/_moderation.ts).
+// Mirror of the DB `moderation_status` enum (backend/src/db/schema/_moderation.ts)
 export const moderationStatusSchema = z.enum(['visible', 'hidden'])
 export type ModerationStatus = z.infer<typeof moderationStatusSchema>
 
@@ -115,7 +107,7 @@ export const moderateContentBodySchema = z.object({
 export type ModerateContentInput = z.infer<typeof moderateContentBodySchema>
 
 // Catalog quality stamp: verify can only move a row to 'verified' and there is no
-// way back, so the body is a single literal.
+// way back, so the body is a single literal
 export const verifyQualityBodySchema = z.object({ quality: z.literal('verified') })
 export type VerifyQualityInput = z.infer<typeof verifyQualityBodySchema>
 
@@ -126,8 +118,8 @@ export type ModerateContentResult = ApiResponse<
 
 export type ModerationTarget = 'reviews' | 'threads' | 'replies' | 'products' | 'ingredients'
 
-// Quick admin dashboard snapshot: at-a-glance counts so admins land on the
-// workload, not on an arbitrary subpage.
+// Quick counts for the admin dashboard, so admins land on the workload,
+// not on an arbitrary subpage
 export type AdminDashboard = {
   openReports: number
   activeBans: number
@@ -140,7 +132,7 @@ export type AdminDashboard = {
 
 // Admin override on a user profile. forcedPrivate=true hides every public
 // surface for that profile (and reviewer pseudonym on public reviews).
-// forcedPrivate=false clears the override and restores the user's own toggle.
+// forcedPrivate=false clears the override and restores the user's own toggle
 export const moderateProfileBodySchema = z.object({
   forcedPrivate: z.boolean(),
   reason: z.string().trim().min(1).max(500).nullable().optional(),
@@ -154,7 +146,7 @@ export type ModerateProfileResult = ApiResponse<
 >
 
 // Admin-only preview of moderated content. Bypasses the public 'visible' filter
-// so admins can read hidden rows before deciding to restore or keep down.
+// so admins can read hidden rows before deciding to restore or keep down
 export type ContentPreview = {
   id: string
   moderationStatus: ModerationStatus
@@ -172,10 +164,9 @@ export type ContentPreview = {
 
 export type ContentPreviewResult = ApiResponse<ContentPreview, CommonErrorCode>
 
-// Catalog moderation queue (#16). The queue lists submitted catalog rows so a
-// moderator can verify (bless) or hide them. One request = one kind (a tab), so the
-// product-only `brand` field is null for ingredients. ContentPreview is the single-row
-// preview shape and lacks catalogQuality, hence this dedicated list item.
+// Catalog moderation queue. Lists submitted catalog rows so a moderator can
+// verify (bless) or hide them. One request = one kind, so `brand` is null for
+// ingredients. Kept as its own item because ContentPreview lacks catalogQuality
 export const catalogKindSchema = z.enum(['product', 'ingredient'])
 export type CatalogKind = z.infer<typeof catalogKindSchema>
 

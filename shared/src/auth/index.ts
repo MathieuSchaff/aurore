@@ -3,7 +3,7 @@ import { z } from 'zod'
 import type { ApiResponse, CommonErrorCode } from '../core'
 import { HTTP_STATUS, type HttpStatus } from '../core'
 
-export * from './cookies'
+export * from './ban'
 export * from './ssr-boot'
 
 export const accessTokenPayloadSchema = z.object({
@@ -58,7 +58,7 @@ export const signupSchema = z
     path: ['confirmPassword'],
   })
 
-// token is always 64 hex chars (generateRawToken); reject malformed input before the service.
+// token is always 64 hex chars (generateRawToken); reject malformed input before the service
 export const verifyEmailBodySchema = z.object({
   token: z.string().length(64),
 })
@@ -147,6 +147,10 @@ export type SignupErrorCode = 'server_error'
 
 export type LoginErrorCode = 'invalid_credentials' | 'email_not_verified' | 'server_error'
 
+export type ForgotPasswordErrorCode = 'server_error'
+
+export type VerifyEmailErrorCode = 'invalid_token' | 'token_expired' | 'server_error'
+
 /* Enumeration-safe: signup returns this identical neutral shape whether the email
    is new or already registered, with no session. Truth is delivered only by email.
    See ADR 0009. */
@@ -159,7 +163,7 @@ export type SignupResult = ApiResponse<SignupPending, SignupErrorCode>
    owner, by email. See ADR 0010. */
 export type PasswordResetPending = { pending: true }
 
-export type ForgotPasswordResult = ApiResponse<PasswordResetPending, 'server_error'>
+export type ForgotPasswordResult = ApiResponse<PasswordResetPending, ForgotPasswordErrorCode>
 
 /* Distinct invalid-vs-expired is tolerated here: it's a token-holder-only path on a
    2^256 space, so it leaks nothing about other accounts. The always-neutral rule
