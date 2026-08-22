@@ -1,6 +1,4 @@
 import {
-  err,
-  errorToStatus,
   HTTP_STATUS,
   listSuggestedEditsQuerySchema,
   ok,
@@ -14,7 +12,6 @@ import { getAuthedUserId, getRlsDb } from '../../utils/accessors'
 import { zValidator } from '../../utils/validator'
 import { requireContentModerator } from '../auth/middleware'
 import { listSuggestedEdits, reviewSuggestedEdit } from '../suggested-edits/service'
-import { SuggestedEditError } from '../suggested-edits/suggested-edit-error'
 import { createAdminGuardedRouter } from './_guarded-router'
 
 const editIdParam = z.object({ id: z.uuid() })
@@ -34,15 +31,8 @@ export const adminSuggestedEditsRoutes = createAdminGuardedRouter(requireContent
       const { id } = c.req.valid('param')
       const { status } = c.req.valid('json')
       const reviewerId = getAuthedUserId(c)
-      try {
-        const edit = await reviewSuggestedEdit(getRlsDb(c), { id, reviewerId, status })
-        logger.info({ reviewerId, editId: id, status }, 'suggested edit reviewed')
-        return c.json(ok(edit), HTTP_STATUS.OK)
-      } catch (e) {
-        if (e instanceof SuggestedEditError) {
-          return c.json(err(e.code), errorToStatus(e.code, {}))
-        }
-        throw e
-      }
+      const edit = await reviewSuggestedEdit(getRlsDb(c), { id, reviewerId, status })
+      logger.info({ reviewerId, editId: id, status }, 'suggested edit reviewed')
+      return c.json(ok(edit), HTTP_STATUS.OK)
     }
   )

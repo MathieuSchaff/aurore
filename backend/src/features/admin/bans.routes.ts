@@ -27,7 +27,15 @@ import {
   requireNotBanned,
 } from '../auth/middleware'
 import { withRlsContext } from '../auth/rls-context.middleware'
-import { createBan, getBanScope, liftBan, listUserBans, listUsers, updateBan } from './bans.service'
+import {
+  createBan,
+  getAdminUserById,
+  getBanScope,
+  liftBan,
+  listUserBans,
+  listUsers,
+  updateBan,
+} from './bans.service'
 import { getAdminDashboard } from './dashboard.service'
 import { logModerationAction } from './moderation-audit.service'
 import { demoteToUser } from './roles.service'
@@ -39,6 +47,7 @@ const banIdParam = z.object({ banId: z.uuid() })
 // the paths it owns so it cannot wrap sibling routers such as /admin/moderation.
 const protectedPaths = [
   '/users',
+  '/users/:id',
   '/users/:id/bans',
   '/users/:id/role',
   '/bans/:banId',
@@ -205,6 +214,12 @@ export const adminBansRoutes = app
   .get('/users', requireAdmin, async (c) => {
     const items = await listUsers(getRlsDb(c))
     return c.json(ok({ items }), HTTP_STATUS.OK)
+  })
+  .get('/users/:id', requireAdmin, zValidator('param', userIdParam), async (c) => {
+    const { id: userId } = c.req.valid('param')
+    const user = await getAdminUserById(getRlsDb(c), userId)
+    if (!user) return c.json(err('not_found'), HTTP_STATUS.NOT_FOUND)
+    return c.json(ok(user), HTTP_STATUS.OK)
   })
   .get('/dashboard', requireAdmin, async (c) => {
     const dashboard = await getAdminDashboard(getRlsDb(c))
