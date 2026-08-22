@@ -7,15 +7,14 @@ import { PRODUCT_TEXTURE_VALUES } from './textures'
 import { PRODUCT_AMOUNT_UNIT_VALUES, PRODUCT_UNIT_VALUES } from './units'
 
 // Soft validation: rejects HTML and bare prose (no comma for strings > 100 chars).
-// It does not parse full INCI nomenclature. algo-derm does that at processing time.
+// It does not check the full INCI naming rules. algo-derm does that at processing time
 const inciBase = noHtml(z.string().max(5000)).refine(
   (v) => v.trim().length <= 100 || v.includes(','),
   { message: 'inci must be a comma-separated ingredient list' }
 )
 
-// Only accept slugs the service would store verbatim (slugify() output shape).
-// Anything else gets silently rewritten on insert/update, so stored ≠ submitted:
-// slug-keyed consumers (auto-tag backfill, external links, ingest) then miss the row.
+// Only accept slugs matching what the service stores (slugify() output). Else the
+// slug changes on save, and anything keyed by slug (auto-tag, links, ingest) misses the row
 const stableSlug = z
   .string()
   .max(100)
@@ -117,7 +116,7 @@ export const searchProductsQuery = z.object({
   q: z.string().trim().min(1).max(100),
   limit: z.coerce.number().int().min(1).max(20).default(8),
   offset: z.coerce.number().int().min(0).default(0),
-  // Scope to the active domain tab so the dropdown agrees with the list page it links to.
+  // Scope to the active domain tab so the dropdown agrees with the list page it links to
   category: z.enum(PRODUCT_DOMAIN_TABS).optional(),
 })
 
@@ -125,9 +124,9 @@ export const distinctBrandsQuery = z.object({
   category: z.enum(PRODUCT_DOMAIN_TABS).optional(),
 })
 
-// Comma-separated UUIDs in query string (kept GET-friendly so it can be used
-// as a TanStack Query key without serializing a body). Cap at 50 ids. That
-// covers any realistic comparison/picker batch and keeps the URL bounded.
+// Comma-separated UUIDs in query string. Kept as a plain GET param so it can
+// be used as a TanStack Query key without serializing a body. Cap at 50 ids:
+// that covers any realistic comparison/picker batch and keeps the URL bounded
 export const productsByIdsQuery = z.object({
   ids: z
     .string()
@@ -135,17 +134,8 @@ export const productsByIdsQuery = z.object({
     .pipe(z.array(z.uuid()).min(1).max(50)),
 })
 
-// Shelf-status overlay: per-product status for ids already on screen (the token needed to read it
-// exists only after a refresh, so it cannot ship with the anonymous list fetch). Cap matches the list limit.
-export const productsShelfStatusQuery = z.object({
-  ids: z
-    .string()
-    .transform((s) => s.split(',').filter(Boolean))
-    .pipe(z.array(z.uuid()).min(1).max(100)),
-})
-
-// No comma-refine: the preview endpoint exists precisely to show parse results
-// on a raw INCI string the user may not have formatted yet.
+// No comma check here: the preview endpoint exists to show parse results
+// on a raw INCI string the user may not have formatted yet
 export const productFormulaPreviewSchema = z
   .object({
     inci: noHtml(z.string().trim().min(1).max(5000)),
@@ -167,6 +157,6 @@ export const patentSchema = z.object({
     .transform((v) => (v.trim() === '' ? null : v))
     .nullable()
     .optional(),
-  // Map empty url to null. Otherwise safeUrl rejects "" and the whole update fails.
+  // Map empty url to null. Otherwise safeUrl rejects "" and the whole update fails
   url: z.preprocess((v) => (v === '' ? null : v), safeUrl.nullable().optional()),
 })
