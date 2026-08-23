@@ -30,10 +30,6 @@ function getActiveRefreshSetCookie(res: { headers: Headers }): string {
   return getRefreshSetCookies(res).find((cookie) => !cookie.includes('Max-Age=0')) ?? ''
 }
 
-function getSessionHintSetCookie(res: { headers: Headers }): string {
-  return res.headers.getSetCookie().find((cookie) => cookie.startsWith('aurore_session=')) ?? ''
-}
-
 function extractActiveRefreshCookie(res: { headers: Headers }): string {
   return getActiveRefreshSetCookie(res).split(';', 1)[0] ?? ''
 }
@@ -55,6 +51,17 @@ describe('Auth Routes (browser)', () => {
 
   beforeAll(async () => {
     ;({ app, client } = await createTestEnv())
+  })
+
+  describe('GET /auth/google/callback', () => {
+    it('redirects an invalid callback to the frontend callback page', async () => {
+      const res = await app.request('/api/auth/google/callback')
+
+      expect({ status: res.status, location: res.headers.get('Location') }).toEqual({
+        status: 302,
+        location: 'http://localhost:5173/auth/google/callback',
+      })
+    })
   })
 
   describe('POST /auth/signup', () => {
@@ -183,13 +190,12 @@ describe('Auth Routes (browser)', () => {
   })
 
   describe('POST /auth/login', () => {
-    it('sets the refresh cookie at the root path and expires the legacy session hint', async () => {
+    it('sets the refresh cookie at the root path', async () => {
       const creds = await createTestToto()
 
-      const res = await client.auth.login.$post(
-        { json: { email: creds.rawEmail, password: creds.rawPassword } },
-        { headers: { Cookie: 'aurore_session=1' } }
-      )
+      const res = await client.auth.login.$post({
+        json: { email: creds.rawEmail, password: creds.rawPassword },
+      })
 
       const session = await expectOk(res)
       expect(session.user.email).toBe(creds.rawEmail)
@@ -200,11 +206,6 @@ describe('Auth Routes (browser)', () => {
       expect(cookie).toContain('refresh_token=')
       expect(cookie).toContain('HttpOnly')
       expect(cookie).toMatch(/(?:^|; )Path=\/(?:;|$)/)
-
-      const hintDeletion = getSessionHintSetCookie(res)
-      expect(hintDeletion).toContain('Max-Age=0')
-      expect(hintDeletion).toContain('Path=/')
-      expect(hintDeletion).not.toContain('aurore_session=1')
     })
 
     it('should reject wrong password', async () => {
@@ -281,7 +282,7 @@ describe('Auth Routes (browser)', () => {
   })
 
   describe('POST /auth/refresh', () => {
-    it('rotates tokens and expires the legacy session hint', async () => {
+    it('rotates tokens', async () => {
       const creds = await createTestToto()
       const { cookie: loginCookie } = await loginAndGetCookies(
         client,
@@ -289,41 +290,13 @@ describe('Auth Routes (browser)', () => {
         creds.rawPassword
       )
 
-      const res = await client.auth.refresh.$post(
-        {},
-        { headers: { Cookie: `${loginCookie}; aurore_session=1` } }
-      )
+      const res = await client.auth.refresh.$post({}, { headers: { Cookie: loginCookie } })
 
       const data = await expectOk(res)
       expect(data.accessToken).toBeDefined()
 
       const newCookie = extractCookie(res)
       expect(newCookie).toContain('refresh_token=')
-
-      const hintDeletion = getSessionHintSetCookie(res)
-      expect(hintDeletion).toContain('Max-Age=0')
-      expect(hintDeletion).toContain('Path=/')
-      expect(hintDeletion).not.toContain('aurore_session=1')
-    })
-
-    it('rotates a legacy-path session and expires its old cookie', async () => {
-      const creds = await createTestToto()
-      const { cookie: legacyCookie } = await loginAndGetCookies(
-        client,
-        creds.rawEmail,
-        creds.rawPassword
-      )
-
-      const res = await client.auth.refresh.$post({}, { headers: { Cookie: legacyCookie } })
-
-      const data = await expectOk(res)
-      expect(data.accessToken).toBeDefined()
-
-      // Without this deletion, the revoked legacy cookie wins on the next refresh.
-      const legacyDeletion = getRefreshSetCookies(res).find(
-        (cookie) => cookie.includes('Max-Age=0') && cookie.includes('Path=/api/auth')
-      )
-      expect(legacyDeletion).toBeDefined()
     })
 
     it('should fail without refresh token', async () => {
@@ -386,7 +359,7 @@ describe('Auth Routes (browser)', () => {
   })
 
   describe('POST /auth/logout', () => {
-    it('clears refresh cookies at both the root and legacy paths', async () => {
+    it('clears the refresh cookie at the root path', async () => {
       const creds = await createTestToto()
       const { cookie, accessToken } = await loginAndGetCookies(
         client,
@@ -411,11 +384,8 @@ describe('Auth Routes (browser)', () => {
       const clearedRefreshCookies = getRefreshSetCookies(res).filter((cookie) =>
         cookie.includes('Max-Age=0')
       )
-      expect(clearedRefreshCookies).toHaveLength(2)
-      expect(clearedRefreshCookies.some((cookie) => /(?:^|; )Path=\/(?:;|$)/.test(cookie))).toBe(
-        true
-      )
-      expect(clearedRefreshCookies.some((cookie) => cookie.includes('Path=/api/auth'))).toBe(true)
+      expect(clearedRefreshCookies).toHaveLength(1)
+      expect(clearedRefreshCookies[0]).toMatch(/(?:^|; )Path=\/(?:;|$)/)
     })
 
     it('deletes a demo account immediately', async () => {
@@ -439,29 +409,6 @@ describe('Auth Routes (browser)', () => {
         .from(users)
         .where(eq(users.id, demo.user.id))
       expect(remaining).toBeUndefined()
-    })
-
-    it('expires the legacy session hint on logout', async () => {
-      const creds = await createTestToto()
-      const { cookie, accessToken } = await loginAndGetCookies(
-        client,
-        creds.rawEmail,
-        creds.rawPassword
-      )
-
-      const logout = await client.auth.logout.$post(
-        {},
-        {
-          headers: {
-            Cookie: `${cookie}; aurore_session=1`,
-            Authorization: `Bearer ${accessToken}`,
-          },
-        }
-      )
-      const hintDeletion = getSessionHintSetCookie(logout)
-      expect(hintDeletion).toContain('Max-Age=0')
-      expect(hintDeletion).toContain('Path=/')
-      expect(hintDeletion).not.toContain('aurore_session=1')
     })
 
     expectRequiresAuth(() => app, { method: 'POST', path: '/api/auth/logout' })
