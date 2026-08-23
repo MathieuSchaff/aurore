@@ -1,8 +1,5 @@
 import type { UploadErrorCode } from '@aurore/shared'
 
-export class UploadError extends Error {
-  constructor(public code: UploadErrorCode | 'not_found') {
-    super(code)
-    this.name = 'UploadError'
-  }
-}
+import { DomainError } from '../../utils/errors/domain-error'
+
+export class UploadError extends DomainError<UploadErrorCode | 'not_found'> {}

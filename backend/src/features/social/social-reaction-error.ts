@@ -1,11 +1,5 @@
 import type { SocialReactionErrorCode } from '@aurore/shared'
 
-export class SocialReactionError extends Error {
-  constructor(
-    public code: SocialReactionErrorCode,
-    public details?: unknown
-  ) {
-    super(code)
-    this.name = 'SocialReactionError'
-  }
-}
+import { DomainError } from '../../utils/errors/domain-error'
+
+export class SocialReactionError extends DomainError<SocialReactionErrorCode> {}

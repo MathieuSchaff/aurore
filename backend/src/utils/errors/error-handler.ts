@@ -15,6 +15,7 @@ import {
   socialPostErrorMapping,
   socialReactionErrorMapping,
   tagErrorMapping,
+  uploadErrorMapping,
   userProductErrorMapping,
 } from '@aurore/shared'
 
@@ -23,30 +24,34 @@ import type { Context } from 'hono'
 
 import type { AppEnv } from '../../app-env'
 import { logger } from '../../lib/logger'
-
-interface AppError extends Error {
-  code: string
-  details?: unknown
-}
+import { DomainError } from './domain-error'
 
 interface HttpError extends Error {
   status: number
 }
 
-const errorMappingRegistry = new Map<string, Record<string, HttpStatus>>([
-  ['ProductError', productErrorMapping as Record<string, HttpStatus>],
-  ['ProductComparisonError', productComparisonErrorMapping as Record<string, HttpStatus>],
-  ['IngredientError', ingredientErrorMapping as Record<string, HttpStatus>],
-  ['ProductIngredientError', productIngredientErrorMapping as Record<string, HttpStatus>],
-  ['PurchaseError', purchaseErrorMapping as Record<string, HttpStatus>],
-  ['TagError', tagErrorMapping as Record<string, HttpStatus>],
-  ['UserProductError', userProductErrorMapping as Record<string, HttpStatus>],
-  ['BlogError', articleErrorMapping as Record<string, HttpStatus>],
-  ['DiscussionError', discussionErrorMapping as Record<string, HttpStatus>],
-  ['ProfileError', profileErrorMapping as Record<string, HttpStatus>],
-  ['SocialPostError', socialPostErrorMapping as Record<string, HttpStatus>],
-  ['SocialReactionError', socialReactionErrorMapping as Record<string, HttpStatus>],
-])
+// Domain error codes are the wire contract. Their status must not depend on a class name,
+// which can change during a refactor without changing the code sent to the frontend
+export const thrownDomainErrorMappingRegistry = {
+  articleErrorMapping,
+  discussionErrorMapping,
+  ingredientErrorMapping,
+  productComparisonErrorMapping,
+  productErrorMapping,
+  productIngredientErrorMapping,
+  profileErrorMapping,
+  purchaseErrorMapping,
+  socialPostErrorMapping,
+  socialReactionErrorMapping,
+  tagErrorMapping,
+  uploadErrorMapping,
+  userProductErrorMapping,
+}
+
+const thrownDomainErrorMapping: Record<string, HttpStatus> = Object.assign(
+  {},
+  ...Object.values(thrownDomainErrorMappingRegistry)
+)
 
 export async function globalErrorHandler(error: Error, c: Context<AppEnv>) {
   const requestContext = {
@@ -55,12 +60,9 @@ export async function globalErrorHandler(error: Error, c: Context<AppEnv>) {
     method: c.req.method,
   }
 
-  if ('code' in error && typeof (error as AppError).code === 'string') {
-    const appError = error as AppError
-    const mapping = errorMappingRegistry.get(appError.constructor.name) ?? {}
-    const code = appError.code
-    const details = appError.details
-    const status = errorToStatus(code, mapping) as ContentfulHttpStatus
+  if (error instanceof DomainError) {
+    const code = error.code
+    const status = errorToStatus(code, thrownDomainErrorMapping)
 
     // errorToStatus falls back to 500 on an unmapped code, so a domain error could answer
     // 500 with no trace at all. 4xx stays silent here: the request middleware already
@@ -68,7 +70,7 @@ export async function globalErrorHandler(error: Error, c: Context<AppEnv>) {
     if (status >= HTTP_STATUS.INTERNAL_SERVER_ERROR) {
       logger.error(
         {
-          err: appError,
+          err: error,
           code,
           ...requestContext,
         },
@@ -76,7 +78,7 @@ export async function globalErrorHandler(error: Error, c: Context<AppEnv>) {
       )
     }
 
-    return c.json(err(code, details), status)
+    return c.json(err(code, error.details), status)
   }
 
   if ('status' in error && typeof (error as HttpError).status === 'number') {

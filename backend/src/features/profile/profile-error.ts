@@ -1,11 +1,5 @@
 import type { ProfileErrorCode } from '@aurore/shared'
 
-export class ProfileError extends Error {
-  constructor(
-    public code: ProfileErrorCode,
-    public details?: unknown
-  ) {
-    super(code)
-    this.name = 'ProfileError'
-  }
-}
+import { DomainError } from '../../utils/errors/domain-error'
+
+export class ProfileError extends DomainError<ProfileErrorCode> {}
