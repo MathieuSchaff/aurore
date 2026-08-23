@@ -1,3 +1,4 @@
+import type { MyRoleRequestResponse } from '@aurore/shared'
 import {
   cancelRoleRequestErrorMapping,
   err,
@@ -17,6 +18,7 @@ import { logger } from '../../lib/logger'
 import { getAuthedUserId, getRlsDb } from '../../utils/accessors'
 import { zValidator } from '../../utils/validator'
 import { applyAuthedGuards } from '../auth/authed-guards'
+import { getUserRole } from '../auth/user-role.service'
 import { cancelRoleRequest, getMyRoleRequest, submitRoleRequest } from './service'
 
 const requestIdParam = z.object({ id: z.uuid() })
@@ -38,8 +40,12 @@ export const roleRequestsRoutes = app
   })
   .get('/me', async (c) => {
     const userId = getAuthedUserId(c)
-    const request = await getMyRoleRequest(getRlsDb(c), userId)
-    return c.json(ok(request), HTTP_STATUS.OK)
+    const db = getRlsDb(c)
+    const latest = await getMyRoleRequest(db, userId)
+    // The bearer role lags an approval or a demotion by one refresh, so ask the database
+    const role = await getUserRole(db, userId)
+    const canApply = role === 'user' && latest?.status !== 'pending'
+    return c.json(ok({ latest, canApply } satisfies MyRoleRequestResponse), HTTP_STATUS.OK)
   })
   .post('/:id/cancel', zValidator('param', requestIdParam), async (c) => {
     const userId = getAuthedUserId(c)
