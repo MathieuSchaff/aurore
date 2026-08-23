@@ -4,7 +4,7 @@ import { HTTP_STATUS } from '@aurore/shared'
 
 import { eq } from 'drizzle-orm'
 
-import { roleRequests } from '../../../db/schema'
+import { roleRequests, users } from '../../../db/schema'
 import { testDb } from '../../../tests/db.test.config'
 import { setupDbTests } from '../../../tests/db-setup'
 import {
@@ -98,7 +98,7 @@ describe('role requests: user self-service', () => {
     const empty = await client['role-requests'].me.$get({}, withAuth(userToken))
     const emptyBody = await empty.json()
     if (!emptyBody.success) throw new Error('expected success')
-    expect(emptyBody.data).toBeNull()
+    expect(emptyBody.data).toEqual({ latest: null, canApply: true })
 
     await client['role-requests'].$post(
       { json: { motivation: 'Je souhaite contribuer à la curation des fiches.' } },
@@ -107,7 +107,39 @@ describe('role requests: user self-service', () => {
     const res = await client['role-requests'].me.$get({}, withAuth(userToken))
     const body = await res.json()
     if (!body.success) throw new Error('expected success')
-    expect(body.data).toMatchObject({ userId, status: 'pending' })
+    expect(body.data.latest).toMatchObject({ userId, status: 'pending' })
+    expect(body.data.canApply).toBe(false)
+  })
+
+  // The client cannot tell a demotion from the minutes after an approval: both show a
+  // `user` session with an approved request. Only the database role can
+  it('reports canApply false right after an approval, while the account is contributor', async () => {
+    await testDb
+      .insert(roleRequests)
+      .values({ userId, motivation: 'Demande approuvée il y a un instant.', status: 'approved' })
+    await testDb.update(users).set({ role: 'contributor' }).where(eq(users.id, userId))
+
+    const res = await client['role-requests'].me.$get({}, withAuth(userToken))
+
+    const body = await res.json()
+    if (!body.success) throw new Error('expected success')
+    expect(body.data.latest).toMatchObject({ status: 'approved' })
+    expect(body.data.canApply).toBe(false)
+  })
+
+  it('reports canApply true after an approval once the account is demoted back to user', async () => {
+    await testDb.insert(roleRequests).values({
+      userId,
+      motivation: 'Demande approuvée puis compte rétrogradé.',
+      status: 'approved',
+    })
+
+    const res = await client['role-requests'].me.$get({}, withAuth(userToken))
+
+    const body = await res.json()
+    if (!body.success) throw new Error('expected success')
+    expect(body.data.latest).toMatchObject({ status: 'approved' })
+    expect(body.data.canApply).toBe(true)
   })
 
   it('cancels its own pending request and allows submitting again', async () => {
