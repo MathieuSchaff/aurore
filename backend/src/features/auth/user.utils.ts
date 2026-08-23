@@ -54,15 +54,6 @@ export function toPublicUser(user: UserSafe): UserPublic {
   }
 }
 
-export async function getUserRole(db: DbOrTransaction, userId: string) {
-  const [row] = await db
-    .select({ role: usersSafe.role })
-    .from(usersSafe)
-    .where(eq(usersSafe.id, userId))
-    .limit(1)
-  return row?.role ?? null
-}
-
 export async function getUserById(db: DbOrTransaction, userId: string): Promise<UserPublic | null> {
   const [user] = await db
     .select({
