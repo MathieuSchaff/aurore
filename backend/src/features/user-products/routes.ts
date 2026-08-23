@@ -1,7 +1,7 @@
 import {
   addPurchaseSchema,
+  bannedError,
   createUserProductSchema,
-  err,
   finishPurchaseSchema,
   HOLY_GRAIL_SENTIMENT,
   HTTP_STATUS,
@@ -12,12 +12,10 @@ import {
   updateUserProductSchema,
 } from '@aurore/shared'
 
-import { and, eq } from 'drizzle-orm'
 import { Hono } from 'hono'
 import { z } from 'zod'
 
 import type { AppEnv } from '../../app-env'
-import { userProductReviews, userProducts } from '../../db/schema/products/user-products'
 import { getAuthedUserId, getRlsDb } from '../../utils/accessors'
 import { zValidator } from '../../utils/validator'
 import { isUserBannedForScope } from '../auth/ban.service'
@@ -35,8 +33,8 @@ import {
 import {
   createUserProduct,
   deleteUserProduct,
-  getUserProductById,
-  getUserProductByProductId,
+  getReviewIsPublic,
+  getUserProductFlags,
   getUserProductStatusHistory,
   getUserProducts,
   updateUserProduct,
@@ -69,10 +67,7 @@ export const userProductRoutes = app
     // avoided/Holy-Grail flag, moving it in or out of the signal's bad/good
     // buckets. Snapshot those flags first; recompute only when one actually
     // changes (a plain in_stock add carries no signal, skip the full rebuild).
-    const previous = await db.query.userProducts.findFirst({
-      where: and(eq(userProducts.userId, userId), eq(userProducts.productId, input.productId)),
-      columns: { status: true, sentiment: true },
-    })
+    const previous = await getUserProductFlags(userId, input.productId, db)
 
     const result = await createUserProduct(userId, input, db)
 
@@ -84,22 +79,6 @@ export const userProductRoutes = app
     }
 
     return c.json(ok(result), HTTP_STATUS.CREATED)
-  })
-
-  .get('/:id', zValidator('param', idParam), async (c) => {
-    const db = getRlsDb(c)
-    const userId = getAuthedUserId(c)
-    const { id } = c.req.valid('param')
-    const result = await getUserProductById(userId, id, db)
-    return c.json(ok(result), HTTP_STATUS.OK)
-  })
-
-  .get('/product/:productId', zValidator('param', z.object({ productId: z.uuid() })), async (c) => {
-    const db = getRlsDb(c)
-    const userId = getAuthedUserId(c)
-    const { productId } = c.req.valid('param')
-    const result = await getUserProductByProductId(userId, productId, db)
-    return c.json(ok(result), HTTP_STATUS.OK)
   })
 
   .patch(
@@ -146,18 +125,14 @@ export const userProductRoutes = app
       // not the raw input: upsert preserves existing isPublic when input omits it.
       let resultingPublic = input.isPublic
       if (resultingPublic === undefined) {
-        const existing = await db.query.userProductReviews.findFirst({
-          where: eq(userProductReviews.userProductId, id),
-          columns: { isPublic: true },
-        })
-        resultingPublic = existing?.isPublic ?? false
+        resultingPublic = (await getReviewIsPublic(id, db)) ?? false
       }
 
       if (resultingPublic) {
         const ban = await isUserBannedForScope(db, userId, 'review_publish')
         if (ban) {
           return c.json(
-            err('banned', {
+            bannedError({
               expiresAt: ban.expiresAt,
               reason: ban.reason,
               scope: 'review_publish',

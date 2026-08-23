@@ -5,6 +5,7 @@ import type {
   PublicReviewView,
   UpdateUserProductInput,
   UpdateUserProductReviewInput,
+  UserProductStatus,
 } from '@aurore/shared'
 import { isDisplayedProductTag } from '@aurore/shared'
 
@@ -14,7 +15,7 @@ import type { DatabaseTransaction, DbOrTransaction } from '../../db'
 import { profiles, userDermoProfiles } from '../../db/schema/auth/users'
 import { products } from '../../db/schema/products/products'
 import { userProductStatusLog } from '../../db/schema/products/user-product-status-log'
-import { userProductReviews, userProducts } from '../../db/schema/user-products'
+import { userProductReviews, userProducts } from '../../db/schema/products/user-products'
 import { nowISO } from '../../utils/dates'
 import { UserProductError } from './user-product-error'
 
@@ -76,70 +77,30 @@ export async function getUserProducts(userId: string, db: DatabaseTransaction) {
   return rows.map(stripInternalTags)
 }
 
-export async function getUserProductById(
-  userId: string,
-  userProductId: string,
-  db: DatabaseTransaction
-) {
-  const row = await db.query.userProducts.findFirst({
-    where: and(eq(userProducts.id, userProductId), eq(userProducts.userId, userId)),
-    with: {
-      review: { columns: REVIEW_PUBLIC_EXCLUDE },
-      purchases: true,
-      product: {
-        with: {
-          productTagLinks: {
-            with: {
-              productTag: true,
-            },
-          },
-          productIngredients: {
-            columns: LINK_PUBLIC_EXCLUDE,
-            with: {
-              ingredient: true,
-            },
-          },
-        },
-      },
-    },
-  })
-  if (!row) {
-    throw new UserProductError('user_product_not_found')
-  }
-  return stripInternalTags(row)
-}
-
-export async function getUserProductByProductId(
+export async function getUserProductFlags(
   userId: string,
   productId: string,
   db: DatabaseTransaction
-) {
-  const row = await db.query.userProducts.findFirst({
-    where: and(eq(userProducts.productId, productId), eq(userProducts.userId, userId)),
-    with: {
-      review: { columns: REVIEW_PUBLIC_EXCLUDE },
-      purchases: true,
-      product: {
-        with: {
-          productTagLinks: {
-            with: {
-              productTag: true,
-            },
-          },
-          productIngredients: {
-            columns: LINK_PUBLIC_EXCLUDE,
-            with: {
-              ingredient: true,
-            },
-          },
-        },
-      },
-    },
+): Promise<UserProductFlags | undefined> {
+  return db.query.userProducts.findFirst({
+    where: and(eq(userProducts.userId, userId), eq(userProducts.productId, productId)),
+    columns: { status: true, sentiment: true },
   })
-  if (!row) {
-    throw new UserProductError('user_product_not_found')
-  }
-  return stripInternalTags(row)
+}
+
+export type UserProductFlags = {
+  status: UserProductStatus
+  sentiment: number | null
+}
+
+// Centralizing status log writes keeps both mutation paths on the same transition rule
+// A first add starts from null while unchanged statuses write nothing
+async function logStatusChange(
+  tx: DatabaseTransaction,
+  entry: typeof userProductStatusLog.$inferInsert
+) {
+  if (entry.fromStatus === entry.toStatus) return
+  await tx.insert(userProductStatusLog).values(entry)
 }
 
 export async function createUserProduct(
@@ -179,16 +140,12 @@ export async function createUserProduct(
       throw new UserProductError('user_product_creation_failed')
     }
 
-    // Append-only: log initial transition (null to status) or a later status change via upsert; skip idle upserts.
-    const fromStatus = existing?.status ?? null
-    if (fromStatus !== result.status) {
-      await tx.insert(userProductStatusLog).values({
-        userProductId: result.id,
-        userId,
-        fromStatus,
-        toStatus: result.status,
-      })
-    }
+    await logStatusChange(tx, {
+      userProductId: result.id,
+      userId,
+      fromStatus: existing?.status ?? null,
+      toStatus: result.status,
+    })
 
     return result
   })
@@ -224,15 +181,13 @@ export async function updateUserProduct(
       throw new UserProductError('user_product_not_found')
     }
 
-    if (patch.status !== undefined && patch.status !== previous.status) {
-      await tx.insert(userProductStatusLog).values({
-        userProductId: result.id,
-        userId,
-        fromStatus: previous.status,
-        toStatus: patch.status,
-        reason: reason?.trim() || null,
-      })
-    }
+    await logStatusChange(tx, {
+      userProductId: result.id,
+      userId,
+      fromStatus: previous.status,
+      toStatus: result.status,
+      reason: reason?.trim() || null,
+    })
 
     return result
   })
@@ -280,6 +235,14 @@ export async function deleteUserProduct(
   if (!result) {
     throw new UserProductError('user_product_not_found')
   }
+}
+
+export async function getReviewIsPublic(userProductId: string, db: DatabaseTransaction) {
+  const existing = await db.query.userProductReviews.findFirst({
+    where: eq(userProductReviews.userProductId, userProductId),
+    columns: { isPublic: true },
+  })
+  return existing?.isPublic
 }
 
 export async function upsertUserProductReview(
