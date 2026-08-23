@@ -1,4 +1,4 @@
-import { type BanScope, err, HTTP_STATUS } from '@aurore/shared'
+import { type BanScope, bannedError, err, HTTP_STATUS } from '@aurore/shared'
 
 import type { Context, Next } from 'hono'
 
@@ -7,7 +7,7 @@ import { getRlsDb } from '../../utils/accessors'
 import { isUserBanned, isUserBannedForScope } from './ban.service'
 import { getRefreshTokenCookie, verifyAccessToken, verifyRefreshToken } from './jwt.utils'
 import { findValidRefreshToken } from './refresh-token.service'
-import { getUserRole } from './user.utils'
+import { getUserRole } from './user-role.service'
 
 // The browser can send this cookie on cross-site requests. Keep this middleware on read-only routes.
 export const requireSessionCookie = async (c: Context<AppEnv>, next: Next) => {
@@ -61,7 +61,7 @@ export const requireNotBanned = async (c: Context<AppEnv>, next: Next) => {
   const ban = await isUserBanned(requestDb, userId, 'global')
   if (ban) {
     return c.json(
-      err('banned', { expiresAt: ban.expiresAt, reason: ban.reason }),
+      bannedError({ expiresAt: ban.expiresAt, reason: ban.reason }),
       HTTP_STATUS.FORBIDDEN
     )
   }
@@ -121,7 +121,7 @@ export const requireNotBannedScope =
     const ban = await isUserBannedForScope(requestDb, userId, scope)
     if (ban) {
       return c.json(
-        err('banned', { expiresAt: ban.expiresAt, reason: ban.reason, scope }),
+        bannedError({ expiresAt: ban.expiresAt, reason: ban.reason, scope }),
         HTTP_STATUS.FORBIDDEN
       )
     }
