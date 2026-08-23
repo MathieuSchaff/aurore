@@ -1,5 +1,5 @@
 {
-  "total": 30,
+  "total": 31,
   "groups": {
     "A": "structural — opens the request transaction",
     "B": "pre-identity auth — no identity exists yet to bind into the GUCs",
@@ -27,6 +27,7 @@
     },
     { "file": "backend/src/features/ingredients/routes.ts", "count": 8, "groups": ["D", "E"] },
     { "file": "backend/src/features/product-tags/routes.ts", "count": 3, "groups": ["E"] },
+    { "file": "backend/src/features/products/detail-page.routes.ts", "count": 1, "groups": ["D"] },
     {
       "file": "backend/src/features/products/product-ingredients/routes.ts",
       "count": 1,
