@@ -6,7 +6,7 @@ import { eq } from 'drizzle-orm'
 
 import { ingredients } from '../../db/schema/ingredients/ingredients'
 import { products } from '../../db/schema/products/products'
-import { userProducts } from '../../db/schema/user-products'
+import { userProducts } from '../../db/schema/products/user-products'
 import { createIngredient } from '../../features/ingredients/service'
 import { ProductError } from '../../features/products/product-error'
 import { createProduct } from '../../features/products/service'
@@ -52,14 +52,8 @@ function hideProduct(id: string) {
 async function buildRlsApp() {
   const { jwtAuthRoutes } = await import('../../features/auth/routes')
   const { productsFeature } = await import('../../features/products')
-  const { adminModerationRoutes } = await import('../../features/admin/moderation.routes')
-  const { ingredientRoutes } = await import('../../features/ingredients/routes')
 
-  return createRlsApp(appRuntimeDb)
-    .route('/auth', jwtAuthRoutes)
-    .route('', productsFeature)
-    .route('/ingredients', ingredientRoutes)
-    .route('/admin/moderation', adminModerationRoutes)
+  return createRlsApp(appRuntimeDb).route('/auth', jwtAuthRoutes).route('', productsFeature)
 }
 
 // 1. Unhide collision via route
@@ -75,8 +69,9 @@ describe('catalog visibility: unhide collision via route', () => {
     const p1 = await seedProduct(adminUser.id, { name: 'Unhide Serum', brand: 'UnhideBrand' })
     await hideProduct(p1.id)
 
-    // Explicit slug avoids full-slug-unique-index collision with P1 (still exists as hidden row).
-    // V-3 frees the name+brand key but NOT the slug key (products use a full unique slug index).
+    // Explicit slug avoids a collision with p1, still there as a hidden row
+    // Hiding frees products_name_brand_unique_visible (partial on visible) but not
+    // products_slug_unique, which is a full unique index
     const p2 = await seedProduct(adminUser.id, {
       name: 'Unhide Serum',
       brand: 'UnhideBrand',
