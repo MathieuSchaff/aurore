@@ -1,6 +1,6 @@
-import { err, HTTP_STATUS, ok, uploadErrorMapping } from '@aurore/shared'
+import { err, HTTP_STATUS, ok } from '@aurore/shared'
 
-import { type Context, Hono } from 'hono'
+import { Hono } from 'hono'
 import { bodyLimit } from 'hono/body-limit'
 import { z } from 'zod'
 
@@ -15,7 +15,6 @@ import {
 } from '../auth/middleware'
 import { withRlsContext } from '../auth/rls-context.middleware'
 import { uploadAvatar, uploadProductImage } from './service'
-import { UploadError } from './upload-error'
 
 const app = new Hono<AppEnv>()
 
@@ -23,14 +22,6 @@ app.use('*', requireJwtAuth)
 app.use('*', withRlsContext)
 app.use('*', requireNotBanned)
 app.use('*', bodyLimit({ maxSize: 1_048_576 }))
-
-function handleUploadError(c: Context<AppEnv>, e: unknown) {
-  if (e instanceof UploadError) {
-    if (e.code === 'not_found') return c.json(err('not_found'), HTTP_STATUS.NOT_FOUND)
-    return c.json(err(e.code), uploadErrorMapping[e.code])
-  }
-  throw e
-}
 
 export const uploadsRoutes = app
   .post('/avatar', async (c) => {
@@ -41,12 +32,8 @@ export const uploadsRoutes = app
       return c.json(err('upload_invalid_format'), HTTP_STATUS.BAD_REQUEST)
     }
     const buffer = Buffer.from(await file.arrayBuffer())
-    try {
-      const result = await uploadAvatar(getRlsDb(c), userId, buffer)
-      return c.json(ok(result), HTTP_STATUS.CREATED)
-    } catch (e) {
-      return handleUploadError(c, e)
-    }
+    const result = await uploadAvatar(getRlsDb(c), userId, buffer)
+    return c.json(ok(result), HTTP_STATUS.CREATED)
   })
   .post(
     '/product/:slug',
@@ -64,11 +51,7 @@ export const uploadsRoutes = app
         return c.json(err('upload_invalid_format'), HTTP_STATUS.BAD_REQUEST)
       }
       const buffer = Buffer.from(await file.arrayBuffer())
-      try {
-        const result = await uploadProductImage(getRlsDb(c), slug, buffer)
-        return c.json(ok(result), HTTP_STATUS.CREATED)
-      } catch (e) {
-        return handleUploadError(c, e)
-      }
+      const result = await uploadProductImage(getRlsDb(c), slug, buffer)
+      return c.json(ok(result), HTTP_STATUS.CREATED)
     }
   )
