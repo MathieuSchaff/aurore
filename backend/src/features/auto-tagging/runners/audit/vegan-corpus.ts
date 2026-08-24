@@ -1,4 +1,4 @@
-// Spot-check audit for the vegan auto-tag (audit B.7). Read-only. Vegan fires on ~80% of the
+// Spot-check audit for the vegan auto-tag. Read-only. Vegan fires on ~80% of the
 // corpus, so precision is the bottleneck before trusting it on UI. Pattern list here is
 // TIER_A_PATTERNS below and local to this audit: no pass scans the INCI for animal ingredients,
 // `vegan` is emitted by the algo-derm signal (passes/algo-derm-detection.ts) and by brand

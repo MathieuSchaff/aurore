@@ -31,12 +31,12 @@ describe('cross-signal-detection', () => {
     expect(tags).toContain(S.MOMENT_MATIN)
   })
 
-  test('X2 vitamin C on sunscreen → moment-matin (SPF + vit-C combo)', () => {
+  test('vitamin C on sunscreen → moment-matin (SPF + vit-C combo)', () => {
     const tags = detectCrossSignalTags([S.VITAMIN_C], 'sunscreen')
     expect(tags).toContain(S.MOMENT_MATIN)
   })
 
-  test('X2 vitamin C on cleanser (rinse-off, not sunscreen) → no moment-matin', () => {
+  test('vitamin C on cleanser (rinse-off, not sunscreen) → no moment-matin', () => {
     const tags = detectCrossSignalTags([S.VITAMIN_C], 'cleanser')
     expect(tags).not.toContain(S.MOMENT_MATIN)
   })
@@ -74,12 +74,12 @@ describe('cross-signal-detection', () => {
     [[S.RETINOIDS], 'hand-cream', true],
     [[S.RETINOIDS], 'body-wash', false],
     [[S.HYALURONIC_ACID], 'body-lotion', false],
-  ] as const)('C5 actifs=%j on %s → anti-age=%s', (actifs, kind, expected) => {
+  ] as const)('actifs=%j on %s → anti-age=%s', (actifs, kind, expected) => {
     const tags = detectCrossSignalTags([...actifs], kind)
     expect(tags.includes(S.ANTI_AGE)).toBe(expected)
   })
 
-  test('C5 retinoids on body-oil also keeps moment-soir (leave-on photosensitivity)', () => {
+  test('retinoids on body-oil also keeps moment-soir (leave-on photosensitivity)', () => {
     expect(detectCrossSignalTags([S.RETINOIDS], 'body-oil')).toContain(S.MOMENT_SOIR)
   })
 })
@@ -128,7 +128,7 @@ describe('cross-signal: moment-crise', () => {
   })
 })
 
-describe('detectCrossSignalAvoidTags: X1 stack irritation', () => {
+describe('detectCrossSignalAvoidTags: retinoids with AHA or BHA stack irritation', () => {
   test('retinoids + AHA leave-on (serum) → peau-sensible avoid', () => {
     const tags = detectCrossSignalAvoidTags([S.RETINOIDS, S.AHA], 'serum')
     expect(tags).toContain(S.PEAU_SENSIBLE)
@@ -156,7 +156,7 @@ describe('detectCrossSignalAvoidTags: X1 stack irritation', () => {
   })
 })
 
-describe('detectInteractionAvoidTags: X3 axis mapping', () => {
+describe('detectInteractionAvoidTags: irritation, allergenicity and dryness axis mapping', () => {
   const assess = (inci: string, kind: 'serum' | 'cleanser' | 'moisturizer') =>
     analyzeINCI(inci, { context: mapKindToContext(kind) })
 
@@ -192,7 +192,7 @@ describe('detectInteractionAvoidTags: X3 axis mapping', () => {
   })
 })
 
-describe('detectConcentrationAvoidTags: dose-gating (3c)', () => {
+describe('detectConcentrationAvoidTags: capped and pinned dose-gating', () => {
   // Drive the real algo-derm solver: `knownConcentrations` pins an ingredient
   // (claimPct == solverMeanPct == truth); without it the solver only guesses.
   const assess = (inci: string, kind: 'serum' | 'cleanser', known?: Record<string, number>) =>
@@ -282,7 +282,7 @@ describe('detectConcentrationAvoidTags: dose-gating (3c)', () => {
   })
 })
 
-describe('detectInteractionSecondaryTags: X3 photosensitivity → moment-soir', () => {
+describe('detectInteractionSecondaryTags: photosensitivity → moment-soir', () => {
   const assess = (inci: string, kind: 'serum' | 'cleanser') =>
     analyzeINCI(inci, { context: mapKindToContext(kind) })
 

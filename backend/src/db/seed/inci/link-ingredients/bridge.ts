@@ -13,8 +13,8 @@ interface EvidenceLike {
 }
 
 /**
- * B2 first (canonical INCI token to slug via the aurore inci index), then B1
- * (humanised-slug word equality) as a fallback. The first match that is not null wins.
+ * The canonical INCI token to slug lookup through the aurore inci index runs first,
+ * then humanised-slug word equality as a fallback. The first match that is not null wins.
  */
 export function bridgeEvidenceToSlug(
   evidence: EvidenceLike,
@@ -36,7 +36,7 @@ export function bridgeEvidenceToSlug(
   return null
 }
 
-/** Reverse map for B1: `normalize('vitamin c')` gives `'vitamin-c'`. First slug wins on collision. */
+/** Reverse map for the humanised-slug fallback: `normalize('vitamin c')` gives `'vitamin-c'`. First slug wins on collision. */
 export function buildSlugByHumanized(slugs: Iterable<string>): Map<string, string> {
   const map = new Map<string, string>()
   for (const slug of slugs) {

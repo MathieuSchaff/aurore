@@ -108,7 +108,7 @@ describe('algo-derm-detection', () => {
     expect(drop.length).toBe(17)
   })
 
-  test('T2 non_irritant: recognized gentle INCI emits non-irritant', () => {
+  test('non_irritant: recognized gentle INCI emits non-irritant', () => {
     // Algo-derm fires `non_irritant` on `irritation.risk < 0.35` with
     // `irritation.confidence` proportional to how many ingredients carry
     // irritation evidence. INCI of canonical low-risk actives gives
@@ -118,7 +118,7 @@ describe('algo-derm-detection', () => {
     expect(slugs.has(S.NON_IRRITANT)).toBe(true)
   })
 
-  test('T2 non_irritant: leave-on with SLS + fragrance does not emit non-irritant', () => {
+  test('non_irritant: leave-on with SLS + fragrance does not emit non-irritant', () => {
     // Sodium lauryl sulfate + parfum + 2 EU 26 allergens push leave-on
     // irritation.risk above 0.35, so algo-derm sets `present: false` at the
     // source.
@@ -134,12 +134,12 @@ describe('algo-derm-detection', () => {
     ['Parfum token', 'Aqua, Glycerin, Cetearyl Alcohol, Parfum'],
     ['declared allergens only', 'Aqua, Glycerin, Cetearyl Alcohol, Limonene, Linalool'],
     ['essential oil', 'Aqua, Glycerin, Cetearyl Alcohol, Lavandula Angustifolia Oil'],
-  ])('T2 non_irritant: %s voids the claim on an otherwise gentle formula', (_label, inci) => {
+  ])('non_irritant: %s voids the claim on an otherwise gentle formula', (_label, inci) => {
     const slugs = new Set(detectAutoTags(inci, 'moisturizer').map((t) => t.slug))
     expect(slugs.has(S.NON_IRRITANT)).toBe(false)
   })
 
-  test('R3 per-tag coverageMin: non-comedogene needs ≥ 0.60 coverage', () => {
+  test('per-tag coverageMin: non-comedogene needs ≥ 0.60 coverage', () => {
     // INCI dominated by unknown fillers: coverage will sit between the global
     // floor (0.30) and the non-comedogene floor (0.60). Other computed tags
     // pass through, but non-comedogene must not.
@@ -148,7 +148,7 @@ describe('algo-derm-detection', () => {
     expect(slugs.has(S.NON_COMEDOGENE)).toBe(false)
   })
 
-  test('R3 disableFloors bypasses both coverage and confidence floors', () => {
+  test('disableFloors bypasses both coverage and confidence floors', () => {
     // Same low-coverage INCI: bypassing floors must be at least as permissive
     // as the gated baseline. `disableFloors` skips both coverageFloor and
     // confidenceFloor (per-tag + global), so non-comedogene can surface even
@@ -186,7 +186,7 @@ describe('algo-derm-detection', () => {
     expect(hasNotPresent).toBe(true)
   })
 
-  test('T1 absence family: clean INCI emits silicones/HE/min-oil/allergens on leave-on', () => {
+  test('absence family: clean INCI emits silicones/HE/min-oil/allergens on leave-on', () => {
     // No SLS, no dimethicone, no essential oils, no petrolatum, no EU 26 allergens.
     // Coverage ≥ 0.7, so the coverageFloor 0.7 gate passes for the four ungated absence
     // tags. sans-sulfates is formulaType-gated on leave-on (see next test).
@@ -198,7 +198,7 @@ describe('algo-derm-detection', () => {
     expect(slugs.has(S.SANS_ALLERGENES_PARFUMANTS)).toBe(true)
   })
 
-  test('T1 sans-sulfates formulaType gate (TAG_DEFS v22): leave-on dropped, cleanser kept', () => {
+  test('sans-sulfates formulaType gate (TAG_DEFS v22): leave-on dropped, cleanser kept', () => {
     // A sulfate-free serum carries no signal (a serum is never sulfate-based), so
     // algo-derm downgrades the trivially-true claim to insufficient_data and it
     // drops here as not_present; on a cleanser, where a sulfate surfactant is a
@@ -222,7 +222,7 @@ describe('algo-derm-detection', () => {
     [S.SANS_HUILES_ESSENTIELLES, 'Aqua, Glycerin, Lavandula Angustifolia Oil, Tocopherol', 'serum'],
     [S.SANS_HUILES_MINERALES, 'Aqua, Petrolatum, Glycerin, Tocopherol', 'moisturizer'],
     [S.SANS_ALLERGENES_PARFUMANTS, 'Aqua, Glycerin, Parfum, Limonene, Linalool', 'serum'],
-  ] as const)('T1 %s: offending ingredient suppresses the claim', (slug, inci, kind) => {
+  ] as const)('%s: offending ingredient suppresses the claim', (slug, inci, kind) => {
     const slugs = new Set(detectAutoTags(inci, kind).map((t) => t.slug))
     expect(slugs.has(slug)).toBe(false)
   })
