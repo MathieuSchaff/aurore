@@ -1,3 +1,5 @@
+import { err, HTTP_STATUS } from '@aurore/shared'
+
 const port = Number(process.env.PORT ?? 3000)
 
 import { Hono } from 'hono'
@@ -114,7 +116,7 @@ if (Bun.env.NODE_ENV !== 'production') {
   const specPath = './openapi/openapi.json'
   app.get('/api/openapi.json', async (c) => {
     const file = Bun.file(specPath)
-    if (!(await file.exists())) return c.json({ error: 'spec_not_generated' }, 404)
+    if (!(await file.exists())) return c.json(err('not_found'), HTTP_STATUS.NOT_FOUND)
     return new Response(file, { headers: { 'content-type': 'application/json' } })
   })
   app.get('/api/docs', (c) =>
@@ -126,7 +128,7 @@ if (Bun.env.NODE_ENV !== 'production') {
   )
 }
 
-app.notFound((c) => c.json({ success: false, error: 'not_found' }, 404))
+app.notFound((c) => c.json(err('not_found'), 404))
 
 export type AppType = typeof routes
 
