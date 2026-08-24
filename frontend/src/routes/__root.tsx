@@ -10,13 +10,14 @@ import { GlobalError } from '../component/Feedback/app/GlobalError/GlobalError'
 import { NavigationProgress } from '../component/Feedback/app/NavigationProgress/NavigationProgress'
 import { AppLayout } from '../component/Layout/AppLayout/AppLayout'
 import { seedSsrBootPage, selectSsrBootView } from '../features/products/ssrBootView'
+import { writeRequestBootSession } from '../lib/auth/session'
 import { loadSsrBoot } from '../lib/auth/ssrBoot'
 import { useBannedRedirect } from '../lib/auth/useBannedRedirect'
 import { useSessionExpiredRedirect } from '../lib/auth/useSessionExpiredRedirect'
 import { getCspNonce } from '../lib/csp/nonce'
+import { ZOD_CSP_CONFIG_SCRIPT } from '../lib/csp/zod'
 import { useBootRefresh } from '../lib/hooks/useBootRefresh'
 import { useTokenRefresh } from '../lib/hooks/useTokenRefresh'
-import { type AuthSessionCache, authQueries } from '../lib/queries/auth'
 import { profileQueries } from '../lib/queries/profile'
 import { NOINDEX_ROBOTS } from '../lib/seo'
 import type { RouterContext } from '../routerContext'
@@ -87,14 +88,10 @@ export const Route = createRootRouteWithContext<RouterContext>()({
       }
     }
 
+    writeRequestBootSession(context.queryClient, 'unknown', { authenticated: false })
     const selectedView = selectSsrBootView(location.pathname, location.search)
     const boot = await loadSsrBoot(selectedView?.query)
-    if (boot.issue !== 'unknown') {
-      context.queryClient.setQueryData<AuthSessionCache>(
-        authQueries.session().queryKey,
-        boot.data.session
-      )
-    }
+    writeRequestBootSession(context.queryClient, boot.issue, boot.data.session)
     if (boot.data.session.authenticated && boot.data.profile) {
       context.queryClient.setQueryData(profileQueries.me().queryKey, boot.data.profile)
     }
@@ -138,6 +135,10 @@ export const Route = createRootRouteWithContext<RouterContext>()({
       { rel: 'dns-prefetch', href: 'https://aurore-cdn.b-cdn.net' },
     ],
     scripts: [
+      {
+        nonce: getCspNonce(),
+        children: ZOD_CSP_CONFIG_SCRIPT,
+      },
       {
         // SSR ships data-theme="light"; apply the stored theme before first paint so
         // dark users don't get a light flash. Nonce keeps the inline block under the CSP.

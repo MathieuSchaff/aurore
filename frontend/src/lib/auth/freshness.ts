@@ -2,10 +2,11 @@ import type { UserPublic } from '@aurore/shared'
 
 import type { QueryClient } from '@tanstack/react-query'
 
+import { readCredentialExpiration } from '@/lib/auth/credential'
 import { httpClient } from '@/lib/httpClient'
-import { useAuthStore } from '../../store/auth'
+import { type ClientSessionSnapshot, captureClientSession, installSession } from './session'
 
-export type RefreshResult = 'ok' | 'failed' | 'cooldown'
+export type RefreshResult = 'ok' | 'failed' | 'cooldown' | 'superseded'
 
 // Manual wire type: a typed `api.*` import here would bring back the api <-> freshness cycle.
 type RefreshResponse =
@@ -37,6 +38,20 @@ function recordFailure(): void {
   retryAfter = clock.now() + Math.min(1000 * 2 ** (failureCount - 1), 30_000)
 }
 
+function clearFailures(): void {
+  failureCount = 0
+  retryAfter = 0
+}
+
+function failRefresh(owner: ClientSessionSnapshot): RefreshResult {
+  if (!owner.isCurrent()) {
+    clearFailures()
+    return 'superseded'
+  }
+  recordFailure()
+  return 'failed'
+}
+
 // Test-only: module-level state otherwise leaks across tests in the same file.
 export function __resetFreshness() {
   inflightRefresh = null
@@ -50,7 +65,7 @@ export function __setClock(c: Clock | null) {
 }
 
 export function isExpired(bufferMs = EXPIRY_BUFFER_MS): boolean {
-  const exp = useAuthStore.getState().tokenExpiresAt
+  const exp = readCredentialExpiration()
   if (!exp) return true
   return clock.now() > exp - bufferMs
 }
@@ -60,40 +75,38 @@ export function msUntilProactiveRefresh(expiresAt: number): number {
   return expiresAt - clock.now() - PROACTIVE_LEAD_MS
 }
 
-// Never rejects: failures resolve to 'failed'/'cooldown'. Guards that await this won't throw,
-// so they fall through to their own redirect instead of an error-boundary ejection.
+// Never rejects, so guards keep control of their redirect policy
 export async function ensureFresh(queryClient: QueryClient): Promise<RefreshResult> {
   if (inflightRefresh) return inflightRefresh
   // Cooldown window after recent failure: callers decide whether to wait or log out.
   if (clock.now() < retryAfter) return 'cooldown'
 
+  const owner = captureClientSession()
   inflightRefresh = (async (): Promise<RefreshResult> => {
     try {
       const res = await httpClient('/api/auth/refresh', {
         method: 'POST',
       })
       if (!res.ok) {
-        recordFailure()
-        return 'failed'
+        return failRefresh(owner)
       }
 
       const json = (await res.json()) as RefreshResponse
       if (!json.success) {
-        recordFailure()
-        return 'failed'
+        return failRefresh(owner)
       }
 
+      if (!owner.isCurrent()) {
+        clearFailures()
+        return 'superseded'
+      }
       const { accessToken, user } = json.data
+      installSession(queryClient, { accessToken, user })
 
-      useAuthStore.getState().setAuth(accessToken, user)
-      queryClient.setQueryData(['session'], { authenticated: true, userId: user.id })
-
-      failureCount = 0
-      retryAfter = 0
+      clearFailures()
       return 'ok'
     } catch {
-      recordFailure()
-      return 'failed'
+      return failRefresh(owner)
     } finally {
       inflightRefresh = null
     }

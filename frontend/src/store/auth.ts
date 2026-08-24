@@ -1,93 +1,67 @@
-import type { UserPublic } from '@aurore/shared'
+import type { BannedErrorDetails, UserPublic } from '@aurore/shared'
 
 import { create } from 'zustand'
 
-interface BanDetails {
-  expiresAt: string | null
-  reason: string | null
-}
+type ClientCredential =
+  | { status: 'restoring'; bearer: null; expiresAt: null }
+  | { status: 'present'; bearer: string; expiresAt: number }
+
+export type ClientAuthSession =
+  | { status: 'pending' }
+  | { status: 'anonymous' }
+  | { status: 'authenticated'; user: UserPublic; credential: ClientCredential }
 
 interface AuthStore {
-  accessToken: string | null
-  tokenExpiresAt: number | null
-  user: UserPublic | null
-  emailVerified: boolean
-  role: 'user' | 'admin' | 'contributor'
-  isDemo: boolean
-  // Latched after client boot decides whether a refresh is needed.
-  bootRefreshAttempted: boolean
-  // True only while an unknown SSR boot is being resolved by the client probe.
-  bootRefreshPending: boolean
-  // Set when 401-recovery refresh fails on a live session; RootComponent redirects to /auth/login.
+  session: ClientAuthSession
   sessionExpired: boolean
-  // Set when a 403 banned response is received; RootComponent redirects to /auth/banned.
-  banned: boolean
-  bannedDetails: BanDetails | null
+  bannedDetails: BannedErrorDetails | null
 
-  setAuth: (token: string, user: UserPublic) => void
+  publishSession: (session: ClientAuthSession) => void
+  setAuth: (bearer: string, user: UserPublic) => void
   clearAuth: () => void
-  markBootRefreshAttempted: () => void
-  setBootRefreshPending: (pending: boolean) => void
+  updateUser: (user: UserPublic) => void
   markSessionExpired: () => void
   clearSessionExpired: () => void
-  markBanned: (details: BanDetails) => void
+  markBanned: (details: BannedErrorDetails) => void
   clearBanned: () => void
 }
 
-function decodeTokenExp(token: string): number | null {
+function decodeTokenExp(token: string): number {
   try {
-    // JWT payload is base64url (RFC 7519 §3); convert to standard base64 for atob.
-    const b64 = token.split('.')[1].replace(/-/g, '+').replace(/_/g, '/')
-    const payload = JSON.parse(atob(b64))
-    return typeof payload.exp === 'number' ? payload.exp * 1000 : null
+    const encodedPayload = token.split('.')[1]
+    if (!encodedPayload) return 0
+    const base64 = encodedPayload.replace(/-/g, '+').replace(/_/g, '/')
+    const payload = JSON.parse(atob(base64)) as { exp?: unknown }
+    return typeof payload.exp === 'number' ? payload.exp * 1000 : 0
   } catch {
-    return null
+    // Malformed credentials stay representable but are immediately treated as expired
+    return 0
   }
 }
 
 export const useAuthStore = create<AuthStore>((set) => ({
-  accessToken: null,
-  tokenExpiresAt: null,
-  user: null,
-  emailVerified: false,
-  role: 'user',
-  isDemo: false,
-  bootRefreshAttempted: false,
-  bootRefreshPending: false,
+  session: { status: 'pending' },
   sessionExpired: false,
-  banned: false,
   bannedDetails: null,
 
-  setAuth: (token, user) =>
+  publishSession: (session) => set({ session }),
+  setAuth: (bearer, user) =>
     set({
-      accessToken: token,
-      tokenExpiresAt: decodeTokenExp(token),
-      user,
-      emailVerified: user.emailVerified,
-      role: user.role,
-      isDemo: user.isDemo ?? false,
-      bootRefreshAttempted: true,
-      bootRefreshPending: false,
+      session: {
+        status: 'authenticated',
+        user,
+        credential: { status: 'present', bearer, expiresAt: decodeTokenExp(bearer) },
+      },
       sessionExpired: false,
     }),
-
-  // Keep boot latch on after logout to avoid probing again for a session we know is gone.
-  clearAuth: () =>
-    set({
-      accessToken: null,
-      tokenExpiresAt: null,
-      user: null,
-      emailVerified: false,
-      role: 'user',
-      isDemo: false,
-      bootRefreshAttempted: true,
-      bootRefreshPending: false,
+  clearAuth: () => set({ session: { status: 'anonymous' } }),
+  updateUser: (user) =>
+    set((state) => {
+      if (state.session.status !== 'authenticated') return state
+      return { session: { ...state.session, user } }
     }),
-
-  markBootRefreshAttempted: () => set({ bootRefreshAttempted: true }),
-  setBootRefreshPending: (pending) => set({ bootRefreshPending: pending }),
   markSessionExpired: () => set({ sessionExpired: true }),
   clearSessionExpired: () => set({ sessionExpired: false }),
-  markBanned: (details) => set({ banned: true, bannedDetails: details }),
-  clearBanned: () => set({ banned: false, bannedDetails: null }),
+  markBanned: (details) => set({ bannedDetails: details }),
+  clearBanned: () => set({ bannedDetails: null }),
 }))
