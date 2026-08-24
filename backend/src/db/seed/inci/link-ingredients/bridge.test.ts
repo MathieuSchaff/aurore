@@ -11,18 +11,18 @@ const inciIndex: InciIndex = new Map([
 const slugByHumanized = buildSlugByHumanized(['niacinamide', 'vitamin-c', 'centella-asiatica'])
 
 describe('bridgeEvidenceToSlug', () => {
-  it('B2: maps canonical inci to slug via the inci index', () => {
+  it('maps canonical inci to slug via the inci index', () => {
     expect(bridgeEvidenceToSlug({ inci: 'Niacinamide' }, inciIndex, slugByHumanized)).toBe(
       'niacinamide'
     )
   })
 
-  it('B2: resolves through an alias when the primary inci misses the index', () => {
+  it('resolves through an alias, still via the inci index, when the primary inci misses', () => {
     const ev = { inci: 'Ascorbic Acid', aliases: ['Centella Asiatica Extract'] }
     expect(bridgeEvidenceToSlug(ev, inciIndex, slugByHumanized)).toBe('centella-asiatica')
   })
 
-  it('B1: falls back to humanised-slug equality when the index has no token', () => {
+  it('falls back to humanised-slug equality when the index has no token', () => {
     // 'vitamin-c' is not in the inci index, only reachable via the humanised map.
     expect(bridgeEvidenceToSlug({ inci: 'Vitamin C' }, inciIndex, slugByHumanized)).toBe(
       'vitamin-c'

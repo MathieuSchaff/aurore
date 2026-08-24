@@ -184,6 +184,6 @@ export async function deleteArticle(db: DatabaseTransaction, slug: string) {
   try {
     await db.delete(articles).where(eq(articles.id, existing.id))
   } catch (e) {
-    throw new BlogError('article_delete_failed', e)
+    throw new BlogError('article_delete_failed', { cause: e })
   }
 }

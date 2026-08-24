@@ -20,7 +20,7 @@ describe('mapKindToContext', () => {
     }
   })
 
-  // Regression guard for B4: toothpaste is applied-then-rinsed, must not score leave-on.
+  // Regression guard: toothpaste is applied-then-rinsed, must not score leave-on.
   it('treats toothpaste as rinse-off', () => {
     expect(RINSE_OFF_KINDS.has('toothpaste')).toBe(true)
     expect(mapKindToContext('toothpaste').leaveOn).toBe(false)

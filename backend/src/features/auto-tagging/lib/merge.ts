@@ -50,7 +50,7 @@ export function primaryPromote(
     }
   }
 
-  // Top algo-derm concern (ADR-0001 Q4-b2). `source === 'algo-derm'` is intentional: formula
+  // Top algo-derm concern (ADR-0001). `source === 'algo-derm'` is intentional: formula
   // passes emit concerns without confidence (boolean detectors) so they can't be ranked and
   // must stay secondary. A positioning claim like `protection` or `eczema-atopie` must not
   // seize the primary slot from the kind-derived TYPE above. `relevance === 'secondary'`

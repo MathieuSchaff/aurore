@@ -1,4 +1,4 @@
-// Snapshot + diff runner for the auto-tag orchestrator (audit O1). Read-only. Needed because
+// Snapshot + diff runner for the auto-tag orchestrator. Read-only. Needed because
 // backfill is insert-only (onConflictDoNothing/onConflictDoUpdate('avoid')): it can't surface
 // what a rule tightening would remove. Only two snapshots can.
 

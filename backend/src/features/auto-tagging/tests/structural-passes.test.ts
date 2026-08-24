@@ -171,7 +171,7 @@ describe('avoidPass', () => {
     ]
 
     const out = avoidPass.run(ctx, prior)
-    // Retinoid + AHA on a leave-on serum = the X1 stack-irritation avoid.
+    // Retinoid + AHA on a leave-on serum = the cross-signal stack-irritation avoid.
     expect(out).toContainEqual({
       tagSlug: S.PEAU_SENSIBLE,
       relevance: 'avoid',

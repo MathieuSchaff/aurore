@@ -381,7 +381,7 @@ function textureHintFromName(name: string | null | undefined): EyeCreamTextureHi
   return null
 }
 
-// Texture-creme for eye-cream: excluded from the F2 kind-based default because
+// Texture-creme for eye-cream: excluded from the kind-based default because
 // eye-cream spans patches, hydrogels, serums and real creams. Uses name hint +
 // INCI gate (water top 3 + emulsifier top 8).
 
