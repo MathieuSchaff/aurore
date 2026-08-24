@@ -39,10 +39,12 @@ export async function assertTagsMatchProductDomain(
   const invalid = tags.filter((t) => !validTagTypes.has(t.tagType))
   if (invalid.length > 0) {
     throw new ProductError('tag_domain_mismatch', {
-      productCategory: product.category,
-      domain,
-      validTagTypes: [...validTagTypes],
-      invalidTags: invalid.map((t) => ({ slug: t.slug, tagType: t.tagType })),
+      publicDetails: {
+        productCategory: product.category,
+        domain,
+        validTagTypes: [...validTagTypes],
+        invalidTags: invalid.map((t) => ({ slug: t.slug, tagType: t.tagType })),
+      },
     })
   }
 }

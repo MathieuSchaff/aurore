@@ -46,7 +46,7 @@ function normalizeEdit<T extends { createdAt: string }>(row: T): T {
 // passes Zod but crashes the seed noHtml check and can leak into rendered INCI lists.
 function assertNameNoHtml(name: string, code: IngredientErrorCode) {
   if (name.includes('<') || name.includes('>') || name.includes('javascript:')) {
-    throw new IngredientError(code, 'Nom invalide')
+    throw new IngredientError(code, { publicDetails: 'Nom invalide' })
   }
 }
 
@@ -192,7 +192,9 @@ export async function createIngredient(
       .from(ingredients)
       .where(and(eq(ingredients.slug, slug), eq(ingredients.moderationStatus, 'visible')))
       .limit(1)
-    if (existing) throw new IngredientError('ingredient_already_exists', existing)
+    if (existing) {
+      throw new IngredientError('ingredient_already_exists', { publicDetails: existing })
+    }
 
     const [ingredient] = await database
       .insert(ingredients)
