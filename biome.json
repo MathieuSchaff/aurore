@@ -66,7 +66,47 @@
         "noNonNullAssertion": "warn",
         "useConst": "error",
         "useTemplate": "warn",
-        "noDescendingSpecificity": "off"
+        "noDescendingSpecificity": "off",
+        "noRestrictedImports": {
+          "level": "error",
+          "options": {
+            "patterns": [
+              {
+                "group": ["@/store/auth", "**/store/auth"],
+                "message": "Auth store is internal to the session state adapter"
+              },
+              {
+                "group": ["@/lib/auth/session", "**/auth/session", "./session"],
+                "importNamePattern": "(clearSessionExpiredEvent|consumeBanEvent|endSession|installSession|recordBan|seedClientSession|updateSessionUser|useBanEvent|useSessionExpiredEvent|writeRequestBootSession)",
+                "message": "Session transitions are restricted to named infrastructure writers"
+              },
+              {
+                "group": [
+                  "@/lib/auth/credential",
+                  "**/auth/credential",
+                  "./credential",
+                  "../credential"
+                ],
+                "importNamePattern": "readBearerForTransport",
+                "message": "Raw bearer access is restricted to transport adapters"
+              },
+              {
+                "group": [
+                  "@/lib/auth/credential",
+                  "**/auth/credential",
+                  "./credential",
+                  "../credential"
+                ],
+                "importNamePattern": "(readCredentialExpiration|useCredentialExpiration)",
+                "message": "Credential expiration is restricted to freshness and scheduling"
+              },
+              {
+                "group": ["@/lib/auth/sessionState", "**/auth/sessionState", "./sessionState"],
+                "message": "Raw session state is internal to session and credential adapters"
+              }
+            ]
+          }
+        }
       },
       "suspicious": {
         "noExplicitAny": "warn",
@@ -92,13 +132,312 @@
         "**/*.test.ts",
         "**/*.test.tsx",
         "**/__tests__/**/*.ts",
-        "**/__tests__/**/*.tsx"
+        "**/__tests__/**/*.tsx",
+        "frontend/src/test/**/*.ts",
+        "frontend/src/test/**/*.tsx"
       ],
       "linter": {
         "rules": {
+          "style": {
+            "noRestrictedImports": "off"
+          },
           "suspicious": {
             "noExplicitAny": "off",
             "noDocumentCookie": "off"
+          }
+        }
+      }
+    },
+    {
+      "includes": ["frontend/src/lib/auth/sessionState.ts"],
+      "linter": {
+        "rules": {
+          "style": {
+            "noRestrictedImports": {
+              "level": "error",
+              "options": {
+                "patterns": [
+                  {
+                    "group": ["@/lib/auth/session", "**/auth/session", "./session"],
+                    "importNamePattern": "(clearSessionExpiredEvent|consumeBanEvent|endSession|installSession|recordBan|seedClientSession|updateSessionUser|useBanEvent|useSessionExpiredEvent|writeRequestBootSession)",
+                    "message": "Session transitions are restricted to named infrastructure writers"
+                  },
+                  {
+                    "group": [
+                      "@/lib/auth/credential",
+                      "**/auth/credential",
+                      "./credential",
+                      "../credential"
+                    ],
+                    "importNamePattern": "readBearerForTransport",
+                    "message": "Raw bearer access is restricted to transport adapters"
+                  },
+                  {
+                    "group": [
+                      "@/lib/auth/credential",
+                      "**/auth/credential",
+                      "./credential",
+                      "../credential"
+                    ],
+                    "importNamePattern": "(readCredentialExpiration|useCredentialExpiration)",
+                    "message": "Credential expiration is restricted to freshness and scheduling"
+                  },
+                  {
+                    "group": ["@/lib/auth/sessionState", "**/auth/sessionState", "./sessionState"],
+                    "message": "Raw session state is internal to session and credential adapters"
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "includes": ["frontend/src/lib/auth/session.ts", "frontend/src/lib/auth/credential.ts"],
+      "linter": {
+        "rules": {
+          "style": {
+            "noRestrictedImports": {
+              "level": "error",
+              "options": {
+                "patterns": [
+                  {
+                    "group": ["@/store/auth", "**/store/auth"],
+                    "message": "Auth store is internal to the session state adapter"
+                  },
+                  {
+                    "group": ["@/lib/auth/session", "**/auth/session", "./session"],
+                    "importNamePattern": "(clearSessionExpiredEvent|consumeBanEvent|endSession|installSession|recordBan|seedClientSession|updateSessionUser|useBanEvent|useSessionExpiredEvent|writeRequestBootSession)",
+                    "message": "Session transitions are restricted to named infrastructure writers"
+                  },
+                  {
+                    "group": [
+                      "@/lib/auth/credential",
+                      "**/auth/credential",
+                      "./credential",
+                      "../credential"
+                    ],
+                    "importNamePattern": "readBearerForTransport",
+                    "message": "Raw bearer access is restricted to transport adapters"
+                  },
+                  {
+                    "group": [
+                      "@/lib/auth/credential",
+                      "**/auth/credential",
+                      "./credential",
+                      "../credential"
+                    ],
+                    "importNamePattern": "(readCredentialExpiration|useCredentialExpiration)",
+                    "message": "Credential expiration is restricted to freshness and scheduling"
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "frontend/src/lib/auth/awaitBootRefresh.ts",
+        "frontend/src/lib/auth/markBanIfBanned.ts",
+        "frontend/src/lib/auth/requireSession.ts",
+        "frontend/src/lib/auth/useBanNotice.ts",
+        "frontend/src/lib/auth/useBannedRedirect.ts",
+        "frontend/src/lib/auth/useSessionExpiredRedirect.ts",
+        "frontend/src/lib/queries/auth.ts",
+        "frontend/src/lib/queries/profile.ts",
+        "frontend/src/router.tsx",
+        "frontend/src/routes/__root.tsx"
+      ],
+      "linter": {
+        "rules": {
+          "style": {
+            "noRestrictedImports": {
+              "level": "error",
+              "options": {
+                "patterns": [
+                  {
+                    "group": ["@/store/auth", "**/store/auth"],
+                    "message": "Auth store is internal to the session state adapter"
+                  },
+                  {
+                    "group": [
+                      "@/lib/auth/credential",
+                      "**/auth/credential",
+                      "./credential",
+                      "../credential"
+                    ],
+                    "importNamePattern": "readBearerForTransport",
+                    "message": "Raw bearer access is restricted to transport adapters"
+                  },
+                  {
+                    "group": [
+                      "@/lib/auth/credential",
+                      "**/auth/credential",
+                      "./credential",
+                      "../credential"
+                    ],
+                    "importNamePattern": "(readCredentialExpiration|useCredentialExpiration)",
+                    "message": "Credential expiration is restricted to freshness and scheduling"
+                  },
+                  {
+                    "group": ["@/lib/auth/sessionState", "**/auth/sessionState", "./sessionState"],
+                    "message": "Raw session state is internal to session and credential adapters"
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "frontend/src/lib/api.ts",
+        "frontend/src/component/ImageUpload/useImageUpload.ts"
+      ],
+      "linter": {
+        "rules": {
+          "style": {
+            "noRestrictedImports": {
+              "level": "error",
+              "options": {
+                "patterns": [
+                  {
+                    "group": ["@/store/auth", "**/store/auth"],
+                    "message": "Auth store is internal to the session state adapter"
+                  },
+                  {
+                    "group": ["@/lib/auth/session", "**/auth/session", "./session"],
+                    "importNamePattern": "(clearSessionExpiredEvent|consumeBanEvent|endSession|installSession|recordBan|seedClientSession|updateSessionUser|useBanEvent|useSessionExpiredEvent|writeRequestBootSession)",
+                    "message": "Session transitions are restricted to named infrastructure writers"
+                  },
+                  {
+                    "group": [
+                      "@/lib/auth/credential",
+                      "**/auth/credential",
+                      "./credential",
+                      "../credential"
+                    ],
+                    "importNamePattern": "(readCredentialExpiration|useCredentialExpiration)",
+                    "message": "Credential expiration is restricted to freshness and scheduling"
+                  },
+                  {
+                    "group": ["@/lib/auth/sessionState", "**/auth/sessionState", "./sessionState"],
+                    "message": "Raw session state is internal to session and credential adapters"
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "includes": ["frontend/src/lib/hooks/useTokenRefresh.ts"],
+      "linter": {
+        "rules": {
+          "style": {
+            "noRestrictedImports": {
+              "level": "error",
+              "options": {
+                "patterns": [
+                  {
+                    "group": ["@/store/auth", "**/store/auth"],
+                    "message": "Auth store is internal to the session state adapter"
+                  },
+                  {
+                    "group": ["@/lib/auth/session", "**/auth/session", "./session"],
+                    "importNamePattern": "(clearSessionExpiredEvent|consumeBanEvent|endSession|installSession|recordBan|seedClientSession|updateSessionUser|useBanEvent|useSessionExpiredEvent|writeRequestBootSession)",
+                    "message": "Session transitions are restricted to named infrastructure writers"
+                  },
+                  {
+                    "group": [
+                      "@/lib/auth/credential",
+                      "**/auth/credential",
+                      "./credential",
+                      "../credential"
+                    ],
+                    "importNamePattern": "readBearerForTransport",
+                    "message": "Raw bearer access is restricted to transport adapters"
+                  },
+                  {
+                    "group": ["@/lib/auth/sessionState", "**/auth/sessionState", "./sessionState"],
+                    "message": "Raw session state is internal to session and credential adapters"
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "includes": ["frontend/src/lib/auth/freshness.ts"],
+      "linter": {
+        "rules": {
+          "style": {
+            "noRestrictedImports": {
+              "level": "error",
+              "options": {
+                "patterns": [
+                  {
+                    "group": ["@/store/auth", "**/store/auth"],
+                    "message": "Auth store is internal to the session state adapter"
+                  },
+                  {
+                    "group": [
+                      "@/lib/auth/credential",
+                      "**/auth/credential",
+                      "./credential",
+                      "../credential"
+                    ],
+                    "importNamePattern": "readBearerForTransport",
+                    "message": "Raw bearer access is restricted to transport adapters"
+                  },
+                  {
+                    "group": ["@/lib/auth/sessionState", "**/auth/sessionState", "./sessionState"],
+                    "message": "Raw session state is internal to session and credential adapters"
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "includes": ["frontend/src/lib/auth/recoverUnauthorized.ts"],
+      "linter": {
+        "rules": {
+          "style": {
+            "noRestrictedImports": {
+              "level": "error",
+              "options": {
+                "patterns": [
+                  {
+                    "group": ["@/store/auth", "**/store/auth"],
+                    "message": "Auth store is internal to the session state adapter"
+                  },
+                  {
+                    "group": [
+                      "@/lib/auth/credential",
+                      "**/auth/credential",
+                      "./credential",
+                      "../credential"
+                    ],
+                    "importNamePattern": "(readCredentialExpiration|useCredentialExpiration)",
+                    "message": "Credential expiration is restricted to freshness and scheduling"
+                  },
+                  {
+                    "group": ["@/lib/auth/sessionState", "**/auth/sessionState", "./sessionState"],
+                    "message": "Raw session state is internal to session and credential adapters"
+                  }
+                ]
+              }
+            }
           }
         }
       }

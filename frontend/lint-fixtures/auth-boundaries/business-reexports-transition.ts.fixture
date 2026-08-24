@@ -1,0 +1,1 @@
+export { installSession } from '@/lib/auth/session'
