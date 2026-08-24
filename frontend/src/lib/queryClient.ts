@@ -1,26 +1,37 @@
 import { type Mutation, MutationCache, QueryClient } from '@tanstack/react-query'
 import { toast } from 'react-hot-toast'
 
-import { isApiError } from './helpers/apiError'
+import { isApiError, isRateLimitError, rateLimitMessage } from './helpers/apiError'
 import { captureFrontendError } from './observability/faro'
 
-// `meta.errorMessage` opts in to a generic toast; `meta.silent` skips explicit Faro reporting when 4xx is part of the contract.
 declare module '@tanstack/react-query' {
   interface Register {
-    mutationMeta: { errorMessage?: string; silent?: boolean }
-    queryMeta: { silent?: boolean }
+    queryMeta: {
+      sessionScope?: { viewerId: string | null }
+    }
+    mutationMeta: {
+      errorMessage?: string
+      handledErrorCodes?: readonly string[]
+    }
   }
 }
 
-// Exported for testing the report-vs-silent and toast dedup behaviour.
 export function handleMutationError(error: unknown, mutation: Pick<Mutation, 'meta' | 'options'>) {
-  if (!mutation.meta?.silent) {
+  const apiError = isApiError(error) ? error : null
+  const isHandled =
+    apiError?.code === 'banned' ||
+    isRateLimitError(error) ||
+    (apiError !== null && mutation.meta?.handledErrorCodes?.includes(apiError.code) === true)
+
+  if (!isHandled) {
     captureFrontendError(error, {
       source: 'mutation',
+      ...(apiError && { errorCode: apiError.code, status: apiError.status }),
       mutationKey: mutation.options.mutationKey,
     })
   }
-  const message = mutation.meta?.errorMessage
+  const fallbackMessage = mutation.meta?.errorMessage
+  const message = fallbackMessage ? (rateLimitMessage(error) ?? fallbackMessage) : undefined
   // `id` dedupes identical toasts from parallel failures (e.g. unreachable backend).
   if (message) toast.error(message, { id: message })
 }

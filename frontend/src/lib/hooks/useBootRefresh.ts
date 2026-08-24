@@ -3,8 +3,8 @@ import { useRouter } from '@tanstack/react-router'
 import { useEffect } from 'react'
 
 import { awaitBootRefresh } from '@/lib/auth/awaitBootRefresh'
+import { readClientSession } from '@/lib/auth/session'
 import type { SsrBootIssue } from '@/lib/auth/ssrBoot'
-import { useAuthStore } from '@/store/auth'
 
 // Root loaders do not rerun at hydration, so the boot probe must live in a client effect.
 export function useBootRefresh(bootIssue: SsrBootIssue) {
@@ -12,18 +12,23 @@ export function useBootRefresh(bootIssue: SsrBootIssue) {
   const router = useRouter()
 
   useEffect(() => {
-    const store = useAuthStore.getState()
-    if (store.accessToken) return
-    if (store.bootRefreshAttempted) return
-    if (bootIssue === 'unknown') store.setBootRefreshPending(true)
-    store.markBootRefreshAttempted()
-    if (bootIssue === 'anonymous') return
+    const session = readClientSession()
+    if (bootIssue === 'anonymous' || session.status === 'anonymous') return
+    if (session.status === 'authenticated' && session.credential === 'present') return
+
+    let active = true
     void awaitBootRefresh(queryClient).finally(() => {
-      const settled = useAuthStore.getState()
-      settled.setBootRefreshPending(false)
+      if (!active) return
       // SSR loaders ran anonymously. Run them again once auth is available.
       // Loader errors surface via route errorComponents; the rejection here is redundant.
-      if (settled.accessToken) void router.invalidate().catch(() => {})
+      const settled = readClientSession()
+      if (settled.status === 'authenticated' && settled.credential === 'present') {
+        void router.invalidate().catch(() => {})
+      }
     })
+
+    return () => {
+      active = false
+    }
   }, [bootIssue, queryClient, router])
 }

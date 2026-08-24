@@ -2,11 +2,12 @@ import type { AppType } from '@aurore/backend'
 
 import { hc, type InferResponseType } from 'hono/client'
 
-import { isRefreshEndpoint } from '@/lib/auth/helpers'
+import { readBearerForTransport } from '@/lib/auth/credential'
+import { isInvalidCredentialsResponse, isRefreshEndpoint } from '@/lib/auth/helpers'
 import { markBanIfBanned } from '@/lib/auth/markBanIfBanned'
 import { recoverUnauthorized } from '@/lib/auth/recoverUnauthorized'
 import { httpClient } from '@/lib/httpClient'
-import { useAuthStore } from '../store/auth'
+import { queryClient } from '@/lib/queryClient'
 
 async function authFetch(input: RequestInfo | URL, init?: RequestInit): Promise<Response> {
   const res = await httpClient(input, init)
@@ -17,12 +18,13 @@ async function authFetch(input: RequestInfo | URL, init?: RequestInit): Promise<
   if (import.meta.env.SSR) return res
 
   if (res.status === 403) {
-    await markBanIfBanned(res)
+    await markBanIfBanned(queryClient, res)
     return res
   }
   // Don't retry the refresh POST itself: a 401 there means the refresh cookie is dead,
   // and retrying would loop refresh, 401, refresh, forever.
   if (res.status !== 401 || isRefreshEndpoint(input)) return res
+  if (await isInvalidCredentialsResponse(res)) return res
   return recoverUnauthorized(res, input, init)
 }
 const apiBase = import.meta.env.SSR ? import.meta.env.VITE_API_URL : '/'
@@ -33,7 +35,7 @@ const client = hc<AppType>(apiBase, {
   fetch: authFetch,
   // Read token per request so refreshes between calls are picked up without rebuilding the client.
   headers: (): Record<string, string> => {
-    const token = useAuthStore.getState().accessToken
+    const token = readBearerForTransport()
     return token ? { Authorization: `Bearer ${token}` } : {}
   },
 })
