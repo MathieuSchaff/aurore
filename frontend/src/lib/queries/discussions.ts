@@ -1,14 +1,20 @@
-import { queryOptions, useMutation, useQueryClient } from '@tanstack/react-query'
+import { type QueryClient, queryOptions, useMutation, useQueryClient } from '@tanstack/react-query'
 
 import { api } from '../api'
-import { ApiError } from '../helpers/apiError'
+import { throwIfNotOk, unwrapData } from '../helpers/apiError'
 
 type EntityType = 'product' | 'ingredient'
 
 const discussionKeys = {
-  threads: (entityType: EntityType, slug: string) => ['discussions', entityType, slug] as const,
+  all: ['discussions'] as const,
+  threads: (entityType: EntityType, slug: string) =>
+    [...discussionKeys.all, entityType, slug] as const,
   thread: (entityType: EntityType, slug: string, threadId: string) =>
-    ['discussions', entityType, slug, threadId] as const,
+    [...discussionKeys.threads(entityType, slug), threadId] as const,
+}
+
+export function invalidateDiscussionReads(queryClient: QueryClient) {
+  return queryClient.invalidateQueries({ queryKey: discussionKeys.all })
 }
 
 export const discussionQueries = {
@@ -20,9 +26,7 @@ export const discussionQueries = {
           entityType === 'product'
             ? await api.products[':slug'].discussions.$get({ param: { slug } })
             : await api.ingredients[':slug'].discussions.$get({ param: { slug } })
-        if (!res.ok) throw new ApiError('http_error', res.status)
-        const json = await res.json()
-        return json.data
+        return unwrapData(res)
       },
     }),
 
@@ -38,9 +42,7 @@ export const discussionQueries = {
             : await api.ingredients[':slug'].discussions[':threadId'].$get({
                 param: { slug, threadId },
               })
-        if (!res.ok) throw new ApiError('http_error', res.status)
-        const json = await res.json()
-        return json.data
+        return unwrapData(res)
       },
     }),
 }
@@ -48,14 +50,13 @@ export const discussionQueries = {
 export function useCreateThread(entityType: EntityType, slug: string) {
   const queryClient = useQueryClient()
   return useMutation({
+    mutationKey: ['discussions', 'thread', 'create'],
     mutationFn: async (input: { title: string; content: string }) => {
       const res =
         entityType === 'product'
           ? await api.products[':slug'].discussions.$post({ param: { slug }, json: input })
           : await api.ingredients[':slug'].discussions.$post({ param: { slug }, json: input })
-      if (!res.ok) throw new Error('Failed to create thread')
-      const json = await res.json()
-      return json.data
+      return unwrapData(res)
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: discussionKeys.threads(entityType, slug) })
@@ -67,6 +68,7 @@ export function useCreateThread(entityType: EntityType, slug: string) {
 export function useCreateReply(entityType: EntityType, slug: string, threadId: string) {
   const queryClient = useQueryClient()
   return useMutation({
+    mutationKey: ['discussions', 'reply', 'create'],
     mutationFn: async (input: { content: string }) => {
       const res =
         entityType === 'product'
@@ -78,9 +80,7 @@ export function useCreateReply(entityType: EntityType, slug: string, threadId: s
               param: { slug, threadId },
               json: input,
             })
-      if (!res.ok) throw new Error('Failed to create reply')
-      const json = await res.json()
-      return json.data
+      return unwrapData(res)
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: discussionKeys.thread(entityType, slug, threadId) })
@@ -92,6 +92,7 @@ export function useCreateReply(entityType: EntityType, slug: string, threadId: s
 export function useDeleteThread(entityType: EntityType, slug: string) {
   const queryClient = useQueryClient()
   return useMutation({
+    mutationKey: ['discussions', 'thread', 'delete'],
     mutationFn: async (threadId: string) => {
       const res =
         entityType === 'product'
@@ -101,7 +102,7 @@ export function useDeleteThread(entityType: EntityType, slug: string) {
           : await api.ingredients[':slug'].discussions[':threadId'].$delete({
               param: { slug, threadId },
             })
-      if (!res.ok) throw new Error('Failed to delete thread')
+      await throwIfNotOk(res)
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: discussionKeys.threads(entityType, slug) })
@@ -113,6 +114,7 @@ export function useDeleteThread(entityType: EntityType, slug: string) {
 export function useDeleteReply(entityType: EntityType, slug: string, threadId: string) {
   const queryClient = useQueryClient()
   return useMutation({
+    mutationKey: ['discussions', 'reply', 'delete'],
     mutationFn: async (replyId: string) => {
       const res =
         entityType === 'product'
@@ -122,7 +124,7 @@ export function useDeleteReply(entityType: EntityType, slug: string, threadId: s
           : await api.ingredients[':slug'].discussions[':threadId'].replies[':replyId'].$delete({
               param: { slug, threadId, replyId },
             })
-      if (!res.ok) throw new Error('Failed to delete reply')
+      await throwIfNotOk(res)
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: discussionKeys.thread(entityType, slug, threadId) })

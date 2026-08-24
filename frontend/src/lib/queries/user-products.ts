@@ -7,10 +7,11 @@ import type {
 import { queryOptions, useMutation, useQueryClient } from '@tanstack/react-query'
 
 import { type ApiData, api } from '../api'
-import { ApiError } from '../helpers/apiError'
+import { throwIfNotOk, unwrapData } from '../helpers/apiError'
+import { collectionKeys } from './collection'
 import { compatibilityKeys } from './compatibility'
 import { applyOptimisticUpdates, optimisticCacheUpdate } from './optimistic'
-import { productKeys } from './products'
+import { invalidateProductReviewReads, productKeys } from './products'
 
 export type UserProduct = ApiData<(typeof api)['user-products']['$get']>[number]
 
@@ -43,10 +44,17 @@ export const userProductKeys = {
   all: ['user-products'] as const,
   lists: () => [...userProductKeys.all, 'list'] as const,
   list: () => [...userProductKeys.lists()] as const,
-  detail: (id: string) => [...userProductKeys.all, 'detail', id] as const,
-  byProduct: (productId: string) => [...userProductKeys.all, 'by-product', productId] as const,
   historyRoot: () => userProductHistoryRoot,
   history: (id: string) => [...userProductHistoryRoot, id] as const,
+}
+
+function invalidateUserProductConsumers(queryClient: ReturnType<typeof useQueryClient>) {
+  queryClient.invalidateQueries({ queryKey: userProductKeys.all })
+  queryClient.invalidateQueries({ queryKey: productKeys.lists() })
+  queryClient.invalidateQueries({ queryKey: productKeys.detailPages() })
+  // Status, sentiment and review changes alter the empirical signal without
+  // changing the product ID set carried by the compatibility query key
+  queryClient.invalidateQueries({ queryKey: compatibilityKeys.all })
 }
 
 export const userProductQueries = {
@@ -55,39 +63,16 @@ export const userProductQueries = {
       queryKey: userProductKeys.list(),
       queryFn: async () => {
         const res = await api['user-products'].$get()
-        if (!res.ok) throw new ApiError('http_error', res.status)
-        const data = await res.json()
-        return data.data
+        return unwrapData(res)
       },
       // Personal catalogue rarely mutates; mutations already invalidate via userProductKeys.all.
       staleTime: 5 * 60 * 1000,
     }),
-  detail: (id: string) => ({
-    queryKey: userProductKeys.detail(id),
-    queryFn: async () => {
-      const res = await api['user-products'][':id'].$get({ param: { id } })
-      if (!res.ok) throw new ApiError('http_error', res.status)
-      const data = await res.json()
-      return data.data
-    },
-  }),
-  byProduct: (productId: string) => ({
-    queryKey: userProductKeys.byProduct(productId),
-    queryFn: async () => {
-      const res = await api['user-products'].product[':productId'].$get({ param: { productId } })
-      if (!res.ok) throw new ApiError('http_error', res.status)
-      const data = await res.json()
-      return data.data
-    },
-    retry: false,
-  }),
   history: (id: string) => ({
     queryKey: userProductKeys.history(id),
     queryFn: async () => {
       const res = await api['user-products'][':id'].history.$get({ param: { id } })
-      if (!res.ok) throw new ApiError('http_error', res.status)
-      const data = await res.json()
-      return data.data
+      return unwrapData(res)
     },
   }),
 }
@@ -95,32 +80,32 @@ export const userProductQueries = {
 export const useCreateUserProduct = () => {
   const queryClient = useQueryClient()
   return useMutation({
+    mutationKey: ['user-products', 'create'],
     mutationFn: async (input: CreateUserProductInput) => {
       const res = await api['user-products'].$post({ json: input })
-      if (!res.ok) throw new Error('Failed to create user product')
-      const data = await res.json()
-      return data.data
+      return unwrapData(res)
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: userProductKeys.all })
+      invalidateUserProductConsumers(queryClient)
       queryClient.invalidateQueries({ queryKey: userProductKeys.historyRoot() })
-      queryClient.invalidateQueries({ queryKey: productKeys.shelfStatuses() })
+      queryClient.invalidateQueries({ queryKey: collectionKeys.formulaMotifs() })
     },
     // useQuickAdd / AddToCollectionModal drive their own toast.
   })
 }
 
-export const useUpdateUserProduct = () => {
+function useUserProductUpdateMutation(bulk: boolean) {
   const queryClient = useQueryClient()
   return useMutation({
+    mutationKey: bulk
+      ? (['user-products', 'update', 'bulk'] as const)
+      : (['user-products', 'update'] as const),
     mutationFn: async ({ id, input }: UpdateUserProductVariables) => {
       const res = await api['user-products'][':id'].$patch({
         param: { id },
         json: input,
       })
-      if (!res.ok) throw new Error('Failed to update user product')
-      const data = await res.json()
-      return data.data
+      return unwrapData(res)
     },
     onMutate: (variables) => {
       return applyOptimisticUpdates(queryClient, variables, [
@@ -138,32 +123,33 @@ export const useUpdateUserProduct = () => {
     onError: (_error, _variables, context) => {
       context?.rollback()
     },
-    onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: userProductKeys.all })
+    onSettled: (_data, _error, { input }) => {
+      invalidateUserProductConsumers(queryClient)
       queryClient.invalidateQueries({ queryKey: userProductKeys.historyRoot() })
-      queryClient.invalidateQueries({ queryKey: productKeys.shelfStatuses() })
-      // status/sentiment moves the empirical signal but not the product-id set the
-      // compatibility query is keyed on, so it must be invalidated explicitly.
-      queryClient.invalidateQueries({ queryKey: compatibilityKeys.all })
+      if (input.status !== undefined) {
+        queryClient.invalidateQueries({ queryKey: collectionKeys.formulaMotifs() })
+      }
     },
-    meta: { errorMessage: 'Modification impossible — réessayez plus tard.' },
+    ...(bulk ? {} : { meta: { errorMessage: 'Modification impossible — réessayez plus tard.' } }),
   })
 }
+
+export const useUpdateUserProduct = () => useUserProductUpdateMutation(false)
+
+// Bulk failures use the app live region so this mutation deliberately has no toast message
+export const useBulkUpdateUserProduct = () => useUserProductUpdateMutation(true)
 
 export const useDeleteUserProduct = () => {
   const queryClient = useQueryClient()
   return useMutation({
+    mutationKey: ['user-products', 'delete'],
     mutationFn: async (id: string) => {
       const res = await api['user-products'][':id'].$delete({ param: { id } })
-      if (!res.ok) throw new Error('Failed to delete user product')
+      await throwIfNotOk(res)
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: userProductKeys.all })
-      queryClient.invalidateQueries({ queryKey: productKeys.shelfStatuses() })
-      // Removing a product drops it from the empirical signal the compatibility
-      // query derives, but not the product-id set it is keyed on. Invalidate it
-      // explicitly, like update/review do.
-      queryClient.invalidateQueries({ queryKey: compatibilityKeys.all })
+      invalidateUserProductConsumers(queryClient)
+      queryClient.invalidateQueries({ queryKey: collectionKeys.formulaMotifs() })
     },
     meta: { errorMessage: 'Suppression impossible — réessayez plus tard.' },
   })
@@ -172,14 +158,13 @@ export const useDeleteUserProduct = () => {
 export const useUpsertUserProductReview = () => {
   const queryClient = useQueryClient()
   return useMutation({
+    mutationKey: ['user-products', 'review', 'upsert'],
     mutationFn: async ({ id, input }: UpsertUserProductReviewVariables) => {
       const res = await api['user-products'][':id'].review.$put({
         param: { id },
         json: input,
       })
-      if (!res.ok) throw new Error('Failed to update review')
-      const data = await res.json()
-      return data.data
+      return unwrapData(res)
     },
     onMutate: (variables) => {
       return applyOptimisticUpdates(queryClient, variables, [
@@ -192,33 +177,24 @@ export const useUpsertUserProductReview = () => {
             )
           },
         }),
-        optimisticCacheUpdate<UpsertUserProductReviewVariables, UserProduct>({
-          queryKey: ({ id }) => userProductKeys.detail(id),
-          updater: (oldProduct, { input }) => {
-            if (!oldProduct) return oldProduct
-            return patchUserProductReview(oldProduct, input)
-          },
-        }),
       ])
     },
     onError: (_error, _variables, context) => {
       context?.rollback()
     },
-    onSettled: (_, __, { id, input }) => {
+    onSettled: (review, _error, { input }) => {
       queryClient.invalidateQueries({ queryKey: userProductKeys.all })
-      queryClient.invalidateQueries({ queryKey: userProductKeys.detail(id) })
       // A saved review (tolerance) shifts the signal but not the product-id set the
       // compatibility query is keyed on. Invalidate it explicitly.
       queryClient.invalidateQueries({ queryKey: compatibilityKeys.all })
-      // Public-reviews surface depends on isPublic flips: refetch whenever the
-      // toggle is part of the patch. Predicate scoping avoids nuking unrelated
-      // product caches (bySlug, lists, ingredients...).
-      // ratingsPublic also changes the public payload (axes nulled or revealed).
-      if (input.isPublic !== undefined || input.ratingsPublic !== undefined) {
-        queryClient.invalidateQueries({
-          queryKey: productKeys.all,
-          predicate: (q) => q.queryKey.includes('reviews') && q.queryKey.includes('public'),
-        })
+      // The response carries effective visibility when a partial patch omits isPublic
+      // Input visibility still covers retracting a public review
+      if (
+        review?.isPublic === true ||
+        input.isPublic !== undefined ||
+        input.ratingsPublic !== undefined
+      ) {
+        invalidateProductReviewReads(queryClient)
       }
     },
     meta: { errorMessage: 'Note non enregistrée — réessayez plus tard.' },

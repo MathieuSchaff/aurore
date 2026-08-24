@@ -1,40 +1,23 @@
-import type { ProductKind, ProductUnit } from '@aurore/shared'
-
-export type ProductListItem = {
-  id: string
-  slug: string
-  name: string
-  brand: string
-  kind: ProductKind
-  unit: ProductUnit
-  priceCents: number | null
-  totalAmount: number | null
-  amountUnit: string
-  imageUrl: string | null
-  profileMatches: string[]
-  requireMatches: string[]
-  excludeMatches: string[]
-  tags: { slug: string; tagType: string; relevance: 'primary' | 'secondary' }[]
-}
+import type { ProductDetail, ProductKind, ProductListItem } from '@aurore/shared'
 
 // Tag-by-product map kept alongside the list so the products handler can
 // honor concern/skin_type/etc. filters during integration tests. Slugs match
 // shared/src/products/skincare/tag-slugs.ts. Not part of the API response.
 export const PRODUCT_TAGS: Record<string, string[]> = {
-  '11111111-1111-1111-1111-111111111111': ['barriere-cutanee', 'peau-seche'],
-  '22222222-2222-2222-2222-222222222222': ['acne-imperfections', 'pores-sebum'],
+  '11111111-1111-4111-8111-111111111111': ['barriere-cutanee', 'peau-seche'],
+  '22222222-2222-4222-8222-222222222222': ['acne-imperfections', 'pores-sebum'],
 }
 
 // Ingredient slugs per product: same purpose as PRODUCT_TAGS but for the
 // async ingredient filter.
 export const PRODUCT_INGREDIENTS: Record<string, string[]> = {
-  '11111111-1111-1111-1111-111111111111': ['glycerin', 'hyaluronic-acid'],
-  '22222222-2222-2222-2222-222222222222': ['niacinamide'],
+  '11111111-1111-4111-8111-111111111111': ['glycerin', 'hyaluronic-acid'],
+  '22222222-2222-4222-8222-222222222222': ['niacinamide'],
 }
 
-export const PRODUCTS: ProductListItem[] = [
+export const PRODUCTS = [
   {
-    id: '11111111-1111-1111-1111-111111111111',
+    id: '11111111-1111-4111-8111-111111111111',
     slug: 'cerave-hydrating-cleanser',
     name: 'Hydrating Cleanser',
     brand: 'CeraVe',
@@ -47,13 +30,14 @@ export const PRODUCTS: ProductListItem[] = [
     profileMatches: [],
     requireMatches: [],
     excludeMatches: [],
+    userStatus: null,
     tags: [
       { slug: 'barriere-cutanee', tagType: 'concern', relevance: 'primary' },
       { slug: 'peau-seche', tagType: 'skin_type', relevance: 'primary' },
     ],
   },
   {
-    id: '22222222-2222-2222-2222-222222222222',
+    id: '22222222-2222-4222-8222-222222222222',
     slug: 'the-ordinary-niacinamide-10',
     name: 'Niacinamide 10% + Zinc 1%',
     brand: 'The Ordinary',
@@ -66,12 +50,44 @@ export const PRODUCTS: ProductListItem[] = [
     profileMatches: [],
     requireMatches: [],
     excludeMatches: [],
+    userStatus: null,
     tags: [
       { slug: 'acne-imperfections', tagType: 'concern', relevance: 'primary' },
       { slug: 'pores-sebum', tagType: 'concern', relevance: 'secondary' },
     ],
   },
-]
+] satisfies ProductListItem[]
+
+function toProductDetail(item: ProductListItem): ProductDetail {
+  const {
+    profileMatches: _profileMatches,
+    requireMatches: _requireMatches,
+    excludeMatches: _excludeMatches,
+    userStatus: _userStatus,
+    tags: _tags,
+    ...product
+  } = item
+  return {
+    ...product,
+    category: 'skincare',
+    description: null,
+    inci: null,
+    url: null,
+    texture: null,
+    notes: null,
+    catalogQuality: 'verified',
+    moderationStatus: 'visible',
+    createdBy: '33333333-3333-4333-8333-333333333333',
+    createdAt: '2026-08-16T08:00:00.000Z',
+    updatedAt: '2026-08-16T08:00:00.000Z',
+    inciCount: 0,
+    hasFragrance: false,
+    ingredients: [],
+    tags: [],
+  }
+}
+
+export const PRODUCT_DETAILS = PRODUCTS.map(toProductDetail) satisfies ProductDetail[]
 
 // Counts derived from PRODUCT_TAGS so chips with at least one match render
 // enabled. Anything absent stays 0, so the chip is disabled in the drawer.

@@ -1,7 +1,7 @@
 import { queryOptions } from '@tanstack/react-query'
 
 import { api } from '../api'
-import { ApiError } from '../helpers/apiError'
+import { unwrapData } from '../helpers/apiError'
 
 const productTagKeys = {
   all: ['product-tags'] as const,
@@ -20,9 +20,7 @@ export const productTagQueries = {
         const res = await api['product-tags'].$get({
           query: { category, ...(limit !== undefined && { limit: String(limit) }) },
         })
-        if (!res.ok) throw new ApiError('http_error', res.status)
-        const json = await res.json()
-        return json.data
+        return unwrapData(res)
       },
     }),
 }
