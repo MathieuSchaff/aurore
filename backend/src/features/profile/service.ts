@@ -22,9 +22,9 @@ import type { DatabaseTransaction, DbOrTransaction } from '../../db'
 import { userPreferences } from '../../db/schema/auth/user-preferences'
 import { ingredients } from '../../db/schema/ingredients/ingredients'
 import { userIngredientPreferences } from '../../db/schema/ingredients/user-ingredient-preferences'
+import { userProducts } from '../../db/schema/products/user-products'
 import { productTagTypes } from '../../db/schema/tags/tags'
 import { userTagPreferences } from '../../db/schema/tags/user-tag-preferences'
-import { userProducts } from '../../db/schema/user-products'
 import {
   type Profile,
   profiles,
@@ -109,13 +109,13 @@ function toDermoProfile(row: UserDermoProfileRow): UserDermoProfile {
     fitzpatrickType: row.fitzpatrickType,
     skinConcerns: (row.skinConcerns ?? []) as UserDermoProfile['skinConcerns'],
     privateNotes: row.privateNotes,
-    createdAt: row.createdAt,
-    updatedAt: row.updatedAt,
+    createdAt: normalizeInstant(row.createdAt),
+    updatedAt: normalizeInstant(row.updatedAt),
   }
 }
 
 export async function getDermoProfile(
-  db: DatabaseTransaction,
+  db: DbOrTransaction,
   userId: string
 ): Promise<UserDermoProfile | null> {
   const [row] = await db
@@ -172,7 +172,7 @@ export async function getUserPreferences(db: DatabaseTransaction, userId: string
 
   return {
     criteriaWeights: row.criteriaWeights,
-    updatedAt: row.updatedAt,
+    updatedAt: normalizeInstant(row.updatedAt),
   }
 }
 
@@ -210,7 +210,7 @@ export async function updateUserPreferences(
 
   return {
     criteriaWeights: row.criteriaWeights,
-    updatedAt: row.updatedAt,
+    updatedAt: normalizeInstant(row.updatedAt),
   }
 }
 
@@ -398,7 +398,7 @@ export async function getPublicProfileByUsername(
 }
 
 export async function listPreferenceTargets(
-  db: DatabaseTransaction,
+  db: DbOrTransaction,
   userId: string
 ): Promise<PreferenceTargets> {
   // Sequential on purpose: see exportUserData on bun-sql pipelining mis-binds.
@@ -446,8 +446,12 @@ export async function listPreferenceTargets(
     .orderBy(userTagPreferences.createdAt)
 
   return {
-    ingredients: ingredientRows.map((r) => ({ ...r, name: nameByKey.get(r.canonicalKey) ?? null })),
-    tags: tagRows,
+    ingredients: ingredientRows.map((r) => ({
+      ...r,
+      name: nameByKey.get(r.canonicalKey) ?? null,
+      createdAt: normalizeInstant(r.createdAt),
+    })),
+    tags: tagRows.map((r) => ({ ...r, createdAt: normalizeInstant(r.createdAt) })),
   }
 }
 
@@ -478,7 +482,7 @@ export async function upsertIngredientPreference(
     canonicalKey: row.canonicalKey,
     name: known.name,
     stance: row.stance,
-    createdAt: row.createdAt,
+    createdAt: normalizeInstant(row.createdAt),
   }
 }
 
@@ -523,7 +527,7 @@ export async function upsertTagPreference(
     slug: tag.slug,
     label: tag.label,
     stance: row.stance,
-    createdAt: row.createdAt,
+    createdAt: normalizeInstant(row.createdAt),
   }
 }
 
