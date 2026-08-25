@@ -1,9 +1,9 @@
 import { PRODUCT_DOMAIN_TAB_META, PRODUCT_DOMAIN_TABS, type ProductDomainTab } from '@aurore/shared'
 
 import { useQuery, useQueryClient } from '@tanstack/react-query'
-import { getRouteApi, useNavigate } from '@tanstack/react-router'
+import { getRouteApi, useHydrated, useNavigate } from '@tanstack/react-router'
 import { Package } from 'lucide-react'
-import { startTransition, useCallback, useEffect, useMemo, useState } from 'react'
+import { startTransition, useCallback, useMemo, useState } from 'react'
 
 import { Button } from '@/component/Button/Button'
 import { ListPagination } from '@/component/DataDisplay/Pagination/ListPagination'
@@ -38,16 +38,9 @@ import { useProductsExtraChips } from '@/features/products/hooks/useProductsExtr
 import { useProductsFilterGroups } from '@/features/products/hooks/useProductsFilterGroups'
 import { useProductsProfileFilter } from '@/features/products/hooks/useProductsProfileFilter'
 import { useListFilters } from '@/hooks/useListFilters'
+import { useSession, viewerId } from '@/lib/auth/session'
 import { isRateLimitError } from '@/lib/helpers/apiError'
-import { useBootPending } from '@/lib/hooks/useBootPending'
-import { authQueries } from '@/lib/queries/auth'
-import {
-  applyShelfStatusOverlayToListCache,
-  type ListProductsFilters,
-  type ProductSort,
-  productQueries,
-} from '@/lib/queries/products'
-import { useAuthStore } from '@/store/auth'
+import { type ListProductsFilters, type ProductSort, productQueries } from '@/lib/queries/products'
 import '@/component/Layout/PageLayout/ListPage.css'
 import './ProductsPage.css'
 import '@/features/products/styles/kinds.css'
@@ -70,24 +63,16 @@ export function ProductsPage() {
 
   const search = routeApi.useSearch()
   const { page, sort, priceMin, priceMax, category, q } = search
-  // Unstated in the URL reads as off until the standing choice resolves it.
-  const profile_filter = search.profile_filter === true
   const navigate = useNavigate({ from: '/products/' })
   const queryClient = useQueryClient()
 
-  const user = useAuthStore((s) => s.user)
-  // Subscribe without fetching: the cookie-authenticated root boot owns this cache entry
-  // Reading it on the first client render keeps the personalized SSR tree hydratable while
-  // the refresh probe obtains the Bearer token; a rejected probe removes the entry again
-  const { data: bootSession } = useQuery({ ...authQueries.session(), enabled: false })
-  const bootUserId = bootSession?.authenticated ? (bootSession.userId ?? null) : null
-  const userId = user?.id ?? bootUserId
+  const session = useSession()
+  const currentViewerId = viewerId(session)
+  const hydrated = useHydrated()
 
-  const { setProfileFilter: handleProfileFilterChange, unresolved: profileFilterUnresolved } =
-    useProductsProfileFilter({
-      urlProfileFilter: search.profile_filter,
-      userId: user?.id ?? null,
-    })
+  const { setProfileFilter: handleProfileFilterChange } = useProductsProfileFilter({
+    viewerId: currentViewerId,
+  })
 
   // Stable ref: a fresh object every render feeds back into setDraftFilters and loops.
   const filters = useMemo<FilterValues<FilterKey>>(
@@ -125,51 +110,19 @@ export function ProductsPage() {
     void queryClient.prefetchQuery(productQueries.filterOptions(category))
   }, [queryClient, category])
 
-  // Declared rules are the user's own avoid/require settings, which `applyDeclaredRules`
-  // turns into `apply_preferences` on the list request. Sending them needs a session that
-  // has finished resolving, hence the three guards below.
-  // While the root boot refresh is in flight, the request carries no rules. The /products
-  // loader joins that refresh before starting authenticated product work.
-  // `profileFilterUnresolved` extends the same hold past the refresh: sending the rules
-  // before the standing setting is known costs a list fetch that the very next render
-  // throws away, and the cache key follows the rules, so the grid blanks during the click.
-  const bootRefreshPending = useBootPending()
-  const canApplyDeclaredRules =
-    !!bootUserId || (!bootRefreshPending && !profileFilterUnresolved && !!user)
+  // Declared rules require a known authenticated viewer
+  const canApplyDeclaredRules = session.status === 'authenticated'
 
   const apiFilters = useMemo<ListProductsFilters>(
-    () => productsListApiFilters(search, canApplyDeclaredRules),
-    [search, canApplyDeclaredRules]
+    () => productsListApiFilters(search, canApplyDeclaredRules, hydrated ? currentViewerId : null),
+    [search, canApplyDeclaredRules, currentViewerId, hydrated]
   )
 
-  // Random/filtered: long staleTime stops back-nav reshuffle. Discovery: 30s (not 0) so the
-  // loader prefetch is honored on cold load instead of triggering an immediate duplicate fetch.
-  const staleTime = sort === 'random' || hasFilters ? 5 * 60 * 1000 : 30 * 1000
+  // Keep freshness policy with the query definition so loaders and components agree
   const { data, isLoading, isPlaceholderData, error } = useQuery({
-    ...productQueries.list(apiFilters, userId),
+    ...productQueries.list(apiFilters, currentViewerId),
     placeholderData: (prev) => prev,
-    staleTime,
   })
-  const productIds = useMemo(() => data?.items.map((item) => item.id) ?? [], [data])
-  // Don't fetch statuses for placeholder (previous page) ids during a navigation.
-  // Keyed on the real identity, which the loader already uses: the statuses belong to
-  // the visitor whatever entry carries them, so both sides share one fetch.
-  const shelfStatusOptions = productQueries.shelfStatus(userId, productIds)
-  const { data: shelfStatus } = useQuery({
-    ...shelfStatusOptions,
-    enabled: shelfStatusOptions.enabled && !isPlaceholderData,
-  })
-
-  useEffect(() => {
-    if (!userId || !shelfStatus) return
-    applyShelfStatusOverlayToListCache(
-      queryClient,
-      apiFilters,
-      userId,
-      new Set(productIds),
-      shelfStatus
-    )
-  }, [apiFilters, queryClient, shelfStatus, userId, productIds])
 
   // Live count for the drawer's in-flight selection; only runs while drawer is open.
   // Same rule gate as the list, otherwise the CTA announces the unruled catalogue
@@ -188,12 +141,25 @@ export function ProductsPage() {
           hasFilters: true,
         }),
         search,
-        canApplyDeclaredRules
+        canApplyDeclaredRules,
+        hydrated ? currentViewerId : null
       ),
-    [category, draftFilters, filters, sort, priceMin, priceMax, q, search, canApplyDeclaredRules]
+    [
+      category,
+      draftFilters,
+      filters,
+      sort,
+      priceMin,
+      priceMax,
+      q,
+      search,
+      canApplyDeclaredRules,
+      currentViewerId,
+      hydrated,
+    ]
   )
   const { data: previewData } = useQuery({
-    ...productQueries.list(previewApiFilters, userId),
+    ...productQueries.list(previewApiFilters, currentViewerId),
     enabled: isDrawerOpen,
     placeholderData: (prev) => prev,
     staleTime: 5 * 60 * 1000,
@@ -210,6 +176,9 @@ export function ProductsPage() {
 
   const items = data?.items ?? []
   const total = data?.total ?? 0
+  // Prefer explicit URL intent while server truth restores the standing setting
+  const rulesApplied = data?.rulesApplied ?? false
+  const effectiveProfileFilter = search.profile_filter ?? rulesApplied
   const totalPages = Math.ceil(total / PRODUCTS_PAGE_SIZE)
   // 429 on the list read: distinguish "throttled" from "empty catalogue" (placeholder kept on paginate).
   const showRateLimit = isRateLimitError(error)
@@ -301,8 +270,8 @@ export function ProductsPage() {
           initialFilters={EMPTY_FILTERS}
           onApply={applyFilters}
           onReset={handleReset}
-          showProfileToggle={!!user && category === 'skincare'}
-          profileFilter={profile_filter}
+          showProfileToggle={session.status === 'authenticated' && category === 'skincare'}
+          profileFilter={effectiveProfileFilter}
           onProfileFilterChange={handleProfileFilterChange}
           priceMin={priceMin}
           priceMax={priceMax}
@@ -312,7 +281,7 @@ export function ProductsPage() {
         />
 
         <ListPageLayout.Body maxWidth="var(--list-browse-rail)" isSyncing={isPlaceholderData}>
-          {profile_filter && canApplyDeclaredRules && (
+          {rulesApplied && (
             <AvoidedBanner
               hiddenCount={data?.hiddenCount ?? 0}
               excludedLabels={data?.excludedLabels ?? []}

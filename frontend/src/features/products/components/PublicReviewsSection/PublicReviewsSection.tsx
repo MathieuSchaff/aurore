@@ -8,8 +8,8 @@ import { Time } from '@/component/DataDisplay/Time/Time'
 import { SectionHeader } from '@/component/Typography/SectionHeader/SectionHeader'
 import { FITZPATRICK_ITEMS, SKIN_TYPE_LABELS } from '@/constants/skin'
 import { ReportContentButton } from '@/features/discussions/components/ReportContentButton'
+import { useSession } from '@/lib/auth/session'
 import { productQueries } from '@/lib/queries/products'
-import { useAuthStore } from '@/store/auth'
 
 import './PublicReviewsSection.css'
 
@@ -65,7 +65,8 @@ function ReviewerName({ reviewer }: { reviewer: PublicReviewView['reviewer'] }) 
 
 export function PublicReviewsSection({ slug }: PublicReviewsSectionProps) {
   const { data, isLoading, isError } = useQuery(productQueries.publicReviews(slug))
-  const isAuthenticated = useAuthStore((state) => !!state.accessToken)
+  const session = useSession()
+  const isAuthenticated = session.status === 'authenticated' && session.credential === 'present'
 
   if (isLoading) {
     return (

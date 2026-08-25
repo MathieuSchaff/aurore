@@ -4,28 +4,28 @@ import { createFileRoute, notFound } from '@tanstack/react-router'
 
 import { GlobalError } from '@/component/Feedback/app/GlobalError/GlobalError'
 import { ProductInfoSkeleton } from '@/features/products/components/skeletons/ProductLayoutSkeleton/ProductLayoutSkeleton'
+import { resolveProductDetailViewer } from '@/features/products/loadProductDetailViewer'
 import { ProductInfoTab } from '@/features/products/pages/ProductInfoTab/ProductInfoTab'
 import { ApiError } from '@/lib/helpers/apiError'
-import { isServer } from '@/lib/helpers/isServer'
 import { productQueries } from '@/lib/queries/products'
 import { canonicalUrl, clampDesc, INDEX_ROBOTS, NOINDEX_ROBOTS, seoHead } from '@/lib/seo'
 
 export const Route = createFileRoute('/products/$slug/')({
   ssr: true,
   loader: async ({ context, params, parentMatchPromise }) => {
-    if (isServer) await parentMatchPromise
+    const viewerId = await resolveProductDetailViewer(context.queryClient, parentMatchPromise)
     return (
       context.queryClient
-        .ensureQueryData(productQueries.bySlug(params.slug))
+        .ensureQueryData(productQueries.detailPage(params.slug, viewerId))
         // Head-only fields: the full product reaches the component through the
         // dehydrated Query cache, so returning it here would ship it twice
-        .then((p) => ({
-          name: p.name,
-          brand: p.brand,
-          imageUrl: p.imageUrl,
-          category: p.category,
-          moderationStatus: p.moderationStatus,
-          hasInci: Boolean(p.inci?.trim()),
+        .then(({ product }) => ({
+          name: product.name,
+          brand: product.brand,
+          imageUrl: product.imageUrl,
+          category: product.category,
+          moderationStatus: product.moderationStatus,
+          hasInci: Boolean(product.inci?.trim()),
         }))
         .catch((err) => {
           // Missing product = 404, route to notFoundComponent; keep 5xx/429 on the real error UI

@@ -3,6 +3,7 @@ import { DOMAIN_PRODUCT_FILTER_CATEGORIES, type ProductDomainTab } from '@aurore
 import type { FilterValues } from '@/component/Filter'
 import type { ListProductsFilters, ProductSort } from '@/lib/queries/products'
 import { FILTER_KEYS, type FilterKey, type ProductsSearch, type TagFilterKey } from './filters'
+import { isProfileFilterOff } from './profileFilterSetting'
 
 // 24 divides evenly by 2/3/4 columns (auto-fill grid) so pages other than the last have no ragged last row
 export const PRODUCTS_PAGE_SIZE = 24
@@ -71,15 +72,21 @@ export function buildProductsApiFilters(args: {
 // Declared rules ride the same toggle as the inferred badges, but only for an
 // authenticated caller (anonymous has no rules to apply). Shared so every count
 // on the page (the list and the drawer preview) comes from the same rule set.
+// A mute URL resolves the standing setting server-side: 'auto' unless this device
+// stored "off" (unknowable during SSR, so the server always sends 'auto' and an
+// off device corrects with one read). The response reports rulesApplied
 export function applyDeclaredRules(
   base: ListProductsFilters,
   search: Pick<ProductsSearch, 'profile_filter' | 'show_hidden'>,
-  isAuthed: boolean
+  isAuthed: boolean,
+  viewerId: string | null = null
 ): ListProductsFilters {
-  if (search.profile_filter && isAuthed) {
-    base.apply_preferences = true
-    if (search.show_hidden) base.include_excluded = true
+  if (!isAuthed) return base
+  if (search.profile_filter) base.apply_preferences = true
+  else if (search.profile_filter === undefined && !isProfileFilterOff(viewerId)) {
+    base.apply_preferences = 'auto'
   }
+  if (base.apply_preferences && search.show_hidden) base.include_excluded = true
   return base
 }
 
@@ -87,7 +94,8 @@ export function applyDeclaredRules(
 // and ProductsPage call this so the queryKey matches and the prefetch lands.
 export function productsListApiFilters(
   search: ProductsSearch,
-  isAuthed: boolean
+  isAuthed: boolean,
+  viewerId: string | null = null
 ): ListProductsFilters {
   const filters = Object.fromEntries(
     FILTER_KEYS.map((k) => [k, search[k] ?? []])
@@ -103,7 +111,7 @@ export function productsListApiFilters(
     page: search.page,
     hasFilters,
   })
-  return applyDeclaredRules(base, search, isAuthed)
+  return applyDeclaredRules(base, search, isAuthed, viewerId)
 }
 
 // UI-level toggles outside FilterDrawer state. Tag filters reset via useListFilters.resetFilters().

@@ -6,18 +6,20 @@ import { PostComposer } from '@/features/products/components/PostComposer/PostCo
 import { ProductPostsSection } from '@/features/products/components/ProductPostsSection/ProductPostsSection'
 import { PublicReviewsSection } from '@/features/products/components/PublicReviewsSection/PublicReviewsSection'
 import { ProductDiscussionSkeleton } from '@/features/products/components/skeletons/ProductLayoutSkeleton/ProductLayoutSkeleton'
+import { viewerId as getSessionViewerId, useSession } from '@/lib/auth/session'
 import { discussionQueries } from '@/lib/queries/discussions'
 import { productQueries } from '@/lib/queries/products'
-import { useAuthStore } from '@/store/auth'
 
 const route = getRouteApi('/products/$slug/discussions/')
 
 function ProductDiscussionIndex() {
   const { slug } = route.useParams()
-  // Cached by the parent /products/$slug loader; reads without a waterfall.
-  const { data: product } = useSuspenseQuery(productQueries.bySlug(slug))
+  const session = useSession()
+  const viewerId = getSessionViewerId(session)
+  const hasViewer = session.status === 'authenticated'
+  const { data: detailPage } = useSuspenseQuery(productQueries.detailPage(slug, viewerId))
+  const product = detailPage.product
   const { data: threads } = useSuspenseQuery(discussionQueries.threads('product', slug))
-  const user = useAuthStore((s) => s.user)
 
   return (
     <>
@@ -25,10 +27,10 @@ function ProductDiscussionIndex() {
 
       <ProductPostsSection
         slug={slug}
-        composer={user ? <PostComposer productId={product.id} slug={slug} /> : undefined}
+        composer={hasViewer ? <PostComposer productId={product.id} slug={slug} /> : undefined}
       />
 
-      <ThreadList threads={threads} entityType="product" slug={slug} isLoggedIn={user !== null} />
+      <ThreadList threads={threads} entityType="product" slug={slug} isLoggedIn={hasViewer} />
     </>
   )
 }

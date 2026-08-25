@@ -1,9 +1,9 @@
-import { resolveAvoidSlugs } from '@aurore/shared'
+import { type ProductDetail, resolveAvoidSlugs } from '@aurore/shared'
 
-import { useQuery, useSuspenseQuery } from '@tanstack/react-query'
+import { useSuspenseQuery } from '@tanstack/react-query'
 import { getRouteApi, Link } from '@tanstack/react-router'
 import { Check, ChevronDown, Copy, FlaskConical, StickyNote } from 'lucide-react'
-import { lazy, Suspense, useCallback, useId, useMemo } from 'react'
+import { lazy, Suspense, useId, useMemo } from 'react'
 
 // Defer ~50KB gzip; description is below the fold on first paint.
 const Markdown = lazy(() => import('react-markdown'))
@@ -24,10 +24,8 @@ import { tagLabel } from '@/features/products/filters'
 import { deriveKpChips } from '@/features/products/kp-chips'
 import { useCopyToClipboard } from '@/hooks/useCopyToClipboard'
 import { useExpandableList } from '@/hooks/useExpandableList'
-import { authQueries } from '@/lib/queries/auth'
+import { viewerId as getSessionViewerId, useSession } from '@/lib/auth/session'
 import { productQueries } from '@/lib/queries/products'
-import { profileQueries } from '@/lib/queries/profile'
-import { useAuthStore } from '@/store/auth'
 import './ProductInfoTab.css'
 
 const route = getRouteApi('/products/$slug/')
@@ -52,52 +50,185 @@ function profileLabel(slug: string): string {
   )
 }
 
-export function ProductInfoTab() {
-  const { slug } = route.useParams()
-  const { data: product } = useSuspenseQuery(productQueries.bySlug(slug))
-  const hasIngredients = product.ingredients && product.ingredients.length > 0
+function ProfileWarnings({ warnings }: { warnings: ProductDetail['tags'] }) {
+  if (warnings.length === 0) return null
+  return (
+    <FormMessage variant="warning">
+      <strong>Peut ne pas convenir à votre profil cutané.</strong>{' '}
+      <span>
+        Concerne :{' '}
+        {warnings.map((warning, index) => (
+          <span key={warning.tagSlug}>
+            {index > 0 && ', '}
+            {profileLabel(warning.tagSlug)}
+          </span>
+        ))}
+        .
+      </span>
+    </FormMessage>
+  )
+}
+
+function KpProfileBridge({ chips }: { chips: ReturnType<typeof deriveKpChips> }) {
+  if (!chips.bumps && !chips.red) return null
+  return (
+    <div className="product-kp-bridge">
+      <span className="product-kp-bridge__intro">
+        Pour votre profil {profileLabel('keratose-pilaire').toLowerCase()}, peut aider :
+      </span>
+      {chips.bumps && <Badge variant="chip">texture</Badge>}
+      {chips.red && <Badge variant="chip">rougeurs</Badge>}
+    </div>
+  )
+}
+
+function ProductNotes({ notes }: { notes: string | null }) {
+  if (!notes) return null
+  return (
+    <aside className="product-section product-notes-block" aria-labelledby="product-notes-title">
+      <IconBox className="product-notes-block__icon">
+        <StickyNote size={14} />
+      </IconBox>
+      <div>
+        <h3 id="product-notes-title" className="product-notes-block__title">
+          Notes
+        </h3>
+        <p className="product-notes-block__body">{notes}</p>
+      </div>
+    </aside>
+  )
+}
+
+function IngredientsSection({
+  ingredients,
+  inci,
+  productKey,
+}: {
+  ingredients: ProductDetail['ingredients']
+  inci: string | null
+  productKey: string
+}) {
   const { copied, copy } = useCopyToClipboard()
   const ingredientsListId = useId()
   const {
-    visible: visibleIngredients,
-    hiddenCount: hiddenIngredientsCount,
-    isExpanded: ingredientsExpanded,
-    toggle: toggleIngredientsExpanded,
-  } = useExpandableList(product.ingredients ?? [], undefined, slug)
+    visible,
+    hiddenCount,
+    isExpanded,
+    toggle: toggleExpanded,
+  } = useExpandableList(ingredients ?? [], undefined, productKey)
 
-  const handleCopyIngredients = useCallback(() => {
-    if (!product.ingredients?.length && !product.inci) return
-    const ingredientsText =
-      product.ingredients
-        ?.map((ing) => {
-          const conc = formatConcentration(
-            ing.concentrationValue,
-            ing.concentrationUnit,
-            ing.concentrationPer
+  if (!ingredients?.length) return null
+
+  const handleCopy = () => {
+    const ingredientsText = ingredients
+      .map((ingredient) => {
+        const concentration = formatConcentration(
+          ingredient.concentrationValue,
+          ingredient.concentrationUnit,
+          ingredient.concentrationPer
+        )
+        return concentration
+          ? `${ingredient.ingredientName} (${concentration})`
+          : ingredient.ingredientName
+      })
+      .join(', ')
+    void copy(
+      [ingredientsText, inci ? `Full ingredient list: ${inci}` : ''].filter(Boolean).join('\n\n')
+    )
+  }
+
+  return (
+    <div className="product-section">
+      <SectionHeader title="Ingrédients" count={ingredients.length}>
+        <Button
+          variant="ghost"
+          size="sm"
+          onClick={handleCopy}
+          aria-label="Copier la liste des ingrédients"
+          className="ingredient-copy"
+        >
+          {copied ? (
+            <>
+              <Check size={14} aria-hidden="true" />
+              <span>Copié</span>
+            </>
+          ) : (
+            <>
+              <Copy size={14} aria-hidden="true" />
+              <span>Copier</span>
+            </>
+          )}
+        </Button>
+      </SectionHeader>
+      <ul role="list" id={ingredientsListId} className="ingredient-list">
+        {visible.map((ingredient) => {
+          const concentration = formatConcentration(
+            ingredient.concentrationValue,
+            ingredient.concentrationUnit,
+            ingredient.concentrationPer
           )
-          return conc ? `${ing.ingredientName} (${conc})` : ing.ingredientName
-        })
-        .join(', ') ?? ''
-    const text = [ingredientsText, product.inci ? `Full ingredient list: ${product.inci}` : '']
-      .filter(Boolean)
-      .join('\n\n')
-    void copy(text)
-  }, [product.ingredients, copy, product.inci])
+          const category = ingredient.ingredientCategory?.toLowerCase() ?? null
+          return (
+            <li
+              key={ingredient.ingredientSlug}
+              className="ingredient-item"
+              data-cat={category ?? undefined}
+            >
+              <IconBox className="ingredient-item__icon">
+                <FlaskConical size={14} />
+              </IconBox>
+              <div className="ingredient-item__body">
+                <Link
+                  to="/ingredients/$slug"
+                  params={{ slug: ingredient.ingredientSlug }}
+                  className="ingredient-item__name"
+                >
+                  {ingredient.ingredientName}
+                </Link>
+                <div className="ingredient-item__meta">
+                  {ingredient.ingredientCategory && (
+                    <span className="ingredient-item__category">
+                      {ingredient.ingredientCategory}
+                    </span>
+                  )}
+                  {ingredient.notes && (
+                    <>
+                      <span className="ingredient-item__sep" aria-hidden="true">
+                        ·
+                      </span>
+                      <span className="ingredient-item__notes">{ingredient.notes}</span>
+                    </>
+                  )}
+                </div>
+              </div>
+              {concentration && (
+                <span className="ingredient-item__concentration">{concentration}</span>
+              )}
+            </li>
+          )
+        })}
+      </ul>
+      <ShowMoreButton
+        className="ingredient-list__more"
+        hiddenCount={hiddenCount}
+        isExpanded={isExpanded}
+        onToggle={toggleExpanded}
+        controlsId={ingredientsListId}
+      />
+    </div>
+  )
+}
 
-  const storeUser = useAuthStore((s) => s.user)
-  const { data: bootSession } = useQuery({ ...authQueries.session(), enabled: false })
-  const bootUserId = bootSession?.authenticated ? (bootSession.userId ?? null) : null
-  const userId = storeUser?.id ?? bootUserId
-
-  const { data: dermoProfile } = useQuery({
-    ...profileQueries.dermo(),
-    enabled: !!userId,
-  })
-
+export function ProductInfoTab() {
+  const { slug } = route.useParams()
+  const session = useSession()
+  const viewerId = getSessionViewerId(session)
+  const { data: detailPage } = useSuspenseQuery(productQueries.detailPage(slug, viewerId))
+  const { product, dermoProfile, assessment, preferenceTargets } = detailPage
   const profileSlugs = useMemo(() => {
-    if (!userId || !dermoProfile) return new Set<string>()
+    if (!viewerId || !dermoProfile) return new Set<string>()
     return new Set<string>([...(dermoProfile.skinTypes ?? []), ...dermoProfile.skinConcerns])
-  }, [userId, dermoProfile])
+  }, [viewerId, dermoProfile])
 
   // Same bridge as listProducts: user concern vocab and product tag vocab drifted
   // apart, so a raw comparison only lights the slugs spelled the same in both.
@@ -118,31 +249,9 @@ export function ProductInfoTab() {
 
   return (
     <>
-      {warnings.length > 0 && (
-        <FormMessage variant="warning">
-          <strong>Peut ne pas convenir à votre profil cutané.</strong>{' '}
-          <span>
-            Concerne :{' '}
-            {warnings.map((w, i) => (
-              <span key={w.tagSlug}>
-                {i > 0 && ', '}
-                {profileLabel(w.tagSlug)}
-              </span>
-            ))}
-            .
-          </span>
-        </FormMessage>
-      )}
+      <ProfileWarnings warnings={warnings} />
 
-      {(kpChips.bumps || kpChips.red) && (
-        <div className="product-kp-bridge">
-          <span className="product-kp-bridge__intro">
-            Pour votre profil {profileLabel('keratose-pilaire').toLowerCase()}, peut aider :
-          </span>
-          {kpChips.bumps && <Badge variant="chip">texture</Badge>}
-          {kpChips.red && <Badge variant="chip">rougeurs</Badge>}
-        </div>
-      )}
+      <KpProfileBridge chips={kpChips} />
 
       <ProductSummary
         kind={product.kind}
@@ -153,110 +262,19 @@ export function ProductInfoTab() {
 
       {product.inci && (
         <FormulaReading
-          slug={slug}
-          userKey={userId}
+          assessment={assessment}
+          viewerId={viewerId}
           profileSlugs={profileSlugs}
           linkedIngredients={product.ingredients ?? []}
+          preferenceTargets={preferenceTargets}
         />
       )}
 
-      {product.notes && (
-        <aside
-          className="product-section product-notes-block"
-          aria-labelledby="product-notes-title"
-        >
-          <IconBox className="product-notes-block__icon">
-            <StickyNote size={14} />
-          </IconBox>
-          <div>
-            <h3 id="product-notes-title" className="product-notes-block__title">
-              Notes
-            </h3>
-            <p className="product-notes-block__body">{product.notes}</p>
-          </div>
-        </aside>
-      )}
+      <ProductNotes notes={product.notes} />
 
-      {hasIngredients && (
-        <div className="product-section">
-          <SectionHeader title="Ingrédients" count={product.ingredients.length}>
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={handleCopyIngredients}
-              aria-label="Copier la liste des ingrédients"
-              className="ingredient-copy"
-            >
-              {copied ? (
-                <>
-                  <Check size={14} aria-hidden="true" />
-                  <span>Copié</span>
-                </>
-              ) : (
-                <>
-                  <Copy size={14} aria-hidden="true" />
-                  <span>Copier</span>
-                </>
-              )}
-            </Button>
-          </SectionHeader>
-          <ul role="list" id={ingredientsListId} className="ingredient-list">
-            {visibleIngredients.map((ing) => {
-              const concentration = formatConcentration(
-                ing.concentrationValue,
-                ing.concentrationUnit,
-                ing.concentrationPer
-              )
-              const cat = ing.ingredientCategory?.toLowerCase() ?? null
-              return (
-                <li
-                  key={ing.ingredientSlug}
-                  className="ingredient-item"
-                  data-cat={cat ?? undefined}
-                >
-                  <IconBox className="ingredient-item__icon">
-                    <FlaskConical size={14} />
-                  </IconBox>
-                  <div className="ingredient-item__body">
-                    <Link
-                      to="/ingredients/$slug"
-                      params={{ slug: ing.ingredientSlug }}
-                      className="ingredient-item__name"
-                    >
-                      {ing.ingredientName}
-                    </Link>
-                    <div className="ingredient-item__meta">
-                      {ing.ingredientCategory && (
-                        <span className="ingredient-item__category">{ing.ingredientCategory}</span>
-                      )}
-                      {ing.notes && (
-                        <>
-                          <span className="ingredient-item__sep" aria-hidden="true">
-                            ·
-                          </span>
-                          <span className="ingredient-item__notes">{ing.notes}</span>
-                        </>
-                      )}
-                    </div>
-                  </div>
-                  {concentration && (
-                    <span className="ingredient-item__concentration">{concentration}</span>
-                  )}
-                </li>
-              )
-            })}
-          </ul>
-          <ShowMoreButton
-            className="ingredient-list__more"
-            hiddenCount={hiddenIngredientsCount}
-            isExpanded={ingredientsExpanded}
-            onToggle={toggleIngredientsExpanded}
-            controlsId={ingredientsListId}
-          />
-        </div>
-      )}
+      <IngredientsSection ingredients={product.ingredients} inci={product.inci} productKey={slug} />
 
-      {product.inci && <FormulaConcentrations slug={slug} userKey={userId} />}
+      {product.inci && <FormulaConcentrations assessment={assessment} />}
 
       {/* Raw technical detail stays behind a closed disclosure: group-before-detail,
           the INCI wall is available on demand, never part of the first read. */}

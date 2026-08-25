@@ -10,24 +10,26 @@ import { productsListApiFilters } from '@/features/products/helpers'
 import { ProductsPage } from '@/features/products/pages/ProductsPage/ProductsPage'
 import { hasSeededSsrBootProductsPage, selectSsrBootView } from '@/features/products/ssrBootView'
 import { awaitBootRefresh } from '@/lib/auth/awaitBootRefresh'
+import {
+  viewerId as getSessionViewerId,
+  readClientSession,
+  readRequestSession,
+} from '@/lib/auth/session'
 import { isServer } from '@/lib/helpers/isServer'
-import { type AuthSessionCache, authQueries } from '@/lib/queries/auth'
-import { convergeShelfStatusForList, productQueries } from '@/lib/queries/products'
+import { productQueries } from '@/lib/queries/products'
 import { seoHead } from '@/lib/seo'
-import { useAuthStore } from '@/store/auth'
 
 function hasAuthenticatedSsrProductsPage(
   queryClient: QueryClient,
   search: ProductsSearch
 ): boolean {
-  const session = queryClient.getQueryData<AuthSessionCache>(authQueries.session().queryKey)
-  if (!session?.authenticated) return false
-  if (!session.userId) return false
+  const viewerId = getSessionViewerId(readRequestSession(queryClient))
+  if (!viewerId) return false
 
   const selectedView = selectSsrBootView('/products', search)
   if (selectedView?.view !== 'products') return false
 
-  return hasSeededSsrBootProductsPage(queryClient, selectedView, session.userId)
+  return hasSeededSsrBootProductsPage(queryClient, selectedView, viewerId)
 }
 
 export const Route = createFileRoute('/products/')({
@@ -48,20 +50,13 @@ export const Route = createFileRoute('/products/')({
       await awaitBootRefresh(context.queryClient)
     }
 
-    const userId = useAuthStore.getState().user?.id ?? null
-    const filters = productsListApiFilters(deps, !!userId)
-
-    if (userId) {
-      // The boot refresh invalidates this loader, which runs again while the page is
-      // still reading the anonymous entry. No key to pick here: filters without rules
-      // derive the anonymous key, so the statuses go onto the entry on screen
-      void convergeShelfStatusForList(context.queryClient, filters, userId)
-      return
-    }
+    const session = isServer ? readRequestSession(context.queryClient) : readClientSession()
+    const viewerId = getSessionViewerId(session)
+    const filters = productsListApiFilters(deps, !!viewerId, viewerId)
 
     // Wait on the server so the rendered total matches the dehydrated cache.
     // Keep client navigation from blocking so its first render is not delayed.
-    const listQuery = productQueries.list(filters, null)
+    const listQuery = productQueries.list(filters, viewerId)
     if (isServer) await context.queryClient.prefetchQuery(listQuery)
     else void context.queryClient.prefetchQuery(listQuery)
   },

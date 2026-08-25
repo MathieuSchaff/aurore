@@ -7,8 +7,8 @@ import {
   buildListProductsQuery,
   type ListProductsFilters,
   productQueries,
+  toProductDetailPageData,
 } from '@/lib/queries/products'
-import { profileQueries } from '@/lib/queries/profile'
 import { productsSearchSchema } from './filters'
 import { productsListApiFilters } from './helpers'
 
@@ -29,11 +29,14 @@ export type SsrBootView = ProductsSsrBootView | ProductDetailSsrBootView
 const PRODUCT_DETAIL_RESERVED_SLUGS = new Set(['compare', 'new'])
 
 export function selectSsrBootView(pathname: string, search: unknown): SsrBootView | undefined {
-  const productDetailMatch = pathname.match(/^\/products\/([^/]+)\/?$/)
+  const productDetailMatch = pathname.match(
+    /^\/products\/([^/]+)(?:\/discussions(?:\/[^/]+)?)?\/?$/
+  )
   const slug = productDetailMatch?.[1]
   if (slug && !PRODUCT_DETAIL_RESERVED_SLUGS.has(slug)) {
     const query = { view: 'product-detail', slug }
-    ssrBootQuerySchema.parse(query)
+    const parsedQuery = ssrBootQuerySchema.safeParse(query)
+    if (!parsedQuery.success) return undefined
     return {
       view: 'product-detail',
       slug,
@@ -48,7 +51,8 @@ export function selectSsrBootView(pathname: string, search: unknown): SsrBootVie
 
   const filters = productsListApiFilters(parsed.data, true)
   const query = { view: 'products', ...buildListProductsQuery(filters) }
-  ssrBootQuerySchema.parse(query)
+  const parsedQuery = ssrBootQuerySchema.safeParse(query)
+  if (!parsedQuery.success) return undefined
   return {
     view: 'products',
     filters,
@@ -71,19 +75,6 @@ export function seedSsrBootPage(
       productQueries.list(selectedView.filters, session.userId).queryKey,
       productsPage
     )
-
-    const productIds = productsPage.items.map((product) => product.id)
-    if (productIds.length === 0) return
-
-    const shelfStatus = new Map(
-      productsPage.items.flatMap((product) =>
-        product.userStatus === null ? [] : [[product.id, product.userStatus] as const]
-      )
-    )
-    queryClient.setQueryData(
-      productQueries.shelfStatus(session.userId, productIds).queryKey,
-      shelfStatus
-    )
     return
   }
 
@@ -95,19 +86,11 @@ export function seedSsrBootPage(
     return
   }
 
-  queryClient.setQueryData(productQueries.bySlug(selectedView.slug).queryKey, page.product)
+  const { view: _view, ...detailPage } = page
   queryClient.setQueryData(
-    productQueries.shelfStatus(session.userId, [page.product.id]).queryKey,
-    new Map(page.userStatus === null ? [] : [[page.product.id, page.userStatus]])
+    productQueries.detailPage(selectedView.slug, session.userId).queryKey,
+    toProductDetailPageData(detailPage)
   )
-  queryClient.setQueryData(profileQueries.dermo().queryKey, page.dermoProfile)
-  if (page.assessment !== null) {
-    // Shared keeps algo-derm opaque while this cache follows the route contract
-    queryClient.setQueryData<unknown>(
-      productQueries.dermoScore(selectedView.slug, session.userId).queryKey,
-      page.assessment
-    )
-  }
 }
 
 export function hasSeededSsrBootProductsPage(

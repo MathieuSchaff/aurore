@@ -1,4 +1,5 @@
-import { useQuery } from '@tanstack/react-query'
+import type { PreferenceTargets } from '@aurore/shared'
+
 import { Link } from '@tanstack/react-router'
 import { Bookmark, ChevronDown, GitMerge, Info, Scale, Sparkles } from 'lucide-react'
 import { useId, useMemo, useState } from 'react'
@@ -18,8 +19,7 @@ import {
 } from '@/constants/derm'
 import { AVOIDED_HEADING, avoidedInFormulaPhrase } from '@/constants/preferences'
 import { IngredientMarkButtons } from '@/features/profile/components/IngredientMarkButtons/IngredientMarkButtons'
-import { productQueries } from '@/lib/queries/products'
-import { preferenceTargetQueries } from '@/lib/queries/profile'
+import type { ProductDermoAssessment } from '@/lib/queries/products'
 import { avoidedIngredientNames } from './avoidedIngredients'
 import { formatIngredientSignals } from './ingredientSignals'
 import { formatRegulatoryFindings } from './regulatoryFindings'
@@ -50,9 +50,10 @@ type LinkedIngredient = {
 }
 
 interface FormulaReadingProps {
-  slug: string
-  userKey: string | null
+  assessment: ProductDermoAssessment | null
+  viewerId: string | null
   profileSlugs: ReadonlySet<string>
+  preferenceTargets: PreferenceTargets
   // Rows of product_ingredients, the only source the catalogue filter can honour.
   // Driver labels below are parsed from products.inci and diverge from it, so a
   // rule declared on a driver could hide this very product.
@@ -62,16 +63,12 @@ interface FormulaReadingProps {
 // Surfaces the algo-derm assessment: signals and their reason, never a score or
 // verdict (excluded by the product vision).
 export function FormulaReading({
-  slug,
-  userKey,
+  assessment,
+  viewerId,
   profileSlugs,
   linkedIngredients,
+  preferenceTargets,
 }: FormulaReadingProps) {
-  const { data: assessment, isError } = useQuery(productQueries.dermoScore(slug, userKey))
-  const { data: preferenceTargets } = useQuery({
-    ...preferenceTargetQueries.list(),
-    enabled: !!userKey,
-  })
   const [declareOpen, setDeclareOpen] = useState(false)
   const declareListId = useId()
 
@@ -95,17 +92,17 @@ export function FormulaReading({
     return [...nameByKey].map(([canonicalKey, name]) => ({ canonicalKey, name }))
   }, [linkedIngredients])
 
-  // The query is client-side on an SSR'd page, so `preferenceTargets` is
-  // undefined while it loads and when it fails alike; showing nothing then is
-  // the honest default: a mention is never denied, only deferred.
   const avoidedNames = useMemo(
-    () => avoidedIngredientNames(declarable, preferenceTargets?.ingredients),
+    () => avoidedIngredientNames(declarable, preferenceTargets.ingredients),
     [declarable, preferenceTargets]
   )
+  const stanceByCanonicalKey = useMemo(
+    () =>
+      new Map(preferenceTargets.ingredients.map((target) => [target.canonicalKey, target.stance])),
+    [preferenceTargets.ingredients]
+  )
 
-  // Loading and errors stay silent; an assessed formula with nothing to
-  // surface must say so instead (a mute vanish reads the same as a failure).
-  if (isError || !assessment) return null
+  if (!assessment) return null
 
   const {
     explanation,
@@ -289,7 +286,7 @@ export function FormulaReading({
         </div>
       )}
 
-      {userKey && declarable.length > 0 && (
+      {viewerId && declarable.length > 0 && (
         <div className="formula-reading__declare">
           <Button
             variant="outline"
@@ -328,6 +325,7 @@ export function FormulaReading({
                       canonicalKey={i.canonicalKey}
                       name={i.name}
                       stances={['exclude', 'require']}
+                      currentStance={stanceByCanonicalKey.get(i.canonicalKey) ?? null}
                     />
                   </li>
                 ))}

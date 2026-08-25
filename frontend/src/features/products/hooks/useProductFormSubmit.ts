@@ -16,6 +16,7 @@ import {
 import { extractFormError } from '@/lib/helpers/apiError'
 import {
   type ProductDetail,
+  productKeys,
   productQueries,
   useAddProductIngredient,
   useCreateProduct,
@@ -110,11 +111,17 @@ export function useProductFormSubmit(args: Args) {
       queryKey: productQueries.bySlug(updated.slug).queryKey,
       exact: true,
     })
+    queryClient.removeQueries({
+      queryKey: productKeys.detailPagesBySlug(updated.slug),
+    })
     // Drop stale bySlug cache when slug changes, else orphaned under old key.
     if (updated.slug !== current.slug) {
       queryClient.removeQueries({
         queryKey: productQueries.bySlug(current.slug).queryKey,
         exact: true,
+      })
+      queryClient.removeQueries({
+        queryKey: productKeys.detailPagesBySlug(current.slug),
       })
     }
     return updated.slug
