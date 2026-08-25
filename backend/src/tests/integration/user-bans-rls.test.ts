@@ -3,7 +3,7 @@
  * Route-level tests run as the table-owner `app` (implicit BYPASSRLS), which masks
  * production: APP_DATABASE_URL connects as `app_runtime` (no BYPASSRLS). user_bans needs
  * more than tenant_isolation + admin_bypass: a contributor ("modérateur") could not
- * otherwise write any ban under prod RLS. S4 adds user_bans_moderation_scoped: a
+ * otherwise write any ban under prod RLS. user_bans_moderation_scoped covers it: a
  * contributor may act on bans whose scope !== 'global'; the 'global' lockout stays admin-only.
  */
 import { describe, expect, it } from 'bun:test'
