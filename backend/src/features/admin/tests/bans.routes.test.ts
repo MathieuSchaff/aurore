@@ -254,7 +254,7 @@ describe('POST /admin/users/:id/bans', () => {
     expectStatus(res, HTTP_STATUS.BAD_REQUEST)
   })
 
-  it('GET /admin/users/:id/bans lists bans newest-first for admin', async () => {
+  it('lists bans newest-first for admin', async () => {
     const old = new Date(Date.now() - 60_000).toISOString()
     const recent = new Date().toISOString()
     await testDb.insert(userBans).values([
@@ -267,6 +267,7 @@ describe('POST /admin/users/:id/bans', () => {
     )
     expect(bans).toHaveLength(2)
     expect(bans[0]?.reason).toBe('recent')
+    expect(bans[0]?.status).toBe('active')
     expect(bans[1]?.reason).toBe('old')
   })
 

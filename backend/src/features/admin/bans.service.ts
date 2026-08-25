@@ -1,4 +1,6 @@
 import type {
+  AdminBanListItem,
+  AdminBanStatus,
   AdminUserAccount,
   ApiResponse,
   BanScope,
@@ -96,12 +98,33 @@ export async function getBanScope(
   return row?.scope ?? null
 }
 
-export async function listUserBans(db: DatabaseTransaction, userId: string): Promise<UserBan[]> {
-  return db
-    .select()
+export async function listUserBans(
+  db: DatabaseTransaction,
+  userId: string
+): Promise<AdminBanListItem[]> {
+  const rows = await db
+    .select({
+      id: userBans.id,
+      userId: userBans.userId,
+      scope: userBans.scope,
+      reason: userBans.reason,
+      bannedBy: userBans.bannedBy,
+      expiresAt: userBans.expiresAt,
+      createdAt: userBans.createdAt,
+      status: sql<AdminBanStatus>`CASE
+        WHEN ${userBans.expiresAt} IS NULL OR ${userBans.expiresAt} > now() THEN 'active'
+        ELSE 'expired'
+      END`,
+    })
     .from(userBans)
     .where(eq(userBans.userId, userId))
     .orderBy(desc(userBans.createdAt))
+
+  return rows.map((row) => ({
+    ...row,
+    expiresAt: row.expiresAt ? normalizeInstant(row.expiresAt) : null,
+    createdAt: normalizeInstant(row.createdAt),
+  }))
 }
 
 type LiftedBanSummary = Pick<UserBan, 'userId' | 'scope' | 'reason' | 'bannedBy'>
