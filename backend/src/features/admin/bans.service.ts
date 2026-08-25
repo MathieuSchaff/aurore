@@ -1,13 +1,15 @@
-import type {
-  AdminBanListItem,
-  AdminBanStatus,
-  AdminUserAccount,
-  ApiResponse,
-  BanScope,
-  CreateBanInput,
-  CreateBanResult,
-  UpdateBanInput,
-  UpdateBanResult,
+import {
+  type AdminBanListItem,
+  type AdminBanStatus,
+  type AdminUserAccount,
+  type ApiResponse,
+  type BanScope,
+  type CreateBanInput,
+  type CreateBanResult,
+  err,
+  ok,
+  type UpdateBanInput,
+  type UpdateBanResult,
 } from '@aurore/shared'
 
 import { desc, eq, sql } from 'drizzle-orm'
@@ -49,11 +51,11 @@ export async function createBan(
   { actorId, targetUserId, body }: CreateBanArgs
 ): Promise<CreateBanResult> {
   if (actorId === targetUserId) {
-    return { success: false, error: 'cannot_self_ban' }
+    return err('cannot_self_ban')
   }
 
   if (body.expiresAt && Date.parse(body.expiresAt) <= Date.now()) {
-    return { success: false, error: 'invalid_input' }
+    return err('invalid_input')
   }
 
   const [target] = await db
@@ -63,7 +65,7 @@ export async function createBan(
     .limit(1)
 
   if (!target) {
-    return { success: false, error: 'not_found' }
+    return err('not_found')
   }
 
   const [row] = await db
@@ -78,11 +80,11 @@ export async function createBan(
     .returning()
 
   if (!row) {
-    return { success: false, error: 'server_error' }
+    return err('server_error')
   }
 
   clearBanCache(targetUserId)
-  return { success: true, data: row }
+  return ok(row)
 }
 
 // Returns null when the ban is absent; caller falls through to liftBan's not_found path.
@@ -141,10 +143,10 @@ export async function liftBan(db: DatabaseTransaction, banId: string): Promise<L
   })
 
   const row = deleted[0]
-  if (!row) return { success: false, error: 'not_found' }
+  if (!row) return err('not_found')
 
   clearBanCache(row.userId)
-  return { success: true, data: row }
+  return ok(row)
 }
 
 export async function updateBan(
@@ -153,7 +155,7 @@ export async function updateBan(
   body: UpdateBanInput
 ): Promise<UpdateBanResult> {
   if (body.expiresAt && Date.parse(body.expiresAt) <= Date.now()) {
-    return { success: false, error: 'invalid_input' }
+    return err('invalid_input')
   }
 
   const updates: { reason?: string | null; expiresAt?: string | null } = {}
@@ -163,14 +165,14 @@ export async function updateBan(
   // Zod's .refine guarantees at least one field at the route layer, but guard here
   // so the service is safe under direct calls (seed, future internal callers).
   if (Object.keys(updates).length === 0) {
-    return { success: false, error: 'invalid_input' }
+    return err('invalid_input')
   }
 
   const [row] = await db.update(userBans).set(updates).where(eq(userBans.id, banId)).returning()
-  if (!row) return { success: false, error: 'not_found' }
+  if (!row) return err('not_found')
 
   clearBanCache(row.userId)
-  return { success: true, data: row }
+  return ok(row)
 }
 
 export async function listUsers(db: DatabaseTransaction): Promise<AdminUserAccount[]> {

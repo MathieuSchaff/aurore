@@ -1,4 +1,4 @@
-import type { UpdateRoleResult } from '@aurore/shared'
+import { err, ok, type UpdateRoleResult } from '@aurore/shared'
 
 import { eq } from 'drizzle-orm'
 
@@ -14,7 +14,7 @@ export async function demoteToUser(
   { adminId, targetUserId, role }: DemoteArgs
 ): Promise<UpdateRoleResult> {
   if (adminId === targetUserId) {
-    return { success: false, error: 'cannot_self_demote' }
+    return err('cannot_self_demote')
   }
 
   const [target] = await db
@@ -24,11 +24,11 @@ export async function demoteToUser(
     .limit(1)
 
   if (!target) {
-    return { success: false, error: 'not_found' }
+    return err('not_found')
   }
 
   if (target.role !== 'contributor') {
-    return { success: false, error: 'not_a_contributor' }
+    return err('not_a_contributor')
   }
 
   const [row] = await db
@@ -38,8 +38,8 @@ export async function demoteToUser(
     .returning({ id: users.id, role: users.role })
 
   if (!row) {
-    return { success: false, error: 'server_error' }
+    return err('server_error')
   }
 
-  return { success: true, data: row }
+  return ok(row)
 }
