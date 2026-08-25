@@ -165,6 +165,7 @@ describe('GET /api/boot', () => {
       assessment: {
         coverage: { total: 4 },
       },
+      preferenceTargets: { ingredients: [], tags: [] },
     })
   })
 
