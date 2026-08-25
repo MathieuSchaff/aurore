@@ -1,5 +1,5 @@
 import type {
-  AdminUserListItem,
+  AdminUserAccount,
   ApiResponse,
   BanScope,
   CreateBanInput,
@@ -13,10 +13,28 @@ import { desc, eq, sql } from 'drizzle-orm'
 import type { DatabaseTransaction } from '../../db'
 import { type UserBan, userBans, usersSafe } from '../../db/schema'
 import { profiles } from '../../db/schema/auth/users'
+import { normalizeInstant } from '../../utils/dates'
 import { clearBanCache } from '../auth/ban.service'
 
 // Cap avoids accidental full-table scans; no pagination until admin volume justifies it.
 const ADMIN_USERS_LIST_LIMIT = 100
+
+const adminUserSelection = {
+  id: usersSafe.id,
+  email: usersSafe.email,
+  role: usersSafe.role,
+  emailVerifiedAt: usersSafe.emailVerifiedAt,
+  createdAt: usersSafe.createdAt,
+  forcedPrivateByAdmin: sql<boolean>`COALESCE(${profiles.forcedPrivateByAdmin}, false)`,
+}
+
+function normalizeAdminUser(user: AdminUserAccount): AdminUserAccount {
+  return {
+    ...user,
+    emailVerifiedAt: user.emailVerifiedAt ? normalizeInstant(user.emailVerifiedAt) : null,
+    createdAt: normalizeInstant(user.createdAt),
+  }
+}
 
 type CreateBanArgs = {
   actorId: string
@@ -132,20 +150,28 @@ export async function updateBan(
   return { success: true, data: row }
 }
 
-export async function listUsers(db: DatabaseTransaction): Promise<AdminUserListItem[]> {
+export async function listUsers(db: DatabaseTransaction): Promise<AdminUserAccount[]> {
   const rows = await db
-    .select({
-      id: usersSafe.id,
-      email: usersSafe.email,
-      role: usersSafe.role,
-      emailVerifiedAt: usersSafe.emailVerifiedAt,
-      createdAt: usersSafe.createdAt,
-      // Profile row is absent during the window between signup and profile creation; coerce to boolean.
-      forcedPrivateByAdmin: sql<boolean>`COALESCE(${profiles.forcedPrivateByAdmin}, false)`,
-    })
+    .select(adminUserSelection)
     .from(usersSafe)
     .leftJoin(profiles, eq(profiles.userId, usersSafe.id))
     .orderBy(desc(usersSafe.createdAt))
     .limit(ADMIN_USERS_LIST_LIMIT)
-  return rows
+  return rows.map(normalizeAdminUser)
+}
+
+export async function getAdminUserById(
+  db: DatabaseTransaction,
+  userId: string
+): Promise<AdminUserAccount | null> {
+  const [user] = await db
+    .select(adminUserSelection)
+    .from(usersSafe)
+    .leftJoin(profiles, eq(profiles.userId, usersSafe.id))
+    .where(eq(usersSafe.id, userId))
+    .limit(1)
+
+  if (!user) return null
+
+  return normalizeAdminUser(user)
 }
