@@ -3,7 +3,7 @@ import type { UpdateUserPreferencesInput } from '@aurore/shared'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 
 import { type ApiData, api } from '../api'
-import { ApiError } from '../helpers/apiError'
+import { unwrapData } from '../helpers/apiError'
 
 export type UserPreferences = ApiData<typeof api.profile.preferences.$get>
 
@@ -16,9 +16,7 @@ export const userPreferenceQueries = {
     queryKey: userPreferenceKeys.all,
     queryFn: async () => {
       const res = await api.profile.preferences.$get()
-      if (!res.ok) throw new ApiError('http_error', res.status)
-      const data = await res.json()
-      return data.data
+      return unwrapData(res)
     },
   }),
 }
@@ -26,11 +24,10 @@ export const userPreferenceQueries = {
 export const useUpdateUserPreferences = () => {
   const queryClient = useQueryClient()
   return useMutation({
+    mutationKey: ['user-preferences', 'update'],
     mutationFn: async (input: UpdateUserPreferencesInput) => {
       const res = await api.profile.preferences.$patch({ json: input })
-      if (!res.ok) throw new Error('Failed to update preferences')
-      const data = await res.json()
-      return data.data
+      return unwrapData(res)
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: userPreferenceKeys.all })

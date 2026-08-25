@@ -2,11 +2,12 @@ import type {
   AllProductTagCategory,
   CreateProductInput,
   ProductConcentrationUnit,
+  ProductDetailPage,
   ProductDomainTab,
+  ProductErrorCode,
   ProductFormulaPreviewInput,
   ProductSort,
   UpdateProductInput,
-  UserProductStatus,
 } from '@aurore/shared'
 
 export type { ProductSort }
@@ -21,8 +22,32 @@ import {
 
 import { FILTER_KEYS } from '@/features/products/filters'
 import { type ApiData, api } from '../api'
-import { ApiError, throwIfNotOk } from '../helpers/apiError'
+import { throwIfNotOk, unwrapData } from '../helpers/apiError'
+import { collectionKeys } from './collection'
 import { applyOptimisticUpdates, optimisticCacheUpdate } from './optimistic'
+
+const PRODUCT_FORM_HANDLED_ERROR_CODES = [
+  'product_already_exists',
+  'tag_domain_mismatch',
+  'unauthorized_access',
+] as const satisfies readonly ProductErrorCode[]
+
+export type ProductDermoAssessment = ApiData<(typeof api.products)[':slug']['dermo-score']['$get']>
+
+export type ProductDetailPageData = Omit<ProductDetailPage, 'assessment'> & {
+  assessment: ProductDermoAssessment | null
+}
+
+export function toProductDetailPageData(rawPage: unknown): ProductDetailPageData {
+  // The backend validates this schema but keeps AppType opaque to avoid type expansion
+  const page = rawPage as ProductDetailPage
+  return {
+    ...page,
+    // shared ships assessment as opaque z.json() so algo-derm stays backend-only;
+    // the cast puts back the rich type inferred from the dermo-score route
+    assessment: page.assessment as ProductDermoAssessment | null,
+  }
+}
 
 // Shape before serialization; local because Hono RPC expects Record<string,string>.
 export type ListProductsFilters = {
@@ -30,7 +55,9 @@ export type ListProductsFilters = {
   kind?: string | string[]
   brand?: string | string[]
   ingredient?: string | string[]
-  apply_preferences?: boolean
+  // 'auto': the server resolves the standing "Selon mon profil" setting; the
+  // response says what happened in rulesApplied. false is never sent on the wire
+  apply_preferences?: boolean | 'auto'
   include_excluded?: boolean
   q?: string
   sort?: ProductSort
@@ -58,7 +85,7 @@ export function buildListProductsQuery(
   const f = filters as Record<string, string | string[] | undefined>
   for (const key of FILTER_KEYS) addParam(key, f[key])
 
-  if (filters.apply_preferences) query.apply_preferences = 'true'
+  if (filters.apply_preferences) query.apply_preferences = String(filters.apply_preferences)
   if (filters.include_excluded) query.include_excluded = 'true'
   if (filters.q !== undefined) query.q = filters.q
   if (filters.sort !== undefined) query.sort = filters.sort
@@ -70,67 +97,84 @@ export function buildListProductsQuery(
   return query
 }
 
-function normalizeShelfStatusIds(ids: readonly string[]): string[] {
-  return [...new Set(ids)].toSorted()
+function hasFilters(filters: ListProductsFilters): boolean {
+  const f = filters as Record<string, string | string[] | undefined>
+  return FILTER_KEYS.some((key) => {
+    const value = f[key]
+    return Array.isArray(value) ? value.length > 0 : !!value
+  })
 }
 
 export const productKeys = {
   all: ['products'] as const,
   lists: () => [...productKeys.all, 'list'] as const,
-  list: (filters: ListProductsFilters = {}) => [...productKeys.lists(), filters] as const,
-  shelfStatuses: () => [...productKeys.all, 'shelf-status'] as const,
-  shelfStatus: (userId: string | null, ids: readonly string[]) =>
-    [...productKeys.shelfStatuses(), userId, normalizeShelfStatusIds(ids).join(',')] as const,
+  list: (filters: ListProductsFilters, userId: string | null) =>
+    [...productKeys.lists(), filters, userId] as const,
+  detailPages: () => [...productKeys.all, 'detail-page'] as const,
+  detailPagesBySlug: (slug: string) => [...productKeys.detailPages(), slug] as const,
+  // The page carries userStatus and a profile-scored assessment, so sharing it
+  // would expose another viewer's data
+  detailPage: (slug: string, userId: string | null) =>
+    [...productKeys.detailPagesBySlug(slug), userId] as const,
   bySlug: (slug: string) => [...productKeys.all, slug] as const,
-  ingredients: (id: string) => [...productKeys.all, id, 'ingredients'] as const,
+  searches: () => [...productKeys.all, 'search'] as const,
+  flatSearches: () => [...productKeys.all, 'search-flat'] as const,
+  idLookups: () => [...productKeys.all, 'by-ids'] as const,
+  duplicateChecks: () => [...productKeys.all, 'check-duplicate'] as const,
+  brands: () => [...productKeys.all, 'brands'] as const,
+  filterOptions: () => [...productKeys.all, 'filter-options'] as const,
   publicReviews: (slug: string) => [...productKeys.all, slug, 'reviews', 'public'] as const,
   posts: (slug: string) => [...productKeys.all, slug, 'posts'] as const,
+}
+
+export function invalidateProductReads(queryClient: QueryClient) {
+  return queryClient.invalidateQueries({ queryKey: productKeys.all })
+}
+
+export function invalidateProductReviewReads(queryClient: QueryClient) {
+  return queryClient.invalidateQueries({
+    predicate: ({ queryKey }) =>
+      queryKey[0] === productKeys.all[0] && queryKey[2] === 'reviews' && queryKey[3] === 'public',
+  })
+}
+
+export function invalidateProductAuthorReads(queryClient: QueryClient) {
+  return queryClient.invalidateQueries({
+    predicate: ({ queryKey }) =>
+      queryKey[0] === productKeys.all[0] &&
+      (queryKey[2] === 'posts' || (queryKey[2] === 'reviews' && queryKey[3] === 'public')),
+  })
 }
 
 export const productQueries = {
   filterOptions: (category?: ProductDomainTab) =>
     queryOptions({
-      queryKey: [...productKeys.all, 'filter-options', category ?? 'all'] as const,
+      queryKey: [...productKeys.filterOptions(), category ?? 'all'] as const,
       queryFn: async () => {
         const query: Record<string, string> = {}
         if (category) query.category = category
         const res = await api.products['filter-options'].$get({ query })
-        if (!res.ok) throw new ApiError('http_error', res.status)
-        const json = await res.json()
-        return json.data
+        return unwrapData(res)
       },
       staleTime: 5 * 60 * 1000,
     }),
 
-  // Identity enters the key only when the rules can reshape the response
-  // (apply_preferences); without them an authed visitor reads the anonymous entry instead
-  // of paying a second fetch for rows that cannot differ. Shelf status rides the overlay
-  list: (filters: ListProductsFilters = {}, userId: string | null = null) =>
+  // The list carries userStatus, so sharing it would expose another viewer's shelf
+  list: (filters: ListProductsFilters, userId: string | null) =>
     queryOptions({
-      queryKey: [...productKeys.list(filters), filters.apply_preferences ? userId : null] as const,
+      queryKey: productKeys.list(filters, userId),
+      meta: { sessionScope: { viewerId: userId } },
       queryFn: async () => {
         // Cast: Hono RPC's Zod union vs. our stringified record; accepted at runtime.
         const query = buildListProductsQuery(filters) as Parameters<
           typeof api.products.$get
         >[0]['query']
         const res = await api.products.$get({ query })
-        // throwIfNotOk (not `if (!res.ok)`) to keep the backend code+retryAfter on the
-        // ApiError so a 429 surfaces "retry in Ns"; narrow the union again after.
-        await throwIfNotOk(res)
-        const json = await res.json()
-        if (!json.success) throw new ApiError('http_error', res.status)
-        return json.data
+        return unwrapData(res)
       },
-      staleTime: 1000 * 60 * 5,
-      gcTime: 1000 * 60 * 30,
-    }),
-
-  shelfStatus: (userId: string | null, ids: readonly string[]) =>
-    queryOptions({
-      queryKey: productKeys.shelfStatus(userId, ids),
-      queryFn: () => fetchShelfStatus(normalizeShelfStatusIds(ids)),
-      enabled: !!userId && ids.length > 0,
-      staleTime: 1000 * 60 * 5,
+      // Random/filtered: long staleTime stops back-nav reshuffle. Discovery: 30s (not 0) so
+      // the loader prefetch is honored on cold load instead of an immediate duplicate fetch
+      staleTime: filters.sort === 'random' || hasFilters(filters) ? 1000 * 60 * 5 : 1000 * 30,
       gcTime: 1000 * 60 * 30,
     }),
 
@@ -139,9 +183,19 @@ export const productQueries = {
       queryKey: productKeys.bySlug(slug),
       queryFn: async () => {
         const res = await api.products[':slug'].$get({ param: { slug } })
-        if (!res.ok) throw new ApiError('http_error', res.status)
-        const json = await res.json()
-        return json.data
+        return unwrapData(res)
+      },
+      enabled: !!slug,
+      staleTime: 5 * 60 * 1000,
+    }),
+
+  detailPage: (slug: string, userId: string | null) =>
+    queryOptions({
+      queryKey: productKeys.detailPage(slug, userId),
+      meta: { sessionScope: { viewerId: userId } },
+      queryFn: async () => {
+        const res = await api.products[':slug'].page.$get({ param: { slug } })
+        return toProductDetailPageData(await unwrapData(res))
       },
       enabled: !!slug,
       staleTime: 5 * 60 * 1000,
@@ -152,9 +206,7 @@ export const productQueries = {
       queryKey: productKeys.publicReviews(slug),
       queryFn: async () => {
         const res = await api.products[':slug'].reviews.public.$get({ param: { slug } })
-        if (!res.ok) throw new ApiError('http_error', res.status)
-        const json = await res.json()
-        return json.data
+        return unwrapData(res)
       },
       enabled: !!slug,
       staleTime: 60 * 1000,
@@ -165,31 +217,15 @@ export const productQueries = {
       queryKey: productKeys.posts(slug),
       queryFn: async () => {
         const res = await api.products[':slug'].posts.$get({ param: { slug } })
-        if (!res.ok) throw new ApiError('http_error', res.status)
-        const json = await res.json()
-        return json.data
+        return unwrapData(res)
       },
       enabled: !!slug,
       staleTime: 60 * 1000,
     }),
 
-  // Personalized when authed (optional bearer), so userKey separates anon vs. per-user cache.
-  dermoScore: (slug: string, userKey: string | null = null) =>
-    queryOptions({
-      queryKey: [...productKeys.bySlug(slug), 'dermo-score', userKey] as const,
-      queryFn: async () => {
-        const res = await api.products[':slug']['dermo-score'].$get({ param: { slug } })
-        if (!res.ok) throw new ApiError('http_error', res.status)
-        const json = await res.json()
-        return json.data
-      },
-      enabled: !!slug,
-      staleTime: 5 * 60 * 1000,
-    }),
-
   search: (q: string, category?: ProductDomainTab) =>
     infiniteQueryOptions({
-      queryKey: [...productKeys.all, 'search', category ?? 'all', q] as const,
+      queryKey: [...productKeys.searches(), category ?? 'all', q] as const,
       queryFn: async ({ pageParam, signal }: { pageParam: number; signal: AbortSignal }) => {
         const res = await api.products.search.$get(
           {
@@ -202,10 +238,7 @@ export const productQueries = {
           },
           { init: { signal } }
         )
-        await throwIfNotOk(res)
-        const json = await res.json()
-        if (!json.success) throw new ApiError('http_error', res.status)
-        return json.data
+        return unwrapData(res)
       },
       initialPageParam: 0 as number,
       getNextPageParam: (lastPage): number | undefined =>
@@ -217,16 +250,13 @@ export const productQueries = {
   // Flat (not paginated) variant for AsyncSearchSelect typeahead.
   searchFlat: (q: string) =>
     queryOptions({
-      queryKey: [...productKeys.all, 'search-flat', q] as const,
+      queryKey: [...productKeys.flatSearches(), q] as const,
       queryFn: async ({ signal }) => {
         const res = await api.products.search.$get(
           { query: { q, limit: '20', offset: '0' } },
           { init: { signal } }
         )
-        await throwIfNotOk(res)
-        const json = await res.json()
-        if (!json.success) throw new ApiError('http_error', res.status)
-        return json.data.items
+        return (await unwrapData(res)).items
       },
       // No enabled floor here: AsyncSearchSelect owns gating via minChars.
       staleTime: 30 * 1000,
@@ -234,12 +264,10 @@ export const productQueries = {
 
   byIds: (ids: string[]) =>
     queryOptions({
-      queryKey: [...productKeys.all, 'by-ids', ids.toSorted().join(',')] as const,
+      queryKey: [...productKeys.idLookups(), ids.toSorted().join(',')] as const,
       queryFn: async () => {
         const res = await api.products['by-ids'].$get({ query: { ids: ids.join(',') } })
-        if (!res.ok) throw new ApiError('http_error', res.status)
-        const json = await res.json()
-        return json.data
+        return unwrapData(res)
       },
       enabled: ids.length > 0,
       staleTime: 5 * 60 * 1000,
@@ -250,14 +278,12 @@ export const productQueries = {
     const n = name.trim().toLowerCase()
     const b = brand.trim().toLowerCase()
     return queryOptions({
-      queryKey: [...productKeys.all, 'check-duplicate', n, b] as const,
+      queryKey: [...productKeys.duplicateChecks(), n, b] as const,
       queryFn: async () => {
         const res = await api.products['check-duplicate'].$get({
           query: { name: n, brand: b },
         })
-        if (!res.ok) throw new ApiError('http_error', res.status)
-        const json = await res.json()
-        return json.data
+        return unwrapData(res)
       },
       enabled: n.length >= 2 && b.length >= 1,
       staleTime: 30 * 1000,
@@ -271,10 +297,7 @@ export const productQueries = {
       queryKey: [...productKeys.all, 'slug-preview', n, b] as const,
       queryFn: async () => {
         const res = await api.products['slug-preview'].$get({ query: { name: n, brand: b } })
-        if (!res.ok) throw new ApiError('http_error', res.status)
-        const json = await res.json()
-        if (!json.success) throw new Error('slug preview failed')
-        return json.data.slug
+        return (await unwrapData(res)).slug
       },
       staleTime: 30 * 1000,
     })
@@ -282,131 +305,53 @@ export const productQueries = {
 
   brands: (category?: ProductDomainTab) =>
     queryOptions({
-      queryKey: [...productKeys.all, 'brands', category ?? 'all'] as const,
+      queryKey: [...productKeys.brands(), category ?? 'all'] as const,
       queryFn: async () => {
         const res = await api.products.brands.$get({
           query: category ? { category } : {},
         })
-        if (!res.ok) throw new ApiError('http_error', res.status)
-        const json = await res.json()
-        return json.data
+        return unwrapData(res)
       },
       staleTime: 5 * 60 * 1000,
     }),
-
-  ingredients: (id: string) =>
-    queryOptions({
-      queryKey: productKeys.ingredients(id),
-      queryFn: async () => {
-        const res = await api.products[':productId'].ingredients.$get({
-          param: { productId: id },
-        })
-        if (!res.ok) throw new ApiError('http_error', res.status)
-        const json = await res.json()
-        return json.data
-      },
-      enabled: !!id,
-    }),
 }
 
-type ProductListData = NonNullable<
-  Awaited<ReturnType<NonNullable<ReturnType<typeof productQueries.list>['queryFn']>>>
->
+type ProductListData = ApiData<typeof api.products.$get>
 
-async function fetchShelfStatus(ids: string[]): Promise<Map<string, UserProductStatus>> {
-  const byId = new Map<string, UserProductStatus>()
-  const chunks: string[][] = []
-  // Chunk to the endpoint's id cap (100); a normal page fits in one request.
-  for (let i = 0; i < ids.length; i += 100) {
-    chunks.push(ids.slice(i, i + 100))
-  }
-  const results = await Promise.all(
-    chunks.map(async (chunk) => {
-      const res = await api.products['shelf-status'].$get({
-        query: { ids: chunk.join(',') },
-      })
-      if (!res.ok) throw new ApiError('http_error', res.status)
-      const json = await res.json()
-      return json.data
-    })
-  )
-  for (const rows of results) {
-    for (const row of rows) {
-      byId.set(row.productId, row.userStatus)
-    }
-  }
-  return byId
+function invalidateProductDiscoveryReads(qc: QueryClient) {
+  qc.invalidateQueries({ queryKey: productKeys.lists() })
+  qc.invalidateQueries({ queryKey: productKeys.searches() })
+  qc.invalidateQueries({ queryKey: productKeys.flatSearches() })
+  qc.invalidateQueries({ queryKey: productKeys.duplicateChecks() })
+  qc.invalidateQueries({ queryKey: productKeys.brands() })
+  qc.invalidateQueries({ queryKey: productKeys.filterOptions() })
 }
 
-// Only items in requestedIds are patched: the map's absence means "no status" for a
-// requested id, but says nothing about ids fetched by a concurrent list refetch.
-function applyShelfStatusOverlay(
-  listData: ProductListData,
-  requestedIds: ReadonlySet<string>,
-  statusByProductId: ReadonlyMap<string, UserProductStatus>
-): ProductListData {
-  let changed = false
-  const items = listData.items.map((item) => {
-    if (!requestedIds.has(item.id)) return item
-    const nextStatus = statusByProductId.get(item.id) ?? null
-    if (item.userStatus === nextStatus) return item
-    changed = true
-    return { ...item, userStatus: nextStatus }
-  })
-
-  return changed ? { ...listData, items } : listData
+// Product mutations converge detail and every discovery cache that can render stale data
+function invalidateProductSurfaces(qc: QueryClient, slug: string) {
+  qc.invalidateQueries({ queryKey: productKeys.bySlug(slug) })
+  qc.invalidateQueries({ queryKey: productKeys.detailPagesBySlug(slug) })
+  invalidateProductDiscoveryReads(qc)
 }
 
-export function applyShelfStatusOverlayToListCache(
-  qc: QueryClient,
-  filters: ListProductsFilters,
-  userId: string | null,
-  requestedIds: ReadonlySet<string>,
-  statusByProductId: ReadonlyMap<string, UserProductStatus>
-): void {
-  qc.setQueryData<ProductListData>(productQueries.list(filters, userId).queryKey, (current) => {
-    if (!current) return current
-    return applyShelfStatusOverlay(current, requestedIds, statusByProductId)
-  })
-}
-
-// Ensures one product list has a shelf-status overlay. The list fetch is the normal
-// catalogue fetch for that navigation; the overlay only reads statuses for its ids.
-// Both sides go through productQueries.list, so the statuses land on the entry the page
-// is reading: the anonymous one while the filters carry no rules
-export async function convergeShelfStatusForList(
-  qc: QueryClient,
-  filters: ListProductsFilters,
-  userId: string
-): Promise<void> {
-  try {
-    const listData = await qc.ensureQueryData(productQueries.list(filters, userId))
-    const productIds = listData.items.map((item) => item.id)
-    if (productIds.length === 0) return
-
-    const statusByProductId = await qc.ensureQueryData(
-      productQueries.shelfStatus(userId, productIds)
-    )
-    applyShelfStatusOverlayToListCache(qc, filters, userId, new Set(productIds), statusByProductId)
-  } catch {
-    // Best-effort: the catalogue remains usable; later navigation/refetch can retry the overlay.
-  }
+function invalidateFormulaSurfaces(qc: QueryClient, slug: string) {
+  qc.invalidateQueries({ queryKey: productKeys.bySlug(slug) })
+  qc.invalidateQueries({ queryKey: productKeys.detailPagesBySlug(slug) })
+  qc.invalidateQueries({ queryKey: collectionKeys.formulaMotifs() })
 }
 
 export function useCreateProduct() {
   const qc = useQueryClient()
   return useMutation({
+    mutationKey: ['products', 'create'],
+    meta: { handledErrorCodes: PRODUCT_FORM_HANDLED_ERROR_CODES },
     mutationFn: async (data: CreateProductInput) => {
       const res = await api.products.$post({ json: data })
-      await throwIfNotOk(res, 'product_creation_failed')
-      const json = await res.json()
-      if (!json.success) throw new ApiError('product_creation_failed', res.status)
-      return json.data
+      return unwrapData(res)
     },
     onSuccess: () => {
       // Don't seed bySlug: POST returns row only; cache holds full ProductDetail with tags/ingredients.
-      qc.invalidateQueries({ queryKey: productKeys.lists() })
-      qc.invalidateQueries({ queryKey: [...productKeys.all, 'brands'] })
+      invalidateProductDiscoveryReads(qc)
     },
   })
 }
@@ -414,33 +359,37 @@ export function useCreateProduct() {
 export function useUpdateProduct() {
   const qc = useQueryClient()
   return useMutation({
+    mutationKey: ['products', 'update'],
     mutationFn: async ({ id, data }: { id: string; data: UpdateProductInput }) => {
       const res = await api.products[':id'].$patch({ param: { id }, json: data })
-      await throwIfNotOk(res, 'product_update_failed')
-      const json = await res.json()
-      if (!json.success) throw new ApiError('product_update_failed', res.status)
-      return json.data
+      return unwrapData(res)
     },
     onSuccess: (product) => {
-      // Invalidate (not setQueryData): PATCH returns row only; bySlug cache holds full ProductDetail.
-      qc.invalidateQueries({ queryKey: productKeys.bySlug(product.slug) })
-      qc.invalidateQueries({ queryKey: productKeys.lists() })
+      // PATCH returns a row only; both reads also hold linked ingredients and tags
+      invalidateProductSurfaces(qc, product.slug)
+      qc.invalidateQueries({ queryKey: collectionKeys.formulaMotifs() })
     },
-    meta: { errorMessage: 'Modification du produit impossible.' },
+    meta: {
+      errorMessage: 'Modification du produit impossible.',
+      handledErrorCodes: PRODUCT_FORM_HANDLED_ERROR_CODES,
+    },
   })
 }
 
 export function useDeleteProduct() {
   const qc = useQueryClient()
   return useMutation({
+    mutationKey: ['products', 'delete'],
     mutationFn: async ({ id }: { id: string; slug: string }) => {
       const res = await api.products[':id'].$delete({ param: { id } })
-      if (!res.ok) throw new Error('Failed to delete product')
+      await throwIfNotOk(res)
     },
     onSuccess: (_, { slug }) => {
       qc.removeQueries({ queryKey: productKeys.bySlug(slug) })
-      qc.invalidateQueries({ queryKey: productKeys.lists() })
-      qc.invalidateQueries({ queryKey: [...productKeys.all, 'brands'] })
+      qc.removeQueries({ queryKey: productKeys.detailPagesBySlug(slug) })
+      invalidateProductDiscoveryReads(qc)
+      qc.invalidateQueries({ queryKey: productKeys.idLookups() })
+      qc.invalidateQueries({ queryKey: collectionKeys.formulaMotifs() })
     },
     meta: { errorMessage: 'Suppression du produit impossible.' },
   })
@@ -449,6 +398,7 @@ export function useDeleteProduct() {
 export function useUpdateProductTags() {
   const qc = useQueryClient()
   return useMutation({
+    mutationKey: ['products', 'tags', 'update'],
     mutationFn: async ({
       productId,
       tags,
@@ -461,16 +411,12 @@ export function useUpdateProductTags() {
         param: { productId },
         json: { tags },
       })
-      if (!res.ok) throw new Error('Failed to update product tags')
-      const json = await res.json()
-      if (!json.success) throw new Error('Failed to update product tags')
-      return json.data
+      return unwrapData(res)
     },
     onSuccess: (_, { slug }) => {
-      qc.invalidateQueries({ queryKey: productKeys.bySlug(slug) })
-      qc.invalidateQueries({ queryKey: productKeys.lists() })
+      invalidateProductSurfaces(qc, slug)
     },
-    meta: { errorMessage: 'Mise à jour des tags impossible.' },
+    meta: { handledErrorCodes: PRODUCT_FORM_HANDLED_ERROR_CODES },
   })
 }
 
@@ -499,14 +445,10 @@ export function useAddProductIngredient() {
           concentrationUnit,
         },
       })
-      if (!res.ok) throw new Error('Failed to add product ingredient')
-      const json = await res.json()
-      if (!json.success) throw new Error('Failed to add product ingredient')
-      return json.data
+      return unwrapData(res)
     },
-    onSuccess: (_, { productId, slug }) => {
-      qc.invalidateQueries({ queryKey: productKeys.ingredients(productId) })
-      qc.invalidateQueries({ queryKey: productKeys.bySlug(slug) })
+    onSuccess: (_, { slug }) => {
+      invalidateFormulaSurfaces(qc, slug)
     },
     meta: { errorMessage: "Ajout de l'ingrédient impossible." },
   })
@@ -515,6 +457,7 @@ export function useAddProductIngredient() {
 export function useUpdateProductIngredient() {
   const qc = useQueryClient()
   return useMutation({
+    mutationKey: ['products', 'ingredients', 'update'],
     mutationFn: async ({
       productId,
       ingredientId,
@@ -534,22 +477,14 @@ export function useUpdateProductIngredient() {
           concentrationUnit,
         },
       })
-      if (!res.ok) throw new Error('Failed to update product ingredient')
-      const json = await res.json()
-      if (!json.success) throw new Error('Failed to update product ingredient')
-      return json.data
+      return unwrapData(res)
     },
-    onSuccess: (_, { productId, slug }) => {
-      qc.invalidateQueries({ queryKey: productKeys.ingredients(productId) })
-      qc.invalidateQueries({ queryKey: productKeys.bySlug(slug) })
+    onSuccess: (_, { slug }) => {
+      invalidateFormulaSurfaces(qc, slug)
     },
     meta: { errorMessage: "Mise à jour de l'ingrédient impossible." },
   })
 }
-
-type BySlugData = {
-  ingredients: Array<{ ingredientId: string }>
-} & Record<string, unknown>
 
 type RemoveProductIngredientVariables = {
   productId: string
@@ -560,16 +495,17 @@ type RemoveProductIngredientVariables = {
 export function useRemoveProductIngredient() {
   const qc = useQueryClient()
   return useMutation({
+    mutationKey: ['products', 'ingredients', 'remove'],
     mutationFn: async ({ productId, ingredientId }: RemoveProductIngredientVariables) => {
       const res = await api.products[':productId'].ingredients[':ingredientId'].$delete({
         param: { productId, ingredientId },
       })
-      if (!res.ok) throw new Error('Failed to remove product ingredient')
+      await throwIfNotOk(res)
     },
     // Optimistic remove so unrelated rows stay interactive during the request.
     onMutate: (variables) => {
       return applyOptimisticUpdates(qc, variables, [
-        optimisticCacheUpdate<RemoveProductIngredientVariables, BySlugData>({
+        optimisticCacheUpdate<RemoveProductIngredientVariables, ProductDetail>({
           queryKey: ({ slug }) => productKeys.bySlug(slug),
           updater: (previous, { ingredientId }) => {
             if (!previous) return previous
@@ -584,9 +520,8 @@ export function useRemoveProductIngredient() {
     onError: (_err, _variables, context) => {
       context?.rollback()
     },
-    onSettled: (_, __, { productId, slug }) => {
-      qc.invalidateQueries({ queryKey: productKeys.ingredients(productId) })
-      qc.invalidateQueries({ queryKey: productKeys.bySlug(slug) })
+    onSettled: (_, __, { slug }) => {
+      invalidateFormulaSurfaces(qc, slug)
     },
     meta: { errorMessage: "Retrait de l'ingrédient impossible." },
   })
@@ -594,21 +529,17 @@ export function useRemoveProductIngredient() {
 
 export type ProductListItem = ProductListData['items'][number]
 
-// Inferred from query; backend field additions surface automatically.
-export type ProductDetail = NonNullable<
-  Awaited<ReturnType<NonNullable<ReturnType<typeof productQueries.bySlug>['queryFn']>>>
->
+// Inferred from the route so backend field additions surface automatically
+export type ProductDetail = ApiData<(typeof api.products)[':slug']['$get']>
 
 export type ProductFormulaPreview = ApiData<(typeof api.products)['formula-preview']['$post']>
 
 export function usePreviewProductFormula() {
   return useMutation({
+    mutationKey: ['products', 'formula', 'preview'],
     mutationFn: async (input: ProductFormulaPreviewInput) => {
       const res = await api.products['formula-preview'].$post({ json: input })
-      await throwIfNotOk(res, 'formula_preview_failed')
-      const json = await res.json()
-      if (!json.success) throw new ApiError('formula_preview_failed', res.status)
-      return json.data
+      return unwrapData(res)
     },
   })
 }

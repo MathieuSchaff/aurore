@@ -219,5 +219,5 @@ describe('buildListProductsQuery: category and kind', () => {
     expect(q.category).toBeUndefined()
   })
 
-  // `kind` was dropped from FILTER_KEYS (refactor ff5fcd08); backend still accepts ?kind= for direct API consumers.
+  // `kind` was dropped from FILTER_KEYS, but the backend still accepts ?kind= for direct API consumers
 })

@@ -9,83 +9,99 @@ import type {
 import { type QueryClient, queryOptions, useMutation, useQueryClient } from '@tanstack/react-query'
 
 import { productKeys } from '@/lib/queries/products'
-import { useAuthStore } from '../../store/auth'
 import { api } from '../api'
-import { throwIfNotOk } from '../helpers/apiError'
+import { endSession } from '../auth/session'
+import { throwIfNotOk, unwrapData } from '../helpers/apiError'
 import { downloadBlobAsFile, parseAttachmentFilename } from '../helpers/download'
+import { collectionKeys } from './collection'
+import { invalidateSocialReads } from './social-keys'
+
+export const profileKeys = {
+  all: ['profile'] as const,
+  me: () => [...profileKeys.all, 'me'] as const,
+  stats: () => [...profileKeys.all, 'stats'] as const,
+  dermo: () => [...profileKeys.all, 'dermo'] as const,
+  publicProfiles: () => [...profileKeys.all, 'public'] as const,
+  publicByUsername: (username: string) => [...profileKeys.publicProfiles(), username] as const,
+  reviews: () => [...profileKeys.all, 'reviews'] as const,
+  reviewsByUsername: (username: string) => [...profileKeys.reviews(), username] as const,
+  posts: () => [...profileKeys.all, 'posts'] as const,
+  postsByUsername: (username: string) => [...profileKeys.posts(), username] as const,
+  preferenceTargets: () => [...profileKeys.all, 'preference-targets'] as const,
+  privacy: () => [...profileKeys.all, 'privacy'] as const,
+}
+
+export function invalidateProfileReviewReads(queryClient: QueryClient) {
+  return queryClient.invalidateQueries({ queryKey: profileKeys.reviews() })
+}
+
+export function invalidatePublicProfileReads(queryClient: QueryClient) {
+  return Promise.all([
+    queryClient.invalidateQueries({ queryKey: profileKeys.publicProfiles() }),
+    queryClient.invalidateQueries({ queryKey: profileKeys.reviews() }),
+    queryClient.invalidateQueries({ queryKey: profileKeys.posts() }),
+  ])
+}
+
+function invalidateProfileDependentReads(queryClient: QueryClient) {
+  invalidatePublicProfileReads(queryClient)
+  invalidateSocialReads(queryClient)
+}
 
 export const profileQueries = {
   me: () =>
     queryOptions({
-      queryKey: ['profile', 'me'],
+      queryKey: profileKeys.me(),
       queryFn: async () => {
         const res = await api.profile.$get()
-        await throwIfNotOk(res)
-        const json = await res.json()
-        if (!json.success) throw new Error('error' in json ? json.error : 'Request failed')
-        return json.data
+        return unwrapData(res)
       },
       staleTime: 1000 * 60 * 5,
     }),
   stats: () =>
     queryOptions({
-      queryKey: ['profile', 'stats'],
+      queryKey: profileKeys.stats(),
       queryFn: async () => {
         const res = await api.profile.stats.$get()
-        await throwIfNotOk(res)
-        const json = await res.json()
-        if (!json.success) throw new Error('error' in json ? String(json.error) : 'Request failed')
-        return json.data
+        return unwrapData(res)
       },
       staleTime: 1000 * 60 * 5,
     }),
   dermo: () =>
     queryOptions({
-      queryKey: ['profile', 'dermo'],
+      queryKey: profileKeys.dermo(),
       queryFn: async () => {
         const res = await api.profile.dermo.$get()
-        await throwIfNotOk(res)
-        const json = await res.json()
-        if (!json.success) throw new Error('error' in json ? String(json.error) : 'Request failed')
-        return json.data
+        return unwrapData(res)
       },
       staleTime: 1000 * 60 * 5,
     }),
   publicByUsername: (username: string) =>
     queryOptions({
-      queryKey: ['profile', 'public', username],
+      queryKey: profileKeys.publicByUsername(username),
       queryFn: async () => {
         const res = await api.profiles[':username'].public.$get({ param: { username } })
-        await throwIfNotOk(res)
-        const json = await res.json()
-        if (!json.success) throw new Error('error' in json ? String(json.error) : 'Request failed')
-        return json.data
+        return unwrapData(res)
       },
       staleTime: 1000 * 60,
       enabled: !!username,
     }),
   reviewsByUsername: (username: string) =>
     queryOptions({
-      queryKey: ['profile', 'reviews', username],
+      queryKey: profileKeys.reviewsByUsername(username),
       queryFn: async () => {
         const res = await api.profiles[':username'].reviews.$get({ param: { username } })
-        await throwIfNotOk(res)
-        const json = await res.json()
-        if (!json.success) throw new Error('error' in json ? String(json.error) : 'Request failed')
-        return json.data
+        return unwrapData(res)
       },
       staleTime: 1000 * 60,
       enabled: !!username,
     }),
   postsByUsername: (username: string) =>
     queryOptions({
-      queryKey: ['profile', 'posts', username],
+      queryKey: profileKeys.postsByUsername(username),
       queryFn: async () => {
         const res = await api.profiles[':username'].posts.$get({ param: { username } })
-        await throwIfNotOk(res)
-        const json = await res.json()
-        if (!json.success) throw new Error('error' in json ? String(json.error) : 'Request failed')
-        return json.data
+        return unwrapData(res)
       },
       staleTime: 1000 * 60,
       enabled: !!username,
@@ -93,36 +109,32 @@ export const profileQueries = {
 }
 
 export const preferenceTargetQueries = {
-  // Callers gate with `enabled: !!userKey`: anonymous visitors must not fire it.
+  // Callers gate with `enabled: !!user`: anonymous visitors must not fire it
   list: () =>
     queryOptions({
-      queryKey: ['profile', 'preference-targets'],
+      queryKey: profileKeys.preferenceTargets(),
       queryFn: async () => {
         const res = await api.profile['preference-targets'].$get()
-        await throwIfNotOk(res)
-        const json = await res.json()
-        if (!json.success) throw new Error('error' in json ? String(json.error) : 'Request failed')
-        return json.data
+        return unwrapData(res)
       },
       staleTime: 1000 * 60 * 5,
     }),
 }
 
-// Every mutation invalidates the products lists too: a declared avoid reshapes
-// the "selon mon profil" exclusion server-side.
+// Preference mutations invalidate product reads because declared rules reshape server results
 function invalidatePreferenceReads(queryClient: QueryClient) {
-  queryClient.invalidateQueries({ queryKey: ['profile', 'preference-targets'] })
+  queryClient.invalidateQueries({ queryKey: profileKeys.preferenceTargets() })
   queryClient.invalidateQueries({ queryKey: productKeys.lists() })
+  queryClient.invalidateQueries({ queryKey: productKeys.detailPages() })
 }
 
 export const useUpsertIngredientPreference = () => {
   const queryClient = useQueryClient()
   return useMutation({
+    mutationKey: ['profile', 'ingredient-preferences', 'upsert'],
     mutationFn: async (data: UpsertIngredientPreferenceInput) => {
       const res = await api.profile['ingredient-preferences'].$put({ json: data })
-      const json = await res.json()
-      if (!json.success) throw new Error('error' in json ? String(json.error) : 'Request failed')
-      return json.data
+      return unwrapData(res)
     },
     onSuccess: () => invalidatePreferenceReads(queryClient),
     meta: { errorMessage: 'Enregistrement du repère impossible.' },
@@ -132,11 +144,12 @@ export const useUpsertIngredientPreference = () => {
 export const useDeleteIngredientPreference = () => {
   const queryClient = useQueryClient()
   return useMutation({
+    mutationKey: ['profile', 'ingredient-preferences', 'delete'],
     mutationFn: async (canonicalKey: string) => {
       const res = await api.profile['ingredient-preferences'].$delete({
         query: { key: canonicalKey },
       })
-      if (!res.ok) throw new Error('Request failed')
+      await throwIfNotOk(res)
     },
     onSuccess: () => invalidatePreferenceReads(queryClient),
     meta: { errorMessage: 'Retrait du repère impossible.' },
@@ -146,11 +159,10 @@ export const useDeleteIngredientPreference = () => {
 export const useUpsertTagPreference = () => {
   const queryClient = useQueryClient()
   return useMutation({
+    mutationKey: ['profile', 'tag-preferences', 'upsert'],
     mutationFn: async (data: UpsertTagPreferenceInput) => {
       const res = await api.profile['tag-preferences'].$put({ json: data })
-      const json = await res.json()
-      if (!json.success) throw new Error('error' in json ? String(json.error) : 'Request failed')
-      return json.data
+      return unwrapData(res)
     },
     onSuccess: () => invalidatePreferenceReads(queryClient),
     meta: { errorMessage: 'Enregistrement du repère impossible.' },
@@ -160,9 +172,10 @@ export const useUpsertTagPreference = () => {
 export const useDeleteTagPreference = () => {
   const queryClient = useQueryClient()
   return useMutation({
+    mutationKey: ['profile', 'tag-preferences', 'delete'],
     mutationFn: async (tagId: string) => {
       const res = await api.profile['tag-preferences'][':tagId'].$delete({ param: { tagId } })
-      if (!res.ok) throw new Error('Request failed')
+      await throwIfNotOk(res)
     },
     onSuccess: () => invalidatePreferenceReads(queryClient),
     meta: { errorMessage: 'Retrait du repère impossible.' },
@@ -173,14 +186,14 @@ export const useUpdateProfile = () => {
   const queryClient = useQueryClient()
 
   return useMutation({
+    mutationKey: ['profile', 'update'],
     mutationFn: async (data: ProfileUpdateInput) => {
       const res = await api.profile.$patch({ json: data })
-      const json = await res.json()
-      if (!json.success) throw new Error('error' in json ? json.error : 'Request failed')
-      return json.data
+      return unwrapData(res)
     },
     onSuccess: (data) => {
-      queryClient.setQueryData(['profile', 'me'], data)
+      queryClient.setQueryData(profileKeys.me(), data)
+      invalidateProfileDependentReads(queryClient)
     },
     meta: { errorMessage: 'Mise à jour du profil impossible.' },
   })
@@ -190,14 +203,13 @@ export const useDeleteUser = () => {
   const queryClient = useQueryClient()
 
   return useMutation({
+    mutationKey: ['profile', 'account', 'delete'],
     mutationFn: async () => {
-      await api.profile.deleteUser.$delete()
+      const res = await api.profile.deleteUser.$delete()
+      await throwIfNotOk(res)
     },
-    // Mirror logout teardown: without this the store keeps the access token, so
-    // the redirect to /auth/login after the delete bounces back to / as "authenticated".
     onSuccess: () => {
-      useAuthStore.getState().clearAuth()
-      queryClient.clear()
+      endSession(queryClient, 'account-deleted')
     },
     meta: { errorMessage: 'Suppression du compte impossible.' },
   })
@@ -207,15 +219,17 @@ export const useUpdateDermoProfile = () => {
   const queryClient = useQueryClient()
 
   return useMutation({
+    mutationKey: ['profile', 'dermo', 'update'],
     mutationFn: async (data: UserDermoProfileUpdateInput) => {
       const res = await api.profile.dermo.$patch({ json: data })
-      const json = await res.json()
-      if (!json.success) throw new Error('error' in json ? String(json.error) : 'Request failed')
-      return json.data
+      return unwrapData(res)
     },
     onSuccess: (data) => {
-      queryClient.setQueryData(['profile', 'dermo'], data)
+      queryClient.setQueryData(profileKeys.dermo(), data)
       queryClient.invalidateQueries({ queryKey: productKeys.lists() })
+      queryClient.invalidateQueries({ queryKey: productKeys.detailPages() })
+      queryClient.invalidateQueries({ queryKey: collectionKeys.formulaMotifs() })
+      invalidateProfileDependentReads(queryClient)
     },
     meta: { errorMessage: 'Mise à jour du profil dermo impossible.' },
   })
@@ -224,13 +238,10 @@ export const useUpdateDermoProfile = () => {
 export const privacySettingsQueries = {
   get: () =>
     queryOptions({
-      queryKey: ['profile', 'privacy'],
+      queryKey: profileKeys.privacy(),
       queryFn: async () => {
         const res = await api.profile['privacy-settings'].$get()
-        await throwIfNotOk(res)
-        const json = await res.json()
-        if (!json.success) throw new Error('error' in json ? String(json.error) : 'Request failed')
-        return json.data
+        return unwrapData(res)
       },
       staleTime: 1000 * 60 * 5,
     }),
@@ -246,9 +257,7 @@ export const useUpdatePrivacySettings = () => {
     mutationKey: PRIVACY_UPDATE_KEY,
     mutationFn: async (data: UpdatePrivacySettingsInput) => {
       const res = await api.profile['privacy-settings'].$patch({ json: data })
-      const json = await res.json()
-      if (!json.success) throw new Error('error' in json ? String(json.error) : 'Request failed')
-      return json.data
+      return unwrapData(res)
     },
     // Optimistic: a privacy toggle must feel instant. Snapshot for rollback, merge the changed flag.
     onMutate: async (data) => {
@@ -265,37 +274,21 @@ export const useUpdatePrivacySettings = () => {
     onSettled: () => {
       if (queryClient.isMutating({ mutationKey: PRIVACY_UPDATE_KEY }) === 1) {
         queryClient.invalidateQueries({ queryKey: key })
+        invalidateProfileDependentReads(queryClient)
       }
     },
     meta: { errorMessage: 'Mise à jour de la confidentialité impossible.' },
   })
 }
 
-// RGPD Article 20 portability: fresh server dump on every call, never cached (no focus/reconnect refetch).
-export class ExportRateLimitError extends Error {
-  retryAfterSec: number
-  constructor(retryAfterSec: number) {
-    super('rate_limit_exceeded')
-    this.name = 'ExportRateLimitError'
-    this.retryAfterSec = retryAfterSec
-  }
-}
-
+// RGPD Article 20 portability: the dump must be the data as it stands now
+// A cached export would hand the user an older snapshot
 export const useDownloadDataExport = () => {
   return useMutation({
+    mutationKey: ['profile', 'data-export', 'download'],
     mutationFn: async () => {
       const res = await api.profile.export.$get()
-
-      if (!res.ok) {
-        const body = (await res.json().catch(() => null)) as {
-          error?: string
-          details?: { retryAfter?: number }
-        } | null
-        if (body?.error === 'rate_limit_exceeded') {
-          throw new ExportRateLimitError(body.details?.retryAfter ?? 300)
-        }
-        throw new Error(body?.error ?? 'export_failed')
-      }
+      await throwIfNotOk(res)
 
       const blob = await res.blob()
       const filename =

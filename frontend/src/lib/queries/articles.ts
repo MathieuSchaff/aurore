@@ -1,9 +1,14 @@
-import type { BlogCategory, CreateArticleInput, UpdateArticleInput } from '@aurore/shared'
+import type {
+  ArticleErrorCode,
+  BlogCategory,
+  CreateArticleInput,
+  UpdateArticleInput,
+} from '@aurore/shared'
 
 import { queryOptions, useMutation, useQueryClient } from '@tanstack/react-query'
 
 import { api } from '../api'
-import { ApiError } from '../helpers/apiError'
+import { throwIfNotOk, unwrapData } from '../helpers/apiError'
 
 type ListArticlesFilters = {
   category?: BlogCategory
@@ -21,6 +26,10 @@ const articleKeys = {
   categoryCounts: () => [...articleKeys.all, 'categoryCounts'] as const,
 }
 
+const ARTICLE_FORM_HANDLED_ERROR_CODES = [
+  'slug_already_exists',
+] as const satisfies readonly ArticleErrorCode[]
+
 export const articleQueries = {
   list: (filters: ListArticlesFilters = {}) =>
     queryOptions({
@@ -35,9 +44,7 @@ export const articleQueries = {
         if (filters.q) query.q = filters.q
 
         const res = await api.articles.$get({ query })
-        if (!res.ok) throw new ApiError('http_error', res.status)
-        const json = await res.json()
-        return json.data
+        return unwrapData(res)
       },
     }),
 
@@ -46,9 +53,7 @@ export const articleQueries = {
       queryKey: articleKeys.bySlug(slug),
       queryFn: async () => {
         const res = await api.articles[':slug'].$get({ param: { slug } })
-        if (!res.ok) throw new ApiError('http_error', res.status)
-        const json = await res.json()
-        return json.data
+        return unwrapData(res)
       },
       enabled: !!slug,
     }),
@@ -58,9 +63,7 @@ export const articleQueries = {
       queryKey: articleKeys.categoryCounts(),
       queryFn: async () => {
         const res = await api.articles.categories.$get()
-        if (!res.ok) throw new ApiError('http_error', res.status)
-        const json = await res.json()
-        return json.data
+        return unwrapData(res)
       },
       // Counts shift slowly; avoid fetching again on every nav.
       staleTime: 60_000,
@@ -70,35 +73,30 @@ export const articleQueries = {
 export function useCreateArticle() {
   const qc = useQueryClient()
   return useMutation({
+    mutationKey: ['articles', 'create'],
     mutationFn: async (data: CreateArticleInput) => {
       const res = await api.articles.$post({ json: data })
-      if (!res.ok) throw new Error('Failed to create article')
-      const json = await res.json()
-      if (!json.success) throw new Error('Failed to create article')
-      return json.data
+      return unwrapData(res)
     },
     onSuccess: (article) => {
       qc.setQueryData(articleKeys.bySlug(article.slug), article)
       qc.invalidateQueries({ queryKey: articleKeys.lists() })
       qc.invalidateQueries({ queryKey: articleKeys.categoryCounts() })
     },
-    meta: { errorMessage: "Création de l'article impossible." },
+    meta: {
+      errorMessage: "Création de l'article impossible.",
+      handledErrorCodes: ARTICLE_FORM_HANDLED_ERROR_CODES,
+    },
   })
 }
 
 export function useUpdateArticle() {
   const qc = useQueryClient()
   return useMutation({
+    mutationKey: ['articles', 'update'],
     mutationFn: async ({ slug, data }: { slug: string; data: UpdateArticleInput }) => {
       const res = await api.articles[':slug'].$patch({ param: { slug }, json: data })
-      if (!res.ok) {
-        const error = new Error('Failed to update article')
-        ;(error as Error & { status: number }).status = res.status
-        throw error
-      }
-      const json = await res.json()
-      if (!json.success) throw new Error('Failed to update article')
-      return json.data
+      return unwrapData(res)
     },
     onSuccess: (article, { slug }) => {
       qc.setQueryData(articleKeys.bySlug(article.slug), article)
@@ -106,16 +104,20 @@ export function useUpdateArticle() {
       qc.invalidateQueries({ queryKey: articleKeys.lists() })
       qc.invalidateQueries({ queryKey: articleKeys.categoryCounts() })
     },
-    meta: { errorMessage: "Mise à jour de l'article impossible." },
+    meta: {
+      errorMessage: "Mise à jour de l'article impossible.",
+      handledErrorCodes: ARTICLE_FORM_HANDLED_ERROR_CODES,
+    },
   })
 }
 
 export function useDeleteArticle() {
   const qc = useQueryClient()
   return useMutation({
+    mutationKey: ['articles', 'delete'],
     mutationFn: async (slug: string) => {
       const res = await api.articles[':slug'].$delete({ param: { slug } })
-      if (!res.ok) throw new Error('Failed to delete article')
+      await throwIfNotOk(res)
     },
     onSuccess: (_, slug) => {
       qc.removeQueries({ queryKey: articleKeys.bySlug(slug) })

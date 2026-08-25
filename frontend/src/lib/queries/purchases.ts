@@ -8,7 +8,7 @@ import type {
 import { type QueryClient, queryOptions, useMutation, useQueryClient } from '@tanstack/react-query'
 
 import { api } from '../api'
-import { ApiError } from '../helpers/apiError'
+import { throwIfNotOk, unwrapData } from '../helpers/apiError'
 import { userProductKeys } from './user-products'
 
 const purchaseKeys = {
@@ -30,9 +30,7 @@ export const purchaseQueries = {
         const res = await api['user-products'][':id'].purchases.$get({
           param: { id: userProductId },
         })
-        if (!res.ok) throw new ApiError('http_error', res.status)
-        const data = await res.json()
-        return data.data
+        return unwrapData(res)
       },
     }),
 }
@@ -40,6 +38,7 @@ export const purchaseQueries = {
 export const useAddPurchase = () => {
   const queryClient = useQueryClient()
   return useMutation({
+    mutationKey: ['purchases', 'add'],
     mutationFn: async ({
       userProductId,
       input,
@@ -51,9 +50,7 @@ export const useAddPurchase = () => {
         param: { id: userProductId },
         json: input,
       })
-      if (!res.ok) throw new Error('Failed to add purchase')
-      const data = await res.json()
-      return data.data
+      return unwrapData(res)
     },
     onSuccess: (_, { userProductId }) =>
       invalidateAfterPurchaseMutation(queryClient, userProductId),
@@ -63,6 +60,7 @@ export const useAddPurchase = () => {
 export const useOpenPurchase = () => {
   const queryClient = useQueryClient()
   return useMutation({
+    mutationKey: ['purchases', 'open'],
     mutationFn: async ({
       userProductId,
       purchaseId,
@@ -76,9 +74,7 @@ export const useOpenPurchase = () => {
         param: { id: userProductId, purchaseId },
         json: input,
       })
-      if (!res.ok) throw new Error('Failed to open purchase')
-      const data = await res.json()
-      return data.data
+      return unwrapData(res)
     },
     onSuccess: (_, { userProductId }) =>
       invalidateAfterPurchaseMutation(queryClient, userProductId),
@@ -89,6 +85,7 @@ export const useOpenPurchase = () => {
 export const useFinishPurchase = () => {
   const queryClient = useQueryClient()
   return useMutation({
+    mutationKey: ['purchases', 'finish'],
     mutationFn: async ({
       userProductId,
       input,
@@ -100,9 +97,7 @@ export const useFinishPurchase = () => {
         param: { id: userProductId },
         json: input,
       })
-      if (!res.ok) throw new Error('Failed to finish purchase')
-      const data = await res.json()
-      return data.data
+      return unwrapData(res)
     },
     onSuccess: (_, { userProductId }) =>
       invalidateAfterPurchaseMutation(queryClient, userProductId),
@@ -113,6 +108,7 @@ export const useFinishPurchase = () => {
 export const useUpdatePurchase = () => {
   const queryClient = useQueryClient()
   return useMutation({
+    mutationKey: ['purchases', 'update'],
     mutationFn: async ({
       userProductId,
       purchaseId,
@@ -126,9 +122,7 @@ export const useUpdatePurchase = () => {
         param: { id: userProductId, purchaseId },
         json: input,
       })
-      if (!res.ok) throw new Error('Failed to update purchase')
-      const data = await res.json()
-      return data.data
+      return unwrapData(res)
     },
     onSuccess: (_, { userProductId }) =>
       invalidateAfterPurchaseMutation(queryClient, userProductId),
@@ -139,6 +133,7 @@ export const useUpdatePurchase = () => {
 export const useDeletePurchase = () => {
   const queryClient = useQueryClient()
   return useMutation({
+    mutationKey: ['purchases', 'delete'],
     mutationFn: async ({
       userProductId,
       purchaseId,
@@ -149,7 +144,7 @@ export const useDeletePurchase = () => {
       const res = await api['user-products'][':id'].purchases[':purchaseId'].$delete({
         param: { id: userProductId, purchaseId },
       })
-      if (!res.ok) throw new Error('Failed to delete purchase')
+      await throwIfNotOk(res)
     },
     onSuccess: (_, { userProductId }) =>
       invalidateAfterPurchaseMutation(queryClient, userProductId),
