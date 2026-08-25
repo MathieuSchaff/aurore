@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { type CriteriaWeights, calculateWeightedScore, type ReviewCriteria } from '../reviews'
+import { type CriteriaWeights, calculateWeightedScore, type ReviewCriteria } from './reviews'
 
 const fullReview: ReviewCriteria = {
   tolerance: 4,

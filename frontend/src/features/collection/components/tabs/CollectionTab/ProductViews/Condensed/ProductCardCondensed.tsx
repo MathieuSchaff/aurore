@@ -16,9 +16,9 @@ import {
   statusLabels,
 } from '@/features/collection/constants'
 import { useCompatScore } from '@/features/collection/context/CollectionFilterContext'
+import { calculateWeightedScore } from '@/features/collection/reviews'
 import { ProductImage } from '@/features/products/components/ProductImage/ProductImage'
 import { useAnnounce } from '@/hooks/useAnnounce'
-import { calculateWeightedScore } from '@/lib/helpers/reviews'
 import { userPreferenceQueries } from '@/lib/queries/user-preferences'
 import type { UserProduct } from '@/lib/queries/user-products'
 import { useUpdateUserProduct } from '@/lib/queries/user-products'
@@ -137,7 +137,8 @@ export function ProductCardCondensed({
   }
 
   const score = calculateWeightedScore(p.review, prefs?.criteriaWeights)
-  const priceEuros = p.product.priceCents ? `${(p.product.priceCents / 100).toFixed(2)} €` : null
+  const priceEuros =
+    p.product.priceCents != null ? `${(p.product.priceCents / 100).toFixed(2)} €` : null
 
   const compatScore = useCompatScore(p.product.id)
   const compatTone = p.status === 'archived' ? null : getCompatTone(compatScore)

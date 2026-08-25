@@ -31,6 +31,26 @@ describe('BulkBar', () => {
     expect(onMove).toHaveBeenCalledWith('archived')
   })
 
+  it('disables bulk actions while a move is pending', () => {
+    render(
+      <BulkBar
+        selectedCount={2}
+        onMove={() => {}}
+        onClear={() => {}}
+        onCompare={() => {}}
+        isPending
+      />
+    )
+
+    expect(screen.getByRole('region', { name: /actions groupées/i })).toHaveAttribute(
+      'aria-busy',
+      'true'
+    )
+    expect(screen.getByRole('button', { name: /annuler/i })).toBeDisabled()
+    expect(screen.getByRole('button', { name: /comparer/i })).toBeDisabled()
+    expect(screen.getByRole('button', { name: /déplacer vers/i })).toBeDisabled()
+  })
+
   it('shows the Comparer button when 2 to 8 items are selected and onCompare is set', () => {
     const onCompare = vi.fn()
     const { rerender } = render(

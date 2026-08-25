@@ -7,10 +7,10 @@ import { ShowMoreButton } from '@/component/DataDisplay/ShowMoreButton/ShowMoreB
 import { pdsLabels } from '@/features/collection/constants'
 import { useCopyToClipboard } from '@/hooks/useCopyToClipboard'
 import { useExpandableList } from '@/hooks/useExpandableList'
+import { useSession } from '@/lib/auth/session'
 import { productQueries } from '@/lib/queries/products'
 import { profileQueries } from '@/lib/queries/profile'
 import type { UserProduct } from '@/lib/queries/user-products'
-import { useAuthStore } from '@/store/auth'
 
 import './PdsFormulaSection.css'
 
@@ -30,10 +30,11 @@ export function PdsFormulaSection({ p }: PdsFormulaSectionProps) {
     if (fullProduct?.inci) void copyInci(fullProduct.inci)
   }
 
-  const user = useAuthStore((s) => s.user)
+  const session = useSession()
+  const hasViewer = session.status === 'authenticated'
   const { data: dermoProfile } = useQuery({
     ...profileQueries.dermo(),
-    enabled: !!user,
+    enabled: hasViewer,
   })
 
   const fragranceNote =

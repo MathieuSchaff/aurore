@@ -1,7 +1,9 @@
 import { useQuery } from '@tanstack/react-query'
 import { Eye, Info, Package, Sparkles } from 'lucide-react'
 
+import { Button } from '@/component/Button/Button'
 import { EmptyState } from '@/component/Feedback/ui/EmptyState/EmptyState'
+import { Spinner } from '@/component/Feedback/ui/Spinner/Spinner'
 import { BENEFIT_AXIS_PHRASE, RISK_AXIS_PHRASE } from '@/constants/derm'
 import {
   collectionQueries,
@@ -17,7 +19,29 @@ const benefitLabel = (axis: string) =>
 const noteLabel = (axis: string) => RISK_AXIS_PHRASE[axis as keyof typeof RISK_AXIS_PHRASE] ?? axis
 
 export function FormulaMotifs() {
-  const { data } = useQuery(collectionQueries.formulaMotifs())
+  const { data, isError, isPending, refetch } = useQuery(collectionQueries.formulaMotifs())
+
+  if (isError) {
+    return (
+      <EmptyState
+        icon={<Info size={48} />}
+        title="L'analyse des formules n'a pas pu se charger"
+        subtitle="Vos données sont intactes. Réessayez dans un instant."
+      >
+        <Button variant="outline" size="sm" onClick={() => void refetch()}>
+          Réessayer
+        </Button>
+      </EmptyState>
+    )
+  }
+
+  if (isPending) {
+    return (
+      <div className="fmotif-container">
+        <Spinner />
+      </div>
+    )
+  }
 
   if (!data) return null
 

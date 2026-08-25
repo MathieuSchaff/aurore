@@ -21,7 +21,7 @@ import './ShelfView.css'
 interface ShelfViewProps {
   products: UserProduct[]
   onStatusChange: (productId: string, newStatus: UserProductStatus) => void
-  onStatusChangeMany: (productIds: string[], newStatus: UserProductStatus) => void
+  onStatusChangeMany: (productIds: string[], newStatus: UserProductStatus) => Promise<string[]>
   onToggleExpand: (id: string) => void
   onAddClick: () => void
   onCompare?: (ids: string[]) => void
@@ -52,6 +52,7 @@ export function ShelfView({
   }, [])
 
   const [selected, setSelected] = useState<Set<string>>(new Set())
+  const [bulkPending, setBulkPending] = useState(false)
   const selectMode = selected.size > 0
 
   const handleTabChange = useCallback((key: ShelfTabKey) => {
@@ -111,11 +112,21 @@ export function ShelfView({
   const clearSelection = useCallback(() => setSelected(new Set()), [])
 
   const handleMoveBulk = useCallback(
-    (status: UserProductStatus) => {
-      onStatusChangeMany(Array.from(selected), status)
-      setSelected(new Set())
+    async (status: UserProductStatus) => {
+      if (bulkPending) return
+      setBulkPending(true)
+      try {
+        const movedIds = await onStatusChangeMany(Array.from(selected), status)
+        setSelected((current) => {
+          const next = new Set(current)
+          for (const id of movedIds) next.delete(id)
+          return next
+        })
+      } finally {
+        setBulkPending(false)
+      }
     },
-    [selected, onStatusChangeMany]
+    [bulkPending, selected, onStatusChangeMany]
   )
 
   const handleCompare = useCallback(() => {
@@ -177,6 +188,7 @@ export function ShelfView({
         onMove={handleMoveBulk}
         onClear={clearSelection}
         onCompare={onCompare ? handleCompare : undefined}
+        isPending={bulkPending}
       />
     </div>
   )

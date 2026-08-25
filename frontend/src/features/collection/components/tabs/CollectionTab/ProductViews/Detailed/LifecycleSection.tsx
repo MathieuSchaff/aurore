@@ -44,6 +44,8 @@ export function LifecycleSection({ p, onAddPurchase }: LifecycleSectionProps) {
           <Button
             className="pds-lifecycle-btn finish"
             fullWidth
+            disabled={finishMutation.isPending}
+            loading={finishMutation.isPending}
             onClick={() =>
               finishMutation.mutate(
                 { userProductId: p.id, input: { finishedAt: nowInstant() } },
@@ -58,7 +60,10 @@ export function LifecycleSection({ p, onAddPurchase }: LifecycleSectionProps) {
           <Button
             className="pds-lifecycle-btn start"
             fullWidth
-            disabled={!purchases || purchases.every((purch) => purch.finishedAt)}
+            disabled={
+              openMutation.isPending || !purchases || purchases.every((purch) => purch.finishedAt)
+            }
+            loading={openMutation.isPending}
             onClick={() => {
               const nextToOpen = purchases?.find((purch) => !purch.openedAt)
               if (nextToOpen) {
@@ -99,7 +104,7 @@ export function LifecycleSection({ p, onAddPurchase }: LifecycleSectionProps) {
                       <Calendar size={12} />
                       <Time iso={purch.purchasedAt} style="short" />
                     </span>
-                    {purch.pricePaidCents && (
+                    {purch.pricePaidCents != null && (
                       <span className="pds-purch-price">
                         {(purch.pricePaidCents / 100).toFixed(2)}€
                       </span>
