@@ -1,17 +1,21 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 
 const SUCCESS_FEEDBACK_MS = 3500
 
-// Transient success toast shared by admin moderation pages: holds a message and clears
-// it after a delay. setSuccess(null) lets callers drop stale feedback on tab switch.
 export function useSuccessFeedback() {
-  const [success, setSuccess] = useState<string | null>(null)
+  const [event, setEvent] = useState<{ message: string; sequence: number } | null>(null)
+
+  const setSuccess = useCallback((message: string | null) => {
+    setEvent((current) =>
+      message === null ? null : { message, sequence: (current?.sequence ?? 0) + 1 }
+    )
+  }, [])
 
   useEffect(() => {
-    if (!success) return
-    const t = setTimeout(() => setSuccess(null), SUCCESS_FEEDBACK_MS)
+    if (!event) return
+    const t = setTimeout(() => setEvent(null), SUCCESS_FEEDBACK_MS)
     return () => clearTimeout(t)
-  }, [success])
+  }, [event])
 
-  return { success, setSuccess }
+  return { success: event?.message ?? null, setSuccess }
 }

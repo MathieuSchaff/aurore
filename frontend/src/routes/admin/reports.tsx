@@ -2,7 +2,6 @@ import { createFileRoute } from '@tanstack/react-router'
 
 import { AdminReportsPage } from '@/features/admin/components/AdminReportsPage'
 import { adminQueries } from '@/lib/queries/admin'
-import { useAuthStore } from '@/store/auth'
 
 export const Route = createFileRoute('/admin/reports')({
   // users() is reporter/target PII enrichment, admin-only (403 for a moderator).
@@ -12,7 +11,7 @@ export const Route = createFileRoute('/admin/reports')({
     const tasks: Promise<unknown>[] = [
       context.queryClient.ensureQueryData(adminQueries.reports('open')),
     ]
-    if (useAuthStore.getState().role === 'admin') {
+    if (context.session.user.role === 'admin') {
       tasks.push(context.queryClient.prefetchQuery(adminQueries.users()))
     }
     return Promise.all(tasks)
