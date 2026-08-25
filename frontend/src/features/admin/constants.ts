@@ -1,5 +1,7 @@
 import type { RoleRequestStatus } from '@aurore/shared'
 
+import { apiErrorMessage } from '@/lib/helpers/apiError'
+
 // Admin UI wording, centralized so tests and production import the same string.
 // A copy tweak then cannot make a test pass against stale text.
 export const adminLabels = {
@@ -33,6 +35,19 @@ export const roleRequestStatusLabels: Record<RoleRequestStatus, string> = {
   cancelled: 'Annulée',
 }
 
+export const hiddenContentKindLabels = {
+  reviews: { singular: 'avis', plural: 'avis' },
+  threads: { singular: 'discussion', plural: 'discussions' },
+  replies: { singular: 'réponse', plural: 'réponses' },
+} as const
+
+export function formatAdminCount(
+  count: number,
+  labels: { singular: string; plural: string }
+): string {
+  return `${count} ${count > 1 ? labels.plural : labels.singular}`
+}
+
 // 'contributor' surfaces as "Modérateur" in the UI; the code/DB role keeps its name.
 export const roleLabels: Record<UserRole, string> = {
   user: 'Utilisateur',
@@ -40,7 +55,7 @@ export const roleLabels: Record<UserRole, string> = {
   contributor: 'Modérateur',
 }
 
-const adminErrorMessages: Record<string, string> = {
+const adminErrorMessages = {
   not_a_contributor: "Ce compte n'est pas modérateur.",
   cannot_self_demote: 'Vous ne pouvez pas vous rétrograder vous-même.',
   cannot_self_ban: 'Vous ne pouvez pas vous mettre en pause.',
@@ -51,10 +66,10 @@ const adminErrorMessages: Record<string, string> = {
   invalid_input: 'Données invalides.',
   server_error: 'Erreur serveur. Réessayer.',
   rate_limit_exceeded: 'Trop de tentatives. Réessayer plus tard.',
-}
+} as const
 
-export function getAdminErrorMessage(err: Error): string {
-  return adminErrorMessages[err.message] ?? 'Une erreur est survenue.'
+export function getAdminErrorMessage(err: unknown): string {
+  return apiErrorMessage(err, adminErrorMessages, 'Une erreur est survenue.')
 }
 
 // Pill colour per role; plain user keeps the neutral base, no modifier.
