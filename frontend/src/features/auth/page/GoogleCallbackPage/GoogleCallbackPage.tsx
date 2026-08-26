@@ -4,7 +4,12 @@ import { useEffect } from 'react'
 import { toast } from 'react-hot-toast'
 
 import { ensureFresh } from '../../../../lib/auth/freshness'
-import { useAuthStore } from '../../../../store/auth'
+import { readClientSession } from '../../../../lib/auth/session'
+
+function hasPresentCredential(): boolean {
+  const session = readClientSession()
+  return session.status === 'authenticated' && session.credential === 'present'
+}
 
 export const GoogleCallbackPage = () => {
   const navigate = useNavigate()
@@ -18,7 +23,7 @@ export const GoogleCallbackPage = () => {
       navigate({ to: '/auth/login', search: { redirect: undefined }, replace: true })
 
     const complete = async () => {
-      if (useAuthStore.getState().accessToken) {
+      if (hasPresentCredential()) {
         navigate({ to: '/collection', replace: true })
         return
       }
@@ -30,11 +35,11 @@ export const GoogleCallbackPage = () => {
 
       // The backend set the refresh cookie before redirecting here; trade it for an access
       // token before deciding. ensureFresh is deduped, so this joins the boot probe already
-      // in flight rather than reading an empty store and bouncing to login.
+      // in flight rather than reading an empty credential and bouncing to login
       const result = await ensureFresh(queryClient)
       if (cancelled) return
 
-      if (result === 'ok' || useAuthStore.getState().accessToken) {
+      if (result === 'ok' || hasPresentCredential()) {
         navigate({ to: '/collection', replace: true })
         return
       }

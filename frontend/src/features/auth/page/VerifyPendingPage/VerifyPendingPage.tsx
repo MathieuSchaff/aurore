@@ -1,11 +1,12 @@
 import { toast } from 'react-hot-toast'
 
 import { Button } from '../../../../component/Button/Button'
+import { useSession } from '../../../../lib/auth/session'
 import { useResendVerification } from '../../../../lib/queries/auth'
-import { useAuthStore } from '../../../../store/auth'
 
 export const VerifyPendingPage = () => {
-  const isAuthed = useAuthStore((s) => s.accessToken !== null)
+  const session = useSession()
+  const isAuthed = session.status === 'authenticated' && session.credential === 'present'
   const resend = useResendVerification()
 
   const handleResend = () => {
