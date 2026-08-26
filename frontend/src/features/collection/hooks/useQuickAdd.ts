@@ -56,47 +56,85 @@ export function useQuickAdd({ onClose }: UseQuickAddProps) {
     })
 
     if (selectedStatus === 'in_stock') {
-      if (!created.id) throw new Error('userProduct created without id')
-      await addPurchase.mutateAsync({
-        userProductId: created.id,
-        input: {
-          purchasedAt: fromDateInputValue(purchasedAt),
-          pricePaidCents: purchasePrice ? Math.round(parseFloat(purchasePrice) * 100) : undefined,
-          expiresAt: expiresAt ? fromDateInputValue(expiresAt) : undefined,
-        },
-      })
+      if (!created.id) {
+        const error = new Error('userProduct created without id')
+        captureFrontendError(error, { flow: 'quick-add-invariant' })
+        throw error
+      }
+      try {
+        await addPurchase.mutateAsync({
+          userProductId: created.id,
+          input: {
+            purchasedAt: fromDateInputValue(purchasedAt),
+            pricePaidCents: purchasePrice ? Math.round(parseFloat(purchasePrice) * 100) : undefined,
+            expiresAt: expiresAt ? fromDateInputValue(expiresAt) : undefined,
+          },
+        })
+      } catch (purchaseError) {
+        return { kind: 'purchase-failed', error: purchaseError } as const
+      }
     }
+
+    return { kind: 'complete' } as const
   }
 
   const handleAddExisting = async () => {
     if (!selectedProduct) return
     try {
-      await addToCollection(selectedProduct.id)
+      const result = await addToCollection(selectedProduct.id)
+      if (result.kind === 'purchase-failed') {
+        toast.error(
+          `${selectedProduct.name} a été ajouté à votre collection, mais l'achat n'a pas été enregistré.`
+        )
+        onClose()
+        return
+      }
       toast.success(`${selectedProduct.name} ajouté à votre collection !`)
       onClose()
-    } catch (error) {
-      captureFrontendError(error, { flow: 'quick-add-existing' })
+    } catch {
       toast.error("Impossible d'ajouter le produit à votre collection.")
     }
   }
 
   const handleCreateAndAdd = async (e?: React.SubmitEvent<HTMLFormElement>) => {
     e?.preventDefault()
+    let product: Awaited<ReturnType<typeof createProduct.mutateAsync>>
     try {
-      const product = await createProduct.mutateAsync({
+      product = await createProduct.mutateAsync({
         name: newName,
         brand: newBrand,
         category: newCategory,
         kind: FIRST_KIND[newCategory],
         unit: newUnit,
       })
-      await addToCollection(product.id)
-      toast.success(`${newName} créé et ajouté à votre collection !`)
-      onClose()
-    } catch (error) {
-      captureFrontendError(error, { flow: 'quick-add-create' })
-      toast.error("Impossible de créer ou d'ajouter le produit.")
+    } catch {
+      toast.error('Impossible de créer le produit.')
+      return
     }
+
+    let result: Awaited<ReturnType<typeof addToCollection>>
+    try {
+      result = await addToCollection(product.id)
+    } catch {
+      setActiveTab('existing')
+      setSelectedProduct({
+        id: product.id,
+        name: product.name,
+        brand: product.brand,
+        slug: product.slug,
+      })
+      toast.error(`${newName} a été créé, mais pas ajouté à votre collection. Réessayez l'ajout.`)
+      return
+    }
+
+    if (result.kind === 'purchase-failed') {
+      toast.error(`${newName} a été créé et ajouté, mais l'achat n'a pas été enregistré.`)
+      onClose()
+      return
+    }
+
+    toast.success(`${newName} créé et ajouté à votre collection !`)
+    onClose()
   }
 
   const isPending = createProduct.isPending || addUserProduct.isPending || addPurchase.isPending

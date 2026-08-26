@@ -1,9 +1,11 @@
+import { HOLY_GRAIL_SENTIMENT } from '@aurore/shared'
+
 import { createFileRoute, stripSearchParams } from '@tanstack/react-router'
 import { z } from 'zod'
 
 import { CollectionPage } from '../../features/collection/page/CollectionPage'
 
-const collectionSearchSchema = z.object({
+export const collectionSearchSchema = z.object({
   sort: z
     .enum(['name', 'note', 'sentiment', 'date', 'price_asc', 'price_desc', 'compatibility_desc'])
     .default('name'),
@@ -11,7 +13,13 @@ const collectionSearchSchema = z.object({
   // Auto-derived TYPE_* tag from products.kind via detectKindPrimaryType.
   // Replaces the legacy raw `kind` filter with too many heterogeneous values.
   productType: z.string().default('all'),
-  sentiment: z.coerce.number().int().min(1).max(5).or(z.literal('all')).default('all'),
+  sentiment: z.coerce
+    .number()
+    .int()
+    .min(1)
+    .max(HOLY_GRAIL_SENTIMENT)
+    .or(z.literal('all'))
+    .default('all'),
   repurchase: z.enum(['yes', 'no', 'unsure', 'all']).default('all'),
   minNote: z.coerce.number().min(0).max(20).default(0),
   maxPrice: z.union([z.literal(''), z.coerce.number().min(0)]).default(''),
