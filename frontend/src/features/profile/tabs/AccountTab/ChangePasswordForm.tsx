@@ -7,8 +7,12 @@ import { Button } from '@/component/Button/Button'
 import { FormMessage } from '../../../../component/Feedback/ui/FormMessage/FormMessage'
 import { FormActions } from '../../../../component/Input/FormActions/FormActions'
 import { Input } from '../../../../component/Input/Input'
+import { apiErrorMessage } from '../../../../lib/helpers/apiError'
 import { useChangePassword } from '../../../../lib/queries/auth'
-import { CHANGE_PASSWORD_ERRORS } from './ChangePasswordForm.constants'
+import {
+  CHANGE_PASSWORD_ERROR_FALLBACK,
+  CHANGE_PASSWORD_ERRORS,
+} from './ChangePasswordForm.constants'
 
 type ChangePasswordFormProps = {
   onSuccess: () => void
@@ -103,9 +107,11 @@ export const ChangePasswordForm = ({ onSuccess, onCancel }: ChangePasswordFormPr
 
       {changePassword.isError && (
         <FormMessage variant="error">
-          {changePassword.error.message === 'invalid_credentials'
-            ? CHANGE_PASSWORD_ERRORS.invalid_credentials
-            : changePassword.error.message}
+          {apiErrorMessage(
+            changePassword.error,
+            CHANGE_PASSWORD_ERRORS,
+            CHANGE_PASSWORD_ERROR_FALLBACK
+          )}
         </FormMessage>
       )}
 
