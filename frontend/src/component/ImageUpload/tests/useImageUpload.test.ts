@@ -1,9 +1,13 @@
 import { act, renderHook, waitFor } from '@testing-library/react'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
+import { readBearerForTransport } from '@/lib/auth/credential'
 import { ensureFresh } from '@/lib/auth/freshness'
-import { useAuthStore } from '@/store/auth'
 import { useImageUpload } from '../useImageUpload'
+
+vi.mock('@/lib/auth/credential', () => ({
+  readBearerForTransport: vi.fn(),
+}))
 
 // Stub only the network side of the freshness engine; keep real isExpired/scheduling.
 vi.mock('@/lib/auth/freshness', async (importOriginal) => {
@@ -63,13 +67,14 @@ describe('useImageUpload', () => {
 
   beforeEach(() => {
     restoreCanvas = installCanvasMock()
+    vi.mocked(readBearerForTransport).mockReturnValue(null)
   })
   afterEach(() => {
     restoreCanvas()
     restoreXhr?.()
     restoreXhr = undefined
     vi.mocked(ensureFresh).mockReset()
-    useAuthStore.setState({ accessToken: null })
+    vi.mocked(readBearerForTransport).mockReset()
   })
 
   it('moves through compressing → uploading → idle on success', async () => {
@@ -219,8 +224,8 @@ describe('useImageUpload', () => {
     expect(result.current.state.phase).toBe('idle')
   })
 
-  it('sets Authorization header when auth store has a token', async () => {
-    useAuthStore.setState({ accessToken: 'test-tok-abc' })
+  it('sets Authorization header when the transport credential is present', async () => {
+    vi.mocked(readBearerForTransport).mockReturnValue('test-tok-abc')
     const capturedHeaders: Array<[string, string]> = []
     const original = globalThis.XMLHttpRequest
 
@@ -262,12 +267,10 @@ describe('useImageUpload', () => {
         writable: true,
         configurable: true,
       })
-      useAuthStore.setState({ accessToken: null })
     }
   })
 
-  it('omits Authorization header when auth store has no token', async () => {
-    // accessToken is null by default, so must not send Authorization at all
+  it('omits Authorization header when the transport credential is absent', async () => {
     const capturedHeaders: Array<[string, string]> = []
     const original = globalThis.XMLHttpRequest
 
@@ -344,7 +347,7 @@ describe('useImageUpload', () => {
   })
 
   it('refreshes and retries once with the rotated token on a 401', async () => {
-    useAuthStore.setState({ accessToken: 'stale-tok' })
+    vi.mocked(readBearerForTransport).mockReturnValueOnce('stale-tok').mockReturnValue('fresh-tok')
     const sentAuth: Array<string | undefined> = []
     const original = globalThis.XMLHttpRequest
 
@@ -377,11 +380,7 @@ describe('useImageUpload', () => {
       configurable: true,
     })
 
-    // Silent refresh succeeds and rotates the token, like a real /auth/refresh.
-    vi.mocked(ensureFresh).mockImplementation(async () => {
-      useAuthStore.setState({ accessToken: 'fresh-tok' })
-      return 'ok'
-    })
+    vi.mocked(ensureFresh).mockResolvedValue('ok')
 
     try {
       const { result } = renderHook(() =>
@@ -406,7 +405,7 @@ describe('useImageUpload', () => {
   })
 
   it('surfaces the auth error when the silent refresh fails after a 401', async () => {
-    useAuthStore.setState({ accessToken: 'stale-tok' })
+    vi.mocked(readBearerForTransport).mockReturnValue('stale-tok')
     vi.mocked(ensureFresh).mockResolvedValue('failed')
     restoreXhr = installXhrMock({
       status: 401,

@@ -1,11 +1,15 @@
 import type { UserPublic } from '@aurore/shared'
 
 import { screen } from '@testing-library/react'
-import { afterEach, describe, expect, it, vi } from 'vitest'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 
-import { useAuthStore } from '@/store/auth'
-import { createTestQueryClient, renderWithProviders } from '@/test/utils'
+import type { SessionView } from '@/lib/auth/session'
+import { renderWithProviders } from '@/test/utils'
 import { HomePage } from '../HomePage'
+
+const { useSessionMock } = vi.hoisted(() => ({
+  useSessionMock: vi.fn<() => SessionView>(),
+}))
 
 // The three branches are unit-tested at the seam: HomePage's only job is to pick
 // the right surface by auth state (ADR 0011). Children are stubbed so the test
@@ -13,55 +17,57 @@ import { HomePage } from '../HomePage'
 vi.mock('../HomeHub', () => ({ HomeHub: () => <div>hub-surface</div> }))
 vi.mock('../HomeMarketing', () => ({ HomeMarketing: () => <div>marketing-surface</div> }))
 vi.mock('../HomeSkeleton', () => ({ HomeSkeleton: () => <div>boot-skeleton</div> }))
+vi.mock('@/lib/auth/session', async (importOriginal) => ({
+  ...(await importOriginal<typeof import('@/lib/auth/session')>()),
+  useSession: useSessionMock,
+}))
 
 const fakeUser = { id: 'u1', username: 'lea' } as unknown as UserPublic
 
-afterEach(() => {
-  useAuthStore.setState({
-    accessToken: null,
-    user: null,
-    bootRefreshAttempted: false,
-    bootRefreshPending: false,
-  })
+beforeEach(() => {
+  useSessionMock.mockReturnValue({ status: 'anonymous' })
 })
 
 describe('HomePage (dual-audience routing)', () => {
   it('shows the marketing surface for anonymous visitors', () => {
-    const queryClient = createTestQueryClient()
-    queryClient.setQueryData(['session'], { authenticated: false })
-    useAuthStore.setState({ user: null, bootRefreshAttempted: false, bootRefreshPending: false })
-
-    renderWithProviders(<HomePage />, { queryClient })
+    renderWithProviders(<HomePage />)
 
     expect(screen.getByText('marketing-surface')).toBeInTheDocument()
     expect(screen.queryByText('hub-surface')).not.toBeInTheDocument()
   })
 
   it('shows the personal hub for signed-in users', () => {
-    const queryClient = createTestQueryClient()
-    queryClient.setQueryData(['session'], { authenticated: true, userId: fakeUser.id })
-    useAuthStore.setState({
+    useSessionMock.mockReturnValue({
+      status: 'authenticated',
       user: fakeUser,
-      bootRefreshAttempted: true,
-      bootRefreshPending: false,
+      credential: 'present',
     })
 
-    renderWithProviders(<HomePage />, { queryClient })
+    renderWithProviders(<HomePage />)
 
     expect(screen.getByText('hub-surface')).toBeInTheDocument()
     expect(screen.queryByText('marketing-surface')).not.toBeInTheDocument()
   })
 
   it('shows the neutral skeleton while the boot session probe is pending', () => {
-    useAuthStore.setState({
-      user: null,
-      bootRefreshAttempted: true,
-      bootRefreshPending: true,
-    })
+    useSessionMock.mockReturnValue({ status: 'pending' })
 
     renderWithProviders(<HomePage />)
 
     expect(screen.getByText('boot-skeleton')).toBeInTheDocument()
     expect(screen.queryByText('marketing-surface')).not.toBeInTheDocument()
+  })
+
+  it('shows the neutral skeleton for a seeded identity without a Bearer', () => {
+    useSessionMock.mockReturnValue({
+      status: 'authenticated',
+      user: fakeUser,
+      credential: 'restoring',
+    })
+
+    renderWithProviders(<HomePage />)
+
+    expect(screen.getByText('boot-skeleton')).toBeInTheDocument()
+    expect(screen.queryByText('hub-surface')).not.toBeInTheDocument()
   })
 })

@@ -1,10 +1,11 @@
 import { Link } from '@tanstack/react-router'
 
-import { useAuthStore } from '../../../../store/auth'
+import { useSession } from '../../../../lib/auth/session'
 import './DemoBanner.css'
 
 export function DemoBanner() {
-  const isDemo = useAuthStore((s) => s.isDemo)
+  const session = useSession()
+  const isDemo = session.status === 'authenticated' && session.user.isDemo
   if (!isDemo) return null
   return (
     <div className="demo-banner" role="status">

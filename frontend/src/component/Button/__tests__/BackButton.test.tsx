@@ -44,7 +44,7 @@ function renderInRouter(ui: ReactNode) {
 
 describe('BackButton', () => {
   // Regression: a `to` BackButton must be a navigable anchor, not an inert
-  // <button>. Broke when Button dropped its `to`->Link branch (commit 8b18472a).
+  // <button>. Broke when Button dropped its `to`->Link branch
   it('renders `to` as a real link that navigates', async () => {
     const router = renderInRouter(<BackButton to="/products">Produits</BackButton>)
     const link = await screen.findByRole('link', { name: /produits/i })

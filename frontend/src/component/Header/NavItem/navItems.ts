@@ -8,8 +8,8 @@ export interface NavItem {
   to: LinkProps['to']
   icon: React.ComponentType<LucideProps>
   label: string
-  // Gate a link on session state. Omitted = shown to everyone. 'authed' links point at
-  // requireAuth routes (don't advertise a login wall); 'anon' only makes sense logged-out.
+  // Signed in links point to guarded routes
+  // Hiding them after logout avoids advertising a login wall
   visibility?: 'authed' | 'anon'
 }
 

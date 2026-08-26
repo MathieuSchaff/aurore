@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 
+import { readBearerForTransport } from '@/lib/auth/credential'
 import { ensureFresh } from '@/lib/auth/freshness'
 import { queryClient } from '@/lib/queryClient'
-import { useAuthStore } from '@/store/auth'
 
 type Phase =
   | { phase: 'idle' }
@@ -106,11 +106,13 @@ async function uploadWithRetry(
     })
 
   try {
-    return await sendOnce(useAuthStore.getState().accessToken)
+    return await sendOnce(readBearerForTransport())
   } catch (e) {
     if ((e as { status?: number }).status !== 401) throw e
-    if ((await ensureFresh(queryClient)) !== 'ok') throw e
-    return sendOnce(useAuthStore.getState().accessToken)
+    const result = await ensureFresh(queryClient)
+    const token = readBearerForTransport()
+    if ((result !== 'ok' && result !== 'superseded') || !token) throw e
+    return sendOnce(token)
   }
 }
 
