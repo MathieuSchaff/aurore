@@ -7,8 +7,8 @@ import { Link } from '@tanstack/react-router'
 import { Button } from '@/component/Button/Button'
 import { REACTION_KIND_LABELS } from '@/constants/social'
 import { useAnnounce } from '@/hooks/useAnnounce'
+import { useSession, viewerId } from '@/lib/auth/session'
 import { reactionQueries, useToggleReaction } from '@/lib/queries/social'
-import { useAuthStore } from '@/store/auth'
 
 import './ReactionRow.css'
 
@@ -40,19 +40,19 @@ export function ReactionRow({
   reactableType: ReactableType
   reactableId: string
 }) {
-  const { data } = useQuery(reactionQueries.list(reactableType, reactableId))
-  const toggle = useToggleReaction(reactableType, reactableId)
+  // A profile query would send two anonymous 401s on every public view
+  const session = useSession()
+  const currentViewerId = viewerId(session)
+  const { data } = useQuery(reactionQueries.list(reactableType, reactableId, currentViewerId))
+  const toggle = useToggleReaction(reactableType, reactableId, currentViewerId)
   const announce = useAnnounce()
 
-  // Auth from the store token, not a me() query: ReactionRow renders on anon
-  // surfaces (product/profile/thread) and only needs the boolean. Querying
-  // /api/profile here just 401s (twice, retry-amplified) per anon view.
-  const isAuthed = useAuthStore((s) => !!s.accessToken)
+  const canReact = session.status === 'authenticated' && session.credential === 'present'
   const viewerKinds = data?.viewerKinds ?? []
   // Boolean, never a sum. The row only needs to know whether anyone reacted at all.
   const hasAnyReaction = data ? Object.values(data.reactions).some((r) => r.length > 0) : false
 
-  if (!isAuthed && !hasAnyReaction) return null
+  if (!canReact && !hasAnyReaction) return null
 
   return (
     <div className="reaction-row">
@@ -66,7 +66,7 @@ export function ReactionRow({
               variant="bare"
               className="reaction-row__toggle"
               aria-pressed={pressed}
-              disabled={!isAuthed || toggle.isPending}
+              disabled={!canReact || toggle.isPending}
               onClick={() =>
                 toggle.mutate(
                   { kind, on: !pressed },
