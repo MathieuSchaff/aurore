@@ -1,4 +1,5 @@
 import {
+  bannedError,
   deleteIngredientPreferenceQuerySchema,
   deleteTagPreferenceParamSchema,
   err,
@@ -53,7 +54,7 @@ export const profileRoute = app
     const result = await deleteAccount(getAuthedUserId(c))
     if (result.status === 'banned') {
       return c.json(
-        err('banned', { expiresAt: result.expiresAt, reason: result.reason }),
+        bannedError({ expiresAt: result.expiresAt, reason: result.reason }),
         HTTP_STATUS.FORBIDDEN
       )
     }
