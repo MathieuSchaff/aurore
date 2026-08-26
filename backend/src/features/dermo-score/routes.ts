@@ -1,55 +1,47 @@
 import { err, HTTP_STATUS, ok } from '@aurore/shared'
 
-import { type Context, Hono, type Next } from 'hono'
+import { Hono } from 'hono'
 import { z } from 'zod'
 
 import type { AppEnv } from '../../app-env'
 import { getRlsDb } from '../../utils/accessors'
 import { zValidator } from '../../utils/validator'
-import { verifyAccessToken } from '../auth/jwt.utils'
+import { optionalJwtAuth } from '../auth/middleware'
 import { withRlsContext } from '../auth/rls-context.middleware'
 import { computeProductDermoScore } from './service'
-
-// Populates userId/role when a valid bearer is present; falls through anonymously otherwise.
-// Allows personalized dermo score on a public endpoint without requiring authentication.
-const optionalJwtAuth = async (c: Context<AppEnv>, next: Next) => {
-  const authHeader = c.req.header('Authorization')
-  if (!authHeader?.startsWith('Bearer ')) return next()
-
-  const token = authHeader.substring(7)
-  const payload = await verifyAccessToken(token, c.get('jwtSecret'))
-  if (payload) {
-    c.set('userId', payload.sub)
-    c.set('userRole', payload.role)
-  }
-  return next()
-}
 
 const slugParam = z.object({ slug: z.string().min(1).max(200) })
 
 const app = new Hono<AppEnv>()
-app.use('*', optionalJwtAuth)
-app.use('*', withRlsContext)
 
 // The JSDoc below is not a comment, it is the OpenAPI entry for this route: `just docs` extracts it
 // with ts-morph and serves it at /api/docs. It only binds from inside the chain, so moving it above
 // this line disables it silently. Deleted twice as dead scaffolding, restored twice
 export const dermoScoreRoutes = app
+  // Guards per route because sibling routers share /products and a use('*')
+  // leaks onto any router mounted after this one
+  // This router is mounted last
+  // in products/index.ts today, but that order is not a contract
   /**
    * @summary Product dermo score
    * @description Compute the dermo score for a product by slug. Personalized when a valid bearer is supplied.
    * @tag dermo-score
    */
-  .get('/:slug/dermo-score', zValidator('param', slugParam), async (c) => {
-    const userId = c.get('userId') ?? null
-    const database = userId ? getRlsDb(c) : c.get('anonDb')
-    const { slug } = c.req.valid('param')
+  .get(
+    '/:slug/dermo-score',
+    optionalJwtAuth,
+    withRlsContext,
+    zValidator('param', slugParam),
+    async (c) => {
+      const userId = c.get('userId') ?? null
+      const database = userId ? getRlsDb(c) : c.get('anonDb')
+      const { slug } = c.req.valid('param')
 
-    const outcome = await computeProductDermoScore(slug, userId, database)
-    if (!outcome.ok) {
-      // inci_missing = the product exists but has no INCI to score; that is a
-      // missing resource, not malformed client input, so 404 rather than 400.
-      return c.json(err(outcome.reason), HTTP_STATUS.NOT_FOUND)
+      const outcome = await computeProductDermoScore(slug, userId, database)
+      if (!outcome.ok) {
+        // inci_missing identifies a missing score resource rather than malformed input
+        return c.json(err(outcome.reason), HTTP_STATUS.NOT_FOUND)
+      }
+      return c.json(ok(outcome.assessment), HTTP_STATUS.OK)
     }
-    return c.json(ok(outcome.assessment), HTTP_STATUS.OK)
-  })
+  )
