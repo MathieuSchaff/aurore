@@ -4,6 +4,9 @@ import { AuthLayout } from '@/component/Layout/AuthLayout/AuthLayout'
 import { VerifyEmailPage } from '@/features/auth/page/VerifyEmailPage/VerifyEmailPage'
 
 export const Route = createFileRoute('/auth/verify-email')({
+  validateSearch: (search): { token?: string } => ({
+    token: typeof search.token === 'string' ? search.token : undefined,
+  }),
   component: RouteComponent,
 })
 

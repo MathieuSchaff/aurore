@@ -1,15 +1,22 @@
-import { forgotPasswordSchema } from '@aurore/shared'
+import { type ForgotPasswordErrorCode, forgotPasswordSchema } from '@aurore/shared'
 
 import { Mail } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 
 import { Button } from '../../../../component/Button/Button'
 import { FormMessage } from '../../../../component/Feedback/ui/FormMessage/FormMessage'
+import { apiErrorMessage, rateLimitMessage } from '../../../../lib/helpers/apiError'
 import { useForgotPassword } from '../../../../lib/queries/auth'
 import { AuthField } from '../../components/AuthField/AuthField'
 import { parseAuthForm } from '../../lib/parseAuthForm'
 
 type FieldErrors = Partial<Record<'email' | 'form', string>>
+
+/* Exhaustive map: TS errors if a ForgotPasswordErrorCode is added without a label here.
+   Exported so tests assert the same string the user sees. */
+export const FORGOT_ERRORS: Record<ForgotPasswordErrorCode, string> = {
+  server_error: 'Une erreur est survenue, réessayez plus tard',
+}
 
 export const ForgotPasswordPage = () => {
   const [errors, setErrors] = useState<FieldErrors>({})
@@ -39,7 +46,12 @@ export const ForgotPasswordPage = () => {
       // Neutral flow (ADR 0010): the response is identical whether or not the email
       // exists, so we always land on the same confirmation screen.
       onSuccess: () => setSubmitted(true),
-      onError: () => setErrors({ form: 'Une erreur est survenue, réessayez plus tard' }),
+      onError: (error) =>
+        setErrors({
+          form:
+            rateLimitMessage(error) ??
+            apiErrorMessage(error, FORGOT_ERRORS, FORGOT_ERRORS.server_error),
+        }),
     })
   }
 

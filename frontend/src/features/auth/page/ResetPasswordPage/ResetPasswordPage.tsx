@@ -7,6 +7,7 @@ import { toast } from 'react-hot-toast'
 
 import { Button } from '../../../../component/Button/Button'
 import { FormMessage } from '../../../../component/Feedback/ui/FormMessage/FormMessage'
+import { apiErrorMessage, rateLimitMessage } from '../../../../lib/helpers/apiError'
 import { useResetPassword } from '../../../../lib/queries/auth'
 import { AuthField } from '../../components/AuthField/AuthField'
 import { parseAuthForm } from '../../lib/parseAuthForm'
@@ -52,8 +53,11 @@ export const ResetPasswordPage = () => {
           navigate({ to: '/auth/login', search: { redirect: undefined }, replace: true })
         },
         onError: (error) => {
-          const code = error.message as ResetPasswordErrorCode
-          setErrors({ form: RESET_ERRORS[code] ?? RESET_ERRORS.server_error })
+          setErrors({
+            form:
+              rateLimitMessage(error) ??
+              apiErrorMessage(error, RESET_ERRORS, RESET_ERRORS.server_error),
+          })
         },
       }
     )

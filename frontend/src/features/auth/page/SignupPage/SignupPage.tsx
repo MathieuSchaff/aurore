@@ -6,6 +6,7 @@ import { useMemo, useState } from 'react'
 
 import { Button } from '../../../../component/Button/Button'
 import { FormMessage } from '../../../../component/Feedback/ui/FormMessage/FormMessage'
+import { apiErrorMessage } from '../../../../lib/helpers/apiError'
 import { useSignup } from '../../../../lib/queries/auth'
 import { AuthDivider } from '../../components/AuthDivider/AuthDivider'
 import { AuthField } from '../../components/AuthField/AuthField'
@@ -25,6 +26,7 @@ export const SIGNUP_ERRORS: Record<SignupErrorCode, string> = {
 
 const PASSWORD_RULES = [
   { key: 'length', label: '8 caractères minimum', test: (v: string) => v.length >= 8 },
+  { key: 'maxLength', label: '128 caractères maximum', test: (v: string) => v.length <= 128 },
   { key: 'lower', label: 'Une minuscule (a-z)', test: (v: string) => /[a-z]/.test(v) },
   { key: 'upper', label: 'Une majuscule (A-Z)', test: (v: string) => /[A-Z]/.test(v) },
   { key: 'number', label: 'Un chiffre (0-9)', test: (v: string) => /[0-9]/.test(v) },
@@ -72,8 +74,7 @@ export const SignupPage = () => {
         navigate({ to: '/auth/verify-pending' })
       },
       onError: (error) => {
-        const code = error.message as SignupErrorCode
-        setErrors({ form: SIGNUP_ERRORS[code] ?? SIGNUP_ERRORS.server_error })
+        setErrors({ form: apiErrorMessage(error, SIGNUP_ERRORS, SIGNUP_ERRORS.server_error) })
       },
     })
   }

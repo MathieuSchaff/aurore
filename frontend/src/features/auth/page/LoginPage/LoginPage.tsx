@@ -1,18 +1,19 @@
 import { type AuthInput, authSchema, type LoginErrorCode } from '@aurore/shared'
 
-import { useQueryClient } from '@tanstack/react-query'
 import { Link, useNavigate, useSearch } from '@tanstack/react-router'
 import { Lock, Mail } from 'lucide-react'
 import { useState } from 'react'
 
 import { Button } from '../../../../component/Button/Button'
 import { FormMessage } from '../../../../component/Feedback/ui/FormMessage/FormMessage'
+import { useSession } from '../../../../lib/auth/session'
+import { apiErrorMessage, isApiErrorCode, rateLimitMessage } from '../../../../lib/helpers/apiError'
 import { useLogin } from '../../../../lib/queries/auth'
-import { useAuthStore } from '../../../../store/auth'
 import { AuthDivider } from '../../components/AuthDivider/AuthDivider'
 import { AuthField } from '../../components/AuthField/AuthField'
 import { DemoCallout } from '../../components/DemoCallout/DemoCallout'
 import { GoogleAuthButton } from '../../components/GoogleAuthButton/GoogleAuthButton'
+import { resolveLoginDestination } from '../../lib/loginDestination'
 import { parseAuthForm } from '../../lib/parseAuthForm'
 
 type FieldErrors = Partial<Record<keyof AuthInput | 'form', string>>
@@ -39,8 +40,8 @@ export const LoginPage = () => {
   const navigate = useNavigate()
   const { redirect } = useSearch({ from: '/auth/login' })
   const login = useLogin()
-  const queryClient = useQueryClient()
-  const hasKnownIdentity = useAuthStore((state) => state.user !== null)
+  const session = useSession()
+  const hasKnownIdentity = session.status === 'authenticated'
 
   const handleSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -59,17 +60,20 @@ export const LoginPage = () => {
     login.mutate(parsed.data, {
       onSuccess: () => {
         setRedirecting(true)
-        queryClient.invalidateQueries({ queryKey: ['session'] })
-        navigate({ to: redirect ?? '/collection' })
+        navigate({ to: resolveLoginDestination(redirect) })
       },
       onError: (error) => {
-        if (error.message === 'email_not_verified') {
+        if (isApiErrorCode(error, 'email_not_verified')) {
           setRedirecting(true)
           navigate({ to: '/auth/verify-pending' })
           return
         }
-        const code = error.message as LoginErrorCode
-        setErrors({ form: LOGIN_ERRORS[code] ?? LOGIN_ERRORS.server_error })
+        if (isApiErrorCode(error, 'banned')) return
+        setErrors({
+          form:
+            rateLimitMessage(error) ??
+            apiErrorMessage(error, LOGIN_ERRORS, LOGIN_ERRORS.server_error),
+        })
       },
     })
   }

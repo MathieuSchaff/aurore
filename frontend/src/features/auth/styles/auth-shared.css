@@ -107,7 +107,7 @@
 }
 
 .auth-field:has(.auth-field__toggle) .auth-field__input {
-  padding-right: 2.75rem;
+  padding-inline-end: 2.75rem;
 }
 
 .auth-field__toggle.button {
