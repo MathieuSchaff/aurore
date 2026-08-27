@@ -6,6 +6,7 @@ import { Fragment, useState } from 'react'
 
 import { Button } from '@/component/Button/Button'
 import { Time } from '@/component/DataDisplay/Time/Time'
+import { AdminFilterTabs } from '@/features/admin/components/AdminFilterTabs'
 import { adminQueries } from '@/lib/queries/admin'
 import { adminLabels } from '../constants'
 
@@ -44,27 +45,19 @@ export function AdminSecurityEventsPage() {
         </div>
       </header>
 
-      <div className="admin-filter-bar" role="tablist" aria-label="Filtrer par sévérité">
-        {SEVERITY_TABS.map((t) => (
-          <button
-            type="button"
-            key={t.value}
-            role="tab"
-            aria-selected={tab === t.value}
-            className={`admin-filter-bar__btn ${tab === t.value ? 'is-active' : ''}`}
-            onClick={() => setTab(t.value)}
-          >
-            {t.label}
-          </button>
-        ))}
-      </div>
+      <AdminFilterTabs
+        tabs={SEVERITY_TABS}
+        value={tab}
+        onChange={setTab}
+        label="Filtrer par sévérité"
+      />
 
       {items.length === 0 ? (
         <p className="admin-table__empty">{adminLabels.emptySecurityEvents}</p>
       ) : (
         <div className="admin-table-scroll">
           <table className="admin-table">
-            <caption className="sr-only">Événements de sécurité (hits des gardes d'entrée)</caption>
+            <caption className="sr-only">Événements de sécurité et d’audit récents</caption>
             <thead>
               <tr>
                 <th>Sévérité</th>

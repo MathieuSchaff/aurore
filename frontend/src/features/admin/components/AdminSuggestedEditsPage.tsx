@@ -1,10 +1,11 @@
-import type { SuggestedEditStatus } from '@aurore/shared'
+import type { CommonErrorCode, SuggestedEditStatus } from '@aurore/shared'
 
 import { useSuspenseQuery } from '@tanstack/react-query'
 import { useState } from 'react'
 
 import { Button } from '@/component/Button/Button'
 import { FormMessage } from '@/component/Feedback/ui/FormMessage/FormMessage'
+import { apiErrorMessage } from '@/lib/helpers/apiError'
 import { adminQueries, useReviewSuggestedEdit } from '@/lib/queries/admin'
 import { adminLabels } from '../constants'
 import { useConfirm } from '../useConfirm'
@@ -17,13 +18,24 @@ const STATUSES: { value: SuggestedEditStatus; label: string }[] = [
   { value: 'rejected', label: 'Refusées' },
 ]
 
+const REVIEW_ERROR_MESSAGES = {
+  not_found: 'Correction introuvable.',
+  invalid_input: "Cette correction n'est plus en attente.",
+} as const satisfies Partial<Record<CommonErrorCode, string>>
+
 export function AdminSuggestedEditsPage() {
   const [status, setStatus] = useState<SuggestedEditStatus>('pending')
   const { data } = useSuspenseQuery(adminQueries.suggestedEdits(status))
-  const review = useReviewSuggestedEdit(status)
+  const review = useReviewSuggestedEdit()
   const { confirm, dialog } = useConfirm()
   const [pendingId, setPendingId] = useState<string | null>(null)
   const { success, setSuccess } = useSuccessFeedback()
+
+  function changeStatus(next: SuggestedEditStatus) {
+    setStatus(next)
+    review.reset()
+    setSuccess(null)
+  }
 
   async function handleReview(id: string, next: 'accepted' | 'rejected') {
     const ok = await confirm({
@@ -55,10 +67,20 @@ export function AdminSuggestedEditsPage() {
         </div>
       </header>
 
-      <AdminFilterTabs tabs={STATUSES} value={status} onChange={setStatus} />
+      <AdminFilterTabs
+        label="Statut des corrections"
+        tabs={STATUSES}
+        value={status}
+        onChange={changeStatus}
+      />
 
       <div aria-live="polite" aria-atomic="true">
         {success && <FormMessage variant="success">{success}</FormMessage>}
+        {review.error && (
+          <FormMessage variant="error">
+            {apiErrorMessage(review.error, REVIEW_ERROR_MESSAGES, 'La décision a échoué.')}
+          </FormMessage>
+        )}
       </div>
 
       {data.items.length === 0 ? (

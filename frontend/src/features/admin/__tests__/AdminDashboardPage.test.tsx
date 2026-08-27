@@ -4,16 +4,13 @@ import { screen } from '@testing-library/react'
 import { HttpResponse, http } from 'msw'
 import { describe, expect, it, vi } from 'vitest'
 
+import { LinkStub } from '@/test/mocks/router'
 import { server } from '@/test/msw/server'
 import { renderWithProviders } from '@/test/utils'
 
 vi.mock('@tanstack/react-router', async () => ({
   ...(await vi.importActual<typeof import('@tanstack/react-router')>('@tanstack/react-router')),
-  Link: ({ children, to, ...rest }: { children: React.ReactNode; to: string }) => (
-    <a href={to} {...(rest as object)}>
-      {children}
-    </a>
-  ),
+  Link: LinkStub,
 }))
 
 import { AdminDashboardPage } from '../components/AdminDashboardPage'
@@ -57,17 +54,17 @@ describe('AdminDashboardPage', () => {
       openReports: 0,
       activeBans: 0,
       hiddenReviews: 12,
-      hiddenThreads: 4,
-      hiddenReplies: 9,
+      hiddenThreads: 1,
+      hiddenReplies: 2,
       forcedPrivateProfiles: 0,
       pendingRoleRequests: 0,
     })
     renderWithProviders(<AdminDashboardPage />)
 
-    expect(await screen.findByText(/12 review · 4 thread · 9 reply/)).toBeInTheDocument()
+    expect(await screen.findByText('12 avis · 1 discussion · 2 réponses')).toBeInTheDocument()
   })
 
-  it('renders all stat cards as links to deep-link admin pages', async () => {
+  it('maps each actionable card to its own workload and leaves hidden content static', async () => {
     serveDashboard({
       openReports: 0,
       activeBans: 0,
@@ -80,12 +77,25 @@ describe('AdminDashboardPage', () => {
     renderWithProviders(<AdminDashboardPage />)
 
     await screen.findByText(adminLabels.statOpenReports)
-    const links = screen.getAllByRole('link')
-    // 5 stat cards = 5 links: /admin/reports (x2) + /admin/users (x2) + /admin/role-requests (x1).
-    expect(links).toHaveLength(5)
-    const hrefs = links.map((l) => l.getAttribute('href'))
-    expect(hrefs.filter((h) => h === '/admin/reports')).toHaveLength(2)
-    expect(hrefs.filter((h) => h === '/admin/users')).toHaveLength(2)
-    expect(hrefs.filter((h) => h === '/admin/role-requests')).toHaveLength(1)
+    expect(
+      screen.getByRole('link', { name: (name) => name.includes(adminLabels.statOpenReports) })
+    ).toHaveAttribute('href', '/admin/reports')
+    expect(
+      screen.getByRole('link', { name: (name) => name.includes(adminLabels.statActiveBans) })
+    ).toHaveAttribute('href', '/admin/users')
+    expect(
+      screen.getByRole('link', { name: (name) => name.includes(adminLabels.statForcedPrivate) })
+    ).toHaveAttribute('href', '/admin/users')
+    expect(
+      screen.getByRole('link', {
+        name: (name) => name.includes(adminLabels.statPendingRoleRequests),
+      })
+    ).toHaveAttribute('href', '/admin/role-requests')
+    expect(screen.getAllByRole('link')).toHaveLength(4)
+    expect(
+      screen.queryByRole('link', {
+        name: (name) => name.includes(adminLabels.statHiddenContent),
+      })
+    ).not.toBeInTheDocument()
   })
 })

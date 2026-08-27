@@ -1,4 +1,4 @@
-import type { RoleRequestStatus } from '@aurore/shared'
+import type { ReviewRoleRequestErrorCode, RoleRequestStatus } from '@aurore/shared'
 
 import { useSuspenseQuery } from '@tanstack/react-query'
 import { useState } from 'react'
@@ -6,8 +6,9 @@ import { useState } from 'react'
 import { Button } from '@/component/Button/Button'
 import { Time } from '@/component/DataDisplay/Time/Time'
 import { FormMessage } from '@/component/Feedback/ui/FormMessage/FormMessage'
+import { apiErrorMessage } from '@/lib/helpers/apiError'
 import { adminQueries, useReviewRoleRequest } from '@/lib/queries/admin'
-import { adminLabels, getAdminErrorMessage, roleRequestStatusLabels } from '../constants'
+import { adminLabels, roleRequestStatusLabels } from '../constants'
 import { useConfirm } from '../useConfirm'
 import { useSuccessFeedback } from '../useSuccessFeedback'
 import { AdminFilterTabs } from './AdminFilterTabs'
@@ -18,6 +19,10 @@ const STATUSES: { value: RoleRequestStatus; label: string }[] = [
   { value: 'rejected', label: roleRequestStatusLabels.rejected },
   { value: 'cancelled', label: roleRequestStatusLabels.cancelled },
 ]
+const REVIEW_ERROR_MESSAGES: Partial<Record<ReviewRoleRequestErrorCode, string>> = {
+  not_found: 'Demande introuvable.',
+  not_pending: 'Cette demande n’est plus en attente.',
+}
 
 export function AdminRoleRequestsPage() {
   const [status, setStatus] = useState<RoleRequestStatus>('pending')
@@ -78,6 +83,7 @@ export function AdminRoleRequestsPage() {
       </header>
 
       <AdminFilterTabs
+        label="Statut des demandes"
         tabs={STATUSES}
         value={status}
         onChange={(s) => {
@@ -91,7 +97,9 @@ export function AdminRoleRequestsPage() {
       <div aria-live="polite" aria-atomic="true">
         {success && <FormMessage variant="success">{success}</FormMessage>}
         {review.isError && (
-          <FormMessage variant="error">{getAdminErrorMessage(review.error)}</FormMessage>
+          <FormMessage variant="error">
+            {apiErrorMessage(review.error, REVIEW_ERROR_MESSAGES, 'L’action a échoué. Réessayez.')}
+          </FormMessage>
         )}
       </div>
 

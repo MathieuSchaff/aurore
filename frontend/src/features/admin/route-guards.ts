@@ -1,30 +1,30 @@
-import { redirect } from '@tanstack/react-router'
-
-import { awaitBootRefresh } from '@/lib/auth/awaitBootRefresh'
+import { requireRole } from '@/lib/auth/requireSession'
 import type { RouterContext } from '@/routerContext'
-import { useAuthStore } from '@/store/auth'
 
-type GuardArgs = { context: RouterContext }
+type GuardArgs = { context: RouterContext; location: { href: string } }
 
 // Admin-only child routes of the shared /admin shell (dashboard, users). A
 // contributor (« modérateur ») who reaches one by direct URL is sent to their
 // report queue rather than an account/structure surface; someone who is not a member goes home.
-// Await the boot probe first so a cold-load hard nav reads the resolved role,
-// not the default 'user'.
-export async function requireAdminOrRedirect({ context }: GuardArgs) {
-  await awaitBootRefresh(context.queryClient)
-  const role = useAuthStore.getState().role
-  if (role === 'admin') return
-  throw redirect({ to: role === 'contributor' ? '/admin/reports' : '/' })
+export async function requireAdminOrRedirect({ context, location }: GuardArgs) {
+  const session = await requireRole({
+    queryClient: context.queryClient,
+    href: location.href,
+    allowedRoles: ['admin'],
+    fallbackFor: { contributor: '/admin/reports' },
+  })
+  return { session }
 }
 
 // Content-moderation child routes reachable by admin∨contributor. The user-detail page
 // exposes a content-only ban slice to a contributor (« mettre en pause »); the account
 // surface (email/role header, force-private, role revocation) is gated in the component.
 // Anyone who is not a member goes home.
-export async function requireModeratorOrRedirect({ context }: GuardArgs) {
-  await awaitBootRefresh(context.queryClient)
-  const role = useAuthStore.getState().role
-  if (role === 'admin' || role === 'contributor') return
-  throw redirect({ to: '/' })
+export async function requireModeratorOrRedirect({ context, location }: GuardArgs) {
+  const session = await requireRole({
+    queryClient: context.queryClient,
+    href: location.href,
+    allowedRoles: ['admin', 'contributor'],
+  })
+  return { session }
 }
