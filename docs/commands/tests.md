@@ -30,16 +30,15 @@ the root loader, or the server-hint context changed.
 | `just test-db-up` | Recreate the test DB and apply migrations | `just test-db-up keep` reuses a running one |
 | `just test-db-down` | Stop the test DB | - |
 | `just test-db-seed` | Seed CORE into the test DB | Requires `test-db-up` |
-| `just test-backend [args]` | Full backend suite, brings the DB up | - |
-| `just test-dev [args]` | Backend suite, DB assumed up | The fast loop |
+| `just test-backend [args]` | Full backend suite, brings the DB up | Recreating the DB costs ~2s, so there is no "DB assumed up" variant |
 | `just test-watch [args]` | Backend suite in watch mode | Reuses a running test DB, starts one otherwise |
 | `just test-backend-coverage [args]` | Backend coverage | → `backend/coverage/` (lcov) |
 
 Targeted runs take a path or a substring:
 
 ```bash
-just test-dev "products"
-just test-dev "features/products/tests/products.routes.test.ts"
+just test-backend "products"
+just test-backend "features/products/tests/products.routes.test.ts"
 ```
 
 DB-backed tests clean their tables between tests, so a normal backend loop never needs a Docker
@@ -50,8 +49,8 @@ restart. Authoring rules: [`docs/conventions/backend-tests.md`](../conventions/b
 | Command | What | Notes |
 | :--- | :--- | :--- |
 | `just test-shared [args]` | Shared unit tests | Pure, no DB |
-| `just test-frontend` | Vitest suite | Components, hooks, forms, query serialization |
-| `just test-frontend-coverage` | Frontend coverage | → `frontend/coverage/` (lcov, istanbul provider) |
+| `just test-frontend [args]` | Vitest suite | Components, hooks, forms, query serialization. No DB. `args` filters on the file path |
+| `just test-frontend-coverage [args]` | Frontend coverage | → `frontend/coverage/` (lcov, istanbul provider) |
 | `cd frontend && bunx vitest` | Vitest watch mode | - |
 | `cd frontend && bunx vitest --ui` | Vitest web UI | - |
 
