@@ -78,7 +78,7 @@ test.describe('Page header rails', () => {
     await expect(page.getByRole('heading', { name: 'Ma Collection', level: 1 })).toBeVisible()
     await expectAligned(page, '.list-page-layout__header', '.list-page-layout__body')
     // Desktop contract: centered only aligns the row vertically; title and actions
-    // stay at the rail edges (see page-headers.md, "Variante centered").
+    // stay at the rail edges, which is what the centered variant means.
     await expect(page.locator('.list-page-layout__header')).toHaveCSS('align-items', 'center')
     await expect
       .poll(async () => {

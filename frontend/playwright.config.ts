@@ -20,6 +20,7 @@ const CROSS_ENGINE_SPECS = [
 
 // Ports (5174/3001/5434) differ from dev (5173/3000/5432) so both stacks can run at once.
 export default defineConfig({
+  tsconfig: './tsconfig.node.json',
   testDir: './e2e',
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
