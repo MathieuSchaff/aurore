@@ -24,6 +24,8 @@ services:
       APP_DATABASE_URL: postgres://app_runtime:testpassword@db:5432/appdb
       FRONTEND_URL: http://localhost:5174
       LOG_LEVEL: info
+      # Arms the e2e_boot_delay cookie gate in ssr-boot.routes.ts (degraded-path spec)
+      E2E_TEST_HOOKS: "1"
     ports: !override
       - "3001:3000"
 
