@@ -1,6 +1,7 @@
 import { HttpResponse, http } from 'msw'
 
 import {
+  PRODUCT_DETAILS,
   PRODUCT_FILTER_OPTIONS,
   PRODUCT_INGREDIENTS,
   PRODUCT_TAGS,
@@ -15,8 +16,6 @@ const TAG_PARAMS = ['concern', 'skin_type', 'skin_zone', 'product_type', 'routin
 
 export const productsHandlers = [
   http.get('*/api/products/filter-options', () => ok(PRODUCT_FILTER_OPTIONS)),
-
-  http.get('*/api/products/shelf-status', () => ok([])),
 
   http.get('*/api/products', ({ request }) => {
     const url = new URL(request.url)
@@ -39,7 +38,32 @@ export const productsHandlers = [
       return true
     })
 
-    return ok({ items: filtered, total: filtered.length, page, limit })
+    // Mirror the server contract: auto resolves against the mocked viewer, who
+    // has declared nothing, so only an explicit true reports applied rules
+    const rulesApplied = url.searchParams.get('apply_preferences') === 'true'
+    return ok({
+      items: filtered,
+      total: filtered.length,
+      page,
+      limit,
+      hiddenCount: 0,
+      excludedLabels: [],
+      requiredLabels: [],
+      rulesApplied,
+    })
+  }),
+
+  http.get('*/api/products/:slug/page', ({ params }) => {
+    const product = PRODUCT_DETAILS.find((item) => item.slug === params.slug)
+    if (!product) return new HttpResponse(null, { status: 404 })
+
+    return ok({
+      product,
+      userStatus: null,
+      dermoProfile: null,
+      assessment: null,
+      preferenceTargets: { ingredients: [], tags: [] },
+    })
   }),
 
   // Detail-by-slug: consumers read it through optional chaining, so an empty

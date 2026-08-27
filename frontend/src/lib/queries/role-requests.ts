@@ -1,12 +1,27 @@
-import type { SubmitRoleRequestInput } from '@aurore/shared'
+import type {
+  MyRoleRequestResponse,
+  RoleRequestView,
+  SubmitRoleRequestErrorCode,
+  SubmitRoleRequestInput,
+} from '@aurore/shared'
 
 import { queryOptions, useMutation, useQueryClient } from '@tanstack/react-query'
 
 import { api } from '../api'
-import { ApiError } from '../helpers/apiError'
+import { unwrapData } from '../helpers/apiError'
 
 const roleRequestKeys = {
   mine: ['role-requests', 'me'] as const,
+}
+
+const SUBMIT_ROLE_REQUEST_HANDLED_ERROR_CODES = [
+  'already_pending',
+  'already_elevated',
+] as const satisfies readonly SubmitRoleRequestErrorCode[]
+
+// Only a plain user reaches these mutations, so the pending state alone decides
+function asMine(latest: RoleRequestView): MyRoleRequestResponse {
+  return { latest, canApply: latest.status !== 'pending' }
 }
 
 export const roleRequestQueries = {
@@ -15,10 +30,7 @@ export const roleRequestQueries = {
       queryKey: roleRequestKeys.mine,
       queryFn: async () => {
         const res = await api['role-requests'].me.$get()
-        if (!res.ok) throw new ApiError('http_error', res.status)
-        const json = await res.json()
-        if (!json.success) throw new Error('Role request error')
-        return json.data
+        return unwrapData(res)
       },
     }),
 }
@@ -26,36 +38,26 @@ export const roleRequestQueries = {
 export function useSubmitRoleRequest() {
   const qc = useQueryClient()
   return useMutation({
+    mutationKey: ['role-requests', 'submit'],
+    meta: { handledErrorCodes: SUBMIT_ROLE_REQUEST_HANDLED_ERROR_CODES },
     mutationFn: async (body: SubmitRoleRequestInput) => {
       const res = await api['role-requests'].$post({ json: body })
-      if (!res.ok) {
-        // Surface the API error code (already_pending / already_elevated) to the form.
-        const json = (await res.json()) as { error?: string }
-        throw new Error(json.error ?? 'submit_failed')
-      }
-      const json = await res.json()
-      if (!json.success) throw new Error('submit_failed')
-      return json.data
+      return unwrapData(res)
     },
-    // Response is the new RoleRequestView (same shape as GET /me). Write it straight
-    // to cache so the section flips to "pending" without a blank-form refetch flash.
-    onSuccess: (data) => qc.setQueryData(roleRequestKeys.mine, data),
+    // Response is the new RoleRequestView. Write it straight to cache so the section
+    // flips to "pending" without a blank-form refetch flash.
+    onSuccess: (data) => qc.setQueryData(roleRequestKeys.mine, asMine(data)),
   })
 }
 
 export function useCancelRoleRequest() {
   const qc = useQueryClient()
   return useMutation({
+    mutationKey: ['role-requests', 'cancel'],
     mutationFn: async (id: string) => {
       const res = await api['role-requests'][':id'].cancel.$post({ param: { id } })
-      if (!res.ok) {
-        const json = (await res.json()) as { error?: string }
-        throw new Error(json.error ?? 'cancel_failed')
-      }
-      const json = await res.json()
-      if (!json.success) throw new Error('cancel_failed')
-      return json.data
+      return unwrapData(res)
     },
-    onSuccess: (data) => qc.setQueryData(roleRequestKeys.mine, data),
+    onSuccess: (data) => qc.setQueryData(roleRequestKeys.mine, asMine(data)),
   })
 }

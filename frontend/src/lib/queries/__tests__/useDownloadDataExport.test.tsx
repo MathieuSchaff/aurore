@@ -14,7 +14,8 @@ vi.mock('../../api', () => ({
 
 import { renderHookWithProviders } from '@/test/utils'
 import { api } from '../../api'
-import { ExportRateLimitError, useDownloadDataExport } from '../profile'
+import { ApiError } from '../../helpers/apiError'
+import { useDownloadDataExport } from '../profile'
 
 const mockExportGet = vi.mocked(api.profile.export.$get) as unknown as ReturnType<typeof vi.fn>
 
@@ -88,7 +89,7 @@ describe('useDownloadDataExport', () => {
     expect(anchor.download).toBe('aurore-export.json')
   })
 
-  it('throws ExportRateLimitError carrying retryAfter on a 429 response', async () => {
+  it('keeps the rate-limit code and retryAfter on a 429 response', async () => {
     mockExportGet.mockResolvedValue(
       makeResponse({
         status: 429,
@@ -106,14 +107,18 @@ describe('useDownloadDataExport', () => {
 
     await waitFor(() => expect(result.current.isError).toBe(true))
 
-    expect(result.current.error).toBeInstanceOf(ExportRateLimitError)
-    expect((result.current.error as ExportRateLimitError).retryAfterSec).toBe(240)
+    expect(result.current.error).toBeInstanceOf(ApiError)
+    expect(result.current.error).toMatchObject({
+      code: 'rate_limit_exceeded',
+      status: 429,
+      details: { retryAfter: 240 },
+    })
     // No blob URL must be created when the request was rejected.
     expect(createObjectURL).not.toHaveBeenCalled()
     expect(clickSpy).not.toHaveBeenCalled()
   })
 
-  it('surfaces a generic Error on other failures', async () => {
+  it('keeps the backend code on other failures', async () => {
     mockExportGet.mockResolvedValue(
       makeResponse({
         status: 500,
@@ -127,7 +132,7 @@ describe('useDownloadDataExport', () => {
 
     await waitFor(() => expect(result.current.isError).toBe(true))
 
-    expect(result.current.error).toBeInstanceOf(Error)
-    expect(result.current.error).not.toBeInstanceOf(ExportRateLimitError)
+    expect(result.current.error).toBeInstanceOf(ApiError)
+    expect(result.current.error).toMatchObject({ code: 'server_error', status: 500 })
   })
 })
