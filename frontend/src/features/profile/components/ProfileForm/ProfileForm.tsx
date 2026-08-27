@@ -9,6 +9,7 @@ import { ImageUpload } from '@/component/ImageUpload'
 import { FormActions } from '@/component/Input/FormActions/FormActions'
 import { Input } from '@/component/Input/Input'
 import { Textarea } from '@/component/Input/Textarea/Textarea'
+import { profileKeys } from '@/lib/queries/profile'
 import { type ProfileLinkError, ProfileLinksEditor } from '../ProfileLinksEditor/ProfileLinksEditor'
 import './ProfileForm.css'
 
@@ -127,7 +128,7 @@ export const ProfileForm = ({
           alt={`Avatar de ${profile.username ?? 'utilisateur'}`}
           onSuccess={(url) => {
             setAvatarUrl(url)
-            queryClient.invalidateQueries({ queryKey: ['profile', 'me'] })
+            queryClient.invalidateQueries({ queryKey: profileKeys.me() })
           }}
         />
       </div>

@@ -1,3 +1,5 @@
+import type { SubmitRoleRequestErrorCode } from '@aurore/shared'
+
 import { useQuery } from '@tanstack/react-query'
 import { useState } from 'react'
 
@@ -7,33 +9,34 @@ import { FormActions } from '../../../../component/Input/FormActions/FormActions
 import { Input } from '../../../../component/Input/Input'
 import { Textarea } from '../../../../component/Input/Textarea/Textarea'
 import { SettingsSection } from '../../../../component/Layout/SettingsSection/SettingsSection'
+import { useSession } from '../../../../lib/auth/session'
+import { apiErrorMessage } from '../../../../lib/helpers/apiError'
 import {
   roleRequestQueries,
   useCancelRoleRequest,
   useSubmitRoleRequest,
 } from '../../../../lib/queries/role-requests'
-import { useAuthStore } from '../../../../store/auth'
 
 // Maps server error codes from submitRoleRequestBodySchema to calm FR copy.
-const ROLE_REQUEST_ERRORS: Record<string, string> = {
+const ROLE_REQUEST_ERRORS = {
   already_pending: 'Vous avez déjà une demande en attente.',
   already_elevated: 'Vous êtes déjà modérateur ou administrateur.',
-}
+} satisfies Partial<Record<SubmitRoleRequestErrorCode, string>>
+
+const ROLE_REQUEST_ERROR_FALLBACK = 'L’envoi a échoué. Veuillez réessayer.'
 
 const MOTIVATION_MIN = 10
 const MOTIVATION_MAX = 1000
 
 export const RoleRequestSection = () => {
   // Section is for plain users only; it unmounts once the role flips to contributor.
-  const isUser = useAuthStore((s) => s.role === 'user')
-  const {
-    data: latest,
-    isLoading,
-    isError,
-  } = useQuery({
+  const session = useSession()
+  const isUser = session.status === 'authenticated' && session.user.role === 'user'
+  const { data, isLoading, isError } = useQuery({
     ...roleRequestQueries.mine(),
     enabled: isUser,
   })
+  const latest = data?.latest
   const submit = useSubmitRoleRequest()
   const cancel = useCancelRoleRequest()
   const [motivation, setMotivation] = useState('')
@@ -96,7 +99,7 @@ export const RoleRequestSection = () => {
 
       {submit.isError && (
         <FormMessage variant="error">
-          {ROLE_REQUEST_ERRORS[submit.error.message] ?? 'L’envoi a échoué. Veuillez réessayer.'}
+          {apiErrorMessage(submit.error, ROLE_REQUEST_ERRORS, ROLE_REQUEST_ERROR_FALLBACK)}
         </FormMessage>
       )}
 
@@ -140,9 +143,11 @@ export const RoleRequestSection = () => {
         </Button>
       </div>
     )
-  } else if (latest?.status === 'approved') {
+  } else if (latest?.status === 'approved' && !data?.canApply) {
     // Welcome message. The role flips to contributor at the next token refresh (≤15 min),
-    // which unmounts this section, no force-refresh needed.
+    // which unmounts this section, no force-refresh needed. A demoted account also
+    // carries an approved request, but the server says it can apply again, so it
+    // falls through to the opt-in below
     body = (
       <FormMessage variant="success">
         Votre demande a été acceptée. Vos accès modérateur seront actifs d'ici quelques minutes, à

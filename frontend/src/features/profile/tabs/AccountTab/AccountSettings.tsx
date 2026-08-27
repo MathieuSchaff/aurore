@@ -1,3 +1,5 @@
+import type { PrivacySettings } from '@aurore/shared'
+
 import { useQuery } from '@tanstack/react-query'
 import { Link, useLocation, useNavigate } from '@tanstack/react-router'
 import { Download, ExternalLink, LogOut, ShieldCheck, Trash2 } from 'lucide-react'
@@ -7,15 +9,15 @@ import { Button } from '../../../../component/Button/Button'
 import { FormMessage } from '../../../../component/Feedback/ui/FormMessage/FormMessage'
 import { Toggle } from '../../../../component/Input/Toggle/Toggle'
 import { SettingsSection } from '../../../../component/Layout/SettingsSection/SettingsSection'
+import { useSession } from '../../../../lib/auth/session'
+import { rateLimitMessage } from '../../../../lib/helpers/apiError'
 import { useLogout } from '../../../../lib/queries/auth'
 import {
-  ExportRateLimitError,
   privacySettingsQueries,
   useDeleteUser,
   useDownloadDataExport,
   useUpdatePrivacySettings,
 } from '../../../../lib/queries/profile'
-import { useAuthStore } from '../../../../store/auth'
 import { ChangePasswordForm } from './ChangePasswordForm'
 import { RoleRequestSection } from './RoleRequestSection'
 import './AccountSettings.css'
@@ -31,21 +33,29 @@ type PrivacyKey =
   | 'discoverable'
   | 'aiConsent'
 
-export const AccountSettings = () => {
-  const navigate = useNavigate()
-  const isDemo = useAuthStore((s) => s.isDemo)
-  const [showPasswordForm, setShowPasswordForm] = useState(false)
-  const [confirmDelete, setConfirmDelete] = useState(false)
-  const logout = useLogout()
-  const deleteUser = useDeleteUser()
-  const downloadExport = useDownloadDataExport()
+function profileFieldDisabled(
+  profilePublic: boolean,
+  pendingKey: PrivacyKey | undefined,
+  field: PrivacyKey
+) {
+  if (!profilePublic) return true
+  return pendingKey === field
+}
 
-  const { data: privacy, isLoading: privacyLoading } = useQuery(privacySettingsQueries.get())
-  const updatePrivacy = useUpdatePrivacySettings()
-
-  // Deep-link from HomeHub's "Activer la découverte": once the toggles render,
-  // scroll to the discoverable one. Once-only so background refetches don't jump.
-  const hash = useLocation({ select: (l) => l.hash })
+function PrivacySettingsSection({
+  privacy,
+  isLoading,
+  pendingKey,
+  hasError,
+  onToggle,
+}: {
+  privacy: PrivacySettings | undefined
+  isLoading: boolean
+  pendingKey: PrivacyKey | undefined
+  hasError: boolean
+  onToggle: (key: PrivacyKey, value: boolean) => void
+}) {
+  const hash = useLocation({ select: (location) => location.hash })
   const scrolledToToggle = useRef(false)
   useEffect(() => {
     if (scrolledToToggle.current || hash !== 'discoverable' || !privacy) return
@@ -56,6 +66,128 @@ export const AccountSettings = () => {
         ?.scrollIntoView({ behavior: 'smooth', block: 'center' })
     })
   }, [hash, privacy])
+
+  return (
+    <SettingsSection
+      title="Confidentialité"
+      description="Contrôlez ce que les autres peuvent voir de vous."
+    >
+      {isLoading ? (
+        <p className="privacy-loading">Chargement…</p>
+      ) : privacy ? (
+        <div className="privacy-toggles">
+          <Toggle
+            label="Profil public"
+            hint="Si activé, votre nom d'utilisateur peut apparaître sur les pages publiques. Choisissez ensuite ce que vous souhaitez partager."
+            checked={privacy.profilePublic}
+            onChange={(checked) => onToggle('profilePublic', checked)}
+            disabled={pendingKey === 'profilePublic'}
+          />
+
+          <div className="privacy-subgroup">
+            <p className="privacy-subgroup-title">Informations à partager</p>
+            <Toggle
+              label="Bio"
+              checked={privacy.bioPublic}
+              onChange={(checked) => onToggle('bioPublic', checked)}
+              disabled={profileFieldDisabled(privacy.profilePublic, pendingKey, 'bioPublic')}
+            />
+            <Toggle
+              label="Avatar"
+              checked={privacy.avatarPublic}
+              onChange={(checked) => onToggle('avatarPublic', checked)}
+              disabled={profileFieldDisabled(privacy.profilePublic, pendingKey, 'avatarPublic')}
+            />
+            <Toggle
+              label="Liens"
+              checked={privacy.linksPublic}
+              onChange={(checked) => onToggle('linksPublic', checked)}
+              disabled={profileFieldDisabled(privacy.profilePublic, pendingKey, 'linksPublic')}
+            />
+          </div>
+
+          <div className="privacy-subgroup">
+            <p className="privacy-subgroup-title">Profil de peau</p>
+            <Toggle
+              label="Types de peau"
+              checked={privacy.skinTypesPublic}
+              onChange={(checked) => onToggle('skinTypesPublic', checked)}
+              disabled={profileFieldDisabled(privacy.profilePublic, pendingKey, 'skinTypesPublic')}
+            />
+            <Toggle
+              label="Phototype"
+              checked={privacy.fitzpatrickPublic}
+              onChange={(checked) => onToggle('fitzpatrickPublic', checked)}
+              disabled={profileFieldDisabled(
+                privacy.profilePublic,
+                pendingKey,
+                'fitzpatrickPublic'
+              )}
+            />
+            <Toggle
+              label="Préoccupations"
+              checked={privacy.skinConcernsPublic}
+              onChange={(checked) => onToggle('skinConcernsPublic', checked)}
+              disabled={profileFieldDisabled(
+                privacy.profilePublic,
+                pendingKey,
+                'skinConcernsPublic'
+              )}
+            />
+          </div>
+
+          <div id="privacy-discoverable" className="privacy-subgroup">
+            <p className="privacy-subgroup-title">Rencontres de peau</p>
+            <Toggle
+              label="Être trouvable par des peaux similaires"
+              hint="Aurore peut vous proposer à des personnes dont la peau ressemble à la vôtre. La problématique par laquelle on vous trouve peut être déduite ; vos autres informations restent privées."
+              checked={privacy.discoverable}
+              onChange={(checked) => onToggle('discoverable', checked)}
+              disabled={profileFieldDisabled(privacy.profilePublic, pendingKey, 'discoverable')}
+            />
+          </div>
+
+          <div className="privacy-ai-section">
+            <p className="privacy-section-desc">
+              Autoriser Aurore à analyser des produits en fonction de votre profil avec Mistral AI —
+              hébergé en France, vos données ne quittent pas l'Europe.{' '}
+              <span className="privacy-badge">Fonctionnalité à venir</span>
+            </p>
+            <Toggle
+              label="Activer l'analyse IA"
+              hint="Peut être révoqué à tout moment. Aucune donnée envoyée sans ce consentement."
+              checked={privacy.aiConsent}
+              onChange={(checked) => onToggle('aiConsent', checked)}
+              disabled={pendingKey === 'aiConsent'}
+            />
+          </div>
+
+          <Link to="/privacy" className="privacy-policy-link">
+            Lire la politique de confidentialité complète
+            <ExternalLink size={14} aria-hidden="true" />
+          </Link>
+
+          {hasError && (
+            <FormMessage variant="error">La mise à jour a échoué. Veuillez réessayer.</FormMessage>
+          )}
+        </div>
+      ) : null}
+    </SettingsSection>
+  )
+}
+
+export const AccountSettings = () => {
+  const navigate = useNavigate()
+  const session = useSession()
+  const isDemo = session.status === 'authenticated' && session.user.isDemo
+  const [showPasswordForm, setShowPasswordForm] = useState(false)
+  const [confirmDelete, setConfirmDelete] = useState(false)
+  const logout = useLogout()
+  const deleteUser = useDeleteUser()
+  const downloadExport = useDownloadDataExport()
+
+  const { data: privacy, isLoading: privacyLoading } = useQuery(privacySettingsQueries.get())
+  const updatePrivacy = useUpdatePrivacySettings()
 
   const handleLogout = () => {
     logout.mutate(undefined, {
@@ -102,105 +234,13 @@ export const AccountSettings = () => {
         </div>
       </SettingsSection>
 
-      <SettingsSection
-        title="Confidentialité"
-        description="Contrôlez ce que les autres peuvent voir de vous."
-      >
-        {privacyLoading ? (
-          <p className="privacy-loading">Chargement…</p>
-        ) : privacy ? (
-          <div className="privacy-toggles">
-            <Toggle
-              label="Profil public"
-              hint="Si activé, votre nom d'utilisateur peut apparaître sur les pages publiques. Choisissez ensuite ce que vous souhaitez partager."
-              checked={privacy.profilePublic}
-              onChange={(checked) => handlePrivacyToggle('profilePublic', checked)}
-              disabled={pendingKey === 'profilePublic'}
-            />
-
-            <div className="privacy-subgroup">
-              <p className="privacy-subgroup-title">Informations à partager</p>
-              <Toggle
-                label="Bio"
-                checked={privacy.bioPublic}
-                onChange={(checked) => handlePrivacyToggle('bioPublic', checked)}
-                disabled={!privacy.profilePublic || pendingKey === 'bioPublic'}
-              />
-              <Toggle
-                label="Avatar"
-                checked={privacy.avatarPublic}
-                onChange={(checked) => handlePrivacyToggle('avatarPublic', checked)}
-                disabled={!privacy.profilePublic || pendingKey === 'avatarPublic'}
-              />
-              <Toggle
-                label="Liens"
-                checked={privacy.linksPublic}
-                onChange={(checked) => handlePrivacyToggle('linksPublic', checked)}
-                disabled={!privacy.profilePublic || pendingKey === 'linksPublic'}
-              />
-            </div>
-
-            <div className="privacy-subgroup">
-              <p className="privacy-subgroup-title">Profil de peau</p>
-              <Toggle
-                label="Types de peau"
-                checked={privacy.skinTypesPublic}
-                onChange={(checked) => handlePrivacyToggle('skinTypesPublic', checked)}
-                disabled={!privacy.profilePublic || pendingKey === 'skinTypesPublic'}
-              />
-              <Toggle
-                label="Phototype"
-                checked={privacy.fitzpatrickPublic}
-                onChange={(checked) => handlePrivacyToggle('fitzpatrickPublic', checked)}
-                disabled={!privacy.profilePublic || pendingKey === 'fitzpatrickPublic'}
-              />
-              <Toggle
-                label="Préoccupations"
-                checked={privacy.skinConcernsPublic}
-                onChange={(checked) => handlePrivacyToggle('skinConcernsPublic', checked)}
-                disabled={!privacy.profilePublic || pendingKey === 'skinConcernsPublic'}
-              />
-            </div>
-
-            <div id="privacy-discoverable" className="privacy-subgroup">
-              <p className="privacy-subgroup-title">Rencontres de peau</p>
-              <Toggle
-                label="Être trouvable par des peaux similaires"
-                hint="Aurore peut vous proposer à des personnes dont la peau ressemble à la vôtre. La problématique par laquelle on vous trouve peut être déduite ; vos autres informations restent privées."
-                checked={privacy.discoverable}
-                onChange={(checked) => handlePrivacyToggle('discoverable', checked)}
-                disabled={!privacy.profilePublic || pendingKey === 'discoverable'}
-              />
-            </div>
-
-            <div className="privacy-ai-section">
-              <p className="privacy-section-desc">
-                Autoriser Aurore à analyser des produits en fonction de votre profil avec Mistral AI
-                — hébergé en France, vos données ne quittent pas l'Europe.{' '}
-                <span className="privacy-badge">Fonctionnalité à venir</span>
-              </p>
-              <Toggle
-                label="Activer l'analyse IA"
-                hint="Peut être révoqué à tout moment. Aucune donnée envoyée sans ce consentement."
-                checked={privacy.aiConsent}
-                onChange={(checked) => handlePrivacyToggle('aiConsent', checked)}
-                disabled={pendingKey === 'aiConsent'}
-              />
-            </div>
-
-            <Link to="/privacy" className="privacy-policy-link">
-              Lire la politique de confidentialité complète
-              <ExternalLink size={14} aria-hidden="true" />
-            </Link>
-
-            {updatePrivacy.isError && (
-              <FormMessage variant="error">
-                La mise à jour a échoué. Veuillez réessayer.
-              </FormMessage>
-            )}
-          </div>
-        ) : null}
-      </SettingsSection>
+      <PrivacySettingsSection
+        privacy={privacy}
+        isLoading={privacyLoading}
+        pendingKey={pendingKey}
+        hasError={updatePrivacy.isError}
+        onToggle={handlePrivacyToggle}
+      />
 
       <RoleRequestSection />
 
@@ -221,11 +261,8 @@ export const AccountSettings = () => {
           </Button>
           {downloadExport.isError && (
             <FormMessage variant="error">
-              {downloadExport.error instanceof ExportRateLimitError
-                ? `Trop de demandes. Réessayez dans environ ${Math.ceil(
-                    downloadExport.error.retryAfterSec / 60
-                  )} min.`
-                : 'Le téléchargement a échoué. Veuillez réessayer.'}
+              {rateLimitMessage(downloadExport.error) ??
+                'Le téléchargement a échoué. Veuillez réessayer.'}
             </FormMessage>
           )}
         </div>

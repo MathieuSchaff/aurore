@@ -5,12 +5,12 @@ import { Link } from '@tanstack/react-router'
 
 import { Button } from '@/component/Button/Button'
 import { MARK_ADDED_CONFIRMATION, STANCE_LABEL } from '@/constants/preferences'
+import { useSession } from '@/lib/auth/session'
 import {
   preferenceTargetQueries,
   useDeleteIngredientPreference,
   useUpsertIngredientPreference,
 } from '@/lib/queries/profile'
-import { useAuthStore } from '@/store/auth'
 import './IngredientMarkButtons.css'
 
 interface IngredientMarkButtonsProps {
@@ -19,32 +19,47 @@ interface IngredientMarkButtonsProps {
   // neighbour, which is what made the gesture illegible.
   name?: string
   stances: readonly PreferenceStance[]
+  // Product detail already owns the complete viewer page. `undefined` keeps
+  // the standalone ingredient-page query; null means a known empty state
+  currentStance?: PreferenceStance | null
 }
 
 // Declare "Sans X / Avec X" on the substance under the reader's eyes:
 // the in-context shortcut, the recap in /profile stays the authority.
 // Anonymous visitors see nothing; unkeyed ingredients never mount this (the
 // caller gates on canonicalKey, the only identity a preference can attach to).
-export function IngredientMarkButtons({ canonicalKey, name, stances }: IngredientMarkButtonsProps) {
-  const user = useAuthStore((s) => s.user)
+export function IngredientMarkButtons({
+  canonicalKey,
+  name,
+  stances,
+  currentStance,
+}: IngredientMarkButtonsProps) {
+  const session = useSession()
+  const hasViewer = session.status === 'authenticated'
+  const hasCallerStance = currentStance !== undefined
   const {
     data: targets,
     isPending,
     isError,
   } = useQuery({
     ...preferenceTargetQueries.list(),
-    enabled: !!user,
+    enabled: hasViewer && !hasCallerStance,
   })
   // The page is SSR'd but this list is a client query, so `targets` is undefined
   // while it loads and when it fails alike: a definite `aria-pressed="false"`
   // would deny a rule the user already set.
-  const stateUnknown = isPending || isError
+  const stateUnknown = !hasCallerStance && (isPending || isError)
   const upsert = useUpsertIngredientPreference()
   const remove = useDeleteIngredientPreference()
 
-  if (!user) return null
+  if (!hasViewer) return null
 
-  const current = targets?.ingredients.find((i) => i.canonicalKey === canonicalKey)
+  const targetFromQuery = targets?.ingredients.find((i) => i.canonicalKey === canonicalKey)
+  const current = hasCallerStance
+    ? currentStance
+      ? { stance: currentStance }
+      : undefined
+    : targetFromQuery
   const pending = upsert.isPending || remove.isPending
   const justAdded = upsert.isSuccess && current !== undefined
 

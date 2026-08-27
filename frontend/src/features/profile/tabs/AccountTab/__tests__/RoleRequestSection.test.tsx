@@ -5,15 +5,24 @@ import userEvent from '@testing-library/user-event'
 import { delay, HttpResponse, http } from 'msw'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
+import type { SessionView } from '@/lib/auth/session'
 import { useCancelRoleRequest, useSubmitRoleRequest } from '@/lib/queries/role-requests'
-import { useAuthStore } from '@/store/auth'
 import { server } from '@/test/msw/server'
 import { renderWithProviders } from '@/test/utils'
+
+const { useSessionMock } = vi.hoisted(() => ({
+  useSessionMock: vi.fn<() => SessionView>(),
+}))
 
 vi.mock('@/lib/queries/role-requests', async (importOriginal) => {
   const actual = await importOriginal<typeof import('@/lib/queries/role-requests')>()
   return { ...actual, useSubmitRoleRequest: vi.fn(), useCancelRoleRequest: vi.fn() }
 })
+
+vi.mock('@/lib/auth/session', async (importOriginal) => ({
+  ...(await importOriginal<typeof import('@/lib/auth/session')>()),
+  useSession: useSessionMock,
+}))
 
 import { RoleRequestSection } from '../RoleRequestSection'
 
@@ -21,6 +30,7 @@ import { RoleRequestSection } from '../RoleRequestSection'
 // that the component runs its real query.
 function serveRequest(state: {
   data?: RoleRequestView | null
+  canApply?: boolean
   pending?: boolean
   fails?: boolean
 }) {
@@ -28,7 +38,9 @@ function serveRequest(state: {
     http.get('*/api/role-requests/me', async () => {
       if (state.pending) await delay('infinite')
       if (state.fails) return new HttpResponse(null, { status: 500 })
-      return HttpResponse.json({ success: true, data: state.data ?? null })
+      const latest = state.data ?? null
+      const canApply = state.canApply ?? latest?.status !== 'pending'
+      return HttpResponse.json({ success: true, data: { latest, canApply } })
     })
   )
 }
@@ -66,15 +78,30 @@ function makeRequest(overrides: Partial<RoleRequestView>): RoleRequestView {
   }
 }
 
+function setSessionRole(role: 'user' | 'contributor') {
+  useSessionMock.mockReturnValue({
+    status: 'authenticated',
+    credential: 'present',
+    user: {
+      id: `${role}-id`,
+      email: `${role}@example.test`,
+      createdAt: '2026-01-01T00:00:00.000Z',
+      role,
+      emailVerified: true,
+      isDemo: false,
+    },
+  })
+}
+
 describe('RoleRequestSection', () => {
   beforeEach(() => {
     vi.clearAllMocks()
     setMutations()
-    useAuthStore.setState({ role: 'user' })
+    setSessionRole('user')
   })
 
   it('renders nothing for a non-user role', async () => {
-    useAuthStore.setState({ role: 'contributor' })
+    setSessionRole('contributor')
     serveRequest({ data: null })
     renderWithProviders(<RoleRequestSection />)
 
@@ -84,7 +111,7 @@ describe('RoleRequestSection', () => {
   })
 
   it('shows a loading hint while fetching', async () => {
-    useAuthStore.setState({ role: 'user' })
+    setSessionRole('user')
     serveRequest({ pending: true })
     renderWithProviders(<RoleRequestSection />)
 
@@ -92,7 +119,7 @@ describe('RoleRequestSection', () => {
   })
 
   it('shows a recoverable message (not the form) when the load fails', async () => {
-    useAuthStore.setState({ role: 'user' })
+    setSessionRole('user')
     serveRequest({ fails: true })
     renderWithProviders(<RoleRequestSection />)
 
@@ -101,7 +128,7 @@ describe('RoleRequestSection', () => {
   })
 
   it('shows the pending state with a working cancel button', async () => {
-    useAuthStore.setState({ role: 'user' })
+    setSessionRole('user')
     serveRequest({ data: makeRequest({ status: 'pending' }) })
     const { cancel } = setMutations()
     renderWithProviders(<RoleRequestSection />)
@@ -111,16 +138,26 @@ describe('RoleRequestSection', () => {
     expect(cancel).toHaveBeenCalledWith('req-1')
   })
 
-  it('shows the welcome message when the latest request is approved', async () => {
-    useAuthStore.setState({ role: 'user' })
-    serveRequest({ data: makeRequest({ status: 'approved' }) })
+  it('shows the welcome message when the latest request is approved and the server still blocks a new one', async () => {
+    setSessionRole('user')
+    serveRequest({ data: makeRequest({ status: 'approved' }), canApply: false })
     renderWithProviders(<RoleRequestSection />)
 
     expect(await screen.findByText(/Votre demande a été acceptée/)).toBeInTheDocument()
+    expect(screen.queryByRole('button', { name: 'Je veux contribuer' })).not.toBeInTheDocument()
+  })
+
+  it('offers the opt-in again when an approved request belongs to a demoted account', async () => {
+    setSessionRole('user')
+    serveRequest({ data: makeRequest({ status: 'approved' }), canApply: true })
+    renderWithProviders(<RoleRequestSection />)
+
+    expect(await screen.findByRole('button', { name: 'Je veux contribuer' })).toBeInTheDocument()
+    expect(screen.queryByText(/Votre demande a été acceptée/)).not.toBeInTheDocument()
   })
 
   it('shows the rejection reason above the resubmit form when rejected', async () => {
-    useAuthStore.setState({ role: 'user' })
+    setSessionRole('user')
     serveRequest({
       data: makeRequest({ status: 'rejected', rejectionReason: 'Trop peu de détails.' }),
     })
@@ -131,7 +168,7 @@ describe('RoleRequestSection', () => {
   })
 
   it('keeps the form behind an opt-in for a first-time user, then reveals it', async () => {
-    useAuthStore.setState({ role: 'user' })
+    setSessionRole('user')
     serveRequest({ data: null })
     renderWithProviders(<RoleRequestSection />)
 
@@ -146,7 +183,7 @@ describe('RoleRequestSection', () => {
   })
 
   it('disables submit below the 10-char minimum and enables it at the boundary', async () => {
-    useAuthStore.setState({ role: 'user' })
+    setSessionRole('user')
     serveRequest({ data: null })
     const { submit } = setMutations()
     renderWithProviders(<RoleRequestSection />)
