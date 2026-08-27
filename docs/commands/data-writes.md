@@ -47,7 +47,7 @@ The dry-run report names the zero-link buckets:
 | Script | What | Guardrail |
 | :--- | :--- | :--- |
 | `clean-inci` | Runs the algo-derm cleaner over the corpus: labels, broken separators (pipe, middot, en dash, period), marketing and legal prose | Skips when the result has fewer than 3 tokens or under 50 % of the original |
-| `resplit-single-token` | Re-tokenizes blobs with no separators: trivial split then longest match against the algo-derm alias index | Supplements excluded: nutrition blobs were mangled historically. Needs ≥ 3 matched spans and a ratio ≥ 0.7 |
+| `resplit-single-token` | Tokenizes blobs with no separators: trivial split then longest match against the algo-derm alias index | Supplements excluded: nutrition blobs were mangled historically. Needs ≥ 3 matched spans and a ratio ≥ 0.7 |
 | `worst-match-prose` | Per-slug fixes: null, set, strip after a marker, strip HTML | The canonical home for one-off cases |
 
 ## Auto-tagging
