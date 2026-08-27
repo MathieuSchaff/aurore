@@ -1,11 +1,15 @@
-import type {
-  AdminUserListItem,
-  ApiResponse,
-  BanScope,
-  CreateBanInput,
-  CreateBanResult,
-  UpdateBanInput,
-  UpdateBanResult,
+import {
+  type AdminBanListItem,
+  type AdminBanStatus,
+  type AdminUserAccount,
+  type ApiResponse,
+  type BanScope,
+  type CreateBanInput,
+  type CreateBanResult,
+  err,
+  ok,
+  type UpdateBanInput,
+  type UpdateBanResult,
 } from '@aurore/shared'
 
 import { desc, eq, sql } from 'drizzle-orm'
@@ -13,10 +17,28 @@ import { desc, eq, sql } from 'drizzle-orm'
 import type { DatabaseTransaction } from '../../db'
 import { type UserBan, userBans, usersSafe } from '../../db/schema'
 import { profiles } from '../../db/schema/auth/users'
+import { normalizeInstant } from '../../utils/dates'
 import { clearBanCache } from '../auth/ban.service'
 
 // Cap avoids accidental full-table scans; no pagination until admin volume justifies it.
 const ADMIN_USERS_LIST_LIMIT = 100
+
+const adminUserSelection = {
+  id: usersSafe.id,
+  email: usersSafe.email,
+  role: usersSafe.role,
+  emailVerifiedAt: usersSafe.emailVerifiedAt,
+  createdAt: usersSafe.createdAt,
+  forcedPrivateByAdmin: sql<boolean>`COALESCE(${profiles.forcedPrivateByAdmin}, false)`,
+}
+
+function normalizeAdminUser(user: AdminUserAccount): AdminUserAccount {
+  return {
+    ...user,
+    emailVerifiedAt: user.emailVerifiedAt ? normalizeInstant(user.emailVerifiedAt) : null,
+    createdAt: normalizeInstant(user.createdAt),
+  }
+}
 
 type CreateBanArgs = {
   actorId: string
@@ -29,11 +51,11 @@ export async function createBan(
   { actorId, targetUserId, body }: CreateBanArgs
 ): Promise<CreateBanResult> {
   if (actorId === targetUserId) {
-    return { success: false, error: 'cannot_self_ban' }
+    return err('cannot_self_ban')
   }
 
   if (body.expiresAt && Date.parse(body.expiresAt) <= Date.now()) {
-    return { success: false, error: 'invalid_input' }
+    return err('invalid_input')
   }
 
   const [target] = await db
@@ -43,7 +65,7 @@ export async function createBan(
     .limit(1)
 
   if (!target) {
-    return { success: false, error: 'not_found' }
+    return err('not_found')
   }
 
   const [row] = await db
@@ -58,11 +80,11 @@ export async function createBan(
     .returning()
 
   if (!row) {
-    return { success: false, error: 'server_error' }
+    return err('server_error')
   }
 
   clearBanCache(targetUserId)
-  return { success: true, data: row }
+  return ok(row)
 }
 
 // Returns null when the ban is absent; caller falls through to liftBan's not_found path.
@@ -78,12 +100,33 @@ export async function getBanScope(
   return row?.scope ?? null
 }
 
-export async function listUserBans(db: DatabaseTransaction, userId: string): Promise<UserBan[]> {
-  return db
-    .select()
+export async function listUserBans(
+  db: DatabaseTransaction,
+  userId: string
+): Promise<AdminBanListItem[]> {
+  const rows = await db
+    .select({
+      id: userBans.id,
+      userId: userBans.userId,
+      scope: userBans.scope,
+      reason: userBans.reason,
+      bannedBy: userBans.bannedBy,
+      expiresAt: userBans.expiresAt,
+      createdAt: userBans.createdAt,
+      status: sql<AdminBanStatus>`CASE
+        WHEN ${userBans.expiresAt} IS NULL OR ${userBans.expiresAt} > now() THEN 'active'
+        ELSE 'expired'
+      END`,
+    })
     .from(userBans)
     .where(eq(userBans.userId, userId))
     .orderBy(desc(userBans.createdAt))
+
+  return rows.map((row) => ({
+    ...row,
+    expiresAt: row.expiresAt ? normalizeInstant(row.expiresAt) : null,
+    createdAt: normalizeInstant(row.createdAt),
+  }))
 }
 
 type LiftedBanSummary = Pick<UserBan, 'userId' | 'scope' | 'reason' | 'bannedBy'>
@@ -100,10 +143,10 @@ export async function liftBan(db: DatabaseTransaction, banId: string): Promise<L
   })
 
   const row = deleted[0]
-  if (!row) return { success: false, error: 'not_found' }
+  if (!row) return err('not_found')
 
   clearBanCache(row.userId)
-  return { success: true, data: row }
+  return ok(row)
 }
 
 export async function updateBan(
@@ -112,7 +155,7 @@ export async function updateBan(
   body: UpdateBanInput
 ): Promise<UpdateBanResult> {
   if (body.expiresAt && Date.parse(body.expiresAt) <= Date.now()) {
-    return { success: false, error: 'invalid_input' }
+    return err('invalid_input')
   }
 
   const updates: { reason?: string | null; expiresAt?: string | null } = {}
@@ -122,30 +165,38 @@ export async function updateBan(
   // Zod's .refine guarantees at least one field at the route layer, but guard here
   // so the service is safe under direct calls (seed, future internal callers).
   if (Object.keys(updates).length === 0) {
-    return { success: false, error: 'invalid_input' }
+    return err('invalid_input')
   }
 
   const [row] = await db.update(userBans).set(updates).where(eq(userBans.id, banId)).returning()
-  if (!row) return { success: false, error: 'not_found' }
+  if (!row) return err('not_found')
 
   clearBanCache(row.userId)
-  return { success: true, data: row }
+  return ok(row)
 }
 
-export async function listUsers(db: DatabaseTransaction): Promise<AdminUserListItem[]> {
+export async function listUsers(db: DatabaseTransaction): Promise<AdminUserAccount[]> {
   const rows = await db
-    .select({
-      id: usersSafe.id,
-      email: usersSafe.email,
-      role: usersSafe.role,
-      emailVerifiedAt: usersSafe.emailVerifiedAt,
-      createdAt: usersSafe.createdAt,
-      // Profile row is absent during the window between signup and profile creation; coerce to boolean.
-      forcedPrivateByAdmin: sql<boolean>`COALESCE(${profiles.forcedPrivateByAdmin}, false)`,
-    })
+    .select(adminUserSelection)
     .from(usersSafe)
     .leftJoin(profiles, eq(profiles.userId, usersSafe.id))
     .orderBy(desc(usersSafe.createdAt))
     .limit(ADMIN_USERS_LIST_LIMIT)
-  return rows
+  return rows.map(normalizeAdminUser)
+}
+
+export async function getAdminUserById(
+  db: DatabaseTransaction,
+  userId: string
+): Promise<AdminUserAccount | null> {
+  const [user] = await db
+    .select(adminUserSelection)
+    .from(usersSafe)
+    .leftJoin(profiles, eq(profiles.userId, usersSafe.id))
+    .where(eq(usersSafe.id, userId))
+    .limit(1)
+
+  if (!user) return null
+
+  return normalizeAdminUser(user)
 }

@@ -1,9 +1,15 @@
-import { HTTP_STATUS, listReportsQuerySchema, ok, resolveReportBodySchema } from '@aurore/shared'
+import {
+  err,
+  HTTP_STATUS,
+  listReportsQuerySchema,
+  ok,
+  resolveReportBodySchema,
+} from '@aurore/shared'
 
 import { z } from 'zod'
 
 import { logger } from '../../lib/logger'
-import { getAuthedUserId, getRlsDb } from '../../utils/accessors'
+import { getAuthedUserId, getAuthedUserRole, getRlsDb } from '../../utils/accessors'
 import { zValidator } from '../../utils/validator'
 import { requireContentModerator } from '../auth/middleware'
 import { escalateReport, listReports, resolveReport } from '../reports/service'
@@ -16,7 +22,14 @@ const reportIdParam = z.object({ id: z.uuid() })
 export const adminReportsRoutes = createAdminGuardedRouter(requireContentModerator)
   .get('/', zValidator('query', listReportsQuerySchema), async (c) => {
     const filters = c.req.valid('query')
-    const result = await listReports(getRlsDb(c), filters)
+    const role = getAuthedUserRole(c)
+    if (filters.escalated === 'true' && role !== 'admin') {
+      return c.json(err('forbidden'), HTTP_STATUS.FORBIDDEN)
+    }
+    const result = await listReports(getRlsDb(c), {
+      ...filters,
+      excludeEscalated: role === 'contributor',
+    })
     return c.json(ok(result), HTTP_STATUS.OK)
   })
   .patch(
@@ -26,10 +39,19 @@ export const adminReportsRoutes = createAdminGuardedRouter(requireContentModerat
     async (c) => {
       const { id } = c.req.valid('param')
       const { status } = c.req.valid('json')
-      const adminId = getAuthedUserId(c)
+      const reviewerId = getAuthedUserId(c)
+      const reviewerRole = getAuthedUserRole(c)
+      if (reviewerRole !== 'admin' && reviewerRole !== 'contributor') {
+        return c.json(err('forbidden'), HTTP_STATUS.FORBIDDEN)
+      }
 
-      const report = await resolveReport(getRlsDb(c), { id, adminId, status })
-      logger.info({ adminId, reportId: id, status }, 'report resolved')
+      const report = await resolveReport(getRlsDb(c), {
+        id,
+        reviewerId,
+        reviewerRole,
+        status,
+      })
+      logger.info({ reviewerId, reportId: id, status }, 'report resolved')
       return c.json(ok(report), HTTP_STATUS.OK)
     }
   )

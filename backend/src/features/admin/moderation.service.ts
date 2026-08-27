@@ -1,11 +1,13 @@
-import type {
-  CatalogQueueQuery,
-  CatalogQueueResponse,
-  ContentPreviewResult,
-  ModerateContentInput,
-  ModerateContentResult,
-  ModerateProfileInput,
-  ModerateProfileResult,
+import {
+  type CatalogQueueQuery,
+  type CatalogQueueResponse,
+  type ContentPreviewResult,
+  err,
+  type ModerateContentInput,
+  type ModerateContentResult,
+  type ModerateProfileInput,
+  type ModerateProfileResult,
+  ok,
 } from '@aurore/shared'
 
 import { and, desc, eq, ne, sql } from 'drizzle-orm'
@@ -53,8 +55,8 @@ export async function moderateReview(
       moderationStatus: userProductReviews.moderationStatus,
       moderationReason: userProductReviews.moderationReason,
     })
-  if (!row) return { success: false, error: 'not_found' }
-  return { success: true, data: row }
+  if (!row) return err('not_found')
+  return ok(row)
 }
 
 export async function moderateThread(
@@ -70,8 +72,8 @@ export async function moderateThread(
       moderationStatus: discussionThreads.moderationStatus,
       moderationReason: discussionThreads.moderationReason,
     })
-  if (!row) return { success: false, error: 'not_found' }
-  return { success: true, data: row }
+  if (!row) return err('not_found')
+  return ok(row)
 }
 
 export async function moderateReply(
@@ -87,8 +89,8 @@ export async function moderateReply(
       moderationStatus: discussionReplies.moderationStatus,
       moderationReason: discussionReplies.moderationReason,
     })
-  if (!row) return { success: false, error: 'not_found' }
-  return { success: true, data: row }
+  if (!row) return err('not_found')
+  return ok(row)
 }
 
 export async function moderateProduct(
@@ -122,7 +124,9 @@ export async function moderateProduct(
           )
         )
         .limit(1)
-      if (conflict) throw new ProductError('product_already_exists', conflict)
+      if (conflict) {
+        throw new ProductError('product_already_exists', { publicDetails: conflict })
+      }
     }
   }
   try {
@@ -135,8 +139,8 @@ export async function moderateProduct(
         moderationStatus: products.moderationStatus,
         moderationReason: products.moderationReason,
       })
-    if (!row) return { success: false, error: 'not_found' }
-    return { success: true, data: row }
+    if (!row) return err('not_found')
+    return ok(row)
   } catch (e) {
     // Throw again so withRlsContext rolls back; a catch-and-return on an aborted tx would COMMIT it (500).
     translateUniqueViolation(e, () => new ProductError('product_already_exists'))
@@ -167,7 +171,9 @@ export async function moderateIngredient(
           )
         )
         .limit(1)
-      if (conflict) throw new IngredientError('ingredient_already_exists', conflict)
+      if (conflict) {
+        throw new IngredientError('ingredient_already_exists', { publicDetails: conflict })
+      }
     }
   }
   try {
@@ -180,8 +186,8 @@ export async function moderateIngredient(
         moderationStatus: ingredients.moderationStatus,
         moderationReason: ingredients.moderationReason,
       })
-    if (!row) return { success: false, error: 'not_found' }
-    return { success: true, data: row }
+    if (!row) return err('not_found')
+    return ok(row)
   } catch (e) {
     translateUniqueViolation(e, () => new IngredientError('ingredient_already_exists'))
   }
@@ -212,8 +218,8 @@ export async function previewReview(
     .leftJoin(profiles, eq(profiles.userId, userProducts.userId))
     .where(eq(userProductReviews.id, id))
     .limit(1)
-  if (!row) return { success: false, error: 'not_found' }
-  return { success: true, data: { kind: 'review', ...row } }
+  if (!row) return err('not_found')
+  return ok({ kind: 'review', ...row })
 }
 
 export async function previewThread(
@@ -235,8 +241,8 @@ export async function previewThread(
     .leftJoin(profiles, eq(profiles.userId, discussionThreads.authorId))
     .where(eq(discussionThreads.id, id))
     .limit(1)
-  if (!row) return { success: false, error: 'not_found' }
-  return { success: true, data: { kind: 'thread', ...row } }
+  if (!row) return err('not_found')
+  return ok({ kind: 'thread', ...row })
 }
 
 export async function previewReply(
@@ -257,8 +263,8 @@ export async function previewReply(
     .leftJoin(profiles, eq(profiles.userId, discussionReplies.authorId))
     .where(eq(discussionReplies.id, id))
     .limit(1)
-  if (!row) return { success: false, error: 'not_found' }
-  return { success: true, data: { kind: 'reply', ...row } }
+  if (!row) return err('not_found')
+  return ok({ kind: 'reply', ...row })
 }
 
 export async function previewProduct(
@@ -281,8 +287,8 @@ export async function previewProduct(
     .leftJoin(profiles, eq(profiles.userId, products.createdBy))
     .where(eq(products.id, id))
     .limit(1)
-  if (!row) return { success: false, error: 'not_found' }
-  return { success: true, data: { kind: 'product', ...row } }
+  if (!row) return err('not_found')
+  return ok({ kind: 'product', ...row })
 }
 
 export async function previewIngredient(
@@ -304,8 +310,8 @@ export async function previewIngredient(
     .leftJoin(profiles, eq(profiles.userId, ingredients.createdBy))
     .where(eq(ingredients.id, id))
     .limit(1)
-  if (!row) return { success: false, error: 'not_found' }
-  return { success: true, data: { kind: 'ingredient', ...row } }
+  if (!row) return err('not_found')
+  return ok({ kind: 'ingredient', ...row })
 }
 
 // withRlsContext binds the caller's role; the moderation select policy covers hidden rows, no admin bypass needed.
@@ -384,6 +390,6 @@ export async function moderateProfileVisibility(
       forcedPrivateByAdmin: profiles.forcedPrivateByAdmin,
       forcedPrivateReason: profiles.forcedPrivateReason,
     })
-  if (!row) return { success: false, error: 'not_found' }
-  return { success: true, data: row }
+  if (!row) return err('not_found')
+  return ok(row)
 }

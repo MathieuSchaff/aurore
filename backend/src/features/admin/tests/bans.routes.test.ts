@@ -1,14 +1,17 @@
 import { afterEach, beforeAll, beforeEach, describe, expect, it } from 'bun:test'
 
-import { HTTP_STATUS } from '@aurore/shared'
+import { type AdminUserAccount, HTTP_STATUS } from '@aurore/shared'
 
 import { eq } from 'drizzle-orm'
 
-import { moderationActions, userBans } from '../../../db/schema'
+import { moderationActions, profiles, userBans, users } from '../../../db/schema'
 import { testDb } from '../../../tests/db.test.config'
 import { setupDbTests } from '../../../tests/db-setup'
+import { expectRequiresAuth, expectRoleMatrix } from '../../../tests/helpers/authz-matrix'
 import {
   createTestClient,
+  createTestEnv,
+  type TestApp,
   type TestClient,
   withAuth,
 } from '../../../tests/helpers/createTestClient'
@@ -46,6 +49,85 @@ function moderationTrailFor(targetUserId: string) {
 }
 
 setupDbTests()
+
+describe('GET /admin/users/:id', () => {
+  let app: TestApp
+  let client: TestClient
+  let adminToken: string
+
+  beforeAll(async () => {
+    const env = await createTestEnv()
+    app = env.app
+    client = env.client
+  })
+
+  beforeEach(async () => {
+    const admin = TEST_CREDENTIALS.admin
+    await createTestAdminUser(admin.rawEmail, admin.rawPassword)
+    adminToken = await login(client, admin.rawEmail, admin.rawPassword)
+  })
+
+  it('returns an account by id when it falls outside the capped directory', async () => {
+    const target = await createTestUser('old-account@test.local', 'Azerty123!')
+    const oldCreatedAt = '2020-01-01T00:00:00.000Z'
+    await testDb.update(users).set({ createdAt: oldCreatedAt }).where(eq(users.id, target.id))
+    await testDb
+      .update(profiles)
+      .set({ forcedPrivateByAdmin: true })
+      .where(eq(profiles.userId, target.id))
+
+    for (let index = 0; index < 101; index += 1) {
+      await createTestUser(`recent-account-${index}@test.local`, 'Azerty123!')
+    }
+
+    const directory = await expectOk(client.admin.users.$get({}, withAuth(adminToken)))
+    expect(directory.items.some((user) => user.id === target.id)).toBe(false)
+
+    // The detail route must not inherit the directory cap or old accounts disappear
+    const account = await expectOk<AdminUserAccount>(
+      client.admin.users[':id'].$get({ param: { id: target.id } }, withAuth(adminToken))
+    )
+    expect(account).toEqual({
+      id: target.id,
+      email: 'old-account@test.local',
+      role: 'user',
+      emailVerifiedAt: null,
+      createdAt: oldCreatedAt,
+      forcedPrivateByAdmin: true,
+    })
+  })
+
+  it('returns not_found for an absent account', async () => {
+    await expectError(
+      client.admin.users[':id'].$get(
+        { param: { id: '019d0000-0000-7000-8000-00000000ffff' } },
+        withAuth(adminToken)
+      ),
+      HTTP_STATUS.NOT_FOUND,
+      'not_found'
+    )
+  })
+
+  describe('authz', () => {
+    expectRequiresAuth(() => app, {
+      method: 'GET',
+      path: '/api/admin/users/019d0000-0000-7000-8000-00000000ffff',
+    })
+
+    expectRoleMatrix(
+      () => app,
+      async () => {
+        const target = await createTestUser('detail-authz-target@test.local', 'Azerty123!')
+        return { method: 'GET', path: `/api/admin/users/${target.id}` }
+      },
+      {
+        user: HTTP_STATUS.FORBIDDEN,
+        contributor: HTTP_STATUS.FORBIDDEN,
+        admin: HTTP_STATUS.OK,
+      }
+    )
+  })
+})
 
 describe('POST /admin/users/:id/bans', () => {
   let client: TestClient
@@ -172,7 +254,7 @@ describe('POST /admin/users/:id/bans', () => {
     expectStatus(res, HTTP_STATUS.BAD_REQUEST)
   })
 
-  it('GET /admin/users/:id/bans lists bans newest-first for admin', async () => {
+  it('lists bans newest-first for admin', async () => {
     const old = new Date(Date.now() - 60_000).toISOString()
     const recent = new Date().toISOString()
     await testDb.insert(userBans).values([
@@ -185,6 +267,7 @@ describe('POST /admin/users/:id/bans', () => {
     )
     expect(bans).toHaveLength(2)
     expect(bans[0]?.reason).toBe('recent')
+    expect(bans[0]?.status).toBe('active')
     expect(bans[1]?.reason).toBe('old')
   })
 
