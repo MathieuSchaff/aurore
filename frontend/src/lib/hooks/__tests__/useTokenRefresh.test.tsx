@@ -1,7 +1,10 @@
+import type { UserPublic } from '@aurore/shared'
+
 import { QueryClient } from '@tanstack/react-query'
 import { act } from '@testing-library/react'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
+import { presentTestSession } from '@/test/authSession'
 import { renderHookWithProviders } from '@/test/utils'
 import { useAuthStore } from '../../../store/auth'
 
@@ -16,6 +19,14 @@ import { ensureFresh } from '../../auth/freshness'
 import { useTokenRefresh } from '../useTokenRefresh'
 
 const mockEnsureFresh = vi.mocked(ensureFresh)
+const TEST_USER = {
+  id: 'u1',
+  email: 'a@b.com',
+  createdAt: '2026-01-01T00:00:00.000Z',
+  emailVerified: true,
+  role: 'user',
+  isDemo: false,
+} satisfies UserPublic
 
 describe('useTokenRefresh', () => {
   let queryClient: QueryClient
@@ -42,7 +53,7 @@ describe('useTokenRefresh', () => {
 
   it('schedules a refresh 1 minute before token expiry', () => {
     const fiveMin = Date.now() + 5 * 60_000
-    useAuthStore.setState({ tokenExpiresAt: fiveMin })
+    useAuthStore.setState({ session: presentTestSession(TEST_USER, 'token', fiveMin) })
 
     renderHookWithProviders(() => useTokenRefresh(), { queryClient })
 
@@ -53,7 +64,9 @@ describe('useTokenRefresh', () => {
   })
 
   it('refreshes immediately when token expires in less than 1 minute', () => {
-    useAuthStore.setState({ tokenExpiresAt: Date.now() + 30_000 })
+    useAuthStore.setState({
+      session: presentTestSession(TEST_USER, 'token', Date.now() + 30_000),
+    })
 
     renderHookWithProviders(() => useTokenRefresh(), { queryClient })
 
@@ -61,7 +74,9 @@ describe('useTokenRefresh', () => {
   })
 
   it('cleans up the timer on unmount', () => {
-    useAuthStore.setState({ tokenExpiresAt: Date.now() + 5 * 60_000 })
+    useAuthStore.setState({
+      session: presentTestSession(TEST_USER, 'token', Date.now() + 5 * 60_000),
+    })
 
     const { unmount } = renderHookWithProviders(() => useTokenRefresh(), { queryClient })
     unmount()
@@ -71,12 +86,16 @@ describe('useTokenRefresh', () => {
   })
 
   it('reschedules when tokenExpiresAt changes', () => {
-    useAuthStore.setState({ tokenExpiresAt: Date.now() + 10 * 60_000 })
+    useAuthStore.setState({
+      session: presentTestSession(TEST_USER, 'token', Date.now() + 10 * 60_000),
+    })
 
     const { rerender } = renderHookWithProviders(() => useTokenRefresh(), { queryClient })
 
     act(() => {
-      useAuthStore.setState({ tokenExpiresAt: Date.now() + 2 * 60_000 })
+      useAuthStore.setState({
+        session: presentTestSession(TEST_USER, 'token', Date.now() + 2 * 60_000),
+      })
     })
     rerender()
 
