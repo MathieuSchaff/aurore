@@ -6,8 +6,8 @@ import { BackButton } from '@/component/Button/BackButton'
 import { Button } from '@/component/Button/Button'
 import { DetailPageLayout } from '@/component/Layout/PageLayout/DetailPageLayout'
 import { PageTopActions } from '@/component/Layout/PageLayout/PageTopActions'
+import { useSession } from '@/lib/auth/session'
 import { ingredientQueries, useDeleteIngredient } from '@/lib/queries/ingredients'
-import { useAuthStore } from '@/store/auth'
 import { IngredientForm } from '../../components/IngredientForm/IngredientForm'
 
 const route = getRouteApi('/ingredients/$slug_/edit')
@@ -17,7 +17,8 @@ export function IngredientEditPage() {
   const { data: ingredient } = useSuspenseQuery(ingredientQueries.bySlug(slug))
   const { data: currentTags } = useSuspenseQuery(ingredientQueries.tags(ingredient.id))
   const navigate = useNavigate()
-  const isAdmin = useAuthStore((s) => s.role === 'admin')
+  const session = useSession()
+  const isAdmin = session.status === 'authenticated' && session.user.role === 'admin'
   const deleteIngredient = useDeleteIngredient()
 
   function handleDelete() {

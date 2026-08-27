@@ -1,7 +1,7 @@
 import type { BlogCategory } from '@aurore/shared'
 
 import { useSuspenseQuery } from '@tanstack/react-query'
-import { createFileRoute, notFound, redirect, useNavigate, useRouter } from '@tanstack/react-router'
+import { createFileRoute, notFound, useNavigate, useRouter } from '@tanstack/react-router'
 
 import { BackButton } from '@/component/Button/BackButton'
 import { GlobalError } from '@/component/Feedback/app/GlobalError/GlobalError'
@@ -9,17 +9,19 @@ import { PageHeader } from '@/component/Layout/PageHeader/PageHeader'
 import { DetailPageLayout } from '@/component/Layout/PageLayout/DetailPageLayout'
 import { PageTopActions } from '@/component/Layout/PageLayout/PageTopActions'
 import { ArticleEditorForm } from '@/features/blog/page/ArticleEditorForm/ArticleEditorForm'
-import { awaitBootRefresh } from '@/lib/auth/awaitBootRefresh'
+import { requireRole } from '@/lib/auth/requireSession'
 import { ApiError } from '@/lib/helpers/apiError'
 import { articleQueries } from '@/lib/queries/articles'
-import { useAuthStore } from '@/store/auth'
 
 export const Route = createFileRoute('/blog/admin/edit/$slug')({
-  // Await the boot probe so a cold-load hard nav reads the resolved role, not the default 'user'.
-  beforeLoad: async ({ context }) => {
+  beforeLoad: async ({ context, location }) => {
     // react-doctor-disable-next-line react-doctor/async-defer-await -- guard reads role resolved by this await
-    await awaitBootRefresh(context.queryClient)
-    if (useAuthStore.getState().role !== 'admin') throw redirect({ to: '/blog' })
+    await requireRole({
+      queryClient: context.queryClient,
+      href: location.href,
+      allowedRoles: ['admin'],
+      fallbackFor: { user: '/blog', contributor: '/blog' },
+    })
   },
   loader: ({ context, params }) =>
     context.queryClient.ensureQueryData(articleQueries.bySlug(params.slug)).catch((err) => {

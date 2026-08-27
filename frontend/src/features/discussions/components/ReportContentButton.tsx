@@ -45,7 +45,7 @@ export function ReportContentButton({ targetType, targetId, hidden }: ReportCont
       { targetType, targetId, reason: trimmed },
       {
         onSuccess: () => setDone(true),
-        onError: (err) => setError(err.message),
+        onError: () => setError(REPORT_LABELS.failureMessage),
       }
     )
   }

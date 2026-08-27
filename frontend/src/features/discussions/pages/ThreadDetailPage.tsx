@@ -2,8 +2,8 @@ import { useSuspenseQuery } from '@tanstack/react-query'
 import type { LinkProps } from '@tanstack/react-router'
 
 import { BackButton } from '@/component/Button/BackButton'
+import { useSession, viewerId } from '@/lib/auth/session'
 import { discussionQueries } from '@/lib/queries/discussions'
-import { useAuthStore } from '@/store/auth'
 import { ThreadDetail } from '../components/ThreadDetail'
 
 interface ThreadDetailPageProps {
@@ -15,7 +15,7 @@ interface ThreadDetailPageProps {
 
 export function ThreadDetailPage({ entityType, slug, threadId, backTo }: ThreadDetailPageProps) {
   const { data: thread } = useSuspenseQuery(discussionQueries.thread(entityType, slug, threadId))
-  const user = useAuthStore((s) => s.user)
+  const session = useSession()
 
   return (
     <>
@@ -26,7 +26,7 @@ export function ThreadDetailPage({ entityType, slug, threadId, backTo }: ThreadD
         thread={thread}
         entityType={entityType}
         slug={slug}
-        currentUserId={user?.id ?? null}
+        currentUserId={viewerId(session)}
       />
     </>
   )

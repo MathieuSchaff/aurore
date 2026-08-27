@@ -11,8 +11,8 @@ import { summarizeIngredientGroups } from './ingredientGroups'
 
 // Derived from shared, never typed by hand: a hand-written list only ever pins the categories
 // someone remembered, and an unmapped one is dropped silently (a whole group disappears from
-// the summary of a product). This is also the only assertion that sees an incomplete reading
-// order, which the Record type cannot.
+// the summary of a product). The Record type already fails the build on a missing phrase, so
+// what this assertion still catches is a category mapped to an empty phrase
 const ALL_CATEGORIES = [
   ...new Set([
     ...SKINCARE_INGREDIENT_CATEGORY_VALUES,
