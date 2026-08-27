@@ -1,4 +1,4 @@
-import type { Page, Response } from '@playwright/test'
+import { expect, type Page, type Response } from '@playwright/test'
 
 // SSR'd markup is visible long before React owns it, so waiting on a rendered
 // element is not a readiness gate: a click landing in that window is dropped
@@ -8,11 +8,10 @@ export function waitForHydration(page: Page) {
   return page.waitForFunction(() => !Reflect.has(window, '$_TSR'))
 }
 
-// Hydration is not the last word on an authenticated catalogue: ~350 ms later
-// useProductsProfileFilter lands a replace-navigate that applies the standing
-// "Selon mon profil" setting, and the rule-filtered list is a different set of
-// cards. The grid stays clickable throughout and the replace no longer commits
-// over a card click, but a card read before the swap is still stale.
+// Generic URL quiescence gate for specs whose flow may still move the location
+// after hydration (redirects, param normalization). The standing "Selon mon
+// profil" setting no longer replaces the URL: applyDeclaredRules sends
+// apply_preferences=auto and the server resolves it
 export function waitForSettledUrl(page: Page, quietMs = 400) {
   return page.waitForFunction(
     (quiet) => {
@@ -35,17 +34,26 @@ export async function gotoHydrated(page: Page, url: string): Promise<void> {
   await waitForHydration(page)
 }
 
+// An authenticated cold load can hydrate from the SSR identity while its refresh is
+// still rotating the cookie. Starting another document navigation in that window aborts
+// the response and leaves the browser with the revoked cookie from the previous request.
+export async function gotoAuthenticatedHydrated(page: Page, url: string): Promise<void> {
+  const refreshResponse = page.waitForResponse(
+    (response) =>
+      response.request().method() === 'POST' &&
+      new URL(response.url()).pathname === '/api/auth/refresh'
+  )
+  await gotoHydrated(page, url)
+  expect((await refreshResponse).ok(), `auth refresh failed while loading ${url}`).toBe(true)
+}
+
 export async function gotoSettled(page: Page, url: string): Promise<void> {
   await gotoHydrated(page, url)
   await waitForSettledUrl(page)
 }
 
-// The replace-navigate above only starts a second, unguarded chain, and it is not the
-// dermo query: that one is already cached, since its success is what triggers the replace.
-// It is the loader rerun: convergeShelfStatusForList awaits the rule-filtered list, then
-// the shelf statuses for its ids. waitForSettledUrl only watches the URL, so a card read
-// right after gotoSettled can still be swapped out from under a click by this later refetch:
-// under real network latency the two round trips routinely outlast the 400ms URL-quiet window.
+// Wait until list requests stop before clicking a card, so the click does not
+// land on a row from a payload about to be replaced (loader replay, refetch)
 export function waitForProductsListSettled(page: Page, quietMs = 400): Promise<void> {
   return new Promise((resolve) => {
     let timer: ReturnType<typeof setTimeout>
