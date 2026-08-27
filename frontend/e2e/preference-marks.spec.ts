@@ -1,7 +1,7 @@
 import { expect, test } from '@playwright/test'
 
 import { loginAsPersona } from './helpers/auth'
-import { gotoHydrated } from './helpers/hydration'
+import { gotoAuthenticatedHydrated } from './helpers/hydration'
 
 // Server-mutating spec: one persona per browser project (see helpers/auth.ts),
 // final revert keeps the warm e2e stack idempotent across runs.
@@ -33,7 +33,7 @@ test('happy path: règles Sans/Avec (geste en contexte, composeur, catalogue fil
   }
 
   // Declare "Sans" from the ingredient page (in-context shortcut).
-  await gotoHydrated(page, '/ingredients/niacinamide')
+  await gotoAuthenticatedHydrated(page, '/ingredients/niacinamide')
   const sansButton = page.getByRole('button', { name: 'Sans Niacinamide' })
   await expect(sansButton).toBeVisible()
   await expect(sansButton).toHaveAttribute('aria-pressed', 'false')
@@ -58,7 +58,7 @@ test('happy path: règles Sans/Avec (geste en contexte, composeur, catalogue fil
   // Catalogue under "selon mon profil": the connected SSR boot already applies "Sans"
   // and renders the rule. The first client render keeps that seeded identity while the
   // refresh obtains its Bearer token, so the personalized banner is immediately interactive
-  await gotoHydrated(page, '/products?profile_filter=true')
+  await gotoAuthenticatedHydrated(page, '/products?profile_filter=true')
   const banner = page.getByTestId('avoided-banner')
   await expect(banner).toBeVisible({ timeout: 15_000 })
   await expect(banner).toContainText('vos règles : sans : Niacinamide')
@@ -70,7 +70,7 @@ test('happy path: règles Sans/Avec (geste en contexte, composeur, catalogue fil
 
   // Direct entry in /profile: the verb is the list you add into, so the
   // "Avec" composer is the one under the "Avec" heading.
-  await gotoHydrated(page, '/profile')
+  await gotoAuthenticatedHydrated(page, '/profile')
   await expect(marks.getByRole('heading', { name: 'Mes repères' })).toBeVisible()
   const avecGroup = page
     .locator('.preference-marks__group')
@@ -93,12 +93,12 @@ test('happy path: règles Sans/Avec (geste en contexte, composeur, catalogue fil
   ).toBeVisible()
 
   // "Avec" now filters: rows without the target are masked, the banner says so.
-  await gotoHydrated(page, '/products?profile_filter=true')
+  await gotoAuthenticatedHydrated(page, '/products?profile_filter=true')
   await expect(banner).toBeVisible({ timeout: 15_000 })
   await expect(banner).toContainText('avec : Niacinamide')
 
   // Revert: remove the rule from the recap, list empties.
-  await gotoHydrated(page, '/profile')
+  await gotoAuthenticatedHydrated(page, '/profile')
   await page.locator('#reperes').getByRole('button', { name: 'Retirer Niacinamide' }).click()
   // Scoped to list labels: the empty state's invitation copy mentions
   // "niacinamide" and getByText matches case-insensitively.

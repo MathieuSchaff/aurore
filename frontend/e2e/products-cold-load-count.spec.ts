@@ -1,24 +1,70 @@
-import { expect, type Page, test } from '@playwright/test'
+import { productDetailSchema } from '@aurore/shared'
+
+import { expect, test } from '@playwright/test'
 
 import { loginAsPersona, registerFreshUser } from './helpers/auth'
 import { resolveShelfProductWithInci } from './helpers/catalog'
 import { waitForHydration, waitForProductsListSettled } from './helpers/hydration'
+import { authRequests, captureRequests, requestsFor } from './helpers/network'
 
-function captureRequests(page: Page): string[] {
-  const requests: string[] = []
-  page.on('request', (request) => {
-    requests.push(`${request.method()} ${new URL(request.url()).pathname}`)
+test('fetches one complete catalogue page on authenticated SPA navigation', async ({ page }) => {
+  await registerFreshUser(page)
+
+  const refreshResponse = page.waitForResponse(
+    (response) =>
+      response.request().method() === 'POST' &&
+      new URL(response.url()).pathname === '/api/auth/refresh'
+  )
+  await page.setViewportSize({ width: 1280, height: 900 })
+  await page.goto('/about')
+  await waitForHydration(page)
+  expect((await refreshResponse).ok()).toBe(true)
+
+  const requests = captureRequests(page)
+
+  await page.locator('.main-nav__inline').getByRole('link', { name: 'Produits' }).click()
+  await expect(page.getByRole('heading', { name: 'Produits', level: 1 })).toBeVisible()
+  await waitForProductsListSettled(page)
+
+  // The standing setting resolves server-side (apply_preferences=auto): one list
+  // read, no profile reads, no replace-navigate
+  expect(requestsFor(requests, 'GET', '/api/products')).toHaveLength(1)
+  expect(requestsFor(requests, 'GET', '/api/profile/dermo')).toEqual([])
+  expect(requestsFor(requests, 'GET', '/api/profile/preference-targets')).toEqual([])
+  expect(new URL(page.url()).searchParams.get('profile_filter')).toBeNull()
+})
+
+test('fetches one complete product detail page on authenticated SPA navigation', async ({
+  page,
+  browserName,
+}) => {
+  const token = await loginAsPersona(page, browserName)
+  const shelfProduct = await resolveShelfProductWithInci(page, token, browserName)
+
+  // profile_filter pinned off: preference-marks mutates this shared persona's rules
+  // while the suite runs, and an active "Avec" would drop the target card from a ruled list
+  // This spec counts the detail navigation, not the personalization
+  await page.goto(`/products?q=${encodeURIComponent(shelfProduct.name)}&profile_filter=false`)
+  await waitForHydration(page)
+  await waitForProductsListSettled(page)
+
+  const requests = captureRequests(page)
+  await page.locator(`a[href="/products/${shelfProduct.slug}"]`).first().click()
+  await expect(page.getByRole('heading', { name: shelfProduct.name, level: 1 })).toBeVisible()
+  const preferenceDisclosure = page.getByRole('button', {
+    name: 'Utiliser un ingrédient de cette formule dans mes recherches',
   })
-  return requests
-}
+  await expect(preferenceDisclosure).toBeVisible()
+  await preferenceDisclosure.click()
+  await expect(page.getByRole('button', { name: /^Sans / }).first()).toBeVisible()
+  await page.waitForLoadState('networkidle')
 
-function requestsFor(requests: string[], method: string, pathname: string): string[] {
-  return requests.filter((request) => request === `${method} ${pathname}`)
-}
-
-function authRequests(requests: string[]): string[] {
-  return requests.filter((request) => request.includes(' /api/auth/'))
-}
+  expect(requestsFor(requests, 'GET', `/api/products/${shelfProduct.slug}/page`)).toHaveLength(1)
+  expect(requestsFor(requests, 'GET', `/api/products/${shelfProduct.slug}`)).toEqual([])
+  expect(requestsFor(requests, 'GET', `/api/products/${shelfProduct.slug}/dermo-score`)).toEqual([])
+  expect(requestsFor(requests, 'GET', '/api/profile/dermo')).toEqual([])
+  expect(requestsFor(requests, 'GET', '/api/profile/preference-targets')).toEqual([])
+})
 
 // The explicit setting keeps the request contract stable across SSR and hydration
 // The cookie-authenticated boot owns the only list read, seeds that exact connected
@@ -47,7 +93,6 @@ test('cold authenticated /products reuses the SSR list and probes auth once', as
   await waitForProductsListSettled(page)
 
   expect(requestsFor(requests, 'GET', '/api/products')).toEqual([])
-  expect(requestsFor(requests, 'GET', '/api/products/shelf-status')).toEqual([])
   expect(authRequests(requests)).toEqual(['POST /api/auth/refresh'])
 })
 
@@ -75,38 +120,94 @@ test('cold authenticated product detail reuses every seeded first screen read', 
   await waitForHydration(page)
   await page.waitForLoadState('networkidle')
 
+  expect(requestsFor(requests, 'GET', `/api/products/${shelfProduct.slug}/page`)).toEqual([])
   expect(requestsFor(requests, 'GET', `/api/products/${shelfProduct.slug}`)).toEqual([])
   expect(requestsFor(requests, 'GET', `/api/products/${shelfProduct.slug}/dermo-score`)).toEqual([])
-  expect(requestsFor(requests, 'GET', '/api/products/shelf-status')).toEqual([])
   expect(requestsFor(requests, 'GET', '/api/profile/dermo')).toEqual([])
+  expect(requestsFor(requests, 'GET', '/api/profile/preference-targets')).toEqual([])
   expect(authRequests(requests)).toEqual(['POST /api/auth/refresh'])
 })
 
-// The other half of the contract, and the whole point of keying on the rules: a fresh
-// account has no portrait and no declared rule, so no replace-navigate is coming and the
-// response cannot differ from the anonymous one the SSR already dehydrated.
+test('cold authenticated discussions reuses the complete product page', async ({
+  page,
+  browserName,
+}) => {
+  const token = await loginAsPersona(page, browserName)
+  const shelfProduct = await resolveShelfProductWithInci(page, token, browserName)
+  const requests = captureRequests(page)
+  const refreshResponse = page.waitForResponse(
+    (response) =>
+      response.request().method() === 'POST' &&
+      new URL(response.url()).pathname === '/api/auth/refresh'
+  )
+
+  const document = await page.goto(`/products/${shelfProduct.slug}/discussions`)
+  if (!document) throw new Error('no navigation response for product discussions')
+  expect(await document.text()).toContain(shelfProduct.name)
+
+  expect((await refreshResponse).ok()).toBe(true)
+  await waitForHydration(page)
+  await expect(page.getByRole('button', { name: 'Ouvrir une discussion' })).toBeVisible()
+  await page.waitForLoadState('networkidle')
+
+  expect(requestsFor(requests, 'GET', `/api/products/${shelfProduct.slug}/page`)).toEqual([])
+  expect(requestsFor(requests, 'GET', `/api/products/${shelfProduct.slug}`)).toEqual([])
+  expect(requestsFor(requests, 'GET', `/api/products/${shelfProduct.slug}/dermo-score`)).toEqual([])
+  expect(requestsFor(requests, 'GET', '/api/profile/dermo')).toEqual([])
+  expect(requestsFor(requests, 'GET', '/api/profile/preference-targets')).toEqual([])
+  expect(authRequests(requests)).toEqual(['POST /api/auth/refresh'])
+})
+
+test('cold anonymous product detail reuses the SSR page without secondary reads', async ({
+  page,
+}) => {
+  const slug = 'cerave-baume-hydratant'
+  const detailResponse = await page.request.get(`/api/products/${slug}`)
+  expect(detailResponse.ok()).toBe(true)
+  const product = productDetailSchema.parse((await detailResponse.json()).data)
+  const requests = captureRequests(page)
+
+  const document = await page.goto(`/products/${slug}`)
+  if (!document) throw new Error(`no navigation response for /products/${slug}`)
+  const html = await document.text()
+  expect(html).toContain(product.name)
+  expect(html).toContain('Lecture de la formule')
+
+  await waitForHydration(page)
+  await page.waitForLoadState('networkidle')
+
+  expect(requestsFor(requests, 'GET', `/api/products/${slug}/page`)).toEqual([])
+  expect(requestsFor(requests, 'GET', `/api/products/${slug}`)).toEqual([])
+  expect(requestsFor(requests, 'GET', `/api/products/${slug}/dermo-score`)).toEqual([])
+  expect(requestsFor(requests, 'GET', '/api/profile/dermo')).toEqual([])
+  expect(requestsFor(requests, 'GET', '/api/profile/preference-targets')).toEqual([])
+  expect(authRequests(requests)).toEqual([])
+})
+
+// The other half of the contract: a fresh account has no portrait and no declared
+// rule, so auto resolves to "nothing applied" server-side and the boot-seeded key
+// is already the one the page reads. No profile read, no extra list fetch
 test('cold /products costs no extra list fetch for an account with nothing to apply', async ({
   page,
 }) => {
   await registerFreshUser(page)
 
   const requests = captureRequests(page)
-
-  // Armed before the navigation: both land within a few hundred ms of hydration, so a
-  // waitForResponse created after the goto races the response it is waiting for
-  const profileLanded = Promise.all([
-    page.waitForResponse((res) => res.url().includes('/api/profile/dermo')),
-    page.waitForResponse((res) => res.url().includes('/api/profile/preference-targets')),
-  ])
+  const refreshResponse = page.waitForResponse(
+    (response) =>
+      response.request().method() === 'POST' &&
+      new URL(response.url()).pathname === '/api/auth/refresh'
+  )
 
   const document = await page.goto('/products')
   if (!document) throw new Error('no navigation response for /products')
   expect(await document.text(), 'SSR HTML carries no product grid').toContain('list-card--product')
 
-  // The hold ends on these two, and nothing else can move the key afterwards: with no
-  // portrait and no declared rule there is no replace-navigate to wait for
-  await profileLanded
+  expect((await refreshResponse).ok()).toBe(true)
+  await waitForHydration(page)
   await waitForProductsListSettled(page)
 
   expect(requestsFor(requests, 'GET', '/api/products')).toHaveLength(0)
+  expect(requestsFor(requests, 'GET', '/api/profile/dermo')).toEqual([])
+  expect(requestsFor(requests, 'GET', '/api/profile/preference-targets')).toEqual([])
 })

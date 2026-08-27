@@ -45,7 +45,7 @@ test.describe('Admin catalog moderation queue', () => {
     await expect(page.getByText('Fiche masquée.')).toBeVisible()
 
     // Restore from the Masqués view.
-    await page.getByRole('tab', { name: 'Masqués' }).click()
+    await page.getByRole('group', { name: 'Vue' }).getByRole('button', { name: 'Masqués' }).click()
     const maskedRow = page.locator('tr', { hasText: toHide.name })
     await expect(maskedRow).toBeVisible({ timeout: 15_000 })
     const restored = page.waitForResponse(isPatch200(MODERATE_PATCH))

@@ -1,3 +1,5 @@
+import { productDetailSchema, productsPageSchema } from '@aurore/shared'
+
 import { expect, type Page, test } from '@playwright/test'
 
 import { loginAsSeed, registerFreshUser } from './helpers/auth'
@@ -16,13 +18,26 @@ function detailedCollectionAction(page: Page) {
   })
 }
 
+// page.route cannot see the first SSR load, so mocked detail specs enter through the list
+async function clientNavigateToDetail(
+  page: Page,
+  slug: string,
+  listUrl = '/products?sort=name&profile_filter=false'
+): Promise<void> {
+  await gotoSettled(page, listUrl)
+  const productLink = page.locator(`.list-card--product a[href="/products/${slug}"]`).first()
+  await productLink.waitFor({ state: 'visible' })
+  await productLink.click()
+  await expect(page).toHaveURL(new RegExp(`/products/${slug}$`), { timeout: 15_000 })
+}
+
 test.beforeEach(async ({ page }) => {
   await loginAsSeed(page)
 })
 
 test.describe('Product detail: Modifier', () => {
   // Read-only tests. The tests that PATCH this product live in
-  // product-edit.mutation.spec.ts (single-project file, see e2e.md).
+  // product-edit.mutation.spec.ts (single-project file).
   test('"Modifier" button navigates to edit page with form prefilled', async ({ page }) => {
     const slug = await gotoFirstProductDetail(page)
 
@@ -209,23 +224,32 @@ test.describe('Product detail: Lecture de la formule', () => {
   async function findSlugWithInci(page: Page): Promise<string> {
     const list = await page.request.get('/api/products?category=skincare&sort=name&limit=10')
     expect(list.ok()).toBe(true)
-    const items = (await list.json()).data.items as Array<{ slug: string }>
+    const items = productsPageSchema.parse((await list.json()).data).items
     for (const item of items) {
       const detail = await page.request.get(`/api/products/${item.slug}`)
       if (!detail.ok()) continue
-      if ((await detail.json()).data?.inci) return item.slug
+      if (productDetailSchema.parse((await detail.json()).data).inci) return item.slug
     }
     throw new Error('no seed product with an INCI in the first 10 skincare products')
   }
 
   async function gotoWithAssessment(page: Page, slug: string, assessment: unknown): Promise<void> {
-    // A connected cold load receives the real assessment inside the server boot
-    // Clear the cookie so this browser mock still exercises the rendering contract
-    await page.context().clearCookies()
-    await page.route('**/api/products/*/dermo-score', (route) =>
-      route.fulfill({ json: { data: assessment } })
+    const detail = await page.request.get(`/api/products/${slug}`)
+    expect(detail.ok()).toBe(true)
+    const product = productDetailSchema.parse((await detail.json()).data)
+
+    await page.route(`**/api/products/${slug}/page`, async (route) => {
+      const response = await route.fetch()
+      const json = await response.json()
+      json.data.assessment = assessment
+      await route.fulfill({ response, json })
+    })
+
+    await clientNavigateToDetail(
+      page,
+      slug,
+      `/products?q=${encodeURIComponent(product.name)}&profile_filter=false`
     )
-    await page.goto(`/products/${slug}`)
   }
 
   test('shows composition signals separately from the skin reading', async ({ page }) => {
@@ -531,33 +555,21 @@ test.describe('Product detail: Lecture de la formule', () => {
 
 test.describe('Product detail: Profil de la formule', () => {
   // Both tests fetch-then-modify the detail endpoint under test. Deliberate
-  // deviation from e2e.md (do not mock the stack): the assertions need a tag
+  // deviation from the rule that says do not mock the stack: the assertions need a tag
   // mix no seed product guarantees. Only data.tags is rewritten.
-
-  // The detail route is ssr:true, so a cold page.goto resolves its loader on the
-  // server where page.route is blind: the mock below would never render. Entering
-  // through a client-side navigation puts the fetch back in the browser.
-  async function clientNavigateToDetail(page: Page, slug: string): Promise<void> {
-    // profile_filter is pinned so the standing setting cannot drop the target card.
-    await gotoSettled(page, '/products?sort=name&profile_filter=false')
-    const productLink = page.locator(`.list-card--product a[href="/products/${slug}"]`).first()
-    await productLink.waitFor({ state: 'visible' })
-    await productLink.click()
-    await expect(page).toHaveURL(new RegExp(`/products/${slug}$`), { timeout: 15_000 })
-  }
 
   async function mockDetailTags(
     page: Page,
     slug: string,
     tags: Array<{ relevance: string; tagName: string; tagSlug: string; tagCategory: string }>
   ): Promise<void> {
-    await page.route(`**/api/products/${slug}`, async (route) => {
+    await page.route(`**/api/products/${slug}/page`, async (route) => {
       const response = await route.fetch()
       const json = await response.json()
-      json.data.tags = tags.map((t, i) => ({
+      json.data.product.tags = tags.map((t, i) => ({
         ...t,
         productTagId: `mock-tag-${i}`,
-        productId: json.data.id,
+        productId: json.data.product.id,
       }))
       await route.fulfill({ response, json })
     })
