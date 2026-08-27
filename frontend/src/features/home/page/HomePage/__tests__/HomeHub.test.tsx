@@ -5,6 +5,7 @@ import { HttpResponse, http } from 'msw'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 
 import { useAuthStore } from '@/store/auth'
+import { anonymousTestSession, restoringTestSession } from '@/test/authSession'
 import { server } from '@/test/msw/server'
 import { makeUserProduct, renderWithProviders } from '@/test/utils'
 
@@ -67,12 +68,12 @@ function serveQueries(data: {
 }
 
 afterEach(() => {
-  useAuthStore.setState({ user: null, role: 'user' })
+  useAuthStore.setState({ session: anonymousTestSession() })
 })
 
 describe('HomeHub', () => {
   it('renders a calm onboarding hub for a brand-new account', async () => {
-    useAuthStore.setState({ user: fakeUser, role: 'user' })
+    useAuthStore.setState({ session: restoringTestSession(fakeUser) })
     serveQueries({
       me: { createdAt: null },
       dermo: {
@@ -99,7 +100,7 @@ describe('HomeHub', () => {
   })
 
   it('surfaces the last decision and live doorways for a returning user', async () => {
-    useAuthStore.setState({ user: fakeUser, role: 'user' })
+    useAuthStore.setState({ session: restoringTestSession(fakeUser) })
     const recent = makeUserProduct({
       id: 'recent',
       status: 'in_stock',
@@ -140,7 +141,7 @@ describe('HomeHub', () => {
   })
 
   it('surfaces a calm retry instead of an endless spinner when the skin query errors', async () => {
-    useAuthStore.setState({ user: fakeUser, role: 'user' })
+    useAuthStore.setState({ session: restoringTestSession(fakeUser) })
     serveQueries({
       me: { createdAt: null },
       list: [],

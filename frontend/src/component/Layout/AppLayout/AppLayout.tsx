@@ -3,8 +3,8 @@ import { useEffect, useRef } from 'react'
 import { Toaster, toast, useToasterStore } from 'react-hot-toast'
 
 import { setLiveRegion } from '../../../lib/announce'
+import { useSession } from '../../../lib/auth/session'
 import { useResendVerification } from '../../../lib/queries/auth'
-import { useAuthStore } from '../../../store/auth'
 import { BackToTopButton } from '../../BackToTopButton/BackToTopButton'
 import { Button } from '../../Button/Button'
 import { Header } from '../../Header/Header'
@@ -13,8 +13,8 @@ export const AppLayout = () => {
   const pathname = useRouterState({ select: (s) => s.location.pathname })
   const isAuthRoute = pathname.startsWith('/auth/')
 
-  const user = useAuthStore((s) => s.user)
-  const emailVerified = useAuthStore((s) => s.emailVerified)
+  const session = useSession()
+  const needsEmailVerification = session.status === 'authenticated' && !session.user.emailVerified
   const resend = useResendVerification()
 
   const liveRef = useRef<HTMLDivElement>(null)
@@ -32,7 +32,7 @@ export const AppLayout = () => {
 
   return (
     <div className="app-layout">
-      {!isAuthRoute && user && !emailVerified && (
+      {!isAuthRoute && needsEmailVerification && (
         <div className="email-verification-banner" role="alert">
           <span>Vérifiez votre adresse email pour continuer à utiliser Aurore.</span>
           <Button

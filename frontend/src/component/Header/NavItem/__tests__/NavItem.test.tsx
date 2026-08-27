@@ -1,10 +1,12 @@
-import type { UserPublic } from '@aurore/shared'
-
 import { screen } from '@testing-library/react'
-import { expect, it, vi } from 'vitest'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 
-import { useAuthStore } from '@/store/auth'
-import { createTestQueryClient, renderWithProviders } from '@/test/utils'
+import type { SessionView } from '@/lib/auth/session'
+import { renderWithProviders } from '@/test/utils'
+
+const { useSessionMock } = vi.hoisted(() => ({
+  useSessionMock: vi.fn<() => SessionView>(),
+}))
 
 vi.mock('@tanstack/react-router', async (importOriginal) => ({
   ...(await importOriginal<typeof import('@tanstack/react-router')>()),
@@ -13,32 +15,31 @@ vi.mock('@tanstack/react-router', async (importOriginal) => ({
     select({ location: { pathname: '/products' } }),
 }))
 
+vi.mock('@/lib/auth/session', async (importOriginal) => ({
+  ...(await importOriginal<typeof import('@/lib/auth/session')>()),
+  useSession: useSessionMock,
+}))
+
 import { NavSideList } from '../NavItem'
 
-it('keeps authenticated links while the seeded identity waits for its token', () => {
-  const user = {
-    id: 'u1',
-    email: 'user@example.com',
-    emailVerified: true,
-    role: 'user',
-    isDemo: false,
-  } as UserPublic
-  useAuthStore.setState({
-    accessToken: null,
-    user,
-    bootRefreshAttempted: true,
-    bootRefreshPending: false,
-  })
-  const queryClient = createTestQueryClient()
-  queryClient.setQueryData(['session'], {
-    authenticated: true,
-    userId: user.id,
-    user,
-    role: user.role,
+describe('NavSideList session visibility', () => {
+  beforeEach(() => {
+    useSessionMock.mockReturnValue({ status: 'anonymous' })
   })
 
-  renderWithProviders(<NavSideList />, { queryClient })
+  it('treats a pending session as connected to avoid an anonymous flash', () => {
+    useSessionMock.mockReturnValue({ status: 'pending' })
 
-  expect(screen.getByText('Collection')).toBeVisible()
-  expect(screen.queryByText('Accueil')).not.toBeInTheDocument()
+    renderWithProviders(<NavSideList />)
+
+    expect(screen.getByText('Collection')).toBeVisible()
+    expect(screen.queryByText('Accueil')).not.toBeInTheDocument()
+  })
+
+  it('shows anonymous links only after the session resolves anonymous', () => {
+    renderWithProviders(<NavSideList />)
+
+    expect(screen.getByText('Accueil')).toBeVisible()
+    expect(screen.queryByText('Collection')).not.toBeInTheDocument()
+  })
 })
