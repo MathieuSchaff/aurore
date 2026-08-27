@@ -1,11 +1,5 @@
 import type { ProductComparisonErrorCode } from '@aurore/shared'
 
-export class ProductComparisonError extends Error {
-  constructor(
-    public code: ProductComparisonErrorCode,
-    public details?: unknown
-  ) {
-    super(code)
-    this.name = 'ProductComparisonError'
-  }
-}
+import { DomainError } from '../../utils/errors/domain-error'
+
+export class ProductComparisonError extends DomainError<ProductComparisonErrorCode> {}

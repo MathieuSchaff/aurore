@@ -5,7 +5,7 @@
 
 import { expect } from 'bun:test'
 
-import type { ApiError } from '@aurore/shared'
+import type { ApiFailure } from '@aurore/shared'
 import { HTTP_STATUS } from '@aurore/shared'
 
 export function expectStatus(res: { status: number }, code: number): void {
@@ -39,17 +39,17 @@ export async function expectOk<T>(
 
 // Error responses never appear in the route's return type, so `json()` is typed
 // structurally here and the body is cast back to the real envelope. `D` types
-// the free-form `details` payload without widening `ApiError` itself.
+// the free-form `details` payload
 export async function expectError<D = unknown>(
   resOrPromise:
     | { status: number; json(): Promise<unknown> }
     | Promise<{ status: number; json(): Promise<unknown> }>,
   status: number,
   code?: string
-): Promise<ApiError & { details?: D }> {
+): Promise<ApiFailure<string, D>> {
   const res = await resOrPromise
   expect(res.status as number).toBe(status)
-  const body = (await res.json()) as ApiError & { details?: D }
+  const body = (await res.json()) as ApiFailure<string, D>
   if (body?.success !== false)
     throw new Error(`expected error (status ${status}), got ${JSON.stringify(body)}`)
   if (code !== undefined) expect(body.error).toBe(code)

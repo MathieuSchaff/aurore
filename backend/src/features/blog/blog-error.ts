@@ -1,11 +1,5 @@
 import type { ArticleErrorCode } from '@aurore/shared'
 
-export class BlogError extends Error {
-  constructor(
-    public code: ArticleErrorCode,
-    public details?: unknown
-  ) {
-    super(code)
-    this.name = 'BlogError'
-  }
-}
+import { DomainError } from '../../utils/errors/domain-error'
+
+export class BlogError extends DomainError<ArticleErrorCode> {}
