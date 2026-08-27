@@ -1,8 +1,15 @@
 import { beforeEach, describe, expect, it } from 'bun:test'
 
+import { resolveAvoidSlugs } from '@aurore/shared'
+
+import { drizzle } from 'drizzle-orm/bun-sql'
+
+import * as schema from '../../../db/schema'
+import { userDermoProfiles } from '../../../db/schema/auth/users'
 import { ingredients } from '../../../db/schema/ingredients/ingredients'
 import { userIngredientPreferences } from '../../../db/schema/ingredients/user-ingredient-preferences'
 import { productIngredients } from '../../../db/schema/products/product-ingredients'
+import { userProducts } from '../../../db/schema/products/user-products'
 import { productTagLinks, productTagTypes } from '../../../db/schema/tags/tags'
 import { userTagPreferences } from '../../../db/schema/tags/user-tag-preferences'
 import { testDb } from '../../../tests/db.test.config'
@@ -184,5 +191,165 @@ describe('listProducts: declared rules', () => {
 
     expect(result.total).toBe(1)
     expect(result.hiddenCount).toBe(0)
+    expect(result.rulesApplied).toBe(false)
+  })
+
+  it('reports rulesApplied under an explicit true, not without the flag', async () => {
+    await createTestProduct(user.id, { name: 'Sérum témoin', brand: 'Brand' })
+
+    const withFlag = await listProducts(
+      { ...baseFilters, apply_preferences: true },
+      testDb,
+      user.id
+    )
+    const withoutFlag = await listProducts({ ...baseFilters }, testDb, user.id)
+
+    expect(withFlag.rulesApplied).toBe(true)
+    expect(withoutFlag.rulesApplied).toBe(false)
+  })
+
+  it('composes a complete personalized page in nine database reads', async () => {
+    const product = await createTestProduct(user.id, {
+      name: 'Sérum query count',
+      brand: 'Brand',
+    })
+    await linkIngredient(product.id, 'Niacinamide', 'Niacinamide', 'niacinamide-query-count')
+    const primaryTagId = await makeTag('primary-query-count', 'Primary query count')
+    const avoidSlug = resolveAvoidSlugs(['peau-sensible'])[0]
+    if (!avoidSlug) throw new Error('Expected an avoid slug for sensitive skin')
+    const avoidTagId = await makeTag(avoidSlug, 'Avoid query count')
+    await testDb.insert(productTagLinks).values([
+      { productId: product.id, productTagId: primaryTagId, relevance: 'primary' },
+      { productId: product.id, productTagId: avoidTagId, relevance: 'avoid' },
+    ])
+    await testDb.insert(userProducts).values({
+      userId: user.id,
+      productId: product.id,
+      status: 'wishlist',
+    })
+    await testDb.insert(userDermoProfiles).values({
+      userId: user.id,
+      skinTypes: ['peau-sensible'],
+    })
+    await testDb.insert(userIngredientPreferences).values({
+      userId: user.id,
+      canonicalKey: 'Niacinamide',
+      stance: 'exclude',
+    })
+    await testDb.insert(userTagPreferences).values({
+      userId: user.id,
+      tagId: primaryTagId,
+      stance: 'require',
+    })
+    let queryCount = 0
+    const measuredDb = drizzle(testDb.$client, {
+      schema,
+      logger: { logQuery: () => queryCount++ },
+    })
+
+    const result = await listProducts(
+      {
+        ...baseFilters,
+        apply_preferences: true,
+        include_excluded: true,
+      },
+      measuredDb,
+      user.id
+    )
+
+    expect(result.items).toHaveLength(1)
+    expect(result.items[0]?.userStatus).toBe('wishlist')
+    expect(queryCount).toBe(9)
+  })
+})
+
+describe('listProducts: apply_preferences=auto', () => {
+  it('reads each viewer rule source once when a declared target enables auto', async () => {
+    await createTestProduct(user.id, { name: 'Sérum témoin', brand: 'Brand' })
+    const tagId = await makeTag('barrier-fixture', 'Barrière')
+    await testDb
+      .insert(userIngredientPreferences)
+      .values({ userId: user.id, canonicalKey: PARFUM_KEY, stance: 'exclude' })
+    await testDb.insert(userTagPreferences).values({ userId: user.id, tagId, stance: 'require' })
+    const queries: string[] = []
+    const measuredDb = drizzle(testDb.$client, {
+      schema,
+      logger: { logQuery: (query) => queries.push(query) },
+    })
+
+    const result = await listProducts(
+      { ...baseFilters, apply_preferences: 'auto' },
+      measuredDb,
+      user.id
+    )
+
+    expect(result.rulesApplied).toBe(true)
+    for (const table of [
+      'user_dermo_profiles',
+      'user_ingredient_preferences',
+      'user_tag_preferences',
+    ]) {
+      expect(queries.filter((query) => query.includes(`"${table}"`))).toHaveLength(1)
+    }
+  })
+
+  it('applies the declared rules when the viewer has a target, and says so', async () => {
+    const scented = await createTestProduct(user.id, { name: 'Sérum parfumé', brand: 'Brand' })
+    await linkIngredient(scented.id, PARFUM_KEY, 'Parfum (Fragrance)', 'fragrance')
+    await createTestProduct(user.id, { name: 'Sérum propre', brand: 'Brand' })
+    await testDb
+      .insert(userIngredientPreferences)
+      .values({ userId: user.id, canonicalKey: PARFUM_KEY, stance: 'exclude' })
+
+    const result = await listProducts(
+      { ...baseFilters, apply_preferences: 'auto' },
+      testDb,
+      user.id
+    )
+
+    expect(result.rulesApplied).toBe(true)
+    expect(result.total).toBe(1)
+    expect(result.items[0]?.name).toBe('Sérum propre')
+    expect(result.hiddenCount).toBe(1)
+  })
+
+  it('a usable portrait alone resolves auto to applied', async () => {
+    await createTestProduct(user.id, { name: 'Sérum témoin', brand: 'Brand' })
+    await testDb
+      .insert(userDermoProfiles)
+      .values({ userId: user.id, skinTypes: null, skinConcerns: ['rosacee'] })
+
+    const result = await listProducts(
+      { ...baseFilters, apply_preferences: 'auto' },
+      testDb,
+      user.id
+    )
+
+    expect(result.rulesApplied).toBe(true)
+    expect(result.total).toBe(1)
+    expect(result.hiddenCount).toBe(0)
+  })
+
+  it('resolves to not applied when the viewer has nothing to apply', async () => {
+    await createTestProduct(user.id, { name: 'Sérum témoin', brand: 'Brand' })
+
+    const result = await listProducts(
+      { ...baseFilters, apply_preferences: 'auto' },
+      testDb,
+      user.id
+    )
+
+    expect(result.rulesApplied).toBe(false)
+    expect(result.total).toBe(1)
+    expect(result.hiddenCount).toBe(0)
+  })
+
+  it('stays a no-op for an anonymous caller', async () => {
+    await createTestProduct(user.id, { name: 'Sérum témoin', brand: 'Brand' })
+
+    const result = await listProducts({ ...baseFilters, apply_preferences: 'auto' }, testDb, null)
+
+    expect(result.rulesApplied).toBe(false)
+    expect(result.total).toBe(1)
   })
 })
