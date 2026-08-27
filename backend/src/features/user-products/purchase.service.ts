@@ -11,7 +11,7 @@ import { and, desc, eq, isNull, not } from 'drizzle-orm'
 
 import type { DatabaseTransaction } from '../../db'
 import { type Purchase as PurchaseRow, purchases } from '../../db/schema/products/purchases'
-import { userProducts } from '../../db/schema/user-products'
+import { userProducts } from '../../db/schema/products/user-products'
 import { calendarToInstant, instantToCalendar, normalizeInstant } from '../../utils/dates'
 import { devAssertSchema } from '../../utils/dev-validate'
 import { PurchaseError } from './purchase-error'

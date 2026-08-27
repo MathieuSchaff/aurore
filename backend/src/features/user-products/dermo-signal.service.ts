@@ -10,7 +10,7 @@ import { and, eq, inArray, notInArray, sql } from 'drizzle-orm'
 import type { DatabaseTransaction } from '../../db'
 import { ingredientDermoProfiles } from '../../db/schema/ingredients/ingredient-dermo-profiles'
 import { userIngredientAnalysisScore } from '../../db/schema/ingredients/user-ingredient-analysis-score'
-import { userProducts } from '../../db/schema/user-products'
+import { userProducts } from '../../db/schema/products/user-products'
 import { nowISO } from '../../utils/dates'
 
 // Minimum products in a bucket before the ratio is trusted; 1 coincidence would look like a strong signal.
