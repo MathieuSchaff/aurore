@@ -1,4 +1,4 @@
-import type { SkinConcern, SkinType } from '@aurore/shared'
+import type { ProductDetail, SkinConcern, SkinType, UserDermoProfile } from '@aurore/shared'
 
 import {
   analyzeINCI,
@@ -17,6 +17,7 @@ import { products } from '../../db/schema/products/products'
 import { benefitDriversWithHumanEvidence } from '../../lib/algo-derm-benefit-evidence'
 import { mapKindToContext } from '../../lib/algo-derm-product-context'
 import { fetchKnownConcentrationsByProduct } from '../../lib/fetch-known-concentrations'
+import { buildKnownConcentrations } from '../../lib/known-concentrations'
 import { instantToCalendar, nowISO } from '../../utils/dates'
 import { ProductError } from '../products/product-error'
 
@@ -55,7 +56,7 @@ type BenefitDriver = ProductAssessment['explanation']['topBenefitDrivers'][numbe
 
 // ProductAssessment with each explanation driver carrying the slug of its
 // ingredient page, so the frontend can link labels without a second request.
-export type LinkedAssessment = Omit<ProductAssessment, 'explanation'> & {
+type LinkedAssessment = Omit<ProductAssessment, 'explanation'> & {
   ingredientSignals: IngredientSignal[]
   explanation: Omit<ProductAssessment['explanation'], 'topDrivers' | 'topBenefitDrivers'> & {
     topDrivers: (RiskDriver & { ingredientSlug: string | null })[]
@@ -63,9 +64,68 @@ export type LinkedAssessment = Omit<ProductAssessment, 'explanation'> & {
   }
 }
 
-export type DermoScoreOutcome =
-  | { ok: true; assessment: LinkedAssessment }
-  | { ok: false; reason: 'inci_missing' }
+type DermoScoreSuccess = { ok: true; assessment: LinkedAssessment }
+
+type DermoScoreOutcome = DermoScoreSuccess | { ok: false; reason: 'inci_missing' }
+
+// Repair damaged separators and labels because analyzeINCI splits the cleaned value internally
+function cleanProductInci(inci: string | null): string | undefined {
+  return inci ? cleanInciString(inci) : undefined
+}
+
+// The vendor assessment must leave this module as pure JSON because shared validates it with
+// z.json() and the SSR detail page embeds it without passing through c.json
+// The roundtrip
+// drops undefined fields so both delivery paths carry the same value
+function toWireAssessment(assessment: LinkedAssessment): LinkedAssessment {
+  return JSON.parse(JSON.stringify(assessment)) as LinkedAssessment
+}
+
+async function analyzeProduct(
+  product: Pick<ProductDetail, 'kind' | 'category'>,
+  inci: string,
+  profile: UserProfile | undefined,
+  knownConcentrations: Record<string, number> | undefined,
+  database: DbOrTransaction
+): Promise<DermoScoreSuccess> {
+  const assessment = analyzeINCI(inci, {
+    profile,
+    context: { ...mapKindToContext(product.kind), knownConcentrations },
+    asOfDate: instantToCalendar(nowISO()),
+  })
+  return {
+    ok: true,
+    assessment: toWireAssessment(
+      await attachIngredientSlugs(assessment, product.category, database)
+    ),
+  }
+}
+
+export async function computeDermoScoreForLoadedProduct(
+  product: Pick<ProductDetail, 'inci' | 'kind' | 'category' | 'ingredients'>,
+  dermoProfile: Pick<UserDermoProfile, 'skinTypes' | 'skinConcerns'> | null,
+  database: DbOrTransaction
+): Promise<DermoScoreOutcome> {
+  const inci = cleanProductInci(product.inci)
+  if (!inci) return { ok: false, reason: 'inci_missing' }
+
+  const profile = dermoProfile
+    ? mapToAlgoDermProfile(dermoProfile.skinTypes ?? [], dermoProfile.skinConcerns ?? [])
+    : undefined
+  const knownConcentrations =
+    product.ingredients.length > 0
+      ? buildKnownConcentrations(
+          product.ingredients.map((ingredient) => ({
+            name: ingredient.ingredientName,
+            slug: ingredient.ingredientSlug,
+            concentrationValue: ingredient.concentrationValue,
+            concentrationUnit: ingredient.concentrationUnit,
+          }))
+        )
+      : undefined
+
+  return analyzeProduct(product, inci, profile, knownConcentrations, database)
+}
 
 export async function computeProductDermoScore(
   productSlug: string,
@@ -85,31 +145,14 @@ export async function computeProductDermoScore(
 
   if (!product) throw new ProductError('product_not_found')
 
-  // Repair scraper-damaged separators/labels/prose before scoring; analyzeINCI
-  // splits internally, so a broken INCI silently mis-parsed under the old raw trim.
-  const inci = product.inci ? cleanInciString(product.inci) : undefined
+  const inci = cleanProductInci(product.inci)
   if (!inci) return { ok: false, reason: 'inci_missing' }
 
   const profile = userId ? await loadAlgoDermProfile(userId, database) : undefined
   const knownConcentrations = (await fetchKnownConcentrationsByProduct([product.id], database)).get(
     product.id
   )
-  const context = { ...mapKindToContext(product.kind), knownConcentrations }
-
-  const assessment = analyzeINCI(inci, {
-    profile,
-    context,
-    asOfDate: instantToCalendar(nowISO()),
-  })
-  return {
-    ok: true,
-    assessment: await attachIngredientSlugs(
-      assessment,
-      product.category,
-      database,
-      ingredientSignals(assessment)
-    ),
-  }
+  return analyzeProduct(product, inci, profile, knownConcentrations, database)
 }
 
 type LinkRow = { name: string; slug: string; type: string; canonicalKey: string | null }
@@ -140,8 +183,7 @@ function sortPreferred(rows: LinkRow[], category: string): LinkRow[] {
 export async function attachIngredientSlugs(
   assessment: ProductAssessment,
   category: string,
-  database: DbOrTransaction,
-  signals: IngredientSignal[] = []
+  database: DbOrTransaction
 ): Promise<LinkedAssessment> {
   const { topDrivers } = assessment.explanation
   const topBenefitDrivers = benefitDriversWithHumanEvidence(assessment)
@@ -182,7 +224,7 @@ export async function attachIngredientSlugs(
   const resolve = (inciKey: string | undefined) => (inciKey && slugByKey.get(inciKey)) || null
   return {
     ...assessment,
-    ingredientSignals: signals,
+    ingredientSignals: ingredientSignals(assessment),
     explanation: {
       ...assessment.explanation,
       topDrivers: topDrivers.map((d) => ({

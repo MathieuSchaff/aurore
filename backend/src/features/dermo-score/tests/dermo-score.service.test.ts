@@ -5,15 +5,23 @@ import { analyzeINCI } from 'algo-derm'
 import { buildAliasIndex, lookupIngredient, MERGED_EVIDENCE_DB } from 'algo-derm/engine'
 
 import { ingredients } from '../../../db/schema/ingredients/ingredients'
+import { productIngredients } from '../../../db/schema/products/product-ingredients'
 import { testDb } from '../../../tests/db.test.config'
 import { cleanDatabase } from '../../../tests/helpers/db-cleaner'
 import {
+  createTestIngredient,
   createTestProduct,
   createTestUser,
   type TestUser,
 } from '../../../tests/helpers/test-factories'
-import { upsertDermoProfile } from '../../profile/service'
-import { attachIngredientSlugs, computeProductDermoScore, loadAlgoDermProfile } from '../service'
+import { getProductFullBySlug } from '../../products/service'
+import { getDermoProfile, upsertDermoProfile } from '../../profile/service'
+import {
+  attachIngredientSlugs,
+  computeDermoScoreForLoadedProduct,
+  computeProductDermoScore,
+  loadAlgoDermProfile,
+} from '../service'
 
 const upsertDermo = (userId: string, data: Parameters<typeof upsertDermoProfile>[2]) =>
   testDb.transaction((tx) => upsertDermoProfile(tx, userId, data))
@@ -33,6 +41,33 @@ beforeEach(async () => {
 })
 
 describe('computeProductDermoScore', () => {
+  it('keeps the assessment exact when product data is already loaded', async () => {
+    const product = await createTestProduct(user.id, {
+      name: 'Sérum préchargé',
+      brand: 'Brand',
+      inci: 'Aqua, Niacinamide, Alcohol Denat, Parfum, Limonene',
+    })
+    const ingredient = await createTestIngredient(user.id, { name: 'Niacinamide' })
+    await testDb.insert(productIngredients).values({
+      productId: product.id,
+      ingredientId: ingredient.id,
+      concentrationValue: '10',
+      concentrationUnit: '%',
+    })
+    await upsertDermo(user.id, { skinTypes: ['peau-sensible'] })
+    const loadedProduct = await getProductFullBySlug(product.slug, testDb)
+    const loadedProfile = await getDermoProfile(testDb, user.id)
+
+    const fromSlug = await computeProductDermoScore(product.slug, user.id, testDb)
+    const fromLoadedProduct = await computeDermoScoreForLoadedProduct(
+      loadedProduct,
+      loadedProfile,
+      testDb
+    )
+
+    expect(fromLoadedProduct).toEqual(fromSlug)
+  })
+
   it('returns assessment for product with INCI (anonymous)', async () => {
     const p = await createTestProduct(user.id, {
       name: 'Sérum test',
