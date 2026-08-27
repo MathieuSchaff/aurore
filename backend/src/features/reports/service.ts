@@ -1,6 +1,6 @@
 import type { CreateReportInput, ListReportsResponse, ReportStatus } from '@aurore/shared'
 
-import { and, desc, eq, isNotNull } from 'drizzle-orm'
+import { and, desc, eq, isNotNull, isNull } from 'drizzle-orm'
 
 import type { DatabaseTransaction } from '../../db'
 import { contentReports } from '../../db/schema'
@@ -32,11 +32,12 @@ export async function createReport(
 
 export async function listReports(
   db: DatabaseTransaction,
-  filters: { status?: ReportStatus; escalated?: 'true' }
+  filters: { status?: ReportStatus; escalated?: 'true'; excludeEscalated?: boolean }
 ): Promise<ListReportsResponse> {
   const conditions = []
   if (filters.status) conditions.push(eq(contentReports.status, filters.status))
   if (filters.escalated === 'true') conditions.push(isNotNull(contentReports.escalatedAt))
+  if (filters.excludeEscalated) conditions.push(isNull(contentReports.escalatedAt))
 
   const rows = await db
     .select()
@@ -49,23 +50,40 @@ export async function listReports(
 
 export async function resolveReport(
   db: DatabaseTransaction,
-  args: { id: string; adminId: string; status: 'resolved' | 'dismissed' }
+  args: {
+    id: string
+    reviewerId: string
+    reviewerRole: 'admin' | 'contributor'
+    status: 'resolved' | 'dismissed'
+  }
 ) {
   const [row] = await db
     .update(contentReports)
     .set({
       status: args.status,
-      reviewedBy: args.adminId,
+      reviewedBy: args.reviewerId,
       reviewedAt: nowISO(),
     })
-    .where(eq(contentReports.id, args.id))
+    .where(
+      and(
+        eq(contentReports.id, args.id),
+        args.reviewerRole === 'contributor' ? isNull(contentReports.escalatedAt) : undefined
+      )
+    )
     .returning()
 
+  if (!row && args.reviewerRole === 'contributor') {
+    const [existing] = await db
+      .select({ escalatedAt: contentReports.escalatedAt })
+      .from(contentReports)
+      .where(eq(contentReports.id, args.id))
+    if (existing?.escalatedAt) throw new ReportError('forbidden')
+  }
   if (!row) throw new ReportError('not_found')
   return row
 }
 
-// Escalation is orthogonal to status (ADR-0006 S3): the report stays open while
+// Escalation is orthogonal to status (ADR-0006): the report stays open while
 // escalated, then resolves normally. The admin surfaces it via the escalated filter.
 // Escalating again overwrites attribution (last escalator wins), same posture as
 // resolveReport's reviewedBy; the UI hides the action once escalated.

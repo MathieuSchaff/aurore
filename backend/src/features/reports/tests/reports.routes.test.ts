@@ -18,7 +18,7 @@ import {
   type TestClient,
   withAuth,
 } from '../../../tests/helpers/createTestClient'
-import { expectOk } from '../../../tests/helpers/expectStatus'
+import { expectError, expectOk } from '../../../tests/helpers/expectStatus'
 import { TEST_CREDENTIALS } from '../../../tests/helpers/test-credentials'
 import {
   createTestAdminUser,
@@ -361,6 +361,43 @@ describe('Content reports: user POST + admin GET/PATCH', () => {
     expect(updated.status).toBe('resolved')
   })
 
+  it('contributor PATCH returns 404 on missing report', async () => {
+    const ghost = '019d0000-0000-7000-8000-00000000bad0'
+
+    await expectError(
+      client.admin.reports[':id'].$patch(
+        { param: { id: ghost }, json: { status: 'resolved' } },
+        withAuth(contributorToken)
+      ),
+      HTTP_STATUS.NOT_FOUND,
+      'not_found'
+    )
+  })
+
+  it('rejects a contributor decision after the report was escalated', async () => {
+    const [report] = await testDb
+      .insert(contentReports)
+      .values({
+        reporterId: userId,
+        targetType: 'review',
+        targetId: ANY_TARGET,
+        reason: 'admin decision required',
+        escalatedAt: new Date().toISOString(),
+        escalatedBy: contributorId,
+      })
+      .returning({ id: contentReports.id })
+    if (!report) throw new Error('report seed failed')
+
+    await expectError(
+      client.admin.reports[':id'].$patch(
+        { param: { id: report.id }, json: { status: 'resolved' } },
+        withAuth(contributorToken)
+      ),
+      HTTP_STATUS.FORBIDDEN,
+      'forbidden'
+    )
+  })
+
   // ADR-0006: escalate-to-admin. Orthogonal to status: the report stays
   // open while escalated; escalatedBy records the moderator who handed it up.
   it('contributor escalates a report → escalatedAt + escalatedBy set, status stays open', async () => {
@@ -459,6 +496,39 @@ describe('Content reports: user POST + admin GET/PATCH', () => {
     )
     expect(list.items.length).toBe(1)
     expect(list.items[0]?.reason).toBe('escalated one')
+  })
+
+  it('rejects the escalated queue for a contributor', async () => {
+    await expectError(
+      client.admin.reports.$get({ query: { escalated: 'true' } }, withAuth(contributorToken)),
+      HTTP_STATUS.FORBIDDEN,
+      'forbidden'
+    )
+  })
+
+  it('excludes escalated reports from the contributor open queue', async () => {
+    await testDb.insert(contentReports).values([
+      {
+        reporterId: userId,
+        targetType: 'review',
+        targetId: ANY_TARGET,
+        reason: 'plain open',
+      },
+      {
+        reporterId: userId,
+        targetType: 'thread',
+        targetId: OTHER_TARGET,
+        reason: 'handed to admin',
+        escalatedAt: new Date().toISOString(),
+        escalatedBy: contributorId,
+      },
+    ])
+
+    const list = await expectOk(
+      client.admin.reports.$get({ query: { status: 'open' } }, withAuth(contributorToken))
+    )
+
+    expect(list.items.map((report) => report.reason)).toEqual(['plain open'])
   })
 
   // status + escalated compose with AND: an escalated-but-resolved report must be
