@@ -135,6 +135,19 @@ test('unknown product slug keeps its document 404 with a valid cookie', async ({
   expect(documentResponse.status()).toBe(404)
 })
 
+test('an overlong product slug keeps a hydrated error document', async ({ page }) => {
+  const pageErrors: string[] = []
+  page.on('pageerror', (error) => pageErrors.push(error.message))
+
+  const documentResponse = await page.goto(`/products/${'x'.repeat(201)}`)
+  if (!documentResponse) throw new Error('no navigation response for overlong product slug')
+
+  expect(documentResponse.status()).toBe(500)
+  await waitForHydration(page)
+  await expect(page.getByRole('heading', { name: 'On a renversé quelque chose.' })).toBeVisible()
+  expect(pageErrors).toEqual([])
+})
+
 test('anonymous raw document contains no session data and keeps no-cache', async ({
   page,
   context,
