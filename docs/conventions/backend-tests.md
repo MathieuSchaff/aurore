@@ -161,8 +161,7 @@ Production reste sur argon2id default, gate par `process.env.NODE_ENV === 'test'
 
 | Action | Commande |
 |---|---|
-| Tests backend full cycle | `just test-backend` |
-| Tests backend sans relancer DB | `just test-dev "<pattern>"` |
+| Tests backend, ciblés ou non | `just test-backend "<pattern>"` |
 | Watch mode | `just test-watch "<pattern>"` |
 | Bench wall-time | `just test-bench` (log dans `/tmp/aurore-backend-test.log`) |
 | Compte `cleanDatabase` fires | `just test-clean-count` (baseline 903, ne doit pas monter) |
