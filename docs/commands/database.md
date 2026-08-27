@@ -25,7 +25,7 @@ fixture accounts it creates, and how to log in as one, are in
 | `just db-seed-reset` | **Trap:** TRUNCATE products/ingredients/tags, then reseed | Guarded when the DB holds more than the TS seed (`SEED_FORCE_RESET=1` forces). Types `I DESTROY PROD` on prod |
 
 **The TS seed only carries the nonskincare fixtures. The real catalogue lives in the DB and
-in the committed snapshot.** `db-seed-reset` and `db-reset` therefore wipe the ingested skincare
+in the committed snapshot.** So `db-seed-reset` and `db-reset` wipe the ingested skincare
 catalogue. Restore from the snapshot, never from the seed.
 
 ## Destructive

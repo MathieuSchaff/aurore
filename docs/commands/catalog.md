@@ -14,7 +14,7 @@ command runs inside the backend container from `/app/backend`, so a host file at
 
 | Step | Command | What |
 | :--- | :--- | :--- |
-| 1. Dry-run | `just ingest-catalogue <jsonl>` | Validates, checks duplicates, writes a plan. Blockers → exit 1, nothing written |
+| 1. Dry-run | `just ingest-catalogue <jsonl>` | Validates, checks duplicates, writes a plan. Blockers exit 1, nothing written |
 | 2. Apply | `just catalogue-apply <jsonl>` | Ingest (Gate A) then catalogue gate (Gate B). Dev-only |
 | 3. Link | `just link-ingredients` | Ingredient links are **not** created by the ingest. See [data-writes.md](data-writes.md) |
 
@@ -55,9 +55,9 @@ just prod-ssh 'TARGET=prod just ingest-catalogue path/to/products.jsonl --write'
 
 | Command | Source | What | Env |
 | :--- | :--- | :--- | :--- |
-| `just ingest-peta` | PETA | Probes ~220 brands → cruelty-free into `brand_certifications` | `--write`, `REFRESH` (fetch again), `STRICT_PRUNE` (drop stale `peta` rows) |
-| `just ingest-obf` | Open Beauty Facts | ~17 MB dump → vegan / cruelty-free / natural claims aggregated per brand above `THRESHOLD` | `--write`, `DOWNLOAD`, `THRESHOLD` (default 0.5), `NO_WHITELIST` |
-| `just ingest-incidecoder <phase>` | INCIDecoder | Clean INCI for products with a weak one. Phases in order: `crawl` → `match` → `fetch` → `apply` | Prod confirmation on `apply` |
+| `just ingest-peta` | PETA | Probes ~220 brands and writes cruelty-free into `brand_certifications` | `--write`, `REFRESH` (fetch again), `STRICT_PRUNE` (drop stale `peta` rows) |
+| `just ingest-obf` | Open Beauty Facts | Reads the ~17 MB dump and aggregates vegan / cruelty-free / natural claims per brand above `THRESHOLD` | `--write`, `DOWNLOAD`, `THRESHOLD` (default 0.5), `NO_WHITELIST` |
+| `just ingest-incidecoder <phase>` | INCIDecoder | Clean INCI for products with a weak one. Phases in order: `crawl`, `match`, `fetch`, `apply` | Prod confirmation on `apply` |
 
 ## Product maintenance
 

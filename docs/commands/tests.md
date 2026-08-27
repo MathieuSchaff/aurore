@@ -67,7 +67,7 @@ from the committed snapshot (full catalogue + personas), not from `seed-core`.
 | `just e2e-reset` | Recreate the stack from scratch | - |
 | `just e2e-down` | Stop it | The tmpfs DB is lost |
 
-Usual flow: `just dev-down` → `just e2e-up` → `just e2e`.
+Usual flow: `just dev-down`, then `just e2e-up`, then `just e2e`.
 
 `frontend/src` is bind-mounted, so source changes need no image rebuild. Rebuild when package
 dependencies, Docker config, migrations, or the DB snapshot changed.

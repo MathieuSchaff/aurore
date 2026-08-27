@@ -1,5 +1,4 @@
 ---
-status: accepted
 date: 2026-06-25
 accepted: 2026-06-25
 ---
@@ -10,9 +9,9 @@ The social layer ranks profiles by skin similarity so a user can find "people li
 
 ## Why
 
-A skin condition is intimate, almost medical. Two rights are in tension: helping others by assuming one's skin publicly, versus reading the community without exposing oneself. The similarity engine needs visibility to work; the calm/zero-guilt doctrine needs no unwanted exposure. Collapsing the two into the existing display flags would force a user to publish their concerns in order to be matched, exactly the exposure the doctrine refuses.
+A skin condition is intimate, almost medical. Two rights are in tension: helping others by assuming one's skin publicly, versus reading the community without exposing oneself. The similarity engine needs visibility to work; the calm/zero-guilt doctrine needs no unwanted exposure. Collapsing the two into the existing display flags would force a user to publish their concerns to be matched, exactly the exposure the doctrine refuses.
 
-The decoupling has a real, honest cost: when the engine matches two people, the **shared bucket** is deducible by the person matched (they learn "we have a skin problem in the same family"). But the *other* concerns and the raw specifics stay private. So `discoverable` consents to bucket-level matching, not to display, and the consent copy must say so. This mirrors the same enumeration-safe, consent-explicit posture as ADR 0009/0010: the data consented equals the data exposed.
+The decoupling has a real, honest cost: when the engine matches two people, the **shared bucket** is deducible by the person matched (they learn "we have a skin problem in the same family"). But the *other* concerns and the raw specifics stay private. So `discoverable` consents to bucket-level matching, not to display, and the consent copy must say so. This mirrors the same enumeration-safe, consent-explicit posture as [ADR-0009](0009-signup-enumeration-safe.md) and [ADR-0010](0010-forgot-password-enumeration-safe.md): the data consented equals the data exposed.
 
 ## Considered options
 
@@ -27,5 +26,4 @@ The decoupling has a real, honest cost: when the engine matches two people, the 
 - Added to `privacySettingsSchema` + `updatePrivacySettingsSchema` (shared) and the `DERMO_FLAG_KEYS` whitelist (service): the three places a privacy flag must appear, or the PATCH silently ignores it.
 - **Not** part of the public profile view payload (`PublicProfileView`): it is consent, not a display field. It surfaces only in the owner's privacy settings.
 - The consent copy in the settings UI must name the bucket-deduction leak ("the problem you're found by can be deduced; your other information stays private").
-- Follow-on (similarity-ranking slice): a cross-user permissive SELECT policy `user_dermo_profiles_select_discoverable` (SECURITY DEFINER pattern, cf migration 0067) exposing opt-in rows to the ranking; the ranking returns the ordinal band only, never the internal score (consistent with the no-score doctrine and ADR 0005).
-- **As-built correction (mig 0104):** the policy shipped as a **plain EXISTS**, not SECURITY DEFINER. The `profiles` policies never reference `user_dermo_profiles`, so the 0067 recursion cycle does not apply and the wrapper was unnecessary.
+- Follow-on (similarity-ranking slice): a cross-user permissive SELECT policy `user_dermo_profiles_select_discoverable` (migration `0104`) exposes opt-in rows to the ranking. It is a **plain EXISTS**, not the SECURITY DEFINER wrapper of migration `0067`: the `profiles` policies never reference `user_dermo_profiles`, so that recursion cycle does not apply. The ranking returns the ordinal band only, never the internal score (consistent with the no-score doctrine and [ADR-0005](0005-public-reviews-opt-in-attributable-ratings.md)).

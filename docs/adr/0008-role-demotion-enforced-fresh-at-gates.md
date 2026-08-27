@@ -11,12 +11,12 @@ accepted: 2026-06-02
 > the database row, not the claim. The perf argument below was wrong, `withRlsContext` already
 > issued the select. Read this file as history, not as the current rule.
 
-Roles ride in the access-token JWT claim (15 min TTL). `requireJwtAuth` sets `userRole` from that claim, and the two privileged gates, `requireCatalogWrite` (catalogue curation) and `requireContentModerator` (content moderation, [ADR-0006](0006-contributor-gains-content-moderation.md)), read it. So a `contributor` demoted to `user` (the #16b admin demotion) kept catalogue and moderation powers until the next `/auth/refresh` re-sourced the role: a bounded, self-healing window of up to ~15 min. This ADR closes that window by re-sourcing the role from the DB **inside the two gates**, and records why the obvious "fix it in RLS" alternatives were rejected.
+Roles ride in the access-token JWT claim (15 min TTL). `requireJwtAuth` sets `userRole` from that claim, and the two privileged gates, `requireCatalogWrite` (catalogue curation) and `requireContentModerator` (content moderation, [ADR-0006](0006-contributor-gains-content-moderation.md)), read it. So a `contributor` demoted to `user` (admin demotion) kept catalogue and moderation powers until the next `/auth/refresh` re-sourced the role: a bounded, self-healing window of up to ~15 min. This ADR closes that window by re-sourcing the role from the DB **inside the two gates**, and records why the obvious "fix it in RLS" alternatives were rejected.
 
 ## Why
 
 - **The claim is stale and both authorization branches trust it.** The app branch (gates) reads `c.get('userRole')` = claim. The DB branch is no safer: `withRlsContext` sets `app.role` from the **same** claim, and `auth.role()` reads `app.role`, so every RLS policy carries the identical 15 min staleness. RLS is not an independent defence here: it is the same hole a second time.
-- **The ban path, by contrast, is genuinely fresh.** `requireNotBanned` → `isUserBanned(userId)` reads `user_bans` by user id (30 s cache), independent of `app.role`. So active abuse is already cuttable instantly via a ban; demotion staleness only bites the benign "this person no longer needs the role" case, where every reachable power is reversible and content-scoped (irreversible/account acts stay behind `requireAdmin`, which an ex-contributor never satisfies).
+- **The ban path, by contrast, is genuinely fresh.** `requireNotBanned` calls `isUserBanned(userId)`, which reads `user_bans` by user id (30 s cache), independent of `app.role`. So active abuse is already cuttable instantly via a ban; demotion staleness only bites the benign "this person no longer needs the role" case, where every reachable power is reversible and content-scoped (irreversible/account acts stay behind `requireAdmin`, which an ex-contributor never satisfies).
 - **The blast radius is exactly two gates.** A stale `contributor` claim passes `requireCatalogWrite` (create/edit sheets, link, tag) and `requireContentModerator` (view hidden, hide/restore, report queue, suggested-edits), never `requireAdmin`. Closing those two gates closes the radius.
 
 ## Decision
@@ -27,7 +27,7 @@ The two gates call `getUserRole(db, userId)` and authorize on the **current DB r
 
 **A: Accept + document.** Defensible: window ≤ 15 min, powers reversible/content-scoped, ban covers active abuse. Rejected only because the gate-level fix is cheap; not wrong in principle.
 
-**B1: Redefine `auth.role()` to read the DB.** Elegant: one place, every table fresh at once. **Rejected (perf).** `auth.role()` is evaluated *inside policies* → ~once per statement on every role-gated table (nearly all, via `_admin_bypass`). A normal `user` reading their own collection would pay a PK-lookup per query, **even on SELECT**. It taxes 100 % of traffic (reads included) to protect a rare demotion, inverting the original design (role in `app.role` = a free memory read).
+**B1: Redefine `auth.role()` to read the DB.** One place, every table fresh at once. **Rejected (perf).** `auth.role()` is evaluated *inside policies*, so about once per statement on every role-gated table (nearly all, via `_admin_bypass`). A normal `user` reading their own collection would pay a PK-lookup per query, **even on SELECT**. It taxes 100 % of traffic (reads included) to protect a rare demotion, inverting the original design (role in `app.role` = a free memory read).
 
 **B2: Source the fresh role once per request in `withRlsContext`.** Bounded to one lookup/request (not per statement), closes RLS + gates together. **Rejected (still too broad).** It runs on every authenticated request including browse/SELECT; it taxes reads for a problem that only exists on privileged writes.
 
@@ -42,4 +42,4 @@ The two gates call `getUserRole(db, userId)` and authorize on the **current DB r
 - **`requireAdmin` is not patched**: an ex-contributor never holds the admin claim, and no flow demotes an admin.
 - **Freshness placement now follows one rule**: broad/frequent identity checks (global ban) are cached; rare privileged-action checks (scope ban, role gates) read direct. Future gates should follow the same split.
 - **Residual, accepted**: any *other* role-dependent path that relies solely on the claim/RLS still carries the ≤ 15 min window, but those are reads, not the gated privileged writes; the catalogue-write + content-moderation radius is fully closed.
-- Covered by `backend/src/features/auth/tests/role-demotion-gate-403.test.ts` (stale `contributor` claim + DB demoted → `403` on both gates).
+- Covered by `backend/src/features/auth/tests/role-demotion-gate-403.test.ts` (stale `contributor` claim with the DB row demoted yields `403` on both gates).

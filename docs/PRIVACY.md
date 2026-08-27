@@ -1,6 +1,6 @@
 # Politique de confidentialité
 
-Dernière mise à jour : 19 mai 2026
+Dernière mise à jour : 28 août 2026
 
 Cette page explique quelles données Aurore collecte, pourquoi elles sont utilisées, et comment elles sont protégées.
 
@@ -70,19 +70,11 @@ Aurore utilise seulement des cookies nécessaires au fonctionnement de l’appli
 
 ### `refresh_token`
 
-Ce cookie permet de maintenir votre session ouverte de manière sécurisée.
+Ce cookie permet de maintenir votre session ouverte de manière sécurisée. Le serveur le lit aussi au chargement d’une page pour afficher directement votre contenu ; cette lecture n’écrit rien.
 
 Il est configuré en `HttpOnly`, `Secure` et `SameSite=Lax`.
 
 Il ne peut pas être lu par le code JavaScript de la page.
-
-### `aurore_session`
-
-Ce cookie indique simplement à l’application qu’une session existe.
-
-Il contient seulement la valeur `1`.
-
-Il ne contient jamais le token de connexion.
 
 ### `google_oauth_state` et `google_code_verifier`
 
@@ -149,6 +141,8 @@ Ils enregistrent seulement des informations techniques comme :
 - le code de réponse ;
 - le temps de réponse.
 
+Seuls les avertissements et les erreurs quittent le serveur, vers Grafana Cloud (voir « Services utilisés »), sans adresse IP ni paramètres d’URL. Les journaux d’accès, qui contiennent votre adresse IP, restent sur le serveur.
+
 ---
 
 ## 7. Sauvegardes
@@ -189,6 +183,19 @@ Aucun email marketing n’est envoyé.
 ### Google
 
 Utilisé uniquement si vous choisissez de vous connecter avec Google.
+
+### Grafana Cloud
+
+Supervision technique.
+
+- côté serveur : seuls les avertissements et les erreurs des journaux sont envoyés, sans adresse IP ni paramètres d’URL ;
+- côté navigateur : les erreurs de la page et les violations de sa politique de sécurité sont remontées, avec l’URL nettoyée de ses paramètres sensibles et un identifiant de session aléatoire, sans lien avec votre compte.
+
+Comme pour toute requête web, votre adresse IP est visible par ce service au moment de l’envoi.
+
+### Bunny CDN
+
+Diffusion des images de produits. Votre navigateur les charge directement depuis ce service, qui voit donc votre adresse IP comme n’importe quel site web. Aucune donnée de compte ne lui est transmise.
 
 ---
 

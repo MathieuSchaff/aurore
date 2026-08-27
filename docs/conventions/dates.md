@@ -1,7 +1,7 @@
 # Convention dates
 
-Toutes les dates qui traversent une frontière (DB ↔ backend, backend ↔ API,
-API ↔ frontend) sont des **strings ISO 8601 UTC**. Aucun objet `Date` JS ne
+Toutes les dates qui traversent une frontière (DB et backend, backend et API,
+API et frontend) sont des **strings ISO 8601 UTC**. Aucun objet `Date` JS ne
 voyage hors d'un site d'usage local.
 
 > Si tu te poses la question "Date ou string ?" : c'est string.
@@ -14,7 +14,7 @@ voyage hors d'un site d'usage local.
   est reconstruit en timezone locale au parsing. Source d'1 bug par an.
 - Drizzle en mode par défaut renvoie tantôt `Date`, tantôt string selon le
   driver et la colonne : code défensif `instanceof Date` partout sinon.
-- ISO 8601 UTC est lexicographiquement triable → `compareInstant` = string
+- ISO 8601 UTC est lexicographiquement triable, donc `compareInstant` = string
   compare, zéro allocation `Date` dans les hot lists.
 - Une seule représentation = une seule règle à connaître.
 
@@ -64,7 +64,7 @@ snoozedUntil: z.iso.datetime().nullable().optional()
 ```
 
 Une calendar date voyage en plein ISO datetime UTC pour rester homogène.
-Le backend tronque à `YYYY-MM-DD` à la frontière (cf. §2.3).
+Le backend tronque à `YYYY-MM-DD` à la frontière (cf. « Backend services »).
 
 ### 2.3 Backend services
 
@@ -120,8 +120,8 @@ réponse ou un export, comparaison, réutilisation sur plusieurs colonnes/branch
 n'est pas réutilisée, surtout quand le même statement (ou la même transaction) écrit déjà d'autres
 colonnes en `now()`, pour que tous les timestamps d'un même événement partagent l'unique instant de
 début de transaction (PG `now()` = horloge de début de tx). Ce n'est **pas** l'antipattern
-`new Date().toISOString()` du §3 : celui-ci bannit la forme JS côté app, alors que `now()` DB est la
-même source que le `.defaultNow()` béni en §2.1.
+`new Date().toISOString()` de la section « Antipatterns à éviter » : celui-ci bannit la forme JS côté app, alors que `now()` DB est la
+même source que le `.defaultNow()` béni en « DB (Drizzle) ».
 
 > **Piège Bun.sql** : pour les colonnes `timestamptz`, Bun.sql renvoie le
 > format PG (`"2026-05-07 06:42:48.729+00"`, espace + `+00` au lieu de `T...Z`).
@@ -140,7 +140,7 @@ Helpers `frontend/src/lib/dates.ts` :
 
 | Helper | Usage |
 |--------|-------|
-| `formatInstant(iso, style)` | affichage locale FR forcée : styles `'short' \| 'medium' \| 'long' \| 'monthYear'`. **À n'utiliser que quand l'interpolation impose une string** (template literal, attribut HTML). Sinon préférer `<Time>` (cf. §2.4.1). |
+| `formatInstant(iso, style)` | affichage locale FR forcée : styles `'short' \| 'medium' \| 'long' \| 'monthYear'`. **À n'utiliser que quand l'interpolation impose une string** (template literal, attribut HTML). Sinon préférer `<Time>` (cf. « Composant `<Time>` »). |
 | `formatRelative(iso)` | "il y a 3 jours" / "demain" / "dans 2 heures" via `Intl.RelativeTimeFormat('fr-FR', { numeric: 'auto' })` natif (zéro dépendance : date-fns retiré du frontend). `numeric: 'auto'` donne "hier"/"la semaine dernière" quand c'est plus naturel. Idem, préférer `<Time relative>` côté JSX. |
 | `compareInstant(a, b)` | tri chronologique (string compare) |
 | `toDateInputValue(iso)` | extraction `YYYY-MM-DD` pour `<input type="date">` |
@@ -190,11 +190,11 @@ Exceptions tolérées :
 
 `backend/src/utils/dev-validate.ts` expose `devAssertSchema(schema, value, ctx)` :
 
-- en `NODE_ENV=production` → no-op, retourne la valeur telle quelle
-- en dev/test → `safeParse` et throw si la forme dérive (avec log structuré)
+- en `NODE_ENV=production` : no-op, retourne la valeur telle quelle
+- en dev/test : `safeParse` et throw si la forme dérive (avec log structuré)
 
 Branché sur les boundary mappers calendar dates (`toApiPurchase`,
-`toApiTask`), points où la conversion `date` ↔ instant est la plus
+`toApiTask`), points où la conversion entre `date` et instant est la plus
 sujette aux erreurs.
 
 ```typescript
@@ -221,7 +221,7 @@ function toApiPurchase(row: PurchaseRow): Purchase {
 | `instanceof Date` (Drizzle row) | rien : c'est toujours une string |
 | `value < new Date(...).toISOString()` (compare driver vs JS) | `Date.parse(value) < cutoffMs` |
 | `.set({ updatedAt: new Date() })` Drizzle | `.set({ updatedAt: nowISO() })` |
-| `new Date().toISOString()` dans un service backend | `nowISO()`, ou un `now()` SQL pour estampiller une colonne (cf §2.3) ; (exempt : `$onUpdate` en schema, seed, scripts `audit/`) |
+| `new Date().toISOString()` dans un service backend | `nowISO()`, ou un `now()` SQL pour estampiller une colonne (cf. « Backend services ») ; (exempt : `$onUpdate` en schema, seed, scripts `audit/`) |
 | `new Date().toISOString()` dans un composant frontend | `nowInstant()` |
 | `new Date(datetimeLocalInput).toISOString()` (leak tz local) | `parseDatetimeLocalAsUTC(input)` |
 
