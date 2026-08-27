@@ -1,4 +1,4 @@
-// Dry-run audit for the pharmacological-cluster pass (audit O3), read-only, passe 2
+// Dry-run audit for the pharmacological-cluster pass, read-only, passe 2
 // (`detectActifClasses`).
 //
 // Clusters emit at relevance 'secondary' source 'actif-class', so this audit does NOT reflect

@@ -111,6 +111,6 @@ export const articleRoutes = articlesApp
         return c.json(err('unauthorized_access'), HTTP_STATUS.FORBIDDEN)
       const { slug } = c.req.valid('param')
       await deleteArticle(db, slug)
-      return c.body(null, 204)
+      return c.body(null, HTTP_STATUS.NO_CONTENT)
     }
   )

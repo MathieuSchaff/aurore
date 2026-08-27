@@ -1,8 +1,4 @@
-// Public API for the auto-tagging subsystem.
-//
-// Single entry point for external consumers (db/seed/seeders/plan-product-tag-pairs.ts,
-// features/products/service.ts). Internal runners and tests import from the
-// concrete module paths.
+// Keep the public surface narrow while internal runners use concrete modules
 
 export { loadTagSlugToInfo } from './lib/fetch-auto-tag-bundle'
 export { buildOrchestratorInput, type OrchestratorProductFields } from './lib/orchestrator-input'

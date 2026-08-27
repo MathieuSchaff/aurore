@@ -1,4 +1,4 @@
-// Locks the bug 1 fix: writeTagsForProduct must DELETE stale auto rows on
+// Locks the fix: writeTagsForProduct must DELETE stale auto rows on
 // retag, but never wipe rows whose source = 'manual'. The DELETE-before-INSERT
 // in write.ts is wrapped in a transaction so partial state is never visible.
 
@@ -61,9 +61,7 @@ describe('writeTagsForProduct: stale auto-tag cleanup on INCI change', () => {
 
     // Trigger retag by emptying the INCI. updateProduct's trigger now fires
     // on any AUTOTAG_INPUT_FIELDS change; INCI is in that set.
-    await testDb.transaction((tx) =>
-      updateProduct(user.id, product.id, { inci: '' }, undefined, tx)
-    )
+    await testDb.transaction((tx) => updateProduct(user.id, product.id, { inci: '' }, tx))
 
     const after = await testDb
       .select()
@@ -113,7 +111,6 @@ describe('writeTagsForProduct: stale auto-tag cleanup on INCI change', () => {
         user.id,
         product.id,
         { inci: 'Aqua, Glycerin, Squalane, Bisabolol, Allantoin, Phenoxyethanol' },
-        undefined,
         tx
       )
     )

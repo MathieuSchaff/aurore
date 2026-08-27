@@ -1,5 +1,5 @@
 // Runtime auto-tag writer. Single-product wrapper used by
-// `features/products/service.ts create/updateProduct()`; same orchestrator as
+// `features/products/write.service.ts create/updateProduct()`; same orchestrator as
 // the batch backfill, diverges only in I/O shape.
 
 import { and, eq, ne } from 'drizzle-orm'
