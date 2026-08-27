@@ -18,8 +18,8 @@ import {
   useIngredientFormSubmit,
 } from '@/features/ingredients/hooks/useIngredientFormSubmit'
 import { type TagState, useFormTags } from '@/hooks/useFormTags'
+import { useSession } from '@/lib/auth/session'
 import { productTagQueries } from '@/lib/queries/product-tags'
-import { useAuthStore } from '@/store/auth'
 import { ConflictBanner } from './ConflictBanner'
 import { IngredientInputField, IngredientTextareaField } from './fields'
 import './IngredientForm.css'
@@ -51,8 +51,8 @@ export function IngredientForm({
   onSuccess,
 }: IngredientFormProps) {
   const { data: allTags } = useQuery(productTagQueries.list())
-  const { role } = useAuthStore()
-  const isAdmin = role === 'admin'
+  const session = useSession()
+  const isAdmin = session.status === 'authenticated' && session.user.role === 'admin'
 
   const [form, setForm] = useState<IngredientFormData>({
     name: ingredient?.name ?? prefill?.name ?? '',

@@ -7,8 +7,7 @@ import {
   INGREDIENT_FORM_ERRORS,
   type IngredientFormField,
 } from '@/features/ingredients/components/IngredientForm/formErrors'
-import { extractFormError } from '@/lib/helpers/apiError'
-import { isHttpError } from '@/lib/helpers/isHttpError'
+import { extractFormError, isApiError } from '@/lib/helpers/apiError'
 import {
   ingredientQueries,
   useCreateIngredient,
@@ -150,7 +149,7 @@ export function useIngredientFormSubmit(args: Args) {
       const slug = args.mode === 'create' ? await submitCreate() : await submitEdit(args.ingredient)
       args.onSuccess(slug)
     } catch (err) {
-      if (isHttpError(err, 409) && args.mode === 'edit') {
+      if (isApiError(err) && err.code === 'ingredient_update_conflict' && args.mode === 'edit') {
         await handleConflict(args.ingredient)
         return
       }

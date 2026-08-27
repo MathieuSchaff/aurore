@@ -3,7 +3,7 @@ import { createFileRoute, notFound } from '@tanstack/react-router'
 import { GlobalError } from '@/component/Feedback/app/GlobalError/GlobalError'
 import { IngredientInfoSkeleton } from '@/features/ingredients/components/skeletons/IngredientLayoutSkeleton'
 import { IngredientEditPage } from '@/features/ingredients/page/IngredientEditPage/IngredientEditPage'
-import { requireAuth } from '@/lib/auth/requireAuth'
+import { requireSession } from '@/lib/auth/requireSession'
 import { ApiError } from '@/lib/helpers/apiError'
 import { ingredientQueries } from '@/lib/queries/ingredients'
 
@@ -11,10 +11,9 @@ import { ingredientQueries } from '@/lib/queries/ingredients'
 // so the edit page does not inherit the parent's hero/tabs/top actions.
 export const Route = createFileRoute('/ingredients/$slug_/edit')({
   beforeLoad: async ({ context, location }) => {
-    await requireAuth({
+    await requireSession({
       queryClient: context.queryClient,
       href: location.href,
-      accessToken: context.auth.accessToken,
     })
   },
   loader: ({ context, params }) =>

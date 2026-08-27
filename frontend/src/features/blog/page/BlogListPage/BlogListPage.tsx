@@ -8,8 +8,8 @@ import { Button, ButtonLink } from '@/component/Button/Button'
 import { ListPagination } from '@/component/DataDisplay/Pagination/ListPagination'
 import { EmptyState } from '@/component/Feedback/ui/EmptyState/EmptyState'
 import { PageHeader } from '@/component/Layout/PageHeader/PageHeader'
+import { useSession } from '@/lib/auth/session'
 import { articleQueries } from '@/lib/queries/articles'
-import { useAuthStore } from '@/store/auth'
 import { BlogArticleCard } from '../../components/BlogArticleCard/BlogArticleCard'
 import { BlogCategoryNav } from '../../components/BlogCategoryNav/BlogCategoryNav'
 import { BlogSearchInput } from '../../components/BlogSearchInput/BlogSearchInput'
@@ -57,7 +57,8 @@ export function BlogListPage({
     }, 400)
   }
 
-  const isAdmin = useAuthStore((s) => s.role === 'admin')
+  const session = useSession()
+  const isAdmin = session.status === 'authenticated' && session.user.role === 'admin'
 
   const { data, isLoading, isError, isPlaceholderData, refetch } = useQuery({
     ...articleQueries.list({ category, page, q, limit: PAGE_SIZE }),
