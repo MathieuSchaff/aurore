@@ -2,6 +2,7 @@ import type { BlogCategory } from '@aurore/shared'
 
 import { useState } from 'react'
 
+import { isApiErrorCode } from '@/lib/helpers/apiError'
 import { useCreateArticle, useUpdateArticle } from '@/lib/queries/articles'
 import { ARTICLE_FORM_ERRORS } from '../page/ArticleEditorForm/ArticleEditorForm.constants'
 
@@ -74,10 +75,12 @@ export function useArticleFormSubmit(args: Args) {
       content: args.form.content,
     }
 
-    const onError = (verb: string) => (err: unknown) => {
-      const msg = (err as Error).message.toLowerCase()
-      setErrors(msg.includes('slug') ? { slug: 'Ce slug est déjà utilisé' } : { global: verb })
-    }
+    const onError = (fallbackMessage: string) => (err: unknown) =>
+      setErrors(
+        isApiErrorCode(err, 'slug_already_exists')
+          ? { slug: 'Ce slug est déjà utilisé' }
+          : { global: fallbackMessage }
+      )
 
     if (args.mode === 'create') {
       createArticle.mutate(data, {

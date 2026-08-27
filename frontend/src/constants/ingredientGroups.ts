@@ -16,6 +16,7 @@ type IngredientCategory =
   | DentalIngredientCategory
   | SupplementCategory
 
+// Key order is the reading order: actives first, base ingredients last
 const INGREDIENT_GROUP_LABELS: Record<IngredientCategory, string> = {
   actif: 'actifs',
   'acide-amine': 'acides aminés',
@@ -47,44 +48,12 @@ const INGREDIENT_GROUP_LABELS: Record<IngredientCategory, string> = {
   excipient: 'excipients de formulation',
 }
 
-// Reading order is intentional: actives first, base ingredients last. The Record above cannot
-// prove this list is complete (a category with a phrase but no entry here still vanishes), so
-// completeness is asserted in the test instead.
-const INGREDIENT_GROUP_ORDER = [
-  'actif',
-  'acide-amine',
-  'vitamine',
-  'mineral',
-  'acide-gras',
-  'antioxydant',
-  'carotenoide',
-  'polyphenol',
-  'peptide',
-  'collagene',
-  'enzyme',
-  'plante',
-  'adaptogene',
-  'champignon',
-  'probiotique',
-  'prebiotique',
-  'neuroactif',
-  'longevite',
-  'humectant',
-  'emollient',
-  'filtre-uv',
-  'tensioactif',
-  'conditionneur',
-  'filmogene',
-  'abrasif',
-  'aromatisant',
-  'autre',
-  'excipient',
-] as const satisfies readonly IngredientCategory[]
-
 export function summarizeIngredientGroups(
   categories: Iterable<string | null | undefined>
 ): string[] {
   const present = new Set<string>()
   for (const c of categories) if (c) present.add(c)
-  return INGREDIENT_GROUP_ORDER.filter((c) => present.has(c)).map((c) => INGREDIENT_GROUP_LABELS[c])
+  return Object.entries(INGREDIENT_GROUP_LABELS)
+    .filter(([category]) => present.has(category))
+    .map(([, label]) => label)
 }

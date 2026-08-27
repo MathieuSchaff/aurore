@@ -3,18 +3,23 @@ import { createFileRoute, getRouteApi } from '@tanstack/react-router'
 
 import { ThreadList } from '@/features/discussions/components/ThreadList'
 import { IngredientDiscussionSkeleton } from '@/features/ingredients/components/skeletons/IngredientLayoutSkeleton'
+import { useSession } from '@/lib/auth/session'
 import { discussionQueries } from '@/lib/queries/discussions'
-import { useAuthStore } from '@/store/auth'
 
 const route = getRouteApi('/ingredients/$slug/discussions/')
 
 function IngredientDiscussionIndex() {
   const { slug } = route.useParams()
   const { data: threads } = useSuspenseQuery(discussionQueries.threads('ingredient', slug))
-  const user = useAuthStore((s) => s.user)
+  const session = useSession()
 
   return (
-    <ThreadList threads={threads} entityType="ingredient" slug={slug} isLoggedIn={user !== null} />
+    <ThreadList
+      threads={threads}
+      entityType="ingredient"
+      slug={slug}
+      isLoggedIn={session.status === 'authenticated'}
+    />
   )
 }
 

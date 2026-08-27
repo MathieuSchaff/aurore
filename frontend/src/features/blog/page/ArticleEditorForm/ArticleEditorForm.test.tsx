@@ -1,6 +1,7 @@
-import { fireEvent, screen } from '@testing-library/react'
+import { act, fireEvent, screen } from '@testing-library/react'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
+import { ApiError } from '@/lib/helpers/apiError'
 import { useCreateArticle, useUpdateArticle } from '@/lib/queries/articles'
 import { renderWithProviders } from '@/test/utils'
 import { ArticleEditorForm } from './ArticleEditorForm'
@@ -96,6 +97,23 @@ describe('ArticleEditorForm', () => {
     expect(screen.getByText(ARTICLE_FORM_ERRORS.title)).toBeInTheDocument()
     expect(screen.getByText(ARTICLE_FORM_ERRORS.category)).toBeInTheDocument()
     expect(screen.getByText(ARTICLE_FORM_ERRORS.content)).toBeInTheDocument()
+  })
+
+  it('maps a slug conflict to the slug field', () => {
+    let onError: ((error: Error) => void) | undefined
+    mockCreateMutate.mockImplementation((_data, options) => {
+      onError = options?.onError
+    })
+    renderForm('create')
+
+    fireEvent.change(screen.getByLabelText(/^Titre/), { target: { value: 'Nouveau Guide' } })
+    fireEvent.change(screen.getByLabelText(/^Catégorie/), { target: { value: 'science' } })
+    fireEvent.change(screen.getByLabelText(/Contenu/), { target: { value: '# Body' } })
+    fireEvent.click(screen.getByRole('button', { name: "Créer l'article" }))
+
+    act(() => onError?.(new ApiError('slug_already_exists', 409)))
+
+    expect(screen.getByText('Ce slug est déjà utilisé')).toBeInTheDocument()
   })
 
   it('submits the edit form with the article slug after a field is modified', () => {

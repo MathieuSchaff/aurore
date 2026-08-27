@@ -10,8 +10,8 @@ import { Badge } from '@/component/DataDisplay/Badge/Badge'
 import { Time } from '@/component/DataDisplay/Time/Time'
 import { PageHeader } from '@/component/Layout/PageHeader/PageHeader'
 import { RichText } from '@/component/Typography/RichText/RichText'
+import { useSession } from '@/lib/auth/session'
 import { articleQueries, useDeleteArticle } from '@/lib/queries/articles'
-import { useAuthStore } from '@/store/auth'
 import './BlogArticlePage.css'
 
 const MarkdownContent = lazy(() => import('@/component/Typography/RichText/MarkdownContent'))
@@ -22,7 +22,8 @@ type BlogArticlePageProps = {
 
 export function BlogArticlePage({ slug }: BlogArticlePageProps) {
   const { data: article } = useSuspenseQuery(articleQueries.bySlug(slug))
-  const isAdmin = useAuthStore((s) => s.role === 'admin')
+  const session = useSession()
+  const isAdmin = session.status === 'authenticated' && session.user.role === 'admin'
   const navigate = useNavigate()
   const deleteArticle = useDeleteArticle()
 

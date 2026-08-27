@@ -5,6 +5,7 @@ export const SUGGEST_LABELS = {
   fieldLabel: 'Champ à corriger',
   valueLabel: 'Valeur proposée',
   valueRequired: 'Proposez une valeur pour aider la relecture.',
+  failureMessage: 'Impossible d’envoyer la proposition. Réessayez.',
   submit: 'Envoyer',
   cancel: 'Annuler',
   successMessage:

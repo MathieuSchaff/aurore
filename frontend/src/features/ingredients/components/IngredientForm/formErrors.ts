@@ -1,3 +1,5 @@
+import type { IngredientErrorCode } from '@aurore/shared'
+
 import type { FormErrorMap } from '@/lib/helpers/apiError'
 
 // `ingredient_update_conflict` (409 optimistic lock) is intentionally NOT
@@ -5,7 +7,7 @@ import type { FormErrorMap } from '@/lib/helpers/apiError'
 // and runs its own draft-recovery flow.
 export type IngredientFormField = 'name' | 'slug'
 
-export const INGREDIENT_FORM_ERRORS: FormErrorMap<IngredientFormField> = {
+export const INGREDIENT_FORM_ERRORS = {
   slug_already_exists: {
     field: 'slug',
     message: 'Ce slug est déjà utilisé par un autre ingrédient.',
@@ -17,4 +19,4 @@ export const INGREDIENT_FORM_ERRORS: FormErrorMap<IngredientFormField> = {
   unauthorized_access: {
     message: "Tu n'as pas le droit de modifier cet ingrédient.",
   },
-}
+} satisfies FormErrorMap<IngredientFormField, IngredientErrorCode>

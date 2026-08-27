@@ -1,21 +1,23 @@
 import type { BlogCategory } from '@aurore/shared'
 
-import { createFileRoute, redirect, useNavigate, useRouter } from '@tanstack/react-router'
+import { createFileRoute, useNavigate, useRouter } from '@tanstack/react-router'
 
 import { BackButton } from '@/component/Button/BackButton'
 import { PageHeader } from '@/component/Layout/PageHeader/PageHeader'
 import { DetailPageLayout } from '@/component/Layout/PageLayout/DetailPageLayout'
 import { PageTopActions } from '@/component/Layout/PageLayout/PageTopActions'
 import { ArticleEditorForm } from '@/features/blog/page/ArticleEditorForm/ArticleEditorForm'
-import { awaitBootRefresh } from '@/lib/auth/awaitBootRefresh'
-import { useAuthStore } from '@/store/auth'
+import { requireRole } from '@/lib/auth/requireSession'
 
 export const Route = createFileRoute('/blog/admin/new')({
-  // Await the boot probe so a cold-load hard nav reads the resolved role, not the default 'user'.
-  beforeLoad: async ({ context }) => {
+  beforeLoad: async ({ context, location }) => {
     // react-doctor-disable-next-line react-doctor/async-defer-await -- guard reads role resolved by this await
-    await awaitBootRefresh(context.queryClient)
-    if (useAuthStore.getState().role !== 'admin') throw redirect({ to: '/blog' })
+    await requireRole({
+      queryClient: context.queryClient,
+      href: location.href,
+      allowedRoles: ['admin'],
+      fallbackFor: { user: '/blog', contributor: '/blog' },
+    })
   },
   component: NewArticleRoute,
 })

@@ -12,8 +12,8 @@ import { SectionHeader } from '@/component/Typography/SectionHeader/SectionHeade
 import { ReportContentButton } from '@/features/discussions/components/ReportContentButton'
 import { SuggestEditButton } from '@/features/discussions/components/SuggestEditButton'
 import { IngredientMarkButtons } from '@/features/profile/components/IngredientMarkButtons/IngredientMarkButtons'
+import { useSession } from '@/lib/auth/session'
 import { ingredientQueries } from '@/lib/queries/ingredients'
-import { useAuthStore } from '@/store/auth'
 import { ingredientLabels } from '../../constants'
 import './IngredientInfoTab.css'
 
@@ -30,7 +30,8 @@ export function IngredientInfoTab() {
   const { data: ingredient } = useSuspenseQuery(ingredientQueries.bySlug(slug))
   const { data: products } = useQuery(ingredientQueries.products(slug))
   const { data: tags } = useQuery(ingredientQueries.tags(ingredient.id))
-  const user = useAuthStore((s) => s.user)
+  const session = useSession()
+  const hasViewer = session.status === 'authenticated'
 
   const beneficialTags = useMemo(
     () => tags?.filter((t) => t.relevance === 'primary' || t.relevance === 'secondary') ?? [],
@@ -145,7 +146,7 @@ export function IngredientInfoTab() {
       {/* After the reading, never before it: one understands the substance, then
           decides. Mounted here rather than in the layout so it stops
           hovering over the Discussions tab, which it has nothing to do with. */}
-      {user && ingredient.canonicalKey && (
+      {hasViewer && ingredient.canonicalKey && (
         <section
           className="ingredient-section ingredient-mark-block"
           aria-labelledby="ingredient-mark-title"
@@ -169,7 +170,7 @@ export function IngredientInfoTab() {
         Fiche mise à jour le <Time iso={ingredient.updatedAt} style="long" />
       </p>
 
-      {user && (
+      {hasViewer && (
         <div className="ingredient-section">
           <ReportContentButton targetType="ingredient" targetId={ingredient.id} />
           <SuggestEditButton targetType="ingredient" targetId={ingredient.id} />
