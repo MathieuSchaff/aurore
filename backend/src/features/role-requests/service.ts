@@ -1,12 +1,14 @@
-import type {
-  CancelRoleRequestResult,
-  ListRoleRequestsQuery,
-  ListRoleRequestsResponse,
-  ReviewRoleRequestInput,
-  ReviewRoleRequestResult,
-  RoleRequestView,
-  SubmitRoleRequestInput,
-  SubmitRoleRequestResult,
+import {
+  type CancelRoleRequestResult,
+  err,
+  type ListRoleRequestsQuery,
+  type ListRoleRequestsResponse,
+  ok,
+  type ReviewRoleRequestInput,
+  type ReviewRoleRequestResult,
+  type RoleRequestView,
+  type SubmitRoleRequestInput,
+  type SubmitRoleRequestResult,
 } from '@aurore/shared'
 
 import { and, desc, eq } from 'drizzle-orm'
@@ -25,9 +27,9 @@ export async function submitRoleRequest(
     .where(eq(usersSafe.id, userId))
     .limit(1)
 
-  if (!requester) return { success: false, error: 'not_found' }
-  // Only plain users request elevation; contributors/admins already hold catalog rights.
-  if (requester.role !== 'user') return { success: false, error: 'already_elevated' }
+  if (!requester) return err('not_found')
+  // Only plain users request elevation because elevated roles already hold catalog rights
+  if (requester.role !== 'user') return err('already_elevated')
 
   const [pending] = await db
     .select({ id: roleRequests.id })
@@ -35,19 +37,18 @@ export async function submitRoleRequest(
     .where(and(eq(roleRequests.userId, userId), eq(roleRequests.status, 'pending')))
     .limit(1)
 
-  // The partial unique index is the race-proof backstop; this check yields the clean 409.
-  if (pending) return { success: false, error: 'already_pending' }
+  // The partial unique index closes the race while this check yields the domain error
+  if (pending) return err('already_pending')
 
-  // onConflictDoNothing covers the partial unique index: a concurrent submit that slips
-  // past the check above no-ops here (empty returning) instead of throwing a raw 23505.
+  // The conflict handler turns a concurrent submit into the same domain error
   const [row] = await db
     .insert(roleRequests)
     .values({ userId, motivation: body.motivation, motivationLink: body.motivationLink ?? null })
     .onConflictDoNothing()
     .returning()
 
-  if (!row) return { success: false, error: 'already_pending' }
-  return { success: true, data: row }
+  if (!row) return err('already_pending')
+  return ok(row)
 }
 
 export async function getMyRoleRequest(
@@ -58,7 +59,7 @@ export async function getMyRoleRequest(
     .select()
     .from(roleRequests)
     .where(eq(roleRequests.userId, userId))
-    // uuidv7 id is time-ordered, so it breaks createdAt ties losslessly (deterministic latest).
+    // UUIDv7 ordering breaks createdAt ties without discarding a request
     .orderBy(desc(roleRequests.createdAt), desc(roleRequests.id))
     .limit(1)
 
@@ -69,18 +70,17 @@ export async function cancelRoleRequest(
   db: DatabaseTransaction,
   { userId, id }: { userId: string; id: string }
 ): Promise<CancelRoleRequestResult> {
-  // RLS tenant_isolation already restricts to own rows; the userId filter is defence in depth.
+  // The userId filter keeps ownership explicit in addition to tenant isolation
   const [existing] = await db
     .select()
     .from(roleRequests)
     .where(and(eq(roleRequests.id, id), eq(roleRequests.userId, userId)))
     .limit(1)
 
-  if (!existing) return { success: false, error: 'not_found' }
-  if (existing.status !== 'pending') return { success: false, error: 'not_pending' }
+  if (!existing) return err('not_found')
+  if (existing.status !== 'pending') return err('not_pending')
 
-  // userId + status in the WHERE make the transition atomic: a concurrent admin review
-  // that resolves the row first leaves 0 rows here, giving not_pending, not a stale overwrite.
+  // Filtering by owner and status prevents a concurrent review from being overwritten
   const [row] = await db
     .update(roleRequests)
     .set({ status: 'cancelled' })
@@ -93,8 +93,8 @@ export async function cancelRoleRequest(
     )
     .returning()
 
-  if (!row) return { success: false, error: 'not_pending' }
-  return { success: true, data: row }
+  if (!row) return err('not_pending')
+  return ok(row)
 }
 
 export async function listRoleRequests(
@@ -116,8 +116,8 @@ export async function reviewRoleRequest(
 ): Promise<ReviewRoleRequestResult> {
   const [existing] = await db.select().from(roleRequests).where(eq(roleRequests.id, id)).limit(1)
 
-  if (!existing) return { success: false, error: 'not_found' }
-  if (existing.status !== 'pending') return { success: false, error: 'not_pending' }
+  if (!existing) return err('not_found')
+  if (existing.status !== 'pending') return err('not_pending')
 
   const reviewedAt = nowISO()
 
@@ -128,8 +128,8 @@ export async function reviewRoleRequest(
       .where(and(eq(roleRequests.id, id), eq(roleRequests.status, 'pending')))
       .returning()
 
-    if (!row) return { success: false, error: 'not_pending' }
-    return { success: true, data: row }
+    if (!row) return err('not_pending')
+    return ok(row)
   }
 
   // Approve resolves the request and promotes the requester in the same tx: withRlsContext
@@ -143,12 +143,12 @@ export async function reviewRoleRequest(
     .where(and(eq(roleRequests.id, id), eq(roleRequests.status, 'pending')))
     .returning()
 
-  if (!row) return { success: false, error: 'not_pending' }
+  if (!row) return err('not_pending')
 
   await db
     .update(users)
     .set({ role: 'contributor' })
     .where(and(eq(users.id, existing.userId), eq(users.role, 'user')))
 
-  return { success: true, data: row }
+  return ok(row)
 }
