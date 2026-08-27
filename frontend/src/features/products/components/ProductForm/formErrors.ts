@@ -1,9 +1,11 @@
+import type { ProductErrorCode } from '@aurore/shared'
+
 import type { FormErrorMap } from '@/lib/helpers/apiError'
 
 // Codes already surfaced via toast (creation_failed, update_failed) stay unmapped here.
 export type ProductFormField = 'name' | 'brand' | 'kind' | 'tags'
 
-export const PRODUCT_FORM_ERRORS: FormErrorMap<ProductFormField> = {
+export const PRODUCT_FORM_ERRORS = {
   product_already_exists: {
     field: 'name',
     message: 'Un produit avec ce nom et cette marque existe déjà.',
@@ -15,4 +17,4 @@ export const PRODUCT_FORM_ERRORS: FormErrorMap<ProductFormField> = {
   unauthorized_access: {
     message: "Tu n'as pas le droit de modifier ce produit.",
   },
-}
+} satisfies FormErrorMap<ProductFormField, ProductErrorCode>

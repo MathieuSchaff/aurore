@@ -1,14 +1,14 @@
-import type { ProductDetail, UserDermoProfile, UserPublic } from '@aurore/shared'
+import type { ProductDetail, ProductDetailPage, UserDermoProfile, UserPublic } from '@aurore/shared'
 
 import { fireEvent, screen } from '@testing-library/react'
 import { HttpResponse, http } from 'msw'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
 import { useCopyToClipboard } from '@/hooks/useCopyToClipboard'
-import { authQueries } from '@/lib/queries/auth'
 import { productQueries } from '@/lib/queries/products'
-import { profileQueries } from '@/lib/queries/profile'
 import { useAuthStore } from '@/store/auth'
+import { anonymousTestSession, restoringTestSession } from '@/test/authSession'
+import { PRODUCT_DETAILS } from '@/test/msw/fixtures/products'
 import { server } from '@/test/msw/server'
 import { createTestQueryClient, renderWithProviders } from '@/test/utils'
 import { ProductInfoTab } from '../ProductInfoTab'
@@ -38,67 +38,122 @@ vi.mock('@/features/discussions/components/SuggestEditButton', () => ({
   SuggestEditButton: () => null,
 }))
 
-function setProduct(overrides: Record<string, unknown> = {}) {
+let dermoProfile: UserDermoProfile | null = null
+
+const BASE_PRODUCT = PRODUCT_DETAILS[0]
+if (!BASE_PRODUCT) throw new Error('product fixture missing')
+
+function makeIngredient(
+  overrides: Partial<ProductDetail['ingredients'][number]>
+): ProductDetail['ingredients'][number] {
+  return {
+    productId: BASE_PRODUCT.id,
+    ingredientId: '44444444-4444-4444-8444-444444444444',
+    concentrationValue: null,
+    concentrationUnit: null,
+    concentrationPer: null,
+    notes: null,
+    ingredientName: 'Ingredient',
+    ingredientSlug: 'ingredient',
+    ingredientCategory: null,
+    ingredientDescription: '',
+    ingredientCanonicalKey: null,
+    ...overrides,
+  }
+}
+
+function makeTag(overrides: Partial<ProductDetail['tags'][number]>): ProductDetail['tags'][number] {
+  return {
+    productTagId: '55555555-5555-4555-8555-555555555555',
+    productId: BASE_PRODUCT.id,
+    relevance: 'primary',
+    tagName: 'Tag',
+    tagSlug: 'tag',
+    tagCategory: 'concern',
+    ...overrides,
+  }
+}
+
+function setProduct(overrides: Partial<ProductDetail> = {}) {
+  const product = {
+    ...BASE_PRODUCT,
+    slug: 'product-x',
+    name: 'Product X',
+    kind: 'moisturizer',
+    description: 'A nice description',
+    inci: null,
+    notes: null,
+    url: null,
+    ingredients: [],
+    tags: [],
+    ...overrides,
+  } satisfies ProductDetail
+  const page = {
+    product,
+    userStatus: null,
+    dermoProfile,
+    assessment: null,
+    preferenceTargets: { ingredients: [], tags: [] },
+  } satisfies ProductDetailPage
   server.use(
-    http.get('*/api/products/:slug', () =>
+    http.get('*/api/products/:slug/page', () =>
       HttpResponse.json({
         success: true,
-        data: {
-          id: 'p1',
-          slug: 'product-x',
-          name: 'Product X',
-          kind: 'moisturizer',
-          description: 'A nice description',
-          inci: null,
-          notes: null,
-          url: null,
-          ingredients: [],
-          tags: [],
-          ...overrides,
-        },
+        data: page,
       })
     )
   )
 }
 
-function setDermo(profile: { skinTypes?: string[]; skinConcerns?: string[] } | null) {
-  server.use(
-    http.get('*/api/profile/dermo', () => HttpResponse.json({ success: true, data: profile }))
-  )
+function setDermo(profile: Partial<Pick<UserDermoProfile, 'skinTypes' | 'skinConcerns'>> | null) {
+  dermoProfile = profile
+    ? {
+        userId: 'u1',
+        skinTypes: profile.skinTypes ?? [],
+        fitzpatrickType: null,
+        skinConcerns: profile.skinConcerns ?? [],
+        privateNotes: null,
+        createdAt: '2026-08-16T09:00:00.000Z',
+        updatedAt: '2026-08-16T09:00:00.000Z',
+      }
+    : null
 }
 
 // The dermo query is gated on a signed-in user; the store drives that gate.
 function signIn() {
-  useAuthStore.setState({ user: { id: 'u1' } as UserPublic })
+  const user = {
+    id: 'u1',
+    email: 'user@example.com',
+    createdAt: '2026-08-21T06:00:00.000Z',
+    emailVerified: true,
+    role: 'user',
+    isDemo: false,
+  } satisfies UserPublic
+  useAuthStore.setState({ session: restoringTestSession(user) })
 }
 
 describe('ProductInfoTab', () => {
-  const copy = vi.fn()
+  const copy = vi.fn<(text: string) => Promise<boolean>>(async () => true)
 
   beforeEach(() => {
     vi.clearAllMocks()
-    useAuthStore.setState({ user: null })
+    useAuthStore.setState({ session: anonymousTestSession() })
     setProduct()
     setDermo(null)
-    vi.mocked(useCopyToClipboard).mockReturnValue({
-      copied: false,
-      copy,
-    } as unknown as ReturnType<typeof useCopyToClipboard>)
+    vi.mocked(useCopyToClipboard).mockReturnValue({ copied: false, copy })
   })
 
   it('renders description and ingredient list with concentration formatting', async () => {
     setProduct({
       description: 'Glow serum.',
       ingredients: [
-        {
+        makeIngredient({
           ingredientSlug: 'niacinamide',
           ingredientName: 'Niacinamide',
           ingredientCategory: 'actif',
           concentrationValue: '10',
           concentrationUnit: '%',
-          concentrationPer: null,
-          notes: null,
-        },
+        }),
       ],
     })
     renderWithProviders(<ProductInfoTab />)
@@ -112,12 +167,16 @@ describe('ProductInfoTab', () => {
     setProduct({
       kind: 'moisturizer',
       ingredients: [
-        {
+        makeIngredient({
           ingredientSlug: 'niacinamide',
           ingredientName: 'Niacinamide',
           ingredientCategory: 'actif',
-        },
-        { ingredientSlug: 'glycerin', ingredientName: 'Glycerin', ingredientCategory: 'humectant' },
+        }),
+        makeIngredient({
+          ingredientSlug: 'glycerin',
+          ingredientName: 'Glycerin',
+          ingredientCategory: 'humectant',
+        }),
       ],
     })
     renderWithProviders(<ProductInfoTab />)
@@ -138,20 +197,16 @@ describe('ProductInfoTab', () => {
   it('copies the ingredient list as comma-joined string with concentrations', async () => {
     setProduct({
       ingredients: [
-        {
+        makeIngredient({
           ingredientSlug: 'niacinamide',
           ingredientName: 'Niacinamide',
           concentrationValue: '10',
           concentrationUnit: '%',
-          concentrationPer: null,
-        },
-        {
+        }),
+        makeIngredient({
           ingredientSlug: 'glycerin',
           ingredientName: 'Glycerin',
-          concentrationValue: null,
-          concentrationUnit: null,
-          concentrationPer: null,
-        },
+        }),
       ],
     })
     renderWithProviders(<ProductInfoTab />)
@@ -166,8 +221,8 @@ describe('ProductInfoTab', () => {
     setDermo({ skinTypes: ['peau-sensible'], skinConcerns: [] })
     setProduct({
       tags: [
-        { tagSlug: 'peau-sensible', relevance: 'avoid' },
-        { tagSlug: 'anti-age', relevance: 'primary' },
+        makeTag({ tagSlug: 'peau-sensible', relevance: 'avoid' }),
+        makeTag({ tagSlug: 'anti-age', relevance: 'primary' }),
       ],
     })
     renderWithProviders(<ProductInfoTab />)
@@ -178,7 +233,7 @@ describe('ProductInfoTab', () => {
     expect(screen.getByText(/Sensible/)).toBeInTheDocument()
   })
 
-  it('warns from the seeded SSR identity before the auth store catches up', async () => {
+  it('warns from a seeded identity while its Bearer is restoring', async () => {
     const queryClient = createTestQueryClient()
     const user: UserPublic = {
       id: '019c0000-0000-7000-8000-000000000001',
@@ -188,12 +243,7 @@ describe('ProductInfoTab', () => {
       role: 'user',
       isDemo: false,
     }
-    queryClient.setQueryData(authQueries.session().queryKey, {
-      authenticated: true,
-      userId: user.id,
-      user,
-      role: user.role,
-    })
+    useAuthStore.setState({ session: restoringTestSession(user) })
     const product: ProductDetail = {
       id: '019c0000-0000-7000-8000-000000000002',
       slug: 'product-x',
@@ -230,7 +280,6 @@ describe('ProductInfoTab', () => {
         },
       ],
     }
-    queryClient.setQueryData(productQueries.bySlug('product-x').queryKey, product)
     const dermoProfile: UserDermoProfile = {
       userId: user.id,
       skinTypes: ['peau-sensible'],
@@ -240,7 +289,13 @@ describe('ProductInfoTab', () => {
       createdAt: '2026-08-16T09:00:00.000Z',
       updatedAt: '2026-08-16T09:00:00.000Z',
     }
-    queryClient.setQueryData<UserDermoProfile | null>(profileQueries.dermo().queryKey, dermoProfile)
+    queryClient.setQueryData(productQueries.detailPage('product-x', user.id).queryKey, {
+      product,
+      userStatus: null,
+      dermoProfile,
+      assessment: null,
+      preferenceTargets: { ingredients: [], tags: [] },
+    })
 
     renderWithProviders(<ProductInfoTab />, { queryClient })
 
@@ -257,8 +312,8 @@ describe('ProductInfoTab', () => {
     setDermo({ skinTypes: [], skinConcerns: ['rosacee', 'eczema'] })
     setProduct({
       tags: [
-        { tagSlug: 'rougeurs-vasculaires', relevance: 'avoid' },
-        { tagSlug: 'eczema-atopie', relevance: 'avoid' },
+        makeTag({ tagSlug: 'rougeurs-vasculaires', relevance: 'avoid' }),
+        makeTag({ tagSlug: 'eczema-atopie', relevance: 'avoid' }),
       ],
     })
     renderWithProviders(<ProductInfoTab />)
@@ -274,7 +329,7 @@ describe('ProductInfoTab', () => {
     signIn()
     setDermo({ skinTypes: [], skinConcerns: ['deshydratation'] })
     setProduct({
-      tags: [{ tagSlug: 'deshydratation', relevance: 'avoid' }],
+      tags: [makeTag({ tagSlug: 'deshydratation', relevance: 'avoid' })],
     })
     renderWithProviders(<ProductInfoTab />)
 
@@ -288,7 +343,7 @@ describe('ProductInfoTab', () => {
     signIn()
     setDermo({ skinTypes: ['peau-grasse'], skinConcerns: [] })
     setProduct({
-      tags: [{ tagSlug: 'peau-sensible', relevance: 'avoid' }],
+      tags: [makeTag({ tagSlug: 'peau-sensible', relevance: 'avoid' })],
     })
     renderWithProviders(<ProductInfoTab />)
 

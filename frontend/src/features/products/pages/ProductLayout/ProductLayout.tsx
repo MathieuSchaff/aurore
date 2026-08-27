@@ -1,6 +1,6 @@
 import { getProductKindLabel } from '@aurore/shared'
 
-import { useQuery, useSuspenseQuery } from '@tanstack/react-query'
+import { useSuspenseQuery } from '@tanstack/react-query'
 import {
   getRouteApi,
   Link,
@@ -20,10 +20,9 @@ import { type TabOption, Tabs } from '@/component/Tabs/Tabs'
 import { ReportContentButton } from '@/features/discussions/components/ReportContentButton'
 import { SuggestEditButton } from '@/features/discussions/components/SuggestEditButton'
 import { ProductCollectionAction } from '@/features/products/components/ProductCollectionAction/ProductCollectionAction'
-import { authQueries } from '@/lib/queries/auth'
+import { viewerId as getSessionViewerId, useSession } from '@/lib/auth/session'
 import { productQueries } from '@/lib/queries/products'
 import { sanitizeUrl } from '@/lib/url'
-import { useAuthStore } from '@/store/auth'
 import '@/features/products/styles/kinds.css'
 import '@/features/products/pages/ProductInfoTab/ProductInfoTab.css'
 import './ProductLayout.css'
@@ -52,10 +51,11 @@ function getDomain(url: string): string | null {
 
 export function ProductLayout() {
   const { slug } = route.useParams()
-  const { data: product } = useSuspenseQuery(productQueries.bySlug(slug))
-  const storeUser = useAuthStore((s) => s.user)
-  const { data: bootSession } = useQuery({ ...authQueries.session(), enabled: false })
-  const hasUser = !!storeUser || bootSession?.authenticated === true
+  const session = useSession()
+  const viewerId = getSessionViewerId(session)
+  const { data: detailPage } = useSuspenseQuery(productQueries.detailPage(slug, viewerId))
+  const product = detailPage.product
+  const hasUser = viewerId !== null
   const navigate = useNavigate()
   const router = useRouter()
   const canGoBack = useCanGoBack()
@@ -151,10 +151,12 @@ export function ProductLayout() {
               <ProductCollectionAction
                 product={{
                   id: product.id,
+                  slug: product.slug,
                   name: product.name,
                   brand: product.brand,
                   priceCents: product.priceCents,
                 }}
+                userStatus={detailPage.userStatus}
               />
               {hasUser && (
                 <ButtonLink

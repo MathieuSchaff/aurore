@@ -1,8 +1,6 @@
-import { useQuery } from '@tanstack/react-query'
-
 import { SectionHeader } from '@/component/Typography/SectionHeader/SectionHeader'
 import { CONC_METHOD_NOTE, CONC_UNESTIMABLE_PHRASE } from '@/constants/derm'
-import { productQueries } from '@/lib/queries/products'
+import type { ProductDermoAssessment } from '@/lib/queries/products'
 import {
   type ConcentrationRead,
   compareConcentrationReads,
@@ -12,13 +10,11 @@ import {
 import './FormulaConcentrations.css'
 
 interface FormulaConcentrationsProps {
-  slug: string
-  userKey: string | null
+  assessment: ProductDermoAssessment | null
 }
 
-export function FormulaConcentrations({ slug, userKey }: FormulaConcentrationsProps) {
-  const { data: assessment, isError } = useQuery(productQueries.dermoScore(slug, userKey))
-  if (isError || !assessment) return null
+export function FormulaConcentrations({ assessment }: FormulaConcentrationsProps) {
+  if (!assessment) return null
 
   // Bundle formulas can repeat an INCI. Keep the strongest estimate.
   const byInci = new Map<string, { name: string; read: ConcentrationRead }>()

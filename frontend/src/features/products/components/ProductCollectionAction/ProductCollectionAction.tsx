@@ -1,6 +1,6 @@
 import type { UserProductStatus } from '@aurore/shared'
 
-import { useQuery, useQueryClient } from '@tanstack/react-query'
+import { useQueryClient } from '@tanstack/react-query'
 import { useNavigate, useRouterState } from '@tanstack/react-router'
 import { Bookmark, Check, ChevronDown } from 'lucide-react'
 import { useState } from 'react'
@@ -9,52 +9,44 @@ import toast from 'react-hot-toast'
 import { Button } from '@/component/Button/Button'
 import { statusLabels } from '@/features/collection/constants'
 import { awaitBootRefresh } from '@/lib/auth/awaitBootRefresh'
-import { useBootPending } from '@/lib/hooks/useBootPending'
+import { readClientSession, useSession, viewerId } from '@/lib/auth/session'
+import { isApiError } from '@/lib/helpers/apiError'
 import { captureFrontendError } from '@/lib/observability/faro'
-import { authQueries } from '@/lib/queries/auth'
-import { productQueries } from '@/lib/queries/products'
+import { type ProductDetailPageData, productQueries } from '@/lib/queries/products'
 import { useCreateUserProduct } from '@/lib/queries/user-products'
-import { useAuthStore } from '@/store/auth'
 import { AddToCollectionModal } from '../AddToCollectionModal/AddToCollectionModal'
 import './ProductCollectionAction.css'
 
 interface ProductCollectionActionProps {
   product: {
     id: string
+    slug: string
     name: string
     brand: string
     priceCents?: number | null
   }
+  userStatus: UserProductStatus | null
 }
 
-export function ProductCollectionAction({ product }: ProductCollectionActionProps) {
-  const storeUser = useAuthStore((state) => state.user)
-  const accessToken = useAuthStore((state) => state.accessToken)
-  const { data: bootSession } = useQuery({ ...authQueries.session(), enabled: false })
-  const bootUserId = bootSession?.authenticated ? (bootSession.userId ?? null) : null
-  const userId = storeUser?.id ?? bootUserId
-  const bootRefreshPending = useBootPending()
+export function ProductCollectionAction({ product, userStatus }: ProductCollectionActionProps) {
+  const session = useSession()
+  const currentViewerId = viewerId(session)
   const [showDetails, setShowDetails] = useState(false)
   const navigate = useNavigate()
   const currentHref = useRouterState({ select: (state) => state.location.href })
   const queryClient = useQueryClient()
   const addUserProduct = useCreateUserProduct()
 
-  const shelfStatusQuery = productQueries.shelfStatus(userId, [product.id])
-  const {
-    data: statusByProductId,
-    isPending: isStatusPending,
-    isError: isStatusError,
-  } = useQuery(shelfStatusQuery)
-  const currentStatus = userId ? (statusByProductId?.get(product.id) ?? null) : null
-  const isCredentialPending = !!userId && !accessToken
+  const currentStatus = currentViewerId ? userStatus : null
+  const isCredentialPending =
+    session.status === 'authenticated' && session.credential === 'restoring'
 
   const redirectToLogin = () => {
     navigate({ to: '/auth/login', search: { redirect: currentHref } })
   }
 
   const openDetails = () => {
-    if (!userId) {
+    if (session.status !== 'authenticated') {
       redirectToLogin()
       return
     }
@@ -62,37 +54,40 @@ export function ProductCollectionAction({ product }: ProductCollectionActionProp
   }
 
   const saveForLater = async () => {
-    if (!userId) {
+    if (session.status !== 'authenticated') {
       redirectToLogin()
       return
     }
+    const actionViewerId = session.user.id
 
     try {
-      if (!accessToken) {
+      if (session.credential === 'restoring') {
         await awaitBootRefresh(queryClient)
-        if (!useAuthStore.getState().accessToken) {
+        const refreshedSession = readClientSession()
+        if (
+          refreshedSession.status !== 'authenticated' ||
+          refreshedSession.credential !== 'present'
+        ) {
           redirectToLogin()
           return
         }
       }
       await addUserProduct.mutateAsync({ productId: product.id, status: 'watched' })
-      queryClient.setQueryData<Map<string, UserProductStatus>>(
-        shelfStatusQuery.queryKey,
-        (previous) => {
-          const next = new Map(previous)
-          next.set(product.id, 'watched')
-          return next
-        }
+      queryClient.setQueryData<ProductDetailPageData>(
+        productQueries.detailPage(product.slug, actionViewerId).queryKey,
+        (previous) => (previous ? { ...previous, userStatus: 'watched' } : previous)
       )
       toast.success('Sauvegardé dans « Garde un œil »')
     } catch (error) {
-      captureFrontendError(error, { flow: 'product-detail-quick-save', productId: product.id })
+      if (!isApiError(error)) {
+        captureFrontendError(error, { flow: 'product-detail-quick-save', productId: product.id })
+      }
       toast.error("Impossible de sauvegarder ce produit pour l'instant.")
     }
   }
 
   const statusConfig = currentStatus ? statusLabels[currentStatus] : null
-  const isResolvingStatus = (!bootUserId && bootRefreshPending) || (!!userId && isStatusPending)
+  const isResolvingStatus = session.status === 'pending'
 
   return (
     <>
@@ -111,11 +106,6 @@ export function ProductCollectionAction({ product }: ProductCollectionActionProp
           <Check size={16} aria-hidden="true" />
           <span>{statusConfig.label}</span>
           <ChevronDown size={14} aria-hidden="true" />
-        </Button>
-      ) : userId && isStatusError ? (
-        <Button variant="accent" onClick={openDetails} disabled={isCredentialPending}>
-          <Bookmark size={16} aria-hidden="true" />
-          Gérer ma collection
         </Button>
       ) : (
         <div className="product-collection-action">
