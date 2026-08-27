@@ -5,9 +5,9 @@ import { PRODUCT_KINDS } from './kinds'
 
 // Query schema for GET /products. Discriminated on `category`: each domain
 // declares only its own filter keys, so skin_type cannot leak into a haircare
-// request. Per-domain keys mirror shared/src/products/{domain}/tag-filters.ts.
+// request. Keys for each domain mirror shared/src/products/{domain}/tag-filters.ts
 
-// 'relevance' is only meaningful with q; without q the backend falls back to name order.
+// 'relevance' is only meaningful with q; without q the backend falls back to name order
 export const PRODUCT_SORT_VALUES = [
   'relevance',
   'name',
@@ -18,11 +18,10 @@ export const PRODUCT_SORT_VALUES = [
 ] as const
 export const productSortEnum = z.enum(PRODUCT_SORT_VALUES)
 export type ProductSort = z.infer<typeof productSortEnum>
-const sortEnum = productSortEnum
 
 // Reject ?kind=<value> that does not belong to the tab's DB categories
 // (e.g. skincare tab + kind=shampoo). Skincare tab spans skincare/solaire/bodycare,
-// so the valid kind set is the union of those PRODUCT_KINDS buckets.
+// so the valid kind set is the union of those PRODUCT_KINDS buckets
 const validKindsForDomain = (domain: ProductDomainTab): Set<string> => {
   const valid = new Set<string>()
   for (const cat of PRODUCT_DOMAIN_DB_CATEGORIES[domain]) {
@@ -46,24 +45,28 @@ const booleanQueryParam = z.union([
   z.enum(['true', 'false']).transform((value) => value === 'true'),
 ])
 
+// Three states: true/false is an explicit caller choice (URL or device); 'auto' asks
+// the server to apply the declared rules only if the viewer has a usable portrait or
+// preference targets. Outcome reported in `rulesApplied`, so auto keeps one stable key
+const applyPreferencesQueryParam = z.union([booleanQueryParam, z.literal('auto')])
+
 const baseListProductsQuery = z.object({
   brand: z.string().optional(),
   ingredient: z.string().optional(),
-  // "Selon mon profil": apply the caller's DECLARED rules. "Sans X" (exclude)
-  // removes rows containing X; "Avec X" (require) keeps only rows containing at
-  // least one required target. include_excluded lifts both effects, annotations
-  // stay. The same flag also turns on the inferred avoid badges, which the server
-  // derives from the caller's portrait and which never hide rows.
-  apply_preferences: booleanQueryParam.optional(),
+  // "Selon mon profil": apply the caller's DECLARED rules. "Sans X" removes rows with
+  // X; "Avec X" keeps only rows with a required target. include_excluded lifts both,
+  // annotations stay. Same flag also turns on inferred avoid badges from the caller's
+  // portrait, which never hide rows
+  apply_preferences: applyPreferencesQueryParam.optional(),
   include_excluded: booleanQueryParam.optional(),
-  // Free-text search across product name + brand. Used as a fallback intent
-  // when the header search query matches neither a brand nor an ingredient.
+  // Plain text search across product name + brand. Used as a fallback intent
+  // when the header search query matches neither a brand nor an ingredient
   q: z.string().trim().min(1).max(100).optional(),
   priceMin: z.coerce.number().int().min(0).optional(),
   priceMax: z.coerce.number().int().min(0).optional(),
   page: z.coerce.number().int().min(1).default(1),
   limit: z.coerce.number().int().min(1).max(100).default(20),
-  sort: sortEnum.optional(),
+  sort: productSortEnum.optional(),
   quality: z.enum(['unverified', 'verified']).optional(),
   status: z.enum(['visible', 'hidden']).optional(),
 })

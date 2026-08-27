@@ -1,6 +1,6 @@
 import { z } from 'zod'
 
-import { userDermoProfileSchema } from '../profile'
+import { preferenceTargetsSchema, userDermoProfileSchema } from '../profile'
 import { userProductStatusSchema } from '../user-products'
 import { PRODUCT_CATEGORY_VALUES, PRODUCT_KINDS, type ProductKind } from './kinds'
 import { PRODUCT_TEXTURE_VALUES } from './textures'
@@ -67,7 +67,7 @@ export const productDetailSchema = z
   })
   .strict()
 
-// algo-derm stays backend-only, so shared validates its serialized JSON
+// algo-derm stays on the backend only, so shared validates its serialized JSON
 // without copying the vendor contract
 const serializedAssessmentSchema = z.record(z.string(), z.json())
 
@@ -77,6 +77,7 @@ export const productDetailPageSchema = z
     userStatus: userProductStatusSchema.nullable(),
     dermoProfile: userDermoProfileSchema.nullable(),
     assessment: serializedAssessmentSchema.nullable(),
+    preferenceTargets: preferenceTargetsSchema,
   })
   .strict()
 
