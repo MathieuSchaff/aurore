@@ -54,7 +54,9 @@
         "e2e/helpers/*.ts",
         "e2e/csp/check.ts",
         "e2e/auth-ssr/check.ts",
-        "**/*.test.{ts,tsx}"
+        "**/*.test.{ts,tsx}",
+        // Type-level assertions (@ts-expect-error): only tsc reads them, nothing imports them.
+        "**/*.type-test.ts"
       ],
       "project": ["src/**/*.{ts,tsx}", "e2e/**/*.ts"],
       "vite": true,

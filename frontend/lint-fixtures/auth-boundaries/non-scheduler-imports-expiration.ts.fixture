@@ -1,0 +1,3 @@
+import { readCredentialExpiration } from '@/lib/auth/credential'
+
+void readCredentialExpiration

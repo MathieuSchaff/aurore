@@ -1,0 +1,3 @@
+import { readBearerForTransport } from '@/lib/auth/credential'
+
+void readBearerForTransport
