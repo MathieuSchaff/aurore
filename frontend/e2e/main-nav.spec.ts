@@ -47,7 +47,9 @@ test.describe('Top navbar', () => {
     await expect(inlineLink(page, 'Accueil')).toHaveCount(0)
 
     // Nested route: only the most specific link is marked current, not fuzzy /products too.
-    await page.goto('/products/compare')
+    // Use the navigation being tested so the first cold-load refresh can finish in-page.
+    await inlineLink(page, 'Comparaisons').click()
+    await expect(page).toHaveURL(/\/products\/compare/)
     await expect(inlineLink(page, 'Comparaisons')).toHaveAttribute('aria-current', 'page')
     await expect(inlineLink(page, 'Produits')).not.toHaveAttribute('aria-current', 'page')
   })

@@ -23,7 +23,7 @@ function bearer(token: string) {
 // Alphabetical first on skincare = a stable pick. We avoid the /products list
 // + "first card" approach because the default sort=newest makes the first card
 // volatile across parallel tests that create products mid-run. Specs that WRITE
-// this product belong in a *.mutation.spec.ts file (see e2e.md): it is the same
+// this product belong in a *.mutation.spec.ts file: it is the same
 // row for every project, and later seed products fail client-side validation.
 export async function resolveFirstSkincareSlug(page: Page): Promise<string> {
   const res = await page.request.get('/api/products?category=skincare&sort=name&limit=1')
