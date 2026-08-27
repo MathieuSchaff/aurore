@@ -1,6 +1,7 @@
 import {
   authSchema as authBodySchema,
   authErrorMapping,
+  bannedError,
   changePasswordSchema,
   err,
   errorToStatus,
@@ -15,14 +16,12 @@ import {
   verifyEmailBodySchema,
 } from '@aurore/shared'
 
-import { eq } from 'drizzle-orm'
 import type { Context } from 'hono'
 import { Hono } from 'hono'
 import { deleteCookie, getCookie, setCookie } from 'hono/cookie'
 
 import type { AppEnv } from '../../app-env'
 import { withAdminRls } from '../../db/rls'
-import { usersSafe } from '../../db/schema'
 import { getAuthedUserId, getRlsDb } from '../../utils/accessors'
 import { clientIp } from '../../utils/clientIp'
 import {
@@ -35,7 +34,11 @@ import {
 import { zValidator } from '../../utils/validator'
 import { isUserBanned } from './ban.service'
 import { sendVerificationEmail } from './email.service'
-import { createVerificationToken, verifyEmailToken } from './email-verification.service'
+import {
+  createVerificationToken,
+  getUnverifiedEmail,
+  verifyEmailToken,
+} from './email-verification.service'
 import { getGoogleAuthUrl, handleGoogleCallback } from './google.service'
 import { clearRefreshTokenCookie, extractRefreshToken, setRefreshTokenCookie } from './jwt.utils'
 import { requireJwtAuth, requireNotBanned } from './middleware'
@@ -45,6 +48,7 @@ import {
   type AuthContext,
   changePassword,
   createDemo,
+  getUserRole,
   login,
   logout,
   refresh,
@@ -96,6 +100,25 @@ app.use('/resend-verification', withRlsContext)
 app.use('/session', requireNotBanned)
 app.use('/resend-verification', requireNotBanned)
 
+// Same gate on every route that hands out a fresh token, /login included:
+// applyAuthedGuards would reject the banned user later anyway, but issuing first
+// and refusing after is the login-then-redirect race this closes. withAdminRls
+// because there is no authenticated session yet
+function activeGlobalBan(userId: string) {
+  return withAdminRls((tx) => isUserBanned(tx, userId, 'global', false))
+}
+
+// Call after any cookie change: c.json freezes the headers set so far
+function bannedJson(
+  c: Context<AppEnv>,
+  ban: NonNullable<Awaited<ReturnType<typeof activeGlobalBan>>>
+) {
+  return c.json(
+    bannedError({ expiresAt: ban.expiresAt, reason: ban.reason }),
+    HTTP_STATUS.FORBIDDEN
+  )
+}
+
 export const jwtAuthRoutes = app
 
   .post('/login', loginRateLimiterFunc, zValidator('json', authBodySchema), async (c) => {
@@ -109,15 +132,8 @@ export const jwtAuthRoutes = app
       return c.json(err(result.error), errorToStatus(result.error, authErrorMapping))
     }
 
-    // Check the ban before issuing tokens, to avoid a login-then-redirect race.
-    // withAdminRls sets the admin RLS role because there is no authenticated session yet.
-    const ban = await withAdminRls((tx) => isUserBanned(tx, result.data.user.id, 'global', false))
-    if (ban) {
-      return c.json(
-        err('banned', { expiresAt: ban.expiresAt, reason: ban.reason }),
-        HTTP_STATUS.FORBIDDEN
-      )
-    }
+    const ban = await activeGlobalBan(result.data.user.id)
+    if (ban) return bannedJson(c, ban)
 
     setRefreshTokenCookie(c, result.data.refreshToken, env)
 
@@ -176,6 +192,13 @@ export const jwtAuthRoutes = app
       return c.json(err(result.error), errorToStatus(result.error, authErrorMapping))
     }
 
+    // The presented token is already consumed, so the banned caller keeps nothing
+    const ban = await activeGlobalBan(result.data.user.id)
+    if (ban) {
+      clearRefreshTokenCookie(c)
+      return bannedJson(c, ban)
+    }
+
     setRefreshTokenCookie(c, result.data.refreshToken, env)
 
     return c.json(
@@ -223,17 +246,13 @@ export const jwtAuthRoutes = app
   .get('/session', async (c) => {
     const userId = getAuthedUserId(c)
     const requestDb = getRlsDb(c)
-    const [user] = await requestDb
-      .select({ role: usersSafe.role })
-      .from(usersSafe)
-      .where(eq(usersSafe.id, userId))
-      .limit(1)
+    const role = await getUserRole(requestDb, userId)
 
     return c.json(
       ok({
         authenticated: true as const,
         userId,
-        role: user?.role ?? 'user',
+        role: role ?? 'user',
       }),
       HTTP_STATUS.OK
     )
@@ -261,19 +280,14 @@ export const jwtAuthRoutes = app
       return c.json(err('too_many_requests'), HTTP_STATUS.RATE_LIMIT_EXCEEDED)
     }
 
-    const [user] = await requestDb
-      .select({ emailVerifiedAt: usersSafe.emailVerifiedAt, email: usersSafe.email })
-      .from(usersSafe)
-      .where(eq(usersSafe.id, userId))
-      .limit(1)
-
-    if (!user || user.emailVerifiedAt !== null) {
+    const email = await getUnverifiedEmail(requestDb, userId)
+    if (email === null) {
       return c.json(ok(null), HTTP_STATUS.OK)
     }
 
     const rawToken = await createVerificationToken(requestDb, userId)
     const verificationUrl = `${frontendUrl}/auth/verify-email?token=${rawToken}`
-    await sendVerificationEmail(user.email, verificationUrl)
+    await sendVerificationEmail(email, verificationUrl)
 
     return c.json(ok(null), HTTP_STATUS.OK)
   })
@@ -328,6 +342,9 @@ export const jwtAuthRoutes = app
       return c.json(err(result.error), errorToStatus(result.error, authErrorMapping))
     }
 
+    const ban = await activeGlobalBan(result.data.user.id)
+    if (ban) return bannedJson(c, ban)
+
     return c.json(
       ok({
         user: result.data.user,
@@ -366,6 +383,9 @@ export const jwtAuthRoutes = app
     if (!isApiSuccess(result)) {
       return c.json(err(result.error), errorToStatus(result.error, authErrorMapping))
     }
+
+    const ban = await activeGlobalBan(result.data.user.id)
+    if (ban) return bannedJson(c, ban)
 
     return c.json(
       ok({
@@ -410,6 +430,7 @@ export const jwtAuthRoutes = app
   .get('/google/callback', async (c) => {
     const env = c.get('env')
     const ctx = buildAnonAuthContext(c)
+    const frontendCallbackUrl = `${c.get('frontendUrl')}/auth/google/callback`
 
     const storedState = getCookie(c, 'google_oauth_state')
     const storedVerifier = getCookie(c, 'google_code_verifier')
@@ -419,17 +440,21 @@ export const jwtAuthRoutes = app
     deleteCookie(c, 'google_code_verifier')
 
     if (!storedState || !storedVerifier || !code || state !== storedState) {
-      return c.json(err('invalid_token'), HTTP_STATUS.BAD_REQUEST)
+      return c.redirect(frontendCallbackUrl)
     }
 
     const result = await handleGoogleCallback(ctx, code, storedVerifier)
 
     if (!isApiSuccess(result)) {
-      return c.json(err(result.error), HTTP_STATUS.INTERNAL_SERVER_ERROR)
+      return c.redirect(frontendCallbackUrl)
+    }
+
+    // A redirect cannot carry the 403 body, so the banned page stands in for it
+    if (await activeGlobalBan(result.data.user.id)) {
+      return c.redirect(`${c.get('frontendUrl')}/auth/banned`)
     }
 
     setRefreshTokenCookie(c, result.data.refreshToken, env)
 
-    const frontendUrl = c.get('frontendUrl')
-    return c.redirect(`${frontendUrl}/auth/google/callback?oauth=1`)
+    return c.redirect(`${frontendCallbackUrl}?oauth=1`)
   })
