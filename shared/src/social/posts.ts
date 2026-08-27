@@ -7,8 +7,8 @@ import { SKIN_CONCERNS, type SkinConcern } from '../profile'
 export const POST_TONES = ['principal', 'coup-de-gueule'] as const
 export type PostTone = (typeof POST_TONES)[number]
 
-// Anchors are optional individually but at least one is required (#24: rien ne
-// flotte). The concern is a picked 22-term user concern, never free text.
+// Anchors are optional individually but at least one is required: rien ne
+// flotte. The concern is a picked 22-term user concern, never free text.
 export const createPostSchema = z
   .object({
     content: z.string().min(1).max(2000),

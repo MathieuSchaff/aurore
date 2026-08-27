@@ -5,7 +5,7 @@ import type { SkinConcern } from '../profile'
 // named the same condition "couperose" or "flushs". We expand the searched
 // concern to every user concern that shares at least one clinical bucket, so the
 // SQL array-overlap filter matches the whole family; read-only on the same
-// drift table the similarity engine uses (#1/#6), never the avoidance semantics.
+// drift table the similarity engine uses, never the avoidance semantics.
 export function concernsSharingBucket(concern: SkinConcern): SkinConcern[] {
   const targetBuckets = new Set(USER_CONCERN_TO_PRODUCT_TAGS[concern] ?? [])
   if (targetBuckets.size === 0) return [concern]
