@@ -1,9 +1,9 @@
 import { detectKindPrimaryType, type ProductKind } from '@aurore/shared'
 
 import { compareInstant } from '@/lib/dates'
-import { type CriteriaWeights, calculateWeightedScore } from '@/lib/helpers/reviews'
 import type { UserProduct } from '@/lib/queries/user-products'
 import type { CollectionSearch } from '@/routes/_authenticated/collection.index'
+import { type CriteriaWeights, calculateWeightedScore } from './reviews'
 
 export type CollectionFilters = Pick<
   CollectionSearch,

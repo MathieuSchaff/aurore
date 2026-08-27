@@ -16,9 +16,16 @@ interface BulkBarProps {
   onMove: (status: UserProductStatus) => void
   onClear: () => void
   onCompare?: () => void
+  isPending?: boolean
 }
 
-export function BulkBar({ selectedCount, onMove, onClear, onCompare }: BulkBarProps) {
+export function BulkBar({
+  selectedCount,
+  onMove,
+  onClear,
+  onCompare,
+  isPending = false,
+}: BulkBarProps) {
   if (selectedCount === 0) return null
 
   const canCompare =
@@ -27,13 +34,14 @@ export function BulkBar({ selectedCount, onMove, onClear, onCompare }: BulkBarPr
     Boolean(onCompare)
 
   return (
-    <section className="bulk-bar-wrap" aria-label="Actions groupées">
+    <section className="bulk-bar-wrap" aria-label="Actions groupées" aria-busy={isPending}>
       <div className="bulk-bar">
         <button
           type="button"
           className="bulk-bar-close"
           onClick={onClear}
           aria-label="Annuler la sélection"
+          disabled={isPending}
         >
           <X size={16} aria-hidden="true" />
         </button>
@@ -43,14 +51,19 @@ export function BulkBar({ selectedCount, onMove, onClear, onCompare }: BulkBarPr
         </div>
         <div className="bulk-bar-action">
           {canCompare && (
-            <button type="button" className="bulk-bar-compare" onClick={onCompare}>
+            <button
+              type="button"
+              className="bulk-bar-compare"
+              onClick={onCompare}
+              disabled={isPending}
+            >
               <GitCompare size={14} aria-hidden="true" />
               <span>Comparer</span>
             </button>
           )}
           <DropdownMenu>
             <DropdownMenu.Trigger>
-              <button type="button" className="bulk-bar-move">
+              <button type="button" className="bulk-bar-move" disabled={isPending}>
                 <span>Déplacer vers</span>
                 <ArrowRight size={14} aria-hidden="true" />
               </button>

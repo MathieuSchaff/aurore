@@ -79,7 +79,7 @@ export function HistoryTab({ userProducts }: HistoryTabProps) {
                 <span className="coll-hist-brand">{entry.product.brand}</span>
               </td>
               <td className="coll-hist-price">
-                {entry.pricePaidCents ? `${(entry.pricePaidCents / 100).toFixed(2)}€` : '—'}
+                {entry.pricePaidCents != null ? `${(entry.pricePaidCents / 100).toFixed(2)}€` : '—'}
               </td>
               <td className="coll-hist-actions">
                 <DropdownMenu>

@@ -2,7 +2,7 @@ import type { PreferencesTag, RessentiTag, RoutineTag, UserProductStatus } from 
 
 import { Archive, Ban, Eye, type LucideIcon, Package, ShoppingBag } from 'lucide-react'
 
-import type { ReviewCriteria } from '@/lib/helpers/reviews'
+import type { ReviewCriteria } from './reviews'
 
 // colorOn = AA-safe companion of color for text spots; color stays the vivid identity (fills, dots, borders).
 export const statusLabels: Record<

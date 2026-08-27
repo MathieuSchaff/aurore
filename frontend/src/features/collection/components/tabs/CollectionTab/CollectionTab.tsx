@@ -15,7 +15,8 @@ import { useAnnounce } from '@/hooks/useAnnounce'
 import { useCreateComparison } from '@/lib/queries/comparisons'
 import { userPreferenceQueries } from '@/lib/queries/user-preferences'
 import type { UserProduct } from '@/lib/queries/user-products'
-import { useUpdateUserProduct } from '@/lib/queries/user-products'
+import { useBulkUpdateUserProduct, useUpdateUserProduct } from '@/lib/queries/user-products'
+import { moveProductsToStatus } from './bulkStatusChange'
 import { ShelfView } from './ShelfView/ShelfView'
 import './CollectionTab.css'
 
@@ -61,6 +62,7 @@ function CollectionTabContent({ onAddClick }: { onAddClick: () => void }) {
   const navigate = useNavigate()
 
   const updateMutation = useUpdateUserProduct()
+  const bulkUpdateMutation = useBulkUpdateUserProduct()
   const announce = useAnnounce()
   const createComparison = useCreateComparison()
 
@@ -130,13 +132,9 @@ function CollectionTabContent({ onAddClick }: { onAddClick: () => void }) {
             { onSuccess: () => announce('Statut mis à jour') }
           )
         }}
-        onStatusChangeMany={(productIds, newStatus) => {
-          for (const id of productIds) {
-            updateMutation.mutate({ id, input: { status: newStatus } })
-          }
-          const n = productIds.length
-          announce(`${n} produit${n > 1 ? 's' : ''} déplacé${n > 1 ? 's' : ''}`)
-        }}
+        onStatusChangeMany={(productIds, newStatus) =>
+          moveProductsToStatus(productIds, newStatus, bulkUpdateMutation.mutateAsync, announce)
+        }
         onToggleExpand={(id) => setExpandedId(expandedId === id ? null : id)}
         onAddClick={onAddClick}
         onCompare={(ids) => {

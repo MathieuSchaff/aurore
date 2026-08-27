@@ -3,15 +3,23 @@ import userEvent from '@testing-library/user-event'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
 import {
+  useBulkUpdateUserProduct,
   useDeleteUserProduct,
   useUpdateUserProduct,
   useUpsertUserProductReview,
 } from '../../../lib/queries/user-products'
+import { makeIdleMutationResult } from '../../../test/mutation'
 import { mockUseQueryByKey, renderWithProviders } from '../../../test/utils'
 import { CollectionPage } from '../page/CollectionPage'
 import { defaultCollectionSearch, makeUserProductMock, mockPrefs } from './__fixtures__'
 
 let mockSearch = { ...defaultCollectionSearch }
+const { mockAnnounce } = vi.hoisted(() => ({ mockAnnounce: vi.fn() }))
+
+type TestSearch = typeof defaultCollectionSearch
+type TestNavigateOptions = {
+  search: TestSearch | ((previous: TestSearch) => TestSearch)
+}
 
 vi.mock('@tanstack/react-router', async () => ({
   ...(await vi.importActual<typeof import('@tanstack/react-router')>('@tanstack/react-router')),
@@ -23,7 +31,7 @@ vi.mock('@tanstack/react-router', async () => ({
   useRouter: vi.fn(() => ({ state: { location: { pathname: '/' } } })),
   useNavigate: vi.fn(() => vi.fn()),
   getRouteApi: () => ({
-    useNavigate: () => (updates: any) => {
+    useNavigate: () => (updates: TestNavigateOptions) => {
       if (typeof updates.search === 'function') {
         mockSearch = updates.search(mockSearch)
       } else {
@@ -56,19 +64,13 @@ const mockUserProducts = [
 ]
 
 vi.mock('../../../lib/queries/user-products', async (importOriginal) => {
-  const actual = await importOriginal<any>()
+  const actual = await importOriginal<typeof import('../../../lib/queries/user-products')>()
   return {
     ...actual,
+    useBulkUpdateUserProduct: vi.fn(),
     useUpdateUserProduct: vi.fn(),
     useDeleteUserProduct: vi.fn(),
     useUpsertUserProductReview: vi.fn(),
-  }
-})
-
-vi.mock('../../../lib/queries/user-preferences', async (importOriginal) => {
-  const actual = await importOriginal<any>()
-  return {
-    ...actual,
   }
 })
 
@@ -76,10 +78,16 @@ vi.mock('../../../hooks/useScrollLock', () => ({
   useScrollLock: vi.fn(),
 }))
 
+vi.mock('@/hooks/useAnnounce', () => ({
+  useAnnounce: () => mockAnnounce,
+}))
+
 describe('CollectionPage', () => {
-  const mockUpdate = vi.fn()
-  const mockDelete = vi.fn()
-  const mockReview = vi.fn()
+  const mockUpdate = vi.fn<ReturnType<typeof useUpdateUserProduct>['mutate']>()
+  const mockBulkUpdate = vi.fn<ReturnType<typeof useBulkUpdateUserProduct>['mutate']>()
+  const mockBulkUpdateAsync = vi.fn<ReturnType<typeof useBulkUpdateUserProduct>['mutateAsync']>()
+  const mockDelete = vi.fn<ReturnType<typeof useDeleteUserProduct>['mutate']>()
+  const mockReview = vi.fn<ReturnType<typeof useUpsertUserProductReview>['mutate']>()
 
   beforeEach(() => {
     vi.clearAllMocks()
@@ -91,12 +99,13 @@ describe('CollectionPage', () => {
       'stock-entries': [],
     })
 
-    vi.mocked(useUpdateUserProduct).mockReturnValue({ mutate: mockUpdate, isPending: false } as any)
-    vi.mocked(useDeleteUserProduct).mockReturnValue({ mutate: mockDelete, isPending: false } as any)
-    vi.mocked(useUpsertUserProductReview).mockReturnValue({
-      mutate: mockReview,
-      isPending: false,
-    } as any)
+    vi.mocked(useUpdateUserProduct).mockReturnValue(makeIdleMutationResult(mockUpdate))
+    vi.mocked(useBulkUpdateUserProduct).mockReturnValue({
+      ...makeIdleMutationResult(mockBulkUpdate),
+      mutateAsync: mockBulkUpdateAsync,
+    })
+    vi.mocked(useDeleteUserProduct).mockReturnValue(makeIdleMutationResult(mockDelete))
+    vi.mocked(useUpsertUserProductReview).mockReturnValue(makeIdleMutationResult(mockReview))
   })
 
   it('affiche la liste des produits par défaut', async () => {

@@ -1,6 +1,6 @@
-import { fireEvent, render, screen, within } from '@testing-library/react'
+import { act, fireEvent, render, screen, within } from '@testing-library/react'
 import { renderToString } from 'react-dom/server'
-import { beforeEach, describe, expect, it, vi } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
 import type { UserProduct } from '@/lib/queries/user-products'
 import { ShelfView } from '../ShelfView'
@@ -58,8 +58,13 @@ beforeEach(() => {
   window.localStorage.clear()
 })
 
+afterEach(() => {
+  vi.useRealTimers()
+})
+
 describe('ShelfView', () => {
   const noop = () => {}
+  const noopMany = async () => [] as string[]
 
   it('shows FirstTimeEmpty when products list is empty', () => {
     const onAdd = vi.fn()
@@ -67,7 +72,7 @@ describe('ShelfView', () => {
       <ShelfView
         products={[]}
         onStatusChange={noop}
-        onStatusChangeMany={noop}
+        onStatusChangeMany={noopMany}
         onToggleExpand={noop}
         onAddClick={onAdd}
       />
@@ -88,7 +93,7 @@ describe('ShelfView', () => {
       <ShelfView
         products={products}
         onStatusChange={noop}
-        onStatusChangeMany={noop}
+        onStatusChangeMany={noopMany}
         onToggleExpand={noop}
         onAddClick={noop}
       />
@@ -107,7 +112,7 @@ describe('ShelfView', () => {
       <ShelfView
         products={products}
         onStatusChange={noop}
-        onStatusChangeMany={noop}
+        onStatusChangeMany={noopMany}
         onToggleExpand={noop}
         onAddClick={noop}
       />
@@ -130,7 +135,7 @@ describe('ShelfView', () => {
       <ShelfView
         products={[a, b]}
         onStatusChange={noop}
-        onStatusChangeMany={noop}
+        onStatusChangeMany={noopMany}
         onToggleExpand={noop}
         onAddClick={noop}
       />
@@ -147,7 +152,7 @@ describe('ShelfView', () => {
       <ShelfView
         products={products}
         onStatusChange={noop}
-        onStatusChangeMany={noop}
+        onStatusChangeMany={noopMany}
         onToggleExpand={noop}
         onAddClick={noop}
       />
@@ -164,7 +169,7 @@ describe('ShelfView', () => {
       <ShelfView
         products={products}
         onStatusChange={noop}
-        onStatusChangeMany={noop}
+        onStatusChangeMany={noopMany}
         onToggleExpand={noop}
         onAddClick={noop}
       />
@@ -177,7 +182,7 @@ describe('ShelfView', () => {
       <ShelfView
         products={products}
         onStatusChange={noop}
-        onStatusChangeMany={noop}
+        onStatusChangeMany={noopMany}
         onToggleExpand={noop}
         onAddClick={noop}
       />
@@ -193,7 +198,7 @@ describe('ShelfView', () => {
       <ShelfView
         products={[makeProduct('1', 'wishlist', 'Wish A')]}
         onStatusChange={noop}
-        onStatusChangeMany={noop}
+        onStatusChangeMany={noopMany}
         onToggleExpand={noop}
         onAddClick={noop}
       />
@@ -203,5 +208,42 @@ describe('ShelfView', () => {
       'aria-selected',
       'true'
     )
+  })
+
+  it('keeps failed products selected until a bulk move finishes', async () => {
+    vi.useFakeTimers()
+    let resolveMove!: (movedIds: string[]) => void
+    const onStatusChangeMany = vi.fn(
+      () => new Promise<string[]>((resolve) => (resolveMove = resolve))
+    )
+
+    render(
+      <ShelfView
+        products={[
+          makeProduct('1', 'in_stock', 'Stock A'),
+          makeProduct('2', 'in_stock', 'Stock B'),
+        ]}
+        onStatusChange={noop}
+        onStatusChangeMany={onStatusChangeMany}
+        onToggleExpand={noop}
+        onAddClick={noop}
+      />
+    )
+
+    const firstCard = screen.getByRole('button', { name: /Voir les détails de .*Stock A/i })
+    fireEvent.pointerDown(firstCard, { button: 0, pointerType: 'mouse', clientX: 0, clientY: 0 })
+    act(() => vi.advanceTimersByTime(500))
+    fireEvent.pointerUp(firstCard)
+    fireEvent.click(screen.getByRole('button', { name: /Voir les détails de .*Stock B/i }))
+
+    fireEvent.click(screen.getByRole('button', { name: /déplacer vers/i }))
+    fireEvent.click(screen.getByRole('menuitem', { name: /archivé/i }))
+
+    expect(onStatusChangeMany).toHaveBeenCalledWith(['1', '2'], 'archived')
+    expect(screen.getByText('produits sélectionnés')).toBeInTheDocument()
+
+    await act(async () => resolveMove(['1']))
+
+    expect(screen.getByText('produit sélectionné')).toBeInTheDocument()
   })
 })
