@@ -101,6 +101,8 @@ scripts/*
 # local convenience.
 !scripts/audit-report.ts
 !scripts/react-doctor-sarif.ts
+# `just lint` calls this one, and the CI replays `lint`.
+!scripts/check-auth-import-boundaries.ts
 # =========================
 backend/src/db/seed/output/
 backend/src/output
@@ -120,12 +122,6 @@ frontend/public/mock-products
 # =========================
 *.png
 !docs/screenshots/*.png
-
-# =========================
-# One-shot investigation probes. Biome and fallow read this file, so ignoring them here
-# also keeps their near-identical bodies out of the lint and duplication reports.
-# =========================
-**/.probe-*.ts
 
 # =========================
 # Manual image-fetcher scripts (one-shot maintenance, output goes to CDN)
