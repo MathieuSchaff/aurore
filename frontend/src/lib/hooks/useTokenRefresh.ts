@@ -1,12 +1,11 @@
 import { useQueryClient } from '@tanstack/react-query'
 import { useEffect } from 'react'
 
-import { useAuthStore } from '../../store/auth'
+import { readCredentialExpiration, useCredentialExpiration } from '../auth/credential'
 import { ensureFresh, isExpired, msUntilProactiveRefresh } from '../auth/freshness'
 
-// Schedule silent refresh ~1 min before expiry. setAuth updates tokenExpiresAt, retriggering this effect.
 export function useTokenRefresh() {
-  const tokenExpiresAt = useAuthStore((s) => s.tokenExpiresAt)
+  const tokenExpiresAt = useCredentialExpiration()
   const queryClient = useQueryClient()
 
   useEffect(() => {
@@ -23,11 +22,11 @@ export function useTokenRefresh() {
     return () => clearTimeout(timer)
   }, [tokenExpiresAt, queryClient])
 
-  // Background tabs throttle setTimeout; refresh on visibility regain so focus queries don't all 401.
+  // Background tabs throttle timers, so refresh before focus queries resume
   useEffect(() => {
     function handleVisible() {
       if (document.visibilityState !== 'visible') return
-      if (!useAuthStore.getState().accessToken) return
+      if (!readCredentialExpiration()) return
       if (isExpired()) ensureFresh(queryClient)
     }
     document.addEventListener('visibilitychange', handleVisible)
