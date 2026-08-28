@@ -32,6 +32,29 @@ const CHANGE_PASSWORD_HANDLED_ERROR_CODES = [
   'invalid_credentials',
 ] as const satisfies readonly AuthErrorCode[]
 
+async function requestEmailVerification(token: string) {
+  const res = await api.auth['verify-email'].$post({ json: { token } })
+  return unwrapData(res)
+}
+
+const inflightEmailVerifications = new Map<string, ReturnType<typeof requestEmailVerification>>()
+
+function verifyEmailOnce(token: string): ReturnType<typeof requestEmailVerification> {
+  const existing = inflightEmailVerifications.get(token)
+  if (existing) return existing
+
+  // StrictMode can replay mount effects, but a one-use token must share its in-flight request
+  const request = requestEmailVerification(token)
+  inflightEmailVerifications.set(token, request)
+  const clear = () => {
+    if (inflightEmailVerifications.get(token) === request) {
+      inflightEmailVerifications.delete(token)
+    }
+  }
+  void request.then(clear, clear)
+  return request
+}
+
 export const authQueries = {
   validation: (viewerId: string | null) =>
     queryOptions<CredentialValidation>({
@@ -96,10 +119,7 @@ export function useVerifyEmail() {
   return useMutation({
     mutationKey: ['auth', 'verify-email'],
     meta: { handledErrorCodes: VERIFY_EMAIL_HANDLED_ERROR_CODES },
-    mutationFn: async (token: string) => {
-      const res = await api.auth['verify-email'].$post({ json: { token } })
-      return unwrapData(res)
-    },
+    mutationFn: verifyEmailOnce,
     onSuccess: () => {
       const session = readClientSession()
       if (session.status === 'authenticated') {
