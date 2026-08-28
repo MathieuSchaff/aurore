@@ -5,40 +5,40 @@ import { keepPreviousData, queryOptions, useMutation, useQueryClient } from '@ta
 import { type ApiData, api } from '../api'
 import { unwrapData } from '../helpers/apiError'
 import { productKeys } from './products'
+import { profileKeys } from './profile'
+import { socialKeys } from './social-keys'
+
+export { invalidateSocialReads, socialKeys } from './social-keys'
 
 // Profiles surfaced by the similarity engine. Type derived from the route
 // inference: band only, never a score (zéro-chiffre is a backend invariant).
 export type SimilarProfile = ApiData<typeof api.social.similar.$get>['profiles'][number]
 
-export const socialQueries = {
-  similar: () =>
-    queryOptions({
-      queryKey: ['social', 'similar'],
-      queryFn: async () => {
-        const res = await api.social.similar.$get()
-        return unwrapData(res)
-      },
-      staleTime: 1000 * 60 * 5,
-      // Keep the current list visible while switching concern/passive, no flash.
-      placeholderData: keepPreviousData,
-    }),
+function profileDiscoveryOptions(concern: SkinConcern | null) {
+  return queryOptions({
+    queryKey: concern === null ? socialKeys.similar() : socialKeys.profileSearch(concern),
+    queryFn: async () => {
+      if (concern === null) {
+        return unwrapData(await api.social.similar.$get())
+      }
+      return unwrapData(await api.social.profiles.search.$get({ query: { concern } }))
+    },
+    staleTime: 1000 * 60 * 5,
+    // Keep the current list while switching between passive and concern search
+    placeholderData: keepPreviousData,
+  })
+}
 
-  searchByConcern: (concern: SkinConcern) =>
-    queryOptions({
-      queryKey: ['social', 'profiles', 'search', concern],
-      queryFn: async () => {
-        const res = await api.social.profiles.search.$get({ query: { concern } })
-        return unwrapData(res)
-      },
-      staleTime: 1000 * 60 * 5,
-      placeholderData: keepPreviousData,
-    }),
+export const socialQueries = {
+  similar: () => profileDiscoveryOptions(null),
+
+  searchByConcern: (concern: SkinConcern) => profileDiscoveryOptions(concern),
 
   // Deliberate posts from the similar cohort, ordered by recency or similarity.
   // Reactions never affect feed order.
   feed: (params: { tone: PostTone; order: FeedOrder; concern?: SkinConcern }) =>
     queryOptions({
-      queryKey: ['social', 'feed', params] as const,
+      queryKey: socialKeys.feed(params),
       queryFn: async () => {
         const query = params.concern
           ? { tone: params.tone, order: params.order, concern: params.concern }
@@ -59,15 +59,10 @@ export type FeedItem = ApiData<typeof api.social.feed.$get>['posts'][number]
 // viewer's own kinds. Never a count.
 export type ReactionList = ApiData<typeof api.social.reactions.$get>
 
-export const reactionKeys = {
-  list: (reactableType: ReactableType, reactableId: string) =>
-    ['social', 'reactions', reactableType, reactableId] as const,
-}
-
 export const reactionQueries = {
-  list: (reactableType: ReactableType, reactableId: string) =>
+  list: (reactableType: ReactableType, reactableId: string, userId: string | null) =>
     queryOptions({
-      queryKey: reactionKeys.list(reactableType, reactableId),
+      queryKey: socialKeys.reactions(reactableType, reactableId, userId),
       queryFn: async () => {
         const res = await api.social.reactions.$get({ query: { reactableType, reactableId } })
         return unwrapData(res)
@@ -79,7 +74,11 @@ export const reactionQueries = {
 // Signed toggle: POST ensures a kind on, DELETE ensures it off; the caller passes
 // `on` from the current pressed-state. The mutation returns the fresh signed list,
 // so we seed the cache directly instead of refetching.
-export function useToggleReaction(reactableType: ReactableType, reactableId: string) {
+export function useToggleReaction(
+  reactableType: ReactableType,
+  reactableId: string,
+  userId: string | null
+) {
   const queryClient = useQueryClient()
   return useMutation({
     mutationKey: ['social', 'reaction', 'toggle'],
@@ -91,7 +90,7 @@ export function useToggleReaction(reactableType: ReactableType, reactableId: str
       return unwrapData(res)
     },
     onSuccess: (data) => {
-      queryClient.setQueryData(reactionKeys.list(reactableType, reactableId), data)
+      queryClient.setQueryData(socialKeys.reactions(reactableType, reactableId, userId), data)
     },
     meta: { errorMessage: 'Réaction impossible.' },
   })
@@ -113,7 +112,7 @@ export function useCreatePost(productId: string, slug: string) {
       queryClient.invalidateQueries({ queryKey: productKeys.posts(slug) })
       // Broad prefix invalidation: the composer lacks the author's username, so
       // every cached ['profile','posts',*] refetches; only the author's differs.
-      queryClient.invalidateQueries({ queryKey: ['profile', 'posts'] })
+      queryClient.invalidateQueries({ queryKey: profileKeys.posts() })
     },
     meta: { errorMessage: 'Publication impossible.' },
   })

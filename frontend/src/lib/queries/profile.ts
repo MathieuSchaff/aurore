@@ -14,6 +14,7 @@ import { endSession } from '../auth/session'
 import { throwIfNotOk, unwrapData } from '../helpers/apiError'
 import { downloadBlobAsFile, parseAttachmentFilename } from '../helpers/download'
 import { collectionKeys } from './collection'
+import { invalidateSocialReads } from './social-keys'
 
 export const profileKeys = {
   all: ['profile'] as const,
@@ -28,6 +29,23 @@ export const profileKeys = {
   postsByUsername: (username: string) => [...profileKeys.posts(), username] as const,
   preferenceTargets: () => [...profileKeys.all, 'preference-targets'] as const,
   privacy: () => [...profileKeys.all, 'privacy'] as const,
+}
+
+export function invalidateProfileReviewReads(queryClient: QueryClient) {
+  return queryClient.invalidateQueries({ queryKey: profileKeys.reviews() })
+}
+
+export function invalidatePublicProfileReads(queryClient: QueryClient) {
+  return Promise.all([
+    queryClient.invalidateQueries({ queryKey: profileKeys.publicProfiles() }),
+    queryClient.invalidateQueries({ queryKey: profileKeys.reviews() }),
+    queryClient.invalidateQueries({ queryKey: profileKeys.posts() }),
+  ])
+}
+
+function invalidateProfileDependentReads(queryClient: QueryClient) {
+  invalidatePublicProfileReads(queryClient)
+  invalidateSocialReads(queryClient)
 }
 
 export const profileQueries = {
@@ -175,6 +193,7 @@ export const useUpdateProfile = () => {
     },
     onSuccess: (data) => {
       queryClient.setQueryData(profileKeys.me(), data)
+      invalidateProfileDependentReads(queryClient)
     },
     meta: { errorMessage: 'Mise à jour du profil impossible.' },
   })
@@ -210,6 +229,7 @@ export const useUpdateDermoProfile = () => {
       queryClient.invalidateQueries({ queryKey: productKeys.lists() })
       queryClient.invalidateQueries({ queryKey: productKeys.detailPages() })
       queryClient.invalidateQueries({ queryKey: collectionKeys.formulaMotifs() })
+      invalidateProfileDependentReads(queryClient)
     },
     meta: { errorMessage: 'Mise à jour du profil dermo impossible.' },
   })
@@ -254,6 +274,7 @@ export const useUpdatePrivacySettings = () => {
     onSettled: () => {
       if (queryClient.isMutating({ mutationKey: PRIVACY_UPDATE_KEY }) === 1) {
         queryClient.invalidateQueries({ queryKey: key })
+        invalidateProfileDependentReads(queryClient)
       }
     },
     meta: { errorMessage: 'Mise à jour de la confidentialité impossible.' },
