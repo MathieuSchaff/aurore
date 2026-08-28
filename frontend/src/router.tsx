@@ -2,6 +2,7 @@ import { createRouter, type ParsedLocation } from '@tanstack/react-router'
 import { setupRouterSsrQueryIntegration } from '@tanstack/react-router-ssr-query'
 
 import { GlobalError } from './component/Feedback/app/GlobalError/GlobalError'
+import { seedClientSession } from './lib/auth/session'
 import { getCspNonce } from './lib/csp/nonce'
 import { isServer } from './lib/helpers/isServer'
 import { captureFrontendError } from './lib/observability/faro'
@@ -9,7 +10,6 @@ import { queryClient as clientQueryClient, makeQueryClient } from './lib/queryCl
 import { resolveTransitionType } from './lib/transitions/resolveTransitionType'
 import type { RouterContext } from './routerContext'
 import { routeTree } from './routeTree.gen'
-import { useAuthStore } from './store/auth'
 
 const viewTransition = {
   types: ({
@@ -47,12 +47,6 @@ export function getRouter() {
     routeTree,
     context: {
       queryClient,
-      // Seeded at creation, kept live by the store subscription below; stays
-      // null during anonymous server rendering.
-      auth: {
-        isAuthenticated: !!useAuthStore.getState().accessToken,
-        accessToken: useAuthStore.getState().accessToken,
-      },
     } satisfies RouterContext,
     // Vite injects route CSS as <style> on dev hover-preload, causing a repaint flash on the current
     // page. Prod ships one bundled chunk per route, so keep intent prefetch there only.
@@ -86,16 +80,12 @@ export function getRouter() {
   setupRouterSsrQueryIntegration({ router, queryClient })
 
   if (!isServer) {
-    // The router only reads context when a navigation matches routes, so route
-    // guards (login redirect, requireAuth, dermo prefetch) would otherwise see
-    // the token as it was at creation: always null, since the token arrives
-    // after the async boot refresh. Keep it live from the store instead.
-    useAuthStore.subscribe((s) => {
-      router.options.context.auth = {
-        isAuthenticated: !!s.accessToken,
-        accessToken: s.accessToken,
-      }
-    })
+    const hydrateQueryCache = router.options.hydrate
+    router.options.hydrate = async (dehydrated) => {
+      await hydrateQueryCache?.(dehydrated)
+      // Client guards run inside hydrateStart, so the store must be ready before they load
+      seedClientSession(queryClient)
+    }
 
     const skipVt = window.matchMedia('(max-width: 767px), (prefers-reduced-motion: reduce)')
     // Router reads options.defaultViewTransition live when it commits a nav (after
