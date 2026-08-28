@@ -616,6 +616,35 @@ describe('Auth Routes (browser)', () => {
   })
 
   describe('POST /auth/resend-verification', () => {
+    it('renews an expired verification link without a session', async () => {
+      const { createVerificationToken } = await import('../email-verification.service')
+      const { emailVerifications } = await import('../../../db/schema')
+      const creds = TEST_CREDENTIALS.toto
+      const user = await createTestUser(creds.rawEmail, creds.rawPassword)
+      const expiredToken = await createVerificationToken(testDb, user.id)
+
+      await testDb
+        .update(emailVerifications)
+        .set({ expiresAt: new Date(Date.now() - 1000).toISOString() })
+        .where(eq(emailVerifications.userId, user.id))
+      const rowsBefore = await testDb
+        .select()
+        .from(emailVerifications)
+        .where(eq(emailVerifications.userId, user.id))
+
+      const res = await client.auth['resend-verification-token'].$post({
+        json: { token: expiredToken },
+      })
+
+      expect(await expectOk(res)).toBeNull()
+      const rows = await testDb
+        .select()
+        .from(emailVerifications)
+        .where(eq(emailVerifications.userId, user.id))
+      expect(rows).toHaveLength(rowsBefore.length + 1)
+      expect(rows.filter((row) => row.usedAt === null)).toHaveLength(1)
+    })
+
     it('should resend verification email when authenticated and unverified', async () => {
       const creds = await createTestToto()
       const { accessToken } = await loginAndGetCookies(client, creds.rawEmail, creds.rawPassword)
