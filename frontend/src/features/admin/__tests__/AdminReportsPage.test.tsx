@@ -1,16 +1,18 @@
 import type { ContentPreview, ListReportsResponse, ReportView } from '@aurore/shared'
 
+import type { MutationFunctionContext } from '@tanstack/react-query'
 import { fireEvent, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { HttpResponse, http } from 'msw'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
 import type { SessionView } from '@/lib/auth/session'
+import { ApiError } from '@/lib/helpers/apiError'
 import { useEscalateReport, useModerateContent, useResolveReport } from '@/lib/queries/admin'
 import { LinkStub } from '@/test/mocks/router'
 import { server } from '@/test/msw/server'
 import { makeIdleMutationResult } from '@/test/mutation'
-import { renderWithProviders } from '@/test/utils'
+import { createTestQueryClient, renderWithProviders } from '@/test/utils'
 
 const { useSessionMock } = vi.hoisted(() => ({
   useSessionMock: vi.fn<() => SessionView>(),
@@ -91,6 +93,11 @@ let lastReportQuery: { status?: string; escalated?: string } = {}
 type ResolveMutate = ReturnType<typeof useResolveReport>['mutate']
 type ModerateMutate = ReturnType<typeof useModerateContent>['mutate']
 type EscalateMutate = ReturnType<typeof useEscalateReport>['mutate']
+
+const MUTATION_CONTEXT = {
+  client: createTestQueryClient(),
+  meta: undefined,
+} satisfies MutationFunctionContext
 
 function setSessionRole(role: 'admin' | 'contributor') {
   useSessionMock.mockReturnValue({
@@ -373,6 +380,23 @@ describe('AdminReportsPage', () => {
     expect(screen.queryByRole('button', { name: 'Escalader' })).not.toBeInTheDocument()
   })
 
+  it('hides every decision from a contributor after escalation', async () => {
+    setSessionRole('contributor')
+    const escalated: ReportView = {
+      ...baseReports[0],
+      escalatedAt: '2026-05-31T10:00:00Z',
+      escalatedBy: 'usr-modo',
+    }
+    serveQueries([escalated])
+    setupMutations()
+    renderWithProviders(<AdminReportsPage />)
+
+    expect(await screen.findByText('Escaladé')).toBeInTheDocument()
+    expect(screen.queryByRole('button', { name: 'Résoudre' })).not.toBeInTheDocument()
+    expect(screen.queryByRole('button', { name: 'Rejeter' })).not.toBeInTheDocument()
+    expect(screen.queryByRole('button', { name: 'Escalader' })).not.toBeInTheDocument()
+  })
+
   it('shows the Escaladés tab for an admin', async () => {
     serveQueries(baseReports)
     setupMutations()
@@ -408,5 +432,76 @@ describe('AdminReportsPage', () => {
     expect(await screen.findByText('Dossier escaladé')).toBeInTheDocument()
     expect(screen.queryByText('Propos insultants')).not.toBeInTheDocument()
     expect(lastReportQuery).toEqual({ status: undefined, escalated: 'true' })
+  })
+
+  it.each([
+    ['not_found', 404, 'Signalement introuvable.'],
+    ['forbidden', 403, 'Ce signalement est désormais réservé aux administrateurs.'],
+  ] as const)('maps a %s resolve failure to its local message', async (code, status, message) => {
+    serveQueries([baseReports[0]])
+    const { resolve } = setupMutations()
+    renderWithProviders(<AdminReportsPage />)
+
+    await userEvent.click(await screen.findByRole('button', { name: 'Résoudre' }))
+    const confirmDialog = await screen.findByRole('alertdialog')
+    await userEvent.click(
+      Array.from(confirmDialog.querySelectorAll('button')).find(
+        (button) => button.textContent === 'Résoudre'
+      ) as HTMLButtonElement
+    )
+    const call = resolve.mock.calls[0]
+    if (!call) throw new Error('resolve mutation was not called')
+    const [variables, options] = call
+    options?.onError?.(new ApiError(code, status), variables, undefined, MUTATION_CONTEXT)
+
+    expect(await screen.findByText(message)).toBeInTheDocument()
+  })
+
+  it('shows a local error when escalating a report fails', async () => {
+    serveQueries([baseReports[0]])
+    const { escalate } = setupMutations()
+    renderWithProviders(<AdminReportsPage />)
+
+    await userEvent.click(await screen.findByRole('button', { name: 'Escalader' }))
+    const confirmDialog = await screen.findByRole('alertdialog')
+    await userEvent.click(
+      Array.from(confirmDialog.querySelectorAll('button')).find(
+        (button) => button.textContent === 'Escalader'
+      ) as HTMLButtonElement
+    )
+    const call = escalate.mock.calls[0]
+    if (!call) throw new Error('escalate mutation was not called')
+    const [variables, options] = call
+    options?.onError?.(new ApiError('not_found', 404), variables, undefined, MUTATION_CONTEXT)
+
+    expect(await screen.findByText('Signalement introuvable.')).toBeInTheDocument()
+  })
+
+  it('does not show feedback from a decision completed after changing queue', async () => {
+    const resolvedReport = {
+      ...baseReports[0],
+      id: 'rep-resolved-late',
+      status: 'resolved',
+    } satisfies ReportView
+    serveQueries([baseReports[0], resolvedReport])
+    const { resolve } = setupMutations()
+    renderWithProviders(<AdminReportsPage />)
+
+    await userEvent.click(await screen.findByRole('button', { name: 'Résoudre' }))
+    const confirmDialog = await screen.findByRole('alertdialog')
+    await userEvent.click(
+      Array.from(confirmDialog.querySelectorAll('button')).find(
+        (button) => button.textContent === 'Résoudre'
+      ) as HTMLButtonElement
+    )
+    fireEvent.click(screen.getByRole('button', { name: 'Résolus' }))
+    const call = resolve.mock.calls[0]
+    if (!call) throw new Error('resolve mutation was not called')
+    const [variables, options] = call
+    const resolved = { ...baseReports[0], status: 'resolved' } satisfies ReportView
+    options?.onSuccess?.(resolved, variables, undefined, MUTATION_CONTEXT)
+
+    await screen.findByText('Propos insultants')
+    expect(screen.queryByText('Signalement résolu.')).not.toBeInTheDocument()
   })
 })

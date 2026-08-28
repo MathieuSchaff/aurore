@@ -1,21 +1,22 @@
-import type { ReportStatus, ReportTargetType } from '@aurore/shared'
+import type { CommonErrorCode, ReportStatus, ReportTargetType } from '@aurore/shared'
 
 import { useQuery, useSuspenseQuery } from '@tanstack/react-query'
 import { Link } from '@tanstack/react-router'
-import { Fragment, useMemo, useState } from 'react'
+import { Fragment, useMemo, useRef, useState } from 'react'
 
 import { Button } from '@/component/Button/Button'
 import { Time } from '@/component/DataDisplay/Time/Time'
 import { FormMessage } from '@/component/Feedback/ui/FormMessage/FormMessage'
 import { AdminFilterTabs } from '@/features/admin/components/AdminFilterTabs'
 import { useConfirm } from '@/features/admin/useConfirm'
+import { useSession } from '@/lib/auth/session'
+import { apiErrorMessage } from '@/lib/helpers/apiError'
 import {
   adminQueries,
   useEscalateReport,
   useModerateContent,
   useResolveReport,
 } from '@/lib/queries/admin'
-import { useSession } from '@/lib/auth/session'
 import { adminLabels, roleLabels, rolePillClass } from '../constants'
 import { useSuccessFeedback } from '../useSuccessFeedback'
 
@@ -40,6 +41,12 @@ const TARGET_TO_MODERATE: Record<
   ingredient: 'ingredients',
 }
 
+const ACTION_ERROR_MESSAGES: Partial<Record<CommonErrorCode, string>> = {
+  not_found: 'Signalement introuvable.',
+  forbidden: 'Ce signalement est désormais réservé aux administrateurs.',
+}
+const ACTION_FAILED = 'L’action a échoué. Réessayez.'
+
 export function AdminReportsPage() {
   const [tab, setTab] = useState<ReportTab>('open')
   // Moderators get content-only queue, never account PII.
@@ -57,7 +64,9 @@ export function AdminReportsPage() {
   const [pendingId, setPendingId] = useState<string | null>(null)
   const [escalatingId, setEscalatingId] = useState<string | null>(null)
   const { success, setSuccess } = useSuccessFeedback()
+  const [error, setError] = useState<string | null>(null)
   const [expandedId, setExpandedId] = useState<string | null>(null)
+  const tabRef = useRef(tab)
   const visibleTabs = TABS.filter((t) => !t.adminOnly || isAdmin)
 
   const reporterEmailById = useMemo(() => {
@@ -73,6 +82,7 @@ export function AdminReportsPage() {
   }, [usersQuery.data])
 
   async function handleResolve(id: string, next: 'resolved' | 'dismissed') {
+    const requestTab = tab
     const label = next === 'resolved' ? 'Résoudre' : 'Rejeter'
     const ok = await confirm({
       title: `${label} ce signalement ?`,
@@ -83,18 +93,29 @@ export function AdminReportsPage() {
       confirmLabel: label,
     })
     if (!ok) return
+    setError(null)
+    setSuccess(null)
     setPendingId(id)
     resolve.mutate(
       { id, body: { status: next } },
       {
-        onSuccess: () =>
-          setSuccess(next === 'resolved' ? 'Signalement résolu.' : 'Signalement rejeté.'),
+        onSuccess: () => {
+          if (tabRef.current === requestTab) {
+            setSuccess(next === 'resolved' ? 'Signalement résolu.' : 'Signalement rejeté.')
+          }
+        },
+        onError: (mutationError) => {
+          if (tabRef.current === requestTab) {
+            setError(apiErrorMessage(mutationError, ACTION_ERROR_MESSAGES, ACTION_FAILED))
+          }
+        },
         onSettled: () => setPendingId(null),
       }
     )
   }
 
   async function handleEscalate(id: string) {
+    const requestTab = tab
     const ok = await confirm({
       title: 'Escalader à l’admin ?',
       message:
@@ -102,11 +123,28 @@ export function AdminReportsPage() {
       confirmLabel: 'Escalader',
     })
     if (!ok) return
+    setError(null)
+    setSuccess(null)
     setEscalatingId(id)
     escalate.mutate(id, {
-      onSuccess: () => setSuccess('Signalement escaladé à l’admin.'),
+      onSuccess: () => {
+        if (tabRef.current === requestTab) setSuccess('Signalement escaladé à l’admin.')
+      },
+      onError: (mutationError) => {
+        if (tabRef.current === requestTab) {
+          setError(apiErrorMessage(mutationError, ACTION_ERROR_MESSAGES, ACTION_FAILED))
+        }
+      },
       onSettled: () => setEscalatingId(null),
     })
+  }
+
+  function changeTab(next: ReportTab) {
+    tabRef.current = next
+    setSuccess(null)
+    setError(null)
+    setExpandedId(null)
+    setTab(next)
   }
 
   const items = data.items
@@ -123,12 +161,13 @@ export function AdminReportsPage() {
       <AdminFilterTabs
         tabs={visibleTabs}
         value={tab}
-        onChange={setTab}
+        onChange={changeTab}
         label="File de signalements"
       />
 
       <div aria-live="polite" aria-atomic="true">
         {success && <FormMessage variant="success">{success}</FormMessage>}
+        {error && <FormMessage variant="error">{error}</FormMessage>}
       </div>
 
       {items.length === 0 ? (
@@ -210,7 +249,7 @@ export function AdminReportsPage() {
                               Voir le profil
                             </Link>
                           )}
-                          {r.status === 'open' && (
+                          {r.status === 'open' && (isAdmin || !r.escalatedAt) && (
                             <>
                               <Button
                                 variant="ghost"
