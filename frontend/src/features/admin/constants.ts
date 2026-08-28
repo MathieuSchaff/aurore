@@ -1,5 +1,7 @@
 import type { RoleRequestStatus } from '@aurore/shared'
 
+import { apiErrorMessage } from '@/lib/helpers/apiError'
+
 // Admin UI wording, centralized so tests and production import the same string.
 // A copy tweak then cannot make a test pass against stale text.
 export const adminLabels = {
@@ -53,7 +55,7 @@ export const roleLabels: Record<UserRole, string> = {
   contributor: 'Modérateur',
 }
 
-const adminErrorMessages: Record<string, string> = {
+const adminErrorMessages = {
   not_a_contributor: "Ce compte n'est pas modérateur.",
   cannot_self_demote: 'Vous ne pouvez pas vous rétrograder vous-même.',
   cannot_self_ban: 'Vous ne pouvez pas vous mettre en pause.',
@@ -64,10 +66,10 @@ const adminErrorMessages: Record<string, string> = {
   invalid_input: 'Données invalides.',
   server_error: 'Erreur serveur. Réessayer.',
   rate_limit_exceeded: 'Trop de tentatives. Réessayer plus tard.',
-}
+} as const
 
-export function getAdminErrorMessage(err: Error): string {
-  return adminErrorMessages[err.message] ?? 'Une erreur est survenue.'
+export function getAdminErrorMessage(err: unknown): string {
+  return apiErrorMessage(err, adminErrorMessages, 'Une erreur est survenue.')
 }
 
 // Pill colour per role; plain user keeps the neutral base, no modifier.

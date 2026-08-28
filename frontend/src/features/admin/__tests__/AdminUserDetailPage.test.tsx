@@ -1,9 +1,11 @@
+import type { MutationFunctionContext } from '@tanstack/react-query'
 import { screen, waitFor, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { delay, HttpResponse, http } from 'msw'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
 import type { SessionView } from '@/lib/auth/session'
+import { ApiError } from '@/lib/helpers/apiError'
 import {
   useCreateBan,
   useDemoteToUser,
@@ -12,7 +14,7 @@ import {
 } from '@/lib/queries/admin'
 import { server } from '@/test/msw/server'
 import { makeIdleMutationResult } from '@/test/mutation'
-import { renderWithProviders } from '@/test/utils'
+import { createTestQueryClient, renderWithProviders } from '@/test/utils'
 
 const { routeParams, useSessionMock } = vi.hoisted(() => ({
   routeParams: { userId: 'usr-1' },
@@ -60,6 +62,11 @@ const DEFAULT_USER: AdminUserAccount = {
 }
 
 const CONTRIBUTOR_USER: AdminUserAccount = { ...DEFAULT_USER, role: 'contributor' }
+const MUTATION_CONTEXT = {
+  client: createTestQueryClient(),
+  meta: undefined,
+} satisfies MutationFunctionContext
+
 type AccountState = 'success' | 'not-found' | 'error' | 'pending'
 
 type RequestCounters = {
@@ -209,6 +216,28 @@ describe('AdminUserDetailPage', () => {
     )
   })
 
+  it('offers every supported scope with a French label', async () => {
+    serveQueries({})
+    setupMutations()
+    renderWithProviders(<AdminUserDetailPage />)
+
+    const scopeSelect = await screen.findByLabelText('Portée')
+    expect(
+      within(scopeSelect)
+        .getAllByRole('option')
+        .map((option) => option.textContent)
+    ).toEqual([
+      'Global (toutes les actions)',
+      'Création de produits',
+      'Édition de produits',
+      'Création d’ingrédients',
+      'Édition d’ingrédients',
+      'Publication dans les discussions',
+      'Publication d’avis',
+      'Publication sociale',
+    ])
+  })
+
   it('passes the trimmed reason and UTC datetime to the ban mutation', async () => {
     serveQueries({})
     const { createBan } = setupMutations()
@@ -264,7 +293,8 @@ describe('AdminUserDetailPage', () => {
     const bansTable = await screen.findByRole('table', {
       name: 'Pauses (actives et historique)',
     })
-    expect(within(bansTable).getByText('discussion_post')).toBeInTheDocument()
+    expect(within(bansTable).getByText('Publication dans les discussions')).toBeInTheDocument()
+    expect(within(bansTable).getByText('Active')).toBeInTheDocument()
     expect(within(bansTable).getByText('Spam répété')).toBeInTheDocument()
     expect(within(bansTable).getByText('Permanent')).toBeInTheDocument()
 
@@ -278,6 +308,83 @@ describe('AdminUserDetailPage', () => {
         expect.objectContaining({ onSuccess: expect.any(Function) })
       )
     })
+  })
+
+  it('shows an expired ban as history without a lift action', async () => {
+    const ban: AdminBanListItem = {
+      id: 'ban-expired',
+      userId: 'usr-1',
+      scope: 'social_post',
+      reason: 'Ancienne pause',
+      expiresAt: '2026-05-20T09:00:00Z',
+      createdAt: '2026-05-19T09:00:00Z',
+      bannedBy: 'admin-1',
+      status: 'expired',
+    }
+    serveQueries({ bans: [ban] })
+    setupMutations()
+    renderWithProviders(<AdminUserDetailPage />)
+
+    const bansTable = await screen.findByRole('table', {
+      name: 'Pauses (actives et historique)',
+    })
+    expect(within(bansTable).getByText('Publication sociale')).toBeInTheDocument()
+    expect(within(bansTable).getByText('Expirée')).toBeInTheDocument()
+    expect(screen.queryByRole('button', { name: 'Lever' })).not.toBeInTheDocument()
+  })
+
+  it('shows a local message when the ban disappeared before the lift', async () => {
+    const ban: AdminBanListItem = {
+      id: 'ban-missing',
+      userId: 'usr-1',
+      scope: 'product_edit',
+      reason: null,
+      expiresAt: null,
+      createdAt: '2026-05-21T09:00:00Z',
+      bannedBy: 'admin-1',
+      status: 'active',
+    }
+    serveQueries({ bans: [ban] })
+    const { liftBan } = setupMutations()
+    liftBan.mockImplementation((banId, options) => {
+      const error = new ApiError('not_found', 404)
+      options?.onError?.(error, banId, undefined, MUTATION_CONTEXT)
+      options?.onSettled?.(undefined, error, banId, undefined, MUTATION_CONTEXT)
+    })
+    renderWithProviders(<AdminUserDetailPage />)
+
+    await userEvent.click(await screen.findByRole('button', { name: 'Lever' }))
+    await clickConfirmDialogButton('Lever')
+
+    expect(await screen.findByText('Cette pause n’existe plus.')).toBeInTheDocument()
+    expect(screen.queryByText('Pause levée.')).not.toBeInTheDocument()
+  })
+
+  it('shows a local fallback for an unhandled lift failure', async () => {
+    const ban: AdminBanListItem = {
+      id: 'ban-network',
+      userId: 'usr-1',
+      scope: 'product_edit',
+      reason: null,
+      expiresAt: null,
+      createdAt: '2026-05-21T09:00:00Z',
+      bannedBy: 'admin-1',
+      status: 'active',
+    }
+    serveQueries({ bans: [ban] })
+    const { liftBan } = setupMutations()
+    liftBan.mockImplementation((banId, options) => {
+      const error = new TypeError('network unavailable')
+      options?.onError?.(error, banId, undefined, MUTATION_CONTEXT)
+      options?.onSettled?.(undefined, error, banId, undefined, MUTATION_CONTEXT)
+    })
+    renderWithProviders(<AdminUserDetailPage />)
+
+    await userEvent.click(await screen.findByRole('button', { name: 'Lever' }))
+    await clickConfirmDialogButton('Lever')
+
+    expect(await screen.findByText('Une erreur est survenue.')).toBeInTheDocument()
+    expect(screen.queryByText('Pause levée.')).not.toBeInTheDocument()
   })
 
   it('forces a profile private after confirmation', async () => {
