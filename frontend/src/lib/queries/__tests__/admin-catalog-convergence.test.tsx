@@ -1,4 +1,5 @@
 import type {
+  AdminUserAccount,
   CatalogQueueResponse,
   DiscussionThread,
   DiscussionThreadWithReplies,
@@ -11,6 +12,7 @@ import type {
   PublicProductReviewsResponse,
   PublicProfileReviewsResponse,
   ReportView,
+  RoleRequestView,
   SuggestedEditView,
 } from '@aurore/shared'
 
@@ -29,6 +31,7 @@ import {
   useEscalateReport,
   useModerateContent,
   useResolveReport,
+  useReviewRoleRequest,
   useReviewSuggestedEdit,
   useVerifyCatalogItem,
 } from '../admin'
@@ -856,5 +859,140 @@ describe('admin catalog convergence', () => {
     )
 
     await waitFor(() => expect(discussionReads).toBe(2))
+  })
+
+  it('refetches active user list and detail after approving a role request', async () => {
+    let userListReads = 0
+    let userDetailReads = 0
+    const user = {
+      id: 'aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa',
+      email: 'candidate@example.com',
+      role: 'user',
+      emailVerifiedAt: '2026-08-20T09:00:00.000Z',
+      createdAt: '2026-08-19T09:00:00.000Z',
+      forcedPrivateByAdmin: false,
+    } satisfies AdminUserAccount
+    const request = {
+      id: 'bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb',
+      userId: user.id,
+      motivation: 'I can help review the catalogue.',
+      motivationLink: null,
+      status: 'approved',
+      rejectionReason: null,
+      reviewedBy: '66666666-6666-4666-8666-666666666666',
+      reviewedAt: '2026-08-20T12:00:00.000Z',
+      createdAt: '2026-08-20T10:00:00.000Z',
+      updatedAt: '2026-08-20T12:00:00.000Z',
+    } satisfies RoleRequestView
+
+    server.use(
+      http.get('*/api/admin/users', () => {
+        userListReads += 1
+        return HttpResponse.json({ success: true, data: { items: [user] } })
+      }),
+      http.get('*/api/admin/users/:id', () => {
+        userDetailReads += 1
+        return HttpResponse.json({ success: true, data: user })
+      }),
+      http.patch('*/api/admin/role-requests/:id', () =>
+        HttpResponse.json({ success: true, data: request })
+      )
+    )
+
+    const queryClient = createTestQueryClient()
+    const { result } = renderHookWithProviders(
+      () => ({
+        users: useQuery(adminQueries.users()),
+        user: useQuery(adminQueries.user(user.id)),
+        review: useReviewRoleRequest(),
+      }),
+      { queryClient }
+    )
+
+    await waitFor(() => {
+      expect(result.current.users.isSuccess).toBe(true)
+      expect(result.current.user.isSuccess).toBe(true)
+    })
+    expect(userListReads).toBe(1)
+    expect(userDetailReads).toBe(1)
+
+    await act(() =>
+      result.current.review.mutateAsync({
+        id: request.id,
+        body: { decision: 'approve' },
+      })
+    )
+
+    await waitFor(() => {
+      expect(userListReads).toBe(2)
+      expect(userDetailReads).toBe(2)
+    })
+  })
+
+  it('leaves active user list and detail fresh after rejecting a role request', async () => {
+    let userListReads = 0
+    let userDetailReads = 0
+    const user = {
+      id: '13131313-1313-4313-8313-131313131313',
+      email: 'rejected-candidate@example.com',
+      role: 'user',
+      emailVerifiedAt: '2026-08-20T09:00:00.000Z',
+      createdAt: '2026-08-19T09:00:00.000Z',
+      forcedPrivateByAdmin: false,
+    } satisfies AdminUserAccount
+    const request = {
+      id: '14141414-1414-4414-8414-141414141414',
+      userId: user.id,
+      motivation: 'I can help review the catalogue.',
+      motivationLink: null,
+      status: 'rejected',
+      rejectionReason: 'Insufficient',
+      reviewedBy: '66666666-6666-4666-8666-666666666666',
+      reviewedAt: '2026-08-20T12:00:00.000Z',
+      createdAt: '2026-08-20T10:00:00.000Z',
+      updatedAt: '2026-08-20T12:00:00.000Z',
+    } satisfies RoleRequestView
+
+    server.use(
+      http.get('*/api/admin/users', () => {
+        userListReads += 1
+        return HttpResponse.json({ success: true, data: { items: [user] } })
+      }),
+      http.get('*/api/admin/users/:id', () => {
+        userDetailReads += 1
+        return HttpResponse.json({ success: true, data: user })
+      }),
+      http.patch('*/api/admin/role-requests/:id', () =>
+        HttpResponse.json({ success: true, data: request })
+      )
+    )
+
+    const queryClient = createTestQueryClient()
+    const { result } = renderHookWithProviders(
+      () => ({
+        users: useQuery(adminQueries.users()),
+        user: useQuery(adminQueries.user(user.id)),
+        review: useReviewRoleRequest(),
+      }),
+      { queryClient }
+    )
+
+    await waitFor(() => {
+      expect(result.current.users.isSuccess).toBe(true)
+      expect(result.current.user.isSuccess).toBe(true)
+    })
+    expect(userListReads).toBe(1)
+    expect(userDetailReads).toBe(1)
+
+    await act(() =>
+      result.current.review.mutateAsync({
+        id: request.id,
+        body: { decision: 'reject', reason: request.rejectionReason },
+      })
+    )
+
+    await waitFor(() => expect(queryClient.isFetching()).toBe(0))
+    expect(userListReads).toBe(1)
+    expect(userDetailReads).toBe(1)
   })
 })

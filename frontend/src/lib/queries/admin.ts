@@ -27,13 +27,19 @@ import { throwIfNotOk, unwrapData } from '../helpers/apiError'
 import { catalogSubmissionKeys } from './catalog-submissions'
 import { invalidateDiscussionReads } from './discussions'
 import { invalidateIngredientReads } from './ingredients'
-import { invalidateProductReads, invalidateProductReviewReads } from './products'
-import { invalidateProfileReviewReads } from './profile'
+import {
+  invalidateProductAuthorReads,
+  invalidateProductReads,
+  invalidateProductReviewReads,
+} from './products'
+import { invalidateProfileReviewReads, invalidatePublicProfileReads } from './profile'
+import { invalidateSocialReads } from './social'
 
 const adminKeys = {
   all: ['admin'] as const,
   users: () => [...adminKeys.all, 'users'] as const,
-  userBans: (userId: string) => [...adminKeys.all, 'users', userId, 'bans'] as const,
+  user: (userId: string) => [...adminKeys.users(), userId] as const,
+  userBans: (userId: string) => [...adminKeys.user(userId), 'bans'] as const,
   reports: (status?: ReportStatus, escalated?: boolean) =>
     [...adminKeys.all, 'reports', { status, escalated }] as const,
   suggestedEdits: (status?: SuggestedEditStatus) =>
@@ -90,6 +96,16 @@ export const adminQueries = {
         const res = await api.admin.users.$get()
         return unwrapData(res)
       },
+    }),
+
+  user: (userId: string) =>
+    queryOptions({
+      queryKey: adminKeys.user(userId),
+      queryFn: async () => {
+        const res = await api.admin.users[':id'].$get({ param: { id: userId } })
+        return unwrapData(res)
+      },
+      enabled: !!userId,
     }),
 
   userBans: (userId: string) =>
@@ -234,7 +250,12 @@ export function useModerateProfileVisibility(userId: string) {
       return unwrapData(res)
     },
     onSuccess: () => {
-      qc.invalidateQueries({ queryKey: adminKeys.users() })
+      qc.invalidateQueries({ queryKey: adminKeys.users(), exact: true })
+      qc.invalidateQueries({ queryKey: adminKeys.user(userId), exact: true })
+      invalidatePublicProfileReads(qc)
+      invalidateProductAuthorReads(qc)
+      invalidateDiscussionReads(qc)
+      invalidateSocialReads(qc)
     },
   })
 }
@@ -252,7 +273,8 @@ export function useDemoteToUser(userId: string) {
       return unwrapData(res)
     },
     onSuccess: () => {
-      qc.invalidateQueries({ queryKey: adminKeys.users() })
+      qc.invalidateQueries({ queryKey: adminKeys.users(), exact: true })
+      qc.invalidateQueries({ queryKey: adminKeys.user(userId), exact: true })
     },
   })
 }
@@ -327,12 +349,16 @@ export function useReviewRoleRequest() {
       const res = await api.admin['role-requests'][':id'].$patch({ param: { id }, json: body })
       return unwrapData(res)
     },
-    onSuccess: () => {
+    onSuccess: (request) => {
       // Broad prefix: a decision moves a row between status tabs, so any cached
       // status view must refresh. A { status } key only deep-matches its own filter.
       qc.invalidateQueries({ queryKey: [...adminKeys.all, 'role-requests'] })
       // The dashboard's 5th card counts pending requests; refresh it after a decision.
       qc.invalidateQueries({ queryKey: adminKeys.dashboard() })
+      if (request.status === 'approved') {
+        qc.invalidateQueries({ queryKey: adminKeys.users(), exact: true })
+        qc.invalidateQueries({ queryKey: adminKeys.user(request.userId), exact: true })
+      }
     },
   })
 }
