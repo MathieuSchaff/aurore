@@ -8,7 +8,7 @@ import type {
 
 import { useQuery, useSuspenseQuery } from '@tanstack/react-query'
 import { getRouteApi, Link } from '@tanstack/react-router'
-import { useState } from 'react'
+import { Fragment, useState } from 'react'
 
 import { Button } from '@/component/Button/Button'
 import { Time } from '@/component/DataDisplay/Time/Time'
@@ -131,12 +131,14 @@ export function AdminUserDetailPage() {
         user={user}
       />
 
-      <CreateBanCard userId={userId} isAdmin={isAdmin} />
-      <BansListCard userId={userId} bans={bansQuery.data} isAdmin={isAdmin} />
-      {isAdmin && user && (
-        <ProfileVisibilityCard userId={userId} initialForced={user.forcedPrivateByAdmin} />
-      )}
-      {isAdmin && user?.role === 'contributor' && <RoleCard userId={userId} />}
+      <Fragment key={userId}>
+        <CreateBanCard userId={userId} isAdmin={isAdmin} />
+        <BansListCard userId={userId} bans={bansQuery.data} isAdmin={isAdmin} />
+        {isAdmin && user && (
+          <ProfileVisibilityCard userId={userId} forced={user.forcedPrivateByAdmin} />
+        )}
+        {isAdmin && user?.role === 'contributor' && <RoleCard userId={userId} />}
+      </Fragment>
     </section>
   )
 }
@@ -198,7 +200,7 @@ function RoleCard({ userId }: { userId: string }) {
     const ok = await confirm({
       title: 'Rétrograder ce modérateur ?',
       message:
-        'Ses droits de modération sont retirés et le compte redevient un utilisateur. Réversible : un rôle pourra lui être accordé à nouveau.',
+        'Ses droits de modération et de curation seront retirés immédiatement. Le compte redeviendra utilisateur. Un rôle pourra lui être accordé à nouveau.',
       confirmLabel: 'Rétrograder',
       variant: 'danger',
     })
@@ -214,10 +216,13 @@ function RoleCard({ userId }: { userId: string }) {
   }
 
   return (
-    <div className="admin-card">
-      <h2 className="admin-card__title">Rôle</h2>
+    <section className="admin-card" aria-labelledby="admin-user-role-title">
+      <h2 id="admin-user-role-title" className="admin-card__title">
+        Rôle
+      </h2>
       <p className="admin-page__lede">
-        Retirer les droits de modération de ce compte. Action réversible.
+        Retirer immédiatement les droits de modération et de curation de ce compte. Un rôle pourra
+        lui être accordé à nouveau.
       </p>
       <div className="admin-card__field">
         <Input
@@ -236,7 +241,7 @@ function RoleCard({ userId }: { userId: string }) {
         </Button>
       </div>
       {dialog}
-    </div>
+    </section>
   )
 }
 
@@ -398,26 +403,22 @@ function BansListCard({
   )
 }
 
-function ProfileVisibilityCard({
-  userId,
-  initialForced,
-}: {
-  userId: string
-  initialForced: boolean
-}) {
+function ProfileVisibilityCard({ userId, forced }: { userId: string; forced: boolean }) {
   const moderate = useModerateProfileVisibility(userId)
   const { confirm, dialog } = useConfirm()
-  const [forced, setForced] = useState(initialForced)
   const [reason, setReason] = useState('')
+  const [error, setError] = useState<string | null>(null)
   const { success, setSuccess } = useSuccessFeedback()
 
   async function apply(next: boolean) {
+    setError(null)
+    setSuccess(null)
     const ok = await confirm({
       title: next ? 'Forcer ce profil en privé ?' : 'Lever le forçage privé ?',
       message: next
-        ? 'Le profil sera invisible et ses reviews publiques cachées. Action à utiliser après une modération individuelle insuffisante.'
-        : 'Le profil retrouvera la visibilité décidée par son auteur.',
-      confirmLabel: next ? 'Forcer privé' : 'Lever',
+        ? 'Le profil sera invisible. Ses avis et publications publiques seront masqués, ainsi que son pseudonyme sur les autres échanges.'
+        : 'Le profil retrouvera la visibilité choisie par son auteur. Ses avis, publications et pseudonyme retrouveront leur affichage habituel.',
+      confirmLabel: next ? 'Forcer en privé' : 'Lever',
       variant: next ? 'danger' : 'default',
     })
     if (!ok) return
@@ -427,25 +428,28 @@ function ProfileVisibilityCard({
         reason: next && reason.trim().length > 0 ? reason.trim() : undefined,
       },
       {
-        onSuccess: (data) => {
-          setForced(data.forcedPrivateByAdmin)
+        onSuccess: () => {
+          setError(null)
           setSuccess(next ? 'Profil forcé en privé.' : 'Forçage levé.')
         },
+        onError: (err) => setError(getAdminErrorMessage(err)),
       }
     )
   }
 
   return (
-    <div className="admin-card">
-      <h2 className="admin-card__title">Visibilité du profil</h2>
+    <section className="admin-card" aria-labelledby="admin-user-profile-visibility-title">
+      <h2 id="admin-user-profile-visibility-title" className="admin-card__title">
+        Visibilité du profil
+      </h2>
       <p className="admin-page__lede">
-        Action exceptionnelle. À utiliser uniquement quand la modération par-ligne (review,
-        discussion) ne suffit plus.
+        Action exceptionnelle. À utiliser uniquement quand la modération de chaque avis ou
+        discussion ne suffit plus.
       </p>
       <div className="admin-card__field">
         <Toggle
-          label="Forcer privé (admin override)"
-          hint="Le toggle utilisateur est ignoré tant que le forçage est actif."
+          label="Forcer le profil en privé"
+          hint="Le choix de visibilité de l’auteur reste ignoré tant que le forçage est actif."
           checked={forced}
           disabled={moderate.isPending}
           onChange={(next) => apply(next)}
@@ -460,9 +464,10 @@ function ProfileVisibilityCard({
         />
       </div>
       <div aria-live="polite" aria-atomic="true">
+        {error && <FormMessage variant="error">{error}</FormMessage>}
         {success && <FormMessage variant="success">{success}</FormMessage>}
       </div>
       {dialog}
-    </div>
+    </section>
   )
 }

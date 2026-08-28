@@ -1,5 +1,5 @@
 import type { MutationFunctionContext } from '@tanstack/react-query'
-import { screen, waitFor, within } from '@testing-library/react'
+import { act, screen, waitFor, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { delay, HttpResponse, http } from 'msw'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
@@ -7,6 +7,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest'
 import type { SessionView } from '@/lib/auth/session'
 import { ApiError } from '@/lib/helpers/apiError'
 import {
+  adminQueries,
   useCreateBan,
   useDemoteToUser,
   useLiftBan,
@@ -62,6 +63,13 @@ const DEFAULT_USER: AdminUserAccount = {
 }
 
 const CONTRIBUTOR_USER: AdminUserAccount = { ...DEFAULT_USER, role: 'contributor' }
+const SECOND_CONTRIBUTOR_USER: AdminUserAccount = {
+  ...CONTRIBUTOR_USER,
+  id: 'usr-2',
+  email: 'second@seed.local',
+  forcedPrivateByAdmin: true,
+}
+
 const MUTATION_CONTEXT = {
   client: createTestQueryClient(),
   meta: undefined,
@@ -387,6 +395,20 @@ describe('AdminUserDetailPage', () => {
     expect(screen.queryByText('Pause levée.')).not.toBeInTheDocument()
   })
 
+  it('describes hidden public surfaces before forcing a profile private', async () => {
+    serveQueries({})
+    setupMutations()
+    renderWithProviders(<AdminUserDetailPage />)
+
+    const toggle = await screen.findByRole('switch', { name: /Forcer.*privé/i })
+    await userEvent.click(toggle)
+
+    const dialog = await screen.findByRole('alertdialog')
+    expect(
+      within(dialog).getByText(/avis et publications publiques.*pseudonyme/i)
+    ).toBeInTheDocument()
+  })
+
   it('forces a profile private after confirmation', async () => {
     serveQueries({})
     const { moderateProfile } = setupMutations()
@@ -396,13 +418,165 @@ describe('AdminUserDetailPage', () => {
     expect(toggle).not.toBeChecked()
     await userEvent.click(toggle)
     await screen.findByRole('alertdialog')
-    await clickConfirmDialogButton('Forcer privé')
+    await clickConfirmDialogButton('Forcer en privé')
 
     await waitFor(() => {
       expect(moderateProfile).toHaveBeenCalledTimes(1)
     })
     const [body] = moderateProfile.mock.calls[0]
     expect(body).toMatchObject({ forcedPrivate: true })
+  })
+
+  it('describes restored public surfaces before lifting force-private', async () => {
+    serveQueries({ user: { ...DEFAULT_USER, forcedPrivateByAdmin: true } })
+    setupMutations()
+    renderWithProviders(<AdminUserDetailPage />)
+
+    const toggle = await screen.findByRole('switch', { name: /Forcer.*privé/i })
+    await userEvent.click(toggle)
+
+    const dialog = await screen.findByRole('alertdialog')
+    expect(
+      within(dialog).getByText(/avis, publications et pseudonyme.*affichage habituel/i)
+    ).toBeInTheDocument()
+  })
+
+  it('lifts force-private after confirmation', async () => {
+    serveQueries({ user: { ...DEFAULT_USER, forcedPrivateByAdmin: true } })
+    const { moderateProfile } = setupMutations()
+    renderWithProviders(<AdminUserDetailPage />)
+
+    const toggle = await screen.findByRole('switch', { name: /Forcer.*privé/i })
+    expect(toggle).toBeChecked()
+    await userEvent.click(toggle)
+    await screen.findByRole('alertdialog')
+    await clickConfirmDialogButton('Lever')
+
+    await waitFor(() => {
+      expect(moderateProfile).toHaveBeenCalledWith(
+        { forcedPrivate: false, reason: undefined },
+        expect.objectContaining({ onError: expect.any(Function) })
+      )
+    })
+  })
+
+  it('reflects the latest server-owned force-private state after an account refetch', async () => {
+    serveQueries({})
+    setupMutations()
+    const queryClient = createTestQueryClient()
+    renderWithProviders(<AdminUserDetailPage />, { queryClient })
+
+    const toggle = await screen.findByRole('switch', { name: /Forcer.*privé/i })
+    expect(toggle).not.toBeChecked()
+    server.use(
+      http.get('*/api/admin/users/:id', () =>
+        HttpResponse.json({
+          success: true,
+          data: { ...DEFAULT_USER, forcedPrivateByAdmin: true },
+        })
+      )
+    )
+
+    await act(async () => {
+      await queryClient.invalidateQueries({
+        queryKey: adminQueries.user(DEFAULT_USER.id).queryKey,
+        exact: true,
+      })
+    })
+
+    await waitFor(() => expect(toggle).toBeChecked())
+  })
+
+  it('clears every target-specific action draft when navigating to another account', async () => {
+    serveQueries({ user: CONTRIBUTOR_USER })
+    setupMutations()
+    const queryClient = createTestQueryClient()
+    queryClient.setQueryData(adminQueries.user(CONTRIBUTOR_USER.id).queryKey, CONTRIBUTOR_USER)
+    queryClient.setQueryData(adminQueries.userBans(CONTRIBUTOR_USER.id).queryKey, [])
+    queryClient.setQueryData(
+      adminQueries.user(SECOND_CONTRIBUTOR_USER.id).queryKey,
+      SECOND_CONTRIBUTOR_USER
+    )
+    queryClient.setQueryData(adminQueries.userBans(SECOND_CONTRIBUTOR_USER.id).queryKey, [])
+    const { rerender } = renderWithProviders(<AdminUserDetailPage />, { queryClient })
+
+    const profileCard = await screen.findByRole('region', { name: 'Visibilité du profil' })
+    const roleCard = screen.getByRole('region', { name: 'Rôle' })
+    const createBanReason = screen
+      .getAllByLabelText('Raison (optionnel)')
+      .find((element) => element.tagName === 'TEXTAREA')
+    if (!createBanReason) throw new Error('create-ban reason textarea not found')
+    await userEvent.selectOptions(screen.getByLabelText('Portée'), 'product_edit')
+    await userEvent.type(createBanReason, 'pause compte un')
+    await userEvent.type(screen.getByLabelText('Expire le (optionnel)'), '2030-06-15T10:30')
+    await userEvent.type(within(profileCard).getByLabelText('Raison (optionnel)'), 'profil un')
+    await userEvent.type(within(roleCard).getByLabelText('Raison (optionnel)'), 'rôle un')
+
+    routeParams.userId = SECOND_CONTRIBUTOR_USER.id
+    server.use(
+      http.get('*/api/admin/users/:id/bans', () => HttpResponse.json({ success: true, data: [] })),
+      http.get('*/api/admin/users/:id', () =>
+        HttpResponse.json({ success: true, data: SECOND_CONTRIBUTOR_USER })
+      )
+    )
+    rerender(<AdminUserDetailPage />)
+
+    expect(
+      await screen.findByRole('heading', { name: SECOND_CONTRIBUTOR_USER.email })
+    ).toBeInTheDocument()
+    const nextProfileCard = screen.getByRole('region', { name: 'Visibilité du profil' })
+    const nextRoleCard = screen.getByRole('region', { name: 'Rôle' })
+    const nextCreateBanReason = screen
+      .getAllByLabelText('Raison (optionnel)')
+      .find((element) => element.tagName === 'TEXTAREA')
+    if (!nextCreateBanReason) throw new Error('next create-ban reason textarea not found')
+    expect(screen.getByLabelText('Portée')).toHaveValue('global')
+    expect(screen.getByLabelText('Expire le (optionnel)')).toHaveValue('')
+    expect(nextCreateBanReason).toHaveValue('')
+    expect(within(nextProfileCard).getByLabelText('Raison (optionnel)')).toHaveValue('')
+    expect(within(nextRoleCard).getByLabelText('Raison (optionnel)')).toHaveValue('')
+    expect(screen.getByRole('switch', { name: /Forcer.*privé/i })).toBeChecked()
+  })
+
+  it('shows a local not found error for profile visibility', async () => {
+    serveQueries({})
+    const { moderateProfile } = setupMutations()
+    renderWithProviders(<AdminUserDetailPage />)
+
+    await userEvent.click(await screen.findByRole('switch', { name: /Forcer.*privé/i }))
+    await clickConfirmDialogButton('Forcer en privé')
+    const call = moderateProfile.mock.calls[0]
+    if (!call) throw new Error('profile visibility mutation was not called')
+    const [variables, options] = call
+    act(() => {
+      options?.onError?.(new ApiError('not_found', 404), variables, undefined, MUTATION_CONTEXT)
+    })
+
+    expect(await screen.findByText(/Utilisateur introuvable/i)).toBeInTheDocument()
+    expect(screen.queryByText(/Profil forcé en privé/i)).not.toBeInTheDocument()
+  })
+
+  it('shows a local fallback for an unknown profile visibility error', async () => {
+    serveQueries({})
+    const { moderateProfile } = setupMutations()
+    renderWithProviders(<AdminUserDetailPage />)
+
+    await userEvent.click(await screen.findByRole('switch', { name: /Forcer.*privé/i }))
+    await clickConfirmDialogButton('Forcer en privé')
+    const call = moderateProfile.mock.calls[0]
+    if (!call) throw new Error('profile visibility mutation was not called')
+    const [variables, options] = call
+    act(() => {
+      options?.onError?.(
+        new TypeError('network unavailable'),
+        variables,
+        undefined,
+        MUTATION_CONTEXT
+      )
+    })
+
+    expect(await screen.findByText(/Une erreur est survenue/i)).toBeInTheDocument()
+    expect(screen.queryByText(/Profil forcé en privé/i)).not.toBeInTheDocument()
   })
 
   it('does not render the demote card for a non-contributor user', async () => {
@@ -414,6 +588,18 @@ describe('AdminUserDetailPage', () => {
     expect(
       screen.queryByRole('button', { name: 'Rétrograder en utilisateur' })
     ).not.toBeInTheDocument()
+  })
+
+  it('describes lost moderation and curation before demotion', async () => {
+    serveQueries({ user: CONTRIBUTOR_USER })
+    setupMutations()
+    renderWithProviders(<AdminUserDetailPage />)
+
+    await userEvent.click(await screen.findByRole('button', { name: 'Rétrograder en utilisateur' }))
+    const dialog = await screen.findByRole('alertdialog')
+    expect(
+      within(dialog).getByText(/droits de modération et de curation.*redeviendra utilisateur/i)
+    ).toBeInTheDocument()
   })
 
   it('demotes a contributor to user after confirmation', async () => {
@@ -432,6 +618,28 @@ describe('AdminUserDetailPage', () => {
       { role: 'user' },
       expect.objectContaining({ onError: expect.any(Function) })
     )
+  })
+
+  it.each([
+    [new ApiError('cannot_self_demote', 400), /Vous ne pouvez pas.*rétrograder/i],
+    [new ApiError('not_a_contributor', 409), /Ce compte n'est pas modérateur/i],
+    [new ApiError('not_found', 404), /Utilisateur introuvable/i],
+    [new TypeError('network unavailable'), /Une erreur est survenue/i],
+  ])('shows a local demotion error for %s', async (error, messagePattern) => {
+    serveQueries({ user: CONTRIBUTOR_USER })
+    const { demote } = setupMutations()
+    renderWithProviders(<AdminUserDetailPage />)
+
+    await userEvent.click(await screen.findByRole('button', { name: 'Rétrograder en utilisateur' }))
+    await clickConfirmDialogButton('Rétrograder')
+    const call = demote.mock.calls[0]
+    if (!call) throw new Error('demotion mutation was not called')
+    const [variables, options] = call
+    act(() => {
+      options?.onError?.(error, variables, undefined, MUTATION_CONTEXT)
+    })
+
+    expect(await screen.findByText(messagePattern)).toBeInTheDocument()
   })
 
   it('passes the trimmed reason to the demote mutation', async () => {
