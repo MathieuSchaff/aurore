@@ -1,4 +1,4 @@
-import { queryOptions, useMutation, useQueryClient } from '@tanstack/react-query'
+import { type QueryClient, queryOptions, useMutation, useQueryClient } from '@tanstack/react-query'
 
 import { api } from '../api'
 import { throwIfNotOk, unwrapData } from '../helpers/apiError'
@@ -11,6 +11,10 @@ const discussionKeys = {
     [...discussionKeys.all, entityType, slug] as const,
   thread: (entityType: EntityType, slug: string, threadId: string) =>
     [...discussionKeys.threads(entityType, slug), threadId] as const,
+}
+
+export function invalidateDiscussionReads(queryClient: QueryClient) {
+  return queryClient.invalidateQueries({ queryKey: discussionKeys.all })
 }
 
 export const discussionQueries = {

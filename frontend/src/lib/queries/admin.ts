@@ -24,6 +24,11 @@ import { queryOptions, useMutation, useQueryClient } from '@tanstack/react-query
 
 import { api } from '../api'
 import { throwIfNotOk, unwrapData } from '../helpers/apiError'
+import { catalogSubmissionKeys } from './catalog-submissions'
+import { invalidateDiscussionReads } from './discussions'
+import { invalidateIngredientReads } from './ingredients'
+import { invalidateProductReads, invalidateProductReviewReads } from './products'
+import { invalidateProfileReviewReads } from './profile'
 
 const adminKeys = {
   all: ['admin'] as const,
@@ -287,7 +292,7 @@ export function useEscalateReport() {
   })
 }
 
-export function useReviewSuggestedEdit(statusFilter?: SuggestedEditStatus) {
+export function useReviewSuggestedEdit() {
   const qc = useQueryClient()
   return useMutation({
     mutationKey: ['admin', 'suggested-edit', 'review'],
@@ -296,9 +301,19 @@ export function useReviewSuggestedEdit(statusFilter?: SuggestedEditStatus) {
       const res = await api.admin['suggested-edits'][':id'].$patch({ param: { id }, json: body })
       return unwrapData(res)
     },
-    onSuccess: () => {
-      qc.invalidateQueries({ queryKey: adminKeys.suggestedEdits(statusFilter) })
-      qc.invalidateQueries({ queryKey: adminKeys.suggestedEdits() })
+    // A decision moves a row between status tabs, so every cached view must refresh
+    onSuccess: (edit) => {
+      qc.invalidateQueries({ queryKey: [...adminKeys.all, 'suggested-edits'] })
+      if (edit.status === 'accepted' && edit.targetType === 'product') {
+        invalidateProductReads(qc)
+      }
+      if (edit.status === 'accepted' && edit.targetType === 'ingredient') {
+        invalidateIngredientReads(qc)
+      }
+      if (edit.status === 'accepted') {
+        qc.invalidateQueries({ queryKey: [...adminKeys.all, 'catalog-queue'] })
+        qc.invalidateQueries({ queryKey: catalogSubmissionKeys.mine() })
+      }
     },
   })
 }
@@ -347,7 +362,14 @@ export function useModerateContent() {
       // Hiding/restoring shifts a product or ingredient between catalog queue views; no-op when no queue is mounted.
       qc.invalidateQueries({ queryKey: [...adminKeys.all, 'catalog-queue'] })
       // Owner's submissions dashboard renders the moderation badge + note; refresh it too (no-op when not mounted).
-      qc.invalidateQueries({ queryKey: ['catalog-submissions', 'mine'] })
+      qc.invalidateQueries({ queryKey: catalogSubmissionKeys.mine() })
+      if (vars.target === 'products') invalidateProductReads(qc)
+      if (vars.target === 'ingredients') invalidateIngredientReads(qc)
+      if (vars.target === 'reviews') {
+        invalidateProductReviewReads(qc)
+        invalidateProfileReviewReads(qc)
+      }
+      if (vars.target === 'threads' || vars.target === 'replies') invalidateDiscussionReads(qc)
     },
   })
 }
@@ -370,10 +392,12 @@ export function useVerifyCatalogItem() {
       })
       return unwrapData(res)
     },
-    onSuccess: () => {
+    onSuccess: (_data, vars) => {
       qc.invalidateQueries({ queryKey: [...adminKeys.all, 'catalog-queue'] })
       // Verifying flips the owner's submissions badge to « Vérifiée ».
-      qc.invalidateQueries({ queryKey: ['catalog-submissions', 'mine'] })
+      qc.invalidateQueries({ queryKey: catalogSubmissionKeys.mine() })
+      if (vars.kind === 'product') invalidateProductReads(qc)
+      if (vars.kind === 'ingredient') invalidateIngredientReads(qc)
     },
   })
 }
