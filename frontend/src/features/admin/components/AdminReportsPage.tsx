@@ -14,7 +14,7 @@ import {
   useModerateContent,
   useResolveReport,
 } from '@/lib/queries/admin'
-import { useAuthStore } from '@/store/auth'
+import { useSession } from '@/lib/auth/session'
 import { adminLabels, roleLabels, rolePillClass } from '../constants'
 import { useSuccessFeedback } from '../useSuccessFeedback'
 
@@ -42,7 +42,8 @@ const TARGET_TO_MODERATE: Record<
 export function AdminReportsPage() {
   const [tab, setTab] = useState<ReportTab>('open')
   // Moderators get content-only queue, never account PII.
-  const isAdmin = useAuthStore((s) => s.role === 'admin')
+  const session = useSession()
+  const isAdmin = session.status === 'authenticated' && session.user.role === 'admin'
   const isEscalatedView = tab === 'escalated'
   const statusFilter: ReportStatus | undefined = tab === 'escalated' ? undefined : tab
   const { data } = useSuspenseQuery(

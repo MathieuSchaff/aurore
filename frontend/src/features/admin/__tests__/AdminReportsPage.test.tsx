@@ -28,7 +28,32 @@ vi.mock('@/lib/queries/admin', async (importOriginal) => {
 
 import type { ReportView } from '@aurore/shared'
 
-import { useAuthStore } from '@/store/auth'
+import type { SessionView } from '@/lib/auth/session'
+
+const { useSessionMock } = vi.hoisted(() => ({
+  useSessionMock: vi.fn<() => SessionView>(),
+}))
+
+vi.mock('@/lib/auth/session', async (importOriginal) => ({
+  ...(await importOriginal<typeof import('@/lib/auth/session')>()),
+  useSession: useSessionMock,
+}))
+
+function setSessionRole(role: 'admin' | 'contributor') {
+  useSessionMock.mockReturnValue({
+    status: 'authenticated',
+    credential: 'present',
+    user: {
+      id: `${role}-id`,
+      email: `${role}@example.test`,
+      createdAt: '2026-01-01T00:00:00.000Z',
+      role,
+      emailVerified: true,
+      isDemo: false,
+    },
+  })
+}
+
 import { AdminReportsPage } from '../components/AdminReportsPage'
 import { adminLabels } from '../constants'
 
@@ -117,7 +142,7 @@ function setupMutations() {
 describe('AdminReportsPage', () => {
   beforeEach(() => {
     vi.clearAllMocks()
-    useAuthStore.setState({ role: 'admin' })
+    setSessionRole('admin')
   })
 
   it('renders the header count and status tabs', async () => {
@@ -209,7 +234,7 @@ describe('AdminReportsPage', () => {
   // Contributors own the queue but get a content-only view: no account PII,
   // no admin-only profile/global-ban affordances.
   it('hides reporter email from a contributor (no account PII)', async () => {
-    useAuthStore.setState({ role: 'contributor' })
+    setSessionRole('contributor')
     serveQueries([baseReports[0]])
     setupMutations()
     renderWithProviders(<AdminReportsPage />)
@@ -220,7 +245,7 @@ describe('AdminReportsPage', () => {
   })
 
   it('hides the « Voir le profil » link + target email from a contributor', async () => {
-    useAuthStore.setState({ role: 'contributor' })
+    setSessionRole('contributor')
     serveQueries([baseReports[1]])
     setupMutations()
     renderWithProviders(<AdminReportsPage />)
@@ -341,7 +366,7 @@ describe('AdminReportsPage', () => {
   })
 
   it('hides the Escaladés tab from a contributor', async () => {
-    useAuthStore.setState({ role: 'contributor' })
+    setSessionRole('contributor')
     serveQueries(baseReports)
     setupMutations()
     renderWithProviders(<AdminReportsPage />)

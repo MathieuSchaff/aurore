@@ -10,15 +10,15 @@ import {
   Users,
 } from 'lucide-react'
 
-import { useAuthStore } from '@/store/auth'
 import '@/features/admin/admin.css'
-
+import { useSession } from '@/lib/auth/session'
 import { adminLabels } from '../constants'
 
 export function AdminLayout() {
-  // Dashboard + Utilisateurs are account/structure surfaces, so admin-only.
-  // Contributors see the content surfaces: Signalements + Corrections.
-  const isAdmin = useAuthStore((state) => state.role === 'admin')
+  // Account and structure views require an administrator
+  // Contributors keep access to content moderation views
+  const session = useSession()
+  const isAdmin = session.status === 'authenticated' && session.user.role === 'admin'
   return (
     <div className="admin-shell">
       <aside className="admin-sidebar" aria-label="Navigation admin">

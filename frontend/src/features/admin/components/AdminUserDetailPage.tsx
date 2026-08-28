@@ -21,7 +21,7 @@ import {
   useLiftBan,
   useModerateProfileVisibility,
 } from '@/lib/queries/admin'
-import { useAuthStore } from '@/store/auth'
+import { useSession } from '@/lib/auth/session'
 import { adminLabels, getAdminErrorMessage, roleLabels } from '../constants'
 import { useSuccessFeedback } from '../useSuccessFeedback'
 
@@ -43,7 +43,8 @@ export function AdminUserDetailPage() {
   const { userId } = routeApi.useParams()
   // Account header + force-private are admin-only. A contributor gets content-only (no PII).
   // users() returns 403 for contributors, so gate the fetch.
-  const isAdmin = useAuthStore((s) => s.role === 'admin')
+  const session = useSession()
+  const isAdmin = session.status === 'authenticated' && session.user.role === 'admin'
   const usersQuery = useQuery({ ...adminQueries.users(), enabled: isAdmin })
   const bansQuery = useSuspenseQuery(adminQueries.userBans(userId))
 

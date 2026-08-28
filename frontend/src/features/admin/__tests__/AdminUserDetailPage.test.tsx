@@ -35,7 +35,32 @@ vi.mock('@/lib/queries/admin', async (importOriginal) => {
 
 import type { AdminUserListItem, CreateBanResponse } from '@aurore/shared'
 
-import { useAuthStore } from '@/store/auth'
+import type { SessionView } from '@/lib/auth/session'
+
+const { useSessionMock } = vi.hoisted(() => ({
+  useSessionMock: vi.fn<() => SessionView>(),
+}))
+
+vi.mock('@/lib/auth/session', async (importOriginal) => ({
+  ...(await importOriginal<typeof import('@/lib/auth/session')>()),
+  useSession: useSessionMock,
+}))
+
+function setSessionRole(role: 'admin' | 'contributor') {
+  useSessionMock.mockReturnValue({
+    status: 'authenticated',
+    credential: 'present',
+    user: {
+      id: `${role}-id`,
+      email: `${role}@example.test`,
+      createdAt: '2026-01-01T00:00:00.000Z',
+      role,
+      emailVerified: true,
+      isDemo: false,
+    },
+  })
+}
+
 import { AdminUserDetailPage } from '../components/AdminUserDetailPage'
 import { adminLabels } from '../constants'
 
@@ -101,7 +126,7 @@ function clickConfirmDialogButton(label: string) {
 describe('AdminUserDetailPage', () => {
   beforeEach(() => {
     vi.clearAllMocks()
-    useAuthStore.setState({ role: 'admin' })
+    setSessionRole('admin')
   })
 
   it("renders the user's email + role in the header when the user exists", async () => {
@@ -288,7 +313,7 @@ describe('AdminUserDetailPage', () => {
 describe('AdminUserDetailPage: contributor content-only slice', () => {
   beforeEach(() => {
     vi.clearAllMocks()
-    useAuthStore.setState({ role: 'contributor' })
+    setSessionRole('contributor')
   })
 
   it('hides the account header + force-private and drops global from the scope options', async () => {

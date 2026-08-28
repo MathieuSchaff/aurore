@@ -1,6 +1,12 @@
 import { render, screen } from '@testing-library/react'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
+import type { SessionView } from '@/lib/auth/session'
+
+const { useSessionMock } = vi.hoisted(() => ({
+  useSessionMock: vi.fn<() => SessionView>(),
+}))
+
 vi.mock('@tanstack/react-router', async () => ({
   ...(await vi.importActual<typeof import('@tanstack/react-router')>('@tanstack/react-router')),
   Link: ({ children, to }: { children: React.ReactNode; to: string }) => (
@@ -9,31 +15,63 @@ vi.mock('@tanstack/react-router', async () => ({
   Outlet: () => null,
 }))
 
-vi.mock('@/store/auth', () => ({ useAuthStore: vi.fn() }))
+vi.mock('@/lib/auth/session', async (importOriginal) => ({
+  ...(await importOriginal<typeof import('@/lib/auth/session')>()),
+  useSession: useSessionMock,
+}))
 
-import { setAuthRole } from '@/test/mocks/auth-store'
 import { AdminLayout } from '../components/AdminLayout'
 
-describe('AdminLayout nav visibility (ADR-0006 S1)', () => {
+function setSessionRole(role: 'admin' | 'contributor') {
+  useSessionMock.mockReturnValue({
+    status: 'authenticated',
+    credential: 'present',
+    user: {
+      id: `${role}-id`,
+      email: `${role}@example.test`,
+      createdAt: '2026-01-01T00:00:00.000Z',
+      role,
+      emailVerified: true,
+      isDemo: false,
+    },
+  })
+}
+
+describe('AdminLayout nav visibility (ADR-0006)', () => {
   beforeEach(() => vi.clearAllMocks())
 
-  it('shows all three nav items to an admin', () => {
-    setAuthRole('admin')
+  it('shows all seven navigation destinations to an admin', () => {
+    setSessionRole('admin')
     render(<AdminLayout />)
 
-    expect(screen.getByText('Tableau de bord')).toBeInTheDocument()
-    expect(screen.getByText('Utilisateurs')).toBeInTheDocument()
-    expect(screen.getByText('Signalements')).toBeInTheDocument()
-    expect(screen.getByText('Demandes modérateur')).toBeInTheDocument()
+    const destinations = {
+      'Tableau de bord': '/admin',
+      Utilisateurs: '/admin/users',
+      'Demandes modérateur': '/admin/role-requests',
+      Sécurité: '/admin/security-events',
+      Signalements: '/admin/reports',
+      Catalogue: '/admin/catalog',
+      Corrections: '/admin/suggested-edits',
+    }
+    for (const [name, href] of Object.entries(destinations)) {
+      expect(screen.getByRole('link', { name })).toHaveAttribute('href', href)
+    }
   })
 
-  it('shows only Signalements to a contributor (dashboard + users stay admin-only)', () => {
-    setAuthRole('contributor')
+  it('shows only content moderation destinations to a contributor', () => {
+    setSessionRole('contributor')
     render(<AdminLayout />)
 
-    expect(screen.getByText('Signalements')).toBeInTheDocument()
-    expect(screen.queryByText('Tableau de bord')).not.toBeInTheDocument()
-    expect(screen.queryByText('Utilisateurs')).not.toBeInTheDocument()
-    expect(screen.queryByText('Demandes modérateur')).not.toBeInTheDocument()
+    const allowed = {
+      Signalements: '/admin/reports',
+      Catalogue: '/admin/catalog',
+      Corrections: '/admin/suggested-edits',
+    }
+    for (const [name, href] of Object.entries(allowed)) {
+      expect(screen.getByRole('link', { name })).toHaveAttribute('href', href)
+    }
+    for (const name of ['Tableau de bord', 'Utilisateurs', 'Demandes modérateur', 'Sécurité']) {
+      expect(screen.queryByRole('link', { name })).not.toBeInTheDocument()
+    }
   })
 })
