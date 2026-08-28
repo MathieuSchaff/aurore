@@ -3,6 +3,7 @@ import type {
   CreateProductInput,
   ProductConcentrationUnit,
   ProductDomainTab,
+  ProductErrorCode,
   ProductFormulaPreviewInput,
   ProductSort,
   UpdateProductInput,
@@ -21,8 +22,14 @@ import {
 
 import { FILTER_KEYS } from '@/features/products/filters'
 import { type ApiData, api } from '../api'
-import { ApiError, throwIfNotOk } from '../helpers/apiError'
+import { ApiError, throwIfNotOk, unwrapData } from '../helpers/apiError'
 import { applyOptimisticUpdates, optimisticCacheUpdate } from './optimistic'
+
+const PRODUCT_FORM_HANDLED_ERROR_CODES = [
+  'product_already_exists',
+  'tag_domain_mismatch',
+  'unauthorized_access',
+] as const satisfies readonly ProductErrorCode[]
 
 // Shape before serialization; local because Hono RPC expects Record<string,string>.
 export type ListProductsFilters = {
@@ -95,9 +102,7 @@ export const productQueries = {
         const query: Record<string, string> = {}
         if (category) query.category = category
         const res = await api.products['filter-options'].$get({ query })
-        if (!res.ok) throw new ApiError('http_error', res.status)
-        const json = await res.json()
-        return json.data
+        return unwrapData(res)
       },
       staleTime: 5 * 60 * 1000,
     }),
@@ -139,9 +144,7 @@ export const productQueries = {
       queryKey: productKeys.bySlug(slug),
       queryFn: async () => {
         const res = await api.products[':slug'].$get({ param: { slug } })
-        if (!res.ok) throw new ApiError('http_error', res.status)
-        const json = await res.json()
-        return json.data
+        return unwrapData(res)
       },
       enabled: !!slug,
       staleTime: 5 * 60 * 1000,
@@ -152,9 +155,7 @@ export const productQueries = {
       queryKey: productKeys.publicReviews(slug),
       queryFn: async () => {
         const res = await api.products[':slug'].reviews.public.$get({ param: { slug } })
-        if (!res.ok) throw new ApiError('http_error', res.status)
-        const json = await res.json()
-        return json.data
+        return unwrapData(res)
       },
       enabled: !!slug,
       staleTime: 60 * 1000,
@@ -165,9 +166,7 @@ export const productQueries = {
       queryKey: productKeys.posts(slug),
       queryFn: async () => {
         const res = await api.products[':slug'].posts.$get({ param: { slug } })
-        if (!res.ok) throw new ApiError('http_error', res.status)
-        const json = await res.json()
-        return json.data
+        return unwrapData(res)
       },
       enabled: !!slug,
       staleTime: 60 * 1000,
@@ -202,10 +201,7 @@ export const productQueries = {
           },
           { init: { signal } }
         )
-        await throwIfNotOk(res)
-        const json = await res.json()
-        if (!json.success) throw new ApiError('http_error', res.status)
-        return json.data
+        return unwrapData(res)
       },
       initialPageParam: 0 as number,
       getNextPageParam: (lastPage): number | undefined =>
@@ -223,10 +219,7 @@ export const productQueries = {
           { query: { q, limit: '20', offset: '0' } },
           { init: { signal } }
         )
-        await throwIfNotOk(res)
-        const json = await res.json()
-        if (!json.success) throw new ApiError('http_error', res.status)
-        return json.data.items
+        return (await unwrapData(res)).items
       },
       // No enabled floor here: AsyncSearchSelect owns gating via minChars.
       staleTime: 30 * 1000,
@@ -237,9 +230,7 @@ export const productQueries = {
       queryKey: [...productKeys.all, 'by-ids', ids.toSorted().join(',')] as const,
       queryFn: async () => {
         const res = await api.products['by-ids'].$get({ query: { ids: ids.join(',') } })
-        if (!res.ok) throw new ApiError('http_error', res.status)
-        const json = await res.json()
-        return json.data
+        return unwrapData(res)
       },
       enabled: ids.length > 0,
       staleTime: 5 * 60 * 1000,
@@ -255,9 +246,7 @@ export const productQueries = {
         const res = await api.products['check-duplicate'].$get({
           query: { name: n, brand: b },
         })
-        if (!res.ok) throw new ApiError('http_error', res.status)
-        const json = await res.json()
-        return json.data
+        return unwrapData(res)
       },
       enabled: n.length >= 2 && b.length >= 1,
       staleTime: 30 * 1000,
@@ -271,10 +260,7 @@ export const productQueries = {
       queryKey: [...productKeys.all, 'slug-preview', n, b] as const,
       queryFn: async () => {
         const res = await api.products['slug-preview'].$get({ query: { name: n, brand: b } })
-        if (!res.ok) throw new ApiError('http_error', res.status)
-        const json = await res.json()
-        if (!json.success) throw new Error('slug preview failed')
-        return json.data.slug
+        return (await unwrapData(res)).slug
       },
       staleTime: 30 * 1000,
     })
@@ -287,9 +273,7 @@ export const productQueries = {
         const res = await api.products.brands.$get({
           query: category ? { category } : {},
         })
-        if (!res.ok) throw new ApiError('http_error', res.status)
-        const json = await res.json()
-        return json.data
+        return unwrapData(res)
       },
       staleTime: 5 * 60 * 1000,
     }),
@@ -396,12 +380,11 @@ export async function convergeShelfStatusForList(
 export function useCreateProduct() {
   const qc = useQueryClient()
   return useMutation({
+    mutationKey: ['products', 'create'],
+    meta: { handledErrorCodes: PRODUCT_FORM_HANDLED_ERROR_CODES },
     mutationFn: async (data: CreateProductInput) => {
       const res = await api.products.$post({ json: data })
-      await throwIfNotOk(res, 'product_creation_failed')
-      const json = await res.json()
-      if (!json.success) throw new ApiError('product_creation_failed', res.status)
-      return json.data
+      return unwrapData(res)
     },
     onSuccess: () => {
       // Don't seed bySlug: POST returns row only; cache holds full ProductDetail with tags/ingredients.
@@ -414,28 +397,30 @@ export function useCreateProduct() {
 export function useUpdateProduct() {
   const qc = useQueryClient()
   return useMutation({
+    mutationKey: ['products', 'update'],
     mutationFn: async ({ id, data }: { id: string; data: UpdateProductInput }) => {
       const res = await api.products[':id'].$patch({ param: { id }, json: data })
-      await throwIfNotOk(res, 'product_update_failed')
-      const json = await res.json()
-      if (!json.success) throw new ApiError('product_update_failed', res.status)
-      return json.data
+      return unwrapData(res)
     },
     onSuccess: (product) => {
       // Invalidate (not setQueryData): PATCH returns row only; bySlug cache holds full ProductDetail.
       qc.invalidateQueries({ queryKey: productKeys.bySlug(product.slug) })
       qc.invalidateQueries({ queryKey: productKeys.lists() })
     },
-    meta: { errorMessage: 'Modification du produit impossible.' },
+    meta: {
+      errorMessage: 'Modification du produit impossible.',
+      handledErrorCodes: PRODUCT_FORM_HANDLED_ERROR_CODES,
+    },
   })
 }
 
 export function useDeleteProduct() {
   const qc = useQueryClient()
   return useMutation({
+    mutationKey: ['products', 'delete'],
     mutationFn: async ({ id }: { id: string; slug: string }) => {
       const res = await api.products[':id'].$delete({ param: { id } })
-      if (!res.ok) throw new Error('Failed to delete product')
+      await throwIfNotOk(res)
     },
     onSuccess: (_, { slug }) => {
       qc.removeQueries({ queryKey: productKeys.bySlug(slug) })
@@ -449,6 +434,7 @@ export function useDeleteProduct() {
 export function useUpdateProductTags() {
   const qc = useQueryClient()
   return useMutation({
+    mutationKey: ['products', 'tags', 'update'],
     mutationFn: async ({
       productId,
       tags,
@@ -461,16 +447,13 @@ export function useUpdateProductTags() {
         param: { productId },
         json: { tags },
       })
-      if (!res.ok) throw new Error('Failed to update product tags')
-      const json = await res.json()
-      if (!json.success) throw new Error('Failed to update product tags')
-      return json.data
+      return unwrapData(res)
     },
     onSuccess: (_, { slug }) => {
       qc.invalidateQueries({ queryKey: productKeys.bySlug(slug) })
       qc.invalidateQueries({ queryKey: productKeys.lists() })
     },
-    meta: { errorMessage: 'Mise à jour des tags impossible.' },
+    meta: { handledErrorCodes: PRODUCT_FORM_HANDLED_ERROR_CODES },
   })
 }
 
@@ -499,10 +482,7 @@ export function useAddProductIngredient() {
           concentrationUnit,
         },
       })
-      if (!res.ok) throw new Error('Failed to add product ingredient')
-      const json = await res.json()
-      if (!json.success) throw new Error('Failed to add product ingredient')
-      return json.data
+      return unwrapData(res)
     },
     onSuccess: (_, { productId, slug }) => {
       qc.invalidateQueries({ queryKey: productKeys.ingredients(productId) })
@@ -515,6 +495,7 @@ export function useAddProductIngredient() {
 export function useUpdateProductIngredient() {
   const qc = useQueryClient()
   return useMutation({
+    mutationKey: ['products', 'ingredients', 'update'],
     mutationFn: async ({
       productId,
       ingredientId,
@@ -534,10 +515,7 @@ export function useUpdateProductIngredient() {
           concentrationUnit,
         },
       })
-      if (!res.ok) throw new Error('Failed to update product ingredient')
-      const json = await res.json()
-      if (!json.success) throw new Error('Failed to update product ingredient')
-      return json.data
+      return unwrapData(res)
     },
     onSuccess: (_, { productId, slug }) => {
       qc.invalidateQueries({ queryKey: productKeys.ingredients(productId) })
@@ -560,11 +538,12 @@ type RemoveProductIngredientVariables = {
 export function useRemoveProductIngredient() {
   const qc = useQueryClient()
   return useMutation({
+    mutationKey: ['products', 'ingredients', 'remove'],
     mutationFn: async ({ productId, ingredientId }: RemoveProductIngredientVariables) => {
       const res = await api.products[':productId'].ingredients[':ingredientId'].$delete({
         param: { productId, ingredientId },
       })
-      if (!res.ok) throw new Error('Failed to remove product ingredient')
+      await throwIfNotOk(res)
     },
     // Optimistic remove so unrelated rows stay interactive during the request.
     onMutate: (variables) => {
@@ -594,21 +573,17 @@ export function useRemoveProductIngredient() {
 
 export type ProductListItem = ProductListData['items'][number]
 
-// Inferred from query; backend field additions surface automatically.
-export type ProductDetail = NonNullable<
-  Awaited<ReturnType<NonNullable<ReturnType<typeof productQueries.bySlug>['queryFn']>>>
->
+// Inferred from the route so backend field additions surface automatically
+export type ProductDetail = ApiData<(typeof api.products)[':slug']['$get']>
 
 export type ProductFormulaPreview = ApiData<(typeof api.products)['formula-preview']['$post']>
 
 export function usePreviewProductFormula() {
   return useMutation({
+    mutationKey: ['products', 'formula', 'preview'],
     mutationFn: async (input: ProductFormulaPreviewInput) => {
       const res = await api.products['formula-preview'].$post({ json: input })
-      await throwIfNotOk(res, 'formula_preview_failed')
-      const json = await res.json()
-      if (!json.success) throw new ApiError('formula_preview_failed', res.status)
-      return json.data
+      return unwrapData(res)
     },
   })
 }

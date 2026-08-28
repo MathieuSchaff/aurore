@@ -1,7 +1,7 @@
 import { queryOptions } from '@tanstack/react-query'
 
 import { type ApiData, api } from '../api'
-import { ApiError } from '../helpers/apiError'
+import { unwrapData } from '../helpers/apiError'
 
 const collectionKeys = {
   all: ['collection'] as const,
@@ -18,9 +18,7 @@ export const collectionQueries = {
       queryKey: collectionKeys.formulaMotifs(),
       queryFn: async () => {
         const res = await api.collection['formula-motifs'].$get()
-        if (!res.ok) throw new ApiError('http_error', res.status)
-        const data = await res.json()
-        return data.data
+        return unwrapData(res)
       },
       staleTime: 5 * 60 * 1000,
     }),

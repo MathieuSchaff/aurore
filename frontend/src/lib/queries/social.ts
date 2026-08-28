@@ -3,7 +3,7 @@ import type { FeedOrder, PostTone, ReactableType, ReactionKind, SkinConcern } fr
 import { keepPreviousData, queryOptions, useMutation, useQueryClient } from '@tanstack/react-query'
 
 import { type ApiData, api } from '../api'
-import { throwIfNotOk } from '../helpers/apiError'
+import { unwrapData } from '../helpers/apiError'
 import { productKeys } from './products'
 
 // Profiles surfaced by the similarity engine. Type derived from the route
@@ -16,10 +16,7 @@ export const socialQueries = {
       queryKey: ['social', 'similar'],
       queryFn: async () => {
         const res = await api.social.similar.$get()
-        await throwIfNotOk(res)
-        const json = await res.json()
-        if (!json.success) throw new Error('error' in json ? String(json.error) : 'Request failed')
-        return json.data
+        return unwrapData(res)
       },
       staleTime: 1000 * 60 * 5,
       // Keep the current list visible while switching concern/passive, no flash.
@@ -31,10 +28,7 @@ export const socialQueries = {
       queryKey: ['social', 'profiles', 'search', concern],
       queryFn: async () => {
         const res = await api.social.profiles.search.$get({ query: { concern } })
-        await throwIfNotOk(res)
-        const json = await res.json()
-        if (!json.success) throw new Error('error' in json ? String(json.error) : 'Request failed')
-        return json.data
+        return unwrapData(res)
       },
       staleTime: 1000 * 60 * 5,
       placeholderData: keepPreviousData,
@@ -50,10 +44,7 @@ export const socialQueries = {
           ? { tone: params.tone, order: params.order, concern: params.concern }
           : { tone: params.tone, order: params.order }
         const res = await api.social.feed.$get({ query })
-        await throwIfNotOk(res, 'feed_failed')
-        const json = await res.json()
-        if (!json.success) throw new Error('error' in json ? String(json.error) : 'Request failed')
-        return json.data
+        return unwrapData(res)
       },
       staleTime: 1000 * 60,
       // Keep the current list while switching tone/concern/order, no flash.
@@ -79,10 +70,7 @@ export const reactionQueries = {
       queryKey: reactionKeys.list(reactableType, reactableId),
       queryFn: async () => {
         const res = await api.social.reactions.$get({ query: { reactableType, reactableId } })
-        await throwIfNotOk(res)
-        const json = await res.json()
-        if (!json.success) throw new Error('error' in json ? String(json.error) : 'Request failed')
-        return json.data
+        return unwrapData(res)
       },
       staleTime: 1000 * 60,
     }),
@@ -94,15 +82,13 @@ export const reactionQueries = {
 export function useToggleReaction(reactableType: ReactableType, reactableId: string) {
   const queryClient = useQueryClient()
   return useMutation({
+    mutationKey: ['social', 'reaction', 'toggle'],
     mutationFn: async (input: { kind: ReactionKind; on: boolean }) => {
       const body = { json: { reactableType, reactableId, kind: input.kind } }
       const res = input.on
         ? await api.social.reactions.$post(body)
         : await api.social.reactions.$delete(body)
-      await throwIfNotOk(res, 'reaction_failed')
-      const json = await res.json()
-      if (!json.success) throw new Error('error' in json ? String(json.error) : 'Request failed')
-      return json.data
+      return unwrapData(res)
     },
     onSuccess: (data) => {
       queryClient.setQueryData(reactionKeys.list(reactableType, reactableId), data)
@@ -116,15 +102,12 @@ export function useToggleReaction(reactableType: ReactableType, reactableId: str
 export function useCreatePost(productId: string, slug: string) {
   const queryClient = useQueryClient()
   return useMutation({
+    mutationKey: ['social', 'post', 'create'],
     mutationFn: async (input: { content: string; tone: PostTone }) => {
       const res = await api.social.posts.$post({
         json: { content: input.content, tone: input.tone, productId },
       })
-      // Preserve backend code + Retry-After instead of hiding it behind a generic message.
-      await throwIfNotOk(res, 'post_creation_failed')
-      const json = await res.json()
-      if (!json.success) throw new Error('error' in json ? String(json.error) : 'Request failed')
-      return json.data
+      return unwrapData(res)
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: productKeys.posts(slug) })

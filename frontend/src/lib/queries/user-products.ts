@@ -7,7 +7,7 @@ import type {
 import { queryOptions, useMutation, useQueryClient } from '@tanstack/react-query'
 
 import { type ApiData, api } from '../api'
-import { ApiError } from '../helpers/apiError'
+import { ApiError, throwIfNotOk, unwrapData } from '../helpers/apiError'
 import { compatibilityKeys } from './compatibility'
 import { applyOptimisticUpdates, optimisticCacheUpdate } from './optimistic'
 import { productKeys } from './products'
@@ -55,9 +55,7 @@ export const userProductQueries = {
       queryKey: userProductKeys.list(),
       queryFn: async () => {
         const res = await api['user-products'].$get()
-        if (!res.ok) throw new ApiError('http_error', res.status)
-        const data = await res.json()
-        return data.data
+        return unwrapData(res)
       },
       // Personal catalogue rarely mutates; mutations already invalidate via userProductKeys.all.
       staleTime: 5 * 60 * 1000,
@@ -85,9 +83,7 @@ export const userProductQueries = {
     queryKey: userProductKeys.history(id),
     queryFn: async () => {
       const res = await api['user-products'][':id'].history.$get({ param: { id } })
-      if (!res.ok) throw new ApiError('http_error', res.status)
-      const data = await res.json()
-      return data.data
+      return unwrapData(res)
     },
   }),
 }
@@ -95,11 +91,10 @@ export const userProductQueries = {
 export const useCreateUserProduct = () => {
   const queryClient = useQueryClient()
   return useMutation({
+    mutationKey: ['user-products', 'create'],
     mutationFn: async (input: CreateUserProductInput) => {
       const res = await api['user-products'].$post({ json: input })
-      if (!res.ok) throw new Error('Failed to create user product')
-      const data = await res.json()
-      return data.data
+      return unwrapData(res)
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: userProductKeys.all })
@@ -113,14 +108,13 @@ export const useCreateUserProduct = () => {
 export const useUpdateUserProduct = () => {
   const queryClient = useQueryClient()
   return useMutation({
+    mutationKey: ['user-products', 'update'],
     mutationFn: async ({ id, input }: UpdateUserProductVariables) => {
       const res = await api['user-products'][':id'].$patch({
         param: { id },
         json: input,
       })
-      if (!res.ok) throw new Error('Failed to update user product')
-      const data = await res.json()
-      return data.data
+      return unwrapData(res)
     },
     onMutate: (variables) => {
       return applyOptimisticUpdates(queryClient, variables, [
@@ -153,9 +147,10 @@ export const useUpdateUserProduct = () => {
 export const useDeleteUserProduct = () => {
   const queryClient = useQueryClient()
   return useMutation({
+    mutationKey: ['user-products', 'delete'],
     mutationFn: async (id: string) => {
       const res = await api['user-products'][':id'].$delete({ param: { id } })
-      if (!res.ok) throw new Error('Failed to delete user product')
+      await throwIfNotOk(res)
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: userProductKeys.all })
@@ -172,14 +167,13 @@ export const useDeleteUserProduct = () => {
 export const useUpsertUserProductReview = () => {
   const queryClient = useQueryClient()
   return useMutation({
+    mutationKey: ['user-products', 'review', 'upsert'],
     mutationFn: async ({ id, input }: UpsertUserProductReviewVariables) => {
       const res = await api['user-products'][':id'].review.$put({
         param: { id },
         json: input,
       })
-      if (!res.ok) throw new Error('Failed to update review')
-      const data = await res.json()
-      return data.data
+      return unwrapData(res)
     },
     onMutate: (variables) => {
       return applyOptimisticUpdates(queryClient, variables, [

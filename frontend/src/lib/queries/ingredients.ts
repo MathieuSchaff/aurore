@@ -1,6 +1,7 @@
 import type {
   AllIngredientTagCategory,
   CreateIngredientInput,
+  IngredientErrorCode,
   IngredientSort,
   IngredientType,
   ReplaceIngredientTagsInput,
@@ -16,7 +17,7 @@ import {
 } from '@tanstack/react-query'
 
 import { api } from '../api'
-import { ApiError, throwIfNotOk } from '../helpers/apiError'
+import { ApiError, throwIfNotOk, unwrapData } from '../helpers/apiError'
 
 // Per-axis slug arrays; queryFn flattens to comma-joined query strings.
 export type ListIngredientsFilters = Partial<Record<AllIngredientTagCategory, string[]>> & {
@@ -39,6 +40,15 @@ const ingredientKeys = {
   filterOptions: (type?: IngredientType) =>
     [...ingredientKeys.all, 'filter-options', type ?? 'all'] as const,
 }
+
+const CREATE_INGREDIENT_HANDLED_ERROR_CODES = [
+  'ingredient_already_exists',
+  'slug_already_exists',
+] as const satisfies readonly IngredientErrorCode[]
+const UPDATE_INGREDIENT_HANDLED_ERROR_CODES = [
+  ...CREATE_INGREDIENT_HANDLED_ERROR_CODES,
+  'ingredient_update_conflict',
+] as const satisfies readonly IngredientErrorCode[]
 
 // Extracted (was inlined in `list.queryFn`) so the filter-to-query mapping
 // can be unit-tested without spinning up react-query / msw.
@@ -74,12 +84,7 @@ export const ingredientQueries = {
       queryKey: ingredientKeys.list(filters),
       queryFn: async () => {
         const res = await api.ingredients.$get({ query: buildListIngredientsQuery(filters) })
-        // throwIfNotOk (not `if (!res.ok)`) to keep the backend code+retryAfter on the
-        // ApiError so a 429 surfaces "retry in Ns"; narrow the union again after.
-        await throwIfNotOk(res)
-        const json = await res.json()
-        if (!json.success) throw new ApiError('http_error', res.status)
-        return json.data
+        return unwrapData(res)
       },
     }),
 
@@ -88,9 +93,7 @@ export const ingredientQueries = {
       queryKey: ingredientKeys.bySlug(slug),
       queryFn: async () => {
         const res = await api.ingredients[':slug'].$get({ param: { slug } })
-        if (!res.ok) throw new ApiError('http_error', res.status)
-        const json = await res.json()
-        return json.data
+        return unwrapData(res)
       },
       enabled: !!slug,
       staleTime: 5 * 60 * 1000,
@@ -101,9 +104,7 @@ export const ingredientQueries = {
       queryKey: ingredientKeys.products(slug),
       queryFn: async () => {
         const res = await api.ingredients[':slug'].products.$get({ param: { slug } })
-        if (!res.ok) throw new ApiError('http_error', res.status)
-        const json = await res.json()
-        return json.data
+        return unwrapData(res)
       },
       enabled: !!slug,
     }),
@@ -115,9 +116,7 @@ export const ingredientQueries = {
         const res = await api.ingredients[':ingredientId'].tags.$get({
           param: { ingredientId: id },
         })
-        if (!res.ok) throw new ApiError('http_error', res.status)
-        const json = await res.json()
-        return json.data
+        return unwrapData(res)
       },
       enabled: !!id,
     }),
@@ -130,10 +129,7 @@ export const ingredientQueries = {
           { query: { q: query, ...(type && { type }) } },
           { init: { signal } }
         )
-        await throwIfNotOk(res)
-        const json = await res.json()
-        if (!json.success) throw new ApiError('http_error', res.status)
-        return json.data
+        return unwrapData(res)
       },
       enabled: query.length >= 2,
     }),
@@ -144,10 +140,7 @@ export const ingredientQueries = {
       queryKey: [...ingredientKeys.all, 'search-infinite', query] as const,
       queryFn: async ({ signal }) => {
         const res = await api.ingredients.search.$get({ query: { q: query } }, { init: { signal } })
-        await throwIfNotOk(res)
-        const json = await res.json()
-        if (!json.success) throw new ApiError('http_error', res.status)
-        return { items: json.data, hasMore: false, nextOffset: 0 }
+        return { items: await unwrapData(res), hasMore: false, nextOffset: 0 }
       },
       initialPageParam: 0 as number,
       getNextPageParam: (): number | undefined => undefined,
@@ -163,11 +156,8 @@ export const ingredientQueries = {
           { query: { q: query } },
           { init: { signal } }
         )
-        await throwIfNotOk(res)
-        const json = await res.json()
-        if (!json.success) throw new ApiError('http_error', res.status)
         return {
-          items: json.data,
+          items: await unwrapData(res),
           hasMore: false,
           nextOffset: 0,
         }
@@ -184,9 +174,7 @@ export const ingredientQueries = {
         const res = await api.ingredients['by-slugs'].$get({
           query: { slugs: slugs.join(',') },
         })
-        if (!res.ok) throw new ApiError('http_error', res.status)
-        const json = await res.json()
-        return json.data
+        return unwrapData(res)
       },
       enabled: slugs.length > 0,
       staleTime: 10 * 60 * 1000,
@@ -196,9 +184,7 @@ export const ingredientQueries = {
       queryKey: [...ingredientKeys.all, 'options', type ?? 'all'] as const,
       queryFn: async () => {
         const res = await api.ingredients.options.$get({ query: type ? { type } : {} })
-        if (!res.ok) throw new ApiError('http_error', res.status)
-        const json = await res.json()
-        return json.data
+        return unwrapData(res)
       },
       staleTime: 10 * 60 * 1000,
     }),
@@ -210,9 +196,7 @@ export const ingredientQueries = {
         const res = await api.ingredients['filter-options'].$get({
           query: type ? { type } : {},
         })
-        if (!res.ok) throw new ApiError('http_error', res.status)
-        const json = await res.json()
-        return json.data
+        return unwrapData(res)
       },
       staleTime: 10 * 60 * 1000,
     }),
@@ -221,31 +205,31 @@ export const ingredientQueries = {
 export function useCreateIngredient() {
   const qc = useQueryClient()
   return useMutation({
+    mutationKey: ['ingredients', 'create'],
     mutationFn: async (data: CreateIngredientInput) => {
       const res = await api.ingredients.$post({ json: data })
-      await throwIfNotOk(res, 'ingredient_creation_failed')
-      const json = await res.json()
-      if (!json.success) throw new ApiError('ingredient_creation_failed', res.status)
-      return json.data
+      return unwrapData(res)
     },
     onSuccess: (ingredient) => {
       qc.setQueryData(ingredientKeys.bySlug(ingredient.slug), ingredient)
       qc.invalidateQueries({ queryKey: ingredientKeys.lists() })
     },
-    meta: { errorMessage: "Impossible de créer l'ingrédient." },
+    meta: {
+      errorMessage: "Impossible de créer l'ingrédient.",
+      handledErrorCodes: CREATE_INGREDIENT_HANDLED_ERROR_CODES,
+    },
   })
 }
 
 export function useUpdateIngredient() {
   const qc = useQueryClient()
   return useMutation({
+    mutationKey: ['ingredients', 'update'],
+    meta: { handledErrorCodes: UPDATE_INGREDIENT_HANDLED_ERROR_CODES },
     mutationFn: async ({ id, data }: { id: string; data: UpdateIngredientRouteInput }) => {
       const res = await api.ingredients[':id'].$patch({ param: { id }, json: data })
       // 409 conflict is surfaced inline by IngredientForm via the thrown ApiError.
-      await throwIfNotOk(res, 'ingredient_update_failed')
-      const json = await res.json()
-      if (!json.success) throw new ApiError('ingredient_update_failed', res.status)
-      return json.data
+      return unwrapData(res)
     },
     onSuccess: (ingredient) => {
       qc.setQueryData(ingredientKeys.bySlug(ingredient.slug), ingredient)
@@ -258,9 +242,10 @@ export function useUpdateIngredient() {
 export function useDeleteIngredient() {
   const qc = useQueryClient()
   return useMutation({
+    mutationKey: ['ingredients', 'delete'],
     mutationFn: async (id: string) => {
       const res = await api.ingredients[':id'].$delete({ param: { id } })
-      if (!res.ok) throw new Error('Failed to delete ingredient')
+      await throwIfNotOk(res)
     },
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: ingredientKeys.lists() })
@@ -272,6 +257,7 @@ export function useDeleteIngredient() {
 export function useUpdateIngredientTags() {
   const qc = useQueryClient()
   return useMutation({
+    mutationKey: ['ingredients', 'tags', 'update'],
     mutationFn: async ({
       ingredientId,
       tags,
@@ -283,10 +269,7 @@ export function useUpdateIngredientTags() {
         param: { ingredientId },
         json: { tags },
       })
-      if (!res.ok) throw new Error('Failed to update ingredient tags')
-      const json = await res.json()
-      if (!json.success) throw new Error('Failed to update ingredient tags')
-      return json.data
+      return unwrapData(res)
     },
     onSuccess: (_, { ingredientId }) => {
       qc.invalidateQueries({ queryKey: ingredientKeys.tags(ingredientId) })

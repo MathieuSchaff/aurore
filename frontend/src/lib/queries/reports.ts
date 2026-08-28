@@ -3,18 +3,14 @@ import type { CreateReportInput } from '@aurore/shared'
 import { useMutation } from '@tanstack/react-query'
 
 import { api } from '../api'
+import { unwrapData } from '../helpers/apiError'
 
 export function useCreateReport() {
   return useMutation({
+    mutationKey: ['reports', 'create'],
     mutationFn: async (body: CreateReportInput) => {
       const res = await api.reports.$post({ json: body })
-      if (!res.ok) {
-        const json = (await res.json()) as { error?: string }
-        throw new Error(json.error ?? 'Failed to submit report')
-      }
-      const json = await res.json()
-      if (!json.success) throw new Error('Report submission error')
-      return json.data
+      return unwrapData(res)
     },
   })
 }
