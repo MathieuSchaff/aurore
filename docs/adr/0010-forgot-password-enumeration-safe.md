@@ -1,18 +1,15 @@
 ---
-status: accepted
 date: 2026-06-17
 accepted: 2026-06-17
 ---
 
 # Forgot-password is enumeration-safe: neutral request, reset only by email
 
-`POST /auth/forgot-password` returns an **identical neutral response** whether the email exists or not, **never establishes a session**, and **equalizes timing** across both branches. The new-vs-existing truth is conveyed only by a reset link mailed to the address owner. This closes account enumeration on the last remaining auth surface, completing the doctrine started by login and signup (ADR 0009).
-
-> **Implemented 2026-06-17.** Greenfield: forgot/reset-password did not exist before. `requestPasswordReset()` returns the neutral `ok({ pending: true })` in both branches with a timing-equalizing dummy token hash on the unknown-email path and a fire-and-forget reset mail (so neither branch awaits the send); `resetPassword()` consumes a single-use token, rotates the password, and (atomically) revokes every refresh token, marks the email verified, and clears any brute-force lockout. New table `password_resets` (outside RLS, mirroring `email_verifications`), new routes `/auth/forgot-password` + `/auth/reset-password`, new pages, ADR. Token crypto factored into `token.utils.ts` shared with email-verification.
+`POST /auth/forgot-password` returns an **identical neutral response** whether the email exists or not, **never establishes a session**, and **equalizes timing** across both branches. The new-vs-existing truth is conveyed only by a reset link mailed to the address owner. This closes account enumeration on the last remaining auth surface, completing the doctrine started by login and signup ([ADR-0009](0009-signup-enumeration-safe.md)).
 
 ## Why
 
-Login (`DUMMY_HASH`) and signup (ADR 0009) are already enumeration-safe. Forgot-password is the same shape of leak: a "we sent you a reset link" vs "no account found" divergence (in body, status, *or latency*) lets an unauthenticated attacker enumerate the userbase. Aurore holds skincare / routine / personal data; enumerating its users is a real privacy harm, and the posture must match what the other two endpoints already enforce.
+Login (`DUMMY_HASH`) and signup (ADR-0009) are already enumeration-safe. Forgot-password is the same shape of leak: a "we sent you a reset link" vs "no account found" divergence (in body, status, *or latency*) lets an unauthenticated attacker enumerate the userbase. Aurore holds skincare / routine / personal data; enumerating its users is a real privacy harm, and the posture must match what the other two endpoints already enforce.
 
 The leak is the **asymmetry, not the message**. So the request endpoint must collapse to one neutral response with no session and equal timing; the truth leaves only by email.
 
@@ -20,8 +17,8 @@ A reset link, unlike a signup, also grants **account takeover** to whoever holds
 
 ## Considered options
 
-- **A. Genericize the message only** (keep a distinct success-vs-failure or fast-vs-slow path). Rejected: same defect as ADR 0009 option A. Any observable asymmetry stays enumerable.
-- **B. Neutral request, but await the mail send on the existing branch**: simpler, but awaiting a Brevo round-trip on the real branch makes it slower than the dummy branch → a latency oracle. Rejected. (Note: signup's new-email branch *does* await its verification mail; here we improve on that by firing the reset mail fire-and-forget so both branches return in the same time.)
+- **A. Genericize the message only** (keep a distinct success-vs-failure or fast-vs-slow path). Rejected: same defect as ADR-0009 option A. Any observable asymmetry stays enumerable.
+- **B. Neutral request, but await the mail send on the existing branch**: simpler, but awaiting a Brevo round-trip on the real branch makes it slower than the dummy branch: a latency oracle. Rejected. (Note: signup's new-email branch *does* await its verification mail; here we improve on that by firing the reset mail fire-and-forget so both branches return in the same time.)
 - **C. Strict neutral request + email-delivered reset link, with a hardened reset confirmation**. **Chosen.** Identical response, no session, timing equalized at the crypto level, mail fire-and-forget; the reset confirmation is single-use, short-lived, and rotates credentials.
 
 ## Consequences
@@ -44,20 +41,21 @@ A reset link, unlike a signup, also grants **account takeover** to whoever holds
 
 **Storage / RLS**
 - New `password_resets` table lives **outside RLS**, like `email_verifications`: forgot/reset are preidentity lookups (by email, then by token hash) with no session to bind an RLS context to. No SECURITY DEFINER function needed.
+- Token crypto (random token, sha256 hash) lives in `token.utils.ts`, shared with email verification.
 
 **Rate-limit**
 - Dedicated per-IP limiter on `/auth/forgot-password` (own bucket, counts every request, 5 / 15 min): it is a mail-spam surface, so unlike the global browse limiter it throttles aggressively. (Per-target-email throttling across rotating IPs is **not** implemented, noted as a future hardening; the IP limiter + fire-and-forget + neutral response are the first line.)
 
 **Mobile**
-- No mobile-specific routes. The neutral request returns no token and the reset link is an inherently web URL (`/auth/reset-password?token=…`); the existing web endpoints serve mobile clients unchanged. (Contrast signup/login, which need `/mobile/*` only to return tokens in the body.)
+- No mobile-specific routes. The neutral request returns no token and the reset link is a web URL (`/auth/reset-password?token=…`); the existing web endpoints serve mobile clients unchanged. (Contrast signup/login, which need `/mobile/*` only to return tokens in the body.)
 
 **Frontend**
-- `ForgotPasswordPage` (email → identical confirmation screen regardless of existence) and `ResetPasswordPage` (token from URL → new password + confirm). A "Mot de passe oublié ?" link is added to the login page.
+- `ForgotPasswordPage` (email in, identical confirmation screen out regardless of existence) and `ResetPasswordPage` (token from the URL, new password plus confirmation). A "Mot de passe oublié ?" link is added to the login page.
 
 **Risks / negatives**
-- Email deliverability is load-bearing for recovery (same tradeoff as ADR 0009).
+- Email deliverability is load-bearing for recovery (same tradeoff as ADR-0009).
 - Residual subjitter timing delta and the absence of per-email throttling are accepted, documented hardening gaps, not open leaks.
-- A token-creation DB failure on the existing-email branch is swallowed (best-effort): the user sees the neutral pending screen but no mail is sent. Re-surfacing it as `server_error` would add a server-state oracle (observable only on the existing branch), so the degradation is accepted: in practice such a failure means the DB is down for every endpoint anyway.
+- A token-creation DB failure on the existing-email branch is swallowed (best-effort): the user sees the neutral pending screen but no mail is sent. Surfacing it again as `server_error` would add a server-state oracle (observable only on the existing branch), so the degradation is accepted: in practice such a failure means the DB is down for every endpoint anyway.
 
 ## Out of scope
 

@@ -17,8 +17,8 @@ imports that each used a different slug scheme for the *same* substance:
 
 `-hair` rows are **shadow duplicates** the haircare import created so haircare-specific
 tags/dermo attach without touching the base entry. They are shared with genuine haircare
-products → cannot be renamed or deleted. String-munging (`<x>-hair → <x>`) both under- and
-overcounts; it cannot resolve identity.
+products, so they cannot be renamed or deleted. Stripping the suffix (`<x>-hair` to `<x>`) both
+under- and overcounts; it cannot resolve identity.
 
 ## The column
 
@@ -43,14 +43,14 @@ huile-argan      >--->  "Argania Spinosa Kernel Oil"
   algo-derm doesn't curate and without a reviewed local identity) stay NULL. This is **not a completeness contract**:
   `product_ingredients` is a curated optional subset, an unkeyed ingredient is a coverage
   nit, not a broken link.
-- **Identity ≠ catalogue row.** A key can exist with no bare canonical ingredient
-  (`sles-hair` → `Sodium Laureth Sulfate`, no SLES row). The key still groups it.
+- **Identity is not the catalogue row.** A key can exist with no bare canonical ingredient
+  (`sles-hair` maps to `Sodium Laureth Sulfate`, with no SLES row). The key still groups it.
 - **Nondestructive.** No row is renamed, merged, or deleted; shadows stay put.
 
 ## How to use it
 
 - **Reason identity off `canonical_key`, never the slug.** "Same substance?" = same non-NULL
-  key. Two NULLs are *not* equal (unknown ≠ unknown).
+  key. Two NULLs are *not* equal (unknown is not unknown).
 - Identity-level consumers group non-NULL keys (`GROUP BY` or `DISTINCT ON canonical_key`, index
   `ingredients_canonical_key_idx`). Row-level consumers preserve aliases when they need an
   addressable catalogue slug.

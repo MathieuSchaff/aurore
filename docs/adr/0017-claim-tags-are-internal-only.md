@@ -1,5 +1,4 @@
 ---
-status: accepted
 date: 2026-08-12
 accepted: 2026-08-12
 ---
@@ -10,19 +9,19 @@ accepted: 2026-08-12
 
 ## Why
 
-The three slugs are computed from the INCI, but their wording is a manufacturer claim, two regulated. The gold-set that scores them asks a different question, "does the brand claim it?", so the two never converge: widening the sample from 11 to 19 verdicts per tag on 2026-08-12 made it worse, not better. F1 0.333 / 0.286 / 0.143 against 0.883 macro for the rest of the gold set, dominated by false positives. False positive here means Aurore asserting a claim the brand does not make, which is exactly the direction the root `CLAUDE.md` forbids: no verdict, no medical claim.
+The three slugs are computed from the INCI, but their wording is a manufacturer claim, two regulated. The gold-set that scores them asks a different question, "does the brand claim it?", so the two never converge: widening the sample from 11 to 19 verdicts per tag on 2026-08-12 made it worse, not better. F1 0.333 / 0.286 / 0.143 against 0.883 macro for the rest of the gold set, dominated by false positives. False positive here means Aurore asserting a claim the brand does not make, which is exactly the direction the project doctrine forbids: no verdict, no medical claim.
 
-Nothing about the detection is broken. `just audit-auto-tags-check` is green, 38/38, dev and prod. The defect is that the displayed label promises a provenance the data does not have.
+`just audit-auto-tags-check` is green, 38/38, dev and prod, so the detection holds. What fails is the displayed label, which promises a provenance the data does not have.
 
 ## Considered options
 
 - **A. Keep emitting from the formula, point the gold set at it instead.** Rejected: it fixes the measurement, not the promise. The chip still reads as a claim to whoever sees it.
 - **B. Regrade to a nondisplayed signal.** **Chosen.** The detection keeps earning its place in the audits and the budgets, and the claim stops being made. Cheap, reversible in one field, no dependency on an external source.
-- **C. Only carry the tag when the brand claims it.** Rejected on cost and coverage: it needs a primary manufacturer source per product, and the same session measured 2 of 10 pages unreachable (403, or no official page served at all). Coverage would collapse over most of the catalogue.
+- **C. Only carry the tag when the brand claims it.** Rejected on cost and coverage: it needs a primary manufacturer source per product, and in a sample of 10 official product pages, 2 were unreachable (403, or no official page served at all). Coverage would collapse over most of the catalogue.
 
 ## Consequences
 
 - Display paths filter, write paths do not. `getProductFullBySlug` returns the raw tag list on purpose: `ProductEditPage` seeds its tag form from that payload and posts it back, so filtering there would erase the tags on every admin save. The product detail page has no `product_characteristic` surface today, which is why no render-side filter was needed there; adding one later must call `isDisplayedProductTag`.
 - The gold set keeps scoring the three tags. Their annotations are evidence, and `GOLD_SET_FOCUS_TAGS` validates `annotations.json`, so dropping the slugs would invalidate the file. Their F1 now reports on a signal that gates nothing user-facing, and should be read that way.
 - Reversing is one field per def. Undoing `internalOnly` restores the chips, the filter options and the counts at once.
-- A stale bookmarked URL carrying `product_characteristic=hypoallergenique` still filters server-side; the option is simply no longer offered.
+- A stale bookmarked URL carrying `product_characteristic=hypoallergenique` still filters server-side; the option is no longer offered.
