@@ -55,7 +55,12 @@ export function AdminSuggestedEditsPage() {
         </div>
       </header>
 
-      <AdminFilterTabs tabs={STATUSES} value={status} onChange={setStatus} />
+      <AdminFilterTabs
+        label="Statut des corrections"
+        tabs={STATUSES}
+        value={status}
+        onChange={setStatus}
+      />
 
       <div aria-live="polite" aria-atomic="true">
         {success && <FormMessage variant="success">{success}</FormMessage>}

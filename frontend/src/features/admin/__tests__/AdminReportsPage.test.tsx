@@ -1,19 +1,24 @@
+import type { ContentPreview, ListReportsResponse, ReportView } from '@aurore/shared'
+
 import { fireEvent, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { HttpResponse, http } from 'msw'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
+import type { SessionView } from '@/lib/auth/session'
 import { useEscalateReport, useModerateContent, useResolveReport } from '@/lib/queries/admin'
+import { LinkStub } from '@/test/mocks/router'
 import { server } from '@/test/msw/server'
+import { makeIdleMutationResult } from '@/test/mutation'
 import { renderWithProviders } from '@/test/utils'
+
+const { useSessionMock } = vi.hoisted(() => ({
+  useSessionMock: vi.fn<() => SessionView>(),
+}))
 
 vi.mock('@tanstack/react-router', async () => ({
   ...(await vi.importActual<typeof import('@tanstack/react-router')>('@tanstack/react-router')),
-  Link: ({ children, to, ...rest }: { children: React.ReactNode; to: string }) => (
-    <a href={to} {...(rest as object)}>
-      {children}
-    </a>
-  ),
+  Link: LinkStub,
 }))
 
 vi.mock('@/lib/queries/admin', async (importOriginal) => {
@@ -26,33 +31,10 @@ vi.mock('@/lib/queries/admin', async (importOriginal) => {
   }
 })
 
-import type { ReportView } from '@aurore/shared'
-
-import type { SessionView } from '@/lib/auth/session'
-
-const { useSessionMock } = vi.hoisted(() => ({
-  useSessionMock: vi.fn<() => SessionView>(),
-}))
-
 vi.mock('@/lib/auth/session', async (importOriginal) => ({
   ...(await importOriginal<typeof import('@/lib/auth/session')>()),
   useSession: useSessionMock,
 }))
-
-function setSessionRole(role: 'admin' | 'contributor') {
-  useSessionMock.mockReturnValue({
-    status: 'authenticated',
-    credential: 'present',
-    user: {
-      id: `${role}-id`,
-      email: `${role}@example.test`,
-      createdAt: '2026-01-01T00:00:00.000Z',
-      role,
-      emailVerified: true,
-      isDemo: false,
-    },
-  })
-}
 
 import { AdminReportsPage } from '../components/AdminReportsPage'
 import { adminLabels } from '../constants'
@@ -104,38 +86,64 @@ const baseReports: ReportView[] = [
   },
 ]
 
+let lastReportQuery: { status?: string; escalated?: string } = {}
+
+type ResolveMutate = ReturnType<typeof useResolveReport>['mutate']
+type ModerateMutate = ReturnType<typeof useModerateContent>['mutate']
+type EscalateMutate = ReturnType<typeof useEscalateReport>['mutate']
+
+function setSessionRole(role: 'admin' | 'contributor') {
+  useSessionMock.mockReturnValue({
+    status: 'authenticated',
+    credential: 'present',
+    user: {
+      id: `${role}-id`,
+      email: `${role}@example.test`,
+      createdAt: '2026-01-01T00:00:00.000Z',
+      role,
+      emailVerified: true,
+      isDemo: false,
+    },
+  })
+}
+
 // The page pulls three endpoints: the queue, the user directory it joins reporter
 // and target emails from, and the moderation preview opened by « Voir ».
-function serveQueries(reports: ReportView[], preview: unknown = null) {
+function serveQueries(reports: ReportView[], preview?: ContentPreview) {
+  lastReportQuery = {}
   server.use(
-    http.get('*/api/admin/reports', () =>
-      HttpResponse.json({ success: true, data: { items: reports } })
-    ),
+    http.get('*/api/admin/reports', ({ request }) => {
+      const search = new URL(request.url).searchParams
+      const status = search.get('status') ?? undefined
+      const escalated = search.get('escalated') ?? undefined
+      lastReportQuery = { status, escalated }
+      const data = {
+        items: reports.filter(
+          (report) =>
+            (!status || report.status === status) &&
+            (!escalated || (escalated === 'true' && report.escalatedAt !== null))
+        ),
+      } satisfies ListReportsResponse
+      return HttpResponse.json({ success: true, data })
+    }),
     http.get('*/api/admin/users', () =>
       HttpResponse.json({ success: true, data: { items: [REPORTER, TARGET_USER] } })
     ),
     http.get('*/api/admin/moderation/:target/:id', () =>
-      HttpResponse.json({ success: true, data: preview })
+      preview
+        ? HttpResponse.json({ success: true, data: preview })
+        : HttpResponse.json({ success: false, error: 'not_found' }, { status: 404 })
     )
   )
 }
 
 function setupMutations() {
-  const resolve = vi.fn()
-  const moderate = vi.fn()
-  const escalate = vi.fn()
-  vi.mocked(useResolveReport).mockReturnValue({
-    mutate: resolve,
-    isPending: false,
-  } as unknown as ReturnType<typeof useResolveReport>)
-  vi.mocked(useModerateContent).mockReturnValue({
-    mutate: moderate,
-    isPending: false,
-  } as unknown as ReturnType<typeof useModerateContent>)
-  vi.mocked(useEscalateReport).mockReturnValue({
-    mutate: escalate,
-    isPending: false,
-  } as unknown as ReturnType<typeof useEscalateReport>)
+  const resolve = vi.fn<ResolveMutate>()
+  const moderate = vi.fn<ModerateMutate>()
+  const escalate = vi.fn<EscalateMutate>()
+  vi.mocked(useResolveReport).mockReturnValue(makeIdleMutationResult(resolve))
+  vi.mocked(useModerateContent).mockReturnValue(makeIdleMutationResult(moderate))
+  vi.mocked(useEscalateReport).mockReturnValue(makeIdleMutationResult(escalate))
   return { resolve, moderate, escalate }
 }
 
@@ -153,9 +161,9 @@ describe('AdminReportsPage', () => {
     expect(await screen.findByRole('heading', { name: /Signalements/i })).toBeInTheDocument()
     expect(screen.getByText('2 entrée(s)')).toBeInTheDocument()
 
-    expect(screen.getByRole('tab', { name: 'Ouverts' })).toHaveAttribute('aria-selected', 'true')
-    expect(screen.getByRole('tab', { name: 'Résolus' })).toHaveAttribute('aria-selected', 'false')
-    expect(screen.getByRole('tab', { name: 'Rejetés' })).toHaveAttribute('aria-selected', 'false')
+    expect(screen.getByRole('button', { name: 'Ouverts' })).toHaveAttribute('aria-pressed', 'true')
+    expect(screen.getByRole('button', { name: 'Résolus' })).toHaveAttribute('aria-pressed', 'false')
+    expect(screen.getByRole('button', { name: 'Rejetés' })).toHaveAttribute('aria-pressed', 'false')
   })
 
   it('shows the empty state when there are no reports', async () => {
@@ -186,7 +194,7 @@ describe('AdminReportsPage', () => {
     // forcedPrivateByAdmin pill must appear for the target user.
     expect(screen.getByText(adminLabels.pillForced)).toBeInTheDocument()
     const link = screen.getByRole('link', { name: /Voir le profil/i })
-    expect(link).toHaveAttribute('href', '/admin/users/$userId')
+    expect(link).toHaveAttribute('href', `/admin/users/${TARGET_USER.id}`)
   })
 
   it('calls the resolve mutation with status=resolved after confirmation', async () => {
@@ -305,19 +313,27 @@ describe('AdminReportsPage', () => {
   })
 
   it('switches the active tab when the user picks a different status', async () => {
-    serveQueries(baseReports)
+    const resolvedReport = {
+      ...baseReports[0],
+      id: 'rep-resolved',
+      status: 'resolved',
+      reason: 'Signalement résolu',
+    } satisfies ReportView
+    serveQueries([...baseReports, resolvedReport])
     setupMutations()
     renderWithProviders(<AdminReportsPage />)
 
-    fireEvent.click(await screen.findByRole('tab', { name: 'Résolus' }))
+    fireEvent.click(await screen.findByRole('button', { name: 'Résolus' }))
 
     // Switching status refetches through useSuspenseQuery, so the tab bar unmounts
     // until the new page resolves. Wait for it rather than reading the torn frame.
-    expect(await screen.findByRole('tab', { name: 'Résolus' })).toHaveAttribute(
-      'aria-selected',
+    expect(await screen.findByRole('button', { name: 'Résolus' })).toHaveAttribute(
+      'aria-pressed',
       'true'
     )
-    expect(screen.getByRole('tab', { name: 'Ouverts' })).toHaveAttribute('aria-selected', 'false')
+    expect(screen.getByRole('button', { name: 'Ouverts' })).toHaveAttribute('aria-pressed', 'false')
+    expect(screen.getByText('Signalement résolu')).toBeInTheDocument()
+    expect(lastReportQuery).toEqual({ status: 'resolved', escalated: undefined })
   })
 
   // Escalation is orthogonal to status: a row stays open while escalated.
@@ -362,7 +378,7 @@ describe('AdminReportsPage', () => {
     setupMutations()
     renderWithProviders(<AdminReportsPage />)
 
-    expect(await screen.findByRole('tab', { name: 'Escaladés' })).toBeInTheDocument()
+    expect(await screen.findByRole('button', { name: 'Escaladés' })).toBeInTheDocument()
   })
 
   it('hides the Escaladés tab from a contributor', async () => {
@@ -371,7 +387,26 @@ describe('AdminReportsPage', () => {
     setupMutations()
     renderWithProviders(<AdminReportsPage />)
 
-    await screen.findByRole('tab', { name: 'Ouverts' })
-    expect(screen.queryByRole('tab', { name: 'Escaladés' })).not.toBeInTheDocument()
+    await screen.findByRole('button', { name: 'Ouverts' })
+    expect(screen.queryByRole('button', { name: 'Escaladés' })).not.toBeInTheDocument()
+  })
+
+  it('queries escalated=true without a status in the escalated view', async () => {
+    const escalated = {
+      ...baseReports[0],
+      id: 'rep-escalated',
+      reason: 'Dossier escaladé',
+      escalatedAt: '2026-05-31T10:00:00Z',
+      escalatedBy: 'usr-modo',
+    } satisfies ReportView
+    serveQueries([...baseReports, escalated])
+    setupMutations()
+    renderWithProviders(<AdminReportsPage />)
+
+    fireEvent.click(await screen.findByRole('button', { name: 'Escaladés' }))
+
+    expect(await screen.findByText('Dossier escaladé')).toBeInTheDocument()
+    expect(screen.queryByText('Propos insultants')).not.toBeInTheDocument()
+    expect(lastReportQuery).toEqual({ status: undefined, escalated: 'true' })
   })
 })

@@ -1,7 +1,8 @@
+import { Button } from '@/component/Button/Button'
+
 type FilterTab<T extends string> = { value: T; label: string }
 
-// Status filter bar shared by admin moderation pages: a tablist of mutually-exclusive
-// buttons. `onChange` carries any per-page side effects (e.g. resetting feedback).
+// These controls filter one list while tabs would imply panel keyboard behavior
 export function AdminFilterTabs<T extends string>({
   tabs,
   value,
@@ -11,22 +12,23 @@ export function AdminFilterTabs<T extends string>({
   tabs: ReadonlyArray<FilterTab<T>>
   value: T
   onChange: (value: T) => void
-  label?: string
+  label: string
 }) {
   return (
-    <div className="admin-filter-bar" role="tablist" aria-label={label}>
+    <fieldset className="admin-filter-bar">
+      <legend className="sr-only">{label}</legend>
       {tabs.map((t) => (
-        <button
-          type="button"
+        <Button
           key={t.value}
-          role="tab"
-          aria-selected={value === t.value}
+          variant="ghost"
+          size="sm"
+          aria-pressed={value === t.value}
           className={`admin-filter-bar__btn ${value === t.value ? 'is-active' : ''}`}
           onClick={() => onChange(t.value)}
         >
           {t.label}
-        </button>
+        </Button>
       ))}
-    </div>
+    </fieldset>
   )
 }

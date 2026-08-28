@@ -78,6 +78,7 @@ export function AdminRoleRequestsPage() {
       </header>
 
       <AdminFilterTabs
+        label="Statut des demandes"
         tabs={STATUSES}
         value={status}
         onChange={(s) => {

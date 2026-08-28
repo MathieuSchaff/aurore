@@ -7,6 +7,7 @@ import { Fragment, useMemo, useState } from 'react'
 import { Button } from '@/component/Button/Button'
 import { Time } from '@/component/DataDisplay/Time/Time'
 import { FormMessage } from '@/component/Feedback/ui/FormMessage/FormMessage'
+import { AdminFilterTabs } from '@/features/admin/components/AdminFilterTabs'
 import { useConfirm } from '@/features/admin/useConfirm'
 import {
   adminQueries,
@@ -119,20 +120,12 @@ export function AdminReportsPage() {
         </div>
       </header>
 
-      <div className="admin-filter-bar" role="tablist">
-        {visibleTabs.map((t) => (
-          <button
-            type="button"
-            key={t.value}
-            role="tab"
-            aria-selected={tab === t.value}
-            className={`admin-filter-bar__btn ${tab === t.value ? 'is-active' : ''}`}
-            onClick={() => setTab(t.value)}
-          >
-            {t.label}
-          </button>
-        ))}
-      </div>
+      <AdminFilterTabs
+        tabs={visibleTabs}
+        value={tab}
+        onChange={setTab}
+        label="File de signalements"
+      />
 
       <div aria-live="polite" aria-atomic="true">
         {success && <FormMessage variant="success">{success}</FormMessage>}

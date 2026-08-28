@@ -6,6 +6,7 @@ import { useState } from 'react'
 import { Button } from '@/component/Button/Button'
 import { Time } from '@/component/DataDisplay/Time/Time'
 import { FormMessage } from '@/component/Feedback/ui/FormMessage/FormMessage'
+import { AdminFilterTabs } from '@/features/admin/components/AdminFilterTabs'
 import { useConfirm } from '@/features/admin/useConfirm'
 import { adminQueries, useModerateContent, useVerifyCatalogItem } from '@/lib/queries/admin'
 import { adminLabels } from '../constants'
@@ -116,35 +117,9 @@ export function AdminCatalogPage() {
         </div>
       </header>
 
-      <div className="admin-filter-bar" role="tablist" aria-label="Type de fiche">
-        {KINDS.map((k) => (
-          <button
-            type="button"
-            key={k.value}
-            role="tab"
-            aria-selected={kind === k.value}
-            className={`admin-filter-bar__btn ${kind === k.value ? 'is-active' : ''}`}
-            onClick={() => changeKind(k.value)}
-          >
-            {k.label}
-          </button>
-        ))}
-      </div>
+      <AdminFilterTabs tabs={KINDS} value={kind} onChange={changeKind} label="Type de fiche" />
 
-      <div className="admin-filter-bar" role="tablist" aria-label="Vue">
-        {VIEWS.map((v) => (
-          <button
-            type="button"
-            key={v.value}
-            role="tab"
-            aria-selected={view === v.value}
-            className={`admin-filter-bar__btn ${view === v.value ? 'is-active' : ''}`}
-            onClick={() => changeView(v.value)}
-          >
-            {v.label}
-          </button>
-        ))}
-      </div>
+      <AdminFilterTabs tabs={VIEWS} value={view} onChange={changeView} label="Vue" />
 
       <div aria-live="polite" aria-atomic="true">
         {success && <FormMessage variant="success">{success}</FormMessage>}

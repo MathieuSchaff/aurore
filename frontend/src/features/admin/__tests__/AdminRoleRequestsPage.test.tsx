@@ -58,10 +58,13 @@ describe('AdminRoleRequestsPage', () => {
 
     expect(await screen.findByRole('heading', { name: 'Demandes modérateur' })).toBeInTheDocument()
     expect(screen.getByText('1 demande(s)')).toBeInTheDocument()
-    expect(screen.getByRole('tab', { name: 'En attente' })).toHaveAttribute('aria-selected', 'true')
-    expect(screen.getByRole('tab', { name: 'Acceptée' })).toBeInTheDocument()
-    expect(screen.getByRole('tab', { name: 'Refusée' })).toBeInTheDocument()
-    expect(screen.getByRole('tab', { name: 'Annulée' })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: 'En attente' })).toHaveAttribute(
+      'aria-pressed',
+      'true'
+    )
+    expect(screen.getByRole('button', { name: 'Acceptée' })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: 'Refusée' })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: 'Annulée' })).toBeInTheDocument()
     expect(screen.getByText(pendingRequest.motivation)).toBeInTheDocument()
   })
 
