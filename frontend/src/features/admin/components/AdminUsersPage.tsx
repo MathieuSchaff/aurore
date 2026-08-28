@@ -5,42 +5,59 @@ import { useMemo, useState } from 'react'
 import { Time } from '@/component/DataDisplay/Time/Time'
 import { Input } from '@/component/Input/Input'
 import { adminQueries } from '@/lib/queries/admin'
-import { adminLabels, roleLabels, rolePillClass } from '../constants'
+import { adminLabels, formatAdminCount, roleLabels, rolePillClass } from '../constants'
+
+const accountCountLabels = { singular: 'compte', plural: 'comptes' } as const
+const filteredAccountCountLabels = {
+  singular: 'compte filtré',
+  plural: 'comptes filtrés',
+} as const
 
 export function AdminUsersPage() {
   const { data } = useSuspenseQuery(adminQueries.users())
   const [search, setSearch] = useState('')
+  const normalizedSearch = search.trim().toLowerCase()
+  const isFiltering = normalizedSearch.length > 0
 
   const filteredUsers = useMemo(() => {
-    const term = search.trim().toLowerCase()
-    if (!term) return data.items
-    return data.items.filter((u) => u.email.toLowerCase().includes(term))
-  }, [data.items, search])
+    if (!normalizedSearch) return data.items
+    return data.items.filter((u) => u.email.toLowerCase().includes(normalizedSearch))
+  }, [data.items, normalizedSearch])
 
   return (
     <section>
       <header className="admin-page__header">
         <div>
           <h1 className="admin-page__title">Utilisateurs</h1>
-          <p className="admin-page__lede">
-            {data.items.length} compte(s) — 100 plus récents
-            {search ? ` · ${filteredUsers.length} filtré(s)` : ''}
+          <p className="admin-page__lede" role="status" aria-live="polite" aria-atomic="true">
+            {formatAdminCount(data.items.length, accountCountLabels)} · 100 plus récents
+            {isFiltering
+              ? ` · ${formatAdminCount(filteredUsers.length, filteredAccountCountLabels)}`
+              : ''}
           </p>
         </div>
       </header>
 
       <div className="admin-search">
         <Input
+          type="search"
+          name="user-search"
           label="Rechercher par email"
           placeholder="alice@…"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
+          autoComplete="off"
+          autoCapitalize="none"
+          autoCorrect="off"
+          inputMode="email"
+          enterKeyHint="search"
+          spellCheck={false}
         />
       </div>
 
       {filteredUsers.length === 0 ? (
         <p className="admin-table__empty">
-          {search ? adminLabels.emptyUsersFiltered : adminLabels.emptyUsers}
+          {isFiltering ? adminLabels.emptyUsersFiltered : adminLabels.emptyUsers}
         </p>
       ) : (
         <div className="admin-table-scroll">
@@ -78,7 +95,7 @@ export function AdminUsersPage() {
                         {adminLabels.pillForced}
                       </span>
                     ) : (
-                      <em>—</em>
+                      'Non'
                     )}
                   </td>
                   <td>
