@@ -3,7 +3,7 @@ import { Link } from '@tanstack/react-router'
 import { EyeOff, Flag, Shield, UserCheck, UserX } from 'lucide-react'
 
 import { adminQueries } from '@/lib/queries/admin'
-import { adminLabels } from '../constants'
+import { adminLabels, formatAdminCount, hiddenContentKindLabels } from '../constants'
 
 export function AdminDashboardPage() {
   const { data } = useSuspenseQuery(adminQueries.dashboard())
@@ -29,16 +29,18 @@ export function AdminDashboardPage() {
           <span className="admin-stat-card__value">{data.activeBans}</span>
           <span className="admin-stat-card__label">{adminLabels.statActiveBans}</span>
         </Link>
-        <Link to="/admin/reports" className="admin-stat-card">
+        <div className="admin-stat-card">
           <EyeOff size={20} aria-hidden="true" />
           <span className="admin-stat-card__value">{totalHidden}</span>
           <span className="admin-stat-card__label">
             {adminLabels.statHiddenContent}
             <em className="admin-stat-card__breakdown">
-              {data.hiddenReviews} review · {data.hiddenThreads} thread · {data.hiddenReplies} reply
+              {formatAdminCount(data.hiddenReviews, hiddenContentKindLabels.reviews)} ·{' '}
+              {formatAdminCount(data.hiddenThreads, hiddenContentKindLabels.threads)} ·{' '}
+              {formatAdminCount(data.hiddenReplies, hiddenContentKindLabels.replies)}
             </em>
           </span>
-        </Link>
+        </div>
         <Link to="/admin/users" className="admin-stat-card">
           <Shield size={20} aria-hidden="true" />
           <span className="admin-stat-card__value">{data.forcedPrivateProfiles}</span>

@@ -33,6 +33,19 @@ export const roleRequestStatusLabels: Record<RoleRequestStatus, string> = {
   cancelled: 'Annulée',
 }
 
+export const hiddenContentKindLabels = {
+  reviews: { singular: 'avis', plural: 'avis' },
+  threads: { singular: 'discussion', plural: 'discussions' },
+  replies: { singular: 'réponse', plural: 'réponses' },
+} as const
+
+export function formatAdminCount(
+  count: number,
+  labels: { singular: string; plural: string }
+): string {
+  return `${count} ${count > 1 ? labels.plural : labels.singular}`
+}
+
 // 'contributor' surfaces as "Modérateur" in the UI; the code/DB role keeps its name.
 export const roleLabels: Record<UserRole, string> = {
   user: 'Utilisateur',
