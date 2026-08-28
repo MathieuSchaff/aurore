@@ -1,7 +1,7 @@
 import type { CatalogKind } from '@aurore/shared'
 
 import { useSuspenseQuery } from '@tanstack/react-query'
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 
 import { Button } from '@/component/Button/Button'
 import { Time } from '@/component/DataDisplay/Time/Time'
@@ -36,34 +36,53 @@ export function AdminCatalogPage() {
   const { confirm, dialog } = useConfirm()
   const { success, setSuccess } = useSuccessFeedback()
   const [error, setError] = useState<string | null>(null)
+  const contextRef = useRef({ kind, view })
 
   const moderateTarget = kind === 'product' ? 'products' : 'ingredients'
 
   // Tab switches drop stale feedback so a banner can't bleed into the next view's context.
   function changeKind(next: CatalogKind) {
+    contextRef.current = { kind: next, view }
     setSuccess(null)
     setError(null)
     setKind(next)
   }
   function changeView(next: View) {
+    contextRef.current = { kind, view: next }
     setSuccess(null)
     setError(null)
     setView(next)
   }
 
   function submitModeration(id: string, next: 'visible' | 'hidden', reason?: string) {
+    const requestContext = { kind, view }
     setError(null)
     setSuccess(null)
     moderate.mutate(
       { target: moderateTarget, id, body: reason ? { status: next, reason } : { status: next } },
       {
-        onSuccess: () => setSuccess(next === 'hidden' ? 'Fiche masquée.' : 'Fiche restaurée.'),
-        onError: () => setError(ACTION_FAILED),
+        onSuccess: () => {
+          if (
+            contextRef.current.kind === requestContext.kind &&
+            contextRef.current.view === requestContext.view
+          ) {
+            setSuccess(next === 'hidden' ? 'Fiche masquée.' : 'Fiche restaurée.')
+          }
+        },
+        onError: () => {
+          if (
+            contextRef.current.kind === requestContext.kind &&
+            contextRef.current.view === requestContext.view
+          ) {
+            setError(ACTION_FAILED)
+          }
+        },
       }
     )
   }
 
   async function handleVerify(id: string, name: string) {
+    const requestContext = { kind, view }
     const ok = await confirm({
       title: 'Marquer comme vérifiée ?',
       message: `« ${name} » portera le marqueur « Vérifiée ». Action définitive.`,
@@ -75,8 +94,22 @@ export function AdminCatalogPage() {
     verify.mutate(
       { kind, id },
       {
-        onSuccess: () => setSuccess('Fiche vérifiée.'),
-        onError: () => setError(ACTION_FAILED),
+        onSuccess: () => {
+          if (
+            contextRef.current.kind === requestContext.kind &&
+            contextRef.current.view === requestContext.view
+          ) {
+            setSuccess('Fiche vérifiée.')
+          }
+        },
+        onError: () => {
+          if (
+            contextRef.current.kind === requestContext.kind &&
+            contextRef.current.view === requestContext.view
+          ) {
+            setError(ACTION_FAILED)
+          }
+        },
       }
     )
   }
@@ -100,6 +133,8 @@ export function AdminCatalogPage() {
       reason: {
         label: 'Note du modérateur',
         placeholder: 'Expliquez à l’auteur pourquoi (optionnel).',
+        hint: '500 caractères maximum.',
+        maxLength: 500,
       },
     })
     if (!confirmed) return

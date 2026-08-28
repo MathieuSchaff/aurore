@@ -9,7 +9,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { useModerateContent, useVerifyCatalogItem } from '@/lib/queries/admin'
 import { server } from '@/test/msw/server'
 import { makeIdleMutationResult } from '@/test/mutation'
-import { createTestQueryClient, renderWithProviders } from '@/test/utils'
+import { createTestQueryClient, makeUserProduct, renderWithProviders } from '@/test/utils'
 
 vi.mock('@/lib/queries/admin', async (importOriginal) => {
   const actual = await importOriginal<typeof import('@/lib/queries/admin')>()
@@ -209,6 +209,24 @@ describe('AdminCatalogPage', () => {
     expect(lastQuery).toEqual({ kind: 'ingredient', quality: 'unverified', status: 'visible' })
   })
 
+  it('does not show feedback from a verify completed after changing filter', async () => {
+    serveCatalog([UNVERIFIED_PRODUCT, UNVERIFIED_INGREDIENT])
+    const { verify } = setupMutations()
+    renderWithProviders(<AdminCatalogPage />)
+
+    await userEvent.click(await screen.findByRole('button', { name: 'Vérifier' }))
+    await confirmDialog('Vérifier')
+    fireEvent.click(screen.getByRole('button', { name: 'Ingrédients' }))
+
+    const call = verify.mock.calls[0]
+    if (!call) throw new Error('verify mutation was not called')
+    const [variables, options] = call
+    options?.onSuccess?.(makeUserProduct().product, variables, undefined, MUTATION_CONTEXT)
+
+    expect(await screen.findByText('Ingrédient mystère')).toBeInTheDocument()
+    expect(screen.queryByText('Fiche vérifiée.')).not.toBeInTheDocument()
+  })
+
   it('forwards the moderator note typed on hide as body.reason', async () => {
     serveCatalog([UNVERIFIED_PRODUCT])
     const { moderate } = setupMutations()
@@ -228,6 +246,16 @@ describe('AdminCatalogPage', () => {
         expect.objectContaining({ onError: expect.any(Function) })
       )
     })
+  })
+
+  it('limits the moderator note to the shared 500 character boundary', async () => {
+    serveCatalog([UNVERIFIED_PRODUCT])
+    setupMutations()
+    renderWithProviders(<AdminCatalogPage />)
+
+    await userEvent.click(await screen.findByRole('button', { name: 'Masquer' }))
+
+    expect(await screen.findByLabelText('Note du modérateur')).toHaveAttribute('maxlength', '500')
   })
 
   it('surfaces an error banner when a hide mutation fails', async () => {
