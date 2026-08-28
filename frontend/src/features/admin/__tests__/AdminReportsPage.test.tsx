@@ -4,10 +4,12 @@ import type { MutationFunctionContext } from '@tanstack/react-query'
 import { fireEvent, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { HttpResponse, http } from 'msw'
+import { StrictMode } from 'react'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
 import type { SessionView } from '@/lib/auth/session'
 import { ApiError } from '@/lib/helpers/apiError'
+import { captureFrontendError } from '@/lib/observability/faro'
 import { useEscalateReport, useModerateContent, useResolveReport } from '@/lib/queries/admin'
 import { LinkStub } from '@/test/mocks/router'
 import { server } from '@/test/msw/server'
@@ -32,6 +34,8 @@ vi.mock('@/lib/queries/admin', async (importOriginal) => {
     useEscalateReport: vi.fn(),
   }
 })
+
+vi.mock('@/lib/observability/faro', () => ({ captureFrontendError: vi.fn() }))
 
 vi.mock('@/lib/auth/session', async (importOriginal) => ({
   ...(await importOriginal<typeof import('@/lib/auth/session')>()),
@@ -87,6 +91,17 @@ const baseReports: ReportView[] = [
     createdAt: '2026-05-21T11:00:00Z',
   },
 ]
+
+const REVIEW_PREVIEW = {
+  kind: 'review',
+  id: baseReports[0].targetId,
+  comment: 'Texte signalé',
+  moderationStatus: 'visible',
+  moderationReason: null,
+  authorId: 'usr-author',
+  authorUsername: 'alice',
+  createdAt: '2026-05-20T09:00:00Z',
+} satisfies ContentPreview
 
 let lastReportQuery: { status?: string; escalated?: string } = {}
 
@@ -504,4 +519,77 @@ describe('AdminReportsPage', () => {
     await screen.findByText('Propos insultants')
     expect(screen.queryByText('Signalement résolu.')).not.toBeInTheDocument()
   })
+
+  it('distinguishes a missing preview from a transient preview failure', async () => {
+    serveQueries([baseReports[0]])
+    setupMutations()
+    renderWithProviders(<AdminReportsPage />)
+
+    await userEvent.click(await screen.findByRole('button', { name: 'Voir' }))
+
+    expect(
+      await screen.findByText('Contenu introuvable (peut-être supprimé par son auteur).')
+    ).toBeInTheDocument()
+    expect(screen.queryByRole('button', { name: 'Réessayer' })).not.toBeInTheDocument()
+    expect(captureFrontendError).not.toHaveBeenCalled()
+  })
+
+  it('captures a transient preview failure once and offers to retry', async () => {
+    let previewReads = 0
+    serveQueries([baseReports[0]])
+    server.use(
+      http.get('*/api/admin/moderation/:target/:id', () => {
+        previewReads += 1
+        return HttpResponse.json({ success: false, error: 'server_error' }, { status: 500 })
+      })
+    )
+    setupMutations()
+    renderWithProviders(
+      <StrictMode>
+        <AdminReportsPage />
+      </StrictMode>
+    )
+
+    await userEvent.click(await screen.findByRole('button', { name: 'Voir' }))
+    await waitFor(() => expect(captureFrontendError).toHaveBeenCalledOnce())
+    expect(captureFrontendError).toHaveBeenCalledWith(expect.any(ApiError), {
+      source: 'admin-content-preview',
+      target: 'reviews',
+    })
+    await userEvent.click(await screen.findByRole('button', { name: 'Réessayer' }))
+
+    await waitFor(() => expect(previewReads).toBe(2))
+    expect(screen.getByText('Impossible de charger le contenu.')).toBeInTheDocument()
+  })
+
+  it.each([
+    ['invalid_input', 400, 'Cette action de modération n’est plus valide.'],
+    ['not_found', 404, 'Contenu introuvable.'],
+  ] as const)(
+    'maps a %s preview moderation failure and resolves the author link',
+    async (code, status, message) => {
+      serveQueries([baseReports[0]], REVIEW_PREVIEW)
+      const { moderate } = setupMutations()
+      renderWithProviders(<AdminReportsPage />)
+
+      await userEvent.click(await screen.findByRole('button', { name: 'Voir' }))
+      expect(await screen.findByRole('link', { name: 'Mettre en pause' })).toHaveAttribute(
+        'href',
+        '/admin/users/usr-author'
+      )
+      await userEvent.click(screen.getByRole('button', { name: 'Masquer' }))
+      const confirmDialog = await screen.findByRole('alertdialog')
+      await userEvent.click(
+        Array.from(confirmDialog.querySelectorAll('button')).find(
+          (button) => button.textContent === 'Masquer'
+        ) as HTMLButtonElement
+      )
+      const call = moderate.mock.calls[0]
+      if (!call) throw new Error('moderate mutation was not called')
+      const [variables, options] = call
+      options?.onError?.(new ApiError(code, status), variables, undefined, MUTATION_CONTEXT)
+
+      expect(await screen.findByText(message)).toBeInTheDocument()
+    }
+  )
 })

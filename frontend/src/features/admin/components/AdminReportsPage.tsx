@@ -2,7 +2,7 @@ import type { CommonErrorCode, ReportStatus, ReportTargetType } from '@aurore/sh
 
 import { useQuery, useSuspenseQuery } from '@tanstack/react-query'
 import { Link } from '@tanstack/react-router'
-import { Fragment, useMemo, useRef, useState } from 'react'
+import { Fragment, useEffect, useMemo, useRef, useState } from 'react'
 
 import { Button } from '@/component/Button/Button'
 import { Time } from '@/component/DataDisplay/Time/Time'
@@ -10,7 +10,8 @@ import { FormMessage } from '@/component/Feedback/ui/FormMessage/FormMessage'
 import { AdminFilterTabs } from '@/features/admin/components/AdminFilterTabs'
 import { useConfirm } from '@/features/admin/useConfirm'
 import { useSession } from '@/lib/auth/session'
-import { apiErrorMessage } from '@/lib/helpers/apiError'
+import { apiErrorMessage, isApiErrorCode } from '@/lib/helpers/apiError'
+import { captureFrontendError } from '@/lib/observability/faro'
 import {
   adminQueries,
   useEscalateReport,
@@ -44,6 +45,10 @@ const TARGET_TO_MODERATE: Record<
 const ACTION_ERROR_MESSAGES: Partial<Record<CommonErrorCode, string>> = {
   not_found: 'Signalement introuvable.',
   forbidden: 'Ce signalement est désormais réservé aux administrateurs.',
+}
+const MODERATION_ERROR_MESSAGES: Partial<Record<CommonErrorCode, string>> = {
+  not_found: 'Contenu introuvable.',
+  invalid_input: 'Cette action de modération n’est plus valide.',
 }
 const ACTION_FAILED = 'L’action a échoué. Réessayez.'
 
@@ -321,11 +326,41 @@ function ContentPreviewPanel({
   const moderate = useModerateContent()
   const { confirm, dialog } = useConfirm()
   const { success: feedback, setSuccess: setFeedback } = useSuccessFeedback()
+  const [error, setError] = useState<string | null>(null)
+  const capturedPreviewError = useRef<unknown>(null)
+
+  useEffect(() => {
+    if (!preview.isError) {
+      capturedPreviewError.current = null
+      return
+    }
+    if (
+      isApiErrorCode(preview.error, 'not_found') ||
+      capturedPreviewError.current === preview.error
+    ) {
+      return
+    }
+    capturedPreviewError.current = preview.error
+    captureFrontendError(preview.error, {
+      source: 'admin-content-preview',
+      target: moderateTarget,
+    })
+  }, [moderateTarget, preview.error, preview.isError])
 
   if (preview.isLoading) return <p className="admin-reports-meta">Chargement…</p>
-  if (preview.isError || !preview.data) {
+  if (preview.isError && isApiErrorCode(preview.error, 'not_found')) {
     return (
       <p className="admin-reports-meta">Contenu introuvable (peut-être supprimé par son auteur).</p>
+    )
+  }
+  if (preview.isError || !preview.data) {
+    return (
+      <div className="admin-actions-inline">
+        <p className="admin-reports-meta">Impossible de charger le contenu.</p>
+        <Button variant="ghost" size="sm" onClick={() => preview.refetch()}>
+          Réessayer
+        </Button>
+      </div>
     )
   }
 
@@ -344,10 +379,14 @@ function ContentPreviewPanel({
       variant: next === 'hidden' ? 'danger' : 'default',
     })
     if (!ok) return
+    setError(null)
+    setFeedback(null)
     moderate.mutate(
       { target: moderateTarget, id: targetId, body: { status: next } },
       {
         onSuccess: () => setFeedback(next === 'hidden' ? 'Contenu masqué.' : 'Contenu restauré.'),
+        onError: (mutationError) =>
+          setError(apiErrorMessage(mutationError, MODERATION_ERROR_MESSAGES, ACTION_FAILED)),
       }
     )
   }
@@ -398,6 +437,7 @@ function ContentPreviewPanel({
       </div>
       <div aria-live="polite" aria-atomic="true">
         {feedback && <FormMessage variant="success">{feedback}</FormMessage>}
+        {error && <FormMessage variant="error">{error}</FormMessage>}
       </div>
       {dialog}
     </div>
