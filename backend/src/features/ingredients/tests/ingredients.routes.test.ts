@@ -330,7 +330,7 @@ describe('Ingredient Routes', () => {
       expect(fetched.description).toBe('Description persistée')
     })
 
-    it('should keep the slug stable when the name changes (slug immutable, C-4)', async () => {
+    it('keeps the slug stable when the name changes (slug immutable)', async () => {
       const created = await createIngredient({ name: 'Vitamine E' })
 
       const updated = await expectOk(

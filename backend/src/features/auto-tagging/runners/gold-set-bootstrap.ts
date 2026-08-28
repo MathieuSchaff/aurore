@@ -1,4 +1,4 @@
-// Stratified sampler for the auto-tag gold set (audit O2). Read-only on the DB; writes one
+// Stratified sampler for the auto-tag gold set. Read-only on the DB; writes one
 // JSON file (annotations.json, path via GOLD_SET_PATH, default
 // backend/src/features/auto-tagging/data/gold-set/annotations.json). Idempotent: existing
 // annotations are kept verbatim, only entries missing from the file get a fresh skeleton

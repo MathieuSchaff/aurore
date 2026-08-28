@@ -38,7 +38,7 @@ export const products = pgTable(
     category: text('category').notNull().$type<ProductCategory>(),
     kind: text('kind').notNull().$type<ProductKind>(),
     // Orthogonal to `kind`: a cleanser can be gel/mousse/huile/baume. NULL when
-    // not yet captured (admin-curated for the long tail). Drives S5 sensoriel tagging.
+    // not yet captured (admin-curated for the long tail). Drives sensoriel tagging.
     texture: text('texture').$type<ProductTexture>(),
     // Differs from amountUnit when dosage and container units differ
     // (e.g. dosed in "gouttes" but bottle in "mL"). When identical, amountUnit is null.
