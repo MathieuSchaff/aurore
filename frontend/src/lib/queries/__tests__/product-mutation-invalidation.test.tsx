@@ -44,25 +44,36 @@ describe('product mutation invalidation', () => {
     }
   })
 
-  it('invalidates discovery caches after updating a product', async () => {
+  it('invalidates every cached product representation after updating a product', async () => {
     server.use(
       http.patch('*/api/products/:id', () =>
         HttpResponse.json({
           success: true,
-          data: { id: 'product-1', slug: 'serum-test' },
+          data: { id: 'product-1', slug: 'new-serum-slug' },
         })
       )
     )
     const queryClient = createTestQueryClient()
-    for (const queryKey of DISCOVERY_ROOTS) {
+    const cachedKeys = [
+      ...DISCOVERY_ROOTS,
+      ['products', 'by-ids', 'product-1'],
+      ['products', 'old-serum-slug'],
+      ['products', 'detail-page', 'old-serum-slug', null],
+    ] as const
+    for (const queryKey of cachedKeys) {
       queryClient.setQueryDefaults(queryKey, { gcTime: Number.POSITIVE_INFINITY })
       queryClient.setQueryData(queryKey, 'cached')
     }
     const { result } = renderHookWithProviders(() => useUpdateProduct(), { queryClient })
 
-    await act(() => result.current.mutateAsync({ id: 'product-1', data: { name: 'Sérum test' } }))
+    await act(() =>
+      result.current.mutateAsync({
+        id: 'product-1',
+        data: { name: 'Sérum test', slug: 'new-serum-slug' },
+      })
+    )
 
-    for (const queryKey of DISCOVERY_ROOTS) {
+    for (const queryKey of cachedKeys) {
       expect(queryClient.getQueryState(queryKey)?.isInvalidated, queryKey.join(':')).toBe(true)
     }
   })
