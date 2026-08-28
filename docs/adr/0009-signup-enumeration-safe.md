@@ -38,6 +38,9 @@ Aurore holds skincare / routine / personal data. Not a bank, but enumerating its
 - `signup()` returns a neutral `ok()` (no `user`, no tokens) in **both** branches; `email_exists` is never sent to the client.
 - **Timing equalization (not negotiable):** the existing-email branch must run a dummy `Bun.password.hash` (mirror login's `DUMMY_HASH`) so it costs ~the same as the create branch (which hashes). Without it, fast-vs-slow leaks existence again, the exact mistake login already avoids.
 - Two best-effort emails, off the response path: verification (new) and a new `sendAlreadyRegisteredEmail` (existing).
+- An expired verification link can request a replacement without a session by presenting its
+  still-unused random token. Unknown, consumed and already-verified tokens all receive the same
+  neutral response; the replacement is sent only to the email already stored for that account.
 - The 24 h unverified-login grace in `login()` stays only for accounts created before this change: with hard opt-in, new accounts verify before their first login.
 
 **Contract (`shared/src/auth`)**

@@ -7,7 +7,7 @@ import { toast } from 'react-hot-toast'
 import { Button } from '../../../../component/Button/Button'
 import { readClientSession } from '../../../../lib/auth/session'
 import { apiErrorMessage, isApiErrorCode } from '../../../../lib/helpers/apiError'
-import { useResendVerification, useVerifyEmail } from '../../../../lib/queries/auth'
+import { useResendVerificationFromToken, useVerifyEmail } from '../../../../lib/queries/auth'
 
 /* Exhaustive map: TS errors if a VerifyEmailErrorCode is added without a label here.
    Exported so tests assert the same string the user sees. */
@@ -21,7 +21,7 @@ export const VerifyEmailPage = () => {
   const { token = '' } = useSearch({ from: '/auth/verify-email' })
   const navigate = useNavigate()
   const verify = useVerifyEmail()
-  const resend = useResendVerification()
+  const resend = useResendVerificationFromToken()
 
   useEffect(() => {
     if (!token) return
@@ -71,7 +71,7 @@ export const VerifyEmailPage = () => {
           fullWidth
           loading={resend.isPending}
           onClick={() =>
-            resend.mutate(undefined, {
+            resend.mutate(token, {
               onSuccess: () => toast.success('Email envoyé ! Vérifiez votre boîte mail.'),
               onError: () => toast.error("Impossible d'envoyer l'email, réessayez plus tard."),
             })
