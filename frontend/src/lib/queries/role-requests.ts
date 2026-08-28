@@ -1,4 +1,9 @@
-import type { SubmitRoleRequestErrorCode, SubmitRoleRequestInput } from '@aurore/shared'
+import type {
+  MyRoleRequestResponse,
+  RoleRequestView,
+  SubmitRoleRequestErrorCode,
+  SubmitRoleRequestInput,
+} from '@aurore/shared'
 
 import { queryOptions, useMutation, useQueryClient } from '@tanstack/react-query'
 
@@ -13,6 +18,11 @@ const SUBMIT_ROLE_REQUEST_HANDLED_ERROR_CODES = [
   'already_pending',
   'already_elevated',
 ] as const satisfies readonly SubmitRoleRequestErrorCode[]
+
+// Only a plain user reaches these mutations, so the pending state alone decides
+function asMine(latest: RoleRequestView): MyRoleRequestResponse {
+  return { latest, canApply: latest.status !== 'pending' }
+}
 
 export const roleRequestQueries = {
   mine: () =>
@@ -34,9 +44,9 @@ export function useSubmitRoleRequest() {
       const res = await api['role-requests'].$post({ json: body })
       return unwrapData(res)
     },
-    // Response is the new RoleRequestView (same shape as GET /me). Write it straight
-    // to cache so the section flips to "pending" without a blank-form refetch flash.
-    onSuccess: (data) => qc.setQueryData(roleRequestKeys.mine, data),
+    // Response is the new RoleRequestView. Write it straight to cache so the section
+    // flips to "pending" without a blank-form refetch flash.
+    onSuccess: (data) => qc.setQueryData(roleRequestKeys.mine, asMine(data)),
   })
 }
 
@@ -48,6 +58,6 @@ export function useCancelRoleRequest() {
       const res = await api['role-requests'][':id'].cancel.$post({ param: { id } })
       return unwrapData(res)
     },
-    onSuccess: (data) => qc.setQueryData(roleRequestKeys.mine, data),
+    onSuccess: (data) => qc.setQueryData(roleRequestKeys.mine, asMine(data)),
   })
 }
