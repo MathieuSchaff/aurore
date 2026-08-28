@@ -17,14 +17,17 @@ const EXFOLIATION_NAME_RE = /exfolia|foliant|peel|gommage|resurfa/
 // must not rescue a true pH adjuster.
 const AHA_RESCUE_PCT_MIN = 2
 
-// roleAtDose (algo-derm v21+): a dose-conditioned exfoliant-vs-pH-adjuster signal, authoritative
-// over the name-gate when confident (a sub-c50 dose is a pH adjuster even under an
-// exfoliant-positioned name). Near the curve knee confidence collapses, so fall back to
-// name-gate + %-rescue. c50 is gold-set calibrated.
-// A heavy-pin formula (40% urea peel, lactic acid at position 15) only decides correctly when
-// the solver gives that tail acid a residual mass. The v38 pin returned 0 there, the product
-// fell through to the name-gate and was kept as a gold-set FP; the v39 solver floors unpinned
-// ingredients above zero, so this threshold stays where it is.
+// roleAtDose (algo-derm v21+) says if an acid works as an exfoliant or as a pH adjuster
+// It reads the dose, so we trust it over the name-gate when it is confident:
+// a dose under c50 is a pH adjuster even when the name says exfoliant
+// Near the knee of the curve it stops being confident, so we fall back to the name-gate
+// and the %-rescue
+// c50 is calibrated on the gold set
+// A formula with heavy pins (40% urea peel, lactic acid at position 15) is only right when
+// the solver leaves some mass on that last acid
+// In v38 the pin returned 0, so the product went to the name-gate and stayed in the gold set
+// as a false positive
+// In v39 the solver keeps unpinned ingredients above zero, so this threshold stays as it is
 const AHA_ROLE_DOSE_C50 = 0.5
 const AHA_ROLE_CONFIDENCE_MIN = 0.5
 

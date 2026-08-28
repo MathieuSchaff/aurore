@@ -1186,7 +1186,7 @@
       "absent": ["deshydratation"],
       "annotatedAt": "2026-05-25",
       "sampledFor": ["deshydratation", "reparation-cutanee"],
-      "notes": "nourrissant lipidique/baume (lead nutrition/barriere) | reparation-cutanee: present — réparatrice lead, mains abîmées/gercées/irritées (§3.5 lésion-repair central)"
+      "notes": "nourrissant lipidique/baume (lead nutrition/barriere) | reparation-cutanee: present — réparatrice lead, mains abîmées/gercées/irritées (lésion-repair central)"
     },
     {
       "productSlug": "auracle-reviving-eye-gel",
@@ -1301,7 +1301,7 @@
       "absent": [],
       "annotatedAt": "2026-05-25",
       "sampledFor": ["reparation-cutanee"],
-      "notes": "reparation-cutanee: present — réparateur intensif, peaux fragilisées; FR Cicalfate (§3.5/§5)"
+      "notes": "reparation-cutanee: present — réparateur intensif, peaux fragilisées; FR Cicalfate (lésion-repair, ligne pharma FR nommée)"
     },
     {
       "productSlug": "avene-cicalfate-soin-hydratant",
@@ -2484,7 +2484,7 @@
       "absent": ["pores-sebum"],
       "annotatedAt": "2026-05-25",
       "sampledFor": ["pores-sebum", "reparation-cutanee"],
-      "notes": "reparation-cutanee: present — répare les peaux craquelées (§3.5 fissures); FR Cicabiafine repair line"
+      "notes": "reparation-cutanee: present — répare les peaux craquelées (lésion-repair, fissures); FR Cicabiafine repair line"
     },
     {
       "productSlug": "cicabiafine-baume-multi-reparateur-apaisant",
@@ -2514,7 +2514,7 @@
       "absent": ["reparation-cutanee", "rougeurs-vasculaires"],
       "annotatedAt": "2026-05-25",
       "sampledFor": ["reparation-cutanee", "rougeurs-vasculaires"],
-      "notes": "rougeurs-vasculaires: absent — crème pieds secs | reparation-cutanee: absent — dryness-state ('pieds très secs'), no lesion language → secheresse axis; brand≠decide (§3.1) [user flip]"
+      "notes": "rougeurs-vasculaires: absent — crème pieds secs | reparation-cutanee: absent — dryness-state ('pieds très secs'), no lesion language → secheresse axis; brand≠decide [user flip]"
     },
     {
       "productSlug": "cicabiafine-creme-reconstituante-apaisante",
@@ -8286,7 +8286,7 @@
       "absent": [],
       "annotatedAt": "2026-05-25",
       "sampledFor": ["apaisant", "reparation-cutanee"],
-      "notes": "cica reparateur+apaisant explicite (double barriere) | reparation-cutanee: present — Ultra Réparateur lead, peaux fragilisées; FR Cicaplast cicatrisant line (§3.5/§5)"
+      "notes": "cica reparateur+apaisant explicite (double barriere) | reparation-cutanee: present — Ultra Réparateur lead, peaux fragilisées; FR Cicaplast cicatrisant line (lésion-repair, ligne pharma FR nommée)"
     },
     {
       "productSlug": "la-roche-posay-cicaplast-b5-serum-ultra-reparateur",
@@ -10299,7 +10299,7 @@
       "absent": ["hyperpigmentation"],
       "annotatedAt": "2026-05-25",
       "sampledFor": ["hyperpigmentation", "reparation-cutanee"],
-      "notes": "crème escargot hydratante, arbutine incident | reparation-cutanee: present — lead = réparer les dommages cutanés, no anti-age framing → §3.5 over §3.4 [borderline-flip]"
+      "notes": "crème escargot hydratante, arbutine incident | reparation-cutanee: present — lead = réparer les dommages cutanés, no anti-age framing → lésion-repair over anti-âge [borderline-flip]"
     },
     {
       "productSlug": "missha-super-aqua-ultra-hyalron-ampoule",
