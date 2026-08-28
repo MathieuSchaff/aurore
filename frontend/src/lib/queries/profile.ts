@@ -13,11 +13,27 @@ import { api } from '../api'
 import { endSession } from '../auth/session'
 import { throwIfNotOk, unwrapData } from '../helpers/apiError'
 import { downloadBlobAsFile, parseAttachmentFilename } from '../helpers/download'
+import { collectionKeys } from './collection'
+
+export const profileKeys = {
+  all: ['profile'] as const,
+  me: () => [...profileKeys.all, 'me'] as const,
+  stats: () => [...profileKeys.all, 'stats'] as const,
+  dermo: () => [...profileKeys.all, 'dermo'] as const,
+  publicProfiles: () => [...profileKeys.all, 'public'] as const,
+  publicByUsername: (username: string) => [...profileKeys.publicProfiles(), username] as const,
+  reviews: () => [...profileKeys.all, 'reviews'] as const,
+  reviewsByUsername: (username: string) => [...profileKeys.reviews(), username] as const,
+  posts: () => [...profileKeys.all, 'posts'] as const,
+  postsByUsername: (username: string) => [...profileKeys.posts(), username] as const,
+  preferenceTargets: () => [...profileKeys.all, 'preference-targets'] as const,
+  privacy: () => [...profileKeys.all, 'privacy'] as const,
+}
 
 export const profileQueries = {
   me: () =>
     queryOptions({
-      queryKey: ['profile', 'me'],
+      queryKey: profileKeys.me(),
       queryFn: async () => {
         const res = await api.profile.$get()
         return unwrapData(res)
@@ -26,7 +42,7 @@ export const profileQueries = {
     }),
   stats: () =>
     queryOptions({
-      queryKey: ['profile', 'stats'],
+      queryKey: profileKeys.stats(),
       queryFn: async () => {
         const res = await api.profile.stats.$get()
         return unwrapData(res)
@@ -35,7 +51,7 @@ export const profileQueries = {
     }),
   dermo: () =>
     queryOptions({
-      queryKey: ['profile', 'dermo'],
+      queryKey: profileKeys.dermo(),
       queryFn: async () => {
         const res = await api.profile.dermo.$get()
         return unwrapData(res)
@@ -44,7 +60,7 @@ export const profileQueries = {
     }),
   publicByUsername: (username: string) =>
     queryOptions({
-      queryKey: ['profile', 'public', username],
+      queryKey: profileKeys.publicByUsername(username),
       queryFn: async () => {
         const res = await api.profiles[':username'].public.$get({ param: { username } })
         return unwrapData(res)
@@ -54,7 +70,7 @@ export const profileQueries = {
     }),
   reviewsByUsername: (username: string) =>
     queryOptions({
-      queryKey: ['profile', 'reviews', username],
+      queryKey: profileKeys.reviewsByUsername(username),
       queryFn: async () => {
         const res = await api.profiles[':username'].reviews.$get({ param: { username } })
         return unwrapData(res)
@@ -64,7 +80,7 @@ export const profileQueries = {
     }),
   postsByUsername: (username: string) =>
     queryOptions({
-      queryKey: ['profile', 'posts', username],
+      queryKey: profileKeys.postsByUsername(username),
       queryFn: async () => {
         const res = await api.profiles[':username'].posts.$get({ param: { username } })
         return unwrapData(res)
@@ -75,10 +91,10 @@ export const profileQueries = {
 }
 
 export const preferenceTargetQueries = {
-  // Callers gate with `enabled: !!userKey`: anonymous visitors must not fire it.
+  // Callers gate with `enabled: !!user`: anonymous visitors must not fire it
   list: () =>
     queryOptions({
-      queryKey: ['profile', 'preference-targets'],
+      queryKey: profileKeys.preferenceTargets(),
       queryFn: async () => {
         const res = await api.profile['preference-targets'].$get()
         return unwrapData(res)
@@ -87,11 +103,11 @@ export const preferenceTargetQueries = {
     }),
 }
 
-// Every mutation invalidates the products lists too: a declared avoid reshapes
-// the "selon mon profil" exclusion server-side.
+// Preference mutations invalidate product reads because declared rules reshape server results
 function invalidatePreferenceReads(queryClient: QueryClient) {
-  queryClient.invalidateQueries({ queryKey: ['profile', 'preference-targets'] })
+  queryClient.invalidateQueries({ queryKey: profileKeys.preferenceTargets() })
   queryClient.invalidateQueries({ queryKey: productKeys.lists() })
+  queryClient.invalidateQueries({ queryKey: productKeys.detailPages() })
 }
 
 export const useUpsertIngredientPreference = () => {
@@ -158,7 +174,7 @@ export const useUpdateProfile = () => {
       return unwrapData(res)
     },
     onSuccess: (data) => {
-      queryClient.setQueryData(['profile', 'me'], data)
+      queryClient.setQueryData(profileKeys.me(), data)
     },
     meta: { errorMessage: 'Mise à jour du profil impossible.' },
   })
@@ -190,8 +206,10 @@ export const useUpdateDermoProfile = () => {
       return unwrapData(res)
     },
     onSuccess: (data) => {
-      queryClient.setQueryData(['profile', 'dermo'], data)
+      queryClient.setQueryData(profileKeys.dermo(), data)
       queryClient.invalidateQueries({ queryKey: productKeys.lists() })
+      queryClient.invalidateQueries({ queryKey: productKeys.detailPages() })
+      queryClient.invalidateQueries({ queryKey: collectionKeys.formulaMotifs() })
     },
     meta: { errorMessage: 'Mise à jour du profil dermo impossible.' },
   })
@@ -200,7 +218,7 @@ export const useUpdateDermoProfile = () => {
 export const privacySettingsQueries = {
   get: () =>
     queryOptions({
-      queryKey: ['profile', 'privacy'],
+      queryKey: profileKeys.privacy(),
       queryFn: async () => {
         const res = await api.profile['privacy-settings'].$get()
         return unwrapData(res)
