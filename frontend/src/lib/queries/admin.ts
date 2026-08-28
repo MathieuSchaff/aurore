@@ -20,7 +20,7 @@ import type {
   UpdateRoleInput,
 } from '@aurore/shared'
 
-import { queryOptions, useMutation, useQueryClient } from '@tanstack/react-query'
+import { type QueryClient, queryOptions, useMutation, useQueryClient } from '@tanstack/react-query'
 
 import { api } from '../api'
 import { throwIfNotOk, unwrapData } from '../helpers/apiError'
@@ -87,6 +87,14 @@ const MODERATE_CONTENT_HANDLED_ERROR_CODES = [
   'not_found',
   'invalid_input',
 ] as const satisfies readonly CommonErrorCode[]
+
+export function invalidateAdminDashboard(queryClient: QueryClient) {
+  return queryClient.invalidateQueries({ queryKey: adminKeys.dashboard() })
+}
+
+export function invalidateOpenAdminReports(queryClient: QueryClient) {
+  return queryClient.invalidateQueries({ queryKey: adminKeys.reports('open'), exact: true })
+}
 
 export const adminQueries = {
   users: () =>
@@ -217,6 +225,7 @@ export function useCreateBan(userId: string) {
     },
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: adminKeys.userBans(userId) })
+      qc.invalidateQueries({ queryKey: adminKeys.dashboard() })
     },
   })
 }
@@ -233,6 +242,7 @@ export function useLiftBan(userId: string) {
     },
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: adminKeys.userBans(userId) })
+      qc.invalidateQueries({ queryKey: adminKeys.dashboard() })
     },
   })
 }
@@ -252,6 +262,7 @@ export function useModerateProfileVisibility(userId: string) {
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: adminKeys.users(), exact: true })
       qc.invalidateQueries({ queryKey: adminKeys.user(userId), exact: true })
+      qc.invalidateQueries({ queryKey: adminKeys.dashboard() })
       invalidatePublicProfileReads(qc)
       invalidateProductAuthorReads(qc)
       invalidateDiscussionReads(qc)
@@ -294,6 +305,7 @@ export function useResolveReport() {
     // Broad prefix: resolving from the escalated tab must also refresh that view; a status-only key would miss it.
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: [...adminKeys.all, 'reports'] })
+      qc.invalidateQueries({ queryKey: adminKeys.dashboard() })
     },
   })
 }
@@ -396,6 +408,9 @@ export function useModerateContent() {
         invalidateProfileReviewReads(qc)
       }
       if (vars.target === 'threads' || vars.target === 'replies') invalidateDiscussionReads(qc)
+      if (vars.target === 'reviews' || vars.target === 'threads' || vars.target === 'replies') {
+        qc.invalidateQueries({ queryKey: adminKeys.dashboard() })
+      }
     },
   })
 }

@@ -98,7 +98,7 @@ function expectEveryRead(counters: ReadCounters, count: number) {
   expect(counters).toEqual({
     directory: count,
     detail: count,
-    dashboard: 1,
+    dashboard: count,
     publicProfile: count,
     profileReviews: count,
     profilePosts: count,
