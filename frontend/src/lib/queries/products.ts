@@ -22,7 +22,8 @@ import {
 
 import { FILTER_KEYS } from '@/features/products/filters'
 import { type ApiData, api } from '../api'
-import { ApiError, throwIfNotOk, unwrapData } from '../helpers/apiError'
+import { throwIfNotOk, unwrapData } from '../helpers/apiError'
+import { collectionKeys } from './collection'
 import { applyOptimisticUpdates, optimisticCacheUpdate } from './optimistic'
 
 const PRODUCT_FORM_HANDLED_ERROR_CODES = [
@@ -116,7 +117,6 @@ export const productKeys = {
   detailPage: (slug: string, userId: string | null) =>
     [...productKeys.detailPagesBySlug(slug), userId] as const,
   bySlug: (slug: string) => [...productKeys.all, slug] as const,
-  ingredients: (id: string) => [...productKeys.all, id, 'ingredients'] as const,
   searches: () => [...productKeys.all, 'search'] as const,
   flatSearches: () => [...productKeys.all, 'search-flat'] as const,
   idLookups: () => [...productKeys.all, 'by-ids'] as const,
@@ -314,23 +314,31 @@ export const productQueries = {
       },
       staleTime: 5 * 60 * 1000,
     }),
-
-  ingredients: (id: string) =>
-    queryOptions({
-      queryKey: productKeys.ingredients(id),
-      queryFn: async () => {
-        const res = await api.products[':productId'].ingredients.$get({
-          param: { productId: id },
-        })
-        if (!res.ok) throw new ApiError('http_error', res.status)
-        const json = await res.json()
-        return json.data
-      },
-      enabled: !!id,
-    }),
 }
 
 type ProductListData = ApiData<typeof api.products.$get>
+
+function invalidateProductDiscoveryReads(qc: QueryClient) {
+  qc.invalidateQueries({ queryKey: productKeys.lists() })
+  qc.invalidateQueries({ queryKey: productKeys.searches() })
+  qc.invalidateQueries({ queryKey: productKeys.flatSearches() })
+  qc.invalidateQueries({ queryKey: productKeys.duplicateChecks() })
+  qc.invalidateQueries({ queryKey: productKeys.brands() })
+  qc.invalidateQueries({ queryKey: productKeys.filterOptions() })
+}
+
+// Product mutations converge detail and every discovery cache that can render stale data
+function invalidateProductSurfaces(qc: QueryClient, slug: string) {
+  qc.invalidateQueries({ queryKey: productKeys.bySlug(slug) })
+  qc.invalidateQueries({ queryKey: productKeys.detailPagesBySlug(slug) })
+  invalidateProductDiscoveryReads(qc)
+}
+
+function invalidateFormulaSurfaces(qc: QueryClient, slug: string) {
+  qc.invalidateQueries({ queryKey: productKeys.bySlug(slug) })
+  qc.invalidateQueries({ queryKey: productKeys.detailPagesBySlug(slug) })
+  qc.invalidateQueries({ queryKey: collectionKeys.formulaMotifs() })
+}
 
 export function useCreateProduct() {
   const qc = useQueryClient()
@@ -343,8 +351,7 @@ export function useCreateProduct() {
     },
     onSuccess: () => {
       // Don't seed bySlug: POST returns row only; cache holds full ProductDetail with tags/ingredients.
-      qc.invalidateQueries({ queryKey: productKeys.lists() })
-      qc.invalidateQueries({ queryKey: [...productKeys.all, 'brands'] })
+      invalidateProductDiscoveryReads(qc)
     },
   })
 }
@@ -358,9 +365,9 @@ export function useUpdateProduct() {
       return unwrapData(res)
     },
     onSuccess: (product) => {
-      // Invalidate (not setQueryData): PATCH returns row only; bySlug cache holds full ProductDetail.
-      qc.invalidateQueries({ queryKey: productKeys.bySlug(product.slug) })
-      qc.invalidateQueries({ queryKey: productKeys.lists() })
+      // PATCH returns a row only; both reads also hold linked ingredients and tags
+      invalidateProductSurfaces(qc, product.slug)
+      qc.invalidateQueries({ queryKey: collectionKeys.formulaMotifs() })
     },
     meta: {
       errorMessage: 'Modification du produit impossible.',
@@ -379,8 +386,10 @@ export function useDeleteProduct() {
     },
     onSuccess: (_, { slug }) => {
       qc.removeQueries({ queryKey: productKeys.bySlug(slug) })
-      qc.invalidateQueries({ queryKey: productKeys.lists() })
-      qc.invalidateQueries({ queryKey: [...productKeys.all, 'brands'] })
+      qc.removeQueries({ queryKey: productKeys.detailPagesBySlug(slug) })
+      invalidateProductDiscoveryReads(qc)
+      qc.invalidateQueries({ queryKey: productKeys.idLookups() })
+      qc.invalidateQueries({ queryKey: collectionKeys.formulaMotifs() })
     },
     meta: { errorMessage: 'Suppression du produit impossible.' },
   })
@@ -405,8 +414,7 @@ export function useUpdateProductTags() {
       return unwrapData(res)
     },
     onSuccess: (_, { slug }) => {
-      qc.invalidateQueries({ queryKey: productKeys.bySlug(slug) })
-      qc.invalidateQueries({ queryKey: productKeys.lists() })
+      invalidateProductSurfaces(qc, slug)
     },
     meta: { handledErrorCodes: PRODUCT_FORM_HANDLED_ERROR_CODES },
   })
@@ -439,9 +447,8 @@ export function useAddProductIngredient() {
       })
       return unwrapData(res)
     },
-    onSuccess: (_, { productId, slug }) => {
-      qc.invalidateQueries({ queryKey: productKeys.ingredients(productId) })
-      qc.invalidateQueries({ queryKey: productKeys.bySlug(slug) })
+    onSuccess: (_, { slug }) => {
+      invalidateFormulaSurfaces(qc, slug)
     },
     meta: { errorMessage: "Ajout de l'ingrédient impossible." },
   })
@@ -472,17 +479,12 @@ export function useUpdateProductIngredient() {
       })
       return unwrapData(res)
     },
-    onSuccess: (_, { productId, slug }) => {
-      qc.invalidateQueries({ queryKey: productKeys.ingredients(productId) })
-      qc.invalidateQueries({ queryKey: productKeys.bySlug(slug) })
+    onSuccess: (_, { slug }) => {
+      invalidateFormulaSurfaces(qc, slug)
     },
     meta: { errorMessage: "Mise à jour de l'ingrédient impossible." },
   })
 }
-
-type BySlugData = {
-  ingredients: Array<{ ingredientId: string }>
-} & Record<string, unknown>
 
 type RemoveProductIngredientVariables = {
   productId: string
@@ -503,7 +505,7 @@ export function useRemoveProductIngredient() {
     // Optimistic remove so unrelated rows stay interactive during the request.
     onMutate: (variables) => {
       return applyOptimisticUpdates(qc, variables, [
-        optimisticCacheUpdate<RemoveProductIngredientVariables, BySlugData>({
+        optimisticCacheUpdate<RemoveProductIngredientVariables, ProductDetail>({
           queryKey: ({ slug }) => productKeys.bySlug(slug),
           updater: (previous, { ingredientId }) => {
             if (!previous) return previous
@@ -518,9 +520,8 @@ export function useRemoveProductIngredient() {
     onError: (_err, _variables, context) => {
       context?.rollback()
     },
-    onSettled: (_, __, { productId, slug }) => {
-      qc.invalidateQueries({ queryKey: productKeys.ingredients(productId) })
-      qc.invalidateQueries({ queryKey: productKeys.bySlug(slug) })
+    onSettled: (_, __, { slug }) => {
+      invalidateFormulaSurfaces(qc, slug)
     },
     meta: { errorMessage: "Retrait de l'ingrédient impossible." },
   })

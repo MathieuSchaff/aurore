@@ -11,13 +11,14 @@ import { ALL_INGREDIENT_FILTER_CATEGORIES } from '@aurore/shared'
 
 import {
   infiniteQueryOptions,
+  type QueryClient,
   queryOptions,
   useMutation,
   useQueryClient,
 } from '@tanstack/react-query'
 
 import { api } from '../api'
-import { ApiError, throwIfNotOk, unwrapData } from '../helpers/apiError'
+import { throwIfNotOk, unwrapData } from '../helpers/apiError'
 
 // Per-axis slug arrays; queryFn flattens to comma-joined query strings.
 export type ListIngredientsFilters = Partial<Record<AllIngredientTagCategory, string[]>> & {
@@ -37,8 +38,13 @@ const ingredientKeys = {
   products: (slug: string) => [...ingredientKeys.all, slug, 'products'] as const,
   tags: (id: string) => [...ingredientKeys.all, id, 'tags'] as const,
   options: () => [...ingredientKeys.all, 'options'] as const,
+  filterOptionsRoot: () => [...ingredientKeys.all, 'filter-options'] as const,
   filterOptions: (type?: IngredientType) =>
-    [...ingredientKeys.all, 'filter-options', type ?? 'all'] as const,
+    [...ingredientKeys.filterOptionsRoot(), type ?? 'all'] as const,
+}
+
+export function invalidateIngredientReads(queryClient: QueryClient) {
+  return queryClient.invalidateQueries({ queryKey: ingredientKeys.all })
 }
 
 const CREATE_INGREDIENT_HANDLED_ERROR_CODES = [
@@ -67,18 +73,6 @@ export function buildListIngredientsQuery(filters: ListIngredientsFilters): Reco
 }
 
 export const ingredientQueries = {
-  all: () =>
-    queryOptions({
-      queryKey: [...ingredientKeys.all, 'all'] as const,
-      queryFn: async () => {
-        const res = await api.ingredients.$get({ query: {} })
-        if (!res.ok) throw new ApiError('http_error', res.status)
-        const json = await res.json()
-        return json.data
-      },
-      staleTime: 5 * 60 * 1000,
-    }),
-
   list: (filters: ListIngredientsFilters = {}) =>
     queryOptions({
       queryKey: ingredientKeys.list(filters),
@@ -273,6 +267,8 @@ export function useUpdateIngredientTags() {
     },
     onSuccess: (_, { ingredientId }) => {
       qc.invalidateQueries({ queryKey: ingredientKeys.tags(ingredientId) })
+      qc.invalidateQueries({ queryKey: ingredientKeys.lists() })
+      qc.invalidateQueries({ queryKey: ingredientKeys.filterOptionsRoot() })
     },
     meta: { errorMessage: 'Impossible de mettre à jour les tags.' },
   })

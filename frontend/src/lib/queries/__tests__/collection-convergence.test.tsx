@@ -4,10 +4,12 @@ import { HttpResponse, http } from 'msw'
 import { describe, expect, it } from 'vitest'
 
 import type { ApiData, api } from '@/lib/api'
+import { PRODUCT_DETAILS } from '@/test/msw/fixtures/products'
 import { server } from '@/test/msw/server'
 import { createTestQueryClient, renderHookWithProviders } from '@/test/utils'
 import { collectionQueries, type FormulaMotifs } from '../collection'
 import { compatibilityScoresQuery } from '../compatibility'
+import { useAddProductIngredient, useUpdateProduct } from '../products'
 import { useUpdateDermoProfile } from '../profile'
 import {
   useBulkUpdateUserProduct,
@@ -22,6 +24,8 @@ const USER_PRODUCT_ID = '33333333-3333-4333-8333-333333333333'
 const NOW = '2026-08-21T08:00:00.000Z'
 
 type CreatedUserProduct = ApiData<(typeof api)['user-products']['$post']>
+type UpdatedProduct = ApiData<(typeof api.products)[':id']['$patch']>
+type AddedProductIngredient = ApiData<(typeof api.products)[':productId']['ingredients']['$post']>
 
 const createdUserProduct = {
   id: USER_PRODUCT_ID,
@@ -49,6 +53,24 @@ const populatedMotifs = {
   benefits: [],
   notes: [],
 } satisfies FormulaMotifs
+
+const updatedProduct = {
+  ...PRODUCT_DETAILS[0],
+  inci: 'Aqua, Glycerin',
+  patents: [],
+} satisfies UpdatedProduct
+
+const addedProductIngredient = {
+  id: '55555555-5555-4555-8555-555555555555',
+  productId: PRODUCT_ID,
+  ingredientId: '44444444-4444-4444-8444-444444444444',
+  concentrationValue: '2',
+  concentrationUnit: '%',
+  concentrationPer: null,
+  notes: null,
+  source: 'manual',
+  createdAt: NOW,
+} satisfies AddedProductIngredient
 
 describe('collection query convergence', () => {
   it('refreshes formula motifs after adding a product to the collection', async () => {
@@ -172,6 +194,73 @@ describe('collection query convergence', () => {
     await waitFor(() => expect(result.current.motifs.data?.productsAnalyzed).toBe(0))
 
     await act(() => result.current.updateDermo.mutateAsync({ skinTypes: ['peau-sensible'] }))
+
+    await waitFor(() => expect(result.current.motifs.data?.productsAnalyzed).toBe(1))
+    expect(motifReads).toBe(2)
+  })
+
+  it('refreshes formula motifs after a collected product formula changes', async () => {
+    let formulaMotifs = emptyMotifs
+    let motifReads = 0
+    server.use(
+      http.get('*/api/collection/formula-motifs', () => {
+        motifReads++
+        return HttpResponse.json({ success: true, data: formulaMotifs })
+      }),
+      http.patch('*/api/products/:id', () => {
+        formulaMotifs = populatedMotifs
+        return HttpResponse.json({ success: true, data: updatedProduct })
+      })
+    )
+
+    const { result } = renderHookWithProviders(() => ({
+      motifs: useQuery(collectionQueries.formulaMotifs()),
+      updateProduct: useUpdateProduct(),
+    }))
+
+    await waitFor(() => expect(result.current.motifs.data?.productsAnalyzed).toBe(0))
+
+    await act(() =>
+      result.current.updateProduct.mutateAsync({
+        id: PRODUCT_ID,
+        data: { inci: 'Aqua, Glycerin' },
+      })
+    )
+
+    await waitFor(() => expect(result.current.motifs.data?.productsAnalyzed).toBe(1))
+    expect(motifReads).toBe(2)
+  })
+
+  it('refreshes formula motifs after a known concentration changes', async () => {
+    let formulaMotifs = emptyMotifs
+    let motifReads = 0
+    server.use(
+      http.get('*/api/collection/formula-motifs', () => {
+        motifReads++
+        return HttpResponse.json({ success: true, data: formulaMotifs })
+      }),
+      http.post('*/api/products/:productId/ingredients', () => {
+        formulaMotifs = populatedMotifs
+        return HttpResponse.json({ success: true, data: addedProductIngredient })
+      })
+    )
+
+    const { result } = renderHookWithProviders(() => ({
+      motifs: useQuery(collectionQueries.formulaMotifs()),
+      addIngredient: useAddProductIngredient(),
+    }))
+
+    await waitFor(() => expect(result.current.motifs.data?.productsAnalyzed).toBe(0))
+
+    await act(() =>
+      result.current.addIngredient.mutateAsync({
+        productId: PRODUCT_ID,
+        ingredientId: '44444444-4444-4444-8444-444444444444',
+        slug: 'serum-test',
+        concentrationValue: 2,
+        concentrationUnit: '%',
+      })
+    )
 
     await waitFor(() => expect(result.current.motifs.data?.productsAnalyzed).toBe(1))
     expect(motifReads).toBe(2)
