@@ -1,8 +1,9 @@
-import { fireEvent, screen, waitFor, within } from '@testing-library/react'
+import { screen, waitFor, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { HttpResponse, http } from 'msw'
+import { delay, HttpResponse, http } from 'msw'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
+import type { SessionView } from '@/lib/auth/session'
 import {
   useCreateBan,
   useDemoteToUser,
@@ -10,7 +11,13 @@ import {
   useModerateProfileVisibility,
 } from '@/lib/queries/admin'
 import { server } from '@/test/msw/server'
+import { makeIdleMutationResult } from '@/test/mutation'
 import { renderWithProviders } from '@/test/utils'
+
+const { routeParams, useSessionMock } = vi.hoisted(() => ({
+  routeParams: { userId: 'usr-1' },
+  useSessionMock: vi.fn<() => SessionView>(),
+}))
 
 vi.mock('@tanstack/react-router', async () => ({
   ...(await vi.importActual<typeof import('@tanstack/react-router')>('@tanstack/react-router')),
@@ -19,7 +26,7 @@ vi.mock('@tanstack/react-router', async () => ({
       {children}
     </a>
   ),
-  getRouteApi: () => ({ useParams: () => ({ userId: 'usr-1' }) }),
+  getRouteApi: () => ({ useParams: () => routeParams }),
 }))
 
 vi.mock('@/lib/queries/admin', async (importOriginal) => {
@@ -33,18 +40,32 @@ vi.mock('@/lib/queries/admin', async (importOriginal) => {
   }
 })
 
-import type { AdminUserListItem, CreateBanResponse } from '@aurore/shared'
-
-import type { SessionView } from '@/lib/auth/session'
-
-const { useSessionMock } = vi.hoisted(() => ({
-  useSessionMock: vi.fn<() => SessionView>(),
-}))
-
 vi.mock('@/lib/auth/session', async (importOriginal) => ({
   ...(await importOriginal<typeof import('@/lib/auth/session')>()),
   useSession: useSessionMock,
 }))
+
+import type { AdminBanListItem, AdminUserAccount } from '@aurore/shared'
+
+import { AdminUserDetailPage } from '../components/AdminUserDetailPage'
+import { adminLabels } from '../constants'
+
+const DEFAULT_USER: AdminUserAccount = {
+  id: 'usr-1',
+  email: 'target@seed.local',
+  role: 'user',
+  emailVerifiedAt: '2026-01-01T00:00:00Z',
+  createdAt: '2026-01-15T00:00:00Z',
+  forcedPrivateByAdmin: false,
+}
+
+const CONTRIBUTOR_USER: AdminUserAccount = { ...DEFAULT_USER, role: 'contributor' }
+type AccountState = 'success' | 'not-found' | 'error' | 'pending'
+
+type RequestCounters = {
+  detail: number
+  directory: number
+}
 
 function setSessionRole(role: 'admin' | 'contributor') {
   useSessionMock.mockReturnValue({
@@ -61,90 +82,109 @@ function setSessionRole(role: 'admin' | 'contributor') {
   })
 }
 
-import { AdminUserDetailPage } from '../components/AdminUserDetailPage'
-import { adminLabels } from '../constants'
-
-type User = AdminUserListItem
-type Ban = CreateBanResponse
-
-const DEFAULT_USER: User = {
-  id: 'usr-1',
-  email: 'target@seed.local',
-  role: 'user',
-  emailVerifiedAt: '2026-01-01T00:00:00Z',
-  createdAt: '2026-01-15T00:00:00Z',
-  forcedPrivateByAdmin: false,
-}
-
-const CONTRIBUTOR_USER: User = { ...DEFAULT_USER, role: 'contributor' }
-
-// The directory lookup is admin-only (gated by `enabled`), the bans list is always fetched.
-function serveQueries({ users, bans }: { users?: User[]; bans?: Ban[] }) {
+function serveQueries({
+  user = DEFAULT_USER,
+  bans,
+  accountState = 'success',
+  counters,
+}: {
+  user?: AdminUserAccount | null
+  bans?: AdminBanListItem[]
+  accountState?: AccountState
+  counters?: RequestCounters
+}) {
   server.use(
     http.get('*/api/admin/users/:id/bans', () =>
       HttpResponse.json({ success: true, data: bans ?? [] })
     ),
-    http.get('*/api/admin/users', () =>
-      HttpResponse.json({ success: true, data: { items: users ?? [DEFAULT_USER] } })
-    )
+    http.get('*/api/admin/users/:id', async () => {
+      if (counters) counters.detail += 1
+      if (accountState === 'pending') await delay(500)
+      if (accountState === 'not-found') {
+        return HttpResponse.json({ success: false, error: 'not_found' }, { status: 404 })
+      }
+      if (accountState === 'error') {
+        return HttpResponse.json({ success: false, error: 'server_error' }, { status: 500 })
+      }
+      return HttpResponse.json({ success: true, data: user })
+    }),
+    http.get('*/api/admin/users', () => {
+      if (counters) counters.directory += 1
+      return HttpResponse.json({ success: true, data: { items: user ? [user] : [] } })
+    })
   )
 }
 
 function setupMutations() {
-  const createBan = vi.fn()
-  const liftBan = vi.fn()
-  const moderateProfile = vi.fn()
-  vi.mocked(useCreateBan).mockReturnValue({
-    mutate: createBan,
-    isPending: false,
-  } as unknown as ReturnType<typeof useCreateBan>)
-  vi.mocked(useLiftBan).mockReturnValue({
-    mutate: liftBan,
-    isPending: false,
-  } as unknown as ReturnType<typeof useLiftBan>)
-  vi.mocked(useModerateProfileVisibility).mockReturnValue({
-    mutate: moderateProfile,
-    isPending: false,
-  } as unknown as ReturnType<typeof useModerateProfileVisibility>)
-  const demote = vi.fn()
-  vi.mocked(useDemoteToUser).mockReturnValue({
-    mutate: demote,
-    isPending: false,
-  } as unknown as ReturnType<typeof useDemoteToUser>)
+  const createBan = vi.fn<ReturnType<typeof useCreateBan>['mutate']>()
+  const liftBan = vi.fn<ReturnType<typeof useLiftBan>['mutate']>()
+  const moderateProfile = vi.fn<ReturnType<typeof useModerateProfileVisibility>['mutate']>()
+  const demote = vi.fn<ReturnType<typeof useDemoteToUser>['mutate']>()
+  vi.mocked(useCreateBan).mockReturnValue(makeIdleMutationResult(createBan))
+  vi.mocked(useLiftBan).mockReturnValue(makeIdleMutationResult(liftBan))
+  vi.mocked(useModerateProfileVisibility).mockReturnValue(makeIdleMutationResult(moderateProfile))
+  vi.mocked(useDemoteToUser).mockReturnValue(makeIdleMutationResult(demote))
   return { createBan, liftBan, moderateProfile, demote }
 }
 
 function clickConfirmDialogButton(label: string) {
   const dialog = screen.getByRole('alertdialog')
-  const btn = Array.from(dialog.querySelectorAll('button')).find((b) => b.textContent === label) as
-    | HTMLButtonElement
-    | undefined
-  if (!btn) throw new Error(`Confirm dialog button "${label}" not found`)
-  return userEvent.click(btn)
+  return userEvent.click(within(dialog).getByRole('button', { name: label }))
 }
 
 describe('AdminUserDetailPage', () => {
   beforeEach(() => {
     vi.clearAllMocks()
+    routeParams.userId = 'usr-1'
     setSessionRole('admin')
   })
 
   it("renders the user's email + role in the header when the user exists", async () => {
-    serveQueries({})
+    const counters = { detail: 0, directory: 0 }
+    serveQueries({ counters })
     setupMutations()
     renderWithProviders(<AdminUserDetailPage />)
 
     expect(await screen.findByRole('heading', { name: 'target@seed.local' })).toBeInTheDocument()
-    // Lede shows role + email verification + creation date.
     expect(screen.getByText(/Utilisateur — email vérifié — créé/)).toBeInTheDocument()
+    expect(counters).toEqual({ detail: 1, directory: 0 })
   })
 
-  it('renders the "user not found" empty state when no user matches the route param', async () => {
-    serveQueries({ users: [] })
+  it('renders the user not found state only for a not_found response', async () => {
+    serveQueries({ user: null, accountState: 'not-found' })
     setupMutations()
     renderWithProviders(<AdminUserDetailPage />)
 
     expect(await screen.findByText(adminLabels.userNotFound)).toBeInTheDocument()
+  })
+
+  it('renders a loading account state instead of a false not found state', async () => {
+    serveQueries({ accountState: 'pending' })
+    setupMutations()
+    renderWithProviders(<AdminUserDetailPage />)
+
+    expect(await screen.findByText('Chargement du compte…')).toBeInTheDocument()
+    expect(screen.queryByText(adminLabels.userNotFound)).not.toBeInTheDocument()
+  })
+
+  it('keeps bans visible when the account request fails', async () => {
+    const ban: AdminBanListItem = {
+      id: 'ban-visible',
+      userId: 'usr-1',
+      scope: 'discussion_post',
+      reason: 'Visible malgré l’erreur',
+      expiresAt: null,
+      createdAt: '2026-05-21T09:00:00Z',
+      bannedBy: 'admin-1',
+      status: 'active',
+    }
+    serveQueries({ accountState: 'error', bans: [ban] })
+    setupMutations()
+    renderWithProviders(<AdminUserDetailPage />)
+
+    expect(await screen.findByText('Informations du compte indisponibles')).toBeInTheDocument()
+    expect(screen.getByText('Visible malgré l’erreur')).toBeInTheDocument()
+    expect(screen.queryByText(adminLabels.userNotFound)).not.toBeInTheDocument()
   })
 
   it('submits a ban with the default global scope after confirmation', async () => {
@@ -169,7 +209,7 @@ describe('AdminUserDetailPage', () => {
     )
   })
 
-  it('passes the trimmed reason and ISO-encoded expiresAt to the ban mutation', async () => {
+  it('passes the trimmed reason and UTC datetime to the ban mutation', async () => {
     serveQueries({})
     const { createBan } = setupMutations()
     renderWithProviders(<AdminUserDetailPage />)
@@ -180,7 +220,8 @@ describe('AdminUserDetailPage', () => {
       (el) => el.tagName === 'TEXTAREA'
     )
     if (!reasonField) throw new Error('create-ban reason textarea not found')
-    fireEvent.change(reasonField, { target: { value: '  comportement abusif  ' } })
+    await userEvent.type(reasonField, '  comportement abusif  ')
+    await userEvent.type(screen.getByLabelText('Expire le (optionnel)'), '2030-06-15T10:30')
 
     await userEvent.click(await screen.findByRole('button', { name: 'Mettre en pause' }))
     await screen.findByRole('alertdialog')
@@ -190,8 +231,11 @@ describe('AdminUserDetailPage', () => {
       expect(createBan).toHaveBeenCalledTimes(1)
     })
     const [body] = createBan.mock.calls[0]
-    expect(body).toMatchObject({ scope: 'global', reason: 'comportement abusif' })
-    expect(body.expiresAt).toBeUndefined()
+    expect(body).toEqual({
+      scope: 'global',
+      reason: 'comportement abusif',
+      expiresAt: '2030-06-15T10:30:00.000Z',
+    })
   })
 
   it('shows the empty state in the bans list when the user has no bans', async () => {
@@ -203,7 +247,7 @@ describe('AdminUserDetailPage', () => {
   })
 
   it('lists active bans and lifts one through the confirmation flow', async () => {
-    const ban: Ban = {
+    const ban: AdminBanListItem = {
       id: 'ban-1',
       userId: 'usr-1',
       scope: 'discussion_post',
@@ -211,14 +255,18 @@ describe('AdminUserDetailPage', () => {
       expiresAt: null,
       createdAt: '2026-05-21T09:00:00Z',
       bannedBy: 'admin-1',
+      status: 'active',
     }
     serveQueries({ bans: [ban] })
     const { liftBan } = setupMutations()
     renderWithProviders(<AdminUserDetailPage />)
 
-    expect(await screen.findByText('discussion_post')).toBeInTheDocument()
-    expect(screen.getByText('Spam répété')).toBeInTheDocument()
-    expect(screen.getByText('Permanent')).toBeInTheDocument()
+    const bansTable = await screen.findByRole('table', {
+      name: 'Pauses (actives et historique)',
+    })
+    expect(within(bansTable).getByText('discussion_post')).toBeInTheDocument()
+    expect(within(bansTable).getByText('Spam répété')).toBeInTheDocument()
+    expect(within(bansTable).getByText('Permanent')).toBeInTheDocument()
 
     await userEvent.click(screen.getByRole('button', { name: 'Lever' }))
     await screen.findByRole('alertdialog')
@@ -232,17 +280,14 @@ describe('AdminUserDetailPage', () => {
     })
   })
 
-  it('toggles force-private and calls the visibility mutation with forcedPrivate=true', async () => {
+  it('forces a profile private after confirmation', async () => {
     serveQueries({})
     const { moderateProfile } = setupMutations()
     renderWithProviders(<AdminUserDetailPage />)
 
-    // Toggle is unchecked by default since the seed user has forcedPrivateByAdmin=false.
-    const toggle = await screen.findByRole('switch', { name: /Forcer privé/i })
+    const toggle = await screen.findByRole('switch', { name: /Forcer.*privé/i })
     expect(toggle).not.toBeChecked()
-
     await userEvent.click(toggle)
-
     await screen.findByRole('alertdialog')
     await clickConfirmDialogButton('Forcer privé')
 
@@ -265,7 +310,7 @@ describe('AdminUserDetailPage', () => {
   })
 
   it('demotes a contributor to user after confirmation', async () => {
-    serveQueries({ users: [CONTRIBUTOR_USER] })
+    serveQueries({ user: CONTRIBUTOR_USER })
     const { demote } = setupMutations()
     renderWithProviders(<AdminUserDetailPage />)
 
@@ -283,7 +328,7 @@ describe('AdminUserDetailPage', () => {
   })
 
   it('passes the trimmed reason to the demote mutation', async () => {
-    serveQueries({ users: [CONTRIBUTOR_USER] })
+    serveQueries({ user: CONTRIBUTOR_USER })
     const { demote } = setupMutations()
     renderWithProviders(<AdminUserDetailPage />)
 
@@ -292,9 +337,10 @@ describe('AdminUserDetailPage', () => {
     const roleCard = (
       await screen.findByRole('button', { name: 'Rétrograder en utilisateur' })
     ).closest('.admin-card') as HTMLElement
-    fireEvent.change(within(roleCard).getByLabelText(/Raison \(optionnel\)/i), {
-      target: { value: '  curation inactive  ' },
-    })
+    await userEvent.type(
+      within(roleCard).getByLabelText(/Raison \(optionnel\)/i),
+      '  curation inactive  '
+    )
 
     await userEvent.click(await screen.findByRole('button', { name: 'Rétrograder en utilisateur' }))
     await screen.findByRole('alertdialog')
@@ -313,11 +359,13 @@ describe('AdminUserDetailPage', () => {
 describe('AdminUserDetailPage: contributor content-only slice', () => {
   beforeEach(() => {
     vi.clearAllMocks()
+    routeParams.userId = 'usr-1'
     setSessionRole('contributor')
   })
 
   it('hides the account header + force-private and drops global from the scope options', async () => {
-    serveQueries({})
+    const counters = { detail: 0, directory: 0 }
+    serveQueries({ counters })
     setupMutations()
     renderWithProviders(<AdminUserDetailPage />)
 
@@ -326,12 +374,13 @@ describe('AdminUserDetailPage: contributor content-only slice', () => {
     ).toBeInTheDocument()
     // No account PII and no account-level force-private toggle.
     expect(screen.queryByText('target@seed.local')).not.toBeInTheDocument()
-    expect(screen.queryByRole('switch', { name: /Forcer privé/i })).not.toBeInTheDocument()
+    expect(screen.queryByRole('switch', { name: /Forcer.*privé/i })).not.toBeInTheDocument()
     // 'global' (account lockout) is not an offered scope; content scopes are.
     expect(
       screen.queryByRole('option', { name: 'Global (toutes les actions)' })
     ).not.toBeInTheDocument()
     expect(screen.getByRole('option', { name: 'Publication d’avis' })).toBeInTheDocument()
+    expect(counters).toEqual({ detail: 0, directory: 0 })
   })
 
   it('submits a content-scoped pause with the default review_publish scope', async () => {
@@ -353,7 +402,7 @@ describe('AdminUserDetailPage: contributor content-only slice', () => {
   })
 
   it('shows no lift control on a global ban (admin-only to lift)', async () => {
-    const globalBan: Ban = {
+    const globalBan: AdminBanListItem = {
       id: 'ban-g',
       userId: 'usr-1',
       scope: 'global',
@@ -361,18 +410,19 @@ describe('AdminUserDetailPage: contributor content-only slice', () => {
       expiresAt: null,
       createdAt: '2026-05-21T09:00:00Z',
       bannedBy: 'admin-1',
+      status: 'active',
     }
     serveQueries({ bans: [globalBan] })
     setupMutations()
     renderWithProviders(<AdminUserDetailPage />)
 
     // The row renders, but a contributor gets no live "Lever" button on a global ban.
-    expect(await screen.findByText('global')).toBeInTheDocument()
+    expect(await screen.findByText('Global (toutes les actions)')).toBeInTheDocument()
     expect(screen.queryByRole('button', { name: 'Lever' })).not.toBeInTheDocument()
   })
 
   it('keeps the lift control on a content-scoped ban', async () => {
-    const contentBan: Ban = {
+    const contentBan: AdminBanListItem = {
       id: 'ban-c',
       userId: 'usr-1',
       scope: 'review_publish',
@@ -380,6 +430,7 @@ describe('AdminUserDetailPage: contributor content-only slice', () => {
       expiresAt: null,
       createdAt: '2026-05-21T09:00:00Z',
       bannedBy: 'admin-1',
+      status: 'active',
     }
     serveQueries({ bans: [contentBan] })
     setupMutations()

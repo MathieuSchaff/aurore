@@ -1,4 +1,4 @@
-import type { BanScope, CreateBanInput, UpdateRoleInput } from '@aurore/shared'
+import type { AdminUserAccount, BanScope, CreateBanInput, UpdateRoleInput } from '@aurore/shared'
 
 import { useQuery, useSuspenseQuery } from '@tanstack/react-query'
 import { getRouteApi, Link } from '@tanstack/react-router'
@@ -13,7 +13,9 @@ import { Textarea } from '@/component/Input/Textarea/Textarea'
 import { Toggle } from '@/component/Input/Toggle/Toggle'
 import { useConfirm } from '@/features/admin/useConfirm'
 import { useAnnounce } from '@/hooks/useAnnounce'
+import { useSession } from '@/lib/auth/session'
 import { parseDatetimeLocalAsUTC } from '@/lib/dates'
+import { isApiErrorCode } from '@/lib/helpers/apiError'
 import {
   adminQueries,
   useCreateBan,
@@ -21,7 +23,6 @@ import {
   useLiftBan,
   useModerateProfileVisibility,
 } from '@/lib/queries/admin'
-import { useSession } from '@/lib/auth/session'
 import { adminLabels, getAdminErrorMessage, roleLabels } from '../constants'
 import { useSuccessFeedback } from '../useSuccessFeedback'
 
@@ -39,21 +40,85 @@ const SCOPE_OPTIONS: ReadonlyArray<{ value: BanScope; label: string }> = [
 // Falls back to the raw value so the confirm dialog never shows a bare enum.
 const scopeLabel = (s: BanScope) => SCOPE_OPTIONS.find((o) => o.value === s)?.label ?? s
 
+function AdminUserHeader({
+  isAdmin,
+  isPending,
+  isError,
+  user,
+}: {
+  isAdmin: boolean
+  isPending: boolean
+  isError: boolean
+  user: AdminUserAccount | undefined
+}) {
+  if (isAdmin && isPending) {
+    return (
+      <header className="admin-page__header">
+        <div>
+          <h1 className="admin-page__title">Chargement du compte…</h1>
+        </div>
+        <Link to="/admin/users" className="admin-table__row-link">
+          ← Liste
+        </Link>
+      </header>
+    )
+  }
+  if (isAdmin && (isError || !user)) {
+    return (
+      <header className="admin-page__header">
+        <div>
+          <h1 className="admin-page__title">Informations du compte indisponibles</h1>
+          <FormMessage variant="error">
+            Impossible de charger le compte. Les pauses restent disponibles.
+          </FormMessage>
+        </div>
+        <Link to="/admin/users" className="admin-table__row-link">
+          ← Liste
+        </Link>
+      </header>
+    )
+  }
+  if (isAdmin && user) {
+    return (
+      <header className="admin-page__header">
+        <div>
+          <h1 className="admin-page__title">{user.email}</h1>
+          <p className="admin-page__lede">
+            {roleLabels[user.role]} — {user.emailVerifiedAt ? 'email vérifié' : 'email non vérifié'}
+            {' — créé '}
+            <Time iso={user.createdAt} relative />
+          </p>
+        </div>
+        <Link to="/admin/users" className="admin-table__row-link">
+          ← Liste
+        </Link>
+      </header>
+    )
+  }
+  return (
+    <header className="admin-page__header">
+      <div>
+        <h1 className="admin-page__title">Publications en pause</h1>
+        <p className="admin-page__lede">
+          Mettre en pause ou réactiver les publications de cet utilisateur.
+        </p>
+      </div>
+      <Link to="/admin/reports" className="admin-table__row-link">
+        ← Signalements
+      </Link>
+    </header>
+  )
+}
+
 export function AdminUserDetailPage() {
   const { userId } = routeApi.useParams()
-  // Account header + force-private are admin-only. A contributor gets content-only (no PII).
-  // users() returns 403 for contributors, so gate the fetch.
   const session = useSession()
   const isAdmin = session.status === 'authenticated' && session.user.role === 'admin'
-  const usersQuery = useQuery({ ...adminQueries.users(), enabled: isAdmin })
+  const accountQuery = useQuery({ ...adminQueries.user(userId), enabled: isAdmin })
   const bansQuery = useSuspenseQuery(adminQueries.userBans(userId))
+  const user = accountQuery.data
 
-  const user = useMemo(
-    () => (isAdmin ? usersQuery.data?.items.find((u) => u.id === userId) : undefined),
-    [isAdmin, usersQuery.data, userId]
-  )
-
-  if (isAdmin && !user) {
+  if (isAdmin && accountQuery.isError && isApiErrorCode(accountQuery.error, 'not_found')) {
     return (
       <section>
         <p className="admin-table__empty">{adminLabels.userNotFound}</p>
@@ -64,33 +129,12 @@ export function AdminUserDetailPage() {
 
   return (
     <section>
-      {isAdmin && user ? (
-        <header className="admin-page__header">
-          <div>
-            <h1 className="admin-page__title">{user.email}</h1>
-            <p className="admin-page__lede">
-              {roleLabels[user.role]} —{' '}
-              {user.emailVerifiedAt ? 'email vérifié' : 'email non vérifié'} — créé{' '}
-              <Time iso={user.createdAt} relative />
-            </p>
-          </div>
-          <Link to="/admin/users" className="admin-table__row-link">
-            ← Liste
-          </Link>
-        </header>
-      ) : (
-        <header className="admin-page__header">
-          <div>
-            <h1 className="admin-page__title">Publications en pause</h1>
-            <p className="admin-page__lede">
-              Mettre en pause ou réactiver les publications de cet utilisateur.
-            </p>
-          </div>
-          <Link to="/admin/reports" className="admin-table__row-link">
-            ← Signalements
-          </Link>
-        </header>
-      )}
+      <AdminUserHeader
+        isAdmin={isAdmin}
+        isPending={accountQuery.isPending}
+        isError={accountQuery.isError}
+        user={user}
+      />
 
       <CreateBanCard userId={userId} isAdmin={isAdmin} />
       <BansListCard userId={userId} bans={bansQuery.data} isAdmin={isAdmin} />
