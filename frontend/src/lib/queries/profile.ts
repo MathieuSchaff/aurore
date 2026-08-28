@@ -9,8 +9,8 @@ import type {
 import { type QueryClient, queryOptions, useMutation, useQueryClient } from '@tanstack/react-query'
 
 import { productKeys } from '@/lib/queries/products'
-import { useAuthStore } from '../../store/auth'
 import { api } from '../api'
+import { endSession } from '../auth/session'
 import { throwIfNotOk, unwrapData } from '../helpers/apiError'
 import { downloadBlobAsFile, parseAttachmentFilename } from '../helpers/download'
 
@@ -173,11 +173,8 @@ export const useDeleteUser = () => {
       const res = await api.profile.deleteUser.$delete()
       await throwIfNotOk(res)
     },
-    // Mirror logout teardown: without this the store keeps the access token, so
-    // the redirect to /auth/login after the delete bounces back to / as "authenticated".
     onSuccess: () => {
-      useAuthStore.getState().clearAuth()
-      queryClient.clear()
+      endSession(queryClient, 'account-deleted')
     },
     meta: { errorMessage: 'Suppression du compte impossible.' },
   })

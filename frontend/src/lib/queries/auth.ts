@@ -4,13 +4,17 @@ import type {
   LoginErrorCode,
   ResetPasswordErrorCode,
   VerifyEmailErrorCode,
-  UserPublic,
 } from '@aurore/shared'
 
 import { queryOptions, useMutation, useQueryClient } from '@tanstack/react-query'
 
-import { useAuthStore } from '../../store/auth'
 import { api } from '../api'
+import {
+  CREDENTIAL_VALIDATION_FRESH_MS,
+  type CredentialValidation,
+  credentialValidationQueryKey,
+} from '../auth/credentialValidation'
+import { endSession, installSession, readClientSession, updateSessionUser } from '../auth/session'
 import { unwrapData } from '../helpers/apiError'
 
 const LOGIN_HANDLED_ERROR_CODES = [
@@ -28,17 +32,10 @@ const CHANGE_PASSWORD_HANDLED_ERROR_CODES = [
   'invalid_credentials',
 ] as const satisfies readonly AuthErrorCode[]
 
-export interface AuthSessionCache {
-  authenticated: boolean
-  userId?: string
-  role?: UserPublic['role']
-  user?: UserPublic
-}
-
 export const authQueries = {
-  session: () =>
-    queryOptions<AuthSessionCache>({
-      queryKey: ['session'],
+  validation: (viewerId: string | null) =>
+    queryOptions<CredentialValidation>({
+      queryKey: credentialValidationQueryKey(viewerId),
       queryFn: async () => {
         const res = await api.auth.session.$get()
         if (!res.ok) throw new Error('Not authenticated')
@@ -46,31 +43,8 @@ export const authQueries = {
         return json.data
       },
       retry: false,
-      staleTime: 1000 * 60 * 5,
-    }),
-
-  me: () =>
-    queryOptions({
-      queryKey: ['auth', 'me'],
-      queryFn: async () => {
-        const res = await api.profile.$get()
-        if (!res.ok) throw new Error('Failed to fetch profile')
-        const json = await res.json()
-        return json.data
-      },
-      retry: false,
-    }),
-
-  health: () =>
-    queryOptions({
-      queryKey: ['health'],
-      queryFn: async () => {
-        const res = await api.health.$get()
-        if (!res.ok) throw new Error('Health check failed')
-        const json = await res.json()
-        return json.data
-      },
-      retry: false,
+      gcTime: CREDENTIAL_VALIDATION_FRESH_MS,
+      staleTime: CREDENTIAL_VALIDATION_FRESH_MS,
     }),
 }
 
@@ -85,8 +59,7 @@ export function useLogin() {
       return unwrapData(res)
     },
     onSuccess: (data) => {
-      useAuthStore.getState().setAuth(data.accessToken, data.user)
-      qc.setQueryData(['session'], { authenticated: true, userId: data.user.id })
+      installSession(qc, data)
     },
   })
 }
@@ -114,9 +87,7 @@ export function useLogout() {
       return unwrapData(res)
     },
     onSuccess: () => {
-      useAuthStore.getState().clearAuth()
-      // Nuke cache to drop every user-scoped query without a per-feature allowlist.
-      qc.clear()
+      endSession(qc, 'logout')
     },
   })
 }
@@ -130,9 +101,9 @@ export function useVerifyEmail() {
       return unwrapData(res)
     },
     onSuccess: () => {
-      const { accessToken, user } = useAuthStore.getState()
-      if (accessToken && user) {
-        useAuthStore.getState().setAuth(accessToken, { ...user, emailVerified: true })
+      const session = readClientSession()
+      if (session.status === 'authenticated') {
+        updateSessionUser({ ...session.user, emailVerified: true })
       }
     },
   })
@@ -192,8 +163,7 @@ export function useDemo() {
       return unwrapData(res)
     },
     onSuccess: (data) => {
-      useAuthStore.getState().setAuth(data.accessToken, data.user)
-      qc.setQueryData(['session'], { authenticated: true, userId: data.user.id })
+      installSession(qc, data)
     },
   })
 }
