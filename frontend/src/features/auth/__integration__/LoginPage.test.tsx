@@ -2,11 +2,15 @@ import { screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
-import { useAuthStore } from '../../../store/auth'
+import type { SessionView } from '../../../lib/auth/session'
+import { ApiError } from '../../../lib/helpers/apiError'
 import { renderWithProviders } from '../../../test/utils'
 
-const navigateMock = vi.fn()
-const searchMock = vi.fn(() => ({}) as { redirect?: string })
+const { navigateMock, searchMock, useSessionMock } = vi.hoisted(() => ({
+  navigateMock: vi.fn(),
+  searchMock: vi.fn(() => ({}) as { redirect?: string }),
+  useSessionMock: vi.fn<() => SessionView>(),
+}))
 
 vi.mock('@tanstack/react-router', async () => ({
   ...(await vi.importActual<typeof import('@tanstack/react-router')>('@tanstack/react-router')),
@@ -23,6 +27,11 @@ vi.mock('../../../lib/queries/auth', async (importOriginal) => {
     useDemo: () => ({ mutate: vi.fn(), isPending: false }),
   }
 })
+
+vi.mock('../../../lib/auth/session', async (importOriginal) => ({
+  ...(await importOriginal<typeof import('../../../lib/auth/session')>()),
+  useSession: useSessionMock,
+}))
 
 import { useLogin } from '../../../lib/queries/auth'
 import { LOGIN_ERRORS, LOGIN_SUBTITLES, LoginPage } from '../page/LoginPage/LoginPage'
@@ -62,11 +71,13 @@ describe('LoginPage', () => {
     searchMock.mockReturnValue({})
     mutate.mockReset()
     setMutationResult()
-    useAuthStore.getState().clearAuth()
+    useSessionMock.mockReturnValue({ status: 'anonymous' })
   })
 
   it('welcomes an identity restored by the SSR boot', () => {
-    useAuthStore.setState({
+    useSessionMock.mockReturnValue({
+      status: 'authenticated',
+      credential: 'restoring',
       user: {
         id: 'u1',
         email: 'user@example.com',
@@ -101,7 +112,7 @@ describe('LoginPage', () => {
 
   it('maps invalid_credentials → French message', async () => {
     setMutationResult({
-      onMutate: (_d, opts) => opts.onError?.(new Error('invalid_credentials')),
+      onMutate: (_d, opts) => opts.onError?.(new ApiError('invalid_credentials', 401)),
     })
 
     renderWithProviders(<LoginPage />)
@@ -112,7 +123,7 @@ describe('LoginPage', () => {
 
   it('redirects to /auth/verify-pending on email_not_verified instead of showing inline error', async () => {
     setMutationResult({
-      onMutate: (_d, opts) => opts.onError?.(new Error('email_not_verified')),
+      onMutate: (_d, opts) => opts.onError?.(new ApiError('email_not_verified', 403)),
     })
 
     renderWithProviders(<LoginPage />)
@@ -126,7 +137,7 @@ describe('LoginPage', () => {
 
   it('falls back to server_error label for unknown error codes', async () => {
     setMutationResult({
-      onMutate: (_d, opts) => opts.onError?.(new Error('totally_unknown_code')),
+      onMutate: (_d, opts) => opts.onError?.(new ApiError('totally_unknown_code', 500)),
     })
 
     renderWithProviders(<LoginPage />)
