@@ -20,7 +20,8 @@ vi.mock('../../../lib/queries/auth', async (importOriginal) => {
 })
 
 import { useForgotPassword } from '../../../lib/queries/auth'
-import { FORGOT_ERRORS, ForgotPasswordPage } from '../page/ForgotPasswordPage/ForgotPasswordPage'
+import { FORGOT_ERRORS } from '../lib/errorMessages'
+import { ForgotPasswordPage } from '../page/ForgotPasswordPage/ForgotPasswordPage'
 
 const mutate = vi.fn()
 

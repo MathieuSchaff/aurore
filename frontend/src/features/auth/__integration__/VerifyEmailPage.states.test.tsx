@@ -5,10 +5,8 @@ import { HttpResponse, http } from 'msw'
 import { toast } from 'react-hot-toast'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
-import {
-  VERIFY_EMAIL_ERRORS,
-  VerifyEmailPage,
-} from '@/features/auth/page/VerifyEmailPage/VerifyEmailPage'
+import { VERIFY_EMAIL_ERRORS } from '@/features/auth/lib/errorMessages'
+import { VerifyEmailPage } from '@/features/auth/page/VerifyEmailPage/VerifyEmailPage'
 import { anonymousTestSession, resetTestAuthStore } from '@/test/authSession'
 import { server } from '@/test/msw/server'
 import { createTestQueryClient, renderWithProviders } from '@/test/utils'

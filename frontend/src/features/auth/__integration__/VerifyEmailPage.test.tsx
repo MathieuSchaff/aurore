@@ -38,7 +38,8 @@ vi.mock('../../../lib/auth/session', async (importOriginal) => ({
 }))
 
 import { useVerifyEmail } from '../../../lib/queries/auth'
-import { VERIFY_EMAIL_ERRORS, VerifyEmailPage } from '../page/VerifyEmailPage/VerifyEmailPage'
+import { VERIFY_EMAIL_ERRORS } from '../lib/errorMessages'
+import { VerifyEmailPage } from '../page/VerifyEmailPage/VerifyEmailPage'
 
 type VerifyMutate = ReturnType<typeof useVerifyEmail>['mutate']
 
