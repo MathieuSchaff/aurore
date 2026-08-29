@@ -28,7 +28,7 @@ function IngredientDiscussionIndex() {
 
 export const Route = createFileRoute('/ingredients/$slug/discussions/')({
   // Loader and head run on the server so the document carries its own title, robots
-  // and canonical; the conversation itself stays client-rendered.
+  // and canonical, the conversation itself stays client-rendered
   ssr: 'data-only',
   loader: async ({ context, params }) => {
     const [ingredient] = await Promise.all([

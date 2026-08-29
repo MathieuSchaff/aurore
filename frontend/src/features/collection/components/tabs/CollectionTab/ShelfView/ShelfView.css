@@ -19,7 +19,7 @@
     min-width: 0;
   }
 
-  /* Pulled up against the tabs: it qualifies the "Tout" count, not the grid below. */
+  /* Pulled up against the tabs: it qualifies the "Tout" count, not the grid below */
   .shelf-view__scope {
     margin: calc(-1 * var(--space-3)) 0 0;
     font-size: var(--text-sm);

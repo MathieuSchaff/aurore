@@ -62,7 +62,7 @@ describe('ProductCardCondensed', () => {
     expect(screen.getByText('The Ordinary')).toBeInTheDocument()
   })
 
-  // 0 is the catalogue's "unknown", not a free product
+  // 0 is "unknown" in the catalogue, not a free product
   it('hides a zero catalog price', () => {
     const product = makeProduct()
     product.product.priceCents = 0

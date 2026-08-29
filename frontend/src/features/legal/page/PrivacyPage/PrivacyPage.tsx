@@ -153,7 +153,7 @@ export function PrivacyPage() {
                 },
                 {
                   label: 'Télémétrie navigateur :',
-                  body: 'intérêt légitime (Art. 6(1)(f)) : détecter les erreurs du site. Aucune mesure d’audience, aucun suivi de navigation.',
+                  body: "intérêt légitime (Art. 6(1)(f)) : détecter les erreurs du site. Aucune mesure d'audience, aucun suivi de navigation.",
                 },
               ]}
             />
