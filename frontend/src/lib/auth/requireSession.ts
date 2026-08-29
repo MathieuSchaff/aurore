@@ -5,6 +5,7 @@ import { isRedirect, redirect } from '@tanstack/react-router'
 
 import { authQueries } from '../queries/auth'
 import { ensureFresh, isExpired } from './freshness'
+import { isHydrating } from './hydrationGate'
 import { captureClientSession, endSession, readClientSession, type SessionView } from './session'
 
 export type AuthenticatedSession = Extract<SessionView, { status: 'authenticated' }>
@@ -25,7 +26,7 @@ export async function requireSession({
 }: RequireSessionOptions): Promise<AuthenticatedSession> {
   const snapshot = captureClientSession()
   const { session } = snapshot
-  if (session.status === 'anonymous') throwLoginRedirect(href)
+  if (session.status === 'anonymous') return redirectToLogin(href, { leaveDocument: true })
 
   const hasCredential = hasPresentCredential(session)
   if (!hasCredential || isExpired()) {
@@ -53,7 +54,7 @@ export async function requireRole({
   fallbackFor,
 }: RequireRoleOptions): Promise<AuthenticatedSession> {
   let session = readClientSession()
-  if (session.status === 'anonymous') throwLoginRedirect(href)
+  if (session.status === 'anonymous') return redirectToLogin(href, { leaveDocument: true })
 
   if (session.status !== 'authenticated' || !hasPresentCredential(session) || isExpired()) {
     session = await refreshSession(queryClient, href, false)
@@ -95,13 +96,26 @@ async function refreshSession(
   const snapshotIsCurrent = snapshot.isCurrent()
   if (canUseRefreshedSession(session, snapshotIsCurrent, result, allowCooldown)) return session
 
-  if (!snapshotIsCurrent || result === 'superseded') throwLoginRedirect(href)
+  if (!snapshotIsCurrent || result === 'superseded') return redirectToLogin(href)
 
   endSession(queryClient, snapshot.session.status === 'authenticated' ? 'expired' : 'probe-failed')
-  throwLoginRedirect(href)
+  return redirectToLogin(href)
 }
 
-function throwLoginRedirect(href: string): never {
+// leaveDocument: only for a session the server already knew anonymous. A session
+// that died on the client (probe rejected, expired) keeps the router redirect: the
+// refresh cookie is still set, so a fresh document would boot authenticated and
+// bounce off the login page, and the in-memory "expired" notice would be lost.
+async function redirectToLogin(
+  href: string,
+  { leaveDocument = false }: { leaveDocument?: boolean } = {}
+): Promise<never> {
+  if (leaveDocument && isHydrating()) {
+    // Document navigation, not a router redirect: see hydrationGate.ts. The load
+    // promise never settles, the document is on its way out.
+    window.location.replace(`/auth/login?redirect=${encodeURIComponent(href)}`)
+    await new Promise<never>(() => {})
+  }
   throw redirect({
     to: '/auth/login',
     search: { redirect: href },

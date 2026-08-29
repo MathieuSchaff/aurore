@@ -11,6 +11,7 @@ import {
   restoringTestSession,
 } from '../../../test/authSession'
 import { readBearerForTransport } from '../credential'
+import { markHydrationSettled, markHydrationStarted } from '../hydrationGate'
 import { installSession, readClientSession } from '../session'
 
 const validationServer = vi.hoisted(() => ({
@@ -472,5 +473,44 @@ describe('requireRole', () => {
       to: '/auth/login',
       search: { redirect: '/admin' },
     })
+  })
+})
+
+describe('requireSession while the document hydrates', () => {
+  let queryClient: QueryClient
+
+  beforeEach(() => {
+    queryClient = new QueryClient()
+    resetTestAuthStore(anonymousTestSession())
+    mockEnsureFresh.mockReset()
+  })
+
+  afterEach(() => {
+    markHydrationSettled()
+    queryClient.clear()
+  })
+
+  // A router redirect mid-hydration reconciles the login shell against the guarded
+  // route's server markup (React #418): the guard leaves the document instead.
+  it('leaves the document instead of throwing a router redirect', async () => {
+    const replace = vi.spyOn(window.location, 'replace').mockImplementation(() => {})
+    markHydrationStarted()
+    let settled = false
+    const done = () => {
+      settled = true
+    }
+    requireSession({ queryClient, href: '/collection' }).then(done, done)
+
+    await new Promise((resolve) => setTimeout(resolve, 10))
+    expect(replace).toHaveBeenCalledWith('/auth/login?redirect=%2Fcollection')
+    expect(settled).toBe(false)
+    replace.mockRestore()
+  })
+
+  it('throws the router redirect once hydration has settled', async () => {
+    markHydrationStarted()
+    markHydrationSettled()
+    const redirect = await captureRedirect(requireSession({ queryClient, href: '/collection' }))
+    expect(redirect.options.to).toBe('/auth/login')
   })
 })
