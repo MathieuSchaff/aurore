@@ -179,14 +179,20 @@ function PrivacySettingsSection({
 export const AccountSettings = () => {
   const navigate = useNavigate()
   const session = useSession()
-  const isDemo = session.status === 'authenticated' && session.user.isDemo
+  const hasViewer = session.status === 'authenticated'
+  const isDemo = hasViewer && session.user.isDemo
   const [showPasswordForm, setShowPasswordForm] = useState(false)
   const [confirmDelete, setConfirmDelete] = useState(false)
   const logout = useLogout()
   const deleteUser = useDeleteUser()
   const downloadExport = useDownloadDataExport()
 
-  const { data: privacy, isLoading: privacyLoading } = useQuery(privacySettingsQueries.get())
+  // Logout clears the query cache while this tab is still mounted: without the guard
+  // the observer rebuilds the query and refetches without a token (401 in the console).
+  const { data: privacy, isLoading: privacyLoading } = useQuery({
+    ...privacySettingsQueries.get(),
+    enabled: hasViewer,
+  })
   const updatePrivacy = useUpdatePrivacySettings()
 
   const handleLogout = () => {
@@ -244,29 +250,37 @@ export const AccountSettings = () => {
 
       <RoleRequestSection />
 
-      <SettingsSection
-        title="Mes données"
-        description="Téléchargez une copie complète de vos données au format JSON (droit à la portabilité, RGPD article 20)."
-      >
-        <div className="account-actions">
-          <Button
-            type="button"
-            variant="outline"
-            className="account-action-btn"
-            onClick={() => downloadExport.mutate()}
-            disabled={downloadExport.isPending}
-          >
-            <Download size={18} aria-hidden="true" />
-            {downloadExport.isPending ? 'Préparation…' : 'Télécharger mes données'}
-          </Button>
-          {downloadExport.isError && (
-            <FormMessage variant="error">
-              {rateLimitMessage(downloadExport.error) ??
-                'Le téléchargement a échoué. Veuillez réessayer.'}
-            </FormMessage>
-          )}
-        </div>
-      </SettingsSection>
+      {isDemo ? (
+        // The export route refuses demo accounts (403): no button, so no "retry" that never works.
+        <SettingsSection
+          title="Mes données"
+          description="Indisponible en mode démo : un compte temporaire n'a aucune donnée à exporter."
+        />
+      ) : (
+        <SettingsSection
+          title="Mes données"
+          description="Téléchargez une copie complète de vos données au format JSON (droit à la portabilité, RGPD article 20)."
+        >
+          <div className="account-actions">
+            <Button
+              type="button"
+              variant="outline"
+              className="account-action-btn"
+              onClick={() => downloadExport.mutate()}
+              disabled={downloadExport.isPending}
+            >
+              <Download size={18} aria-hidden="true" />
+              {downloadExport.isPending ? 'Préparation…' : 'Télécharger mes données'}
+            </Button>
+            {downloadExport.isError && (
+              <FormMessage variant="error">
+                {rateLimitMessage(downloadExport.error) ??
+                  'Le téléchargement a échoué. Veuillez réessayer.'}
+              </FormMessage>
+            )}
+          </div>
+        </SettingsSection>
+      )}
 
       <SettingsSection title="Session" description="Déconnectez-vous de cet appareil.">
         <div className="account-actions">
