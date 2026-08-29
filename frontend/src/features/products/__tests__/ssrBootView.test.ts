@@ -129,6 +129,7 @@ describe('selectSsrBootView', () => {
         hiddenCount: 0,
         excludedLabels: [],
         requiredLabels: [],
+        rulesApplied: false,
       },
     } satisfies SsrBootResponse
 
@@ -143,12 +144,8 @@ describe('selectSsrBootView', () => {
       hiddenCount: 0,
       excludedLabels: [],
       requiredLabels: [],
+      rulesApplied: false,
     })
-    expect(
-      queryClient.getQueryData(
-        productQueries.shelfStatus(boot.session.userId, [boot.page.items[0].id]).queryKey
-      )
-    ).toEqual(new Map([[boot.page.items[0].id, 'wishlist']]))
     expect(queryClient.getQueryCache().findAll({ queryKey: productKeys.lists() })).toHaveLength(1)
     expect(hasSeededSsrBootProductsPage(queryClient, view, boot.session.userId)).toBe(true)
     expect(

@@ -1,6 +1,8 @@
-import { describe, expect, it } from 'vitest'
+import { beforeEach, describe, expect, it } from 'vitest'
 
+import type { ListProductsFilters } from '@/lib/queries/products'
 import {
+  applyDeclaredRules,
   buildDomainSwitchSearch,
   buildProductsApiFilters,
   buildResetSearchParams,
@@ -9,6 +11,66 @@ import {
   PRODUCTS_PAGE_SIZE,
 } from '../helpers'
 import { emptyFilters } from './fixtures'
+
+const USER_ID = 'user-1'
+
+describe('applyDeclaredRules', () => {
+  beforeEach(() => window.localStorage.clear())
+
+  const base = (): ListProductsFilters => ({ category: 'skincare' })
+
+  it('resolves a mute URL to auto for an authenticated caller', () => {
+    const out = applyDeclaredRules(base(), { show_hidden: false }, true, USER_ID)
+    expect(out.apply_preferences).toBe('auto')
+  })
+
+  it('keeps an explicit URL value literal, true and false alike', () => {
+    expect(
+      applyDeclaredRules(base(), { profile_filter: true, show_hidden: false }, true, USER_ID)
+    ).toMatchObject({
+      apply_preferences: true,
+    })
+    expect(
+      applyDeclaredRules(base(), { profile_filter: false, show_hidden: false }, true, USER_ID)
+        .apply_preferences
+    ).toBeUndefined()
+  })
+
+  it('sends nothing when this device opted out', () => {
+    window.localStorage.setItem(`products-profile-filter-off:${USER_ID}`, '1')
+    const out = applyDeclaredRules(base(), { show_hidden: false }, true, USER_ID)
+    expect(out.apply_preferences).toBeUndefined()
+  })
+
+  it('another account opt-out does not silence this one', () => {
+    window.localStorage.setItem('products-profile-filter-off:other-user', '1')
+    expect(
+      applyDeclaredRules(base(), { show_hidden: false }, true, USER_ID).apply_preferences
+    ).toBe('auto')
+  })
+
+  it('sends nothing for an anonymous caller', () => {
+    expect(
+      applyDeclaredRules(base(), { show_hidden: false }, false, null).apply_preferences
+    ).toBeUndefined()
+  })
+
+  it('resolves to auto when userId is unknown (SSR has no device storage)', () => {
+    expect(applyDeclaredRules(base(), { show_hidden: false }, true, null).apply_preferences).toBe(
+      'auto'
+    )
+  })
+
+  it('show_hidden lifts exclusions under auto exactly like under an explicit true', () => {
+    expect(applyDeclaredRules(base(), { show_hidden: true }, true, USER_ID)).toMatchObject({
+      apply_preferences: 'auto',
+      include_excluded: true,
+    })
+    expect(
+      applyDeclaredRules(base(), { profile_filter: true, show_hidden: true }, true, USER_ID)
+    ).toMatchObject({ apply_preferences: true, include_excluded: true })
+  })
+})
 
 describe('hasActivePriceRange', () => {
   it('returns false when both bounds are undefined', () => {
@@ -137,7 +199,7 @@ describe('buildProductsApiFilters', () => {
     expect(out.skin_type).toBeUndefined()
   })
 
-  it('forwards brand when set (was silently dropped, bug 7)', () => {
+  it('forwards brand when set (was silently dropped)', () => {
     const filters = emptyFilters()
     filters.brand = ['avene', 'bioderma']
     const out = buildProductsApiFilters({
@@ -150,7 +212,7 @@ describe('buildProductsApiFilters', () => {
     expect(out.brand).toEqual(['avene', 'bioderma'])
   })
 
-  it('forwards ingredient when set (was silently dropped, bug 7)', () => {
+  it('forwards ingredient when set (was silently dropped)', () => {
     const filters = emptyFilters()
     filters.ingredient = ['niacinamide']
     const out = buildProductsApiFilters({

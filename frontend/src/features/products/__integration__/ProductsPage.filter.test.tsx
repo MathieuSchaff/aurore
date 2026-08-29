@@ -3,7 +3,7 @@ import { vi } from 'vitest'
 
 vi.unmock('@tanstack/react-router')
 
-import { HAIRCARE_PRODUCT_TAG_TAXONOMY } from '@aurore/shared'
+import { HAIRCARE_PRODUCT_TAG_TAXONOMY, type UserPublic } from '@aurore/shared'
 
 import { QueryClient } from '@tanstack/react-query'
 import {
@@ -17,14 +17,22 @@ import userEvent from '@testing-library/user-event'
 import { HttpResponse, http } from 'msw'
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 
-import { authQueries } from '@/lib/queries/auth'
 import { Route as ProductsIndexRouteImport } from '@/routes/products/index'
 import { useAuthStore } from '@/store/auth'
+import { anonymousTestSession, presentTestSession } from '@/test/authSession'
 import { PRODUCT_FILTER_OPTIONS, PRODUCTS } from '@/test/msw/fixtures/products'
 import { server } from '@/test/msw/server'
 import { renderWithProviders } from '@/test/utils'
 
 const HAIRCARE_ZERO_COUNT_LABEL = HAIRCARE_PRODUCT_TAG_TAXONOMY.pellicules.label
+const SEEDED_USER = {
+  id: '019c0000-0000-7000-8000-000000000001',
+  email: 'viewer@example.test',
+  createdAt: '2026-08-21T06:00:00.000Z',
+  emailVerified: true,
+  role: 'user',
+  isDemo: false,
+} satisfies UserPublic
 
 function makeClient() {
   return new QueryClient({
@@ -45,10 +53,7 @@ function buildUrl(path: string, search: Record<string, string[]> = {}): string {
   return qs ? `${path}?${qs}` : path
 }
 
-function renderProducts(
-  initialEntries: string[] = ['/products/'],
-  seedQueryClient?: (queryClient: QueryClient) => void
-) {
+function renderProducts(initialEntries: string[] = ['/products/']) {
   const rootRoute = createRootRoute()
   // Attach the file route to a fresh root so the test picks its initial URL via memory history.
   const productsRoute = (
@@ -62,7 +67,6 @@ function renderProducts(
   })
   const routeTree = rootRoute.addChildren([productsRoute as never])
   const queryClient = makeClient()
-  seedQueryClient?.(queryClient)
   const router = createRouter({
     routeTree,
     history: createMemoryHistory({ initialEntries }),
@@ -91,15 +95,7 @@ async function openFilterDrawer(user: ReturnType<typeof userEvent.setup>) {
 
 beforeEach(() => {
   // No logged-in user keeps dermo query disabled and profile toggle hidden.
-  useAuthStore.setState({
-    accessToken: null,
-    tokenExpiresAt: null,
-    user: null,
-    emailVerified: false,
-    role: 'user',
-    isDemo: false,
-    bootRefreshAttempted: false,
-  })
+  useAuthStore.setState({ session: anonymousTestSession() })
 })
 
 afterEach(() => {
@@ -219,7 +215,7 @@ describe('ProductsPage: integration (URL ↔ filtres ↔ liste)', () => {
     ).not.toBeInTheDocument()
   })
 
-  it('keeps the personalized SSR banner interactive until the client auth store catches up', async () => {
+  it('keeps the personalized SSR banner interactive from the seeded SessionView', async () => {
     server.use(
       http.get('*/api/products', ({ request }) => {
         const url = new URL(request.url)
@@ -235,24 +231,18 @@ describe('ProductsPage: integration (URL ↔ filtres ↔ liste)', () => {
             hiddenCount: 1,
             excludedLabels: ['Niacinamide'],
             requiredLabels: [],
+            rulesApplied: true,
           },
         })
       })
     )
 
-    // Let the route loader pass without filling `user`: this isolates the hydration seam
-    // where the root session cache is present but the Zustand identity is not yet replayed
+    // Client hydration seeds identity before React mounts; the credential can land separately.
     useAuthStore.setState({
-      accessToken: 'test-access-token',
-      tokenExpiresAt: Date.now() + 60_000,
+      session: presentTestSession(SEEDED_USER, 'test-access-token', Date.now() + 60_000),
     })
     const user = userEvent.setup()
-    const { router } = renderProducts(['/products/?profile_filter=true'], (queryClient) => {
-      queryClient.setQueryData(authQueries.session().queryKey, {
-        authenticated: true,
-        userId: '019c0000-0000-7000-8000-000000000001',
-      })
-    })
+    const { router } = renderProducts(['/products/?profile_filter=true'])
 
     const banner = await screen.findByTestId('avoided-banner')
     await user.click(within(banner).getByRole('button', { name: 'Afficher quand même' }))

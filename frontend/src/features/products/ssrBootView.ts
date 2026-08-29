@@ -72,18 +72,6 @@ export function seedSsrBootPage(
       productsPage
     )
 
-    const productIds = productsPage.items.map((product) => product.id)
-    if (productIds.length === 0) return
-
-    const shelfStatus = new Map(
-      productsPage.items.flatMap((product) =>
-        product.userStatus === null ? [] : [[product.id, product.userStatus] as const]
-      )
-    )
-    queryClient.setQueryData(
-      productQueries.shelfStatus(session.userId, productIds).queryKey,
-      shelfStatus
-    )
     return
   }
 
