@@ -3,8 +3,7 @@ import type { SsrBootResponse } from '@aurore/shared'
 import { QueryClient } from '@tanstack/react-query'
 import { describe, expect, it } from 'vitest'
 
-import { productKeys, productQueries } from '@/lib/queries/products'
-import { profileQueries } from '@/lib/queries/profile'
+import { productKeys, productQueries, toProductDetailPageData } from '@/lib/queries/products'
 import { hasSeededSsrBootProductsPage, seedSsrBootPage, selectSsrBootView } from '../ssrBootView'
 
 describe('selectSsrBootView', () => {
@@ -67,8 +66,22 @@ describe('selectSsrBootView', () => {
     })
   })
 
-  it.each(['/products/new', '/products/compare'])(
-    'does not treat the static route %s as a product detail',
+  it.each(['/products/serum-test/discussions', '/products/serum-test/discussions/thread-1'])(
+    'maps the nested product layout route %s to the same boot view',
+    (pathname) => {
+      expect(selectSsrBootView(pathname, {})).toEqual({
+        view: 'product-detail',
+        slug: 'serum-test',
+        query: {
+          view: 'product-detail',
+          slug: 'serum-test',
+        },
+      })
+    }
+  )
+
+  it.each(['/products/new', '/products/compare', '/products/serum-test/edit'])(
+    'does not treat the non-layout route %s as a product detail',
     (pathname) => {
       expect(selectSsrBootView(pathname, {})).toBeUndefined()
     }
@@ -153,7 +166,7 @@ describe('selectSsrBootView', () => {
     ).toBe(false)
   })
 
-  it('seeds a product detail under the public and personalized cache keys', () => {
+  it('seeds a product detail under the viewer key without an anonymous copy', () => {
     const queryClient = new QueryClient()
     const view = selectSsrBootView('/products/serum-test', {})
     if (view?.view !== 'product-detail') throw new Error('product detail view was not selected')
@@ -229,26 +242,20 @@ describe('selectSsrBootView', () => {
           coverage: { matched: 1, total: 1 },
           matchedEvidence: [],
         },
+        preferenceTargets: {
+          ingredients: [],
+          tags: [],
+        },
       },
     } satisfies SsrBootResponse
 
     seedSsrBootPage(queryClient, boot, view)
 
-    expect(queryClient.getQueryData(productQueries.bySlug(view.slug).queryKey)).toEqual(
-      boot.page.product
-    )
+    const { view: _view, ...detailPage } = boot.page
     expect(
-      queryClient.getQueryData(
-        productQueries.shelfStatus(boot.session.userId, [boot.page.product.id]).queryKey
-      )
-    ).toEqual(new Map([[boot.page.product.id, 'wishlist']]))
-    expect(queryClient.getQueryData(profileQueries.dermo().queryKey)).toEqual(
-      boot.page.dermoProfile
-    )
-    expect(
-      queryClient.getQueryData(productQueries.dermoScore(view.slug, boot.session.userId).queryKey)
-    ).toEqual(boot.page.assessment)
-    expect(queryClient.getQueryData(productQueries.dermoScore(view.slug, null).queryKey)).toBe(
+      queryClient.getQueryData(productQueries.detailPage(view.slug, boot.session.userId).queryKey)
+    ).toEqual(toProductDetailPageData(detailPage))
+    expect(queryClient.getQueryData(productQueries.detailPage(view.slug, null).queryKey)).toBe(
       undefined
     )
   })

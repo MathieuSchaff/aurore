@@ -8,8 +8,8 @@ import { Button } from '@/component/Button/Button'
 import { DetailPageLayout } from '@/component/Layout/PageLayout/DetailPageLayout'
 import { PageTopActions } from '@/component/Layout/PageLayout/PageTopActions'
 import { ProductForm } from '@/features/products/components/ProductForm/ProductForm'
+import { useSession } from '@/lib/auth/session'
 import { productQueries, useDeleteProduct } from '@/lib/queries/products'
-import { useAuthStore } from '@/store/auth'
 
 const route = getRouteApi('/products/$slug_/edit')
 
@@ -20,7 +20,8 @@ export function ProductEditPage() {
   const navigate = useNavigate()
   const router = useRouter()
   const canGoBack = useCanGoBack()
-  const isAdmin = useAuthStore((s) => s.role === 'admin')
+  const session = useSession()
+  const isAdmin = session.status === 'authenticated' && session.user.role === 'admin'
   const deleteProduct = useDeleteProduct()
 
   // Pop the edit entry instead of pushing the detail route, so the history stack doesn't grow

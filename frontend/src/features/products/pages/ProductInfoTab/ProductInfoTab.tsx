@@ -1,6 +1,6 @@
 import { type ProductDetail, resolveAvoidSlugs } from '@aurore/shared'
 
-import { useQuery, useSuspenseQuery } from '@tanstack/react-query'
+import { useSuspenseQuery } from '@tanstack/react-query'
 import { getRouteApi, Link } from '@tanstack/react-router'
 import { Check, ChevronDown, Copy, FlaskConical, StickyNote } from 'lucide-react'
 import { lazy, Suspense, useId, useMemo } from 'react'
@@ -26,7 +26,6 @@ import { useCopyToClipboard } from '@/hooks/useCopyToClipboard'
 import { useExpandableList } from '@/hooks/useExpandableList'
 import { viewerId as getSessionViewerId, useSession } from '@/lib/auth/session'
 import { productQueries } from '@/lib/queries/products'
-import { profileQueries } from '@/lib/queries/profile'
 import './ProductInfoTab.css'
 
 const route = getRouteApi('/products/$slug/')
@@ -222,19 +221,14 @@ function IngredientsSection({
 
 export function ProductInfoTab() {
   const { slug } = route.useParams()
-  const { data: product } = useSuspenseQuery(productQueries.bySlug(slug))
   const session = useSession()
-  const userId = getSessionViewerId(session)
-
-  const { data: dermoProfile } = useQuery({
-    ...profileQueries.dermo(),
-    enabled: !!userId,
-  })
-
+  const viewerId = getSessionViewerId(session)
+  const { data: detailPage } = useSuspenseQuery(productQueries.detailPage(slug, viewerId))
+  const { product, dermoProfile, assessment, preferenceTargets } = detailPage
   const profileSlugs = useMemo(() => {
-    if (!userId || !dermoProfile) return new Set<string>()
+    if (!viewerId || !dermoProfile) return new Set<string>()
     return new Set<string>([...(dermoProfile.skinTypes ?? []), ...dermoProfile.skinConcerns])
-  }, [userId, dermoProfile])
+  }, [viewerId, dermoProfile])
 
   // Same bridge as listProducts: user concern vocab and product tag vocab drifted
   // apart, so a raw comparison only lights the slugs spelled the same in both.
@@ -268,10 +262,11 @@ export function ProductInfoTab() {
 
       {product.inci && (
         <FormulaReading
-          slug={slug}
-          userKey={userId}
+          assessment={assessment}
+          viewerId={viewerId}
           profileSlugs={profileSlugs}
           linkedIngredients={product.ingredients ?? []}
+          preferenceTargets={preferenceTargets}
         />
       )}
 
@@ -279,7 +274,7 @@ export function ProductInfoTab() {
 
       <IngredientsSection ingredients={product.ingredients} inci={product.inci} productKey={slug} />
 
-      {product.inci && <FormulaConcentrations slug={slug} userKey={userId} />}
+      {product.inci && <FormulaConcentrations assessment={assessment} />}
 
       {/* Raw technical detail stays behind a closed disclosure: group-before-detail,
           the INCI wall is available on demand, never part of the first read. */}

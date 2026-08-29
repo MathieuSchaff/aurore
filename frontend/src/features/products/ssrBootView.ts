@@ -7,8 +7,8 @@ import {
   buildListProductsQuery,
   type ListProductsFilters,
   productQueries,
+  toProductDetailPageData,
 } from '@/lib/queries/products'
-import { profileQueries } from '@/lib/queries/profile'
 import { productsSearchSchema } from './filters'
 import { productsListApiFilters } from './helpers'
 
@@ -29,7 +29,9 @@ export type SsrBootView = ProductsSsrBootView | ProductDetailSsrBootView
 const PRODUCT_DETAIL_RESERVED_SLUGS = new Set(['compare', 'new'])
 
 export function selectSsrBootView(pathname: string, search: unknown): SsrBootView | undefined {
-  const productDetailMatch = pathname.match(/^\/products\/([^/]+)\/?$/)
+  const productDetailMatch = pathname.match(
+    /^\/products\/([^/]+)(?:\/discussions(?:\/[^/]+)?)?\/?$/
+  )
   const slug = productDetailMatch?.[1]
   if (slug && !PRODUCT_DETAIL_RESERVED_SLUGS.has(slug)) {
     const query = { view: 'product-detail', slug }
@@ -71,7 +73,6 @@ export function seedSsrBootPage(
       productQueries.list(selectedView.filters, session.userId).queryKey,
       productsPage
     )
-
     return
   }
 
@@ -83,19 +84,11 @@ export function seedSsrBootPage(
     return
   }
 
-  queryClient.setQueryData(productQueries.bySlug(selectedView.slug).queryKey, page.product)
+  const { view: _view, ...detailPage } = page
   queryClient.setQueryData(
-    productQueries.shelfStatus(session.userId, [page.product.id]).queryKey,
-    new Map(page.userStatus === null ? [] : [[page.product.id, page.userStatus]])
+    productQueries.detailPage(selectedView.slug, session.userId).queryKey,
+    toProductDetailPageData(detailPage)
   )
-  queryClient.setQueryData(profileQueries.dermo().queryKey, page.dermoProfile)
-  if (page.assessment !== null) {
-    // Shared keeps algo-derm opaque while this cache follows the route contract
-    queryClient.setQueryData<unknown>(
-      productQueries.dermoScore(selectedView.slug, session.userId).queryKey,
-      page.assessment
-    )
-  }
 }
 
 export function hasSeededSsrBootProductsPage(
