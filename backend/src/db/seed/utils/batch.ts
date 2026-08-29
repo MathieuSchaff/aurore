@@ -24,10 +24,10 @@ export function toText(val: unknown): string | null {
   return str === '' || str === 'null' || str === 'undefined' ? null : str
 }
 
-export async function seedBatch<T>(
+export async function seedBatch<T, TResult>(
   label: string,
   items: T[],
-  fn: (item: T) => Promise<unknown>,
+  fn: (item: T) => Promise<TResult>,
   identify: (item: T) => string,
   critical: boolean = false
 ): Promise<{ success: number; failed: SeedError[]; total: number }> {

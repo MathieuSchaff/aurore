@@ -56,7 +56,7 @@ export function authGet(app: Hono<AppEnv>, path: string, token: string) {
   })
 }
 
-export function authPatch(app: Hono<AppEnv>, path: string, token: string, body: object) {
+export function authPatch<TBody>(app: Hono<AppEnv>, path: string, token: string, body: TBody) {
   return app.request(path, {
     method: 'PATCH',
     headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
@@ -64,7 +64,7 @@ export function authPatch(app: Hono<AppEnv>, path: string, token: string, body: 
   })
 }
 
-export function authPost(app: Hono<AppEnv>, path: string, token: string, body: object) {
+export function authPost<TBody>(app: Hono<AppEnv>, path: string, token: string, body: TBody) {
   return app.request(path, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },

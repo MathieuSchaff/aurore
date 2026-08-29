@@ -1,3 +1,5 @@
+import type { SkinConcern, SkinType } from '@aurore/shared'
+
 // FR phrasing for algo-derm risk axes and heuristic flag families.
 // Calm wording that avoids verdicts per vision: describe a known signal, never rank or diagnose.
 
@@ -155,7 +157,9 @@ export const REGULATORY_SCOPE_PHRASE: Record<string, string> = {
 
 // Maps skin-profile slugs to the risk axes that matter to that user, used to highlight
 // relevant signals without deriving the backend's profile mapping.
-export const PROFILE_RELEVANT_AXES: Record<string, ReadonlyArray<RiskAxis>> = {
+export const PROFILE_RELEVANT_AXES: Partial<
+  Record<SkinType | SkinConcern, ReadonlyArray<RiskAxis>>
+> = {
   'peau-sensible': ['irritation', 'allergenicity'],
   rosacee: ['irritation'],
   couperose: ['irritation'],

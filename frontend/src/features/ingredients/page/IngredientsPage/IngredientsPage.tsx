@@ -267,7 +267,8 @@ export function IngredientsPage() {
                     to="/ingredients/$slug"
                     params={{ slug: ingredient.slug }}
                     accent={
-                      (ingredient.category && CATEGORY_ACCENTS[ingredient.category]) ||
+                      (ingredient.category &&
+                        CATEGORY_ACCENTS[ingredient.category as keyof typeof CATEGORY_ACCENTS]) ||
                       DEFAULT_CATEGORY_ACCENT
                     }
                   >

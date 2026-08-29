@@ -55,7 +55,7 @@ export function SuggestEditButton({ targetType, targetId }: SuggestEditButtonPro
     )
   }
 
-  const fieldOptions = fields.map((f) => ({ value: f, label: FIELD_LABELS[f] ?? f }))
+  const fieldOptions = fields.map((f) => ({ value: f, label: FIELD_LABELS[f] }))
 
   return (
     <>

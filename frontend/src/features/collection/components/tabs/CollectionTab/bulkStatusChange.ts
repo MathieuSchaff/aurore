@@ -2,13 +2,13 @@ import type { UserProductStatus } from '@aurore/shared'
 
 import type { UpdateUserProductVariables } from '@/lib/queries/user-products'
 
-type UpdateStatus = (variables: UpdateUserProductVariables) => Promise<unknown>
+type UpdateStatus<TResult> = (variables: UpdateUserProductVariables) => Promise<TResult>
 type Announce = (message: string) => void
 
-export async function moveProductsToStatus(
+export async function moveProductsToStatus<TResult>(
   productIds: string[],
   status: UserProductStatus,
-  updateStatus: UpdateStatus,
+  updateStatus: UpdateStatus<TResult>,
   announce: Announce
 ): Promise<string[]> {
   const results = await Promise.allSettled(
