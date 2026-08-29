@@ -5,10 +5,10 @@ import { HttpResponse, http } from 'msw'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
 import { useCopyToClipboard } from '@/hooks/useCopyToClipboard'
-import { authQueries } from '@/lib/queries/auth'
 import { productQueries } from '@/lib/queries/products'
 import { profileQueries } from '@/lib/queries/profile'
 import { useAuthStore } from '@/store/auth'
+import { anonymousTestSession, restoringTestSession } from '@/test/authSession'
 import { server } from '@/test/msw/server'
 import { createTestQueryClient, renderWithProviders } from '@/test/utils'
 import { ProductInfoTab } from '../ProductInfoTab'
@@ -69,7 +69,15 @@ function setDermo(profile: { skinTypes?: string[]; skinConcerns?: string[] } | n
 
 // The dermo query is gated on a signed-in user; the store drives that gate.
 function signIn() {
-  useAuthStore.setState({ user: { id: 'u1' } as UserPublic })
+  const user = {
+    id: 'u1',
+    email: 'user@example.com',
+    createdAt: '2026-08-21T06:00:00.000Z',
+    emailVerified: true,
+    role: 'user',
+    isDemo: false,
+  } satisfies UserPublic
+  useAuthStore.setState({ session: restoringTestSession(user) })
 }
 
 describe('ProductInfoTab', () => {
@@ -77,7 +85,7 @@ describe('ProductInfoTab', () => {
 
   beforeEach(() => {
     vi.clearAllMocks()
-    useAuthStore.setState({ user: null })
+    useAuthStore.setState({ session: anonymousTestSession() })
     setProduct()
     setDermo(null)
     vi.mocked(useCopyToClipboard).mockReturnValue({
@@ -178,7 +186,7 @@ describe('ProductInfoTab', () => {
     expect(screen.getByText(/Sensible/)).toBeInTheDocument()
   })
 
-  it('warns from the seeded SSR identity before the auth store catches up', async () => {
+  it('warns from a seeded identity while its Bearer is restoring', async () => {
     const queryClient = createTestQueryClient()
     const user: UserPublic = {
       id: '019c0000-0000-7000-8000-000000000001',
@@ -188,12 +196,7 @@ describe('ProductInfoTab', () => {
       role: 'user',
       isDemo: false,
     }
-    queryClient.setQueryData(authQueries.session().queryKey, {
-      authenticated: true,
-      userId: user.id,
-      user,
-      role: user.role,
-    })
+    useAuthStore.setState({ session: restoringTestSession(user) })
     const product: ProductDetail = {
       id: '019c0000-0000-7000-8000-000000000002',
       slug: 'product-x',
