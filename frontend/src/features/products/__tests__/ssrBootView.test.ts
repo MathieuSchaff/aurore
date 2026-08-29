@@ -87,6 +87,10 @@ describe('selectSsrBootView', () => {
     }
   )
 
+  it('ignores a product detail slug rejected by the boot contract', () => {
+    expect(selectSsrBootView(`/products/${'x'.repeat(201)}`, {})).toBeUndefined()
+  })
+
   it('seeds one products entry under the first-render cache key', () => {
     const queryClient = new QueryClient()
     const view = selectSsrBootView('/products', {

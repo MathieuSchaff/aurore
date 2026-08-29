@@ -35,7 +35,8 @@ export function selectSsrBootView(pathname: string, search: unknown): SsrBootVie
   const slug = productDetailMatch?.[1]
   if (slug && !PRODUCT_DETAIL_RESERVED_SLUGS.has(slug)) {
     const query = { view: 'product-detail', slug }
-    ssrBootQuerySchema.parse(query)
+    const parsedQuery = ssrBootQuerySchema.safeParse(query)
+    if (!parsedQuery.success) return undefined
     return {
       view: 'product-detail',
       slug,
@@ -50,7 +51,8 @@ export function selectSsrBootView(pathname: string, search: unknown): SsrBootVie
 
   const filters = productsListApiFilters(parsed.data, true)
   const query = { view: 'products', ...buildListProductsQuery(filters) }
-  ssrBootQuerySchema.parse(query)
+  const parsedQuery = ssrBootQuerySchema.safeParse(query)
+  if (!parsedQuery.success) return undefined
   return {
     view: 'products',
     filters,
