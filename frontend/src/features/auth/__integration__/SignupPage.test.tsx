@@ -2,6 +2,7 @@ import { screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
+import { ApiError } from '../../../lib/helpers/apiError'
 import { renderWithProviders } from '../../../test/utils'
 
 const navigateMock = vi.fn()
@@ -27,6 +28,7 @@ import { SIGNUP_ERRORS, SignupPage } from '../page/SignupPage/SignupPage'
 
 const mutate = vi.fn()
 const VALID_PASSWORD = 'Abcdef12!'
+const TOO_LONG_PASSWORD = `${VALID_PASSWORD}${'a'.repeat(120)}`
 const VALID_EMAIL = 'newuser@example.com'
 
 function setMutationResult({
@@ -92,6 +94,18 @@ describe('SignupPage', () => {
     )
   })
 
+  it('shows the 128-character upper bound in the live rules', async () => {
+    renderWithProviders(<SignupPage />)
+    const user = userEvent.setup()
+
+    await user.type(screen.getByLabelText(/^Mot de passe$/), TOO_LONG_PASSWORD)
+
+    expect(screen.getByRole('listitem', { name: /128 caractères maximum/ })).toHaveAttribute(
+      'aria-label',
+      expect.stringMatching(/non validé/)
+    )
+  })
+
   it('blocks submit with mismatched passwords (Zod refine)', async () => {
     renderWithProviders(<SignupPage />)
     await fillForm({ confirm: 'Different1!' })
@@ -125,7 +139,7 @@ describe('SignupPage', () => {
 
   it('falls back to server_error label for unknown server codes', async () => {
     setMutationResult({
-      onMutate: (_d, opts) => opts.onError?.(new Error('totally_unknown_code')),
+      onMutate: (_d, opts) => opts.onError?.(new ApiError('totally_unknown_code', 500)),
     })
 
     renderWithProviders(<SignupPage />)

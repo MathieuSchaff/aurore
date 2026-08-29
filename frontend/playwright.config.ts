@@ -11,6 +11,7 @@ const MUTATION_SPECS = '**/*.mutation.spec.ts'
 // text, identical on all three engines, so running it three times buys nothing.
 // Adding a spec here is opt-in: a new spec runs on chromium only until listed.
 const CROSS_ENGINE_SPECS = [
+  '**/auth-rtl.spec.ts',
   '**/detail-back-navigation.spec.ts',
   '**/dropdown-menu-product-detail-sheet-status.spec.ts',
   '**/filter-drawer-focus.spec.ts',
