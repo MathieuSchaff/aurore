@@ -369,6 +369,30 @@ async function assertAuthenticatedBootNeverMountsMarketing(browser: Browser) {
   await restoredContext.close()
 }
 
+// A guarded client-only route reached anonymously must redirect to the login
+// after hydration, not during it: the server shell carries the route's pending
+// skeleton and a redirect mid-hydration makes React reconcile the login shell
+// against it (#418).
+async function assertGuardedRouteRedirectsAfterHydration(browser: Browser) {
+  const context = await browser.newContext()
+  const page = await context.newPage()
+  const assertGuardedHydration = watchHydration(page)
+
+  const document = await page.goto(`${BASE_URL}/products/any-slug/edit`, {
+    waitUntil: 'domcontentloaded',
+  })
+  if (!document) throw new Error('no guarded route document response')
+  expect(document.status()).toBe(200)
+
+  await page.waitForURL((url) => url.pathname === '/auth/login')
+  expect(new URL(page.url()).searchParams.get('redirect')).toBe('/products/any-slug/edit')
+  await page.waitForFunction(() => !Reflect.has(window, '$_TSR'))
+  await expect(page.getByRole('button', { name: 'Essayer la démo' })).toBeVisible()
+  assertGuardedHydration()
+
+  await context.close()
+}
+
 // A visitor without a refresh cookie gets marketing and zero refresh calls.
 async function assertVisitorWithoutCookieNeverRefreshes(browser: Browser) {
   const anonymousContext = await browser.newContext()
@@ -429,6 +453,7 @@ try {
   await assertStaleHintNeverOverridesAnonymousBoot(browser)
   await assertAuthenticatedBootNeverMountsMarketing(browser)
   await assertVisitorWithoutCookieNeverRefreshes(browser)
+  await assertGuardedRouteRedirectsAfterHydration(browser)
 } finally {
   await browser?.close()
   proxy?.stop()
@@ -437,4 +462,6 @@ try {
   await ssrLogPump
 }
 
-console.log('✓ Auth SSR boot converges after failed, skipped, successful, and absent refreshes')
+console.log(
+  '✓ Auth SSR boot converges after failed, skipped, successful, and absent refreshes; guarded routes redirect after hydration'
+)
