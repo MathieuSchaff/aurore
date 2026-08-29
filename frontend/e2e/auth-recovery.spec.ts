@@ -44,9 +44,9 @@ test.describe('Auth: recovery and verification', () => {
 
     await page.goto('/auth/verify-email?token=invalid-e2e-token')
 
+    await expect.poll(() => verificationCalls, { timeout: 15_000 }).toBe(1)
     await expect(page.getByRole('heading', { name: 'Lien invalide' })).toBeVisible()
     await expect(page.getByText('Ce lien de vérification est invalide.')).toBeVisible()
-    expect(verificationCalls).toBe(1)
   })
 
   test('requests a fresh verification link from an expired token', async ({ page }) => {
