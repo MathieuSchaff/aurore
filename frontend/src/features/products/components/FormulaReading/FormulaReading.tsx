@@ -338,7 +338,8 @@ export function FormulaReading({
       <p className="formula-reading__footnote">
         <Info size={12} aria-hidden="true" />
         Estimation sur {coverage.matched} ingrédient{coverage.matched > 1 ? 's' : ''} reconnu
-        {coverage.matched > 1 ? 's' : ''} sur {coverage.total} · pas un avis médical.
+        {coverage.matched > 1 ? 's' : ''} sur les {coverage.total} de la liste INCI · pas un avis
+        médical.
       </p>
     </section>
   )
