@@ -139,6 +139,16 @@ export function useResendVerification() {
   })
 }
 
+export function useResendVerificationFromToken() {
+  return useMutation({
+    mutationKey: ['auth', 'resend-verification-token'],
+    mutationFn: async (token: string) => {
+      const res = await api.auth['resend-verification-token'].$post({ json: { token } })
+      return unwrapData(res)
+    },
+  })
+}
+
 export function useForgotPassword() {
   return useMutation({
     mutationKey: ['auth', 'forgot-password'],

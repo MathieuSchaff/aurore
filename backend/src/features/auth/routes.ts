@@ -37,6 +37,7 @@ import { sendVerificationEmail } from './email.service'
 import {
   createVerificationToken,
   getUnverifiedEmail,
+  getUnverifiedRecipientByToken,
   verifyEmailToken,
 } from './email-verification.service'
 import { getGoogleAuthUrl, handleGoogleCallback } from './google.service'
@@ -267,6 +268,24 @@ export const jwtAuthRoutes = app
     if (!result.success) {
       return c.json(err(result.error), HTTP_STATUS.BAD_REQUEST)
     }
+
+    return c.json(ok(null), HTTP_STATUS.OK)
+  })
+
+  .post('/resend-verification-token', zValidator('json', verifyEmailBodySchema), async (c) => {
+    const { db } = buildAnonAuthContext(c)
+    const { token } = c.req.valid('json')
+    const recipient = await getUnverifiedRecipientByToken(db, token)
+
+    // Token possession identifies the account without weakening signup neutrality
+    if (recipient === null) return c.json(ok(null), HTTP_STATUS.OK)
+    if (!checkResendLimit(recipient.userId)) {
+      return c.json(err('too_many_requests'), HTTP_STATUS.RATE_LIMIT_EXCEEDED)
+    }
+
+    const rawToken = await createVerificationToken(db, recipient.userId)
+    const verificationUrl = `${c.get('frontendUrl')}/auth/verify-email?token=${rawToken}`
+    await sendVerificationEmail(recipient.email, verificationUrl)
 
     return c.json(ok(null), HTTP_STATUS.OK)
   })
