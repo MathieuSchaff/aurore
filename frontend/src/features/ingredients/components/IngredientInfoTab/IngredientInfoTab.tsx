@@ -1,3 +1,10 @@
+import {
+  INGREDIENT_TYPE_VALUES,
+  type IngredientType,
+  PRODUCT_CATEGORY_TO_DOMAIN_TAB,
+  type ProductDomainTab,
+} from '@aurore/shared'
+
 import { useQuery, useSuspenseQuery } from '@tanstack/react-query'
 import { getRouteApi, Link } from '@tanstack/react-router'
 import { Package } from 'lucide-react'
@@ -23,6 +30,23 @@ const MarkdownContent = lazy(() => import('@/component/Typography/RichText/Markd
 
 const MAX_VISIBLE_PRODUCTS = 5
 
+// The catalogue lists one product domain at a time, so the "see all" link opens the
+// ingredient's own domain and the count only covers products that list will show.
+// An off-domain product (a haircare item citing a skincare ingredient) is left out
+// rather than announced in a count the list cannot honour.
+const PRODUCT_DOMAIN_BY_INGREDIENT_TYPE: Record<IngredientType, ProductDomainTab> = {
+  skincare: 'skincare',
+  haircare: 'haircare',
+  dental: 'dental',
+  supplement: 'complement',
+}
+
+function productDomainForIngredientType(type: string): ProductDomainTab {
+  return (INGREDIENT_TYPE_VALUES as readonly string[]).includes(type)
+    ? PRODUCT_DOMAIN_BY_INGREDIENT_TYPE[type as IngredientType]
+    : 'skincare'
+}
+
 const route = getRouteApi('/ingredients/$slug/')
 
 export function IngredientInfoTab() {
@@ -38,6 +62,13 @@ export function IngredientInfoTab() {
     [tags]
   )
   const avoidTags = useMemo(() => tags?.filter((t) => t.relevance === 'avoid') ?? [], [tags])
+
+  const productDomain = productDomainForIngredientType(ingredient.type)
+  const domainProducts = useMemo(
+    () =>
+      products?.filter((p) => PRODUCT_CATEGORY_TO_DOMAIN_TAB[p.category] === productDomain) ?? [],
+    [products, productDomain]
+  )
 
   const hasFamily = Boolean(ingredient.type || ingredient.category)
 
@@ -112,9 +143,9 @@ export function IngredientInfoTab() {
 
       <div className="ingredient-section">
         <SectionHeader title="Produits" variant="primary" />
-        {products && products.length > 0 ? (
+        {domainProducts.length > 0 ? (
           <div className="ingredient-products">
-            {products.slice(0, MAX_VISIBLE_PRODUCTS).map((product) => (
+            {domainProducts.slice(0, MAX_VISIBLE_PRODUCTS).map((product) => (
               <Link
                 key={product.id}
                 to="/products/$slug"
@@ -128,13 +159,13 @@ export function IngredientInfoTab() {
                 <NavArrow size={16} />
               </Link>
             ))}
-            {products.length > MAX_VISIBLE_PRODUCTS && (
+            {domainProducts.length > MAX_VISIBLE_PRODUCTS && (
               <Link
                 to="/products"
-                search={{ ingredient: [ingredient.slug] }}
+                search={{ ingredient: [ingredient.slug], category: productDomain }}
                 className="ingredient-products-more"
               >
-                Voir tous les produits ({products.length})
+                Voir tous les produits ({domainProducts.length})
               </Link>
             )}
           </div>
