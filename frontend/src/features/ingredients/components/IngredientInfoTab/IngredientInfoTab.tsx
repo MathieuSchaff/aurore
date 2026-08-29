@@ -31,9 +31,8 @@ const MarkdownContent = lazy(() => import('@/component/Typography/RichText/Markd
 const MAX_VISIBLE_PRODUCTS = 5
 
 // The catalogue lists one product domain at a time, so the "see all" link opens the
-// ingredient's own domain and the count only covers products that list will show.
-// An off-domain product (a haircare item citing a skincare ingredient) is left out
-// rather than announced in a count the list cannot honour.
+// ingredient's own domain and the count only covers what that list will show
+// A haircare product citing a skincare ingredient is left out of both
 const PRODUCT_DOMAIN_BY_INGREDIENT_TYPE: Record<IngredientType, ProductDomainTab> = {
   skincare: 'skincare',
   haircare: 'haircare',

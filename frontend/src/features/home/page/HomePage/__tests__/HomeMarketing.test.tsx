@@ -49,8 +49,8 @@ describe('HomeMarketing', () => {
     }
   })
 
-  // The home swaps the marketing view for the hub as soon as the session installs,
-  // so the redirect must survive this component unmounting mid-request.
+  // The home swaps the marketing view for the hub as soon as the session installs
+  // so the redirect must survive this component unmounting while the request runs
   it('still navigates when the marketing view unmounts before the demo resolves', async () => {
     let settle: () => void = () => {}
     demoMutateAsync.mockReturnValue(

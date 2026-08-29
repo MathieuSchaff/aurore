@@ -490,8 +490,8 @@ describe('requireSession while the document hydrates', () => {
     queryClient.clear()
   })
 
-  // A router redirect mid-hydration reconciles the login shell against the guarded
-  // route's server markup (React #418): the guard leaves the document instead.
+  // A router redirect thrown while React hydrates reconciles the login shell against
+  // the guarded route's server markup (React #418), so the guard leaves the document
   it('leaves the document instead of throwing a router redirect', async () => {
     const replace = vi.spyOn(window.location, 'replace').mockImplementation(() => {})
     markHydrationStarted()

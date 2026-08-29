@@ -9,7 +9,7 @@ import { NOINDEX_ROBOTS, seoHead } from '@/lib/seo'
 
 export const Route = createFileRoute('/u/$username')({
   // Rendered on the server so an unknown username answers a real 404 instead of a
-  // 200 shell that only turns into a not-found screen after the client fetch.
+  // 200 shell that only turns into a not-found screen after the client fetch
   ssr: true,
   loader: ({ context, params }) =>
     context.queryClient

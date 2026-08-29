@@ -102,17 +102,17 @@ async function refreshSession(
   return redirectToLogin(href)
 }
 
-// leaveDocument: only for a session the server already knew anonymous. A session
-// that died on the client (probe rejected, expired) keeps the router redirect: the
-// refresh cookie is still set, so a fresh document would boot authenticated and
-// bounce off the login page, and the in-memory "expired" notice would be lost.
+// leaveDocument: only for a session the server already knew anonymous
+// A session that died on the client (probe rejected, expired) keeps the router
+// redirect: the refresh cookie is still set, so a fresh document would boot
+// authenticated and bounce off the login page, losing the in-memory "expired" notice
 async function redirectToLogin(
   href: string,
   { leaveDocument = false }: { leaveDocument?: boolean } = {}
 ): Promise<never> {
   if (leaveDocument && isHydrating()) {
-    // Document navigation, not a router redirect: see hydrationGate.ts. The load
-    // promise never settles, the document is on its way out.
+    // Document navigation, not a router redirect: see hydrationGate.ts
+    // The load promise never settles, the document is on its way out
     window.location.replace(`/auth/login?redirect=${encodeURIComponent(href)}`)
     await new Promise<never>(() => {})
   }

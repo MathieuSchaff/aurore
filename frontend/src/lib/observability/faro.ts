@@ -43,8 +43,9 @@ export function scrubUrl(raw: string): string {
 }
 
 // The published privacy policy scopes browser telemetry to page errors and CSP
-// violations. Everything else Faro emits on its own (web-vitals, timings, session,
-// view and navigation events) carries the page URL of every visit, so it stops here.
+// violations
+// Everything else Faro emits on its own (web-vitals, timings, session, view and
+// navigation events) carries the page URL of every visit, so it stops here
 export function isDeclaredTelemetry(item: TransportItem): boolean {
   if (item.type === 'measurement') return false
   if (item.type === 'event') return (item.payload as EventEvent).name === 'csp_violation'
