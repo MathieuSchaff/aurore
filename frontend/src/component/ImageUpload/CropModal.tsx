@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useId, useState } from 'react'
 import Cropper, { type Area } from 'react-easy-crop'
 
 import { Button } from '@/component/Button/Button'
@@ -15,6 +15,7 @@ type Props = {
 export const CropModal = ({ sourceUrl, onCancel, onConfirm }: Props) => {
   const [crop, setCrop] = useState({ x: 0, y: 0 })
   const [zoom, setZoom] = useState(1)
+  const zoomId = useId()
   const [pixelArea, setPixelArea] = useState<Area | null>(null)
 
   return (
@@ -35,6 +36,7 @@ export const CropModal = ({ sourceUrl, onCancel, onConfirm }: Props) => {
         />
       </div>
       <input
+        id={zoomId}
         type="range"
         className="crop-modal__zoom"
         min={1}

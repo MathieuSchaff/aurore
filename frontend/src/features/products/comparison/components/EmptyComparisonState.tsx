@@ -32,15 +32,15 @@ export function EmptyComparisonState({ count, onSave, isPending }: Props) {
         {ready
           ? 'Prêt à comparer'
           : count === 0
-            ? 'Sélectionne au moins 2 produits'
+            ? 'Sélectionnez au moins 2 produits'
             : "Plus qu'un produit à ajouter"}
       </p>
       <p className="empty-comparison__desc ui-empty-description">
         {ready
-          ? 'Enregistre pour voir la comparaison côte à côte.'
+          ? 'Enregistrez pour voir la comparaison côte à côte.'
           : count === 0
-            ? 'Recherche un produit ci-dessus pour commencer.'
-            : 'Ajoute au moins un produit supplémentaire pour comparer.'}
+            ? 'Recherchez un produit ci-dessus pour commencer.'
+            : 'Ajoutez au moins un produit supplémentaire pour comparer.'}
       </p>
       {ready && onSave && (
         <Button

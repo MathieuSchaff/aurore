@@ -1,5 +1,5 @@
 import { ChevronDown, Star } from 'lucide-react'
-import { useState } from 'react'
+import { useId, useState } from 'react'
 
 import { SentimentIcon } from '@/assets/sentiment-icons'
 import { Toggle } from '@/component/Input/Toggle/Toggle'
@@ -25,6 +25,7 @@ interface PdsExperienceSectionProps {
 export function PdsExperienceSection({ p, updateMutation }: PdsExperienceSectionProps) {
   const upsertReview = useUpsertUserProductReview()
   const announce = useAnnounce()
+  const publicCommentId = useId()
   const [localComment, setLocalComment] = useState(p.comment || '')
   // Truncate to the current max on init: existing rows stored before the 5000→1000
   // limit change would fail the Zod validation on blur without this guard.
@@ -90,6 +91,7 @@ export function PdsExperienceSection({ p, updateMutation }: PdsExperienceSection
           <div className="pds-sub">
             <h4 className="pds-subtitle">Commentaire public</h4>
             <textarea
+              id={publicCommentId}
               className="pds-textarea"
               aria-label="Commentaire public"
               placeholder="Ce que les autres verront sur la page produit, avec votre pseudonyme."

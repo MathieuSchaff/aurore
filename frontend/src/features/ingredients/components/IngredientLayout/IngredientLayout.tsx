@@ -11,6 +11,7 @@ import { IconBox } from '@/component/Layout/IconBox/IconBox'
 import { DetailPageLayout } from '@/component/Layout/PageLayout/DetailPageLayout'
 import { PageTopActions, PageTopActionsRight } from '@/component/Layout/PageLayout/PageTopActions'
 import { type TabOption, Tabs } from '@/component/Tabs/Tabs'
+import { useSession } from '@/lib/auth/session'
 import { ingredientQueries } from '@/lib/queries/ingredients'
 import '@/features/ingredients/components/IngredientInfoTab/IngredientInfoTab.css'
 
@@ -26,6 +27,8 @@ const TAB_OPTIONS: TabOption<IngredientTab>[] = [
 export function IngredientLayout() {
   const { slug } = route.useParams()
   const { data: ingredient } = useSuspenseQuery(ingredientQueries.bySlug(slug))
+  // Anonymous visitors only reach a login wall behind this link, so the action is not offered
+  const hasUser = useSession().status === 'authenticated'
   const navigate = useNavigate()
   const location = useRouterState({ select: (s) => s.location })
 
@@ -47,16 +50,18 @@ export function IngredientLayout() {
           Retour aux ingrédients
         </BackButton>
         <PageTopActionsRight>
-          <ButtonLink
-            to="/ingredients/$slug/edit"
-            params={{ slug }}
-            variant="secondary"
-            className="action-edit"
-            aria-label="Modifier cet ingrédient"
-          >
-            <Pencil size={14} />
-            <span className="action-edit__label">Modifier</span>
-          </ButtonLink>
+          {hasUser && (
+            <ButtonLink
+              to="/ingredients/$slug/edit"
+              params={{ slug }}
+              variant="secondary"
+              className="action-edit"
+              aria-label="Modifier cet ingrédient"
+            >
+              <Pencil size={14} />
+              <span className="action-edit__label">Modifier</span>
+            </ButtonLink>
+          )}
         </PageTopActionsRight>
       </PageTopActions>
 

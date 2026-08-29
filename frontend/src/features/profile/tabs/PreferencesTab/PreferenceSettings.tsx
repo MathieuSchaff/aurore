@@ -66,7 +66,7 @@ export function PreferenceSettings() {
     <div className="pref-settings">
       <SettingsSection
         title="Pondération des critères"
-        description="Ajustez l'importance de chaque critère dans le calcul de la note finale. Un poids de 0 ignore le critère."
+        description="Ajustez le poids de chaque critère dans votre note personnelle, celle que vous donnez à vos produits. Un poids de 0 ignore le critère."
       >
         <div className="pref-weights-list">
           {Object.entries(criteriaLabels).map(([key, label]) => (
@@ -81,6 +81,7 @@ export function PreferenceSettings() {
                 </span>
               </div>
               <input
+                id={`pref-weight-${key}`}
                 type="range"
                 min="0"
                 max="10"
