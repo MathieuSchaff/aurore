@@ -49,13 +49,14 @@ describe('ProductDetailSheet', () => {
     expect(screen.getByText('CeraVe')).toBeInTheDocument()
   })
 
-  it('displays a zero catalog price in the header', () => {
+  // 0 is the catalogue's "unknown", not a free product
+  it('hides a zero catalog price in the header', () => {
     const product = makeUserProduct()
     product.product.priceCents = 0
 
     renderWithProviders(<ProductDetailSheet p={product} onClose={vi.fn()} />)
 
-    expect(screen.getByText('0.00 €')).toBeInTheDocument()
+    expect(screen.queryByText('0.00 €')).toBeNull()
   })
 
   it('affiche les sections de détail', () => {
