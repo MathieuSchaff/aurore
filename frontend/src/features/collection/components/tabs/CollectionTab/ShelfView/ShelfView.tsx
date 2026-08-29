@@ -150,6 +150,9 @@ export function ShelfView({
     activeTab !== 'holy_grail' &&
     SHELF_ORDER.includes(activeTab as UserProductStatus)
   const showShelfEmpty = isStatusTab && visibleProducts.length === 0
+  // "Tout" is not everything on the shelf (see ALL_TAB_STATUSES); the screen says so
+  // rather than letting the profile's total contradict this count in silence.
+  const outsideAllCount = countsByStatus.archived + countsByStatus.avoided
 
   return (
     <div className="shelf-view">
@@ -160,6 +163,11 @@ export function ShelfView({
         holyGrailCount={holyGrailCount}
         repurchaseCount={repurchaseCount}
       />
+      {activeTab === 'all' && outsideAllCount > 0 && (
+        <p className="shelf-view__scope">
+          Hors archivés et évités ({outsideAllCount}), à retrouver dans « Plus ».
+        </p>
+      )}
 
       {showShelfEmpty ? (
         <ShelfEmpty status={activeTab as UserProductStatus} />
