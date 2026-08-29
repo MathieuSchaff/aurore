@@ -1,9 +1,12 @@
-// Spot-check audit for the vegan auto-tag. Read-only. Vegan fires on ~80% of the
-// corpus, so precision is the bottleneck before trusting it on UI. Pattern list here is
-// TIER_A_PATTERNS below and local to this audit: no pass scans the INCI for animal ingredients,
-// `vegan` is emitted by the algo-derm signal (passes/algo-derm-detection.ts) and by brand
-// certifications (passes/brand-cert-detection.ts). Tier C (already covered, sanity bucket
-// only): collagen, keratin, milk, snail, beeswax, lanolin.
+// Read-only spot check for the vegan auto-tag
+// The tag fires on most of the corpus, so the risk is false positives, not missed products
+// The tag must be precise before we show it in the UI
+// The pattern list lives here (TIER_A_PATTERNS below) and nowhere else:
+// no pass reads the INCI to look for animal ingredients
+// `vegan` comes from the algo-derm signal (passes/algo-derm-detection.ts)
+// and from brand certifications (passes/brand-cert-detection.ts)
+// Tier C is already covered and only kept as a sanity check:
+// collagen, keratin, milk, snail, beeswax, lanolin
 
 import { normalize, splitINCI } from 'algo-derm'
 import { and, eq, ilike, inArray, or } from 'drizzle-orm'

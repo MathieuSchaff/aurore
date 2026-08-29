@@ -1,5 +1,5 @@
 -- Drop `type-outil` product_type_v2 slug.
--- Decision 2026-05-11 (ROADMAP §8): no `gua-sha` / `jade-roller` /
+-- Decision 2026-05-11: no `gua-sha` / `jade-roller` /
 -- `cleansing-brush` kind exists in PRODUCT_KINDS and zero products are tagged
 -- `type-outil` (legacy `outil-massage` product_type was dropped by 0047).
 -- Retire the slug rather than extend PRODUCT_KINDS for products that don't
