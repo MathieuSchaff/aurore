@@ -10,6 +10,7 @@ import { Button } from '@/component/Button/Button'
 import { statusLabels } from '@/features/collection/constants'
 import { awaitBootRefresh } from '@/lib/auth/awaitBootRefresh'
 import { readClientSession, useSession, viewerId } from '@/lib/auth/session'
+import { isApiError } from '@/lib/helpers/apiError'
 import { captureFrontendError } from '@/lib/observability/faro'
 import { type ProductDetailPageData, productQueries } from '@/lib/queries/products'
 import { useCreateUserProduct } from '@/lib/queries/user-products'
@@ -78,7 +79,9 @@ export function ProductCollectionAction({ product, userStatus }: ProductCollecti
       )
       toast.success('Sauvegardé dans « Garde un œil »')
     } catch (error) {
-      captureFrontendError(error, { flow: 'product-detail-quick-save', productId: product.id })
+      if (!isApiError(error)) {
+        captureFrontendError(error, { flow: 'product-detail-quick-save', productId: product.id })
+      }
       toast.error("Impossible de sauvegarder ce produit pour l'instant.")
     }
   }

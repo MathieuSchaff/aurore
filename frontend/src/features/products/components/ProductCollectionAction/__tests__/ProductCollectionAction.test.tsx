@@ -8,6 +8,8 @@ import { beforeEach, describe, expect, it, vi } from 'vitest'
 
 import { statusLabels } from '@/features/collection/constants'
 import type { SessionView } from '@/lib/auth/session'
+import { ApiError } from '@/lib/helpers/apiError'
+import { captureFrontendError } from '@/lib/observability/faro'
 import { productQueries } from '@/lib/queries/products'
 import { useCreateUserProduct } from '@/lib/queries/user-products'
 import { createTestQueryClient, renderWithProviders } from '@/test/utils'
@@ -110,6 +112,38 @@ describe('ProductCollectionAction', () => {
     )
     expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
     expect(toast.success).toHaveBeenCalledWith('Sauvegardé dans « Garde un œil »')
+  })
+
+  it('does not recapture an ApiError from the quick save mutation', async () => {
+    const user = userEvent.setup()
+    mutateAsync.mockRejectedValue(new ApiError('server_error', 500))
+    renderAction()
+
+    await user.click(
+      screen.getByRole('button', { name: 'Sauvegarder ce produit dans Garde un œil' })
+    )
+
+    expect(captureFrontendError).not.toHaveBeenCalled()
+    expect(toast.error).toHaveBeenCalledWith("Impossible de sauvegarder ce produit pour l'instant.")
+  })
+
+  it('captures an orchestration error after the quick save mutation', async () => {
+    const user = userEvent.setup()
+    const error = new Error('cache update failed')
+    const queryClient = renderAction()
+    vi.spyOn(queryClient, 'setQueryData').mockImplementation(() => {
+      throw error
+    })
+
+    await user.click(
+      screen.getByRole('button', { name: 'Sauvegarder ce produit dans Garde un œil' })
+    )
+
+    expect(captureFrontendError).toHaveBeenCalledWith(error, {
+      flow: 'product-detail-quick-save',
+      productId: product.id,
+    })
+    expect(toast.error).toHaveBeenCalledWith("Impossible de sauvegarder ce produit pour l'instant.")
   })
 
   it('keeps the detailed status and purchase flow behind the split-button chevron', async () => {
