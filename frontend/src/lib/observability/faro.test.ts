@@ -1,6 +1,10 @@
 import { describe, expect, it, vi } from 'vitest'
 
-import { installCspViolationReporting, scrubUrl } from '@/lib/observability/faro'
+import {
+  installCspViolationReporting,
+  isDeclaredTelemetry,
+  scrubUrl,
+} from '@/lib/observability/faro'
 
 const BASE = 'https://aurore-app.fr'
 
@@ -68,5 +72,28 @@ describe('CSP violation reporting', () => {
       },
       'security'
     )
+  })
+})
+
+describe('isDeclaredTelemetry', () => {
+  const item = (type: string, payload: Record<string, unknown> = {}) =>
+    ({ type, payload, meta: {} }) as unknown as Parameters<typeof isDeclaredTelemetry>[0]
+
+  it('keeps page errors, console logs and csp violations', () => {
+    expect(isDeclaredTelemetry(item('exception'))).toBe(true)
+    expect(isDeclaredTelemetry(item('log'))).toBe(true)
+    expect(isDeclaredTelemetry(item('event', { name: 'csp_violation' }))).toBe(true)
+  })
+
+  it('drops web-vitals and every automatic navigation-bound event', () => {
+    expect(isDeclaredTelemetry(item('measurement'))).toBe(false)
+    for (const name of [
+      'session_start',
+      'view_changed',
+      'faro.performance.navigation',
+      'faro.performance.resource',
+    ]) {
+      expect(isDeclaredTelemetry(item('event', { name }))).toBe(false)
+    }
   })
 })
