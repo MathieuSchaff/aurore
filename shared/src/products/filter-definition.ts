@@ -34,7 +34,10 @@ export type ProductFilterSubGroupDefinition = {
   slugs: string[]
 }
 
-const DOMAIN_TAG_META: Record<ProductDomainTab, Record<string, TagCategoryMeta>> = {
+const DOMAIN_TAG_META: Record<
+  ProductDomainTab,
+  Partial<Record<AllProductTagCategory, TagCategoryMeta>>
+> = {
   skincare: SKINCARE_PRODUCT_TAG_CATEGORY_META,
   haircare: HAIRCARE_PRODUCT_TAG_CATEGORY_META,
   dental: DENTAL_PRODUCT_TAG_CATEGORY_META,

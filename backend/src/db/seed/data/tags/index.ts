@@ -40,15 +40,21 @@ export { DENTAL_PRODUCT_TAG_SLUGS, SKINCARE_INGREDIENT_TAG_SLUGS } from '@aurore
 // def in shared; merged here across the four ingredient domains. Shared slugs
 // (e.g. `anti-inflammatoire`) carry the same label in every domain, so the
 // merge order is irrelevant.
-const INGREDIENT_TAG_LABELS: Record<string, string> = {
+type IngredientTagSlug =
+  | SkincareIngredientTagSlug
+  | SupplementIngredientTagSlug
+  | DentalIngredientTagSlug
+  | HaircareIngredientTagSlug
+
+const INGREDIENT_TAG_LABELS: Record<IngredientTagSlug, string> = {
   ...SKINCARE_INGREDIENT_TAG_LABELS,
   ...SUPPLEMENT_INGREDIENT_TAG_LABELS,
   ...DENTAL_INGREDIENT_TAG_LABELS,
   ...HAIRCARE_INGREDIENT_TAG_LABELS,
 }
 
-function labelForIngredient(slug: string): string {
-  return INGREDIENT_TAG_LABELS[slug] ?? slug
+function labelForIngredient(slug: IngredientTagSlug): string {
+  return INGREDIENT_TAG_LABELS[slug]
 }
 
 function labelForProduct(slug: string): string {

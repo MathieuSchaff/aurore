@@ -75,7 +75,9 @@ export function FormulaReading({
   const relevantAxes = useMemo(() => {
     const axes = new Set<RiskAxis>()
     for (const s of profileSlugs) {
-      for (const axis of PROFILE_RELEVANT_AXES[s] ?? []) axes.add(axis)
+      for (const axis of PROFILE_RELEVANT_AXES[s as keyof typeof PROFILE_RELEVANT_AXES] ?? []) {
+        axes.add(axis)
+      }
     }
     return axes
   }, [profileSlugs])

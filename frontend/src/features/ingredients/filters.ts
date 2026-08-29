@@ -26,7 +26,10 @@ export type FilterKey = AllIngredientTagCategory
 
 export const FILTER_KEYS = [...ALL_INGREDIENT_FILTER_CATEGORIES] as FilterKey[]
 
-export const DOMAIN_TAG_META: Record<IngredientType, Record<string, TagCategoryMeta>> = {
+export const DOMAIN_TAG_META: Record<
+  IngredientType,
+  Partial<Record<AllIngredientTagCategory, TagCategoryMeta>>
+> = {
   skincare: SKINCARE_INGREDIENT_TAG_CATEGORY_META,
   haircare: HAIRCARE_INGREDIENT_TAG_CATEGORY_META,
   dental: DENTAL_INGREDIENT_TAG_CATEGORY_META,
@@ -34,7 +37,7 @@ export const DOMAIN_TAG_META: Record<IngredientType, Record<string, TagCategoryM
 }
 
 // Skincare wins for duplicate keys; all four domains use the same label today so order is cosmetic.
-const _mergedMeta: Record<string, TagCategoryMeta> = {
+const _mergedMeta: Record<AllIngredientTagCategory, TagCategoryMeta> = {
   ...SUPPLEMENT_INGREDIENT_TAG_CATEGORY_META,
   ...DENTAL_INGREDIENT_TAG_CATEGORY_META,
   ...HAIRCARE_INGREDIENT_TAG_CATEGORY_META,

@@ -2,7 +2,7 @@ import { sql } from 'drizzle-orm'
 
 import type { Database } from '../../db'
 
-export type ReadinessCheck = (db: Database) => Promise<unknown>
+export type ReadinessCheck = (db: Database) => Promise<void>
 
 // An exhausted pool does not reject: a new statement queues behind it for as long as the
 // leak lasts, so an untimed probe hangs instead of reporting the outage. Cap the wait so
@@ -15,7 +15,7 @@ export const checkDatabase: ReadinessCheck = async (db) => {
     timer = setTimeout(() => reject(new Error('readiness_timeout')), READINESS_TIMEOUT_MS)
   })
   try {
-    return await Promise.race([db.execute(sql`SELECT 1`), timeout])
+    await Promise.race([db.execute(sql`SELECT 1`), timeout])
   } finally {
     clearTimeout(timer)
   }

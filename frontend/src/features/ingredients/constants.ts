@@ -1,3 +1,5 @@
+import type { IngredientCategory } from '@/constants/ingredientGroups'
+
 /* Ingredients UI wording, centralized so tests assert the same string the user sees. */
 export const ingredientLabels = {
   conflictDetected: 'Conflit détecté',
@@ -7,7 +9,7 @@ export const ingredientLabels = {
 
 /* Card accent per functional category: decorative variety, not a legend.
    No coral/red family: too close to --status-color-avoided (same hue). */
-export const CATEGORY_ACCENTS: Record<string, string> = {
+export const CATEGORY_ACCENTS: Partial<Record<IngredientCategory, string>> = {
   actif: 'var(--color-primary)',
   humectant: 'var(--color-aqua)',
   tensioactif: 'var(--color-aqua)',

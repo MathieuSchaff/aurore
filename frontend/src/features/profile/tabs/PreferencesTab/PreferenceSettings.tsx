@@ -1,3 +1,5 @@
+import type { CriteriaWeights } from '@aurore/shared'
+
 import { useQuery } from '@tanstack/react-query'
 import { useRef, useState } from 'react'
 
@@ -19,7 +21,9 @@ const PALETTE_SWATCHES: Array<{ variant: Variant; label: string; color: string }
   { variant: 'ardoise', label: 'Ardoise', color: 'oklch(35% 0.12 240)' },
 ]
 
-const criteriaLabels: Record<string, string> = {
+type CriteriaKey = keyof CriteriaWeights
+
+const criteriaLabels: Record<CriteriaKey, string> = {
   tolerance: 'Tolérance',
   efficacy: 'Efficacité',
   sensoriality: 'Sensorialité',
@@ -28,7 +32,7 @@ const criteriaLabels: Record<string, string> = {
   valueForMoney: 'Rapport Q/P',
 }
 
-const criteriaDescriptions: Record<string, string> = {
+const criteriaDescriptions: Record<CriteriaKey, string> = {
   tolerance: 'Pas de rougeur ni irritation',
   efficacy: 'Résultats visibles sur vos objectifs',
   sensoriality: 'Texture, odeur, confort',
@@ -36,6 +40,8 @@ const criteriaDescriptions: Record<string, string> = {
   mixability: "S'associe bien à votre routine",
   valueForMoney: 'Prix vs durée et efficacité',
 }
+
+const CRITERIA_KEYS = Object.keys(criteriaLabels) as CriteriaKey[]
 
 export function PreferenceSettings() {
   const { data: prefs, isLoading } = useQuery(userPreferenceQueries.get())
@@ -69,16 +75,14 @@ export function PreferenceSettings() {
         description="Ajustez le poids de chaque critère dans votre note personnelle, celle que vous donnez à vos produits. Un poids de 0 ignore le critère."
       >
         <div className="pref-weights-list">
-          {Object.entries(criteriaLabels).map(([key, label]) => (
+          {CRITERIA_KEYS.map((key) => (
             <div key={key} className="pref-weight-item">
               <div className="pref-weight-info">
                 <div className="pref-weight-meta">
-                  <span className="pref-weight-label">{label}</span>
+                  <span className="pref-weight-label">{criteriaLabels[key]}</span>
                   <span className="pref-weight-desc">{criteriaDescriptions[key]}</span>
                 </div>
-                <span className="pref-weight-value">
-                  ×{weights[key as keyof typeof prefs.criteriaWeights]}
-                </span>
+                <span className="pref-weight-value">×{weights[key]}</span>
               </div>
               <input
                 id={`pref-weight-${key}`}
@@ -86,10 +90,10 @@ export function PreferenceSettings() {
                 min="0"
                 max="10"
                 step="1"
-                value={weights[key as keyof typeof prefs.criteriaWeights]}
+                value={weights[key]}
                 onChange={(e) => handleWeightChange(key, parseInt(e.target.value, 10))}
                 className="pref-weight-slider"
-                aria-label={`Pondération ${label}`}
+                aria-label={`Pondération ${criteriaLabels[key]}`}
               />
             </div>
           ))}

@@ -29,6 +29,7 @@ export function useIngredientTagFilterGroups(
 
     return categories.map((cat) => {
       const catMeta = meta[cat]
+      if (!catMeta) throw new Error(`Missing ${domain} ingredient filter metadata for ${cat}`)
       const options: FilterOption[] = getIngredientTagsByCategory(domain, cat)
         .map(({ slug }) => {
           const row = tagBySlug.get(slug)
