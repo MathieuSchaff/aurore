@@ -1,9 +1,11 @@
 import {
+  type EventEvent,
   type Faro,
   faro,
   getWebInstrumentations,
   initializeFaro,
   ReactIntegration,
+  type TransportItem,
 } from '@grafana/faro-react'
 
 let initialized = false
@@ -38,6 +40,15 @@ export function scrubUrl(raw: string): string {
   } catch {
     return raw.split('?')[0]
   }
+}
+
+// The published privacy policy scopes browser telemetry to page errors and CSP
+// violations. Everything else Faro emits on its own (web-vitals, timings, session,
+// view and navigation events) carries the page URL of every visit, so it stops here.
+export function isDeclaredTelemetry(item: TransportItem): boolean {
+  if (item.type === 'measurement') return false
+  if (item.type === 'event') return (item.payload as EventEvent).name === 'csp_violation'
+  return true
 }
 
 export function installCspViolationReporting(target: Document, pushEvent: PushEvent): () => void {
@@ -78,14 +89,16 @@ export function initFaro(): Faro | null {
     },
     // https://grafana.com/docs/grafana-cloud/monitor-applications/frontend-observability/instrument/custom-signals/events/
     beforeSend: (item) => {
-      // we drop web-vitals
-      if (item.type === 'measurement') return null
+      if (!isDeclaredTelemetry(item)) return null
       if (item.meta.page?.url) {
         item.meta.page.url = scrubUrl(item.meta.page.url)
       }
       return item
     },
-    instrumentations: [...getWebInstrumentations(), new ReactIntegration()],
+    instrumentations: [
+      ...getWebInstrumentations({ enablePerformanceInstrumentation: false }),
+      new ReactIntegration(),
+    ],
   })
 
   installCspViolationReporting(document, (name, attributes, domain) => {
