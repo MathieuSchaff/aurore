@@ -364,9 +364,9 @@ export function useUpdateProduct() {
       const res = await api.products[':id'].$patch({ param: { id }, json: data })
       return unwrapData(res)
     },
-    onSuccess: (product) => {
-      // PATCH returns a row only; both reads also hold linked ingredients and tags
-      invalidateProductSurfaces(qc, product.slug)
+    onSuccess: () => {
+      // An explicit slug edit makes the previous detail key unknowable here
+      invalidateProductReads(qc)
       qc.invalidateQueries({ queryKey: collectionKeys.formulaMotifs() })
     },
     meta: {
