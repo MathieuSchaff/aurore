@@ -25,7 +25,7 @@ export function ComparisonsListPage() {
         <div className="comparisons-list-page__empty">
           <p className="comparisons-list-page__empty-title">Aucune comparaison</p>
           <p className="comparisons-list-page__empty-desc ui-empty-description">
-            Crée ta première comparaison pour analyser des produits côte à côte.
+            Créez votre première comparaison pour analyser des produits côte à côte.
           </p>
         </div>
       ) : (

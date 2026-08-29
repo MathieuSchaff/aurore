@@ -32,6 +32,7 @@ export function ComboboxTextInput({
   return (
     <input
       ref={inputRef}
+      id={`${listboxId}-input`}
       type="text"
       className="search-select__input"
       placeholder={placeholder ?? 'Rechercher...'}
