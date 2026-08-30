@@ -45,7 +45,19 @@
   // pino-pretty: string reference in the transport config, never imported.
   // typescript-5: only consumer is scripts/audit-comments.ts, which is gitignored (local-only
   // tooling), so no analyser can see the import that justifies the dependency.
-  "ignoreDependencies": ["@aurore/shared", "pino-pretty", "react-doctor", "typescript-5"],
+  // rollup-plugin-visualizer: same family, imported through a string variable in vite.config.ts so
+  // the treemap stays out of the production bundle.
+  // @vitejs/devtools-rolldown and -vite: optional peerDependencies of @vitejs/devtools, which is
+  // the only one we import. A peer is installed to enable its panel, never imported by us.
+  "ignoreDependencies": [
+    "@aurore/shared",
+    "pino-pretty",
+    "react-doctor",
+    "typescript-5",
+    "rollup-plugin-visualizer",
+    "@vitejs/devtools-rolldown",
+    "@vitejs/devtools-vite"
+  ],
 
   // docs-private/wiki carries its own package.json (Starlight). It is not application code and
   // is gitignored, so it must not be analysed nor reported as an undeclared workspace.
@@ -53,6 +65,16 @@
   // so ignoring it strands every route and its components (8 unused files becomes 144). Its two
   // unused generated types are the cheaper noise.
   "ignorePatterns": ["vendor/**", ".fallow/**", "**/*.d.ts", "node_modules/**", "docs-private/**"],
+
+  // routeTree.gen.ts must stay in the graph (see above), so its two unused generated types are
+  // silenced by rule and not by exclusion: an override keeps every route reachable while turning
+  // off the one rule that fires. Regenerating the file cannot undo this, an inline comment would.
+  "overrides": [
+    {
+      "files": ["frontend/src/routeTree.gen.ts"],
+      "rules": { "unused-types": "off" }
+    }
+  ],
 
   // Complexity gates aligned with fallow defaults (20 cyclomatic / 15 cognitive)
   //

@@ -72,8 +72,10 @@ test-watch args="":
     @just test-db-up keep
     cd backend && DATABASE_URL={{TEST_DB_URL}} APP_DATABASE_URL={{APP_TEST_DB_URL}} bun test --watch {{args}}
 
-# ──────────────────── Coverage (feeds fallow health --coverage) ────────────────────
+# ──────────────── Coverage (the frontend one feeds fallow health --coverage) ────────────────
 
+# lcov only: bun has no Istanbul reporter, and `fallow --coverage` parses Istanbul JSON alone, so
+# this output reads in a browser but never feeds fallow. Only the frontend recipe below does.
 [doc('Backend coverage (lcov) → backend/coverage/')]
 [group('test')]
 test-backend-coverage args="": test-db-up

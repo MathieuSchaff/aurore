@@ -2,6 +2,9 @@
 // are derived from this array of {key, slug, label, category}.
 // concern / hair_type / hair_effect stay aligned with HAIRCARE_INGREDIENT_TAG_SLUGS
 // (separate DB rows, same slugs) for cross-entity consistency, same as skincare.
+// That alignment is what fallow reads as a 37-line clone. Extracting it would merge two
+// vocabularies that are allowed to diverge, and already do: RACINES_GRASSES exists here only.
+// fallow-ignore-file code-duplication
 
 import { deriveTagSlugs, type ProductTagDef } from '../../tag-taxonomy-builder'
 
