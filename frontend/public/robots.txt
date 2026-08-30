@@ -1,22 +1,18 @@
 User-agent: *
-Allow: /
 Disallow: /api/
 
 # SEO backlink crawlers bring no readers and pulled ~70 requests/day between them. A
 # crawler that matches its own group ignores the `*` group entirely, so each one has
 # to repeat the /api/ rule. Search engines stay unthrottled on purpose.
 User-agent: AhrefsBot
-Allow: /
 Disallow: /api/
 Crawl-delay: 30
 
 User-agent: SemrushBot
-Allow: /
 Disallow: /api/
 Crawl-delay: 30
 
 User-agent: GenomeCrawlerd
-Allow: /
 Disallow: /api/
 Crawl-delay: 30
 
