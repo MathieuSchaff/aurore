@@ -1,6 +1,6 @@
 # Politique de confidentialité
 
-Dernière mise à jour : 28 août 2026
+Dernière mise à jour : 29 août 2026
 
 Cette page explique quelles données Aurore collecte, pourquoi elles sont utilisées, et comment elles sont protégées.
 
@@ -186,7 +186,7 @@ Utilisé uniquement si vous choisissez de vous connecter avec Google.
 
 ### Grafana Cloud
 
-Supervision technique.
+Supervision technique. Collecteur hébergé à Londres, Royaume-Uni, pays couvert par une décision d’adéquation de la Commission européenne : c’est le seul flux qui sort de l’Union européenne.
 
 - côté serveur : seuls les avertissements et les erreurs des journaux sont envoyés, sans adresse IP ni paramètres d’URL ;
 - côté navigateur : les erreurs de la page et les violations de sa politique de sécurité sont remontées, avec l’URL nettoyée de ses paramètres sensibles et un identifiant de session aléatoire, sans lien avec votre compte.
