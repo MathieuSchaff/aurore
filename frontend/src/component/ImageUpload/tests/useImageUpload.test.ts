@@ -83,13 +83,14 @@ describe('useImageUpload', () => {
       responseJson: { success: true, data: { url: 'https://cdn/x.webp?v=1' } },
     })
     const { result } = renderHook(() =>
-      useImageUpload({ endpoint: '/api/uploads/avatar', outputSize: 1024 })
+      useImageUpload({
+        endpoint: '/api/uploads/avatar',
+        outputSize: 1024,
+        sourceImageForTest: new Image(),
+      })
     )
 
     await act(async () => {
-      ;(
-        result.current as unknown as { __setSourceForTest: (b: HTMLImageElement) => void }
-      ).__setSourceForTest?.(new Image())
       await result.current.confirmCrop({ x: 0, y: 0, size: 1024 })
     })
     await waitFor(() => expect(result.current.state.phase).toBe('idle'))
@@ -101,12 +102,13 @@ describe('useImageUpload', () => {
       responseJson: { success: false, error: 'upload_too_large' },
     })
     const { result } = renderHook(() =>
-      useImageUpload({ endpoint: '/api/uploads/avatar', outputSize: 1024 })
+      useImageUpload({
+        endpoint: '/api/uploads/avatar',
+        outputSize: 1024,
+        sourceImageForTest: new Image(),
+      })
     )
     await act(async () => {
-      ;(
-        result.current as unknown as { __setSourceForTest: (b: HTMLImageElement) => void }
-      ).__setSourceForTest?.(new Image())
       try {
         await result.current.confirmCrop({ x: 0, y: 0, size: 1024 })
       } catch {
@@ -121,7 +123,11 @@ describe('useImageUpload', () => {
 
   it('dropFile rejects a non-image file', () => {
     const { result } = renderHook(() =>
-      useImageUpload({ endpoint: '/api/uploads/avatar', outputSize: 1024 })
+      useImageUpload({
+        endpoint: '/api/uploads/avatar',
+        outputSize: 1024,
+        sourceImageForTest: new Image(),
+      })
     )
     act(() => {
       result.current.dropFile(new File(['x'], 'note.txt', { type: 'text/plain' }))
@@ -137,7 +143,11 @@ describe('useImageUpload', () => {
     URL.createObjectURL = () => 'blob:mock'
     try {
       const { result } = renderHook(() =>
-        useImageUpload({ endpoint: '/api/uploads/avatar', outputSize: 1024 })
+        useImageUpload({
+          endpoint: '/api/uploads/avatar',
+          outputSize: 1024,
+          sourceImageForTest: new Image(),
+        })
       )
       act(() => {
         result.current.dropFile(new File(['x'], 'photo.jpg', { type: 'image/jpeg' }))
@@ -169,7 +179,11 @@ describe('useImageUpload', () => {
 
     try {
       const { result } = renderHook(() =>
-        useImageUpload({ endpoint: '/api/uploads/avatar', outputSize: 1024 })
+        useImageUpload({
+          endpoint: '/api/uploads/avatar',
+          outputSize: 1024,
+          sourceImageForTest: new Image(),
+        })
       )
 
       act(() => {
@@ -199,7 +213,11 @@ describe('useImageUpload', () => {
 
     try {
       const { result, unmount } = renderHook(() =>
-        useImageUpload({ endpoint: '/api/uploads/avatar', outputSize: 1024 })
+        useImageUpload({
+          endpoint: '/api/uploads/avatar',
+          outputSize: 1024,
+          sourceImageForTest: new Image(),
+        })
       )
 
       act(() => {
@@ -216,7 +234,11 @@ describe('useImageUpload', () => {
 
   it('cancel returns to idle', () => {
     const { result } = renderHook(() =>
-      useImageUpload({ endpoint: '/api/uploads/avatar', outputSize: 1024 })
+      useImageUpload({
+        endpoint: '/api/uploads/avatar',
+        outputSize: 1024,
+        sourceImageForTest: new Image(),
+      })
     )
     act(() => {
       result.current.cancel()
@@ -251,12 +273,13 @@ describe('useImageUpload', () => {
 
     try {
       const { result } = renderHook(() =>
-        useImageUpload({ endpoint: '/api/uploads/product/test-slug', outputSize: 1200 })
+        useImageUpload({
+          endpoint: '/api/uploads/product/test-slug',
+          outputSize: 1200,
+          sourceImageForTest: new Image(),
+        })
       )
       await act(async () => {
-        ;(
-          result.current as unknown as { __setSourceForTest: (b: HTMLImageElement) => void }
-        ).__setSourceForTest(new Image())
         await result.current.confirmCrop({ x: 0, y: 0, size: 1200 })
       })
       await waitFor(() => expect(result.current.state.phase).toBe('idle'))
@@ -296,12 +319,13 @@ describe('useImageUpload', () => {
 
     try {
       const { result } = renderHook(() =>
-        useImageUpload({ endpoint: '/api/uploads/avatar', outputSize: 1024 })
+        useImageUpload({
+          endpoint: '/api/uploads/avatar',
+          outputSize: 1024,
+          sourceImageForTest: new Image(),
+        })
       )
       await act(async () => {
-        ;(
-          result.current as unknown as { __setSourceForTest: (b: HTMLImageElement) => void }
-        ).__setSourceForTest(new Image())
         await result.current.confirmCrop({ x: 0, y: 0, size: 1024 })
       })
       await waitFor(() => expect(result.current.state.phase).toBe('idle'))
@@ -331,12 +355,13 @@ describe('useImageUpload', () => {
         responseJson: { success: true, data: { url: 'https://cdn/x.webp?v=1' } },
       })
       const { result } = renderHook(() =>
-        useImageUpload({ endpoint: '/api/uploads/avatar', outputSize: 1024 })
+        useImageUpload({
+          endpoint: '/api/uploads/avatar',
+          outputSize: 1024,
+          sourceImageForTest: new Image(),
+        })
       )
       await act(async () => {
-        ;(
-          result.current as unknown as { __setSourceForTest: (b: HTMLImageElement) => void }
-        ).__setSourceForTest(new Image())
         await result.current.confirmCrop({ x: 0, y: 0, size: 1024 })
       })
       await waitFor(() => expect(result.current.state.phase).toBe('idle'))
@@ -384,12 +409,13 @@ describe('useImageUpload', () => {
 
     try {
       const { result } = renderHook(() =>
-        useImageUpload({ endpoint: '/api/uploads/avatar', outputSize: 1024 })
+        useImageUpload({
+          endpoint: '/api/uploads/avatar',
+          outputSize: 1024,
+          sourceImageForTest: new Image(),
+        })
       )
       await act(async () => {
-        ;(
-          result.current as unknown as { __setSourceForTest: (b: HTMLImageElement) => void }
-        ).__setSourceForTest(new Image())
         await result.current.confirmCrop({ x: 0, y: 0, size: 1024 })
       })
       await waitFor(() => expect(result.current.state.phase).toBe('idle'))
@@ -412,12 +438,13 @@ describe('useImageUpload', () => {
       responseJson: { success: false, error: 'unauthorized' },
     })
     const { result } = renderHook(() =>
-      useImageUpload({ endpoint: '/api/uploads/avatar', outputSize: 1024 })
+      useImageUpload({
+        endpoint: '/api/uploads/avatar',
+        outputSize: 1024,
+        sourceImageForTest: new Image(),
+      })
     )
     await act(async () => {
-      ;(
-        result.current as unknown as { __setSourceForTest: (b: HTMLImageElement) => void }
-      ).__setSourceForTest(new Image())
       try {
         await result.current.confirmCrop({ x: 0, y: 0, size: 1024 })
       } catch {

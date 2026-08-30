@@ -17,6 +17,10 @@ export type UseImageUploadOptions = {
   endpoint: string
   outputSize: 1024 | 1200
   maxOutputBytes?: number
+  // jsdom has neither File nor createObjectURL, so a test hands the crop step an image instead of
+  // going through the picker. Declared here rather than grafted onto the returned object: the
+  // coupling is real, and a contract states it where a hidden property could not.
+  sourceImageForTest?: HTMLImageElement
 }
 
 const ERROR_MESSAGES: Record<string, string> = {
@@ -120,8 +124,6 @@ export function useImageUpload(opts: UseImageUploadOptions) {
   const maxOutputBytes = opts.maxOutputBytes ?? (opts.outputSize === 1024 ? 200_000 : 500_000)
   const [state, setState] = useState<Phase>({ phase: 'idle' })
   const inputRef = useRef<HTMLInputElement | null>(null)
-  // escape hatch for jsdom tests: avoids File/createObjectURL which are unavailable
-  const testSourceImageRef = useRef<HTMLImageElement | null>(null)
   const sourceUrlRef = useRef<string | null>(null)
 
   const revokeSourceUrl = useCallback((expectedUrl?: string) => {
@@ -258,26 +260,12 @@ export function useImageUpload(opts: UseImageUploadOptions) {
         image = state.sourceImage
         releaseSourceUrl = () => revokeSourceUrl(state.sourceUrl)
       }
-      if (!image && testSourceImageRef.current) image = testSourceImageRef.current
+      if (!image) image = opts.sourceImageForTest ?? null
       if (!image) throw new Error('no_source')
       return runConfirmCrop(image, releaseSourceUrl, area, compress, uploadXhr, setState)
     },
-    [state, compress, uploadXhr, revokeSourceUrl]
+    [state, compress, uploadXhr, revokeSourceUrl, opts.sourceImageForTest]
   )
 
-  const __setSourceForTest = (img: HTMLImageElement) => {
-    testSourceImageRef.current = img
-  }
-
-  const api = { state, pickFile, dropFile, confirmCrop, cancel } as const
-  if (import.meta.env.MODE === 'test') {
-    ;(api as unknown as Record<string, unknown>).__setSourceForTest = __setSourceForTest
-  }
-  return api as {
-    state: Phase
-    pickFile: () => void
-    dropFile: (file: File) => void
-    confirmCrop: (area: CropArea) => Promise<{ url: string }>
-    cancel: () => void
-  }
+  return { state, pickFile, dropFile, confirmCrop, cancel }
 }
