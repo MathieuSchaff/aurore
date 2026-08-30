@@ -20,6 +20,7 @@ import { z } from 'zod'
 // route-config graph (render-blocking). helpers.ts is zod-only.
 import { filterSearchSchema } from '@/component/Filter/helpers'
 import type { TabOption } from '@/component/Tabs/Tabs'
+import type { ListIngredientsFilters } from '@/lib/queries/ingredients'
 
 export type FilterKey = AllIngredientTagCategory
 
@@ -60,6 +61,32 @@ export const ingredientsSearchDefaults = {
   ...defaultValues,
   type: 'skincare' as IngredientType,
   profile_filter: false,
+}
+
+export type IngredientsSearch = z.infer<typeof ingredientsSearchSchema>
+
+const INGREDIENTS_PAGE_SIZE = 24
+export const INGREDIENTS_LIST_STALE_MS = 5 * 60 * 1000
+
+// Mirrors the filters IngredientsPage builds inline (PAGE_SIZE included) so the
+// route loader prefetches the exact query key the page reads, else the
+// server-rendered grid is refetched at hydration. IngredientsPage.test pins the parity.
+export function ingredientsListApiFilters(
+  search: IngredientsSearch,
+  avoidFor: string[] = []
+): ListIngredientsFilters {
+  const hasFilters = FILTER_KEYS.some((k) => (search[k]?.length ?? 0) > 0)
+  return {
+    ...(hasFilters
+      ? (Object.fromEntries(
+          FILTER_KEYS.map((k) => [k, search[k]?.length ? search[k] : undefined])
+        ) as Partial<ListIngredientsFilters>)
+      : {}),
+    type: search.type,
+    page: search.page,
+    limit: INGREDIENTS_PAGE_SIZE,
+    avoid_for: avoidFor.length > 0 ? avoidFor : undefined,
+  }
 }
 
 // Categories from the previous domain are invalid against the new one (e.g. skin_type vs dental).
