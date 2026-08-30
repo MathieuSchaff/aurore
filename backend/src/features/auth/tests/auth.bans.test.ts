@@ -157,6 +157,21 @@ describe('Ban gate at token emission', () => {
     return cookie.split(';', 1)[0] ?? ''
   }
 
+  it('rejects /login with 403 banned and issues no cookie', async () => {
+    await banGlobally()
+
+    const res = await client.auth.login.$post({
+      json: { email: rawEmail, password: rawPassword },
+    })
+
+    const body = await expectError<BannedDetails>(res, HTTP_STATUS.FORBIDDEN, 'banned')
+    expect(body.details).toEqual({ reason: 'spam', expiresAt: null })
+    const issued = res.headers
+      .getSetCookie()
+      .some((entry) => entry.startsWith('refresh_token=') && !entry.includes('Max-Age=0'))
+    expect(issued).toBe(false)
+  })
+
   it('rejects /mobile/login with 403 banned when the account has an active global ban', async () => {
     await banGlobally()
 
