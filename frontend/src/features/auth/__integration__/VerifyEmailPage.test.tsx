@@ -63,18 +63,21 @@ describe('VerifyEmailPage', () => {
     setVerifyResolves()
   })
 
-  it('redirects to login after verifying with no session (ADR 0009)', async () => {
+  // The destination is the profile, not the collection: a fresh portrait is
+  // empty and nothing else invites to fill it, while /profile carries the
+  // skippable completion strip
+  it('redirects to login with the profile as destination after verifying with no session (ADR 0009)', async () => {
     renderWithProviders(<VerifyEmailPage />)
 
     await waitFor(() => {
       expect(navigateMock).toHaveBeenCalledWith({
         to: '/auth/login',
-        search: { redirect: undefined },
+        search: { redirect: '/profile' },
       })
     })
   })
 
-  it('sends an already-authenticated user (grace period) straight to the app', async () => {
+  it('sends an already-authenticated user (grace period) straight to the profile', async () => {
     readClientSessionMock.mockReturnValue({
       status: 'authenticated',
       credential: 'present',
@@ -90,7 +93,7 @@ describe('VerifyEmailPage', () => {
     renderWithProviders(<VerifyEmailPage />)
 
     await waitFor(() => {
-      expect(navigateMock).toHaveBeenCalledWith({ to: '/collection' })
+      expect(navigateMock).toHaveBeenCalledWith({ to: '/profile' })
     })
   })
 
