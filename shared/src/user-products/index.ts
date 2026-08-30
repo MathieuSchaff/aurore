@@ -11,6 +11,16 @@ export const repurchaseFlag = ['yes', 'no', 'unsure'] as const
 // folded into the sentiment scale so HG isn't a status.
 export const HOLY_GRAIL_SENTIMENT = 6 as const
 
+// The scale as a closed union, so a table indexed by it cannot quietly miss a level. The wire
+// schemas keep a bounded integer and read their upper bound from the same constant: a payload out
+// of range must fail as a range error, not as a union mismatch.
+export const SENTIMENT_VALUES = [1, 2, 3, 4, 5, HOLY_GRAIL_SENTIMENT] as const
+export type SentimentValue = (typeof SENTIMENT_VALUES)[number]
+
+export function isSentimentValue(value: number): value is SentimentValue {
+  return (SENTIMENT_VALUES as readonly number[]).includes(value)
+}
+
 // User-experience tag catalogs surfaced in PDS. Statut group is
 // intentionally omitted: bound to userProduct.status.
 export const ressentiTags = [
@@ -50,14 +60,14 @@ export const preferencesTagSchema = z.enum(preferencesTags)
 export const createUserProductSchema = z.object({
   productId: z.uuid(),
   status: userProductStatusSchema.default('in_stock'),
-  sentiment: z.number().int().min(1).max(6).optional(),
+  sentiment: z.number().int().min(1).max(HOLY_GRAIL_SENTIMENT).optional(),
   wouldRepurchase: repurchaseFlagSchema.optional(),
   comment: z.string().max(1000).optional(),
 })
 
 export const updateUserProductSchema = z.object({
   status: userProductStatusSchema.optional(),
-  sentiment: z.number().int().min(1).max(6).nullable().optional(),
+  sentiment: z.number().int().min(1).max(HOLY_GRAIL_SENTIMENT).nullable().optional(),
   wouldRepurchase: repurchaseFlagSchema.nullable().optional(),
   comment: z.string().max(1000).nullable().optional(),
   ressenti: z.array(ressentiTagSchema).optional(),
