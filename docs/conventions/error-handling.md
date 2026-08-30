@@ -174,7 +174,6 @@ prendre un contre-exemple pour la règle :
 | Enveloppe construite à la main | `features/security/security.middleware.ts` | Forme correcte, mais contourne `err()` |
 | La probe d'auth jette une `Error` nue | `frontend/src/lib/queries/auth.ts` | Volontaire, mais `isApiError` est faux, statut et code perdus |
 | Upload d'image en XHR brut | `frontend/src/component/ImageUpload/useImageUpload.ts` | Hors `authFetch` et hors `ApiError` : rejoue son propre 401, a sa propre table de messages |
-| `GlobalError` n'affiche jamais le message | `component/Feedback/app/GlobalError/` | L'écran d'erreur ne donne ni code, ni statut, ni message |
 
 ## Ajouter un code d'erreur
 
