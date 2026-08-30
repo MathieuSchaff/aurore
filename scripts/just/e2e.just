@@ -4,7 +4,11 @@ import 'dev.just'
 [doc('Launch E2E stack (tmpfs DB + migrate + restore data.sql: full catalog/personas/fixtures, not seed-core) on isolated ports 5174/3001/5434. Runs alongside just dev.')]
 [group('e2e')]
 e2e-up: ts-build
-    {{COMPOSE_E2E}} up -d --build
+    {{COMPOSE_E2E}} build
+    # vite proxies /api as soon as it listens: a frontend booted during the restore lets
+    # Playwright's webServer probe start tests against a DB still being restored.
+    # Bring it up only after the data is in
+    {{COMPOSE_E2E}} up -d db api
     @printf "{{CYAN}}Waiting for DB...{{NC}}\n"
     @until {{COMPOSE_E2E}} exec -T db pg_isready -U app -d appdb >/dev/null 2>&1; do sleep 1; done
     @printf "{{CYAN}}Migrations...{{NC}}\n"
@@ -13,6 +17,7 @@ e2e-up: ts-build
     {{COMPOSE_E2E}} exec -T db psql -U app -d appdb -v ON_ERROR_STOP=1 -c "DO \$\$ DECLARE r record; BEGIN FOR r IN (SELECT tablename FROM pg_tables WHERE schemaname='public') LOOP EXECUTE 'TRUNCATE ' || quote_ident(r.tablename) || ' RESTART IDENTITY CASCADE'; END LOOP; END \$\$;"
     {{COMPOSE_E2E}} exec -T db psql -U app -d appdb -v ON_ERROR_STOP=1 < {{SNAPSHOT_FILE}} > /dev/null
     @printf "{{CYAN}}Waiting for frontend...{{NC}}\n"
+    {{COMPOSE_E2E}} up -d frontend
     @until curl -sf http://localhost:5174 >/dev/null; do sleep 1; done
     @printf "{{GREEN}}✓ E2E stack ready on http://localhost:5174{{NC}}\n"
 
