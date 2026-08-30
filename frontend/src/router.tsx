@@ -2,6 +2,7 @@ import { createRouter, type ParsedLocation } from '@tanstack/react-router'
 import { setupRouterSsrQueryIntegration } from '@tanstack/react-router-ssr-query'
 
 import { GlobalError } from './component/Feedback/app/GlobalError/GlobalError'
+import { markHydrationStarted } from './lib/auth/hydrationGate'
 import { seedClientSession } from './lib/auth/session'
 import { getCspNonce } from './lib/csp/nonce'
 import { isServer } from './lib/helpers/isServer'
@@ -85,6 +86,7 @@ export function getRouter() {
       await hydrateQueryCache?.(dehydrated)
       // Client guards run inside hydrateStart, so the store must be ready before they load
       seedClientSession(queryClient)
+      markHydrationStarted()
     }
 
     const skipVt = window.matchMedia('(max-width: 767px), (prefers-reduced-motion: reduce)')
