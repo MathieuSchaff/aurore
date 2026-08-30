@@ -6,6 +6,10 @@ export type DnsLookup = (hostname: string) => Promise<string[]>
 const resolveHost: DnsLookup = async (hostname) =>
   (await lookup(hostname, { all: true })).map((record) => record.address)
 
+// Only CRAP trips here: cyclomatic 14 and cognitive 10 both stay under their gates. It squares
+// complexity against an estimated coverage term, and no test can lower it, because bun emits lcov
+// while fallow parses Istanbul JSON only. safe-url.test.ts drives every branch below.
+// fallow-ignore-next-line complexity
 function isInternalIpv4(ip: string): boolean {
   const [a, b] = ip.split('.').map(Number)
   if (a === 0 || a === 10 || a === 127) return true

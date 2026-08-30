@@ -22,7 +22,7 @@ type ConfirmOptions = {
   reason?: ReasonField
 }
 
-export type ConfirmResult = { confirmed: boolean; reason: string }
+type ConfirmResult = { confirmed: boolean; reason: string }
 
 type ConfirmRequest = ConfirmOptions & {
   resolve: (value: boolean | ConfirmResult) => void
