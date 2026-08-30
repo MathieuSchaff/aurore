@@ -15,6 +15,7 @@ import { randomUUIDv7, SQL } from 'bun'
 
 import { type BunnyConfig, putBunny, resolveBunnyConfig } from '../lib/bunny'
 import { resolveImageOutputDir } from '../lib/paths'
+import { fetchPublicHttpUrl } from '../lib/safe-url'
 
 const UA =
   'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0 Safari/537.36'
@@ -74,7 +75,7 @@ async function readSource(source: ImageSource): Promise<{ bytes: Uint8Array; ext
     return { bytes, ext }
   }
   if (source.type === 'url') {
-    const res = await fetch(source.url, { headers: { 'User-Agent': UA } })
+    const res = await fetchPublicHttpUrl(source.url, { headers: { 'User-Agent': UA } })
     if (!res.ok) throw new Error(`GET ${source.url}: HTTP ${res.status}`)
     const ct = res.headers.get('content-type') ?? ''
     const urlExt = source.url.split('?')[0].split('.').pop()?.toLowerCase() ?? ''
