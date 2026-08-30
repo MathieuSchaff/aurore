@@ -19,14 +19,16 @@ export const VerifyEmailPage = () => {
     verify.mutate(token, {
       onSuccess: () => {
         // Neutral signup leaves no session, so verifying just activates the account.
-        // Send the user to login, unless they're already authenticated (verifying
-        // during the legacy grace period), in which case go straight to the app.
+        // Send the user to login, unless they're already authenticated (legacy grace
+        // period), in which case go straight to the app. Either way the destination
+        // is the profile: a fresh portrait is empty, it feeds every personalised
+        // surface, and /profile carries the skippable completion strip
         const session = readClientSession()
         if (session.status === 'authenticated' && session.credential === 'present') {
-          navigate({ to: '/collection' })
+          navigate({ to: '/profile' })
         } else {
           toast.success('Email vérifié. Connectez-vous pour continuer.')
-          navigate({ to: '/auth/login', search: { redirect: undefined } })
+          navigate({ to: '/auth/login', search: { redirect: '/profile' } })
         }
       },
     })

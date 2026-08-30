@@ -32,6 +32,29 @@ test.describe('Auth: recovery and verification', () => {
     expect(submittedBody).toEqual({ token: 'reset-e2e-token', password: 'Abcdef12!' })
   })
 
+  // The first login after verification lands on the profile, whose completion
+  // strip is the invitation to fill the portrait. Verification itself is mocked:
+  // the e2e stack sends no mail, and login works before verification anyway
+  test('lands on the profile after a verified email and a first login', async ({ page }) => {
+    const email = `e2e-${Date.now()}-${Math.random().toString(36).slice(2, 8)}@e2e.test`
+    const password = 'Abcdef12!'
+    const signup = await page.request.post('/api/auth/signup', { data: { email, password } })
+    expect(signup.ok(), `signup failed (${signup.status()})`).toBe(true)
+    await page.route('**/api/auth/verify-email', async (route) => {
+      await route.fulfill({ json: { success: true, data: null } })
+    })
+
+    await page.goto('/auth/verify-email?token=verified-e2e-token')
+
+    await expect(page).toHaveURL(/\/auth\/login\?redirect=%2Fprofile/, { timeout: 15_000 })
+    await page.getByLabel('Email', { exact: true }).fill(email)
+    await page.getByLabel('Mot de passe', { exact: true }).fill(password)
+    await page.getByRole('button', { name: 'Se connecter', exact: true }).click()
+
+    await expect(page).toHaveURL(/\/profile/, { timeout: 15_000 })
+    await expect(page.getByRole('complementary', { name: 'Compléter le profil' })).toBeVisible()
+  })
+
   test('shows the invalid-link state when email verification is rejected', async ({ page }) => {
     let verificationCalls = 0
     await page.route('**/api/auth/verify-email', async (route) => {
