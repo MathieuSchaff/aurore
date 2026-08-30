@@ -1,11 +1,11 @@
-import { screen } from '@testing-library/react'
+import { screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
 import { renderWithProviders } from '@/test/utils'
 
-const { demoMutate, navigateMock } = vi.hoisted(() => ({
-  demoMutate: vi.fn(),
+const { demoMutateAsync, navigateMock } = vi.hoisted(() => ({
+  demoMutateAsync: vi.fn(),
   navigateMock: vi.fn(),
 }))
 
@@ -19,36 +19,51 @@ vi.mock('@tanstack/react-router', async (importOriginal) => ({
 
 vi.mock('@/lib/queries/auth', async (importOriginal) => ({
   ...(await importOriginal<typeof import('@/lib/queries/auth')>()),
-  useDemo: () => ({ mutate: demoMutate, isPending: false }),
+  useDemo: () => ({ mutateAsync: demoMutateAsync, isPending: false }),
 }))
 
 import { HomeMarketing } from '../HomeMarketing'
 
+function firstDemoButton() {
+  const [button] = screen.getAllByRole('button', { name: 'Créer un compte de démo' })
+  if (!button) throw new Error('no demo button rendered')
+  return button
+}
+
 describe('HomeMarketing', () => {
   beforeEach(() => {
-    demoMutate.mockReset()
+    demoMutateAsync.mockReset()
     navigateMock.mockReset()
   })
 
   it('keeps both demo calls pending through the collection navigation', async () => {
-    demoMutate.mockImplementation((_input: undefined, options: { onSuccess?: () => void }) =>
-      options.onSuccess?.()
-    )
+    demoMutateAsync.mockResolvedValue(undefined)
     renderWithProviders(<HomeMarketing />)
-    const user = userEvent.setup()
-    const [firstDemoButton] = screen.getAllByRole('button', {
-      name: 'Créer un compte de démo',
-    })
 
-    expect(firstDemoButton).toBeDefined()
-    if (!firstDemoButton) return
+    await userEvent.setup().click(firstDemoButton())
 
-    await user.click(firstDemoButton)
-
-    expect(demoMutate).toHaveBeenCalledOnce()
-    expect(navigateMock).toHaveBeenCalledWith({ to: '/collection' })
+    expect(demoMutateAsync).toHaveBeenCalledOnce()
+    await waitFor(() => expect(navigateMock).toHaveBeenCalledWith({ to: '/collection' }))
     for (const button of screen.getAllByRole('button')) {
       expect(button).toBeDisabled()
     }
+  })
+
+  // The home swaps the marketing view for the hub as soon as the session installs,
+  // so the redirect must survive this component unmounting mid-request.
+  it('still navigates when the marketing view unmounts before the demo resolves', async () => {
+    let settle: () => void = () => {}
+    demoMutateAsync.mockReturnValue(
+      new Promise<void>((resolve) => {
+        settle = resolve
+      })
+    )
+    const { unmount } = renderWithProviders(<HomeMarketing />)
+
+    await userEvent.setup().click(firstDemoButton())
+    unmount()
+    settle()
+
+    await waitFor(() => expect(navigateMock).toHaveBeenCalledWith({ to: '/collection' }))
   })
 })
