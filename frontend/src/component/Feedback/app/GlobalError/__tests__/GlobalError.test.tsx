@@ -1,6 +1,7 @@
 import { cleanup, render, screen } from '@testing-library/react'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 
+import { ApiError } from '../../../../../lib/helpers/apiError'
 import { GlobalError } from '../GlobalError'
 
 vi.mock('@tanstack/react-router', () => ({
@@ -25,12 +26,22 @@ describe('GlobalError: runtime error variant', () => {
 
   it('renders the error subtitle', () => {
     render(<GlobalError error={fakeError} />)
-    expect(screen.getByText(/tes données sont en sécurité/i)).toBeInTheDocument()
+    expect(screen.getByText(/vos données sont en sécurité/i)).toBeInTheDocument()
   })
 
   it('does NOT show raw error message', () => {
     render(<GlobalError error={fakeError} />)
     expect(screen.queryByText('Unexpected failure')).not.toBeInTheDocument()
+  })
+
+  it('shows the API code and status so a report is actionable', () => {
+    render(<GlobalError error={new ApiError('server_error', 500)} />)
+    expect(screen.getByText('Référence : server_error · 500')).toBeInTheDocument()
+  })
+
+  it('shows no reference for an error that never reached the API', () => {
+    render(<GlobalError error={fakeError} />)
+    expect(screen.queryByText(/Référence/)).not.toBeInTheDocument()
   })
 
   it('shows Réessayer button only when reset is provided', () => {
@@ -56,5 +67,10 @@ describe('GlobalError: 404 variant', () => {
   it('renders the 404 subtitle', () => {
     render(<GlobalError error={fakeError} is404 />)
     expect(screen.getByText(/changé d'adresse/i)).toBeInTheDocument()
+  })
+
+  it('never shows a reference, a missing page is not an incident', () => {
+    render(<GlobalError error={new ApiError('not_found', 404)} is404 />)
+    expect(screen.queryByText(/Référence/)).not.toBeInTheDocument()
   })
 })
