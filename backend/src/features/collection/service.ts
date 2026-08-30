@@ -78,30 +78,32 @@ export async function calculateCompatibilityScores(
 
 // A formula motif must recur: one product is an anecdote, not a pattern.
 const MIN_AXIS_PRODUCTS = 2
-const MAX_SAMPLES = 3
 
-type AxisMotif = { axis: string; count: number; samples: string[] }
+// Every product behind a motif, not a sample of three: the screen has to answer "which ones",
+// and a shelf is small enough that the whole list costs nothing. `slug` rides along so the
+// screen can link each one to its page.
+type MotifProduct = { name: string; slug: string }
+type AxisMotif = { axis: string; count: number; products: MotifProduct[] }
 export type FormulaMotifs = {
   productsAnalyzed: number
   benefits: AxisMotif[]
   notes: AxisMotif[]
 }
 
-type AxisAcc = Map<string, { count: number; samples: string[] }>
+type AxisAcc = Map<string, MotifProduct[]>
 
-function accumulate(acc: AxisAcc, axes: Iterable<string>, productName: string): void {
+function accumulate(acc: AxisAcc, axes: Iterable<string>, product: MotifProduct): void {
   for (const axis of axes) {
-    const entry = acc.get(axis) ?? { count: 0, samples: [] }
-    entry.count++
-    if (entry.samples.length < MAX_SAMPLES) entry.samples.push(productName)
+    const entry = acc.get(axis) ?? []
+    entry.push(product)
     acc.set(axis, entry)
   }
 }
 
 function toSortedMotifs(acc: AxisAcc): AxisMotif[] {
   return [...acc.entries()]
-    .filter(([, v]) => v.count >= MIN_AXIS_PRODUCTS)
-    .map(([axis, v]) => ({ axis, count: v.count, samples: v.samples }))
+    .filter(([, products]) => products.length >= MIN_AXIS_PRODUCTS)
+    .map(([axis, products]) => ({ axis, count: products.length, products }))
     .sort((a, b) => b.count - a.count)
 }
 
@@ -116,6 +118,7 @@ export async function getCollectionFormulaMotifs(
     .select({
       id: products.id,
       name: products.name,
+      slug: products.slug,
       inci: products.inci,
       kind: products.kind,
     })
@@ -159,8 +162,9 @@ export async function getCollectionFormulaMotifs(
         .filter((d) => d.source !== 'interaction' && d.axes.length > 0)
         .flatMap((d) => d.axes)
     )
-    accumulate(benefitAcc, benefitAxes, row.name)
-    accumulate(noteAcc, noteAxes, row.name)
+    const product = { name: row.name, slug: row.slug }
+    accumulate(benefitAcc, benefitAxes, product)
+    accumulate(noteAcc, noteAxes, product)
   }
 
   return {
