@@ -20,8 +20,11 @@ interface PdsHeroProps {
 export function PdsHero({ p, closeBtnRef, onClose, onStatusChange }: PdsHeroProps) {
   const statusCfg = statusLabels[p.status]
   const StatusIcon = statusCfg.icon
+  // 0 is "unknown" in the catalogue, not a free product
   const priceEuros =
-    p.product.priceCents != null ? `${(p.product.priceCents / 100).toFixed(2)} €` : null
+    p.product.priceCents != null && p.product.priceCents > 0
+      ? `${(p.product.priceCents / 100).toFixed(2)} €`
+      : null
 
   return (
     <header className="pds-hero">

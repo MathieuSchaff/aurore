@@ -13,6 +13,11 @@ import { useAddPurchase } from '@/lib/queries/purchases'
 import { useCreateUserProduct } from '@/lib/queries/user-products'
 import './AddToCollectionModal.css'
 
+// 0 is "unknown" in the catalogue: never prefill it as a paid price
+function priceInputFromCatalogue(priceCents: number | null | undefined): string {
+  return priceCents != null && priceCents > 0 ? (priceCents / 100).toFixed(2) : ''
+}
+
 interface ModalProduct {
   id: string
   name: string
@@ -45,7 +50,7 @@ export function AddToCollectionModal({
   onClose,
   onSuccess,
 }: AddToCollectionModalProps) {
-  const defaultPrice = product.priceCents != null ? (product.priceCents / 100).toFixed(2) : ''
+  const defaultPrice = priceInputFromCatalogue(product.priceCents)
 
   const [step, setStep] = useState<'status' | 'purchase'>('status')
   // Only read inside submit handlers, never in render: a ref avoids a render on select.
