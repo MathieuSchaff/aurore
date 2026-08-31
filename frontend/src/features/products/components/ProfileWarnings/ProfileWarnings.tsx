@@ -13,7 +13,7 @@ export function profileLabel(slug: string): string {
 }
 
 // Same bridge as listProducts: user concern vocab and product tag vocab drifted
-// apart, so a raw comparison only lights the slugs spelled the same in both.
+// apart, so a raw comparison only lights the slugs spelled the same in both
 // Shared by the catalogue page and the shelf sheet so the two cannot drift
 export function deriveProfileWarnings(
   tags: ProductDetail['tags'],

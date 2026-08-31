@@ -110,7 +110,8 @@ describe('DermoProfileForm', () => {
     ).toBeInTheDocument()
   })
 
-  // Each family edits its own subset; the saved list must still carry the others
+  // Each family edits its own subset
+  // The saved list must still carry the others
   it('keeps the other families when a nuance is toggled', async () => {
     const mutate = setMutation()
     serveDermo({ skinConcerns: ['anti-acne'] })

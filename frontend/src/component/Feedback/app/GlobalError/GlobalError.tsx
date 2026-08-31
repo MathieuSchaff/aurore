@@ -99,7 +99,7 @@ export const GlobalError = ({ error, reset, is404 = false }: GlobalErrorProps) =
     ? "Elle a peut-être changé d'adresse, ou n'a jamais existé."
     : "Pas d'inquiétude, vos données sont en sécurité. On nettoie ça."
 
-  // Without this, a report carries nothing actionable: never the raw message, never a stack.
+  // Without this, a report carries nothing actionable: never the raw message, never a stack
   const reference = !is404 && isApiError(error) ? `${error.code} · ${error.status}` : null
 
   return (

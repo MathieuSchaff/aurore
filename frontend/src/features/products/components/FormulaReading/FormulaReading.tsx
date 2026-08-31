@@ -60,8 +60,8 @@ interface FormulaReadingProps {
   // rule declared on a driver could hide this very product.
   linkedIngredients: readonly LinkedIngredient[]
   className?: string
-  // h2 under the catalogue page's h1; h3 inside the collection sheet, whose
-  // dialog title is already the h2
+  // h2 under the catalogue page's h1
+  // h3 inside the collection sheet, whose dialog title is already the h2
   headingLevel?: 'h2' | 'h3'
 }
 

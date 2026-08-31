@@ -7,7 +7,7 @@ import { SKIN_CONCERNS } from './constants'
 
 // A concern the user can declare is translated three times, in three layers, and nothing held
 // them together: one added to SKIN_CONCERNS could stay mute in two of them without a sound,
-// which is what happened. These are the two translations living in shared; the frontend risk
+// which is what happened. These are the two translations living in shared. The frontend risk
 // axes and the backend algo-derm mapping are the third, out of reach from here
 
 const INGREDIENT_CONCERN_SLUGS: ReadonlySet<string> = new Set(

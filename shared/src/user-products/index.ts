@@ -13,7 +13,7 @@ export const HOLY_GRAIL_SENTIMENT = 6 as const
 
 // The scale as a closed union, so a table indexed by it cannot quietly miss a level. The wire
 // schemas keep a bounded integer and read their upper bound from the same constant: a payload out
-// of range must fail as a range error, not as a union mismatch.
+// of range must fail as a range error, not as a union mismatch
 export const SENTIMENT_VALUES = [1, 2, 3, 4, 5, HOLY_GRAIL_SENTIMENT] as const
 export type SentimentValue = (typeof SENTIMENT_VALUES)[number]
 

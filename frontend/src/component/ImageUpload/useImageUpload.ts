@@ -17,9 +17,10 @@ export type UseImageUploadOptions = {
   endpoint: string
   outputSize: 1024 | 1200
   maxOutputBytes?: number
-  // jsdom has neither File nor createObjectURL, so a test hands the crop step an image instead of
-  // going through the picker. Declared here rather than grafted onto the returned object: the
-  // coupling is real, and a contract states it where a hidden property could not.
+  // jsdom has no createObjectURL and never fires an image's onload, so a test hands the crop step
+  // an image instead of going through the picker. Declared here rather than grafted onto the
+  // returned object: the coupling is real, and a contract states it where a hidden property
+  // could not
   sourceImageForTest?: HTMLImageElement
 }
 
