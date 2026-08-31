@@ -101,6 +101,7 @@ describe('ShelfView', () => {
     const tout = screen.getByRole('tab', { name: /tout/i })
     expect(tout).toHaveAttribute('aria-selected', 'true')
     expect(tout).toHaveTextContent('3')
+    expect(screen.getByText(/Hors archivés et évités \(1\)/)).toBeInTheDocument()
   })
 
   it('filters to sentiment=6 when Saint Graal is picked from the Plus menu', () => {

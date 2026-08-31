@@ -549,7 +549,7 @@ test.describe('Product detail: Lecture de la formule', () => {
     await expect(section).toBeVisible({ timeout: 15_000 })
     await expect(section.getByText('Rien de notable dans cette formule')).toBeVisible()
     await expect(section.getByText(/pas assez de contexte/)).toBeVisible()
-    await expect(section.getByText(/1 ingrédient reconnu sur 8/)).toBeVisible()
+    await expect(section.getByText(/1 ingrédient reconnu sur les 8 de la liste INCI/)).toBeVisible()
   })
 })
 

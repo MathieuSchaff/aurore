@@ -139,7 +139,8 @@ function IngredientsSection({
 
   return (
     <div className="product-section">
-      <SectionHeader title="Ingrédients" count={ingredients.length}>
+      {/* Counts catalogue records, not INCI tokens: the formula reading counts those */}
+      <SectionHeader title="Ingrédients" count={ingredients.length} countLabel="fiches">
         <Button
           variant="ghost"
           size="sm"
