@@ -1,6 +1,9 @@
 import { Sparkles } from 'lucide-react'
 import { useMemo } from 'react'
 
+// Both stay in features/products on purpose: ProfileWarnings leans on the feature's
+// tagLabel, FormulaReading on the profile feature's IngredientMarkButtons, so the
+// promotion checklist rules them out of component/
 import { FormulaReading } from '@/features/products/components/FormulaReading/FormulaReading'
 import {
   deriveProfileWarnings,
