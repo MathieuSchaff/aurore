@@ -11,7 +11,9 @@ import { FormActions } from '@/component/Input/FormActions/FormActions'
 import { Textarea } from '@/component/Input/Textarea/Textarea'
 import { Overline } from '@/component/Typography/Overline/Overline'
 import { FITZPATRICK_ITEMS, SKIN_CONCERN_LABELS, SKIN_TYPE_LABELS } from '@/constants/skin'
+import { tagLabel } from '@/features/products/filters'
 import { profileQueries, useUpdateDermoProfile } from '../../../../lib/queries/profile'
+import { CONCERN_FAMILIES } from '../../concern-families'
 import './DermoProfileForm.css'
 
 type DermoProfileFormProps = {
@@ -49,6 +51,33 @@ function DermoSection({ overline, title, description, children }: DermoSectionPr
   )
 }
 
+const OTHER_CONCERNS_TITLE = 'Autres'
+
+type ConcernFamilyGroupProps = {
+  title: string
+  concerns: readonly SkinConcern[]
+  selected: readonly SkinConcern[]
+  onChange: (family: readonly SkinConcern[], next: SkinConcern[]) => void
+}
+
+function ConcernFamilyGroup({ title, concerns, selected, onChange }: ConcernFamilyGroupProps) {
+  const titleId = useId()
+  return (
+    <div className="dermo-family">
+      <h4 id={titleId} className="dermo-family__title">
+        {title}
+      </h4>
+      <ChipGroup
+        options={concerns.map((c) => ({ value: c, label: SKIN_CONCERN_LABELS[c] }))}
+        selected={selected.filter((c) => concerns.includes(c))}
+        onChange={(next) => onChange(concerns, next)}
+        size="sm"
+        aria-labelledby={titleId}
+      />
+    </div>
+  )
+}
+
 export function DermoProfileForm({ onSave, onCancel }: DermoProfileFormProps) {
   const { data: dermo } = useSuspenseQuery(profileQueries.dermo())
   const updateMutation = useUpdateDermoProfile()
@@ -64,7 +93,15 @@ export function DermoProfileForm({ onSave, onCancel }: DermoProfileFormProps) {
   const [isDirty, setIsDirty] = useState(false)
 
   const skinTypeOptions = SKIN_TYPES.map((t) => ({ value: t, label: SKIN_TYPE_LABELS[t] }))
-  const skinConcernOptions = SKIN_CONCERNS.map((c) => ({ value: c, label: SKIN_CONCERN_LABELS[c] }))
+
+  // Chips are grouped per family but the portrait stays one flat list: merge the
+  // family's new subset back, in SKIN_CONCERNS order so the stored list never
+  // depends on click order
+  const updateConcerns = (family: readonly SkinConcern[], next: SkinConcern[]) => {
+    const merged = new Set([...skinConcerns.filter((c) => !family.includes(c)), ...next])
+    setSkinConcerns(SKIN_CONCERNS.filter((c) => merged.has(c)))
+    setIsDirty(true)
+  }
 
   const handleSave = () => {
     const data: UserDermoProfileUpdateInput = {
@@ -148,18 +185,24 @@ export function DermoProfileForm({ onSave, onCancel }: DermoProfileFormProps) {
       </DermoSection>
 
       <DermoSection overline="Conditions" title="Problématiques & conditions" description={null}>
-        {({ titleId, descriptionId }) => (
-          <ChipGroup
-            options={skinConcernOptions}
-            selected={skinConcerns}
-            onChange={(v) => {
-              setSkinConcerns(v as SkinConcern[])
-              setIsDirty(true)
-            }}
-            size="sm"
-            aria-labelledby={titleId}
-            aria-describedby={descriptionId}
-          />
+        {() => (
+          <div className="dermo-families">
+            {CONCERN_FAMILIES.families.map((family) => (
+              <ConcernFamilyGroup
+                key={family.tagSlug}
+                title={tagLabel(family.tagSlug)}
+                concerns={family.concerns}
+                selected={skinConcerns}
+                onChange={updateConcerns}
+              />
+            ))}
+            <ConcernFamilyGroup
+              title={OTHER_CONCERNS_TITLE}
+              concerns={CONCERN_FAMILIES.others}
+              selected={skinConcerns}
+              onChange={updateConcerns}
+            />
+          </div>
         )}
       </DermoSection>
 
