@@ -114,8 +114,7 @@ describe('AccountSettings privacy granular toggles', () => {
     expect(screen.getByRole('button', { name: /Télécharger mes données/ })).toBeInTheDocument()
   })
 
-  // The export route answers 403 to demo accounts: a button whose retry can never
-  // succeed is replaced by the reason.
+  // The export route answers 403 to demo accounts, so a retry could never succeed
   it('replaces the data export by its reason on a demo account', async () => {
     resetTestAuthStore(presentTestSession({ ...USER, isDemo: true }))
     await mountWithPrivacy(ALL_FLAGS_OFF)

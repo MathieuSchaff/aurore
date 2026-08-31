@@ -4,7 +4,7 @@ import { expect, test } from '@playwright/test'
 
 import { resolveFirstSkincareSlug } from './helpers/catalog'
 
-// Raw documents only: what a crawler gets before any client JavaScript runs.
+// Raw documents only: what a crawler gets before any client JavaScript runs
 test.describe('Public SSR documents', () => {
   test('an unknown public profile answers a real 404', async ({ page }) => {
     const res = await page.request.get('/u/nobody-e2e-does-not-exist')

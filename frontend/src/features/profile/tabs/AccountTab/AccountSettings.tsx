@@ -188,7 +188,7 @@ export const AccountSettings = () => {
   const downloadExport = useDownloadDataExport()
 
   // Logout clears the query cache while this tab is still mounted: without the guard
-  // the observer rebuilds the query and refetches without a token (401 in the console).
+  // the observer rebuilds the query and refetches without a token (401 in the console)
   const { data: privacy, isLoading: privacyLoading } = useQuery({
     ...privacySettingsQueries.get(),
     enabled: hasViewer,
@@ -251,7 +251,7 @@ export const AccountSettings = () => {
       <RoleRequestSection />
 
       {isDemo ? (
-        // The export route refuses demo accounts (403): no button, so no "retry" that never works.
+        // The export route refuses demo accounts (403): no button, so no "retry" that never works
         <SettingsSection
           title="Mes données"
           description="Indisponible en mode démo : un compte temporaire n'a aucune donnée à exporter."

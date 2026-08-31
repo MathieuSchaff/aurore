@@ -49,7 +49,7 @@ describe('ProductDetailSheet', () => {
     expect(screen.getByText('CeraVe')).toBeInTheDocument()
   })
 
-  // 0 is the catalogue's "unknown", not a free product
+  // 0 is "unknown" in the catalogue, not a free product
   it('hides a zero catalog price in the header', () => {
     const product = makeUserProduct()
     product.product.priceCents = 0

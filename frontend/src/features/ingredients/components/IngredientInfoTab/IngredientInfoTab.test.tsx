@@ -109,8 +109,8 @@ describe('IngredientInfoTab', () => {
     expect(screen.getByText('Voir tous les produits (8)')).toBeInTheDocument()
   })
 
-  // The link opens the skincare catalogue tab, which cannot show the haircare product:
-  // the count must match what that list will display (one product, not two).
+  // The link opens the skincare catalogue tab, which cannot list the haircare product
+  // so the count says 6, what that tab will show, not the 7 the endpoint returns
   it('counts only the products of the ingredient domain in the "Voir tous" link', async () => {
     const products = [
       ...Array.from({ length: 6 }, (_, i) => ({

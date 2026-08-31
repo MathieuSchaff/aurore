@@ -75,8 +75,8 @@ describe('IngredientsPage', () => {
     serveList({ items: [], total: 0 })
   })
 
-  // The route loader prefetches ingredientsListApiFilters(search) on the server; the
-  // page must read that exact key or the server-rendered grid is refetched at hydration.
+  // The route loader prefetches ingredientsListApiFilters(search) on the server
+  // The page must read that exact key or the server-rendered grid refetches at hydration
   it('reads the list under the key the route loader prefetches', async () => {
     const [firstKey] = FILTER_KEYS
     if (!firstKey) throw new Error('no ingredient filter key')
