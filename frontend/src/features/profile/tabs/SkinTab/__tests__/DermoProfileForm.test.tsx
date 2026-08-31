@@ -5,7 +5,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { useUpdateDermoProfile } from '@/lib/queries/profile'
 import { server } from '@/test/msw/server'
 import { renderWithProviders } from '@/test/utils'
-import { DermoProfileForm } from '../DermoProfileForm'
+import { DermoProfileForm, OTHER_CONCERNS_TITLE } from '../DermoProfileForm'
 
 vi.mock('@/lib/queries/profile', async (importOriginal) => {
   const actual = await importOriginal<typeof import('@/lib/queries/profile')>()
@@ -104,7 +104,9 @@ describe('DermoProfileForm', () => {
     const rougeurs = await screen.findByRole('group', { name: 'Rougeurs' })
     expect(within(rougeurs).getByRole('button', { name: 'Rosacée' })).toBeInTheDocument()
     expect(
-      within(screen.getByRole('group', { name: 'Autres' })).getByRole('button', { name: 'Eczéma' })
+      within(screen.getByRole('group', { name: OTHER_CONCERNS_TITLE })).getByRole('button', {
+        name: 'Eczéma',
+      })
     ).toBeInTheDocument()
   })
 

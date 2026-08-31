@@ -51,7 +51,7 @@ function DermoSection({ overline, title, description, children }: DermoSectionPr
   )
 }
 
-const OTHER_CONCERNS_TITLE = 'Autres'
+export const OTHER_CONCERNS_TITLE = 'Autres'
 
 type ConcernFamilyGroupProps = {
   title: string
