@@ -122,7 +122,7 @@ function MotifCard({
       <div className="fmotif-list">
         {motifs.length > 0 ? (
           motifs.map((m) => (
-            // Native details: the count used to live in a title attribute, invisible to a finger
+            // Native details: the names used to live in a title attribute, invisible to a finger
             // and to a keyboard. The browser gives the expanded state and the key handling here
             <details key={m.axis} className="fmotif-item">
               <summary className="fmotif-summary">

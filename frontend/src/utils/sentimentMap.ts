@@ -11,7 +11,7 @@ export const sentimentLabels: Record<SentimentValue, string> = {
   6: 'Saint Graal',
 }
 
-// The wire carries a plain integer, so the scale is re-checked here rather than assumed.
+// The wire carries a plain integer, so the scale is checked again here rather than assumed
 export function getSentimentLabel(value: number | null | undefined): string | null {
   if (value == null || !isSentimentValue(value)) return null
   return sentimentLabels[value]

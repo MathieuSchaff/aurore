@@ -81,7 +81,7 @@ const MIN_AXIS_PRODUCTS = 2
 
 // Every product behind a motif, not a sample of three: the screen has to answer "which ones",
 // and a shelf is small enough that the whole list costs nothing. `slug` rides along so the
-// screen can link each one to its page.
+// screen can link each one to its page
 type MotifProduct = { name: string; slug: string }
 type AxisMotif = { axis: string; count: number; products: MotifProduct[] }
 export type FormulaMotifs = {

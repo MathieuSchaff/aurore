@@ -50,7 +50,7 @@ describe('useTokenRefresh', () => {
   afterEach(() => {
     vi.useRealTimers()
     queryClient.clear()
-    // A test that hid the tab would otherwise leave every later one running hidden.
+    // A test that hid the tab would otherwise leave every later one running hidden
     setVisibility('visible')
   })
 
@@ -149,7 +149,7 @@ describe('useTokenRefresh', () => {
     })
 
     // 45s out: past the 60s proactive lead, still short of the 30s expiry buffer, so only the
-    // "due" half of the condition can fire here.
+    // "due" half of the condition can fire here
     it('refreshes when the tab returns after its proactive slot, before expiry', () => {
       loginWithExpiry(45)
       renderHookWithProviders(() => useTokenRefresh(), { queryClient })

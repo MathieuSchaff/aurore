@@ -8,7 +8,8 @@ import './sentiment-icons.css'
 
 type IconProps = { size?: number }
 
-// Holy Grail renders on its own path, with its own palette; Face never sees it.
+// Holy Grail renders on its own path, with its own palette
+// Face never sees it
 type FaceValue = Exclude<SentimentValue, typeof HOLY_GRAIL_SENTIMENT>
 
 const SENTIMENT_COLORS: Record<SentimentValue, string> = {
@@ -402,7 +403,7 @@ const SENTIMENT_ICONS: Record<SentimentValue, (props: IconProps) => React.ReactE
   6: Sentiment6,
 }
 
-// Callers read `sentiment` straight off the wire, where it is a plain integer.
+// Callers read `sentiment` straight off the wire, where it is a plain integer
 export function SentimentIcon({ value, size = 24 }: { value: number; size?: number }) {
   if (!isSentimentValue(value)) return null
   const Icon = SENTIMENT_ICONS[value]

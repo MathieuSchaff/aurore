@@ -173,7 +173,7 @@ describe('getCollectionFormulaMotifs', () => {
   })
 
   // The screen has to answer "which ones", so every product is listed, not a sample of three,
-  // and each carries the slug its link needs.
+  // and each carries the slug its link needs
   it('lists every product behind a motif, with its slug', async () => {
     for (const name of ['motif-all-a', 'motif-all-b', 'motif-all-c', 'motif-all-d']) {
       await shelveProduct(name, { inci: MOTIF_INCI })

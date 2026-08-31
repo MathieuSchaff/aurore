@@ -6,7 +6,7 @@ import 'dev.just'
 e2e-up: ts-build
     {{COMPOSE_E2E}} build
     # vite proxies /api as soon as it listens: a frontend booted during the restore lets
-    # Playwright's webServer probe start tests against a DB still being restored.
+    # Playwright's webServer probe start tests against a DB still being restored
     # Bring it up only after the data is in
     {{COMPOSE_E2E}} up -d db api
     @printf "{{CYAN}}Waiting for DB...{{NC}}\n"

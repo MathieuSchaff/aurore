@@ -8,7 +8,7 @@ const resolveHost: DnsLookup = async (hostname) =>
 
 // Only CRAP trips here: cyclomatic 14 and cognitive 10 both stay under their gates. It squares
 // complexity against an estimated coverage term, and no test can lower it, because bun emits lcov
-// while fallow parses Istanbul JSON only. safe-url.test.ts drives every branch below.
+// while fallow parses Istanbul JSON only. safe-url.test.ts drives every branch below
 // fallow-ignore-next-line complexity
 function isInternalIpv4(ip: string): boolean {
   const [a, b] = ip.split('.').map(Number)
@@ -23,7 +23,7 @@ function isInternalIpv4(ip: string): boolean {
 function isInternalIpv6(ip: string): boolean {
   const addr = ip.toLowerCase().split('%')[0]
   // Every ::-prefixed form is special (unspecified, loopback, v4-mapped, v4-compatible), and the
-  // URL parser rewrites ::ffff:127.0.0.1 to ::ffff:7f00:1, so match the prefix, not the tail.
+  // URL parser rewrites ::ffff:127.0.0.1 to ::ffff:7f00:1, so match the prefix, not the tail
   if (addr.startsWith('::')) return true
   return /^(f[cd]|fe[89ab]|ff)/.test(addr)
 }
@@ -37,7 +37,7 @@ function isInternal(ip: string): boolean {
 
 /**
  * Anyone with product_create writes image_url and an operator fetches it later from inside
- * the network, so an unvalidated host turns these CLIs into a deferred SSRF (docs/adr/0022).
+ * the network, so an unvalidated host turns these CLIs into a deferred SSRF (docs/adr/0022)
  * Residual gap: fetch resolves DNS again, so a rebinding zone answers public here, internal there
  */
 export async function assertPublicHttpUrl(raw: string, dns: DnsLookup = resolveHost): Promise<URL> {
@@ -72,7 +72,7 @@ const MAX_REDIRECTS = 5
 
 /**
  * fetch follows redirects on its own, so a public host answering 302 to 10.0.0.1 walks
- * straight past assertPublicHttpUrl. Follow each hop by hand and judge it again.
+ * straight past assertPublicHttpUrl. Follow each hop by hand and judge it again
  * Location can be relative or protocol relative, so resolve it against the hop that sent it
  */
 export async function fetchPublicHttpUrl(
