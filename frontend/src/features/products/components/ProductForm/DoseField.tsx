@@ -4,6 +4,8 @@ import {
   type ProductConcentrationUnit,
 } from '@aurore/shared'
 
+import { useId } from 'react'
+
 import './DoseField.css'
 
 type DoseFieldProps = {
@@ -31,9 +33,11 @@ export function DoseField({
   valueAriaLabel,
   unitAriaLabel,
 }: DoseFieldProps) {
+  const id = useId()
   return (
     <div className="dose-field">
       <input
+        id={`${id}-value`}
         className="dose-field__input"
         type="number"
         min={0}
@@ -45,6 +49,7 @@ export function DoseField({
         aria-label={valueAriaLabel}
       />
       <select
+        id={`${id}-unit`}
         className="dose-field__unit"
         value={unit}
         onChange={(e) => onUnitChange(e.target.value as ProductConcentrationUnit | '')}
