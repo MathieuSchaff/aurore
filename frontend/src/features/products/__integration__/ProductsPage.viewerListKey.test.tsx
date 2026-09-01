@@ -69,7 +69,7 @@ function productListKeys(queryClient: QueryClient): QueryKey[] {
 function readApplyPreferences(key: QueryKey): unknown {
   const filters = key[2]
   if (typeof filters !== 'object' || filters === null) return undefined
-  return Reflect.get(filters, 'apply_preferences')
+  return 'apply_preferences' in filters ? filters.apply_preferences : undefined
 }
 
 beforeEach(() => {

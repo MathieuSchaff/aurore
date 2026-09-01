@@ -55,10 +55,16 @@ function buildUrl(path: string, search: Record<string, string[]> = {}): string {
 
 function renderProducts(initialEntries: string[] = ['/products/']) {
   const rootRoute = createRootRoute()
+  // `typeof rootRoute` keeps the root's inferred generics: a widened RootRoute is not assignable.
+  type RouteUpdateOptions = {
+    id: string
+    path: string
+    getParentRoute: () => typeof rootRoute
+  }
   // Attach the file route to a fresh root so the test picks its initial URL via memory history.
   const productsRoute = (
     ProductsIndexRouteImport as unknown as {
-      update: (opts: object) => unknown
+      update: (opts: RouteUpdateOptions) => unknown
     }
   ).update({
     id: '/products/',

@@ -10,7 +10,7 @@ import type {
 // An ingredient of any domain can be linked to any product, and a category missing from this map
 // is dropped from the summary without a trace. The Record below is what makes that impossible:
 // a category added to shared fails the build here until it has a phrase.
-type IngredientCategory =
+export type IngredientCategory =
   | SkincareIngredientCategory
   | HaircareIngredientCategory
   | DentalIngredientCategory

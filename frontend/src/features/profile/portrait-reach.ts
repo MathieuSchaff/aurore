@@ -1,4 +1,4 @@
-import type { UserDermoProfile } from '@aurore/shared'
+import type { SkinConcern, SkinType, UserDermoProfile } from '@aurore/shared'
 
 import { PROFILE_RELEVANT_AXES } from '@/constants/derm'
 
@@ -11,8 +11,8 @@ export type PortraitSurfaceKey =
   | 'people'
 
 type Portrait = {
-  types: readonly string[]
-  concerns: readonly string[]
+  types: readonly SkinType[]
+  concerns: readonly SkinConcern[]
   fitzpatrick: number | null
 }
 
