@@ -1,5 +1,6 @@
 import { useRouter } from '@tanstack/react-router'
 
+import { isApiError } from '../../../../lib/helpers/apiError'
 import { Button, ButtonLink } from '../../../Button/Button'
 import './GlobalError.css'
 
@@ -89,14 +90,17 @@ const DropperIllustration = () => (
 
 // Presentation only: the boundaries that render this already report to Faro, and
 // the 404 variant must not report at all.
-export const GlobalError = ({ reset, is404 = false }: GlobalErrorProps) => {
+export const GlobalError = ({ error, reset, is404 = false }: GlobalErrorProps) => {
   const router = useRouter()
 
   const title = is404 ? "Cette page n'est pas dans notre routine." : 'On a renversé quelque chose.'
 
   const subtitle = is404
     ? "Elle a peut-être changé d'adresse, ou n'a jamais existé."
-    : "Pas d'inquiétude — tes données sont en sécurité. On nettoie ça."
+    : "Pas d'inquiétude, vos données sont en sécurité. On nettoie ça."
+
+  // Without this, a report carries nothing actionable: never the raw message, never a stack.
+  const reference = !is404 && isApiError(error) ? `${error.code} · ${error.status}` : null
 
   return (
     <div className="global-error-page">
@@ -106,6 +110,7 @@ export const GlobalError = ({ reset, is404 = false }: GlobalErrorProps) => {
 
       <h1 className="global-error-title">{title}</h1>
       <p className="global-error-subtitle">{subtitle}</p>
+      {reference && <p className="global-error-reference">Référence : {reference}</p>}
 
       <div className="global-error-actions">
         {reset && (
