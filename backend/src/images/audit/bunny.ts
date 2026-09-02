@@ -2,17 +2,21 @@
 /**
  * Cross-checks Bunny Storage inventory against the DB image refs (products.image_url,
  * articles.cover_image_url). Reports orphans, broken refs, and sample reachability.
- * Required env: BUNNY_STORAGE_ZONE, BUNNY_STORAGE_PASSWORD, APP_DATABASE_URL (or DATABASE_URL).
+ * Required env: BUNNY_STORAGE_ZONE, BUNNY_STORAGE_PASSWORD, DATABASE_URL.
  */
 
 import { SQL } from 'bun'
 
 import { listBunny, resolveBunnyConfig } from '../lib/bunny'
 
-const DB_URL = process.env.APP_DATABASE_URL ?? process.env.DATABASE_URL
+// Reads as `app`, never app_runtime, and without an APP_DATABASE_URL fallback that would
+// silently restore the bias: RLS hides masked products from app_runtime, so their Bunny files
+// count as orphans. Prod on 2026-08-31 reported 331 orphans against 176 real, the gap being
+// exactly the 155 products that role cannot see.
+const DB_URL = process.env.DATABASE_URL
 const base = resolveBunnyConfig()
 if (!base.zone || !base.password || !DB_URL) {
-  console.error('missing env: BUNNY_STORAGE_ZONE, BUNNY_STORAGE_PASSWORD, APP_DATABASE_URL')
+  console.error('missing env: BUNNY_STORAGE_ZONE, BUNNY_STORAGE_PASSWORD, DATABASE_URL')
   process.exit(1)
 }
 
