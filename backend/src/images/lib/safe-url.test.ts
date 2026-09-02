@@ -42,6 +42,9 @@ describe('assertPublicHttpUrl', () => {
     ['IPv6 link local', 'http://[fe80::1]/'],
     ['IPv4-mapped loopback', 'http://[::ffff:127.0.0.1]/'],
     ['decimal-encoded loopback', 'http://2130706433/'],
+    ['multicast', 'http://224.0.0.1/'],
+    ['broadcast', 'http://255.255.255.255/'],
+    ['IPv6 multicast', 'http://[ff02::1]/'],
   ])('refuses %s', async (_label, raw) => {
     expect(assertPublicHttpUrl(raw, resolvesTo())).rejects.toThrow('internal address')
   })
