@@ -29,9 +29,15 @@ prod-migrate:
 nginx-reload:
     {{COMPOSE_PROD}} exec nginx nginx -s reload
 
+# VPS-only, and the guard is what makes that true. `compose -p aurore ps` matches whatever "aurore"
+# stack runs on the current host, so from the laptop this listed the dev containers and read as a
+# green prod check (measured 2026-09-01: three "Up 14 hours (healthy)" that were the local stack).
 [doc("[VPS] Prod container health snapshot (mirrors `health`; deploy's last step). From the laptop: prod-ps.")]
 [group('prod')]
+[script]
 prod-health:
+    source {{justfile_directory()}}/scripts/just/_lib.sh
+    assert_prod_stack
     {{COMPOSE_PROD}} ps --format "table {{{{.Name}}\t{{{{.Status}}\t{{{{.Health}}"
 
 [doc('[VPS] One-shot prod deploy: sync config → pull images → up → migrate → health.')]
