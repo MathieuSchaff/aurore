@@ -142,6 +142,8 @@ install-deps:
     bun install
     @printf "{{GREEN}}✓ Dependencies installed{{NC}}\n"
 
+# Only the quality job calls this through just; the three test jobs inline `bun install
+# --frozen-lockfile` so a 503 on setup-just cannot kill them. Adding a step here needs them updated.
 [doc('Install deps in CI: the lockfile is law, any drift fails the job.')]
 [group('setup')]
 install-deps-ci:
