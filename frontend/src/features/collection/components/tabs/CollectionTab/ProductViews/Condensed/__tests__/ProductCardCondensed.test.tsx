@@ -62,6 +62,15 @@ describe('ProductCardCondensed', () => {
     expect(screen.getByText('The Ordinary')).toBeInTheDocument()
   })
 
+  it('displays a zero catalog price', () => {
+    const product = makeProduct()
+    product.product.priceCents = 0
+
+    render(<ProductCardCondensed p={product} onToggleExpand={vi.fn()} />)
+
+    expect(screen.getByText('0.00 €')).toBeInTheDocument()
+  })
+
   it('renders sentiment icon', () => {
     render(<ProductCardCondensed p={makeProduct({ sentiment: 5 })} onToggleExpand={vi.fn()} />)
     expect(screen.getByTitle("J'adore")).toBeInTheDocument()

@@ -49,6 +49,15 @@ describe('ProductDetailSheet', () => {
     expect(screen.getByText('CeraVe')).toBeInTheDocument()
   })
 
+  it('displays a zero catalog price in the header', () => {
+    const product = makeUserProduct()
+    product.product.priceCents = 0
+
+    renderWithProviders(<ProductDetailSheet p={product} onClose={vi.fn()} />)
+
+    expect(screen.getByText('0.00 €')).toBeInTheDocument()
+  })
+
   it('affiche les sections de détail', () => {
     renderWithProviders(<ProductDetailSheet {...defaultProps} />)
     // Accordion headers are <button>; the sentiment-quick label also renders as a <h4>.

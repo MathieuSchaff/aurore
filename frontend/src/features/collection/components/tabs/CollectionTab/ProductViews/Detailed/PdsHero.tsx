@@ -20,7 +20,8 @@ interface PdsHeroProps {
 export function PdsHero({ p, closeBtnRef, onClose, onStatusChange }: PdsHeroProps) {
   const statusCfg = statusLabels[p.status]
   const StatusIcon = statusCfg.icon
-  const priceEuros = p.product.priceCents ? `${(p.product.priceCents / 100).toFixed(2)} €` : null
+  const priceEuros =
+    p.product.priceCents != null ? `${(p.product.priceCents / 100).toFixed(2)} €` : null
 
   return (
     <header className="pds-hero">

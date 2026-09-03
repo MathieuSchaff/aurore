@@ -137,7 +137,8 @@ export function ProductCardCondensed({
   }
 
   const score = calculateWeightedScore(p.review, prefs?.criteriaWeights)
-  const priceEuros = p.product.priceCents ? `${(p.product.priceCents / 100).toFixed(2)} €` : null
+  const priceEuros =
+    p.product.priceCents != null ? `${(p.product.priceCents / 100).toFixed(2)} €` : null
 
   const compatScore = useCompatScore(p.product.id)
   const compatTone = p.status === 'archived' ? null : getCompatTone(compatScore)

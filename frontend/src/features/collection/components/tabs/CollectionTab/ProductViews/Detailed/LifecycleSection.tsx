@@ -99,7 +99,7 @@ export function LifecycleSection({ p, onAddPurchase }: LifecycleSectionProps) {
                       <Calendar size={12} />
                       <Time iso={purch.purchasedAt} style="short" />
                     </span>
-                    {purch.pricePaidCents && (
+                    {purch.pricePaidCents != null && (
                       <span className="pds-purch-price">
                         {(purch.pricePaidCents / 100).toFixed(2)}€
                       </span>
