@@ -34,6 +34,7 @@ import {
   type FilterKey,
   GROUP_LABELS,
 } from '@/features/ingredients/filters'
+import { portraitSlugs } from '@/features/profile/portrait-slugs'
 import { useIngredientTagFilterGroups } from '@/hooks/useIngredientTagFilterGroups'
 import { useListFilters } from '@/hooks/useListFilters'
 import { useProfileFilterToggle } from '@/hooks/useProfileFilterToggle'
@@ -67,10 +68,7 @@ export function IngredientsPage() {
   })
 
   const avoidFor = useMemo(
-    () =>
-      profile_filter && dermoProfile
-        ? [...(dermoProfile.skinTypes ?? []), ...dermoProfile.skinConcerns]
-        : [],
+    () => (profile_filter ? portraitSlugs(dermoProfile) : []),
     [profile_filter, dermoProfile]
   )
 

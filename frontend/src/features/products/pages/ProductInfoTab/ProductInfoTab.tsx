@@ -22,6 +22,7 @@ import { FormulaReading } from '@/features/products/components/FormulaReading/Fo
 import { ProductSummary } from '@/features/products/components/ProductSummary/ProductSummary'
 import { tagLabel } from '@/features/products/filters'
 import { deriveKpChips } from '@/features/products/kp-chips'
+import { portraitSlugs } from '@/features/profile/portrait-slugs'
 import { useCopyToClipboard } from '@/hooks/useCopyToClipboard'
 import { useExpandableList } from '@/hooks/useExpandableList'
 import { viewerId as getSessionViewerId, useSession } from '@/lib/auth/session'
@@ -226,10 +227,10 @@ export function ProductInfoTab() {
   const viewerId = getSessionViewerId(session)
   const { data: detailPage } = useSuspenseQuery(productQueries.detailPage(slug, viewerId))
   const { product, dermoProfile, assessment, preferenceTargets } = detailPage
-  const profileSlugs = useMemo(() => {
-    if (!viewerId || !dermoProfile) return new Set<string>()
-    return new Set<string>([...(dermoProfile.skinTypes ?? []), ...dermoProfile.skinConcerns])
-  }, [viewerId, dermoProfile])
+  const profileSlugs = useMemo(
+    () => new Set<string>(viewerId ? portraitSlugs(dermoProfile) : []),
+    [viewerId, dermoProfile]
+  )
 
   // Same bridge as listProducts: user concern vocab and product tag vocab drifted
   // apart, so a raw comparison only lights the slugs spelled the same in both.
