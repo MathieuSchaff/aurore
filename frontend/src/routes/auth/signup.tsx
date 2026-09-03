@@ -2,10 +2,11 @@ import { createFileRoute, redirect } from '@tanstack/react-router'
 
 import { AuthLayout } from '@/component/Layout/AuthLayout/AuthLayout'
 import { SignupPage } from '@/features/auth/page/SignupPage/SignupPage'
+import { readClientSession } from '@/lib/auth/session'
 
 export const Route = createFileRoute('/auth/signup')({
-  beforeLoad: ({ context }) => {
-    if (context.auth.isAuthenticated) {
+  beforeLoad: () => {
+    if (readClientSession().status === 'authenticated') {
       throw redirect({ to: '/' })
     }
   },

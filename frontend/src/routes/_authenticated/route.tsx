@@ -1,15 +1,14 @@
 import { createFileRoute, Outlet } from '@tanstack/react-router'
 
 import { DemoBanner } from '@/component/Feedback/app/DemoBanner/DemoBanner'
-import { requireAuth } from '@/lib/auth/requireAuth'
+import { requireSession } from '@/lib/auth/requireSession'
 
 export const Route = createFileRoute('/_authenticated')({
   beforeLoad: async ({ context, location, preload }) => {
     if (preload) return
-    await requireAuth({
+    await requireSession({
       queryClient: context.queryClient,
       href: location.href,
-      accessToken: context.auth.accessToken,
     })
   },
   component: AuthenticatedLayout,
