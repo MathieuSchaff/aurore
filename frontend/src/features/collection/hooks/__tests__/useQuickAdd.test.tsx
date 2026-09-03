@@ -28,12 +28,18 @@ vi.mock('@/hooks/useScrollLock', () => ({
   useScrollLock: vi.fn(),
 }))
 
+vi.mock('@/lib/observability/faro', () => ({
+  captureFrontendError: vi.fn(),
+}))
+
 vi.mock('react-hot-toast', () => ({
   toast: { success: vi.fn(), error: vi.fn() },
 }))
 
 import { toast } from 'react-hot-toast'
 
+import { ApiError } from '@/lib/helpers/apiError'
+import { captureFrontendError } from '@/lib/observability/faro'
 import { renderHookWithProviders } from '@/test/utils'
 import { useQuickAdd } from '../useQuickAdd'
 
@@ -49,6 +55,7 @@ describe('useQuickAdd', () => {
     mockAddPurchaseMutateAsync.mockReset()
     vi.mocked(toast.success).mockReset()
     vi.mocked(toast.error).mockReset()
+    vi.mocked(captureFrontendError).mockReset()
   })
 
   afterEach(() => {
@@ -120,6 +127,32 @@ describe('useQuickAdd', () => {
     expect(onClose).toHaveBeenCalled()
   })
 
+  it('reports a purchase failure without denying the completed collection add', async () => {
+    mockAddUserProductMutateAsync.mockResolvedValue({ id: 'up1' })
+    mockAddPurchaseMutateAsync.mockRejectedValue(new Error('purchase failed'))
+
+    const { result } = renderHookWithProviders(() => useQuickAdd({ onClose }), { queryClient })
+
+    act(() => {
+      result.current.setSelectedProduct({
+        id: 'p1',
+        name: 'Sérum',
+        brand: 'La Roche',
+        slug: 'serum',
+      })
+      result.current.setSelectedStatus('in_stock')
+    })
+
+    await act(() => result.current.handleAddExisting())
+
+    expect(toast.error).toHaveBeenCalledWith(
+      "Sérum a été ajouté à votre collection, mais l'achat n'a pas été enregistré."
+    )
+    expect(toast.success).not.toHaveBeenCalled()
+    expect(onClose).toHaveBeenCalledOnce()
+    expect(captureFrontendError).not.toHaveBeenCalled()
+  })
+
   it('handleAddExisting does nothing without a selected product', async () => {
     const { result } = renderHookWithProviders(() => useQuickAdd({ onClose }), { queryClient })
 
@@ -145,8 +178,29 @@ describe('useQuickAdd', () => {
 
     await act(() => result.current.handleAddExisting())
 
+    expect(captureFrontendError).not.toHaveBeenCalled()
     expect(toast.error).toHaveBeenCalled()
     expect(onClose).not.toHaveBeenCalled()
+  })
+
+  it('does not recapture an ApiError from handleAddExisting', async () => {
+    mockAddUserProductMutateAsync.mockRejectedValue(new ApiError('server_error', 500))
+
+    const { result } = renderHookWithProviders(() => useQuickAdd({ onClose }), { queryClient })
+
+    act(() => {
+      result.current.setSelectedProduct({
+        id: 'p1',
+        name: 'Sérum',
+        brand: 'La Roche',
+        slug: 'serum',
+      })
+    })
+
+    await act(() => result.current.handleAddExisting())
+
+    expect(captureFrontendError).not.toHaveBeenCalled()
+    expect(toast.error).toHaveBeenCalled()
   })
 
   it('handleCreateAndAdd creates a product then adds it to collection', async () => {
@@ -176,6 +230,62 @@ describe('useQuickAdd', () => {
     expect(onClose).toHaveBeenCalled()
   })
 
+  it('reports a purchase failure after creating and adding a new product', async () => {
+    mockCreateProductMutateAsync.mockResolvedValue({ id: 'new-p1' })
+    mockAddUserProductMutateAsync.mockResolvedValue({ id: 'up1' })
+    mockAddPurchaseMutateAsync.mockRejectedValue(new Error('purchase failed'))
+
+    const { result } = renderHookWithProviders(() => useQuickAdd({ onClose }), { queryClient })
+
+    act(() => {
+      result.current.setNewName('Mon Sérum')
+      result.current.setNewBrand('Bioderma')
+      result.current.setSelectedStatus('in_stock')
+    })
+
+    await act(() => result.current.handleCreateAndAdd())
+
+    expect(toast.error).toHaveBeenCalledWith(
+      "Mon Sérum a été créé et ajouté, mais l'achat n'a pas été enregistré."
+    )
+    expect(toast.success).not.toHaveBeenCalled()
+    expect(onClose).toHaveBeenCalledOnce()
+    expect(captureFrontendError).not.toHaveBeenCalled()
+  })
+
+  it('makes a created product retryable when adding it to the collection fails', async () => {
+    mockCreateProductMutateAsync.mockResolvedValue({
+      id: 'new-p1',
+      name: 'Mon Sérum',
+      brand: 'Bioderma',
+      slug: 'mon-serum',
+    })
+    mockAddUserProductMutateAsync.mockRejectedValue(new Error('collection add failed'))
+
+    const { result } = renderHookWithProviders(() => useQuickAdd({ onClose }), { queryClient })
+
+    act(() => {
+      result.current.setNewName('Mon Sérum')
+      result.current.setNewBrand('Bioderma')
+      result.current.setActiveTab('new')
+    })
+
+    await act(() => result.current.handleCreateAndAdd())
+
+    expect(toast.error).toHaveBeenCalledWith(
+      "Mon Sérum a été créé, mais pas ajouté à votre collection. Réessayez l'ajout."
+    )
+    expect(result.current.activeTab).toBe('existing')
+    expect(result.current.selectedProduct).toEqual({
+      id: 'new-p1',
+      name: 'Mon Sérum',
+      brand: 'Bioderma',
+      slug: 'mon-serum',
+    })
+    expect(onClose).not.toHaveBeenCalled()
+    expect(captureFrontendError).not.toHaveBeenCalled()
+  })
+
   it('handleCreateAndAdd shows error toast on failure', async () => {
     mockCreateProductMutateAsync.mockRejectedValue(new Error('duplicate'))
 
@@ -188,7 +298,24 @@ describe('useQuickAdd', () => {
 
     await act(() => result.current.handleCreateAndAdd())
 
-    expect(toast.error).toHaveBeenCalled()
+    expect(captureFrontendError).not.toHaveBeenCalled()
+    expect(toast.error).toHaveBeenCalledWith('Impossible de créer le produit.')
     expect(onClose).not.toHaveBeenCalled()
+  })
+
+  it('does not recapture an ApiError from handleCreateAndAdd', async () => {
+    mockCreateProductMutateAsync.mockRejectedValue(new ApiError('product_already_exists', 409))
+
+    const { result } = renderHookWithProviders(() => useQuickAdd({ onClose }), { queryClient })
+
+    act(() => {
+      result.current.setNewName('Sérum')
+      result.current.setNewBrand('La Roche')
+    })
+
+    await act(() => result.current.handleCreateAndAdd())
+
+    expect(captureFrontendError).not.toHaveBeenCalled()
+    expect(toast.error).toHaveBeenCalled()
   })
 })
