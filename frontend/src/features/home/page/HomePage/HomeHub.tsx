@@ -9,10 +9,10 @@ import { SKIN_CONCERN_LABELS } from '@/constants/skin'
 import { statusLabels } from '@/features/collection/constants'
 import { ShelfPulse } from '@/features/profile/components/ShelfPulse/ShelfPulse'
 import { SkinProfileRead } from '@/features/profile/components/SkinProfileRead/SkinProfileRead'
+import { useSession } from '@/lib/auth/session'
 import { formatInstant } from '@/lib/dates'
 import { privacySettingsQueries, profileQueries } from '@/lib/queries/profile'
 import { type UserProduct, userProductQueries } from '@/lib/queries/user-products'
-import { useAuthStore } from '@/store/auth'
 import { getSentimentLabel } from '@/utils/sentimentMap'
 import type { DoorwayItem } from '../../components/DoorwayGrid/DoorwayCard'
 import { DoorwayGrid } from '../../components/DoorwayGrid/DoorwayGrid'
@@ -31,7 +31,7 @@ function repriseLine(item: UserProduct): string {
 }
 
 export function HomeHub() {
-  const role = useAuthStore((s) => s.role)
+  const session = useSession()
 
   const { data: me } = useQuery(profileQueries.me())
   const {
@@ -105,7 +105,9 @@ export function HomeHub() {
         dermo.fitzpatrickType ||
         (dermo.skinConcerns?.length ?? 0) > 0)
   )
-  const isStaff = role === 'admin' || role === 'contributor'
+  const isStaff =
+    session.status === 'authenticated' &&
+    (session.user.role === 'admin' || session.user.role === 'contributor')
 
   return (
     <>

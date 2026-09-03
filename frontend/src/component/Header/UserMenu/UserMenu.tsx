@@ -5,10 +5,9 @@ import { FileText, LogIn, LogOut, Shield, User, UserPlus } from 'lucide-react'
 import { DropdownMenu } from '@/component/DropdownMenu/DropdownMenu'
 import { Skeleton } from '@/component/Feedback/ui/Skeleton/Skeleton'
 import { ProfileAvatar } from '@/features/profile/components/ProfileAvatar/ProfileAvatar'
-import { useBootPending } from '@/lib/hooks/useBootPending'
-import { authQueries, useLogout } from '@/lib/queries/auth'
+import { useSession } from '@/lib/auth/session'
+import { useLogout } from '@/lib/queries/auth'
 import { profileQueries } from '@/lib/queries/profile'
-import { useAuthStore } from '@/store/auth'
 import './UserMenu.css'
 
 interface UserMenuProps {
@@ -22,16 +21,13 @@ interface UserMenuProps {
 }
 
 function useUserMenuAuthState() {
-  const accessToken = useAuthStore((state) => state.accessToken)
-  const hasSeededUser = useAuthStore((state) => state.user !== null)
-  const storeRole = useAuthStore((state) => state.role)
-  const { data: session } = useQuery({ ...authQueries.session(), enabled: false })
-  const hasKnownIdentity = hasSeededUser || !!session?.user
-  const role = session?.role ?? storeRole
+  const session = useSession()
+  const isAuthenticated = session.status === 'authenticated'
+  const role = isAuthenticated ? session.user.role : null
 
   return {
-    hasKnownIdentity,
-    isAuthenticated: !!accessToken || hasKnownIdentity,
+    isSessionPending: session.status === 'pending',
+    isAuthenticated,
     isContentModerator: role === 'admin' || role === 'contributor',
   }
 }
@@ -43,13 +39,11 @@ export const UserMenu = ({
   align = 'start',
 }: UserMenuProps) => {
   const navigate = useNavigate()
-  const { hasKnownIdentity, isAuthenticated, isContentModerator } = useUserMenuAuthState()
-  // An unresolved boot stays neutral instead of flashing the logged-out branch.
-  const bootRefreshPending = useBootPending() && !hasKnownIdentity
+  const { isSessionPending, isAuthenticated, isContentModerator } = useUserMenuAuthState()
   // UserMenu mounts on every page (Header in AppLayout); skip the /profile probe until a session exists.
   const { data: profile } = useQuery({ ...profileQueries.me(), enabled: isAuthenticated })
   // A disabled query still exposes cached data, so hide identity outside a live session.
-  const visibleProfile = isAuthenticated && !bootRefreshPending ? profile : undefined
+  const visibleProfile = isAuthenticated && !isSessionPending ? profile : undefined
   // « Modération » reaches admin AND contributor (« modérateur »); both land on the
   // report queue (/admin/users is admin-only).
   const logout = useLogout()
@@ -74,7 +68,7 @@ export const UserMenu = ({
           />
           {variant === 'drawer' && (
             <span className="user-menu__username">
-              {bootRefreshPending ? (
+              {isSessionPending ? (
                 <Skeleton width="5rem" height="0.85rem" />
               ) : isAuthenticated ? (
                 profile?.username || 'Utilisateur'
@@ -92,7 +86,7 @@ export const UserMenu = ({
         ariaLabel="Menu utilisateur"
         className="user-menu__dropdown"
       >
-        {bootRefreshPending ? null : isAuthenticated ? (
+        {isSessionPending ? null : isAuthenticated ? (
           <>
             <DropdownMenu.Item onSelect={onItemClick}>
               <Link to="/profile">

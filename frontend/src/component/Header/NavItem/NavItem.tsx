@@ -1,7 +1,6 @@
 import { Link, useRouterState } from '@tanstack/react-router'
 
-import { useBootPending } from '@/lib/hooks/useBootPending'
-import { useAuthStore } from '@/store/auth'
+import { useSession } from '@/lib/auth/session'
 import { navItems } from './navItems'
 
 interface NavSideListProps {
@@ -11,10 +10,8 @@ interface NavSideListProps {
 
 export function NavSideList({ onItemClick, variant = 'drawer' }: NavSideListProps) {
   const pathname = useRouterState({ select: (s) => s.location.pathname })
-  const isAuthenticated = useAuthStore((s) => !!s.accessToken || s.user !== null)
-  // Keep private links during an unresolved boot so the nav never flashes anonymous.
-  const bootPending = useBootPending()
-  const effectiveAuthed = isAuthenticated || bootPending
+  const session = useSession()
+  const effectiveAuthed = session.status !== 'anonymous'
 
   const items = navItems.filter((item) => {
     if (item.visibility === 'authed') return effectiveAuthed
