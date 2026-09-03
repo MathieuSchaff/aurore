@@ -7,7 +7,7 @@ import type { CollectionSearch } from '@/routes/_authenticated/collection.index'
 import { applyFilters, type CollectionFilters, sortProducts } from './filterLogic'
 
 // Characterization suite: it pins the CURRENT behaviour of both pure functions so
-// the refactor flagged in code-health-audit.md can proceed without silent drift.
+// a later refactor can proceed without silent drift.
 // Fixtures carry only the fields the two functions read.
 const makeProduct = (over: {
   id?: string
