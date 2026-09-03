@@ -119,7 +119,7 @@ test.describe('Products page', () => {
       .first()
 
     // Wait for the fallback option (proves debounced match logic ran) before
-    // pressing Enter. Since 34ca1b91 Enter submits a free-text query, not the
+    // pressing Enter. Enter now submits a free-text query, not the
     // highlighted option.
     await typeSearchUntilOptionVisible(search, 'kurl', fallbackOption)
     await search.press('Enter')
