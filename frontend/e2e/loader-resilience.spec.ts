@@ -4,24 +4,25 @@ import { loginAsSeed } from './helpers/auth'
 import { gotoHydrated } from './helpers/hydration'
 import { mockApiError } from './helpers/network'
 
-// Loader resilience: a failed *secondary* fetch must degrade in-page, not replace the whole
-// route with the full-page GlobalError. The /products dermo fetch (only awaited when
-// profile_filter=true) is the demonstrable case: its loader now `.catch`es so the catalogue
-// still renders. Oracle for the loader-resilience chantier; see docs/conventions/error-handling.md
-// §Loaders.
-test.describe('Loader resilience: secondary fetch degrades in-page', () => {
-  test('failed dermo fetch keeps the catalogue rendering under profile_filter', async ({
-    page,
-  }) => {
+test.describe('Catalogue resilience', () => {
+  test('keeps the catalogue rendered when filter options fail', async ({ page }) => {
     await loginAsSeed(page)
 
-    // Inject the secondary-fetch failure. dermo feeds the profile_filter personalization only;
-    // its failure used to reject the loader (ensureQueryData) and kill the whole catalogue page.
-    await mockApiError(page, '**/api/profile/dermo', 500, 'server_error')
+    await mockApiError(page, '**/api/products/filter-options*', 500, 'server_error')
+    const filterOptionsResponse = page.waitForResponse(
+      (response) =>
+        response.request().method() === 'GET' &&
+        new URL(response.url()).pathname === '/api/products/filter-options'
+    )
 
     await gotoHydrated(page, '/products?profile_filter=true')
+    await page
+      .getByRole('button', { name: /^Filtrer/ })
+      .first()
+      .hover()
 
-    // Page renders: heading + product cards visible, and the full-page error is absent.
+    expect((await filterOptionsResponse).status()).toBe(500)
+
     await expect(page.getByRole('heading', { name: 'Produits', level: 1 })).toBeVisible({
       timeout: 15_000,
     })
