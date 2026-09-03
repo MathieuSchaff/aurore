@@ -1,6 +1,7 @@
 import { fireEvent, render, screen } from '@testing-library/react'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
+import { ApiError } from '@/lib/helpers/apiError'
 import { useChangePassword } from '@/lib/queries/auth'
 import { ChangePasswordForm } from '../ChangePasswordForm'
 import { CHANGE_PASSWORD_ERRORS } from '../ChangePasswordForm.constants'
@@ -84,7 +85,7 @@ describe('ChangePasswordForm', () => {
   it('maps the invalid_credentials error to a user-friendly message', () => {
     setMutation({
       isError: true,
-      error: new Error('invalid_credentials'),
+      error: new ApiError('invalid_credentials', 401),
     })
     renderForm()
     expect(screen.getByText(CHANGE_PASSWORD_ERRORS.invalid_credentials)).toBeInTheDocument()
