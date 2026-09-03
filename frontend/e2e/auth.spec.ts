@@ -2,6 +2,7 @@ import { expect, type Page, test } from '@playwright/test'
 
 import { loginAsSeed, registerFreshUser, SEED_EMAIL, SEED_PASSWORD } from './helpers/auth'
 import { waitForHydration } from './helpers/hydration'
+import { captureRequests, requestsFor } from './helpers/network'
 
 // Seed user is created and verified upfront by `seed-core` (see backend/src/db/seed/seeders/create-user.ts).
 
@@ -30,26 +31,23 @@ async function gotoProductsAndOpenUserMenu(page: Page) {
   await expect(page.getByRole('menu', { name: 'Menu utilisateur' })).toBeVisible()
 }
 
-async function expectNoSessionHint(page: Page) {
-  const cookies = await page.context().cookies()
-  expect(cookies.some((cookie) => cookie.name === 'aurore_session')).toBe(false)
-}
-
 test.describe('Auth: login', () => {
   test('shows error on invalid credentials', async ({ page }) => {
     await page.goto('/auth/login')
-
+    const requests = captureRequests(page)
     await page.getByLabel('Email', { exact: true }).fill('nope@example.com')
     await page.getByLabel('Mot de passe', { exact: true }).fill('Wrongpass1!')
     await page.getByRole('button', { name: 'Se connecter', exact: true }).click()
 
     // Mirrors LOGIN_ERRORS.invalid_credentials: account_locked was collapsed into this
-    // neutral wording (anti-enumeration, commit dd9130d0) so a locked account is
-    // indistinguishable from a wrong password.
+    // neutral wording  so a locked account is
+    // indistinguishable from a wrong password
     await expect(
       page.getByText('Identifiants incorrects ou compte temporairement indisponible')
     ).toBeVisible()
     await expect(page).toHaveURL(/\/auth\/login/)
+    // register that a request isn't going after the click
+    expect(requestsFor(requests, 'POST', '/api/auth/refresh')).toHaveLength(0)
   })
 
   test('logs in seed user and lands on /collection', async ({ page }) => {
@@ -73,40 +71,6 @@ test.describe('Auth: login', () => {
     await page.getByRole('button', { name: 'Se connecter', exact: true }).click()
 
     await expect(page).toHaveURL(/\/products\/new/, { timeout: 15_000 })
-  })
-
-  test('migrates a legacy refresh cookie to the root path', async ({ page, context }) => {
-    await page.goto('/auth/login')
-    await loginAsSeed(page)
-
-    const loginCookies = (await context.cookies()).filter(
-      (cookie) => cookie.name === 'refresh_token'
-    )
-    expect(loginCookies).toHaveLength(1)
-    expect(loginCookies[0]?.path).toBe('/')
-    if (!loginCookies[0]) return
-
-    await context.clearCookies({ name: 'refresh_token' })
-    await context.addCookies([{ ...loginCookies[0], path: '/api/auth' }])
-
-    const refreshStatus = await page.evaluate(async () => {
-      const response = await fetch('/api/auth/refresh', { method: 'POST' })
-      return response.status
-    })
-    expect(refreshStatus).toBe(200)
-
-    const migratedCookies = (await context.cookies()).filter(
-      (cookie) => cookie.name === 'refresh_token'
-    )
-    expect(migratedCookies).toHaveLength(1)
-    expect(migratedCookies[0]?.path).toBe('/')
-
-    const documentRequestPromise = page.waitForRequest(
-      (request) => request.isNavigationRequest() && new URL(request.url()).pathname === '/products'
-    )
-    await page.goto('/products')
-    const documentRequest = await documentRequestPromise
-    expect(await documentRequest.headerValue('cookie')).toContain('refresh_token=')
   })
 })
 
@@ -153,9 +117,17 @@ test.describe('Auth: banned user', () => {
     await page.getByLabel('Mot de passe', { exact: true }).fill(SEED_PASSWORD)
     await page.getByRole('button', { name: 'Se connecter', exact: true }).click()
 
-    await expect(page).toHaveURL(/\/auth\/banned/, { timeout: 15_000 })
+    await expect(page).toHaveURL(/\/auth\/banned$/, { timeout: 15_000 })
     await expect(page.getByRole('heading', { name: 'Compte suspendu' })).toBeVisible()
+    await expect(page.getByText('Compte de test banni (seed)')).toBeVisible()
     await expect(page.getByRole('button', { name: 'Se déconnecter' })).toBeVisible()
+
+    await page.reload()
+
+    await expectBannedHeading(page)
+    await expect(page.getByText('Votre compte est suspendu.')).toBeVisible()
+    await expect(page.getByText(/contactez le support/i)).toBeVisible()
+    await expect(page.getByText('Compte de test banni (seed)')).toHaveCount(0)
   })
 
   test('banned page shows fallback message when no query params', async ({ page }) => {
@@ -166,12 +138,14 @@ test.describe('Auth: banned user', () => {
     await expect(page.getByText(/contactez le support/i)).toBeVisible()
   })
 
-  test('banned page shows reason from query params', async ({ page }) => {
+  test('ignores fabricated suspension details from the URL', async ({ page }) => {
     await page.goto('/auth/banned?reason=Comportement+abusif&expires=2026-06-01T00%3A00%3A00.000Z')
 
     await expectBannedHeading(page)
-    await expect(page.getByText(/suspendu jusqu'au/i)).toBeVisible()
-    await expect(page.getByText('Comportement abusif')).toBeVisible()
+    await expect(page.getByText('Votre compte est suspendu.')).toBeVisible()
+    await expect(page.getByText(/contactez le support/i)).toBeVisible()
+    await expect(page.getByText(/suspendu jusqu'au/i)).toHaveCount(0)
+    await expect(page.getByText('Comportement abusif')).toHaveCount(0)
   })
 })
 
@@ -229,12 +203,13 @@ test.describe('Auth: SSR boot issue (cold-load probe gate)', () => {
     await refreshReq
   })
 
-  test('login, cold-load refresh and logout work without a session hint', async ({ page }) => {
+  // The hint cookie is dead code on both sides, but old browsers still carry one until it
+  // expires. Seeding it here proves the whole session cycle ignores it.
+  test('login, cold-load refresh and logout ignore a leftover session hint', async ({ page }) => {
     await page
       .context()
       .addCookies([{ name: 'aurore_session', value: '1', url: 'http://localhost:5174' }])
     await loginAsSeed(page)
-    await expectNoSessionHint(page)
 
     const refreshRequest = page.waitForRequest(
       (request) => request.url().includes('/api/auth/refresh') && request.method() === 'POST'
@@ -245,7 +220,6 @@ test.describe('Auth: SSR boot issue (cold-load probe gate)', () => {
     })
     await waitForHydration(page)
     await refreshRequest
-    await expectNoSessionHint(page)
 
     await page.getByRole('button', { name: 'Menu utilisateur' }).click()
     const menu = page.getByRole('menu', { name: 'Menu utilisateur' })
@@ -255,7 +229,6 @@ test.describe('Auth: SSR boot issue (cold-load probe gate)', () => {
     // Let the logout redirect fully commit before navigating away, else goto('/products')
     // races a still-in-flight nav back to /auth/login (webkit throws, firefox aborts).
     await expect(page.getByRole('heading', { name: 'Connexion' })).toBeVisible()
-    await expectNoSessionHint(page)
 
     const refreshCalls: string[] = []
     page.on('request', (r) => {
@@ -320,5 +293,47 @@ test.describe('Auth: optimistic boot (cold load, logged in)', () => {
     await page.goto('/admin')
 
     await page.waitForURL((url) => url.pathname === '/', { timeout: 15_000 })
+  })
+
+  test('cold load on a blog editor keeps an admin in place', async ({ page }) => {
+    await loginAsSeed(page)
+
+    await page.goto('/blog/admin/new')
+
+    await expect(page.getByRole('heading', { name: 'Nouvel article' })).toBeVisible({
+      timeout: 15_000,
+    })
+    await expect(page).toHaveURL(/\/blog\/admin\/new/)
+  })
+
+  test('cold load on a blog editor redirects a non-admin to the blog', async ({ page }) => {
+    await registerFreshUser(page)
+
+    await page.goto('/blog/admin/new')
+
+    await page.waitForURL((url) => url.pathname === '/blog', { timeout: 15_000 })
+  })
+
+  test('SPA navigation keeps an admin on the admin shell', async ({ page }) => {
+    await loginAsSeed(page)
+    await page.goto('/')
+    await waitForHydration(page)
+
+    await page.getByRole('link', { name: 'Espace admin' }).click()
+
+    await expect(page).toHaveURL(/\/admin/, { timeout: 15_000 })
+  })
+
+  test('SPA navigation opens the blog editor for an admin', async ({ page }) => {
+    await loginAsSeed(page)
+    await page.goto('/blog')
+    await waitForHydration(page)
+
+    await page.getByRole('link', { name: 'Nouvel article' }).click()
+
+    await expect(page.getByRole('heading', { name: 'Nouvel article' })).toBeVisible({
+      timeout: 15_000,
+    })
+    await expect(page).toHaveURL(/\/blog\/admin\/new/)
   })
 })

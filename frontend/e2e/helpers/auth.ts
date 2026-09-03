@@ -48,13 +48,17 @@ export async function loginAsPersona(page: Page, browserName: string): Promise<s
 // Signup is enumeration-safe and no longer establishes a session (ADR 0009), so
 // log in afterwards to set the refreshToken cookie on the context. Login works
 // pre-verification via the grace window.
-export async function registerFreshUser(page: Page): Promise<void> {
+export async function registerFreshUser(
+  page: Page
+): Promise<{ credentials: Credentials; token: string }> {
   const email = `e2e-${Date.now()}-${Math.random().toString(36).slice(2, 8)}@e2e.test`
   const password = 'Abcdef12!'
+  const credentials = { email, password }
   const signupRes = await page.request.post('/api/auth/signup', {
-    data: { email, password },
+    data: credentials,
   })
   expect(signupRes.ok(), `signup failed (${signupRes.status()})`).toBe(true)
 
-  await loginAs(page, { email, password })
+  const token = await loginAs(page, credentials)
+  return { credentials, token }
 }
