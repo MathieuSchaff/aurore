@@ -2,14 +2,17 @@ import { describe, expect, it } from 'vitest'
 
 import {
   ApiError,
+  apiErrorMessage,
   extractFormError,
   type FormErrorMap,
   formatRetryDelay,
   isApiError,
+  isApiErrorCode,
   isRateLimitError,
   rateLimitMessage,
   rateLimitRetryAfter,
   throwIfNotOk,
+  unwrapData,
 } from '../apiError'
 
 function jsonResponse(body: unknown, status: number): Response {
@@ -33,10 +36,10 @@ describe('throwIfNotOk', () => {
     })
   })
 
-  it('falls back to the provided code when the body is not a recognised envelope', async () => {
+  it('falls back to http_error when the body is not a recognised envelope', async () => {
     const res = jsonResponse({ unrelated: true }, 502)
-    await expect(throwIfNotOk(res, 'gateway_down')).rejects.toMatchObject({
-      code: 'gateway_down',
+    await expect(throwIfNotOk(res)).rejects.toMatchObject({
+      code: 'http_error',
       status: 502,
     })
   })
@@ -58,6 +61,25 @@ describe('throwIfNotOk', () => {
   })
 })
 
+describe('unwrapData', () => {
+  it('returns the success payload', async () => {
+    const res = jsonResponse({ success: true, data: { id: 'one' } }, 200)
+    await expect(unwrapData(res)).resolves.toEqual({ id: 'one' })
+  })
+
+  it('keeps the wire code and details from a success:false envelope', async () => {
+    const res = jsonResponse(
+      { success: false, error: 'already_pending', details: { requestId: 'one' } },
+      200
+    )
+    await expect(unwrapData(res)).rejects.toMatchObject({
+      code: 'already_pending',
+      status: 200,
+      details: { requestId: 'one' },
+    })
+  })
+})
+
 describe('rate-limit helpers', () => {
   // Backend forwards Retry-After (an HTTP header) verbatim, so details.retryAfter is a string.
   const limited = (retryAfter?: unknown) =>
@@ -65,6 +87,10 @@ describe('rate-limit helpers', () => {
 
   it('isRateLimitError only matches a 429 ApiError', () => {
     expect(isRateLimitError(limited('42'))).toBe(true)
+    expect(isRateLimitError(new ApiError('too_many_requests', 429))).toBe(true)
+    expect(isRateLimitError(new ApiError('ingredient_rate_limited', 429))).toBe(true)
+    expect(isRateLimitError(new ApiError('product_rate_limited', 429))).toBe(true)
+    expect(isRateLimitError(new ApiError('rate_limit_exceeded', 400))).toBe(false)
     expect(isRateLimitError(new ApiError('http_error', 500))).toBe(false)
     expect(isRateLimitError(new Error('rate_limit_exceeded'))).toBe(false)
   })
@@ -88,8 +114,8 @@ describe('rate-limit helpers', () => {
   })
 
   it('rateLimitMessage falls back to a vague delay when Retry-After is missing', () => {
-    expect(rateLimitMessage(limited('42'))).toBe('Trop de requêtes — réessayez dans 42 s.')
-    expect(rateLimitMessage(limited(null))).toBe('Trop de requêtes — réessayez dans un instant.')
+    expect(rateLimitMessage(limited('42'))).toBe('Trop de requêtes, réessayez dans 42 s.')
+    expect(rateLimitMessage(limited(null))).toBe('Trop de requêtes, réessayez dans un instant.')
     expect(rateLimitMessage(new ApiError('http_error', 500))).toBeNull()
   })
 })
@@ -106,9 +132,11 @@ describe('extractFormError', () => {
     expect(extractFormError(err, map)).toEqual({ field: 'name', message: 'Nom déjà pris.' })
   })
 
-  it('falls back to the error message when the code is unknown', () => {
+  it('uses the safe fallback when the code is unknown', () => {
     const err = new ApiError('something_weird', 500)
-    expect(extractFormError(err, map)).toEqual({ message: 'something_weird' })
+    expect(extractFormError(err, map)).toEqual({
+      message: 'Une erreur est survenue lors de la sauvegarde.',
+    })
   })
 
   it('uses fallback string when error is not an Error instance', () => {
@@ -118,5 +146,26 @@ describe('extractFormError', () => {
   it('returns mapped entry without field when none is set', () => {
     const err = new ApiError('unauthorized_access', 403)
     expect(extractFormError(err, map)).toEqual({ message: 'Pas le droit.' })
+  })
+})
+
+describe('API error presentation', () => {
+  const messages = {
+    invalid_credentials: 'Identifiants incorrects.',
+  } as const
+
+  it('maps only ApiError codes and falls back for everything else', () => {
+    expect(apiErrorMessage(new ApiError('invalid_credentials', 401), messages, 'Réessayer.')).toBe(
+      'Identifiants incorrects.'
+    )
+    expect(apiErrorMessage(new ApiError('unknown', 500), messages, 'Réessayer.')).toBe('Réessayer.')
+    expect(apiErrorMessage(new Error('invalid_credentials'), messages, 'Réessayer.')).toBe(
+      'Réessayer.'
+    )
+  })
+
+  it('narrows an ApiError by code', () => {
+    expect(isApiErrorCode(new ApiError('token_expired', 400), 'token_expired')).toBe(true)
+    expect(isApiErrorCode(new Error('token_expired'), 'token_expired')).toBe(false)
   })
 })

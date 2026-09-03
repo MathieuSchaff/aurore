@@ -1,5 +1,5 @@
-// Backend failure envelope: `{ success: false, error: <code>, details? }`.
-// See backend/src/utils/errors/error-handler.ts.
+import type { ApiFailure, ApiResponse } from '@aurore/shared'
+
 export class ApiError extends Error {
   status: number
   code: string
@@ -18,13 +18,29 @@ export function isApiError(err: unknown): err is ApiError {
   return err instanceof ApiError
 }
 
-export async function throwIfNotOk(res: Response, fallbackCode = 'http_error'): Promise<void> {
+export function isApiErrorCode<E extends string>(
+  err: unknown,
+  code: E
+): err is ApiError & { code: E } {
+  return isApiError(err) && err.code === code
+}
+
+export function apiErrorMessage<E extends string>(
+  err: unknown,
+  messages: Partial<Record<E, string>>,
+  fallback: string
+): string {
+  if (!isApiError(err)) return fallback
+  return messages[err.code as E] ?? fallback
+}
+
+export async function throwIfNotOk(res: Response): Promise<void> {
   if (res.ok) return
-  let code = fallbackCode
+  let code = 'http_error'
   let details: unknown
   try {
-    const body = (await res.json()) as { success?: boolean; error?: string; details?: unknown }
-    if (body && body.success === false && typeof body.error === 'string') {
+    const body = (await res.json()) as Partial<ApiFailure>
+    if (body.success === false && typeof body.error === 'string') {
       code = body.error
       details = body.details
     }
@@ -34,48 +50,58 @@ export async function throwIfNotOk(res: Response, fallbackCode = 'http_error'): 
   throw new ApiError(code, res.status, details)
 }
 
-// Retry-after seconds off a 429 `rate_limit_exceeded` ApiError (backend envelope
-// `details.retryAfter`), for "retry in Ns" UI. null when the error isn't a rate-limit.
-export function isRateLimitError(err: unknown): boolean {
-  return isApiError(err) && err.code === 'rate_limit_exceeded'
+export async function unwrapData<T>(
+  res: Response & { json(): Promise<ApiResponse<T>> }
+): Promise<T> {
+  await throwIfNotOk(res)
+  const json = await res.json()
+  if (!json.success) throw new ApiError(json.error, res.status, json.details)
+  return json.data
 }
 
-// Backend puts Retry-After (an HTTP header) under details.retryAfter, so it's a string, or
-// null when the header is absent. Coerce; return null when no usable delay is available.
+export function isRateLimitError(err: unknown): err is ApiError {
+  return (
+    isApiError(err) &&
+    err.status === 429 &&
+    (err.code === 'rate_limit_exceeded' ||
+      err.code === 'too_many_requests' ||
+      err.code === 'ingredient_rate_limited' ||
+      err.code === 'product_rate_limited')
+  )
+}
+
 export function rateLimitRetryAfter(err: unknown): number | null {
   if (!isRateLimitError(err)) return null
-  const raw = ((err as ApiError).details as { retryAfter?: number | string | null } | undefined)
-    ?.retryAfter
+  const raw = (err.details as { retryAfter?: number | string | null } | undefined)?.retryAfter
+  // Retry-After is an HTTP header, so the backend forwards details.retryAfter as a string
   const sec = typeof raw === 'string' ? Number(raw) : raw
   return typeof sec === 'number' && Number.isFinite(sec) ? sec : null
 }
 
-// "5 min" for ≥60s, "30 s" otherwise. Avoids ugly "300 secondes" in retry copy.
 export function formatRetryDelay(seconds: number): string {
   return seconds >= 60 ? `${Math.ceil(seconds / 60)} min` : `${seconds} s`
 }
 
-// Inline rate-limit message for search dropdowns; null when the error isn't a 429. The delay
-// is best-effort: the Retry-After header can be absent, so fall back to a vague reassurance.
 export function rateLimitMessage(err: unknown): string | null {
   if (!isRateLimitError(err)) return null
   const sec = rateLimitRetryAfter(err)
   return sec === null
-    ? 'Trop de requêtes — réessayez dans un instant.'
-    : `Trop de requêtes — réessayez dans ${formatRetryDelay(sec)}.`
+    ? 'Trop de requêtes, réessayez dans un instant.'
+    : `Trop de requêtes, réessayez dans ${formatRetryDelay(sec)}.`
 }
 
-// Maps backend error codes to user-facing messages, optionally targeting a form field.
-export type FormErrorMap<F extends string = string> = Record<string, { field?: F; message: string }>
+export type FormErrorMap<F extends string = string, E extends string = string> = Partial<
+  Record<E, { field?: F; message: string }>
+>
 
-export function extractFormError<F extends string>(
+export function extractFormError<F extends string, E extends string>(
   err: unknown,
-  map: FormErrorMap<F>,
+  map: FormErrorMap<F, E>,
   fallback = 'Une erreur est survenue lors de la sauvegarde.'
 ): { field?: F; message: string } {
-  if (isApiError(err) && err.code in map) {
-    const entry = map[err.code]
-    if (entry) return entry as { field?: F; message: string }
+  if (isApiError(err)) {
+    const entry = map[err.code as E]
+    if (entry) return entry
   }
-  return { message: err instanceof Error ? err.message : fallback }
+  return { message: fallback }
 }
