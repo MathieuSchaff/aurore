@@ -2,12 +2,13 @@ import { fireEvent, screen, waitFor } from '@testing-library/react'
 import type { ReactElement, ReactNode } from 'react'
 import { describe, expect, it, vi } from 'vitest'
 
+import type { SessionView } from '@/lib/auth/session'
+import { ApiError } from '@/lib/helpers/apiError'
 import {
   useCreateIngredient,
   useUpdateIngredient,
   useUpdateIngredientTags,
 } from '@/lib/queries/ingredients'
-import { useAuthStore } from '@/store/auth'
 import { createTestQueryClient, renderWithProviders } from '@/test/utils'
 import { ingredientLabels } from '../../../constants'
 import { IngredientForm } from '../IngredientForm'
@@ -16,8 +17,13 @@ function renderForm(ui: ReactElement, queryClient: ReturnType<typeof createTestQ
   return renderWithProviders(ui, { queryClient })
 }
 
-vi.mock('@/store/auth', () => ({
-  useAuthStore: vi.fn(),
+const { useSessionMock } = vi.hoisted(() => ({
+  useSessionMock: vi.fn<() => SessionView>(),
+}))
+
+vi.mock('@/lib/auth/session', async (importOriginal) => ({
+  ...(await importOriginal<typeof import('@/lib/auth/session')>()),
+  useSession: useSessionMock,
 }))
 
 vi.mock('@/lib/queries/ingredients', () => ({
@@ -72,9 +78,24 @@ const mockIngredient = {
   updatedAt: '2024-01-01T10:00:00Z',
 }
 
+function setSessionRole(role: 'user' | 'admin') {
+  useSessionMock.mockReturnValue({
+    status: 'authenticated',
+    credential: 'present',
+    user: {
+      id: `${role}-id`,
+      email: `${role}@example.test`,
+      createdAt: '2026-01-01T00:00:00.000Z',
+      role,
+      emailVerified: true,
+      isDemo: false,
+    },
+  })
+}
+
 describe('IngredientForm - Conflict Resolution', () => {
-  it('should handle 409 conflict during update and allow field restoration', async () => {
-    ;(useAuthStore as any).mockReturnValue({ role: 'user' })
+  it('handles a 409 conflict during update and allows field restoration', async () => {
+    setSessionRole('user')
     const queryClient = createTestQueryClient()
     const mockOnSuccess = vi.fn()
     const mockMutateAsync = vi.fn()
@@ -89,8 +110,7 @@ describe('IngredientForm - Conflict Resolution', () => {
       isPending: false,
     })
 
-    const conflictError = new Error('Conflict')
-    ;(conflictError as any).status = 409
+    const conflictError = new ApiError('ingredient_update_conflict', 409)
     mockMutateAsync.mockRejectedValueOnce(conflictError)
 
     const freshIngredient = {
@@ -148,20 +168,20 @@ describe('IngredientForm - Conflict Resolution', () => {
     expect(mockOnSuccess).toHaveBeenCalled()
   })
 
-  it('should only show the slug field if the user is an admin', () => {
+  it('shows the slug field only to an admin', () => {
     const queryClient = createTestQueryClient()
     ;(useUpdateIngredientTags as any).mockReturnValue({ isPending: false })
     ;(useCreateIngredient as any).mockReturnValue({ isPending: false })
     ;(useUpdateIngredient as any).mockReturnValue({ isPending: false })
 
-    ;(useAuthStore as any).mockReturnValue({ role: 'user' })
+    setSessionRole('user')
     const { rerender } = renderForm(
       <IngredientForm mode="edit" ingredient={mockIngredient} onSuccess={vi.fn()} />,
       queryClient
     )
     expect(screen.queryByLabelText(/Slug/)).not.toBeInTheDocument()
 
-    ;(useAuthStore as any).mockReturnValue({ role: 'admin' })
+    setSessionRole('admin')
     rerender(<IngredientForm mode="edit" ingredient={mockIngredient} onSuccess={vi.fn()} />)
     expect(screen.getByLabelText(/Slug/)).toBeInTheDocument()
   })
@@ -169,7 +189,7 @@ describe('IngredientForm - Conflict Resolution', () => {
 
 describe('IngredientForm - cancel link', () => {
   const setupHooks = () => {
-    ;(useAuthStore as any).mockReturnValue({ role: 'user' })
+    setSessionRole('user')
     ;(useCreateIngredient as any).mockReturnValue({ isPending: false })
     ;(useUpdateIngredient as any).mockReturnValue({ isPending: false })
     ;(useUpdateIngredientTags as any).mockReturnValue({ isPending: false })

@@ -2,6 +2,7 @@ import { act, fireEvent, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
+import { ApiError } from '@/lib/helpers/apiError'
 import { useCreateReport } from '@/lib/queries/reports'
 import { renderWithProviders } from '@/test/utils'
 
@@ -103,7 +104,7 @@ describe('ReportContentButton', () => {
     expect(screen.queryByLabelText(/Raison/i)).not.toBeInTheDocument()
   })
 
-  it('surfaces the error message when the mutation fails', async () => {
+  it('shows a safe message when the mutation fails', async () => {
     let capturedOnError: ((err: Error) => void) | undefined
     const mutate = vi.fn((_payload, opts) => {
       capturedOnError = opts?.onError
@@ -120,11 +121,11 @@ describe('ReportContentButton', () => {
     await userEvent.click(screen.getByRole('button', { name: /Envoyer/i }))
 
     await act(async () => {
-      capturedOnError?.(new Error('Rate limit exceeded'))
+      capturedOnError?.(new ApiError('rate_limit_exceeded', 429))
     })
 
     await waitFor(() => {
-      expect(screen.getByText('Rate limit exceeded')).toBeInTheDocument()
+      expect(screen.getByText(REPORT_LABELS.failureMessage)).toBeInTheDocument()
     })
   })
 })

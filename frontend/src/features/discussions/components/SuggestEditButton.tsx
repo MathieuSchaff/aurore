@@ -50,7 +50,7 @@ export function SuggestEditButton({ targetType, targetId }: SuggestEditButtonPro
       { targetType, targetId, field, proposedValue: trimmed },
       {
         onSuccess: () => setDone(true),
-        onError: (err) => setError(err.message),
+        onError: () => setError(SUGGEST_LABELS.failureMessage),
       }
     )
   }

@@ -21,7 +21,7 @@ function IngredientThreadDetailRoute() {
 }
 
 // No routing-level auth guard: threads are public (read). Write actions (post/reply)
-// are gated by the backend, frontend shows UI conditionally via useAuthStore.
+// are gated by the backend, frontend shows UI conditionally via SessionView.
 export const Route = createFileRoute('/ingredients/$slug/discussions/$threadId')({
   loader: ({ context, params }) =>
     context.queryClient

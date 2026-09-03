@@ -37,10 +37,10 @@ import {
 import { useIngredientTagFilterGroups } from '@/hooks/useIngredientTagFilterGroups'
 import { useListFilters } from '@/hooks/useListFilters'
 import { useProfileFilterToggle } from '@/hooks/useProfileFilterToggle'
+import { useSession } from '@/lib/auth/session'
 import { isRateLimitError } from '@/lib/helpers/apiError'
 import { ingredientQueries, type ListIngredientsFilters } from '@/lib/queries/ingredients'
 import { profileQueries } from '@/lib/queries/profile'
-import { useAuthStore } from '@/store/auth'
 
 import '@/component/Layout/PageLayout/ListPage.css'
 import './IngredientsPage.css'
@@ -58,11 +58,12 @@ export function IngredientsPage() {
   const { page, type, profile_filter } = search
   const navigate = useNavigate({ from: '/ingredients/' })
 
-  const user = useAuthStore((s) => s.user)
+  const session = useSession()
+  const hasViewer = session.status === 'authenticated'
 
   const { data: dermoProfile } = useQuery({
     ...profileQueries.dermo(),
-    enabled: !!user && profile_filter,
+    enabled: hasViewer && profile_filter,
   })
 
   const avoidFor = useMemo(
@@ -130,7 +131,7 @@ export function IngredientsPage() {
 
   const handleProfileFilterChange = useProfileFilterToggle('/ingredients/')
 
-  const showProfileToggle = !!user && type === 'skincare'
+  const showProfileToggle = hasViewer && type === 'skincare'
 
   return (
     <ListPageLayout className="ingredients-page">
