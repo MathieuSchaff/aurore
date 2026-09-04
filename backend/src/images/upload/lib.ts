@@ -3,7 +3,7 @@
  * Replaces ad-hoc fetch-images-<brand>.ts one-shot scripts: accepts an image from any
  * source (URL, local file, in-memory bytes), normalises to webp, updates products.image_url.
  * Required env (apply mode): BUNNY_STORAGE_ZONE, BUNNY_STORAGE_PASSWORD, IMAGE_CDN_BASE,
- * APP_DATABASE_URL (or DATABASE_URL). Does NOT regenerate snapshot/data.sql; run
+ * DATABASE_URL. Does NOT regenerate snapshot/data.sql; run
  * `just db-snapshot` after a batch.
  */
 
@@ -156,8 +156,9 @@ export async function uploadProductImage(
     await putBunny(cfg, `${input.slug}.webp`, webpBytes)
     bunnyUploaded = true
     if (updateDb) {
-      const sql =
-        opts.sql ?? new SQL(process.env.APP_DATABASE_URL ?? (process.env.DATABASE_URL as string))
+      // `app`, never app_runtime: without an `app.role` the products UPDATE policy matches no
+      // row, so the link ended as dbUpdated=false on every slug (measured 2026-09-01).
+      const sql = opts.sql ?? new SQL(process.env.DATABASE_URL as string)
       const result = await sql`UPDATE products SET image_url = ${cdnUrl} WHERE slug = ${input.slug}`
       dbUpdated = (result as { count?: number }).count !== 0
       if (!opts.sql) await sql.close()
