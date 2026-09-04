@@ -1,256 +1,188 @@
-# Error Handling Convention
+# Gestion des erreurs
 
-Decision record: `docs/adr/0007-error-handling-strategy.md`
+Décision : [ADR 0007](../adr/0007-error-handling-strategy.md). Ce document possède le contrat
+backend et wire, et raconte le trajet complet d'une erreur, du service jusqu'au texte affiché.
 
----
+Le détail côté client n'est pas ici, il vit dans le code : `frontend/src/lib/queryClient.ts` pour
+les erreurs de mutation et leur remontée à Faro, `frontend/src/component/Feedback/app/` pour les
+boundaries React et l'écran d'erreur.
 
-## Architecture overview
+## Le trajet, en une image
 
-**Global translation layer**: `backend/src/utils/errors/error-handler.ts`
-Registered as `app.onError(globalErrorHandler)` in `backend/src/index.ts`.
-
-**Base error codes + status mapping**: `shared/src/core/index.ts`
-`baseErrorMapping` covers transverse codes (`invalid_input`, `not_found`, `unauthorized`,
-`forbidden`, `server_error`, `rate_limit_exceeded`). `errorToStatus(base, custom)` merges
-and falls back to `500`.
-
-**RLS rollback invariant**: `backend/src/features/auth/rls-context.middleware.ts`
-`withRlsContext` rolls back on `c.error`. Never swallow a DB error inside an RLS-guarded
-request handler.
-
----
-
-## Style A: throw-domain + global handler (default)
-
-Use for all standard CRUD features.
-
-```
-Service  →  throws XxxError('some_code')
-Route    →  happy-path only, no try/catch
-Handler  →  globalErrorHandler translates to { success: false, error: code }
+```mermaid
+flowchart TD
+    Z[zValidator] -->|invalid_input 400| W
+    S[Service] -->|throw DomainError| H[globalErrorHandler]
+    S -->|return ApiResponse| R[Route: errorToStatus + err]
+    X[Erreur étrangère] --> H
+    H --> W[Corps JSON: success false, error, details]
+    R --> W
+    W --> C[authFetch: marque le ban, rejoue le 401]
+    C --> U[unwrapData ou throwIfNotOk]
+    U --> A[ApiError: code, status, details]
+    A --> P[Table de messages de l'écran]
 ```
 
-**DB translation**: catch only to convert known constraint violations (e.g. `isUniqueViolation`),
-convert to a domain code, then **throw again**. Never swallow.
+**Quatre portes de sortie côté serveur, pas une seule.** C'est le point que la lecture du seul
+handler global rate :
 
-Examples: `products`, `ingredients`, `tasks`, `discussions`, `product-comparisons`, `blog`
+| Porte | Qui décide du statut | Passe par le handler global ? |
+|---|---|---|
+| Validation Zod (`backend/src/utils/validator.ts`) | 400 écrit en dur, code `invalid_input` | **Non**, le hook répond lui-même |
+| `throw` d'une `DomainError` | `errorToStatus(code, thrownDomainErrorMapping)` | Oui |
+| `return` d'une `ApiResponse` | la route, avec `errorToStatus(result.error, xxxErrorMapping)` | Non |
+| Erreur étrangère | son propre champ `status` s'il existe, sinon 500 | Oui |
 
----
+La validation Zod est la source principale des 400 de l'API. Elle ne traverse jamais le handler
+global : inutile d'y chercher pourquoi un formulaire renvoie `invalid_input`.
 
-## Style B: `ApiResponse` explicit
+## Un cas complet, du `throw` à l'écran
 
-Use when error branches are semantically distinct outcomes (not failures), and you want the
-call-site to handle them without exception control flow.
+Création d'un produit déjà présent au catalogue.
 
-```
-Service  →  returns ApiResponse<T, E>
-Route    →  if (!isApiSuccess(result)) return c.json(err(result.error), errorToStatus(...))
-```
+1. **Service** : `createProduct`, dans `backend/src/features/products/write.service.ts`
+   ```ts
+   throw new ProductError('product_already_exists', { publicDetails: existing })
+   ```
+   `existing` est la ligne trouvée (`id`, `slug`, `name`, `brand`, `kind`).
+2. **Transaction** : l'erreur remonte dans `withRlsContext`, qui annule la transaction de requête.
+3. **Handler** : `error-handler.ts` reconnaît une `DomainError`, cherche le code dans
+   `thrownDomainErrorMapping`, trouve `product_already_exists: CONFLICT` (`shared/src/products/helpers.ts`),
+   répond **409**. Aucun log : les 4xx de domaine sont silencieux par choix.
+4. **Sur le fil** :
+   ```json
+   { "success": false, "error": "product_already_exists",
+     "details": { "id": "…", "slug": "…", "name": "…", "brand": "…", "kind": "…" } }
+   ```
+5. **Client** : `unwrapData` passe par `throwIfNotOk`, qui lit le corps d'erreur et jette
+   `ApiError('product_already_exists', 409, details)`. Un 409 n'est jamais rejoué.
+6. **Écran** : `useProductFormSubmit` appelle `extractFormError`, qui trouve l'entrée dans
+   `ProductForm/formErrors.ts` et affiche **« Un produit avec ce nom et cette marque existe déjà. »**
+   sous le champ Nom, pas en bandeau.
 
-Examples: `auth/service.ts`, `admin/bans.service.ts`, `admin/moderation.service.ts`
+Les `details` publics fabriqués à l'étape 1 ne sont pas affichés sur ce chemin : l'écran de doublon
+vient d'une pré-vérification dédiée. Un `publicDetails` ne sert que si une UI le consomme
+vraiment.
 
----
+## Ce que j'écris, selon le cas
 
-## Style C: local route try/catch (narrow, opt-in)
+- **Un échec métier, et l'appelant n'a rien à récupérer du chemin heureux** : `throw new XxxError(code)`
+  depuis le service. C'est le cas par défaut, celui de tout le CRUD.
+- **Le service doit rendre une valeur au succès et distinguer des branches attendues** : retourne
+  une `ApiResponse`. La route narrow avec `isApiSuccess`, puis
+  `c.json(err(result.error), errorToStatus(result.error, xxxErrorMapping))`. C'est le cas de l'auth
+  (un mot de passe faux n'est pas un incident) et de plusieurs flux d'administration.
+- **Une erreur d'infrastructure que je sais traduire** (violation d'unicité, appel externe) :
+  `catch`, reconnais **le seul cas attendu**, jette un code de domaine, **relance tout le reste**.
+  Helper : `translateUniqueViolation` (`backend/src/lib/catalog.ts`).
+- **Jamais** : avaler une erreur SQL et continuer sur la même transaction. Elle est déjà avortée, la
+  suite échouera ou committera un état faux.
 
-Use only to translate infra-level exceptions that are specific to one feature and don't belong
-in a shared domain error class. Rethrow everything else.
+La règle simple qui remplace « ne pas mélanger les styles » : **une branche attendue se retourne,
+un échec d'infrastructure se relance.** Un même service peut légitimement faire les deux, et
+`admin/moderation.service.ts` le fait avec la raison écrite sur place.
 
-Examples: `uploads/routes.ts`, `products/product-ingredients/routes.ts`,
-`ingredients/ingredient-tags/routes.ts`
+## Contrat wire
 
----
-
-## Rules
-
-1. **Pick one style per feature module and stay consistent within it.** Don't mix A and B for
-   the *same* operation. House norm is pure throw: a single-row read that finds nothing throws
-   `XxxError('..._not_found')` just like a write, so the route stays happy-path. The
-   read-null/write-throw split (reads return `T | null`, route maps the null with `err(...)`) is
-   tolerated but nonstandard: no CRUD entity feature uses it. If you ever do map a null in a
-   route, derive the status via `errorToStatus(code, xxxErrorMapping)`, never a hardcoded constant,
-   so it can't drift from the registry.
-
-2. **Never mix styles within `withRlsContext`.** Any swallowed error breaks the rollback
-   contract. Best-effort writes (`logSecurityEvent`, audit writes) must run off the request tx
-   (pass the base pool (`baseDb`), not `c.get('db')`) or be wrapped in a nested `transaction()`
-   (savepoint) so a failed write can't abort the request tx. Error monitoring belongs in logs and
-   OpenTelemetry/Faro, not in request-local DB writes.
-
-3. **Route structure**:
-   - Validate at the boundary via `zValidator`
-   - Return success with `ok(data)` + appropriate HTTP status constant
-   - Let errors propagate (style A) or return explicitly (style B)
-
----
-
-## Checklist: adding a new domain error code
-
-1. Add the error code type to `shared/src/<feature>/schemas.ts` (or a sibling file)
-2. Add / update the HTTP mapping (`xxxErrorMapping`) in the same shared file
-3. Add / update the domain error class in `backend/src/features/<feature>/<feature>-error.ts`
-4. If using style A: register the mapping in `errorMappingRegistry` inside
-   `backend/src/utils/errors/error-handler.ts`
-5. Add integration tests asserting the HTTP status code and `error` payload field
-
----
-
-## Known registry state (as of 2026-06-09)
-
-| Entry | Status |
-|---|---|
-| `ReportError` | Missing from registry: safe for now (codes fall through to `baseErrorMapping`) |
-
-Update the registry when extending `ReportError` with nonbase codes.
-
----
-
-## Frontend consumption (TanStack Query)
-
-The backend envelope (`{ success: false, error: <code> }` + HTTP status) is consumed in
-`frontend/src/lib/queries/<domain>.ts`. Two rules keep failures recoverable instead of fatal.
-
-### Read queryFns throw `ApiError`, never bare `Error`
-
-The global query retry guard (`frontend/src/lib/queryClient.ts`) skips retries on 4xx:
-`if (isApiError(err) && err.status >= 400 && err.status < 500) return false`. A bare
-`new Error()` carries no `status`, so the guard can't recognise a 429/4xx → React Query
-retries once, doubling failed calls and holding skeletons through the retry cycle.
-
-Read queryFns (inside `queryOptions` / `useQuery`) must therefore:
+`shared/src/core/constants.ts` définit les deux seules enveloppes JSON :
 
 ```ts
-const res = await api.<resource>.$get(...)
-if (!res.ok) throw new ApiError('http_error', res.status)   // status feeds the retry guard
-const json = await res.json()
-return json.data
+type ApiSuccess<T> = { success: true; data: T; message?: string }
+type ApiFailure<E extends string = string, D = unknown> = { success: false; error: E; details?: D }
 ```
 
-Keep the `if (!res.ok) throw` form: TS uses it to narrow `res.json()` to the success variant
-of the Hono RPC union. (`throwIfNotOk` returns `Promise<void>`, so it does NOT narrow; using it
-forces an extra `if (!json.success) throw` to narrow it again.)
+Toujours passer par `ok(data)` et `err(code, details)`, jamais par un littéral.
 
-Both forms satisfy the rule: the `if (!res.ok) throw new ApiError(...)` form above and
-`await throwIfNotOk(res)` + `if (!json.success) throw` (used by `social.ts`, `profile.ts`, the
-code-surfacing reads).
+- Le **code** est le contrat machine, stable. Ne jamais décider sur un message.
+- `publicDetails` devient `details` et traverse le réseau. Rien d'autre ne traverse.
+- `cause` reste serveur, dans la chaîne native de `Error`, pour les logs.
+- Ni SQL, ni payload de fournisseur, ni jeton, ni identifiant interne dans `publicDetails`.
 
-Exempt (leave as-is, don't churn):
-- **Mutations** (`useMutation`/`mutationFn`): not retried (guard is `defaultOptions.queries`
-  only).
-- **Auth probes** `session` / `me` / `health`: already `retry: false`, immune by design.
-- `if (!json.success)` throws: fire on 2xx, not the retry concern.
+Attention : sur une `DomainError`, **`message` vaut le code** (`super(code, { cause })`). Il n'y a pas de message de
+présentation côté backend : les textes utilisateur vivent dans le frontend, par code.
 
-### Loaders: `prefetchQuery` when components own their error UI
+## Statuts
 
-A route `loader` calling `ensureQueryData` **throws** on fetch failure → loader rejects →
-TanStack Router renders the route `errorComponent` (full-page `GlobalError`). When the page's
-components already degrade (own `isError` → `EmptyState`, undefined guards), use `prefetchQuery`:
-it warms the cache without throwing, so a failed fetch falls through to the in-page error UI
-instead of replacing the whole page. Use `ensureQueryData` only when the data is mandatory for
-the route to render at all.
+`baseErrorMapping` porte les sept codes transverses : `invalid_input` 400, `unauthorized` 401,
+`forbidden` 403, `not_found` 404, `rate_limit_exceeded` 429, `server_error` 500, `http_error` 500.
 
-**Coverage (not audited).** Most route loaders use `ensureQueryData`; secondary/degradable fetches use `prefetchQuery`. Many
-`ensureQueryData` uses are correct: the route can't render without the data (a missing product →
-full-page 404 is the right outcome). The risk is a **secondary, degradable** fetch wrongly making
-the page fatal: the `/blog` P0 (a failed category-counts fetch killed the whole page) was exactly
-this, and only `/blog` has been triaged. Any loader fetching more than its one mandatory entity is
-a candidate for `prefetchQuery` + in-page degradation.
+Un domaine déclare son `xxxErrorMapping` à côté de son union de codes, dans
+`shared/src/<domaine>/`. Le mapping est **indexé par code du wire**, jamais par nom de classe :
+renommer une classe backend ne change pas le contrat HTTP.
 
-### Known gap: code collapsed to `http_error`
+**Piège** : pour qu'un code jeté soit mappé, son mapping doit être ajouté **à la main** dans
+`thrownDomainErrorMappingRegistry` (`backend/src/utils/errors/error-handler.ts`). La table fusionnée est
+typée `Record<string, HttpStatus>`, donc un oubli ne casse pas la compilation : le code sort en
+**500 silencieux**. Le test d'exhaustivité de `error-handler.test.ts` rattrape cet oubli : tout nouveau
+`xxxErrorMapping` exporté par `shared` doit être composé, ou classé explicitement parmi les mappings
+sérialisés en route.
 
-Read failures throw `ApiError('http_error', res.status)`: **status kept, the backend's specific
-`error` code discarded**. Fine for reads (generic `EmptyState`). To surface a code (e.g.
-"rate-limited, retry in Ns" from `rate_limit_exceeded` + `retry-after`), route that read through
-`throwIfNotOk(res)` (parses the envelope) and narrow again with `if (!json.success)`.
+## Transactions
 
-**P1 wired 2026-06-17.** The 6 highest-traffic reads (`products`/`ingredients` × `search` +
-`searchInfinite`/`searchFlat` + `list`) now route through `throwIfNotOk`. `frontend/src/lib/
-helpers/apiError.ts` exposes `isRateLimitError` / `rateLimitRetryAfter` / `rateLimitMessage`;
-list pages render `RateLimitEmptyState`, search dropdowns pass `rateLimitMessage` as their
-`errorMessage`. Note `details.retryAfter` is a **string or number** (rateLimiter routes forward the
-`Retry-After` header as a string; profile/export sends seconds as a number) and can be absent: the
-helper coerces both and falls back to a vague delay. P2/P3
-reads deferred.
+`withRlsContext` ouvre une transaction pour les requêtes **authentifiées** seulement, et annule
+quand :
 
-Established 2026-06-17: rate-limit ceiling 100→1000, blog degradation, read-queryFn sweep on all
-domains.
+```ts
+if (c.error || c.res.status >= 400)
+```
 
-### Rate-limit: backend capacity (topology, not a bug)
+Deux conséquences que la lecture naïve rate :
 
-The limiter is **per-IP**, not per-user (`globalRateLimiter` in backend `index.ts`, `keyGenerator:
-rate-global:${clientIp}`, 1000/15min). Generous for one human (normal browse ≈ 5 %, power user ≈
-26 %: hitting the ceiling solo = deliberate abuse). **Real risk = shared IP** (mobile CGNAT,
-office/school NAT): ~18 active browsers on one IP exhaust the budget under normal use. Fix *if*
-shared-IP reports surface = **per-user budget for authed requests** (key on `user.id`, keep IP for
-anon = antiscrape), NOT a higher global ceiling (doesn't fix NAT). `rateLimiter.ts` untouched.
+- il n'est **pas nécessaire de lever** pour annuler : une route qui retourne proprement un 404
+  annule aussi les écritures réussies plus tôt dans la même requête ;
+- une requête anonyme n'a pas de transaction du tout, donc rien à annuler.
 
-### Open items (frontend errors)
+Une écriture best-effort qui doit survivre à l'échec de la requête (audit, journal de sécurité)
+passe par la connexion de base hors transaction, jamais par `requestDb`.
 
-| Item | Status | Pointer |
+## Logs et incidents
+
+- `DomainError` avec un statut < 500 : **aucun log**. C'est voulu, ce sont des branches de contrat.
+- `DomainError` >= 500 : `logger.error` avec le code et le contexte de requête.
+- Erreur étrangère portant un `status` : `info` sous 500, `error` au-dessus. Son message n'est
+  renvoyé au client **qu'en développement**.
+- Erreur inconnue : span OTel marqué, `logger.error`, `server_error` 500, stack en développement
+  seulement.
+
+## Côté client, l'essentiel
+
+- `authFetch` est le seul intercepteur : sur 403 il marque le bannissement, sur 401 il tente un
+  refresh et rejoue. **Il est neutralisé en SSR.**
+- `unwrapData` (réponse enveloppée) et `throwIfNotOk` (204, blob, corps sans enveloppe) produisent
+  une `ApiError` : `code`, `status`, `details`. Comme côté backend, `ApiError.message` vaut le code.
+- Un corps illisible devient `ApiError('http_error', status)`. Ne jamais inventer un code de repli
+  local, ne jamais `throw new Error(message)` après `!res.ok` : cela perd code, statut et détails.
+- `ApiError.details` reste `unknown` : ce qui vient du réseau n'est pas une preuve de type.
+- Retry : aucun sur une `ApiError` 4xx, un seul essai supplémentaire sinon. Les mutations ne sont
+  jamais rejouées.
+- Toute mutation a une `mutationKey` stable. Faro reçoit cette clé, plus le code et le statut des
+  `ApiError`. `handledErrorCodes` exclut seulement les codes que l'écran traite explicitement ;
+  les quatre codes 429 et `banned` sont exclus globalement. Les autres 4xx, les 5xx et les erreurs
+  réseau restent capturés.
+- La présentation est locale à l'écran : une table code vers message, plus un repli neutre.
+
+## Écarts connus
+
+Le contrat ci-dessus décrit la cible. Ces endroits n'y sont pas encore, et le savoir évite de
+prendre un contre-exemple pour la règle :
+
+| Écart | Où | Effet |
 |---|---|---|
-| **Loader resilience**: triage the `ensureQueryData` loaders; move secondary/degradable fetches to `prefetchQuery`/`.catch` so one failed call can't kill the page. | audited + P1 done 2026-06-17: 3 secondary fetches migrated (`admin/reports` + `admin/users_.$userId` `users()` → `prefetchQuery`, `products/` dermo → `.catch`). Discussions twins **kept**: `useSuspenseQuery` can't degrade via a loader `.catch` (throws again at render), and their `errorComponent` is already outlet-scoped. | § Loaders above · `loader-resilience.spec.ts` |
-| **Surface specific read codes**: the `http_error` collapse hides codes like `rate_limit_exceeded` + `retry-after`; route the relevant reads through `throwIfNotOk` to show "retry in Ns". | P1 wired 2026-06-17 (6 search/list reads). P2/P3 deferred. | § Known gap above · `read-code-surfacing.spec.ts` |
-| **Demo logout**: user report "can't log out in demo mode", not reproduced. | needs user clarification | `bugs.md` |
+| Toute erreur convertie en un code métier | `features/blog/service.ts` (`article_delete_failed`) | Une panne DB devient un échec fonctionnel |
+| `Error` nue jetée | `features/auth/refresh-token.service.ts` | Sort en `server_error` 500 |
+| Code hors mapping, statut en dur | `features/health/routes.ts` (`db_unreachable`, 503) | Code inconnu du contrat |
+| Enveloppe construite à la main | `features/security/security.middleware.ts` | Forme correcte, mais contourne `err()` |
+| La probe d'auth jette une `Error` nue | `frontend/src/lib/queries/auth.ts` | Volontaire, mais `isApiError` est faux, statut et code perdus |
+| Upload d'image en XHR brut | `frontend/src/component/ImageUpload/useImageUpload.ts` | Hors `authFetch` et hors `ApiError` : rejoue son propre 401, a sa propre table de messages |
+| `GlobalError` n'affiche jamais le message | `component/Feedback/app/GlobalError/` | L'écran d'erreur ne donne ni code, ni statut, ni message |
 
----
+## Ajouter un code d'erreur
 
-## Security: what's safe to surface (applies to every error, not just auth)
-
-The set of error codes a route emits **is a security boundary**. The HTTP response is public
-(DevTools, `curl`, proxy): filtering an error on the frontend hides nothing. It already crossed
-the wire. So **the backend decides the public code; sensitive distinctions are collapsed
-server-side**, and the real reason stays in logs.
-
-Decide per code: is it an oracle?
-
-- **Existence / ownership oracle** (does this email/user/resource exist? is it mine?) → collapse
-  to a generic code, **equalize timing**, never let the branch be distinguishable (code, status,
-  *or* latency). The asymmetry is the leak, not the message string. And a session-vs-no-session
-  or fast-vs-slow difference leaks just as much as a distinct code.
-- **Not an oracle** (validation 400, not-found on a public resource, generic 500, rate-limit 429)
-  → safe; surface the code.
-
-Rule of thumb: if knowing *which* error occurred tells an unauthenticated attacker something
-about another user's account or data, collapse it. Otherwise show it.
-
-**Worked instances**
-- **Login**: `invalid_credentials` for unknown-email, wrong-password, *and* locked-account;
-  `DUMMY_HASH` keeps timing uniform. `account_locked` removed as a public code.
-- **Signup**: identical neutral `ok({ pending: true })` either way, no session, timing equalized
-  (dummy hash on the existing-email branch), truth delivered by email (`sendAlreadyRegisteredEmail`).
-  Implemented 2026-06-17, [ADR 0009](../adr/0009-signup-enumeration-safe.md). `email_exists` removed
-  from the contract; `/auth/signup` + `/auth/mobile/signup` return 200, no cookie; frontend lands on
-  verify-pending. The 24 h unverified-login grace was kept (back-compat), so login was left untouched.
-- **Forgot/reset-password**: identical neutral `ok({ pending: true })` whether the email exists or
-  not, no session, timing equalized (dummy token hash on the unknown branch) + fire-and-forget reset
-  mail so neither branch awaits the send. Implemented 2026-06-17 (greenfield),
-  [ADR 0010](../adr/0010-forgot-password-enumeration-safe.md). OAuth-only accounts (null
-  `passwordHash`) take the same neutral branch (no token, no mail) so a reset can't reveal the
-  account or graft a password onto a Google login. The reset *confirmation* is
-  deliberately not neutral: distinct `invalid_token` vs `token_expired` (token-holder-only on a
-  2²⁵⁶ space, no enum gain, same as verify-email); a successful reset is treated as proof of inbox
-  control (marks email verified, clears lockout) and rotates credentials (revokes all sessions).
-- **Discussions delete (thread + reply)**: was `403 unauthorized_access` (owned by another)
-  vs `404 not_found` (missing) = existence oracle, and those tables have no RLS. Collapsed by
-  moving the owner check into the DELETE `WHERE id AND author_id` → uniform `..._not_found`; the
-  dead `unauthorized_access` code was dropped. Regression test asserts cross-user ≡ missing.
-- **Profile username**: a unique-username collision propagated as an unhandled `500 server_error`
-  vs `200` = username-existence oracle (leaks even private-profile usernames that the public
-  lookup hides). Now a handled `409 username_taken` (`ProfileError`, caught via `isUniqueViolation`
-  then rethrown so `withRlsContext` still rolls back). Unique usernames inherently reveal
-  taken-ness; usernames are display-public (shown on profiles + discussion authors), so a clean
-  409 is the right resolution, not concealment.
-
-**Cross-cutting audit (2026-06-17)**: every user-data surface swept for existence / ownership /
-uniqueness oracles; each finding adversarially verified.
-
-- *Clean* (ownership folded into the query `WHERE id AND user_id` → uniform 404):
-  collection / user-products / purchases; product-comparisons; reports / suggested-edits /
-  catalog-submissions / role-requests (submit-only or self-scoped).
-- *Fixed this pass*: discussions delete, profile username (above).
-- *Ruled out*: verify-email `invalid_token` vs `token_expired`: only the token holder (2²⁵⁶
-  space) reaches the branch, no cross-user gain; product-create slug collision on a hidden row:
-  LOW, leaks catalog-item existence not user PII, deferred.
-- *Closed*: forgot/reset-password built always-neutral from day one, 2026-06-17 (ADR 0010; see the
-  Forgot/reset-password worked instance). **All known account-enumeration surfaces are now closed**:
-  the unauthenticated set (login, signup, forgot-password) and the authenticated user-data sweep.
+1. Déclarer le code, et le type de ses détails publics, dans `shared/src/<domaine>/`.
+2. Déclarer le mapping HTTP à côté de ce contrat.
+3. Choisir : `throw` d'une sous-classe de `DomainError`, ou `ApiResponse` retournée (voir plus haut).
+4. Si le code est jeté et n'est pas transverse, **l'ajouter à `thrownDomainErrorMappingRegistry`**. Le test
+   d'exhaustivité du handler échoue sinon.
+5. Côté écran, ajouter le message dans la table de l'écran concerné.
+6. Tester le statut, le code et le contenu de `details`.
+7. Tester que la `cause` et les données privées **n'apparaissent pas** dans la réponse.

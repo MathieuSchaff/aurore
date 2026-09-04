@@ -6,34 +6,65 @@ accepted: 2026-06-02
 
 # Hybrid error handling strategy
 
-Both throw-domain + global handler (default) and `ApiResponse` explicit (for semantically distinct error branches) are valid in Aurore's backend. Mixing styles within a single feature module is not. A third style (local route `try/catch` for isolated infra translation) exists in a small number of features and is intentional.
+Aurore accepts three error styles in the backend:
+
+1. domain errors thrown by services and translated by `globalErrorHandler`, the default;
+2. explicit `ApiResponse<T, E>` results for expected branches that are clearer as values;
+3. narrow local `try/catch` blocks when one adapter must translate a specific infrastructure
+   failure, while rethrowing everything else.
+
+The styles may coexist in the repository, but one operation must have one owner for translation.
+A route must not catch an error that the global handler is already responsible for.
 
 ## Why
 
-Two error styles emerged organically as the codebase grew: services throwing typed domain errors (translated by `globalErrorHandler`), and services returning `ApiResponse<T, E>` (mapped inline in routes). A third isolated infra-translation pattern appeared in uploads and ingredient-tags.
+Most CRUD routes are clearest when the service throws a typed `DomainError` and the route contains
+only validation, guards and the success response. Auth and a few administration flows have expected
+branches, such as an invalid token or an already pending request, that read better as explicit
+results. A small number of adapters also need a local infrastructure translation that has no useful
+global meaning.
 
-All DB work inside `withRlsContext` carries a hard invariant: errors must propagate (never be swallowed), because the middleware rolls back on `c.error`.
+Forcing every flow into one style would either add result plumbing to ordinary CRUD or turn normal
+branching into exception control flow. Allowing unconstrained mixing would duplicate status mapping
+and make transaction rollback unreliable.
 
-Without a documented strategy, future features risk mixing styles within a module, breaking the `globalErrorHandler` contract, or silently violating the RLS rollback invariant.
-
-The three styles are codified in `docs/conventions/error-handling.md`.
+The normative contract lives in [`docs/conventions/error-handling.md`](../conventions/error-handling.md).
 
 ## Considered options
 
-- **Throw-only**: eliminates the dual style. Rejected: auth and admin flows use nonexceptional error branches that read more clearly as return values than thrown exceptions.
-- **`ApiResponse`-only**: uniform, but adds boilerplate on every happy-path route. Rejected: throw-domain has lower noise for the majority of CRUD routes.
-- **Per-route `try/catch` everywhere**: maximum explicit control. Rejected: duplicates the status-mapping logic already centralized in `globalErrorHandler`; each new error code requires updates across N route files.
-- **Hybrid**: **Chosen.** Each style valid within its scope; choice made at the feature-module level and held consistently.
+- **Throw only**: rejected because expected auth and administration outcomes become noisy exceptions.
+- **`ApiResponse` only**: rejected because every ordinary route must repeat result branching.
+- **Local `try/catch` everywhere**: rejected because status mapping and serialization spread across
+  route files.
+- **Constrained hybrid**: chosen because each flow uses the smallest clear interface while the wire
+  contract stays uniform.
 
 ## Consequences
 
-**Positive**
-- Uniform JSON error shape: `{ success: false, error: code, details? }` across all routes.
-- HTTP status codes centralized in `errorToStatus` + `baseErrorMapping`.
-- `withRlsContext` rollback is reliable as long as the invariant holds.
-- Frontend can key on `error.code` without parsing message strings.
+- Every JSON failure uses `{ success: false, error, details? }`.
+- Thrown business failures inherit from `DomainError`; a foreign error with a `code` field remains
+  an internal error.
+- HTTP status selection for thrown domain errors is centralized by error code in
+  `thrownDomainErrorMapping` and `baseErrorMapping`, not by subclass name.
+- `publicDetails` may cross the wire; `cause` remains private for logs and diagnostics.
+- Errors inside `withRlsContext` must propagate so the request transaction rolls back.
+- Contributors still choose a style per operation, so the convention and tests are part of the
+  interface.
 
-**Negative**
-- Two valid styles require discipline: contributors must read the convention before adding a feature module.
-- `errorMappingRegistry` must stay in sync when new domain error classes are introduced (checklist in the convention doc).
-- `AuthError` was never registered (auth uses Style B); `ReportError` missing but covered by `baseErrorMapping` codes.
+## Precisions
+
+Reading the decision against the code adds four precisions, all carried by
+[`docs/conventions/error-handling.md`](../conventions/error-handling.md):
+
+1. **A fourth exit exists and predates this ADR**: the `zValidator` hook answers `invalid_input`
+   with 400 by itself and never reaches the global handler. It is the main source of 400 responses
+   in the API.
+2. **"A route must not catch an error the global handler owns" is not held everywhere**:
+   `features/admin/suggested-edits.routes.ts` maps its own domain errors inside the route.
+3. **"Do not throw and return failures for the same operation" needs a sharper wording**: expected
+   branches are returned, infrastructure failures are rethrown. A service may legitimately do both,
+   because catching a constraint violation and returning a value would leave an aborted transaction
+   to commit. `features/admin/moderation.service.ts` states that reason in place.
+4. **"Errors must propagate so the transaction rolls back" is incomplete**: `withRlsContext` rolls
+   back on `c.error` **or** a final status of 400 or more. Returning a clean 404 also discards
+   writes made earlier in the same request.
