@@ -5,7 +5,7 @@
  * (canonicalised slug, copy <old>.webp to <slug>.webp and update image_url), NULLIFY
  * (image lost off Bunny, set image_url = NULL), ORPHAN_CLEANUP (webp with no DB slug
  * and not a rename source, delete it). Required env: BUNNY_STORAGE_ZONE,
- * BUNNY_STORAGE_PASSWORD, APP_DATABASE_URL; IMAGE_CDN_BASE for rename URL rewrite.
+ * BUNNY_STORAGE_PASSWORD, DATABASE_URL; IMAGE_CDN_BASE for rename URL rewrite.
  */
 
 import { readFileSync } from 'node:fs'
@@ -19,12 +19,15 @@ const APPLY = process.argv.includes('--apply')
 const MAPPING_PATH = join(resolveImageOutputDir(), 'image-mapping.json')
 
 const cfg = resolveBunnyConfig()
-const DB_URL = process.env.APP_DATABASE_URL ?? process.env.DATABASE_URL
+// Writes as `app`, never app_runtime: without an `app.role` the products UPDATE policy matches
+// no row, so every rename and nullify logged "ok" on an UPDATE 0 (measured 2026-09-01, visible
+// and hidden products alike). No APP_DATABASE_URL fallback, it would restore that in silence.
+const DB_URL = process.env.DATABASE_URL
 
 const missing = [
   !cfg.zone && 'BUNNY_STORAGE_ZONE',
   !cfg.password && 'BUNNY_STORAGE_PASSWORD',
-  !DB_URL && 'APP_DATABASE_URL',
+  !DB_URL && 'DATABASE_URL',
   !cfg.cdnBase && 'IMAGE_CDN_BASE',
 ].filter(Boolean) as string[]
 if (missing.length > 0) {

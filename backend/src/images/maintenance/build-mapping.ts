@@ -4,7 +4,7 @@
  * Generates output/image-mapping.json from the authoritative CDN inventory (Bunny
  * Storage), cross-checked against DB product slugs. The local images-normalized/ dir
  * is a transient staging area cleaned after upload, so Bunny is the source of truth.
- * Required env: BUNNY_STORAGE_ZONE, BUNNY_STORAGE_PASSWORD, APP_DATABASE_URL (or DATABASE_URL).
+ * Required env: BUNNY_STORAGE_ZONE, BUNNY_STORAGE_PASSWORD, DATABASE_URL.
  * Usage: bun run backend/src/images/maintenance/build-mapping.ts [--dry]
  */
 
@@ -21,12 +21,16 @@ const NORMALIZED_DIR = join(OUTPUT_DIR, 'images-normalized')
 const MAPPING_PATH = join(OUTPUT_DIR, 'image-mapping.json')
 
 const cfg = resolveBunnyConfig()
-const DB_URL = process.env.APP_DATABASE_URL ?? process.env.DATABASE_URL
+// Reads as `app`, never app_runtime and never with an APP_DATABASE_URL fallback: RLS hides
+// masked products from that role, so their Bunny files land in `cdnOrphans`, which
+// fix-broken-refs deletes. Dev on 2026-09-01: 232 orphans as app_runtime against 96 as app,
+// the gap being exactly the 136 hidden products (same signature as audit/bunny.ts).
+const DB_URL = process.env.DATABASE_URL
 
 const missing = [
   !cfg.zone && 'BUNNY_STORAGE_ZONE',
   !cfg.password && 'BUNNY_STORAGE_PASSWORD',
-  !DB_URL && 'APP_DATABASE_URL',
+  !DB_URL && 'DATABASE_URL',
 ].filter(Boolean) as string[]
 if (missing.length > 0) {
   console.error(`missing env: ${missing.join(', ')}`)
