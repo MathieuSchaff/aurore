@@ -6,7 +6,7 @@
 
 import path from 'node:path'
 
-import type { ProductKind, SkincareProductTagSlug } from '@aurore/shared'
+import { PRODUCT_KIND_LABELS, type ProductKind, type SkincareProductTagSlug } from '@aurore/shared'
 
 export const GOLD_SET_SCHEMA_VERSION = '2026-05-08' as const
 
@@ -66,6 +66,14 @@ const FOCUS_TAG_SET: ReadonlySet<string> = new Set(GOLD_SET_FOCUS_TAGS)
 
 export function isGoldSetFocusTag(slug: string): slug is GoldSetFocusTag {
   return FOCUS_TAG_SET.has(slug)
+}
+
+// Keys of a Record the compiler already forces to be exhaustive, so a new kind reaches this guard
+// without a second list to keep in step.
+const PRODUCT_KIND_SET: ReadonlySet<string> = new Set(Object.keys(PRODUCT_KIND_LABELS))
+
+function isProductKind(value: unknown): value is ProductKind {
+  return typeof value === 'string' && PRODUCT_KIND_SET.has(value)
 }
 
 export interface GoldSetAnnotation {
@@ -145,6 +153,14 @@ export function validateGoldSet(value: unknown, path: string): GoldSetFile {
     }
     seen.add(slug)
 
+    // The only field that used to enter on a bare cast: an invented kind then reached the metrics
+    // as a bucket of its own, silently, while every neighbouring field was checked.
+    if (!isProductKind(annotation.kind)) {
+      throw new GoldSetValidationError(
+        `Unknown "kind" "${String(annotation.kind)}" for "${slug}" at ${where}`
+      )
+    }
+
     const present = checkTagList(annotation.present, 'present', where)
     const absent = checkTagList(annotation.absent, 'absent', where)
     const overlap = present.filter((t) => absent.includes(t))
@@ -160,7 +176,7 @@ export function validateGoldSet(value: unknown, path: string): GoldSetFile {
 
     annotations.push({
       productSlug: slug,
-      kind: annotation.kind as ProductKind,
+      kind: annotation.kind,
       category: typeof annotation.category === 'string' ? annotation.category : '',
       present,
       absent,
