@@ -23,19 +23,24 @@ Canonical ADRs for Aurore. This directory is tracked in git.
 | [0016](./0016-tag-reconciliation-stays-per-kernel.md) | Tag reconciliation stays per-kernel; no shared policy module | accepted | 2026-07-23 |
 | [0017](./0017-claim-tags-are-internal-only.md) | Claim-worded tags stay internal-only: computed, audited, never displayed | accepted | 2026-08-12 |
 | [0018](./0018-fresh-role-sourced-once-per-request.md) | The fresh DB role is sourced once per request in `withRlsContext` | accepted | 2026-08-17 |
+| [0019](./0019-boot-capsule-consumed-once.md) | The server hands identity over in a capsule consumed once | accepted | 2026-08-26 |
+| [0020](./0020-session-cookie-reaches-ssr-read-only.md) | The session cookie reaches the server render, and it only ever reads | accepted | 2026-08-27 |
+| [0021](./0021-keep-marked-anonymous-queries-during-pending-adoption.md) | Keep marked anonymous viewer queries during pending session adoption | accepted | 2026-08-28 |
 
 No **0002**: *AutoTag skip events ride trackError as transport* (accepted 2026-05-19) was deleted
 along with the errors feature it named, in `feat(observability): add the Grafana, OTel and Faro
 stack`. The decision still holds, its transport no longer exists: skips leave as a structured
 `logger.warn` from `backend/src/features/auto-tagging/write.ts`, keyed on `AUTOTAG_SKIP_EVENT_KIND`.
 
-Next available: **0019**. Name: `NNNN-short-imperative-verb-phrase.md`.
+**0019** replaced an earlier draft at the same number before it was published; the ADR lists that
+draft as its option C and says which part of it survived.
+
+Next available: **0022**. Name: `NNNN-short-imperative-verb-phrase.md`.
 
 ## Template
 
 ```markdown
 ---
-status: accepted | draft | superseded-by-XXXX
 date: YYYY-MM-DD
 accepted: YYYY-MM-DD
 ---
@@ -48,6 +53,10 @@ One paragraph: what the decision is and its scope.
 
 Context that made this decision non-trivial. Trade-offs that mattered.
 
+## Decision
+
+What is decided. Numbered points when several rules ship together.
+
 ## Considered options
 
 - **A. Option name**: description. Rejected: reason.
@@ -57,6 +66,9 @@ Context that made this decision non-trivial. Trade-offs that mattered.
 
 What changes. Positive and negative effects. Follow-on decisions.
 ```
+
+The ADR status lives only in this index. `accepted` records the acceptance date once one exists;
+omit it beforehand, and never add a `status:` key.
 
 ## When to write an ADR
 
