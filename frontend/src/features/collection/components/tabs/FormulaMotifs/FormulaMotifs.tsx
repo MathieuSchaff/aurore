@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
-import { Eye, Info, Package, Sparkles } from 'lucide-react'
+import { Link } from '@tanstack/react-router'
+import { ChevronDown, Eye, Info, Package, Sparkles } from 'lucide-react'
 
 import { Button } from '@/component/Button/Button'
 import { EmptyState } from '@/component/Feedback/ui/EmptyState/EmptyState'
@@ -121,12 +122,30 @@ function MotifCard({
       <div className="fmotif-list">
         {motifs.length > 0 ? (
           motifs.map((m) => (
-            <div key={m.axis} className="fmotif-item" title={m.samples.join(', ')}>
-              <span className="fmotif-axis">{label(m.axis)}</span>
-              <span className="fmotif-count">
-                {m.count} produit{m.count > 1 ? 's' : ''}
-              </span>
-            </div>
+            // Native details: the count used to live in a title attribute, invisible to a finger
+            // and to a keyboard. The browser gives the expanded state and the key handling here
+            <details key={m.axis} className="fmotif-item">
+              <summary className="fmotif-summary">
+                <span className="fmotif-axis">{label(m.axis)}</span>
+                <span className="fmotif-count">
+                  {m.count} produit{m.count > 1 ? 's' : ''}
+                </span>
+                <ChevronDown size={14} className="fmotif-chev" aria-hidden="true" />
+              </summary>
+              <ul className="fmotif-products">
+                {m.products.map((product) => (
+                  <li key={product.slug}>
+                    <Link
+                      to="/products/$slug"
+                      params={{ slug: product.slug }}
+                      className="fmotif-product-link"
+                    >
+                      {product.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </details>
           ))
         ) : (
           <p className="fmotif-empty">{emptyText}</p>

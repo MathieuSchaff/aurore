@@ -171,4 +171,23 @@ describe('getCollectionFormulaMotifs', () => {
     // avoided excluded, so no axis can reach 3.
     expect(motifs.notes.every((n) => n.count <= 2)).toBe(true)
   })
+
+  // The screen has to answer "which ones", so every product is listed, not a sample of three,
+  // and each carries the slug its link needs.
+  it('lists every product behind a motif, with its slug', async () => {
+    for (const name of ['motif-all-a', 'motif-all-b', 'motif-all-c', 'motif-all-d']) {
+      await shelveProduct(name, { inci: MOTIF_INCI })
+    }
+
+    const motifs = await formulaMotifs(user.id)
+    const hydrating = motifs.benefits.find((b) => b.axis === 'hydrating')
+
+    expect(hydrating).toBeDefined()
+    expect(hydrating?.count).toBe(4)
+    expect(hydrating?.products).toHaveLength(4)
+    expect(hydrating?.products.every((p) => p.slug.length > 0)).toBe(true)
+    expect(new Set(hydrating?.products.map((p) => p.name))).toEqual(
+      new Set(['motif-all-a', 'motif-all-b', 'motif-all-c', 'motif-all-d'])
+    )
+  })
 })
