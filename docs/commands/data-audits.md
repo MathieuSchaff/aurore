@@ -65,7 +65,7 @@ typed after the recipe name, and `just --usage <recipe>` prints them.
 | Trap | Detail |
 | :--- | :--- |
 | The drift check measures algo-derm alone | It reads `detectAutoTags`, not `detectAllAutoTags`. A tag set to `allow:false` disappears from the measurement instead of failing |
-| A baseline is only valid against its own DB | Re-cut it on the current database before comparing a bump |
+| A baseline is only valid against its own DB | Cut it again on the current database before comparing a bump |
 
 ## Explaining one product
 

@@ -1,5 +1,4 @@
 ---
-status: accepted
 date: 2026-05-18
 accepted: 2026-05-19
 ---
@@ -12,13 +11,13 @@ The auto-tagging orchestrator (`backend/src/features/auto-tagging/orchestrator.t
 
 The current shape is a leaky seam. The orchestrator carries 21 hardcoded `'formula'` literals plus per-pass relevance defaults, which means adding or relabelling a pass means editing the orchestrator. Passes also coordinate via shared mutable state (`seenSlugs`) that only one post-pass actually reads, and the pass-1 algo-derm `topConcernConfidence` value is tracked inside the orchestrator's pass-1 loop instead of travelling with the proposal it belongs to.
 
-Pulling metadata onto the proposal makes each pass self-describing: the test surface becomes `Pass.run(ctx, prior) → AutoTagProposal[]`, and the orchestrator collapses to "hoist context → reduce passes → post-promote". Peau-normale stops being a special post-pass: it just reads `prior`.
+Pulling metadata onto the proposal makes each pass self-describing: the test surface becomes `Pass.run(ctx, prior)` returning `AutoTagProposal[]`, and the orchestrator collapses to three steps: hoist context, reduce passes, post-promote. Peau-normale stops being a special post-pass: it just reads `prior`.
 
 ## Considered options
 
 - **A. Keep slug-emitting detectors, orchestrator owns `(relevance, source)`.** Detectors stay terse, but the orchestrator keeps 21 `'secondary'/'formula'` call sites and cannot be reduced to a uniform pass loop. The leakiness we set out to fix stays.
 - **B. Each pass returns `AutoTagProposal[]` with self-declared metadata.** **Chosen.** Uniform pass interface enables `passes.reduce(...)`; source/relevance ownership lives with the pass that knows them.
-- **B2. Split `source: 'formula'` into finer subsources** (`formula-texture`, `formula-occlusif`, ...). Rejected: `AutoTagSource` is persisted downstream (`backfill/main.ts:264` stats record, `audit/orchestrator-diff.ts` CSV column 5). Renaming is a contract migration that does not belong in an ownership refactor.
+- **B2. Split `source: 'formula'` into finer subsources** (`formula-texture`, `formula-occlusif`, ...). Rejected: `AutoTagSource` is persisted downstream (the backfill stats record, the audit CSV). Renaming is a contract migration that does not belong in an ownership refactor.
 
 ## Consequences
 

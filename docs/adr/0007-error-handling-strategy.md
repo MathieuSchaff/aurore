@@ -1,5 +1,4 @@
 ---
-status: accepted
 date: 2026-06-02
 accepted: 2026-06-02
 ---

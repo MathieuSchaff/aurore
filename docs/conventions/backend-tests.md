@@ -1,13 +1,6 @@
----
-title: Règles tests backend
-status: canonical
-scope: backend/src/**/*.test.ts
-runner: bun:test
----
-
 # Règles tests backend (Aurore)
 
-À lire **avant** de créer ou modifier un fichier `*.test.ts` côté backend. Convention stabilisée 2026-05-22 après audit + 6 commits sur `main`. Lint pre-commit te rattrape si tu oublies.
+À lire **avant** de créer ou modifier un fichier `*.test.ts` côté backend (runner `bun:test`). Le lint pre-commit te rattrape si tu oublies.
 
 ---
 
@@ -41,7 +34,7 @@ Validation rapide qu'il est vraiment pur :
 cd backend && DATABASE_URL=bogus://nope bun test mon-fichier.test.ts
 ```
 
-Si la commande passe → pur. Si elle plante au boot → DB encore couplée, à débugger.
+Si la commande passe, le fichier est pur. Si elle plante au boot, la DB est encore couplée, à débugger.
 
 ## 2. Test qui touche DB = opt-in explicite
 
@@ -94,25 +87,10 @@ construction.
 Ne convertis pas un self-cleaner sans raison, mais si tu le fais, place `setupDbTests()` en tête de
 fichier et vérifie le compte de tests avant/après.
 
-Liste des self-cleaners restants (référence, régénérable : un test qui appelle `cleanDatabase()` sans `setupDbTests()`) :
+Pour lister les self-cleaners restants (un test qui appelle `cleanDatabase()` sans `setupDbTests()`) :
 
-```
-db/seed/utils/batch.test.ts
-features/auth/tests/auth.demo.test.ts
-features/auto-tagging/tests/auto-tag-eczema-withholding.test.ts
-features/auto-tagging/tests/auto-tag-manual-overlap.test.ts
-features/auto-tagging/tests/auto-tag-skip.test.ts
-features/auto-tagging/tests/auto-tag-stale-cleanup.test.ts
-features/auto-tagging/tests/auto-tag-write-tx.test.ts
-features/auto-tagging/tests/reconcile-parity.test.ts
-features/auto-tagging/tests/tx-delete-row-count.test.ts
-features/dermo-score/tests/dermo-score.service.test.ts
-features/product-comparisons/tests/product-comparisons.service.test.ts
-features/products/tests/formula-preview.test.ts
-features/security/tests/security.service.test.ts
-features/user-products/tests/public-reviews.test.ts
-features/user-products/tests/purchases.test.ts
-features/user-products/tests/user.products.test.ts
+```bash
+cd backend && grep -rL 'setupDbTests' $(grep -rl 'cleanDatabase()' src --include='*.test.ts')
 ```
 
 ## 4. RLS / multi-rôle = `src/tests/integration/`
@@ -132,13 +110,13 @@ Deux régressions classiques dans les tests DB :
 | Violation | Cas |
 |---|---|
 | Test touche DB sans `setupDbTests` ni clean local | Symboles détectés : `testDb`, `createTestClient`, `createTestApp`, `cleanDatabase`, `new SQL(` |
-| Test importe `setupDbTests` mais ne touche pas DB | Dead opt-in → soit retirer l'import, soit ajouter l'usage DB |
+| Test importe `setupDbTests` mais ne touche pas DB | Dead opt-in : retirer l'import, ou ajouter l'usage DB |
 
 Critère par **symbole**, pas par chemin. Couvre les re-exports locaux (`auth-test.setup.ts`).
 
 ## 6. Note `createTestUser`
 
-`createTestUser` coûte ~1 ms en test (bcrypt cost=4 sous `NODE_ENV=test`), pas 71 ms (argon2id prod). Ne pas optimiser en bypassant `signup()` : la perf est déjà là, garder le flow réel `signup → hash → store` (le signup n'émet plus de JWT, ADR 0009).
+`createTestUser` coûte ~1 ms en test (bcrypt cost=4 sous `NODE_ENV=test`), pas 71 ms (argon2id prod). Ne pas optimiser en bypassant `signup()` : la perf est déjà là, garder le flow réel `signup → hash → store` (le signup n'émet plus de JWT, [ADR-0009](../adr/0009-signup-enumeration-safe.md)).
 
 Production reste sur argon2id default, gate par `process.env.NODE_ENV === 'test'` dans `backend/src/features/auth/service.ts`.
 
@@ -146,9 +124,9 @@ Production reste sur argon2id default, gate par `process.env.NODE_ENV === 'test'
 
 ## Interdits
 
-- Snapshots backend (algo-derm évolue → faux positifs garantis). `toEqual` lisible > snapshot fragile.
+- Snapshots backend (algo-derm évolue, faux positifs garantis). `toEqual` lisible > snapshot fragile.
 - Renommage `*.unit.test.ts` / `*.db.test.ts`. Critère "import db-setup" suffit, grepable.
-- `console.log` / `warn` / `debug` dev cruft dans les `.test.ts`. Sweep complet 2026-05-22 doit rester vert :
+- `console.log` / `warn` / `debug` dev cruft dans les `.test.ts`. Ce grep doit rester vide :
   ```bash
   rg 'console\.(log|warn|debug)' backend/src --type ts -g '*.test.ts'
   ```

@@ -28,8 +28,8 @@ Canonical ADRs for Aurore. This directory is tracked in git.
 | [0021](./0021-keep-marked-anonymous-queries-during-pending-adoption.md) | Keep marked anonymous viewer queries during pending session adoption | accepted | 2026-08-28 |
 
 No **0002**: *AutoTag skip events ride trackError as transport* (accepted 2026-05-19) was deleted
-along with the errors feature it named, in `feat(observability): add the Grafana, OTel and Faro
-stack`. The decision still holds, its transport no longer exists: skips leave as a structured
+along with the errors feature it named when the observability stack (Grafana, OTel, Faro) replaced
+it. The decision still holds, its transport no longer exists: skips leave as a structured
 `logger.warn` from `backend/src/features/auto-tagging/write.ts`, keyed on `AUTOTAG_SKIP_EVENT_KIND`.
 
 **0019** replaced an earlier draft at the same number before it was published; the ADR lists that
@@ -51,7 +51,7 @@ One paragraph: what the decision is and its scope.
 
 ## Why
 
-Context that made this decision non-trivial. Trade-offs that mattered.
+Context that made this decision hard. Trade-offs that mattered.
 
 ## Decision
 
