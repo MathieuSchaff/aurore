@@ -1,6 +1,7 @@
 import type { PreferenceTargets } from '@aurore/shared'
 
 import { Link } from '@tanstack/react-router'
+import clsx from 'clsx'
 import { Bookmark, ChevronDown, GitMerge, Info, Scale, Sparkles } from 'lucide-react'
 import { useId, useMemo, useState } from 'react'
 
@@ -58,6 +59,10 @@ interface FormulaReadingProps {
   // Driver labels below are parsed from products.inci and diverge from it, so a
   // rule declared on a driver could hide this very product.
   linkedIngredients: readonly LinkedIngredient[]
+  className?: string
+  // h2 under the catalogue page's h1; h3 inside the collection sheet, whose
+  // dialog title is already the h2
+  headingLevel?: 'h2' | 'h3'
 }
 
 // Surfaces the algo-derm assessment: signals and their reason, never a score or
@@ -68,9 +73,12 @@ export function FormulaReading({
   profileSlugs,
   linkedIngredients,
   preferenceTargets,
+  className,
+  headingLevel = 'h2',
 }: FormulaReadingProps) {
   const [declareOpen, setDeclareOpen] = useState(false)
   const declareListId = useId()
+  const Subhead = headingLevel === 'h2' ? 'h3' : 'h4'
 
   const relevantAxes = useMemo(() => {
     const axes = new Set<RiskAxis>()
@@ -155,27 +163,27 @@ export function FormulaReading({
     .filter((phrase): phrase is string => !!phrase)
 
   return (
-    <section className="formula-reading product-section">
-      <SectionHeader title="Lecture de la formule" as="h2" />
+    <section className={clsx('formula-reading', className)}>
+      <SectionHeader title="Lecture de la formule" as={headingLevel} />
 
       {!hasSignal && <p className="formula-reading__empty">{NO_SIGNAL_PHRASE}</p>}
 
       {avoidedNames.length > 0 && (
         <div className="formula-reading__group">
-          <h3 className="formula-reading__subhead">
+          <Subhead className="formula-reading__subhead">
             <Bookmark size={13} aria-hidden="true" />
             {AVOIDED_HEADING}
-          </h3>
+          </Subhead>
           <p className="formula-reading__explainer">{avoidedInFormulaPhrase(avoidedNames)}</p>
         </div>
       )}
 
       {benefitDrivers.length > 0 && (
         <div className="formula-reading__group">
-          <h3 className="formula-reading__subhead">
+          <Subhead className="formula-reading__subhead">
             <Sparkles size={13} aria-hidden="true" />
             Points forts
-          </h3>
+          </Subhead>
           <ul role="list" className="formula-reading__list">
             {benefitDrivers.map((d) => {
               const phrase = (d.axes as BenefitAxis[])
@@ -198,7 +206,7 @@ export function FormulaReading({
 
       {drivers.length > 0 && (
         <div className="formula-reading__group">
-          <h3 className="formula-reading__subhead">À noter dans cette formule</h3>
+          <Subhead className="formula-reading__subhead">À noter dans cette formule</Subhead>
           <ul role="list" className="formula-reading__list">
             {drivers.map((d) => {
               const axes = d.axes as RiskAxis[]
@@ -227,7 +235,7 @@ export function FormulaReading({
 
       {ingredientSignalLines.length > 0 && (
         <div className="formula-reading__group">
-          <h3 className="formula-reading__subhead">Repères de composition</h3>
+          <Subhead className="formula-reading__subhead">Repères de composition</Subhead>
           <p className="formula-reading__explainer">
             Ces repères décrivent la composition. Ils restent séparés de la lecture cutanée.
           </p>
@@ -244,10 +252,10 @@ export function FormulaReading({
 
       {regulatoryLines.length > 0 && (
         <div className="formula-reading__group">
-          <h3 className="formula-reading__subhead">
+          <Subhead className="formula-reading__subhead">
             <Scale size={13} aria-hidden="true" />
             Cadre réglementaire
-          </h3>
+          </Subhead>
           <p className="formula-reading__explainer">
             Restrictions et interdictions officielles applicables à certains ingrédients.
           </p>
@@ -264,10 +272,10 @@ export function FormulaReading({
 
       {interactionLines.length > 0 && (
         <div className="formula-reading__group">
-          <h3 className="formula-reading__subhead">
+          <Subhead className="formula-reading__subhead">
             <GitMerge size={13} aria-hidden="true" />
             Interactions
-          </h3>
+          </Subhead>
           <ul role="list" className="formula-reading__list">
             {interactionLines.map((i) => (
               <li key={i.id} className="formula-reading__item">

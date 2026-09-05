@@ -1,4 +1,4 @@
-import { type ProductDetail, resolveAvoidSlugs } from '@aurore/shared'
+import type { ProductDetail } from '@aurore/shared'
 
 import { useSuspenseQuery } from '@tanstack/react-query'
 import { getRouteApi, Link } from '@tanstack/react-router'
@@ -11,16 +11,18 @@ const Markdown = lazy(() => import('react-markdown'))
 import { Button } from '@/component/Button/Button'
 import { Badge } from '@/component/DataDisplay/Badge/Badge'
 import { ShowMoreButton } from '@/component/DataDisplay/ShowMoreButton/ShowMoreButton'
-import { FormMessage } from '@/component/Feedback/ui/FormMessage/FormMessage'
 import { IconBox } from '@/component/Layout/IconBox/IconBox'
 import { RichText } from '@/component/Typography/RichText/RichText'
 import { SectionHeader } from '@/component/Typography/SectionHeader/SectionHeader'
-import { SKIN_CONCERN_LABELS, SKIN_TYPE_LABELS } from '@/constants/skin'
 import { FormulaConcentrations } from '@/features/products/components/FormulaConcentrations/FormulaConcentrations'
 import { FormulaProfile } from '@/features/products/components/FormulaProfile/FormulaProfile'
 import { FormulaReading } from '@/features/products/components/FormulaReading/FormulaReading'
 import { ProductSummary } from '@/features/products/components/ProductSummary/ProductSummary'
-import { tagLabel } from '@/features/products/filters'
+import {
+  deriveProfileWarnings,
+  ProfileWarnings,
+  profileLabel,
+} from '@/features/products/components/ProfileWarnings/ProfileWarnings'
 import { deriveKpChips } from '@/features/products/kp-chips'
 import { portraitSlugs } from '@/features/profile/portrait-slugs'
 import { useCopyToClipboard } from '@/hooks/useCopyToClipboard'
@@ -41,33 +43,6 @@ function formatConcentration(
   if (unit) result += ` ${unit}`
   if (per) result += ` / ${per}`
   return result
-}
-
-function profileLabel(slug: string): string {
-  return (
-    SKIN_TYPE_LABELS[slug as keyof typeof SKIN_TYPE_LABELS] ??
-    SKIN_CONCERN_LABELS[slug as keyof typeof SKIN_CONCERN_LABELS] ??
-    tagLabel(slug)
-  )
-}
-
-function ProfileWarnings({ warnings }: { warnings: ProductDetail['tags'] }) {
-  if (warnings.length === 0) return null
-  return (
-    <FormMessage variant="warning">
-      <strong>Peut ne pas convenir à votre profil cutané.</strong>{' '}
-      <span>
-        Concerne :{' '}
-        {warnings.map((warning, index) => (
-          <span key={warning.tagSlug}>
-            {index > 0 && ', '}
-            {profileLabel(warning.tagSlug)}
-          </span>
-        ))}
-        .
-      </span>
-    </FormMessage>
-  )
 }
 
 function KpProfileBridge({ chips }: { chips: ReturnType<typeof deriveKpChips> }) {
@@ -232,14 +207,10 @@ export function ProductInfoTab() {
     [viewerId, dermoProfile]
   )
 
-  // Same bridge as listProducts: user concern vocab and product tag vocab drifted
-  // apart, so a raw comparison only lights the slugs spelled the same in both.
-  // `profileSlugs` stays raw: deriveKpChips and FormulaReading key on user vocab.
-  const avoidSlugs = useMemo(() => new Set(resolveAvoidSlugs([...profileSlugs])), [profileSlugs])
-
+  // `profileSlugs` stays raw: deriveKpChips and FormulaReading key on user vocab
   const warnings = useMemo(
-    () => product.tags.filter((t) => t.relevance === 'avoid' && avoidSlugs.has(t.tagSlug)),
-    [avoidSlugs, product.tags]
+    () => deriveProfileWarnings(product.tags, profileSlugs),
+    [product.tags, profileSlugs]
   )
 
   // KP bridge, the positive mirror of `warnings`: surfaced live for a declared-KP
@@ -264,6 +235,7 @@ export function ProductInfoTab() {
 
       {product.inci && (
         <FormulaReading
+          className="product-section"
           assessment={assessment}
           viewerId={viewerId}
           profileSlugs={profileSlugs}
