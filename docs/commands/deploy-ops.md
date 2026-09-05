@@ -42,8 +42,10 @@ Only configuration is synced by a deploy: the code ships as a prebuilt CI image.
 
 ## Data fixes
 
-A one-off catalogue correction is an idempotent SQL file, never a raw `UPDATE`: a raw update
-skips INCI cleaning and auto-tag re-emission.
+A one-off catalogue correction is an idempotent SQL file, never a raw `UPDATE` typed at a psql
+prompt: the file is replayable, reviewable in dev before prod, and archived once applied. It buys
+nothing on the derivation side, since `db-fix` is plain psql too and skips INCI cleaning and
+auto-tag re-emission exactly the same way. That is what the `-- Re-derive:` header line is for.
 
 Route the defect before writing the file: a row a runner recomputes (linker links, auto-tags,
 `canonical_key`, dermo profiles) is never patched by SQL. Fix the emitter and derive it again, or the

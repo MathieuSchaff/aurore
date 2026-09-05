@@ -75,5 +75,6 @@ A slug is a catalogue row; a `canonical_key` is a substance. Two rows can delibe
 key: `-hair` shadows, and English/French pairs.
 
 **Trap.** A one-off catalogue data correction is an idempotent SQL file applied with `just db-fix`,
-not a raw `UPDATE`: a raw update short-circuits INCI cleaning and auto-tag re-emission. See
-[deploy-ops.md](deploy-ops.md).
+not a raw `UPDATE` typed at a prompt: replayable in dev then prod, and archived once applied. Either
+way the SQL bypasses INCI cleaning and auto-tag re-emission, so the `-- Re-derive:` header names the
+runner to replay. See [deploy-ops.md](deploy-ops.md).
