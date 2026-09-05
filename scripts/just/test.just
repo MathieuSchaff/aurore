@@ -4,9 +4,7 @@ TEST_DB_URL     := "postgres://app:testpassword@localhost:5433/appdb_test"
 APP_TEST_DB_URL := "postgres://app_runtime:testpassword@localhost:5433/appdb_test"
 
 # Naming convention:
-#   no "-dev" suffix → recipe brings the test DB up first (safe, slower).
-#   "-dev" suffix    → recipe assumes the DB is already up (fast inner loop).
-#   args=""          → optional filter passed to `bun test` (e.g. `just test-backend auth`).
+#   args="" → optional filter passed to the runner (e.g. `just test-backend auth`).
 
 # ─────────────────────────── DB lifecycle ───────────────────────────
 
@@ -58,21 +56,16 @@ test-backend args="": test-db-up
     DATABASE_URL={{TEST_DB_URL}} APP_DATABASE_URL={{APP_TEST_DB_URL}} bun --cwd ./backend test {{args}}
     @printf "{{GREEN}}✓ Backend tests done{{NC}}\n"
 
-[doc('Run frontend tests')]
+[doc('Run frontend tests: no DB (happy-dom), optional filter')]
 [group('test')]
-test-frontend:
-    cd frontend && bunx vitest run
+test-frontend args="":
+    cd frontend && bunx vitest run {{args}}
     @printf "{{GREEN}}✓ Frontend tests done{{NC}}\n"
-
-[doc('Run backend tests: DB assumed up, optional filter (fast inner loop)')]
-[group('test')]
-test-dev args="":
-    cd backend && DATABASE_URL={{TEST_DB_URL}} APP_DATABASE_URL={{APP_TEST_DB_URL}} bun test {{args}}
 
 # ─────────────────────────── Watch ───────────────────────────
 
-# The DB cost is paid once at startup, not per iteration, so unlike the run-once
-# recipes, a watch has no reason to split into "-dev" and non-"-dev" variants.
+# `keep` here spares the DB of a concurrent run; a watch reuses what is already
+# migrated instead of recreating it under another session's feet.
 [doc('Watch backend tests: reuses a running test DB, optional filter')]
 [group('test')]
 test-watch args="":
@@ -89,8 +82,8 @@ test-backend-coverage args="": test-db-up
 
 [doc('Frontend coverage (lcov) → frontend/coverage/')]
 [group('test')]
-test-frontend-coverage:
-    cd frontend && bunx vitest run --coverage
+test-frontend-coverage args="":
+    cd frontend && bunx vitest run --coverage {{args}}
     @printf "{{GREEN}}✓ Frontend coverage written to frontend/coverage/{{NC}}\n"
 
 # ──────────────── Perf regression guard (baseline cleanDatabase = 903, must not rise) ────────────────
