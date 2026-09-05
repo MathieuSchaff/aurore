@@ -1,4 +1,4 @@
-import { fireEvent, screen } from '@testing-library/react'
+import { fireEvent, screen, within } from '@testing-library/react'
 import { HttpResponse, http } from 'msw'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
@@ -96,6 +96,28 @@ describe('DermoProfileForm', () => {
     expect(
       await screen.findByText('Une erreur est survenue lors de la sauvegarde.')
     ).toBeInTheDocument()
+  })
+
+  it('groups the concerns under the product tag they feed', async () => {
+    renderWithProviders(<DermoProfileForm />)
+
+    const rougeurs = await screen.findByRole('group', { name: 'Rougeurs' })
+    expect(within(rougeurs).getByRole('button', { name: 'Rosacée' })).toBeInTheDocument()
+    expect(
+      within(screen.getByRole('group', { name: 'Autres' })).getByRole('button', { name: 'Eczéma' })
+    ).toBeInTheDocument()
+  })
+
+  // Each family edits its own subset; the saved list must still carry the others
+  it('keeps the other families when a nuance is toggled', async () => {
+    const mutate = setMutation()
+    serveDermo({ skinConcerns: ['anti-acne'] })
+    renderWithProviders(<DermoProfileForm />)
+
+    fireEvent.click(await screen.findByRole('button', { name: 'Rosacée' }))
+    fireEvent.click(screen.getByRole('button', { name: 'Enregistrer' }))
+
+    expect(mutate.mock.calls[0][0].skinConcerns).toEqual(['rosacee', 'anti-acne'])
   })
 
   it('associates section descriptions and the character hint with their controls', async () => {
