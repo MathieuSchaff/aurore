@@ -11,9 +11,10 @@ export function useTokenRefresh() {
   useEffect(() => {
     if (!tokenExpiresAt) return
 
-    // A hidden tab refreshes nothing: it was the site's busiest POST endpoint, ~70 calls a day on
-    // a tab merely left open. The visibility listener below picks the session back up on return,
-    // and a request that races the gap still recovers through the 401 replay path.
+    // A hidden tab refreshes nothing: a tab merely left open kept this firing around the clock,
+    // which made it the site's busiest POST endpoint. The visibility listener below picks the
+    // session back up on return, and a request that races the gap still recovers through the
+    // 401 replay path
     const refreshIfVisible = () => {
       if (document.visibilityState === 'visible') ensureFresh(queryClient)
     }
@@ -30,7 +31,7 @@ export function useTokenRefresh() {
   }, [tokenExpiresAt, queryClient])
 
   // Background tabs throttle timers, so refresh before focus queries resume. Due, not just
-  // expired: a tab coming back after its proactive slot passed has no other trigger left.
+  // expired: a tab coming back after its proactive slot passed has no other trigger left
   useEffect(() => {
     function handleVisible() {
       if (document.visibilityState !== 'visible') return

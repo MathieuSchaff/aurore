@@ -75,7 +75,7 @@ test-watch args="":
 # ──────────────── Coverage (the frontend one feeds fallow health --coverage) ────────────────
 
 # lcov only: bun has no Istanbul reporter, and `fallow --coverage` parses Istanbul JSON alone, so
-# this output reads in a browser but never feeds fallow. Only the frontend recipe below does.
+# this output reads in a browser but never feeds fallow. Only the frontend recipe below does
 [doc('Backend coverage (lcov) → backend/coverage/')]
 [group('test')]
 test-backend-coverage args="": test-db-up
