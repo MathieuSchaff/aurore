@@ -90,6 +90,23 @@ export async function getUnverifiedEmail(
   return row.email
 }
 
+export async function getUnverifiedRecipientByToken(db: Database, rawToken: string) {
+  const [row] = await db
+    .select({ userId: emailVerifications.userId, email: usersSafe.email })
+    .from(emailVerifications)
+    .innerJoin(usersSafe, eq(usersSafe.id, emailVerifications.userId))
+    .where(
+      and(
+        eq(emailVerifications.tokenHash, hashToken(rawToken)),
+        isNull(emailVerifications.usedAt),
+        isNull(usersSafe.emailVerifiedAt)
+      )
+    )
+    .limit(1)
+
+  return row ?? null
+}
+
 export async function hasVerifiedEmail(db: Database, userId: string): Promise<boolean> {
   const [row] = await db
     .select({ emailVerifiedAt: usersSafe.emailVerifiedAt })
