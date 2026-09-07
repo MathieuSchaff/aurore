@@ -55,10 +55,8 @@ async function runJobs(jobs: Job[], concurrency: number) {
   }
   console.log(`→ ${jobs.length} jobs, concurrency=${concurrency}, ${args.dry ? 'DRY' : 'APPLY'}`)
 
-  const sql =
-    args.dry || args.noDb
-      ? null
-      : new SQL(process.env.APP_DATABASE_URL ?? (process.env.DATABASE_URL as string))
+  // `app` like ./lib, the reason lives there
+  const sql = args.dry || args.noDb ? null : new SQL(process.env.DATABASE_URL as string)
   const baseOpts = {
     dry: args.dry,
     ...(sql ? { sql } : {}),
