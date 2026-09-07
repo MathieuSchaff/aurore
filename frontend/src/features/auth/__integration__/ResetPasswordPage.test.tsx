@@ -2,6 +2,7 @@ import { screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
+import { ApiError } from '../../../lib/helpers/apiError'
 import { renderWithProviders } from '../../../test/utils'
 
 const navigateMock = vi.fn()
@@ -99,7 +100,9 @@ describe('ResetPasswordPage', () => {
   })
 
   it('shows the invalid-token message when the server rejects the token', async () => {
-    setMutationResult({ onMutate: (_d, opts) => opts.onError?.(new Error('invalid_token')) })
+    setMutationResult({
+      onMutate: (_d, opts) => opts.onError?.(new ApiError('invalid_token', 400)),
+    })
     renderWithProviders(<ResetPasswordPage />)
     await fillForm()
 
@@ -107,7 +110,9 @@ describe('ResetPasswordPage', () => {
   })
 
   it('shows the expired-token message with a link to request a new one', async () => {
-    setMutationResult({ onMutate: (_d, opts) => opts.onError?.(new Error('token_expired')) })
+    setMutationResult({
+      onMutate: (_d, opts) => opts.onError?.(new ApiError('token_expired', 400)),
+    })
     renderWithProviders(<ResetPasswordPage />)
     await fillForm()
 
