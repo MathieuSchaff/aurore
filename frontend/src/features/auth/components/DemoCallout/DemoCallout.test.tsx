@@ -1,4 +1,4 @@
-import { screen } from '@testing-library/react'
+import { screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
@@ -11,15 +11,14 @@ vi.mock('@tanstack/react-router', async () => ({
   useNavigate: () => navigateMock,
 }))
 
-type MutateOpts = { onSuccess?: () => void; onError?: (e: Error) => void }
-const demoMutate = vi.fn()
+const demoMutateAsync = vi.fn()
 let demoIsPending = false
 
 vi.mock('../../../../lib/queries/auth', async (importOriginal) => {
   const actual = await importOriginal<typeof import('../../../../lib/queries/auth')>()
   return {
     ...actual,
-    useDemo: () => ({ mutate: demoMutate, isPending: demoIsPending }),
+    useDemo: () => ({ mutateAsync: demoMutateAsync, isPending: demoIsPending }),
   }
 })
 
@@ -28,29 +27,30 @@ import { DemoCallout } from './DemoCallout'
 describe('DemoCallout', () => {
   beforeEach(() => {
     navigateMock.mockReset()
-    demoMutate.mockReset()
+    demoMutateAsync.mockReset()
     demoIsPending = false
   })
 
   it('navigates to /collection on success', async () => {
-    demoMutate.mockImplementation((_input: undefined, opts: MutateOpts) => opts.onSuccess?.())
+    demoMutateAsync.mockResolvedValue(undefined)
     renderWithProviders(<DemoCallout />)
 
     await userEvent.setup().click(screen.getByRole('button', { name: /Essayer la démo/ }))
 
-    expect(demoMutate).toHaveBeenCalledOnce()
-    expect(navigateMock).toHaveBeenCalledWith({ to: '/collection' })
+    expect(demoMutateAsync).toHaveBeenCalledOnce()
+    await waitFor(() => expect(navigateMock).toHaveBeenCalledWith({ to: '/collection' }))
   })
 
-  it('does not navigate when the mutation fails', async () => {
-    demoMutate.mockImplementation((_input: undefined, opts: MutateOpts) =>
-      opts.onError?.(new Error('server_error'))
-    )
+  it('does not navigate and re-enables the button when the mutation fails', async () => {
+    demoMutateAsync.mockRejectedValue(new Error('server_error'))
     renderWithProviders(<DemoCallout />)
 
     await userEvent.setup().click(screen.getByRole('button', { name: /Essayer la démo/ }))
 
-    expect(demoMutate).toHaveBeenCalledOnce()
+    expect(demoMutateAsync).toHaveBeenCalledOnce()
+    await waitFor(() =>
+      expect(screen.getByRole('button', { name: /Essayer la démo/ })).not.toBeDisabled()
+    )
     expect(navigateMock).not.toHaveBeenCalled()
   })
 

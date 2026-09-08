@@ -8,15 +8,17 @@ export function useStartDemo() {
   const navigate = useNavigate()
   const [redirecting, setRedirecting] = useState(false)
 
-  const startDemo = () =>
-    demo.mutate(undefined, {
-      onSuccess: () => {
-        setRedirecting(true)
-        // Stay in the SPA: the first protected-route check needs the access
-        // token returned by the demo request
-        navigate({ to: '/collection' })
-      },
-    })
+  const startDemo = () => {
+    setRedirecting(true)
+    // Not a mutate() callback: those are dropped when the caller unmounts, and the
+    // home swaps HomeMarketing for the hub as soon as the session installs, before
+    // the redirect had a chance to run. Stay in the SPA: the first protected-route
+    // check needs the access token returned by the demo request.
+    demo.mutateAsync(undefined).then(
+      () => navigate({ to: '/collection' }),
+      () => setRedirecting(false)
+    )
+  }
 
   return { startDemo, isPending: demo.isPending || redirecting }
 }
