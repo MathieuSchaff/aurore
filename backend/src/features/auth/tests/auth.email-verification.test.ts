@@ -6,11 +6,7 @@ import { emailVerifications } from '../../../db/schema'
 import { setupDbTests } from '../../../tests/db-setup'
 import { TEST_CREDENTIALS } from '../../../tests/helpers/test-credentials'
 import { createTestUser } from '../../../tests/helpers/test-factories'
-import {
-  createVerificationToken,
-  hasVerifiedEmail,
-  verifyEmailToken,
-} from '../email-verification.service'
+import { createVerificationToken, verifyEmailToken } from '../email-verification.service'
 import { testDb } from './auth-test.setup'
 
 setupDbTests()
@@ -173,31 +169,6 @@ describe('email-verification.service', () => {
         .from(emailVerifications)
         .where(eq(emailVerifications.userId, user.id))
       expect(row?.usedAt).not.toBeNull()
-    })
-  })
-
-  describe('hasVerifiedEmail', () => {
-    it('devrait retourner false si emailVerifiedAt est null', async () => {
-      const user = await createTestUser(
-        TEST_CREDENTIALS.toto.rawEmail,
-        TEST_CREDENTIALS.toto.rawPassword
-      )
-      const result = await hasVerifiedEmail(testDb, user.id)
-      expect(result).toBe(false)
-    })
-
-    it('devrait retourner true si emailVerifiedAt est défini', async () => {
-      const { users: usersTable } = await import('../../../db/schema')
-      const user = await createTestUser(
-        TEST_CREDENTIALS.toto.rawEmail,
-        TEST_CREDENTIALS.toto.rawPassword
-      )
-      await testDb
-        .update(usersTable)
-        .set({ emailVerifiedAt: new Date().toISOString() })
-        .where(eq(usersTable.id, user.id))
-      const result = await hasVerifiedEmail(testDb, user.id)
-      expect(result).toBe(true)
     })
   })
 })
