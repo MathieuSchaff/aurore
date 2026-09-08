@@ -46,12 +46,11 @@ vi.mock('@/lib/queries/ingredients', () => ({
   },
 }))
 
-vi.mock('@/lib/queries/product-tags', () => ({
-  productTagQueries: {
+vi.mock('@/lib/queries/ingredient-tags', () => ({
+  ingredientTagQueries: {
     list: vi.fn(() => ({
-      queryKey: ['product-tags', 'list'],
+      queryKey: ['ingredient-tags', 'list'],
       queryFn: vi.fn().mockResolvedValue([]),
-      data: [],
     })),
   },
 }))
@@ -168,7 +167,39 @@ describe('IngredientForm - Conflict Resolution', () => {
     expect(mockOnSuccess).toHaveBeenCalled()
   })
 
-  it('shows the slug field only to an admin', () => {
+  it('does not write the tags when the locked update is rejected', async () => {
+    setSessionRole('user')
+    const queryClient = createTestQueryClient()
+    const updateTagsMutate = vi.fn().mockResolvedValue([])
+
+    ;(useUpdateIngredient as any).mockReturnValue({
+      mutateAsync: vi.fn().mockRejectedValue(new ApiError('ingredient_update_conflict', 409)),
+      isPending: false,
+    })
+    ;(useCreateIngredient as any).mockReturnValue({ isPending: false })
+    ;(useUpdateIngredientTags as any).mockReturnValue({
+      mutateAsync: updateTagsMutate,
+      isPending: false,
+    })
+    vi.spyOn(queryClient, 'fetchQuery').mockResolvedValueOnce({
+      ...mockIngredient,
+      updatedAt: '2024-01-01T10:05:00Z',
+    })
+
+    renderForm(
+      <IngredientForm mode="edit" ingredient={mockIngredient} onSuccess={vi.fn()} />,
+      queryClient
+    )
+    fireEvent.change(screen.getByLabelText(/Description/), { target: { value: 'My local draft' } })
+    fireEvent.click(screen.getByRole('button', { name: /Enregistrer/i }))
+
+    await waitFor(() => {
+      expect(screen.getByText(ingredientLabels.conflictDetected)).toBeInTheDocument()
+    })
+    expect(updateTagsMutate).not.toHaveBeenCalled()
+  })
+
+  it('shows the slug field to an admin on create only', () => {
     const queryClient = createTestQueryClient()
     ;(useUpdateIngredientTags as any).mockReturnValue({ isPending: false })
     ;(useCreateIngredient as any).mockReturnValue({ isPending: false })
@@ -176,14 +207,30 @@ describe('IngredientForm - Conflict Resolution', () => {
 
     setSessionRole('user')
     const { rerender } = renderForm(
-      <IngredientForm mode="edit" ingredient={mockIngredient} onSuccess={vi.fn()} />,
+      <IngredientForm mode="create" onSuccess={vi.fn()} />,
       queryClient
     )
     expect(screen.queryByLabelText(/Slug/)).not.toBeInTheDocument()
 
     setSessionRole('admin')
-    rerender(<IngredientForm mode="edit" ingredient={mockIngredient} onSuccess={vi.fn()} />)
+    rerender(<IngredientForm mode="create" onSuccess={vi.fn()} />)
     expect(screen.getByLabelText(/Slug/)).toBeInTheDocument()
+  })
+
+  // updateIngredientSchema is strict and carries no slug: an editable slug on edit
+  // would only enable Save for a change the server never receives
+  it('hides the slug field on edit even for an admin', () => {
+    const queryClient = createTestQueryClient()
+    ;(useUpdateIngredientTags as any).mockReturnValue({ isPending: false })
+    ;(useCreateIngredient as any).mockReturnValue({ isPending: false })
+    ;(useUpdateIngredient as any).mockReturnValue({ isPending: false })
+
+    setSessionRole('admin')
+    renderForm(
+      <IngredientForm mode="edit" ingredient={mockIngredient} onSuccess={vi.fn()} />,
+      queryClient
+    )
+    expect(screen.queryByLabelText(/Slug/)).not.toBeInTheDocument()
   })
 })
 

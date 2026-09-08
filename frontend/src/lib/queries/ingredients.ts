@@ -80,6 +80,7 @@ export const ingredientQueries = {
         const res = await api.ingredients.$get({ query: buildListIngredientsQuery(filters) })
         return unwrapData(res)
       },
+      staleTime: 5 * 60 * 1000,
     }),
 
   bySlug: (slug: string) =>
@@ -175,7 +176,7 @@ export const ingredientQueries = {
     }),
   options: (type?: IngredientType) =>
     queryOptions({
-      queryKey: [...ingredientKeys.all, 'options', type ?? 'all'] as const,
+      queryKey: [...ingredientKeys.options(), type ?? 'all'] as const,
       queryFn: async () => {
         const res = await api.ingredients.options.$get({ query: type ? { type } : {} })
         return unwrapData(res)
@@ -222,7 +223,6 @@ export function useUpdateIngredient() {
     meta: { handledErrorCodes: UPDATE_INGREDIENT_HANDLED_ERROR_CODES },
     mutationFn: async ({ id, data }: { id: string; data: UpdateIngredientRouteInput }) => {
       const res = await api.ingredients[':id'].$patch({ param: { id }, json: data })
-      // 409 conflict is surfaced inline by IngredientForm via the thrown ApiError.
       return unwrapData(res)
     },
     onSuccess: (ingredient) => {

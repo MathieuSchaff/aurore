@@ -24,6 +24,7 @@ const slugParam = z.object({ slug: z.string().min(1).max(100) })
 
 const listTagsQuery = z.object({
   category: z.string().optional(),
+  limit: z.coerce.number().int().min(1).max(500).optional(),
 })
 
 const ingredientTagsApp = new Hono<AppEnv>()
