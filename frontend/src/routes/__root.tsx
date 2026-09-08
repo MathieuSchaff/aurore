@@ -10,6 +10,7 @@ import { GlobalError } from '../component/Feedback/app/GlobalError/GlobalError'
 import { NavigationProgress } from '../component/Feedback/app/NavigationProgress/NavigationProgress'
 import { AppLayout } from '../component/Layout/AppLayout/AppLayout'
 import { seedSsrBootPage, selectSsrBootView } from '../features/products/ssrBootView'
+import { useMarkHydrationSettled } from '../lib/auth/hydrationGate'
 import { writeRequestBootSession } from '../lib/auth/session'
 import { loadSsrBoot } from '../lib/auth/ssrBoot'
 import { useBannedRedirect } from '../lib/auth/useBannedRedirect'
@@ -61,6 +62,7 @@ function RootShell({ children }: Readonly<{ children: ReactNode }>) {
 
 function RootComponent() {
   const { bootIssue } = Route.useLoaderData()
+  useMarkHydrationSettled()
   useBootRefresh(bootIssue)
   useTokenRefresh()
   useSessionExpiredRedirect()
