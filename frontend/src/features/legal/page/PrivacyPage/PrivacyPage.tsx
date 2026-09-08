@@ -15,7 +15,7 @@ export function PrivacyPage() {
       <header className="privacy-header">
         <PageTitle
           title="Politique de confidentialité"
-          subtitle="Aurore — Dernière mise à jour : 19 mai 2026"
+          subtitle="Aurore — Dernière mise à jour : 29 août 2026"
         />
       </header>
 
@@ -50,8 +50,9 @@ export function PrivacyPage() {
               </>
             }
           >
-            Serveur Hostinger (Francfort, UE), emails transactionnels via Brevo (France). Aucune
-            donnée ne quitte l'UE.
+            Serveur OVH (Strasbourg, France), emails transactionnels via Brevo (France). Seule la
+            supervision technique (Grafana Cloud) passe par le Royaume-Uni, pays reconnu adéquat par
+            l'UE.
           </PrivacySummaryCard>
 
           <PrivacySummaryCard icon="🗑️" title="Suppression totale">
@@ -105,6 +106,10 @@ export function PrivacyPage() {
                   body: 'tokens de session (cookies HttpOnly, Secure).',
                 },
                 {
+                  label: 'Télémétrie navigateur :',
+                  body: "erreurs de la page et violations de sa politique de sécurité, remontées à Grafana Cloud avec l'URL nettoyée de ses paramètres sensibles et un identifiant de session aléatoire, sans lien avec votre compte.",
+                },
+                {
                   label: 'Logs techniques :',
                   body: (
                     <>
@@ -146,6 +151,10 @@ export function PrivacyPage() {
                   label: 'Logs techniques :',
                   body: 'intérêt légitime (Art. 6(1)(f)) — sécurité et stabilité du service. Les logs enregistrent uniquement des méta-données de requête (méthode, chemin, statut, durée) et ne contiennent aucune donnée personnelle.',
                 },
+                {
+                  label: 'Télémétrie navigateur :',
+                  body: 'intérêt légitime (Art. 6(1)(f)) : détecter les erreurs du site. Aucune mesure d’audience, aucun suivi de navigation.',
+                },
               ]}
             />
             <p className="privacy-note">
@@ -158,14 +167,15 @@ export function PrivacyPage() {
 
           <PrivacyBlock title="Hébergement et partenaires">
             <p>
-              Toutes vos données sont hébergées <strong>en Europe</strong>. Aucune donnée ne quitte
-              l'Union européenne sans votre consentement explicite.
+              Vos données de compte et d'usage sont hébergées <strong>en Union européenne</strong>.
+              Un seul flux en sort, la télémétrie technique décrite ci-dessous, vers le Royaume-Uni,
+              pays couvert par une décision d'adéquation de la Commission européenne.
             </p>
             <PrivacyList
               items={[
                 {
                   label: 'Serveur principal :',
-                  body: 'VPS Hostinger (entreprise lituanienne, UE), datacenter de Francfort, Allemagne.',
+                  body: 'VPS OVH (entreprise française), datacenter de Strasbourg, France.',
                 },
                 {
                   label: 'Emails de confirmation :',
@@ -174,6 +184,14 @@ export function PrivacyPage() {
                 {
                   label: 'Google OAuth :',
                   body: "uniquement si vous choisissez la connexion via Google. Dans ce cas, Google reçoit votre demande d'authentification.",
+                },
+                {
+                  label: 'Supervision technique :',
+                  body: "Grafana Cloud (Grafana Labs), collecteur hébergé à Londres, Royaume-Uni. Côté serveur, seuls les avertissements et erreurs des journaux lui sont envoyés, sans adresse IP ni paramètres d'URL. Côté navigateur, les erreurs de page et les violations de la politique de sécurité. Comme pour toute requête web, votre adresse IP lui est visible au moment de l'envoi.",
+                },
+                {
+                  label: 'Images produits :',
+                  body: "Bunny CDN diffuse les images de produits. Votre navigateur les charge directement, ce service voit donc votre adresse IP comme n'importe quel site web. Aucune donnée de compte ne lui est transmise.",
                 },
               ]}
             />
