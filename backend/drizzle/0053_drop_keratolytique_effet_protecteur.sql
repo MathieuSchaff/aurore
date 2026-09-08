@@ -1,5 +1,5 @@
 -- Drop redundant skin_effect product slugs (`keratolytique`, `effet-protecteur`).
--- Round 2 taxonomy audit 2026-05-09 (AUTO-TAGS.md §F3):
+-- Round 2 taxonomy audit 2026-05-09:
 -- * `keratolytique` algo-derm trigger = subset of AHA + BHA + RETINOIDS + urea
 --   actif_class clusters. 595 paires DB; 53% strict overlap with the existing
 --   actif_class trio. Pharmacological identity not user-facing — kept at
