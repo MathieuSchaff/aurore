@@ -151,6 +151,17 @@ describe('Ingredient Tag Routes', () => {
       const tags = await expectOk(client['ingredient-tags'].$get({ query: { category: 'effect' } }))
       expect(tags.every((t) => t.tagType === 'effect')).toBe(true)
     })
+
+    // The taxonomy is past the service default of 100 rows: a form picker reads it in one go
+    it('honours the limit query', async () => {
+      const token = await setupAndLoginAdmin(app, TEST_CREDENTIALS.admin)
+
+      await client['ingredient-tags'].$post({ json: { label: 'Un' } }, withAuth(token))
+      await client['ingredient-tags'].$post({ json: { label: 'Deux' } }, withAuth(token))
+
+      const tags = await expectOk(client['ingredient-tags'].$get({ query: { limit: '1' } }))
+      expect(tags).toHaveLength(1)
+    })
   })
 
   describe('GET /ingredient-tags/:id', () => {

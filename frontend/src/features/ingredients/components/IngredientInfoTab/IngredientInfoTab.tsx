@@ -1,5 +1,4 @@
 import {
-  INGREDIENT_TYPE_VALUES,
   type IngredientType,
   PRODUCT_CATEGORY_TO_DOMAIN_TAB,
   type ProductDomainTab,
@@ -40,12 +39,6 @@ const PRODUCT_DOMAIN_BY_INGREDIENT_TYPE: Record<IngredientType, ProductDomainTab
   supplement: 'complement',
 }
 
-function productDomainForIngredientType(type: string): ProductDomainTab {
-  return (INGREDIENT_TYPE_VALUES as readonly string[]).includes(type)
-    ? PRODUCT_DOMAIN_BY_INGREDIENT_TYPE[type as IngredientType]
-    : 'skincare'
-}
-
 const route = getRouteApi('/ingredients/$slug/')
 
 export function IngredientInfoTab() {
@@ -62,28 +55,22 @@ export function IngredientInfoTab() {
   )
   const avoidTags = useMemo(() => tags?.filter((t) => t.relevance === 'avoid') ?? [], [tags])
 
-  const productDomain = productDomainForIngredientType(ingredient.type)
+  const productDomain = PRODUCT_DOMAIN_BY_INGREDIENT_TYPE[ingredient.type]
   const domainProducts = useMemo(
     () =>
       products?.filter((p) => PRODUCT_CATEGORY_TO_DOMAIN_TAB[p.category] === productDomain) ?? [],
     [products, productDomain]
   )
 
-  const hasFamily = Boolean(ingredient.type || ingredient.category)
-
   return (
     <>
-      {hasFamily && (
-        <div className="ingredient-section">
-          <SectionHeader title="Famille" variant="primary" />
-          <div className="ingredient-famille">
-            {ingredient.type && (
-              <span className="tag-pill tag-pill--primary">{ingredient.type}</span>
-            )}
-            {ingredient.category && <span className="tag-pill">{ingredient.category}</span>}
-          </div>
+      <div className="ingredient-section">
+        <SectionHeader title="Famille" variant="primary" />
+        <div className="ingredient-famille">
+          <span className="tag-pill tag-pill--primary">{ingredient.type}</span>
+          {ingredient.category && <span className="tag-pill">{ingredient.category}</span>}
         </div>
-      )}
+      </div>
 
       {beneficialTags.length > 0 && (
         <div className="ingredient-section">

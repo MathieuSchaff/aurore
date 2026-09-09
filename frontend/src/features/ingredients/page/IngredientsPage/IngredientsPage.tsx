@@ -9,6 +9,7 @@ import { startTransition, useCallback, useMemo, useState } from 'react'
 import { Button, ButtonLink } from '@/component/Button/Button'
 import { Card } from '@/component/Card/Card'
 import { Badge } from '@/component/DataDisplay/Badge/Badge'
+import { NavArrow } from '@/component/DataDisplay/NavArrow/NavArrow'
 import { ListPagination } from '@/component/DataDisplay/Pagination/ListPagination'
 import { EmptyState } from '@/component/Feedback/ui/EmptyState/EmptyState'
 import { RateLimitEmptyState } from '@/component/Feedback/ui/EmptyState/RateLimitEmptyState'
@@ -33,6 +34,8 @@ import {
   FILTER_KEYS,
   type FilterKey,
   GROUP_LABELS,
+  INGREDIENTS_PAGE_SIZE,
+  ingredientsListApiFilters,
 } from '@/features/ingredients/filters'
 import { portraitSlugs } from '@/features/profile/portrait-slugs'
 import { useIngredientTagFilterGroups } from '@/hooks/useIngredientTagFilterGroups'
@@ -40,7 +43,7 @@ import { useListFilters } from '@/hooks/useListFilters'
 import { useProfileFilterToggle } from '@/hooks/useProfileFilterToggle'
 import { useSession } from '@/lib/auth/session'
 import { isRateLimitError } from '@/lib/helpers/apiError'
-import { ingredientQueries, type ListIngredientsFilters } from '@/lib/queries/ingredients'
+import { ingredientQueries } from '@/lib/queries/ingredients'
 import { profileQueries } from '@/lib/queries/profile'
 
 import '@/component/Layout/PageLayout/ListPage.css'
@@ -49,8 +52,6 @@ import './IngredientsPage.css'
 const routeApi = getRouteApi('/ingredients/')
 
 const EMPTY_FILTERS = emptyFilters(FILTER_KEYS)
-// 24 divides evenly by 2/3/4 columns (auto-fill grid) so pages other than the last have no ragged last row
-const PAGE_SIZE = 24
 
 export function IngredientsPage() {
   const [isDrawerOpen, setDrawerOpen] = useState(false)
@@ -84,33 +85,16 @@ export function IngredientsPage() {
       filterKeys: FILTER_KEYS,
     })
 
-  const hasFilters = filterCount > 0
-
-  const avoidForParam = avoidFor.length > 0 ? avoidFor : undefined
-
-  const apiFilters: ListIngredientsFilters = {
-    ...(hasFilters
-      ? (Object.fromEntries(
-          FILTER_KEYS.map((k) => [k, filters[k].length > 0 ? filters[k] : undefined])
-        ) as Partial<ListIngredientsFilters>)
-      : {}),
-    type,
-    page,
-    limit: PAGE_SIZE,
-    avoid_for: avoidForParam,
-  }
-
   const { data, isLoading, isPlaceholderData, error } = useQuery({
-    ...ingredientQueries.list(apiFilters),
+    ...ingredientQueries.list(ingredientsListApiFilters(search, avoidFor)),
     placeholderData: (prev) => prev,
-    staleTime: 5 * 60 * 1000,
   })
 
   const { data: filterOptions } = useQuery(ingredientQueries.filterOptions(type))
 
   const items = data?.items ?? []
   const total = data?.total ?? 0
-  const totalPages = Math.ceil(total / PAGE_SIZE)
+  const totalPages = Math.ceil(total / INGREDIENTS_PAGE_SIZE)
   const showRateLimit = isRateLimitError(error)
 
   const filterGroups = useIngredientTagFilterGroups(type, filterOptions?.tags)
@@ -292,19 +276,7 @@ export function IngredientsPage() {
                         </span>
                       )}
                       <Badge variant="chip">{ingredient.category}</Badge>
-                      <svg
-                        className="ingredients-page__card-arrow"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2.5"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        role="img"
-                        aria-label="Voir l'ingrédient"
-                      >
-                        <path d="M5 12h14M12 5l7 7-7 7" />
-                      </svg>
+                      <NavArrow size={16} className="ingredients-page__card-arrow" />
                     </Card.Footer>
                   </Card>
                 )
