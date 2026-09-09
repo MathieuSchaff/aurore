@@ -137,8 +137,6 @@ export type AuthErrorCode =
   | 'invalid_credentials'
   | 'invalid_token'
   | 'missing_refresh_token'
-  | 'session_expired'
-  | 'invalid_session'
   | 'email_not_verified'
   | 'token_expired'
   | 'too_many_requests'
@@ -176,11 +174,7 @@ export type LoginResult = ApiResponse<AuthenticatedResult, LoginErrorCode>
 
 export type RefreshResult = ApiResponse<
   AuthenticatedResult,
-  | 'invalid_token'
-  | 'session_expired'
-  | 'missing_refresh_token'
-  | 'email_not_verified'
-  | 'server_error'
+  'invalid_token' | 'missing_refresh_token' | 'email_not_verified' | 'server_error'
 >
 
 export type GoogleCallbackResult = ApiResponse<AuthenticatedResult, 'server_error'>
@@ -221,8 +215,6 @@ export const authErrorMapping = {
   invalid_credentials: HTTP_STATUS.UNAUTHORIZED,
   invalid_token: HTTP_STATUS.UNAUTHORIZED,
   missing_refresh_token: HTTP_STATUS.BAD_REQUEST,
-  session_expired: HTTP_STATUS.UNAUTHORIZED,
-  invalid_session: HTTP_STATUS.UNAUTHORIZED,
   email_not_verified: HTTP_STATUS.FORBIDDEN,
   token_expired: HTTP_STATUS.BAD_REQUEST,
   too_many_requests: HTTP_STATUS.RATE_LIMIT_EXCEEDED,

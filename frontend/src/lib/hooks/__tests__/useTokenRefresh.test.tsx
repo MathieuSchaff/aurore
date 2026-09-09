@@ -148,8 +148,7 @@ describe('useTokenRefresh', () => {
       expect(mockEnsureFresh).toHaveBeenCalledOnce()
     })
 
-    // 45s out: past the 60s proactive lead, still short of the 30s expiry buffer, so only the
-    // "due" half of the condition can fire here
+    // 45s out: past the 60s proactive lead, still short of the 30s expiry buffer
     it('refreshes when the tab returns after its proactive slot, before expiry', () => {
       loginWithExpiry(45)
       renderHookWithProviders(() => useTokenRefresh(), { queryClient })

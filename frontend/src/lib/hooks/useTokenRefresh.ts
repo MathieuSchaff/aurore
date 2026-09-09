@@ -2,7 +2,7 @@ import { useQueryClient } from '@tanstack/react-query'
 import { useEffect } from 'react'
 
 import { readCredentialExpiration, useCredentialExpiration } from '../auth/credential'
-import { ensureFresh, isExpired, msUntilProactiveRefresh } from '../auth/freshness'
+import { ensureFresh, msUntilProactiveRefresh } from '../auth/freshness'
 
 export function useTokenRefresh() {
   const tokenExpiresAt = useCredentialExpiration()
@@ -37,7 +37,7 @@ export function useTokenRefresh() {
       if (document.visibilityState !== 'visible') return
       const expiresAt = readCredentialExpiration()
       if (!expiresAt) return
-      if (isExpired() || msUntilProactiveRefresh(expiresAt) <= 0) ensureFresh(queryClient)
+      if (msUntilProactiveRefresh(expiresAt) <= 0) ensureFresh(queryClient)
     }
     document.addEventListener('visibilitychange', handleVisible)
     return () => document.removeEventListener('visibilitychange', handleVisible)
