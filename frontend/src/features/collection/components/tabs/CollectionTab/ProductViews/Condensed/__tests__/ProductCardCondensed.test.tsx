@@ -62,13 +62,14 @@ describe('ProductCardCondensed', () => {
     expect(screen.getByText('The Ordinary')).toBeInTheDocument()
   })
 
-  it('displays a zero catalog price', () => {
+  // 0 is the catalogue's "unknown", not a free product
+  it('hides a zero catalog price', () => {
     const product = makeProduct()
     product.product.priceCents = 0
 
     render(<ProductCardCondensed p={product} onToggleExpand={vi.fn()} />)
 
-    expect(screen.getByText('0.00 €')).toBeInTheDocument()
+    expect(screen.queryByText('0.00 €')).toBeNull()
   })
 
   it('renders sentiment icon', () => {

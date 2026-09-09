@@ -137,8 +137,11 @@ export function ProductCardCondensed({
   }
 
   const score = calculateWeightedScore(p.review, prefs?.criteriaWeights)
+  // 0 is "unknown" in the catalogue, not a free product
   const priceEuros =
-    p.product.priceCents != null ? `${(p.product.priceCents / 100).toFixed(2)} €` : null
+    p.product.priceCents != null && p.product.priceCents > 0
+      ? `${(p.product.priceCents / 100).toFixed(2)} €`
+      : null
 
   const compatScore = useCompatScore(p.product.id)
   const compatTone = p.status === 'archived' ? null : getCompatTone(compatScore)
