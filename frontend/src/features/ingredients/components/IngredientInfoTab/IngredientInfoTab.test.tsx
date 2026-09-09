@@ -43,7 +43,7 @@ function serveIngredient({
           id: 'i1',
           slug: 'retinol',
           name: 'Rétinol',
-          type: 'actif',
+          type: 'skincare',
           category: 'rétinoïde',
           description: 'Description',
           content: '',
@@ -68,7 +68,7 @@ describe('IngredientInfoTab', () => {
   it('renders family (type + category) and the description section', async () => {
     renderWithProviders(<IngredientInfoTab />)
 
-    expect(await screen.findByText('actif')).toBeInTheDocument()
+    expect(await screen.findByText('skincare')).toBeInTheDocument()
     expect(screen.getByText('rétinoïde')).toBeInTheDocument()
     expect(screen.getByText('Description')).toBeInTheDocument()
   })
@@ -97,6 +97,7 @@ describe('IngredientInfoTab', () => {
       id: `p${i}`,
       slug: `product-${i}`,
       name: `Produit ${i}`,
+      category: 'skincare',
     }))
     serveIngredient({ products })
     renderWithProviders(<IngredientInfoTab />)
@@ -106,5 +107,24 @@ describe('IngredientInfoTab', () => {
     expect(screen.getByText('Produit 4')).toBeInTheDocument()
     expect(screen.queryByText('Produit 5')).not.toBeInTheDocument()
     expect(screen.getByText('Voir tous les produits (8)')).toBeInTheDocument()
+  })
+
+  // The link opens the skincare catalogue tab, which cannot show the haircare product:
+  // the count must match what that list will display (one product, not two).
+  it('counts only the products of the ingredient domain in the "Voir tous" link', async () => {
+    const products = [
+      ...Array.from({ length: 6 }, (_, i) => ({
+        id: `p${i}`,
+        slug: `product-${i}`,
+        name: `Produit ${i}`,
+        category: i === 0 ? 'solaire' : 'skincare',
+      })),
+      { id: 'hair', slug: 'shampoo', name: 'Shampoing', category: 'haircare' },
+    ]
+    serveIngredient({ products })
+    renderWithProviders(<IngredientInfoTab />)
+
+    expect(await screen.findByText('Voir tous les produits (6)')).toBeInTheDocument()
+    expect(screen.queryByText('Shampoing')).not.toBeInTheDocument()
   })
 })
