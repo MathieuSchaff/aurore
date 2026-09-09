@@ -6,9 +6,14 @@ import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { useIngredientTagFilterGroups } from '@/hooks/useIngredientTagFilterGroups'
 import { useListFilters } from '@/hooks/useListFilters'
 import { server } from '@/test/msw/server'
-import { renderWithProviders } from '@/test/utils'
+import { createTestQueryClient, renderWithProviders } from '@/test/utils'
 import { ingredientLabels } from '../../constants'
+import { FILTER_KEYS, type IngredientsSearch, ingredientsListApiFilters } from '../../filters'
 import { IngredientsPage } from './IngredientsPage'
+
+const DEFAULT_SEARCH = { page: 1, type: 'skincare', profile_filter: false } as IngredientsSearch
+// The page captures getRouteApi() at module load, so the search is swapped through this binding
+let mockSearch: IngredientsSearch = DEFAULT_SEARCH
 
 vi.mock('@tanstack/react-router', async () => ({
   ...(await vi.importActual<typeof import('@tanstack/react-router')>('@tanstack/react-router')),
@@ -16,7 +21,7 @@ vi.mock('@tanstack/react-router', async () => ({
   createLink: vi.fn(() => vi.fn(({ children }) => children)),
   useNavigate: vi.fn(),
   getRouteApi: vi.fn(() => ({
-    useSearch: () => ({ page: 1, type: 'skincare', profile_filter: false }),
+    useSearch: () => mockSearch,
   })),
 }))
 
@@ -63,10 +68,30 @@ describe('IngredientsPage', () => {
 
   beforeEach(() => {
     vi.clearAllMocks()
+    mockSearch = DEFAULT_SEARCH
     vi.mocked(useNavigate).mockReturnValue(navigate)
     vi.mocked(useIngredientTagFilterGroups).mockReturnValue([])
     setListFilters()
     serveList({ items: [], total: 0 })
+  })
+
+  // The route loader prefetches ingredientsListApiFilters(search) on the server; the
+  // page must read that exact key or the server-rendered grid is refetched at hydration.
+  it('reads the list under the key the route loader prefetches', async () => {
+    const [firstKey] = FILTER_KEYS
+    if (!firstKey) throw new Error('no ingredient filter key')
+    mockSearch = { ...DEFAULT_SEARCH, page: 2, type: 'haircare', [firstKey]: ['hydratant'] }
+    setListFilters({ filterCount: 1 })
+    const queryClient = createTestQueryClient()
+
+    renderWithProviders(<IngredientsPage />, { queryClient })
+    expect(await screen.findByText(ingredientLabels.noResultsTitle)).toBeInTheDocument()
+
+    const listQueries = queryClient
+      .getQueryCache()
+      .findAll({ queryKey: ['ingredients', 'list'] })
+      .map((query) => query.queryKey[2])
+    expect(listQueries).toEqual([ingredientsListApiFilters(mockSearch)])
   })
 
   it('renders the empty state when the query returns no items', async () => {
