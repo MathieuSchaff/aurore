@@ -3,7 +3,7 @@
 -- Catalog submission rate-limit needs to count ALL of a user's rows, including
 -- moderation_status='hidden' ones that the SELECT RLS policy hides from the
 -- submitter. Counting under the user's own RLS context would miss hidden rows,
--- so an abuser whose spam was hidden would get their quota refunded (C-2).
+-- so an abuser whose spam was hidden would get their quota refunded.
 --
 -- SECURITY DEFINER + owned by `app` (BYPASSRLS) so the count sees every row
 -- regardless of the caller's RLS context. EXECUTE is locked to app_runtime.
