@@ -1,3 +1,5 @@
+import type { UserPublic } from '@aurore/shared'
+
 import { fireEvent, screen } from '@testing-library/react'
 import { HttpResponse, http } from 'msw'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
@@ -8,6 +10,7 @@ import {
   useDownloadDataExport,
   useUpdatePrivacySettings,
 } from '@/lib/queries/profile'
+import { presentTestSession, resetTestAuthStore } from '@/test/authSession'
 import { server } from '@/test/msw/server'
 import { renderWithProviders } from '@/test/utils'
 import { AccountSettings } from '../AccountSettings'
@@ -45,6 +48,15 @@ vi.mock('@/lib/queries/role-requests', () => ({
   useSubmitRoleRequest: () => ({ mutate: vi.fn(), isPending: false, isError: false, error: null }),
   useCancelRoleRequest: () => ({ mutate: vi.fn(), isPending: false, isError: false, error: null }),
 }))
+
+const USER: UserPublic = {
+  id: 'u1',
+  email: 'a@b.com',
+  createdAt: '2026-01-01T00:00:00.000Z',
+  emailVerified: true,
+  role: 'user',
+  isDemo: false,
+}
 
 const ALL_FLAGS_OFF = {
   profilePublic: false,
@@ -92,6 +104,24 @@ describe('AccountSettings privacy granular toggles', () => {
   beforeEach(() => {
     vi.clearAllMocks()
     mockHash = ''
+    // The privacy query only runs for an authenticated viewer (logout guard)
+    resetTestAuthStore(presentTestSession(USER))
+  })
+
+  it('offers the data export to a real account', async () => {
+    await mountWithPrivacy(ALL_FLAGS_OFF)
+
+    expect(screen.getByRole('button', { name: /Télécharger mes données/ })).toBeInTheDocument()
+  })
+
+  // The export route answers 403 to demo accounts: a button whose retry can never
+  // succeed is replaced by the reason.
+  it('replaces the data export by its reason on a demo account', async () => {
+    resetTestAuthStore(presentTestSession({ ...USER, isDemo: true }))
+    await mountWithPrivacy(ALL_FLAGS_OFF)
+
+    expect(screen.queryByRole('button', { name: /Télécharger mes données/ })).toBeNull()
+    expect(screen.getByText(/Indisponible en mode démo/)).toBeInTheDocument()
   })
 
   it('disables every sub-toggle when master profilePublic is off', async () => {
