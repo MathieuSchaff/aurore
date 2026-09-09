@@ -32,13 +32,22 @@ nginx-reload:
 # VPS-only, and the guard is what makes that true. `compose -p aurore ps` matches whatever "aurore"
 # stack runs on the current host, so from the laptop this listed the dev containers and read as a
 # green prod check (measured 2026-09-01: three "Up 14 hours (healthy)" that were the local stack).
-[doc("[VPS] Prod container health snapshot (mirrors `health`; deploy's last step). From the laptop: prod-ps.")]
+[doc("[VPS] Prod container health snapshot, then /api/ready through the public domain (deploy's last step). From the laptop: prod-ps.")]
 [group('prod')]
 [script]
 prod-health:
     source {{justfile_directory()}}/scripts/just/_lib.sh
     assert_prod_stack
     {{COMPOSE_PROD}} ps --format "table {{{{.Name}}\t{{{{.Status}}\t{{{{.Health}}"
+    # Readiness through the public edge, not the container probe: /api/health skips the DB by
+    # design, so a healthy `ps` can sit on an API that cannot serve. DOMAIN comes from .env.prod
+    # the way prod-migrate reads APP_RUNTIME_PASSWORD. A non-200 fails `deploy` before its
+    # "Deploy done" line.
+    DOMAIN=$(grep -E '^DOMAIN=' .env.prod 2>/dev/null | cut -d= -f2- || true)
+    [ -n "$DOMAIN" ] || { printf "{{RED}}DOMAIN missing from .env.prod, readiness not checked{{NC}}\n"; exit 1; }
+    CODE=$(curl -sS -o /dev/null -w '%{http_code}' --max-time 10 "https://$DOMAIN/api/ready" || true)
+    [ "$CODE" = 200 ] || { printf "{{RED}}✗ /api/ready answered %s{{NC}}\n" "${CODE:-nothing}"; exit 1; }
+    printf "{{GREEN}}✓ /api/ready 200{{NC}}\n"
 
 [doc('[VPS] One-shot prod deploy: sync config → pull images → up → migrate → health.')]
 [group('prod')]

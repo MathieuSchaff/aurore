@@ -29,7 +29,7 @@ just prod-ssh 'TARGET=prod just <recipe> --write'
 | :--- | :--- |
 | `just deploy` | One shot, gated by typing `DEPLOY`: sync config, pull the prebuilt images, up, migrate, health. `manifest unknown` means the CI build has not pushed yet. Wait |
 | `just prod-migrate` | Apply migrations in-container and realign the `app_runtime` role password. Idempotent, safe to run again |
-| `just prod-health` | Container health snapshot (the last step of a deploy) |
+| `just prod-health` | Container health snapshot, then `/api/ready` through the public domain, which must answer 200 (the last step of a deploy) |
 | `just prod` | Start the prod stack here: on the VPS, or locally to smoke-test the prod build |
 | `just prod-logs` | Follow every prod service log, raw |
 | `just nginx-reload` | Reload the nginx config without downtime |
