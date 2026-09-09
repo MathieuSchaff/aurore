@@ -37,7 +37,7 @@ test('happy path: build a comparison and read its bands', async ({ page }) => {
   })
 
   // EmptyComparisonState flips to its ready state once two products are selected.
-  await expect(page.getByText('Sélectionne au moins 2 produits')).toHaveCount(0)
+  await expect(page.getByText('Sélectionnez au moins 2 produits')).toHaveCount(0)
   await expect(page.getByText('Prêt à comparer')).toBeVisible()
 
   const saveBtn = page.getByRole('button', { name: 'Enregistrer la comparaison' })

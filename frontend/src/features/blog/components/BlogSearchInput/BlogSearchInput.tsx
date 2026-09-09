@@ -12,6 +12,7 @@ export function BlogSearchInput({ value, placeholder, onChange }: Props) {
       <Search size={15} className="blog-search__icon" aria-hidden />
       <input
         type="search"
+        name="q"
         className="blog-search__input"
         placeholder={placeholder}
         value={value}

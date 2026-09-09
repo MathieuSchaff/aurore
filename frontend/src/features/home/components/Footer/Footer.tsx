@@ -24,7 +24,7 @@ export function Footer() {
             <Link to="/about" className="aur-footer__link">
               À propos
             </Link>
-            <a href="mailto:hello@aurore.app" className="aur-footer__link">
+            <a href="mailto:contact@mathieu-schaff.eu" className="aur-footer__link">
               Contact
             </a>
           </nav>
