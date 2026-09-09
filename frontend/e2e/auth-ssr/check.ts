@@ -370,9 +370,9 @@ async function assertAuthenticatedBootNeverMountsMarketing(browser: Browser) {
 }
 
 // A guarded client-only route reached anonymously must redirect to the login
-// after hydration, not during it: the server shell carries the route's pending
-// skeleton and a redirect mid-hydration makes React reconcile the login shell
-// against it (#418).
+// after hydration, not during it
+// The server shell carries the route's pending skeleton, and a redirect thrown
+// while React hydrates reconciles the login shell against it (#418)
 async function assertGuardedRouteRedirectsAfterHydration(browser: Browser) {
   const context = await browser.newContext()
   const page = await context.newPage()

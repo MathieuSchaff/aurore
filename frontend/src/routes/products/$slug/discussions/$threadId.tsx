@@ -25,7 +25,7 @@ function ProductThreadDetailRoute() {
 // are gated by the backend, frontend shows UI conditionally via SessionView.
 export const Route = createFileRoute('/products/$slug/discussions/$threadId')({
   // Loader and head run on the server so the document carries its own title, robots
-  // and canonical; the thread itself stays client-rendered.
+  // and canonical, the thread itself stays client-rendered
   ssr: 'data-only',
   loader: ({ context, params }) =>
     context.queryClient

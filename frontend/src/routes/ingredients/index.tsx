@@ -22,14 +22,14 @@ export const Route = createFileRoute('/ingredients/')({
     middlewares: [stripSearchParams(ingredientsSearchDefaults)],
   },
   loader: ({ context, deps }) => {
-    // The standing profile filter resolves on the client once the dermo profile is
-    // known; the server serves the unfiltered grid, the same first render the client does.
+    // The standing profile filter resolves on the client once the dermo profile is known
+    // The server serves the unfiltered grid, the same first render the client does
     const listQuery = {
       ...ingredientQueries.list(ingredientsListApiFilters(deps)),
       staleTime: INGREDIENTS_LIST_STALE_MS,
     }
-    // Wait on the server so the rendered grid matches the dehydrated cache.
-    // Keep client navigation from blocking so its first render is not delayed.
+    // Wait on the server so the rendered grid matches the dehydrated cache
+    // Keep client navigation from blocking so its first render is not delayed
     if (isServer) return context.queryClient.prefetchQuery(listQuery)
     void context.queryClient.prefetchQuery(listQuery)
   },

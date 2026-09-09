@@ -68,9 +68,10 @@ export type IngredientsSearch = z.infer<typeof ingredientsSearchSchema>
 const INGREDIENTS_PAGE_SIZE = 24
 export const INGREDIENTS_LIST_STALE_MS = 5 * 60 * 1000
 
-// Mirrors the filters IngredientsPage builds inline (PAGE_SIZE included) so the
-// route loader prefetches the exact query key the page reads, else the
-// server-rendered grid is refetched at hydration. IngredientsPage.test pins the parity.
+// Mirrors the filters IngredientsPage builds inline, PAGE_SIZE included, so the route
+// loader prefetches the exact query key the page reads
+// A key that differs by one field refetches the server-rendered grid at hydration
+// IngredientsPage.test pins the parity
 export function ingredientsListApiFilters(
   search: IngredientsSearch,
   avoidFor: string[] = []

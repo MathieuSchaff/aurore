@@ -150,8 +150,8 @@ export function ShelfView({
     activeTab !== 'holy_grail' &&
     SHELF_ORDER.includes(activeTab as UserProductStatus)
   const showShelfEmpty = isStatusTab && visibleProducts.length === 0
-  // "Tout" is not everything on the shelf (see ALL_TAB_STATUSES); the screen says so
-  // rather than letting the profile's total contradict this count in silence.
+  // "Tout" leaves archived and avoided out (ALL_TAB_STATUSES)
+  // without this line the profile total contradicts the tab count and nothing says why
   const outsideAllCount = countsByStatus.archived + countsByStatus.avoided
 
   return (

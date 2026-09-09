@@ -40,7 +40,7 @@ function ProductDiscussionIndex() {
 
 export const Route = createFileRoute('/products/$slug/discussions/')({
   // Loader and head run on the server so the document carries its own title, robots
-  // and canonical; the conversation itself stays client-rendered.
+  // and canonical, the conversation itself stays client-rendered
   ssr: 'data-only',
   loader: async ({ context, params, parentMatchPromise }) => {
     const viewerId = await resolveProductDetailViewer(context.queryClient, parentMatchPromise)

@@ -164,8 +164,8 @@ test.describe('Auth: demo', () => {
     await expect(page.getByText('Mode démo')).toBeVisible()
   })
 
-  // The home swaps its marketing view for the hub as soon as the session installs;
-  // the redirect must survive that unmount.
+  // The home swaps its marketing view for the hub as soon as the session installs
+  // so the redirect must survive that unmount
   test('demo from the home page lands on /collection', async ({ page }) => {
     await page.goto('/')
     // The home is server-rendered: a click before hydration lands on inert markup
