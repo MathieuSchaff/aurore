@@ -42,15 +42,11 @@ export type ComparisonSummary = {
 export type ProductComparisonErrorCode =
   | 'comparison_not_found'
   | 'comparison_invalid_products'
-  | 'comparison_too_few_products'
-  | 'comparison_too_many_products'
   | 'unauthorized_access'
 
 export const productComparisonErrorMapping = {
   comparison_not_found: HTTP_STATUS.NOT_FOUND,
   comparison_invalid_products: HTTP_STATUS.BAD_REQUEST,
-  comparison_too_few_products: HTTP_STATUS.BAD_REQUEST,
-  comparison_too_many_products: HTTP_STATUS.BAD_REQUEST,
   unauthorized_access: HTTP_STATUS.FORBIDDEN,
 } as const satisfies Record<ProductComparisonErrorCode, HttpStatus>
 
