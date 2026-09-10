@@ -23,7 +23,7 @@ const VALID_PRODUCT = {
 
 // `as never`: most bodies here are deliberately invalid payloads the route's
 // input type rejects; the point is to reach the scanner before validation.
-async function postProduct(client: TestClient, token: string, body: object) {
+async function postProduct<TBody>(client: TestClient, token: string, body: TBody) {
   return client.products.$post({ json: body as never }, withAuth(token))
 }
 

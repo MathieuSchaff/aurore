@@ -38,12 +38,14 @@ describe('prepareCorpusReconcile', () => {
   it('closes the read transaction before planning the corpus', async () => {
     let transactionOpen = false
     const snapshot = corpusSnapshot()
-    snapshot.eligible = new Proxy(snapshot.eligible, {
-      get(target, property, receiver) {
-        if (property === Symbol.iterator && transactionOpen) {
+    const eligible = snapshot.eligible
+    const iterate = eligible[Symbol.iterator].bind(eligible)
+    Object.defineProperty(eligible, Symbol.iterator, {
+      value: () => {
+        if (transactionOpen) {
           throw new Error('corpus planning ran inside the read transaction')
         }
-        return Reflect.get(target, property, receiver)
+        return iterate()
       },
     })
 

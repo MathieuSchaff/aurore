@@ -159,7 +159,9 @@ describe('ProfileDashboard', () => {
     fireEvent.click(screen.getByRole('tab', { name: /Compte/ }))
 
     expect(mockNavigate).toHaveBeenCalledTimes(1)
-    const arg = mockNavigate.mock.calls[0][0] as { search: (prev: object) => object }
+    const arg = mockNavigate.mock.calls[0][0] as {
+      search: (prev: { tab: string }) => { tab: string }
+    }
     expect(arg.search({ tab: 'profile' })).toEqual({ tab: 'account' })
   })
 

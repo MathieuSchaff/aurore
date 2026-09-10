@@ -1,7 +1,13 @@
 import { describe, expect, test } from 'bun:test'
 
 import { GOLD_SET_FOCUS_TAGS, isGoldSetFocusTag } from '../gold-set/fixtures'
-import { FOCUS_TAG_LAYER, GOLD_SET_LAYERS, layerOf, summarizeByLayer } from '../gold-set/layers'
+import {
+  FOCUS_TAG_LAYER,
+  GOLD_SET_LAYERS,
+  type GoldSetLayer,
+  layerOf,
+  summarizeByLayer,
+} from '../gold-set/layers'
 import type { PerTagMetrics } from '../gold-set/metrics'
 
 describe('gold-set layer taxonomy', () => {
@@ -23,7 +29,7 @@ describe('gold-set layer taxonomy', () => {
   })
 
   test('focus tags split 12 actif-class / 17 formula / 4 algo-derm / 0 brand-cert', () => {
-    const counts: Record<string, number> = {
+    const counts: Record<GoldSetLayer, number> = {
       'algo-derm': 0,
       'actif-class': 0,
       'brand-cert': 0,
