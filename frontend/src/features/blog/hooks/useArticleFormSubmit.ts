@@ -28,7 +28,7 @@ export type ArticleFormData = {
 
 // Article validates several fields at once, so it keeps a per-field map
 // instead of the sibling forms' single fieldError.
-export type ArticleFormErrors = Partial<Record<keyof ArticleFormData | 'global', string>>
+type ArticleFormErrors = Partial<Record<keyof ArticleFormData | 'global', string>>
 
 type CreateArgs = { mode: 'create'; article?: never }
 type EditArgs = { mode: 'edit'; article: ArticleData }
