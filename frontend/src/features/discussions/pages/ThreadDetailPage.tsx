@@ -1,25 +1,24 @@
 import { useSuspenseQuery } from '@tanstack/react-query'
-import type { LinkProps } from '@tanstack/react-router'
 
 import { BackButton } from '@/component/Button/BackButton'
 import { useSession, viewerId } from '@/lib/auth/session'
-import { discussionQueries } from '@/lib/queries/discussions'
+import { type DiscussionEntityType, discussionQueries } from '@/lib/queries/discussions'
 import { ThreadDetail } from '../components/ThreadDetail'
+import { threadListRoute } from '../links'
 
 interface ThreadDetailPageProps {
-  entityType: 'product' | 'ingredient'
+  entityType: DiscussionEntityType
   slug: string
   threadId: string
-  backTo: LinkProps['to']
 }
 
-export function ThreadDetailPage({ entityType, slug, threadId, backTo }: ThreadDetailPageProps) {
+export function ThreadDetailPage({ entityType, slug, threadId }: ThreadDetailPageProps) {
   const { data: thread } = useSuspenseQuery(discussionQueries.thread(entityType, slug, threadId))
   const session = useSession()
 
   return (
     <>
-      <BackButton to={backTo} params={{ slug }}>
+      <BackButton to={threadListRoute(entityType)} params={{ slug }}>
         Retour aux discussions
       </BackButton>
       <ThreadDetail

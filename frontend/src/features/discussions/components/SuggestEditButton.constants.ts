@@ -16,7 +16,7 @@ export const SUGGEST_LABELS = {
 
 // Keyed by the proposable field union so a field added to PROPOSABLE_FIELDS
 // without a label fails the build instead of showing its raw name.
-type ProposableField = (typeof PROPOSABLE_FIELDS)[EditTargetType][number]
+export type ProposableField = (typeof PROPOSABLE_FIELDS)[EditTargetType][number]
 
 export const FIELD_LABELS: Record<ProposableField, string> = {
   name: 'Nom',

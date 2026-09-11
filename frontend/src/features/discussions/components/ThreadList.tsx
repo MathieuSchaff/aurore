@@ -6,12 +6,14 @@ import { Link } from '@tanstack/react-router'
 import { MessageSquare } from 'lucide-react'
 
 import { SectionHeader } from '@/component/Typography/SectionHeader/SectionHeader'
+import type { DiscussionEntityType } from '@/lib/queries/discussions'
+import { threadDetailRoute } from '../links'
 import { AuthorLine } from './AuthorLine'
 import { ThreadForm } from './ThreadForm'
 
 interface ThreadListProps {
   threads: DiscussionThread[]
-  entityType: 'product' | 'ingredient'
+  entityType: DiscussionEntityType
   slug: string
   isLoggedIn: boolean
 }
@@ -26,46 +28,30 @@ export function ThreadList({ threads, entityType, slug, isLoggedIn }: ThreadList
       />
       {isLoggedIn && <ThreadForm entityType={entityType} slug={slug} />}
       {threads.length === 0 ? (
-        <p className="discussions-empty ui-empty-panel">Aucune discussion pour l'instant.</p>
+        <p className="ui-empty-panel">Aucune discussion pour l'instant.</p>
       ) : (
         <div className="thread-list">
-          {threads.map((thread) => {
-            const content = (
-              <>
-                <p className="thread-item__title ui-title-sm">{thread.title}</p>
-                <div className="thread-item__meta">
-                  <AuthorLine
-                    authorId={thread.authorId}
-                    authorName={thread.authorName}
-                    createdAt={thread.createdAt}
-                  />
-                  <span className="thread-item__replies">
-                    <MessageSquare size={12} />
-                    {thread.replyCount}
-                  </span>
-                </div>
-              </>
-            )
-            return entityType === 'product' ? (
-              <Link
-                key={thread.id}
-                to="/products/$slug/discussions/$threadId"
-                params={{ slug, threadId: thread.id }}
-                className="thread-item"
-              >
-                {content}
-              </Link>
-            ) : (
-              <Link
-                key={thread.id}
-                to="/ingredients/$slug/discussions/$threadId"
-                params={{ slug, threadId: thread.id }}
-                className="thread-item"
-              >
-                {content}
-              </Link>
-            )
-          })}
+          {threads.map((thread) => (
+            <Link
+              key={thread.id}
+              to={threadDetailRoute(entityType)}
+              params={{ slug, threadId: thread.id }}
+              className="thread-item"
+            >
+              <p className="ui-title-sm">{thread.title}</p>
+              <div className="thread-item__meta">
+                <AuthorLine
+                  authorId={thread.authorId}
+                  authorName={thread.authorName}
+                  createdAt={thread.createdAt}
+                />
+                <span className="thread-item__replies">
+                  <MessageSquare size={12} />
+                  {thread.replyCount}
+                </span>
+              </div>
+            </Link>
+          ))}
         </div>
       )}
     </div>

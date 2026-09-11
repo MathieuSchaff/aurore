@@ -11,14 +11,7 @@ const route = getRouteApi('/products/$slug/discussions/$threadId')
 
 function ProductThreadDetailRoute() {
   const { slug, threadId } = route.useParams()
-  return (
-    <ThreadDetailPage
-      entityType="product"
-      slug={slug}
-      threadId={threadId}
-      backTo="/products/$slug/discussions"
-    />
-  )
+  return <ThreadDetailPage entityType="product" slug={slug} threadId={threadId} />
 }
 
 // No routing-level auth guard: threads are public (read). Write actions (post/reply)

@@ -4,10 +4,10 @@ import { Button } from '@/component/Button/Button'
 import { Textarea } from '@/component/Input/Textarea/Textarea'
 import { SectionHeader } from '@/component/Typography/SectionHeader/SectionHeader'
 import { useAnnounce } from '@/hooks/useAnnounce'
-import { useCreateReply } from '@/lib/queries/discussions'
+import { type DiscussionEntityType, useCreateReply } from '@/lib/queries/discussions'
 
 interface ReplyFormProps {
-  entityType: 'product' | 'ingredient'
+  entityType: DiscussionEntityType
   slug: string
   threadId: string
 }
@@ -32,7 +32,7 @@ export function ReplyForm({ entityType, slug, threadId }: ReplyFormProps) {
   }
 
   return (
-    <form className="reply-form ui-form-panel" onSubmit={handleSubmit}>
+    <form className="ui-form-panel" onSubmit={handleSubmit}>
       <SectionHeader title="Répondre" as="h3" />
       <Textarea
         label="Votre réponse"
