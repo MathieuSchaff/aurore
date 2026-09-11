@@ -29,14 +29,6 @@ describe('ReportContentButton', () => {
     vi.clearAllMocks()
   })
 
-  it('renders nothing when hidden=true (e.g., viewer is the author)', () => {
-    setupMutation()
-    const { container } = renderWithProviders(
-      <ReportContentButton targetType="review" targetId="rev-1" hidden />
-    )
-    expect(container).toBeEmptyDOMElement()
-  })
-
   it('opens the modal when the flag button is clicked', async () => {
     setupMutation()
     renderWithProviders(<ReportContentButton targetType="review" targetId="rev-1" />)

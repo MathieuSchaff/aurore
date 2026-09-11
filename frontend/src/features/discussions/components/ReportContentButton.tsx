@@ -13,18 +13,14 @@ import { REPORT_LABELS } from './ReportContentButton.constants'
 type ReportContentButtonProps = {
   targetType: ReportTargetType
   targetId: string
-  /** Hide the button when the viewer is the author of the content (no point reporting yourself). */
-  hidden?: boolean
 }
 
-export function ReportContentButton({ targetType, targetId, hidden }: ReportContentButtonProps) {
+export function ReportContentButton({ targetType, targetId }: ReportContentButtonProps) {
   const [open, setOpen] = useState(false)
   const [reason, setReason] = useState('')
   const [done, setDone] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const createReport = useCreateReport()
-
-  if (hidden) return null
 
   function close() {
     setOpen(false)

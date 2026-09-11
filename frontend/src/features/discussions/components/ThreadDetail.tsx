@@ -2,19 +2,25 @@ import '../discussions.css'
 
 import type { DiscussionReply, DiscussionThreadWithReplies } from '@aurore/shared'
 
+import { useNavigate } from '@tanstack/react-router'
 import { Trash2 } from 'lucide-react'
 
 import { Button } from '@/component/Button/Button'
 import { ReactionRow } from '@/features/social/components/ReactionRow/ReactionRow'
 import { useAnnounce } from '@/hooks/useAnnounce'
-import { useDeleteReply, useDeleteThread } from '@/lib/queries/discussions'
+import {
+  type DiscussionEntityType,
+  useDeleteReply,
+  useDeleteThread,
+} from '@/lib/queries/discussions'
+import { threadListRoute } from '../links'
 import { AuthorLine } from './AuthorLine'
 import { ReplyForm } from './ReplyForm'
 import { ReportContentButton } from './ReportContentButton'
 
 interface ThreadDetailProps {
   thread: DiscussionThreadWithReplies
-  entityType: 'product' | 'ingredient'
+  entityType: DiscussionEntityType
   slug: string
   currentUserId: string | null
 }
@@ -27,7 +33,7 @@ function ReplyItem({
   currentUserId,
 }: {
   reply: DiscussionReply
-  entityType: 'product' | 'ingredient'
+  entityType: DiscussionEntityType
   slug: string
   threadId: string
   currentUserId: string | null
@@ -56,12 +62,8 @@ function ReplyItem({
             <Trash2 size={14} aria-hidden="true" />
           </Button>
         )}
-        {currentUserId && (
-          <ReportContentButton
-            targetType="reply"
-            targetId={reply.id}
-            hidden={reply.authorId === currentUserId}
-          />
+        {currentUserId && reply.authorId !== currentUserId && (
+          <ReportContentButton targetType="reply" targetId={reply.id} />
         )}
       </div>
       <ReactionRow reactableType="thread_reply" reactableId={reply.id} />
@@ -72,6 +74,7 @@ function ReplyItem({
 export function ThreadDetail({ thread, entityType, slug, currentUserId }: ThreadDetailProps) {
   const deleteThread = useDeleteThread(entityType, slug)
   const announce = useAnnounce()
+  const navigate = useNavigate()
 
   return (
     <div className="discussions-section">
@@ -90,7 +93,11 @@ export function ThreadDetail({ thread, entityType, slug, currentUserId }: Thread
               size="sm"
               onClick={() =>
                 deleteThread.mutate(thread.id, {
-                  onSuccess: () => announce('Discussion supprimée'),
+                  onSuccess: () => {
+                    announce('Discussion supprimée')
+                    // Staying here would refetch the deleted thread and land on the error screen
+                    navigate({ to: threadListRoute(entityType), params: { slug } })
+                  },
                 })
               }
               disabled={deleteThread.isPending}
@@ -99,12 +106,8 @@ export function ThreadDetail({ thread, entityType, slug, currentUserId }: Thread
               <Trash2 size={14} aria-hidden="true" />
             </Button>
           )}
-          {currentUserId && (
-            <ReportContentButton
-              targetType="thread"
-              targetId={thread.id}
-              hidden={thread.authorId === currentUserId}
-            />
+          {currentUserId && thread.authorId !== currentUserId && (
+            <ReportContentButton targetType="thread" targetId={thread.id} />
           )}
         </div>
         <ReactionRow reactableType="thread" reactableId={thread.id} />

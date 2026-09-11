@@ -6,10 +6,10 @@ import { Input } from '@/component/Input/Input'
 import { Textarea } from '@/component/Input/Textarea/Textarea'
 import { SectionHeader } from '@/component/Typography/SectionHeader/SectionHeader'
 import { useAnnounce } from '@/hooks/useAnnounce'
-import { useCreateThread } from '@/lib/queries/discussions'
+import { type DiscussionEntityType, useCreateThread } from '@/lib/queries/discussions'
 
 interface ThreadFormProps {
-  entityType: 'product' | 'ingredient'
+  entityType: DiscussionEntityType
   slug: string
 }
 
@@ -45,7 +45,7 @@ export function ThreadForm({ entityType, slug }: ThreadFormProps) {
   }
 
   return (
-    <form className="thread-form ui-form-panel" onSubmit={handleSubmit}>
+    <form className="ui-form-panel" onSubmit={handleSubmit}>
       <SectionHeader title="Nouvelle discussion" as="h3" />
       <Input
         label="Sujet"
