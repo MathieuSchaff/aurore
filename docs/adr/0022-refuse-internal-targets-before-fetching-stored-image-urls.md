@@ -9,16 +9,24 @@ Every fetch of a URL read from `products.image_url` goes through `fetchPublicHtt
 (`backend/src/images/lib/safe-url.ts`). The helper refuses internal targets, follows redirects by
 hand and judges every hop again. There is no allow-list of image hosts. Scope: the two operator
 CLIs that pull contributor-supplied images before rehosting them on the CDN (`just image-upload`,
-`backend/src/images/fetchers/from-db.ts`). The runtime API never fetches a stored URL.
+`backend/src/images/fetchers/from-db.ts`). The runtime API never fetches a stored URL, but one of
+the two CLIs runs inside the `api` container, production included: see Why.
 
 ## Why
 
 Any authenticated, non-banned account writes `image_url` when it creates or edits a product (scope
-`product_create`). The API stores the string and never opens it. Two operator CLIs do, later, from
-the operator's own machine. A contributor who stores `http://169.254.169.254/latest/meta-data/` or
-`http://localhost:5432/` arms a request that an operator fires from inside their network months
-later. The target is the maintenance environment, not the application server, which lowers the
-severity without removing the hole.
+`product_create`). The API stores the string and never opens it. Two operator CLIs do, later. A
+contributor who stores `http://169.254.169.254/latest/meta-data/` or `http://localhost:5432/` arms
+a request that an operator fires months later, from a network the internet cannot reach.
+
+The two CLIs do not fire it from the same place, and the difference sets the severity.
+`from-db.ts` is a host process (`bun run backend/src/images/fetchers/from-db.ts`), so its target is
+the operator's own machine. `just image-upload` is not: `scripts/just/images.just` runs it as
+`$COMPOSE exec -w /app/backend api bun run src/images/upload/main.ts`, so the request leaves the
+`api` container, on the same compose network as `db`. Under `TARGET=prod` (`scripts/just/_lib.sh`
+swaps in the prod compose files) that is the production `api` container. For that half the request
+leaves the application server, not a maintenance laptop, and this guard is the only thing between
+contributor-written text and the production internal network.
 
 Images come from wherever contributors found the product. The 2026-08-30 snapshot holds 7343
 products; `products.url` points at 111 distinct shop and brand sites over 6153 rows, and the image
@@ -45,7 +53,10 @@ opens.
    `203.0.113/24`, `198.18/15`, `192.0.0/24`). They are unroutable, not dangerous.
 5. Known gap, accepted: `fetch` resolves DNS on its own, so a zone that answers a public address
    to the guard and an internal one to the fetch (rebinding) gets through. Closing it means owning
-   the socket, which these CLIs do not.
+   the socket, which these CLIs do not. Read this one against the Why: from `image-upload` the gap
+   reaches the compose network, `db`, and the production host's link-local metadata endpoint, not
+   an operator laptop. It is accepted because the attacker has to control a DNS zone and time it
+   against a hand-run batch, not because the reach is small.
 
 ## Considered options
 
