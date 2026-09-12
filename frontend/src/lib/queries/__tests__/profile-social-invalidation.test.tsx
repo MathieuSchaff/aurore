@@ -10,7 +10,7 @@ import {
   useUpdatePrivacySettings,
   useUpdateProfile,
 } from '../profile'
-import { socialKeys } from '../social'
+import { socialKeys } from '../social-keys'
 
 function seedProfileDependentReads() {
   const queryClient = createTestQueryClient()
