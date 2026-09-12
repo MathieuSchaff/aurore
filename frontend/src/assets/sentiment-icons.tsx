@@ -1,3 +1,5 @@
+import { type HOLY_GRAIL_SENTIMENT, isSentimentValue, type SentimentValue } from '@aurore/shared'
+
 import { useId } from 'react'
 
 import { sentimentLabels } from '@/utils/sentimentMap'
@@ -6,7 +8,10 @@ import './sentiment-icons.css'
 
 type IconProps = { size?: number }
 
-const SENTIMENT_COLORS: Record<number, string> = {
+// Holy Grail renders on its own path, with its own palette; Face never sees it.
+type FaceValue = Exclude<SentimentValue, typeof HOLY_GRAIL_SENTIMENT>
+
+const SENTIMENT_COLORS: Record<SentimentValue, string> = {
   1: 'var(--sentiment-1)',
   2: 'var(--sentiment-2)',
   3: 'var(--sentiment-3)',
@@ -15,7 +20,7 @@ const SENTIMENT_COLORS: Record<number, string> = {
   6: 'var(--status-color-holy-grail)',
 }
 
-const SENTIMENT_FILLS: Record<number, string> = {
+const SENTIMENT_FILLS: Record<SentimentValue, string> = {
   1: 'var(--sentiment-1-fill)',
   2: 'var(--sentiment-2-fill)',
   3: 'var(--sentiment-3-fill)',
@@ -24,7 +29,7 @@ const SENTIMENT_FILLS: Record<number, string> = {
   6: 'var(--sentiment-6-fill)',
 }
 
-const SENTIMENT_SHADES: Record<number, string> = {
+const SENTIMENT_SHADES: Record<FaceValue, string> = {
   1: 'color-mix(in oklch, var(--sentiment-1-fill) 78%, var(--sentiment-1))',
   2: 'color-mix(in oklch, var(--sentiment-2-fill) 78%, var(--sentiment-2))',
   3: 'color-mix(in oklch, var(--sentiment-3-fill) 78%, var(--sentiment-3))',
@@ -32,7 +37,7 @@ const SENTIMENT_SHADES: Record<number, string> = {
   5: 'color-mix(in oklch, var(--sentiment-5-fill) 78%, var(--sentiment-5))',
 }
 
-const SENTIMENT_BLUSH_OPACITY: Record<number, number> = {
+const SENTIMENT_BLUSH_OPACITY: Record<FaceValue, number> = {
   1: 0.12,
   2: 0.18,
   3: 0.28,
@@ -132,7 +137,7 @@ function Face({
   children,
 }: {
   size: number
-  value: number
+  value: FaceValue
   children: React.ReactNode
 }) {
   const compact = isCompact(size)
@@ -388,7 +393,7 @@ export function Sentiment6({ size = 24 }: IconProps) {
   )
 }
 
-const SENTIMENT_ICONS: Record<number, (props: IconProps) => React.ReactElement> = {
+const SENTIMENT_ICONS: Record<SentimentValue, (props: IconProps) => React.ReactElement> = {
   1: Sentiment1,
   2: Sentiment2,
   3: Sentiment3,
@@ -397,7 +402,9 @@ const SENTIMENT_ICONS: Record<number, (props: IconProps) => React.ReactElement> 
   6: Sentiment6,
 }
 
+// Callers read `sentiment` straight off the wire, where it is a plain integer.
 export function SentimentIcon({ value, size = 24 }: { value: number; size?: number }) {
+  if (!isSentimentValue(value)) return null
   const Icon = SENTIMENT_ICONS[value]
-  return Icon ? <Icon size={size} /> : null
+  return <Icon size={size} />
 }
