@@ -101,9 +101,4 @@
   .page-header__actions > * {
     width: auto;
   }
-
-  .page-header__actions > .search-combobox {
-    max-width: 400px;
-    flex: 1;
-  }
 }
