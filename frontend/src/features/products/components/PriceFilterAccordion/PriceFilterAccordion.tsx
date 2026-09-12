@@ -12,7 +12,7 @@ export function PriceFilterAccordion({ min, max, onChange }: Props) {
   return (
     <div className="filter-inline-group">
       {/* PriceRangeFilter self-labels via its <legend>Prix (€)</legend>, so no extra label is needed. */}
-      <div className="filter-drawer__group filter-drawer__group--nested">
+      <div className="filter-drawer__group--nested">
         <PriceRangeFilter min={min} max={max} onChange={onChange} />
       </div>
     </div>

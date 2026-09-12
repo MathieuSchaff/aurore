@@ -35,7 +35,6 @@ export function SubGroupedChips<T extends string>({
         selected={selected}
         onChange={toggleChip}
         size="sm"
-        className="filter-accordion__chips"
         onChipKeyDown={escapeHandler}
         aria-label={`Options pour ${field.label}`}
       />

@@ -47,7 +47,7 @@ export function FilterAccordion<T extends string>({
 
     if (variant === 'search-select') {
       return (
-        <div key={sf.key} className="filter-drawer__group filter-drawer__group--nested">
+        <div key={sf.key} className="filter-drawer__group--nested">
           <span className="filter-subgroup__label">{sf.label}</span>
           <SearchSelect
             options={sf.options}
@@ -63,7 +63,7 @@ export function FilterAccordion<T extends string>({
     if (variant === 'async-search-select') {
       if (!sf.loadOptionsQuery || !sf.resolveValuesQuery) return null
       return (
-        <div key={sf.key} className="filter-drawer__group filter-drawer__group--nested">
+        <div key={sf.key} className="filter-drawer__group--nested">
           <span className="filter-subgroup__label">{sf.label}</span>
           <AsyncSearchSelect
             selected={selected}

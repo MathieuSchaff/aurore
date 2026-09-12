@@ -153,7 +153,7 @@ export function ComboboxPrimitive<T>({
                 )}
               </div>
             ) : isLoading ? (
-              <output className="combobox-primitive__status ui-combobox-empty">Chargement…</output>
+              <output className="ui-combobox-empty">Chargement…</output>
             ) : (
               <>
                 <div
@@ -228,17 +228,11 @@ export function ComboboxPrimitive<T>({
                         aria-hidden="true"
                       />
                       {/* Outside the aria-hidden sentinel so its role=status announces. */}
-                      {isLoadingMore && (
-                        <output className="combobox-primitive__status ui-combobox-empty">
-                          Chargement…
-                        </output>
-                      )}
+                      {isLoadingMore && <output className="ui-combobox-empty">Chargement…</output>}
                     </>
                   )}
                   {totalEntries === 0 && !footer && inputValue.trim() !== '' && (
-                    <output className="combobox-primitive__empty ui-combobox-empty">
-                      {emptyMessage}
-                    </output>
+                    <output className="ui-combobox-empty">{emptyMessage}</output>
                   )}
                 </div>
                 {footer && <div className="combobox-primitive__footer">{footer}</div>}

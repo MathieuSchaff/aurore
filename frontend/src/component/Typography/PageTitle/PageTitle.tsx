@@ -2,7 +2,7 @@ import clsx from 'clsx'
 import type { ReactNode } from 'react'
 import './PageTitle.css'
 
-export interface PageTitleProps {
+interface PageTitleProps {
   title: ReactNode
   subtitle?: ReactNode
   count?: number | string
