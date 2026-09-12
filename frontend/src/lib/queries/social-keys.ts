@@ -2,6 +2,8 @@ import type { FeedOrder, PostTone, ReactableType, SkinConcern } from '@aurore/sh
 
 import type { QueryClient } from '@tanstack/react-query'
 
+// profile.ts needs these keys and social.ts imports profile.ts, so they cannot live in social.ts
+// social.ts does not re-export them either, or profile.ts would import social.ts and close the cycle
 export const socialKeys = {
   all: ['social'] as const,
   similar: () => [...socialKeys.all, 'similar'] as const,

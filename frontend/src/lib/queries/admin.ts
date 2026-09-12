@@ -33,7 +33,7 @@ import {
   invalidateProductReviewReads,
 } from './products'
 import { invalidateProfileReviewReads, invalidatePublicProfileReads } from './profile'
-import { invalidateSocialReads } from './social'
+import { invalidateSocialReads } from './social-keys'
 
 const adminKeys = {
   all: ['admin'] as const,

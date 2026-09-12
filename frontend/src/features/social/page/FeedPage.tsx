@@ -19,6 +19,9 @@ import './FeedPage.css'
 
 const routeApi = getRouteApi('/_authenticated/feed')
 
+// One rail for the header, the filters and the body: three copies of the width drift apart
+const RAIL_WIDTH = '640px'
+
 const ALL_CONCERNS = '__all__'
 type ConcernChoice = SkinConcern | typeof ALL_CONCERNS
 
@@ -36,12 +39,9 @@ export function FeedPage() {
   const { data: dermo } = useQuery(profileQueries.dermo())
 
   const posts = data?.posts ?? []
-  const concernChips = [
-    { value: ALL_CONCERNS as ConcernChoice, label: 'Toutes' },
-    ...(dermo?.skinConcerns ?? []).map((c) => ({
-      value: c as ConcernChoice,
-      label: SKIN_CONCERN_LABELS[c],
-    })),
+  const concernChips: { value: ConcernChoice; label: string }[] = [
+    { value: ALL_CONCERNS, label: 'Toutes' },
+    ...(dermo?.skinConcerns ?? []).map((c) => ({ value: c, label: SKIN_CONCERN_LABELS[c] })),
   ]
 
   return (
@@ -50,10 +50,10 @@ export function FeedPage() {
         title="Le fil des semblables"
         meta="Les publications des personnes qui partagent votre peau."
         isLoading={isFetching}
-        maxWidth="640px"
+        maxWidth={RAIL_WIDTH}
       />
 
-      <div className="feed-filters">
+      <div className="feed-filters" style={{ maxWidth: RAIL_WIDTH }}>
         <Tabs
           options={toneTabs}
           activeTab={tone}
@@ -62,7 +62,7 @@ export function FeedPage() {
           hasPanels={false}
           ariaLabel="Ton des publications"
         />
-        <div className="feed-filters__row ui-split-row">
+        <div className="ui-split-row">
           {concernChips.length > 1 && (
             <ChipGroup
               options={concernChips}
@@ -71,7 +71,7 @@ export function FeedPage() {
                 navigate({
                   search: (prev) => ({
                     ...prev,
-                    concern: next === ALL_CONCERNS ? undefined : (next as SkinConcern),
+                    concern: next === ALL_CONCERNS ? undefined : next,
                   }),
                 })
               }
@@ -96,7 +96,7 @@ export function FeedPage() {
         )}
       </div>
 
-      <ListPageLayout.Body maxWidth="640px">
+      <ListPageLayout.Body maxWidth={RAIL_WIDTH}>
         {isPending ? (
           <Spinner />
         ) : isError ? (
