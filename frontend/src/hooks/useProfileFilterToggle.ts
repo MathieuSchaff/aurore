@@ -4,18 +4,17 @@ import { useCallback } from 'react'
 
 import type { routeTree } from '@/routeTree.gen'
 
+// No show_hidden here: the "afficher quand même" escape hatch is a /products search param,
+// and validateSearch drops the key anywhere else. Only useProductsProfileFilter writes it.
 export function useProfileFilterToggle(from: RoutePaths<typeof routeTree>) {
   const navigate = useNavigate({ from })
 
   return useCallback(
     (checked: boolean) => {
       navigate({
-        // Turning the toggle off drops show_hidden too: "afficher quand même"
-        // only means something while the profile filter is active.
         search: (prev: Record<string, unknown>) => ({
           ...prev,
           profile_filter: checked,
-          ...(checked ? {} : { show_hidden: false }),
           page: 1,
         }),
       })
