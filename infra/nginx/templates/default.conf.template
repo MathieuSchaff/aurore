@@ -104,7 +104,15 @@ server {
     # decide if other website receive the full url.
     add_header Referrer-Policy "strict-origin-when-cross-origin" always;
     add_header Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=()" always;
+    # Severs the window.opener link a cross-origin page would otherwise keep. Safe here because the
+    # app opens no popup at all: Google sign-in is a full redirect (window.location.href), not a
+    # popup handshake, which is the one flow same-origin would break.
+    add_header Cross-Origin-Opener-Policy "same-origin" always;
     # Sources: self bundle/API, self-hosted fonts, inline styles (React), Bunny CDN + Google account avatars.
+    # style-src cannot drop 'unsafe-inline' yet, and narrowing it through style-src-elem was tried
+    # and refused on 2026-08-31: the SSR build emits its critical CSS as unnonced <style> elements,
+    # so `just test-csp` reports style-src-elem violations on / and /products. The way out is a
+    # nonce on those elements, the same one script-src already carries, not a stricter directive.
     # blob: is required for the image-upload crop preview (URL.createObjectURL on the picked file).
     # connect-src also allows the Faro RUM collector (browser POSTs telemetry to Grafana Cloud EU).
     # script-src carries a per-request nonce ($request_id, 128-bit random): the SSR app stamps it on
