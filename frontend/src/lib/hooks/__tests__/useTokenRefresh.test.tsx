@@ -28,6 +28,14 @@ const TEST_USER = {
   isDemo: false,
 } satisfies UserPublic
 
+function setVisibility(state: 'visible' | 'hidden') {
+  Object.defineProperty(document, 'visibilityState', {
+    configurable: true,
+    get: () => state,
+  })
+  document.dispatchEvent(new Event('visibilitychange'))
+}
+
 describe('useTokenRefresh', () => {
   let queryClient: QueryClient
 
@@ -42,6 +50,8 @@ describe('useTokenRefresh', () => {
   afterEach(() => {
     vi.useRealTimers()
     queryClient.clear()
+    // A test that hid the tab would otherwise leave every later one running hidden.
+    setVisibility('visible')
   })
 
   it('does nothing when there is no tokenExpiresAt', () => {
@@ -71,6 +81,18 @@ describe('useTokenRefresh', () => {
     renderHookWithProviders(() => useTokenRefresh(), { queryClient })
 
     expect(mockEnsureFresh).toHaveBeenCalledOnce()
+  })
+
+  it('does not fire the scheduled refresh while the tab is hidden', () => {
+    useAuthStore.setState({
+      session: presentTestSession(TEST_USER, 'token', Date.now() + 5 * 60_000),
+    })
+
+    renderHookWithProviders(() => useTokenRefresh(), { queryClient })
+    setVisibility('hidden')
+
+    vi.advanceTimersByTime(10 * 60_000)
+    expect(mockEnsureFresh).not.toHaveBeenCalled()
   })
 
   it('cleans up the timer on unmount', () => {
@@ -104,14 +126,6 @@ describe('useTokenRefresh', () => {
   })
 
   describe('visibilitychange', () => {
-    function setVisibility(state: 'visible' | 'hidden') {
-      Object.defineProperty(document, 'visibilityState', {
-        configurable: true,
-        get: () => state,
-      })
-      document.dispatchEvent(new Event('visibilitychange'))
-    }
-
     function loginWithExpiry(secondsFromNow: number) {
       const token = `h.${btoa(JSON.stringify({ exp: Math.floor(Date.now() / 1000) + secondsFromNow }))}.s`
       useAuthStore.getState().setAuth(token, {
@@ -127,6 +141,19 @@ describe('useTokenRefresh', () => {
       loginWithExpiry(-10)
       renderHookWithProviders(() => useTokenRefresh(), { queryClient })
       mockEnsureFresh.mockClear() // discard the immediate-on-mount refresh
+
+      setVisibility('hidden')
+      setVisibility('visible')
+
+      expect(mockEnsureFresh).toHaveBeenCalledOnce()
+    })
+
+    // 45s out: past the 60s proactive lead, still short of the 30s expiry buffer, so only the
+    // "due" half of the condition can fire here.
+    it('refreshes when the tab returns after its proactive slot, before expiry', () => {
+      loginWithExpiry(45)
+      renderHookWithProviders(() => useTokenRefresh(), { queryClient })
+      mockEnsureFresh.mockClear()
 
       setVisibility('hidden')
       setVisibility('visible')
