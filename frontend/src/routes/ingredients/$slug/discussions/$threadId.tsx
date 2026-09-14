@@ -1,10 +1,9 @@
-import { createFileRoute, getRouteApi, notFound } from '@tanstack/react-router'
+import { createFileRoute, getRouteApi } from '@tanstack/react-router'
 
-import { GlobalError } from '@/component/Feedback/app/GlobalError/GlobalError'
 import { ThreadDetailPage } from '@/features/discussions/pages/ThreadDetailPage'
 import { IngredientThreadSkeleton } from '@/features/ingredients/components/skeletons/IngredientLayoutSkeleton'
-import { ApiError } from '@/lib/helpers/apiError'
 import { discussionQueries } from '@/lib/queries/discussions'
+import { notFoundOn404, RouteNotFound } from '@/lib/routeErrors'
 import { NOINDEX_ROBOTS, seoHead } from '@/lib/seo'
 
 const route = getRouteApi('/ingredients/$slug/discussions/$threadId')
@@ -25,11 +24,7 @@ export const Route = createFileRoute('/ingredients/$slug/discussions/$threadId')
       .ensureQueryData(discussionQueries.thread('ingredient', params.slug, params.threadId))
       // Head-only field: the thread reaches the component through the dehydrated Query cache
       .then((thread) => ({ title: thread.title }))
-      .catch((err) => {
-        // Missing thread = 404, route to notFoundComponent; keep 5xx/429 on the real error UI
-        if (err instanceof ApiError && err.status === 404) throw notFound()
-        throw err
-      }),
+      .catch(notFoundOn404),
   head: ({ loaderData, params }) => {
     if (!loaderData) return {}
     return seoHead({
@@ -40,6 +35,6 @@ export const Route = createFileRoute('/ingredients/$slug/discussions/$threadId')
     })
   },
   pendingComponent: IngredientThreadSkeleton,
-  notFoundComponent: () => <GlobalError error={new Error('not_found')} is404 />,
+  notFoundComponent: RouteNotFound,
   component: IngredientThreadDetailRoute,
 })
