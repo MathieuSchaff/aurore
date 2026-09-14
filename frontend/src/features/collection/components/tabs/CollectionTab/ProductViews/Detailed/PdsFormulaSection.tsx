@@ -24,11 +24,11 @@ export function PdsFormulaSection({ p }: PdsFormulaSectionProps) {
   // One read for the product, the portrait, the assessment and the declared
   // rules: the same payload the catalogue page reads, so both surfaces agree
   const {
-    data: page,
+    data: detailPage,
     isError: fullProductError,
     isPending: fullProductPending,
   } = useQuery(productQueries.detailPage(p.product.slug, viewerId))
-  const fullProduct = page?.product
+  const fullProduct = detailPage?.product
 
   const { copied: inciCopied, copy: copyInci } = useCopyToClipboard()
   const handleCopyInci = () => {
@@ -45,7 +45,7 @@ export function PdsFormulaSection({ p }: PdsFormulaSectionProps) {
 
   return (
     <>
-      {page && <PdsPortraitReading page={page} viewerId={viewerId} />}
+      {detailPage && <PdsPortraitReading page={detailPage} viewerId={viewerId} />}
 
       {/* Raw INCI before the tag list: ingredients-first, backlog section 18 P2.C (2026-05-15). */}
       {fullProductError ? (
