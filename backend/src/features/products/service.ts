@@ -1,6 +1,7 @@
 export * from './catalog.service'
 export * from './detail.service'
 export * from './detail-page.service'
+export * from './formula-preview.service'
 export * from './search.service'
 export * from './viewer-rules.service'
 export * from './write.service'

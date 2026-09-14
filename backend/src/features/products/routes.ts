@@ -31,7 +31,6 @@ import { withRlsContext } from '../auth/rls-context.middleware'
 import { securityScan } from '../security/security.middleware'
 import { listPostsForProduct } from '../social/posts.service'
 import { listPublicReviewsForProduct } from '../user-products/service'
-import { previewProductFormula } from './formula-preview.service'
 import {
   createProduct,
   deleteProduct,
@@ -41,6 +40,7 @@ import {
   getProductFullBySlug,
   getProductsByIds,
   listProducts,
+  previewProductFormula,
   previewSlug,
   searchProducts,
   updateProduct,
