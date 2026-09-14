@@ -1,12 +1,11 @@
 import { evaluateSeoEligibility } from '@aurore/shared'
 
-import { createFileRoute, notFound } from '@tanstack/react-router'
+import { createFileRoute } from '@tanstack/react-router'
 
-import { GlobalError } from '@/component/Feedback/app/GlobalError/GlobalError'
 import { IngredientInfoTab } from '@/features/ingredients/components/IngredientInfoTab/IngredientInfoTab'
 import { IngredientInfoSkeleton } from '@/features/ingredients/components/skeletons/IngredientLayoutSkeleton'
-import { ApiError } from '@/lib/helpers/apiError'
 import { ingredientQueries } from '@/lib/queries/ingredients'
+import { notFoundOn404, RouteNotFound } from '@/lib/routeErrors'
 import { canonicalUrl, clampDesc, INDEX_ROBOTS, NOINDEX_ROBOTS, seoHead } from '@/lib/seo'
 
 export const Route = createFileRoute('/ingredients/$slug/')({
@@ -21,11 +20,7 @@ export const Route = createFileRoute('/ingredients/$slug/')({
       .catch(() => null)
     const ingredient = await queryClient
       .ensureQueryData(ingredientQueries.bySlug(params.slug))
-      .catch((err) => {
-        // Missing ingredient = 404, route to notFoundComponent; keep 5xx/429 on the real error UI
-        if (err instanceof ApiError && err.status === 404) throw notFound()
-        throw err
-      })
+      .catch(notFoundOn404)
     await Promise.all([
       products,
       queryClient.ensureQueryData(ingredientQueries.tags(ingredient.id)).catch(() => null),
@@ -66,6 +61,6 @@ export const Route = createFileRoute('/ingredients/$slug/')({
     })
   },
   pendingComponent: IngredientInfoSkeleton,
-  notFoundComponent: () => <GlobalError error={new Error('not_found')} is404 />,
+  notFoundComponent: RouteNotFound,
   component: IngredientInfoTab,
 })

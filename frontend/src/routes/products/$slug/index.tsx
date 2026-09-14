@@ -1,13 +1,12 @@
 import { evaluateSeoEligibility } from '@aurore/shared'
 
-import { createFileRoute, notFound } from '@tanstack/react-router'
+import { createFileRoute } from '@tanstack/react-router'
 
-import { GlobalError } from '@/component/Feedback/app/GlobalError/GlobalError'
 import { ProductInfoSkeleton } from '@/features/products/components/skeletons/ProductLayoutSkeleton/ProductLayoutSkeleton'
 import { resolveProductDetailViewer } from '@/features/products/loadProductDetailViewer'
 import { ProductInfoTab } from '@/features/products/pages/ProductInfoTab/ProductInfoTab'
-import { ApiError } from '@/lib/helpers/apiError'
 import { productQueries } from '@/lib/queries/products'
+import { notFoundOn404, RouteNotFound } from '@/lib/routeErrors'
 import { canonicalUrl, clampDesc, INDEX_ROBOTS, NOINDEX_ROBOTS, seoHead } from '@/lib/seo'
 
 export const Route = createFileRoute('/products/$slug/')({
@@ -27,11 +26,7 @@ export const Route = createFileRoute('/products/$slug/')({
           moderationStatus: product.moderationStatus,
           hasInci: Boolean(product.inci?.trim()),
         }))
-        .catch((err) => {
-          // Missing product = 404, route to notFoundComponent; keep 5xx/429 on the real error UI
-          if (err instanceof ApiError && err.status === 404) throw notFound()
-          throw err
-        })
+        .catch(notFoundOn404)
     )
   },
   head: ({ loaderData, params }) => {
@@ -75,6 +70,6 @@ export const Route = createFileRoute('/products/$slug/')({
   },
 
   pendingComponent: ProductInfoSkeleton,
-  notFoundComponent: () => <GlobalError error={new Error('not_found')} is404 />,
+  notFoundComponent: RouteNotFound,
   component: ProductInfoTab,
 })

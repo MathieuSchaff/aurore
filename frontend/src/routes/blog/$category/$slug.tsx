@@ -2,11 +2,10 @@ import { BLOG_CATEGORY_VALUES } from '@aurore/shared'
 
 import { createFileRoute, notFound, redirect } from '@tanstack/react-router'
 
-import { GlobalError } from '@/component/Feedback/app/GlobalError/GlobalError'
 import { BlogArticleSkeleton } from '@/features/blog/components/skeletons/BlogSkeletons'
 import { BlogArticlePage } from '@/features/blog/page/BlogArticlePage/BlogArticlePage'
-import { ApiError } from '@/lib/helpers/apiError'
 import { articleQueries } from '@/lib/queries/articles'
+import { notFoundOn404, RouteNotFound } from '@/lib/routeErrors'
 import { canonicalUrl, clampDesc, seoHead } from '@/lib/seo'
 
 const categorySet = new Set<string>(BLOG_CATEGORY_VALUES)
@@ -19,11 +18,7 @@ export const Route = createFileRoute('/blog/$category/$slug')({
   loader: async ({ context, params }) => {
     const article = await context.queryClient
       .ensureQueryData(articleQueries.bySlug(params.slug))
-      .catch((err) => {
-        // Missing article = 404, route to notFoundComponent; keep 5xx/429 on the real error UI
-        if (err instanceof ApiError && err.status === 404) throw notFound()
-        throw err
-      })
+      .catch(notFoundOn404)
     if (article.category !== params.category) {
       throw redirect({
         to: '/blog/$category/$slug',
@@ -75,7 +70,7 @@ export const Route = createFileRoute('/blog/$category/$slug')({
   },
   component: BlogArticleRoute,
   pendingComponent: BlogArticleSkeleton,
-  notFoundComponent: () => <GlobalError error={new Error('not_found')} is404 />,
+  notFoundComponent: RouteNotFound,
 })
 
 function BlogArticleRoute() {

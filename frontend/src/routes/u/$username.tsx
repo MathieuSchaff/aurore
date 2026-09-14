@@ -1,10 +1,10 @@
 import { createFileRoute, notFound } from '@tanstack/react-router'
 
-import { GlobalError } from '@/component/Feedback/app/GlobalError/GlobalError'
 import { Spinner } from '@/component/Feedback/ui/Spinner/Spinner'
 import { PublicProfilePage } from '@/features/profile/page/PublicProfile/PublicProfilePage'
 import { isApiErrorCode } from '@/lib/helpers/apiError'
 import { profileQueries } from '@/lib/queries/profile'
+import { RouteNotFound } from '@/lib/routeErrors'
 import { NOINDEX_ROBOTS, seoHead } from '@/lib/seo'
 
 export const Route = createFileRoute('/u/$username')({
@@ -25,7 +25,7 @@ export const Route = createFileRoute('/u/$username')({
       title: `@${params.username} — Aurore`,
       robots: NOINDEX_ROBOTS,
     }),
-  notFoundComponent: () => <GlobalError error={new Error('not_found')} is404 />,
+  notFoundComponent: RouteNotFound,
   pendingComponent: () => <Spinner />,
   component: PublicProfileRouteComponent,
 })
