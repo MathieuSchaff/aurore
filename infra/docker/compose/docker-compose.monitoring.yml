@@ -19,6 +19,13 @@ services:
       GRAFANA_CLOUD_LOKI_URL: ${GRAFANA_CLOUD_LOKI_URL:?set GRAFANA_CLOUD_LOKI_URL in .env.prod}
       GRAFANA_CLOUD_LOKI_USER: ${GRAFANA_CLOUD_LOKI_USER:?set GRAFANA_CLOUD_LOKI_USER in .env.prod}
       GRAFANA_CLOUD_API_TOKEN: ${GRAFANA_CLOUD_API_TOKEN:?set GRAFANA_CLOUD_API_TOKEN in .env.prod}
+      # Prometheus remote_write (metrics flow; same API token as Loki, needs metrics:write)
+      # url looks like https://prometheus-prod-XXX.grafana.net/api/prom/push
+      GRAFANA_CLOUD_PROM_URL: ${GRAFANA_CLOUD_PROM_URL:?set GRAFANA_CLOUD_PROM_URL in .env.prod}
+      GRAFANA_CLOUD_PROM_USER: ${GRAFANA_CLOUD_PROM_USER:?set GRAFANA_CLOUD_PROM_USER in .env.prod}
+      # `app`, not app_runtime: pg_stat_activity hides other sessions' state from
+      # roles without pg_read_all_stats, which is exactly what the exporter watches
+      PG_EXPORTER_DSN: postgres://app:${POSTGRES_PASSWORD}@db:5432/appdb?sslmode=disable
     volumes:
       # compose lives in infra/docker/compose, config in infra/docker/monitoring → one `..`.
       - ../monitoring/alloy/config.alloy:/etc/alloy/config.alloy:ro
