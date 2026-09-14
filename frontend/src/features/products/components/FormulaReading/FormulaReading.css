@@ -121,6 +121,15 @@
   border-top: 1px solid var(--border-subtle, var(--border-default));
 }
 
+/* The toggle label and "Sans <ingredient>" run long and the collection sheet
+   is narrow: wrap rather than overflow the card */
+.formula-reading__declare .button {
+  white-space: normal;
+  text-align: left;
+  line-height: var(--leading-snug);
+  max-width: 100%;
+}
+
 .formula-reading__declare-chevron {
   transition: transform var(--transition-fast);
 }
