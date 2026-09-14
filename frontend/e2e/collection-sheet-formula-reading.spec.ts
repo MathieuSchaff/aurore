@@ -22,7 +22,8 @@ test('happy path: the shelf sheet reads the formula with the portrait', async ({
   const sheet = page.getByRole('dialog')
   await expect(sheet).toBeVisible({ timeout: 10_000 })
 
-  // Only a watched product opens on its formula; a wishlist one keeps it folded
+  // Only a watched product opens on its formula
+  // A wishlist one keeps it folded
   await sheet.getByRole('button', { name: /Formule & ingrédients/ }).click()
 
   await expect(sheet.getByText(/Peut ne pas convenir à votre profil cutané/)).toBeVisible({

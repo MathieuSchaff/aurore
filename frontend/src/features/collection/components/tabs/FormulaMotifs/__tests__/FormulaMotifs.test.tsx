@@ -63,7 +63,7 @@ describe('FormulaMotifs', () => {
   })
 
   // The names used to live in a title attribute: present for a mouse hover, absent for a finger,
-  // a keyboard and a screen reader that does not hover.
+  // a keyboard and a screen reader that does not hover
   it('opens a motif on the products behind it', async () => {
     server.use(
       http.get('*/api/collection/formula-motifs', () =>
@@ -91,7 +91,7 @@ describe('FormulaMotifs', () => {
 
     const summary = await screen.findByText(/2 produits/i)
     // The destination is not asserted here: the global setup renders Link as its children alone,
-    // and `to="/products/$slug"` is already checked at compile time by the route tree.
+    // and `to="/products/$slug"` is already checked at compile time by the route tree
     expect(screen.getByText('Crème réparatrice')).not.toBeVisible()
 
     await userEvent.click(summary)

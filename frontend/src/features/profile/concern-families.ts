@@ -2,7 +2,8 @@ import type { SkinConcern } from '@aurore/shared'
 import { SKIN_CONCERNS, USER_CONCERN_TO_PRODUCT_TAGS } from '@aurore/shared'
 
 type ConcernFamily = {
-  // Product tag the family feeds; its label is the family title
+  // Product tag the family feeds
+  // Its label is the family title
   tagSlug: string
   concerns: SkinConcern[]
 }
@@ -15,7 +16,7 @@ export type ConcernFamilies = {
 
 // Families are the product tags the portrait feeds, read off the bridge so no
 // new word has to be coined and the grouping matches the catalogue filter and
-// the similarity buckets. A concern with two targets sits under the first.
+// the similarity buckets. A concern with two targets sits under the first
 // Order follows SKIN_CONCERNS, so the picker reads like the flat list it replaces
 export function groupConcernsByFamily(): ConcernFamilies {
   const byTag = new Map<string, SkinConcern[]>()

@@ -5,7 +5,7 @@ import { useCallback } from 'react'
 import type { routeTree } from '@/routeTree.gen'
 
 // No show_hidden here: the "afficher quand même" escape hatch is a /products search param,
-// and validateSearch drops the key anywhere else. Only useProductsProfileFilter writes it.
+// and validateSearch drops the key anywhere else. Only useProductsProfileFilter writes it
 export function useProfileFilterToggle(from: RoutePaths<typeof routeTree>) {
   const navigate = useNavigate({ from })
 

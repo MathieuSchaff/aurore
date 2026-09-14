@@ -69,7 +69,7 @@ export function isGoldSetFocusTag(slug: string): slug is GoldSetFocusTag {
 }
 
 // Keys of a Record the compiler already forces to be exhaustive, so a new kind reaches this guard
-// without a second list to keep in step.
+// without a second list to keep in step
 const PRODUCT_KIND_SET: ReadonlySet<string> = new Set(Object.keys(PRODUCT_KIND_LABELS))
 
 function isProductKind(value: unknown): value is ProductKind {
@@ -154,7 +154,7 @@ export function validateGoldSet(value: unknown, path: string): GoldSetFile {
     seen.add(slug)
 
     // The only field that used to enter on a bare cast: an invented kind then reached the metrics
-    // as a bucket of its own, silently, while every neighbouring field was checked.
+    // as a bucket of its own, silently, while every neighbouring field was checked
     if (!isProductKind(annotation.kind)) {
       throw new GoldSetValidationError(
         `Unknown "kind" "${String(annotation.kind)}" for "${slug}" at ${where}`
