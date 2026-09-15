@@ -1,3 +1,4 @@
+import clsx from 'clsx'
 import {
   cloneElement,
   createContext,
@@ -96,7 +97,7 @@ export function DropdownMenu({ children, className }: DropdownMenuProps) {
         initialFocusRef,
       }}
     >
-      <div ref={wrapperRef} className={`dropdown-menu${className ? ` ${className}` : ''}`}>
+      <div ref={wrapperRef} className={clsx('dropdown-menu', className)}>
         {children}
       </div>
     </DropdownMenuContext>
@@ -309,7 +310,7 @@ function DropdownMenuContent({
       tabIndex={-1}
       aria-label={ariaLabel}
       aria-orientation="vertical"
-      className={`dropdown-menu__content${className ? ` ${className}` : ''}`}
+      className={clsx('dropdown-menu__content', className)}
       style={style}
       onClick={(e) => e.stopPropagation()}
       onKeyDown={handleKeyDown}
@@ -347,8 +348,11 @@ function DropdownMenuItem({
     throw new Error('DropdownMenu.Item expects a single React element child')
   }
 
-  const childClassName = children.props.className ?? ''
-  const itemClass = `dropdown-menu__item${variant === 'danger' ? ' dropdown-menu__item--danger' : ''}${childClassName ? ` ${childClassName}` : ''}`
+  const itemClass = clsx(
+    'dropdown-menu__item',
+    variant === 'danger' && 'dropdown-menu__item--danger',
+    children.props.className
+  )
 
   // biome-ignore lint/suspicious/noExplicitAny: cloneElement ref typing across element kinds
   return cloneElement(children as ReactElement<any>, {

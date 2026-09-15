@@ -126,6 +126,7 @@ export const ProfileForm = ({
           endpoint="/api/uploads/avatar"
           currentImageUrl={avatarUrl}
           alt={`Avatar de ${profile.username ?? 'utilisateur'}`}
+          notFoundLabel="Avatar"
           onSuccess={(url) => {
             setAvatarUrl(url)
             queryClient.invalidateQueries({ queryKey: profileKeys.me() })

@@ -99,13 +99,12 @@ export const Tabs = <T extends string>({
   }, [activeTab, scrollable])
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
-    const currentIndex = options.findIndex((opt) => opt.id === activeTab)
     let nextIndex: number | null = null
 
     if (e.key === 'ArrowRight') {
-      nextIndex = (currentIndex + 1) % options.length
+      nextIndex = (activeIndex + 1) % options.length
     } else if (e.key === 'ArrowLeft') {
-      nextIndex = (currentIndex - 1 + options.length) % options.length
+      nextIndex = (activeIndex - 1 + options.length) % options.length
     } else if (e.key === 'Home') {
       nextIndex = 0
     } else if (e.key === 'End') {

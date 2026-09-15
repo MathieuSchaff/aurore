@@ -44,6 +44,7 @@ export function ProductImageField(props: Props) {
           endpoint={props.endpoint}
           currentImageUrl={props.imageUrl}
           alt="Image du produit"
+          notFoundLabel="Produit"
           onSuccess={props.onUpload}
         />
       </FormField>
@@ -58,6 +59,7 @@ export function ProductImageField(props: Props) {
         endpoint={`/api/uploads/product/${props.productSlug}`}
         currentImageUrl={props.imageUrl}
         alt={`Image de ${props.altName}`}
+        notFoundLabel="Produit"
         onSuccess={(url) => {
           props.onUpload(url)
           queryClient.invalidateQueries({ queryKey: productKeys.all })

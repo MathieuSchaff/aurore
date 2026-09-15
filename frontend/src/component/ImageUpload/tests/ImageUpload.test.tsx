@@ -12,6 +12,7 @@ describe('ImageUpload', () => {
         endpoint="/api/uploads/avatar"
         currentImageUrl="https://cdn/avatar.webp"
         alt="Avatar"
+        notFoundLabel="Avatar"
         onSuccess={() => {}}
       />
     )
@@ -26,6 +27,7 @@ describe('ImageUpload', () => {
         endpoint="/api/uploads/product/foo"
         currentImageUrl="https://cdn/product.webp"
         alt="Image produit"
+        notFoundLabel="Produit"
         onSuccess={() => {}}
       />
     )
@@ -41,6 +43,7 @@ describe('ImageUpload', () => {
         endpoint="/api/uploads/avatar"
         currentImageUrl="https://cdn/x.webp?v=1"
         alt="Avatar de Mathieu"
+        notFoundLabel="Avatar"
         onSuccess={() => {}}
       />
     )
@@ -55,6 +58,7 @@ describe('ImageUpload', () => {
         outputSize={1200}
         endpoint="/api/uploads/product/foo"
         alt="Image produit"
+        notFoundLabel="Produit"
         onSuccess={() => {}}
       />
     )
@@ -74,6 +78,7 @@ describe('ImageUpload', () => {
         endpoint="/api/uploads/product/foo"
         currentImageUrl="https://cdn/product.webp"
         alt="Image produit"
+        notFoundLabel="Produit"
         onSuccess={() => {}}
       />
     )

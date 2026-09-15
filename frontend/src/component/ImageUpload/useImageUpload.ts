@@ -17,6 +17,9 @@ type UseImageUploadOptions = {
   endpoint: string
   outputSize: 1024 | 1200
   maxOutputBytes?: number
+  // Names what the endpoint uploads to, for the not_found message. Required so a new
+  // caller cannot fall back to a noun that is wrong on its screen
+  notFoundLabel: string
   // jsdom has no createObjectURL and never fires an image's onload, so a test hands the crop step
   // an image instead of going through the picker. Declared here rather than grafted onto the
   // returned object: the coupling is real, and a contract states it where a hidden property
@@ -31,8 +34,14 @@ const ERROR_MESSAGES: Record<string, string> = {
   upload_storage_failed: 'Échec serveur, réessayez',
   compress_too_large: 'Compression impossible',
   source_too_large: 'Image source > 8 Mo',
-  not_found: 'Produit introuvable',
   unknown: 'Erreur inconnue',
+}
+
+// not_found means the row behind the endpoint is gone, and both callers hit it
+// The noun comes from the call site: the hook cannot know if it uploads a product or an avatar
+function errorMessage(code: string, notFoundLabel: string): string {
+  if (code === 'not_found') return `${notFoundLabel} introuvable`
+  return ERROR_MESSAGES[code] ?? ERROR_MESSAGES.unknown
 }
 
 const SOURCE_MAX_BYTES = 8 * 1024 * 1024
@@ -46,7 +55,8 @@ async function runConfirmCrop(
   area: CropArea,
   compress: (image: HTMLImageElement, area: CropArea) => Promise<Blob>,
   uploadXhr: (blob: Blob) => Promise<{ url: string }>,
-  setState: (phase: Phase) => void
+  setState: (phase: Phase) => void,
+  notFoundLabel: string
 ): Promise<{ url: string }> {
   try {
     setState({ phase: 'compressing' })
@@ -57,7 +67,7 @@ async function runConfirmCrop(
     return result
   } catch (e) {
     const code = (e as { code?: string }).code ?? 'unknown'
-    setState({ phase: 'error', code, message: ERROR_MESSAGES[code] ?? ERROR_MESSAGES.unknown })
+    setState({ phase: 'error', code, message: errorMessage(code, notFoundLabel) })
     throw e
   } finally {
     releaseSourceUrl?.()
@@ -263,9 +273,17 @@ export function useImageUpload(opts: UseImageUploadOptions) {
       }
       if (!image) image = opts.sourceImageForTest ?? null
       if (!image) throw new Error('no_source')
-      return runConfirmCrop(image, releaseSourceUrl, area, compress, uploadXhr, setState)
+      return runConfirmCrop(
+        image,
+        releaseSourceUrl,
+        area,
+        compress,
+        uploadXhr,
+        setState,
+        opts.notFoundLabel
+      )
     },
-    [state, compress, uploadXhr, revokeSourceUrl, opts.sourceImageForTest]
+    [state, compress, uploadXhr, revokeSourceUrl, opts.sourceImageForTest, opts.notFoundLabel]
   )
 
   return { state, pickFile, dropFile, confirmCrop, cancel }

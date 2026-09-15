@@ -1,5 +1,4 @@
 import { Trash2 } from 'lucide-react'
-import { useId } from 'react'
 
 import type { TagState } from '@/hooks/useFormTags'
 import './TagManager.css'
@@ -21,7 +20,6 @@ export function TagManager({
   onUpdateRelevance,
   className = '',
 }: TagManagerProps) {
-  const id = useId()
   return (
     <div className={`tag-manager ${className}`}>
       <div className="tag-manager__list">
@@ -29,7 +27,6 @@ export function TagManager({
           <div key={tag.tagId} className={`tag-item tag-item--${tag.relevance}`}>
             <span className="tag-item__name">{tag.tagName}</span>
             <select
-              id={`${id}-${tag.tagId}`}
               value={tag.relevance}
               className="tag-item__relevance"
               aria-label={`Pertinence du tag ${tag.tagName}`}
@@ -55,7 +52,6 @@ export function TagManager({
 
       <div className="tag-manager__add">
         <select
-          id={`${id}-add`}
           className="tag-manager__select"
           aria-label="Ajouter un tag"
           value=""
