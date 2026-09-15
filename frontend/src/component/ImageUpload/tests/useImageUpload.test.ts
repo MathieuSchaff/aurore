@@ -87,6 +87,7 @@ describe('useImageUpload', () => {
         endpoint: '/api/uploads/avatar',
         outputSize: 1024,
         sourceImageForTest: new Image(),
+        notFoundLabel: 'Avatar',
       })
     )
 
@@ -106,6 +107,7 @@ describe('useImageUpload', () => {
         endpoint: '/api/uploads/avatar',
         outputSize: 1024,
         sourceImageForTest: new Image(),
+        notFoundLabel: 'Avatar',
       })
     )
     await act(async () => {
@@ -121,12 +123,39 @@ describe('useImageUpload', () => {
     }
   })
 
+  it('names the caller subject in the not_found message', async () => {
+    restoreXhr = installXhrMock({
+      status: 404,
+      responseJson: { success: false, error: 'not_found' },
+    })
+    const { result } = renderHook(() =>
+      useImageUpload({
+        endpoint: '/api/uploads/product/foo',
+        outputSize: 1200,
+        sourceImageForTest: new Image(),
+        notFoundLabel: 'Produit',
+      })
+    )
+    await act(async () => {
+      try {
+        await result.current.confirmCrop({ x: 0, y: 0, size: 1200 })
+      } catch {
+        /* expected reject */
+      }
+    })
+    await waitFor(() => expect(result.current.state.phase).toBe('error'))
+    if (result.current.state.phase === 'error') {
+      expect(result.current.state.message).toBe('Produit introuvable')
+    }
+  })
+
   it('dropFile rejects a non-image file', () => {
     const { result } = renderHook(() =>
       useImageUpload({
         endpoint: '/api/uploads/avatar',
         outputSize: 1024,
         sourceImageForTest: new Image(),
+        notFoundLabel: 'Avatar',
       })
     )
     act(() => {
@@ -147,6 +176,7 @@ describe('useImageUpload', () => {
           endpoint: '/api/uploads/avatar',
           outputSize: 1024,
           sourceImageForTest: new Image(),
+          notFoundLabel: 'Avatar',
         })
       )
       act(() => {
@@ -183,6 +213,7 @@ describe('useImageUpload', () => {
           endpoint: '/api/uploads/avatar',
           outputSize: 1024,
           sourceImageForTest: new Image(),
+          notFoundLabel: 'Avatar',
         })
       )
 
@@ -217,6 +248,7 @@ describe('useImageUpload', () => {
           endpoint: '/api/uploads/avatar',
           outputSize: 1024,
           sourceImageForTest: new Image(),
+          notFoundLabel: 'Avatar',
         })
       )
 
@@ -238,6 +270,7 @@ describe('useImageUpload', () => {
         endpoint: '/api/uploads/avatar',
         outputSize: 1024,
         sourceImageForTest: new Image(),
+        notFoundLabel: 'Avatar',
       })
     )
     act(() => {
@@ -277,6 +310,7 @@ describe('useImageUpload', () => {
           endpoint: '/api/uploads/product/test-slug',
           outputSize: 1200,
           sourceImageForTest: new Image(),
+          notFoundLabel: 'Avatar',
         })
       )
       await act(async () => {
@@ -323,6 +357,7 @@ describe('useImageUpload', () => {
           endpoint: '/api/uploads/avatar',
           outputSize: 1024,
           sourceImageForTest: new Image(),
+          notFoundLabel: 'Avatar',
         })
       )
       await act(async () => {
@@ -359,6 +394,7 @@ describe('useImageUpload', () => {
           endpoint: '/api/uploads/avatar',
           outputSize: 1024,
           sourceImageForTest: new Image(),
+          notFoundLabel: 'Avatar',
         })
       )
       await act(async () => {
@@ -413,6 +449,7 @@ describe('useImageUpload', () => {
           endpoint: '/api/uploads/avatar',
           outputSize: 1024,
           sourceImageForTest: new Image(),
+          notFoundLabel: 'Avatar',
         })
       )
       await act(async () => {
@@ -442,6 +479,7 @@ describe('useImageUpload', () => {
         endpoint: '/api/uploads/avatar',
         outputSize: 1024,
         sourceImageForTest: new Image(),
+        notFoundLabel: 'Avatar',
       })
     )
     await act(async () => {

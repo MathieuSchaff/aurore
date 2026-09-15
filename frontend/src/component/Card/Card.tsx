@@ -1,7 +1,6 @@
-import './Card.css'
+import clsx from 'clsx'
 
-type ClassValue = string | false | null | undefined
-const cx = (...values: ClassValue[]) => values.filter(Boolean).join(' ')
+import './Card.css'
 
 type CardProps<T extends React.ElementType = 'div'> = {
   as?: T
@@ -26,7 +25,7 @@ function CardRoot<T extends React.ElementType = 'div'>({
   const Tag = (as ?? 'div') as React.ElementType
   return (
     <Tag
-      className={cx('card', interactive && 'card--interactive', className)}
+      className={clsx('card', interactive && 'card--interactive', className)}
       style={accent ? ({ '--card-accent': accent } as React.CSSProperties) : undefined}
       {...props}
     >
@@ -39,7 +38,7 @@ type DivProps = React.HTMLAttributes<HTMLDivElement>
 
 function CardMedia({ className, children, ...props }: DivProps) {
   return (
-    <div className={cx('card__media', className)} {...props}>
+    <div className={clsx('card__media', className)} {...props}>
       {children}
     </div>
   )
@@ -47,7 +46,7 @@ function CardMedia({ className, children, ...props }: DivProps) {
 
 function CardBody({ className, children, ...props }: DivProps) {
   return (
-    <div className={cx('card__body', className)} {...props}>
+    <div className={clsx('card__body', className)} {...props}>
       {children}
     </div>
   )
@@ -67,7 +66,7 @@ function CardTitle<T extends React.ElementType = 'h3'>({
 }: CardTitleProps<T>) {
   const Tag = (as ?? 'h3') as React.ElementType
   return (
-    <Tag className={cx('card__title', className)} {...props}>
+    <Tag className={clsx('card__title', className)} {...props}>
       {children}
     </Tag>
   )
@@ -79,7 +78,7 @@ function CardDescription({
   ...props
 }: React.HTMLAttributes<HTMLParagraphElement>) {
   return (
-    <p className={cx('card__description', className)} {...props}>
+    <p className={clsx('card__description', className)} {...props}>
       {children}
     </p>
   )
@@ -87,7 +86,7 @@ function CardDescription({
 
 function CardFooter({ className, children, ...props }: DivProps) {
   return (
-    <div className={cx('card__footer', className)} {...props}>
+    <div className={clsx('card__footer', className)} {...props}>
       {children}
     </div>
   )
@@ -95,7 +94,7 @@ function CardFooter({ className, children, ...props }: DivProps) {
 
 function CardActions({ className, children, ...props }: DivProps) {
   return (
-    <div className={cx('card__actions', className)} {...props}>
+    <div className={clsx('card__actions', className)} {...props}>
       {children}
     </div>
   )
