@@ -106,12 +106,3 @@ export async function getUnverifiedRecipientByToken(db: Database, rawToken: stri
 
   return row ?? null
 }
-
-export async function hasVerifiedEmail(db: Database, userId: string): Promise<boolean> {
-  const [row] = await db
-    .select({ emailVerifiedAt: usersSafe.emailVerifiedAt })
-    .from(usersSafe)
-    .where(eq(usersSafe.id, userId))
-    .limit(1)
-  return row?.emailVerifiedAt !== null && row?.emailVerifiedAt !== undefined
-}
