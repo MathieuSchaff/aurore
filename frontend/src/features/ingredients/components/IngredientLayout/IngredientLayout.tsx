@@ -55,7 +55,6 @@ export function IngredientLayout() {
               to="/ingredients/$slug/edit"
               params={{ slug }}
               variant="secondary"
-              className="action-edit"
               aria-label="Modifier cet ingrédient"
             >
               <Pencil size={14} />

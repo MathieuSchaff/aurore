@@ -159,7 +159,6 @@ export function ArticleEditorForm({ mode, article, onSuccess, onCancel }: Articl
         <Textarea
           value={form.content}
           onChange={(e) => set('content', e.target.value)}
-          className="article-editor-form__content-textarea"
           aria-label="Contenu (requis)"
           error={errors.content}
         />

@@ -121,7 +121,7 @@ export function SkincareFilterDrawerBody({
   })
 
   return (
-    <div className="skincare-filter-drawer">
+    <div>
       <DrawerSection
         title="Comment voulez-vous commencer ?"
         step="Étape 1"

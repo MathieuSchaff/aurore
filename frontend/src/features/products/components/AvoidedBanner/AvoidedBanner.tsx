@@ -35,7 +35,7 @@ export function AvoidedBanner({
 
   return (
     <p className="avoided-banner" data-testid="avoided-banner" role="status">
-      <span className="avoided-banner__text">
+      <span>
         {showHidden
           ? `${hiddenCount} produit${plural} hors de vos règles affiché${plural}`
           : `${hiddenCount} produit${plural} masqué${plural}`}

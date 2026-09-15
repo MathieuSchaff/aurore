@@ -46,7 +46,7 @@ export function SlugEditModal({
         : null
 
   return (
-    <Modal onClose={onClose} size="md" className="slug-edit-modal">
+    <Modal onClose={onClose} size="md">
       <Modal.Title className="slug-edit-modal__title">Modifier le slug de l’URL</Modal.Title>
 
       <p className="slug-edit-modal__warning">

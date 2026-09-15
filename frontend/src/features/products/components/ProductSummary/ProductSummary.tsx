@@ -23,7 +23,7 @@ export function ProductSummary({ kind, categories }: ProductSummaryProps) {
   if (!kindLabel && groups.length === 0) return null
 
   return (
-    <section className="product-section product-summary">
+    <section className="product-section">
       <SectionHeader title="En bref" as="h2" />
       <p className="product-summary__text">
         {kindLabel && <span className="product-summary__kind">{kindLabel}.</span>}

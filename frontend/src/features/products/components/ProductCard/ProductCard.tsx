@@ -154,7 +154,7 @@ function ProductCardImpl({ product, onAdd }: Props) {
             )}
             {product.requireMatches.length > 0 && (
               <span
-                className="list-card__mark-flag list-card__mark-flag--require"
+                className="list-card__mark-flag"
                 title={`Votre règle Avec : ${product.requireMatches.join(', ')}`}
               >
                 Contient : {product.requireMatches.join(', ')}
