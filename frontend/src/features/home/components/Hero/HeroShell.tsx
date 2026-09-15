@@ -70,7 +70,7 @@ export function HeroShell({
     <section className={`aur-hero aur-hero--${layout}`}>
       <div className="aur-container">
         <div className="aur-hero__grid">
-          <div className="aur-hero__copy">
+          <div>
             <div className="aur-hero__brand">
               <AuroreBrandMark size={26} />
               <span className="aur-hero__brand-name">AURORE</span>

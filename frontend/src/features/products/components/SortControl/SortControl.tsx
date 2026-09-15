@@ -37,7 +37,7 @@ export function SortControl({ value, onChange, hasQuery = false, compact = false
             type="button"
             variant="ghost"
             size="md"
-            className="sort-control__trigger sort-control__trigger--compact"
+            className="sort-control__trigger--compact"
             aria-label={`Trier · ${current?.label}`}
             title={`Trier · ${current?.label}`}
           >
@@ -48,7 +48,7 @@ export function SortControl({ value, onChange, hasQuery = false, compact = false
             type="button"
             variant="primary"
             size="md"
-            className="list-filter-btn sort-control__trigger"
+            className="list-filter-btn"
             aria-label={`Tri : ${current?.label}`}
           >
             <ArrowDownUp size={14} aria-hidden="true" />

@@ -90,17 +90,3 @@
   font-style: italic;
   margin: 0;
 }
-
-.coll-product-sheet .coll-card {
-  background: transparent;
-  border: none;
-  box-shadow: none;
-  border-radius: 0;
-  overflow: visible;
-  padding: 0;
-}
-
-.coll-product-sheet .coll-card:hover {
-  border: none;
-  box-shadow: none;
-}

@@ -58,7 +58,7 @@ export function HistoryTab({ userProducts }: HistoryTabProps) {
   }
 
   return (
-    <div className="coll-history-view">
+    <div>
       <table className="coll-history-table" aria-label="Historique des achats">
         <thead className="coll-history-head">
           <tr>

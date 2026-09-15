@@ -55,11 +55,7 @@ export function ProductDetailSheet({ p, onClose }: ProductDetailSheetProps) {
 
   return (
     <>
-      <Sheet
-        onClose={onClose}
-        initialFocusRef={closeBtnRef}
-        className="pds-sheet coll-product-sheet"
-      >
+      <Sheet onClose={onClose} initialFocusRef={closeBtnRef} className="pds-sheet">
         <PdsHero
           p={p}
           closeBtnRef={closeBtnRef}

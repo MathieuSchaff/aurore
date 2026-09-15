@@ -324,11 +324,7 @@ export function FormulaReading({
                 garde que ceux qui en contiennent au moins un. Retirable d'un tap depuis votre
                 profil.
               </p>
-              <ul
-                role="list"
-                id={declareListId}
-                className="formula-reading__declare-list ui-stack-list"
-              >
+              <ul role="list" id={declareListId} className="ui-stack-list">
                 {declarable.map((i) => (
                   <li key={i.canonicalKey}>
                     <IngredientMarkButtons

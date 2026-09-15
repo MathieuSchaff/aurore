@@ -180,6 +180,13 @@
   color: var(--color-success);
 }
 
+/* The one status the queue must not read as "handled": same recipe as its siblings,
+   on the error token so it cannot be mistaken for --dismissed */
+.admin-pill--escalated {
+  background: oklch(from var(--color-error) l c h / 0.15);
+  color: var(--color-error);
+}
+
 .admin-pill--dismissed {
   background: var(--bg-muted);
   color: var(--text-muted);

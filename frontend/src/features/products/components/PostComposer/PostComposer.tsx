@@ -47,7 +47,7 @@ export function PostComposer({ productId, slug }: { productId: string; slug: str
   }
 
   return (
-    <form className="post-composer ui-form-panel" onSubmit={handleSubmit}>
+    <form className="ui-form-panel" onSubmit={handleSubmit}>
       <SectionHeader title="Nouvelle publication" as="h3" />
       <ChipGroup
         mode="exclusive"

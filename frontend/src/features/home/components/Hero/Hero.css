@@ -26,15 +26,6 @@
     grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
     gap: var(--space-12);
   }
-  .aur-hero--center .aur-hero__grid {
-    grid-template-columns: 1fr;
-    justify-items: center;
-    text-align: center;
-  }
-  .aur-hero--center .aur-hero__visual {
-    width: 100%;
-    max-width: 56rem;
-  }
 }
 
 .aur-hero__brand {

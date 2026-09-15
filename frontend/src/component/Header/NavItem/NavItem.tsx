@@ -39,7 +39,7 @@ export function NavSideList({ onItemClick, variant = 'drawer' }: NavSideListProp
             aria-current={item.to === activeTo ? 'page' : undefined}
           >
             <item.icon size={18} className="main-nav__icon" aria-hidden="true" />
-            <span className="main-nav__label">{item.label}</span>
+            <span>{item.label}</span>
           </Link>
         </li>
       ))}

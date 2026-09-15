@@ -31,7 +31,7 @@ export function DeleteConfirmDialog({
   const anyPending = isPending || avoidPending
 
   return (
-    <Modal onClose={onClose} role="alertdialog" size="sm" className="dcd-dialog">
+    <Modal onClose={onClose} role="alertdialog" size="sm">
       <div className="dcd-header">
         <Modal.Title className="dcd-dialog-title">{title}</Modal.Title>
         <Button variant="ghost" size="sm" onClick={onClose} aria-label="Fermer">

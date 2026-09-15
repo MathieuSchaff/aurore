@@ -95,7 +95,6 @@ function CollectionTabContent({ onAddClick }: { onAddClick: () => void }) {
               autoCapitalize="none"
               autoCorrect="off"
               spellCheck={false}
-              className="coll-search-input"
               aria-label="Rechercher dans la collection"
             />
           </div>

@@ -38,11 +38,10 @@ export function LifecycleSection({ p, onAddPurchase }: LifecycleSectionProps) {
   const [editingPurchaseId, setEditingPurchaseId] = useState<string | null>(null)
 
   return (
-    <div className="pds-lifecycle-body">
+    <div>
       <div className="pds-lifecycle-actions">
         {openPurchase ? (
           <Button
-            className="pds-lifecycle-btn finish"
             fullWidth
             disabled={finishMutation.isPending}
             loading={finishMutation.isPending}
@@ -58,7 +57,6 @@ export function LifecycleSection({ p, onAddPurchase }: LifecycleSectionProps) {
           </Button>
         ) : (
           <Button
-            className="pds-lifecycle-btn start"
             fullWidth
             disabled={
               openMutation.isPending || !purchases || purchases.every((purch) => purch.finishedAt)

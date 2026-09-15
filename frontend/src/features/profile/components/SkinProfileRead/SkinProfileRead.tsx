@@ -72,7 +72,7 @@ export function SkinProfileRead({ dermo, hideFitzpatrick = false }: SkinProfileR
       )}
 
       {hasNotes && (
-        <div className="skin-read__row skin-read__notes-row">
+        <div className="skin-read__row">
           <Overline>Notes privées</Overline>
           <div
             className={clsx(

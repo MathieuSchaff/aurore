@@ -72,7 +72,7 @@ export function PublicReviewsSection({ slug }: PublicReviewsSectionProps) {
     return (
       <section className="product-section public-reviews">
         <SectionHeader title="Retours utilisateurs" variant="primary" />
-        <p className="public-reviews__empty ui-empty-panel">Chargement des retours partagés…</p>
+        <p className="ui-empty-panel">Chargement des retours partagés…</p>
       </section>
     )
   }
@@ -81,7 +81,7 @@ export function PublicReviewsSection({ slug }: PublicReviewsSectionProps) {
     return (
       <section className="product-section public-reviews">
         <SectionHeader title="Retours utilisateurs" variant="primary" />
-        <p className="public-reviews__empty ui-empty-panel">
+        <p className="ui-empty-panel">
           Retours indisponibles pour le moment. Vous pouvez réessayer plus tard.
         </p>
       </section>
@@ -99,7 +99,7 @@ export function PublicReviewsSection({ slug }: PublicReviewsSectionProps) {
       />
 
       {reviews.length === 0 ? (
-        <p className="public-reviews__empty ui-empty-panel">
+        <p className="ui-empty-panel">
           Aucun retour partagé publiquement pour ce produit pour le moment. Vous pouvez partager vos
           retours via le toggle dans votre étagère.
         </p>
@@ -113,8 +113,8 @@ export function PublicReviewsSection({ slug }: PublicReviewsSectionProps) {
               // Only show axis notes when the author opted ratings public (values that are not null).
               const ratedAxes = reviewAxisKeys.filter((k) => review[k] != null)
               return (
-                <li key={review.id} className="public-reviews__verbatim ui-content-card">
-                  <header className="public-reviews__verbatim-header ui-split-row">
+                <li key={review.id} className="ui-content-card">
+                  <header className="ui-split-row">
                     <span className="public-reviews__byline">
                       <ReviewerName reviewer={review.reviewer} />
                       <Time

@@ -71,7 +71,6 @@ export function BulkBar({
             <DropdownMenu.Content
               side="top"
               align="end"
-              className="bulk-bar-picker"
               ariaLabel={`Déplacer ${selectedCount} produit${selectedCount > 1 ? 's' : ''}`}
             >
               <StatusPicker
