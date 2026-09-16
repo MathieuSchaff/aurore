@@ -1,7 +1,6 @@
 import { createFileRoute, stripSearchParams } from '@tanstack/react-router'
 
 import {
-  INGREDIENTS_LIST_STALE_MS,
   ingredientsListApiFilters,
   ingredientsSearchDefaults,
   ingredientsSearchSchema,
@@ -24,10 +23,7 @@ export const Route = createFileRoute('/ingredients/')({
   loader: ({ context, deps }) => {
     // The standing profile filter resolves on the client once the dermo profile is known
     // The server serves the unfiltered grid, the same first render the client does
-    const listQuery = {
-      ...ingredientQueries.list(ingredientsListApiFilters(deps)),
-      staleTime: INGREDIENTS_LIST_STALE_MS,
-    }
+    const listQuery = ingredientQueries.list(ingredientsListApiFilters(deps))
     // Wait on the server so the rendered grid matches the dehydrated cache
     // Keep client navigation from blocking so its first render is not delayed
     if (isServer) return context.queryClient.prefetchQuery(listQuery)

@@ -9,17 +9,11 @@
   --card-desc-clamp: 3;
 }
 
+/* NavArrow owns size, motion and the base hover; only the per-card accent is added here */
 .ingredients-page__card-arrow {
-  width: var(--space-4);
-  height: var(--space-4);
-  flex-shrink: 0;
   color: var(--card-footer-color, var(--text-muted));
-  transition:
-    transform var(--transition-fast) ease,
-    color var(--transition-fast) ease;
 }
 
 .ingredients-page .card:hover .ingredients-page__card-arrow {
-  transform: translateX(var(--space-1));
   color: var(--card-accent, var(--color-primary));
 }

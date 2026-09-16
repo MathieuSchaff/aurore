@@ -19,7 +19,7 @@ import {
 } from '@/features/ingredients/hooks/useIngredientFormSubmit'
 import { type TagState, useFormTags } from '@/hooks/useFormTags'
 import { useSession } from '@/lib/auth/session'
-import { productTagQueries } from '@/lib/queries/product-tags'
+import { ingredientTagQueries } from '@/lib/queries/ingredient-tags'
 import { ConflictBanner } from './ConflictBanner'
 import { IngredientInputField, IngredientTextareaField } from './fields'
 import './IngredientForm.css'
@@ -50,7 +50,7 @@ export function IngredientForm({
   prefill,
   onSuccess,
 }: IngredientFormProps) {
-  const { data: allTags } = useQuery(productTagQueries.list())
+  const { data: allTags } = useQuery(ingredientTagQueries.list(undefined, 500))
   const session = useSession()
   const isAdmin = session.status === 'authenticated' && session.user.role === 'admin'
 
@@ -142,7 +142,7 @@ export function IngredientForm({
         onRestoreField={restoreField}
       />
 
-      {isAdmin && (
+      {mode === 'create' && isAdmin && (
         <IngredientInputField
           label="Slug"
           id="ingredient-slug"
@@ -279,7 +279,6 @@ function computeIsDirty({
   if (isTagsDirty) return true
   return (
     form.name !== (ingredient?.name ?? '') ||
-    form.slug !== (ingredient?.slug ?? '') ||
     form.category !== (ingredient?.category ?? '') ||
     form.description !== (ingredient?.description ?? '') ||
     form.content !== (ingredient?.content ?? '') ||

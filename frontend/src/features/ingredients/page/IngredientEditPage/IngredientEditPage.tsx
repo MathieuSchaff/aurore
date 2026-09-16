@@ -52,7 +52,7 @@ export function IngredientEditPage() {
         initialTags={currentTags.map((t) => ({
           tagId: t.ingredientTagId,
           tagName: t.tagName,
-          relevance: (t.relevance || 'secondary') as 'primary' | 'secondary' | 'avoid',
+          relevance: t.relevance,
         }))}
         onSuccess={(slug) => navigate({ to: '/ingredients/$slug', params: { slug } })}
       />

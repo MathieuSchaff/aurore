@@ -7,6 +7,7 @@ import {
   INGREDIENT_FORM_ERRORS,
   type IngredientFormField,
 } from '@/features/ingredients/components/IngredientForm/formErrors'
+import type { ApiData, api } from '@/lib/api'
 import { extractFormError, isApiError } from '@/lib/helpers/apiError'
 import {
   ingredientQueries,
@@ -30,16 +31,11 @@ export type IngredientFormData = {
 
 export type IngredientFormFieldKey = keyof IngredientFormData
 
-export type BaseIngredient = {
-  id: string
-  slug: string
-  name: string | null
-  type: IngredientType
-  category: string | null
-  description: string | null
-  content: string | null
-  updatedAt: string
-}
+// Derived from the detail route so the form cannot drift from the contract
+export type BaseIngredient = Pick<
+  ApiData<(typeof api.ingredients)[':slug']['$get']>,
+  'id' | 'slug' | 'name' | 'type' | 'category' | 'description' | 'content' | 'updatedAt'
+>
 
 type TagPayload = { tagId: string; relevance: 'primary' | 'secondary' | 'avoid' }
 
@@ -100,20 +96,20 @@ export function useIngredientFormSubmit(args: Args) {
   }
 
   async function submitEdit(ingredient: BaseIngredient): Promise<string> {
-    const [updated] = await Promise.all([
-      updateIngredient.mutateAsync({
-        id: ingredient.id,
-        data: {
-          name: args.form.name.trim(),
-          // slug is immutable after creation, so not sent on edit.
-          category: trimmedField(args.form.category),
-          description: trimmedField(args.form.description),
-          content: trimmedField(args.form.content),
-          expectedUpdatedAt: updatedAtOverride ?? ingredient.updatedAt,
-        },
-      }),
-      updateTags.mutateAsync({ ingredientId: ingredient.id, tags: tagsPayload() }),
-    ])
+    const updated = await updateIngredient.mutateAsync({
+      id: ingredient.id,
+      data: {
+        name: args.form.name.trim(),
+        // slug is immutable after creation, so not sent on edit
+        category: trimmedField(args.form.category),
+        description: trimmedField(args.form.description),
+        content: trimmedField(args.form.content),
+        expectedUpdatedAt: updatedAtOverride ?? ingredient.updatedAt,
+      },
+    })
+    // The tags write is outside the optimistic lock: it only runs once the locked
+    // update went through, so a 409 leaves the other editor's tags untouched
+    await updateTags.mutateAsync({ ingredientId: ingredient.id, tags: tagsPayload() })
     setConflict(null)
     setUpdatedAtOverride(null)
     return updated.slug
@@ -121,16 +117,16 @@ export function useIngredientFormSubmit(args: Args) {
 
   async function handleConflict(ingredient: BaseIngredient) {
     const draft = { ...args.form }
-    const fresh = (await qc.fetchQuery({
+    const fresh = await qc.fetchQuery({
       ...ingredientQueries.bySlug(ingredient.slug),
       staleTime: 0,
-    })) as BaseIngredient
+    })
     args.setForm({
-      name: fresh.name ?? '',
-      slug: fresh.slug ?? '',
+      name: fresh.name,
+      slug: fresh.slug,
       category: fresh.category ?? '',
-      description: fresh.description ?? '',
-      content: fresh.content ?? '',
+      description: fresh.description,
+      content: fresh.content,
     })
     setConflict({ draft, freshUpdatedAt: fresh.updatedAt })
     setUpdatedAtOverride(fresh.updatedAt)
