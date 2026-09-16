@@ -154,16 +154,12 @@ export type PublicProfileReviewsResponse = z.infer<typeof publicProfileReviewsRe
 export type UserProductErrorCode =
   | 'user_product_not_found'
   | 'user_product_creation_failed'
-  | 'user_product_update_failed'
-  | 'user_product_delete_failed'
   | 'public_review_requires_comment'
   | 'database_error'
 
 export const userProductErrorMapping = {
   user_product_not_found: HTTP_STATUS.NOT_FOUND,
   user_product_creation_failed: HTTP_STATUS.INTERNAL_SERVER_ERROR,
-  user_product_update_failed: HTTP_STATUS.INTERNAL_SERVER_ERROR,
-  user_product_delete_failed: HTTP_STATUS.INTERNAL_SERVER_ERROR,
   public_review_requires_comment: HTTP_STATUS.BAD_REQUEST,
   database_error: HTTP_STATUS.INTERNAL_SERVER_ERROR,
 } as const satisfies Record<UserProductErrorCode, HttpStatus>
