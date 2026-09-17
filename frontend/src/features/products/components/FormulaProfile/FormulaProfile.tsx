@@ -36,7 +36,7 @@ export function FormulaProfile({ tags }: FormulaProfileProps) {
           <Fragment key={g.category}>
             <dt className="formula-profile__label">{g.label}</dt>
             <dd className="formula-profile__cell">
-              <ul role="list" className="formula-profile__chips ui-wrap-list">
+              <ul role="list" className="ui-wrap-list">
                 {g.tags.map((t) => (
                   <li key={t.tagSlug}>
                     <Badge variant="chip">{t.tagName}</Badge>

@@ -104,7 +104,7 @@ export const ProfileLinksEditor = ({
           Ajouter un lien
         </Button>
       ) : (
-        <p className="links-editor__limit sr-only">Nombre maximum de liens atteint (5)</p>
+        <p className="sr-only">Nombre maximum de liens atteint (5)</p>
       )}
       <div aria-live="polite" aria-atomic="true" className="sr-only">
         {announcement}

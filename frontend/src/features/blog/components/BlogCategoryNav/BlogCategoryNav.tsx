@@ -40,7 +40,7 @@ export function BlogCategoryNav({ category }: Props) {
             className={`blog-category-nav__item${category === undefined ? ' is-active' : ''}`}
             aria-current={category === undefined ? 'page' : undefined}
           >
-            <span className="blog-category-nav__label">Tous</span>
+            <span>Tous</span>
             {renderCount(totalCount(counts))}
           </Link>
         </li>
@@ -52,7 +52,7 @@ export function BlogCategoryNav({ category }: Props) {
               className={`blog-category-nav__item${category === c ? ' is-active' : ''}`}
               aria-current={category === c ? 'page' : undefined}
             >
-              <span className="blog-category-nav__label">{BLOG_CATEGORY_LABELS[c]}</span>
+              <span>{BLOG_CATEGORY_LABELS[c]}</span>
               {renderCount(counts?.[c])}
             </Link>
           </li>

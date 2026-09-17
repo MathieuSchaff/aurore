@@ -120,7 +120,7 @@ export function FormulaPreview({
   return (
     <section className="formula-preview" aria-labelledby="formula-preview-title">
       <div className="formula-preview__header">
-        <h2 className="formula-preview__title ui-title-sm" id="formula-preview-title">
+        <h2 className="ui-title-sm" id="formula-preview-title">
           Lecture de la formule
         </h2>
         <Button
@@ -159,11 +159,7 @@ export function FormulaPreview({
               <h3 className="formula-preview__group-title">
                 Reliés au catalogue <span className="formula-preview__count">{matched.length}</span>
               </h3>
-              <ul
-                role="list"
-                className="formula-preview__chips ui-wrap-list"
-                aria-label="Ingrédients reliés au catalogue"
-              >
+              <ul role="list" className="ui-wrap-list" aria-label="Ingrédients reliés au catalogue">
                 {matched.map((t) => {
                   const ing = t.ingredient
                   const isLinked = isAdded(ing.id)
@@ -214,11 +210,7 @@ export function FormulaPreview({
                 Reconnus, pas encore de fiche{' '}
                 <span className="formula-preview__count">{knownNoRecord.length}</span>
               </h3>
-              <ul
-                role="list"
-                className="formula-preview__chips ui-wrap-list"
-                aria-label="Ingrédients reconnus sans fiche"
-              >
+              <ul role="list" className="ui-wrap-list" aria-label="Ingrédients reconnus sans fiche">
                 {knownNoRecord.map((t) => (
                   <li key={t.raw} className="formula-preview__chip formula-preview__chip--known">
                     {t.raw}
@@ -237,11 +229,7 @@ export function FormulaPreview({
               <h3 className="formula-preview__group-title">
                 Non reconnus <span className="formula-preview__count">{unknown.length}</span>
               </h3>
-              <ul
-                role="list"
-                className="formula-preview__chips ui-wrap-list"
-                aria-label="Ingrédients non reconnus"
-              >
+              <ul role="list" className="ui-wrap-list" aria-label="Ingrédients non reconnus">
                 {unknown.map((t) => (
                   <li key={t.raw} className="formula-preview__chip formula-preview__chip--unknown">
                     {t.raw}
@@ -264,11 +252,7 @@ export function FormulaPreview({
                 <p className="formula-preview__microcopy">Aucun tag suggéré pour cette liste.</p>
               ) : (
                 <>
-                  <ul
-                    role="list"
-                    className="formula-preview__chips ui-wrap-list"
-                    aria-label="Tags suggérés"
-                  >
+                  <ul role="list" className="ui-wrap-list" aria-label="Tags suggérés">
                     {result.suggestedTags.map((st) => {
                       const tag = tagsBySlug.get(st.tagSlug)
                       if (!tag) return null

@@ -48,7 +48,7 @@ export function ProductPostsSection({ slug, composer }: { slug: string; composer
       {posts.length > 0 && (
         <ul role="list" className="product-posts__list">
           {posts.map((post) => (
-            <li key={post.id} className="product-posts__item ui-content-card">
+            <li key={post.id} className="ui-content-card">
               <header className="product-posts__header">
                 <AuthorName author={post.author} />
                 <Time iso={post.createdAt} style="monthYear" className="product-posts__date" />

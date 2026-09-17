@@ -36,7 +36,7 @@ export const Header = () => {
   const openDrawer = () => setIsOpen(true)
 
   return (
-    <header className="main-header">
+    <header>
       <nav
         className="main-nav"
         aria-label="Navigation principale"

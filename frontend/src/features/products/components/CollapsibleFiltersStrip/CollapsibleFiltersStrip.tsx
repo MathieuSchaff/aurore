@@ -20,7 +20,6 @@ export function CollapsibleFiltersStrip({ count, onOpenDrawer, onFilterIntent, c
       <div className="products-chips-toggle-row">
         <Button
           variant="bare"
-          className="products-chips-toggle"
           onClick={() => setOpen((v) => !v)}
           aria-expanded={open}
           aria-label={`${count} filtre${plural} actif${plural} — ${open ? 'masquer' : 'voir les filtres'}`}
@@ -37,7 +36,6 @@ export function CollapsibleFiltersStrip({ count, onOpenDrawer, onFilterIntent, c
         </Button>
         <Button
           variant="bare"
-          className="products-chips-toggle__edit"
           onClick={onOpenDrawer}
           onPointerEnter={onFilterIntent}
           onFocus={onFilterIntent}

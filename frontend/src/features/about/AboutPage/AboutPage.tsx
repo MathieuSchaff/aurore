@@ -103,7 +103,7 @@ function AboutHero() {
 
 function AboutStory() {
   return (
-    <section className="aur-about-section" aria-labelledby="aur-about-story-title">
+    <section aria-labelledby="aur-about-story-title">
       <SectionHeader
         eyebrow="L’histoire"
         title={
@@ -173,7 +173,7 @@ const painPoints = [
 
 function AboutPain() {
   return (
-    <section className="aur-about-section" aria-labelledby="aur-about-pain-title">
+    <section aria-labelledby="aur-about-pain-title">
       <SectionHeader
         eyebrow="Ce qu’Aurore veut résoudre"
         title={<span id="aur-about-pain-title">La charge mentale, pas le marketing.</span>}
@@ -247,7 +247,7 @@ const enables = [
 
 function AboutEnables() {
   return (
-    <section className="aur-about-section" aria-labelledby="aur-about-enables-title">
+    <section aria-labelledby="aur-about-enables-title">
       <SectionHeader
         eyebrow="Ce qu’Aurore vous permet"
         title={
@@ -304,7 +304,7 @@ const principles = [
 
 function AboutPrinciples() {
   return (
-    <section className="aur-about-section" aria-labelledby="aur-about-principles-title">
+    <section aria-labelledby="aur-about-principles-title">
       <SectionHeader
         eyebrow="Les principes du projet"
         title={
@@ -386,7 +386,7 @@ function AboutNot() {
 
 function AboutCollab() {
   return (
-    <section className="aur-about-section" aria-labelledby="aur-about-collab-title">
+    <section aria-labelledby="aur-about-collab-title">
       <SectionHeader
         eyebrow="La dimension collaborative"
         title={

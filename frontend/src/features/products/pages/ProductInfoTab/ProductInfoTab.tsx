@@ -122,7 +122,6 @@ function IngredientsSection({
           size="sm"
           onClick={handleCopy}
           aria-label="Copier la liste des ingrédients"
-          className="ingredient-copy"
         >
           {copied ? (
             <>
@@ -263,7 +262,7 @@ export function ProductInfoTab() {
       )}
 
       {product.description && (
-        <details className="product-section product-inci product-brand-copy">
+        <details className="product-section product-inci">
           <summary className="product-inci__summary">
             <span>Texte de la marque</span>
             <ChevronDown size={14} className="product-inci__chevron" aria-hidden="true" />
