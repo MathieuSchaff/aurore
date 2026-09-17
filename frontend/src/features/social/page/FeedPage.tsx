@@ -114,7 +114,7 @@ export function FeedPage() {
             subtitle="Quand des personnes proches de vous publieront, leurs partages apparaîtront ici."
           />
         ) : (
-          <ul role="list" className="feed-list">
+          <ul role="list" className="ui-stack-list">
             {posts.map((post) => (
               <FeedPostCard key={post.id} post={post} />
             ))}

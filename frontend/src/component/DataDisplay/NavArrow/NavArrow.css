@@ -8,6 +8,6 @@
 
 .list-card:hover .nav-arrow,
 a:hover .nav-arrow {
-  color: var(--color-primary);
+  color: var(--nav-arrow-hover-color, var(--color-primary));
   transform: translateX(2px);
 }

@@ -87,6 +87,21 @@ describe('updateIngredient (exhaustive)', () => {
       expect(fetched.description).toBe('Nouvelle description')
     })
 
+    it('accepts the wire version of the current ingredient', async () => {
+      const created = await createTestIngredient(user.id, { name: 'Versioned update' })
+
+      const updated = await updIng(
+        user.id,
+        created.id,
+        { description: 'Nouvelle description' },
+        undefined,
+        created.updatedAt
+      )
+
+      expect(updated.description).toBe('Nouvelle description')
+      expect(updated.updatedAt).not.toBe(created.updatedAt)
+    })
+
     it('should return the original ingredient when no actual change occurs', async () => {
       const created = await createTestIngredient(user.id, { name: 'NoChange', category: 'actif' })
 

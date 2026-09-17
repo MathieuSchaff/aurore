@@ -3,17 +3,13 @@
   --list-grid-min: 300px;
 }
 
-/* 3 lines instead of 2: ingredient descriptions are sentences, the extra
-   line lands most truncations on a clause boundary instead of mid-thought. */
+/* The extra line usually truncates ingredient sentences on a clause boundary */
 .ingredients-page .card__description {
   --card-desc-clamp: 3;
 }
 
-/* NavArrow owns size, motion and the base hover; only the per-card accent is added here */
+/* NavArrow owns the shared behavior while each card adds its accent */
 .ingredients-page__card-arrow {
   color: var(--card-footer-color, var(--text-muted));
-}
-
-.ingredients-page .card:hover .ingredients-page__card-arrow {
-  color: var(--card-accent, var(--color-primary));
+  --nav-arrow-hover-color: var(--card-accent, var(--color-primary));
 }

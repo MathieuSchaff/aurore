@@ -29,10 +29,7 @@ function ReactorName({ reactor }: { reactor: Reactor }) {
   return <span>{reactor.username}</span>
 }
 
-// Entraide reactions on a Reactable (post / thread / reply). Shows WHO reacted per
-// kind, never a count. Toggling is signed and needs auth; an anonymous reader sees the
-// existing reactors with the toggles disabled, and a row with no reaction at all
-// renders nothing for them (calme: no lone controls a logged-out reader can't use)
+// Anonymous readers need existing names but no empty reaction controls
 export function ReactionRow({
   reactableType,
   reactableId,

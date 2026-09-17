@@ -27,11 +27,8 @@
 }
 
 .preference-composer {
-  display: flex;
-  align-items: center;
-  gap: var(--space-2);
-  flex-wrap: wrap;
   margin-top: var(--space-3);
+  align-items: center;
 }
 
 .preference-composer > .combobox-primitive {

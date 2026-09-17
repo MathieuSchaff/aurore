@@ -271,12 +271,20 @@ export async function updateIngredient(
 
   const whereConditions = [eq(ingredients.id, id)]
   if (expectedUpdatedAt) {
-    whereConditions.push(eq(ingredients.updatedAt, expectedUpdatedAt))
+    whereConditions.push(
+      sql`date_trunc('milliseconds', ${ingredients.updatedAt}) = ${expectedUpdatedAt}::timestamptz`
+    )
   }
 
   const [newIngredient] = await database
     .update(ingredients)
-    .set(filteredData)
+    .set({
+      ...filteredData,
+      updatedAt: sql`greatest(
+        now(),
+        date_trunc('milliseconds', ${ingredients.updatedAt}) + interval '1 millisecond'
+      )`,
+    })
     .where(and(...whereConditions))
     .returning()
 

@@ -189,20 +189,18 @@ export function createTagService<TDef, TOwnerRow, TProjectionRow, TLinkRow>(cfg:
     tagsInput: TagInputItem[],
     source?: string
   ): Promise<TLinkRow[]> {
-    return db.transaction(async (tx) => {
-      await tx.delete(cfg.links).where(eq(cfg.linkOwnerIdCol, ownerId))
-      if (tagsInput.length === 0) return [] as TLinkRow[]
-      const values = tagsInput.map((t) => {
-        if (typeof t === 'string') return cfg.buildLinkValues(ownerId, t, 'secondary', source)
-        return cfg.buildLinkValues(ownerId, t.tagId, t.relevance ?? 'secondary', source)
-      })
-      const rows = await tx
-        // biome-ignore lint/suspicious/noExplicitAny: generic Drizzle link table.
-        .insert(cfg.links as any)
-        .values(values)
-        .returning()
-      return rows as TLinkRow[]
+    await db.delete(cfg.links).where(eq(cfg.linkOwnerIdCol, ownerId))
+    if (tagsInput.length === 0) return [] as TLinkRow[]
+    const values = tagsInput.map((t) => {
+      if (typeof t === 'string') return cfg.buildLinkValues(ownerId, t, 'secondary', source)
+      return cfg.buildLinkValues(ownerId, t.tagId, t.relevance ?? 'secondary', source)
     })
+    const rows = await db
+      // biome-ignore lint/suspicious/noExplicitAny: generic Drizzle link table.
+      .insert(cfg.links as any)
+      .values(values)
+      .returning()
+    return rows as TLinkRow[]
   }
 
   return {

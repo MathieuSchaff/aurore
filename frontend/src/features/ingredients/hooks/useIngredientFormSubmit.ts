@@ -59,6 +59,7 @@ type Args = (CreateArgs | EditArgs) & {
   setForm: React.Dispatch<React.SetStateAction<IngredientFormData>>
   ingredientType: IngredientType
   tags: Array<{ tagId: string; relevance: TagPayload['relevance'] }>
+  isTagsDirty: boolean
   isAdmin: boolean
   onSuccess: (slug: string) => void
 }
@@ -89,8 +90,12 @@ export function useIngredientFormSubmit(args: Args) {
       description: trimmedField(args.form.description),
       content: trimmedField(args.form.content),
     })
-    if (args.tags.length > 0) {
-      await updateTags.mutateAsync({ ingredientId: created.id, tags: tagsPayload() })
+    if (args.isAdmin && args.tags.length > 0) {
+      await updateTags.mutateAsync({
+        ingredientId: created.id,
+        expectedUpdatedAt: created.updatedAt,
+        tags: tagsPayload(),
+      })
     }
     return created.slug
   }
@@ -107,9 +112,13 @@ export function useIngredientFormSubmit(args: Args) {
         expectedUpdatedAt: updatedAtOverride ?? ingredient.updatedAt,
       },
     })
-    // The tags write is outside the optimistic lock: it only runs once the locked
-    // update went through, so a 409 leaves the other editor's tags untouched
-    await updateTags.mutateAsync({ ingredientId: ingredient.id, tags: tagsPayload() })
+    if (args.isAdmin && args.isTagsDirty) {
+      await updateTags.mutateAsync({
+        ingredientId: ingredient.id,
+        expectedUpdatedAt: updated.updatedAt,
+        tags: tagsPayload(),
+      })
+    }
     setConflict(null)
     setUpdatedAtOverride(null)
     return updated.slug

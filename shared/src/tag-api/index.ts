@@ -39,6 +39,7 @@ export const addIngredientTagSchema = z.object({
 })
 
 export const replaceIngredientTagsSchema = z.object({
+  expectedUpdatedAt: z.iso.datetime(),
   tags: z.array(
     z.object({
       tagId: z.uuid(),
