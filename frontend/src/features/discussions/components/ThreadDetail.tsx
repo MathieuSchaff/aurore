@@ -60,12 +60,8 @@ function ReplyItem({
             <Trash2 size={14} aria-hidden="true" />
           </Button>
         )}
-        {currentUserId && (
-          <ReportContentButton
-            targetType="reply"
-            targetId={reply.id}
-            hidden={reply.authorId === currentUserId}
-          />
+        {currentUserId && reply.authorId !== currentUserId && (
+          <ReportContentButton targetType="reply" targetId={reply.id} />
         )}
       </div>
       <ReactionRow reactableType="thread_reply" reactableId={reply.id} />
@@ -103,12 +99,8 @@ export function ThreadDetail({ thread, entityType, slug, currentUserId }: Thread
               <Trash2 size={14} aria-hidden="true" />
             </Button>
           )}
-          {currentUserId && (
-            <ReportContentButton
-              targetType="thread"
-              targetId={thread.id}
-              hidden={thread.authorId === currentUserId}
-            />
+          {currentUserId && thread.authorId !== currentUserId && (
+            <ReportContentButton targetType="thread" targetId={thread.id} />
           )}
         </div>
         <ReactionRow reactableType="thread" reactableId={thread.id} />
