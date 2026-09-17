@@ -11,20 +11,21 @@ import { Input } from '@/component/Input/Input'
 import { Select } from '@/component/Input/Select/Select'
 import { Textarea } from '@/component/Input/Textarea/Textarea'
 import { useProposeSuggestedEdit } from '@/lib/queries/suggested-edits'
-import { FIELD_LABELS, SUGGEST_LABELS } from './SuggestEditButton.constants'
+import { FIELD_LABELS, type ProposableField, SUGGEST_LABELS } from './SuggestEditButton.constants'
 
 type SuggestEditButtonProps = {
   targetType: EditTargetType
   targetId: string
 }
 
-// Long fields get a Textarea; short fields get a single-line Input.
-const LONG_FIELDS = new Set(['inci', 'description'])
+// Long fields get a Textarea
+// Short fields get a single-line Input
+const LONG_FIELDS: ReadonlySet<ProposableField> = new Set(['inci', 'description'])
 
 export function SuggestEditButton({ targetType, targetId }: SuggestEditButtonProps) {
   const fields = PROPOSABLE_FIELDS[targetType]
   const [open, setOpen] = useState(false)
-  const [field, setField] = useState<string>(fields[0] ?? 'name')
+  const [field, setField] = useState<ProposableField>(fields[0])
   const [value, setValue] = useState('')
   const [done, setDone] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -32,7 +33,7 @@ export function SuggestEditButton({ targetType, targetId }: SuggestEditButtonPro
 
   function close() {
     setOpen(false)
-    setField(fields[0] ?? 'name')
+    setField(fields[0])
     setValue('')
     setDone(false)
     setError(null)
@@ -83,7 +84,7 @@ export function SuggestEditButton({ targetType, targetId }: SuggestEditButtonPro
               <Select
                 label={SUGGEST_LABELS.fieldLabel}
                 value={field}
-                onValueChange={(v) => setField(v)}
+                onValueChange={(v) => v && setField(v)}
                 options={fieldOptions}
               />
               {LONG_FIELDS.has(field) ? (
