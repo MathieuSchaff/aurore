@@ -8,8 +8,6 @@ import { productKeys } from './products'
 import { profileKeys } from './profile'
 import { socialKeys } from './social-keys'
 
-export { invalidateSocialReads, socialKeys } from './social-keys'
-
 // Profiles surfaced by the similarity engine. Type derived from the route
 // inference: band only, never a score (zéro-chiffre is a backend invariant).
 export type SimilarProfile = ApiData<typeof api.social.similar.$get>['profiles'][number]

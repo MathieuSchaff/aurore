@@ -3,9 +3,8 @@
   flex-direction: column;
   gap: var(--space-3);
   margin-bottom: var(--space-4);
-  /* Matches the 640px rail passed to ListPageLayout.Header/Body in FeedPage.tsx. */
+  /* Rail width comes from FeedPage.tsx, the single source shared with header and body */
   width: 100%;
-  max-width: 640px;
   margin-inline: auto;
 }
 

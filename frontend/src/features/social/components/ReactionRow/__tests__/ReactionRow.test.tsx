@@ -4,7 +4,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
 import type { SessionView } from '@/lib/auth/session'
 import type { ReactionList } from '@/lib/queries/social'
-import { socialKeys } from '@/lib/queries/social'
+import { socialKeys } from '@/lib/queries/social-keys'
 import { createLinkStub, LinkStub } from '@/test/mocks/router'
 import { server } from '@/test/msw/server'
 import { createTestQueryClient, renderWithProviders } from '@/test/utils'
