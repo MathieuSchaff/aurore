@@ -1,12 +1,12 @@
 import { useSuspenseQuery } from '@tanstack/react-query'
-import { createFileRoute, getRouteApi, notFound } from '@tanstack/react-router'
+import { createFileRoute, getRouteApi } from '@tanstack/react-router'
 
 import { ThreadList } from '@/features/discussions/components/ThreadList'
 import { IngredientDiscussionSkeleton } from '@/features/ingredients/components/skeletons/IngredientLayoutSkeleton'
 import { useSession } from '@/lib/auth/session'
-import { ApiError } from '@/lib/helpers/apiError'
 import { discussionQueries } from '@/lib/queries/discussions'
 import { ingredientQueries } from '@/lib/queries/ingredients'
+import { notFoundOn404 } from '@/lib/routeErrors'
 import { NOINDEX_ROBOTS, seoHead } from '@/lib/seo'
 
 const route = getRouteApi('/ingredients/$slug/discussions/')
@@ -32,11 +32,9 @@ export const Route = createFileRoute('/ingredients/$slug/discussions/')({
   ssr: 'data-only',
   loader: async ({ context, params }) => {
     const [ingredient] = await Promise.all([
-      context.queryClient.ensureQueryData(ingredientQueries.bySlug(params.slug)).catch((err) => {
-        // Missing ingredient = 404, route to the parent's notFoundComponent
-        if (err instanceof ApiError && err.status === 404) throw notFound()
-        throw err
-      }),
+      context.queryClient
+        .ensureQueryData(ingredientQueries.bySlug(params.slug))
+        .catch(notFoundOn404),
       context.queryClient.ensureQueryData(discussionQueries.threads('ingredient', params.slug)),
     ])
     // Head-only field: the ingredient reaches the component through the dehydrated Query cache

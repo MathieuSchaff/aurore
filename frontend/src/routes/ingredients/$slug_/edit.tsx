@@ -1,11 +1,10 @@
-import { createFileRoute, notFound } from '@tanstack/react-router'
+import { createFileRoute } from '@tanstack/react-router'
 
-import { GlobalError } from '@/component/Feedback/app/GlobalError/GlobalError'
 import { IngredientInfoSkeleton } from '@/features/ingredients/components/skeletons/IngredientLayoutSkeleton'
 import { IngredientEditPage } from '@/features/ingredients/page/IngredientEditPage/IngredientEditPage'
 import { requireSession } from '@/lib/auth/requireSession'
-import { ApiError } from '@/lib/helpers/apiError'
 import { ingredientQueries } from '@/lib/queries/ingredients'
+import { notFoundOn404, RouteNotFound } from '@/lib/routeErrors'
 
 // Trailing `_` on $slug_ opts this route out of $slug.tsx (IngredientLayout)
 // so the edit page does not inherit the parent's hero/tabs/top actions.
@@ -17,12 +16,8 @@ export const Route = createFileRoute('/ingredients/$slug_/edit')({
     })
   },
   loader: ({ context, params }) =>
-    context.queryClient.ensureQueryData(ingredientQueries.bySlug(params.slug)).catch((err) => {
-      // Missing ingredient = 404, route to notFoundComponent; keep 5xx/429 on the real error UI
-      if (err instanceof ApiError && err.status === 404) throw notFound()
-      throw err
-    }),
+    context.queryClient.ensureQueryData(ingredientQueries.bySlug(params.slug)).catch(notFoundOn404),
   pendingComponent: IngredientInfoSkeleton,
-  notFoundComponent: () => <GlobalError error={new Error('not_found')} is404 />,
+  notFoundComponent: RouteNotFound,
   component: IngredientEditPage,
 })

@@ -1,5 +1,5 @@
 import { useSuspenseQuery } from '@tanstack/react-query'
-import { createFileRoute, getRouteApi, notFound } from '@tanstack/react-router'
+import { createFileRoute, getRouteApi } from '@tanstack/react-router'
 
 import { ThreadList } from '@/features/discussions/components/ThreadList'
 import { PostComposer } from '@/features/products/components/PostComposer/PostComposer'
@@ -8,9 +8,9 @@ import { PublicReviewsSection } from '@/features/products/components/PublicRevie
 import { ProductDiscussionSkeleton } from '@/features/products/components/skeletons/ProductLayoutSkeleton/ProductLayoutSkeleton'
 import { resolveProductDetailViewer } from '@/features/products/loadProductDetailViewer'
 import { viewerId as getSessionViewerId, useSession } from '@/lib/auth/session'
-import { ApiError } from '@/lib/helpers/apiError'
 import { discussionQueries } from '@/lib/queries/discussions'
 import { productQueries } from '@/lib/queries/products'
+import { notFoundOn404 } from '@/lib/routeErrors'
 import { NOINDEX_ROBOTS, seoHead } from '@/lib/seo'
 
 const route = getRouteApi('/products/$slug/discussions/')
@@ -47,11 +47,7 @@ export const Route = createFileRoute('/products/$slug/discussions/')({
     const [{ product }] = await Promise.all([
       context.queryClient
         .ensureQueryData(productQueries.detailPage(params.slug, viewerId))
-        .catch((err) => {
-          // Missing product = 404, route to the parent's notFoundComponent
-          if (err instanceof ApiError && err.status === 404) throw notFound()
-          throw err
-        }),
+        .catch(notFoundOn404),
       context.queryClient.ensureQueryData(discussionQueries.threads('product', params.slug)),
     ])
     // Head-only fields: the page reaches the component through the dehydrated Query cache

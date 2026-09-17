@@ -1,18 +1,13 @@
-import { createFileRoute, notFound } from '@tanstack/react-router'
+import { createFileRoute } from '@tanstack/react-router'
 
-import { GlobalError } from '@/component/Feedback/app/GlobalError/GlobalError'
 import { ComparisonBuilderPage } from '@/features/products/comparison/pages/ComparisonBuilderPage'
-import { ApiError } from '@/lib/helpers/apiError'
 import { comparisonQueries } from '@/lib/queries/comparisons'
+import { notFoundOn404, RouteNotFound } from '@/lib/routeErrors'
 
 export const Route = createFileRoute('/_authenticated/products/compare/$id')({
   loader: ({ context, params }) =>
-    context.queryClient.ensureQueryData(comparisonQueries.detail(params.id)).catch((err) => {
-      // Missing comparison = 404, route to notFoundComponent; keep 5xx/429 on the real error UI
-      if (err instanceof ApiError && err.status === 404) throw notFound()
-      throw err
-    }),
-  notFoundComponent: () => <GlobalError error={new Error('not_found')} is404 />,
+    context.queryClient.ensureQueryData(comparisonQueries.detail(params.id)).catch(notFoundOn404),
+  notFoundComponent: RouteNotFound,
   component: function ComparisonDetailRoute() {
     const { id } = Route.useParams()
     return <ComparisonBuilderPage mode="edit" id={id} />

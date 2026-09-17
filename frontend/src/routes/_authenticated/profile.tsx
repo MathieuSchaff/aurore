@@ -27,9 +27,5 @@ export const Route = createFileRoute('/_authenticated/profile')({
       <p>Impossible de charger le profil.</p>
     </div>
   ),
-  component: ProfilePage,
+  component: ProfileDashboard,
 })
-
-function ProfilePage() {
-  return <ProfileDashboard />
-}
