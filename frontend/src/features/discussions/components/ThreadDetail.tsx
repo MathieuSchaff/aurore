@@ -2,6 +2,7 @@ import '../discussions.css'
 
 import type { DiscussionReply, DiscussionThreadWithReplies } from '@aurore/shared'
 
+import { useNavigate } from '@tanstack/react-router'
 import { Trash2 } from 'lucide-react'
 
 import { Button } from '@/component/Button/Button'
@@ -12,6 +13,7 @@ import {
   useDeleteReply,
   useDeleteThread,
 } from '@/lib/queries/discussions'
+import { threadListRoute } from '../links'
 import { AuthorLine } from './AuthorLine'
 import { ReplyForm } from './ReplyForm'
 import { ReportContentButton } from './ReportContentButton'
@@ -72,6 +74,7 @@ function ReplyItem({
 export function ThreadDetail({ thread, entityType, slug, currentUserId }: ThreadDetailProps) {
   const deleteThread = useDeleteThread(entityType, slug)
   const announce = useAnnounce()
+  const navigate = useNavigate()
 
   return (
     <div className="discussions-section">
@@ -90,7 +93,11 @@ export function ThreadDetail({ thread, entityType, slug, currentUserId }: Thread
               size="sm"
               onClick={() =>
                 deleteThread.mutate(thread.id, {
-                  onSuccess: () => announce('Discussion supprimée'),
+                  onSuccess: () => {
+                    announce('Discussion supprimée')
+                    // Staying here would refetch the deleted thread and land on the error screen
+                    navigate({ to: threadListRoute(entityType), params: { slug } })
+                  },
                 })
               }
               disabled={deleteThread.isPending}

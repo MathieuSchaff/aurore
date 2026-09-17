@@ -1,12 +1,15 @@
 import type { DiscussionThreadWithReplies } from '@aurore/shared'
 
-import { render } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 
+const navigateSpy = vi.hoisted(() => vi.fn())
 vi.mock('@tanstack/react-router', () => ({
   // Button.tsx calls createLink at module load; stub so the import doesn't throw.
   createLink: vi.fn(() => vi.fn(({ children }: { children: React.ReactNode }) => children)),
   Link: ({ children }: { children: React.ReactNode }) => children,
+  useNavigate: () => navigateSpy,
 }))
 
 // Spy on the reactable wiring without pulling in the row's own queries.
@@ -18,10 +21,14 @@ vi.mock('@/features/social/components/ReactionRow/ReactionRow', () => ({
   },
 }))
 
-// ThreadDetail/ReplyItem call these hooks unconditionally; stub to inert.
+// ThreadDetail/ReplyItem call these hooks unconditionally, so stub them to inert
+// The thread delete resolves so the post-delete navigation can be observed
 vi.mock('@/lib/queries/discussions', () => ({
   useDeleteReply: () => ({ mutate: vi.fn(), isPending: false }),
-  useDeleteThread: () => ({ mutate: vi.fn(), isPending: false }),
+  useDeleteThread: () => ({
+    mutate: (_id: string, opts?: { onSuccess?: () => void }) => opts?.onSuccess?.(),
+    isPending: false,
+  }),
 }))
 vi.mock('@/hooks/useAnnounce', () => ({ useAnnounce: () => vi.fn() }))
 vi.mock('../AuthorLine', () => ({ AuthorLine: () => null }))
@@ -68,6 +75,23 @@ describe('ThreadDetail reaction wiring', () => {
     expect(reactionRowSpy).toHaveBeenCalledWith({
       reactableType: 'thread_reply',
       reactableId: 'reply-9',
+    })
+  })
+})
+
+describe('deleting the opening thread', () => {
+  afterEach(() => navigateSpy.mockClear())
+
+  it('leaves the thread page for its list, which no longer holds the thread', async () => {
+    render(
+      <ThreadDetail thread={thread()} entityType="product" slug="creme-x" currentUserId="a1" />
+    )
+
+    await userEvent.click(screen.getByRole('button', { name: 'Supprimer la discussion' }))
+
+    expect(navigateSpy).toHaveBeenCalledWith({
+      to: '/products/$slug/discussions',
+      params: { slug: 'creme-x' },
     })
   })
 })

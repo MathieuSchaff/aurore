@@ -104,7 +104,11 @@ export function useDeleteThread(entityType: DiscussionEntityType, slug: string) 
             })
       await throwIfNotOk(res)
     },
-    onSuccess: () => {
+    onSuccess: (_data, threadId) => {
+      // Drop the thread rather than invalidate it: the only refetch left for it is a 404
+      // The caller must leave the thread page in its own onSuccess. A page still mounted
+      // rebuilds this key on the next render and fetches that 404
+      queryClient.removeQueries({ queryKey: discussionKeys.thread(entityType, slug, threadId) })
       queryClient.invalidateQueries({ queryKey: discussionKeys.threads(entityType, slug) })
     },
     meta: { errorMessage: 'Suppression de la discussion impossible.' },
