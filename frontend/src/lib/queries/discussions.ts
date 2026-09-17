@@ -17,6 +17,16 @@ export function invalidateDiscussionReads(queryClient: QueryClient) {
   return queryClient.invalidateQueries({ queryKey: discussionKeys.all })
 }
 
+// Every discussion write converges here. The list key is the prefix of every thread key
+// under it, so one invalidation refreshes the open thread and the replyCount its row shows
+function invalidateEntityDiscussions(
+  queryClient: QueryClient,
+  entityType: DiscussionEntityType,
+  slug: string
+) {
+  return queryClient.invalidateQueries({ queryKey: discussionKeys.threads(entityType, slug) })
+}
+
 export const discussionQueries = {
   threads: (entityType: DiscussionEntityType, slug: string) =>
     queryOptions({
@@ -59,7 +69,7 @@ export function useCreateThread(entityType: DiscussionEntityType, slug: string) 
       return unwrapData(res)
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: discussionKeys.threads(entityType, slug) })
+      invalidateEntityDiscussions(queryClient, entityType, slug)
     },
     meta: { errorMessage: 'Création de la discussion impossible.' },
   })
@@ -83,7 +93,7 @@ export function useCreateReply(entityType: DiscussionEntityType, slug: string, t
       return unwrapData(res)
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: discussionKeys.thread(entityType, slug, threadId) })
+      invalidateEntityDiscussions(queryClient, entityType, slug)
     },
     meta: { errorMessage: 'Envoi de la réponse impossible.' },
   })
@@ -109,7 +119,7 @@ export function useDeleteThread(entityType: DiscussionEntityType, slug: string) 
       // The caller must leave the thread page in its own onSuccess. A page still mounted
       // rebuilds this key on the next render and fetches that 404
       queryClient.removeQueries({ queryKey: discussionKeys.thread(entityType, slug, threadId) })
-      queryClient.invalidateQueries({ queryKey: discussionKeys.threads(entityType, slug) })
+      invalidateEntityDiscussions(queryClient, entityType, slug)
     },
     meta: { errorMessage: 'Suppression de la discussion impossible.' },
   })
@@ -131,7 +141,7 @@ export function useDeleteReply(entityType: DiscussionEntityType, slug: string, t
       await throwIfNotOk(res)
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: discussionKeys.thread(entityType, slug, threadId) })
+      invalidateEntityDiscussions(queryClient, entityType, slug)
     },
     meta: { errorMessage: 'Suppression de la réponse impossible.' },
   })
