@@ -45,7 +45,7 @@ export function ThreadForm({ entityType, slug }: ThreadFormProps) {
   }
 
   return (
-    <form className="thread-form ui-form-panel" onSubmit={handleSubmit}>
+    <form className="ui-form-panel" onSubmit={handleSubmit}>
       <SectionHeader title="Nouvelle discussion" as="h3" />
       <Input
         label="Sujet"
