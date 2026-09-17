@@ -30,7 +30,7 @@ export function DetailHero({
 }: DetailHeroProps) {
   return (
     <header className={clsx('detail-hero', aside && 'detail-hero--has-aside', className)}>
-      <div className="detail-hero__media ui-centered">{media}</div>
+      <div className="ui-centered">{media}</div>
       <div className="detail-hero__body">
         {eyebrow && <p className="detail-hero__eyebrow">{eyebrow}</p>}
         <h1

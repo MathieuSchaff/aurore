@@ -13,7 +13,7 @@ type Phase =
 
 type CropArea = { x: number; y: number; size: number }
 
-export type UseImageUploadOptions = {
+type UseImageUploadOptions = {
   endpoint: string
   outputSize: 1024 | 1200
   maxOutputBytes?: number
