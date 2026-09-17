@@ -59,9 +59,50 @@
   color: var(--text-primary);
 }
 
-.formula-concentrations__unestimable {
-  flex-shrink: 0;
+.formula-concentrations__fold {
+  margin-top: var(--space-2);
+}
+
+.formula-concentrations__fold-summary {
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
   font-size: var(--text-xs);
-  white-space: nowrap;
   color: var(--text-muted);
+}
+
+.formula-concentrations__fold-summary::-webkit-details-marker {
+  display: none;
+}
+
+.formula-concentrations__fold-summary:hover {
+  color: var(--text-secondary);
+}
+
+.formula-concentrations__fold-summary:focus-visible {
+  outline: 2px solid var(--color-focus, var(--color-primary));
+  outline-offset: 2px;
+}
+
+.formula-concentrations__fold-chevron {
+  flex-shrink: 0;
+  transition: transform var(--transition-base) var(--ease-standard);
+}
+
+.formula-concentrations__fold[open] .formula-concentrations__fold-chevron {
+  transform: rotate(180deg);
+}
+
+.formula-concentrations__fold-list {
+  list-style: none;
+  margin: var(--space-2) 0 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1) var(--space-4);
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
 }

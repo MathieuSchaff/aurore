@@ -44,6 +44,8 @@ export const BENEFIT_AXIS_PHRASE: Record<BenefitAxis, string> = {
 // Dose signal: algo-derm emits continuous roleAtDose.doseFactor/confidence and
 // leaves the boolean "is it active" cut to the consumer (ADR-0014). Keep the
 // positive and excipient confidence cuts separate: recall must not hide more risks.
+// The asymmetry is the decision, not a coincidence (docs/adr/0023): the masking cut
+// must never be looser than the positive one
 export const DOSE_SIGNAL_MIN_DOSE_FACTOR = 0.7
 export const DOSE_SIGNAL_MIN_CONFIDENCE = 0.5
 export const DOSE_EXCIPIENT_MAX_DOSE_FACTOR = 0.3
@@ -55,7 +57,13 @@ export const DOSE_SIGNAL_PHRASE = 'probablement dosé pour agir'
 // Numeric estimates need a visible method and must fall back when the solver is weak.
 export const CONC_METHOD_NOTE =
   'Estimé par l’algorithme d’après l’ordre de la liste INCI. Indicatif, non confirmé par la marque.'
-export const CONC_UNESTIMABLE_PHRASE = 'présent · dose non estimable'
+
+// One grouped line for the unestimable tail: repeating the phrase per INCI made a wall of rows
+export function concUnestimableSummary(count: number): string {
+  return count === 1
+    ? '1 autre ingrédient présent · dose non estimable'
+    : `${count} autres ingrédients présents · dose non estimable`
+}
 
 // Neutral caveats mapped from assessment confidence factors; limitationNotes
 // carries the same facts but as dynamic English prose. unknown_ingredients is
