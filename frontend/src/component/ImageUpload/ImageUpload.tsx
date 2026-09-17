@@ -15,8 +15,8 @@ type Props = {
   endpoint: string
   currentImageUrl?: string | null
   alt: string
+  notFoundLabel: string
   onSuccess: (url: string) => void
-  onError?: (msg: string) => void
 }
 
 export const ImageUpload = ({
@@ -25,12 +25,13 @@ export const ImageUpload = ({
   endpoint,
   currentImageUrl,
   alt,
+  notFoundLabel,
   onSuccess,
-  onError,
 }: Props) => {
   const { state, pickFile, dropFile, confirmCrop, cancel } = useImageUpload({
     endpoint,
     outputSize,
+    notFoundLabel,
   })
   const [dragging, setDragging] = useState(false)
   const announce = useAnnounce()
@@ -46,9 +47,9 @@ export const ImageUpload = ({
       // Success returns the phase to 'idle', so the phase-derived region below stays
       // silent; announce here covers every parent (avatar, product image).
       announce('Image enregistrée')
-    } catch (e) {
-      const code = (e as { code?: string }).code ?? 'unknown'
-      onError?.(code)
+    } catch {
+      // The hook already moved to its error phase, which renders the message
+      // Swallow the rejection so the confirm handler does not surface an unhandled promise
     }
   }
 
