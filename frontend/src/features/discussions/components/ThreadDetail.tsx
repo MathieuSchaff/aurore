@@ -7,14 +7,18 @@ import { Trash2 } from 'lucide-react'
 import { Button } from '@/component/Button/Button'
 import { ReactionRow } from '@/features/social/components/ReactionRow/ReactionRow'
 import { useAnnounce } from '@/hooks/useAnnounce'
-import { useDeleteReply, useDeleteThread } from '@/lib/queries/discussions'
+import {
+  type DiscussionEntityType,
+  useDeleteReply,
+  useDeleteThread,
+} from '@/lib/queries/discussions'
 import { AuthorLine } from './AuthorLine'
 import { ReplyForm } from './ReplyForm'
 import { ReportContentButton } from './ReportContentButton'
 
 interface ThreadDetailProps {
   thread: DiscussionThreadWithReplies
-  entityType: 'product' | 'ingredient'
+  entityType: DiscussionEntityType
   slug: string
   currentUserId: string | null
 }
@@ -27,7 +31,7 @@ function ReplyItem({
   currentUserId,
 }: {
   reply: DiscussionReply
-  entityType: 'product' | 'ingredient'
+  entityType: DiscussionEntityType
   slug: string
   threadId: string
   currentUserId: string | null
