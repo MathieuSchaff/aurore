@@ -1,5 +1,7 @@
+import { ChevronDown } from 'lucide-react'
+
 import { SectionHeader } from '@/component/Typography/SectionHeader/SectionHeader'
-import { CONC_METHOD_NOTE, CONC_UNESTIMABLE_PHRASE } from '@/constants/derm'
+import { CONC_METHOD_NOTE, concUnestimableSummary } from '@/constants/derm'
 import type { ProductDermoAssessment } from '@/lib/queries/products'
 import {
   type ConcentrationRead,
@@ -30,8 +32,11 @@ export function FormulaConcentrations({ assessment }: FormulaConcentrationsProps
     .map(([inci, v]) => ({ inci, ...v }))
     .sort((a, b) => compareConcentrationReads(a.read, b.read))
 
+  const estimable = rows.filter((r) => r.read.kind !== 'unestimable')
+  const unestimable = rows.filter((r) => r.read.kind === 'unestimable')
+
   // FormulaReading already covers the qualitative-only case.
-  if (!rows.some((r) => r.read.kind !== 'unestimable')) return null
+  if (estimable.length === 0) return null
 
   return (
     <section className="formula-concentrations product-section">
@@ -42,22 +47,36 @@ export function FormulaConcentrations({ assessment }: FormulaConcentrationsProps
       <p className="formula-concentrations__method">{CONC_METHOD_NOTE}</p>
 
       <ul role="list" className="formula-concentrations__list">
-        {rows.map((r) => (
+        {estimable.map((r) => (
           <li key={r.inci} className="formula-concentrations__item">
             <span className="formula-concentrations__name">{r.name}</span>
-            {r.read.kind === 'unestimable' ? (
-              <span className="formula-concentrations__unestimable">{CONC_UNESTIMABLE_PHRASE}</span>
-            ) : (
-              <span
-                className="formula-concentrations__value"
-                data-declared={r.read.kind === 'declared' || undefined}
-              >
-                {formatConcentrationRead(r.read)}
-              </span>
-            )}
+            <span
+              className="formula-concentrations__value"
+              data-declared={r.read.kind === 'declared' || undefined}
+            >
+              {formatConcentrationRead(r.read)}
+            </span>
           </li>
         ))}
       </ul>
+
+      {unestimable.length > 0 && (
+        <details className="formula-concentrations__fold">
+          <summary className="formula-concentrations__fold-summary">
+            <span>{concUnestimableSummary(unestimable.length)}</span>
+            <ChevronDown
+              size={14}
+              className="formula-concentrations__fold-chevron"
+              aria-hidden="true"
+            />
+          </summary>
+          <ul role="list" className="formula-concentrations__fold-list">
+            {unestimable.map((r) => (
+              <li key={r.inci}>{r.name}</li>
+            ))}
+          </ul>
+        </details>
+      )}
     </section>
   )
 }

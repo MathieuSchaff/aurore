@@ -444,6 +444,11 @@ test.describe('Product detail: Lecture de la formule', () => {
           inci: 'Panthenol',
           concentrationEstimate: prior,
         },
+        {
+          ingredient: 'Aqua',
+          inci: 'Aqua',
+          concentrationEstimate: prior,
+        },
       ],
     }
 
@@ -454,8 +459,15 @@ test.describe('Product detail: Lecture de la formule', () => {
     await expect(section.getByText('15\u00a0% (déclaré)')).toBeVisible()
     await expect(section.getByText('~8–12\u00a0%')).toBeVisible()
     await expect(section.getByText('Glycerin')).toHaveCount(1)
-    await expect(section.getByText('présent · dose non estimable')).toBeVisible()
     await expect(section.getByText(/Indicatif, non confirmé par la marque/)).toBeVisible()
+
+    // The unestimable tail folds into one closed line instead of a wall of repeats
+    const fold = section.locator('.formula-concentrations__fold')
+    await expect(fold.getByText('2 autres ingrédients présents · dose non estimable')).toBeVisible()
+    await expect(fold.getByText('Panthenol')).toBeHidden()
+    await fold.locator('summary').click()
+    await expect(fold.getByText('Panthenol')).toBeVisible()
+    await expect(fold.getByText('Aqua')).toBeVisible()
   })
 
   test('driver labels link to the ingredient page only when a slug is resolved', async ({

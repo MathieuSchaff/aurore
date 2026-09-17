@@ -27,6 +27,7 @@ Canonical ADRs for Aurore. This directory is tracked in git.
 | [0020](./0020-session-cookie-reaches-ssr-read-only.md) | The session cookie reaches the server render, and it only ever reads | accepted | 2026-08-27 |
 | [0021](./0021-keep-marked-anonymous-queries-during-pending-adoption.md) | Keep marked anonymous viewer queries during pending session adoption | accepted | 2026-08-28 |
 | [0022](./0022-refuse-internal-targets-before-fetching-stored-image-urls.md) | Refuse internal targets before fetching a stored image URL | accepted | 2026-08-30 |
+| [0023](./0023-dose-cuts-are-asymmetric-in-the-formula-reading.md) | Dose cuts are asymmetric: loose to add a positive line, strict to drop a risk line | proposed | 2026-09-01 |
 
 No **0002**: *AutoTag skip events ride trackError as transport* (accepted 2026-05-19) was deleted
 along with the errors feature it named when the observability stack (Grafana, OTel, Faro) replaced
@@ -36,7 +37,7 @@ it. The decision still holds, its transport no longer exists: skips leave as a s
 **0019** replaced an earlier draft at the same number before it was published; the ADR lists that
 draft as its option C and says which part of it survived.
 
-Next available: **0023**. Name: `NNNN-short-imperative-verb-phrase.md`.
+Next available: **0024**. Name: `NNNN-short-imperative-verb-phrase.md`.
 
 ## Template
 
