@@ -2,6 +2,7 @@ import { screen } from '@testing-library/react'
 import { HttpResponse, http } from 'msw'
 import { describe, expect, it, vi } from 'vitest'
 
+import type { ApiData, api } from '@/lib/api'
 import type { SessionView } from '@/lib/auth/session'
 import { server } from '@/test/msw/server'
 import { renderWithProviders } from '@/test/utils'
@@ -16,15 +17,23 @@ vi.mock('@/lib/auth/session', async (importOriginal) => ({
       id: 'user-id',
       email: 'user@example.test',
       createdAt: '2026-01-01T00:00:00.000Z',
-      role: 'user',
+      role: 'admin',
       emailVerified: true,
       isDemo: false,
     },
   }),
 }))
 
-function tagRow(id: string, label: string, tagType: string) {
-  return { id, slug: label.toLowerCase(), label, tagType, createdAt: '2026-01-01T00:00:00.000Z' }
+type IngredientTagRow = ApiData<(typeof api)['ingredient-tags']['$get']>[number]
+
+function tagRow(id: string, label: string, tagType: string): IngredientTagRow {
+  return {
+    id,
+    slug: label.toLowerCase(),
+    label,
+    tagType,
+    createdAt: '2026-01-01T00:00:00.000Z',
+  }
 }
 
 // The PUT behind the picker links ingredient_tag_types rows: a product tag id
@@ -44,5 +53,19 @@ describe('IngredientForm tag picker', () => {
 
     expect(await screen.findByRole('option', { name: /Apaisant/ })).toBeInTheDocument()
     expect(screen.queryByRole('option', { name: /Vegan/ })).not.toBeInTheDocument()
+  })
+
+  it('requests all tag definitions for the picker', async () => {
+    server.use(
+      http.get('*/api/ingredient-tags', ({ request }) => {
+        const limit = new URL(request.url).searchParams.get('limit')
+        const data = limit === '500' ? [tagRow('it101', 'Définition 101', 'skin_effect')] : []
+        return HttpResponse.json({ success: true, data })
+      })
+    )
+
+    renderWithProviders(<IngredientForm mode="create" onSuccess={vi.fn()} />)
+
+    expect(await screen.findByRole('option', { name: /définition 101/i })).toBeInTheDocument()
   })
 })

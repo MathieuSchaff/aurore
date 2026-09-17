@@ -1,14 +1,17 @@
-import { fireEvent, screen, waitFor } from '@testing-library/react'
-import type { ReactElement, ReactNode } from 'react'
-import { describe, expect, it, vi } from 'vitest'
+import type {
+  CreateIngredientInput,
+  ReplaceIngredientTagsInput,
+  UpdateIngredientRouteInput,
+} from '@aurore/shared'
 
+import { screen, waitFor } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
+import type { ReactElement, ReactNode } from 'react'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
+
+import type { BaseIngredient } from '@/features/ingredients/hooks/useIngredientFormSubmit'
 import type { SessionView } from '@/lib/auth/session'
 import { ApiError } from '@/lib/helpers/apiError'
-import {
-  useCreateIngredient,
-  useUpdateIngredient,
-  useUpdateIngredientTags,
-} from '@/lib/queries/ingredients'
 import { createTestQueryClient, renderWithProviders } from '@/test/utils'
 import { ingredientLabels } from '../../../constants'
 import { IngredientForm } from '../IngredientForm'
@@ -17,7 +20,19 @@ function renderForm(ui: ReactElement, queryClient: ReturnType<typeof createTestQ
   return renderWithProviders(ui, { queryClient })
 }
 
-const { useSessionMock } = vi.hoisted(() => ({
+type CreatedIngredient = Pick<BaseIngredient, 'id' | 'slug' | 'updatedAt'>
+
+const {
+  createIngredientMutate,
+  updateIngredientMutate,
+  updateIngredientTagsMutate,
+  useSessionMock,
+} = vi.hoisted(() => ({
+  createIngredientMutate: vi.fn<(input: CreateIngredientInput) => Promise<CreatedIngredient>>(),
+  updateIngredientMutate:
+    vi.fn<(input: { id: string; data: UpdateIngredientRouteInput }) => Promise<BaseIngredient>>(),
+  updateIngredientTagsMutate:
+    vi.fn<(input: { ingredientId: string } & ReplaceIngredientTagsInput) => Promise<unknown[]>>(),
   useSessionMock: vi.fn<() => SessionView>(),
 }))
 
@@ -27,9 +42,9 @@ vi.mock('@/lib/auth/session', async (importOriginal) => ({
 }))
 
 vi.mock('@/lib/queries/ingredients', () => ({
-  useCreateIngredient: vi.fn(),
-  useUpdateIngredient: vi.fn(),
-  useUpdateIngredientTags: vi.fn(),
+  useCreateIngredient: () => ({ mutateAsync: createIngredientMutate, isPending: false }),
+  useUpdateIngredient: () => ({ mutateAsync: updateIngredientMutate, isPending: false }),
+  useUpdateIngredientTags: () => ({ mutateAsync: updateIngredientTagsMutate, isPending: false }),
   ingredientQueries: {
     bySlug: vi.fn((slug) => ({
       queryKey: ['ingredients', 'slug', slug],
@@ -55,7 +70,8 @@ vi.mock('@/lib/queries/ingredient-tags', () => ({
   },
 }))
 
-// Expose ButtonLink's destination (the global setup stub renders children only); keep the real Button.
+// The global link stub hides destinations
+// These tests need the href while keeping the real Button
 vi.mock('@/component/Button/Button', async (importActual) => {
   const actual = await importActual<typeof import('@/component/Button/Button')>()
   return {
@@ -77,7 +93,7 @@ const mockIngredient = {
   updatedAt: '2024-01-01T10:00:00Z',
 }
 
-function setSessionRole(role: 'user' | 'admin') {
+function setSessionRole(role: 'user' | 'contributor' | 'admin') {
   useSessionMock.mockReturnValue({
     status: 'authenticated',
     credential: 'present',
@@ -92,25 +108,26 @@ function setSessionRole(role: 'user' | 'admin') {
   })
 }
 
+beforeEach(() => {
+  vi.clearAllMocks()
+  createIngredientMutate.mockResolvedValue({
+    id: mockIngredient.id,
+    slug: mockIngredient.slug,
+    updatedAt: mockIngredient.updatedAt,
+  })
+  updateIngredientMutate.mockResolvedValue(mockIngredient)
+  updateIngredientTagsMutate.mockResolvedValue([])
+})
+
 describe('IngredientForm - Conflict Resolution', () => {
   it('handles a 409 conflict during update and allows field restoration', async () => {
     setSessionRole('user')
     const queryClient = createTestQueryClient()
     const mockOnSuccess = vi.fn()
-    const mockMutateAsync = vi.fn()
-
-    ;(useUpdateIngredient as any).mockReturnValue({
-      mutateAsync: mockMutateAsync,
-      isPending: false,
-    })
-    ;(useCreateIngredient as any).mockReturnValue({ isPending: false })
-    ;(useUpdateIngredientTags as any).mockReturnValue({
-      mutateAsync: vi.fn().mockResolvedValue([]),
-      isPending: false,
-    })
+    const user = userEvent.setup()
 
     const conflictError = new ApiError('ingredient_update_conflict', 409)
-    mockMutateAsync.mockRejectedValueOnce(conflictError)
+    updateIngredientMutate.mockRejectedValueOnce(conflictError)
 
     const freshIngredient = {
       ...mockIngredient,
@@ -126,10 +143,11 @@ describe('IngredientForm - Conflict Resolution', () => {
     )
 
     const descriptionField = screen.getByLabelText(/Description/)
-    fireEvent.change(descriptionField, { target: { value: 'My local draft' } })
+    await user.clear(descriptionField)
+    await user.type(descriptionField, 'My local draft')
 
     const saveButton = screen.getByRole('button', { name: /Enregistrer/i })
-    fireEvent.click(saveButton)
+    await user.click(saveButton)
 
     await waitFor(() => {
       expect(screen.getByText(ingredientLabels.conflictDetected)).toBeInTheDocument()
@@ -137,31 +155,30 @@ describe('IngredientForm - Conflict Resolution', () => {
 
     expect(descriptionField).toHaveValue('Server edited description')
 
-    // Banner description also contains "Ton brouillon". Match by count, not unique.
+    // The banner repeats this hint for the saved draft
     const draftHints = screen.getAllByText(/Ton brouillon/i)
     expect(draftHints.length).toBeGreaterThanOrEqual(1)
     expect(screen.getByText('My local draft')).toBeInTheDocument()
 
     const restoreButton = screen.getByRole('button', { name: /Restaurer/i })
-    fireEvent.click(restoreButton)
+    await user.click(restoreButton)
 
     expect(descriptionField).toHaveValue('My local draft')
 
-    mockMutateAsync.mockResolvedValueOnce({ ...mockIngredient, slug: 'retinol' })
-    fireEvent.click(saveButton)
+    updateIngredientMutate.mockResolvedValueOnce({ ...mockIngredient, slug: 'retinol' })
+    await user.click(saveButton)
 
     await waitFor(() => {
-      expect(mockMutateAsync).toHaveBeenLastCalledWith(
+      expect(updateIngredientMutate).toHaveBeenLastCalledWith(
         expect.objectContaining({
           data: expect.objectContaining({
             description: 'My local draft',
           }),
         })
       )
-      const lastCall = mockMutateAsync.mock.calls[mockMutateAsync.mock.calls.length - 1][0]
-      expect(new Date(lastCall.data.expectedUpdatedAt).toISOString()).toBe(
-        new Date('2024-01-01T10:05:00Z').toISOString()
-      )
+      const lastCall = updateIngredientMutate.mock.calls.at(-1)?.[0]
+      expect(lastCall).toBeDefined()
+      expect(lastCall?.data.expectedUpdatedAt).toBe('2024-01-01T10:05:00Z')
     })
 
     expect(mockOnSuccess).toHaveBeenCalled()
@@ -170,17 +187,9 @@ describe('IngredientForm - Conflict Resolution', () => {
   it('does not write the tags when the locked update is rejected', async () => {
     setSessionRole('user')
     const queryClient = createTestQueryClient()
-    const updateTagsMutate = vi.fn().mockResolvedValue([])
+    const user = userEvent.setup()
 
-    ;(useUpdateIngredient as any).mockReturnValue({
-      mutateAsync: vi.fn().mockRejectedValue(new ApiError('ingredient_update_conflict', 409)),
-      isPending: false,
-    })
-    ;(useCreateIngredient as any).mockReturnValue({ isPending: false })
-    ;(useUpdateIngredientTags as any).mockReturnValue({
-      mutateAsync: updateTagsMutate,
-      isPending: false,
-    })
+    updateIngredientMutate.mockRejectedValue(new ApiError('ingredient_update_conflict', 409))
     vi.spyOn(queryClient, 'fetchQuery').mockResolvedValueOnce({
       ...mockIngredient,
       updatedAt: '2024-01-01T10:05:00Z',
@@ -190,20 +199,19 @@ describe('IngredientForm - Conflict Resolution', () => {
       <IngredientForm mode="edit" ingredient={mockIngredient} onSuccess={vi.fn()} />,
       queryClient
     )
-    fireEvent.change(screen.getByLabelText(/Description/), { target: { value: 'My local draft' } })
-    fireEvent.click(screen.getByRole('button', { name: /Enregistrer/i }))
+    const descriptionField = screen.getByLabelText(/Description/)
+    await user.clear(descriptionField)
+    await user.type(descriptionField, 'My local draft')
+    await user.click(screen.getByRole('button', { name: /Enregistrer/i }))
 
     await waitFor(() => {
       expect(screen.getByText(ingredientLabels.conflictDetected)).toBeInTheDocument()
     })
-    expect(updateTagsMutate).not.toHaveBeenCalled()
+    expect(updateIngredientTagsMutate).not.toHaveBeenCalled()
   })
 
   it('shows the slug field to an admin on create only', () => {
     const queryClient = createTestQueryClient()
-    ;(useUpdateIngredientTags as any).mockReturnValue({ isPending: false })
-    ;(useCreateIngredient as any).mockReturnValue({ isPending: false })
-    ;(useUpdateIngredient as any).mockReturnValue({ isPending: false })
 
     setSessionRole('user')
     const { rerender } = renderForm(
@@ -217,13 +225,9 @@ describe('IngredientForm - Conflict Resolution', () => {
     expect(screen.getByLabelText(/Slug/)).toBeInTheDocument()
   })
 
-  // updateIngredientSchema is strict and carries no slug: an editable slug on edit
-  // would only enable Save for a change the server never receives
+  // An edit slug only changes the form because the update contract rejects it
   it('hides the slug field on edit even for an admin', () => {
     const queryClient = createTestQueryClient()
-    ;(useUpdateIngredientTags as any).mockReturnValue({ isPending: false })
-    ;(useCreateIngredient as any).mockReturnValue({ isPending: false })
-    ;(useUpdateIngredient as any).mockReturnValue({ isPending: false })
 
     setSessionRole('admin')
     renderForm(
@@ -234,12 +238,90 @@ describe('IngredientForm - Conflict Resolution', () => {
   })
 })
 
+describe('IngredientForm - tag writes', () => {
+  it('hides tag controls from users and contributors', () => {
+    const queryClient = createTestQueryClient()
+
+    setSessionRole('user')
+    const { rerender } = renderForm(
+      <IngredientForm mode="create" onSuccess={vi.fn()} />,
+      queryClient
+    )
+    expect(screen.queryByLabelText(/ajouter.*tag/i)).not.toBeInTheDocument()
+
+    setSessionRole('contributor')
+    rerender(<IngredientForm mode="create" onSuccess={vi.fn()} />)
+    expect(screen.queryByLabelText(/ajouter.*tag/i)).not.toBeInTheDocument()
+  })
+
+  it('does not write tags for a non admin edit', async () => {
+    setSessionRole('user')
+    const user = userEvent.setup()
+    const queryClient = createTestQueryClient()
+
+    renderForm(
+      <IngredientForm mode="edit" ingredient={mockIngredient} onSuccess={vi.fn()} />,
+      queryClient
+    )
+    const descriptionField = screen.getByLabelText(/description/i)
+    await user.clear(descriptionField)
+    await user.type(descriptionField, 'Description utilisateur')
+    await user.click(screen.getByRole('button', { name: /enregistrer/i }))
+
+    await waitFor(() => expect(updateIngredientMutate).toHaveBeenCalledTimes(1))
+    expect(updateIngredientTagsMutate).not.toHaveBeenCalled()
+  })
+
+  it('does not write unchanged tags for an admin edit', async () => {
+    setSessionRole('admin')
+    const user = userEvent.setup()
+    const queryClient = createTestQueryClient()
+
+    renderForm(
+      <IngredientForm mode="edit" ingredient={mockIngredient} onSuccess={vi.fn()} />,
+      queryClient
+    )
+    const descriptionField = screen.getByLabelText(/description/i)
+    await user.clear(descriptionField)
+    await user.type(descriptionField, 'Description admin')
+    await user.click(screen.getByRole('button', { name: /enregistrer/i }))
+
+    await waitFor(() => expect(updateIngredientMutate).toHaveBeenCalledTimes(1))
+    expect(updateIngredientTagsMutate).not.toHaveBeenCalled()
+  })
+
+  it('uses the updated ingredient version for changed tags', async () => {
+    setSessionRole('admin')
+    const user = userEvent.setup()
+    const queryClient = createTestQueryClient()
+    const updatedAt = '2024-01-01T10:01:00Z'
+    updateIngredientMutate.mockResolvedValueOnce({ ...mockIngredient, updatedAt })
+
+    renderForm(
+      <IngredientForm
+        mode="edit"
+        ingredient={mockIngredient}
+        initialTags={[{ tagId: 'tag-1', tagName: 'Apaisant', relevance: 'secondary' }]}
+        onSuccess={vi.fn()}
+      />,
+      queryClient
+    )
+    await user.click(screen.getByRole('button', { name: /retirer.*apaisant/i }))
+    await user.click(screen.getByRole('button', { name: /enregistrer/i }))
+
+    await waitFor(() => {
+      expect(updateIngredientTagsMutate).toHaveBeenCalledWith({
+        ingredientId: mockIngredient.id,
+        expectedUpdatedAt: updatedAt,
+        tags: [],
+      })
+    })
+  })
+})
+
 describe('IngredientForm - cancel link', () => {
   const setupHooks = () => {
     setSessionRole('user')
-    ;(useCreateIngredient as any).mockReturnValue({ isPending: false })
-    ;(useUpdateIngredient as any).mockReturnValue({ isPending: false })
-    ;(useUpdateIngredientTags as any).mockReturnValue({ isPending: false })
   }
 
   it('points the edit cancel link at the ingredient detail page', () => {
@@ -257,7 +339,7 @@ describe('IngredientForm - cancel link', () => {
     )
   })
 
-  // Strict ButtonLink params exposed a latent bug: edit with no slug used to build /ingredients/undefined (hidden by the old cast).
+  // Strict ButtonLink params exposed the old /ingredients/undefined destination
   it('falls the edit cancel link back to the list when the slug is missing', () => {
     setupHooks()
     const queryClient = createTestQueryClient()

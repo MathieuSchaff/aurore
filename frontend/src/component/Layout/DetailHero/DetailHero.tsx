@@ -39,7 +39,7 @@ export function DetailHero({
         >
           {title}
         </h1>
-        {chips && <div className="detail-hero__chips">{chips}</div>}
+        {chips && <div className="detail-hero__chips ui-wrap-list">{chips}</div>}
       </div>
       {aside && <div className="detail-hero__aside">{aside}</div>}
     </header>

@@ -18,9 +18,9 @@ import {
   addTagToIngredient,
   listTagsByIngredient,
   removeTagFromIngredient,
-  replaceIngredientTags,
 } from '../../ingredient-tags/service'
 import { TagError } from '../../product-tags/tag-error'
+import { replaceIngredientTagsWithVersion } from './service'
 
 const ingredientParams = z.object({ ingredientId: z.uuid() })
 const ingredientTagParams = z.object({ ingredientId: z.uuid(), tagId: z.uuid() })
@@ -90,8 +90,8 @@ export const ingredientTagRoutes = ingredientTagsApp
     async (c) => {
       const db = getRlsDb(c)
       const { ingredientId } = c.req.valid('param')
-      const { tags } = c.req.valid('json')
-      const links = await replaceIngredientTags(db, ingredientId, tags)
+      const input = c.req.valid('json')
+      const links = await replaceIngredientTagsWithVersion(db, ingredientId, input)
       return c.json(ok(links), HTTP_STATUS.OK)
     }
   )

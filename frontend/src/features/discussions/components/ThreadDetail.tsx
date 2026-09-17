@@ -72,9 +72,12 @@ function ReplyItem({
 }
 
 export function ThreadDetail({ thread, entityType, slug, currentUserId }: ThreadDetailProps) {
-  const deleteThread = useDeleteThread(entityType, slug)
   const announce = useAnnounce()
   const navigate = useNavigate()
+  const deleteThread = useDeleteThread(entityType, slug, async () => {
+    announce('Discussion supprimée')
+    await navigate({ to: threadListRoute(entityType), params: { slug } })
+  })
 
   return (
     <div className="discussions-section">
@@ -91,15 +94,7 @@ export function ThreadDetail({ thread, entityType, slug, currentUserId }: Thread
             <Button
               variant="ghost"
               size="sm"
-              onClick={() =>
-                deleteThread.mutate(thread.id, {
-                  onSuccess: () => {
-                    announce('Discussion supprimée')
-                    // Staying here would refetch the deleted thread and land on the error screen
-                    navigate({ to: threadListRoute(entityType), params: { slug } })
-                  },
-                })
-              }
+              onClick={() => deleteThread.mutate(thread.id)}
               disabled={deleteThread.isPending}
               aria-label="Supprimer la discussion"
             >

@@ -254,22 +254,15 @@ export function useUpdateIngredientTags() {
     mutationKey: ['ingredients', 'tags', 'update'],
     mutationFn: async ({
       ingredientId,
-      tags,
-    }: {
-      ingredientId: string
-      tags: ReplaceIngredientTagsInput['tags']
-    }) => {
+      ...input
+    }: { ingredientId: string } & ReplaceIngredientTagsInput) => {
       const res = await api.ingredients[':ingredientId'].tags.$put({
         param: { ingredientId },
-        json: { tags },
+        json: input,
       })
       return unwrapData(res)
     },
-    onSuccess: (_, { ingredientId }) => {
-      qc.invalidateQueries({ queryKey: ingredientKeys.tags(ingredientId) })
-      qc.invalidateQueries({ queryKey: ingredientKeys.lists() })
-      qc.invalidateQueries({ queryKey: ingredientKeys.filterOptionsRoot() })
-    },
+    onSuccess: () => qc.invalidateQueries({ queryKey: ingredientKeys.all }),
     meta: { errorMessage: 'Impossible de mettre à jour les tags.' },
   })
 }

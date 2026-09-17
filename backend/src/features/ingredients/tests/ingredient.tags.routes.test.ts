@@ -12,7 +12,7 @@ import {
   type TestClient,
   withAuth,
 } from '../../../tests/helpers/createTestClient'
-import { expectOk, expectStatus } from '../../../tests/helpers/expectStatus'
+import { expectError, expectOk, expectStatus } from '../../../tests/helpers/expectStatus'
 import {
   setupAndLoginAdmin,
   setupAndLoginContributor,
@@ -184,6 +184,36 @@ describe('Ingredient Tag Routes', () => {
   })
 
   describe('PUT /ingredients/:ingredientId/tags', () => {
+    const replaceTags = (
+      ingredientId: string,
+      expectedUpdatedAt: string,
+      tags: Array<{ tagId: string }>
+    ) =>
+      app.request(`/api/ingredients/${ingredientId}/tags`, {
+        method: 'PUT',
+        headers: {
+          Authorization: `Bearer ${adminToken}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ expectedUpdatedAt, tags }),
+      })
+
+    it('rejects a tag replacement based on a stale ingredient version', async () => {
+      const ingredient = await createIngredient()
+      const firstTag = await createTag('Premier')
+      const secondTag = await createTag('Second')
+
+      await expectOk(replaceTags(ingredient.id, ingredient.updatedAt, [{ tagId: firstTag.id }]))
+      await expectError(
+        replaceTags(ingredient.id, ingredient.updatedAt, [{ tagId: secondTag.id }]),
+        HTTP_STATUS.CONFLICT,
+        'ingredient_update_conflict'
+      )
+
+      const tags = await expectOk(listTags(ingredient.id))
+      expect(tags.map((tag) => tag.ingredientTagId)).toEqual([firstTag.id])
+    })
+
     it('should replace all tags for an ingredient', async () => {
       const ingredient = await createIngredient()
       const tag1 = await createTag('Tag 1')
@@ -192,7 +222,10 @@ describe('Ingredient Tag Routes', () => {
       await linkTag(ingredient.id, tag1.id)
       const tags = await expectOk(
         client.ingredients[':ingredientId'].tags.$put(
-          { param: { ingredientId: ingredient.id }, json: { tags: [{ tagId: tag2.id }] } },
+          {
+            param: { ingredientId: ingredient.id },
+            json: { expectedUpdatedAt: ingredient.updatedAt, tags: [{ tagId: tag2.id }] },
+          },
           withAuth(adminToken)
         )
       )
@@ -207,7 +240,10 @@ describe('Ingredient Tag Routes', () => {
       await linkTag(ingredient.id, tag.id)
       const tags = await expectOk(
         client.ingredients[':ingredientId'].tags.$put(
-          { param: { ingredientId: ingredient.id }, json: { tags: [] } },
+          {
+            param: { ingredientId: ingredient.id },
+            json: { expectedUpdatedAt: ingredient.updatedAt, tags: [] },
+          },
           withAuth(adminToken)
         )
       )

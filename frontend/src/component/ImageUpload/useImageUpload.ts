@@ -17,8 +17,7 @@ type UseImageUploadOptions = {
   endpoint: string
   outputSize: 1024 | 1200
   maxOutputBytes?: number
-  // Names what the endpoint uploads to, for the not_found message. Required so a new
-  // caller cannot fall back to a noun that is wrong on its screen
+  // Required because every caller must name the object shown on its screen
   notFoundLabel: string
   // jsdom has no createObjectURL and never fires an image's onload, so a test hands the crop step
   // an image instead of going through the picker. Declared here rather than grafted onto the
@@ -37,10 +36,10 @@ const ERROR_MESSAGES: Record<string, string> = {
   unknown: 'Erreur inconnue',
 }
 
-// not_found means the row behind the endpoint is gone, and both callers hit it
-// The noun comes from the call site: the hook cannot know if it uploads a product or an avatar
+// The endpoint can outlive its product or avatar row
+// The caller owns the noun shown in this error
 function errorMessage(code: string, notFoundLabel: string): string {
-  if (code === 'not_found') return `${notFoundLabel} introuvable`
+  if (code === 'not_found') return `${notFoundLabel} introuvable, rechargez la page`
   return ERROR_MESSAGES[code] ?? ERROR_MESSAGES.unknown
 }
 

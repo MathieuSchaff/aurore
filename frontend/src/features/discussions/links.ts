@@ -1,6 +1,6 @@
 import type { DiscussionEntityType } from '@/lib/queries/discussions'
 
-// Deriving both routes here keeps the list link, the back link and the post-delete
+// Deriving both routes here keeps the list link, the back link and the redirect after deletion
 // redirect from drifting apart
 
 export function threadListRoute(entityType: DiscussionEntityType) {

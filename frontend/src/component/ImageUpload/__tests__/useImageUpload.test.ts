@@ -145,7 +145,7 @@ describe('useImageUpload', () => {
     })
     await waitFor(() => expect(result.current.state.phase).toBe('error'))
     if (result.current.state.phase === 'error') {
-      expect(result.current.state.message).toBe('Produit introuvable')
+      expect(result.current.state.message).toMatch(/produit.*introuvable.*rechargez.*page/i)
     }
   })
 
@@ -310,7 +310,7 @@ describe('useImageUpload', () => {
           endpoint: '/api/uploads/product/test-slug',
           outputSize: 1200,
           sourceImageForTest: new Image(),
-          notFoundLabel: 'Avatar',
+          notFoundLabel: 'Produit',
         })
       )
       await act(async () => {

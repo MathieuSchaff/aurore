@@ -50,9 +50,12 @@ export function IngredientForm({
   prefill,
   onSuccess,
 }: IngredientFormProps) {
-  const { data: allTags } = useQuery(ingredientTagQueries.list(undefined, 500))
   const session = useSession()
   const isAdmin = session.status === 'authenticated' && session.user.role === 'admin'
+  const { data: allTags } = useQuery({
+    ...ingredientTagQueries.list(undefined, 500),
+    enabled: isAdmin,
+  })
 
   const [form, setForm] = useState<IngredientFormData>({
     name: ingredient?.name ?? prefill?.name ?? '',
@@ -90,6 +93,7 @@ export function IngredientForm({
     setForm,
     ingredientType,
     tags,
+    isTagsDirty,
     isAdmin,
     onSuccess,
   })
@@ -107,7 +111,12 @@ export function IngredientForm({
     if (vals[0]) setIngredientType(vals[0])
   }, [])
 
-  const isDirty = computeIsDirty({ form, ingredient, ingredientType, isTagsDirty })
+  const isDirty = computeIsDirty({
+    form,
+    ingredient,
+    ingredientType,
+    isTagsDirty: isAdmin && isTagsDirty,
+  })
   const isSubmitDisabled = computeSubmitDisabled({ mode, form, isDirty, isPending })
 
   return (
@@ -168,15 +177,17 @@ export function IngredientForm({
         onRestoreField={restoreField}
       />
 
-      <FormField label="Tags">
-        <TagManager
-          tags={tags}
-          availableTags={availableTags}
-          onAddTag={addTag}
-          onRemoveTag={removeTag}
-          onUpdateRelevance={updateRelevance}
-        />
-      </FormField>
+      {isAdmin && (
+        <FormField label="Tags">
+          <TagManager
+            tags={tags}
+            availableTags={availableTags}
+            onAddTag={addTag}
+            onRemoveTag={removeTag}
+            onUpdateRelevance={updateRelevance}
+          />
+        </FormField>
+      )}
 
       <IngredientTextareaField
         label="Description"

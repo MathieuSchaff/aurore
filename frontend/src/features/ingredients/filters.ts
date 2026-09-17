@@ -72,9 +72,8 @@ export type IngredientsSearch = z.infer<typeof ingredientsSearchSchema>
 // so only the last page can end on a ragged row
 export const INGREDIENTS_PAGE_SIZE = 24
 
-// The one builder behind both the route loader and the page, so they read the same
-// query key: a key that differs by one field refetches the server-rendered grid at
-// hydration. IngredientsPage.test pins the parity
+// The loader and page must share one key
+// A mismatch refetches the first grid during hydration
 export function ingredientsListApiFilters(
   search: IngredientsSearch,
   avoidFor: string[] = []
