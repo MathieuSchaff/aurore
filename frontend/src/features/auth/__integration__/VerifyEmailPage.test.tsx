@@ -38,7 +38,6 @@ vi.mock('../../../lib/auth/session', async (importOriginal) => ({
 }))
 
 import { useVerifyEmail } from '../../../lib/queries/auth'
-import { VERIFY_EMAIL_ERRORS } from '../lib/errorMessages'
 import { VerifyEmailPage } from '../page/VerifyEmailPage/VerifyEmailPage'
 
 type VerifyMutate = ReturnType<typeof useVerifyEmail>['mutate']
@@ -101,7 +100,7 @@ describe('VerifyEmailPage', () => {
     useSearchMock.mockReturnValue({})
     renderWithProviders(<VerifyEmailPage />)
 
-    expect(screen.getByText(VERIFY_EMAIL_ERRORS.invalid_token)).toBeVisible()
+    expect(screen.getByText('Ce lien de vérification est invalide.')).toBeVisible()
     expect(navigateMock).not.toHaveBeenCalled()
   })
 
@@ -113,7 +112,7 @@ describe('VerifyEmailPage', () => {
 
     renderWithProviders(<VerifyEmailPage />)
 
-    expect(screen.getByText(VERIFY_EMAIL_ERRORS.token_expired)).toBeVisible()
+    expect(screen.getByText('Ce lien de vérification a expiré.')).toBeVisible()
     expect(screen.getByRole('button', { name: /Demander un nouveau lien/ })).toBeVisible()
   })
 })

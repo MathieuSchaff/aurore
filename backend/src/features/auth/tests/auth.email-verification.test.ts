@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'bun:test'
+import { describe, expect, it, spyOn } from 'bun:test'
 
 import { and, eq, isNull } from 'drizzle-orm'
 
@@ -7,6 +7,7 @@ import { setupDbTests } from '../../../tests/db-setup'
 import { TEST_CREDENTIALS } from '../../../tests/helpers/test-credentials'
 import { createTestUser } from '../../../tests/helpers/test-factories'
 import { createVerificationToken, verifyEmailToken } from '../email-verification.service'
+import * as tokenUtils from '../token.utils'
 import { testDb } from './auth-test.setup'
 
 setupDbTests()
@@ -75,6 +76,33 @@ describe('email-verification.service', () => {
       const expiry = row?.expiresAt ? new Date(row.expiresAt).getTime() : undefined
       expect(expiry).toBeGreaterThan(before + 59 * 60 * 1000)
       expect(expiry).toBeLessThanOrEqual(after + 60 * 60 * 1000 + 1000)
+    })
+
+    it("conserve l'ancien token si la création du suivant échoue", async () => {
+      const user = await createTestUser(
+        TEST_CREDENTIALS.toto.rawEmail,
+        TEST_CREDENTIALS.toto.rawPassword
+      )
+      const repeatedToken = 'a'.repeat(64)
+      const tokenSpy = spyOn(tokenUtils, 'generateRawToken').mockReturnValue(repeatedToken)
+
+      try {
+        const originalToken = await createVerificationToken(testDb, user.id)
+        let creationFailed = false
+        try {
+          await createVerificationToken(testDb, user.id)
+        } catch {
+          creationFailed = true
+        }
+
+        expect(creationFailed).toBe(true)
+        expect(await verifyEmailToken(testDb, originalToken)).toEqual({
+          success: true,
+          data: user.id,
+        })
+      } finally {
+        tokenSpy.mockRestore()
+      }
     })
   })
 

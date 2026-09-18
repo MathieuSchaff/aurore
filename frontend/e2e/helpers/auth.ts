@@ -1,3 +1,5 @@
+import type { AuthTestTokenInput } from '@aurore/shared'
+
 import { expect, type Page } from '@playwright/test'
 
 // keep in sync with backend/src/db/seed/seeders/seed-test-users.ts
@@ -5,6 +7,26 @@ export const SEED_EMAIL = 'seed@seed.com'
 export const SEED_PASSWORD = 'Azerty123!seed'
 
 export type Credentials = { email: string; password: string }
+
+export async function deleteTestUser(page: Page, accessToken: string, label = 'account cleanup') {
+  const response = await page.request.delete('/api/profile/deleteUser', {
+    headers: { authorization: `Bearer ${accessToken}` },
+  })
+  expect(response.status(), `${label} failed (${response.status()})`).toBe(204)
+}
+
+export async function createAuthTestToken(
+  page: Page,
+  email: string,
+  kind: AuthTestTokenInput['kind'],
+  expired = false
+): Promise<string> {
+  const response = await page.request.post('/api/auth/e2e/token', {
+    data: { email, kind, expired } satisfies AuthTestTokenInput,
+  })
+  expect(response.ok(), `auth token setup failed (${response.status()})`).toBe(true)
+  return (await response.json()).data.token as string
+}
 
 // Returns the access token: API-level fixture calls (setup/teardown) need a
 // Bearer header, the cookie alone only feeds the SPA silent refresh.

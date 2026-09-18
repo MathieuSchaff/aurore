@@ -6,15 +6,20 @@ import { eq } from 'drizzle-orm'
 import { testClient } from 'hono/testing'
 
 import { db as appRuntimeDb } from '../../../db'
-import { profiles, userProducts, users } from '../../../db/schema'
+import { profiles, userBans, userProducts, users } from '../../../db/schema'
 import { testDb } from '../../../tests/db.test.config'
 import { setupDbTests } from '../../../tests/db-setup'
 import { createTestApp } from '../../../tests/helpers/createTestApp'
 import type { TestApp, TestClient } from '../../../tests/helpers/createTestClient'
 import { expectOk } from '../../../tests/helpers/expectStatus'
 import { REFRESH_SECRET } from '../../../tests/helpers/secrets'
-import { createTestContributorUser, createTestProduct } from '../../../tests/helpers/test-factories'
+import {
+  createTestAdminUser,
+  createTestContributorUser,
+  createTestProduct,
+} from '../../../tests/helpers/test-factories'
 import { upsertDermoProfile } from '../../profile/service'
+import { clearBanCache } from '../ban.service'
 import { verifyRefreshToken } from '../jwt.utils'
 import { revokeRefreshToken } from '../refresh-token.service'
 
@@ -201,6 +206,31 @@ describe('GET /api/boot', () => {
         session: { authenticated: false },
         profile: null,
       },
+    })
+  })
+
+  it('rejects a valid cookie after the user is globally banned', async () => {
+    const user = await createTestContributorUser(EMAIL, PASSWORD)
+    const admin = await createTestAdminUser()
+    const cookie = await loginWithRefreshCookie(app, EMAIL, PASSWORD)
+
+    await testDb.insert(userBans).values({
+      userId: user.id,
+      scope: 'global',
+      bannedBy: admin.id,
+      reason: 'security review',
+    })
+    clearBanCache(user.id)
+
+    const response = await app.request('/api/boot?view=products', {
+      headers: { Cookie: cookie },
+    })
+
+    expect(response.status).toBe(403)
+    expect(await response.json()).toEqual({
+      success: false,
+      error: 'banned',
+      details: { expiresAt: null, reason: 'security review' },
     })
   })
 

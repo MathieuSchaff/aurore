@@ -30,7 +30,7 @@ function waitForRefreshOk(page: Page) {
   )
 }
 
-test('degraded boot: personalized catalogue on a mute URL pays one browser list read', async ({
+test('loads the personalized catalogue once when boot is degraded', async ({
   page,
   browserName,
   baseURL,
@@ -57,11 +57,7 @@ test('degraded boot: personalized catalogue on a mute URL pays one browser list 
   expect(requestsFor(requests, 'POST', '/api/auth/refresh')).toHaveLength(1)
 })
 
-test('degraded boot: product detail pays exactly one browser page read', async ({
-  page,
-  browserName,
-  baseURL,
-}) => {
+test('loads product detail once when boot is degraded', async ({ page, browserName, baseURL }) => {
   const token = await loginAsPersona(page, browserName)
   const shelfProduct = await resolveShelfProductWithInci(page, token, browserName)
   await page.context().addCookies([bootDelayCookie(baseURL)])

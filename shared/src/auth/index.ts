@@ -81,6 +81,12 @@ export const resetPasswordSchema = z.object({
   password: passwordSchema,
 })
 
+export const authTestTokenBodySchema = z.object({
+  email: emailSchema,
+  kind: z.enum(['verification', 'password-reset']),
+  expired: z.boolean().optional(),
+})
+
 /* UI-side schema: backend only validates resetPasswordSchema (token + password).
    confirmPassword stays client-only. */
 export const resetPasswordFormSchema = z
@@ -102,6 +108,8 @@ export type ChangePasswordInput = z.infer<typeof changePasswordSchema>
 export type ForgotPasswordInput = z.infer<typeof forgotPasswordSchema>
 
 export type ResetPasswordInput = z.infer<typeof resetPasswordSchema>
+
+export type AuthTestTokenInput = z.input<typeof authTestTokenBodySchema>
 
 export type ResetPasswordFormInput = z.infer<typeof resetPasswordFormSchema>
 

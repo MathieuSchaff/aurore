@@ -109,7 +109,9 @@ export function useLogout() {
       const res = await api.auth.logout.$post()
       return unwrapData(res)
     },
-    onSuccess: () => {
+    onSettled: () => {
+      // Logout is also a local security boundary. Clear credentials and ban
+      // signals even when the server no longer recognizes this session.
       endSession(qc, 'logout')
     },
   })

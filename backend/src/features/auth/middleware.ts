@@ -51,8 +51,8 @@ export const requireJwtAuth = async (c: Context<AppEnv>, next: Next) => {
   await next()
 }
 
-// Requires requireJwtAuth then withRlsContext. The ban query uses requestDb so
-// user_bans RLS sees the authenticated user identity and role.
+// Requires an authenticated identity then withRlsContext. The ban query uses
+// requestDb so user_bans RLS sees the authenticated user identity and role.
 export const requireNotBanned = async (c: Context<AppEnv>, next: Next) => {
   const userId = c.get('userId')
   if (!userId) return c.json(err('unauthorized'), HTTP_STATUS.UNAUTHORIZED)

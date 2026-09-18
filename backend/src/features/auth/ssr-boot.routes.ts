@@ -6,7 +6,7 @@ import { getCookie } from 'hono/cookie'
 import type { AppEnv } from '../../app-env'
 import { getRlsDb } from '../../utils/accessors'
 import { zValidator } from '../../utils/validator'
-import { requireSessionCookie } from './middleware'
+import { requireNotBanned, requireSessionCookie } from './middleware'
 import { withRlsContext } from './rls-context.middleware'
 import { anonymousSsrBootResponse, getAuthenticatedSsrBootResponse } from './ssr-boot.service'
 
@@ -24,6 +24,11 @@ const e2eBootDelay = async (c: Context<AppEnv>, next: Next) => {
   return next()
 }
 
+const rejectBannedSession = async (c: Context<AppEnv>, next: Next) => {
+  if (!c.get('userId')) return next()
+  return requireNotBanned(c, next)
+}
+
 const app = new Hono<AppEnv>()
 
 export const ssrBootRoutes = app.get(
@@ -31,6 +36,7 @@ export const ssrBootRoutes = app.get(
   e2eBootDelay,
   requireSessionCookie,
   withRlsContext,
+  rejectBannedSession,
   zValidator('query', ssrBootQuerySchema),
   async (c) => {
     const userId = c.get('userId')

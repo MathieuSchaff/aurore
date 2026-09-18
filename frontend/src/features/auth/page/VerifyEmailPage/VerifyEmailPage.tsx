@@ -1,3 +1,5 @@
+import type { VerifyEmailErrorCode } from '@aurore/shared'
+
 import { useNavigate, useSearch } from '@tanstack/react-router'
 import { useEffect } from 'react'
 import { toast } from 'react-hot-toast'
@@ -6,7 +8,12 @@ import { Button } from '../../../../component/Button/Button'
 import { readClientSession } from '../../../../lib/auth/session'
 import { apiErrorMessage, isApiErrorCode } from '../../../../lib/helpers/apiError'
 import { useResendVerificationFromToken, useVerifyEmail } from '../../../../lib/queries/auth'
-import { VERIFY_EMAIL_ERRORS } from '../../lib/errorMessages'
+
+const VERIFY_EMAIL_ERRORS: Record<VerifyEmailErrorCode, string> = {
+  invalid_token: 'Ce lien de vérification est invalide.',
+  token_expired: 'Ce lien de vérification a expiré.',
+  server_error: 'Ce lien de vérification est invalide.',
+}
 
 export const VerifyEmailPage = () => {
   const { token = '' } = useSearch({ from: '/auth/verify-email' })
