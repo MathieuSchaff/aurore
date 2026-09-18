@@ -55,7 +55,7 @@ export function PreferenceRuleComposer({ stance }: { stance: PreferenceStance })
   }
 
   return (
-    <div className="preference-composer">
+    <div className="preference-composer ui-wrap-list">
       <SearchCombobox
         queryFn={(q) => ingredientQueries.searchDeclarableInfinite(q)}
         toResult={(i) => ({
