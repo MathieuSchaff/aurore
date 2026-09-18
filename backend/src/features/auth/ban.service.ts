@@ -4,7 +4,7 @@ import { and, desc, eq, gt, isNull, or } from 'drizzle-orm'
 
 import type { Database, DatabaseTransaction } from '../../db'
 import { type UserBan, userBans } from '../../db/schema'
-import { nowISO } from '../../utils/dates'
+import { normalizeInstant, nowISO } from '../../utils/dates'
 
 // 30s TTL bounds the window where a freshly banned user gets through (vs ~15min token
 // lifetime without enforcement). The handle comes from the caller: the request path
@@ -15,6 +15,15 @@ const CACHE_MAX = 5000
 
 type CacheEntry = { ban: UserBan | null; expiresAt: number }
 const cache = new Map<string, CacheEntry>()
+
+function toApiBan(row: UserBan | undefined): UserBan | null {
+  if (!row) return null
+  return {
+    ...row,
+    expiresAt: row.expiresAt ? normalizeInstant(row.expiresAt) : null,
+    createdAt: normalizeInstant(row.createdAt),
+  }
+}
 
 function readCache(userId: string): CacheEntry | null {
   const hit = cache.get(userId)
@@ -65,7 +74,7 @@ export async function isUserBanned(
     .orderBy(desc(userBans.createdAt))
     .limit(1)
 
-  const ban = rows[0] ?? null
+  const ban = toApiBan(rows[0])
   if (useCache) writeCache(userId, ban)
   return ban
 }
@@ -91,7 +100,7 @@ export async function isUserBannedForScope(
     .orderBy(desc(userBans.createdAt))
     .limit(1)
 
-  return rows[0] ?? null
+  return toApiBan(rows[0])
 }
 
 // Invalidate cache when a ban is created/lifted out-of-band (test/admin helper).

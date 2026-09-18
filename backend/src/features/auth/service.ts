@@ -178,11 +178,9 @@ export async function signup(
 
     if (rawToken !== null) {
       const verificationUrl = `${ctx.frontendUrl}/auth/verify-email?token=${rawToken}`
-      try {
-        await sendVerificationEmail(user.email, verificationUrl)
-      } catch (emailErr) {
-        logger.error({ err: emailErr }, 'Verification email send failed (best-effort)')
-      }
+      // The existing-email branch also sends outside the response path. Awaiting
+      // only this branch would reveal account existence through provider latency.
+      void sendVerificationEmail(user.email, verificationUrl)
     }
 
     return ok({ pending: true })

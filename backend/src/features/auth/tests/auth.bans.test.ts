@@ -68,6 +68,21 @@ describe('Ban enforcement (requireNotBanned)', () => {
     expect(res.status).toBe(HTTP_STATUS.OK)
   })
 
+  it('returns an expiring ban as a strict ISO instant', async () => {
+    const expiresAt = new Date(Date.now() + 60_000).toISOString()
+    await testDb.insert(userBans).values({
+      userId,
+      scope: 'global',
+      bannedBy: adminId,
+      expiresAt,
+    })
+
+    const res = await client.auth.session.$get({}, withAuth(token))
+
+    const body = await expectError<BannedDetails>(res, HTTP_STATUS.FORBIDDEN, 'banned')
+    expect(body.details?.expiresAt).toBe(expiresAt)
+  })
+
   it('allows /session when user is not banned', async () => {
     const res = await client.auth.session.$get({}, withAuth(token))
 

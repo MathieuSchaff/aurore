@@ -18,7 +18,7 @@ export const banScopeSchema = z.enum([
 export type BanScope = z.infer<typeof banScopeSchema>
 
 export const bannedErrorDetailsSchema = z.object({
-  expiresAt: z.string().nullable().catch(null),
+  expiresAt: z.iso.datetime().nullable().catch(null),
   reason: z.string().nullable().catch(null),
   scope: banScopeSchema.optional().catch(undefined),
 })
