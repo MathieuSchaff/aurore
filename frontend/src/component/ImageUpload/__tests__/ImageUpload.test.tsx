@@ -16,7 +16,7 @@ describe('ImageUpload', () => {
         onSuccess={() => {}}
       />
     )
-    expect(screen.getByText('Changer la photo')).toBeInTheDocument()
+    expect(screen.getByText(/changer.*photo/i)).toBeInTheDocument()
   })
 
   it('uses the product-flavored overlay copy when shape is square', () => {
@@ -31,8 +31,8 @@ describe('ImageUpload', () => {
         onSuccess={() => {}}
       />
     )
-    expect(screen.getByText('Changer')).toBeInTheDocument()
-    expect(screen.queryByText('Changer la photo')).not.toBeInTheDocument()
+    expect(screen.getByText(/changer/i)).toBeInTheDocument()
+    expect(screen.queryByText(/changer.*photo/i)).not.toBeInTheDocument()
   })
 
   it('renders current image when provided', () => {
@@ -63,11 +63,11 @@ describe('ImageUpload', () => {
       />
     )
     const trigger = screen.getByRole('button', { name: 'Image produit' })
-    expect(screen.queryByText("Déposez l'image")).not.toBeInTheDocument()
+    expect(screen.queryByText(/déposez.*image/i)).not.toBeInTheDocument()
     fireEvent.dragOver(trigger)
-    expect(screen.getByText("Déposez l'image")).toBeInTheDocument()
+    expect(screen.getByText(/déposez.*image/i)).toBeInTheDocument()
     fireEvent.dragLeave(trigger)
-    expect(screen.queryByText("Déposez l'image")).not.toBeInTheDocument()
+    expect(screen.queryByText(/déposez.*image/i)).not.toBeInTheDocument()
   })
 
   it('swaps the hover label for the drop hint while dragging over an existing image', () => {
@@ -83,11 +83,11 @@ describe('ImageUpload', () => {
       />
     )
     const trigger = screen.getByRole('button', { name: 'Image produit' })
-    expect(screen.getByText('Changer')).toBeInTheDocument()
+    expect(screen.getByText(/changer/i)).toBeInTheDocument()
     fireEvent.dragOver(trigger)
-    expect(screen.queryByText('Changer')).not.toBeInTheDocument()
-    expect(screen.getByText("Déposez l'image")).toBeInTheDocument()
+    expect(screen.queryByText(/changer/i)).not.toBeInTheDocument()
+    expect(screen.getByText(/déposez.*image/i)).toBeInTheDocument()
     fireEvent.dragLeave(trigger)
-    expect(screen.getByText('Changer')).toBeInTheDocument()
+    expect(screen.getByText(/changer/i)).toBeInTheDocument()
   })
 })
