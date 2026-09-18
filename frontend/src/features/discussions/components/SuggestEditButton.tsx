@@ -18,8 +18,6 @@ type SuggestEditButtonProps = {
   targetId: string
 }
 
-// Long fields get a Textarea
-// Short fields get a single-line Input
 const LONG_FIELDS: ReadonlySet<ProposableField> = new Set(['inci', 'description'])
 
 export function SuggestEditButton({ targetType, targetId }: SuggestEditButtonProps) {
