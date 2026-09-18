@@ -22,11 +22,11 @@ vi.mock('@/features/social/components/ReactionRow/ReactionRow', () => ({
 }))
 
 // ThreadDetail/ReplyItem call these hooks unconditionally, so stub them to inert
-// The thread delete resolves so the post-delete navigation can be observed
+// The thread delete resolves so navigation after deletion can be observed
 vi.mock('@/lib/queries/discussions', () => ({
   useDeleteReply: () => ({ mutate: vi.fn(), isPending: false }),
-  useDeleteThread: () => ({
-    mutate: (_id: string, opts?: { onSuccess?: () => void }) => opts?.onSuccess?.(),
+  useDeleteThread: (_entityType: string, _slug: string, leaveThreadPage: () => Promise<void>) => ({
+    mutate: () => leaveThreadPage(),
     isPending: false,
   }),
 }))
@@ -87,7 +87,7 @@ describe('deleting the opening thread', () => {
       <ThreadDetail thread={thread()} entityType="product" slug="creme-x" currentUserId="a1" />
     )
 
-    await userEvent.click(screen.getByRole('button', { name: 'Supprimer la discussion' }))
+    await userEvent.click(screen.getByRole('button', { name: /supprimer.*discussion/i }))
 
     expect(navigateSpy).toHaveBeenCalledWith({
       to: '/products/$slug/discussions',

@@ -1,3 +1,5 @@
+import type { DiscussionThread } from '@aurore/shared'
+
 import { type QueryClient, queryOptions, useMutation, useQueryClient } from '@tanstack/react-query'
 
 import { api } from '../api'
@@ -17,14 +19,37 @@ export function invalidateDiscussionReads(queryClient: QueryClient) {
   return queryClient.invalidateQueries({ queryKey: discussionKeys.all })
 }
 
-// Every discussion write converges here. The list key is the prefix of every thread key
-// under it, so one invalidation refreshes the open thread and the replyCount its row shows
+// The list key prefixes each thread key
+// One invalidation refreshes both reply counts and the open thread
 function invalidateEntityDiscussions(
   queryClient: QueryClient,
   entityType: DiscussionEntityType,
   slug: string
 ) {
   return queryClient.invalidateQueries({ queryKey: discussionKeys.threads(entityType, slug) })
+}
+
+function pruneThreadList(
+  queryClient: QueryClient,
+  entityType: DiscussionEntityType,
+  slug: string,
+  threadId: string
+) {
+  queryClient.setQueryData<DiscussionThread[]>(
+    discussionKeys.threads(entityType, slug),
+    (threads) => threads?.filter((thread) => thread.id !== threadId)
+  )
+}
+
+function invalidateThreadList(
+  queryClient: QueryClient,
+  entityType: DiscussionEntityType,
+  slug: string
+) {
+  return queryClient.invalidateQueries({
+    queryKey: discussionKeys.threads(entityType, slug),
+    exact: true,
+  })
 }
 
 export const discussionQueries = {
@@ -99,7 +124,11 @@ export function useCreateReply(entityType: DiscussionEntityType, slug: string, t
   })
 }
 
-export function useDeleteThread(entityType: DiscussionEntityType, slug: string) {
+export function useDeleteThread(
+  entityType: DiscussionEntityType,
+  slug: string,
+  leaveThreadPage: () => Promise<void>
+) {
   const queryClient = useQueryClient()
   return useMutation({
     mutationKey: ['discussions', 'thread', 'delete'],
@@ -114,12 +143,11 @@ export function useDeleteThread(entityType: DiscussionEntityType, slug: string) 
             })
       await throwIfNotOk(res)
     },
-    onSuccess: (_data, threadId) => {
-      // Drop the thread rather than invalidate it: the only refetch left for it is a 404
-      // The caller must leave the thread page in its own onSuccess. A page still mounted
-      // rebuilds this key on the next render and fetches that 404
+    onSuccess: async (_data, threadId) => {
+      pruneThreadList(queryClient, entityType, slug, threadId)
+      await invalidateThreadList(queryClient, entityType, slug)
+      await leaveThreadPage()
       queryClient.removeQueries({ queryKey: discussionKeys.thread(entityType, slug, threadId) })
-      invalidateEntityDiscussions(queryClient, entityType, slug)
     },
     meta: { errorMessage: 'Suppression de la discussion impossible.' },
   })

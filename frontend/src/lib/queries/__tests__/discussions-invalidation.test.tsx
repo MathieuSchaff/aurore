@@ -84,9 +84,10 @@ describe('useDeleteThread', () => {
     )
     const { queryClient, threadsKey, threadKey } = seedBothSurfaces()
 
-    const { result } = renderHookWithProviders(() => useDeleteThread('product', SLUG), {
-      queryClient,
-    })
+    const { result } = renderHookWithProviders(
+      () => useDeleteThread('product', SLUG, async () => {}),
+      { queryClient }
+    )
     await act(() => result.current.mutateAsync(THREAD_ID))
 
     expect(queryClient.getQueryState(threadKey)).toBeUndefined()
