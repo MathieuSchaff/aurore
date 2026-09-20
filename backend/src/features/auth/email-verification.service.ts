@@ -16,16 +16,19 @@ export async function createVerificationToken(
   const tokenHash = hashToken(rawToken)
   const expiresAt = new Date(Date.now() + TOKEN_EXPIRY_MS).toISOString()
 
-  // Invalidate all previous tokens so only one is valid at a time.
-  await db
-    .update(emailVerifications)
-    .set({ usedAt: sql`now()` })
-    .where(and(eq(emailVerifications.userId, userId), isNull(emailVerifications.usedAt)))
+  // A nested call becomes a savepoint, so authenticated and anonymous callers
+  // both keep the previous proof if issuing its replacement fails.
+  await db.transaction(async (tx) => {
+    await tx
+      .update(emailVerifications)
+      .set({ usedAt: sql`now()` })
+      .where(and(eq(emailVerifications.userId, userId), isNull(emailVerifications.usedAt)))
 
-  await db.insert(emailVerifications).values({
-    userId,
-    tokenHash,
-    expiresAt,
+    await tx.insert(emailVerifications).values({
+      userId,
+      tokenHash,
+      expiresAt,
+    })
   })
 
   return rawToken
