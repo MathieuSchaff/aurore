@@ -116,6 +116,9 @@
       },
     },
   },
+  "patchedDependencies": {
+    "vite@8.2.0": "patches/vite@8.2.0.patch",
+  },
   "overrides": {
     "@babel/core": "^7.29.7",
     "brace-expansion": "^5.0.9",

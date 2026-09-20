@@ -61,7 +61,7 @@ from the committed snapshot (full catalogue + personas), not from `seed-core`.
 
 | Command | What | Notes |
 | :--- | :--- | :--- |
-| `just e2e-up` | Up + migrate + restore the snapshot | **Trap:** an already-running stack keeps a stale schema, run this again after a new migration |
+| `just e2e-up` | Up + migrate + restore the snapshot | **Trap:** an already-running stack keeps a stale schema, run this again after a new migration. Frontend readiness is limited to 180 s; it prints a heartbeat every 20 s, then the last 40 frontend log lines before failing. |
 | `just e2e` | Run the Playwright suites | Auto-runs `e2e-up` if nothing serves 5174. Failures → `frontend/test-results/` |
 | `just e2e-ui` | Playwright interactive mode | **Trap:** `*.mutation.spec.ts` share seed rows in source order, run the whole file, never a single test, and `e2e-reset` between passes |
 | `just e2e-reset` | Recreate the stack from scratch | - |

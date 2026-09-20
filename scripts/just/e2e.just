@@ -1,6 +1,40 @@
 import '_vars.just'
 import 'dev.just'
 
+[script]
+_wait-e2e-frontend:
+    SECONDS=0
+    wait_seconds=180
+    heartbeat_at=20
+    while true; do
+        elapsed=$SECONDS
+        if (( elapsed >= wait_seconds )); then
+            break
+        fi
+        if (( elapsed >= heartbeat_at )); then
+            printf "  ... %ss\n" "$elapsed"
+            heartbeat_at=$((elapsed + 20))
+        fi
+        remaining=$((wait_seconds - elapsed))
+        until_heartbeat=$((heartbeat_at - elapsed))
+        probe_seconds=$((remaining < until_heartbeat ? remaining : until_heartbeat))
+        # Bound each probe or an accepted socket can hide the heartbeat
+        if curl --max-time "$probe_seconds" -sf http://localhost:5174 >/dev/null 2>&1; then
+            exit 0
+        fi
+        elapsed=$SECONDS
+        if (( elapsed >= heartbeat_at && elapsed < wait_seconds )); then
+            printf "  ... %ss\n" "$elapsed"
+            heartbeat_at=$((elapsed + 20))
+        fi
+        if (( elapsed < wait_seconds )); then
+            sleep 1
+        fi
+    done
+    printf "{{RED}}✗ frontend silent on http://localhost:5174 after 180s{{NC}}\n"
+    {{COMPOSE_E2E}} logs --tail 40 frontend
+    exit 1
+
 [doc('Launch E2E stack (tmpfs DB + migrate + restore data.sql: full catalog/personas/fixtures, not seed-core) on isolated ports 5174/3001/5434. Runs alongside just dev.')]
 [group('e2e')]
 e2e-up: ts-build
@@ -18,7 +52,9 @@ e2e-up: ts-build
     {{COMPOSE_E2E}} exec -T db psql -U app -d appdb -v ON_ERROR_STOP=1 < {{SNAPSHOT_FILE}} > /dev/null
     @printf "{{CYAN}}Waiting for frontend...{{NC}}\n"
     {{COMPOSE_E2E}} up -d frontend
-    @until curl -sf http://localhost:5174 >/dev/null; do sleep 1; done
+    # Keep this wait bounded so a stalled Vite process fails here with a heartbeat
+    # and the latest frontend logs instead of an unlabelled Playwright timeout
+    @just _wait-e2e-frontend
     @printf "{{GREEN}}✓ E2E stack ready on http://localhost:5174{{NC}}\n"
 
 [doc('Stop E2E stack (tmpfs DB lost)')]
