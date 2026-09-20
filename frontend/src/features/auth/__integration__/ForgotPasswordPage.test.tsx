@@ -20,7 +20,6 @@ vi.mock('../../../lib/queries/auth', async (importOriginal) => {
 })
 
 import { useForgotPassword } from '../../../lib/queries/auth'
-import { FORGOT_ERRORS } from '../lib/errorMessages'
 import { ForgotPasswordPage } from '../page/ForgotPasswordPage/ForgotPasswordPage'
 
 const mutate = vi.fn()
@@ -74,7 +73,7 @@ describe('ForgotPasswordPage', () => {
     renderWithProviders(<ForgotPasswordPage />)
     await fillAndSubmit()
 
-    expect(await screen.findByText(FORGOT_ERRORS.server_error)).toBeVisible()
+    expect(await screen.findByText('Une erreur est survenue, réessayez plus tard')).toBeVisible()
   })
 
   it('disables the submit button while the request is in flight', () => {

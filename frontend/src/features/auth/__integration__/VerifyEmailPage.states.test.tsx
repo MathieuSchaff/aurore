@@ -5,7 +5,6 @@ import { HttpResponse, http } from 'msw'
 import { toast } from 'react-hot-toast'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
-import { VERIFY_EMAIL_ERRORS } from '@/features/auth/lib/errorMessages'
 import { VerifyEmailPage } from '@/features/auth/page/VerifyEmailPage/VerifyEmailPage'
 import { anonymousTestSession, resetTestAuthStore } from '@/test/authSession'
 import { server } from '@/test/msw/server'
@@ -64,7 +63,7 @@ describe('VerifyEmailPage network states', () => {
     renderWithProviders(<VerifyEmailPage />)
 
     expect(await screen.findByRole('heading', { name: 'Lien invalide' })).toBeVisible()
-    expect(screen.getByText(VERIFY_EMAIL_ERRORS.invalid_token)).toBeVisible()
+    expect(screen.getByText('Ce lien de vérification est invalide.')).toBeVisible()
     expect(
       screen.queryByRole('button', { name: 'Demander un nouveau lien' })
     ).not.toBeInTheDocument()

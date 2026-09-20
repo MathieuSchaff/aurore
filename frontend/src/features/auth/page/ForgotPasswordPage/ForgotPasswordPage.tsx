@@ -1,4 +1,4 @@
-import { forgotPasswordSchema } from '@aurore/shared'
+import { type ForgotPasswordErrorCode, forgotPasswordSchema } from '@aurore/shared'
 
 import { Mail } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
@@ -8,10 +8,13 @@ import { FormMessage } from '../../../../component/Feedback/ui/FormMessage/FormM
 import { apiErrorMessage, rateLimitMessage } from '../../../../lib/helpers/apiError'
 import { useForgotPassword } from '../../../../lib/queries/auth'
 import { AuthField } from '../../components/AuthField/AuthField'
-import { FORGOT_ERRORS } from '../../lib/errorMessages'
 import { parseAuthForm } from '../../lib/parseAuthForm'
 
 type FieldErrors = Partial<Record<'email' | 'form', string>>
+
+const FORGOT_ERRORS: Record<ForgotPasswordErrorCode, string> = {
+  server_error: 'Une erreur est survenue, réessayez plus tard',
+}
 
 export const ForgotPasswordPage = () => {
   const [errors, setErrors] = useState<FieldErrors>({})
