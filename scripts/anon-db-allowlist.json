@@ -10,7 +10,7 @@
   "sites": [
     { "file": "backend/src/features/auth/middleware.ts", "count": 1, "groups": ["B"] },
     { "file": "backend/src/features/auth/rls-context.middleware.ts", "count": 1, "groups": ["A"] },
-    { "file": "backend/src/features/auth/routes.ts", "count": 1, "groups": ["B"] },
+    { "file": "backend/src/features/auth/routes.ts", "count": 2, "groups": ["B"] },
     { "file": "backend/src/features/blog/routes.ts", "count": 1, "groups": ["D"] },
     { "file": "backend/src/features/dermo-score/routes.ts", "count": 1, "groups": ["D"] },
     {

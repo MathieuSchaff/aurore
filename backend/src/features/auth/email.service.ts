@@ -9,7 +9,14 @@ function brevoErrorMeta(e: unknown): { errName: string; statusCode?: number } {
   }
   return { errName: e instanceof Error ? e.name : 'UnknownError' }
 }
+
+// E2E covers the real auth service and DB while replacing only external delivery.
+function usesE2eEmailSink(): boolean {
+  return process.env.E2E_TEST_HOOKS === '1'
+}
+
 export async function sendVerificationEmail(to: string, verificationUrl: string): Promise<void> {
+  if (usesE2eEmailSink()) return
   const client = new BrevoClient({ apiKey: env.BREVO_API_KEY })
 
   try {
@@ -34,6 +41,7 @@ export async function sendVerificationEmail(to: string, verificationUrl: string)
 // exists) reaches the owner by email instead of the HTTP response; the response
 // stays identical to the new-email branch. See ADR 0009.
 export async function sendAlreadyRegisteredEmail(to: string): Promise<void> {
+  if (usesE2eEmailSink()) return
   try {
     const client = new BrevoClient({ apiKey: env.BREVO_API_KEY })
     await client.transactionalEmails.sendTransacEmail({
@@ -53,6 +61,7 @@ export async function sendAlreadyRegisteredEmail(to: string): Promise<void> {
 }
 
 export async function sendPasswordResetEmail(to: string, resetUrl: string): Promise<void> {
+  if (usesE2eEmailSink()) return
   try {
     const client = new BrevoClient({ apiKey: env.BREVO_API_KEY })
     await client.transactionalEmails.sendTransacEmail({
@@ -73,6 +82,7 @@ export async function sendPasswordResetEmail(to: string, resetUrl: string): Prom
 }
 
 export async function sendAccountLockedEmail(to: string): Promise<void> {
+  if (usesE2eEmailSink()) return
   try {
     const client = new BrevoClient({ apiKey: env.BREVO_API_KEY })
     await client.transactionalEmails.sendTransacEmail({

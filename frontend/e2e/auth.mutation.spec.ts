@@ -1,15 +1,37 @@
 import { expect, type Page, test } from '@playwright/test'
 
-import { loginAsSeed, registerFreshUser, SEED_EMAIL, SEED_PASSWORD } from './helpers/auth'
+import {
+  type Credentials,
+  deleteTestUser,
+  loginAsSeed,
+  registerFreshUser,
+  SEED_EMAIL,
+  SEED_PASSWORD,
+} from './helpers/auth'
 import { waitForHydration } from './helpers/hydration'
 import { captureRequests, requestsFor } from './helpers/network'
 
 // Seed user is created and verified upfront by `seed-core` (see backend/src/db/seed/seeders/create-user.ts).
 
-// Random unique email per signup to avoid collisions across runs: snapshot-once
-// seed keeps prior signups in the DB.
+// Random unique email per signup avoids collisions before the test cleanup runs.
 function uniqueEmail(): string {
   return `e2e-${Date.now()}-${Math.random().toString(36).slice(2, 8)}@e2e.test`
+}
+
+async function cleanupUserByCredentials(page: Page, credentials: Credentials, label: string) {
+  const login = await page.request.post('/api/auth/login', { data: credentials })
+  if (login.status() === 401) return
+  expect(login.ok(), `${label} login failed (${login.status()})`).toBe(true)
+  const accessToken = (await login.json()).data.accessToken as string
+  await deleteTestUser(page, accessToken, label)
+}
+
+async function cleanupCurrentUser(page: Page, label: string) {
+  const refresh = await page.request.post('/api/auth/refresh')
+  if (refresh.status() === 400 || refresh.status() === 401) return
+  expect(refresh.ok(), `${label} refresh failed (${refresh.status()})`).toBe(true)
+  const accessToken = (await refresh.json()).data.accessToken as string
+  await deleteTestUser(page, accessToken, label)
 }
 
 // Parallel chunk loading under 10 workers can exceed the implicit 5s timeout.
@@ -63,7 +85,7 @@ test.describe('Auth: login', () => {
     })
   })
 
-  test('login redirects to ?redirect= target on success', async ({ page }) => {
+  test('redirects to the requested target after login', async ({ page }) => {
     await page.goto('/auth/login?redirect=%2Fproducts%2Fnew')
 
     await page.getByLabel('Email', { exact: true }).fill(SEED_EMAIL)
@@ -75,7 +97,7 @@ test.describe('Auth: login', () => {
 })
 
 test.describe('Auth: signup', () => {
-  test('existing email lands on the neutral verify screen (no enumeration)', async ({ page }) => {
+  test('lands on the neutral verify screen for an existing email', async ({ page }) => {
     await page.goto('/auth/signup')
 
     // SEED_EMAIL is already registered. Signup must NOT reveal that (ADR 0009): it
@@ -93,23 +115,26 @@ test.describe('Auth: signup', () => {
   test('creates account with unique email and lands on the verify screen', async ({ page }) => {
     await page.goto('/auth/signup')
 
+    const email = uniqueEmail()
     const password = 'Abcdef12!'
-    await page.getByLabel('Email', { exact: true }).fill(uniqueEmail())
-    await page.getByLabel('Mot de passe', { exact: true }).fill(password)
-    await page.getByLabel('Confirmer le mot de passe').fill(password)
+    try {
+      await page.getByLabel('Email', { exact: true }).fill(email)
+      await page.getByLabel('Mot de passe', { exact: true }).fill(password)
+      await page.getByLabel('Confirmer le mot de passe').fill(password)
 
-    await page.getByRole('button', { name: 'Créer mon compte' }).click()
+      await page.getByRole('button', { name: 'Créer mon compte' }).click()
 
-    // No auto-login (ADR 0009): land on the check-your-email screen, not /collection.
-    await expect(page).toHaveURL(/\/auth\/verify-pending/, { timeout: 15_000 })
-    await expect(page.getByRole('heading', { name: 'Vérifiez votre email' })).toBeVisible()
+      // No auto-login (ADR 0009): land on the check-your-email screen, not /collection.
+      await expect(page).toHaveURL(/\/auth\/verify-pending/, { timeout: 15_000 })
+      await expect(page.getByRole('heading', { name: 'Vérifiez votre email' })).toBeVisible()
+    } finally {
+      await cleanupUserByCredentials(page, { email, password }, 'signup account cleanup')
+    }
   })
 })
 
 test.describe('Auth: banned user', () => {
-  test('login as banned user redirects to /auth/banned with suspension message', async ({
-    page,
-  }) => {
+  test('redirects a banned user to /auth/banned with the suspension message', async ({ page }) => {
     await page.goto('/auth/login')
 
     // keep in sync with backend/src/db/seed/seeders/seed-test-users.ts
@@ -130,7 +155,7 @@ test.describe('Auth: banned user', () => {
     await expect(page.getByText('Compte de test banni (seed)')).toHaveCount(0)
   })
 
-  test('banned page shows fallback message when no query params', async ({ page }) => {
+  test('shows the fallback message without query parameters', async ({ page }) => {
     await page.goto('/auth/banned')
 
     await expectBannedHeading(page)
@@ -150,48 +175,61 @@ test.describe('Auth: banned user', () => {
 })
 
 test.describe('Auth: demo', () => {
-  test('demo button creates a demo session and lands on /collection with banner', async ({
-    page,
-  }) => {
-    await page.goto('/auth/login')
+  test('creates a demo session and lands on /collection with its banner', async ({ page }) => {
+    try {
+      await page.goto('/auth/login')
 
-    await page.getByRole('button', { name: /Essayer la démo/i }).click()
+      await page.getByRole('button', { name: /Essayer la démo/i }).click()
 
-    // The /demo seed itself is fast (~200ms); the headroom over the 15s default absorbs
-    // Firefox boot + nav lag under full-suite parallel contention, not seed weight.
-    await expect(page).toHaveURL(/\/collection/, { timeout: 30_000 })
-    await expect(page.getByRole('heading', { name: 'Ma Collection' })).toBeVisible()
-    await expect(page.getByText('Mode démo')).toBeVisible()
+      // The /demo seed itself is fast (~200ms); the headroom over the 15s default absorbs
+      // Firefox boot + nav lag under full-suite parallel contention, not seed weight.
+      await expect(page).toHaveURL(/\/collection/, { timeout: 30_000 })
+      await expect(page.getByRole('heading', { name: 'Ma Collection' })).toBeVisible()
+      await expect(page.getByText('Mode démo')).toBeVisible()
+    } finally {
+      await cleanupCurrentUser(page, 'login demo cleanup')
+    }
   })
 
   // The home swaps its marketing view for the hub as soon as the session installs
   // so the redirect must survive that unmount
-  test('demo from the home page lands on /collection', async ({ page }) => {
-    await page.goto('/')
-    // The home is server-rendered: a click before hydration lands on inert markup
-    await waitForHydration(page)
+  test('lands on /collection when starting a demo from the home page', async ({ page }) => {
+    try {
+      await page.goto('/')
+      // The home is server-rendered: a click before hydration lands on inert markup
+      await waitForHydration(page)
 
-    await page.getByRole('button', { name: 'Créer un compte de démo' }).first().click()
+      await page.getByRole('button', { name: 'Créer un compte de démo' }).first().click()
 
-    await expect(page).toHaveURL(/\/collection/, { timeout: 30_000 })
-    await expect(page.getByText('Mode démo')).toBeVisible()
+      await expect(page).toHaveURL(/\/collection/, { timeout: 30_000 })
+      await expect(page.getByText('Mode démo')).toBeVisible()
+    } finally {
+      await cleanupCurrentUser(page, 'home demo cleanup')
+    }
   })
 
-  test('demo from signup page also works', async ({ page }) => {
-    await page.goto('/auth/signup')
+  test('starts a demo from the signup page', async ({ page }) => {
+    try {
+      await page.goto('/auth/signup')
 
-    await page.getByRole('button', { name: /Essayer la démo/i }).click()
+      await page.getByRole('button', { name: /Essayer la démo/i }).click()
 
-    // Same headroom as above, for Firefox contention, not seed weight.
-    await expect(page).toHaveURL(/\/collection/, { timeout: 30_000 })
-    await expect(page.getByText('Mode démo')).toBeVisible()
+      // Same headroom as above, for Firefox contention, not seed weight.
+      await expect(page).toHaveURL(/\/collection/, { timeout: 30_000 })
+      await expect(page.getByText('Mode démo')).toBeVisible()
+    } finally {
+      await cleanupCurrentUser(page, 'signup demo cleanup')
+    }
   })
 })
 
 // A resolved anonymous SSR boot must not pay for /auth/refresh. A stale hint cookie
 // is included because the frontend must ignore it during the backend transition.
 test.describe('Auth: SSR boot issue (cold-load probe gate)', () => {
-  test('anonymous boot skips refresh even with a stale hint cookie', async ({ page, context }) => {
+  test('skips refresh on anonymous boot even with a stale hint cookie', async ({
+    page,
+    context,
+  }) => {
     await context.addCookies([{ name: 'aurore_session', value: '1', url: 'http://localhost:5174' }])
     const refreshCalls: string[] = []
     page.on('request', (r) => {
@@ -203,7 +241,7 @@ test.describe('Auth: SSR boot issue (cold-load probe gate)', () => {
     expect(refreshCalls).toEqual([])
   })
 
-  test('authenticated boot fires the refresh probe', async ({ page }) => {
+  test('fires the refresh probe after authenticated boot', async ({ page }) => {
     test.slow()
     await loginAsSeed(page)
 
@@ -218,7 +256,7 @@ test.describe('Auth: SSR boot issue (cold-load probe gate)', () => {
 
   // The hint cookie is dead code on both sides, but old browsers still carry one until it
   // expires. Seeding it here proves the whole session cycle ignores it.
-  test('login, cold-load refresh and logout ignore a leftover session hint', async ({ page }) => {
+  test('ignores a leftover session hint across login, refresh and logout', async ({ page }) => {
     await page
       .context()
       .addCookies([{ name: 'aurore_session', value: '1', url: 'http://localhost:5174' }])
@@ -255,7 +293,7 @@ test.describe('Auth: SSR boot issue (cold-load probe gate)', () => {
 // The root /auth/refresh probe does not gate the public shell. These cases pin protected-route
 // self-heal and the synchronous role guards.
 test.describe('Auth: optimistic boot (cold load, logged in)', () => {
-  test('cold load on a protected route self-heals without redirect to login', async ({ page }) => {
+  test('self-heals a protected cold load without redirecting to login', async ({ page }) => {
     // API login sets the refresh cookie without populating the SPA store, so the goto is a
     // genuine cold boot. The guard must wait for the deduped client probe before deciding.
     await loginAsSeed(page)
@@ -268,7 +306,7 @@ test.describe('Auth: optimistic boot (cold load, logged in)', () => {
     await expect(page).toHaveURL(/\/collection/)
   })
 
-  test('cold load redirects to login when the client probe rejects the seeded session', async ({
+  test('redirects a cold load when the client probe rejects the seeded session', async ({
     page,
   }) => {
     await loginAsSeed(page)
@@ -286,7 +324,7 @@ test.describe('Auth: optimistic boot (cold load, logged in)', () => {
     await expect(page.getByRole('heading', { name: 'Connexion' })).toBeVisible()
   })
 
-  test('cold load on a role-gated route keeps an admin in place', async ({ page }) => {
+  test('keeps an admin on a role-gated cold load', async ({ page }) => {
     // Role guards must await the boot refresh before reading the role, otherwise
     // an admin can be ejected to / on a direct /admin URL.
     await loginAsSeed(page)
@@ -296,19 +334,22 @@ test.describe('Auth: optimistic boot (cold load, logged in)', () => {
     await expect(page).toHaveURL(/\/admin/, { timeout: 15_000 })
   })
 
-  test('cold load on /admin rejects an authenticated non-admin to home', async ({ page }) => {
+  test('redirects an authenticated non-admin from /admin to home', async ({ page }) => {
     // A freshly registered user is role=user: authenticated but NOT authorized. Once the probe
     // resolves the role guard must reject to /, the authorization property, complementary to the
     // "admin not ejected" liveness test above and distinct from the anonymous to /auth/login path.
     // Guards against reading the SSR-seeded role as authorization before refresh settles.
-    await registerFreshUser(page)
+    const freshUser = await registerFreshUser(page)
+    try {
+      await page.goto('/admin')
 
-    await page.goto('/admin')
-
-    await page.waitForURL((url) => url.pathname === '/', { timeout: 15_000 })
+      await page.waitForURL((url) => url.pathname === '/', { timeout: 15_000 })
+    } finally {
+      await deleteTestUser(page, freshUser.token, 'admin guard account cleanup')
+    }
   })
 
-  test('cold load on a blog editor keeps an admin in place', async ({ page }) => {
+  test('keeps an admin on a blog editor cold load', async ({ page }) => {
     await loginAsSeed(page)
 
     await page.goto('/blog/admin/new')
@@ -319,15 +360,18 @@ test.describe('Auth: optimistic boot (cold load, logged in)', () => {
     await expect(page).toHaveURL(/\/blog\/admin\/new/)
   })
 
-  test('cold load on a blog editor redirects a non-admin to the blog', async ({ page }) => {
-    await registerFreshUser(page)
+  test('redirects a non-admin from a blog editor cold load', async ({ page }) => {
+    const freshUser = await registerFreshUser(page)
+    try {
+      await page.goto('/blog/admin/new')
 
-    await page.goto('/blog/admin/new')
-
-    await page.waitForURL((url) => url.pathname === '/blog', { timeout: 15_000 })
+      await page.waitForURL((url) => url.pathname === '/blog', { timeout: 15_000 })
+    } finally {
+      await deleteTestUser(page, freshUser.token, 'blog guard account cleanup')
+    }
   })
 
-  test('SPA navigation keeps an admin on the admin shell', async ({ page }) => {
+  test('keeps an admin on the admin shell during SPA navigation', async ({ page }) => {
     await loginAsSeed(page)
     await page.goto('/')
     await waitForHydration(page)
@@ -337,7 +381,7 @@ test.describe('Auth: optimistic boot (cold load, logged in)', () => {
     await expect(page).toHaveURL(/\/admin/, { timeout: 15_000 })
   })
 
-  test('SPA navigation opens the blog editor for an admin', async ({ page }) => {
+  test('opens the blog editor for an admin during SPA navigation', async ({ page }) => {
     await loginAsSeed(page)
     await page.goto('/blog')
     await waitForHydration(page)

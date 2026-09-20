@@ -1,6 +1,7 @@
 import {
   authSchema as authBodySchema,
   authErrorMapping,
+  authTestTokenBodySchema,
   bannedError,
   changePasswordSchema,
   err,
@@ -16,12 +17,14 @@ import {
   verifyEmailBodySchema,
 } from '@aurore/shared'
 
+import { eq, sql } from 'drizzle-orm'
 import type { Context } from 'hono'
 import { Hono } from 'hono'
 import { deleteCookie, getCookie, setCookie } from 'hono/cookie'
 
 import type { AppEnv } from '../../app-env'
 import { withAdminRls } from '../../db/rls'
+import { emailVerifications } from '../../db/schema'
 import { getAuthedUserId, getRlsDb } from '../../utils/accessors'
 import { clientIp } from '../../utils/clientIp'
 import {
@@ -43,7 +46,11 @@ import {
 import { getGoogleAuthUrl, handleGoogleCallback } from './google.service'
 import { clearRefreshTokenCookie, extractRefreshToken, setRefreshTokenCookie } from './jwt.utils'
 import { requireJwtAuth, requireNotBanned } from './middleware'
-import { requestPasswordReset, resetPassword } from './password-reset.service'
+import {
+  createPasswordResetToken,
+  requestPasswordReset,
+  resetPassword,
+} from './password-reset.service'
 import { withRlsContext } from './rls-context.middleware'
 import {
   type AuthContext,
@@ -55,6 +62,7 @@ import {
   refresh,
   signup,
 } from './service'
+import { getUser } from './user.utils'
 
 function buildAnonAuthContext(c: Context<AppEnv>): AuthContext {
   return {
@@ -118,6 +126,35 @@ function bannedJson(
     bannedError({ expiresAt: ban.expiresAt, reason: ban.reason }),
     HTTP_STATUS.FORBIDDEN
   )
+}
+
+// Raw tokens are fixture setup, never a production API surface. The e2e compose
+// flag is read at module startup, so this route is not registered elsewhere
+if (process.env.E2E_TEST_HOOKS === '1') {
+  app.post('/e2e/token', async (c) => {
+    const body = authTestTokenBodySchema.safeParse(await c.req.json())
+    if (!body.success) {
+      return c.json(err('invalid_input'), HTTP_STATUS.BAD_REQUEST)
+    }
+
+    const db = c.get('anonDb')
+    const user = await getUser(db, body.data.email)
+    if (!user) return c.json(err('not_found'), HTTP_STATUS.NOT_FOUND)
+
+    const token =
+      body.data.kind === 'verification'
+        ? await createVerificationToken(db, user.id)
+        : await createPasswordResetToken(db, user.id)
+
+    if (body.data.kind === 'verification' && body.data.expired === true) {
+      await db
+        .update(emailVerifications)
+        .set({ expiresAt: sql`now() - interval '1 second'` })
+        .where(eq(emailVerifications.userId, user.id))
+    }
+
+    return c.json(ok({ token }), HTTP_STATUS.OK)
+  })
 }
 
 export const jwtAuthRoutes = app
