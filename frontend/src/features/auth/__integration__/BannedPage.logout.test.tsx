@@ -6,10 +6,11 @@ import { HttpResponse, http } from 'msw'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
 import { BannedPage } from '@/features/auth/page/BannedPage/BannedPage'
-import { readClientSession } from '@/lib/auth/session'
-import { presentTestSession, resetTestAuthStore } from '@/test/authSession'
+import { readClientSession, recordBan } from '@/lib/auth/session'
+import { useAuthStore } from '@/store/auth'
+import { anonymousTestSession, presentTestSession, resetTestAuthStore } from '@/test/authSession'
 import { server } from '@/test/msw/server'
-import { renderWithProviders } from '@/test/utils'
+import { createTestQueryClient, renderWithProviders } from '@/test/utils'
 
 const { navigateMock } = vi.hoisted(() => ({ navigateMock: vi.fn() }))
 
@@ -53,6 +54,28 @@ describe('BannedPage logout', () => {
       })
     })
     expect(authorization).toBe('Bearer banned-token')
+    expect(readClientSession()).toEqual({ status: 'anonymous' })
+  })
+
+  it('clears the ban signal when logout fails without a session', async () => {
+    resetTestAuthStore(anonymousTestSession())
+    recordBan(createTestQueryClient(), {
+      expiresAt: null,
+      reason: 'Compte suspendu',
+      scope: 'global',
+    })
+    server.use(
+      http.post('*/api/auth/logout', () =>
+        HttpResponse.json({ success: false, error: 'unauthorized' }, { status: 401 })
+      )
+    )
+    renderWithProviders(<BannedPage />)
+    const user = userEvent.setup()
+
+    await user.click(screen.getByRole('button', { name: 'Se déconnecter' }))
+
+    await waitFor(() => expect(navigateMock).toHaveBeenCalledOnce())
+    expect(useAuthStore.getState().bannedDetails).toBeNull()
     expect(readClientSession()).toEqual({ status: 'anonymous' })
   })
 })
