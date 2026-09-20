@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'bun:test'
+import { describe, expect, it, spyOn } from 'bun:test'
 
 import { eq } from 'drizzle-orm'
 
@@ -6,6 +6,7 @@ import { emailVerifications, users } from '../../../db/schema'
 import { setupDbTests } from '../../../tests/db-setup'
 import { TEST_CREDENTIALS } from '../../../tests/helpers/test-credentials'
 import { createTestToto } from '../../../tests/helpers/test-factories'
+import * as emailService from '../email.service'
 import { signup } from '../service'
 import { createCtx, testDb } from './auth-test.setup'
 
@@ -117,6 +118,42 @@ describe('signup', () => {
 
     expect(token).toBeDefined()
     expect(token?.usedAt).toBeNull()
+  })
+
+  it("ne bloque pas la réponse sur l'envoi de l'email de vérification", async () => {
+    let releaseEmail: () => void = () => undefined
+    let emailStarted: () => void = () => undefined
+    const started = new Promise<void>((resolve) => {
+      emailStarted = resolve
+    })
+    const sendSpy = spyOn(emailService, 'sendVerificationEmail').mockImplementation(async () => {
+      emailStarted()
+      await new Promise<void>((resolve) => {
+        releaseEmail = resolve
+      })
+    })
+
+    try {
+      let settled = false
+      const pendingSignup = signup(
+        createCtx(),
+        TEST_CREDENTIALS.toto.email,
+        TEST_CREDENTIALS.toto.password
+      ).then((result) => {
+        settled = true
+        return result
+      })
+
+      await started
+      await Bun.sleep(0)
+      expect(settled).toBe(true)
+
+      releaseEmail()
+      expect((await pendingSignup).success).toBe(true)
+    } finally {
+      releaseEmail()
+      sendSpy.mockRestore()
+    }
   })
 
   it('inscrit plusieurs utilisateurs distincts indépendamment', async () => {
