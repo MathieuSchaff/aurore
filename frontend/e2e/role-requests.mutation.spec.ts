@@ -29,7 +29,7 @@ test.describe('Role request: demande modérateur', () => {
       // Full navigation restarts the app so silent refresh reads the admin cookie
       // Client navigation would retain the plain user role and redirect
       await loginAsSeed(page)
-      await page.goto('/admin/role-requests')
+      await gotoAuthenticatedHydrated(page, '/admin/role-requests')
 
       await expect(page.getByRole('heading', { name: 'Demandes modérateur' })).toBeVisible()
       const row = page.locator('tr', { hasText: marker })

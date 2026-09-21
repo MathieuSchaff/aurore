@@ -1,11 +1,11 @@
 import { expect, type Page, type Response } from '@playwright/test'
 
-// SSR'd markup is visible long before React owns it, so waiting on a rendered
-// element is not a readiness gate: a click landing in that window is dropped
-// with no error and never replayed. TanStack deletes this stream global only
-// once the client has hydrated, same signal as e2e/auth-ssr/check.ts.
+// SSR markup can accept clicks before React owns it. During a reload, $_TSR is
+// also absent before the parser reaches its script, so wait for the full document
 export function waitForHydration(page: Page) {
-  return page.waitForFunction(() => !Reflect.has(window, '$_TSR'))
+  return page.waitForFunction(
+    () => document.readyState === 'complete' && !Reflect.has(window, '$_TSR')
+  )
 }
 
 // Generic URL quiescence gate for specs whose flow may still move the location

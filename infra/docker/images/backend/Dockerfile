@@ -7,6 +7,7 @@ COPY backend/package.json backend/
 COPY shared/package.json shared/
 COPY frontend/package.json frontend/
 COPY vendor/ vendor/
+COPY patches/ patches/
 RUN bun install --frozen-lockfile
 
 FROM base AS dev
@@ -33,6 +34,7 @@ COPY backend/package.json backend/
 COPY shared/package.json shared/
 COPY frontend/package.json frontend/
 COPY vendor/ vendor/
+COPY patches/ patches/
 
 RUN bun install --frozen-lockfile --production
 

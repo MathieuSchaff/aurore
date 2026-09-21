@@ -144,6 +144,7 @@ bunx biome check .
 - [`docs/conventions/`](./docs/conventions/): the cross-package conventions, one page per topic.
 - [`docs/scoring.md`](./docs/scoring.md): formula reading contract, confidence model, limits.
 - [`docs/adr/`](./docs/adr/): architecture decision records, numbered. Its README is the index.
+- [`patches/`](./patches/): dependency fixes applied by Bun on the host and in Docker images.
 - [`docs/SECURITY.md`](./docs/SECURITY.md) · [`docs/PRIVACY.md`](./docs/PRIVACY.md): auth model,
   role separation, GDPR handling.
 
