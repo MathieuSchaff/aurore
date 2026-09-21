@@ -33,18 +33,18 @@ image-upload $WRITE="":
         ${NO_STAGED:+--no-staged} \
         ${CONCURRENCY:+--concurrency "$CONCURRENCY"}
 
-# Build output/image-mapping.json from the Bunny ∩ DB inventory (prerequisite of
+# Build output/image-mapping.json from the Bunny inventory and DB image references (prerequisite of
 # image-fix-refs). Writes a local artifact only (no DB, no CDN), so no mode flag.
-[doc("Build output/image-mapping.json from the Bunny ∩ DB inventory (prerequisite of image-fix-refs). Local artifact, no mode")]
+[doc("Build output/image-mapping.json from the Bunny inventory and DB image references (prerequisite of image-fix-refs). Local artifact, no mode")]
 [group('images')]
 [script]
 image-build-mapping:
     source {{justfile_directory()}}/scripts/just/_lib.sh
     target_compose
     printf "{{CYAN}}Build image mapping ($TARGET)...{{NC}}\n"
-    $COMPOSE exec -w /app/backend api bun run src/images/maintenance/build-mapping.ts
+    $COMPOSE exec -e IMAGE_MAINTENANCE_TARGET="$TARGET" -w /app/backend api bun run src/images/maintenance/build-mapping.ts
 
-[doc('Reconcile DB image_url ⇄ Bunny from image-mapping.json (rename/nullify/cleanup). Writes DB+CDN. Dry-run unless --write. TARGET: dev|prod (prod + --write → confirm).')]
+[doc('Reconcile DB image_url ⇄ Bunny from image-mapping.json (copy/nullify, retains CDN files). Writes DB+CDN. Dry-run unless --write. TARGET: dev|prod (prod + --write → confirm).')]
 [group('images')]
 [arg('WRITE', long='write', value='1', help='apply instead of the dry-run')]
 [script]
@@ -54,5 +54,5 @@ image-fix-refs $WRITE="":
     if [ "$TARGET" = prod ] && [ -n "$WRITE" ]; then confirm_prod "WRITE DB+CDN (image-fix-refs)"; fi
     MODE=$([ -n "$WRITE" ] && echo "WRITE" || echo "dry-run")
     printf "{{CYAN}}Fix broken image refs ($MODE, $TARGET)...{{NC}}\n"
-    $COMPOSE exec -w /app/backend api bun run src/images/maintenance/fix-broken-refs.ts \
+    $COMPOSE exec -e IMAGE_MAINTENANCE_TARGET="$TARGET" -w /app/backend api bun run src/images/maintenance/fix-broken-refs.ts \
         ${WRITE:+--apply}
