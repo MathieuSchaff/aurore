@@ -2,7 +2,8 @@ FROM oven/bun:1.3.12-debian@sha256:1b709c9dd883fc1af38c210f7ea5222c552a8d470ea73
 WORKDIR /app
 
 FROM base AS deps
-COPY package.json bun.lock tsconfig.json bunfig.toml ./
+# tsconfig stays out: bun install never reads it, and its content would key this stage's install layer.
+COPY package.json bun.lock bunfig.toml ./
 COPY backend/package.json backend/
 COPY shared/package.json shared/
 COPY frontend/package.json frontend/
