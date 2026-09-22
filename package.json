@@ -24,5 +24,8 @@
     "@babel/core": "^7.29.7",
     "nanoid": "^3.3.18",
     "js-yaml": "^4.3.1"
+  },
+  "patchedDependencies": {
+    "vite@8.2.0": "patches/vite@8.2.0.patch"
   }
 }

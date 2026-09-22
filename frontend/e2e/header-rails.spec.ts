@@ -1,7 +1,7 @@
 import { expect, type Page, test } from '@playwright/test'
 
 import { loginAsSeed } from './helpers/auth'
-import { gotoHydrated, waitForHydration, waitForSettledUrl } from './helpers/hydration'
+import { gotoHydrated } from './helpers/hydration'
 
 interface Rect {
   x: number
@@ -134,28 +134,20 @@ test.describe('Page header rails', () => {
     }
   })
 
-  test('renders every light palette variant without losing the page title', async ({ page }) => {
-    await gotoHydrated(page, '/products')
-
-    for (const variant of ['terracota', 'foret', 'ardoise']) {
-      await page.evaluate((nextVariant) => {
+  // Independent palettes must not share the budget for several full document loads
+  for (const variant of ['terracota', 'foret', 'ardoise']) {
+    test(`renders the ${variant} light palette without losing the page title`, async ({ page }) => {
+      await page.addInitScript((nextVariant) => {
         localStorage.setItem('theme-preference', 'light')
         localStorage.setItem('variant', nextVariant)
       }, variant)
-      // Hydration lands before the lazy chunks it kicked off (react-query devtools
-      // in dev); reloading while one is in flight cancels the document request too
-      // (Firefox: NS_BINDING_ABORTED, 12 aborts / 18 reloads without this wait).
-      // The URL never moves here: this is borrowed for its quiet window, and
-      // networkidle is unusable against the Vite dev server's HMR socket.
-      await waitForSettledUrl(page)
-      await page.reload()
-      await waitForHydration(page)
+      await gotoHydrated(page, '/products')
 
       const title = page.getByRole('heading', { name: 'Produits', level: 1 })
       await expect(title).toBeVisible()
       await expect(page.locator('html')).toHaveAttribute('data-theme', 'light')
       await expect(page.locator('html')).toHaveAttribute('data-variant', variant)
       await expect(title).not.toHaveCSS('color', 'rgba(0, 0, 0, 0)')
-    }
-  })
+    })
+  }
 })

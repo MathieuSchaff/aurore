@@ -1,0 +1,8 @@
+diff --git a/dist/node/chunks/node.js b/dist/node/chunks/node.js
+index 744f5ee926f77bc96f9fd2964eb0bc65e5cbe9c1..e2e883b30f1e3dd79694821aa7d1e5c9c4bbef96 100644
+--- a/dist/node/chunks/node.js
++++ b/dist/node/chunks/node.js
+@@ -11585,1 +11585,2 @@ function tryListen(port, host) {
+-		const server = net.createServer();
++		// Readiness probes can connect before close; release them so the port check can finish
++		const server = net.createServer((socket) => socket.destroy());

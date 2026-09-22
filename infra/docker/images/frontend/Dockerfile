@@ -7,6 +7,7 @@ COPY frontend/package.json frontend/
 COPY shared/package.json shared/
 COPY backend/package.json backend/
 COPY vendor/ vendor/
+COPY patches/ patches/
 RUN bun install --frozen-lockfile
 
 # Source for typecheck and Vite build.

@@ -16,6 +16,7 @@ const CROSS_ENGINE_SPECS = [
   '**/dropdown-menu-product-detail-sheet-status.spec.ts',
   '**/filter-drawer-focus.spec.ts',
   '**/header-rails.spec.ts',
+  '**/hydration-guard.spec.ts',
   '**/main-nav.spec.ts',
 ]
 
@@ -73,6 +74,8 @@ export default defineConfig({
     cwd: '..',
     url: 'http://localhost:5174',
     reuseExistingServer: true,
+    // The frontend has its own 180 s deadline. Leave time here for typecheck, image builds,
+    // migrations and snapshot restore before that step
     timeout: 300_000,
   },
 })
