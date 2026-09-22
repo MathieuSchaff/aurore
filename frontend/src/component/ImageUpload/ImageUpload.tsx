@@ -37,6 +37,7 @@ export const ImageUpload = ({
   const announce = useAnnounce()
   // 'error' is droppable too, so a rejected drop can be retried without the native picker.
   const canDrop = state.phase === 'idle' || state.phase === 'error'
+  const busy = state.phase === 'compressing' || state.phase === 'uploading'
 
   const overlayLabel = shape === 'round' ? 'Changer la photo' : 'Changer'
 
@@ -59,6 +60,7 @@ export const ImageUpload = ({
         type="button"
         className={`image-upload__trigger${dragging ? ' image-upload__trigger--dragging' : ''}`}
         onClick={pickFile}
+        disabled={busy}
         onDragOver={(e) => {
           e.preventDefault()
           if (canDrop) setDragging(true)
@@ -96,7 +98,7 @@ export const ImageUpload = ({
           </span>
         )}
 
-        {(state.phase === 'compressing' || state.phase === 'uploading') && (
+        {busy && (
           <span className="image-upload__progress">
             <span className="image-upload__spinner" />
             <span className="image-upload__progress-text">

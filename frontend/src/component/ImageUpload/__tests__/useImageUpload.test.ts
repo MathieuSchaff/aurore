@@ -30,7 +30,11 @@ function installCanvasMock(blobSize = 50_000) {
   }
 }
 
-function installXhrMock(opts: { status: number; responseJson: object }) {
+function installXhrMock(opts: {
+  status: number
+  responseJson: object
+  defer?: (complete: () => void) => void
+}) {
   class FakeXhr {
     upload = { onprogress: null as ((e: ProgressEvent) => void) | null }
     onload: (() => void) | null = null
@@ -40,8 +44,12 @@ function installXhrMock(opts: { status: number; responseJson: object }) {
     open() {}
     setRequestHeader() {}
     send() {
-      this.upload.onprogress?.(new ProgressEvent('progress', { loaded: 50, total: 100 }))
-      this.onload?.()
+      const complete = () => {
+        this.upload.onprogress?.(new ProgressEvent('progress', { loaded: 50, total: 100 }))
+        this.onload?.()
+      }
+      if (opts.defer) opts.defer(complete)
+      else complete()
     }
   }
   const original = globalThis.XMLHttpRequest
@@ -97,6 +105,75 @@ describe('useImageUpload', () => {
     await waitFor(() => expect(result.current.state.phase).toBe('idle'))
   })
 
+  it.each([201, 500])(
+    'locks selection until the pending upload settles with %s',
+    async (status) => {
+      let finishCompression: BlobCallback | undefined
+      let finishUpload: (() => void) | undefined
+      HTMLCanvasElement.prototype.toBlob = (callback) => {
+        finishCompression = callback
+      }
+      restoreXhr = installXhrMock({
+        status,
+        responseJson:
+          status === 201
+            ? { success: true, data: { url: 'https://cdn/x.webp' } }
+            : { success: false, error: 'upload_storage_failed' },
+        defer: (complete) => {
+          finishUpload = complete
+        },
+      })
+      const picker = vi.spyOn(HTMLInputElement.prototype, 'click').mockImplementation(() => {})
+      const { result } = renderHook(() =>
+        useImageUpload({
+          endpoint: '/api/uploads/avatar',
+          outputSize: 1024,
+          sourceImageForTest: new Image(),
+          notFoundLabel: 'Avatar',
+        })
+      )
+      const previous = result.current
+      let pending: Promise<unknown> | undefined
+      try {
+        act(() => {
+          pending = previous
+            .confirmCrop({ x: 0, y: 0, size: 1024 })
+            .catch((error: unknown) => error)
+          previous.pickFile()
+          previous.dropFile(new File(['x'], 'invalid.txt', { type: 'text/plain' }))
+          previous.cancel()
+        })
+        // A stale callback must not replace the in-flight phase before React has rendered the lock.
+        expect(result.current.state.phase).toBe('compressing')
+        expect(picker).not.toHaveBeenCalled()
+        await expect(previous.confirmCrop({ x: 0, y: 0, size: 1024 })).rejects.toThrow(
+          'upload_in_progress'
+        )
+        await act(async () => {
+          finishCompression?.(new Blob(['image'], { type: 'image/webp' }))
+        })
+        expect(result.current.state.phase).toBe('uploading')
+        act(() => {
+          result.current.pickFile()
+          previous.cancel()
+        })
+        expect(picker).not.toHaveBeenCalled()
+        expect(result.current.state.phase).toBe('uploading')
+        await act(async () => {
+          finishUpload?.()
+          await pending
+        })
+        expect(result.current.state.phase).toBe(status === 201 ? 'idle' : 'error')
+        act(() => {
+          result.current.pickFile()
+        })
+        expect(picker).toHaveBeenCalledOnce()
+      } finally {
+        picker.mockRestore()
+      }
+    }
+  )
+
   it('reports error when XHR returns non-2xx with mapped code', async () => {
     restoreXhr = installXhrMock({
       status: 400,
@@ -149,7 +226,7 @@ describe('useImageUpload', () => {
     }
   })
 
-  it('dropFile rejects a non-image file', () => {
+  it('rejects a non-image file on drop', () => {
     const { result } = renderHook(() =>
       useImageUpload({
         endpoint: '/api/uploads/avatar',
@@ -167,7 +244,7 @@ describe('useImageUpload', () => {
     }
   })
 
-  it('dropFile accepts an image MIME and passes the guard', () => {
+  it('accepts an image MIME on drop', () => {
     const orig = URL.createObjectURL
     URL.createObjectURL = () => 'blob:mock'
     try {
@@ -264,7 +341,7 @@ describe('useImageUpload', () => {
     }
   })
 
-  it('cancel returns to idle', () => {
+  it('returns to idle on cancel', () => {
     const { result } = renderHook(() =>
       useImageUpload({
         endpoint: '/api/uploads/avatar',
