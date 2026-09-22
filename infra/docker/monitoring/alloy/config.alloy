@@ -65,6 +65,12 @@ loki.process "route" {
 			replace    = "?REDACTED"
 		}
 
+		// Errors must remain diagnosable without exporting the visitor's address
+		stage.replace {
+			expression = "client: ([^,]+)"
+			replace    = "REDACTED"
+		}
+
 		stage.labels {
 			values = {level = "level"}
 		}

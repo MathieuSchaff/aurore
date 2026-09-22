@@ -81,8 +81,8 @@ export function buildAutoTagSkipLog(productId: string, meta: AutoTagSkipMeta, er
     productId,
     operation: meta.operation,
     userId: meta.userId,
-    cause: err instanceof Error ? err.message : String(err),
-    err: err instanceof Error ? err : undefined,
+    // Error messages can embed SQL parameters; only the err serializer may expose diagnostics
+    ...(err instanceof Error ? { err } : { cause: 'Non-Error thrown' }),
   }
 }
 
