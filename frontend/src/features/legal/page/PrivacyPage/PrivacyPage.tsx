@@ -38,8 +38,8 @@ export function PrivacyPage() {
           </PrivacySummaryCard>
 
           <PrivacySummaryCard icon="🔒" title="Cloisonnement par utilisateur">
-            PostgreSQL Row-Level Security : même en cas de faille applicative, vos données restent
-            isolées des autres comptes au niveau de la base.
+            Des contrôles d'accès protègent vos données. Le cloisonnement en base complète cette
+            protection pour les collections, notes et préférences personnelles.
           </PrivacySummaryCard>
 
           <PrivacySummaryCard
