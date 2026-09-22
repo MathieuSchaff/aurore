@@ -21,7 +21,7 @@ import {
 } from 'drizzle-orm/pg-core'
 
 import { moderationColumns } from '../_moderation'
-import { fkTenantPolicies, moderationPolicies, tenantPolicies } from '../_policies'
+import { fkTenantPolicies, tenantPolicies } from '../_policies'
 import { appRuntimeRole } from '../_roles'
 import { timestamps } from '../_timestamps'
 import { users } from '../auth/users'
@@ -120,8 +120,20 @@ export const userProductReviews = pgTable(
       to: appRuntimeRole,
       using: sql`${t.isPublic} = true`,
     }),
-    // Lets contributor (moderator), not just admin, read and hide/restore reviews.
-    ...moderationPolicies('user_product_reviews'),
+    // A withdrawn review is private again, even when its report still exists
+    pgPolicy('user_product_reviews_moderation_select', {
+      as: 'permissive',
+      for: 'select',
+      to: appRuntimeRole,
+      using: sql`(SELECT auth.role()) IN ('admin', 'contributor') AND ${t.isPublic} = true`,
+    }),
+    pgPolicy('user_product_reviews_moderation_update', {
+      as: 'permissive',
+      for: 'update',
+      to: appRuntimeRole,
+      using: sql`(SELECT auth.role()) IN ('admin', 'contributor') AND ${t.isPublic} = true`,
+      withCheck: sql`(SELECT auth.role()) IN ('admin', 'contributor') AND ${t.isPublic} = true`,
+    }),
   ]
 ).enableRLS()
 

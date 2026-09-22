@@ -10,7 +10,7 @@ import {
   ok,
 } from '@aurore/shared'
 
-import { and, desc, eq, ne, sql } from 'drizzle-orm'
+import { and, desc, eq, ne, or, sql } from 'drizzle-orm'
 
 import type { DatabaseTransaction } from '../../db'
 import {
@@ -49,7 +49,12 @@ export async function moderateReview(
   const [row] = await db
     .update(userProductReviews)
     .set(buildUpdates(args))
-    .where(eq(userProductReviews.id, args.id))
+    .where(
+      and(
+        eq(userProductReviews.id, args.id),
+        or(eq(userProductReviews.isPublic, true), sql`(SELECT auth.role()) = 'admin'`)
+      )
+    )
     .returning({
       id: userProductReviews.id,
       moderationStatus: userProductReviews.moderationStatus,
@@ -216,7 +221,12 @@ export async function previewReview(
     .from(userProductReviews)
     .leftJoin(userProducts, eq(userProducts.id, userProductReviews.userProductId))
     .leftJoin(profiles, eq(profiles.userId, userProducts.userId))
-    .where(eq(userProductReviews.id, id))
+    .where(
+      and(
+        eq(userProductReviews.id, id),
+        or(eq(userProductReviews.isPublic, true), sql`(SELECT auth.role()) = 'admin'`)
+      )
+    )
     .limit(1)
   if (!row) return err('not_found')
   return ok({ kind: 'review', ...row })
