@@ -21,7 +21,7 @@ export type HttpStatus = (typeof HTTP_STATUS)[keyof typeof HTTP_STATUS]
 
 export type ContentfulHttpStatus = Exclude<HttpStatus, typeof HTTP_STATUS.NO_CONTENT>
 
-/* Each domain (auth, profile…) extends this with its own codes. */
+/* Each domain (auth, profile…) extends this with its own codes */
 export const baseErrorMapping = {
   invalid_input: HTTP_STATUS.BAD_REQUEST,
   not_found: HTTP_STATUS.NOT_FOUND,
@@ -44,7 +44,7 @@ export type ApiFailure<E extends string = string, D = unknown> = {
   details?: D
 }
 
-/* Always narrow with isApiSuccess before accessing data or error. */
+/* Always narrow with isApiSuccess before accessing data or error */
 export type ApiResponse<T, E extends string = string> = ApiSuccess<T> | ApiFailure<E>
 
 export type CommonErrorCode = keyof typeof baseErrorMapping
@@ -80,7 +80,7 @@ export const err = <E extends string, D = unknown>(error: E, details?: D): ApiFa
   details,
 })
 
-/* Merges base + domain mappings. Falls back to 500 if the code is unknown. */
+/* Merges base + domain mappings. Falls back to 500 if the code is unknown */
 export const errorToStatus = <E extends string>(
   error: E,
   customMapping: Record<Exclude<E, CommonErrorCode>, HttpStatus>

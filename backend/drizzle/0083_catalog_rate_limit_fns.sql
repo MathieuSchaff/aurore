@@ -1,12 +1,12 @@
--- HAND-WRITTEN MIGRATION: drizzle-kit cannot track function bodies.
+-- MANUALLY WRITTEN MIGRATION: drizzle-kit cannot track function bodies
 --
--- Catalog submission rate-limit needs to count ALL of a user's rows, including
+-- Catalog submission rate limit needs to count ALL of a user's rows, including
 -- moderation_status='hidden' ones that the SELECT RLS policy hides from the
 -- submitter. Counting under the user's own RLS context would miss hidden rows,
--- so an abuser whose spam was hidden would get their quota refunded.
+-- so an abuser whose spam was hidden would get their quota refunded
 --
 -- SECURITY DEFINER + owned by `app` (BYPASSRLS) so the count sees every row
--- regardless of the caller's RLS context. EXECUTE is locked to app_runtime.
+-- regardless of the caller's RLS context. EXECUTE is locked to app_runtime
 CREATE OR REPLACE FUNCTION count_recent_product_submissions(p_user uuid)
 RETURNS TABLE(hr bigint, day bigint)
 LANGUAGE sql
