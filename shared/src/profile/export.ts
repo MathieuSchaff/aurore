@@ -50,6 +50,7 @@ export interface ExportDermoProfile {
   skinTypesPublic: boolean
   fitzpatrickPublic: boolean
   skinConcernsPublic: boolean
+  discoverable: boolean
 }
 
 export interface ExportPreferences {
@@ -80,6 +81,7 @@ export interface ExportUserProductReview {
   valueForMoney: number | null
   comment: string | null
   isPublic: boolean
+  ratingsPublic: boolean
 }
 
 export interface ExportUserProductStatusLog {
