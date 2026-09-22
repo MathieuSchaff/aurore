@@ -1,33 +1,25 @@
 #!/usr/bin/env bun
-/**
- * Reconciles image_url drift between Bunny CDN inventory and DB products, driven by
- * output/image-mapping.json gaps. Three idempotent ops, dry-run by default: RENAME
- * (canonicalised slug, copy <old>.webp to <slug>.webp and update image_url), NULLIFY
- * (image lost off Bunny, set image_url = NULL), ORPHAN_CLEANUP (webp with no DB slug
- * and not a rename source, delete it). Required env: BUNNY_STORAGE_ZONE,
- * BUNNY_STORAGE_PASSWORD, DATABASE_URL; IMAGE_CDN_BASE for rename URL rewrite.
- */
 
 import { readFileSync } from 'node:fs'
 import { join } from 'node:path'
 import { SQL } from 'bun'
 
-import { deleteBunny, getBunny, putBunny, resolveBunnyConfig } from '../lib/bunny'
+import { resolveBunnyConfig } from '../lib/bunny'
 import { resolveImageOutputDir } from '../lib/paths'
+import { applyImageRepairs } from './apply-repairs'
+import { imageMappingTarget, repairPlanSchema } from './repair-plan'
 
 const APPLY = process.argv.includes('--apply')
 const MAPPING_PATH = join(resolveImageOutputDir(), 'image-mapping.json')
-
 const cfg = resolveBunnyConfig()
-// Writes as `app`, never app_runtime: without an `app.role` the products UPDATE policy matches
-// no row, so every rename and nullify logged "ok" on an UPDATE 0 (measured 2026-09-01, visible
-// and hidden products alike). No APP_DATABASE_URL fallback, it would restore that in silence.
+// app_runtime cannot see or repair every product, even when the CDN copy succeeds.
 const DB_URL = process.env.DATABASE_URL
-
+const environment = process.env.IMAGE_MAINTENANCE_TARGET
 const missing = [
   !cfg.zone && 'BUNNY_STORAGE_ZONE',
   !cfg.password && 'BUNNY_STORAGE_PASSWORD',
   !DB_URL && 'DATABASE_URL',
+  !environment && 'IMAGE_MAINTENANCE_TARGET',
   !cfg.cdnBase && 'IMAGE_CDN_BASE',
 ].filter(Boolean) as string[]
 if (missing.length > 0) {
@@ -35,97 +27,41 @@ if (missing.length > 0) {
   process.exit(1)
 }
 
-type Mapping = {
-  gaps: {
-    cdnOrphans: string[]
-    productsNoCdnExternal: Array<{ slug: string; url: string }>
-  }
+const parsed = repairPlanSchema.safeParse(JSON.parse(readFileSync(MAPPING_PATH, 'utf8')))
+if (!parsed.success) {
+  console.error('Unsupported image mapping; run image-build-mapping again.')
+  process.exit(1)
 }
-const data = JSON.parse(readFileSync(MAPPING_PATH, 'utf8')) as Mapping
-const orphans = new Set(data.gaps.cdnOrphans)
-
-const renames: Array<{ slug: string; oldFile: string; newFile: string }> = []
-const nullifies: Array<{ slug: string; oldUrl: string }> = []
-for (const item of data.gaps.productsNoCdnExternal) {
-  if (!item.url.includes('aurore-cdn')) continue
-  const m = item.url.match(/\/products\/([^/]+)\.webp$/)
-  if (!m) continue
-  const oldName = m[1]
-  if (orphans.has(oldName)) {
-    renames.push({ slug: item.slug, oldFile: `${oldName}.webp`, newFile: `${item.slug}.webp` })
-  } else {
-    nullifies.push({ slug: item.slug, oldUrl: item.url })
-  }
+const plan = parsed.data
+const target = imageMappingTarget(DB_URL as string, cfg, environment as string)
+if (plan.target !== target) {
+  console.error('Image mapping target mismatch; run image-build-mapping on this target.')
+  process.exit(1)
 }
-const renameSources = new Set(renames.map((r) => r.oldFile.replace(/\.webp$/, '')))
-const cleanupOrphans = [...orphans].filter((s) => !renameSources.has(s)).sort()
 
-console.log('→ plan')
-console.log(`  rename:          ${renames.length}`)
-console.log(`  nullify:         ${nullifies.length}`)
-console.log(`  orphan cleanup:  ${cleanupOrphans.length}`)
+console.log('→ plan (sources and orphan candidates are retained)')
+for (const r of plan.renames) console.log(`  COPY ${r.oldFile} → ${r.newFile} (slug ${r.slug})`)
+for (const n of plan.nullifies)
+  console.log(`  NULLIFY ${n.slug} if the source is still missing and its URL is unchanged`)
 console.log(APPLY ? '\n→ APPLY mode\n' : '\n→ DRY RUN (use --apply to execute)\n')
-
-if (!APPLY) {
-  console.log('renames:')
-  for (const r of renames) console.log(`  ${r.oldFile} → ${r.newFile}  (slug ${r.slug})`)
-  console.log('\nnullifies (no orphan to copy from):')
-  for (const n of nullifies) console.log(`  ${n.slug}  (was ${n.oldUrl})`)
-  console.log('\norphan cleanup samples (first 10):')
-  for (const s of cleanupOrphans.slice(0, 10)) console.log(`  DELETE ${s}.webp`)
-  if (cleanupOrphans.length > 10) console.log(`  ... and ${cleanupOrphans.length - 10} more`)
-  process.exit(0)
-}
+if (!APPLY) process.exit(0)
 
 const sql = new SQL(DB_URL as string)
-
-let renameDone = 0
-let renameFailed = 0
-for (const r of renames) {
-  try {
-    const body = await getBunny(cfg, r.oldFile)
-    await putBunny(cfg, r.newFile, body)
-    const newUrl = `${cfg.cdnBase}/${cfg.prefix}${r.newFile}`
-    await sql`UPDATE products SET image_url = ${newUrl} WHERE slug = ${r.slug}`
-    await deleteBunny(cfg, r.oldFile)
-    renameDone++
-    console.log(`  ok rename ${r.oldFile} → ${r.newFile}`)
-  } catch (err) {
-    renameFailed++
-    console.error(`  fail rename ${r.oldFile}: ${(err as Error).message}`)
+let failed = false
+try {
+  const results = await applyImageRepairs(sql, cfg, plan, target)
+  for (const result of results) {
+    console.log(
+      `  ${result.status} ${result.kind} ${result.slug}${result.reason ? `: ${result.reason}` : ''}`
+    )
   }
+  const done = results.filter((result) => result.status === 'done').length
+  const skipped = results.filter((result) => result.status === 'skipped').length
+  const failures = results.filter((result) => result.status === 'failed').length
+  console.log(`\ndone=${done}, skipped=${skipped}, failed=${failures}. CDN files retained.`)
+  if (skipped) console.log('Rebuild the mapping before retrying skipped repairs.')
+  failed = failures > 0
+} finally {
+  await sql.close()
 }
-
-let nullifyDone = 0
-let nullifyFailed = 0
-for (const n of nullifies) {
-  try {
-    await sql`UPDATE products SET image_url = NULL WHERE slug = ${n.slug}`
-    nullifyDone++
-    console.log(`  ok nullify ${n.slug}`)
-  } catch (err) {
-    nullifyFailed++
-    console.error(`  fail nullify ${n.slug}: ${(err as Error).message}`)
-  }
-}
-
-let cleanupDone = 0
-let cleanupNotFound = 0
-let cleanupFailed = 0
-for (const s of cleanupOrphans) {
-  try {
-    const result = await deleteBunny(cfg, `${s}.webp`)
-    if (result === 'notFound') cleanupNotFound++
-    else cleanupDone++
-  } catch (err) {
-    cleanupFailed++
-    console.error(`  fail cleanup ${s}: ${(err as Error).message}`)
-  }
-}
-
-await sql.close()
-
-console.log(
-  `\ndone: rename=${renameDone}/${renames.length} (failed=${renameFailed}), nullify=${nullifyDone}/${nullifies.length} (failed=${nullifyFailed}), cleanup=${cleanupDone}+${cleanupNotFound}gone/${cleanupOrphans.length} (failed=${cleanupFailed})`
-)
-process.exit(renameFailed + nullifyFailed + cleanupFailed === 0 ? 0 : 1)
+process.exit(failed ? 1 : 0)

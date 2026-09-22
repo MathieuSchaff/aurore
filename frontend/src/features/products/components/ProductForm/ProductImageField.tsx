@@ -1,6 +1,6 @@
 import { useQueryClient } from '@tanstack/react-query'
 
-import { ImageUpload } from '@/component/ImageUpload'
+import { ImageUpload } from '@/component/ImageUpload/ImageUpload'
 import { FormField } from '@/component/Input/FormField/FormField'
 import { Input } from '@/component/Input/Input'
 import { productKeys } from '@/lib/queries/products'

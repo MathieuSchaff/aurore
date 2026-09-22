@@ -55,7 +55,8 @@ async function runConfirmCrop(
   compress: (image: HTMLImageElement, area: CropArea) => Promise<Blob>,
   uploadXhr: (blob: Blob) => Promise<{ url: string }>,
   setState: (phase: Phase) => void,
-  notFoundLabel: string
+  notFoundLabel: string,
+  onSettled: () => void
 ): Promise<{ url: string }> {
   try {
     setState({ phase: 'compressing' })
@@ -70,6 +71,7 @@ async function runConfirmCrop(
     throw e
   } finally {
     releaseSourceUrl?.()
+    onSettled()
   }
 }
 
@@ -135,6 +137,7 @@ export function useImageUpload(opts: UseImageUploadOptions) {
   const [state, setState] = useState<Phase>({ phase: 'idle' })
   const inputRef = useRef<HTMLInputElement | null>(null)
   const sourceUrlRef = useRef<string | null>(null)
+  const inFlightRef = useRef(false)
 
   const revokeSourceUrl = useCallback((expectedUrl?: string) => {
     const sourceUrl = sourceUrlRef.current
@@ -155,6 +158,7 @@ export function useImageUpload(opts: UseImageUploadOptions) {
 
   const acceptFile = useCallback(
     (file: File) => {
+      if (inFlightRef.current) return
       if (file.size > SOURCE_MAX_BYTES) {
         setState({
           phase: 'error',
@@ -186,6 +190,7 @@ export function useImageUpload(opts: UseImageUploadOptions) {
   )
 
   const pickFile = useCallback(() => {
+    if (inFlightRef.current) return
     if (!inputRef.current) {
       const el = document.createElement('input')
       el.type = 'file'
@@ -208,6 +213,7 @@ export function useImageUpload(opts: UseImageUploadOptions) {
   // Drag-and-drop bypasses the file input's `accept`, so check the MIME type again here.
   const dropFile = useCallback(
     (file: File) => {
+      if (inFlightRef.current) return
       if (!ACCEPTED_TYPES.has(file.type)) {
         setState({
           phase: 'error',
@@ -222,6 +228,7 @@ export function useImageUpload(opts: UseImageUploadOptions) {
   )
 
   const cancel = useCallback(() => {
+    if (inFlightRef.current) return
     revokeSourceUrl()
     setState({ phase: 'idle' })
   }, [revokeSourceUrl])
@@ -264,6 +271,7 @@ export function useImageUpload(opts: UseImageUploadOptions) {
 
   const confirmCrop = useCallback(
     async (area: CropArea): Promise<{ url: string }> => {
+      if (inFlightRef.current) throw new Error('upload_in_progress')
       let image: HTMLImageElement | null = null
       let releaseSourceUrl: (() => void) | null = null
       if (state.phase === 'cropping') {
@@ -272,6 +280,8 @@ export function useImageUpload(opts: UseImageUploadOptions) {
       }
       if (!image) image = opts.sourceImageForTest ?? null
       if (!image) throw new Error('no_source')
+      // A second selection would be erased by this upload's progress or completion callbacks.
+      inFlightRef.current = true
       return runConfirmCrop(
         image,
         releaseSourceUrl,
@@ -279,7 +289,10 @@ export function useImageUpload(opts: UseImageUploadOptions) {
         compress,
         uploadXhr,
         setState,
-        opts.notFoundLabel
+        opts.notFoundLabel,
+        () => {
+          inFlightRef.current = false
+        }
       )
     },
     [state, compress, uploadXhr, revokeSourceUrl, opts.sourceImageForTest, opts.notFoundLabel]
