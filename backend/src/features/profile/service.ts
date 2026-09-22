@@ -540,3 +540,5 @@ export async function deleteTagPreference(
     .delete(userTagPreferences)
     .where(and(eq(userTagPreferences.userId, userId), eq(userTagPreferences.tagId, tagId)))
 }
+
+export { checkExportRateLimit, exportFilename, exportUserData } from './export.service'

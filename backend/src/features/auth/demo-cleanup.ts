@@ -21,7 +21,6 @@ import {
   users,
 } from '../../db/schema'
 import { logger } from '../../lib/logger'
-import { isUserBanned } from './ban.service'
 
 type DemoCleanupTargets = {
   userIds: string[]
@@ -35,9 +34,7 @@ type DemoCleanupTargets = {
   threadReplyIds: string[]
 }
 
-export type DeleteAccountResult =
-  | { status: 'deleted' }
-  | { status: 'banned'; expiresAt: string | null; reason: string | null }
+export type DeleteAccountResult = { status: 'deleted' }
 
 const rowIds = <T extends { id: string }>(rows: T[]): string[] => rows.map((row) => row.id)
 
@@ -290,11 +287,6 @@ export async function deleteAccount(userId: string): Promise<DeleteAccountResult
       .for('update')
 
     if (!account) return { status: 'deleted' }
-
-    const ban = await isUserBanned(tx, userId, 'global', false)
-    if (ban) {
-      return { status: 'banned', expiresAt: ban.expiresAt, reason: ban.reason }
-    }
 
     if (account.isDemo) {
       const deleted = await purgeDemoUsers(tx, [account.id])

@@ -4,6 +4,7 @@ import type { QueryClient } from '@tanstack/react-query'
 import { isRedirect, redirect } from '@tanstack/react-router'
 
 import { authQueries } from '../queries/auth'
+import type { CredentialValidation } from './credentialValidation'
 import { ensureFresh, isExpired } from './freshness'
 import { isHydrating } from './hydrationGate'
 import { captureClientSession, endSession, readClientSession, type SessionView } from './session'
@@ -36,7 +37,7 @@ export async function requireSession({
   try {
     const validation = await queryClient.ensureQueryData(authQueries.validation(session.user.id))
     if (!snapshot.isCurrent()) return requireSession({ queryClient, href })
-    if (validation.userId !== session.user.id || validation.role !== session.user.role) {
+    if (!validationMatchesSession(validation, session)) {
       return refreshSession(queryClient, href, true)
     }
     return session
@@ -47,22 +48,48 @@ export async function requireSession({
   }
 }
 
-export async function requireRole({
-  queryClient,
-  href,
-  allowedRoles,
-  fallbackFor,
-}: RequireRoleOptions): Promise<AuthenticatedSession> {
-  let session = readClientSession()
+export async function requireRole(options: RequireRoleOptions): Promise<AuthenticatedSession> {
+  const session = await requireFreshRoleSession(options)
+  if (options.allowedRoles.includes(session.user.role)) return session
+
+  throw redirect({ to: options.fallbackFor?.[session.user.role] ?? '/' })
+}
+
+async function requireFreshRoleSession(
+  options: RequireSessionOptions
+): Promise<AuthenticatedSession> {
+  const { queryClient, href } = options
+  const snapshot = captureClientSession()
+  const { session } = snapshot
   if (session.status === 'anonymous') return redirectToLogin(href, { leaveDocument: true })
 
-  if (session.status !== 'authenticated' || !hasPresentCredential(session) || isExpired()) {
-    session = await refreshSession(queryClient, href, false)
+  if (!hasPresentCredential(session) || isExpired()) {
+    return refreshSession(queryClient, href, false)
   }
 
-  if (allowedRoles.includes(session.user.role)) return session
+  try {
+    // Privileged loaders may reuse cached data, so their role proof must be current
+    const validation = await queryClient.fetchQuery({
+      ...authQueries.validation(session.user.id),
+      staleTime: 0,
+    })
+    if (!snapshot.isCurrent()) return requireFreshRoleSession(options)
+    if (!validationMatchesSession(validation, session)) {
+      return await refreshSession(queryClient, href, false)
+    }
+    return session
+  } catch (error) {
+    if (isRedirect(error)) throw error
+    if (!snapshot.isCurrent()) return requireFreshRoleSession(options)
+    return refreshSession(queryClient, href, false)
+  }
+}
 
-  throw redirect({ to: fallbackFor?.[session.user.role] ?? '/' })
+function validationMatchesSession(
+  validation: CredentialValidation,
+  session: AuthenticatedSession
+): boolean {
+  return validation.userId === session.user.id && validation.role === session.user.role
 }
 
 function hasPresentCredential(

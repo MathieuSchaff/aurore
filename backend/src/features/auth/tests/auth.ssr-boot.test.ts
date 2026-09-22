@@ -19,7 +19,6 @@ import {
   createTestProduct,
 } from '../../../tests/helpers/test-factories'
 import { upsertDermoProfile } from '../../profile/service'
-import { clearBanCache } from '../ban.service'
 import { verifyRefreshToken } from '../jwt.utils'
 import { revokeRefreshToken } from '../refresh-token.service'
 
@@ -220,7 +219,6 @@ describe('GET /api/boot', () => {
       bannedBy: admin.id,
       reason: 'security review',
     })
-    clearBanCache(user.id)
 
     const response = await app.request('/api/boot?view=products', {
       headers: { Cookie: cookie },

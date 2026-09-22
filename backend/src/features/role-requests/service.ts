@@ -3,6 +3,7 @@ import {
   err,
   type ListRoleRequestsQuery,
   type ListRoleRequestsResponse,
+  type MyRoleRequestResponse,
   ok,
   type ReviewRoleRequestInput,
   type ReviewRoleRequestResult,
@@ -16,6 +17,17 @@ import { and, desc, eq } from 'drizzle-orm'
 import type { DatabaseTransaction } from '../../db'
 import { roleRequests, users, usersSafe } from '../../db/schema'
 import { nowISO } from '../../utils/dates'
+import { getUserRole } from '../auth/service'
+
+export async function getMyRoleRequestView(
+  db: DatabaseTransaction,
+  userId: string
+): Promise<MyRoleRequestResponse> {
+  const latest = await getMyRoleRequest(db, userId)
+  // Approval and demotion can make the bearer role stale until the next refresh
+  const role = await getUserRole(db, userId)
+  return { latest, canApply: role === 'user' && latest?.status !== 'pending' }
+}
 
 export async function submitRoleRequest(
   db: DatabaseTransaction,
@@ -51,7 +63,7 @@ export async function submitRoleRequest(
   return ok(row)
 }
 
-export async function getMyRoleRequest(
+async function getMyRoleRequest(
   db: DatabaseTransaction,
   userId: string
 ): Promise<RoleRequestView | null> {

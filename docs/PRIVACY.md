@@ -89,6 +89,9 @@ Ils servent à sécuriser le processus de connexion OAuth.
 Vos données sont conservées tant que votre compte existe.
 
 Vous pouvez supprimer votre compte depuis les paramètres de l’application.
+Si votre compte est suspendu, l’écran de suspension permet aussi d’exporter vos données ou
+de supprimer votre compte en confirmant votre email et votre mot de passe, même après
+expiration de votre session. Un lien permet de définir ou réinitialiser ce mot de passe.
 
 Quand vous supprimez votre compte, vos données personnelles sont supprimées de la base de données :
 

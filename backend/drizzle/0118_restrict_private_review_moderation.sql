@@ -1,0 +1,2 @@
+ALTER POLICY "user_product_reviews_moderation_select" ON "user_product_reviews" TO app_runtime USING ((SELECT auth.role()) IN ('admin', 'contributor') AND "user_product_reviews"."is_public" = true);--> statement-breakpoint
+ALTER POLICY "user_product_reviews_moderation_update" ON "user_product_reviews" TO app_runtime USING ((SELECT auth.role()) IN ('admin', 'contributor') AND "user_product_reviews"."is_public" = true) WITH CHECK ((SELECT auth.role()) IN ('admin', 'contributor') AND "user_product_reviews"."is_public" = true);

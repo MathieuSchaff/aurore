@@ -1,4 +1,4 @@
-import { afterEach, beforeAll, beforeEach, describe, expect, it } from 'bun:test'
+import { beforeAll, beforeEach, describe, expect, it } from 'bun:test'
 
 import { HTTP_STATUS } from '@aurore/shared'
 
@@ -14,7 +14,6 @@ import {
 } from '../../../tests/helpers/createTestClient'
 import { expectError, expectOk, expectStatus } from '../../../tests/helpers/expectStatus'
 import { TEST_CREDENTIALS } from '../../../tests/helpers/test-credentials'
-import { _banCacheSize, clearBanCache } from '../ban.service'
 import { seedBanActors } from './ban-test.setup'
 
 type BannedDetails = { reason: string | null; expiresAt: string | null }
@@ -32,12 +31,7 @@ describe('Ban enforcement (requireNotBanned)', () => {
   })
 
   beforeEach(async () => {
-    clearBanCache()
     ;({ userId, adminId, token } = await seedBanActors(client))
-  })
-
-  afterEach(() => {
-    clearBanCache()
   })
 
   it('rejects /session with 403 banned when user has an active global ban', async () => {
@@ -101,26 +95,11 @@ describe('Ban enforcement (requireNotBanned)', () => {
     expect(res.status).toBe(HTTP_STATUS.OK)
   })
 
-  it('caches the ban check across consecutive requests', async () => {
-    await testDb.insert(userBans).values({
-      userId,
-      scope: 'global',
-      bannedBy: adminId,
-    })
-
-    const first = await client.auth.session.$get({}, withAuth(token))
-    expectStatus(first, HTTP_STATUS.FORBIDDEN)
-    expect(_banCacheSize()).toBe(1)
-
-    // Delete the row out-of-band: cache should still return banned within TTL.
+  it('observes a lifted ban on the next request', async () => {
+    await testDb.insert(userBans).values({ userId, scope: 'global', bannedBy: adminId })
+    expectStatus(await client.auth.session.$get({}, withAuth(token)), HTTP_STATUS.FORBIDDEN)
     await testDb.delete(userBans).where(eq(userBans.userId, userId))
-    const second = await client.auth.session.$get({}, withAuth(token))
-    expectStatus(second, HTTP_STATUS.FORBIDDEN)
-
-    // Invalidate cache: request now reads fresh state.
-    clearBanCache()
-    const third = await client.auth.session.$get({}, withAuth(token))
-    expect(third.status).toBe(HTTP_STATUS.OK)
+    expectStatus(await client.auth.session.$get({}, withAuth(token)), HTTP_STATUS.OK)
   })
 
   it('returns the most recent ban when multiple rows match', async () => {
@@ -150,12 +129,7 @@ describe('Ban gate at token emission', () => {
   })
 
   beforeEach(async () => {
-    clearBanCache()
     ;({ userId, adminId } = await seedBanActors(client))
-  })
-
-  afterEach(() => {
-    clearBanCache()
   })
 
   function banGlobally() {

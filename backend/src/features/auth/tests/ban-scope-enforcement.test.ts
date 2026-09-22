@@ -1,4 +1,4 @@
-import { afterEach, beforeAll, beforeEach, describe, expect, it } from 'bun:test'
+import { beforeAll, beforeEach, describe, expect, it } from 'bun:test'
 
 import { HTTP_STATUS } from '@aurore/shared'
 
@@ -13,7 +13,6 @@ import {
 import { expectError, expectStatus } from '../../../tests/helpers/expectStatus'
 import { ANY_UUID } from '../../../tests/helpers/route-test-helpers'
 import { createTestContributorUser } from '../../../tests/helpers/test-factories'
-import { clearBanCache } from '../ban.service'
 import { seedBanActors } from './ban-test.setup'
 
 setupDbTests()
@@ -29,7 +28,6 @@ describe('Per-scope ban enforcement (requireNotBannedScope)', () => {
   })
 
   beforeEach(async () => {
-    clearBanCache()
     // Contributor so the actor clears requireCatalogWrite on catalog record
     // routes; the ban-scope gate under test runs before it and is independent.
     ;({
@@ -37,10 +35,6 @@ describe('Per-scope ban enforcement (requireNotBannedScope)', () => {
       adminId,
       token: userToken,
     } = await seedBanActors(client, createTestContributorUser))
-  })
-
-  afterEach(() => {
-    clearBanCache()
   })
 
   it('product_create ban blocks POST /products', async () => {
