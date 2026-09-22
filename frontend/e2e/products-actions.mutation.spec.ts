@@ -18,11 +18,9 @@ async function shelfIds(page: Page, token: string): Promise<string[]> {
   return ((await res.json()).data as { id: string }[]).map((row) => row.id)
 }
 
-// These tests add products to a shelf for real. Two consequences, both of which took the
-// whole "Ajouter" describe down once the shelf had grown: a shared account lets the three
-// browser projects clobber each other (one persona per project fixes that), and a shelf
-// that is never emptied eventually owns every card on page 1, leaving no "Ajouter" button
-// to click at all. So each test reverts exactly what it added, nothing else.
+// These tests write through a shared persona. Keep the file in the sequential mutation
+// project so baseline-based cleanup cannot delete a neighboring test's new shelf row.
+// Cleanup is still required because a growing shelf eventually owns every card on page 1.
 let personaToken = ''
 let shelfBefore: string[] = []
 
