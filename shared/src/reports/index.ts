@@ -1,5 +1,12 @@
 import { z } from 'zod'
 
+import { type CommonErrorCode, HTTP_STATUS, type HttpStatus } from '../core'
+
+export type ReportErrorCode = CommonErrorCode | 'report_transition_conflict'
+export const reportErrorMapping = {
+  report_transition_conflict: HTTP_STATUS.CONFLICT,
+} as const satisfies Partial<Record<ReportErrorCode, HttpStatus>>
+
 // Mirror of the DB `report_target_type` enum
 // (backend/src/db/schema/monitoring/content-reports.ts).
 export const reportTargetTypeSchema = z.enum([

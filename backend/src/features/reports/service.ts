@@ -67,26 +67,28 @@ export async function resolveReport(
     .where(
       and(
         eq(contentReports.id, args.id),
+        eq(contentReports.status, 'open'),
         args.reviewerRole === 'contributor' ? isNull(contentReports.escalatedAt) : undefined
       )
     )
     .returning()
 
-  if (!row && args.reviewerRole === 'contributor') {
+  if (!row) {
     const [existing] = await db
       .select({ escalatedAt: contentReports.escalatedAt })
       .from(contentReports)
       .where(eq(contentReports.id, args.id))
-    if (existing?.escalatedAt) throw new ReportError('forbidden')
+    if (!existing) throw new ReportError('not_found')
+    if (args.reviewerRole === 'contributor' && existing.escalatedAt) {
+      throw new ReportError('forbidden')
+    }
+    throw new ReportError('report_transition_conflict')
   }
-  if (!row) throw new ReportError('not_found')
   return row
 }
 
-// Escalation is orthogonal to status (ADR-0006): the report stays open while
-// escalated, then resolves normally. The admin surfaces it via the escalated filter.
-// Escalating again overwrites attribution (last escalator wins), same posture as
-// resolveReport's reviewedBy; the UI hides the action once escalated.
+// Escalation is orthogonal to status (ADR-0006): the report stays open until resolution
+// Its first moderator keeps attribution when another request reaches the same report
 export async function escalateReport(
   db: DatabaseTransaction,
   args: { id: string; moderatorId: string }
@@ -94,9 +96,21 @@ export async function escalateReport(
   const [row] = await db
     .update(contentReports)
     .set({ escalatedAt: nowISO(), escalatedBy: args.moderatorId })
-    .where(eq(contentReports.id, args.id))
+    .where(
+      and(
+        eq(contentReports.id, args.id),
+        eq(contentReports.status, 'open'),
+        isNull(contentReports.escalatedAt)
+      )
+    )
     .returning()
 
-  if (!row) throw new ReportError('not_found')
+  if (!row) {
+    const [existing] = await db
+      .select({ id: contentReports.id })
+      .from(contentReports)
+      .where(eq(contentReports.id, args.id))
+    throw new ReportError(existing ? 'report_transition_conflict' : 'not_found')
+  }
   return row
 }
