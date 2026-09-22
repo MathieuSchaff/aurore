@@ -1,12 +1,6 @@
 #!/usr/bin/env bun
 
-/**
- * Generates output/image-mapping.json from the authoritative CDN inventory (Bunny
- * Storage), cross-checked against DB product slugs. The local images-normalized/ dir
- * is a transient staging area cleaned after upload, so Bunny is the source of truth.
- * Required env: BUNNY_STORAGE_ZONE, BUNNY_STORAGE_PASSWORD, DATABASE_URL.
- * Usage: bun run backend/src/images/maintenance/build-mapping.ts [--dry]
- */
+// Bunny storage is authoritative; local normalized files are only transient staging.
 
 import { existsSync, mkdirSync, readdirSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
@@ -14,6 +8,7 @@ import { SQL } from 'bun'
 
 import { listBunny, resolveBunnyConfig } from '../lib/bunny'
 import { resolveImageOutputDir } from '../lib/paths'
+import { buildImageMapping, imageMappingTarget, type ProductImageRow } from './repair-plan'
 
 const DRY = process.argv.includes('--dry')
 const OUTPUT_DIR = resolveImageOutputDir()
@@ -21,16 +16,16 @@ const NORMALIZED_DIR = join(OUTPUT_DIR, 'images-normalized')
 const MAPPING_PATH = join(OUTPUT_DIR, 'image-mapping.json')
 
 const cfg = resolveBunnyConfig()
-// Reads as `app`, never app_runtime and never with an APP_DATABASE_URL fallback: RLS hides
-// masked products from that role, so their Bunny files land in `cdnOrphans`, which
-// fix-broken-refs deletes. Dev on 2026-09-01: 232 orphans as app_runtime against 96 as app,
-// the gap being exactly the 136 hidden products (same signature as audit/bunny.ts).
+// app_runtime would hide masked products and misclassify their images as orphans.
 const DB_URL = process.env.DATABASE_URL
+const environment = process.env.IMAGE_MAINTENANCE_TARGET
 
 const missing = [
   !cfg.zone && 'BUNNY_STORAGE_ZONE',
   !cfg.password && 'BUNNY_STORAGE_PASSWORD',
   !DB_URL && 'DATABASE_URL',
+  !environment && 'IMAGE_MAINTENANCE_TARGET',
+  !cfg.cdnBase && 'IMAGE_CDN_BASE',
 ].filter(Boolean) as string[]
 if (missing.length > 0) {
   console.error(`missing env: ${missing.join(', ')}`)
@@ -42,78 +37,29 @@ const items = await listBunny(cfg)
 const cdnWebpFiles = items
   .filter((i) => !i.IsDirectory && i.ObjectName.endsWith('.webp'))
   .map((i) => i.ObjectName)
-const cdnSlugs = new Set(cdnWebpFiles.map((f) => f.replace(/\.webp$/, '')))
 console.log(`  ${cdnWebpFiles.length} webp on Bunny`)
 
-const localSlugs = existsSync(NORMALIZED_DIR)
-  ? new Set(
-      readdirSync(NORMALIZED_DIR)
-        .filter((f) => f.endsWith('.webp'))
-        .map((f) => f.replace(/\.webp$/, ''))
-    )
-  : new Set<string>()
-console.log(`  ${localSlugs.size} webp local (staging)\n`)
+const localFiles = existsSync(NORMALIZED_DIR)
+  ? readdirSync(NORMALIZED_DIR).filter((file) => file.endsWith('.webp'))
+  : []
+console.log(`  ${localFiles.length} webp local (staging)\n`)
 
 const sql = new SQL(DB_URL as string)
-const rows = (await sql`SELECT slug, image_url FROM products`) as Array<{
-  slug: string
-  image_url: string | null
-}>
+const rows = (await sql`SELECT slug, image_url FROM products`) as ProductImageRow[]
 await sql.close()
-const dbSlugs = new Set(rows.map((r) => r.slug))
-console.log(`→ DB: ${rows.length} products\n`)
-
-type Entry = { source: 'cdn'; file: string; localStaged: boolean }
-const mapping: Record<string, Entry> = {}
-for (const slug of cdnSlugs) {
-  if (dbSlugs.has(slug)) {
-    mapping[slug] = { source: 'cdn', file: `${slug}.webp`, localStaged: localSlugs.has(slug) }
-  }
-}
-
-const cdnOrphans = [...cdnSlugs].filter((s) => !dbSlugs.has(s)).sort()
-const localOrphans = [...localSlugs].filter((s) => !dbSlugs.has(s)).sort()
-const localNotOnCdn = [...localSlugs].filter((s) => !cdnSlugs.has(s)).sort()
-const productsNoImage = rows.filter((r) => !cdnSlugs.has(r.slug))
-const productsNoImageNoUrl = productsNoImage.filter((r) => !r.image_url)
-const productsNoImageExternal = productsNoImage.filter((r) => r.image_url)
-
-const summary = {
-  mapped: Object.keys(mapping).length,
-  cdnFiles: cdnWebpFiles.length,
-  localStaged: localSlugs.size,
-  dbProducts: rows.length,
-  cdnOrphans: cdnOrphans.length,
-  localOrphans: localOrphans.length,
-  localPendingUpload: localNotOnCdn.length,
-  productsNoCdn: productsNoImage.length,
-  productsNoCdnNoUrl: productsNoImageNoUrl.length,
-  productsNoCdnExternal: productsNoImageExternal.length,
-}
-
+const payload = buildImageMapping(
+  rows,
+  cdnWebpFiles,
+  localFiles,
+  cfg,
+  imageMappingTarget(DB_URL as string, cfg, environment as string)
+)
 console.log('→ summary')
-console.table(summary)
+console.table(payload.summary)
+console.log('CDN orphan candidates are informational only; this mapping never authorizes deletion.')
 
-if (cdnOrphans.length > 0) {
-  console.log(`\n→ CDN orphan samples (first 10):`)
-  for (const s of cdnOrphans.slice(0, 10)) console.log(`  - ${s}.webp`)
-}
-if (localNotOnCdn.length > 0) {
-  console.log(`\n→ local pending upload samples (first 10):`)
-  for (const s of localNotOnCdn.slice(0, 10)) console.log(`  - ${s}.webp`)
-}
-
-const gaps = {
-  cdnOrphans,
-  localOrphans,
-  localPendingUpload: localNotOnCdn,
-  productsNoCdnNoUrl: productsNoImageNoUrl.map((r) => r.slug),
-  productsNoCdnExternal: productsNoImageExternal.map((r) => ({ slug: r.slug, url: r.image_url })),
-}
-
-const payload = { mapping, summary, gaps }
 if (DRY) {
-  console.log(`\n(dry run — would write ${MAPPING_PATH})`)
+  console.log(`\n(dry run: would write ${MAPPING_PATH})`)
 } else {
   mkdirSync(OUTPUT_DIR, { recursive: true })
   writeFileSync(MAPPING_PATH, `${JSON.stringify(payload, null, 2)}\n`)

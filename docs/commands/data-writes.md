@@ -93,8 +93,20 @@ The pipeline is Bunny CDN. Staging defaults to `backend/src/output` on the host;
 | Command | What | Env |
 | :--- | :--- | :--- |
 | `just image-upload` | Upload one image, or a JSON batch, to Bunny and update the DB | `--write`, `SLUG` or `BATCH` (one required), `URL, FILE, NO_DB, NO_STAGED, CONCURRENCY` |
-| `just image-build-mapping` | Build `output/image-mapping.json` from the Bunny ∩ DB inventory | Prerequisite of `image-fix-refs`. Local artifact |
-| `just image-fix-refs` | Reconcile `image_url` against Bunny from the mapping: rename, nullify, cleanup. Writes **both** DB and CDN | `--write` |
+| `just image-build-mapping` | Build `output/image-mapping.json` from Bunny files and actual DB image references | Prerequisite of `image-fix-refs`. Local artifact |
+| `just image-fix-refs` | Copy recoverable images and clear still-missing references. Writes DB and new CDN files; retains sources and orphan candidates | `--write` |
+
+Mapping version 2 binds the plan to `TARGET` and the DB/CDN configuration. Regenerate older
+artifacts with `just image-build-mapping`; `image-fix-refs` refuses them. Both recipes supply
+`IMAGE_MAINTENANCE_TARGET` from `TARGET`; direct Bun invocations must set it explicitly.
+`IMAGE_CDN_BASE` is required for both scripts so references are matched against the configured
+origin and prefix, including URLs with query strings or fragments.
+
+Recovery copies use `<slug>-recovered-<uuid>.webp`, preserving the source and avoiding overwrites
+of concurrent uploads. Each repair rechecks CDN availability and updates the DB only if its
+stored URL still matches the plan. Skipped repairs require a fresh mapping. A failed or skipped
+DB write can leave an extra copy; the script retains it. Orphan candidates describe references
+in the selected DB only and never authorize automatic deletion in a shared storage zone.
 
 | Trap | Detail |
 | :--- | :--- |
