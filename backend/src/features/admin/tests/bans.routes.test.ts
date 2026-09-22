@@ -3,11 +3,14 @@ import { beforeAll, beforeEach, describe, expect, it } from 'bun:test'
 import { type AdminUserAccount, HTTP_STATUS } from '@aurore/shared'
 
 import { eq } from 'drizzle-orm'
+import { testClient } from 'hono/testing'
 
 import { moderationActions, profiles, userBans, users } from '../../../db/schema'
 import { testDb } from '../../../tests/db.test.config'
 import { setupDbTests } from '../../../tests/db-setup'
+import { createAppRuntimeDb } from '../../../tests/helpers/app-runtime-db'
 import { expectRequiresAuth, expectRoleMatrix } from '../../../tests/helpers/authz-matrix'
+import { createTestApp } from '../../../tests/helpers/createTestApp'
 import {
   createTestClient,
   createTestEnv,
@@ -47,6 +50,7 @@ function moderationTrailFor(targetUserId: string) {
     .where(eq(moderationActions.targetUserId, targetUserId))
 }
 
+const runtime = await createAppRuntimeDb()
 setupDbTests()
 
 describe('GET /admin/users/:id', () => {
@@ -465,9 +469,7 @@ describe('POST /admin/users/:id/bans', () => {
   })
 })
 
-// Contributors can manage reversible, content-scoped bans. Global account lockout
-// stays admin-only. These route-level tests run as the table-owner `app` (BYPASSRLS),
-// so they exercise the app-level guard + handler scope gate; DB-level RLS has its own test.
+// The runtime role must exercise the same visibility rules as production
 describe('Contributor (moderator) content-scoped bans', () => {
   let client: TestClient
   let targetId: string
@@ -477,7 +479,7 @@ describe('Contributor (moderator) content-scoped bans', () => {
   let userToken: string
 
   beforeAll(async () => {
-    client = await createTestClient()
+    client = testClient(await createTestApp({ anonDb: runtime })).api
   })
 
   beforeEach(async () => {
@@ -536,16 +538,13 @@ describe('Contributor (moderator) content-scoped bans', () => {
     expect(await bansById(banId)).toHaveLength(0)
   })
 
-  // The app-level gate returns 403 here (owner `app`, BYPASSRLS, so getBanScope sees the
-  // global row). Under prod RLS the same request is 404 (the row is hidden from the
-  // contributor, so not_found); the DB-level denial is proven in user-bans-rls.test.ts.
-  it('contributor lifting a global ban: 403 forbidden, ban survives', async () => {
+  it('returns 404 for a global ban hidden from a contributor and preserves the ban', async () => {
     const banId = await seedBan({ userId: targetId, scope: 'global', bannedBy: adminId })
 
     await expectError(
       client.admin.bans[':banId'].$delete({ param: { banId } }, withAuth(contributorToken)),
-      HTTP_STATUS.FORBIDDEN,
-      'forbidden'
+      HTTP_STATUS.NOT_FOUND,
+      'not_found'
     )
 
     expect(await bansById(banId)).toHaveLength(1)
