@@ -11,15 +11,18 @@ import {
   restoringTestSession,
 } from '../../../test/authSession'
 import { readBearerForTransport } from '../credential'
+import type { CredentialValidation } from '../credentialValidation'
 import { markHydrationSettled, markHydrationStarted } from '../hydrationGate'
 import { installSession, readClientSession } from '../session'
 
 const validationServer = vi.hoisted(() => ({
-  validate: vi.fn(async (viewerId: string | null) => ({
-    authenticated: true as const,
-    userId: viewerId ?? '',
-    role: 'user' as const,
-  })),
+  validate: vi.fn(
+    async (viewerId: string | null): Promise<CredentialValidation> => ({
+      authenticated: true as const,
+      userId: viewerId ?? '',
+      role: 'user' as const,
+    })
+  ),
 }))
 
 // Partial mock: keep the real isExpired (drives the local-token branch), stub only the network refresh.
@@ -340,9 +343,15 @@ describe('requireRole', () => {
     expect(mockEnsureFresh).toHaveBeenCalledWith(queryClient)
   })
 
-  it('checks a fresh credential against the local session role', async () => {
-    setAuthenticated(ADMIN)
-    const ensureQueryData = vi.spyOn(queryClient, 'ensureQueryData')
+  it('revalidates a fresh credential without discarding an unchanged role', async () => {
+    const accessToken = createAccessToken()
+    installSession(queryClient, { accessToken, user: ADMIN })
+    queryClient.setQueryData(['admin', 'reports', 'open'], ['private report'])
+    validationServer.validate.mockResolvedValue({
+      authenticated: true,
+      userId: ADMIN.id,
+      role: 'admin',
+    })
 
     await expect(
       requireRole({
@@ -353,8 +362,106 @@ describe('requireRole', () => {
     ).resolves.toMatchObject({ user: { id: ADMIN.id, role: 'admin' } })
 
     expect(mockEnsureFresh).not.toHaveBeenCalled()
-    expect(ensureQueryData).not.toHaveBeenCalled()
+    expect(validationServer.validate).toHaveBeenCalledWith(ADMIN.id)
+    expect(readBearerForTransport()).toBe(accessToken)
+    expect(queryClient.getQueryData(['admin', 'reports', 'open'])).toEqual(['private report'])
   })
+
+  it('removes privileged cached data before redirecting a demoted administrator', async () => {
+    installSession(queryClient, { accessToken: createAccessToken(), user: ADMIN })
+    queryClient.setQueryData(['admin', 'reports', 'open'], ['private report'])
+    const demoted = { ...ADMIN, role: 'user' } satisfies UserPublic
+    mockEnsureFresh.mockImplementation(async () => {
+      installSession(queryClient, { accessToken: createAccessToken(), user: demoted })
+      return 'ok'
+    })
+
+    // installSession cached the previous role, so the guard must fetch a fresh proof
+    const refusal = await captureRedirect(
+      requireRole({ queryClient, href: '/admin', allowedRoles: ['admin'] })
+    )
+
+    expect(refusal.options).toMatchObject({ to: '/' })
+    expect(validationServer.validate).toHaveBeenCalledWith(ADMIN.id)
+    expect(mockEnsureFresh).toHaveBeenCalledOnce()
+    expect(readClientSession()).toMatchObject({ status: 'authenticated', user: demoted })
+    expect(queryClient.getQueryData(['admin', 'reports', 'open'])).toBeUndefined()
+  })
+
+  it.each(['failed', 'cooldown'] as const)(
+    'refuses cached privileges when validation fails and refresh returns %s',
+    async (result) => {
+      installSession(queryClient, { accessToken: createAccessToken(), user: ADMIN })
+      queryClient.setQueryData(['admin', 'reports', 'open'], ['private report'])
+      validationServer.validate.mockRejectedValue(new Error('Unavailable'))
+      mockEnsureFresh.mockResolvedValue(result)
+
+      const refusal = await captureRedirect(
+        requireRole({ queryClient, href: '/admin', allowedRoles: ['admin'] })
+      )
+
+      expect(refusal.options).toMatchObject({
+        to: '/auth/login',
+        search: { redirect: '/admin' },
+      })
+      expect(mockEnsureFresh).toHaveBeenCalledOnce()
+      expect(readClientSession()).toEqual({ status: 'anonymous' })
+      expect(queryClient.getQueryData(['admin', 'reports', 'open'])).toBeUndefined()
+    }
+  )
+
+  it('refuses a demoted role when its refresh is in cooldown', async () => {
+    installSession(queryClient, { accessToken: createAccessToken(), user: ADMIN })
+    queryClient.setQueryData(['admin', 'reports', 'open'], ['private report'])
+    mockEnsureFresh.mockResolvedValue('cooldown')
+
+    const refusal = await captureRedirect(
+      requireRole({ queryClient, href: '/admin', allowedRoles: ['admin'] })
+    )
+
+    expect(refusal.options.to).toBe('/auth/login')
+    expect(readClientSession()).toEqual({ status: 'anonymous' })
+    expect(queryClient.getQueryData(['admin', 'reports', 'open'])).toBeUndefined()
+  })
+
+  it.each(['responds', 'rejects'] as const)(
+    'keeps a replacement login when the previous validation %s late',
+    async (outcome) => {
+      setAuthenticated(ADMIN)
+      let resolveValidation!: (value: CredentialValidation) => void
+      let rejectValidation!: (error: Error) => void
+      const validation = new Promise<CredentialValidation>((resolve, reject) => {
+        resolveValidation = resolve
+        rejectValidation = reject
+      })
+      validation.catch(() => {})
+      validationServer.validate.mockReturnValueOnce(validation)
+      const replacement = { ...REPLACEMENT, role: 'admin' } satisfies UserPublic
+      validationServer.validate.mockResolvedValue({
+        authenticated: true,
+        userId: replacement.id,
+        role: replacement.role,
+      })
+      const requiredSession = requireRole({
+        queryClient,
+        href: '/admin',
+        allowedRoles: ['admin'],
+      })
+
+      installSession(queryClient, { accessToken: createAccessToken(), user: replacement })
+      queryClient.setQueryData(['admin', 'reports', 'open'], ['replacement report'])
+      if (outcome === 'responds') {
+        resolveValidation({ authenticated: true, userId: ADMIN.id, role: 'user' })
+      } else {
+        rejectValidation(new Error('Previous session rejected'))
+      }
+
+      await expect(requiredSession).resolves.toMatchObject({ user: replacement })
+      expect(mockEnsureFresh).not.toHaveBeenCalled()
+      expect(validationServer.validate).toHaveBeenLastCalledWith(replacement.id)
+      expect(queryClient.getQueryData(['admin', 'reports', 'open'])).toEqual(['replacement report'])
+    }
+  )
 
   it('refuses a privileged surface during refresh cooldown', async () => {
     setAuthenticated(ADMIN, -60_000)
@@ -406,6 +513,11 @@ describe('requireRole', () => {
       isDemo: false,
     } satisfies UserPublic
     setAuthenticated(contributor)
+    validationServer.validate.mockResolvedValue({
+      authenticated: true,
+      userId: contributor.id,
+      role: contributor.role,
+    })
     queryClient.setQueryData(['profile', 'me'], { username: 'Moderator' })
 
     const refusal = await captureRedirect(
