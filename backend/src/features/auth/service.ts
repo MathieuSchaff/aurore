@@ -441,3 +441,6 @@ export async function createDemo(
     return err('server_error')
   }
 }
+
+export { deleteAccount } from './demo-cleanup'
+export { getUserById } from './user.utils'
