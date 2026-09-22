@@ -207,7 +207,7 @@ export const adminBansRoutes = app
         },
       })
 
-      logger.info({ adminId, targetUserId, reason: body.reason ?? null }, 'contributor demoted')
+      logger.info({ adminId, targetUserId }, 'contributor demoted')
       return c.json(ok(result.data), HTTP_STATUS.OK)
     }
   )
