@@ -218,7 +218,6 @@ export const adminBansRoutes = app
   .get('/users/:id', requireAdmin, zValidator('param', userIdParam), async (c) => {
     const { id: userId } = c.req.valid('param')
     const user = await getAdminUserById(getRlsDb(c), userId)
-    if (!user) return c.json(err('not_found'), HTTP_STATUS.NOT_FOUND)
     return c.json(ok(user), HTTP_STATUS.OK)
   })
   .get('/dashboard', requireAdmin, async (c) => {

@@ -19,6 +19,7 @@ import { type UserBan, userBans, usersSafe } from '../../db/schema'
 import { profiles } from '../../db/schema/auth/users'
 import { normalizeInstant } from '../../utils/dates'
 import { clearBanCache } from '../auth/ban.service'
+import { AdminUserError } from './admin-user-error'
 
 // Cap avoids accidental full-table scans; no pagination until admin volume justifies it.
 const ADMIN_USERS_LIST_LIMIT = 100
@@ -188,7 +189,7 @@ export async function listUsers(db: DatabaseTransaction): Promise<AdminUserAccou
 export async function getAdminUserById(
   db: DatabaseTransaction,
   userId: string
-): Promise<AdminUserAccount | null> {
+): Promise<AdminUserAccount> {
   const [user] = await db
     .select(adminUserSelection)
     .from(usersSafe)
@@ -196,7 +197,7 @@ export async function getAdminUserById(
     .where(eq(usersSafe.id, userId))
     .limit(1)
 
-  if (!user) return null
+  if (!user) throw new AdminUserError('not_found')
 
   return normalizeAdminUser(user)
 }
