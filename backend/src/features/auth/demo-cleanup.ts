@@ -291,7 +291,7 @@ export async function deleteAccount(userId: string): Promise<DeleteAccountResult
 
     if (!account) return { status: 'deleted' }
 
-    const ban = await isUserBanned(tx, userId, 'global', false)
+    const ban = await isUserBanned(tx, userId, 'global')
     if (ban) {
       return { status: 'banned', expiresAt: ban.expiresAt, reason: ban.reason }
     }

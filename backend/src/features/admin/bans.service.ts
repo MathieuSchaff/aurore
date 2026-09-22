@@ -18,7 +18,6 @@ import type { DatabaseTransaction } from '../../db'
 import { type UserBan, userBans, usersSafe } from '../../db/schema'
 import { profiles } from '../../db/schema/auth/users'
 import { normalizeInstant } from '../../utils/dates'
-import { clearBanCache } from '../auth/ban.service'
 import { AdminUserError } from './admin-user-error'
 
 // Cap avoids accidental full-table scans; no pagination until admin volume justifies it.
@@ -84,7 +83,6 @@ export async function createBan(
     return err('server_error')
   }
 
-  clearBanCache(targetUserId)
   return ok(row)
 }
 
@@ -146,7 +144,6 @@ export async function liftBan(db: DatabaseTransaction, banId: string): Promise<L
   const row = deleted[0]
   if (!row) return err('not_found')
 
-  clearBanCache(row.userId)
   return ok(row)
 }
 
@@ -172,7 +169,6 @@ export async function updateBan(
   const [row] = await db.update(userBans).set(updates).where(eq(userBans.id, banId)).returning()
   if (!row) return err('not_found')
 
-  clearBanCache(row.userId)
   return ok(row)
 }
 
