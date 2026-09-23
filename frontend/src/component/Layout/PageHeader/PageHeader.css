@@ -102,3 +102,10 @@
     width: auto;
   }
 }
+
+@media (prefers-reduced-motion: reduce) {
+  .page-header__loader--visible {
+    /* biome-ignore lint/complexity/noImportantStyles: System motion preferences override component animation rules */
+    animation: none !important;
+  }
+}

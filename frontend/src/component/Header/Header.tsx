@@ -3,6 +3,7 @@ import { Menu, X } from 'lucide-react'
 import { useCallback, useId, useRef, useState } from 'react'
 
 import { useIsBelowLg } from '../../hooks/useIsBelowLg'
+import { Button } from '../Button/Button'
 import { DialogPrimitive } from '../Dialog/DialogPrimitive'
 import { AuroreLogo } from '../Logo/Logo'
 import { ThemeToggle } from '../ThemeToggle/ThemeToggle'
@@ -45,9 +46,10 @@ export const Header = () => {
         data-dropdown-boundary
       >
         <div className="main-nav__lead">
-          <button
+          <Button
             ref={toggleRef}
             type="button"
+            variant="bare"
             className="main-nav__toggle"
             onClick={openDrawer}
             aria-expanded={isOpen}
@@ -55,7 +57,7 @@ export const Header = () => {
             aria-label="Ouvrir le menu"
           >
             <Menu size={22} strokeWidth={2} aria-hidden="true" />
-          </button>
+          </Button>
           {/* Name starts with the visible wordmark so voice control can act on what it reads (WCAG 2.5.3). */}
           <Link to="/" className="main-nav__logo" aria-label="Aurore, accueil">
             <AuroreLogo size={32} />
@@ -93,15 +95,16 @@ export const Header = () => {
               <AuroreLogo size={36} />
               <span className="main-nav__wordmark">Aurore</span>
             </Link>
-            <button
+            <Button
               ref={drawerCloseRef}
               type="button"
+              variant="bare"
               className="main-nav__toggle"
               onClick={closeDrawer}
               aria-label="Fermer le menu"
             >
               <X size={22} strokeWidth={2} aria-hidden="true" />
-            </button>
+            </Button>
           </div>
           <div className="main-nav-drawer__content">
             <NavSideList variant="drawer" onItemClick={closeDrawer} />

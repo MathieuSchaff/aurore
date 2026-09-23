@@ -30,7 +30,7 @@ async function contentRect(page: Page, selector: string): Promise<Rect> {
 
 // Poll rather than measure once: hydration is not the last word on geometry. In dev Vite
 // injects a component's CSS when its client module runs, so a rail read a beat too early is
-// read on unstyled markup, and a loaded worker pool widens that beat.
+// read on unstyled markup, and a loaded worker pool widens that beat
 async function expectAligned(
   page: Page,
   headerSelector: string,
@@ -63,9 +63,9 @@ test.describe('Page header rails', () => {
 
     await gotoHydrated(page, '/blog')
     await expect(page.getByRole('heading', { level: 1 })).toBeVisible()
-    // The gradient stays full-bleed; only the header CONTENT (inside padding)
+    // The gradient stays full width; only the header CONTENT (inside padding)
     // must sit on the body rail, hence contentRect. Strict: the body mirrors
-    // the header's --space-6 padding floor, so both rails match exactly.
+    // the header's --space-6 padding floor, so both rails match exactly
     await expectAligned(page, '.page-header', '.blog-list-page__body', contentRect)
   })
 
@@ -78,7 +78,7 @@ test.describe('Page header rails', () => {
     await expect(page.getByRole('heading', { name: 'Ma Collection', level: 1 })).toBeVisible()
     await expectAligned(page, '.list-page-layout__header', '.list-page-layout__body')
     // Desktop contract: centered only aligns the row vertically; title and actions
-    // stay at the rail edges, which is what the centered variant means.
+    // stay at the rail edges, which is what the centered variant means
     await expect(page.locator('.list-page-layout__header')).toHaveCSS('align-items', 'center')
     await expect
       .poll(async () => {
@@ -100,7 +100,7 @@ test.describe('Page header rails', () => {
     ).toBeVisible()
     await expectAligned(page, '.list-page-layout__header', '.list-page-layout__body')
 
-    // Mobile contract: centered centers the stacked header.
+    // Mobile contract: centered centers the stacked header
     await page.setViewportSize({ width: 390, height: 844 })
     await gotoHydrated(page, '/collection')
     await expect(page.getByRole('heading', { name: 'Ma Collection', level: 1 })).toBeVisible()

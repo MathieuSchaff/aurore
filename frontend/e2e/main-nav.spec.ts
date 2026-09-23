@@ -11,9 +11,7 @@ const inlineLink = (page: Page, name: string) =>
 const navReady = (page: Page) => expect(page.locator('.main-nav')).toHaveCSS('position', 'fixed')
 
 test.describe('Top navbar', () => {
-  test('desktop (>=1024) shows inline links, no hamburger, anon set when logged out', async ({
-    page,
-  }) => {
+  test('shows anonymous inline links without a hamburger on desktop', async ({ page }) => {
     await page.setViewportSize({ width: 1280, height: 900 })
     await page.goto('/products')
     await expect(page.getByRole('heading', { name: 'Produits', level: 1 })).toBeVisible()
@@ -33,7 +31,7 @@ test.describe('Top navbar', () => {
     await expect(inlineLink(page, 'Comparaisons')).toHaveCount(0)
   })
 
-  test('desktop swaps to the authed set after login', async ({ page }) => {
+  test('swaps to authenticated desktop links after login', async ({ page }) => {
     await page.setViewportSize({ width: 1280, height: 900 })
     await loginAsSeed(page)
     await page.goto('/products')
@@ -54,7 +52,7 @@ test.describe('Top navbar', () => {
     await expect(inlineLink(page, 'Produits')).not.toHaveAttribute('aria-current', 'page')
   })
 
-  test('below 1024 uses the hamburger + drawer', async ({ page }) => {
+  test('uses the hamburger and drawer below 1024px', async ({ page }) => {
     await page.setViewportSize({ width: 900, height: 900 })
     await page.goto('/products')
     await expect(page.getByRole('heading', { name: 'Produits', level: 1 })).toBeVisible()
@@ -78,7 +76,7 @@ test.describe('Top navbar', () => {
     await expect(burger).toBeFocused()
   })
 
-  test('backdrop click closes the drawer', async ({ page }) => {
+  test('closes the drawer after a backdrop click', async ({ page }) => {
     await page.setViewportSize({ width: 900, height: 900 })
     await page.goto('/products')
     await expect(page.getByRole('heading', { name: 'Produits', level: 1 })).toBeVisible()

@@ -62,9 +62,43 @@ describe('throwIfNotOk', () => {
 })
 
 describe('unwrapData', () => {
+  it.each([
+    ['HTML', '<html>Maintenance</html>'],
+    ['empty', ''],
+    ['truncated JSON', '{"success":true,'],
+  ])('normalizes an unreadable %s success response', async (_name, body) => {
+    // A proxy can return HTTP 200 without an API envelope
+    await expect(unwrapData(new Response(body, { status: 200 }))).rejects.toMatchObject({
+      name: 'ApiError',
+      code: 'http_error',
+      status: 200,
+    })
+  })
+
+  it.each([
+    { body: null },
+    { body: {} },
+    { body: [] },
+    { body: 'maintenance' },
+    { body: { success: true } },
+    { body: { success: 'true', data: {} } },
+    { body: { success: false } },
+    { body: { success: false, error: 500 } },
+  ])('rejects a malformed HTTP 200 envelope: $body', async ({ body }) => {
+    await expect(unwrapData(jsonResponse(body, 200))).rejects.toMatchObject({
+      name: 'ApiError',
+      code: 'http_error',
+      status: 200,
+    })
+  })
+
   it('returns the success payload', async () => {
     const res = jsonResponse({ success: true, data: { id: 'one' } }, 200)
     await expect(unwrapData(res)).resolves.toEqual({ id: 'one' })
+  })
+
+  it('accepts an explicit null success payload', async () => {
+    await expect(unwrapData(jsonResponse({ success: true, data: null }, 200))).resolves.toBeNull()
   })
 
   it('keeps the wire code and details from a success:false envelope', async () => {
@@ -85,7 +119,7 @@ describe('rate-limit helpers', () => {
   const limited = (retryAfter?: unknown) =>
     new ApiError('rate_limit_exceeded', 429, retryAfter === undefined ? undefined : { retryAfter })
 
-  it('isRateLimitError only matches a 429 ApiError', () => {
+  it('matches only a 429 ApiError with a rate limit code', () => {
     expect(isRateLimitError(limited('42'))).toBe(true)
     expect(isRateLimitError(new ApiError('too_many_requests', 429))).toBe(true)
     expect(isRateLimitError(new ApiError('ingredient_rate_limited', 429))).toBe(true)
@@ -95,25 +129,25 @@ describe('rate-limit helpers', () => {
     expect(isRateLimitError(new Error('rate_limit_exceeded'))).toBe(false)
   })
 
-  it('rateLimitRetryAfter coerces the header string to a number', () => {
+  it('coerces the retry header string to a number', () => {
     expect(rateLimitRetryAfter(limited('42'))).toBe(42)
     expect(rateLimitRetryAfter(limited(30))).toBe(30)
   })
 
-  it('rateLimitRetryAfter returns null when the delay is absent or unusable', () => {
+  it('returns null when the retry delay is absent or unusable', () => {
     expect(rateLimitRetryAfter(limited(null))).toBeNull()
     expect(rateLimitRetryAfter(limited())).toBeNull()
     expect(rateLimitRetryAfter(limited('not-a-number'))).toBeNull()
     expect(rateLimitRetryAfter(new ApiError('http_error', 500))).toBeNull()
   })
 
-  it('formatRetryDelay collapses ≥60s to minutes', () => {
+  it('formats retry delays of at least 60 seconds in minutes', () => {
     expect(formatRetryDelay(42)).toBe('42 s')
     expect(formatRetryDelay(60)).toBe('1 min')
     expect(formatRetryDelay(120)).toBe('2 min')
   })
 
-  it('rateLimitMessage falls back to a vague delay when Retry-After is missing', () => {
+  it('falls back to a vague delay when Retry-After is missing', () => {
     expect(rateLimitMessage(limited('42'))).toBe('Trop de requêtes, réessayez dans 42 s.')
     expect(rateLimitMessage(limited(null))).toBe('Trop de requêtes, réessayez dans un instant.')
     expect(rateLimitMessage(new ApiError('http_error', 500))).toBeNull()

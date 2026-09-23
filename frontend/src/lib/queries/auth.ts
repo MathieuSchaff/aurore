@@ -14,7 +14,8 @@ import {
   type CredentialValidation,
   credentialValidationQueryKey,
 } from '../auth/credentialValidation'
-import { endSession, installSession, readClientSession, updateSessionUser } from '../auth/session'
+import { ensureFresh } from '../auth/freshness'
+import { endSession, installSession, readClientSession } from '../auth/session'
 import { unwrapData } from '../helpers/apiError'
 
 const LOGIN_HANDLED_ERROR_CODES = [
@@ -43,7 +44,7 @@ function verifyEmailOnce(token: string): ReturnType<typeof requestEmailVerificat
   const existing = inflightEmailVerifications.get(token)
   if (existing) return existing
 
-  // StrictMode can replay mount effects, but a one-use token must share its in-flight request
+  // StrictMode can replay mount effects, but concurrent uses must share the token request
   const request = requestEmailVerification(token)
   inflightEmailVerifications.set(token, request)
   const clear = () => {
@@ -93,7 +94,7 @@ export function useSignup() {
     mutationFn: async (data: { email: string; password: string }) => {
       const res = await api.auth.signup.$post({ json: data })
       // Neutral response (ADR 0009): { pending: true }, no session. The user
-      // activates the account from the verification email.
+      // activates the account from the verification email
       return unwrapData(res)
     },
   })
@@ -111,21 +112,28 @@ export function useLogout() {
     },
     onSettled: () => {
       // Logout is also a local security boundary. Clear credentials and ban
-      // signals even when the server no longer recognizes this session.
+      // signals even when the server no longer recognizes this session
       endSession(qc, 'logout')
     },
   })
 }
 
 export function useVerifyEmail() {
+  const qc = useQueryClient()
   return useMutation({
     mutationKey: ['auth', 'verify-email'],
     meta: { handledErrorCodes: VERIFY_EMAIL_HANDLED_ERROR_CODES },
     mutationFn: verifyEmailOnce,
-    onSuccess: () => {
+    onMutate: () => readClientSession(),
+    onSuccess: async (_data, _token, owner) => {
       const session = readClientSession()
-      if (session.status === 'authenticated') {
-        updateSessionUser({ ...session.user, emailVerified: true })
+      if (
+        owner?.status === 'authenticated' &&
+        session.status === 'authenticated' &&
+        session.user.id === owner.user.id
+      ) {
+        // Verification can belong to another account; refresh provides the current user's state
+        await ensureFresh(qc)
       }
     },
   })
@@ -157,7 +165,7 @@ export function useForgotPassword() {
     mutationFn: async (data: { email: string }) => {
       const res = await api.auth['forgot-password'].$post({ json: data })
       // Neutral response (ADR 0010): { pending: true }, no session. A reset link is
-      // sent only if the account exists.
+      // sent only if the account exists
       return unwrapData(res)
     },
   })
