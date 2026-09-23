@@ -9,7 +9,7 @@ import { purchaseSchema } from '@aurore/shared'
 
 import { and, desc, eq, isNull, not } from 'drizzle-orm'
 
-import type { DatabaseTransaction } from '../../db'
+import type { DbOrTransaction } from '../../db'
 import { type Purchase as PurchaseRow, purchases } from '../../db/schema/products/purchases'
 import { userProducts } from '../../db/schema/products/user-products'
 import { calendarToInstant, instantToCalendar, normalizeInstant } from '../../utils/dates'
@@ -18,7 +18,7 @@ import { PurchaseError } from './purchase-error'
 
 // Calendar columns store YYYY-MM-DD; API exposes ISO datetime UTC. Conversion
 // lives at this boundary so callers never deal with the DB format.
-function toApiPurchase(row: PurchaseRow): Purchase {
+export function toApiPurchase(row: PurchaseRow): Purchase {
   const mapped: Purchase = {
     id: row.id,
     userProductId: row.userProductId,
@@ -32,7 +32,7 @@ function toApiPurchase(row: PurchaseRow): Purchase {
   return devAssertSchema(purchaseSchema, mapped, 'toApiPurchase')
 }
 
-async function verifyOwnership(userId: string, userProductId: string, db: DatabaseTransaction) {
+async function verifyOwnership(userId: string, userProductId: string, db: DbOrTransaction) {
   const up = await db.query.userProducts.findFirst({
     where: and(eq(userProducts.id, userProductId), eq(userProducts.userId, userId)),
   })
@@ -44,7 +44,7 @@ export async function addPurchase(
   userId: string,
   userProductId: string,
   input: AddPurchaseInput,
-  db: DatabaseTransaction
+  db: DbOrTransaction
 ) {
   await verifyOwnership(userId, userProductId, db)
 
@@ -64,7 +64,7 @@ export async function addPurchase(
   return toApiPurchase(result)
 }
 
-export async function getPurchases(userId: string, userProductId: string, db: DatabaseTransaction) {
+export async function getPurchases(userId: string, userProductId: string, db: DbOrTransaction) {
   await verifyOwnership(userId, userProductId, db)
 
   const rows = await db.query.purchases.findMany({
@@ -78,7 +78,7 @@ export async function openPurchase(
   userId: string,
   purchaseId: string,
   input: OpenPurchaseInput,
-  db: DatabaseTransaction
+  db: DbOrTransaction
 ) {
   const purchase = await db.query.purchases.findFirst({
     where: eq(purchases.id, purchaseId),
@@ -89,7 +89,13 @@ export async function openPurchase(
     throw new PurchaseError('purchase_not_found')
   }
 
-  // at most one open purchase per user-product at a time
+  // Serialize openings without blocking the KEY SHARE locks held by purchase inserts
+  await db
+    .select({ id: userProducts.id })
+    .from(userProducts)
+    .where(and(eq(userProducts.id, purchase.userProductId), eq(userProducts.userId, userId)))
+    .for('no key update')
+
   const active = await db.query.purchases.findFirst({
     where: and(
       eq(purchases.userProductId, purchase.userProductId),
@@ -118,7 +124,7 @@ export async function finishPurchase(
   userId: string,
   userProductId: string,
   input: FinishPurchaseInput,
-  db: DatabaseTransaction
+  db: DbOrTransaction
 ) {
   await verifyOwnership(userId, userProductId, db)
 
@@ -143,7 +149,7 @@ export async function updatePurchase(
   userId: string,
   purchaseId: string,
   input: UpdatePurchaseInput,
-  db: DatabaseTransaction
+  db: DbOrTransaction
 ) {
   const purchase = await db.query.purchases.findFirst({
     where: eq(purchases.id, purchaseId),
@@ -171,7 +177,7 @@ export async function updatePurchase(
   return toApiPurchase(result)
 }
 
-export async function deletePurchase(userId: string, purchaseId: string, db: DatabaseTransaction) {
+export async function deletePurchase(userId: string, purchaseId: string, db: DbOrTransaction) {
   const purchase = await db.query.purchases.findFirst({
     where: eq(purchases.id, purchaseId),
     with: { userProduct: true },

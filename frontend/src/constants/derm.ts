@@ -46,10 +46,10 @@ export const BENEFIT_AXIS_PHRASE: Record<BenefitAxis, string> = {
 // positive and excipient confidence cuts separate: recall must not hide more risks.
 // The asymmetry is the decision, not a coincidence (docs/adr/0023): the masking cut
 // must never be looser than the positive one
-export const DOSE_SIGNAL_MIN_DOSE_FACTOR = 0.7
-export const DOSE_SIGNAL_MIN_CONFIDENCE = 0.5
-export const DOSE_EXCIPIENT_MAX_DOSE_FACTOR = 0.3
-export const DOSE_EXCIPIENT_MIN_CONFIDENCE = 0.6
+export {
+  DOSE_SIGNAL_MIN_CONFIDENCE,
+  DOSE_SIGNAL_MIN_DOSE_FACTOR,
+} from '@aurore/shared'
 
 // roleAtDose is a qualitative signal, not a concentration estimate.
 export const DOSE_SIGNAL_PHRASE = 'probablement dosé pour agir'

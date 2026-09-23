@@ -88,3 +88,9 @@ reasoning that justifies breaking a product interdict.
   by the auto-tagging benchmark and no metric will regress if they drift.
 - ADR-0014 stays the authority for the backend actif-class gate. This ADR does not change it and does
   not extend it: it records a second, independent consumer of the same library signal.
+
+## Collection motifs
+
+The formula detail and collection motifs share the presentation filter and its four thresholds
+in `shared/src/products/dermo-signals.ts`. Recurrence is computed after that filter, so a driver
+hidden on each formula cannot reappear merely because several products contain it.

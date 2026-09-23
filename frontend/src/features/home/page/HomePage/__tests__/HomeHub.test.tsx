@@ -72,6 +72,19 @@ afterEach(() => {
 })
 
 describe('HomeHub', () => {
+  it('keeps the collection doorway when its most recent catalogue row is unavailable', async () => {
+    serveQueries({
+      me: { createdAt: null },
+      dermo: null,
+      list: [{ ...makeUserProduct(), product: null }],
+      privacy: { discoverable: false },
+    })
+    renderWithProviders(<HomeHub />)
+    expect(await screen.findByText(/produit désormais indisponible/i)).toBeInTheDocument()
+    expect(screen.getByRole('link', { name: /ouvrir.*collection/i })).toBeInTheDocument()
+    expect(screen.queryByText(/aucun produit/i)).not.toBeInTheDocument()
+  })
+
   it('renders a calm onboarding hub for a brand-new account', async () => {
     useAuthStore.setState({ session: restoringTestSession(fakeUser) })
     serveQueries({
@@ -125,7 +138,7 @@ describe('HomeHub', () => {
     // Hero reprise line (one node) + doorway "Dernier ajout" line (another node).
     expect(await screen.findByText(/vous avez classé .*En stock/)).toBeInTheDocument()
     expect(
-      await screen.findByText(/Dernier ajout : The Ordinary — Niacinamide 10%/)
+      await screen.findByText(/dernier ajout.*The Ordinary.*Niacinamide 10%/i)
     ).toBeInTheDocument()
     // Doorway A cta flips to "Ouvrir ma collection" once a recent item exists.
     expect(await screen.findByText('Ouvrir ma collection')).toBeInTheDocument()

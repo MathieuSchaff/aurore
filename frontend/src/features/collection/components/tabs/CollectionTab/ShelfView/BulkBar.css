@@ -39,9 +39,10 @@
     width: 100%;
   }
 
-  .bulk-bar-close {
+  .button.bulk-bar-close {
     width: 32px;
     height: 32px;
+    min-height: auto;
     border-radius: 50%;
     border: 0;
     background: oklch(100% 0 0 / 0.1);
@@ -50,12 +51,15 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    gap: normal;
+    line-height: normal;
+    text-align: center;
     flex-shrink: 0;
     transition: background var(--transition-fast) ease;
   }
 
-  .bulk-bar-close:hover,
-  .bulk-bar-close:focus-visible {
+  .button.bulk-bar-close:hover,
+  .button.bulk-bar-close:focus-visible {
     background: oklch(100% 0 0 / 0.18);
     outline: none;
   }
@@ -90,10 +94,12 @@
     gap: 6px;
   }
 
-  .bulk-bar-compare {
+  .button.bulk-bar-compare {
     display: inline-flex;
     align-items: center;
+    justify-content: normal;
     gap: 6px;
+    min-height: auto;
     padding: 8px 14px;
     background: oklch(100% 0 0 / 0.12);
     color: oklch(100% 0 0);
@@ -103,19 +109,22 @@
     font: inherit;
     font-size: 0.9rem;
     font-weight: var(--font-semibold);
+    text-align: center;
     transition: background var(--transition-fast) ease;
   }
 
-  .bulk-bar-compare:hover,
-  .bulk-bar-compare:focus-visible {
+  .button.bulk-bar-compare:hover,
+  .button.bulk-bar-compare:focus-visible {
     background: oklch(100% 0 0 / 0.2);
     outline: none;
   }
 
-  .bulk-bar-move {
+  .button.bulk-bar-move {
     display: inline-flex;
     align-items: center;
+    justify-content: normal;
     gap: 6px;
+    min-height: auto;
     padding: 8px 14px;
     background: var(--color-primary);
     color: oklch(100% 0 0);
@@ -125,11 +134,12 @@
     font: inherit;
     font-size: 0.9rem;
     font-weight: var(--font-semibold);
+    text-align: center;
     transition: filter var(--transition-fast) ease;
   }
 
-  .bulk-bar-move:hover,
-  .bulk-bar-move:focus-visible {
+  .button.bulk-bar-move:hover,
+  .button.bulk-bar-move:focus-visible {
     filter: brightness(1.08);
     outline: none;
   }

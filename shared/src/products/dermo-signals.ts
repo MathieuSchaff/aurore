@@ -47,3 +47,46 @@ export function classifyIngredientSignals(slug: string): DermoSignal[] {
   if (ALERT_INGREDIENT_SLUGS.has(slug)) signals.push('alert')
   return signals
 }
+
+// One presentation policy keeps formula details and collection motifs consistent (ADR0023)
+export const DOSE_SIGNAL_MIN_DOSE_FACTOR = 0.7
+export const DOSE_SIGNAL_MIN_CONFIDENCE = 0.5
+export const DOSE_EXCIPIENT_MAX_DOSE_FACTOR = 0.3
+export const DOSE_EXCIPIENT_MIN_CONFIDENCE = 0.6
+
+type RiskDriverLike = {
+  inci?: string
+}
+
+type MatchedEvidenceLike = {
+  inci: string
+  roleAtDose?: {
+    doseFactor: number
+    confidence: number
+  }
+}
+
+function isClearExcipient({ roleAtDose }: MatchedEvidenceLike): boolean {
+  return (
+    !!roleAtDose &&
+    roleAtDose.doseFactor <= DOSE_EXCIPIENT_MAX_DOSE_FACTOR &&
+    roleAtDose.confidence >= DOSE_EXCIPIENT_MIN_CONFIDENCE
+  )
+}
+
+export function filterRiskDriversAtDose<T extends RiskDriverLike>(
+  drivers: readonly T[],
+  matchedEvidence: readonly MatchedEvidenceLike[]
+): T[] {
+  const clearExcipientByInci = new Map<string, boolean>()
+
+  for (const matched of matchedEvidence) {
+    // Repeated INCI rows may differ, so hide a driver only when every occurrence qualifies
+    clearExcipientByInci.set(
+      matched.inci,
+      (clearExcipientByInci.get(matched.inci) ?? true) && isClearExcipient(matched)
+    )
+  }
+
+  return drivers.filter((driver) => !driver.inci || !clearExcipientByInci.get(driver.inci))
+}

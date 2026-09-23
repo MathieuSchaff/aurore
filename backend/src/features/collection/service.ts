@@ -1,3 +1,5 @@
+import { filterRiskDriversAtDose } from '@aurore/shared'
+
 import { analyzeINCI, cleanInciString } from 'algo-derm'
 import { and, eq, inArray, isNotNull, ne, or } from 'drizzle-orm'
 
@@ -158,9 +160,10 @@ export async function getCollectionFormulaMotifs(
 
     const benefitAxes = new Set(benefitDriversWithHumanEvidence(assessment).flatMap((d) => d.axes))
     const noteAxes = new Set(
-      explanation.topDrivers
-        .filter((d) => d.source !== 'interaction' && d.axes.length > 0)
-        .flatMap((d) => d.axes)
+      filterRiskDriversAtDose(
+        explanation.topDrivers.filter((d) => d.source !== 'interaction' && d.axes.length > 0),
+        assessment.matchedEvidence
+      ).flatMap((d) => d.axes)
     )
     const product = { name: row.name, slug: row.slug }
     accumulate(benefitAcc, benefitAxes, product)

@@ -12,8 +12,17 @@ import { collectionKeys } from './collection'
 import { compatibilityKeys } from './compatibility'
 import { applyOptimisticUpdates, optimisticCacheUpdate } from './optimistic'
 import { invalidateProductReviewReads, productKeys } from './products'
+import { invalidateProfileReviewReads } from './profile'
+import { userProductKeys } from './user-product-keys'
 
-export type UserProduct = ApiData<(typeof api)['user-products']['$get']>[number]
+export { userProductKeys } from './user-product-keys'
+
+export type UserProductEntry = ApiData<(typeof api)['user-products']['$get']>[number]
+export type UserProduct = UserProductEntry & { product: NonNullable<UserProductEntry['product']> }
+
+export function isAvailableUserProduct(entry: UserProductEntry): entry is UserProduct {
+  return entry.product !== null
+}
 
 type IdMutation<T> = { id: string; input: T }
 
@@ -24,9 +33,9 @@ type UpsertUserProductReviewVariables = IdMutation<UpdateUserProductReviewInput>
 type UserProductReview = NonNullable<UserProduct['review']>
 
 function patchUserProductReview(
-  userProduct: UserProduct,
+  userProduct: UserProductEntry,
   input: UpdateUserProductReviewInput
-): UserProduct {
+): UserProductEntry {
   return {
     ...userProduct,
     review: {
@@ -35,17 +44,6 @@ function patchUserProductReview(
       ...input,
     } as UserProductReview,
   }
-}
-
-// Separate root so history invalidates independently and doesn't collide with `user-products` routing.
-const userProductHistoryRoot = ['user-product-history'] as const
-
-export const userProductKeys = {
-  all: ['user-products'] as const,
-  lists: () => [...userProductKeys.all, 'list'] as const,
-  list: () => [...userProductKeys.lists()] as const,
-  historyRoot: () => userProductHistoryRoot,
-  history: (id: string) => [...userProductHistoryRoot, id] as const,
 }
 
 function invalidateUserProductConsumers(queryClient: ReturnType<typeof useQueryClient>) {
@@ -109,7 +107,7 @@ function useUserProductUpdateMutation(bulk: boolean) {
     },
     onMutate: (variables) => {
       return applyOptimisticUpdates(queryClient, variables, [
-        optimisticCacheUpdate<UpdateUserProductVariables, UserProduct[]>({
+        optimisticCacheUpdate<UpdateUserProductVariables, UserProductEntry[]>({
           queryKey: userProductKeys.list(),
           updater: (oldProducts, { id, input }) => {
             if (!oldProducts) return oldProducts
@@ -150,6 +148,8 @@ export const useDeleteUserProduct = () => {
     onSuccess: () => {
       invalidateUserProductConsumers(queryClient)
       queryClient.invalidateQueries({ queryKey: collectionKeys.formulaMotifs() })
+      invalidateProductReviewReads(queryClient)
+      invalidateProfileReviewReads(queryClient)
     },
     meta: { errorMessage: 'Suppression impossible — réessayez plus tard.' },
   })
@@ -168,7 +168,7 @@ export const useUpsertUserProductReview = () => {
     },
     onMutate: (variables) => {
       return applyOptimisticUpdates(queryClient, variables, [
-        optimisticCacheUpdate<UpsertUserProductReviewVariables, UserProduct[]>({
+        optimisticCacheUpdate<UpsertUserProductReviewVariables, UserProductEntry[]>({
           queryKey: userProductKeys.list(),
           updater: (oldProducts, { id, input }) => {
             if (!oldProducts) return oldProducts
@@ -195,6 +195,7 @@ export const useUpsertUserProductReview = () => {
         input.ratingsPublic !== undefined
       ) {
         invalidateProductReviewReads(queryClient)
+        invalidateProfileReviewReads(queryClient)
       }
     },
     meta: { errorMessage: 'Note non enregistrée — réessayez plus tard.' },

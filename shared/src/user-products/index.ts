@@ -1,6 +1,6 @@
 import { z } from 'zod'
 
-import { HTTP_STATUS, type HttpStatus } from '../core'
+import { HTTP_STATUS, type HttpStatus, noHtml } from '../core'
 import { SKIN_TYPES } from '../profile'
 
 export const userProductStatus = ['in_stock', 'wishlist', 'watched', 'archived', 'avoided'] as const
@@ -57,27 +57,37 @@ export const ressentiTagSchema = z.enum(ressentiTags)
 export const routineTagSchema = z.enum(routineTags)
 export const preferencesTagSchema = z.enum(preferencesTags)
 
-export const createUserProductSchema = z.object({
-  productId: z.uuid(),
-  status: userProductStatusSchema.default('in_stock'),
-  sentiment: z.number().int().min(1).max(HOLY_GRAIL_SENTIMENT).optional(),
-  wouldRepurchase: repurchaseFlagSchema.optional(),
-  comment: z.string().max(1000).optional(),
-})
+export const createUserProductSchema = z
+  .object({
+    productId: z.uuid(),
+    status: userProductStatusSchema.default('in_stock'),
+    sentiment: z.number().int().min(1).max(HOLY_GRAIL_SENTIMENT).optional(),
+    wouldRepurchase: repurchaseFlagSchema.optional(),
+    comment: noHtml(z.string().max(1000)).optional(),
+  })
+  .refine((input) => input.status !== 'avoided' || input.sentiment !== HOLY_GRAIL_SENTIMENT, {
+    path: ['sentiment'],
+    message: 'An avoided product cannot be a Holy Grail',
+  })
 
-export const updateUserProductSchema = z.object({
-  status: userProductStatusSchema.optional(),
-  sentiment: z.number().int().min(1).max(HOLY_GRAIL_SENTIMENT).nullable().optional(),
-  wouldRepurchase: repurchaseFlagSchema.nullable().optional(),
-  comment: z.string().max(1000).nullable().optional(),
-  ressenti: z.array(ressentiTagSchema).optional(),
-  routine: z.array(routineTagSchema).optional(),
-  preferences: z.array(preferencesTagSchema).optional(),
-  // Optional free-form note captured alongside a status transition. Persisted
-  // to user_product_status_log only, never to user_products.comment. Ignored
-  // when no status change is in the payload.
-  reason: z.string().max(500).optional(),
-})
+export const updateUserProductSchema = z
+  .object({
+    status: userProductStatusSchema.optional(),
+    sentiment: z.number().int().min(1).max(HOLY_GRAIL_SENTIMENT).nullable().optional(),
+    wouldRepurchase: repurchaseFlagSchema.nullable().optional(),
+    comment: noHtml(z.string().max(1000)).nullable().optional(),
+    ressenti: z.array(ressentiTagSchema).optional(),
+    routine: z.array(routineTagSchema).optional(),
+    preferences: z.array(preferencesTagSchema).optional(),
+    // Optional free-form note captured alongside a status transition. Persisted
+    // to user_product_status_log only, never to user_products.comment. Ignored
+    // when no status change is in the payload.
+    reason: noHtml(z.string().max(500)).optional(),
+  })
+  .refine((input) => input.status !== 'avoided' || input.sentiment !== HOLY_GRAIL_SENTIMENT, {
+    path: ['sentiment'],
+    message: 'An avoided product cannot be a Holy Grail',
+  })
 
 export const updateUserProductReviewSchema = z.object({
   tolerance: z.number().int().min(1).max(5).nullable().optional(),
@@ -86,7 +96,7 @@ export const updateUserProductReviewSchema = z.object({
   stability: z.number().int().min(1).max(5).nullable().optional(),
   mixability: z.number().int().min(1).max(5).nullable().optional(),
   valueForMoney: z.number().int().min(1).max(5).nullable().optional(),
-  comment: z.string().max(1000).nullable().optional(),
+  comment: noHtml(z.string().max(1000)).nullable().optional(),
   isPublic: z.boolean().optional(),
   ratingsPublic: z.boolean().optional(),
 })
@@ -152,12 +162,14 @@ export type PublicProfileReviewView = z.infer<typeof publicProfileReviewViewSche
 export type PublicProfileReviewsResponse = z.infer<typeof publicProfileReviewsResponseSchema>
 
 export type UserProductErrorCode =
+  | 'invalid_input'
   | 'user_product_not_found'
   | 'user_product_creation_failed'
   | 'public_review_requires_comment'
   | 'database_error'
 
 export const userProductErrorMapping = {
+  invalid_input: HTTP_STATUS.BAD_REQUEST,
   user_product_not_found: HTTP_STATUS.NOT_FOUND,
   user_product_creation_failed: HTTP_STATUS.INTERNAL_SERVER_ERROR,
   public_review_requires_comment: HTTP_STATUS.BAD_REQUEST,
