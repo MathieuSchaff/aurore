@@ -17,7 +17,7 @@ import {
   useSubmitRoleRequest,
 } from '../../../../lib/queries/role-requests'
 
-// Maps server error codes from submitRoleRequestBodySchema to calm FR copy.
+// Maps server error codes from submitRoleRequestBodySchema to calm FR copy
 const ROLE_REQUEST_ERRORS = {
   already_pending: 'Vous avez déjà une demande en attente.',
   already_elevated: 'Vous êtes déjà modérateur ou administrateur.',
@@ -29,7 +29,7 @@ const MOTIVATION_MIN = 10
 const MOTIVATION_MAX = 1000
 
 export const RoleRequestSection = () => {
-  // Section is for plain users only; it unmounts once the role flips to contributor.
+  // Section is for plain users only; it unmounts once the role flips to contributor
   const session = useSession()
   const isUser = session.status === 'authenticated' && session.user.role === 'user'
   const { data, isLoading, isError } = useQuery({
@@ -60,7 +60,7 @@ export const RoleRequestSection = () => {
     submit.mutate(
       {
         motivation: trimmedMotivation,
-        // Omit the link when empty: never send '' or null (httpsUrl is optional, absent = not provided).
+        // Omit the link when empty: never send '' or null (httpsUrl is optional, absent = not provided)
         ...(trimmedLink ? { motivationLink: trimmedLink } : {}),
       },
       {
@@ -117,7 +117,7 @@ export const RoleRequestSection = () => {
     body = <p className="role-request-intro">Chargement…</p>
   } else if (isError) {
     // Don't fall through to the form on a failed load: a user with a pending request
-    // would see it and submit again into an `already_pending` error.
+    // would see it and submit again into an `already_pending` error
     body = (
       <FormMessage variant="warning">
         Impossible de charger l'état de votre demande. Rechargez la page.
@@ -145,9 +145,9 @@ export const RoleRequestSection = () => {
     )
   } else if (latest?.status === 'approved' && !data?.canApply) {
     // Welcome message. The role flips to contributor at the next token refresh (≤15 min),
-    // which unmounts this section, no force-refresh needed. A demoted account also
+    // which unmounts this section, no forced refresh needed. A demoted account also
     // carries an approved request, but the server says it can apply again, so it
-    // falls through to the opt-in below
+    // falls through to the choice below
     body = (
       <FormMessage variant="success">
         Votre demande a été acceptée. Vos accès modérateur seront actifs d'ici quelques minutes, à
@@ -156,8 +156,8 @@ export const RoleRequestSection = () => {
     )
   } else {
     // Rejected users keep the resubmit form open (the rejection reason needs a visible next step);
-    // never-asked / cancelled users get a quiet opt-in so the section is one button, not a standing
-    // form, for the 99% who won't apply.
+    // users who never applied or cancelled get a quiet choice so the section is one button, not a standing
+    // form, for the 99% who won't apply
     const wasRejected = latest?.status === 'rejected'
     const formOpen = wasRejected || showForm
     body = (

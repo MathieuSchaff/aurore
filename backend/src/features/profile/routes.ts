@@ -18,17 +18,18 @@ import type { AppEnv } from '../../app-env'
 import { db as baseDb } from '../../db'
 import { getAuthedUserId, getRlsDb } from '../../utils/accessors'
 import { zValidator } from '../../utils/validator'
-import { deleteAccount } from '../auth/demo-cleanup'
 import { requireJwtAuth, requireNotBanned } from '../auth/middleware'
 import { withRlsContext } from '../auth/rls-context.middleware'
-import { getUserById } from '../auth/user.utils'
+import { deleteAccount, getUserById } from '../auth/service'
 import { securityScan } from '../security/security.middleware'
-import { logSecurityEvent } from '../security/security.service'
+import { logSecurityEvent } from '../security/service'
 import { privacyAccessRoute } from './access/routes'
-import { checkExportRateLimit, exportFilename, exportUserData } from './export.service'
 import {
+  checkExportRateLimit,
   deleteIngredientPreference,
   deleteTagPreference,
+  exportFilename,
+  exportUserData,
   getDermoProfile,
   getPrivacySettings,
   getProfile,
@@ -104,10 +105,6 @@ export const profileRoute = app
     const userId = getAuthedUserId(c)
     const profile = await getProfile(requestDbRls, userId)
 
-    if (!profile) {
-      return c.json(err('not_found'), HTTP_STATUS.NOT_FOUND)
-    }
-
     return c.json(ok(profile), HTTP_STATUS.OK)
   })
 
@@ -124,10 +121,6 @@ export const profileRoute = app
 
     const data = c.req.valid('json')
     const updated = await updateProfile(db, userId, data)
-
-    if (!updated) {
-      return c.json(err('not_found'), HTTP_STATUS.NOT_FOUND)
-    }
 
     return c.json(ok(updated), HTTP_STATUS.OK)
   })
@@ -163,10 +156,6 @@ export const profileRoute = app
       const data = c.req.valid('json')
       const saved = await upsertIngredientPreference(db, userId, data)
 
-      if (!saved) {
-        return c.json(err('not_found'), HTTP_STATUS.NOT_FOUND)
-      }
-
       return c.json(ok(saved), HTTP_STATUS.OK)
     }
   )
@@ -188,10 +177,6 @@ export const profileRoute = app
     const userId = getAuthedUserId(c)
     const data = c.req.valid('json')
     const saved = await upsertTagPreference(db, userId, data)
-
-    if (!saved) {
-      return c.json(err('not_found'), HTTP_STATUS.NOT_FOUND)
-    }
 
     return c.json(ok(saved), HTTP_STATUS.OK)
   })
@@ -233,10 +218,6 @@ export const profileRoute = app
     const userId = getAuthedUserId(c)
     const data = c.req.valid('json')
     const updated = await updatePrivacySettings(db, userId, data)
-
-    if (!updated) {
-      return c.json(err('not_found'), HTTP_STATUS.NOT_FOUND)
-    }
 
     return c.json(ok(updated), HTTP_STATUS.OK)
   })

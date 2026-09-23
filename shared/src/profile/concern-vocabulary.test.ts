@@ -27,7 +27,7 @@ const CONCERNS_WITHOUT_INGREDIENT_TAG: ReadonlySet<string> = new Set(['repulpant
 
 describe('portrait vocabulary reaches both taxonomies', () => {
   for (const concern of SKIN_CONCERNS) {
-    it(`${concern} maps to product tags that all exist`, () => {
+    it(`maps ${concern} to existing product tags`, () => {
       const targets = USER_CONCERN_TO_PRODUCT_TAGS[concern]
       expect(targets.length, `"${concern}" maps to an empty tag list`).toBeGreaterThan(0)
       // Catches the phantom target, which a missing key could not: a bridge entry pointing at a
@@ -40,9 +40,9 @@ describe('portrait vocabulary reaches both taxonomies', () => {
       }
     })
 
-    // The convention is slug-for-slug here: unlike products, ingredient concern tags reuse the
+    // The convention is one matching slug for each slug here: unlike products, ingredient concern tags reuse the
     // portrait's own words. Verified against the tag defs, not assumed
-    it(`${concern} has an ingredient tag in the concern category`, () => {
+    it(`matches ${concern} to an ingredient tag in the concern category`, () => {
       if (CONCERNS_WITHOUT_INGREDIENT_TAG.has(concern)) return
       expect(
         INGREDIENT_CONCERN_SLUGS.has(concern),

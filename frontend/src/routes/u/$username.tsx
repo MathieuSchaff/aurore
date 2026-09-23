@@ -22,7 +22,7 @@ export const Route = createFileRoute('/u/$username')({
   head: ({ params }) =>
     seoHead({
       path: `/u/${params.username}`,
-      title: `@${params.username} — Aurore`,
+      title: `@${params.username} | Aurore`,
       robots: NOINDEX_ROBOTS,
     }),
   notFoundComponent: RouteNotFound,

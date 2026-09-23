@@ -37,7 +37,6 @@ export async function getAuthenticatedSsrBootResponse(
   if (!user) throw new Error('SSR boot user is missing')
 
   const profile = await getProfile(db, userId)
-  if (!profile) throw new Error('SSR boot profile is missing')
 
   const page = await getSsrBootPage(db, userId, query)
 
