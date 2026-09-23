@@ -248,6 +248,7 @@
         "frontend/src/lib/auth/useSessionExpiredRedirect.ts",
         "frontend/src/lib/queries/auth.ts",
         "frontend/src/lib/queries/profile.ts",
+        "frontend/src/lib/queries/privacy-access.ts",
         "frontend/src/router.tsx",
         "frontend/src/routes/__root.tsx"
       ],

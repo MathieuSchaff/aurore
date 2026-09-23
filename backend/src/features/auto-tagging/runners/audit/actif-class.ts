@@ -1,8 +1,8 @@
-// Dry-run audit for the pharmacological-cluster pass, read-only, passe 2
-// (`detectActifClasses`).
+// Preview audit for the pharmacological cluster pass, without writes, passe 2
+// (`detectActifClasses`)
 //
 // Clusters emit at relevance 'secondary' source 'actif-class', so this audit does NOT reflect
-// orchestrator avoid precedence.
+// orchestrator avoid precedence
 
 import type { ProductKind } from '@aurore/shared'
 
@@ -17,13 +17,13 @@ import { pad } from '../fmt'
 import { fetchEligibleProducts, fetchProductTagSlugsByProduct } from './db'
 import { LIMIT } from './env'
 
-// Env: LIMIT (cap product count, debug), GOLD_SET_PATH (alternative annotations.json).
+// Env: LIMIT (cap product count, debug), GOLD_SET_PATH (alternative annotations.json)
 const DUMP_DRIFT = process.env.DUMP_DRIFT === '1'
 const DUMP_NEW = process.env.DUMP_NEW === '1'
 const GOLD_SET_PATH = process.env.GOLD_SET_PATH ?? DEFAULT_GOLD_SET_PATH
 
 // Cap on per-cluster finding lists so a noisy cluster cannot flood the report;
-// the dropped count is always printed (no silent truncation).
+// the dropped count is always printed (no silent truncation)
 const SAMPLE = 20
 
 interface Finding {
@@ -45,14 +45,14 @@ interface ClusterStat {
   byKind: Map<ProductKind, number>
   driftProducts: Array<{ slug: string; kind: string; inci: string | null }>
   newProducts: Array<{ slug: string; kind: string; inci: string | null }>
-  // Acid hit that cleared the rinse-off cap but would fail the leave-on cap.
+  // Acid hit that cleared the rinse-off cap but would fail the leave-on cap
   capMarginal: Finding[]
-  // Hit the gold set explicitly marks absent for this cluster (confirmed FP).
+  // Hit the gold set explicitly marks absent for this cluster (confirmed FP)
   goldFalsePos: Finding[]
 }
 
-// Leave-on positionCap of the def whose pattern matched `token` for `slug`.
-// Used to decide whether a rinse-off hit is cap-marginal (would fail leave-on).
+// Leave-on positionCap of the def whose pattern matched `token` for `slug`
+// Used to decide whether a rinse-off hit is cap-marginal (would fail leave-on)
 function leaveOnCap(slug: string, token: string): number | undefined {
   for (const def of ACTIF_CLASS_DEFS) {
     if (def.slug !== slug) continue
@@ -65,7 +65,7 @@ function leaveOnCap(slug: string, token: string): number | undefined {
 }
 
 // A hit is cap-marginal when it was admitted only because the rinse-off cap is
-// looser than the leave-on cap (position would be excluded under leave-on).
+// looser than the leave-on cap (position would be excluded under leave-on)
 function isCapMarginal(ev: TagEvidence, slug: string): boolean {
   if (!ev.rule?.startsWith('positionCapRinseOff') || ev.position === undefined) return false
   const loc = leaveOnCap(slug, ev.matchedToken ?? '')
@@ -75,7 +75,7 @@ function isCapMarginal(ev: TagEvidence, slug: string): boolean {
 function printFindings(findings: Finding[]): void {
   for (const f of findings.slice(0, SAMPLE)) {
     console.log(`   [${f.kind}] ${f.slug}`)
-    // position is 0-based internally; display 1-based to match how INCI reads.
+    // position is 0-based internally; display 1-based to match how INCI reads
     console.log(`      ${f.token} · pos ${f.position + 1} · ${f.rule}`)
     const snip = f.inci ? f.inci.slice(0, 160) : '(no inci)'
     console.log(`      ${snip}${(f.inci?.length ?? 0) > 160 ? '…' : ''}`)
@@ -84,7 +84,7 @@ function printFindings(findings: Finding[]): void {
 }
 
 async function main() {
-  // BHA has two ACTIF_CLASS_DEFS entries (different positionCap, same slug); dedup via Set.
+  // BHA has two ACTIF_CLASS_DEFS entries (different positionCap, same slug); dedup via Set
   const uniqueClusterSlugs = new Set(ACTIF_CLASS_DEFS.map((d) => d.slug))
   console.log(`🧪 Audit actif-class (passe 2)`)
   console.log(`   ${uniqueClusterSlugs.size} clusters${LIMIT ? ` · limit=${LIMIT}` : ''}\n`)
@@ -96,7 +96,7 @@ async function main() {
 
   const existingByProduct = await fetchProductTagSlugsByProduct([...uniqueClusterSlugs])
 
-  // Gold set is optional: justesse columns degrade to omitted if it can't load.
+  // Gold set is optional: justesse columns degrade to omitted if it can't load
   let goldBySlug: Map<string, { present: Set<string>; absent: Set<string> }> | null = null
   try {
     const gold = await loadGoldSet(GOLD_SET_PATH)
@@ -165,7 +165,7 @@ async function main() {
         inci: p.inci,
       }
       if (isCapMarginal(ev, slug)) stat.capMarginal.push(finding)
-      // Justesse: only gold-rated products count; absent = confirmed false positive.
+      // Justesse: only gold-rated products count; absent = confirmed false positive
       if (gold?.present.has(slug)) stat.goldTP++
       else if (gold?.absent.has(slug)) {
         stat.goldFP++
@@ -174,7 +174,7 @@ async function main() {
     }
 
     // manual_only: detector miss on a manually-tagged cluster slug, a missed INCI variant
-    // or a manual tag applied off-detector.
+    // or a manual tag applied off-detector
     const detectedSlugs = new Set<string>(detected.keys())
     for (const slug of existing) {
       if (!detectedSlugs.has(slug)) {
@@ -209,7 +209,7 @@ async function main() {
   console.table(coverageRows)
 
   // Top-kinds counts catch gating drift, e.g. RETINOIDS firing on cleansers should be
-  // rare (signals a backfill bug or INCI parsing edge).
+  // rare (signals a backfill bug or INCI parsing edge)
   console.log(`\n📋 Top 3 kinds par cluster`)
   for (const [slug, stat] of sorted) {
     if (stat.hit === 0) continue
@@ -234,7 +234,7 @@ async function main() {
   }
 
   // Justesse (hit vs gold set) is the only measure that catches a wrong tag the DB
-  // already agrees with: a backfilled false positive still reads as agree.
+  // already agrees with: a backfilled false positive still reads as agree
   if (goldBySlug) {
     const justesse = sorted.filter(([_, s]) => s.goldTP + s.goldFP > 0)
     console.log(`\n🎯 Justesse vs gold-set (hits annotés — attrape les FP que la DB valide)`)

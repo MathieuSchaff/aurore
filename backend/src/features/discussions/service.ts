@@ -1,8 +1,8 @@
 import type { CreateReplyInput, CreateThreadInput } from '@aurore/shared'
 
-import { and, count, desc, eq } from 'drizzle-orm'
+import { and, count, desc, eq, inArray } from 'drizzle-orm'
 
-import type { DatabaseTransaction, DbOrTransaction } from '../../db'
+import type { DbOrTransaction } from '../../db'
 import { ingredients } from '../../db/schema/ingredients/ingredients'
 import { products } from '../../db/schema/products'
 import { discussionReplies, discussionThreads } from '../../db/schema/products/discussions'
@@ -10,6 +10,15 @@ import { profiles } from '../../db/schema/users'
 import { DiscussionError } from './discussion-error'
 
 export type EntityType = 'product' | 'ingredient'
+
+export type DiscussionAnchor = { slug: string; entityType: EntityType }
+
+async function anchorCondition(anchor: DiscussionAnchor, database: DbOrTransaction) {
+  const entityId = await resolveEntityId(anchor.slug, anchor.entityType, database)
+  return anchor.entityType === 'product'
+    ? eq(discussionThreads.productId, entityId)
+    : eq(discussionThreads.ingredientId, entityId)
+}
 
 async function resolveEntityId(
   slug: string,
@@ -70,7 +79,7 @@ export async function createThread(
   slug: string,
   entityType: EntityType,
   input: CreateThreadInput,
-  database: DatabaseTransaction
+  database: DbOrTransaction
 ) {
   const entityId = await resolveEntityId(slug, entityType, database)
   const entityFields =
@@ -87,7 +96,12 @@ export async function createThread(
   return thread
 }
 
-export async function getThreadWithReplies(threadId: string, database: DbOrTransaction) {
+export async function getThreadWithReplies(
+  threadId: string,
+  anchor: DiscussionAnchor,
+  database: DbOrTransaction
+) {
+  const condition = await anchorCondition(anchor, database)
   const [thread] = await database
     .select({
       id: discussionThreads.id,
@@ -102,7 +116,11 @@ export async function getThreadWithReplies(threadId: string, database: DbOrTrans
     .from(discussionThreads)
     .leftJoin(profiles, eq(discussionThreads.authorId, profiles.userId))
     .where(
-      and(eq(discussionThreads.id, threadId), eq(discussionThreads.moderationStatus, 'visible'))
+      and(
+        eq(discussionThreads.id, threadId),
+        condition,
+        eq(discussionThreads.moderationStatus, 'visible')
+      )
     )
 
   if (!thread) throw new DiscussionError('thread_not_found')
@@ -132,14 +150,18 @@ export async function getThreadWithReplies(threadId: string, database: DbOrTrans
 export async function deleteThread(
   userId: string,
   threadId: string,
-  database: DatabaseTransaction
+  anchor: DiscussionAnchor,
+  database: DbOrTransaction
 ) {
+  const condition = await anchorCondition(anchor, database)
   // Owner filter in the WHERE clause, not a 403 after the fetch: a thread that doesn't exist
   // and another user's thread both delete zero rows, giving a uniform thread_not_found.
   // A 403-vs-404 split would let any authenticated user probe thread existence.
   const deleted = await database
     .delete(discussionThreads)
-    .where(and(eq(discussionThreads.id, threadId), eq(discussionThreads.authorId, userId)))
+    .where(
+      and(eq(discussionThreads.id, threadId), condition, eq(discussionThreads.authorId, userId))
+    )
     .returning({ id: discussionThreads.id })
 
   if (deleted.length === 0) throw new DiscussionError('thread_not_found')
@@ -149,15 +171,21 @@ export async function createReply(
   userId: string,
   threadId: string,
   input: CreateReplyInput,
-  database: DatabaseTransaction
+  anchor: DiscussionAnchor,
+  database: DbOrTransaction
 ) {
+  const condition = await anchorCondition(anchor, database)
   // Rejects replies on hidden threads: insert would succeed but the reply would
   // be invisible and pollute the DB with rows on moderated threads.
   const [thread] = await database
     .select({ id: discussionThreads.id })
     .from(discussionThreads)
     .where(
-      and(eq(discussionThreads.id, threadId), eq(discussionThreads.moderationStatus, 'visible'))
+      and(
+        eq(discussionThreads.id, threadId),
+        condition,
+        eq(discussionThreads.moderationStatus, 'visible')
+      )
     )
 
   if (!thread) throw new DiscussionError('thread_not_found')
@@ -171,12 +199,31 @@ export async function createReply(
   return reply
 }
 
-export async function deleteReply(userId: string, replyId: string, database: DatabaseTransaction) {
+export async function deleteReply(
+  userId: string,
+  replyId: string,
+  threadId: string,
+  anchor: DiscussionAnchor,
+  database: DbOrTransaction
+) {
+  const condition = await anchorCondition(anchor, database)
   // Same collapse as deleteThread: owner filter folds cross-user and missing into
   // a single reply_not_found, so the response can't leak reply existence.
   const deleted = await database
     .delete(discussionReplies)
-    .where(and(eq(discussionReplies.id, replyId), eq(discussionReplies.authorId, userId)))
+    .where(
+      and(
+        eq(discussionReplies.id, replyId),
+        eq(discussionReplies.authorId, userId),
+        inArray(
+          discussionReplies.threadId,
+          database
+            .select({ id: discussionThreads.id })
+            .from(discussionThreads)
+            .where(and(eq(discussionThreads.id, threadId), condition))
+        )
+      )
+    )
     .returning({ id: discussionReplies.id })
 
   if (deleted.length === 0) throw new DiscussionError('reply_not_found')

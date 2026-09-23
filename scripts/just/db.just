@@ -210,7 +210,7 @@ backup-offsite-status:
 db-snapshot:
     mkdir -p backend/src/db/snapshot
     TMP="{{SNAPSHOT_FILE}}.tmp"
-    # pin pg_dump's random \restrict token so unchanged data dumps byte-identical (ADR 0015)
+    # normalize guard noise; physical row order can still change without new values (ADR 0015)
     {{COMPOSE_DEV}} exec -T db pg_dump -U app -d appdb \
         --data-only --inserts --no-owner --no-privileges \
         --exclude-schema=drizzle \

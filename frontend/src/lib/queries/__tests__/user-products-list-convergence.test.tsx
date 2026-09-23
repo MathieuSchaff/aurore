@@ -2,6 +2,9 @@ import type {
   ProductDetailPage,
   ProductsPage,
   PublicProductReviewsResponse,
+  PublicProfileReviewsResponse,
+  PublicReviewView,
+  UpdateUserProductReviewInput,
   UserProductStatus,
 } from '@aurore/shared'
 
@@ -10,10 +13,12 @@ import { act, waitFor } from '@testing-library/react'
 import { HttpResponse, http } from 'msw'
 import { describe, expect, it } from 'vitest'
 
+import type { ApiData, api } from '@/lib/api'
 import { PRODUCT_DETAILS, PRODUCTS } from '@/test/msw/fixtures/products'
 import { server } from '@/test/msw/server'
 import { renderHookWithProviders } from '@/test/utils'
 import { productQueries } from '../products'
+import { profileQueries } from '../profile'
 import {
   useCreateUserProduct,
   useDeleteUserProduct,
@@ -264,8 +269,8 @@ describe('user product list convergence', () => {
         return HttpResponse.json({ success: true, data })
       }),
       http.put('*/api/user-products/:id/review', async ({ request }) => {
-        const input = (await request.json()) as { comment: string }
-        comment = input.comment
+        const input = (await request.json()) as UpdateUserProductReviewInput
+        comment = input.comment ?? comment
         return HttpResponse.json({
           success: true,
           data: {
@@ -304,4 +309,104 @@ describe('user product list convergence', () => {
     await waitFor(() => expect(result.current.reviews.data?.reviews[0].comment).toBe('Après'))
     expect(publicReviewCalls).toBe(2)
   })
+
+  it.each(['ratings withdrawal', 'review withdrawal', 'collection deletion'] as const)(
+    'refreshes product and profile reviews after %s',
+    async (operation) => {
+      const review = {
+        id: '44444444-4444-4444-8444-444444444444',
+        tolerance: 4,
+        efficacy: 4,
+        sensoriality: null,
+        stability: null,
+        mixability: null,
+        valueForMoney: null,
+        comment: 'Mon expérience',
+        createdAt: '2026-08-16T08:00:00.000Z',
+        reviewer: {
+          username: 'alice',
+          profilePublic: true,
+          skinTypes: null,
+          fitzpatrickType: null,
+        },
+      } satisfies PublicReviewView
+      let reviews: PublicReviewView[] = [review]
+      server.use(
+        http.get('*/api/products/:slug/reviews/public', () =>
+          HttpResponse.json({
+            success: true,
+            data: { reviews } satisfies PublicProductReviewsResponse,
+          })
+        ),
+        http.get('*/api/profiles/:username/reviews', () =>
+          HttpResponse.json({
+            success: true,
+            data: {
+              reviews: reviews.map((item) => ({
+                ...item,
+                product: { slug: PRODUCTS[0].slug, name: PRODUCTS[0].name },
+              })),
+            } satisfies PublicProfileReviewsResponse,
+          })
+        ),
+        http.put('*/api/user-products/:id/review', () => {
+          reviews =
+            operation === 'ratings withdrawal'
+              ? [{ ...review, tolerance: null, efficacy: null }]
+              : []
+          const { reviewer: _reviewer, ...values } = review
+          const saved = {
+            ...values,
+            userProductId: 'user-product-1',
+            isPublic: operation === 'ratings withdrawal',
+            ratingsPublic: false,
+            updatedAt: '2026-08-17T08:00:00.000Z',
+          } satisfies ApiData<(typeof api)['user-products'][':id']['review']['$put']>
+          return HttpResponse.json({ success: true, data: saved })
+        }),
+        http.delete('*/api/user-products/:id', () => {
+          reviews = []
+          return new HttpResponse(null, { status: 204 })
+        })
+      )
+      const { result } = renderHookWithProviders(() => ({
+        productReviews: useQuery(productQueries.publicReviews(PRODUCTS[0].slug)),
+        profileReviews: useQuery(profileQueries.reviewsByUsername('alice')),
+        updateReview: useUpsertUserProductReview(),
+        remove: useDeleteUserProduct(),
+      }))
+      await waitFor(() => {
+        expect(result.current.productReviews.data?.reviews[0]?.tolerance).toBe(4)
+        expect(result.current.profileReviews.data?.reviews[0]?.tolerance).toBe(4)
+      })
+
+      await act(async () => {
+        if (operation === 'collection deletion') {
+          await result.current.remove.mutateAsync('user-product-1')
+        } else {
+          await result.current.updateReview.mutateAsync({
+            id: 'user-product-1',
+            input:
+              operation === 'ratings withdrawal' ? { ratingsPublic: false } : { isPublic: false },
+          })
+        }
+      })
+
+      await waitFor(() => {
+        for (const data of [
+          result.current.productReviews.data,
+          result.current.profileReviews.data,
+        ]) {
+          if (operation === 'ratings withdrawal') {
+            expect(data?.reviews).toHaveLength(1)
+            expect(data?.reviews[0]?.tolerance).toBeNull()
+            expect(data?.reviews[0]?.efficacy).toBeNull()
+            expect(data?.reviews[0]?.comment).toBe('Mon expérience')
+          } else {
+            expect(data?.reviews).toEqual([])
+          }
+        }
+      })
+    }
+  )
 })

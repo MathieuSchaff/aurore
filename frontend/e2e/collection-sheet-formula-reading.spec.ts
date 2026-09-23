@@ -3,13 +3,13 @@ import { expect, test } from '@playwright/test'
 import { loginAs, SEED_PASSWORD } from './helpers/auth'
 import { gotoAuthenticatedHydrated } from './helpers/hydration'
 
-// Read-only spec on a persona no other spec logs in as. Her wishlist product
+// Reads without writing spec on a persona no other spec logs in as. Her wishlist product
 // carries an avoid tag (pores-sebum) that her portrait (pores-dilates) bridges
 // to, so the sheet has something to say without any route mock
 const PERSONA = { email: 'lea@seed.local', password: SEED_PASSWORD }
 const PRODUCT_NAME = 'Hydrance Light Crème Hydratante'
 
-test('happy path: the shelf sheet reads the formula with the portrait', async ({ page }) => {
+test('reads the formula with the portrait from the shelf sheet', async ({ page }) => {
   await loginAs(page, PERSONA, 'persona login')
   await gotoAuthenticatedHydrated(page, '/collection')
 

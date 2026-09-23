@@ -9,14 +9,17 @@ import { QueryClient } from '@tanstack/react-query'
 import {
   createMemoryHistory,
   createRootRoute,
+  createRoute,
   createRouter,
   RouterProvider,
 } from '@tanstack/react-router'
-import { screen, waitFor, within } from '@testing-library/react'
+import { act, screen, waitFor, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { HttpResponse, http } from 'msw'
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 
+import { productsSearchSchema } from '@/features/products/filters'
+import type { ApiData, api } from '@/lib/api'
 import { Route as ProductsIndexRouteImport } from '@/routes/products/index'
 import { useAuthStore } from '@/store/auth'
 import { anonymousTestSession, presentTestSession } from '@/test/authSession'
@@ -71,7 +74,12 @@ function renderProducts(initialEntries: string[] = ['/products/']) {
     path: '/products/',
     getParentRoute: () => rootRoute,
   })
-  const routeTree = rootRoute.addChildren([productsRoute as never])
+  const profileRoute = createRoute({
+    getParentRoute: () => rootRoute,
+    path: '/profile',
+    component: () => <h1>Profil</h1>,
+  })
+  const routeTree = rootRoute.addChildren([productsRoute as never, profileRoute])
   const queryClient = makeClient()
   const router = createRouter({
     routeTree,
@@ -110,6 +118,64 @@ afterEach(() => {
   document.body.style.position = ''
   document.body.style.width = ''
   document.body.style.top = ''
+})
+
+describe('ProductsPage: automatic profile rules pagination', () => {
+  it.each([
+    { initialPage: 10, total: 12, expectedPage: 1 },
+    { initialPage: 2, total: 36, expectedPage: 2 },
+  ])(
+    'returns from profile to page $expectedPage when page $initialPage has $total results',
+    async ({ initialPage, total, expectedPage }) => {
+      const requests: Array<{ page: number; preferences: string | null }> = []
+      const products = Array.from({ length: total }, (_, index) => ({
+        ...PRODUCTS[0],
+        id: `profile-product-${index}`,
+        slug: `profile-product-${index}`,
+        name: `Profile product ${index + 1}`,
+      }))
+      server.use(
+        http.get('*/api/products', ({ request }) => {
+          const url = new URL(request.url)
+          const page = Number(url.searchParams.get('page'))
+          requests.push({ page, preferences: url.searchParams.get('apply_preferences') })
+          const data = {
+            items: products.slice((page - 1) * 24, page * 24),
+            total,
+            page,
+            limit: 24,
+            hiddenCount: 0,
+            excludedLabels: [],
+            requiredLabels: ['Niacinamide'],
+            rulesApplied: true,
+          } satisfies ApiData<typeof api.products.$get>
+          return HttpResponse.json({ success: true, data })
+        })
+      )
+      useAuthStore.setState({
+        session: presentTestSession(SEEDED_USER, 'test-access-token', Date.now() + 60_000),
+      })
+      const { router } = renderProducts([`/products/?page=${initialPage}&priceMin=5`, '/profile'])
+      await screen.findByRole('heading', { name: 'Profil' })
+
+      // A new standing rule can shrink the catalogue while the historical URL keeps its old page
+      await act(async () => router.history.back())
+
+      await waitFor(() => {
+        expect(productsSearchSchema.parse(router.state.location.search)).toMatchObject({
+          page: expectedPage,
+          priceMin: 5,
+        })
+      })
+      await screen.findByRole('link', {
+        name: new RegExp(`Profile product ${(expectedPage - 1) * 24 + 1}\\b`),
+      })
+      expect(requests[0]).toEqual({ page: initialPage, preferences: 'auto' })
+      expect(requests.at(-1)).toEqual({ page: expectedPage, preferences: 'auto' })
+      expect(screen.queryByText(/Aucun produit.*pour l'instant/i)).not.toBeInTheDocument()
+      expect(router.history.length).toBe(2)
+    }
+  )
 })
 
 describe('ProductsPage: integration (URL ↔ filtres ↔ liste)', () => {

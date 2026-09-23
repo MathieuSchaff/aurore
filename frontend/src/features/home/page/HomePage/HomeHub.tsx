@@ -12,7 +12,7 @@ import { SkinProfileRead } from '@/features/profile/components/SkinProfileRead/S
 import { useSession } from '@/lib/auth/session'
 import { formatInstant } from '@/lib/dates'
 import { privacySettingsQueries, profileQueries } from '@/lib/queries/profile'
-import { type UserProduct, userProductQueries } from '@/lib/queries/user-products'
+import { type UserProductEntry, userProductQueries } from '@/lib/queries/user-products'
 import { getSentimentLabel } from '@/utils/sentimentMap'
 import type { DoorwayItem } from '../../components/DoorwayGrid/DoorwayCard'
 import { DoorwayGrid } from '../../components/DoorwayGrid/DoorwayGrid'
@@ -23,11 +23,11 @@ import { lastTouched } from '../../lib/lastTouched'
 import './HomeHub.css'
 
 // avoided never exposes sentiment (collection taxonomy masks it).
-function repriseLine(item: UserProduct): string {
+function repriseLine(item: UserProductEntry): string {
   const status = statusLabels[item.status].label
   const sentiment = item.status === 'avoided' ? null : getSentimentLabel(item.sentiment)
   const tail = sentiment ? ` · ${sentiment}` : ''
-  return `La dernière fois, vous avez classé ${item.product.name} en « ${status} »${tail}.`
+  return `La dernière fois, vous avez classé ${item.product?.name ?? 'un produit désormais indisponible'} en « ${status} »${tail}.`
 }
 
 export function HomeHub() {
@@ -59,7 +59,9 @@ export function HomeHub() {
       icon: <Layers size={20} aria-hidden="true" />,
       title: 'Ma collection',
       line: recent
-        ? `Dernier ajout : ${recent.product.brand} — ${recent.product.name}.`
+        ? recent.product
+          ? `Dernier ajout : ${recent.product.brand} : ${recent.product.name}.`
+          : 'Votre expérience reste accessible pour un produit indisponible.'
         : "Aucun produit pour l'instant. Ajoutez-en un premier.",
       to: '/collection',
       cta: recent ? 'Ouvrir ma collection' : 'Ajouter un produit',

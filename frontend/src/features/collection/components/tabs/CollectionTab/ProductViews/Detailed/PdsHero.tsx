@@ -2,6 +2,7 @@ import { Link } from '@tanstack/react-router'
 import clsx from 'clsx'
 import { Check, ChevronDown, Columns2, ExternalLink, X } from 'lucide-react'
 
+import { Button } from '@/component/Button/Button'
 import { Sheet } from '@/component/Dialog/Sheet'
 import { DropdownMenu } from '@/component/DropdownMenu/DropdownMenu'
 import { statusLabels } from '@/features/collection/constants'
@@ -29,7 +30,8 @@ export function PdsHero({ p, closeBtnRef, onClose, onStatusChange }: PdsHeroProp
   return (
     <header className="pds-hero">
       <div className="pds-hero-bar">
-        <button
+        <Button
+          variant="bare"
           ref={closeBtnRef}
           type="button"
           className="pds-hero-close"
@@ -37,10 +39,11 @@ export function PdsHero({ p, closeBtnRef, onClose, onStatusChange }: PdsHeroProp
           aria-label="Fermer"
         >
           <X size={18} aria-hidden="true" />
-        </button>
+        </Button>
         <DropdownMenu className="pds-header-status">
           <DropdownMenu.Trigger>
-            <button
+            <Button
+              variant="bare"
               type="button"
               className="pds-header-status-trigger"
               style={
@@ -54,7 +57,7 @@ export function PdsHero({ p, closeBtnRef, onClose, onStatusChange }: PdsHeroProp
               <StatusIcon size={14} aria-hidden="true" />
               <span>{statusCfg.label}</span>
               <ChevronDown size={12} aria-hidden="true" />
-            </button>
+            </Button>
           </DropdownMenu.Trigger>
           <DropdownMenu.Content
             ariaLabel="Changer le statut du produit"
@@ -66,7 +69,8 @@ export function PdsHero({ p, closeBtnRef, onClose, onStatusChange }: PdsHeroProp
               const isActive = p.status === s
               return (
                 <DropdownMenu.Item key={s} onSelect={() => onStatusChange(s)}>
-                  <button
+                  <Button
+                    variant="bare"
                     type="button"
                     className={clsx('pds-header-status-item', isActive && 'is-active')}
                     title={cfg.purpose}
@@ -76,7 +80,7 @@ export function PdsHero({ p, closeBtnRef, onClose, onStatusChange }: PdsHeroProp
                     {isActive && (
                       <Check size={14} aria-hidden="true" className="pds-header-status-check" />
                     )}
-                  </button>
+                  </Button>
                 </DropdownMenu.Item>
               )
             })}

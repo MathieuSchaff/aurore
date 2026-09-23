@@ -4,9 +4,7 @@ import { registerFreshUser } from './helpers/auth'
 import { gotoHydrated } from './helpers/hydration'
 
 // A throwaway account: the seeded personas' portraits are read by other specs
-test('happy path: picks a nuance inside a concern family and sees it on the portrait', async ({
-  page,
-}) => {
+test('picks a nuance inside a concern family and sees it on the portrait', async ({ page }) => {
   await registerFreshUser(page)
   await gotoHydrated(page, '/profile')
 

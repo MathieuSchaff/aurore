@@ -1,9 +1,11 @@
-import { cleanup, screen } from '@testing-library/react'
+import { isCancelledError } from '@tanstack/react-query'
+import { act, cleanup, screen, waitFor } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import { HttpResponse, http } from 'msw'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
 import type { SessionView } from '@/lib/auth/session'
-import type { ReactionList } from '@/lib/queries/social'
+import { type ReactionList, reactionQueries } from '@/lib/queries/social'
 import { socialKeys } from '@/lib/queries/social-keys'
 import { createLinkStub, LinkStub } from '@/test/mocks/router'
 import { server } from '@/test/msw/server'
@@ -159,4 +161,76 @@ describe('ReactionRow', () => {
 
     expect(container).toBeEmptyDOMElement()
   })
+
+  it.each([false, true])(
+    'keeps the next toggle correct after a delayed GET with merci initially %s',
+    async (initiallyOn) => {
+      authenticate()
+      const signed: ReactionList = {
+        ...emptyList(),
+        reactions: {
+          merci: [{ username: 'lea', profilePublic: false }],
+          'moi-aussi': [],
+          soutien: [],
+        },
+        viewerKinds: ['merci'],
+      }
+      const initial = initiallyOn ? signed : emptyList()
+      const readStarted = Promise.withResolvers<void>()
+      const releaseRead = Promise.withResolvers<void>()
+      const writes: string[] = []
+      server.use(
+        http.get('*/api/social/reactions', async () => {
+          readStarted.resolve()
+          await releaseRead.promise
+          return HttpResponse.json({ success: true, data: initial })
+        }),
+        http.post('*/api/social/reactions', () => {
+          writes.push('POST')
+          return HttpResponse.json({ success: true, data: signed })
+        }),
+        http.delete('*/api/social/reactions', () => {
+          writes.push('DELETE')
+          return HttpResponse.json({ success: true, data: emptyList() })
+        })
+      )
+      const qc = initiallyOn ? seed(signed, 'viewer-id') : createTestQueryClient()
+      const pendingRead = qc
+        .fetchQuery({ ...reactionQueries.list(TYPE, ID, 'viewer-id'), staleTime: 0 })
+        .catch((error: unknown) => {
+          if (!isCancelledError(error)) throw error
+        })
+      renderWithProviders(<ReactionRow reactableType={TYPE} reactableId={ID} />, {
+        queryClient: qc,
+      })
+
+      try {
+        await readStarted.promise
+        const button = screen.getByRole('button', { name: 'Merci' })
+        await userEvent.click(button)
+        await waitFor(() => {
+          expect(button).toHaveAttribute('aria-pressed', String(!initiallyOn))
+          expect(button).toBeEnabled()
+        })
+
+        // This older snapshot must not change the method of the user's next click
+        await act(async () => {
+          releaseRead.resolve()
+          await pendingRead
+        })
+        expect(button).toHaveAttribute('aria-pressed', String(!initiallyOn))
+        if (initiallyOn) expect(screen.queryByText('lea')).not.toBeInTheDocument()
+        else expect(screen.getByText('lea')).toBeInTheDocument()
+
+        await userEvent.click(button)
+        await waitFor(() => {
+          expect(writes).toEqual(initiallyOn ? ['DELETE', 'POST'] : ['POST', 'DELETE'])
+          expect(button).toHaveAttribute('aria-pressed', String(initiallyOn))
+          expect(button).toBeEnabled()
+        })
+      } finally {
+        releaseRead.resolve()
+      }
+    }
+  )
 })

@@ -55,6 +55,8 @@ const slugSchema = z
     message: 'Slug must contain only lowercase letters, numbers, and hyphens',
   })
 
+export const articleSlugParamSchema = z.object({ slug: z.string().min(1).max(150) })
+
 export const createArticleSchema = z.object({
   title: z.string().min(1).max(300),
   slug: slugSchema.optional(),

@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query'
 import { Droplets, FlaskConical, Trash2 } from 'lucide-react'
 import { useRef, useState } from 'react'
 
+import { Button } from '@/component/Button/Button'
 import { Sheet } from '@/component/Dialog/Sheet'
 import { pdsLabels } from '@/features/collection/constants'
 import { useAnnounce } from '@/hooks/useAnnounce'
@@ -91,7 +92,8 @@ export function ProductDetailSheet({ p, onClose }: ProductDetailSheetProps) {
           {!isWatched && formulaSection}
 
           <footer className="pds-footer">
-            <button
+            <Button
+              variant="bare"
               type="button"
               className="pds-remove-btn"
               onClick={() => setShowDeleteConfirm(true)}
@@ -99,7 +101,7 @@ export function ProductDetailSheet({ p, onClose }: ProductDetailSheetProps) {
             >
               <Trash2 size={13} aria-hidden="true" />
               <span>Retirer de ma collection</span>
-            </button>
+            </Button>
           </footer>
         </div>
       </Sheet>
@@ -111,7 +113,7 @@ export function ProductDetailSheet({ p, onClose }: ProductDetailSheetProps) {
       {showDeleteConfirm && (
         <DeleteConfirmDialog
           title="Retirer ce produit ?"
-          message="Retirer supprime aussi vos notes et votre historique pour ce produit. Si vous voulez juste ne plus l'utiliser, vous pouvez le marquer À éviter — vos notes restent disponibles."
+          message="Retirer supprime aussi vos notes et votre historique pour ce produit. Si vous voulez juste ne plus l'utiliser, vous pouvez le marquer À éviter : vos notes restent disponibles."
           confirmLabel="Retirer définitivement"
           onConfirm={() =>
             deleteMutation.mutate(p.id, {

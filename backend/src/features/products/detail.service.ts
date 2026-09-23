@@ -60,6 +60,7 @@ export async function getProductFullBySlug(slug: string, database: DbOrTransacti
           productTagId: true,
           productId: true,
           relevance: true,
+          source: true,
         },
         with: {
           productTag: {
@@ -77,6 +78,7 @@ export async function getProductFullBySlug(slug: string, database: DbOrTransacti
 
   const { productIngredients: ingredientLinks, productTagLinks: tagLinks, ...product } = row
   const ingredients = ingredientLinks
+    .filter((link) => link.ingredient !== null)
     .map((link) => ({
       productId: link.productId,
       ingredientId: link.ingredientId,
@@ -102,6 +104,7 @@ export async function getProductFullBySlug(slug: string, database: DbOrTransacti
       productTagId: link.productTagId,
       productId: link.productId,
       relevance: link.relevance,
+      source: link.source,
       tagName: link.productTag.label,
       tagSlug: link.productTag.slug,
       tagCategory: link.productTag.tagType,

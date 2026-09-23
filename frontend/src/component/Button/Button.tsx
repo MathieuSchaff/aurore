@@ -23,7 +23,7 @@ type BaseProps = {
 
 type ButtonAsButtonProps = BaseProps & {
   type?: 'button' | 'submit' | 'reset'
-  onClick?: () => void
+  onClick?: React.ComponentProps<'button'>['onClick']
   disabled?: boolean
 } & Omit<React.ComponentProps<'button'>, 'type' | 'onClick' | 'disabled' | 'children'>
 

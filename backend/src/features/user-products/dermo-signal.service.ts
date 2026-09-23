@@ -7,7 +7,8 @@ import { HOLY_GRAIL_SENTIMENT } from '@aurore/shared'
 
 import { and, eq, inArray, notInArray, sql } from 'drizzle-orm'
 
-import type { DatabaseTransaction } from '../../db'
+import type { DbOrTransaction } from '../../db'
+import { users } from '../../db/schema/auth/users'
 import { ingredientDermoProfiles } from '../../db/schema/ingredients/ingredient-dermo-profiles'
 import { userIngredientAnalysisScore } from '../../db/schema/ingredients/user-ingredient-analysis-score'
 import { userProducts } from '../../db/schema/products/user-products'
@@ -28,8 +29,12 @@ function isGood(sentiment: number | null, tolerance: number | null): boolean {
 // totals for every ingredient in the collection, so we always recompute the full set.
 export async function recalculateAllSignalsForUser(
   userId: string,
-  db: DatabaseTransaction
+  db: DbOrTransaction
 ): Promise<void> {
+  // Serialize collection reads so the last projection includes prior committed mutations
+  // NO KEY UPDATE stays compatible with the request middleware's account KEY SHARE lock
+  await db.select({ id: users.id }).from(users).where(eq(users.id, userId)).for('no key update')
+
   const collection = await db.query.userProducts.findMany({
     where: eq(userProducts.userId, userId),
     columns: { status: true, sentiment: true },
@@ -48,6 +53,7 @@ export async function recalculateAllSignalsForUser(
   const goodIngredientSets: Set<string>[] = []
 
   for (const item of collection) {
+    if (!item.product) continue
     const tolerance = item.review?.tolerance ?? null
     const sentiment = item.sentiment ?? null
     const ingredientSet = new Set(item.product.productIngredients.map((pi) => pi.ingredientId))

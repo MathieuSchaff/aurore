@@ -132,7 +132,7 @@ function MotifCard({
                 </span>
                 <ChevronDown size={14} className="fmotif-chev" aria-hidden="true" />
               </summary>
-              <ul className="fmotif-products">
+              <ul role="list" className="fmotif-products">
                 {m.products.map((product) => (
                   <li key={product.slug}>
                     <Link

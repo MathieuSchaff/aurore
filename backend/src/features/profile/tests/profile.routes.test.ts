@@ -312,6 +312,15 @@ describe('Profile Routes', () => {
       )
       expect(preferences.criteriaWeights.tolerance).toBe(8)
       expect(preferences.criteriaWeights.efficacy).toBe(3)
+      const updated = await expectOk(
+        client.profile.preferences.$patch(
+          { json: { criteriaWeights: { efficacy: 9 } } },
+          withAuth(token)
+        )
+      )
+      expect(updated.criteriaWeights).toEqual({ ...preferences.criteriaWeights, efficacy: 9 })
+      const stored = await expectOk(client.profile.preferences.$get({}, withAuth(token)))
+      expect(stored.criteriaWeights).toEqual(updated.criteriaWeights)
     })
 
     it('persists changes across requests', async () => {
@@ -352,7 +361,7 @@ describe('Profile Routes', () => {
       expect(login.status).toBe(HTTP_STATUS.UNAUTHORIZED)
     })
 
-    it('preserves the global-ban gate outside the request RLS transaction', async () => {
+    it('allows a suspended owner to delete their account', async () => {
       const user = await createTestUser(
         TEST_CREDENTIALS.toto.rawEmail,
         TEST_CREDENTIALS.toto.rawPassword
@@ -367,8 +376,8 @@ describe('Profile Routes', () => {
 
       const deletion = await authDelete(app, '/api/profile/deleteUser', token)
 
-      expect(deletion.status).toBe(HTTP_STATUS.FORBIDDEN)
-      expect(await testDb.select().from(users).where(eq(users.id, user.id))).toHaveLength(1)
+      expect(deletion.status).toBe(HTTP_STATUS.NO_CONTENT)
+      expect(await testDb.select().from(users).where(eq(users.id, user.id))).toHaveLength(0)
     })
 
     it('keeps normal-account public content and anonymizes its author', async () => {

@@ -4,7 +4,7 @@ import type { Page } from '@playwright/test'
 // server-side on the first page.goto, the mock is never hit, and the page renders real data
 // The spec then fails on a CONTENT assertion, not a timing one, which makes it easy to misdiagnose
 // Workaround: enter via a client-side navigation instead (goto another page, wait for hydration,
-// then click the link): see `clientNavigateToDetail` in product-detail.spec.ts for a worked example
+// then click the link): see `clientNavigateToDetail` in product-detail.mutation.spec.ts for a worked example
 export async function mockJson(
   page: Page,
   urlPattern: Parameters<Page['route']>[0],

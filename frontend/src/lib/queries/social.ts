@@ -1,6 +1,6 @@
 import type { FeedOrder, PostTone, ReactableType, ReactionKind, SkinConcern } from '@aurore/shared'
 
-import { keepPreviousData, queryOptions, useMutation, useQueryClient } from '@tanstack/react-query'
+import { queryOptions, useMutation, useQueryClient } from '@tanstack/react-query'
 
 import { type ApiData, api } from '../api'
 import { unwrapData } from '../helpers/apiError'
@@ -12,41 +12,50 @@ import { socialKeys } from './social-keys'
 // inference: band only, never a score (zéro-chiffre is a backend invariant).
 export type SimilarProfile = ApiData<typeof api.social.similar.$get>['profiles'][number]
 
-function profileDiscoveryOptions(concern: SkinConcern | null) {
+function profileDiscoveryOptions(concern: SkinConcern | null, userId: string | null) {
   return queryOptions({
-    queryKey: concern === null ? socialKeys.similar() : socialKeys.profileSearch(concern),
-    queryFn: async () => {
+    queryKey:
+      concern === null ? socialKeys.similar(userId) : socialKeys.profileSearch(concern, userId),
+    queryFn: async ({ signal }) => {
       if (concern === null) {
-        return unwrapData(await api.social.similar.$get())
+        return unwrapData(await api.social.similar.$get({}, { init: { signal } }))
       }
-      return unwrapData(await api.social.profiles.search.$get({ query: { concern } }))
+      return unwrapData(
+        await api.social.profiles.search.$get({ query: { concern } }, { init: { signal } })
+      )
     },
     staleTime: 1000 * 60 * 5,
     // Keep the current list while switching between passive and concern search
-    placeholderData: keepPreviousData,
+    enabled: userId !== null,
+    placeholderData: (data, query) => (query?.queryKey.at(-1) === userId ? data : undefined),
   })
 }
 
 export const socialQueries = {
-  similar: () => profileDiscoveryOptions(null),
+  similar: (userId: string | null) => profileDiscoveryOptions(null, userId),
 
-  searchByConcern: (concern: SkinConcern) => profileDiscoveryOptions(concern),
+  searchByConcern: (concern: SkinConcern, userId: string | null) =>
+    profileDiscoveryOptions(concern, userId),
 
   // Deliberate posts from the similar cohort, ordered by recency or similarity.
   // Reactions never affect feed order.
-  feed: (params: { tone: PostTone; order: FeedOrder; concern?: SkinConcern }) =>
+  feed: (
+    params: { tone: PostTone; order: FeedOrder; concern?: SkinConcern },
+    userId: string | null
+  ) =>
     queryOptions({
-      queryKey: socialKeys.feed(params),
-      queryFn: async () => {
+      queryKey: socialKeys.feed(params, userId),
+      queryFn: async ({ signal }) => {
         const query = params.concern
           ? { tone: params.tone, order: params.order, concern: params.concern }
           : { tone: params.tone, order: params.order }
-        const res = await api.social.feed.$get({ query })
+        const res = await api.social.feed.$get({ query }, { init: { signal } })
         return unwrapData(res)
       },
       staleTime: 1000 * 60,
       // Keep the current list while switching tone/concern/order, no flash.
-      placeholderData: keepPreviousData,
+      enabled: userId !== null,
+      placeholderData: (data, query) => (query?.queryKey.at(-1) === userId ? data : undefined),
     }),
 }
 
@@ -61,8 +70,11 @@ export const reactionQueries = {
   list: (reactableType: ReactableType, reactableId: string, userId: string | null) =>
     queryOptions({
       queryKey: socialKeys.reactions(reactableType, reactableId, userId),
-      queryFn: async () => {
-        const res = await api.social.reactions.$get({ query: { reactableType, reactableId } })
+      queryFn: async ({ signal }) => {
+        const res = await api.social.reactions.$get(
+          { query: { reactableType, reactableId } },
+          { init: { signal } }
+        )
         return unwrapData(res)
       },
       staleTime: 1000 * 60,
@@ -78,8 +90,10 @@ export function useToggleReaction(
   userId: string | null
 ) {
   const queryClient = useQueryClient()
+  const queryKey = socialKeys.reactions(reactableType, reactableId, userId)
   return useMutation({
     mutationKey: ['social', 'reaction', 'toggle'],
+    onMutate: () => queryClient.cancelQueries({ queryKey, exact: true }),
     mutationFn: async (input: { kind: ReactionKind; on: boolean }) => {
       const body = { json: { reactableType, reactableId, kind: input.kind } }
       const res = input.on
@@ -88,7 +102,7 @@ export function useToggleReaction(
       return unwrapData(res)
     },
     onSuccess: (data) => {
-      queryClient.setQueryData(socialKeys.reactions(reactableType, reactableId, userId), data)
+      queryClient.setQueryData(queryKey, data)
     },
     meta: { errorMessage: 'Réaction impossible.' },
   })

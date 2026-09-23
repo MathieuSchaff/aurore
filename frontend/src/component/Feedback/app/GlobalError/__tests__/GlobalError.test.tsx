@@ -21,7 +21,7 @@ const fakeError = new Error('Unexpected failure')
 describe('GlobalError: runtime error variant', () => {
   it('renders the error title', () => {
     render(<GlobalError error={fakeError} />)
-    expect(screen.getByText('On a renversé quelque chose.')).toBeInTheDocument()
+    expect(screen.getByRole('heading', { name: /renversé.*chose/i })).toBeInTheDocument()
   })
 
   it('renders the error subtitle', () => {
@@ -36,7 +36,7 @@ describe('GlobalError: runtime error variant', () => {
 
   it('shows the API code and status so a report is actionable', () => {
     render(<GlobalError error={new ApiError('server_error', 500)} />)
-    expect(screen.getByText('Référence : server_error · 500')).toBeInTheDocument()
+    expect(screen.getByText(/server_error.*500/)).toBeInTheDocument()
   })
 
   it('shows no reference for an error that never reached the API', () => {
@@ -61,7 +61,7 @@ describe('GlobalError: runtime error variant', () => {
 describe('GlobalError: 404 variant', () => {
   it('renders the 404 title', () => {
     render(<GlobalError error={fakeError} is404 />)
-    expect(screen.getByText("Cette page n'est pas dans notre routine.")).toBeInTheDocument()
+    expect(screen.getByRole('heading', { name: /page.*routine/i })).toBeInTheDocument()
   })
 
   it('renders the 404 subtitle', () => {

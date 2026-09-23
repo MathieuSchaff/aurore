@@ -4,7 +4,7 @@
 
 import { and, eq, ne } from 'drizzle-orm'
 
-import type { DatabaseTransaction } from '../../db/index'
+import type { DatabaseTransaction, DbOrTransaction } from '../../db/index'
 import { products, productTagLinks } from '../../db/schema'
 import { logger } from '../../lib/logger'
 import { loadAutoTagFetchBundle, ORCHESTRATOR_PRODUCT_COLUMNS } from './lib/fetch-auto-tag-bundle'
@@ -81,8 +81,8 @@ export function buildAutoTagSkipLog(productId: string, meta: AutoTagSkipMeta, er
     productId,
     operation: meta.operation,
     userId: meta.userId,
-    cause: err instanceof Error ? err.message : String(err),
-    err: err instanceof Error ? err : undefined,
+    // Error messages can embed SQL parameters; only the err serializer may expose diagnostics
+    ...(err instanceof Error ? { err } : { cause: 'Non-Error thrown' }),
   }
 }
 
@@ -93,12 +93,13 @@ export function recordAutoTagSkip(productId: string, meta: AutoTagSkipMeta, err:
 // Intake-only fail-soft wrapper. Seed-core and the backfill runner call
 // `detectAllAutoTags` directly so their failures still propagate.
 export async function writeTagsForProductFailSoft(
-  database: DatabaseTransaction,
+  database: DbOrTransaction,
   productId: string,
   meta: AutoTagSkipMeta
 ): Promise<void> {
   try {
-    await writeTagsForProduct(productId, database)
+    // A failed lookup must roll back before the product transaction can commit
+    await database.transaction((tx) => writeTagsForProduct(productId, tx))
   } catch (err) {
     recordAutoTagSkip(productId, meta, err)
   }

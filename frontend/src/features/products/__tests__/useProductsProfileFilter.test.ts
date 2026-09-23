@@ -22,7 +22,7 @@ describe('useProductsProfileFilter: explicit choice writer', () => {
     window.localStorage.clear()
   })
 
-  it('turning off stores the device opt-out and drops show_hidden', () => {
+  it('stores the device opt-out and drops show_hidden when turning off', () => {
     const { result } = setup()
     result.current.setProfileFilter(false)
 
@@ -36,7 +36,7 @@ describe('useProductsProfileFilter: explicit choice writer', () => {
     })
   })
 
-  it('turning on clears the device opt-out and keeps show_hidden as is', () => {
+  it('clears the device opt-out and keeps show_hidden when turning on', () => {
     window.localStorage.setItem(OFF_KEY, '1')
     const { result } = setup()
     result.current.setProfileFilter(true)

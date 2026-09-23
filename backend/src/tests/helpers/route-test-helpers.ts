@@ -1,3 +1,5 @@
+import type { ApiResponse, MobileAuthResult } from '@aurore/shared'
+
 import type { Hono } from 'hono'
 
 import type { AppEnv } from '../../app-env'
@@ -6,7 +8,8 @@ import { createTestAdminUser, createTestContributorUser, createTestUser } from '
 export const ANY_UUID = '019d0000-0000-7000-8000-00000000abcd'
 
 // authBase defaults to '/api/auth' because the shared test harness (createTestApp)
-// mirrors prod and mounts auth under /api. Pass '/auth' for a bare-mounted own app.
+// mirrors prod and mounts auth under /api
+// Pass '/auth' when the test app mounts auth directly
 export async function loginAndGetToken(
   app: Hono<AppEnv>,
   email: string,
@@ -18,7 +21,8 @@ export async function loginAndGetToken(
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ email, password }),
   })
-  const data = (await res.json()) as { success: boolean; data: { accessToken: string } }
+  // app.request erases the mobile route's response type
+  const data = (await res.json()) as ApiResponse<MobileAuthResult>
   if (!data.success) throw new Error('Login failed in helper')
   return data.data.accessToken
 }

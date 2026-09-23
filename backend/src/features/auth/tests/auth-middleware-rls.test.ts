@@ -1,4 +1,4 @@
-import { afterEach, beforeEach, describe, expect, it } from 'bun:test'
+import { beforeEach, describe, expect, it } from 'bun:test'
 
 import { HTTP_STATUS } from '@aurore/shared'
 
@@ -18,7 +18,6 @@ import {
   createTestContributorUser,
   createTestUser,
 } from '../../../tests/helpers/test-factories'
-import { clearBanCache } from '../ban.service'
 import { generateAccessToken } from '../jwt.utils'
 import {
   requireCatalogWrite,
@@ -37,13 +36,7 @@ const roleGuards: ReadonlyArray<[string, MiddlewareHandler<AppEnv>]> = [
 ]
 
 describe('authenticated DB guards under app_runtime', () => {
-  beforeEach(() => {
-    clearBanCache()
-  })
-
-  afterEach(() => {
-    clearBanCache()
-  })
+  beforeEach(() => {})
 
   it('rejects an active global ban through the request RLS transaction', async () => {
     const user = await createTestUser('middleware-ban-user@test.local', 'Azerty123!')

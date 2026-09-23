@@ -110,7 +110,7 @@ describe('ProductsPage: viewer-owned list key under the standing setting', () =>
     expect(readApplyPreferences(keys[0] ?? [])).toBe('auto')
   })
 
-  it('a device opt-out keeps one viewer key and sends no setting at all', async () => {
+  it('keeps one viewer key and sends no setting after opting out on the device', async () => {
     setProfileFilterOff(USER_ID, true)
     const { queryClient } = renderProducts()
     await screen.findByText(/Hydrating Cleanser/)

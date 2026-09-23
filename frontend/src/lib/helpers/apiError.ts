@@ -34,13 +34,25 @@ export function apiErrorMessage<E extends string>(
   return messages[err.code as E] ?? fallback
 }
 
+function isApiFailure(body: unknown): body is ApiFailure {
+  return (
+    typeof body === 'object' &&
+    body !== null &&
+    !Array.isArray(body) &&
+    'success' in body &&
+    body.success === false &&
+    'error' in body &&
+    typeof body.error === 'string'
+  )
+}
+
 export async function throwIfNotOk(res: Response): Promise<void> {
   if (res.ok) return
   let code = 'http_error'
   let details: unknown
   try {
-    const body = (await res.json()) as Partial<ApiFailure>
-    if (body.success === false && typeof body.error === 'string') {
+    const body: unknown = await res.json()
+    if (isApiFailure(body)) {
       code = body.error
       details = body.details
     }
@@ -54,9 +66,22 @@ export async function unwrapData<T>(
   res: Response & { json(): Promise<ApiResponse<T>> }
 ): Promise<T> {
   await throwIfNotOk(res)
-  const json = await res.json()
-  if (!json.success) throw new ApiError(json.error, res.status, json.details)
-  return json.data
+  const json: unknown = await res.json().catch(() => {
+    throw new ApiError('http_error', res.status)
+  })
+  if (isApiFailure(json)) throw new ApiError(json.error, res.status, json.details)
+  if (
+    typeof json !== 'object' ||
+    json === null ||
+    Array.isArray(json) ||
+    !('success' in json) ||
+    json.success !== true ||
+    !('data' in json)
+  ) {
+    throw new ApiError('http_error', res.status)
+  }
+  // The envelope is checked here; the Hono route owns the payload type
+  return json.data as T
 }
 
 export function isRateLimitError(err: unknown): err is ApiError {

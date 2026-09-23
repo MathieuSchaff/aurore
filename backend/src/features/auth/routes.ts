@@ -114,7 +114,7 @@ app.use('/resend-verification', requireNotBanned)
 // and refusing after is the login-then-redirect race this closes. withAdminRls
 // because there is no authenticated session yet
 function activeGlobalBan(userId: string) {
-  return withAdminRls((tx) => isUserBanned(tx, userId, 'global', false))
+  return withAdminRls((tx) => isUserBanned(tx, userId, 'global'))
 }
 
 // Call after any cookie change: c.json freezes the headers set so far

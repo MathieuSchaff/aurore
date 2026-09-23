@@ -1,6 +1,14 @@
 import type { UserPublic } from '@aurore/shared'
 
-import { screen, waitFor } from '@testing-library/react'
+import {
+  createMemoryHistory,
+  createRootRoute,
+  createRoute,
+  createRouter,
+  Outlet,
+  RouterProvider,
+} from '@tanstack/react-router'
+import { screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { HttpResponse, http } from 'msw'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
@@ -12,12 +20,7 @@ import { anonymousTestSession, presentTestSession, resetTestAuthStore } from '@/
 import { server } from '@/test/msw/server'
 import { createTestQueryClient, renderWithProviders } from '@/test/utils'
 
-const { navigateMock } = vi.hoisted(() => ({ navigateMock: vi.fn() }))
-
-vi.mock('@tanstack/react-router', async (importOriginal) => ({
-  ...(await importOriginal<typeof import('@tanstack/react-router')>()),
-  useNavigate: () => navigateMock,
-}))
+vi.unmock('@tanstack/react-router')
 
 const USER = {
   id: 'banned-user',
@@ -28,9 +31,33 @@ const USER = {
   isDemo: false,
 } satisfies UserPublic
 
+function renderBannedPage(queryClient = createTestQueryClient()) {
+  const rootRoute = createRootRoute({ component: Outlet })
+  const bannedRoute = createRoute({
+    getParentRoute: () => rootRoute,
+    path: '/auth/banned',
+    component: BannedPage,
+  })
+  const loginRoute = createRoute({
+    getParentRoute: () => rootRoute,
+    path: '/auth/login',
+    component: () => <h1>Connexion</h1>,
+  })
+  const forgotPasswordRoute = createRoute({
+    getParentRoute: () => rootRoute,
+    path: '/auth/forgot-password',
+    component: () => <h1>Réinitialisation du mot de passe</h1>,
+  })
+  const router = createRouter({
+    routeTree: rootRoute.addChildren([bannedRoute, loginRoute, forgotPasswordRoute]),
+    history: createMemoryHistory({ initialEntries: ['/auth/banned'] }),
+  })
+  const view = renderWithProviders(<RouterProvider router={router} />, { queryClient })
+  return { router, queryClient, view }
+}
+
 describe('BannedPage logout', () => {
   beforeEach(() => {
-    navigateMock.mockReset()
     resetTestAuthStore(presentTestSession(USER, 'banned-token'))
   })
 
@@ -42,24 +69,26 @@ describe('BannedPage logout', () => {
         return HttpResponse.json({ success: true, data: null })
       })
     )
-    renderWithProviders(<BannedPage />)
+    const { router, queryClient, view } = renderBannedPage()
     const user = userEvent.setup()
 
-    await user.click(screen.getByRole('button', { name: 'Se déconnecter' }))
+    try {
+      await user.click(await screen.findByRole('button', { name: /se déconnecter/i }))
 
-    await waitFor(() => {
-      expect(navigateMock).toHaveBeenCalledWith({
-        to: '/auth/login',
-        search: { redirect: undefined },
-      })
-    })
-    expect(authorization).toBe('Bearer banned-token')
-    expect(readClientSession()).toEqual({ status: 'anonymous' })
+      await screen.findByRole('heading', { name: /^connexion$/i })
+      expect(router.state.location.pathname).toBe('/auth/login')
+      expect(authorization).toBe('Bearer banned-token')
+      expect(readClientSession()).toEqual({ status: 'anonymous' })
+    } finally {
+      view.unmount()
+      queryClient.clear()
+    }
   })
 
   it('clears the ban signal when logout fails without a session', async () => {
     resetTestAuthStore(anonymousTestSession())
-    recordBan(createTestQueryClient(), {
+    const queryClient = createTestQueryClient()
+    recordBan(queryClient, {
       expiresAt: null,
       reason: 'Compte suspendu',
       scope: 'global',
@@ -69,13 +98,19 @@ describe('BannedPage logout', () => {
         HttpResponse.json({ success: false, error: 'unauthorized' }, { status: 401 })
       )
     )
-    renderWithProviders(<BannedPage />)
+    const { router, view } = renderBannedPage(queryClient)
     const user = userEvent.setup()
 
-    await user.click(screen.getByRole('button', { name: 'Se déconnecter' }))
+    try {
+      await user.click(await screen.findByRole('button', { name: /se déconnecter/i }))
 
-    await waitFor(() => expect(navigateMock).toHaveBeenCalledOnce())
-    expect(useAuthStore.getState().bannedDetails).toBeNull()
-    expect(readClientSession()).toEqual({ status: 'anonymous' })
+      await screen.findByRole('heading', { name: /^connexion$/i })
+      expect(router.state.location.pathname).toBe('/auth/login')
+      expect(useAuthStore.getState().bannedDetails).toBeNull()
+      expect(readClientSession()).toEqual({ status: 'anonymous' })
+    } finally {
+      view.unmount()
+      queryClient.clear()
+    }
   })
 })

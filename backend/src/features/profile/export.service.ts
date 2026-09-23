@@ -58,6 +58,7 @@ export async function exportUserData(db: DatabaseTransaction, userId: string): P
       valueForMoney: userProductReviews.valueForMoney,
       comment: userProductReviews.comment,
       isPublic: userProductReviews.isPublic,
+      ratingsPublic: userProductReviews.ratingsPublic,
       createdAt: userProductReviews.createdAt,
       updatedAt: userProductReviews.updatedAt,
     })
@@ -176,6 +177,7 @@ export async function exportUserData(db: DatabaseTransaction, userId: string): P
           skinTypesPublic: dermo.skinTypesPublic,
           fitzpatrickPublic: dermo.fitzpatrickPublic,
           skinConcernsPublic: dermo.skinConcernsPublic,
+          discoverable: dermo.discoverable,
         }
       : null,
     preferences: prefs
@@ -219,6 +221,7 @@ export async function exportUserData(db: DatabaseTransaction, userId: string): P
       valueForMoney: row.valueForMoney,
       comment: row.comment,
       isPublic: row.isPublic,
+      ratingsPublic: row.ratingsPublic,
     })),
     productStatusLog: statusLogRows.map((row) => ({
       _meta: {

@@ -6,7 +6,7 @@ import { gotoAuthenticatedHydrated } from './helpers/hydration'
 // Server-mutating spec: one persona per browser project (see helpers/auth.ts),
 // final revert keeps the warm e2e stack idempotent across runs.
 
-test('happy path: règles Sans/Avec (geste en contexte, composeur, catalogue filtré)', async ({
+test('applies Sans/Avec rules from context and the composer to the catalogue', async ({
   page,
   browserName,
 }) => {

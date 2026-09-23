@@ -25,7 +25,7 @@ vi.mock('@/lib/queries/auth', async (importOriginal) => ({
 import { HomeMarketing } from '../HomeMarketing'
 
 function firstDemoButton() {
-  const [button] = screen.getAllByRole('button', { name: 'Créer un compte de démo' })
+  const [button] = screen.getAllByRole('button', { name: /créer.*compte.*démo/i })
   if (!button) throw new Error('no demo button rendered')
   return button
 }
@@ -51,7 +51,7 @@ describe('HomeMarketing', () => {
 
   // The home swaps the marketing view for the hub as soon as the session installs
   // so the redirect must survive this component unmounting while the request runs
-  it('still navigates when the marketing view unmounts before the demo resolves', async () => {
+  it('navigates when the marketing view unmounts before the demo resolves', async () => {
     let settle: () => void = () => {}
     demoMutateAsync.mockReturnValue(
       new Promise<void>((resolve) => {

@@ -88,7 +88,9 @@ describe('internal-only product tags', () => {
       createUserProduct(user.id, { productId, status: 'in_stock' }, tx)
     )
     const rows = await testDb.transaction((tx) => getUserProducts(user.id, tx))
-    const slugs = rows.flatMap((r) => r.product.productTagLinks.map((l) => l.productTag.slug))
+    const slugs = rows.flatMap((r) =>
+      (r.product?.productTagLinks ?? []).map((l) => l.productTag.slug)
+    )
 
     expect(slugs).toContain(SHOWN_SLUG)
     expect(slugs).not.toContain(CLAIM_SLUG)

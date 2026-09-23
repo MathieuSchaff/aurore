@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { ZOD_CSP_CONFIG_SCRIPT } from './zod'
+import { ZOD_CSP_CONFIG_SCRIPT } from '../zod'
 
 describe('ZOD_CSP_CONFIG_SCRIPT', () => {
   it('preconfigures Zod without replacing an existing global config', () => {

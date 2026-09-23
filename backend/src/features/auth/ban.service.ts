@@ -6,16 +6,6 @@ import type { Database, DatabaseTransaction } from '../../db'
 import { type UserBan, userBans } from '../../db/schema'
 import { normalizeInstant, nowISO } from '../../utils/dates'
 
-// 30s TTL bounds the window where a freshly banned user gets through (vs ~15min token
-// lifetime without enforcement). The handle comes from the caller: the request path
-// passes requestDb so user_bans RLS sees the identity, the login gate passes an
-// admin-RLS tx because no request identity exists yet.
-const CACHE_TTL_MS = 30_000
-const CACHE_MAX = 5000
-
-type CacheEntry = { ban: UserBan | null; expiresAt: number }
-const cache = new Map<string, CacheEntry>()
-
 function toApiBan(row: UserBan | undefined): UserBan | null {
   if (!row) return null
   return {
@@ -25,41 +15,12 @@ function toApiBan(row: UserBan | undefined): UserBan | null {
   }
 }
 
-function readCache(userId: string): CacheEntry | null {
-  const hit = cache.get(userId)
-  if (!hit) return null
-  if (hit.expiresAt <= Date.now()) {
-    cache.delete(userId)
-    return null
-  }
-  return hit
-}
-
-function writeCache(userId: string, ban: UserBan | null): void {
-  if (cache.size >= CACHE_MAX) {
-    // Map iteration is insertion-ordered, so first key is oldest.
-    const oldest = cache.keys().next().value
-    if (oldest !== undefined) cache.delete(oldest)
-  }
-  cache.set(userId, { ban, expiresAt: Date.now() + CACHE_TTL_MS })
-}
-
-// Active 'global' ban only: the signature pins the scope, every other scope goes
-// through isUserBannedForScope. Active = expiresAt IS NULL OR expiresAt > now().
-// useCache=false reads fresh and skips the cache entirely. The login gate uses
-// it: a one-shot security check shouldn't trust (nor warm) the request-path
-// cache, else a login warms `null` and masks a ban applied seconds later.
+// Ban decisions read committed state so another transaction cannot warm a stale result
 export async function isUserBanned(
   db: Database | DatabaseTransaction,
   userId: string,
-  scope: 'global' = 'global',
-  useCache = true
+  scope: 'global' = 'global'
 ): Promise<UserBan | null> {
-  if (useCache) {
-    const cached = readCache(userId)
-    if (cached) return cached.ban
-  }
-
   const nowIso = nowISO()
   const rows = await db
     .select()
@@ -74,13 +35,9 @@ export async function isUserBanned(
     .orderBy(desc(userBans.createdAt))
     .limit(1)
 
-  const ban = toApiBan(rows[0])
-  if (useCache) writeCache(userId, ban)
-  return ban
+  return toApiBan(rows[0])
 }
 
-// No cache: write paths are cold vs /auth/session, and per-scope cache keys complicate
-// invalidation when bans are created or lifted.
 export async function isUserBannedForScope(
   db: DatabaseTransaction,
   userId: string,
@@ -101,15 +58,4 @@ export async function isUserBannedForScope(
     .limit(1)
 
   return toApiBan(rows[0])
-}
-
-// Invalidate cache when a ban is created/lifted out-of-band (test/admin helper).
-export function clearBanCache(userId?: string): void {
-  if (userId) cache.delete(userId)
-  else cache.clear()
-}
-
-// Test-only: counts entries in the ban cache.
-export function _banCacheSize(): number {
-  return cache.size
 }

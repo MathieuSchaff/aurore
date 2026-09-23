@@ -7,10 +7,10 @@ type Args = {
   viewerId: string | null
 }
 
-// "Selon mon profil" is a standing setting, not a per-visit filter. A mute URL is
-// resolved server-side (apply_preferences=auto, see applyDeclaredRules); this hook
+// "Selon mon profil" is a standing setting, not a filter for one visit. A mute URL is
+// resolved on the server (apply_preferences=auto, see applyDeclaredRules); this hook
 // only writes the explicit choice: the URL always wins, and "off" is also stored
-// device-local so a mute URL on this device stops resolving to auto
+// on this device so a mute URL on this device stops resolving to auto
 export function useProductsProfileFilter({ viewerId }: Args) {
   const navigate = useNavigate({ from: '/products/' })
 

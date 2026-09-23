@@ -1,4 +1,4 @@
-import type { IngredientType } from '@aurore/shared'
+import type { IngredientType, ReplaceIngredientTagsInput } from '@aurore/shared'
 
 import { useQueryClient } from '@tanstack/react-query'
 import { useState } from 'react'
@@ -37,7 +37,7 @@ export type BaseIngredient = Pick<
   'id' | 'slug' | 'name' | 'type' | 'category' | 'description' | 'content' | 'updatedAt'
 >
 
-type TagPayload = { tagId: string; relevance: 'primary' | 'secondary' | 'avoid' }
+type TagPayload = ReplaceIngredientTagsInput['tags'][number]
 
 type ConflictState = {
   draft: IngredientFormData
@@ -58,7 +58,7 @@ type Args = (CreateArgs | EditArgs) & {
   form: IngredientFormData
   setForm: React.Dispatch<React.SetStateAction<IngredientFormData>>
   ingredientType: IngredientType
-  tags: Array<{ tagId: string; relevance: TagPayload['relevance'] }>
+  tags: TagPayload[]
   isTagsDirty: boolean
   isAdmin: boolean
   onSuccess: (slug: string) => void
@@ -105,10 +105,11 @@ export function useIngredientFormSubmit(args: Args) {
       id: ingredient.id,
       data: {
         name: args.form.name.trim(),
+        type: args.ingredientType,
         // slug is immutable after creation, so not sent on edit
-        category: trimmedField(args.form.category),
-        description: trimmedField(args.form.description),
-        content: trimmedField(args.form.content),
+        category: trimmedField(args.form.category) ?? null,
+        description: args.form.description.trim(),
+        content: args.form.content.trim(),
         expectedUpdatedAt: updatedAtOverride ?? ingredient.updatedAt,
       },
     })

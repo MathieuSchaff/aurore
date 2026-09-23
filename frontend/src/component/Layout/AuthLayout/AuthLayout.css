@@ -88,3 +88,10 @@
     padding: var(--space-8) var(--space-8) var(--space-10);
   }
 }
+
+@media (prefers-reduced-motion: reduce) {
+  .auth-container {
+    /* biome-ignore lint/complexity/noImportantStyles: System motion preferences override component animation rules */
+    animation: none !important;
+  }
+}

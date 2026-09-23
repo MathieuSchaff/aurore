@@ -1,4 +1,4 @@
-import { afterEach, beforeAll, beforeEach, describe, it } from 'bun:test'
+import { beforeAll, beforeEach, describe, it } from 'bun:test'
 
 import { HTTP_STATUS } from '@aurore/shared'
 
@@ -20,7 +20,6 @@ import { globalErrorHandler } from '../../../utils/errors/error-handler'
 import { ingredientTagRoutes } from '../../ingredients/ingredient-tags/routes'
 import { productIngredientRoutes } from '../../products/product-ingredients/routes'
 import { productTagRoutes } from '../../products/product-tags/routes'
-import { clearBanCache } from '../ban.service'
 import { seedBanActors } from './ban-test.setup'
 
 async function expectBanned(res: { status: number; json: () => Promise<unknown> }) {
@@ -67,16 +66,11 @@ describe('Globally-banned user gets 403 (not 500) on non-GET catalog routes', ()
   })
 
   beforeEach(async () => {
-    clearBanCache()
     const actors = await seedBanActors(client)
     token = actors.token
     await testDb
       .insert(userBans)
       .values({ userId: actors.userId, scope: 'global', bannedBy: actors.adminId, reason: 'spam' })
-  })
-
-  afterEach(() => {
-    clearBanCache()
   })
 
   // Routers mounted alone at their prefix: the full app exercises their own guard.

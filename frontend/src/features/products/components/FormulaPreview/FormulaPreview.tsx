@@ -66,25 +66,30 @@ export function FormulaPreview({
     [allTags]
   )
   const selectedTagIdSet = useMemo(() => new Set(selectedTagIds), [selectedTagIds])
-  // Snapshot the analyzed inputs; drift detection avoids phantom runs while
-  // flagging results that no longer reflect the form (tags depend on category/kind).
+  // Compare the normalized payload so every input used by analysis can mark results stale
   const [analyzedKey, setAnalyzedKey] = useState<string | null>(null)
-  const currentKey = `${category}\u0000${kind}\u0000${inci}`
+  const mutationInput = buildMutationInput({
+    inci,
+    category,
+    kind,
+    name,
+    brand,
+    texture,
+    description,
+  })
+  const currentKey = JSON.stringify(mutationInput)
 
   const isDisabled = !inci.trim() || !kind || !category
   const showInciHint = !inci.trim()
   const showFieldsHint = !!inci.trim() && (!kind || !category)
 
   function handleAnalyze() {
-    mutation.mutate(
-      buildMutationInput({ inci, category, kind, name, brand, texture, description }),
-      {
-        onSuccess: (data) => {
-          setResult(data)
-          setAnalyzedKey(currentKey)
-        },
-      }
-    )
+    mutation.mutate(mutationInput, {
+      onSuccess: (data) => {
+        setResult(data)
+        setAnalyzedKey(currentKey)
+      },
+    })
   }
 
   type Token = ProductFormulaPreview['tokens'][number]

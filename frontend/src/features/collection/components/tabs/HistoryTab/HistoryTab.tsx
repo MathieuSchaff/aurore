@@ -2,18 +2,21 @@ import { Link } from '@tanstack/react-router'
 import { ArrowRight, History, MoreHorizontal } from 'lucide-react'
 import { useMemo, useState } from 'react'
 
+import { Button } from '@/component/Button/Button'
 import { Time } from '@/component/DataDisplay/Time/Time'
 import { DropdownMenu } from '@/component/DropdownMenu/DropdownMenu'
 import { compareInstant, nowInstant } from '@/lib/dates'
 import { useDeletePurchase } from '@/lib/queries/purchases'
-import type { UserProduct } from '@/lib/queries/user-products'
+import type { UserProductEntry } from '@/lib/queries/user-products'
 import { AddPurchaseDialog } from '../CollectionTab/parts/AddPurchaseDialog'
 import { DeleteConfirmDialog } from '../CollectionTab/parts/DeleteConfirmDialog'
 
 import './HistoryTab.css'
 
+const UNAVAILABLE_PRODUCT_NAME = 'Produit indisponible'
+
 interface HistoryTabProps {
-  userProducts: UserProduct[]
+  userProducts: UserProductEntry[]
 }
 
 type PurchaseEntry = {
@@ -21,7 +24,56 @@ type PurchaseEntry = {
   userProductId: string
   purchasedAt: string | null
   pricePaidCents: number | null
-  product: UserProduct['product']
+  product: UserProductEntry['product']
+}
+
+function purchaseProductName({ product }: PurchaseEntry): string {
+  return product?.name ?? UNAVAILABLE_PRODUCT_NAME
+}
+
+function PurchaseHistoryRow({
+  entry,
+  onEdit,
+  onDelete,
+}: {
+  entry: PurchaseEntry
+  onEdit: (entry: PurchaseEntry) => void
+  onDelete: (entry: PurchaseEntry) => void
+}) {
+  const productName = purchaseProductName(entry)
+  const menuLabel = `Options pour l'achat de ${productName}`
+
+  return (
+    <tr className="coll-history-row">
+      <td className="coll-hist-date">
+        {entry.purchasedAt ? <Time iso={entry.purchasedAt} style="short" /> : '—'}
+      </td>
+      <td className="coll-hist-prod">
+        <span className="coll-hist-name">{productName}</span>
+        {entry.product && <span className="coll-hist-brand">{entry.product.brand}</span>}
+      </td>
+      <td className="coll-hist-price">
+        {entry.pricePaidCents != null ? `${(entry.pricePaidCents / 100).toFixed(2)}€` : '—'}
+      </td>
+      <td className="coll-hist-actions">
+        <DropdownMenu>
+          <DropdownMenu.Trigger>
+            <Button variant="bare" className="coll-hist-menu-btn" aria-label={menuLabel}>
+              <MoreHorizontal size={16} aria-hidden="true" />
+            </Button>
+          </DropdownMenu.Trigger>
+          <DropdownMenu.Content align="end" ariaLabel={menuLabel}>
+            <DropdownMenu.Item onSelect={() => onEdit(entry)}>
+              <Button variant="bare">Modifier</Button>
+            </DropdownMenu.Item>
+            <DropdownMenu.Item variant="danger" onSelect={() => onDelete(entry)}>
+              <Button variant="bare">Supprimer</Button>
+            </DropdownMenu.Item>
+          </DropdownMenu.Content>
+        </DropdownMenu>
+      </td>
+    </tr>
+  )
 }
 
 export function HistoryTab({ userProducts }: HistoryTabProps) {
@@ -70,42 +122,12 @@ export function HistoryTab({ userProducts }: HistoryTabProps) {
         </thead>
         <tbody>
           {allPurchases.map((entry) => (
-            <tr key={entry.id} className="coll-history-row">
-              <td className="coll-hist-date">
-                {entry.purchasedAt ? <Time iso={entry.purchasedAt} style="short" /> : '—'}
-              </td>
-              <td className="coll-hist-prod">
-                <span className="coll-hist-name">{entry.product.name}</span>
-                <span className="coll-hist-brand">{entry.product.brand}</span>
-              </td>
-              <td className="coll-hist-price">
-                {entry.pricePaidCents != null ? `${(entry.pricePaidCents / 100).toFixed(2)}€` : '—'}
-              </td>
-              <td className="coll-hist-actions">
-                <DropdownMenu>
-                  <DropdownMenu.Trigger>
-                    <button
-                      type="button"
-                      className="coll-hist-menu-btn"
-                      aria-label={`Options pour l'achat de ${entry.product.name}`}
-                    >
-                      <MoreHorizontal size={16} aria-hidden="true" />
-                    </button>
-                  </DropdownMenu.Trigger>
-                  <DropdownMenu.Content
-                    align="end"
-                    ariaLabel={`Options pour l'achat de ${entry.product.name}`}
-                  >
-                    <DropdownMenu.Item onSelect={() => setEditingPurchase(entry)}>
-                      <button type="button">Modifier</button>
-                    </DropdownMenu.Item>
-                    <DropdownMenu.Item variant="danger" onSelect={() => setDeletingPurchase(entry)}>
-                      <button type="button">Supprimer</button>
-                    </DropdownMenu.Item>
-                  </DropdownMenu.Content>
-                </DropdownMenu>
-              </td>
-            </tr>
+            <PurchaseHistoryRow
+              key={entry.id}
+              entry={entry}
+              onEdit={setEditingPurchase}
+              onDelete={setDeletingPurchase}
+            />
           ))}
         </tbody>
       </table>
@@ -124,7 +146,7 @@ export function HistoryTab({ userProducts }: HistoryTabProps) {
 
       {deletingPurchase && (
         <DeleteConfirmDialog
-          message={`Voulez-vous vraiment supprimer cet achat de ${deletingPurchase.product.name} ?`}
+          message={`Voulez-vous vraiment supprimer cet achat de ${purchaseProductName(deletingPurchase)} ?`}
           confirmLabel="Supprimer"
           isPending={deletePurchaseMutation.isPending}
           onClose={() => setDeletingPurchase(null)}

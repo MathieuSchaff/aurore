@@ -2,10 +2,12 @@ import type { UserPublic } from '@aurore/shared'
 
 import { QueryClient } from '@tanstack/react-query'
 import { isRedirect } from '@tanstack/react-router'
+import { HttpResponse, http } from 'msw'
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 
 import { installSession, readClientSession } from '@/lib/auth/session'
 import { resetTestAuthStore } from '@/test/authSession'
+import { server } from '@/test/msw/server'
 import { requireAdminOrRedirect, requireModeratorOrRedirect } from '../route-guards'
 
 const ADMIN = {
@@ -27,6 +29,14 @@ const CONTRIBUTOR = {
 function installFreshCredential(queryClient: QueryClient, user: UserPublic) {
   const token = `h.${btoa(JSON.stringify({ exp: Math.floor(Date.now() / 1000) + 3600 }))}.s`
   installSession(queryClient, { accessToken: token, user })
+  server.use(
+    http.get('*/api/auth/session', () =>
+      HttpResponse.json({
+        success: true,
+        data: { authenticated: true, userId: user.id, role: user.role },
+      })
+    )
+  )
 }
 
 async function captureRedirect(run: Promise<unknown>) {

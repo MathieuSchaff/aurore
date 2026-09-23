@@ -1,23 +1,21 @@
-// Hono's testClient narrows `res.status` to the literal union the route returns via
-// `c.json(..., STATUS)`. Routes that throw and rely on the global error handler expose
-// only the success status in their type, so `expect(res.status).toBe(HTTP_STATUS.NOT_FOUND)`
-// clashes. This helper erases the narrowing for those assertions.
+// Hono narrows status to what the route returns with c.json
+// Errors thrown to the global handler are absent from that union
+// Widen status so error assertions keep compiling
 
 import { expect } from 'bun:test'
 
-import type { ApiFailure } from '@aurore/shared'
+import type { ApiFailure, ApiSuccess } from '@aurore/shared'
 import { HTTP_STATUS } from '@aurore/shared'
 
 export function expectStatus(res: { status: number }, code: number): void {
   expect(res.status as number).toBe(code)
 }
 
-type OkEnvelope<T> = { success: true; data: T } | { success: false }
+type OkEnvelope<T> = ApiSuccess<T> | Pick<ApiFailure, 'success'>
 type JsonResponse<T> = { status: number; json(): Promise<OkEnvelope<T>> }
 
-// The typed overload infers T from a testClient response. A bare `Response`
-// (app.request) types json() as unknown, so those callers name T themselves:
-// same escape hatch expectError already offers on the failure side.
+// testClient infers T, while app.request returns an untyped Response
+// Bare Response callers must provide T explicitly
 export function expectOk<T>(
   resOrPromise: JsonResponse<T> | Promise<JsonResponse<T>>,
   status?: number
@@ -37,9 +35,9 @@ export async function expectOk<T>(
   return data.data
 }
 
-// Error responses never appear in the route's return type, so `json()` is typed
-// structurally here and the body is cast back to the real envelope. `D` types
-// the free-form `details` payload
+// Thrown errors are absent from the route's return type
+// Accept json() structurally so assertions also work with Hono responses
+// D narrows the details returned to the client
 export async function expectError<D = unknown>(
   resOrPromise:
     | { status: number; json(): Promise<unknown> }

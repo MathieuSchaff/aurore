@@ -22,7 +22,14 @@ vi.mock('@/lib/auth/session', async (importOriginal) => ({
   useSession: useSessionMock,
 }))
 
-const fakeUser = { id: 'u1', username: 'lea' } as unknown as UserPublic
+const fakeUser = {
+  id: 'u1',
+  email: 'lea@example.test',
+  createdAt: '2026-01-15T00:00:00.000Z',
+  emailVerified: true,
+  role: 'user',
+  isDemo: false,
+} satisfies UserPublic
 
 beforeEach(() => {
   useSessionMock.mockReturnValue({ status: 'anonymous' })

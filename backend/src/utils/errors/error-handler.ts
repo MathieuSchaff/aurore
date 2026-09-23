@@ -12,6 +12,7 @@ import {
   productIngredientErrorMapping,
   profileErrorMapping,
   purchaseErrorMapping,
+  reportErrorMapping,
   socialPostErrorMapping,
   socialReactionErrorMapping,
   tagErrorMapping,
@@ -23,7 +24,7 @@ import { SpanStatusCode, trace } from '@opentelemetry/api'
 import type { Context } from 'hono'
 
 import type { AppEnv } from '../../app-env'
-import { logger } from '../../lib/logger'
+import { logger, serializeError } from '../../lib/logger'
 import { DomainError } from './domain-error'
 
 interface HttpError extends Error {
@@ -41,6 +42,7 @@ export const thrownDomainErrorMappingRegistry = {
   productIngredientErrorMapping,
   profileErrorMapping,
   purchaseErrorMapping,
+  reportErrorMapping,
   socialPostErrorMapping,
   socialReactionErrorMapping,
   tagErrorMapping,
@@ -52,6 +54,20 @@ const thrownDomainErrorMapping: Record<string, HttpStatus> = Object.assign(
   {},
   ...Object.values(thrownDomainErrorMappingRegistry)
 )
+
+function toTelemetryException(error: Error) {
+  const serialized = serializeError(error)
+  const diagnostic = typeof serialized === 'object' && serialized !== null ? serialized : {}
+  return {
+    name: 'type' in diagnostic && typeof diagnostic.type === 'string' ? diagnostic.type : 'Error',
+    message:
+      'message' in diagnostic && typeof diagnostic.message === 'string'
+        ? diagnostic.message
+        : 'Unhandled internal error',
+    stack:
+      'stack' in diagnostic && typeof diagnostic.stack === 'string' ? diagnostic.stack : undefined,
+  }
+}
 
 export async function globalErrorHandler(error: Error, c: Context<AppEnv>) {
   const requestContext = {
@@ -96,11 +112,15 @@ export async function globalErrorHandler(error: Error, c: Context<AppEnv>) {
   }
 
   const span = trace.getActiveSpan()
-  span?.recordException(error)
-  span?.setAttribute('http.method', c.req.method)
-  span?.setAttribute('http.route', c.req.path)
-  span?.setAttribute('http.status_code', HTTP_STATUS.INTERNAL_SERVER_ERROR)
-  span?.setStatus({ code: SpanStatusCode.ERROR, message: error.message })
+  if (span) {
+    // Traces leave the process independently of Pino, so both paths must share redaction
+    const exception = toTelemetryException(error)
+    span.recordException(exception)
+    span.setAttribute('http.method', c.req.method)
+    span.setAttribute('http.route', c.req.path)
+    span.setAttribute('http.status_code', HTTP_STATUS.INTERNAL_SERVER_ERROR)
+    span.setStatus({ code: SpanStatusCode.ERROR, message: exception.message })
+  }
 
   logger.error({ err: error, ...requestContext }, 'Unhandled internal error')
 

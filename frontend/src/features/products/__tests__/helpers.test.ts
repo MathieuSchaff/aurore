@@ -42,7 +42,7 @@ describe('applyDeclaredRules', () => {
     expect(out.apply_preferences).toBeUndefined()
   })
 
-  it('another account opt-out does not silence this one', () => {
+  it('ignores another account opt-out', () => {
     window.localStorage.setItem('products-profile-filter-off:other-user', '1')
     expect(
       applyDeclaredRules(base(), { show_hidden: false }, true, USER_ID).apply_preferences
@@ -61,7 +61,7 @@ describe('applyDeclaredRules', () => {
     )
   })
 
-  it('show_hidden lifts exclusions under auto exactly like under an explicit true', () => {
+  it('lifts exclusions with show_hidden under auto and explicit true', () => {
     expect(applyDeclaredRules(base(), { show_hidden: true }, true, USER_ID)).toMatchObject({
       apply_preferences: 'auto',
       include_excluded: true,

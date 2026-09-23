@@ -42,8 +42,8 @@ describe('authFetch: 401 interceptor', () => {
       success: false,
       error: 'invalid_credentials',
     })
-    // invalid_credentials describes the submitted password, not the session.
-    // Refreshing here can block the real boot probe through the shared backoff.
+    // invalid_credentials describes the submitted password, not the session
+    // Refreshing here can block the real boot probe through the shared backoff
     expect(refreshRequests).toBe(0)
   })
 

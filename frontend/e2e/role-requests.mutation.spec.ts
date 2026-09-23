@@ -8,7 +8,7 @@ import { gotoAuthenticatedHydrated } from './helpers/hydration'
 // Real end to end path has no external API to mock
 // Account deletion removes the request so reruns leave no row
 test.describe('Role request: demande modérateur', () => {
-  test('happy path: user submits, admin approves', async ({ page }) => {
+  test('submits a role request and approves it as admin', async ({ page }) => {
     const marker = `E2E motivation ${Date.now()} aide a verifier le catalogue`
     const freshUser = await registerFreshUser(page)
 

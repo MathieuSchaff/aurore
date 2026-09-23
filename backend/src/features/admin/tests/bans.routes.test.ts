@@ -1,13 +1,16 @@
-import { afterEach, beforeAll, beforeEach, describe, expect, it } from 'bun:test'
+import { beforeAll, beforeEach, describe, expect, it } from 'bun:test'
 
 import { type AdminUserAccount, HTTP_STATUS } from '@aurore/shared'
 
 import { eq } from 'drizzle-orm'
+import { testClient } from 'hono/testing'
 
 import { moderationActions, profiles, userBans, users } from '../../../db/schema'
 import { testDb } from '../../../tests/db.test.config'
 import { setupDbTests } from '../../../tests/db-setup'
+import { createAppRuntimeDb } from '../../../tests/helpers/app-runtime-db'
 import { expectRequiresAuth, expectRoleMatrix } from '../../../tests/helpers/authz-matrix'
+import { createTestApp } from '../../../tests/helpers/createTestApp'
 import {
   createTestClient,
   createTestEnv,
@@ -23,7 +26,6 @@ import {
   createTestContributorUser,
   createTestUser,
 } from '../../../tests/helpers/test-factories'
-import { clearBanCache } from '../../auth/ban.service'
 
 // Raw insert on purpose: the ban routes are the subject of this suite, so the
 // fixtures must not go through them.
@@ -48,6 +50,7 @@ function moderationTrailFor(targetUserId: string) {
     .where(eq(moderationActions.targetUserId, targetUserId))
 }
 
+const runtime = await createAppRuntimeDb()
 setupDbTests()
 
 describe('GET /admin/users/:id', () => {
@@ -141,7 +144,6 @@ describe('POST /admin/users/:id/bans', () => {
   })
 
   beforeEach(async () => {
-    clearBanCache()
     const toto = TEST_CREDENTIALS.toto
     const admin = TEST_CREDENTIALS.admin
     const user = await createTestUser(toto.rawEmail, toto.rawPassword)
@@ -152,12 +154,7 @@ describe('POST /admin/users/:id/bans', () => {
     adminToken = await login(client, admin.rawEmail, admin.rawPassword)
   })
 
-  // The ban cache is in-memory, so the DB truncate of setupDbTests() never reaches it.
-  afterEach(() => {
-    clearBanCache()
-  })
-
-  it('admin creates a global ban (201, row inserted, cache invalidated)', async () => {
+  it('creates a global ban as admin', async () => {
     const ban = await expectOk(
       client.admin.users[':id'].bans.$post(
         {
@@ -177,8 +174,6 @@ describe('POST /admin/users/:id/bans', () => {
     })
 
     expect(await bansForUser(userId)).toHaveLength(1)
-    // Cache invalidation for the target is asserted by the end-to-end test below
-    // (admin's own /auth/session warms the cache first, which makes a size check noisy).
   })
 
   it('admin creates a ban with future expiresAt', async () => {
@@ -282,7 +277,6 @@ describe('POST /admin/users/:id/bans', () => {
 
   it('DELETE /admin/bans/:banId lifts the ban and allows the user again', async () => {
     const banId = await seedBan({ userId, scope: 'global', bannedBy: adminId, reason: 'oops' })
-    clearBanCache()
 
     const banned = await client.auth.session.$get({}, withAuth(userToken))
     expectStatus(banned, HTTP_STATUS.FORBIDDEN)
@@ -301,7 +295,6 @@ describe('POST /admin/users/:id/bans', () => {
 
   it('DELETE /admin/bans/:banId records what the deletion destroys', async () => {
     const banId = await seedBan({ userId, scope: 'global', bannedBy: adminId, reason: 'oops' })
-    clearBanCache()
 
     await client.admin.bans[':banId'].$delete({ param: { banId } }, withAuth(adminToken))
 
@@ -353,11 +346,10 @@ describe('POST /admin/users/:id/bans', () => {
     expectStatus(res, HTTP_STATUS.FORBIDDEN)
   })
 
-  it('PATCH /admin/bans/:banId extends expiresAt and invalidates cache', async () => {
+  it('extends the ban expiry and reads the updated state', async () => {
     const banId = await seedBan({ userId, scope: 'global', bannedBy: adminId, reason: 'first' })
-    clearBanCache()
 
-    // Warm cache as the target user
+    // Check access before the mutation
     const warm = await client.auth.session.$get({}, withAuth(userToken))
     expectStatus(warm, HTTP_STATUS.FORBIDDEN)
 
@@ -381,7 +373,7 @@ describe('POST /admin/users/:id/bans', () => {
       details: { scope: 'global', expiresAtChanged: true, expiresAt: future, reasonChanged: true },
     })
 
-    // Cache was invalidated, so /auth/session reads fresh state (still banned, expiry not reached)
+    // Each session request reads the committed ban state
     const after = await client.auth.session.$get({}, withAuth(userToken))
     expectStatus(after, HTTP_STATUS.FORBIDDEN)
   })
@@ -477,9 +469,7 @@ describe('POST /admin/users/:id/bans', () => {
   })
 })
 
-// Contributors can manage reversible, content-scoped bans. Global account lockout
-// stays admin-only. These route-level tests run as the table-owner `app` (BYPASSRLS),
-// so they exercise the app-level guard + handler scope gate; DB-level RLS has its own test.
+// The runtime role must exercise the same visibility rules as production
 describe('Contributor (moderator) content-scoped bans', () => {
   let client: TestClient
   let targetId: string
@@ -489,11 +479,10 @@ describe('Contributor (moderator) content-scoped bans', () => {
   let userToken: string
 
   beforeAll(async () => {
-    client = await createTestClient()
+    client = testClient(await createTestApp({ anonDb: runtime })).api
   })
 
   beforeEach(async () => {
-    clearBanCache()
     const target = await createTestUser('s4-target@test.local', 'Azerty123!')
     const contributor = await createTestContributorUser('s4-modo@test.local', 'Azerty123!')
     const admin = await createTestAdminUser('s4-admin@test.local', 'Azerty123!')
@@ -502,10 +491,6 @@ describe('Contributor (moderator) content-scoped bans', () => {
     adminId = admin.id
     contributorToken = await login(client, 's4-modo@test.local', 'Azerty123!')
     userToken = await login(client, 's4-target@test.local', 'Azerty123!')
-  })
-
-  afterEach(() => {
-    clearBanCache()
   })
 
   it('contributor creates a content-scoped ban (review_publish): 201, bannedBy=contributor', async () => {
@@ -543,7 +528,6 @@ describe('Contributor (moderator) content-scoped bans', () => {
       bannedBy: adminId,
       reason: 'x',
     })
-    clearBanCache()
 
     const res = await client.admin.bans[':banId'].$delete(
       { param: { banId } },
@@ -554,16 +538,13 @@ describe('Contributor (moderator) content-scoped bans', () => {
     expect(await bansById(banId)).toHaveLength(0)
   })
 
-  // The app-level gate returns 403 here (owner `app`, BYPASSRLS, so getBanScope sees the
-  // global row). Under prod RLS the same request is 404 (the row is hidden from the
-  // contributor, so not_found); the DB-level denial is proven in user-bans-rls.test.ts.
-  it('contributor lifting a global ban: 403 forbidden, ban survives', async () => {
+  it('returns 404 for a global ban hidden from a contributor and preserves the ban', async () => {
     const banId = await seedBan({ userId: targetId, scope: 'global', bannedBy: adminId })
 
     await expectError(
       client.admin.bans[':banId'].$delete({ param: { banId } }, withAuth(contributorToken)),
-      HTTP_STATUS.FORBIDDEN,
-      'forbidden'
+      HTTP_STATUS.NOT_FOUND,
+      'not_found'
     )
 
     expect(await bansById(banId)).toHaveLength(1)

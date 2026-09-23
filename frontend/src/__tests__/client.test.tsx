@@ -19,12 +19,12 @@ vi.mock('react-dom/client', () => ({
     clientStart.events.push('hydrateRoot')
   }),
 }))
-vi.mock('./lib/chunkReload', () => ({ installChunkReloadGuard: vi.fn() }))
-vi.mock('./lib/observability/faro', () => ({ initFaro: vi.fn() }))
+vi.mock('../lib/chunkReload', () => ({ installChunkReloadGuard: vi.fn() }))
+vi.mock('../lib/observability/faro', () => ({ initFaro: vi.fn() }))
 
 describe('client hydration', () => {
   it('hydrates the router before React mounts', async () => {
-    await import('./client')
+    await import('../client')
 
     await waitFor(() => {
       expect(clientStart.events).toEqual(['hydrateStart', 'hydrateRoot'])

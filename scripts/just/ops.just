@@ -16,6 +16,7 @@ prod-logs:
 [script]
 prod-migrate:
     source {{justfile_directory()}}/scripts/just/_lib.sh
+    assert_prod_stack
     # SKIP_CONFIRM=1 lets `deploy` gate once instead of prompting twice.
     if [ "${SKIP_CONFIRM:-}" != "1" ]; then confirm_prod "MIGRATE"; fi
     {{COMPOSE_PROD}} exec -T -w /app/backend api bun run src/db/migrate.ts

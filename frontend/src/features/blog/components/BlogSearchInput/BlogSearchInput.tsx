@@ -1,5 +1,7 @@
 import { Search } from 'lucide-react'
 
+import { Input } from '@/component/Input/Input'
+
 type Props = {
   value: string
   placeholder: string
@@ -10,7 +12,7 @@ export function BlogSearchInput({ value, placeholder, onChange }: Props) {
   return (
     <div className="blog-search-wrap">
       <Search size={15} className="blog-search__icon" aria-hidden />
-      <input
+      <Input
         type="search"
         name="q"
         className="blog-search__input"

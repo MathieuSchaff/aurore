@@ -1,5 +1,4 @@
 import {
-  bannedError,
   deleteIngredientPreferenceQuerySchema,
   deleteTagPreferenceParamSchema,
   err,
@@ -19,16 +18,18 @@ import type { AppEnv } from '../../app-env'
 import { db as baseDb } from '../../db'
 import { getAuthedUserId, getRlsDb } from '../../utils/accessors'
 import { zValidator } from '../../utils/validator'
-import { deleteAccount } from '../auth/demo-cleanup'
 import { requireJwtAuth, requireNotBanned } from '../auth/middleware'
 import { withRlsContext } from '../auth/rls-context.middleware'
-import { getUserById } from '../auth/user.utils'
+import { deleteAccount, getUserById } from '../auth/service'
 import { securityScan } from '../security/security.middleware'
-import { logSecurityEvent } from '../security/security.service'
-import { checkExportRateLimit, exportFilename, exportUserData } from './export.service'
+import { logSecurityEvent } from '../security/service'
+import { privacyAccessRoute } from './access/routes'
 import {
+  checkExportRateLimit,
   deleteIngredientPreference,
   deleteTagPreference,
+  exportFilename,
+  exportUserData,
   getDermoProfile,
   getPrivacySettings,
   getProfile,
@@ -43,7 +44,7 @@ import {
   upsertTagPreference,
 } from './service'
 
-const app = new Hono<AppEnv>()
+const app = new Hono<AppEnv>().route('/access', privacyAccessRoute)
 
 app.use('*', requireJwtAuth)
 
@@ -51,26 +52,58 @@ app.use('*', requireJwtAuth)
 // request-wide RLS transaction so one request never checks out two pool slots.
 export const profileRoute = app
   .delete('/deleteUser', async (c) => {
-    const result = await deleteAccount(getAuthedUserId(c))
-    if (result.status === 'banned') {
-      return c.json(
-        bannedError({ expiresAt: result.expiresAt, reason: result.reason }),
-        HTTP_STATUS.FORBIDDEN
-      )
-    }
+    await deleteAccount(getAuthedUserId(c))
     return c.body(null, HTTP_STATUS.NO_CONTENT)
   })
   .use('*', withRlsContext)
+  // RGPD Article 20: data portability. JSON dump of every tenant-scoped row
+  // the user owns. RLS narrows reads to auth.uid(); discussions are filtered
+  // by author_id explicitly (no RLS on those tables).
+  .get('/export', async (c) => {
+    const userId = getAuthedUserId(c)
+    const db = getRlsDb(c)
+
+    // Demo accounts have no meaningful data to export and each call pollutes the
+    // security journal with a data_export_requested event. Block them up front.
+    const requester = await getUserById(db, userId)
+    if (requester?.isDemo) {
+      return c.json(err('forbidden'), HTTP_STATUS.FORBIDDEN)
+    }
+
+    const rate = checkExportRateLimit(userId)
+    if (!rate.ok) {
+      return c.json(
+        err('rate_limit_exceeded', { retryAfter: rate.retryAfterSec }),
+        HTTP_STATUS.RATE_LIMIT_EXCEEDED
+      )
+    }
+
+    const data = await exportUserData(db, userId)
+
+    // Audit trail (RGPD). Best-effort on the base pool, NOT the request tx:
+    // a swallowed insert on the tx would commit an aborted tx (RLS invariant).
+    // Runs after the read succeeds, so it only logs real exports.
+    await logSecurityEvent(baseDb, {
+      userId,
+      severity: 'low',
+      eventType: 'data_export_requested',
+      field: 'export',
+      payload: 'json',
+      route: '/profile/export',
+    }).catch(() => {})
+
+    return c.body(JSON.stringify(data, null, 2), HTTP_STATUS.OK, {
+      'Content-Type': 'application/json; charset=utf-8',
+      'Content-Disposition': `attachment; filename="${exportFilename(userId)}"`,
+      'Cache-Control': 'no-store',
+    })
+  })
   .use('*', requireNotBanned)
 
   .get('/', async (c) => {
     const requestDbRls = getRlsDb(c)
     const userId = getAuthedUserId(c)
     const profile = await getProfile(requestDbRls, userId)
-
-    if (!profile) {
-      return c.json(err('not_found'), HTTP_STATUS.NOT_FOUND)
-    }
 
     return c.json(ok(profile), HTTP_STATUS.OK)
   })
@@ -88,10 +121,6 @@ export const profileRoute = app
 
     const data = c.req.valid('json')
     const updated = await updateProfile(db, userId, data)
-
-    if (!updated) {
-      return c.json(err('not_found'), HTTP_STATUS.NOT_FOUND)
-    }
 
     return c.json(ok(updated), HTTP_STATUS.OK)
   })
@@ -127,10 +156,6 @@ export const profileRoute = app
       const data = c.req.valid('json')
       const saved = await upsertIngredientPreference(db, userId, data)
 
-      if (!saved) {
-        return c.json(err('not_found'), HTTP_STATUS.NOT_FOUND)
-      }
-
       return c.json(ok(saved), HTTP_STATUS.OK)
     }
   )
@@ -152,10 +177,6 @@ export const profileRoute = app
     const userId = getAuthedUserId(c)
     const data = c.req.valid('json')
     const saved = await upsertTagPreference(db, userId, data)
-
-    if (!saved) {
-      return c.json(err('not_found'), HTTP_STATUS.NOT_FOUND)
-    }
 
     return c.json(ok(saved), HTTP_STATUS.OK)
   })
@@ -198,52 +219,5 @@ export const profileRoute = app
     const data = c.req.valid('json')
     const updated = await updatePrivacySettings(db, userId, data)
 
-    if (!updated) {
-      return c.json(err('not_found'), HTTP_STATUS.NOT_FOUND)
-    }
-
     return c.json(ok(updated), HTTP_STATUS.OK)
-  })
-
-  // RGPD Article 20: data portability. JSON dump of every tenant-scoped row
-  // the user owns. RLS narrows reads to auth.uid(); discussions are filtered
-  // by author_id explicitly (no RLS on those tables).
-  .get('/export', async (c) => {
-    const userId = getAuthedUserId(c)
-    const db = getRlsDb(c)
-
-    // Demo accounts have no meaningful data to export and each call pollutes the
-    // security journal with a data_export_requested event. Block them up front.
-    const requester = await getUserById(db, userId)
-    if (requester?.isDemo) {
-      return c.json(err('forbidden'), HTTP_STATUS.FORBIDDEN)
-    }
-
-    const rate = checkExportRateLimit(userId)
-    if (!rate.ok) {
-      return c.json(
-        err('rate_limit_exceeded', { retryAfter: rate.retryAfterSec }),
-        HTTP_STATUS.RATE_LIMIT_EXCEEDED
-      )
-    }
-
-    const data = await exportUserData(db, userId)
-
-    // Audit trail (RGPD). Best-effort on the base pool, NOT the request tx:
-    // a swallowed insert on the tx would commit an aborted tx (RLS invariant).
-    // Runs after the read succeeds, so it only logs real exports.
-    await logSecurityEvent(baseDb, {
-      userId,
-      severity: 'low',
-      eventType: 'data_export_requested',
-      field: 'export',
-      payload: 'json',
-      route: '/profile/export',
-    }).catch(() => {})
-
-    return c.body(JSON.stringify(data, null, 2), HTTP_STATUS.OK, {
-      'Content-Type': 'application/json; charset=utf-8',
-      'Content-Disposition': `attachment; filename="${exportFilename(userId)}"`,
-      'Cache-Control': 'no-store',
-    })
   })

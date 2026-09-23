@@ -1,4 +1,4 @@
-import { useSuspenseQuery } from '@tanstack/react-query'
+import { useQueryClient, useSuspenseQuery } from '@tanstack/react-query'
 import { getRouteApi, useNavigate } from '@tanstack/react-router'
 import { Trash2 } from 'lucide-react'
 
@@ -20,11 +20,20 @@ export function IngredientEditPage() {
   const session = useSession()
   const isAdmin = session.status === 'authenticated' && session.user.role === 'admin'
   const deleteIngredient = useDeleteIngredient()
+  const queryClient = useQueryClient()
 
-  function handleDelete() {
+  async function handleDelete() {
     if (!confirm(`Supprimer « ${ingredient.name} » ? Cette action est irréversible.`)) return
-    deleteIngredient.mutate(ingredient.id, {
-      onSuccess: () => navigate({ to: '/ingredients' }),
+    try {
+      await deleteIngredient.mutateAsync(ingredient.id)
+    } catch {
+      // MutationCache owns error feedback; keep the detail available on failure.
+      return
+    }
+    await navigate({ to: '/ingredients' })
+    queryClient.removeQueries({
+      queryKey: ingredientQueries.bySlug(slug).queryKey,
+      exact: true,
     })
   }
 

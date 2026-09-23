@@ -51,10 +51,11 @@ describe('useBootRefresh', () => {
     const user = {
       id: 'u1',
       email: 'test@example.com',
+      createdAt: '2026-01-01T00:00:00.000Z',
       emailVerified: true,
       role: 'user',
       isDemo: false,
-    } as UserPublic
+    } satisfies UserPublic
     const accessToken = `h.${btoa(JSON.stringify({ exp: Math.floor(Date.now() / 1000) + 3600 }))}.s`
     mockHttpClient.mockResolvedValue({
       ok: true,
@@ -130,10 +131,11 @@ describe('useBootRefresh', () => {
     const seededUser = {
       id: 'u1',
       email: 'admin@example.com',
+      createdAt: '2026-01-01T00:00:00.000Z',
       emailVerified: true,
       role: 'admin',
       isDemo: false,
-    } as UserPublic
+    } satisfies UserPublic
     useAuthStore.setState({ session: restoringTestSession(seededUser) })
     queryClient.setQueryData(['profile'], { username: 'Aurore' })
     const productListKey = ['products', 'list', {}, seededUser.id] as const

@@ -1,3 +1,8 @@
+import type { ReplaceProductTagsInput } from '@aurore/shared'
+
+import { and, eq, sql } from 'drizzle-orm'
+
+import type { DbOrTransaction } from '../../db'
 import { type Product, products } from '../../db/schema/products/products'
 import { type ProductTagType, productTagLinks, productTagTypes } from '../../db/schema/tags/tags'
 import { createTagService } from '../_tags/lib/createTagService'
@@ -63,4 +68,35 @@ export const addManyTagsToProduct = service.addManyToOwner
 export const listTagsByProduct = service.listTagsByOwner
 export const listProductsByTag = service.listOwnersByTag
 export const removeTagFromProduct = service.removeFromOwner
-export const replaceProductTags = service.replaceOwnerTags
+export async function replaceProductTags(
+  db: DbOrTransaction,
+  productId: string,
+  tagsInput: (string | ReplaceProductTagsInput['tags'][number])[]
+) {
+  return db.transaction(async (tx) => {
+    // Product edits hold this lock while recalculating tags, so manual edits follow them
+    await tx
+      .select({ id: products.id })
+      .from(products)
+      .where(eq(products.id, productId))
+      .for('no key update')
+    await tx
+      .delete(productTagLinks)
+      .where(and(eq(productTagLinks.productId, productId), eq(productTagLinks.source, 'manual')))
+    if (tagsInput.length === 0) return []
+    const values = tagsInput.map((tag) => ({
+      productId,
+      productTagId: typeof tag === 'string' ? tag : tag.tagId,
+      relevance: typeof tag === 'string' ? ('secondary' as const) : tag.relevance,
+      source: 'manual' as const,
+    }))
+    return tx
+      .insert(productTagLinks)
+      .values(values)
+      .onConflictDoUpdate({
+        target: [productTagLinks.productTagId, productTagLinks.productId],
+        set: { source: 'manual', relevance: sql`excluded.relevance` },
+      })
+      .returning()
+  })
+}

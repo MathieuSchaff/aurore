@@ -6,6 +6,7 @@ import {
 
 import { ArrowRight, GitCompare, X } from 'lucide-react'
 
+import { Button } from '@/component/Button/Button'
 import { DropdownMenu } from '@/component/DropdownMenu/DropdownMenu'
 import { StatusPicker } from './StatusPicker'
 
@@ -36,37 +37,37 @@ export function BulkBar({
   return (
     <section className="bulk-bar-wrap" aria-label="Actions groupées" aria-busy={isPending}>
       <div className="bulk-bar">
-        <button
-          type="button"
+        <Button
+          variant="bare"
           className="bulk-bar-close"
           onClick={onClear}
           aria-label="Annuler la sélection"
           disabled={isPending}
         >
           <X size={16} aria-hidden="true" />
-        </button>
+        </Button>
         <div className="bulk-bar-label">
           <strong>{selectedCount}</strong>
           <span>{selectedCount > 1 ? 'produits sélectionnés' : 'produit sélectionné'}</span>
         </div>
         <div className="bulk-bar-action">
           {canCompare && (
-            <button
-              type="button"
+            <Button
+              variant="bare"
               className="bulk-bar-compare"
               onClick={onCompare}
               disabled={isPending}
             >
               <GitCompare size={14} aria-hidden="true" />
               <span>Comparer</span>
-            </button>
+            </Button>
           )}
           <DropdownMenu>
             <DropdownMenu.Trigger>
-              <button type="button" className="bulk-bar-move" disabled={isPending}>
+              <Button variant="bare" className="bulk-bar-move" disabled={isPending}>
                 <span>Déplacer vers</span>
                 <ArrowRight size={14} aria-hidden="true" />
-              </button>
+              </Button>
             </DropdownMenu.Trigger>
             <DropdownMenu.Content
               side="top"

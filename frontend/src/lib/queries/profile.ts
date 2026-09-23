@@ -8,12 +8,13 @@ import type {
 
 import { type QueryClient, queryOptions, useMutation, useQueryClient } from '@tanstack/react-query'
 
-import { productKeys } from '@/lib/queries/products'
+import { invalidateProductAuthorReads, productKeys } from '@/lib/queries/products'
 import { api } from '../api'
 import { endSession } from '../auth/session'
 import { throwIfNotOk, unwrapData } from '../helpers/apiError'
 import { downloadBlobAsFile, parseAttachmentFilename } from '../helpers/download'
 import { collectionKeys } from './collection'
+import { invalidateDiscussionReads } from './discussions'
 import { invalidateSocialReads } from './social-keys'
 
 export const profileKeys = {
@@ -46,6 +47,8 @@ export function invalidatePublicProfileReads(queryClient: QueryClient) {
 function invalidateProfileDependentReads(queryClient: QueryClient) {
   invalidatePublicProfileReads(queryClient)
   invalidateSocialReads(queryClient)
+  invalidateProductAuthorReads(queryClient)
+  invalidateDiscussionReads(queryClient)
 }
 
 export const profileQueries = {

@@ -3,6 +3,7 @@ import { Link } from '@tanstack/react-router'
 import { Check, Copy, Droplets } from 'lucide-react'
 import { useId } from 'react'
 
+import { Button } from '@/component/Button/Button'
 import { ShowMoreButton } from '@/component/DataDisplay/ShowMoreButton/ShowMoreButton'
 import { pdsLabels } from '@/features/collection/constants'
 import { useCopyToClipboard } from '@/hooks/useCopyToClipboard'
@@ -50,7 +51,7 @@ export function PdsFormulaSection({ p }: PdsFormulaSectionProps) {
       {/* Raw INCI before the tag list: ingredients-first, backlog section 18 P2.C (2026-05-15). */}
       {fullProductError ? (
         <p className="pds-empty-msg" role="alert">
-          Détails indisponibles — vérifiez votre connexion.
+          Détails indisponibles : vérifiez votre connexion.
         </p>
       ) : fullProduct?.inci ? (
         <article className="pds-inci">
@@ -60,7 +61,8 @@ export function PdsFormulaSection({ p }: PdsFormulaSectionProps) {
               <span>Liste INCI</span>
               <span className="pds-inci-count">{fullProduct.inciCount} ingrédients</span>
             </div>
-            <button
+            <Button
+              variant="bare"
               type="button"
               className="pds-inci-copy"
               onClick={handleCopyInci}
@@ -68,7 +70,7 @@ export function PdsFormulaSection({ p }: PdsFormulaSectionProps) {
             >
               {inciCopied ? <Check size={13} /> : <Copy size={13} />}
               <span>{inciCopied ? 'Copié' : 'Copier'}</span>
-            </button>
+            </Button>
           </header>
           <p className="pds-inci-text">{fullProduct.inci}</p>
         </article>

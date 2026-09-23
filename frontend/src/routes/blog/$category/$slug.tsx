@@ -4,6 +4,7 @@ import { createFileRoute, notFound, redirect } from '@tanstack/react-router'
 
 import { BlogArticleSkeleton } from '@/features/blog/components/skeletons/BlogSkeletons'
 import { BlogArticlePage } from '@/features/blog/page/BlogArticlePage/BlogArticlePage'
+import { resolveArticleViewer } from '@/features/blog/resolveArticleViewer'
 import { articleQueries } from '@/lib/queries/articles'
 import { notFoundOn404, RouteNotFound } from '@/lib/routeErrors'
 import { canonicalUrl, clampDesc, seoHead } from '@/lib/seo'
@@ -15,9 +16,10 @@ export const Route = createFileRoute('/blog/$category/$slug')({
   beforeLoad: ({ params }) => {
     if (!categorySet.has(params.category)) throw notFound()
   },
-  loader: async ({ context, params }) => {
+  loader: async ({ context, params, parentMatchPromise }) => {
+    const userId = await resolveArticleViewer(context.queryClient, parentMatchPromise)
     const article = await context.queryClient
-      .ensureQueryData(articleQueries.bySlug(params.slug))
+      .ensureQueryData(articleQueries.bySlug(params.slug, userId))
       .catch(notFoundOn404)
     if (article.category !== params.category) {
       throw redirect({
@@ -49,7 +51,7 @@ export const Route = createFileRoute('/blog/$category/$slug')({
     )
     return seoHead({
       path,
-      title: `${loaderData.title} — Aurore`,
+      title: `${loaderData.title} | Aurore`,
       description,
       ogTitle: loaderData.title,
       ogDescription: description,

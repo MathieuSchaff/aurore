@@ -245,7 +245,7 @@ describe('endSession', () => {
       const queryClient = new QueryClient()
       useAuthStore.getState().setAuth('existing-token', SEEDED_USER)
       queryClient.setQueryData(['profile', 'me'], { username: 'private' })
-      queryClient.setQueryData(['articles', 'list'], { items: ['public'] })
+      queryClient.setQueryData(['articles', 'list', {}], { items: ['public'] })
 
       endSession(queryClient, reason)
 
@@ -258,12 +258,12 @@ describe('endSession', () => {
   it('defensively drops private cache after a failed boot probe without expiring a session', () => {
     const queryClient = new QueryClient()
     queryClient.setQueryData(['profile', 'me'], { username: 'residual' })
-    queryClient.setQueryData(['articles', 'list'], { items: ['public'] })
+    queryClient.setQueryData(['articles', 'list', {}], { items: ['public'] })
 
     endSession(queryClient, 'probe-failed')
 
     expect(queryClient.getQueryData(['profile', 'me'])).toBeUndefined()
-    expect(queryClient.getQueryData(['articles', 'list'])).toEqual({ items: ['public'] })
+    expect(queryClient.getQueryData(['articles', 'list', {}])).toEqual({ items: ['public'] })
     expect(readClientSession()).toEqual({ status: 'anonymous' })
     expect(useAuthStore.getState().sessionExpired).toBe(false)
   })
@@ -272,12 +272,12 @@ describe('endSession', () => {
     const queryClient = new QueryClient()
     useAuthStore.getState().setAuth('existing-token', SEEDED_USER)
     queryClient.setQueryData(['profile', 'me'], { username: 'private' })
-    queryClient.setQueryData(['articles', 'list'], { items: ['public'] })
+    queryClient.setQueryData(['articles', 'list', {}], { items: ['public'] })
 
     endSession(queryClient, 'expired')
 
     expect(queryClient.getQueryData(['profile', 'me'])).toBeUndefined()
-    expect(queryClient.getQueryData(['articles', 'list'])).toEqual({ items: ['public'] })
+    expect(queryClient.getQueryData(['articles', 'list', {}])).toEqual({ items: ['public'] })
     expect(readClientSession()).toEqual({ status: 'anonymous' })
     expect(useAuthStore.getState().sessionExpired).toBe(true)
   })
@@ -303,7 +303,7 @@ describe('recordBan', () => {
     const details = { expiresAt: null, reason: 'Abus', scope: 'global' } as const
     useAuthStore.getState().setAuth('existing-token', SEEDED_USER)
     queryClient.setQueryData(['profile', 'me'], { username: 'private' })
-    queryClient.setQueryData(['articles', 'list'], { items: ['public'] })
+    queryClient.setQueryData(['articles', 'list', {}], { items: ['public'] })
 
     recordBan(queryClient, details)
 
@@ -313,7 +313,7 @@ describe('recordBan', () => {
       credential: 'present',
     })
     expect(queryClient.getQueryData(['profile', 'me'])).toBeUndefined()
-    expect(queryClient.getQueryData(['articles', 'list'])).toEqual({ items: ['public'] })
+    expect(queryClient.getQueryData(['articles', 'list', {}])).toEqual({ items: ['public'] })
     expect(useAuthStore.getState().bannedDetails).toEqual(details)
   })
 

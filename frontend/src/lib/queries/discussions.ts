@@ -1,4 +1,4 @@
-import type { DiscussionThread } from '@aurore/shared'
+import type { CreateReplyInput, CreateThreadInput, DiscussionThread } from '@aurore/shared'
 
 import { type QueryClient, queryOptions, useMutation, useQueryClient } from '@tanstack/react-query'
 
@@ -86,7 +86,7 @@ export function useCreateThread(entityType: DiscussionEntityType, slug: string) 
   const queryClient = useQueryClient()
   return useMutation({
     mutationKey: ['discussions', 'thread', 'create'],
-    mutationFn: async (input: { title: string; content: string }) => {
+    mutationFn: async (input: CreateThreadInput) => {
       const res =
         entityType === 'product'
           ? await api.products[':slug'].discussions.$post({ param: { slug }, json: input })
@@ -104,7 +104,7 @@ export function useCreateReply(entityType: DiscussionEntityType, slug: string, t
   const queryClient = useQueryClient()
   return useMutation({
     mutationKey: ['discussions', 'reply', 'create'],
-    mutationFn: async (input: { content: string }) => {
+    mutationFn: async (input: CreateReplyInput) => {
       const res =
         entityType === 'product'
           ? await api.products[':slug'].discussions[':threadId'].replies.$post({

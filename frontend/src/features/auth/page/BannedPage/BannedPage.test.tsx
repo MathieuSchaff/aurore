@@ -1,9 +1,10 @@
 import { QueryClient } from '@tanstack/react-query'
-import { render, screen } from '@testing-library/react'
+import { screen } from '@testing-library/react'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
 import { recordBan } from '@/lib/auth/session'
 import { resetTestAuthStore } from '@/test/authSession'
+import { renderWithProviders } from '@/test/utils'
 
 vi.mock('../../../../lib/queries/auth', () => ({
   useLogout: vi.fn(() => ({ mutate: vi.fn(), isPending: false })),
@@ -17,7 +18,7 @@ describe('BannedPage', () => {
   })
 
   it('shows a generic message when no ban notice is present', () => {
-    render(<BannedPage />)
+    renderWithProviders(<BannedPage />)
 
     expect(screen.getByText('Votre compte est suspendu.')).toBeInTheDocument()
     expect(screen.getByText(/contactez le support/i)).toBeInTheDocument()
@@ -30,7 +31,7 @@ describe('BannedPage', () => {
       scope: 'global',
     })
 
-    render(<BannedPage />)
+    renderWithProviders(<BannedPage />)
 
     expect(screen.getByText(/suspendu jusqu'au/i)).toBeInTheDocument()
     expect(screen.getByText('Comportement abusif')).toBeInTheDocument()

@@ -4,6 +4,7 @@ import { Button } from '../../../../component/Button/Button'
 import { useBanNotice } from '../../../../lib/auth/useBanNotice'
 import { formatInstant } from '../../../../lib/dates'
 import { useLogout } from '../../../../lib/queries/auth'
+import { PrivacyAccessForm } from './PrivacyAccessForm'
 
 export const BannedPage = () => {
   const banNotice = useBanNotice()
@@ -38,6 +39,7 @@ export const BannedPage = () => {
       >
         Se déconnecter
       </Button>
+      <PrivacyAccessForm />
     </div>
   )
 }

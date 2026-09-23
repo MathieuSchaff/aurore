@@ -9,6 +9,7 @@ import { EmptyState } from '@/component/Feedback/ui/EmptyState/EmptyState'
 import { Spinner } from '@/component/Feedback/ui/Spinner/Spinner'
 import { ChipGroup } from '@/component/Input/ChipGroup/ChipGroup'
 import { SKIN_CONCERN_LABELS } from '@/constants/skin'
+import { useSession } from '@/lib/auth/session'
 import { socialQueries } from '@/lib/queries/social'
 import { SimilarPeopleList } from './SimilarPeopleList'
 import './SimilarPeople.css'
@@ -48,9 +49,12 @@ function ConcernFilter({
 // Passive lens by default (people like me); picking a concern switches to the
 // active search (people like me who share that concern's bucket).
 export function SimilarPeople() {
+  const session = useSession()
+  const userId = session.status === 'authenticated' ? session.user.id : null
+
   const [concern, setConcern] = useState<SkinConcern | null>(null)
   const { data, isError, refetch } = useQuery(
-    concern ? socialQueries.searchByConcern(concern) : socialQueries.similar()
+    concern ? socialQueries.searchByConcern(concern, userId) : socialQueries.similar(userId)
   )
 
   return (

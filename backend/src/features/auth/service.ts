@@ -10,6 +10,7 @@ import type {
   RawPassword,
   RefreshResult,
   SignupResult,
+  UserPublic,
 } from '@aurore/shared'
 import { err, ok } from '@aurore/shared'
 
@@ -194,41 +195,51 @@ export async function signup(
   }
 }
 
+export async function authenticatePassword(
+  db: Database,
+  email: Email,
+  password: RawPassword
+): Promise<ApiResponse<UserPublic, 'invalid_credentials'>> {
+  const user = await getUser(db, email)
+
+  const isValid = await Bun.password.verify(password, user?.passwordHash ?? DUMMY_HASH)
+
+  // Lockout check runs after hash verify to keep timing uniform across locked vs unknown-email paths.
+  // Return invalid_credentials, not a lockout-specific code: a distinct code lets an attacker confirm an email exists.
+  if (user?.lockedUntil && Date.parse(user.lockedUntil) > Date.now()) {
+    return err('invalid_credentials')
+  }
+
+  if (!user?.passwordHash || !isValid) {
+    if (user) {
+      const { justLocked } = await registerFailedLogin(db, user.id, user.failedLoginAttempts)
+      // Notify the real owner off the response path (fire-and-forget keeps timing uniform); a wrong-inbox attacker sees nothing.
+      if (justLocked) {
+        logger.warn({ userId: user.id }, 'Account locked after repeated failed logins')
+        void sendAccountLockedEmail(user.email)
+      }
+    }
+    return err('invalid_credentials')
+  }
+
+  if (user.failedLoginAttempts > 0 || user.lockedUntil !== null) {
+    await resetFailedLogins(db, user.id)
+  }
+
+  return ok(toPublicUser(user))
+}
+
 export async function login(
   ctx: AuthContext,
   email: Email,
   password: RawPassword
 ): Promise<LoginResult> {
   try {
-    const user = await getUser(ctx.db, email)
-
-    const isValid = await Bun.password.verify(password, user?.passwordHash ?? DUMMY_HASH)
-
-    // Lockout check runs after hash verify to keep timing uniform across locked vs unknown-email paths.
-    // Return invalid_credentials, not a lockout-specific code: a distinct code lets an attacker confirm an email exists.
-    if (user?.lockedUntil && Date.parse(user.lockedUntil) > Date.now()) {
-      return err('invalid_credentials')
-    }
-
-    if (!user || !isValid) {
-      if (user) {
-        const { justLocked } = await registerFailedLogin(ctx.db, user.id, user.failedLoginAttempts)
-        // Notify the real owner off the response path (fire-and-forget keeps timing uniform); a wrong-inbox attacker sees nothing.
-        if (justLocked) {
-          logger.warn({ userId: user.id }, 'Account locked after repeated failed logins')
-          void sendAccountLockedEmail(user.email)
-        }
-      }
-      return err('invalid_credentials')
-    }
-
-    if (!user.emailVerifiedAt) {
-      const graceCutoffMs = Date.now() - 24 * 60 * 60 * 1000
-      if (Date.parse(user.createdAt) < graceCutoffMs) return err('email_not_verified')
-    }
-
-    if (user.failedLoginAttempts > 0 || user.lockedUntil !== null) {
-      await resetFailedLogins(ctx.db, user.id)
+    const identity = await authenticatePassword(ctx.db, email, password)
+    if (!identity.success) return identity
+    const user = identity.data
+    if (!user.emailVerified && Date.parse(user.createdAt) < Date.now() - 24 * 60 * 60 * 1000) {
+      return err('email_not_verified')
     }
 
     const tokens = await createTokenPair(ctx, user.id, user.role)
@@ -238,7 +249,7 @@ export async function login(
     )
 
     return ok({
-      user: toPublicUser(user),
+      user,
       ...tokens,
     })
   } catch (e) {
@@ -441,3 +452,6 @@ export async function createDemo(
     return err('server_error')
   }
 }
+
+export { deleteAccount } from './demo-cleanup'
+export { getUserById } from './user.utils'

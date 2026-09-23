@@ -1,9 +1,8 @@
-import { afterEach, beforeAll, beforeEach, describe, expect, it } from 'bun:test'
+import { beforeAll, beforeEach, describe, expect, it } from 'bun:test'
 
 import { HTTP_STATUS } from '@aurore/shared'
 
 import { userBans } from '../../db/schema'
-import { clearBanCache } from '../../features/auth/ban.service'
 import { testDb } from '../db.test.config'
 import { setupDbTests } from '../db-setup'
 import { createTestClient, type TestClient, withAuth } from '../helpers/createTestClient'
@@ -41,7 +40,6 @@ describe('catalog routes: guard swap (requireCatalogWrite removed from create/ed
   })
 
   beforeEach(async () => {
-    clearBanCache()
     const toto = TEST_CREDENTIALS.toto
     const admin = TEST_CREDENTIALS.admin
 
@@ -54,9 +52,6 @@ describe('catalog routes: guard swap (requireCatalogWrite removed from create/ed
   })
 
   // The ban cache is process memory, so cleanDatabase alone would leave it stale.
-  afterEach(() => {
-    clearBanCache()
-  })
 
   it('ingredient_create ban blocks POST /ingredients with scope detail', async () => {
     await testDb.insert(userBans).values({

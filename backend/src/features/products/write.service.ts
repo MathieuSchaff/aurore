@@ -1,6 +1,7 @@
 import type {
   CreateProductInput,
   ProductKind,
+  ProductRecord,
   ProductUnit,
   UpdateProductInput,
 } from '@aurore/shared'
@@ -8,8 +9,8 @@ import type {
 import slugify from '@sindresorhus/slugify'
 import { and, eq, like, or, sql } from 'drizzle-orm'
 
-import type { DatabaseTransaction } from '../../db/index'
-import { type Product, products } from '../../db/schema/products'
+import type { DbOrTransaction } from '../../db/index'
+import { products } from '../../db/schema/products'
 import {
   assertWithinSubmissionRateLimit,
   type CatalogRole,
@@ -32,9 +33,9 @@ export async function createProduct(
   userId: string,
   role: CatalogRole,
   input: CreateProductInput,
-  database: DatabaseTransaction,
+  database: DbOrTransaction,
   options: { autoTag?: boolean } = {}
-) {
+): Promise<ProductRecord> {
   try {
     await assertWithinSubmissionRateLimit(
       database,
@@ -198,7 +199,7 @@ function buildUpdateClauses(input: UpdateProductInput) {
 async function executeProductUpdate(
   id: string,
   setClauses: ReturnType<typeof buildUpdateClauses>,
-  database: DatabaseTransaction
+  database: DbOrTransaction
 ) {
   try {
     return (await database.execute(sql`
@@ -222,10 +223,7 @@ async function executeProductUpdate(
   }
 }
 
-async function throwMissingProductUpdate(
-  id: string,
-  database: DatabaseTransaction
-): Promise<never> {
+async function throwMissingProductUpdate(id: string, database: DbOrTransaction): Promise<never> {
   const [visible] = await database
     .select({ id: products.id })
     .from(products)
@@ -249,8 +247,8 @@ export async function updateProduct(
   userId: string,
   id: string,
   input: UpdateProductInput,
-  database: DatabaseTransaction
-): Promise<Product> {
+  database: DbOrTransaction
+): Promise<ProductRecord> {
   // Same normalization as create, so an edited INCI looks like a created one
   // An emptied form field writes null, not ''
   // The user clearing the field means "we have no formula", which is what null already means
@@ -262,8 +260,13 @@ export async function updateProduct(
   const setClauses = buildUpdateClauses(input)
 
   if (setClauses.length === 0) {
-    const existing = await database.query.products.findFirst({ where: eq(products.id, id) })
-    if (!existing) throw new ProductError('product_not_found')
+    // Public reads do not prove write access; preserve the timestamp while exercising UPDATE RLS
+    const [existing] = await database
+      .update(products)
+      .set({ updatedAt: sql`${products.updatedAt}` })
+      .where(eq(products.id, id))
+      .returning()
+    if (!existing) return throwMissingProductUpdate(id, database)
     return existing
   }
 
@@ -296,15 +299,15 @@ export async function updateProduct(
     await writeTagsForProductFailSoft(database, id, { operation: 'update', userId })
   }
 
-  return newProduct as Product
+  return newProduct as ProductRecord
 }
 
 // Once a product is verified it stays verified. There is no way back. On purpose
 export async function verifyProduct(
   actorId: string,
   id: string,
-  database: DatabaseTransaction
-): Promise<Product> {
+  database: DbOrTransaction
+): Promise<ProductRecord> {
   const [row] = await database
     .update(products)
     .set({
@@ -319,7 +322,7 @@ export async function verifyProduct(
 }
 
 export async function deleteProduct(
-  database: DatabaseTransaction,
+  database: DbOrTransaction,
   role: 'user' | 'admin' | 'contributor',
   id: string
 ): Promise<void> {
@@ -334,7 +337,7 @@ export async function deleteProduct(
 export async function previewSlug(
   name: string,
   brand: string,
-  database: DatabaseTransaction
+  database: DbOrTransaction
 ): Promise<string> {
   const normalizedName = normalizeString(name)
   const normalizedBrand = normalizeString(brand)

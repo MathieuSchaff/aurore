@@ -105,7 +105,7 @@ describe('Preference targets routes', () => {
       withAuth(token)
     )
 
-    expect(res.status).toBe(HTTP_STATUS.NOT_FOUND)
+    expect(Number(res.status)).toBe(HTTP_STATUS.NOT_FOUND)
   })
 
   it('upserts an ingredient preference, then flips its stance in place', async () => {
@@ -156,7 +156,7 @@ describe('Preference targets routes', () => {
       { json: { tagId: '00000000-0000-7000-8000-000000000000', stance: 'exclude' } },
       withAuth(token)
     )
-    expect(unknown.status).toBe(HTTP_STATUS.NOT_FOUND)
+    expect(Number(unknown.status)).toBe(HTTP_STATUS.NOT_FOUND)
 
     const saved = await expectOk(
       client.profile['tag-preferences'].$put(

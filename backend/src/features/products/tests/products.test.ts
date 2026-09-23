@@ -1188,6 +1188,7 @@ describe('Product Service', () => {
             productTagId: tag.id,
             productId: product.id,
             relevance: 'avoid',
+            source: 'manual',
             tagName: tag.label,
             tagSlug: tag.slug,
             tagCategory: tag.tagType,

@@ -42,7 +42,14 @@ vi.mock('@/features/profile/components/ShelfPulse/ShelfPulse', () => ({
 
 import { HomeHub } from '../HomeHub'
 
-const fakeUser = { id: 'u1', username: 'lea' } as unknown as UserPublic
+const fakeUser = {
+  id: 'u1',
+  email: 'lea@example.test',
+  createdAt: '2026-01-15T00:00:00.000Z',
+  emailVerified: true,
+  role: 'user',
+  isDemo: false,
+} satisfies UserPublic
 
 // The hub reads four independent endpoints; each test declares the four payloads
 // it needs, and `dermoFails` drives the degraded-portrait branch.
@@ -72,6 +79,19 @@ afterEach(() => {
 })
 
 describe('HomeHub', () => {
+  it('keeps the collection doorway when its most recent catalogue row is unavailable', async () => {
+    serveQueries({
+      me: { createdAt: null },
+      dermo: null,
+      list: [{ ...makeUserProduct(), product: null }],
+      privacy: { discoverable: false },
+    })
+    renderWithProviders(<HomeHub />)
+    expect(await screen.findByText(/produit désormais indisponible/i)).toBeInTheDocument()
+    expect(screen.getByRole('link', { name: /ouvrir.*collection/i })).toBeInTheDocument()
+    expect(screen.queryByText(/aucun produit/i)).not.toBeInTheDocument()
+  })
+
   it('renders a calm onboarding hub for a brand-new account', async () => {
     useAuthStore.setState({ session: restoringTestSession(fakeUser) })
     serveQueries({
@@ -88,11 +108,11 @@ describe('HomeHub', () => {
 
     renderWithProviders(<HomeHub />)
 
-    expect(await screen.findByText(/Vos produits, vos notes et les raisons/)).toBeInTheDocument()
-    expect(await screen.findByText(/Aucun produit pour l'instant/)).toBeInTheDocument()
-    expect(await screen.findByText('Compléter mon profil')).toBeInTheDocument()
+    expect(await screen.findByText(/vos produits.*vos notes.*raisons/i)).toBeInTheDocument()
+    expect(await screen.findByText(/aucun produit/i)).toBeInTheDocument()
+    expect(await screen.findByText(/compléter.*profil/i)).toBeInTheDocument()
     // Discovery off: land on the account tab that holds the toggle, not a dead-end.
-    const discoverCta = (await screen.findByText('Activer la découverte')).closest('a')
+    const discoverCta = await screen.findByRole('link', { name: /activer.*découverte/i })
     expect(discoverCta).toHaveAttribute('href', '/profile')
     expect(discoverCta).toHaveAttribute('data-tab', 'account')
     // …and deep-links to the toggle so it isn't lost partway down the page.
@@ -123,19 +143,19 @@ describe('HomeHub', () => {
     renderWithProviders(<HomeHub />)
 
     // Hero reprise line (one node) + doorway "Dernier ajout" line (another node).
-    expect(await screen.findByText(/vous avez classé .*En stock/)).toBeInTheDocument()
+    expect(await screen.findByText(/vous avez classé.*en stock/i)).toBeInTheDocument()
     expect(
-      await screen.findByText(/Dernier ajout : The Ordinary — Niacinamide 10%/)
+      await screen.findByText(/dernier ajout.*The Ordinary.*Niacinamide 10%/i)
     ).toBeInTheDocument()
     // Doorway A cta flips to "Ouvrir ma collection" once a recent item exists.
-    expect(await screen.findByText('Ouvrir ma collection')).toBeInTheDocument()
+    expect(await screen.findByRole('link', { name: /ouvrir.*collection/i })).toBeInTheDocument()
     // Discovery on: the doorway opens the people tab directly.
-    const discoverCta = (await screen.findByText('Découvrir')).closest('a')
+    const discoverCta = await screen.findByRole('link', { name: /découvrir/i })
     expect(discoverCta).toHaveAttribute('href', '/profile')
     expect(discoverCta).toHaveAttribute('data-tab', 'people')
     // On: no scroll hash needed (the people tab is the content itself).
     expect(discoverCta).not.toHaveAttribute('data-hash')
-    expect(screen.getByText('Voir mon profil')).toBeInTheDocument()
+    expect(screen.getByText(/voir.*profil/i)).toBeInTheDocument()
     // Private notes are never exposed on the home.
     expect(screen.queryByText(/secret/)).not.toBeInTheDocument()
   })
@@ -151,8 +171,8 @@ describe('HomeHub', () => {
 
     renderWithProviders(<HomeHub />)
 
-    expect(await screen.findByText(/Votre portrait n'a pas pu se charger/)).toBeInTheDocument()
-    expect(await screen.findByText('Réessayer')).toBeInTheDocument()
-    expect(screen.queryByText('Chargement de votre portrait…')).not.toBeInTheDocument()
+    expect(await screen.findByText(/portrait.*n'a pas pu se charger/i)).toBeInTheDocument()
+    expect(await screen.findByRole('button', { name: /réessayer/i })).toBeInTheDocument()
+    expect(screen.queryByText(/chargement.*portrait/i)).not.toBeInTheDocument()
   })
 })
