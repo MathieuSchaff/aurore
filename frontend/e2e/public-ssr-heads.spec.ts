@@ -26,6 +26,6 @@ test.describe('Public SSR documents', () => {
     const html = await res.text()
     expect(html).toContain(`<link rel="canonical" href="${SITE_URL}/products/${slug}/discussions"`)
     expect(html).toContain('<meta name="robots" content="noindex, follow"')
-    expect(html).toMatch(/<title>Discussions · [^<]+ — Aurore<\/title>/)
+    expect(html).toMatch(/<title>Discussions · [^<]+ \| Aurore<\/title>/)
   })
 })

@@ -116,13 +116,13 @@ export const Route = createRootRouteWithContext<RouterContext>()({
       {
         name: 'description',
         content:
-          'Aurore réunit vos produits skincare, vos notes et les raisons de chaque choix — pour décider sans refaire la recherche. Sans score, sans publicité.',
+          'Aurore réunit vos produits skincare, vos notes et les raisons de chaque choix, pour décider sans refaire la recherche. Sans score, sans publicité.',
       },
       { property: 'og:type', content: 'website' },
       { property: 'og:locale', content: 'fr_FR' },
       { property: 'og:site_name', content: 'Aurore' },
       { name: 'robots', content: NOINDEX_ROBOTS },
-      { property: 'og:title', content: 'Aurore — votre skincare, au même endroit' },
+      { property: 'og:title', content: 'Aurore : votre skincare, au même endroit' },
       {
         property: 'og:description',
         content:

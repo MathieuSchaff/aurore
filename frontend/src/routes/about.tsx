@@ -8,7 +8,7 @@ export const Route = createFileRoute('/about')({
   head: () =>
     seoHead({
       path: '/about',
-      title: 'À propos — Aurore',
+      title: 'À propos | Aurore',
       description:
         'Pourquoi Aurore existe : relier vos produits skincare, vos notes et la raison de chaque choix. Un outil calme, sans score ni publicité, pas pour pousser à acheter.',
       ogTitle: 'À propos d’Aurore',

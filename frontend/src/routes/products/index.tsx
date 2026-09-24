@@ -63,7 +63,7 @@ export const Route = createFileRoute('/products/')({
   head: () =>
     seoHead({
       path: '/products',
-      title: 'Produits — Aurore',
+      title: 'Produits | Aurore',
       description:
         'Parcourez le catalogue skincare : formules, ingrédients et notes, sans score ni verdict, sur Aurore.',
     }),
