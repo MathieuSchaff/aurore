@@ -1,4 +1,4 @@
-// Read-only spot check for the vegan auto-tag
+// Checks vegan tags without changing the catalogue
 // The tag fires on most of the corpus, so the risk is false positives, not missed products
 // The tag must be precise before we show it in the UI
 // The pattern list lives here (TIER_A_PATTERNS below) and nowhere else:
@@ -20,7 +20,7 @@ import { mulberry32 } from '../rng'
 
 // Env: SAMPLE_SIZE (default 30, products to inspect), SEED (deterministic sample, any string),
 // PRUNE=1 (delete vegan rows for Tier A INCI matches across the full corpus; backfill is
-// insert-only, so this is needed to retroactively clean FPs).
+// insert-only, so this is needed to retroactively clean FPs)
 const SAMPLE_SIZE = process.env.SAMPLE_SIZE ? Number(process.env.SAMPLE_SIZE) : 30
 const SEED = process.env.SEED
 const PRUNE = process.env.PRUNE === '1'
@@ -29,7 +29,7 @@ const PRUNE = process.env.PRUNE === '1'
 // hit on a vegan-tagged product is an FP candidate (prune with PRUNE=1). gelatin/gelatine:
 // collagen-derived (porcine/bovine/marine); oyster: mollusk; colostrum/lactalbumin: milk;
 // bee venom/apitoxin: apiculture byproduct; egg/albumin: chicken. pearl / lactoperoxidase are
-// reference anchors: any hit there is a regression.
+// reference anchors: any hit there is a regression
 const TIER_A_PATTERNS = [
   'gelatin',
   'gelatine',
@@ -46,7 +46,7 @@ const TIER_A_PATTERNS = [
 
 // Tier B: ambiguous (animal or plant, INCI alone can't tell). stearic acid: bovine tallow
 // historically, mostly plant today; palmitic acid: same ambiguity; cetyl alcohol: palm or
-// animal fat. glycerin is skipped (90%+ corpus hit rate, too noisy).
+// animal fat. glycerin is skipped (90%+ corpus hit rate, too noisy)
 const TIER_B_PATTERNS = ['stearic acid', 'palmitic acid', 'cetyl alcohol'] as const
 
 interface SuspectHit {
@@ -73,7 +73,7 @@ async function main() {
   console.log(`   sample_size=${SAMPLE_SIZE}${SEED ? ` · seed=${SEED}` : ' · random'}\n`)
 
   // Elevated read: products_select_visible would silently drop non-`visible`
-  // products from the audited corpus (see db.ts fetchEligibleProducts).
+  // products from the audited corpus (see db.ts fetchEligibleProducts)
   const veganRows = await withAdminRls((tx) =>
     tx
       .select({
@@ -98,7 +98,7 @@ async function main() {
   const rng = SEED ? makeSeededRng(SEED) : Math.random
   const sample = sampleRandom(withInci, SAMPLE_SIZE, rng)
 
-  // Scan each sampled product for suspect patterns.
+  // Scan each sampled product for suspect patterns
   const tierAHits: SuspectHit[] = []
   const tierBHits: SuspectHit[] = []
   const patternFreq = new Map<string, number>()
@@ -211,7 +211,7 @@ async function main() {
   console.log()
 }
 
-// SQL OR over Tier A patterns; prune scope tracks TIER_A_PATTERNS, nothing else.
+// SQL OR over Tier A patterns; prune scope tracks TIER_A_PATTERNS, nothing else
 async function pruneFalsePositives(): Promise<void> {
   console.log(`🪦 Prune vegan FP (Tier A INCI match → DELETE tag_products row)`)
 
@@ -230,7 +230,7 @@ async function pruneFalsePositives(): Promise<void> {
   const orFilter = ilikeFilters.length > 1 ? or(...ilikeFilters) : ilikeFilters[0]
 
   // Elevated read: a candidate list filtered by products_select_visible would
-  // make the prune silently skip hidden products.
+  // make the prune silently skip hidden products
   const fpProducts = await withAdminRls((tx) =>
     tx
       .select({ id: products.id, slug: products.slug })
@@ -263,7 +263,7 @@ async function pruneFalsePositives(): Promise<void> {
 
 function sampleRandom<T>(arr: readonly T[], k: number, rng: () => number): T[] {
   if (k >= arr.length) return [...arr]
-  // Algorithm R reservoir sampling.
+  // Algorithm R reservoir sampling
   const out = arr.slice(0, k) as T[]
   for (let i = k; i < arr.length; i++) {
     const j = Math.floor(rng() * (i + 1))
@@ -272,7 +272,7 @@ function sampleRandom<T>(arr: readonly T[], k: number, rng: () => number): T[] {
   return out
 }
 
-// Seed string hashed via FNV-1a, then delegated to the shared mulberry32.
+// Seed string hashed via FNV-1a, then delegated to the shared mulberry32
 function makeSeededRng(seed: string): () => number {
   let h = 2166136261 >>> 0
   for (let i = 0; i < seed.length; i++) {

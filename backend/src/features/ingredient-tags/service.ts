@@ -5,6 +5,7 @@ import {
   ingredientTagTypes,
 } from '../../db/schema/tags/tags'
 import { createTagService } from '../_tags/lib/createTagService'
+import { TagError } from '../product-tags/tag-error'
 
 // KEEP BY DESIGN: getById/list/update/delete have no callers today but mirror
 // product-tag service symmetry for future admin tooling. Correct fix if flagged again:
@@ -57,11 +58,23 @@ const service = createTagService<
 })
 
 export const createIngredientTag = service.create
-export const getIngredientTagById = service.getById
-export const getIngredientTagBySlug = service.getBySlug
+export async function getIngredientTagById(...args: Parameters<typeof service.getById>) {
+  const tag = await service.getById(...args)
+  if (!tag) throw new TagError('tag_not_found')
+  return tag
+}
+export async function getIngredientTagBySlug(...args: Parameters<typeof service.getBySlug>) {
+  const tag = await service.getBySlug(...args)
+  if (!tag) throw new TagError('tag_not_found')
+  return tag
+}
 export const listIngredientTags = service.list
 export const updateIngredientTag = service.update
-export const deleteIngredientTag = service.remove
+export async function deleteIngredientTag(...args: Parameters<typeof service.remove>) {
+  const deleted = await service.remove(...args)
+  if (!deleted) throw new TagError('tag_not_found')
+  return deleted
+}
 export const addTagToIngredient = service.addToOwner
 export const addManyTagsToIngredient = service.addManyToOwner
 export const listTagsByIngredient = service.listTagsByOwner

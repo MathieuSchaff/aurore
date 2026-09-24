@@ -31,12 +31,12 @@ describe('cross-signal-detection', () => {
     expect(tags).toContain(S.MOMENT_MATIN)
   })
 
-  test('vitamin C on sunscreen → moment-matin (SPF + vit-C combo)', () => {
+  test('emits moment-matin for vitamin C in sunscreen', () => {
     const tags = detectCrossSignalTags([S.VITAMIN_C], 'sunscreen')
     expect(tags).toContain(S.MOMENT_MATIN)
   })
 
-  test('vitamin C on cleanser (rinse-off, not sunscreen) → no moment-matin', () => {
+  test('omits moment-matin for vitamin C in cleansers', () => {
     const tags = detectCrossSignalTags([S.VITAMIN_C], 'cleanser')
     expect(tags).not.toContain(S.MOMENT_MATIN)
   })
@@ -74,12 +74,12 @@ describe('cross-signal-detection', () => {
     [[S.RETINOIDS], 'hand-cream', true],
     [[S.RETINOIDS], 'body-wash', false],
     [[S.HYALURONIC_ACID], 'body-lotion', false],
-  ] as const)('actifs=%j on %s → anti-age=%s', (actifs, kind, expected) => {
+  ] as const)('resolves actifs=%j on %s to anti-age=%s', (actifs, kind, expected) => {
     const tags = detectCrossSignalTags([...actifs], kind)
     expect(tags.includes(S.ANTI_AGE)).toBe(expected)
   })
 
-  test('retinoids on body-oil also keeps moment-soir (leave-on photosensitivity)', () => {
+  test('keeps moment-soir for retinoids in body-oil', () => {
     expect(detectCrossSignalTags([S.RETINOIDS], 'body-oil')).toContain(S.MOMENT_SOIR)
   })
 })

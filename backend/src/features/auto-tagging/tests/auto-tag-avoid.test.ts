@@ -150,7 +150,7 @@ describe('computeAvoidCandidates: interaction stack avoid', () => {
     expect(got.find((c) => c.source === 'interaction')).toBeUndefined()
   })
 
-  test('alcohol + parfum leave-on → peau-seche avoid (dryness axis)', () => {
+  test('emits peau-seche avoid for alcohol and parfum in leave-on products', () => {
     const inci = 'Aqua, Alcohol Denat, Parfum, Glycerin'
     const got = computeAvoidCandidates(inci, 'serum', undefined, assess(inci, 'serum'))
     expect(got).toContainEqual({

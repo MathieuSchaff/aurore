@@ -16,7 +16,7 @@ import {
 import slugify from '@sindresorhus/slugify'
 import { and, count, desc, eq, inArray, isNotNull, or, type SQL, sql } from 'drizzle-orm'
 
-import type { Database, DatabaseTransaction, DbOrTransaction } from '../../db/index'
+import type { Database, DbOrTransaction } from '../../db/index'
 import { ingredientEdits, ingredients } from '../../db/schema/ingredients/ingredients'
 import { ingredientTagLinks, ingredientTagTypes } from '../../db/schema/tags/tags'
 import {
@@ -110,7 +110,7 @@ export async function listIngredients(database: Database, filters: ListIngredien
   const avoidSlugs = filters.avoid_for ? filters.avoid_for.split(',').filter(Boolean) : []
 
   // Promise.all is safe because the HTTP route deliberately passes anonDb and this
-  // public-read service requires Database rather than DatabaseTransaction.
+  // public-read service requires Database rather than DbOrTransaction.
   const [items, [{ total }]] = await Promise.all([
     database
       .select({
@@ -163,7 +163,7 @@ export async function listIngredients(database: Database, filters: ListIngredien
 }
 
 export async function createIngredient(
-  database: DatabaseTransaction,
+  database: DbOrTransaction,
   userId: string,
   role: CatalogRole,
   input: CreateIngredientInput
@@ -215,7 +215,7 @@ export async function createIngredient(
   }
 }
 
-export async function getIngredientById(database: DatabaseTransaction, id: string) {
+export async function getIngredientById(database: DbOrTransaction, id: string) {
   const [ingredient] = await database
     .select()
     .from(ingredients)
@@ -238,7 +238,7 @@ export async function getIngredientBySlug(database: DbOrTransaction, slug: strin
 }
 
 export async function updateIngredient(
-  database: DatabaseTransaction,
+  database: DbOrTransaction,
   userId: string,
   id: string,
   data: UpdateIngredientInput,
@@ -311,7 +311,7 @@ export async function updateIngredient(
 // Stamp an ingredient as verified. Route guard (requireCatalogWrite) limits
 // callers to admin/contributor; only sets the quality stamp. Once a row is
 // verified it stays verified, there is no way back.
-export async function verifyIngredient(database: DatabaseTransaction, actorId: string, id: string) {
+export async function verifyIngredient(database: DbOrTransaction, actorId: string, id: string) {
   const [row] = await database
     .update(ingredients)
     .set({
@@ -326,7 +326,7 @@ export async function verifyIngredient(database: DatabaseTransaction, actorId: s
 }
 
 export async function deleteIngredient(
-  database: DatabaseTransaction,
+  database: DbOrTransaction,
   role: 'user' | 'admin' | 'contributor',
   id: string
 ) {

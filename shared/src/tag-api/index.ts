@@ -6,6 +6,13 @@ export const relevanceValues = ['primary', 'secondary', 'avoid'] as const
 
 export const relevanceEnum = z.enum(relevanceValues)
 
+export const tagIdParamSchema = z.object({ id: z.uuid() })
+export const tagSlugParamSchema = z.object({ slug: z.string().min(1).max(100) })
+export const listTagsQuerySchema = z.object({
+  category: z.string().optional(),
+  limit: z.coerce.number().int().min(1).max(500).optional(),
+})
+
 // Origin of a tag_products row. 'manual' covers any tag posted via the
 // product-tags CRUD path. The backend derives
 // `AutoTagSource = Exclude<TagSource, 'manual'>` from this array so the two

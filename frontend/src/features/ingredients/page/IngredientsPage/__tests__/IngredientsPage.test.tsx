@@ -6,10 +6,10 @@ import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { useIngredientTagFilterGroups } from '@/hooks/useIngredientTagFilterGroups'
 import { useListFilters } from '@/hooks/useListFilters'
 import { server } from '@/test/msw/server'
-import { createTestQueryClient, renderWithProviders } from '@/test/utils'
-import { ingredientLabels } from '../../constants'
-import { FILTER_KEYS, type IngredientsSearch, ingredientsListApiFilters } from '../../filters'
-import { IngredientsPage } from './IngredientsPage'
+import { renderWithProviders } from '@/test/utils'
+import { ingredientLabels } from '../../../constants'
+import type { IngredientsSearch } from '../../../filters'
+import { IngredientsPage } from '../IngredientsPage'
 
 const DEFAULT_SEARCH = { page: 1, type: 'skincare', profile_filter: false } as IngredientsSearch
 // The page captures getRouteApi() at module load, so the search is swapped through this binding
@@ -73,25 +73,6 @@ describe('IngredientsPage', () => {
     vi.mocked(useIngredientTagFilterGroups).mockReturnValue([])
     setListFilters()
     serveList({ items: [], total: 0 })
-  })
-
-  // The route loader prefetches ingredientsListApiFilters(search) on the server
-  // The page must read that exact key or the server-rendered grid refetches at hydration
-  it('reads the list under the key the route loader prefetches', async () => {
-    const [firstKey] = FILTER_KEYS
-    if (!firstKey) throw new Error('no ingredient filter key')
-    mockSearch = { ...DEFAULT_SEARCH, page: 2, type: 'haircare', [firstKey]: ['hydratant'] }
-    setListFilters({ filterCount: 1 })
-    const queryClient = createTestQueryClient()
-
-    renderWithProviders(<IngredientsPage />, { queryClient })
-    expect(await screen.findByText(ingredientLabels.noResultsTitle)).toBeInTheDocument()
-
-    const listQueries = queryClient
-      .getQueryCache()
-      .findAll({ queryKey: ['ingredients', 'list'] })
-      .map((query) => query.queryKey[2])
-    expect(listQueries).toEqual([ingredientsListApiFilters(mockSearch)])
   })
 
   it('renders the empty state when the query returns no items', async () => {

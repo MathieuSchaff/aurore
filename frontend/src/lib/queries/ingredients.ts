@@ -19,6 +19,7 @@ import {
 
 import { api } from '../api'
 import { throwIfNotOk, unwrapData } from '../helpers/apiError'
+import { invalidateProductReads } from './products'
 
 // Per-axis slug arrays; queryFn flattens to comma-joined query strings.
 export type ListIngredientsFilters = Partial<Record<AllIngredientTagCategory, string[]>> & {
@@ -33,7 +34,7 @@ export type ListIngredientsFilters = Partial<Record<AllIngredientTagCategory, st
 const ingredientKeys = {
   all: ['ingredients'] as const,
   lists: () => [...ingredientKeys.all, 'list'] as const,
-  list: (filters: ListIngredientsFilters = {}) => [...ingredientKeys.all, 'list', filters] as const,
+  list: (filters: ListIngredientsFilters = {}) => [...ingredientKeys.lists(), filters] as const,
   bySlug: (slug: string) => [...ingredientKeys.all, slug] as const,
   products: (slug: string) => [...ingredientKeys.all, slug, 'products'] as const,
   tags: (id: string) => [...ingredientKeys.all, id, 'tags'] as const,
@@ -45,6 +46,15 @@ const ingredientKeys = {
 
 export function invalidateIngredientReads(queryClient: QueryClient) {
   return queryClient.invalidateQueries({ queryKey: ingredientKeys.all })
+}
+
+function invalidateIngredientDependentReads(queryClient: QueryClient) {
+  queryClient.invalidateQueries({
+    queryKey: ingredientKeys.all,
+    // Two-part keys hold the edit page's detail; deletion removes it after navigation.
+    predicate: ({ queryKey }) => queryKey.length > 2,
+  })
+  invalidateProductReads(queryClient)
 }
 
 const CREATE_INGREDIENT_HANDLED_ERROR_CODES = [
@@ -207,7 +217,7 @@ export function useCreateIngredient() {
     },
     onSuccess: (ingredient) => {
       qc.setQueryData(ingredientKeys.bySlug(ingredient.slug), ingredient)
-      qc.invalidateQueries({ queryKey: ingredientKeys.lists() })
+      invalidateIngredientDependentReads(qc)
     },
     meta: {
       errorMessage: "Impossible de créer l'ingrédient.",
@@ -227,7 +237,7 @@ export function useUpdateIngredient() {
     },
     onSuccess: (ingredient) => {
       qc.setQueryData(ingredientKeys.bySlug(ingredient.slug), ingredient)
-      qc.invalidateQueries({ queryKey: ingredientKeys.lists() })
+      invalidateIngredientDependentReads(qc)
     },
     // 409 conflict handled inline in IngredientForm; no global toast.
   })
@@ -242,7 +252,7 @@ export function useDeleteIngredient() {
       await throwIfNotOk(res)
     },
     onSuccess: () => {
-      qc.invalidateQueries({ queryKey: ingredientKeys.lists() })
+      invalidateIngredientDependentReads(qc)
     },
     meta: { errorMessage: "Impossible de supprimer l'ingrédient." },
   })
