@@ -57,7 +57,7 @@ export const Route = createFileRoute('/products/$slug/discussions/')({
     if (!loaderData) return {}
     return seoHead({
       path: `/products/${params.slug}/discussions`,
-      title: `Discussions · ${loaderData.name} · ${loaderData.brand} — Aurore`,
+      title: `Discussions · ${loaderData.name} · ${loaderData.brand} | Aurore`,
       // Member conversations stay out of the index; the product page is the indexable one
       robots: NOINDEX_ROBOTS,
     })

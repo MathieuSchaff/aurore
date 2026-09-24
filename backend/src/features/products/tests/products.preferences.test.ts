@@ -313,7 +313,7 @@ describe('listProducts: apply_preferences=auto', () => {
     expect(result.hiddenCount).toBe(1)
   })
 
-  it('a usable portrait alone resolves auto to applied', async () => {
+  it('applies auto when only a usable portrait exists', async () => {
     await createTestProduct(user.id, { name: 'Sérum témoin', brand: 'Brand' })
     await testDb
       .insert(userDermoProfiles)

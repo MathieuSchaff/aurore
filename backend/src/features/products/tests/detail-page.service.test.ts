@@ -74,7 +74,11 @@ describe('readProductDetailPage', () => {
     let queryCount = 0
     const measuredDb = drizzle(testDb.$client, {
       schema,
-      logger: { logQuery: () => queryCount++ },
+      logger: {
+        logQuery: (query) => {
+          if (/^select\b/i.test(query)) queryCount++
+        },
+      },
     })
 
     const page = await readProductDetailPage(measuredDb, {

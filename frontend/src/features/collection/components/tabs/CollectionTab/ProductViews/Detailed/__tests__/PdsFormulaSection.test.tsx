@@ -48,6 +48,7 @@ function makeTag(overrides: Partial<ProductDetail['tags'][number]>): ProductDeta
     productTagId: '55555555-5555-4555-8555-555555555555',
     productId: BASE_PRODUCT.id,
     relevance: 'primary',
+    source: 'manual',
     tagName: 'Tag',
     tagSlug: 'tag',
     tagCategory: 'concern',

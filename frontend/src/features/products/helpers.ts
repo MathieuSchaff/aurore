@@ -1,6 +1,6 @@
 import { DOMAIN_PRODUCT_FILTER_CATEGORIES, type ProductDomainTab } from '@aurore/shared'
 
-import type { FilterValues } from '@/component/Filter'
+import type { FilterValues } from '@/component/Filter/types'
 import type { ListProductsFilters, ProductSort } from '@/lib/queries/products'
 import { FILTER_KEYS, type FilterKey, type ProductsSearch, type TagFilterKey } from './filters'
 import { isProfileFilterOff } from './profileFilterSetting'

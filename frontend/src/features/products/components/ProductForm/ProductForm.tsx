@@ -22,14 +22,12 @@ import { FormActionsBar } from '@/component/Input/FormActions/FormActions'
 import { FormField } from '@/component/Input/FormField/FormField'
 import { Input } from '@/component/Input/Input'
 import { Select } from '@/component/Input/Select/Select'
-import { TagManager } from '@/component/Input/TagManager/TagManager'
-import { Textarea } from '@/component/Input/Textarea/Textarea'
 import { BrandCombobox } from '@/features/products/components/BrandCombobox/BrandCombobox'
-import { FormulaPreview } from '@/features/products/components/FormulaPreview/FormulaPreview'
 import { ProductImageField } from '@/features/products/components/ProductForm/ProductImageField'
 import { useProductFormSubmit } from '@/features/products/hooks/useProductFormSubmit'
 import { useDebounce } from '@/hooks/useDebounce'
 import { type TagRelevance, type TagState, useFormTags } from '@/hooks/useFormTags'
+import { useSession } from '@/lib/auth/session'
 import { productTagQueries } from '@/lib/queries/product-tags'
 import {
   type ProductDetail,
@@ -41,7 +39,8 @@ import {
 import './ProductForm.css'
 
 import { DuplicateWarning } from './DuplicateWarning'
-import { type IngredientItem, IngredientsFieldset } from './IngredientsFieldset'
+import type { IngredientItem } from './IngredientsFieldset'
+import { ProductAnnotationFields } from './ProductAnnotationFields'
 import {
   emptyProductEditForm,
   type ProductEditFormInput,
@@ -76,6 +75,10 @@ export function ProductForm({
   prefill,
   onSuccess,
 }: ProductFormProps) {
+  const session = useSession()
+  const canManageLinks =
+    session.status === 'authenticated' &&
+    (session.user.role === 'admin' || session.user.role === 'contributor')
   const { data: allTags } = useQuery(productTagQueries.list())
   const addIngredient = useAddProductIngredient()
   const removeIngredient = useRemoveProductIngredient()
@@ -124,12 +127,22 @@ export function ProductForm({
 
   const submitArgs =
     mode === 'edit'
-      ? ({ mode: 'edit' as const, product, form, tags, onSuccess } as const)
+      ? ({
+          mode: 'edit' as const,
+          product,
+          form,
+          tags,
+          isTagsDirty,
+          canManageLinks,
+          onSuccess,
+        } as const)
       : ({
           mode: 'create' as const,
           form,
           tags,
           pendingIngredients,
+          isTagsDirty,
+          canManageLinks,
           onSuccess,
         } as const)
   const { handleSubmit, error, fieldError, clearError, isPending, submitLabel } =
@@ -426,69 +439,28 @@ export function ProductForm({
         />
       </div>
 
-      <Textarea
-        label="INCI"
-        id="edit-inci"
-        hint="Collez la liste complète, puis lancez l'analyse pour la relier au catalogue."
-        value={form.inci}
-        onChange={handleChange('inci')}
-        placeholder="Liste INCI des ingrédients…"
-        rows={4}
-      />
-
-      <FormulaPreview
-        inci={form.inci}
-        category={form.category}
-        kind={form.kind}
-        name={form.name}
-        brand={form.brand}
-        texture={form.texture}
-        description={form.description}
+      <ProductAnnotationFields
+        canManageLinks={canManageLinks}
+        form={form}
+        onChange={handleChange}
         allTags={domainTags}
-        selectedTagIds={tags.map((t) => t.tagId)}
-        linkedIngredientIds={ingredientItems.map((i) => i.ingredientId)}
         onApplyTag={handleApplyTag}
-        onAddIngredient={handleAddIngredient}
-      />
-
-      <Textarea
-        label="Description"
-        id="edit-description"
-        hint="Markdown supporté"
-        value={form.description}
-        onChange={handleChange('description')}
-        placeholder="Description du produit (Markdown supporté)"
-        rows={5}
-      />
-
-      <Textarea
-        label="Notes"
-        id="edit-notes"
-        value={form.notes}
-        onChange={handleChange('notes')}
-        placeholder="Notes personnelles sur ce produit…"
-        rows={4}
-      />
-
-      <fieldset className="form-field">
-        <legend className="form-field__label">Tags</legend>
-        <TagManager
-          tags={tags}
-          availableTags={availableTags}
-          onAddTag={addTag}
-          onRemoveTag={removeTag}
-          onUpdateRelevance={updateRelevance}
-        />
-      </fieldset>
-
-      <IngredientsFieldset
-        mode={mode}
-        items={ingredientItems}
-        onPersist={handleIngredientPersist}
-        onRemove={handleRemoveIngredient}
-        onAdd={handleAddIngredient}
-        removingIngredientId={removingIngredientId}
-        isUpdating={isUpdatingIngredient}
+        tagManager={{
+          tags,
+          availableTags,
+          onAddTag: addTag,
+          onRemoveTag: removeTag,
+          onUpdateRelevance: updateRelevance,
+        }}
+        ingredients={{
+          mode,
+          items: ingredientItems,
+          onPersist: handleIngredientPersist,
+          onRemove: handleRemoveIngredient,
+          onAdd: handleAddIngredient,
+          removingIngredientId,
+          isUpdating: isUpdatingIngredient,
+        }}
       />
 
       <ProductFormActions

@@ -5,7 +5,7 @@ import { queryOptions, useMutation, useQueryClient } from '@tanstack/react-query
 import { api } from '../api'
 import { throwIfNotOk, unwrapData } from '../helpers/apiError'
 
-const comparisonKeys = {
+export const comparisonKeys = {
   all: ['product-comparisons'] as const,
   list: () => [...comparisonKeys.all, 'list'] as const,
   detail: (id: string) => [...comparisonKeys.all, 'detail', id] as const,

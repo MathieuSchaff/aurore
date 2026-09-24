@@ -2,7 +2,7 @@ import { productDetailSchema, productsPageSchema } from '@aurore/shared'
 
 import { expect, type Page, test } from '@playwright/test'
 
-import { loginAsSeed, registerFreshUser } from './helpers/auth'
+import { deleteTestUser, loginAsSeed, registerFreshUser } from './helpers/auth'
 import { gotoFirstProductDetail, resolveFirstSkincareSlug } from './helpers/catalog'
 import { gotoSettled, waitForHydration, waitForSettledUrl } from './helpers/hydration'
 
@@ -90,44 +90,53 @@ test.describe('Product detail: Ajouter à la collection (top-right)', () => {
   })
 
   test('"Liste de souhaits" POSTs /user-products with current productId', async ({ page }) => {
-    await gotoFirstProductDetail(page)
+    const freshUser = await registerFreshUser(page)
+    try {
+      await gotoFirstProductDetail(page)
 
-    await detailedCollectionAction(page).click()
-    const dialog = page.getByRole('dialog')
-    await expect(dialog).toBeVisible()
+      await detailedCollectionAction(page).click()
+      const dialog = page.getByRole('dialog')
+      await expect(dialog).toBeVisible()
 
-    const postPromise = page.waitForRequest(
-      (req) => req.method() === 'POST' && isApi(req, '/user-products')
-    )
+      const postPromise = page.waitForRequest(
+        (req) => req.method() === 'POST' && isApi(req, '/user-products')
+      )
 
-    await dialog.getByRole('button', { name: 'Liste de souhaits', exact: true }).click()
+      await dialog.getByRole('button', { name: 'Liste de souhaits', exact: true }).click()
 
-    const req = await postPromise
-    const body = req.postDataJSON()
-    expect(body.status).toBe('wishlist')
-    expect(body.productId).toMatch(/^[0-9a-f-]{36}$/)
+      const req = await postPromise
+      const body = req.postDataJSON()
+      expect(body.status).toBe('wishlist')
+      expect(body.productId).toMatch(/^[0-9a-f-]{36}$/)
 
-    await expect(dialog).toBeHidden({ timeout: 5_000 })
+      await expect(dialog).toBeHidden({ timeout: 5_000 })
+    } finally {
+      await deleteTestUser(page, freshUser.token)
+    }
   })
 
   test('quick save adds a fresh user product as watched without opening the modal', async ({
     page,
   }) => {
-    await registerFreshUser(page)
-    await gotoFirstProductDetail(page)
+    const freshUser = await registerFreshUser(page)
+    try {
+      await gotoFirstProductDetail(page)
 
-    const postPromise = page.waitForRequest(
-      (req) => req.method() === 'POST' && isApi(req, '/user-products')
-    )
-    await page.getByRole('button', { name: 'Sauvegarder ce produit dans Garde un œil' }).click()
+      const postPromise = page.waitForRequest(
+        (req) => req.method() === 'POST' && isApi(req, '/user-products')
+      )
+      await page.getByRole('button', { name: 'Sauvegarder ce produit dans Garde un œil' }).click()
 
-    const req = await postPromise
-    expect(req.postDataJSON()).toMatchObject({ status: 'watched' })
-    expect(req.headers().authorization).toMatch(/^Bearer /)
-    await expect(page.getByRole('dialog')).toBeHidden()
-    await expect(
-      page.getByRole('button', { name: /Dans votre collection : Garde un œil/ })
-    ).toBeVisible()
+      const req = await postPromise
+      expect(req.postDataJSON()).toMatchObject({ status: 'watched' })
+      expect(req.headers().authorization).toMatch(/^Bearer /)
+      await expect(page.getByRole('dialog')).toBeHidden()
+      await expect(
+        page.getByRole('button', { name: /Dans votre collection : Garde un œil/ })
+      ).toBeVisible()
+    } finally {
+      await deleteTestUser(page, freshUser.token)
+    }
   })
 
   test('anonymous save redirects to login and preserves the product URL', async ({ page }) => {
