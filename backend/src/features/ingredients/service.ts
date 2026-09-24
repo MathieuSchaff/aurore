@@ -1,6 +1,7 @@
 import type {
   AllIngredientTagCategory,
   CreateIngredientInput,
+  Ingredient,
   IngredientErrorCode,
   IngredientFilterOptions,
   IngredientType,
@@ -15,6 +16,7 @@ import {
 
 import slugify from '@sindresorhus/slugify'
 import { and, count, desc, eq, inArray, isNotNull, or, type SQL, sql } from 'drizzle-orm'
+import { z } from 'zod'
 
 import type { Database, DbOrTransaction } from '../../db/index'
 import { ingredientEdits, ingredients } from '../../db/schema/ingredients/ingredients'
@@ -237,6 +239,22 @@ export async function getIngredientBySlug(database: DbOrTransaction, slug: strin
   return normalizeIngredient(ingredient)
 }
 
+function assertMergedTypeCategory(
+  data: Pick<UpdateIngredientInput, 'type' | 'category'>,
+  oldIngredient: Pick<Ingredient, 'type' | 'category'>
+) {
+  // A partial pair must be checked before the database constraint rejects it as a server error
+  const mergedTypeCategory = updateIngredientSchema.safeParse({
+    type: data.type ?? oldIngredient.type,
+    category: data.category === undefined ? oldIngredient.category : data.category,
+  })
+  if (!mergedTypeCategory.success) {
+    throw new IngredientError('invalid_input', {
+      publicDetails: z.flattenError(mergedTypeCategory.error),
+    })
+  }
+}
+
 export async function updateIngredient(
   database: DbOrTransaction,
   userId: string,
@@ -248,6 +266,7 @@ export async function updateIngredient(
   updateIngredientSchema.parse(data)
 
   const oldIngredient = await getIngredientById(database, id)
+  assertMergedTypeCategory(data, oldIngredient)
 
   if (data.name) assertNameNoHtml(data.name, 'ingredient_update_failed')
 

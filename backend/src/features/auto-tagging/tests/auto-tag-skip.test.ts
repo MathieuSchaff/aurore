@@ -1,12 +1,14 @@
 import { beforeEach, describe, expect, it } from 'bun:test'
 
-import { DrizzleQueryError } from 'drizzle-orm'
+import { DrizzleQueryError, eq, sql } from 'drizzle-orm'
 import pino from 'pino'
 
+import { products } from '../../../db/schema'
 import { logger } from '../../../lib/logger'
 import { testDb } from '../../../tests/db.test.config'
 import { cleanDatabase } from '../../../tests/helpers/db-cleaner'
 import { createTestUser } from '../../../tests/helpers/test-factories'
+import { createProduct } from '../../products/service'
 import {
   AUTOTAG_SKIP_EVENT_KIND,
   buildAutoTagSkipLog,
@@ -97,6 +99,44 @@ const writeFailSoft = (
 describe('writeTagsForProductFailSoft', () => {
   beforeEach(async () => {
     await cleanDatabase()
+  })
+
+  it('commits the product when an optional tag lookup fails in SQL', async () => {
+    const user = await createTestUser()
+    const locked = Promise.withResolvers<void>()
+    const release = Promise.withResolvers<void>()
+    const blocker = testDb.transaction(async (tx) => {
+      await tx.execute(sql`LOCK TABLE brand_certifications IN ACCESS EXCLUSIVE MODE`)
+      locked.resolve()
+      await release.promise
+    })
+    await locked.promise
+
+    try {
+      const product = await testDb.transaction(async (tx) => {
+        await tx.execute(sql`SET LOCAL lock_timeout = '100ms'`)
+        return createProduct(
+          user.id,
+          'admin',
+          {
+            name: 'Retained serum',
+            brand: 'Lab',
+            category: 'skincare',
+            kind: 'serum',
+            unit: 'pump',
+          },
+          tx
+        )
+      })
+      const persisted = await testDb
+        .select({ id: products.id })
+        .from(products)
+        .where(eq(products.id, product.id))
+      expect(persisted).toEqual([{ id: product.id }])
+    } finally {
+      release.resolve()
+      await blocker
+    }
   })
 
   it('does not throw when the orchestrator succeeds on a healthy product', async () => {

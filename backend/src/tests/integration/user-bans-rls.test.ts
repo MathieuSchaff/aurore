@@ -154,7 +154,7 @@ describe('user_bans RLS under app_runtime', () => {
     expect(scopes).toEqual(['review_publish'])
   })
 
-  it('still lets an admin INSERT a global ban (admin_bypass)', async () => {
+  it('lets an admin INSERT a global ban (admin_bypass)', async () => {
     const target = await createTestUser('ub-adm-target@test.local', 'Azerty123!')
     const admin = await createTestAdminUser('ub-adm-admin@test.local', 'Azerty123!')
 

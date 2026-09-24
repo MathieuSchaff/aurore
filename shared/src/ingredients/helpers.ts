@@ -15,6 +15,7 @@ import type { SupplementIngredientTagCategory } from './supplement/tag-slugs'
 import { SUPPLEMENT_INGREDIENT_TAG_TAXONOMY } from './supplement/tag-taxonomy'
 
 export type IngredientErrorCode =
+  | 'invalid_input'
   | 'ingredient_not_found'
   | 'ingredient_creation_failed'
   | 'ingredient_update_failed'
@@ -27,6 +28,7 @@ export type IngredientErrorCode =
   | 'ingredient_update_conflict'
 
 export const ingredientErrorMapping = {
+  invalid_input: HTTP_STATUS.BAD_REQUEST,
   ingredient_not_found: HTTP_STATUS.NOT_FOUND,
   ingredient_creation_failed: HTTP_STATUS.INTERNAL_SERVER_ERROR,
   ingredient_update_failed: HTTP_STATUS.INTERNAL_SERVER_ERROR,
