@@ -6,7 +6,8 @@ import { createTestAdminUser, createTestContributorUser, createTestUser } from '
 export const ANY_UUID = '019d0000-0000-7000-8000-00000000abcd'
 
 // authBase defaults to '/api/auth' because the shared test harness (createTestApp)
-// mirrors prod and mounts auth under /api. Pass '/auth' for a bare-mounted own app.
+// mirrors prod and mounts auth under /api
+// Pass '/auth' when the test app mounts auth directly
 export async function loginAndGetToken(
   app: Hono<AppEnv>,
   email: string,

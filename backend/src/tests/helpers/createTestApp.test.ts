@@ -8,7 +8,7 @@ setupDbTests()
 // Regression guard: the harness must mount routes like production
 // (index.ts) or a prefix/routing regression passes CI green. Two invariants:
 // every route lives under /api, and product routes come from the productsFeature
-// composite (which alone carries dermoScoreRoutes), not the individual routers.
+// composite (which alone carries dermoScoreRoutes), not the individual routers
 describe('createTestApp prod-mount parity', () => {
   it('mounts every route under the /api prefix', async () => {
     const app = await createTestApp()

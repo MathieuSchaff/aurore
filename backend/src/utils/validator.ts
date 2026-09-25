@@ -5,12 +5,12 @@ import type { ValidationTargets } from 'hono'
 import { z } from 'zod'
 
 // Field keys aren't statically known here (schema is the generic T), so
-// fieldErrors is string-indexed rather than per-field.
+// fieldErrors is indexed by string rather than for each field
 type ValidationDetails = { formErrors: string[]; fieldErrors: Record<string, string[]> }
 
 // Reshape validation 400s to our { error, details } convention: a stable
-// `invalid_input` code + per-field messages in details, instead of leaking a
-// raw ZodError into the typed RPC response.
+// `invalid_input` code + for each field messages in details, instead of leaking a
+// raw ZodError into the typed RPC response
 export const zValidator = <T extends z.ZodType, Target extends keyof ValidationTargets>(
   target: Target,
   schema: T

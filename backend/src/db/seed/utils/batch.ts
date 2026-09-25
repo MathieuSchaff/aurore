@@ -38,7 +38,7 @@ export async function seedBatch<T, TResult>(
   // transaction connection. Concurrent items open nested tx (savepoints) on
   // that single connection and Drizzle's counter races: a RELEASE kills
   // another item's savepoint ("savepoint sN does not exist"). One connection
-  // serializes at the wire anyway, so concurrency only corrupts.
+  // serializes at the wire anyway, so concurrency only corrupts
   for (const item of items) {
     try {
       await fn(item)
