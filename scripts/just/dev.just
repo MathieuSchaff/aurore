@@ -194,7 +194,7 @@ vendor-algo-derm:
 
 [doc('Full backend rebuild (volumes + image)')]
 [group('dev')]
-reinstall-backend:
+reinstall-backend: ts-build
     {{COMPOSE_DEV}} down
     {{COMPOSE_DEV}} build --no-cache api
     {{COMPOSE_DEV}} up -d
