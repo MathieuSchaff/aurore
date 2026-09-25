@@ -62,9 +62,43 @@ describe('throwIfNotOk', () => {
 })
 
 describe('unwrapData', () => {
+  it.each([
+    ['HTML', '<html>Maintenance</html>'],
+    ['empty', ''],
+    ['truncated JSON', '{"success":true,'],
+  ])('normalizes an unreadable %s success response', async (_name, body) => {
+    // A proxy can return HTTP 200 without an API envelope
+    await expect(unwrapData(new Response(body, { status: 200 }))).rejects.toMatchObject({
+      name: 'ApiError',
+      code: 'http_error',
+      status: 200,
+    })
+  })
+
+  it.each([
+    { body: null },
+    { body: {} },
+    { body: [] },
+    { body: 'maintenance' },
+    { body: { success: true } },
+    { body: { success: 'true', data: {} } },
+    { body: { success: false } },
+    { body: { success: false, error: 500 } },
+  ])('rejects a malformed HTTP 200 envelope: $body', async ({ body }) => {
+    await expect(unwrapData(jsonResponse(body, 200))).rejects.toMatchObject({
+      name: 'ApiError',
+      code: 'http_error',
+      status: 200,
+    })
+  })
+
   it('returns the success payload', async () => {
     const res = jsonResponse({ success: true, data: { id: 'one' } }, 200)
     await expect(unwrapData(res)).resolves.toEqual({ id: 'one' })
+  })
+
+  it('accepts an explicit null success payload', async () => {
+    await expect(unwrapData(jsonResponse({ success: true, data: null }, 200))).resolves.toBeNull()
   })
 
   it('keeps the wire code and details from a success:false envelope', async () => {
