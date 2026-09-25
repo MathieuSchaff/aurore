@@ -4,14 +4,14 @@
 
 import { expect } from 'bun:test'
 
-import type { ApiFailure } from '@aurore/shared'
+import type { ApiFailure, ApiSuccess } from '@aurore/shared'
 import { HTTP_STATUS } from '@aurore/shared'
 
 export function expectStatus(res: { status: number }, code: number): void {
   expect(res.status as number).toBe(code)
 }
 
-type OkEnvelope<T> = { success: true; data: T } | { success: false }
+type OkEnvelope<T> = ApiSuccess<T> | Pick<ApiFailure, 'success'>
 type JsonResponse<T> = { status: number; json(): Promise<OkEnvelope<T>> }
 
 // testClient infers T, while app.request returns an untyped Response

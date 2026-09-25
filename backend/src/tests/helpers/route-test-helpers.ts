@@ -1,3 +1,5 @@
+import type { ApiResponse, MobileAuthResult } from '@aurore/shared'
+
 import type { Hono } from 'hono'
 
 import type { AppEnv } from '../../app-env'
@@ -19,7 +21,8 @@ export async function loginAndGetToken(
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ email, password }),
   })
-  const data = (await res.json()) as { success: boolean; data: { accessToken: string } }
+  // app.request erases the mobile route's response type
+  const data = (await res.json()) as ApiResponse<MobileAuthResult>
   if (!data.success) throw new Error('Login failed in helper')
   return data.data.accessToken
 }
