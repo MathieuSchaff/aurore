@@ -36,7 +36,7 @@ export async function gotoHydrated(page: Page, url: string): Promise<void> {
 
 // An authenticated cold load can hydrate from the SSR identity while its refresh is
 // still rotating the cookie. Starting another document navigation in that window aborts
-// the response and leaves the browser with the revoked cookie from the previous request.
+// the response and leaves the browser with the revoked cookie from the previous request
 export async function gotoAuthenticatedHydrated(page: Page, url: string): Promise<void> {
   const refreshResponse = page.waitForResponse(
     (response) =>
