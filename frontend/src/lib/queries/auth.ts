@@ -14,7 +14,8 @@ import {
   type CredentialValidation,
   credentialValidationQueryKey,
 } from '../auth/credentialValidation'
-import { endSession, installSession, readClientSession, updateSessionUser } from '../auth/session'
+import { ensureFresh } from '../auth/freshness'
+import { endSession, installSession, readClientSession } from '../auth/session'
 import { unwrapData } from '../helpers/apiError'
 
 const LOGIN_HANDLED_ERROR_CODES = [
@@ -118,14 +119,21 @@ export function useLogout() {
 }
 
 export function useVerifyEmail() {
+  const qc = useQueryClient()
   return useMutation({
     mutationKey: ['auth', 'verify-email'],
     meta: { handledErrorCodes: VERIFY_EMAIL_HANDLED_ERROR_CODES },
     mutationFn: verifyEmailOnce,
-    onSuccess: () => {
+    onMutate: () => readClientSession(),
+    onSuccess: async (_data, _token, owner) => {
       const session = readClientSession()
-      if (session.status === 'authenticated') {
-        updateSessionUser({ ...session.user, emailVerified: true })
+      if (
+        owner?.status === 'authenticated' &&
+        session.status === 'authenticated' &&
+        session.user.id === owner.user.id
+      ) {
+        // Verification can belong to another account; refresh provides the current user's state
+        await ensureFresh(qc)
       }
     },
   })
