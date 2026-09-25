@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query'
 import { Link, useNavigate } from '@tanstack/react-router'
 import { FileText, LogIn, LogOut, Shield, User, UserPlus } from 'lucide-react'
 
+import { Button } from '@/component/Button/Button'
 import { DropdownMenu } from '@/component/DropdownMenu/DropdownMenu'
 import { Skeleton } from '@/component/Feedback/ui/Skeleton/Skeleton'
 import { ProfileAvatar } from '@/features/profile/components/ProfileAvatar/ProfileAvatar'
@@ -60,7 +61,12 @@ export const UserMenu = ({
   return (
     <DropdownMenu className={`user-menu${variant === 'drawer' ? ' user-menu--drawer' : ''}`}>
       <DropdownMenu.Trigger>
-        <button type="button" className="user-menu__trigger" aria-label="Menu utilisateur">
+        <Button
+          type="button"
+          variant="bare"
+          className="user-menu__trigger"
+          aria-label="Menu utilisateur"
+        >
           <ProfileAvatar
             avatarUrl={visibleProfile?.avatarUrl}
             username={visibleProfile?.username}
@@ -77,7 +83,7 @@ export const UserMenu = ({
               )}
             </span>
           )}
-        </button>
+        </Button>
       </DropdownMenu.Trigger>
 
       <DropdownMenu.Content
@@ -109,10 +115,10 @@ export const UserMenu = ({
               </DropdownMenu.Item>
             )}
             <DropdownMenu.Item onSelect={handleLogout}>
-              <button type="button" disabled={logout.isPending}>
+              <Button type="button" variant="bare" disabled={logout.isPending}>
                 <LogOut size={16} aria-hidden="true" />
                 <span>{logout.isPending ? 'Déconnexion...' : 'Déconnexion'}</span>
-              </button>
+              </Button>
             </DropdownMenu.Item>
           </>
         ) : (
