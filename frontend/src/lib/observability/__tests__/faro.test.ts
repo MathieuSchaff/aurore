@@ -1,10 +1,15 @@
+import {
+  type EventEvent,
+  type ExceptionEvent,
+  type LogEvent,
+  LogLevel,
+  type MeasurementEvent,
+  type TransportItem,
+  TransportItemType,
+} from '@grafana/faro-react'
 import { describe, expect, it, vi } from 'vitest'
 
-import {
-  installCspViolationReporting,
-  isDeclaredTelemetry,
-  scrubUrl,
-} from '@/lib/observability/faro'
+import { installCspViolationReporting, isDeclaredTelemetry, scrubUrl } from '../faro'
 
 const BASE = 'https://aurore-app.fr'
 
@@ -76,24 +81,44 @@ describe('CSP violation reporting', () => {
 })
 
 describe('isDeclaredTelemetry', () => {
-  const item = (type: string, payload: Record<string, unknown> = {}) =>
-    ({ type, payload, meta: {} }) as unknown as Parameters<typeof isDeclaredTelemetry>[0]
+  const timestamp = '2026-09-15T12:00:00.000Z'
+  const exception = {
+    type: TransportItemType.EXCEPTION,
+    payload: { type: 'Error', value: 'Network request failed', timestamp },
+    meta: {},
+  } satisfies TransportItem<ExceptionEvent>
+  const log = {
+    type: TransportItemType.LOG,
+    payload: { context: undefined, level: LogLevel.ERROR, message: 'Request failed', timestamp },
+    meta: {},
+  } satisfies TransportItem<LogEvent>
+  const measurement = {
+    type: TransportItemType.MEASUREMENT,
+    payload: { type: 'web-vitals', values: { lcp: 200 }, timestamp },
+    meta: {},
+  } satisfies TransportItem<MeasurementEvent>
+  const event = (name: string) =>
+    ({
+      type: TransportItemType.EVENT,
+      payload: { name, timestamp },
+      meta: {},
+    }) satisfies TransportItem<EventEvent>
 
   it('keeps page errors, console logs and csp violations', () => {
-    expect(isDeclaredTelemetry(item('exception'))).toBe(true)
-    expect(isDeclaredTelemetry(item('log'))).toBe(true)
-    expect(isDeclaredTelemetry(item('event', { name: 'csp_violation' }))).toBe(true)
+    expect(isDeclaredTelemetry(exception)).toBe(true)
+    expect(isDeclaredTelemetry(log)).toBe(true)
+    expect(isDeclaredTelemetry(event('csp_violation'))).toBe(true)
   })
 
   it('drops web-vitals and every automatic navigation-bound event', () => {
-    expect(isDeclaredTelemetry(item('measurement'))).toBe(false)
+    expect(isDeclaredTelemetry(measurement)).toBe(false)
     for (const name of [
       'session_start',
       'view_changed',
       'faro.performance.navigation',
       'faro.performance.resource',
     ]) {
-      expect(isDeclaredTelemetry(item('event', { name }))).toBe(false)
+      expect(isDeclaredTelemetry(event(name))).toBe(false)
     }
   })
 })
