@@ -3,8 +3,8 @@
 Backend uses `bun:test` against an isolated PostgreSQL on port 5433. Frontend uses Vitest and
 happy-dom. E2E uses Playwright against a Docker stack on isolated ports.
 
-Naming rule: a recipe **without** `-dev` brings the test DB up first (safe, slower). A recipe
-**with** `-dev` assumes it is already up (fast inner loop). `args` is a `bun test` filter.
+Backend runs recreate the test DB; `test-watch` reuses a running one. Shared and frontend
+tests need no DB. `args` goes to Bun for backend/shared recipes and to Vitest for frontend recipes.
 
 ## Before push or PR
 
@@ -67,7 +67,8 @@ from the committed snapshot (full catalogue + personas), not from `seed-core`.
 | `just e2e-reset` | Recreate the stack from scratch | - |
 | `just e2e-down` | Stop it | The tmpfs DB is lost |
 
-Usual flow: `just dev-down`, then `just e2e-up`, then `just e2e`.
+Usual flow: `just e2e`. After a migration or snapshot change, run `just e2e-up` first.
+The dev stack can keep running throughout.
 
 `frontend/src` is bind-mounted, so source changes need no image rebuild. Rebuild when package
 dependencies, Docker config, migrations, or the DB snapshot changed.
