@@ -128,13 +128,7 @@ describe('useTokenRefresh', () => {
   describe('visibilitychange', () => {
     function loginWithExpiry(secondsFromNow: number) {
       const token = `h.${btoa(JSON.stringify({ exp: Math.floor(Date.now() / 1000) + secondsFromNow }))}.s`
-      useAuthStore.getState().setAuth(token, {
-        id: 'u1',
-        email: 'a@b.com',
-        emailVerified: true,
-        role: 'user',
-        isDemo: false,
-      } as any)
+      useAuthStore.getState().setAuth(token, TEST_USER)
     }
 
     it('refreshes when tab becomes visible and token is expired', () => {
