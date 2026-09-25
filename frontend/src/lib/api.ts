@@ -6,26 +6,28 @@ import { readBearerForTransport } from '@/lib/auth/credential'
 import { isInvalidCredentialsResponse, isRefreshEndpoint } from '@/lib/auth/helpers'
 import { markBanIfBanned } from '@/lib/auth/markBanIfBanned'
 import { recoverUnauthorized } from '@/lib/auth/recoverUnauthorized'
+import { captureClientSession } from '@/lib/auth/session'
 import { httpClient } from '@/lib/httpClient'
 import { queryClient } from '@/lib/queryClient'
 
 async function authFetch(input: RequestInfo | URL, init?: RequestInit): Promise<Response> {
+  const owner = import.meta.env.SSR ? null : captureClientSession()
   const res = await httpClient(input, init)
 
   // SSR renders anonymous public pages: there is no session to refresh or
   // ban to flag, and the store + refresh backoff are module state shared by
   // concurrent requests. Pass errors through untouched.
-  if (import.meta.env.SSR) return res
+  if (!owner?.isCurrent()) return res
 
   if (res.status === 403) {
-    await markBanIfBanned(queryClient, res)
+    await markBanIfBanned(queryClient, res, owner.isCurrent)
     return res
   }
   // Don't retry the refresh POST itself: a 401 there means the refresh cookie is dead,
   // and retrying would loop refresh, 401, refresh, forever.
   if (res.status !== 401 || isRefreshEndpoint(input)) return res
   if (await isInvalidCredentialsResponse(res)) return res
-  return recoverUnauthorized(res, input, init)
+  return recoverUnauthorized(res, input, init, owner)
 }
 const apiBase = import.meta.env.SSR ? import.meta.env.VITE_API_URL : '/'
 if (!apiBase) {

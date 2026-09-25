@@ -1,7 +1,7 @@
 import { readBearerForTransport } from '@/lib/auth/credential'
 import { ensureFresh } from '@/lib/auth/freshness'
 import { withAuthHeader } from '@/lib/auth/helpers'
-import { captureClientSession, endSession } from '@/lib/auth/session'
+import { captureClientSession, endSession, readClientSession } from '@/lib/auth/session'
 import { httpClient } from '@/lib/httpClient'
 import { queryClient } from '@/lib/queryClient'
 
@@ -10,11 +10,11 @@ import { queryClient } from '@/lib/queryClient'
 export async function recoverUnauthorized(
   res: Response,
   input: RequestInfo | URL,
-  init?: RequestInit
+  init?: RequestInit,
+  snapshot = captureClientSession()
 ): Promise<Response> {
-  const snapshot = captureClientSession()
   const { session } = snapshot
-  if (session.status === 'anonymous') return res
+  if (session.status === 'anonymous' || !snapshot.isCurrent()) return res
 
   const refreshOutcome = await ensureFresh(queryClient)
   if (refreshOutcome === 'failed') {
@@ -26,7 +26,11 @@ export async function recoverUnauthorized(
     }
     return res
   }
-  if (refreshOutcome === 'cooldown') return res
+  if (refreshOutcome !== 'ok') return res
+
+  const current = readClientSession()
+  if (current.status !== 'authenticated') return res
+  if (session.status === 'authenticated' && current.user.id !== session.user.id) return res
 
   const token = readBearerForTransport()
   if (!token) return res
