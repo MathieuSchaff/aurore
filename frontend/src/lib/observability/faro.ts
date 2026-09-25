@@ -32,10 +32,32 @@ function normalizeContext(context?: Record<string, unknown>): Record<string, str
 }
 
 const SENSITIVE = new Set(['token', 'code', 'state', 'concern'])
+
+function scrubSearchParams(url: URL, depth = 0): void {
+  for (const key of SENSITIVE) url.searchParams.delete(key)
+  const redirects = url.searchParams.getAll('redirect')
+  url.searchParams.delete('redirect')
+  // Discard deeper redirects so arbitrary nesting cannot exhaust the call stack
+  if (depth >= 4) return
+  for (const raw of redirects) {
+    try {
+      const redirect = new URL(raw, url)
+      scrubSearchParams(redirect, depth + 1)
+      const relative = raw.startsWith('/') && !raw.startsWith('//')
+      url.searchParams.append(
+        'redirect',
+        relative ? `${redirect.pathname}${redirect.search}${redirect.hash}` : redirect.toString()
+      )
+    } catch {
+      // Unparseable destinations cannot be checked for sensitive parameters
+    }
+  }
+}
+
 export function scrubUrl(raw: string): string {
   try {
     const u = new URL(raw)
-    for (const key of SENSITIVE) u.searchParams.delete(key)
+    scrubSearchParams(u)
     return u.toString()
   } catch {
     return raw.split('?')[0]
