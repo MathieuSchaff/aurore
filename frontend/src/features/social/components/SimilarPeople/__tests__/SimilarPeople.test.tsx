@@ -2,6 +2,7 @@ import { fireEvent, screen } from '@testing-library/react'
 import { HttpResponse, http } from 'msw'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
+import { presentTestSession, resetTestAuthStore } from '@/test/authSession'
 import { createLinkStub, LinkStub } from '@/test/mocks/router'
 import { server } from '@/test/msw/server'
 import { renderWithProviders } from '@/test/utils'
@@ -16,6 +17,16 @@ let lastSearchConcern: string | null = null
 
 describe('SimilarPeople', () => {
   beforeEach(() => {
+    resetTestAuthStore(
+      presentTestSession({
+        id: '11111111-1111-4111-8111-111111111111',
+        email: 'viewer@example.test',
+        role: 'user',
+        isDemo: false,
+        emailVerified: true,
+        createdAt: '2026-09-01T00:00:00.000Z',
+      })
+    )
     lastSearchConcern = null
     server.use(
       http.get('*/api/social/similar', () =>

@@ -28,7 +28,7 @@ function IngredientDiscussionIndex() {
 
 export const Route = createFileRoute('/ingredients/$slug/discussions/')({
   // Loader and head run on the server so the document carries its own title, robots
-  // and canonical, the conversation itself stays client-rendered
+  // and canonical, the conversation itself stays rendered on the client
   ssr: 'data-only',
   loader: async ({ context, params }) => {
     const [ingredient] = await Promise.all([
@@ -37,14 +37,14 @@ export const Route = createFileRoute('/ingredients/$slug/discussions/')({
         .catch(notFoundOn404),
       context.queryClient.ensureQueryData(discussionQueries.threads('ingredient', params.slug)),
     ])
-    // Head-only field: the ingredient reaches the component through the dehydrated Query cache
+    // Head metadata field: the ingredient reaches the component through the dehydrated Query cache
     return { name: ingredient.name }
   },
   head: ({ loaderData, params }) => {
     if (!loaderData) return {}
     return seoHead({
       path: `/ingredients/${params.slug}/discussions`,
-      title: `Discussions · ${loaderData.name} — Aurore`,
+      title: `Discussions · ${loaderData.name} | Aurore`,
       // Member conversations stay out of the index; the ingredient page is the indexable one
       robots: NOINDEX_ROBOTS,
     })

@@ -9,7 +9,7 @@ import { articleListItemSchema, articleResponseSchema, BLOG_CATEGORY_VALUES } fr
 import slugify from '@sindresorhus/slugify'
 import { and, asc, eq, ilike, isNotNull, type SQL, sql } from 'drizzle-orm'
 
-import type { DatabaseTransaction, DbOrTransaction } from '../../db'
+import type { DbOrTransaction } from '../../db'
 import { articles } from '../../db/schema/blog/articles'
 import { escapeLike, isUniqueViolation } from '../../lib/helpers'
 import { normalizeInstant } from '../../utils/dates'
@@ -133,7 +133,7 @@ export async function getArticleBySlug(
 }
 
 export async function createArticle(
-  db: DatabaseTransaction,
+  db: DbOrTransaction,
   userId: string,
   input: CreateArticleInput
 ) {
@@ -157,11 +157,7 @@ export async function createArticle(
   }
 }
 
-export async function updateArticle(
-  db: DatabaseTransaction,
-  slug: string,
-  input: UpdateArticleInput
-) {
+export async function updateArticle(db: DbOrTransaction, slug: string, input: UpdateArticleInput) {
   const existing = await getArticleBySlug(db, slug, { includeDrafts: true })
   try {
     const newSlug = input.slug ? slugify(input.slug) : undefined
@@ -179,7 +175,7 @@ export async function updateArticle(
   }
 }
 
-export async function deleteArticle(db: DatabaseTransaction, slug: string) {
+export async function deleteArticle(db: DbOrTransaction, slug: string) {
   const existing = await getArticleBySlug(db, slug, { includeDrafts: true })
   try {
     await db.delete(articles).where(eq(articles.id, existing.id))

@@ -3,11 +3,11 @@ import type { SkinConcern, SkinType } from '../profile'
 
 // Skin similarity as a lens to find "people like me". Three signals,
 // composited into an INTERNAL score used only to rank; the surfaced output is
-// always an ordinal band, never a number, the anti-"4.5 stars" guard.
+// always an ordinal band, never a number, the anti-"4.5 stars" guard
 
 // Matched subset of UserDermoProfile: the metric needs only these 3 axes, so
 // it takes a structural shape rather than the full entity (decoupled from
-// userId / notes / timestamps).
+// userId / notes / timestamps)
 export type SkinSimilarityInput = {
   skinConcerns: readonly SkinConcern[]
   skinTypes: readonly SkinType[] | null
@@ -17,7 +17,7 @@ export type SkinSimilarityInput = {
 export type SimilarityBand = 'tres-proche' | 'proche' | 'eloigne'
 
 // Concerns dominate, skin type secondary, Fitzpatrick tertiary. Sum = 1
-// so a fully-present score stays in [0,1].
+// so a complete score stays in [0,1]
 export const SIMILARITY_WEIGHTS = {
   concern: 0.6,
   skinType: 0.25,
@@ -27,20 +27,19 @@ export const SIMILARITY_WEIGHTS = {
 // Band cutoffs on the raw score. `tresProche` is held strictly above
 // (skinType + fitzpatrick) weight (0.4) so the top band is UNREACHABLE without
 // a shared concern bucket: "très proche" always means a shared skin problem,
-// never merely a matching phototype.
+// never merely a matching phototype
 export const BAND_THRESHOLDS = {
   tresProche: 0.5,
   proche: 0.25,
 } as const
 
-// Fitzpatrick spans 1..6, so the widest gap is 5. Ordinal distance, not set overlap.
+// Fitzpatrick spans 1..6, so the widest gap is 5. Ordinal distance, not set overlap
 const FITZ_MAX_DELTA = 5
 
 // Project the 22 user concerns onto the ~12 clinical buckets via the existing
-// drift table; read-only on the table, NOT resolveAvoidSlugs' avoidance
-// semantics. The family collapse comes for free: anti-rougeurs / rosacee
+// drift table without changing it or using avoidance rules. The family collapse comes for free: anti-rougeurs / rosacee
 // / couperose / flushs all land on `rougeurs-vasculaires`, so two people who
-// named the condition differently still match.
+// named the condition differently still match
 export function projectConcernsToBuckets(concerns: readonly SkinConcern[]): Set<string> {
   const buckets = new Set<string>()
   for (const concern of concerns) {
@@ -61,7 +60,7 @@ function jaccard(a: ReadonlySet<string>, b: ReadonlySet<string>): number {
 
 // Raw composite in [0,1]. INTERNAL ONLY: ranks, never displays. A missing
 // Fitzpatrick on either side drops that component and renormalizes over the
-// present weights, so absent data reads as neutral rather than a penalty.
+// present weights, so absent data reads as neutral rather than a penalty
 export function skinSimilarityScore(a: SkinSimilarityInput, b: SkinSimilarityInput): number {
   const concernSim = jaccard(
     projectConcernsToBuckets(a.skinConcerns),
@@ -87,7 +86,7 @@ export function similarityBand(score: number): SimilarityBand {
   return 'eloigne'
 }
 
-// Public surface: the ordinal band. The score never leaves the ranking layer.
+// Public surface: the ordinal band. The score never leaves the ranking layer
 export function skinSimilarity(a: SkinSimilarityInput, b: SkinSimilarityInput): SimilarityBand {
   return similarityBand(skinSimilarityScore(a, b))
 }

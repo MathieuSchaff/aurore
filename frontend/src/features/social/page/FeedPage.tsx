@@ -12,6 +12,7 @@ import { ListPageLayout } from '@/component/Layout/PageLayout/ListPageLayout'
 import { Tabs } from '@/component/Tabs/Tabs'
 import { FEED_ORDER_LABELS, POST_TONE_LABELS, SKIN_CONCERN_LABELS } from '@/constants/skin'
 import { FeedPostCard } from '@/features/social/components/FeedPostCard/FeedPostCard'
+import { useSession } from '@/lib/auth/session'
 import { profileQueries } from '@/lib/queries/profile'
 import { socialQueries } from '@/lib/queries/social'
 
@@ -29,10 +30,13 @@ const toneTabs = POST_TONES.map((tone) => ({ id: tone, label: POST_TONE_LABELS[t
 const orderChips = FEED_ORDERS.map((order) => ({ value: order, label: FEED_ORDER_LABELS[order] }))
 
 export function FeedPage() {
+  const session = useSession()
+  const userId = session.status === 'authenticated' ? session.user.id : null
+
   const { tone, order, concern } = routeApi.useSearch()
   const navigate = routeApi.useNavigate()
   const { data, isFetching, isPending, isError, refetch } = useQuery(
-    socialQueries.feed({ tone, order, concern })
+    socialQueries.feed({ tone, order, concern }, userId)
   )
   // Concern scope is drawn from the viewer's own problématiques, a stable source
   // independent of the filtered result (so chips never vanish as you filter).

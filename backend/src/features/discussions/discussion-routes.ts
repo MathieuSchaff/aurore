@@ -59,8 +59,8 @@ export function createDiscussionRoutes(entityType: EntityType) {
 
     .get('/:slug/discussions/:threadId', zValidator('param', threadParam), async (c) => {
       const db = c.get('anonDb')
-      const { threadId } = c.req.valid('param')
-      const thread = await getThreadWithReplies(threadId, db)
+      const { slug, threadId } = c.req.valid('param')
+      const thread = await getThreadWithReplies(threadId, { slug, entityType }, db)
       return c.json(ok(thread), HTTP_STATUS.OK)
     })
 
@@ -73,8 +73,8 @@ export function createDiscussionRoutes(entityType: EntityType) {
       async (c) => {
         const db = getRlsDb(c)
         const userId = getAuthedUserId(c)
-        const { threadId } = c.req.valid('param')
-        await deleteThread(userId, threadId, db)
+        const { slug, threadId } = c.req.valid('param')
+        await deleteThread(userId, threadId, { slug, entityType }, db)
         return c.body(null, 204)
       }
     )
@@ -90,9 +90,9 @@ export function createDiscussionRoutes(entityType: EntityType) {
       async (c) => {
         const db = getRlsDb(c)
         const userId = getAuthedUserId(c)
-        const { threadId } = c.req.valid('param')
+        const { slug, threadId } = c.req.valid('param')
         const input = c.req.valid('json')
-        const reply = await createReply(userId, threadId, input, db)
+        const reply = await createReply(userId, threadId, input, { slug, entityType }, db)
         return c.json(ok(reply), HTTP_STATUS.CREATED)
       }
     )
@@ -106,8 +106,8 @@ export function createDiscussionRoutes(entityType: EntityType) {
       async (c) => {
         const db = getRlsDb(c)
         const userId = getAuthedUserId(c)
-        const { replyId } = c.req.valid('param')
-        await deleteReply(userId, replyId, db)
+        const { slug, threadId, replyId } = c.req.valid('param')
+        await deleteReply(userId, replyId, threadId, { slug, entityType }, db)
         return c.body(null, 204)
       }
     )

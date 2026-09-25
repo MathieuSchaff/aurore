@@ -1,20 +1,16 @@
-import type { BlogCategory } from '@aurore/shared'
+import type { BlogCategory, CreateArticleInput, UpdateArticleInput } from '@aurore/shared'
 
 import { useState } from 'react'
 
+import type { ApiData, api } from '@/lib/api'
 import { isApiErrorCode } from '@/lib/helpers/apiError'
 import { useCreateArticle, useUpdateArticle } from '@/lib/queries/articles'
 import { ARTICLE_FORM_ERRORS } from '../page/ArticleEditorForm/ArticleEditorForm.constants'
 
-export type ArticleData = {
-  title: string
-  slug: string
-  excerpt: string | null
-  content: string
-  category: BlogCategory
-  coverImageUrl: string | null
-  publishedAt: string | null
-}
+export type ArticleData = Pick<
+  ApiData<(typeof api.articles)[':slug']['$get']>,
+  'title' | 'slug' | 'excerpt' | 'content' | 'category' | 'coverImageUrl' | 'publishedAt'
+>
 
 export type ArticleFormData = {
   title: string
@@ -73,7 +69,7 @@ export function useArticleFormSubmit(args: Args) {
       coverImageUrl: args.form.coverImageUrl.trim() || undefined,
       publishedAt: args.form.publishedAt ? `${args.form.publishedAt}:00Z` : null,
       content: args.form.content,
-    }
+    } satisfies CreateArticleInput
 
     const onError = (fallbackMessage: string) => (err: unknown) =>
       setErrors(
@@ -89,7 +85,14 @@ export function useArticleFormSubmit(args: Args) {
       })
     } else {
       updateArticle.mutate(
-        { slug: args.article.slug, data },
+        {
+          slug: args.article.slug,
+          data: {
+            ...data,
+            excerpt: data.excerpt ?? null,
+            coverImageUrl: data.coverImageUrl ?? null,
+          } satisfies UpdateArticleInput,
+        },
         {
           onSuccess: (result) => args.onSuccess(result.category, result.slug),
           onError: onError('Mise à jour impossible. Réessaie.'),

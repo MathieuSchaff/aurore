@@ -50,7 +50,7 @@ describe('auth session boundary', () => {
     const queryClient = createTestQueryClient()
     const hiddenProductKey = ['products', 'hidden-product'] as const
     const hiddenIngredientKey = ['ingredients', 'hidden-ingredient'] as const
-    const publicArticleKey = ['articles', 'public-article'] as const
+    const publicArticleKey = ['articles', 'list', {}] as const
     queryClient.setQueryData(hiddenProductKey, { moderationStatus: 'hidden' })
     queryClient.setQueryData(hiddenIngredientKey, { moderationStatus: 'hidden' })
     queryClient.setQueryData(publicArticleKey, { title: 'Public' })

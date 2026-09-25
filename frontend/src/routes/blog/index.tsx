@@ -25,7 +25,7 @@ export const Route = createFileRoute('/blog/')({
   loader: ({ context, deps }) =>
     Promise.all([
       context.queryClient.prefetchQuery(
-        articleQueries.list({ page: deps.page, q: deps.q, limit: 20 })
+        articleQueries.list({ page: deps.page, q: deps.q, limit: 20 }, null)
       ),
       context.queryClient.prefetchQuery(articleQueries.categoryCounts()),
     ]),
@@ -34,7 +34,7 @@ export const Route = createFileRoute('/blog/')({
   head: () =>
     seoHead({
       path: '/blog',
-      title: 'Blog — Aurore',
+      title: 'Blog | Aurore',
       description:
         'Le journal Aurore : lecture de formules, routines et choix de conception, sans score ni verdict.',
     }),
