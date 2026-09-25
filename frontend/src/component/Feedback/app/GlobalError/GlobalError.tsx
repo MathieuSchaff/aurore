@@ -1,3 +1,4 @@
+import { useQueryErrorResetBoundary } from '@tanstack/react-query'
 import { useRouter } from '@tanstack/react-router'
 
 import { isApiError } from '../../../../lib/helpers/apiError'
@@ -92,6 +93,7 @@ const DropperIllustration = () => (
 // the 404 variant must not report at all.
 export const GlobalError = ({ error, reset, is404 = false }: GlobalErrorProps) => {
   const router = useRouter()
+  const queryErrorBoundary = useQueryErrorResetBoundary()
 
   const title = is404 ? "Cette page n'est pas dans notre routine." : 'On a renversé quelque chose.'
 
@@ -116,6 +118,7 @@ export const GlobalError = ({ error, reset, is404 = false }: GlobalErrorProps) =
         {reset && (
           <Button
             onClick={() => {
+              queryErrorBoundary.reset()
               reset()
               router.invalidate()
             }}
