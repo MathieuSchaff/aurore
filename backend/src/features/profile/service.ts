@@ -14,6 +14,7 @@ import type {
   UpsertTagPreferenceInput,
   UserDermoProfile,
   UserDermoProfileUpdateInput,
+  UserPreferences,
 } from '@aurore/shared'
 
 import { and, count, eq, inArray } from 'drizzle-orm'
@@ -156,7 +157,10 @@ export async function upsertDermoProfile(
   return toDermoProfile(row)
 }
 
-export async function getUserPreferences(db: DbOrTransaction, userId: string) {
+export async function getUserPreferences(
+  db: DbOrTransaction,
+  userId: string
+): Promise<UserPreferences> {
   const [row] = await db
     .select()
     .from(userPreferences)
@@ -165,12 +169,14 @@ export async function getUserPreferences(db: DbOrTransaction, userId: string) {
 
   if (!row) {
     return {
+      userId,
       criteriaWeights: DEFAULT_CRITERIA_WEIGHTS,
       updatedAt: nowISO(),
     }
   }
 
   return {
+    userId,
     criteriaWeights: row.criteriaWeights,
     updatedAt: normalizeInstant(row.updatedAt),
   }
@@ -180,7 +186,7 @@ export async function updateUserPreferences(
   db: DbOrTransaction,
   userId: string,
   data: UpdateUserPreferencesInput
-) {
+): Promise<UserPreferences> {
   const [existing] = await db
     .select()
     .from(userPreferences)
@@ -209,6 +215,7 @@ export async function updateUserPreferences(
     .returning()
 
   return {
+    userId,
     criteriaWeights: row.criteriaWeights,
     updatedAt: normalizeInstant(row.updatedAt),
   }

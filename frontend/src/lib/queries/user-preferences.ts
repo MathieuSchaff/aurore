@@ -2,10 +2,10 @@ import type { UpdateUserPreferencesInput } from '@aurore/shared'
 
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 
-import { type ApiData, api } from '../api'
+import { api } from '../api'
 import { unwrapData } from '../helpers/apiError'
 
-export type UserPreferences = ApiData<typeof api.profile.preferences.$get>
+export type { UserPreferences } from '@aurore/shared'
 
 const userPreferenceKeys = {
   all: ['user-preferences'] as const,
