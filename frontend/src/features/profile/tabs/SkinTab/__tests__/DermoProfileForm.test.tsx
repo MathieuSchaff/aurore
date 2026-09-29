@@ -1,3 +1,5 @@
+import type { UserDermoProfile } from '@aurore/shared'
+
 import { fireEvent, screen, within } from '@testing-library/react'
 import { HttpResponse, http } from 'msw'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
@@ -12,22 +14,21 @@ vi.mock('@/lib/queries/profile', async (importOriginal) => {
   return { ...actual, useUpdateDermoProfile: vi.fn() }
 })
 
-function serveDermo(dermo: {
-  skinTypes?: string[]
-  fitzpatrickType?: number | null
-  skinConcerns?: string[]
-  privateNotes?: string | null
-}) {
+function serveDermo(dermo: Partial<UserDermoProfile>) {
   server.use(
     http.get('*/api/profile/dermo', () =>
       HttpResponse.json({
         success: true,
         data: {
-          skinTypes: dermo.skinTypes ?? [],
-          fitzpatrickType: dermo.fitzpatrickType ?? null,
-          skinConcerns: dermo.skinConcerns ?? [],
-          privateNotes: dermo.privateNotes ?? null,
-        },
+          userId: '11111111-1111-4111-8111-111111111111',
+          skinTypes: [],
+          fitzpatrickType: null,
+          skinConcerns: [],
+          privateNotes: null,
+          createdAt: '2026-01-15T10:00:00.000Z',
+          updatedAt: '2026-01-15T10:00:00.000Z',
+          ...dermo,
+        } satisfies UserDermoProfile,
       })
     )
   )
