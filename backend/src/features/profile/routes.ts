@@ -18,17 +18,18 @@ import type { AppEnv } from '../../app-env'
 import { db as baseDb } from '../../db'
 import { getAuthedUserId, getRlsDb } from '../../utils/accessors'
 import { zValidator } from '../../utils/validator'
-import { deleteAccount } from '../auth/demo-cleanup'
 import { requireJwtAuth, requireNotBanned } from '../auth/middleware'
 import { withRlsContext } from '../auth/rls-context.middleware'
-import { getUserById } from '../auth/user.utils'
+import { deleteAccount, getUserById } from '../auth/service'
 import { securityScan } from '../security/security.middleware'
-import { logSecurityEvent } from '../security/security.service'
+import { logSecurityEvent } from '../security/service'
 import { privacyAccessRoute } from './access/routes'
-import { checkExportRateLimit, exportFilename, exportUserData } from './export.service'
 import {
+  checkExportRateLimit,
   deleteIngredientPreference,
   deleteTagPreference,
+  exportFilename,
+  exportUserData,
   getDermoProfile,
   getPrivacySettings,
   getProfile,
