@@ -40,7 +40,7 @@ describe('portrait vocabulary reaches both taxonomies', () => {
       }
     })
 
-    // The convention is slug-for-slug here: unlike products, ingredient concern tags reuse the
+    // The convention is one matching slug for each slug here: unlike products, ingredient concern tags reuse the
     // portrait's own words. Verified against the tag defs, not assumed
     it(`${concern} has an ingredient tag in the concern category`, () => {
       if (CONCERNS_WITHOUT_INGREDIENT_TAG.has(concern)) return
