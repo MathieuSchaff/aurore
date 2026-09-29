@@ -56,13 +56,11 @@ function toProfilePublic(profile: Profile): ProfilePublic {
   }
 }
 
-export async function getProfile(
-  db: DbOrTransaction,
-  userId: string
-): Promise<ProfilePublic | null> {
+export async function getProfile(db: DbOrTransaction, userId: string): Promise<ProfilePublic> {
   const [profile] = await db.select().from(profiles).where(eq(profiles.userId, userId)).limit(1)
 
-  return profile ? toProfilePublic(profile) : null
+  if (!profile) throw new ProfileError('not_found')
+  return toProfilePublic(profile)
 }
 
 // Explicit whitelist, never spread `data` straight into the UPDATE. RLS lets
@@ -74,7 +72,7 @@ export async function updateProfile(
   db: DbOrTransaction,
   userId: string,
   data: ProfileUpdateInput
-): Promise<ProfilePublic | null> {
+): Promise<ProfilePublic> {
   const updates: Partial<Pick<Profile, 'username' | 'bio' | 'avatarUrl' | 'links'>> = {}
   if (data.username !== undefined) updates.username = data.username
   if (data.bio !== undefined) updates.bio = data.bio
@@ -83,7 +81,8 @@ export async function updateProfile(
 
   if (Object.keys(updates).length === 0) {
     const [current] = await db.select().from(profiles).where(eq(profiles.userId, userId)).limit(1)
-    return current ? toProfilePublic(current) : null
+    if (!current) throw new ProfileError('not_found')
+    return toProfilePublic(current)
   }
 
   let profile: Profile | undefined
@@ -99,7 +98,8 @@ export async function updateProfile(
     if (isUniqueViolation(e)) throw new ProfileError('username_taken')
     throw e
   }
-  return profile ? toProfilePublic(profile) : null
+  if (!profile) throw new ProfileError('not_found')
+  return toProfilePublic(profile)
 }
 
 function toDermoProfile(row: UserDermoProfileRow): UserDermoProfile {
@@ -282,7 +282,7 @@ export async function updatePrivacySettings(
   db: DbOrTransaction,
   userId: string,
   data: UpdatePrivacySettingsInput
-): Promise<PrivacySettings | null> {
+): Promise<PrivacySettings> {
   const profileUpdates: Record<string, boolean> = {}
   for (const key of PROFILE_FLAG_KEYS) {
     if (data[key] !== undefined) profileUpdates[key] = data[key] as boolean
@@ -295,7 +295,7 @@ export async function updatePrivacySettings(
       .where(eq(profiles.userId, userId))
       .returning({ userId: profiles.userId })
 
-    if (!updated) return null
+    if (!updated) throw new ProfileError('not_found')
   }
 
   const dermoUpdates: Record<string, boolean> = {}
@@ -456,7 +456,7 @@ export async function upsertIngredientPreference(
   db: DbOrTransaction,
   userId: string,
   data: UpsertIngredientPreferenceInput
-): Promise<IngredientPreference | null> {
+): Promise<IngredientPreference> {
   // A preference must point at a substance the catalogue knows, otherwise a
   // typoed key becomes an orphan no screen can ever display or exclude on.
   const [known] = await db
@@ -464,7 +464,7 @@ export async function upsertIngredientPreference(
     .from(ingredients)
     .where(eq(ingredients.canonicalKey, data.canonicalKey))
     .limit(1)
-  if (!known) return null
+  if (!known) throw new ProfileError('not_found')
 
   const [row] = await db
     .insert(userIngredientPreferences)
@@ -502,13 +502,13 @@ export async function upsertTagPreference(
   db: DbOrTransaction,
   userId: string,
   data: UpsertTagPreferenceInput
-): Promise<TagPreference | null> {
+): Promise<TagPreference> {
   const [tag] = await db
     .select({ slug: productTagTypes.slug, label: productTagTypes.label })
     .from(productTagTypes)
     .where(eq(productTagTypes.id, data.tagId))
     .limit(1)
-  if (!tag) return null
+  if (!tag) throw new ProfileError('not_found')
 
   const [row] = await db
     .insert(userTagPreferences)

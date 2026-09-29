@@ -53,8 +53,9 @@ export type SkinConcern = (typeof SKIN_CONCERNS)[number]
 // `username` is unique. A collision must surface as a clean 409, never an
 // unhandled 500: a 500-vs-200 split lets an authenticated peer probe username
 // existence (including private profiles, hidden from the public lookup).
-export type ProfileErrorCode = 'username_taken'
+export type ProfileErrorCode = 'username_taken' | 'not_found'
 
 export const profileErrorMapping = {
   username_taken: HTTP_STATUS.CONFLICT,
+  not_found: HTTP_STATUS.NOT_FOUND,
 } as const satisfies Record<ProfileErrorCode, HttpStatus>

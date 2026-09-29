@@ -104,10 +104,6 @@ export const profileRoute = app
     const userId = getAuthedUserId(c)
     const profile = await getProfile(requestDbRls, userId)
 
-    if (!profile) {
-      return c.json(err('not_found'), HTTP_STATUS.NOT_FOUND)
-    }
-
     return c.json(ok(profile), HTTP_STATUS.OK)
   })
 
@@ -124,10 +120,6 @@ export const profileRoute = app
 
     const data = c.req.valid('json')
     const updated = await updateProfile(db, userId, data)
-
-    if (!updated) {
-      return c.json(err('not_found'), HTTP_STATUS.NOT_FOUND)
-    }
 
     return c.json(ok(updated), HTTP_STATUS.OK)
   })
@@ -163,10 +155,6 @@ export const profileRoute = app
       const data = c.req.valid('json')
       const saved = await upsertIngredientPreference(db, userId, data)
 
-      if (!saved) {
-        return c.json(err('not_found'), HTTP_STATUS.NOT_FOUND)
-      }
-
       return c.json(ok(saved), HTTP_STATUS.OK)
     }
   )
@@ -188,10 +176,6 @@ export const profileRoute = app
     const userId = getAuthedUserId(c)
     const data = c.req.valid('json')
     const saved = await upsertTagPreference(db, userId, data)
-
-    if (!saved) {
-      return c.json(err('not_found'), HTTP_STATUS.NOT_FOUND)
-    }
 
     return c.json(ok(saved), HTTP_STATUS.OK)
   })
@@ -233,10 +217,6 @@ export const profileRoute = app
     const userId = getAuthedUserId(c)
     const data = c.req.valid('json')
     const updated = await updatePrivacySettings(db, userId, data)
-
-    if (!updated) {
-      return c.json(err('not_found'), HTTP_STATUS.NOT_FOUND)
-    }
 
     return c.json(ok(updated), HTTP_STATUS.OK)
   })
