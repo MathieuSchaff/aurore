@@ -312,6 +312,15 @@ describe('Profile Routes', () => {
       )
       expect(preferences.criteriaWeights.tolerance).toBe(8)
       expect(preferences.criteriaWeights.efficacy).toBe(3)
+      const updated = await expectOk(
+        client.profile.preferences.$patch(
+          { json: { criteriaWeights: { efficacy: 9 } } },
+          withAuth(token)
+        )
+      )
+      expect(updated.criteriaWeights).toEqual({ ...preferences.criteriaWeights, efficacy: 9 })
+      const stored = await expectOk(client.profile.preferences.$get({}, withAuth(token)))
+      expect(stored.criteriaWeights).toEqual(updated.criteriaWeights)
     })
 
     it('persists changes across requests', async () => {

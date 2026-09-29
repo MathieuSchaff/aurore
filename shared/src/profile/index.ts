@@ -98,13 +98,15 @@ const publicProfileViewSchema = z.object({
   skinConcerns: z.array(z.enum(SKIN_CONCERNS)).nullable(),
 })
 
+const criteriaWeightSchema = z.number().min(0).max(10)
+
 export const criteriaWeightsSchema = z.object({
-  tolerance: z.number().min(0).max(10).default(1),
-  efficacy: z.number().min(0).max(10).default(1),
-  sensoriality: z.number().min(0).max(10).default(1),
-  stability: z.number().min(0).max(10).default(1),
-  mixability: z.number().min(0).max(10).default(1),
-  valueForMoney: z.number().min(0).max(10).default(1),
+  tolerance: criteriaWeightSchema.default(1),
+  efficacy: criteriaWeightSchema.default(1),
+  sensoriality: criteriaWeightSchema.default(1),
+  stability: criteriaWeightSchema.default(1),
+  mixability: criteriaWeightSchema.default(1),
+  valueForMoney: criteriaWeightSchema.default(1),
 })
 
 const userPreferencesSchema = z.object({
@@ -121,7 +123,17 @@ const userPreferencesSchema = z.object({
 })
 
 export const updateUserPreferencesSchema = z.object({
-  criteriaWeights: criteriaWeightsSchema.partial().optional(),
+  // Defaults on a partial schema would overwrite saved weights omitted from the PATCH
+  criteriaWeights: z
+    .object({
+      tolerance: criteriaWeightSchema.optional(),
+      efficacy: criteriaWeightSchema.optional(),
+      sensoriality: criteriaWeightSchema.optional(),
+      stability: criteriaWeightSchema.optional(),
+      mixability: criteriaWeightSchema.optional(),
+      valueForMoney: criteriaWeightSchema.optional(),
+    })
+    .optional(),
 })
 
 // "Sans X" / "Avec X": the labels state the effect on the list, and the enum
