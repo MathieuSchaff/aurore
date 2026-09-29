@@ -3,7 +3,7 @@ import { PRODUCT_DOMAIN_TAB_META, PRODUCT_DOMAIN_TABS, type ProductDomainTab } f
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { getRouteApi, useHydrated, useNavigate } from '@tanstack/react-router'
 import { Package } from 'lucide-react'
-import { startTransition, useCallback, useMemo, useState } from 'react'
+import { startTransition, useCallback, useEffect, useMemo, useState } from 'react'
 
 import { Button } from '@/component/Button/Button'
 import { ListPagination } from '@/component/DataDisplay/Pagination/ListPagination'
@@ -180,6 +180,14 @@ export function ProductsPage() {
   const rulesApplied = data?.rulesApplied ?? false
   const effectiveProfileFilter = search.profile_filter ?? rulesApplied
   const totalPages = Math.ceil(total / PRODUCTS_PAGE_SIZE)
+  const isPageOutOfRange = rulesApplied && total > 0 && (data?.page ?? page) > totalPages
+
+  useEffect(() => {
+    // Standing rules can shrink a historical page without an explicit filter click
+    if (!isPageOutOfRange || isPlaceholderData || error) return
+    void navigate({ search: (prev) => ({ ...prev, page: 1 }), replace: true })
+  }, [isPageOutOfRange, isPlaceholderData, error, navigate])
+
   // 429 on the list read: distinguish "throttled" from "empty catalogue" (placeholder kept on paginate).
   const showRateLimit = isRateLimitError(error)
   // Random order has no stable page sequence, so page numbers are meaningless there.
@@ -295,7 +303,7 @@ export function ProductsPage() {
               }
             />
           )}
-          {isLoading && !isPlaceholderData ? (
+          {(isLoading && !isPlaceholderData) || (isPageOutOfRange && !error) ? (
             <ProductsGridSkeleton />
           ) : items.length === 0 ? (
             showRateLimit ? (
