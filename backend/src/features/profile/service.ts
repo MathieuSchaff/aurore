@@ -18,7 +18,7 @@ import type {
 
 import { and, count, eq, inArray } from 'drizzle-orm'
 
-import type { DatabaseTransaction, DbOrTransaction } from '../../db'
+import type { DbOrTransaction } from '../../db'
 import { userPreferences } from '../../db/schema/auth/user-preferences'
 import { ingredients } from '../../db/schema/ingredients/ingredients'
 import { userIngredientPreferences } from '../../db/schema/ingredients/user-ingredient-preferences'
@@ -57,7 +57,7 @@ function toProfilePublic(profile: Profile): ProfilePublic {
 }
 
 export async function getProfile(
-  db: DatabaseTransaction,
+  db: DbOrTransaction,
   userId: string
 ): Promise<ProfilePublic | null> {
   const [profile] = await db.select().from(profiles).where(eq(profiles.userId, userId)).limit(1)
@@ -71,7 +71,7 @@ export async function getProfile(
 // columns (forcedPrivateByAdmin, forcedPrivateBy, forcedPrivateAt, …). profileUpdateSchema is
 // .strict() today but a future loosen-up must not become a silent escalation.
 export async function updateProfile(
-  db: DatabaseTransaction,
+  db: DbOrTransaction,
   userId: string,
   data: ProfileUpdateInput
 ): Promise<ProfilePublic | null> {
@@ -128,7 +128,7 @@ export async function getDermoProfile(
 }
 
 export async function upsertDermoProfile(
-  db: DatabaseTransaction,
+  db: DbOrTransaction,
   userId: string,
   data: UserDermoProfileUpdateInput
 ): Promise<UserDermoProfile> {
@@ -156,7 +156,7 @@ export async function upsertDermoProfile(
   return toDermoProfile(row)
 }
 
-export async function getUserPreferences(db: DatabaseTransaction, userId: string) {
+export async function getUserPreferences(db: DbOrTransaction, userId: string) {
   const [row] = await db
     .select()
     .from(userPreferences)
@@ -177,7 +177,7 @@ export async function getUserPreferences(db: DatabaseTransaction, userId: string
 }
 
 export async function updateUserPreferences(
-  db: DatabaseTransaction,
+  db: DbOrTransaction,
   userId: string,
   data: UpdateUserPreferencesInput
 ) {
@@ -214,10 +214,7 @@ export async function updateUserPreferences(
   }
 }
 
-export async function getProfileStats(
-  db: DatabaseTransaction,
-  userId: string
-): Promise<ProfileStats> {
+export async function getProfileStats(db: DbOrTransaction, userId: string): Promise<ProfileStats> {
   const [productCount] = await db
     .select({ count: count() })
     .from(userProducts)
@@ -237,7 +234,7 @@ const DERMO_FLAG_KEYS = [
 ] as const
 
 export async function getPrivacySettings(
-  db: DatabaseTransaction,
+  db: DbOrTransaction,
   userId: string
 ): Promise<PrivacySettings> {
   const [profile] = await db
@@ -282,7 +279,7 @@ export async function getPrivacySettings(
 }
 
 export async function updatePrivacySettings(
-  db: DatabaseTransaction,
+  db: DbOrTransaction,
   userId: string,
   data: UpdatePrivacySettingsInput
 ): Promise<PrivacySettings | null> {
@@ -456,7 +453,7 @@ export async function listPreferenceTargets(
 }
 
 export async function upsertIngredientPreference(
-  db: DatabaseTransaction,
+  db: DbOrTransaction,
   userId: string,
   data: UpsertIngredientPreferenceInput
 ): Promise<IngredientPreference | null> {
@@ -487,7 +484,7 @@ export async function upsertIngredientPreference(
 }
 
 export async function deleteIngredientPreference(
-  db: DatabaseTransaction,
+  db: DbOrTransaction,
   userId: string,
   canonicalKey: string
 ): Promise<void> {
@@ -502,7 +499,7 @@ export async function deleteIngredientPreference(
 }
 
 export async function upsertTagPreference(
-  db: DatabaseTransaction,
+  db: DbOrTransaction,
   userId: string,
   data: UpsertTagPreferenceInput
 ): Promise<TagPreference | null> {
@@ -532,7 +529,7 @@ export async function upsertTagPreference(
 }
 
 export async function deleteTagPreference(
-  db: DatabaseTransaction,
+  db: DbOrTransaction,
   userId: string,
   tagId: string
 ): Promise<void> {
