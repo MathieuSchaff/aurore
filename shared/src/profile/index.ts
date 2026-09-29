@@ -1,12 +1,12 @@
 import { z } from 'zod'
 
-import { safeUrl } from '../core'
+import { noHtml, safeUrl } from '../core'
 import { BIO_MAX_LENGTH, SKIN_CONCERNS, SKIN_TYPES, USERNAME_MAX_LENGTH } from './constants'
 
 export * from './constants'
 
 const profileLinkSchema = z.object({
-  label: z.string().min(1).max(50),
+  label: noHtml(z.string().min(1).max(50)),
   url: safeUrl,
 })
 
@@ -23,8 +23,8 @@ export const profilePublicSchema = z.object({
 /* Strict mode: rejects unknown fields. All fields optional (delta update). */
 export const profileUpdateSchema = z
   .object({
-    username: z.string().min(1).max(USERNAME_MAX_LENGTH).optional(),
-    bio: z.string().max(BIO_MAX_LENGTH).optional(),
+    username: noHtml(z.string().min(1).max(USERNAME_MAX_LENGTH)).optional(),
+    bio: noHtml(z.string().max(BIO_MAX_LENGTH)).optional(),
     avatarUrl: safeUrl.optional(),
     links: profileLinkSchema.array().max(5).optional(),
   })
@@ -46,7 +46,7 @@ export const userDermoProfileUpdateSchema = z
     skinTypes: z.array(z.enum(SKIN_TYPES)).max(3).optional(),
     fitzpatrickType: z.number().int().min(1).max(6).nullable().optional(),
     skinConcerns: z.array(z.enum(SKIN_CONCERNS)).optional(),
-    privateNotes: z.string().max(2000).nullable().optional(),
+    privateNotes: noHtml(z.string().max(2000)).nullable().optional(),
   })
   .strict()
 
