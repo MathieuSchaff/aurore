@@ -3,7 +3,6 @@ import {
   bannedError,
   createUserProductSchema,
   finishPurchaseSchema,
-  HOLY_GRAIL_SENTIMENT,
   HTTP_STATUS,
   ok,
   openPurchaseSchema,
@@ -21,7 +20,6 @@ import { zValidator } from '../../utils/validator'
 import { isUserBannedForScope } from '../auth/ban.service'
 import { requireJwtAuth, requireNotBanned } from '../auth/middleware'
 import { withRlsContext } from '../auth/rls-context.middleware'
-import { recalculateAllSignalsForUser } from './dermo-signal.service'
 import {
   addPurchase,
   deletePurchase,
@@ -34,7 +32,6 @@ import {
   createUserProduct,
   deleteUserProduct,
   getReviewIsPublic,
-  getUserProductFlags,
   getUserProductStatusHistory,
   getUserProducts,
   updateUserProduct,
@@ -63,20 +60,7 @@ export const userProductRoutes = app
     const userId = getAuthedUserId(c)
     const input = c.req.valid('json')
 
-    // createUserProduct upserts, so adding it again can flip an existing row's
-    // avoided/Holy-Grail flag, moving it in or out of the signal's bad/good
-    // buckets. Snapshot those flags first; recompute only when one actually
-    // changes (a plain in_stock add carries no signal, skip the full rebuild).
-    const previous = await getUserProductFlags(userId, input.productId, db)
-
     const result = await createUserProduct(userId, input, db)
-
-    const avoidedFlipped = (previous?.status === 'avoided') !== (result.status === 'avoided')
-    const holyGrailFlipped =
-      (previous?.sentiment === HOLY_GRAIL_SENTIMENT) !== (result.sentiment === HOLY_GRAIL_SENTIMENT)
-    if (avoidedFlipped || holyGrailFlipped) {
-      await recalculateAllSignalsForUser(userId, db)
-    }
 
     return c.json(ok(result), HTTP_STATUS.CREATED)
   })
@@ -92,11 +76,6 @@ export const userProductRoutes = app
       const input = c.req.valid('json')
       const result = await updateUserProduct(userId, id, input, db)
 
-      // status/sentiment changes move products between the bad/good buckets.
-      if (input.status !== undefined || input.sentiment !== undefined) {
-        await recalculateAllSignalsForUser(userId, db)
-      }
-
       return c.json(ok(result), HTTP_STATUS.OK)
     }
   )
@@ -106,8 +85,6 @@ export const userProductRoutes = app
     const userId = getAuthedUserId(c)
     const { id } = c.req.valid('param')
     await deleteUserProduct(userId, id, db)
-    // Removing a product changes the collection's bucket totals.
-    await recalculateAllSignalsForUser(userId, db)
     return c.json(ok(null), HTTP_STATUS.OK)
   })
 
@@ -143,14 +120,6 @@ export const userProductRoutes = app
       }
 
       const result = await upsertUserProductReview(userId, id, input, db)
-
-      // Only tolerance moves the bad/good buckets; editing a comment or visibility
-      // flag doesn't, so skip the full-collection recompute for those.
-      // Awaited inside the request tx: a detached promise would race the tx commit
-      // (one connection per tx) and run with no RLS context, silently dropping it.
-      if (input.tolerance !== undefined) {
-        await recalculateAllSignalsForUser(userId, db)
-      }
 
       return c.json(ok(result), HTTP_STATUS.OK)
     }

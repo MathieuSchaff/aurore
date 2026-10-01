@@ -7,7 +7,7 @@ import { HOLY_GRAIL_SENTIMENT } from '@aurore/shared'
 
 import { and, eq, inArray, notInArray, sql } from 'drizzle-orm'
 
-import type { DatabaseTransaction } from '../../db'
+import type { DbOrTransaction } from '../../db'
 import { ingredientDermoProfiles } from '../../db/schema/ingredients/ingredient-dermo-profiles'
 import { userIngredientAnalysisScore } from '../../db/schema/ingredients/user-ingredient-analysis-score'
 import { userProducts } from '../../db/schema/products/user-products'
@@ -28,7 +28,7 @@ function isGood(sentiment: number | null, tolerance: number | null): boolean {
 // totals for every ingredient in the collection, so we always recompute the full set.
 export async function recalculateAllSignalsForUser(
   userId: string,
-  db: DatabaseTransaction
+  db: DbOrTransaction
 ): Promise<void> {
   const collection = await db.query.userProducts.findMany({
     where: eq(userProducts.userId, userId),

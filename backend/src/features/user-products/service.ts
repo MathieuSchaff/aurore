@@ -5,18 +5,18 @@ import type {
   PublicReviewView,
   UpdateUserProductInput,
   UpdateUserProductReviewInput,
-  UserProductStatus,
 } from '@aurore/shared'
-import { isDisplayedProductTag } from '@aurore/shared'
+import { HOLY_GRAIL_SENTIMENT, isDisplayedProductTag } from '@aurore/shared'
 
 import { and, desc, eq, isNotNull, sql } from 'drizzle-orm'
 
-import type { DatabaseTransaction, DbOrTransaction } from '../../db'
+import type { DbOrTransaction } from '../../db'
 import { profiles, userDermoProfiles } from '../../db/schema/auth/users'
 import { products } from '../../db/schema/products/products'
 import { userProductStatusLog } from '../../db/schema/products/user-product-status-log'
 import { userProductReviews, userProducts } from '../../db/schema/products/user-products'
 import { nowISO } from '../../utils/dates'
+import { recalculateAllSignalsForUser } from './dermo-signal.service'
 import { UserProductError } from './user-product-error'
 
 // Moderation columns are admin-internal, keep them out of every Review-on-the-wire
@@ -49,7 +49,7 @@ function stripInternalTags<
   }
 }
 
-export async function getUserProducts(userId: string, db: DatabaseTransaction) {
+export async function getUserProducts(userId: string, db: DbOrTransaction) {
   const rows = await db.query.userProducts.findMany({
     where: eq(userProducts.userId, userId),
     with: {
@@ -77,26 +77,10 @@ export async function getUserProducts(userId: string, db: DatabaseTransaction) {
   return rows.map(stripInternalTags)
 }
 
-export async function getUserProductFlags(
-  userId: string,
-  productId: string,
-  db: DatabaseTransaction
-): Promise<UserProductFlags | undefined> {
-  return db.query.userProducts.findFirst({
-    where: and(eq(userProducts.userId, userId), eq(userProducts.productId, productId)),
-    columns: { status: true, sentiment: true },
-  })
-}
-
-export type UserProductFlags = {
-  status: UserProductStatus
-  sentiment: number | null
-}
-
 // Centralizing status log writes keeps both mutation paths on the same transition rule
 // A first add starts from null while unchanged statuses write nothing
 async function logStatusChange(
-  tx: DatabaseTransaction,
+  tx: DbOrTransaction,
   entry: typeof userProductStatusLog.$inferInsert
 ) {
   if (entry.fromStatus === entry.toStatus) return
@@ -106,97 +90,102 @@ async function logStatusChange(
 export async function createUserProduct(
   userId: string,
   input: CreateUserProductInput,
-  db: DatabaseTransaction
+  db: DbOrTransaction
 ) {
-  return await db.transaction(async (tx) => {
-    const existing = await tx.query.userProducts.findFirst({
-      where: and(eq(userProducts.userId, userId), eq(userProducts.productId, input.productId)),
-      columns: { id: true, status: true },
-    })
+  const existing = await db.query.userProducts.findFirst({
+    where: and(eq(userProducts.userId, userId), eq(userProducts.productId, input.productId)),
+    columns: { id: true, status: true, sentiment: true },
+  })
 
-    const [result] = await tx
-      .insert(userProducts)
-      .values({
-        userId,
-        productId: input.productId,
+  const [result] = await db
+    .insert(userProducts)
+    .values({
+      userId,
+      productId: input.productId,
+      status: input.status,
+      sentiment: input.sentiment,
+      wouldRepurchase: input.wouldRepurchase,
+      comment: input.comment,
+    })
+    .onConflictDoUpdate({
+      target: [userProducts.userId, userProducts.productId],
+      set: {
         status: input.status,
         sentiment: input.sentiment,
         wouldRepurchase: input.wouldRepurchase,
         comment: input.comment,
-      })
-      .onConflictDoUpdate({
-        target: [userProducts.userId, userProducts.productId],
-        set: {
-          status: input.status,
-          sentiment: input.sentiment,
-          wouldRepurchase: input.wouldRepurchase,
-          comment: input.comment,
-          updatedAt: nowISO(),
-        },
-      })
-      .returning()
-
-    if (!result) {
-      throw new UserProductError('user_product_creation_failed')
-    }
-
-    await logStatusChange(tx, {
-      userProductId: result.id,
-      userId,
-      fromStatus: existing?.status ?? null,
-      toStatus: result.status,
+        updatedAt: nowISO(),
+      },
     })
+    .returning()
 
-    return result
+  if (!result) {
+    throw new UserProductError('user_product_creation_failed')
+  }
+
+  await logStatusChange(db, {
+    userProductId: result.id,
+    userId,
+    fromStatus: existing?.status ?? null,
+    toStatus: result.status,
   })
+
+  if (
+    (existing?.status === 'avoided') !== (result.status === 'avoided') ||
+    (existing?.sentiment === HOLY_GRAIL_SENTIMENT) !== (result.sentiment === HOLY_GRAIL_SENTIMENT)
+  ) {
+    await recalculateAllSignalsForUser(userId, db)
+  }
+  return result
 }
 
 export async function updateUserProduct(
   userId: string,
   userProductId: string,
   input: UpdateUserProductInput,
-  db: DatabaseTransaction
+  db: DbOrTransaction
 ) {
   const { reason, ...patch } = input
-  return await db.transaction(async (tx) => {
-    const previous = await tx.query.userProducts.findFirst({
-      where: and(eq(userProducts.id, userProductId), eq(userProducts.userId, userId)),
-      columns: { status: true },
-    })
-
-    if (!previous) {
-      throw new UserProductError('user_product_not_found')
-    }
-
-    const [result] = await tx
-      .update(userProducts)
-      .set({
-        ...patch,
-        updatedAt: nowISO(),
-      })
-      .where(and(eq(userProducts.id, userProductId), eq(userProducts.userId, userId)))
-      .returning()
-
-    if (!result) {
-      throw new UserProductError('user_product_not_found')
-    }
-
-    await logStatusChange(tx, {
-      userProductId: result.id,
-      userId,
-      fromStatus: previous.status,
-      toStatus: result.status,
-      reason: reason?.trim() || null,
-    })
-
-    return result
+  const previous = await db.query.userProducts.findFirst({
+    where: and(eq(userProducts.id, userProductId), eq(userProducts.userId, userId)),
+    columns: { status: true },
   })
+
+  if (!previous) {
+    throw new UserProductError('user_product_not_found')
+  }
+
+  const [result] = await db
+    .update(userProducts)
+    .set({
+      ...patch,
+      updatedAt: nowISO(),
+    })
+    .where(and(eq(userProducts.id, userProductId), eq(userProducts.userId, userId)))
+    .returning()
+
+  if (!result) {
+    throw new UserProductError('user_product_not_found')
+  }
+
+  await logStatusChange(db, {
+    userProductId: result.id,
+    userId,
+    fromStatus: previous.status,
+    toStatus: result.status,
+    reason: reason?.trim() || null,
+  })
+
+  if (input.status !== undefined || input.sentiment !== undefined) {
+    await recalculateAllSignalsForUser(userId, db)
+  }
+  return result
 }
 
 export async function getUserProductStatusHistory(
   userId: string,
   userProductId: string,
-  db: DatabaseTransaction
+  db: DbOrTransaction
 ) {
   // fkTenantPolicies already enforces ownership at the row level, but an
   // explicit check returns a clear error instead of an empty list on foreign id.
@@ -225,7 +214,7 @@ export async function getUserProductStatusHistory(
 export async function deleteUserProduct(
   userId: string,
   userProductId: string,
-  db: DatabaseTransaction
+  db: DbOrTransaction
 ) {
   const [result] = await db
     .delete(userProducts)
@@ -235,9 +224,10 @@ export async function deleteUserProduct(
   if (!result) {
     throw new UserProductError('user_product_not_found')
   }
+  await recalculateAllSignalsForUser(userId, db)
 }
 
-export async function getReviewIsPublic(userProductId: string, db: DatabaseTransaction) {
+export async function getReviewIsPublic(userProductId: string, db: DbOrTransaction) {
   const existing = await db.query.userProductReviews.findFirst({
     where: eq(userProductReviews.userProductId, userProductId),
     columns: { isPublic: true },
@@ -249,7 +239,7 @@ export async function upsertUserProductReview(
   userId: string,
   userProductId: string,
   input: UpdateUserProductReviewInput,
-  db: DatabaseTransaction
+  db: DbOrTransaction
 ) {
   const userProduct = await db.query.userProducts.findFirst({
     where: and(eq(userProducts.id, userProductId), eq(userProducts.userId, userId)),
@@ -305,6 +295,7 @@ export async function upsertUserProductReview(
       updatedAt: userProductReviews.updatedAt,
     })
 
+  if (input.tolerance !== undefined) await recalculateAllSignalsForUser(userId, db)
   return result
 }
 
