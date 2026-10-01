@@ -153,10 +153,11 @@ export async function updateUserProduct(
   db: DbOrTransaction
 ) {
   const { reason, ...patch } = input
-  const previous = await db.query.userProducts.findFirst({
-    where: and(eq(userProducts.id, userProductId), eq(userProducts.userId, userId)),
-    columns: { status: true, sentiment: true },
-  })
+  const [previous] = await db
+    .select({ status: userProducts.status, sentiment: userProducts.sentiment })
+    .from(userProducts)
+    .where(and(eq(userProducts.id, userProductId), eq(userProducts.userId, userId)))
+    .for('no key update')
 
   if (!previous) {
     throw new UserProductError('user_product_not_found')
@@ -255,21 +256,26 @@ export async function upsertUserProductReview(
   input: UpdateUserProductReviewInput,
   db: DbOrTransaction
 ) {
-  const userProduct = await db.query.userProducts.findFirst({
-    where: and(eq(userProducts.id, userProductId), eq(userProducts.userId, userId)),
-    columns: { id: true },
-    with: { review: { columns: { comment: true, isPublic: true } } },
-  })
+  // Lock the parent before reading consent, including the first review insert
+  const [userProduct] = await db
+    .select({ id: userProducts.id })
+    .from(userProducts)
+    .where(and(eq(userProducts.id, userProductId), eq(userProducts.userId, userId)))
+    .for('no key update')
 
   if (!userProduct) {
     throw new UserProductError('user_product_not_found')
   }
 
+  const review = await db.query.userProductReviews.findFirst({
+    where: eq(userProductReviews.userProductId, userProductId),
+    columns: { comment: true, isPublic: true },
+  })
+
   // ADR 0005: public review requires authored text. Resolve effective values from
   // payload-or-existing so a bare { isPublic: true } toggle validates the stored comment.
-  const resultingPublic = input.isPublic ?? userProduct.review?.isPublic ?? false
-  const resultingComment =
-    input.comment !== undefined ? input.comment : (userProduct.review?.comment ?? null)
+  const resultingPublic = input.isPublic ?? review?.isPublic ?? false
+  const resultingComment = input.comment !== undefined ? input.comment : (review?.comment ?? null)
   if (resultingPublic && (resultingComment == null || resultingComment.trim() === '')) {
     throw new UserProductError('public_review_requires_comment')
   }
