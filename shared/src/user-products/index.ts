@@ -1,6 +1,6 @@
 import { z } from 'zod'
 
-import { HTTP_STATUS, type HttpStatus } from '../core'
+import { HTTP_STATUS, type HttpStatus, noHtml } from '../core'
 import { SKIN_TYPES } from '../profile'
 
 export const userProductStatus = ['in_stock', 'wishlist', 'watched', 'archived', 'avoided'] as const
@@ -63,7 +63,7 @@ export const createUserProductSchema = z
     status: userProductStatusSchema.default('in_stock'),
     sentiment: z.number().int().min(1).max(HOLY_GRAIL_SENTIMENT).optional(),
     wouldRepurchase: repurchaseFlagSchema.optional(),
-    comment: z.string().max(1000).optional(),
+    comment: noHtml(z.string().max(1000)).optional(),
   })
   .refine((input) => input.status !== 'avoided' || input.sentiment !== HOLY_GRAIL_SENTIMENT, {
     path: ['sentiment'],
@@ -75,14 +75,14 @@ export const updateUserProductSchema = z
     status: userProductStatusSchema.optional(),
     sentiment: z.number().int().min(1).max(HOLY_GRAIL_SENTIMENT).nullable().optional(),
     wouldRepurchase: repurchaseFlagSchema.nullable().optional(),
-    comment: z.string().max(1000).nullable().optional(),
+    comment: noHtml(z.string().max(1000)).nullable().optional(),
     ressenti: z.array(ressentiTagSchema).optional(),
     routine: z.array(routineTagSchema).optional(),
     preferences: z.array(preferencesTagSchema).optional(),
     // Optional free-form note captured alongside a status transition. Persisted
     // to user_product_status_log only, never to user_products.comment. Ignored
     // when no status change is in the payload.
-    reason: z.string().max(500).optional(),
+    reason: noHtml(z.string().max(500)).optional(),
   })
   .refine((input) => input.status !== 'avoided' || input.sentiment !== HOLY_GRAIL_SENTIMENT, {
     path: ['sentiment'],
@@ -96,7 +96,7 @@ export const updateUserProductReviewSchema = z.object({
   stability: z.number().int().min(1).max(5).nullable().optional(),
   mixability: z.number().int().min(1).max(5).nullable().optional(),
   valueForMoney: z.number().int().min(1).max(5).nullable().optional(),
-  comment: z.string().max(1000).nullable().optional(),
+  comment: noHtml(z.string().max(1000)).nullable().optional(),
   isPublic: z.boolean().optional(),
   ratingsPublic: z.boolean().optional(),
 })
