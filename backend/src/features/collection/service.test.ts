@@ -172,6 +172,40 @@ describe('getCollectionFormulaMotifs', () => {
     expect(motifs.notes.every((n) => n.count <= 2)).toBe(true)
   })
 
+  it.each([
+    ['0.1', []],
+    ['10', ['dryness', 'irritation']],
+  ] as const)(
+    'applies the formula reading dose filter at %s percent lactic acid',
+    async (concentration, expectedAxes) => {
+      const ingredient = await createTestIngredient(user.id, { name: 'Lactic Acid' })
+      const inci =
+        'Aqua, Glycerin, Squalane, Cetearyl Alcohol, Glyceryl Stearate, Phenoxyethanol, Lactic Acid'
+      for (const name of ['dose-motif-a', 'dose-motif-b']) {
+        const product = await createTestProduct(user.id, { name, kind: 'moisturizer', inci })
+        await testDb.insert(userProducts).values({ userId: user.id, productId: product.id })
+        await testDb
+          .insert(productIngredients)
+          .values({
+            productId: product.id,
+            ingredientId: ingredient.id,
+            concentrationValue: concentration,
+            concentrationUnit: '%',
+          })
+          .onConflictDoUpdate({
+            target: [productIngredients.productId, productIngredients.ingredientId],
+            set: { concentrationValue: concentration, concentrationUnit: '%' },
+          })
+      }
+
+      const motifs = await formulaMotifs(user.id)
+
+      expect(motifs.productsAnalyzed).toBe(2)
+      expect(motifs.notes.map((motif) => motif.axis).sort()).toEqual([...expectedAxes])
+      expect(motifs.notes.every((motif) => motif.count === 2)).toBe(true)
+    }
+  )
+
   // The screen has to answer "which ones", so every product is listed, not a sample of three,
   // and each carries the slug its link needs
   it('lists every product behind a motif, with its slug', async () => {

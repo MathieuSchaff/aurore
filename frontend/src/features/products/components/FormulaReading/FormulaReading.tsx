@@ -1,4 +1,5 @@
 import type { PreferenceTargets } from '@aurore/shared'
+import { filterRiskDriversAtDose } from '@aurore/shared'
 
 import { Link } from '@tanstack/react-router'
 import clsx from 'clsx'
@@ -24,7 +25,6 @@ import type { ProductDermoAssessment } from '@/lib/queries/products'
 import { avoidedIngredientNames } from './avoidedIngredients'
 import { formatIngredientSignals } from './ingredientSignals'
 import { formatRegulatoryFindings } from './regulatoryFindings'
-import { filterRiskDriversAtDose } from './riskDrivers'
 import './FormulaReading.css'
 
 type RiskAxis = keyof typeof RISK_AXIS_PHRASE

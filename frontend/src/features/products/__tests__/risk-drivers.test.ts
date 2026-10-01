@@ -1,6 +1,6 @@
-import { describe, expect, it } from 'vitest'
+import { filterRiskDriversAtDose } from '@aurore/shared'
 
-import { filterRiskDriversAtDose } from '../components/FormulaReading/riskDrivers'
+import { describe, expect, it } from 'vitest'
 
 const DRIVER = { label: 'Acide lactique', inci: 'Lactic Acid', axes: ['irritation'] }
 
