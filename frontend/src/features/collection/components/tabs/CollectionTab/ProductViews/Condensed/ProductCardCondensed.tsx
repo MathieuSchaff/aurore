@@ -6,6 +6,7 @@ import { Check, ChevronDown, SmilePlus, Sparkles } from 'lucide-react'
 import { type PointerEvent as ReactPointerEvent, useCallback, useRef, useState } from 'react'
 
 import { SentimentIcon } from '@/assets/sentiment-icons'
+import { Button } from '@/component/Button/Button'
 import { Card } from '@/component/Card/Card'
 import { Badge } from '@/component/DataDisplay/Badge/Badge'
 import { DropdownMenu } from '@/component/DropdownMenu/DropdownMenu'
@@ -165,8 +166,8 @@ export function ProductCardCondensed({
       onPointerCancel={handlePointerUp}
       onPointerLeave={handlePointerUp}
     >
-      <button
-        type="button"
+      <Button
+        variant="bare"
         className={clsx('prod-sentiment-toggle', !p.sentiment && 'empty', isPopping && 'popping')}
         onClick={handleNextSentiment}
         aria-label={`Changer le ressenti pour ${p.product.name}`}
@@ -177,7 +178,7 @@ export function ProductCardCondensed({
         ) : (
           <SmilePlus size={22} aria-hidden="true" />
         )}
-      </button>
+      </Button>
 
       {/* TODO(collection): restore .prod-sentiment-badge once the sentiment icon set is reworked. */}
 
@@ -199,14 +200,14 @@ export function ProductCardCondensed({
             />
           </div>
 
-          <button type="button" className="prod-body" onClick={handleBodyClick}>
+          <Button variant="bare" className="prod-body" onClick={handleBodyClick}>
             {/* Prefix rather than aria-label: the name must contain the card's visible text
                 verbatim, which an aria-label reordering brand and product breaks (WCAG 2.5.3). */}
             <span className="sr-only">Voir les détails de </span>
             <div className="prod-brand">{p.product.brand}</div>
             <div className="prod-name">{p.product.name}</div>
             {p.comment && <div className="prod-comment">{p.comment}</div>}
-          </button>
+          </Button>
         </div>
 
         <Card.Footer>
@@ -214,15 +215,15 @@ export function ProductCardCondensed({
             <span className="pcc-status-wrap" data-stop-long-press>
               <DropdownMenu>
                 <DropdownMenu.Trigger>
-                  <button
-                    type="button"
+                  <Button
+                    variant="bare"
                     className="pcc-status-pill"
                     aria-label={`Statut : ${statusCfg.label}. Toucher pour changer.`}
                   >
                     <StatusIcon size={12} aria-hidden="true" />
                     <span>{statusCfg.label}</span>
                     <ChevronDown size={11} aria-hidden="true" className="pcc-status-pill-chevron" />
-                  </button>
+                  </Button>
                 </DropdownMenu.Trigger>
                 <DropdownMenu.Content
                   side="top"

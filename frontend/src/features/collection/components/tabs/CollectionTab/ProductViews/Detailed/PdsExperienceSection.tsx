@@ -2,6 +2,7 @@ import { ChevronDown, Star } from 'lucide-react'
 import { useId, useState } from 'react'
 
 import { SentimentIcon } from '@/assets/sentiment-icons'
+import { Textarea } from '@/component/Input/Textarea/Textarea'
 import { Toggle } from '@/component/Input/Toggle/Toggle'
 import { pdsLabels } from '@/features/collection/constants'
 import { useAnnounce } from '@/hooks/useAnnounce'
@@ -90,7 +91,7 @@ export function PdsExperienceSection({ p, updateMutation }: PdsExperienceSection
           <CriteriaList userProductId={p.id} review={p.review} />
           <div className="pds-sub">
             <h4 className="pds-subtitle">Commentaire public</h4>
-            <textarea
+            <Textarea
               id={publicCommentId}
               className="pds-textarea"
               aria-label="Commentaire public"
@@ -150,8 +151,7 @@ export function PdsExperienceSection({ p, updateMutation }: PdsExperienceSection
       <div className="pds-sub">
         <h4 className="pds-subtitle">Notes personnelles</h4>
         <p className="pds-hint">Privé — visible seulement par vous.</p>
-        <textarea
-          id="pds-comment"
+        <Textarea
           className="pds-textarea"
           aria-label="Notes personnelles"
           placeholder="Quelques mots sur votre expérience : texture, odeur, ressenti dans la routine…"
