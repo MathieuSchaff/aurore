@@ -53,6 +53,7 @@ export async function recalculateAllSignalsForUser(
   const goodIngredientSets: Set<string>[] = []
 
   for (const item of collection) {
+    if (!item.product) continue
     const tolerance = item.review?.tolerance ?? null
     const sentiment = item.sentiment ?? null
     const ingredientSet = new Set(item.product.productIngredients.map((pi) => pi.ingredientId))

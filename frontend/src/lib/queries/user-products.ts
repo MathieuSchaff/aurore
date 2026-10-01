@@ -13,7 +13,12 @@ import { compatibilityKeys } from './compatibility'
 import { applyOptimisticUpdates, optimisticCacheUpdate } from './optimistic'
 import { invalidateProductReviewReads, productKeys } from './products'
 
-export type UserProduct = ApiData<(typeof api)['user-products']['$get']>[number]
+export type UserProductEntry = ApiData<(typeof api)['user-products']['$get']>[number]
+export type UserProduct = UserProductEntry & { product: NonNullable<UserProductEntry['product']> }
+
+export function isAvailableUserProduct(entry: UserProductEntry): entry is UserProduct {
+  return entry.product !== null
+}
 
 type IdMutation<T> = { id: string; input: T }
 
@@ -24,9 +29,9 @@ type UpsertUserProductReviewVariables = IdMutation<UpdateUserProductReviewInput>
 type UserProductReview = NonNullable<UserProduct['review']>
 
 function patchUserProductReview(
-  userProduct: UserProduct,
+  userProduct: UserProductEntry,
   input: UpdateUserProductReviewInput
-): UserProduct {
+): UserProductEntry {
   return {
     ...userProduct,
     review: {
@@ -109,7 +114,7 @@ function useUserProductUpdateMutation(bulk: boolean) {
     },
     onMutate: (variables) => {
       return applyOptimisticUpdates(queryClient, variables, [
-        optimisticCacheUpdate<UpdateUserProductVariables, UserProduct[]>({
+        optimisticCacheUpdate<UpdateUserProductVariables, UserProductEntry[]>({
           queryKey: userProductKeys.list(),
           updater: (oldProducts, { id, input }) => {
             if (!oldProducts) return oldProducts
@@ -168,7 +173,7 @@ export const useUpsertUserProductReview = () => {
     },
     onMutate: (variables) => {
       return applyOptimisticUpdates(queryClient, variables, [
-        optimisticCacheUpdate<UpsertUserProductReviewVariables, UserProduct[]>({
+        optimisticCacheUpdate<UpsertUserProductReviewVariables, UserProductEntry[]>({
           queryKey: userProductKeys.list(),
           updater: (oldProducts, { id, input }) => {
             if (!oldProducts) return oldProducts

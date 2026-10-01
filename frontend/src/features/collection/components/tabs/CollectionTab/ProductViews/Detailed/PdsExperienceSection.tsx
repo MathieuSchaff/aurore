@@ -5,7 +5,7 @@ import { SentimentIcon } from '@/assets/sentiment-icons'
 import { Toggle } from '@/component/Input/Toggle/Toggle'
 import { pdsLabels } from '@/features/collection/constants'
 import { useAnnounce } from '@/hooks/useAnnounce'
-import type { UpdateUserProductVariables, UserProduct } from '@/lib/queries/user-products'
+import type { UpdateUserProductVariables, UserProductEntry } from '@/lib/queries/user-products'
 import { useUpsertUserProductReview } from '@/lib/queries/user-products'
 import { CriteriaList } from './CriteriaList'
 import { ExperienceTags } from './ExperienceTags'
@@ -16,7 +16,7 @@ import { SentimentPicker } from './SentimentPicker'
 import './PdsExperienceSection.css'
 
 interface PdsExperienceSectionProps {
-  p: UserProduct
+  p: UserProductEntry
   updateMutation: {
     mutate: (vars: UpdateUserProductVariables, opts?: { onSuccess?: () => void }) => void
   }

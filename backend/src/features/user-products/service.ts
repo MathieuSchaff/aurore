@@ -36,20 +36,6 @@ const LINK_PUBLIC_EXCLUDE = { source: false } as const
 // Internal-only tag slugs stay in the DB and in the audits but never leave for a client
 // (docs/adr/0017). Stripped after the query, not in it: a drizzle `with` cannot filter a
 // joined row on the joined table's own column.
-function stripInternalTags<
-  T extends { product: { productTagLinks: { productTag: { slug: string } }[] } },
->(row: T): T {
-  return {
-    ...row,
-    product: {
-      ...row.product,
-      productTagLinks: row.product.productTagLinks.filter((link) =>
-        isDisplayedProductTag(link.productTag.slug)
-      ),
-    },
-  }
-}
-
 export async function getUserProducts(userId: string, db: DbOrTransaction) {
   const rows = await db.query.userProducts.findMany({
     where: eq(userProducts.userId, userId),
@@ -76,8 +62,20 @@ export async function getUserProducts(userId: string, db: DbOrTransaction) {
     },
   })
   return rows.map((row) => ({
-    ...stripInternalTags(row),
+    ...row,
     purchases: row.purchases.map(toApiPurchase),
+    // RLS can hide catalogue rows without erasing the owner's personal memory
+    product: row.product
+      ? {
+          ...row.product,
+          productTagLinks: row.product.productTagLinks.filter((link) =>
+            isDisplayedProductTag(link.productTag.slug)
+          ),
+          productIngredients: row.product.productIngredients.filter(
+            (link) => link.ingredient !== null
+          ),
+        }
+      : null,
   }))
 }
 
