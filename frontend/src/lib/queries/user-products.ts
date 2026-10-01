@@ -12,6 +12,10 @@ import { collectionKeys } from './collection'
 import { compatibilityKeys } from './compatibility'
 import { applyOptimisticUpdates, optimisticCacheUpdate } from './optimistic'
 import { invalidateProductReviewReads, productKeys } from './products'
+import { invalidateProfileReviewReads } from './profile'
+import { userProductKeys } from './user-product-keys'
+
+export { userProductKeys } from './user-product-keys'
 
 export type UserProductEntry = ApiData<(typeof api)['user-products']['$get']>[number]
 export type UserProduct = UserProductEntry & { product: NonNullable<UserProductEntry['product']> }
@@ -40,17 +44,6 @@ function patchUserProductReview(
       ...input,
     } as UserProductReview,
   }
-}
-
-// Separate root so history invalidates independently and doesn't collide with `user-products` routing.
-const userProductHistoryRoot = ['user-product-history'] as const
-
-export const userProductKeys = {
-  all: ['user-products'] as const,
-  lists: () => [...userProductKeys.all, 'list'] as const,
-  list: () => [...userProductKeys.lists()] as const,
-  historyRoot: () => userProductHistoryRoot,
-  history: (id: string) => [...userProductHistoryRoot, id] as const,
 }
 
 function invalidateUserProductConsumers(queryClient: ReturnType<typeof useQueryClient>) {
@@ -155,6 +148,8 @@ export const useDeleteUserProduct = () => {
     onSuccess: () => {
       invalidateUserProductConsumers(queryClient)
       queryClient.invalidateQueries({ queryKey: collectionKeys.formulaMotifs() })
+      invalidateProductReviewReads(queryClient)
+      invalidateProfileReviewReads(queryClient)
     },
     meta: { errorMessage: 'Suppression impossible — réessayez plus tard.' },
   })
@@ -200,6 +195,7 @@ export const useUpsertUserProductReview = () => {
         input.ratingsPublic !== undefined
       ) {
         invalidateProductReviewReads(queryClient)
+        invalidateProfileReviewReads(queryClient)
       }
     },
     meta: { errorMessage: 'Note non enregistrée — réessayez plus tard.' },
