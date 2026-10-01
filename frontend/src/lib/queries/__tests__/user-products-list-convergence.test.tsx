@@ -4,6 +4,7 @@ import type {
   PublicProductReviewsResponse,
   PublicProfileReviewsResponse,
   PublicReviewView,
+  UpdateUserProductReviewInput,
   UserProductStatus,
 } from '@aurore/shared'
 
@@ -268,8 +269,8 @@ describe('user product list convergence', () => {
         return HttpResponse.json({ success: true, data })
       }),
       http.put('*/api/user-products/:id/review', async ({ request }) => {
-        const input = (await request.json()) as { comment: string }
-        comment = input.comment
+        const input = (await request.json()) as UpdateUserProductReviewInput
+        comment = input.comment ?? comment
         return HttpResponse.json({
           success: true,
           data: {
