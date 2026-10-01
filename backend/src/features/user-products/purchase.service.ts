@@ -18,7 +18,7 @@ import { PurchaseError } from './purchase-error'
 
 // Calendar columns store YYYY-MM-DD; API exposes ISO datetime UTC. Conversion
 // lives at this boundary so callers never deal with the DB format.
-function toApiPurchase(row: PurchaseRow): Purchase {
+export function toApiPurchase(row: PurchaseRow): Purchase {
   const mapped: Purchase = {
     id: row.id,
     userProductId: row.userProductId,

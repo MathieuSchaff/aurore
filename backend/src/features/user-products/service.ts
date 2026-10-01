@@ -17,6 +17,7 @@ import { userProductStatusLog } from '../../db/schema/products/user-product-stat
 import { userProductReviews, userProducts } from '../../db/schema/products/user-products'
 import { nowISO } from '../../utils/dates'
 import { recalculateAllSignalsForUser } from './dermo-signal.service'
+import { toApiPurchase } from './purchase.service'
 import { UserProductError } from './user-product-error'
 
 // Moderation columns are admin-internal, keep them out of every Review-on-the-wire
@@ -74,7 +75,10 @@ export async function getUserProducts(userId: string, db: DbOrTransaction) {
       },
     },
   })
-  return rows.map(stripInternalTags)
+  return rows.map((row) => ({
+    ...stripInternalTags(row),
+    purchases: row.purchases.map(toApiPurchase),
+  }))
 }
 
 // Centralizing status log writes keeps both mutation paths on the same transition rule
