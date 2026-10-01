@@ -89,7 +89,13 @@ export async function openPurchase(
     throw new PurchaseError('purchase_not_found')
   }
 
-  // at most one open purchase per user-product at a time
+  // Serialize openings without blocking the KEY SHARE locks held by purchase inserts
+  await db
+    .select({ id: userProducts.id })
+    .from(userProducts)
+    .where(and(eq(userProducts.id, purchase.userProductId), eq(userProducts.userId, userId)))
+    .for('no key update')
+
   const active = await db.query.purchases.findFirst({
     where: and(
       eq(purchases.userProductId, purchase.userProductId),
