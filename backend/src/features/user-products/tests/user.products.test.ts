@@ -59,6 +59,11 @@ describe('User Products Service', () => {
     createUP(user.id, { productId: product.id, status })
 
   describe('createUserProduct', () => {
+    it('rejects a Holy Grail added as avoided', async () => {
+      await expect(
+        createUP(user.id, { productId: product.id, status: 'avoided', sentiment: 6 })
+      ).rejects.toMatchObject({ code: 'invalid_input' })
+    })
     it('should create a user product', async () => {
       const userProduct = await createUP(user.id, {
         productId: product.id,
@@ -105,6 +110,20 @@ describe('User Products Service', () => {
   })
 
   describe('updateUserProduct', () => {
+    it('clears a Holy Grail when avoiding it and rejects the inverse rating', async () => {
+      const entry = await createUP(user.id, {
+        productId: product.id,
+        status: 'in_stock',
+        sentiment: 6,
+      })
+      expect(await updateUP(user.id, entry.id, { status: 'avoided' })).toMatchObject({
+        status: 'avoided',
+        sentiment: null,
+      })
+      await expect(updateUP(user.id, entry.id, { sentiment: 6 })).rejects.toMatchObject({
+        code: 'invalid_input',
+      })
+    })
     it('should update a user product', async () => {
       const created = await collect()
 

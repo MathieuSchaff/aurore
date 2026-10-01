@@ -96,6 +96,9 @@ export async function createUserProduct(
   input: CreateUserProductInput,
   db: DbOrTransaction
 ) {
+  if (input.status === 'avoided' && input.sentiment === HOLY_GRAIL_SENTIMENT) {
+    throw new UserProductError('invalid_input')
+  }
   const existing = await db.query.userProducts.findFirst({
     where: and(eq(userProducts.userId, userId), eq(userProducts.productId, input.productId)),
     columns: { id: true, status: true, sentiment: true },
@@ -152,11 +155,18 @@ export async function updateUserProduct(
   const { reason, ...patch } = input
   const previous = await db.query.userProducts.findFirst({
     where: and(eq(userProducts.id, userProductId), eq(userProducts.userId, userId)),
-    columns: { status: true },
+    columns: { status: true, sentiment: true },
   })
 
   if (!previous) {
     throw new UserProductError('user_product_not_found')
+  }
+
+  const status = patch.status ?? previous.status
+  const sentiment = patch.sentiment !== undefined ? patch.sentiment : previous.sentiment
+  if (status === 'avoided' && sentiment === HOLY_GRAIL_SENTIMENT) {
+    if (patch.sentiment === HOLY_GRAIL_SENTIMENT) throw new UserProductError('invalid_input')
+    patch.sentiment = null
   }
 
   const [result] = await db
