@@ -51,7 +51,7 @@ export function PdsFormulaSection({ p }: PdsFormulaSectionProps) {
       {/* Raw INCI before the tag list: ingredients-first, backlog section 18 P2.C (2026-05-15). */}
       {fullProductError ? (
         <p className="pds-empty-msg" role="alert">
-          Détails indisponibles — vérifiez votre connexion.
+          Détails indisponibles : vérifiez votre connexion.
         </p>
       ) : fullProduct?.inci ? (
         <article className="pds-inci">

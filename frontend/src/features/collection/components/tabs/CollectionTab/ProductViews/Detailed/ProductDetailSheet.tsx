@@ -113,7 +113,7 @@ export function ProductDetailSheet({ p, onClose }: ProductDetailSheetProps) {
       {showDeleteConfirm && (
         <DeleteConfirmDialog
           title="Retirer ce produit ?"
-          message="Retirer supprime aussi vos notes et votre historique pour ce produit. Si vous voulez juste ne plus l'utiliser, vous pouvez le marquer À éviter — vos notes restent disponibles."
+          message="Retirer supprime aussi vos notes et votre historique pour ce produit. Si vous voulez juste ne plus l'utiliser, vous pouvez le marquer À éviter : vos notes restent disponibles."
           confirmLabel="Retirer définitivement"
           onConfirm={() =>
             deleteMutation.mutate(p.id, {
