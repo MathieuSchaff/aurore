@@ -3,6 +3,7 @@ import { screen } from '@testing-library/react'
 import { HttpResponse, http } from 'msw'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
+import type { ApiData, api } from '@/lib/api'
 import { server } from '@/test/msw/server'
 import { renderWithProviders } from '@/test/utils'
 import { ingredientLabels } from '../../constants'
@@ -20,6 +21,40 @@ vi.mock('@tanstack/react-router', async () => ({
 vi.mock('react-markdown', () => ({ default: ({ children }: { children: string }) => children }))
 vi.mock('remark-gfm', () => ({ default: () => null }))
 
+type Ingredient = ApiData<(typeof api.ingredients)[':slug']['$get']>
+type IngredientProducts = ApiData<(typeof api.ingredients)[':slug']['products']['$get']>
+type IngredientTags = ApiData<(typeof api.ingredients)[':ingredientId']['tags']['$get']>
+
+const PRODUCT = {
+  id: '11111111-1111-4111-8111-111111111111',
+  createdBy: '22222222-2222-4222-8222-222222222222',
+  name: 'Sérum',
+  slug: 'serum',
+  brand: 'Lab',
+  category: 'skincare',
+  kind: 'serum',
+  unit: 'pump',
+  texture: null,
+  inci: null,
+  description: null,
+  totalAmount: null,
+  amountUnit: null,
+  url: null,
+  patents: [],
+  imageUrl: null,
+  notes: null,
+  priceCents: null,
+  catalogQuality: 'verified',
+  verifiedBy: null,
+  verifiedAt: null,
+  moderationStatus: 'visible',
+  moderatedBy: null,
+  moderatedAt: null,
+  moderationReason: null,
+  createdAt: '2026-01-15T10:00:00.000Z',
+  updatedAt: '2026-01-15T10:00:00.000Z',
+} satisfies IngredientProducts[number]
+
 // The nested resource routes are registered before the by-slug one: `:slug` would
 // otherwise swallow `/products` and `/tags`.
 function serveIngredient({
@@ -27,9 +62,9 @@ function serveIngredient({
   tags = [],
   overrides = {},
 }: {
-  products?: unknown[]
-  tags?: unknown[]
-  overrides?: Record<string, unknown>
+  products?: IngredientProducts
+  tags?: IngredientTags
+  overrides?: Partial<Ingredient>
 } = {}) {
   server.use(
     http.get('*/api/ingredients/:slug/products', () =>
@@ -41,15 +76,20 @@ function serveIngredient({
         success: true,
         data: {
           id: 'i1',
+          createdBy: PRODUCT.createdBy,
           slug: 'retinol',
           name: 'Rétinol',
           type: 'skincare',
-          category: 'rétinoïde',
+          category: 'actif',
+          canonicalKey: 'Retinol',
           description: 'Description',
           content: '',
+          catalogQuality: 'verified',
+          moderationStatus: 'visible',
+          createdAt: '2026-01-15T10:00:00Z',
           updatedAt: '2026-01-15T10:00:00Z',
           ...overrides,
-        },
+        } satisfies Ingredient,
       })
     )
   )
@@ -69,16 +109,30 @@ describe('IngredientInfoTab', () => {
     renderWithProviders(<IngredientInfoTab />)
 
     expect(await screen.findByText('skincare')).toBeInTheDocument()
-    expect(screen.getByText('rétinoïde')).toBeInTheDocument()
+    expect(screen.getByText('actif')).toBeInTheDocument()
     expect(screen.getByText('Description')).toBeInTheDocument()
   })
 
   it('splits tags into beneficial (Fonctions) and avoid (À noter) sections', async () => {
     serveIngredient({
       tags: [
-        { ingredientTagId: 't1', tagName: 'Anti-âge', relevance: 'primary' },
-        { ingredientTagId: 't2', tagName: 'Photosensibilisant', relevance: 'avoid' },
-      ],
+        {
+          ingredientTagId: 't1',
+          ingredientId: 'i1',
+          tagName: 'Anti-âge',
+          tagSlug: 'anti-age',
+          tagCategory: 'concern',
+          relevance: 'primary',
+        },
+        {
+          ingredientTagId: 't2',
+          ingredientId: 'i1',
+          tagName: 'Photosensibilisant',
+          tagSlug: 'photosensibilisant',
+          tagCategory: 'caution',
+          relevance: 'avoid',
+        },
+      ] satisfies IngredientTags,
     })
     renderWithProviders(<IngredientInfoTab />)
 
@@ -94,11 +148,12 @@ describe('IngredientInfoTab', () => {
 
   it('truncates to MAX_VISIBLE_PRODUCTS and exposes a "Voir tous" link', async () => {
     const products = Array.from({ length: 8 }, (_, i) => ({
+      ...PRODUCT,
       id: `p${i}`,
       slug: `product-${i}`,
       name: `Produit ${i}`,
       category: 'skincare',
-    }))
+    })) satisfies IngredientProducts
     serveIngredient({ products })
     renderWithProviders(<IngredientInfoTab />)
 
@@ -113,14 +168,27 @@ describe('IngredientInfoTab', () => {
   // so the count says 6, what that tab will show, not the 7 the endpoint returns
   it('counts only the products of the ingredient domain in the "Voir tous" link', async () => {
     const products = [
-      ...Array.from({ length: 6 }, (_, i) => ({
-        id: `p${i}`,
-        slug: `product-${i}`,
-        name: `Produit ${i}`,
-        category: i === 0 ? 'solaire' : 'skincare',
-      })),
-      { id: 'hair', slug: 'shampoo', name: 'Shampoing', category: 'haircare' },
-    ]
+      ...Array.from(
+        { length: 6 },
+        (_, i) =>
+          ({
+            ...PRODUCT,
+            id: `p${i}`,
+            slug: `product-${i}`,
+            name: `Produit ${i}`,
+            category: i === 0 ? 'solaire' : 'skincare',
+            kind: i === 0 ? 'sunscreen' : 'serum',
+          }) satisfies IngredientProducts[number]
+      ),
+      {
+        ...PRODUCT,
+        id: 'hair',
+        slug: 'shampoo',
+        name: 'Shampoing',
+        category: 'haircare',
+        kind: 'shampoo',
+      },
+    ] satisfies IngredientProducts
     serveIngredient({ products })
     renderWithProviders(<IngredientInfoTab />)
 
