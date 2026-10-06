@@ -1,6 +1,6 @@
 import { beforeAll, beforeEach, describe, expect, it } from 'bun:test'
 
-import type { CreateIngredientInput } from '@aurore/shared'
+import type { CreateIngredientInput, UpdateIngredientInput } from '@aurore/shared'
 import { HTTP_STATUS } from '@aurore/shared'
 
 import { setupDbTests } from '../../../tests/db-setup'
@@ -285,6 +285,41 @@ describe('Ingredient Routes', () => {
   })
 
   describe('PATCH /ingredients/:id', () => {
+    it.each([
+      { label: 'category', data: { category: 'vitamine' } },
+      { label: 'type', data: { type: 'supplement' } },
+    ] satisfies Array<{ label: string; data: UpdateIngredientInput }>)(
+      'rejects an incompatible $label update without changing the ingredient',
+      async ({ data }) => {
+        const created = await createIngredient({
+          ...VALID_INGREDIENT,
+          category: 'humectant',
+          description: 'Original description',
+        })
+
+        // The omitted half of the pair must come from the stored ingredient
+        const res = await client.ingredients[':id'].$patch(
+          { param: { id: created.id }, json: data },
+          withAuth(contributorToken)
+        )
+
+        await expectError(res, HTTP_STATUS.BAD_REQUEST, 'invalid_input')
+        const fetched = await expectOk(
+          client.ingredients[':slug'].$get({ param: { slug: created.slug } })
+        )
+        expect(fetched).toMatchObject({
+          type: 'skincare',
+          category: 'humectant',
+          description: 'Original description',
+          updatedAt: created.updatedAt,
+        })
+        const edits = await expectOk(
+          client.ingredients[':slug'].edits.$get({ param: { slug: created.slug } })
+        )
+        expect(edits).toEqual([])
+      }
+    )
+
     it('should update ingredient fields', async () => {
       const created = await createIngredient(VALID_INGREDIENT)
 
@@ -302,17 +337,21 @@ describe('Ingredient Routes', () => {
       expect(updated.name).toBe('Rétinol')
     })
 
-    it('should not affect untouched fields', async () => {
+    it('accepts a compatible category update and preserves untouched fields', async () => {
       const created = await createIngredient({ ...VALID_INGREDIENT, content: 'Contenu initial' })
 
-      await client.ingredients[':id'].$patch(
-        { param: { id: created.id }, json: { category: 'actif' } },
-        withAuth(contributorToken)
+      await expectOk(
+        client.ingredients[':id'].$patch(
+          { param: { id: created.id }, json: { category: 'actif' } },
+          withAuth(contributorToken)
+        )
       )
 
       const fetched = await expectOk(
         client.ingredients[':slug'].$get({ param: { slug: created.slug } })
       )
+      expect(fetched.type).toBe('skincare')
+      expect(fetched.category).toBe('actif')
       expect(fetched.content).toBe('Contenu initial')
     })
 
