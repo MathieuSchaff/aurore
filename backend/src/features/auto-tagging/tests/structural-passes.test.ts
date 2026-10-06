@@ -1,8 +1,8 @@
-// Bind tests for the structural passes (ADR-0001).
+// Bind tests for the structural passes (ADR-0001)
 // Each test pins a discriminating behavior of the wrapper (field routing, source
 // stamping, guard branches) with direct expected values, never by restating
 // `pass.run ≡ asProposals(detect(...))`, which proves nothing (README, "Adding a
-// new pass"). Detector-internal coverage lives in the per-detector test files.
+// new pass"). Detector-internal coverage lives in the per-detector test files
 
 import { describe, expect, test } from 'bun:test'
 
@@ -61,13 +61,13 @@ describe('kindPass', () => {
 describe('crossSignalPass', () => {
   test('reads actifSlugs from prior via priorSlugsBySource', () => {
     const ctx = makeCtx({ inci: ACTIF_INCI, kind: 'serum', category: 'skincare' })
-    // Build prior synthetically so the test stays independent of actifClassPass.
+    // Build prior synthetically so the test stays independent of actifClassPass
     const prior: AutoTagProposal[] = [
       { tagSlug: S.AHA, relevance: 'secondary', source: 'actif-class' },
       { tagSlug: S.RETINOIDS, relevance: 'secondary', source: 'actif-class' },
       { tagSlug: S.TYPE_SERUM, relevance: 'secondary', source: 'kind' }, // ignored
     ]
-    // AHA + leave-on serum gives moment-soir; the kind-sourced entry must not leak in.
+    // AHA + leave-on serum gives moment-soir; the kind-sourced entry must not leak in
     expect(crossSignalPass.run(ctx, prior)).toContainEqual({
       tagSlug: S.MOMENT_SOIR,
       relevance: 'secondary',
@@ -77,7 +77,7 @@ describe('crossSignalPass', () => {
 
   test('empty prior → detector receives empty actifSlugs', () => {
     const ctx = makeCtx({ inci: ACTIF_INCI, kind: 'serum', category: 'skincare' })
-    // Sanity that the direct detector agrees nothing fires without actifs.
+    // Sanity that the direct detector agrees nothing fires without actifs
     expect(detectCrossSignalTags([], ctx.kind, ctx.inci, ctx.normalizedIngredients)).toEqual([])
     expect(crossSignalPass.run(ctx, [])).toEqual([])
   })
@@ -106,7 +106,7 @@ describe('percentClaimPass', () => {
   })
 
   test('reads ctx.percentClaims: fragile INCI + retinol claim → retinoids', () => {
-    // Alphabetical INCI counts as fragile, unlocking the strict fallback.
+    // Alphabetical INCI counts as fragile, unlocking the strict fallback
     const ctx = makeCtx({
       inci: 'Aqua, Butylene Glycol, Cetearyl Alcohol, Dimethicone, Glycerin, Niacinamide, Phenoxyethanol',
       kind: 'serum',
@@ -122,7 +122,7 @@ describe('percentClaimPass', () => {
 })
 
 describe('brandLevelPass', () => {
-  // Synthetic certification matching the Drizzle row shape.
+  // Synthetic certification matching the Drizzle row shape
   const makeCert = (
     brand: string,
     flags: Pick<BrandCertification, 'isVegan' | 'isCrueltyFree' | 'isNaturalCertified'>
@@ -171,13 +171,13 @@ describe('avoidPass', () => {
     ]
 
     const out = avoidPass.run(ctx, prior)
-    // Retinoid + AHA on a leave-on serum = the cross-signal stack-irritation avoid.
+    // Combining retinoids and AHA in a serum that stays on the skin triggers the irritation interaction rule
     expect(out).toContainEqual({
       tagSlug: S.PEAU_SENSIBLE,
       relevance: 'avoid',
       source: 'cross-signal',
     })
-    // Every proposal must be relevance=avoid; source can be any of the avoid sources.
+    // Every proposal must be relevance=avoid; source can be any of the avoid sources
     for (const p of out) {
       expect(p.relevance).toBe('avoid')
       expect(['cross-signal', 'interaction', 'concentration']).toContain(p.source)

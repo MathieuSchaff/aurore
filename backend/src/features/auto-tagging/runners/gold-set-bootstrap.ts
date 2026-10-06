@@ -1,8 +1,8 @@
-// Stratified sampler for the auto-tag gold set. Read-only on the DB; writes one
+// Stratified sampler for the automatic tag gold set. Reads the DB without changing it; writes one
 // JSON file (annotations.json, path via GOLD_SET_PATH, default
 // backend/src/features/auto-tagging/data/gold-set/annotations.json). Idempotent: existing
 // annotations are kept verbatim, only entries missing from the file get a fresh skeleton
-// (empty present/absent) so the annotator can resume.
+// (empty present/absent) so the annotator can resume
 
 import type { ProductKind } from '@aurore/shared'
 
@@ -25,7 +25,7 @@ import { exitOnError } from './cli-args'
 import { mulberry32 } from './rng'
 
 // Env: SAMPLE_SIZE (default 70, total unique products), POSITIVES_PER_TAG (default 4),
-// NEGATIVES_PER_TAG (default 2), SEED (default 42), GOLD_SET_PATH (output JSON path).
+// NEGATIVES_PER_TAG (default 2), SEED (default 42), GOLD_SET_PATH (output JSON path)
 const SAMPLE_SIZE = Number(process.env.SAMPLE_SIZE ?? 70)
 const POSITIVES_PER_TAG = Number(process.env.POSITIVES_PER_TAG ?? 4)
 const NEGATIVES_PER_TAG = Number(process.env.NEGATIVES_PER_TAG ?? 2)
@@ -88,7 +88,7 @@ function logHeader(): void {
   console.log(`   out=${GOLD_SET_PATH}\n`)
 }
 
-// Filtered to focus tags only; other tags are irrelevant for sampling.
+// Filtered to focus tags only; other tags are irrelevant for sampling
 async function fetchTagsByProduct(): Promise<Map<string, Set<string>>> {
   const focusTagDefIds = await db
     .select({ id: productTagTypes.id, slug: productTagTypes.slug })
@@ -125,12 +125,12 @@ async function fetchTagsByProduct(): Promise<Map<string, Set<string>>> {
   return tagsByProduct
 }
 
-// Positives: products that carry the tag, spanning kinds so the metric isn't serum-only.
+// Positives: products that carry the tag, spanning kinds so the metric isn't serum-only
 function buildPools(eligible: ProductRow[], tagsByProduct: Map<string, Set<string>>): PoolsState {
   const poolsByTag = new Map<GoldSetFocusTag, Pools>()
   for (const tag of SAMPLE_TAGS) poolsByTag.set(tag, { positives: [], negatives: [] })
 
-  // Track dominant kind per tag so negatives are drawn from the same kind.
+  // Track dominant kind per tag so negatives are drawn from the same kind
   const kindFreqByTag = new Map<GoldSetFocusTag, Map<string, number>>()
   for (const tag of SAMPLE_TAGS) kindFreqByTag.set(tag, new Map())
 
@@ -149,7 +149,7 @@ function buildPools(eligible: ProductRow[], tagsByProduct: Map<string, Set<strin
 }
 
 // Negatives share the tag's dominant kind (exercises FP detection); computed after
-// positives so the dominant kind per tag is known.
+// positives so the dominant kind per tag is known
 function addNegativesToPools(
   eligible: ProductRow[],
   tagsByProduct: Map<string, Set<string>>,
@@ -195,9 +195,9 @@ function logPoolsTable({ poolsByTag, kindFreqByTag }: PoolsState): void {
   console.table(rows)
 }
 
-// sampledFor accumulates every tag that selected the same product: one product can be drawn by several tags.
+// sampledFor accumulates every tag that selected the same product: one product can be drawn by several tags
 function drawSelection(state: PoolsState): Map<string, SelectionEntry> {
-  // Seeded PRNG: same SEED + DB state gives the same draw.
+  // Seeded PRNG: same SEED + DB state gives the same draw
   const rng = mulberry32(SEED >>> 0)
   for (const pools of state.poolsByTag.values()) {
     shuffleInPlace(pools.positives, rng)
@@ -206,14 +206,14 @@ function drawSelection(state: PoolsState): Map<string, SelectionEntry> {
 
   const selected = new Map<string, SelectionEntry>()
   // Shuffle already interleaves kinds; taking the first POSITIVES_PER_TAG entries
-  // is approximate stratification, adequate at current corpus scale.
+  // is approximate stratification, adequate at current corpus scale
   drawRound(state.poolsByTag, selected, POSITIVES_PER_TAG, 'positives')
   drawRound(state.poolsByTag, selected, NEGATIVES_PER_TAG, 'negatives')
   return selected
 }
 
 // Round-robin across tags so one with few candidates isn't starved, until SAMPLE_SIZE
-// unique products is reached.
+// unique products is reached
 function drawRound(
   poolsByTag: Map<GoldSetFocusTag, Pools>,
   selected: Map<string, SelectionEntry>,
@@ -240,7 +240,7 @@ function drawRound(
   }
 }
 
-// Additive: entries not in the new draw are preserved. Only empty entries get sampledFor updated.
+// Additive: entries not in the new draw are preserved. Only empty entries get sampledFor updated
 function mergeAnnotations(
   existing: GoldSetFile,
   selected: Map<string, SelectionEntry>
@@ -258,7 +258,7 @@ function mergeAnnotations(
       if (a.present.length > 0 || a.absent.length > 0) preservedFilled++
       continue
     }
-    // Update sampledFor only on empty entries to avoid churning the file on every run.
+    // Update sampledFor only on empty entries to avoid churning the file on every run
     if (a.present.length === 0 && a.absent.length === 0) {
       const newSampledFor = [...sel.sampledFor].sort()
       const oldSampledFor = [...(a.sampledFor ?? [])].sort()
@@ -304,7 +304,7 @@ async function main() {
   logHeader()
 
   const all = await fetchEligibleProducts()
-  // Only products with an INCI can be annotated; the sampler draws from those.
+  // Only products with an INCI can be annotated; the sampler draws from those
   const eligible = all.filter((p) => !!p.inci?.trim())
   logCorpus(all.length, eligible.length)
 

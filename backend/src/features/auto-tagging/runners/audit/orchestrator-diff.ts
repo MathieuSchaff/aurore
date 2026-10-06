@@ -1,6 +1,6 @@
-// Snapshot + diff runner for the auto-tag orchestrator. Read-only. Needed because
+// Snapshot + diff runner for the automatic tag orchestrator. Read without writes. Needed because
 // backfill is insert-only (onConflictDoNothing/onConflictDoUpdate('avoid')): it can't surface
-// what a rule tightening would remove. Only two snapshots can.
+// what a rule tightening would remove. Only two snapshots can
 
 import { relevanceValues, tagSourceValues } from '@aurore/shared'
 
@@ -14,12 +14,12 @@ import { fetchEligibleProducts } from './db'
 import { LIMIT } from './env'
 
 // Env: CSV_OUT (required, path to write), BASELINE (optional, prior snapshot CSV, switches to
-// diff mode), LIMIT (optional, cap product count, debug).
+// diff mode), LIMIT (optional, cap product count, debug)
 const CSV_OUT = process.env.CSV_OUT
 const BASELINE = process.env.BASELINE
 
 // Baseline CSVs outlive schema changes, so validate enum columns on read
-// instead of blind-casting a stale snapshot into the diff.
+// instead of blind-casting a stale snapshot into the diff
 const RELEVANCE_SET: ReadonlySet<string> = new Set(relevanceValues)
 const AUTO_TAG_SOURCE_SET: ReadonlySet<string> = new Set(
   tagSourceValues.filter((s) => s !== 'manual')
@@ -34,7 +34,7 @@ export interface Row {
   source: AutoTagSource
 }
 
-// Keyed by (product_slug, tag_slug). Source is informational only; no row when source alone changed.
+// Keyed by (product_slug, tag_slug). Source is informational only; no row when source alone changed
 export interface DiffRow {
   action: 'added' | 'removed' | 'relevance_changed'
   productSlug: string
@@ -57,7 +57,7 @@ async function main() {
 
   const subset = await fetchEligibleProducts({ limit: LIMIT ?? undefined })
   // Full input via the shared kernel: a hand-built literal here once left the
-  // snapshot blind to brand/texture (and any future field) without a compile error.
+  // snapshot blind to brand/texture (and any future field) without a compile error
   const bundle = await loadAutoTagFetchBundle(
     subset.map((p) => p.id),
     db
@@ -82,9 +82,9 @@ async function main() {
   console.log(`   ${subset.length} produits éligibles`)
   console.log(`   ${currentRows.length} paires (product, tag) émises\n`)
 
-  // Snapshot mode (BASELINE unset): writes the full (product, tag, relevance, source) set.
+  // Snapshot mode (BASELINE unset): writes the full (product, tag, relevance, source) set
   // Diff mode (BASELINE set): computes delta vs the prior snapshot, action in
-  // {added, removed, relevance_changed}.
+  // {added, removed, relevance_changed}
   if (!BASELINE) {
     await writeSnapshot(CSV_OUT, currentRows)
     console.log(`📄 Snapshot écrit : ${CSV_OUT} (${currentRows.length} lignes)\n`)
@@ -135,7 +135,7 @@ async function main() {
 }
 
 export function computeDiff(baseline: readonly Row[], current: readonly Row[]): DiffRow[] {
-  // Orchestrator dedupes (productSlug, tagSlug): at most one row per side.
+  // Orchestrator dedupes (productSlug, tagSlug): at most one row per side
   const keyOf = (r: Row): string => `${r.productSlug}\t${r.tagSlug}`
   const baselineMap = new Map<string, Row>()
   for (const r of baseline) baselineMap.set(keyOf(r), r)
@@ -180,10 +180,10 @@ export function computeDiff(baseline: readonly Row[], current: readonly Row[]): 
         sourceAfter: c.source,
       })
     }
-    // Same relevance, possibly different source: ignored (not observable).
+    // Same relevance, possibly different source: ignored (not observable)
   }
 
-  // Stable sort: action then tagSlug then productSlug.
+  // Stable sort: action then tagSlug then productSlug
   const actionRank: Record<DiffRow['action'], number> = {
     added: 0,
     removed: 1,
