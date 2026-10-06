@@ -39,9 +39,8 @@ _wait-e2e-frontend:
 [group('e2e')]
 e2e-up: ts-build
     {{COMPOSE_E2E}} build
-    # vite proxies /api as soon as it listens: a frontend booted during the restore lets
-    # Playwright's webServer probe start tests against a DB still being restored
-    # Bring it up only after the data is in
+    # Stop any existing frontend so Playwright cannot reuse it during restoration
+    {{COMPOSE_E2E}} stop frontend
     {{COMPOSE_E2E}} up -d db api
     @printf "{{CYAN}}Waiting for DB...{{NC}}\n"
     @until {{COMPOSE_E2E}} exec -T db pg_isready -U app -d appdb >/dev/null 2>&1; do sleep 1; done
