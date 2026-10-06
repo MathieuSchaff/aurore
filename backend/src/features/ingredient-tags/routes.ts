@@ -15,7 +15,6 @@ import { getRlsDb } from '../../utils/accessors'
 import { zValidator } from '../../utils/validator'
 import { requireAdmin, requireJwtAuth, requireNotBanned } from '../auth/middleware'
 import { withRlsContext } from '../auth/rls-context.middleware'
-import { TagError } from '../product-tags/tag-error'
 import {
   createIngredientTag,
   deleteIngredientTag,
@@ -58,7 +57,6 @@ export const ingredientTagDefRoutes = ingredientTagsApp
     const db = c.get('anonDb')
     const { id } = c.req.valid('param')
     const tag = await getIngredientTagById(db, id)
-    if (!tag) throw new TagError('tag_not_found')
     return c.json(ok(tag), HTTP_STATUS.OK)
   })
 
@@ -89,8 +87,7 @@ export const ingredientTagDefRoutes = ingredientTagsApp
     async (c) => {
       const db = getRlsDb(c)
       const { id } = c.req.valid('param')
-      const deleted = await deleteIngredientTag(db, id)
-      if (!deleted) throw new TagError('tag_not_found')
+      await deleteIngredientTag(db, id)
       return c.json(ok(null), HTTP_STATUS.OK)
     }
   )
@@ -99,7 +96,6 @@ export const ingredientTagDefRoutes = ingredientTagsApp
     const db = c.get('anonDb')
     const { slug } = c.req.valid('param')
     const tag = await getIngredientTagBySlug(db, slug)
-    if (!tag) throw new TagError('tag_not_found')
     const items = await listIngredientsByTag(db, tag.id)
     return c.json(ok(items), HTTP_STATUS.OK)
   })
