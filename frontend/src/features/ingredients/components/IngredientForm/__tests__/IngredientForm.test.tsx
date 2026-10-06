@@ -3,6 +3,7 @@ import type {
   ReplaceIngredientTagsInput,
   UpdateIngredientRouteInput,
 } from '@aurore/shared'
+import { INGREDIENT_TYPE_LABELS, updateIngredientRouteSchema } from '@aurore/shared'
 
 import { screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
@@ -117,6 +118,70 @@ beforeEach(() => {
   })
   updateIngredientMutate.mockResolvedValue(mockIngredient)
   updateIngredientTagsMutate.mockResolvedValue([])
+})
+
+describe('IngredientForm - submission payload', () => {
+  it('keeps empty optional fields omitted when creating an ingredient', async () => {
+    setSessionRole('user')
+    const user = userEvent.setup()
+    const onSuccess = vi.fn()
+    renderForm(<IngredientForm mode="create" onSuccess={onSuccess} />, createTestQueryClient())
+
+    await user.type(screen.getByLabelText(/^nom/i), ' Retinol ')
+    await user.click(screen.getByRole('button', { name: /créer l.ingrédient/i }))
+
+    await waitFor(() => expect(onSuccess).toHaveBeenCalledWith(mockIngredient.slug))
+    expect(JSON.parse(JSON.stringify(createIngredientMutate.mock.calls[0]?.[0]))).toEqual({
+      name: 'Retinol',
+      type: 'skincare',
+    })
+  })
+
+  it('submits a changed ingredient type with its compatible category', async () => {
+    setSessionRole('admin')
+    const user = userEvent.setup()
+    const onSuccess = vi.fn()
+    renderForm(
+      <IngredientForm mode="edit" ingredient={mockIngredient} onSuccess={onSuccess} />,
+      createTestQueryClient()
+    )
+
+    await user.click(screen.getByRole('radio', { name: INGREDIENT_TYPE_LABELS.haircare }))
+    await user.click(screen.getByRole('button', { name: /enregistrer/i }))
+
+    await waitFor(() => expect(onSuccess).toHaveBeenCalledWith(mockIngredient.slug))
+    expect(
+      updateIngredientRouteSchema.parse(updateIngredientMutate.mock.calls[0]?.[0].data)
+    ).toMatchObject({
+      type: 'haircare',
+      category: 'actif',
+    })
+  })
+
+  it('sends explicit clearing values for emptied edit fields', async () => {
+    setSessionRole('admin')
+    const user = userEvent.setup()
+    const onSuccess = vi.fn()
+    renderForm(
+      <IngredientForm mode="edit" ingredient={mockIngredient} onSuccess={onSuccess} />,
+      createTestQueryClient()
+    )
+
+    await user.clear(screen.getByLabelText(/catégorie/i))
+    await user.clear(screen.getByLabelText(/description/i))
+    await user.clear(screen.getByLabelText(/^contenu$/i))
+    await user.click(screen.getByRole('button', { name: /enregistrer/i }))
+
+    await waitFor(() => expect(onSuccess).toHaveBeenCalledWith(mockIngredient.slug))
+    // Undefined disappears during JSON serialization and would preserve the old values
+    expect(
+      updateIngredientRouteSchema.parse(updateIngredientMutate.mock.calls[0]?.[0].data)
+    ).toMatchObject({
+      category: null,
+      description: '',
+      content: '',
+    })
+  })
 })
 
 describe('IngredientForm - Conflict Resolution', () => {
