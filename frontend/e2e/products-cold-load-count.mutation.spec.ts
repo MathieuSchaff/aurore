@@ -2,36 +2,39 @@ import { productDetailSchema } from '@aurore/shared'
 
 import { expect, test } from '@playwright/test'
 
-import { loginAsPersona, registerFreshUser } from './helpers/auth'
+import { deleteTestUser, loginAsPersona, registerFreshUser } from './helpers/auth'
 import { resolveShelfProductWithInci } from './helpers/catalog'
 import { waitForHydration, waitForProductsListSettled } from './helpers/hydration'
 import { authRequests, captureRequests, requestsFor } from './helpers/network'
 
 test('fetches one complete catalogue page on authenticated SPA navigation', async ({ page }) => {
-  await registerFreshUser(page)
+  const freshUser = await registerFreshUser(page)
+  try {
+    const refreshResponse = page.waitForResponse(
+      (response) =>
+        response.request().method() === 'POST' &&
+        new URL(response.url()).pathname === '/api/auth/refresh'
+    )
+    await page.setViewportSize({ width: 1280, height: 900 })
+    await page.goto('/about')
+    await waitForHydration(page)
+    expect((await refreshResponse).ok()).toBe(true)
 
-  const refreshResponse = page.waitForResponse(
-    (response) =>
-      response.request().method() === 'POST' &&
-      new URL(response.url()).pathname === '/api/auth/refresh'
-  )
-  await page.setViewportSize({ width: 1280, height: 900 })
-  await page.goto('/about')
-  await waitForHydration(page)
-  expect((await refreshResponse).ok()).toBe(true)
+    const requests = captureRequests(page)
 
-  const requests = captureRequests(page)
+    await page.locator('.main-nav__inline').getByRole('link', { name: 'Produits' }).click()
+    await expect(page.getByRole('heading', { name: 'Produits', level: 1 })).toBeVisible()
+    await waitForProductsListSettled(page)
 
-  await page.locator('.main-nav__inline').getByRole('link', { name: 'Produits' }).click()
-  await expect(page.getByRole('heading', { name: 'Produits', level: 1 })).toBeVisible()
-  await waitForProductsListSettled(page)
-
-  // The standing setting resolves server-side (apply_preferences=auto): one list
-  // read, no profile reads, no replace-navigate
-  expect(requestsFor(requests, 'GET', '/api/products')).toHaveLength(1)
-  expect(requestsFor(requests, 'GET', '/api/profile/dermo')).toEqual([])
-  expect(requestsFor(requests, 'GET', '/api/profile/preference-targets')).toEqual([])
-  expect(new URL(page.url()).searchParams.get('profile_filter')).toBeNull()
+    // The standing setting resolves server-side (apply_preferences=auto): one list
+    // read, no profile reads, no replace-navigate
+    expect(requestsFor(requests, 'GET', '/api/products')).toHaveLength(1)
+    expect(requestsFor(requests, 'GET', '/api/profile/dermo')).toEqual([])
+    expect(requestsFor(requests, 'GET', '/api/profile/preference-targets')).toEqual([])
+    expect(new URL(page.url()).searchParams.get('profile_filter')).toBeNull()
+  } finally {
+    await deleteTestUser(page, freshUser.token)
+  }
 })
 
 test('fetches one complete product detail page on authenticated SPA navigation', async ({
@@ -69,7 +72,7 @@ test('fetches one complete product detail page on authenticated SPA navigation',
 // The explicit setting keeps the request contract stable across SSR and hydration
 // The cookie-authenticated boot owns the only list read, seeds that exact connected
 // cache key, and the client only exchanges the refresh cookie for its Bearer token
-test('cold authenticated /products reuses the SSR list and probes auth once', async ({
+test('reuses the SSR list and probes auth once on authenticated cold load', async ({
   page,
   browserName,
 }) => {
@@ -96,7 +99,7 @@ test('cold authenticated /products reuses the SSR list and probes auth once', as
   expect(authRequests(requests)).toEqual(['POST /api/auth/refresh'])
 })
 
-test('cold authenticated product detail reuses every seeded first screen read', async ({
+test('reuses every seeded first screen read on authenticated product cold load', async ({
   page,
   browserName,
 }) => {
@@ -128,7 +131,7 @@ test('cold authenticated product detail reuses every seeded first screen read', 
   expect(authRequests(requests)).toEqual(['POST /api/auth/refresh'])
 })
 
-test('cold authenticated discussions reuses the complete product page', async ({
+test('reuses the complete product page on authenticated discussions cold load', async ({
   page,
   browserName,
 }) => {
@@ -158,7 +161,7 @@ test('cold authenticated discussions reuses the complete product page', async ({
   expect(authRequests(requests)).toEqual(['POST /api/auth/refresh'])
 })
 
-test('cold anonymous product detail reuses the SSR page without secondary reads', async ({
+test('reuses the SSR page without secondary reads on anonymous product cold load', async ({
   page,
 }) => {
   const slug = 'cerave-baume-hydratant'
@@ -187,27 +190,32 @@ test('cold anonymous product detail reuses the SSR page without secondary reads'
 // The other half of the contract: a fresh account has no portrait and no declared
 // rule, so auto resolves to "nothing applied" server-side and the boot-seeded key
 // is already the one the page reads. No profile read, no extra list fetch
-test('cold /products costs no extra list fetch for an account with nothing to apply', async ({
+test('avoids an extra list fetch on cold load for an account with nothing to apply', async ({
   page,
 }) => {
-  await registerFreshUser(page)
+  const freshUser = await registerFreshUser(page)
+  try {
+    const requests = captureRequests(page)
+    const refreshResponse = page.waitForResponse(
+      (response) =>
+        response.request().method() === 'POST' &&
+        new URL(response.url()).pathname === '/api/auth/refresh'
+    )
 
-  const requests = captureRequests(page)
-  const refreshResponse = page.waitForResponse(
-    (response) =>
-      response.request().method() === 'POST' &&
-      new URL(response.url()).pathname === '/api/auth/refresh'
-  )
+    const document = await page.goto('/products')
+    if (!document) throw new Error('no navigation response for /products')
+    expect(await document.text(), 'SSR HTML carries no product grid').toContain(
+      'list-card--product'
+    )
 
-  const document = await page.goto('/products')
-  if (!document) throw new Error('no navigation response for /products')
-  expect(await document.text(), 'SSR HTML carries no product grid').toContain('list-card--product')
+    expect((await refreshResponse).ok()).toBe(true)
+    await waitForHydration(page)
+    await waitForProductsListSettled(page)
 
-  expect((await refreshResponse).ok()).toBe(true)
-  await waitForHydration(page)
-  await waitForProductsListSettled(page)
-
-  expect(requestsFor(requests, 'GET', '/api/products')).toHaveLength(0)
-  expect(requestsFor(requests, 'GET', '/api/profile/dermo')).toEqual([])
-  expect(requestsFor(requests, 'GET', '/api/profile/preference-targets')).toEqual([])
+    expect(requestsFor(requests, 'GET', '/api/products')).toHaveLength(0)
+    expect(requestsFor(requests, 'GET', '/api/profile/dermo')).toEqual([])
+    expect(requestsFor(requests, 'GET', '/api/profile/preference-targets')).toEqual([])
+  } finally {
+    await deleteTestUser(page, freshUser.token)
+  }
 })
