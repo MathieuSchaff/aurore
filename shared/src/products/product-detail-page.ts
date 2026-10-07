@@ -1,6 +1,7 @@
 import { z } from 'zod'
 
 import { preferenceTargetsSchema, userDermoProfileSchema } from '../profile'
+import { tagSourceValues } from '../tag-api'
 import { userProductStatusSchema } from '../user-products'
 import { PRODUCT_CATEGORY_VALUES, PRODUCT_KINDS, type ProductKind } from './kinds'
 import { PRODUCT_TEXTURE_VALUES } from './textures'
@@ -31,6 +32,7 @@ const productDetailTagSchema = z
     productTagId: z.uuid(),
     productId: z.uuid(),
     relevance: z.enum(['primary', 'secondary', 'avoid']),
+    source: z.enum(tagSourceValues),
     tagName: z.string(),
     tagSlug: z.string(),
     tagCategory: z.string(),

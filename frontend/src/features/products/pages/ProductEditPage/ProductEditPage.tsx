@@ -16,7 +16,7 @@ const route = getRouteApi('/products/$slug_/edit')
 export function ProductEditPage() {
   const { slug } = route.useParams()
   const { data: product } = useSuspenseQuery(productQueries.bySlug(slug))
-  const currentTags = product.tags
+  const currentTags = product.tags.filter((tag) => tag.source === 'manual')
   const navigate = useNavigate()
   const router = useRouter()
   const canGoBack = useCanGoBack()

@@ -1,5 +1,8 @@
 import { beforeEach, describe, expect, it } from 'bun:test'
 
+import { eq } from 'drizzle-orm'
+
+import { productTagLinks } from '../../../db/schema'
 import { testDb } from '../../../tests/db.test.config'
 import { setupDbTests } from '../../../tests/db-setup'
 import {
@@ -333,6 +336,50 @@ describe('Product Tags Service', () => {
   })
 
   describe('replaceProductTags', () => {
+    it('preserves automatic tags while replacing only manual selections', async () => {
+      const product = await seedProduct()
+      const automatic = await createTag({ label: 'Automatic source' })
+      const manual = await createTag({ label: 'Manual source' })
+      await testDb.insert(productTagLinks).values({
+        productId: product.id,
+        productTagId: automatic.id,
+        relevance: 'primary',
+        source: 'formula',
+      })
+      await replaceTags(product.id, [manual.id])
+      const rows = await testDb
+        .select()
+        .from(productTagLinks)
+        .where(eq(productTagLinks.productId, product.id))
+      expect(rows).toEqual(
+        expect.arrayContaining([
+          expect.objectContaining({
+            productTagId: automatic.id,
+            source: 'formula',
+            relevance: 'primary',
+          }),
+          expect.objectContaining({ productTagId: manual.id, source: 'manual' }),
+        ])
+      )
+      await replaceTags(product.id, [])
+      expect(
+        await testDb.select().from(productTagLinks).where(eq(productTagLinks.productId, product.id))
+      ).toEqual([expect.objectContaining({ productTagId: automatic.id, source: 'formula' })])
+    })
+
+    it('promotes an automatic tag only when it is explicitly selected manually', async () => {
+      const product = await seedProduct()
+      const tag = await createTag({ label: 'Explicit manual selection' })
+      await testDb
+        .insert(productTagLinks)
+        .values({ productId: product.id, productTagId: tag.id, source: 'formula' })
+      await replaceProductTags(testDb, product.id, [{ tagId: tag.id, relevance: 'primary' }])
+      expect(
+        await testDb.select().from(productTagLinks).where(eq(productTagLinks.productId, product.id))
+      ).toEqual([
+        expect.objectContaining({ productTagId: tag.id, source: 'manual', relevance: 'primary' }),
+      ])
+    })
     it('should replace existing tags with new ones', async () => {
       const product = await seedProduct()
       const t1 = await createTag({ label: 'Ancien' })
