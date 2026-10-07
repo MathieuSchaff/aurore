@@ -1,4 +1,4 @@
-import type { ProductConcentrationUnit } from '@aurore/shared'
+import type { ProductConcentrationUnit, ReplaceProductTagsInput } from '@aurore/shared'
 
 import { useQueryClient } from '@tanstack/react-query'
 import { useState } from 'react'
@@ -24,7 +24,7 @@ import {
   useUpdateProductTags,
 } from '@/lib/queries/products'
 
-type TagPayload = { tagId: string; relevance: 'primary' | 'secondary' | 'avoid' }
+type TagPayload = ReplaceProductTagsInput['tags'][number]
 
 type PendingIngredient = {
   ingredientId: string
@@ -46,6 +46,8 @@ type EditArgs = {
 
 type Args = (CreateArgs | EditArgs) & {
   form: ProductEditFormInput
+  isTagsDirty: boolean
+  canManageLinks: boolean
   tags: Array<{ tagId: string; relevance: TagPayload['relevance'] }>
   onSuccess: (slug: string) => void
 }
@@ -68,14 +70,14 @@ export function useProductFormSubmit(args: Args) {
   async function submitCreate(data: ProductEditFormInput): Promise<string> {
     if (args.mode !== 'create') throw new Error('submitCreate called in edit mode')
     const newProduct = await createProduct.mutateAsync(productEditFormToCreateInput(data))
-    if (args.tags.length > 0) {
+    if (args.canManageLinks && args.tags.length > 0) {
       await updateTags.mutateAsync({
         productId: newProduct.id,
         slug: newProduct.slug,
         tags: tagsPayload(),
       })
     }
-    if (args.pendingIngredients.length > 0) {
+    if (args.canManageLinks && args.pendingIngredients.length > 0) {
       await Promise.all(
         args.pendingIngredients.map((i) => {
           const value = i.concentrationValue.trim()
@@ -95,17 +97,17 @@ export function useProductFormSubmit(args: Args) {
   }
 
   async function submitEdit(data: ProductEditFormInput, current: ProductDetail): Promise<string> {
-    const [updated] = await Promise.all([
-      updateProduct.mutateAsync({
-        id: current.id,
-        data: productEditFormToUpdateInput(data, current),
-      }),
-      updateTags.mutateAsync({
+    const updated = await updateProduct.mutateAsync({
+      id: current.id,
+      data: productEditFormToUpdateInput(data, current),
+    })
+    if (args.canManageLinks && args.isTagsDirty) {
+      await updateTags.mutateAsync({
         productId: current.id,
-        slug: current.slug,
+        slug: updated.slug,
         tags: tagsPayload(),
-      }),
-    ])
+      })
+    }
     // Force a cold read on return-to-detail so the updated detail page refetches.
     queryClient.removeQueries({
       queryKey: productQueries.bySlug(updated.slug).queryKey,
