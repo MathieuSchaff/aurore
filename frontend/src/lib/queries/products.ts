@@ -23,8 +23,11 @@ import {
 import { FILTER_KEYS } from '@/features/products/filters'
 import { type ApiData, api } from '../api'
 import { throwIfNotOk, unwrapData } from '../helpers/apiError'
+import { catalogSubmissionKeys } from './catalog-submissions'
 import { collectionKeys } from './collection'
+import { comparisonKeys } from './comparisons'
 import { applyOptimisticUpdates, optimisticCacheUpdate } from './optimistic'
+import { userProductKeys } from './user-product-keys'
 
 const PRODUCT_FORM_HANDLED_ERROR_CODES = [
   'product_already_exists',
@@ -318,6 +321,12 @@ export const productQueries = {
 
 type ProductListData = ApiData<typeof api.products.$get>
 
+function invalidateProductProjections(qc: QueryClient) {
+  qc.invalidateQueries({ queryKey: catalogSubmissionKeys.mine() })
+  qc.invalidateQueries({ queryKey: userProductKeys.all })
+  qc.invalidateQueries({ queryKey: comparisonKeys.all })
+}
+
 function invalidateProductDiscoveryReads(qc: QueryClient) {
   qc.invalidateQueries({ queryKey: productKeys.lists() })
   qc.invalidateQueries({ queryKey: productKeys.searches() })
@@ -325,6 +334,7 @@ function invalidateProductDiscoveryReads(qc: QueryClient) {
   qc.invalidateQueries({ queryKey: productKeys.duplicateChecks() })
   qc.invalidateQueries({ queryKey: productKeys.brands() })
   qc.invalidateQueries({ queryKey: productKeys.filterOptions() })
+  invalidateProductProjections(qc)
 }
 
 // Product mutations converge detail and every discovery cache that can render stale data
@@ -338,6 +348,7 @@ function invalidateFormulaSurfaces(qc: QueryClient, slug: string) {
   qc.invalidateQueries({ queryKey: productKeys.bySlug(slug) })
   qc.invalidateQueries({ queryKey: productKeys.detailPagesBySlug(slug) })
   qc.invalidateQueries({ queryKey: collectionKeys.formulaMotifs() })
+  invalidateProductProjections(qc)
 }
 
 export function useCreateProduct() {
@@ -368,6 +379,7 @@ export function useUpdateProduct() {
       // An explicit slug edit makes the previous detail key unknowable here
       invalidateProductReads(qc)
       qc.invalidateQueries({ queryKey: collectionKeys.formulaMotifs() })
+      invalidateProductProjections(qc)
     },
     meta: {
       errorMessage: 'Modification du produit impossible.',
