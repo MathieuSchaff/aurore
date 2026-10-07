@@ -249,13 +249,14 @@ export async function listComparisons(
       id: productComparisons.id,
       name: productComparisons.name,
       createdAt: productComparisons.createdAt,
-      productCount: count(productComparisonItems.productId),
+      productCount: count(products.id),
     })
     .from(productComparisons)
     .leftJoin(
       productComparisonItems,
       eq(productComparisonItems.comparisonId, productComparisons.id)
     )
+    .leftJoin(products, eq(products.id, productComparisonItems.productId))
     .where(eq(productComparisons.userId, userId))
     .groupBy(productComparisons.id)
     .orderBy(asc(productComparisons.createdAt))
