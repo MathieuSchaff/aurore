@@ -4,7 +4,7 @@ import { eq } from 'drizzle-orm'
 
 import type { DatabaseTransaction } from '../../db/index'
 import { ingredients } from '../../db/schema/ingredients/ingredients'
-import { products } from '../../db/schema/products/products'
+import { productEdits, products } from '../../db/schema/products/products'
 import { IngredientError } from '../../features/ingredients/ingredients-error'
 import { createIngredient, updateIngredient } from '../../features/ingredients/service'
 import { ProductError } from '../../features/products/product-error'
@@ -214,4 +214,78 @@ describe('catalog update: updateProduct 0-row disambiguation', () => {
     expect(err).toBeInstanceOf(ProductError)
     expect((err as ProductError).code).toBe('unauthorized_access')
   })
+})
+
+describe('catalog update: empty product payload', () => {
+  it.each(['hidden', 'missing'] as const)(
+    'keeps a %s target unavailable to an empty update',
+    async (target) => {
+      const user = await createTestUser('empty-update-unavailable@test.local')
+      let id: string = crypto.randomUUID()
+      if (target === 'hidden') {
+        const product = await testDb.transaction((tx) =>
+          createProduct(user.id, 'user', baseProductInput, tx, { autoTag: false })
+        )
+        id = product.id
+        await testDb.update(products).set({ moderationStatus: 'hidden' }).where(eq(products.id, id))
+      }
+
+      const error = await captureError(() =>
+        withRls('user', user.id, (tx) => updateProduct(user.id, id, {}, tx))
+      )
+
+      expect(error).toBeInstanceOf(ProductError)
+      expect(error).toMatchObject({ code: 'product_not_found' })
+    }
+  )
+
+  it.each(['another owner', 'verified own product'] as const)(
+    'rejects an empty update for %s under the write policy',
+    async (target) => {
+      const user = await createTestUser('empty-update-user@test.local')
+      const owner =
+        target === 'another owner' ? await createTestUser('empty-update-owner@test.local') : user
+      const product = await testDb.transaction((tx) =>
+        createProduct(owner.id, 'user', baseProductInput, tx, { autoTag: false })
+      )
+      if (target === 'verified own product') {
+        await testDb
+          .update(products)
+          .set({ catalogQuality: 'verified' })
+          .where(eq(products.id, product.id))
+      }
+      const before = await testDb.query.products.findFirst({ where: eq(products.id, product.id) })
+
+      // Public SELECT permits these rows but must not authorize an empty PATCH
+      const error = await captureError(() =>
+        withRls('user', user.id, (tx) => updateProduct(user.id, product.id, {}, tx))
+      )
+
+      expect(error).toBeInstanceOf(ProductError)
+      expect(error).toMatchObject({ code: 'unauthorized_access' })
+      expect(await testDb.query.products.findFirst({ where: eq(products.id, product.id) })).toEqual(
+        before
+      )
+    }
+  )
+
+  it.each(['user', 'contributor', 'admin'] as const)(
+    'preserves an editable product and its history for an empty update as %s',
+    async (role) => {
+      const user = await createTestUser('empty-update-allowed@test.local')
+      const owner = role === 'user' ? user : await createTestUser('empty-update-owner@test.local')
+      const product = await testDb.transaction((tx) =>
+        createProduct(owner.id, role, baseProductInput, tx, { autoTag: false })
+      )
+
+      const updated = await withRls(role, user.id, (tx) =>
+        updateProduct(user.id, product.id, {}, tx)
+      )
+
+      expect(updated).toEqual(product)
+      expect(
+        await testDb.select().from(productEdits).where(eq(productEdits.productId, product.id))
+      ).toEqual([])
+    }
+  )
 })

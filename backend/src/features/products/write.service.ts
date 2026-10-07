@@ -260,8 +260,13 @@ export async function updateProduct(
   const setClauses = buildUpdateClauses(input)
 
   if (setClauses.length === 0) {
-    const existing = await database.query.products.findFirst({ where: eq(products.id, id) })
-    if (!existing) throw new ProductError('product_not_found')
+    // Public reads do not prove write access; preserve the timestamp while exercising UPDATE RLS
+    const [existing] = await database
+      .update(products)
+      .set({ updatedAt: sql`${products.updatedAt}` })
+      .where(eq(products.id, id))
+      .returning()
+    if (!existing) return throwMissingProductUpdate(id, database)
     return existing
   }
 
