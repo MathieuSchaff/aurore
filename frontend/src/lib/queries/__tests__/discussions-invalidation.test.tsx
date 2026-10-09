@@ -1,4 +1,4 @@
-import type { DiscussionThreadWithReplies } from '@aurore/shared'
+import type { DiscussionReply, DiscussionThreadWithReplies } from '@aurore/shared'
 
 import { act } from '@testing-library/react'
 import { HttpResponse, http } from 'msw'
@@ -41,7 +41,20 @@ describe('reply mutations', () => {
   it('invalidates the thread list too, since it carries replyCount', async () => {
     server.use(
       http.post('*/api/products/:slug/discussions/:threadId/replies', () =>
-        HttpResponse.json({ success: true, data: {} }, { status: 201 })
+        HttpResponse.json(
+          {
+            success: true,
+            data: {
+              id: 'reply-1',
+              threadId: THREAD_ID,
+              authorId: 'a1',
+              authorName: 'lea',
+              content: 'Réponse',
+              createdAt: '2026-09-15T00:00:00.000Z',
+            } satisfies DiscussionReply,
+          },
+          { status: 201 }
+        )
       )
     )
     const { queryClient, threadsKey, threadKey } = seedBothSurfaces()
