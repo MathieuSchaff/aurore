@@ -30,7 +30,7 @@ import { socialKeys } from '../social-keys'
 function seedProfileDependentReads() {
   const queryClient = createTestQueryClient()
   const publicProfileKey = profileKeys.publicProfiles()
-  const socialKey = socialKeys.similar()
+  const socialKey = socialKeys.similar('viewer')
 
   for (const queryKey of [publicProfileKey, socialKey]) {
     queryClient.setQueryDefaults(queryKey, { gcTime: Number.POSITIVE_INFINITY })
