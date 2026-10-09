@@ -1,5 +1,6 @@
 import {
   articleSearchSchema,
+  articleSlugParamSchema,
   createArticleSchema,
   err,
   HTTP_STATUS,
@@ -8,7 +9,6 @@ import {
 } from '@aurore/shared'
 
 import { type Context, Hono } from 'hono'
-import { z } from 'zod'
 
 import type { AppEnv } from '../../app-env'
 import { getAuthedUserId, getRlsDb } from '../../utils/accessors'
@@ -23,8 +23,6 @@ import {
   listArticles,
   updateArticle,
 } from './service'
-
-const slugParam = z.object({ slug: z.string().min(1).max(150) })
 
 const articlesApp = new Hono<AppEnv>()
 
@@ -55,14 +53,20 @@ export const articleRoutes = articlesApp
     return c.json(ok(counts), HTTP_STATUS.OK)
   })
 
-  .get('/:slug', optionalJwtAuth, withRlsContext, zValidator('param', slugParam), async (c) => {
-    const db = getArticleReadDb(c)
-    const { slug } = c.req.valid('param')
-    const article = await getArticleBySlug(db, slug, {
-      includeDrafts: c.get('userRole') === 'admin',
-    })
-    return c.json(ok(article), HTTP_STATUS.OK)
-  })
+  .get(
+    '/:slug',
+    optionalJwtAuth,
+    withRlsContext,
+    zValidator('param', articleSlugParamSchema),
+    async (c) => {
+      const db = getArticleReadDb(c)
+      const { slug } = c.req.valid('param')
+      const article = await getArticleBySlug(db, slug, {
+        includeDrafts: c.get('userRole') === 'admin',
+      })
+      return c.json(ok(article), HTTP_STATUS.OK)
+    }
+  )
 
   .post(
     '/',
@@ -86,7 +90,7 @@ export const articleRoutes = articlesApp
     requireJwtAuth,
     withRlsContext,
     requireNotBanned,
-    zValidator('param', slugParam),
+    zValidator('param', articleSlugParamSchema),
     zValidator('json', updateArticleSchema),
     async (c) => {
       const db = getRlsDb(c)
@@ -104,7 +108,7 @@ export const articleRoutes = articlesApp
     requireJwtAuth,
     withRlsContext,
     requireNotBanned,
-    zValidator('param', slugParam),
+    zValidator('param', articleSlugParamSchema),
     async (c) => {
       const db = getRlsDb(c)
       if (c.get('userRole') !== 'admin')
