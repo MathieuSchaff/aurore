@@ -1,6 +1,6 @@
 import { z } from 'zod'
 
-import { HTTP_STATUS, type HttpStatus } from '../core'
+import { HTTP_STATUS, type HttpStatus, noHtml } from '../core'
 import { SKIN_CONCERNS, type SkinConcern } from '../profile'
 
 // A Post has no title (read inline); the tone is a facet, not an object
@@ -11,7 +11,7 @@ export type PostTone = (typeof POST_TONES)[number]
 // The concern is selected from the 22 user concerns, never supplied as free text
 export const createPostSchema = z
   .object({
-    content: z.string().min(1).max(2000),
+    content: noHtml(z.string().min(1).max(2000)),
     tone: z.enum(POST_TONES),
     productId: z.uuid().optional(),
     ingredientId: z.uuid().optional(),
@@ -22,7 +22,7 @@ export const createPostSchema = z
     path: ['anchors'],
   })
 
-export const createPostReplySchema = z.object({ content: z.string().min(1).max(2000) })
+export const createPostReplySchema = z.object({ content: noHtml(z.string().min(1).max(2000)) })
 
 export type CreatePostInput = z.infer<typeof createPostSchema>
 export type CreatePostReplyInput = z.infer<typeof createPostReplySchema>
