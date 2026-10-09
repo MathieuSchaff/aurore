@@ -1,6 +1,6 @@
 import { BLOG_CATEGORY_LABELS } from '@aurore/shared'
 
-import { useSuspenseQuery } from '@tanstack/react-query'
+import { useQueryClient, useSuspenseQuery } from '@tanstack/react-query'
 import { Link, useNavigate } from '@tanstack/react-router'
 import { ChevronLeft, Pencil, Trash2 } from 'lucide-react'
 import { lazy, Suspense } from 'react'
@@ -10,7 +10,7 @@ import { Badge } from '@/component/DataDisplay/Badge/Badge'
 import { Time } from '@/component/DataDisplay/Time/Time'
 import { PageHeader } from '@/component/Layout/PageHeader/PageHeader'
 import { RichText } from '@/component/Typography/RichText/RichText'
-import { useSession } from '@/lib/auth/session'
+import { useSession, viewerId } from '@/lib/auth/session'
 import { articleQueries, useDeleteArticle } from '@/lib/queries/articles'
 import './BlogArticlePage.css'
 
@@ -21,16 +21,26 @@ type BlogArticlePageProps = {
 }
 
 export function BlogArticlePage({ slug }: BlogArticlePageProps) {
-  const { data: article } = useSuspenseQuery(articleQueries.bySlug(slug))
   const session = useSession()
+  const userId = viewerId(session)
+  const { data: article } = useSuspenseQuery(articleQueries.bySlug(slug, userId))
   const isAdmin = session.status === 'authenticated' && session.user.role === 'admin'
   const navigate = useNavigate()
   const deleteArticle = useDeleteArticle()
+  const queryClient = useQueryClient()
 
-  function handleDelete() {
+  async function handleDelete() {
     if (!confirm(`Supprimer « ${article.title} » ? Cette action est irréversible.`)) return
-    deleteArticle.mutate(article.slug, {
-      onSuccess: () => navigate({ to: '/blog/$category', params: { category: article.category } }),
+    try {
+      await deleteArticle.mutateAsync(article.slug)
+    } catch {
+      // MutationCache owns the error feedback; keep the detail available on failure
+      return
+    }
+    await navigate({ to: '/blog/$category', params: { category: article.category } })
+    queryClient.removeQueries({
+      queryKey: articleQueries.bySlug(article.slug, userId).queryKey,
+      exact: true,
     })
   }
 

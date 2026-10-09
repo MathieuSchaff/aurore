@@ -36,12 +36,15 @@ export const Route = createFileRoute('/blog/$category/')({
   loader: ({ context, params, deps }) =>
     Promise.all([
       context.queryClient.prefetchQuery(
-        articleQueries.list({
-          category: params.category as BlogCategory,
-          page: deps.page,
-          q: deps.q,
-          limit: 20,
-        })
+        articleQueries.list(
+          {
+            category: params.category as BlogCategory,
+            page: deps.page,
+            q: deps.q,
+            limit: 20,
+          },
+          null
+        )
       ),
       context.queryClient.prefetchQuery(articleQueries.categoryCounts()),
     ]),
@@ -51,7 +54,7 @@ export const Route = createFileRoute('/blog/$category/')({
   head: ({ params }) =>
     seoHead({
       path: `/blog/${params.category}`,
-      title: `${BLOG_CATEGORY_LABELS[params.category as BlogCategory]} — Aurore`,
+      title: `${BLOG_CATEGORY_LABELS[params.category as BlogCategory]} | Aurore`,
     }),
   component: BlogCategoryRoute,
   pendingComponent: BlogListSkeleton,

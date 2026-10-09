@@ -61,7 +61,7 @@ export function BlogListPage({
   const isAdmin = session.status === 'authenticated' && session.user.role === 'admin'
 
   const { data, isLoading, isError, isPlaceholderData, refetch } = useQuery({
-    ...articleQueries.list({ category, page, q, limit: PAGE_SIZE }),
+    ...articleQueries.list({ category, page, q, limit: PAGE_SIZE }, null),
     placeholderData: (prev) => prev,
   })
 

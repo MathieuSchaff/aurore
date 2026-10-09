@@ -68,7 +68,7 @@ describe('dropSessionScopedQueries', () => {
   it('drops private roots and keeps known public roots', () => {
     const privateKey = ['private', 'viewer'] as const
     const userProductsKey = ['user-products', 'list'] as const
-    const articlesKey = ['articles', 'list'] as const
+    const articlesKey = ['articles', 'list', {}] as const
     queryClient.setQueryData(privateKey, { viewerId: 'viewer-1' })
     queryClient.setQueryData(userProductsKey, [{ id: 'user-product-1' }])
     queryClient.setQueryData(articlesKey, [{ id: 'article-1' }])

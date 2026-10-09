@@ -9,6 +9,7 @@ import { DetailPageLayout } from '@/component/Layout/PageLayout/DetailPageLayout
 import { PageTopActions } from '@/component/Layout/PageLayout/PageTopActions'
 import { ArticleEditorForm } from '@/features/blog/page/ArticleEditorForm/ArticleEditorForm'
 import { requireRole } from '@/lib/auth/requireSession'
+import { readClientSession, useSession, viewerId } from '@/lib/auth/session'
 import { articleQueries } from '@/lib/queries/articles'
 import { notFoundOn404, RouteNotFound } from '@/lib/routeErrors'
 
@@ -23,14 +24,16 @@ export const Route = createFileRoute('/blog/admin/edit/$slug')({
     })
   },
   loader: ({ context, params }) =>
-    context.queryClient.ensureQueryData(articleQueries.bySlug(params.slug)).catch(notFoundOn404),
+    context.queryClient
+      .ensureQueryData(articleQueries.bySlug(params.slug, viewerId(readClientSession())))
+      .catch(notFoundOn404),
   component: EditArticleRoute,
   notFoundComponent: RouteNotFound,
 })
 
 function EditArticleRoute() {
   const { slug } = Route.useParams()
-  const { data: article } = useSuspenseQuery(articleQueries.bySlug(slug))
+  const { data: article } = useSuspenseQuery(articleQueries.bySlug(slug, viewerId(useSession())))
   const navigate = useNavigate()
   const router = useRouter()
 
