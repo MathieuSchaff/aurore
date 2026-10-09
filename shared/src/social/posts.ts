@@ -3,12 +3,12 @@ import { z } from 'zod'
 import { HTTP_STATUS, type HttpStatus } from '../core'
 import { SKIN_CONCERNS, type SkinConcern } from '../profile'
 
-// A Post has no title (read inline); the tone is a facet, not an object.
+// A Post has no title (read inline); the tone is a facet, not an object
 export const POST_TONES = ['principal', 'coup-de-gueule'] as const
 export type PostTone = (typeof POST_TONES)[number]
 
-// Anchors are optional individually but at least one is required: rien ne
-// flotte. The concern is a picked 22-term user concern, never free text.
+// Each anchor is optional, but every post needs at least one to retain its context
+// The concern is selected from the 22 user concerns, never supplied as free text
 export const createPostSchema = z
   .object({
     content: z.string().min(1).max(2000),
@@ -56,7 +56,7 @@ export type SocialPostWithReplies = SocialPostView & {
 // Surface view: a post as shown on a profile or product page. Anchors are
 // resolved to displayable refs (the raw ids/slug are kept for client linking);
 // the author carries profilePublic so callers gate the /u/:username link exactly
-// like ReviewerName. Concern stays the picked 22-term slug (label client-side).
+// like ReviewerName. Concern stays the selected slug (the client provides its label)
 export type SocialPostSurfaceView = {
   id: string
   content: string
