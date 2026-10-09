@@ -29,7 +29,7 @@ export const Route = createFileRoute('/ingredients/$slug/discussions/$threadId')
     if (!loaderData) return {}
     return seoHead({
       path: `/ingredients/${params.slug}/discussions/${params.threadId}`,
-      title: `${loaderData.title} — Aurore`,
+      title: `${loaderData.title} | Aurore`,
       // Member conversations stay out of the index
       robots: NOINDEX_ROBOTS,
     })
