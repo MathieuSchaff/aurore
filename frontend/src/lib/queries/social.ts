@@ -70,8 +70,11 @@ export const reactionQueries = {
   list: (reactableType: ReactableType, reactableId: string, userId: string | null) =>
     queryOptions({
       queryKey: socialKeys.reactions(reactableType, reactableId, userId),
-      queryFn: async () => {
-        const res = await api.social.reactions.$get({ query: { reactableType, reactableId } })
+      queryFn: async ({ signal }) => {
+        const res = await api.social.reactions.$get(
+          { query: { reactableType, reactableId } },
+          { init: { signal } }
+        )
         return unwrapData(res)
       },
       staleTime: 1000 * 60,
@@ -87,8 +90,10 @@ export function useToggleReaction(
   userId: string | null
 ) {
   const queryClient = useQueryClient()
+  const queryKey = socialKeys.reactions(reactableType, reactableId, userId)
   return useMutation({
     mutationKey: ['social', 'reaction', 'toggle'],
+    onMutate: () => queryClient.cancelQueries({ queryKey, exact: true }),
     mutationFn: async (input: { kind: ReactionKind; on: boolean }) => {
       const body = { json: { reactableType, reactableId, kind: input.kind } }
       const res = input.on
@@ -97,7 +102,7 @@ export function useToggleReaction(
       return unwrapData(res)
     },
     onSuccess: (data) => {
-      queryClient.setQueryData(socialKeys.reactions(reactableType, reactableId, userId), data)
+      queryClient.setQueryData(queryKey, data)
     },
     meta: { errorMessage: 'Réaction impossible.' },
   })
