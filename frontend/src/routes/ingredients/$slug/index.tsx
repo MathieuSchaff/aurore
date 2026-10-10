@@ -33,7 +33,7 @@ export const Route = createFileRoute('/ingredients/$slug/')({
   head: ({ loaderData, params }) => {
     if (!loaderData) return {}
     const path = `/ingredients/${params.slug}`
-    const title = `${loaderData.name} — Aurore`
+    const title = `${loaderData.name} | Aurore`
     // Composed on purpose: neutral, always present, on-brand.
     const description = clampDesc(
       `${loaderData.name} : son rôle en cosmétique et les produits qui en contiennent, à lire au calme sur Aurore — sans score ni verdict.`

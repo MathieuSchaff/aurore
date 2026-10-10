@@ -32,7 +32,7 @@ export const Route = createFileRoute('/ingredients/')({
   head: () =>
     seoHead({
       path: '/ingredients',
-      title: 'Ingrédients — Aurore',
+      title: 'Ingrédients | Aurore',
       description:
         'Parcourez les ingrédients cosmétiques : leur rôle dans une formule et les produits qui en contiennent, à lire au calme sur Aurore.',
     }),

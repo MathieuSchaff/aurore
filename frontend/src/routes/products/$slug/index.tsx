@@ -32,7 +32,7 @@ export const Route = createFileRoute('/products/$slug/')({
   head: ({ loaderData, params }) => {
     if (!loaderData) return {}
     const path = `/products/${params.slug}`
-    const title = `${loaderData.name} · ${loaderData.brand} — Aurore`
+    const title = `${loaderData.name} · ${loaderData.brand} | Aurore`
     // Use the composed description, not the scraped one: scraped prose is long,
     // multilingual and marketing-heavy, bad for FR search.
     const description = clampDesc(
