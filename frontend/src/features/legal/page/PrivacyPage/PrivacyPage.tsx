@@ -206,7 +206,7 @@ export function PrivacyPage() {
               items={[
                 {
                   label: 'Row-Level Security (PostgreSQL) :',
-                  body: "le backend se connecte à la base avec un rôle restreint, soumis à des politiques de cloisonnement par utilisateur. Chaque requête est limitée au propriétaire de la donnée — une faille applicative ne permet pas de lire les données d'un autre compte.",
+                  body: "le backend se connecte à la base avec un rôle restreint. Des politiques de cloisonnement par utilisateur renforcent les contrôles d'accès pour les collections, notes et préférences personnelles. Cette protection ne couvre pas toutes les tables.",
                 },
                 {
                   label: "Sur signalement d'un bug :",
