@@ -8,7 +8,7 @@ import {
   Outlet,
   RouterProvider,
 } from '@tanstack/react-router'
-import { screen } from '@testing-library/react'
+import { screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { HttpResponse, http } from 'msw'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
@@ -59,6 +59,31 @@ function renderBannedPage(queryClient = createTestQueryClient()) {
 describe('BannedPage logout', () => {
   beforeEach(() => {
     resetTestAuthStore(presentTestSession(USER, 'banned-token'))
+  })
+
+  it('stays on the suspension page when the server cannot log out', async () => {
+    server.use(
+      http.post('*/api/auth/logout', () =>
+        HttpResponse.json({ success: false, error: 'server_error' }, { status: 500 })
+      )
+    )
+    const { router, queryClient, view } = renderBannedPage()
+    const user = userEvent.setup()
+
+    try {
+      await user.click(await screen.findByRole('button', { name: /se déconnecter/i }))
+      await waitFor(() =>
+        expect(queryClient.getMutationCache().getAll()[0]?.state.status).toBe('error')
+      )
+
+      // A failed logout must not navigate as if the server had revoked the session
+      expect(router.state.location.pathname).toBe('/auth/banned')
+      expect(readClientSession()).toMatchObject({ status: 'authenticated', user: USER })
+      expect(screen.getByRole('button', { name: /se déconnecter/i })).toBeEnabled()
+    } finally {
+      view.unmount()
+      queryClient.clear()
+    }
   })
 
   it('ends the session and returns to login', async () => {

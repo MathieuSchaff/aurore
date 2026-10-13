@@ -9,7 +9,7 @@ import { LoginPage } from '@/features/auth/page/LoginPage/LoginPage'
 import type { ApiData, api } from '@/lib/api'
 import { requireSession } from '@/lib/auth/requireSession'
 import { installSession, readClientSession } from '@/lib/auth/session'
-import { authQueries, useLogin } from '@/lib/queries/auth'
+import { authQueries, useLogin, useLogout } from '@/lib/queries/auth'
 import { resetTestAuthStore } from '@/test/authSession'
 import { server } from '@/test/msw/server'
 import { createTestQueryClient, renderHookWithProviders, renderWithProviders } from '@/test/utils'
@@ -38,6 +38,33 @@ describe('auth session boundary', () => {
     resetTestAuthStore()
   })
 
+  it.each(['server', 'network'])(
+    'keeps the session and cache when logout fails on the %s',
+    async (failure) => {
+      server.use(
+        http.post('*/api/auth/logout', () =>
+          failure === 'network'
+            ? HttpResponse.error()
+            : HttpResponse.json({ success: false, error: 'server_error' }, { status: 500 })
+        )
+      )
+      const queryClient = createTestQueryClient()
+      installSession(queryClient, { accessToken: freshAccessToken(), user: NEXT_USER })
+      const privateKey = ['profile', 'me']
+      queryClient.setQueryDefaults(privateKey, { gcTime: Infinity })
+      queryClient.setQueryData(privateKey, { username: 'Still connected' })
+      const { result } = renderHookWithProviders(() => useLogout(), { queryClient })
+
+      await act(async () => {
+        await expect(result.current.mutateAsync()).rejects.toThrow()
+      })
+
+      // Clearing on failure leaves a valid refresh cookie behind a logged out screen
+      expect(readClientSession()).toMatchObject({ status: 'authenticated', user: NEXT_USER })
+      expect(queryClient.getQueryData(privateKey)).toEqual({ username: 'Still connected' })
+    }
+  )
+
   it('drops catalogue data owned by the previous session before storing the new account', async () => {
     server.use(
       http.post('*/api/auth/login', () =>
@@ -51,6 +78,8 @@ describe('auth session boundary', () => {
     const hiddenProductKey = ['products', 'hidden-product'] as const
     const hiddenIngredientKey = ['ingredients', 'hidden-ingredient'] as const
     const publicArticleKey = ['articles', 'list', {}] as const
+    // Unobserved fixtures must survive the request to test session cleanup, not GC
+    queryClient.setDefaultOptions({ queries: { retry: false, gcTime: Infinity } })
     queryClient.setQueryData(hiddenProductKey, { moderationStatus: 'hidden' })
     queryClient.setQueryData(hiddenIngredientKey, { moderationStatus: 'hidden' })
     queryClient.setQueryData(publicArticleKey, { title: 'Public' })

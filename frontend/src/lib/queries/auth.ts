@@ -16,7 +16,7 @@ import {
 } from '../auth/credentialValidation'
 import { ensureFresh } from '../auth/freshness'
 import { endSession, installSession, readClientSession } from '../auth/session'
-import { unwrapData } from '../helpers/apiError'
+import { isApiError, unwrapData } from '../helpers/apiError'
 
 const LOGIN_HANDLED_ERROR_CODES = [
   'invalid_credentials',
@@ -108,11 +108,15 @@ export function useLogout() {
     meta: { errorMessage: 'Déconnexion impossible. Réessayez.' },
     mutationFn: async () => {
       const res = await api.auth.logout.$post()
-      return unwrapData(res)
+      try {
+        return await unwrapData(res)
+      } catch (error) {
+        // A missing server session is already logged out; network and 5xx failures are not
+        if (isApiError(error) && error.status === 401) return null
+        throw error
+      }
     },
-    onSettled: () => {
-      // Logout is also a local security boundary. Clear credentials and ban
-      // signals even when the server no longer recognizes this session
+    onSuccess: () => {
       endSession(qc, 'logout')
     },
   })

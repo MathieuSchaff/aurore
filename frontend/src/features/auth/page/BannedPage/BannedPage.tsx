@@ -13,7 +13,7 @@ export const BannedPage = () => {
 
   const handleLogout = () => {
     logout.mutate(undefined, {
-      onSettled: () => navigate({ to: '/auth/login', search: { redirect: undefined } }),
+      onSuccess: () => navigate({ to: '/auth/login', search: { redirect: undefined } }),
     })
   }
 

@@ -198,7 +198,6 @@ export const AccountSettings = () => {
   const handleLogout = () => {
     logout.mutate(undefined, {
       onSuccess: () => navigate({ to: '/auth/login', search: { redirect: undefined } }),
-      onError: () => navigate({ to: '/auth/login', search: { redirect: undefined } }),
     })
   }
 
