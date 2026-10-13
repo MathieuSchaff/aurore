@@ -183,7 +183,7 @@ export const AccountSettings = () => {
   const isDemo = hasViewer && session.user.isDemo
   const [showPasswordForm, setShowPasswordForm] = useState(false)
   const [confirmDelete, setConfirmDelete] = useState(false)
-  const logout = useLogout()
+  const logout = useLogout(() => navigate({ to: '/auth/login', search: { redirect: undefined } }))
   const deleteUser = useDeleteUser()
   const downloadExport = useDownloadDataExport()
 
@@ -196,9 +196,7 @@ export const AccountSettings = () => {
   const updatePrivacy = useUpdatePrivacySettings()
 
   const handleLogout = () => {
-    logout.mutate(undefined, {
-      onSuccess: () => navigate({ to: '/auth/login', search: { redirect: undefined } }),
-    })
+    logout.mutate()
   }
 
   const handlePrivacyToggle = (key: PrivacyKey, value: boolean) => {

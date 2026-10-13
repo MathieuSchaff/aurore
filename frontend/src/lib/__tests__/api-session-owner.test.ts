@@ -4,6 +4,7 @@ import { HttpResponse, http } from 'msw'
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 
 import { __resetFreshness, ensureFresh } from '@/lib/auth/freshness'
+import { recoverUnauthorized } from '@/lib/auth/recoverUnauthorized'
 import { consumeBanEvent, endSession, installSession, readClientSession } from '@/lib/auth/session'
 import { queryClient } from '@/lib/queryClient'
 import { presentTestSession, resetTestAuthStore } from '@/test/authSession'
@@ -30,6 +31,77 @@ describe('request session ownership', () => {
   afterEach(() => {
     queryClient.clear()
     resetTestAuthStore()
+  })
+
+  it.each(['switch', 'logout-login', 'switch-back', 'role-change'] as const)(
+    'does not replay a pending request after its first adopted session crosses %s',
+    async (boundary) => {
+      resetTestAuthStore()
+      const refreshing = Promise.withResolvers<void>()
+      const release = Promise.withResolvers<void>()
+      const authorizations: (string | null)[] = []
+      server.use(
+        http.patch('*/api/profile', ({ request }) => {
+          authorizations.push(request.headers.get('authorization'))
+          return HttpResponse.json({ success: true, data: {} })
+        }),
+        http.post('*/api/auth/refresh', async () => {
+          refreshing.resolve()
+          await release.promise
+          return HttpResponse.json({
+            success: true,
+            data: { user: alice, accessToken: 'alice-new' },
+          })
+        })
+      )
+      const refresh = ensureFresh(queryClient)
+      const transition = refresh.then(() => {
+        if (boundary === 'logout-login') endSession(queryClient, 'logout')
+        if (boundary === 'switch' || boundary === 'switch-back') {
+          installSession(queryClient, { user: bob, accessToken: 'bob-token' })
+        }
+        if (boundary === 'logout-login' || boundary === 'switch-back') {
+          installSession(queryClient, { user: alice, accessToken: 'alice-login' })
+        }
+        if (boundary === 'role-change') {
+          installSession(queryClient, {
+            user: { ...alice, role: 'admin' },
+            accessToken: 'admin-token',
+          })
+        }
+      })
+      const unauthorized = new Response(null, { status: 401 })
+      const recovery = recoverUnauthorized(unauthorized, '/api/profile', { method: 'PATCH' })
+      await refreshing.promise
+      release.resolve()
+      await transition
+
+      // The initial adoption is allowed, but later authority changes must stop replay
+      expect(await recovery).toBe(unauthorized)
+      expect(authorizations).toEqual([])
+    }
+  )
+
+  it('replays a pending request after its first session adoption', async () => {
+    resetTestAuthStore()
+    const authorizations: (string | null)[] = []
+    server.use(
+      http.patch('*/api/profile', ({ request }) => {
+        authorizations.push(request.headers.get('authorization'))
+        return HttpResponse.json({ success: true, data: {} })
+      }),
+      http.post('*/api/auth/refresh', () =>
+        HttpResponse.json({ success: true, data: { user: alice, accessToken: 'alice-new' } })
+      )
+    )
+
+    const result = await recoverUnauthorized(new Response(null, { status: 401 }), '/api/profile', {
+      method: 'PATCH',
+    })
+
+    expect(result.status).toBe(200)
+    expect(authorizations).toEqual(['Bearer alice-new'])
+    expect(readClientSession()).toMatchObject({ user: alice })
   })
 
   it('replays an in flight write after the same account refreshes', async () => {

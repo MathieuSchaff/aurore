@@ -49,7 +49,7 @@ export type SessionEndReason = 'probe-failed' | 'logout' | 'account-deleted' | '
 
 export interface ClientSessionSnapshot {
   readonly session: SessionView
-  isCurrent(): boolean
+  isCurrent(options?: { allowPendingAdoption?: boolean; allowSessionEnd?: boolean }): boolean
 }
 
 function deriveClientSession(session: ClientAuthSession): SessionView {
@@ -91,10 +91,23 @@ export function captureClientSession(): ClientSessionSnapshot {
   const epoch = readClientSessionEpochState()
   return {
     session,
-    isCurrent: () => {
+    isCurrent: ({ allowPendingAdoption = false, allowSessionEnd = false } = {}) => {
       const current = readClientSession()
+      const currentEpoch = readClientSessionEpochState()
+      if (
+        allowPendingAdoption &&
+        session.status === 'pending' &&
+        current.status === 'authenticated'
+      ) {
+        // One adoption settles pending; a later logout, role or account change breaks ownership
+        return currentEpoch === epoch + 1
+      }
+      if (allowSessionEnd && session.status !== 'anonymous' && current.status === 'anonymous') {
+        // A definitive 401 may already have ended this session before logout completes
+        return currentEpoch === epoch + 1
+      }
       return (
-        readClientSessionEpochState() === epoch &&
+        currentEpoch === epoch &&
         current.status === session.status &&
         viewerId(current) === viewerId(session)
       )

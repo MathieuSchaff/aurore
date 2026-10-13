@@ -30,11 +30,7 @@ export async function recoverUnauthorized(
 
   const current = readClientSession()
   if (current.status !== 'authenticated') return res
-  if (
-    session.status === 'authenticated' &&
-    (current.user.id !== session.user.id || !snapshot.isCurrent())
-  )
-    return res
+  if (!snapshot.isCurrent({ allowPendingAdoption: true })) return res
 
   const token = readBearerForTransport()
   if (!token) return res

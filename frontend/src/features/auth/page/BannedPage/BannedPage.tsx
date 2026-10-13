@@ -8,13 +8,11 @@ import { PrivacyAccessForm } from './PrivacyAccessForm'
 
 export const BannedPage = () => {
   const banNotice = useBanNotice()
-  const logout = useLogout()
   const navigate = useNavigate()
+  const logout = useLogout(() => navigate({ to: '/auth/login', search: { redirect: undefined } }))
 
   const handleLogout = () => {
-    logout.mutate(undefined, {
-      onSuccess: () => navigate({ to: '/auth/login', search: { redirect: undefined } }),
-    })
+    logout.mutate()
   }
 
   return (

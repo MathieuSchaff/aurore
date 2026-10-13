@@ -8,13 +8,13 @@ import {
   Outlet,
   RouterProvider,
 } from '@tanstack/react-router'
-import { screen, waitFor } from '@testing-library/react'
+import { act, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { HttpResponse, http } from 'msw'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
 import { BannedPage } from '@/features/auth/page/BannedPage/BannedPage'
-import { readClientSession, recordBan } from '@/lib/auth/session'
+import { installSession, readClientSession, recordBan } from '@/lib/auth/session'
 import { useAuthStore } from '@/store/auth'
 import { anonymousTestSession, presentTestSession, resetTestAuthStore } from '@/test/authSession'
 import { server } from '@/test/msw/server'
@@ -59,6 +59,44 @@ function renderBannedPage(queryClient = createTestQueryClient()) {
 describe('BannedPage logout', () => {
   beforeEach(() => {
     resetTestAuthStore(presentTestSession(USER, 'banned-token'))
+  })
+
+  it('keeps the current route when an old logout succeeds after another account signs in', async () => {
+    const started = Promise.withResolvers<void>()
+    const release = Promise.withResolvers<void>()
+    server.use(
+      http.post('*/api/auth/logout', async () => {
+        started.resolve()
+        await release.promise
+        return HttpResponse.json({ success: true, data: null })
+      })
+    )
+    const { router, queryClient, view } = renderBannedPage()
+    const replacement = {
+      ...USER,
+      id: 'replacement-user',
+      email: 'replacement@example.test',
+    } satisfies UserPublic
+    const user = userEvent.setup()
+    try {
+      await user.click(await screen.findByRole('button', { name: /se déconnecter/i }))
+      await started.promise
+      act(() =>
+        installSession(queryClient, { accessToken: 'replacement-token', user: replacement })
+      )
+      release.resolve()
+      await waitFor(() =>
+        expect(queryClient.getMutationCache().getAll()[0]?.state.status).toBe('success')
+      )
+      await act(() => router.load())
+
+      // Navigation belongs to the same owner as session cleanup
+      expect(router.state.location.pathname).toBe('/auth/banned')
+      expect(readClientSession()).toMatchObject({ status: 'authenticated', user: replacement })
+    } finally {
+      view.unmount()
+      queryClient.clear()
+    }
   })
 
   it('stays on the suspension page when the server cannot log out', async () => {

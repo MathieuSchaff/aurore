@@ -47,15 +47,13 @@ export const UserMenu = ({
   const visibleProfile = isAuthenticated && !isSessionPending ? profile : undefined
   // « Modération » reaches admin AND contributor (« modérateur »); both land on the
   // report queue (/admin/users is admin-only).
-  const logout = useLogout()
+  const logout = useLogout(() => {
+    onItemClick?.()
+    navigate({ to: '/auth/login', search: { redirect: undefined } })
+  })
 
   const handleLogout = () => {
-    logout.mutate(undefined, {
-      onSuccess: () => {
-        onItemClick?.()
-        navigate({ to: '/auth/login', search: { redirect: undefined } })
-      },
-    })
+    logout.mutate()
   }
 
   return (

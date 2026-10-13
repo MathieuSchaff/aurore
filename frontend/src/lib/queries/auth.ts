@@ -15,7 +15,12 @@ import {
   credentialValidationQueryKey,
 } from '../auth/credentialValidation'
 import { ensureFresh } from '../auth/freshness'
-import { endSession, installSession, readClientSession } from '../auth/session'
+import {
+  captureClientSession,
+  endSession,
+  installSession,
+  readClientSession,
+} from '../auth/session'
 import { isApiError, unwrapData } from '../helpers/apiError'
 
 const LOGIN_HANDLED_ERROR_CODES = [
@@ -100,7 +105,7 @@ export function useSignup() {
   })
 }
 
-export function useLogout() {
+export function useLogout(onLoggedOut?: () => void) {
   const qc = useQueryClient()
 
   return useMutation({
@@ -116,8 +121,11 @@ export function useLogout() {
         throw error
       }
     },
-    onSuccess: () => {
+    onMutate: () => captureClientSession(),
+    onSuccess: (_, _variables, owner) => {
+      if (!owner?.isCurrent({ allowSessionEnd: true })) return
       endSession(qc, 'logout')
+      onLoggedOut?.()
     },
   })
 }

@@ -3,10 +3,11 @@ import type { UserPublic } from '@aurore/shared'
 import { act, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { HttpResponse, http } from 'msw'
-import { beforeEach, describe, expect, it } from 'vitest'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 
 import { LoginPage } from '@/features/auth/page/LoginPage/LoginPage'
 import type { ApiData, api } from '@/lib/api'
+import { __resetFreshness } from '@/lib/auth/freshness'
 import { requireSession } from '@/lib/auth/requireSession'
 import { installSession, readClientSession } from '@/lib/auth/session'
 import { authQueries, useLogin, useLogout } from '@/lib/queries/auth'
@@ -35,7 +36,81 @@ function freshAccessToken(): string {
 
 describe('auth session boundary', () => {
   beforeEach(() => {
+    __resetFreshness()
     resetTestAuthStore()
+  })
+
+  it.each([
+    ['authenticated', 200],
+    ['authenticated', 401],
+    ['pending', 401],
+  ] as const)(
+    'preserves a replacement session after logout from %s returns %s',
+    async (initial, status) => {
+      const started = Promise.withResolvers<void>()
+      const release = Promise.withResolvers<void>()
+      server.use(
+        http.post('*/api/auth/logout', async () => {
+          started.resolve()
+          await release.promise
+          return HttpResponse.json(
+            status === 200
+              ? { success: true, data: null }
+              : { success: false, error: 'unauthorized' },
+            { status }
+          )
+        })
+      )
+      const queryClient = createTestQueryClient()
+      if (initial === 'authenticated') {
+        installSession(queryClient, { accessToken: freshAccessToken(), user: NEXT_USER })
+      }
+      const { result } = renderHookWithProviders(() => useLogout(), { queryClient })
+      const replacement = {
+        ...NEXT_USER,
+        id: 'user-3',
+        email: 'replacement@example.test',
+      } satisfies UserPublic
+      const privateKey = ['profile', 'me']
+      queryClient.setQueryDefaults(privateKey, { gcTime: Infinity })
+      let pendingLogout: Promise<unknown>
+      await act(async () => {
+        pendingLogout = result.current.mutateAsync()
+        await started.promise
+        installSession(queryClient, { accessToken: freshAccessToken(), user: replacement })
+        queryClient.setQueryData(privateKey, { username: 'Replacement account' })
+        release.resolve()
+        await pendingLogout
+      })
+
+      // The old response cannot own the session installed while logout was in flight
+      expect(readClientSession()).toMatchObject({ status: 'authenticated', user: replacement })
+      expect(queryClient.getQueryData(privateKey)).toEqual({ username: 'Replacement account' })
+    }
+  )
+
+  it('finishes logout and navigates when its 401 recovery already ended the session', async () => {
+    server.use(
+      http.post('*/api/auth/logout', () =>
+        HttpResponse.json({ success: false, error: 'unauthorized' }, { status: 401 })
+      ),
+      http.post('*/api/auth/refresh', () =>
+        HttpResponse.json({ success: false, error: 'unauthorized' }, { status: 401 })
+      )
+    )
+    const queryClient = createTestQueryClient()
+    installSession(queryClient, { accessToken: freshAccessToken(), user: NEXT_USER })
+    const privateKey = ['profile', 'me']
+    queryClient.setQueryDefaults(privateKey, { gcTime: Infinity })
+    queryClient.setQueryData(privateKey, { username: 'Expired account' })
+    const onLoggedOut = vi.fn()
+    const { result } = renderHookWithProviders(() => useLogout(onLoggedOut), { queryClient })
+
+    await act(() => result.current.mutateAsync())
+
+    expect(readClientSession()).toEqual({ status: 'anonymous' })
+    expect(queryClient.getQueryData(privateKey)).toBeUndefined()
+    expect(onLoggedOut).toHaveBeenCalledOnce()
   })
 
   it.each(['server', 'network'])(
