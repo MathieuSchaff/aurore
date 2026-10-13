@@ -2,6 +2,7 @@ import { describe, expect, it, mock } from 'bun:test'
 
 import type { UserExport } from '@aurore/shared'
 
+import { OAuth2RequestError } from 'arctic'
 import { eq } from 'drizzle-orm'
 import { sign, verify } from 'hono/jwt'
 
@@ -10,22 +11,27 @@ import { testDb } from '../db.test.config'
 import { setupDbTests } from '../db-setup'
 import { createAppRuntimeDb } from '../helpers/app-runtime-db'
 import { createTestApp } from '../helpers/createTestApp'
+import { expectError } from '../helpers/expectStatus'
 import { JWT_SECRET } from '../helpers/secrets'
 import { createTestAdminUser, createTestUser } from '../helpers/test-factories'
 
 mock.module('arctic', () => ({
+  OAuth2RequestError,
   generateState: mock(() => 'test-state-fixed'),
   generateCodeVerifier: mock(() => 'test-verifier-fixed'),
   decodeIdToken: mock(() => ({ sub: 'google-sub-abc123', email: 'googleuser@example.com' })),
 }))
+const validateAuthorizationCode = mock(async () => ({ idToken: () => 'fake-google-id-token' }))
 mock.module('../../lib/artic', () => ({
   getGoogleInstance: mock(() => ({
     createAuthorizationURL: () => new URL('https://accounts.google.com/o/oauth2/v2/auth'),
-    validateAuthorizationCode: async () => ({ idToken: () => 'fake-google-id-token' }),
+    validateAuthorizationCode,
   })),
 }))
 
 const runtime = await createAppRuntimeDb()
+const unavailableRuntime = await createAppRuntimeDb()
+await unavailableRuntime.$client.close()
 setupDbTests()
 
 function cookies(response: Response) {
@@ -76,6 +82,24 @@ async function googleAccount() {
 }
 
 describe('Google privacy access during suspension', () => {
+  it('returns a server error when Google verification cannot read the linked account', async () => {
+    const app = await createTestApp({ anonDb: unavailableRuntime })
+    const start = await app.request('/api/profile/access/google/start', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ operation: 'export' }),
+    })
+    const { data } = (await start.json()) as { data: { url: string } }
+    const state = new URL(data.url).searchParams.get('state')
+    const response = await app.request(`/api/auth/google/callback?code=auth-code&state=${state}`, {
+      headers: { Cookie: cookies(start) },
+    })
+    // A database outage must not ask the user to choose another Google account
+    await expectError(response, 500, 'server_error')
+    expect(response.headers.get('Cache-Control')).toBe('no-store')
+    expect(cookies(response)).not.toContain('privacy_access=')
+  })
+
   it.each(['export', 'delete-account'] as const)(
     'authorizes only %s for the linked Google owner',
     async (operation) => {
@@ -125,6 +149,19 @@ describe('Google privacy access during suspension', () => {
       expect(await testDb.select().from(users).where(eq(users.id, admin.id))).toHaveLength(1)
     }
   )
+
+  it('rejects an expired Google authorization code without granting access', async () => {
+    validateAuthorizationCode.mockRejectedValueOnce(
+      new OAuth2RequestError('invalid_grant', null, null, null)
+    )
+    const app = await createTestApp({ anonDb: runtime })
+    const cookie = await authorize(app, 'export')
+    await expectError(
+      app.request('/api/profile/access/google', { headers: { Cookie: cookie } }),
+      401,
+      'invalid_credentials'
+    )
+  })
 
   it('does not link a matching email or create an account', async () => {
     const user = await createTestUser('googleuser@example.com', 'Azerty123!')

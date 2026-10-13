@@ -41,6 +41,7 @@ async function currentGrant(c: Context<AppEnv>) {
 }
 
 export async function handleGooglePrivacyCallback(c: Context<AppEnv>) {
+  c.header('Cache-Control', 'no-store')
   const flow = getCookie(c, FLOW_COOKIE) ?? ''
   deleteCookie(c, FLOW_COOKIE, { path: COOKIE_PATH })
   const token = await completeGooglePrivacyAccess(
@@ -52,7 +53,6 @@ export async function handleGooglePrivacyCallback(c: Context<AppEnv>) {
   )
   // An invalid marker lets the returning page explain failure without exposing OAuth details
   writeCookie(c, GRANT_COOKIE, token ?? 'failed', 300)
-  c.header('Cache-Control', 'no-store')
   return c.redirect(`${c.get('frontendUrl')}/auth/banned`)
 }
 

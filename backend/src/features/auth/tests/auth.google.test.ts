@@ -1,8 +1,11 @@
 import { mock } from 'bun:test'
 
+import { OAuth2RequestError } from 'arctic'
+
 import { setupDbTests } from '../../../tests/db-setup'
 
 mock.module('arctic', () => ({
+  OAuth2RequestError,
   generateState: mock(() => 'test-state-fixed'),
   generateCodeVerifier: mock(() => 'test-verifier-fixed'),
   decodeIdToken: mock(() => ({
