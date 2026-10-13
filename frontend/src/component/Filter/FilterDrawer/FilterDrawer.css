@@ -237,7 +237,7 @@
 }
 
 /* --color-primary-deeper is tuned for light pills; in dark themes it reads dark-on-dark.
-   Neutral label restores contrast — border + active fill still carry the brand. */
+   Neutral label restores contrast; border + active fill still carry the brand. */
 [data-theme="dark"] .filter-drawer__body .chip:not(.chip--active) {
   color: var(--text-primary);
 }
