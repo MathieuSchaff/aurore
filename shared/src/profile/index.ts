@@ -5,6 +5,13 @@ import { BIO_MAX_LENGTH, SKIN_CONCERNS, SKIN_TYPES, USERNAME_MAX_LENGTH } from '
 
 export * from './constants'
 
+export const privacyAccessOperationSchema = z.enum(['export', 'delete-account'])
+export type PrivacyAccessOperation = z.infer<typeof privacyAccessOperationSchema>
+export const privacyAccessStartSchema = z
+  .object({ operation: privacyAccessOperationSchema })
+  .strict()
+export const privacyAccessConfirmationSchema = z.object({ userId: z.uuid() }).strict()
+
 const profileLinkSchema = z.object({
   label: noHtml(z.string().min(1).max(50)),
   url: safeUrl,

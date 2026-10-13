@@ -8,6 +8,7 @@ import { FormMessage } from '@/component/Feedback/ui/FormMessage/FormMessage'
 import { Input } from '@/component/Input/Input'
 import { apiErrorMessage } from '@/lib/helpers/apiError'
 import { usePrivacyDelete, usePrivacyExport } from '@/lib/queries/privacy-access'
+import { GooglePrivacyAccess } from './GooglePrivacyAccess'
 
 export function PrivacyAccessForm() {
   const [email, setEmail] = useState('')
@@ -33,7 +34,7 @@ export function PrivacyAccessForm() {
       <h2 id="privacy-access-title">Vos données</h2>
       <p>
         Vous pouvez exporter vos données ou supprimer votre compte pendant sa suspension. Confirmez
-        votre identité avec votre mot de passe.
+        votre identité avec votre mot de passe ou votre compte Google.
       </p>
       <Input
         label="Adresse email"
@@ -51,7 +52,7 @@ export function PrivacyAccessForm() {
         onChange={(event) => setPassword(event.target.value)}
         disabled={pending}
       />
-      <Link to="/auth/forgot-password">Définir ou réinitialiser mon mot de passe</Link>
+      <Link to="/auth/forgot-password">Réinitialiser mon mot de passe</Link>
       {error && <FormMessage variant="error">{message}</FormMessage>}
       <Button
         type="button"
@@ -92,6 +93,7 @@ export function PrivacyAccessForm() {
           Supprimer mon compte
         </Button>
       )}
+      <GooglePrivacyAccess />
     </section>
   )
 }

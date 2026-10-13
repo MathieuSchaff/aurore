@@ -82,6 +82,14 @@ Ces cookies sont utilisés temporairement pendant la connexion avec Google.
 
 Ils servent à sécuriser le processus de connexion OAuth.
 
+### `privacy_google` et `privacy_access`
+
+Ces cookies servent uniquement à confirmer votre identité Google avant un export de données
+ou une suppression de compte pendant une suspension. Le premier expire après dix minutes ;
+le second autorise l’opération choisie pendant cinq minutes et est effacé après sa réussite.
+Ils sont protégés par `HttpOnly`, `Secure` en production et `SameSite=Lax`. Ils n’ouvrent pas
+de session générale dans l’application.
+
 ---
 
 ## 4. Conservation et suppression des données
@@ -91,7 +99,9 @@ Vos données sont conservées tant que votre compte existe.
 Vous pouvez supprimer votre compte depuis les paramètres de l’application.
 Si votre compte est suspendu, l’écran de suspension permet aussi d’exporter vos données ou
 de supprimer votre compte en confirmant votre email et votre mot de passe, même après
-expiration de votre session. Un lien permet de définir ou réinitialiser ce mot de passe.
+expiration de votre session. Les comptes liés à Google peuvent confirmer leur identité avec
+Google, sans créer de mot de passe. Une confirmation explicite reste nécessaire pour supprimer
+le compte. Le lien de réinitialisation concerne les comptes ayant déjà un mot de passe.
 
 Quand vous supprimez votre compte, vos données personnelles sont supprimées de la base de données :
 
@@ -185,7 +195,8 @@ Aucun email marketing n’est envoyé.
 
 ### Google
 
-Utilisé uniquement si vous choisissez de vous connecter avec Google.
+Utilisé uniquement si vous choisissez Google pour vous connecter ou confirmer votre identité
+avant un export ou une suppression de compte.
 
 ### Grafana Cloud
 

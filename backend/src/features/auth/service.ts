@@ -49,6 +49,11 @@ import {
   toPublicUser,
 } from './user.utils'
 
+export {
+  completeGooglePrivacyAccess,
+  readGooglePrivacyGrant,
+  startGooglePrivacyAccess,
+} from './google-privacy.service'
 export { getUserRole } from './user-role.service'
 
 export type AuthContext = {

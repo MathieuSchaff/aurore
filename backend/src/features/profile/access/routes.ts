@@ -5,9 +5,11 @@ import { Hono } from 'hono'
 import type { AppEnv } from '../../../app-env'
 import { loginRateLimiterFunc } from '../../../utils/rateLimiter'
 import { zValidator } from '../../../utils/validator'
+import { googlePrivacyAccessRoute } from './google.routes'
 import { deleteWithPassword, exportFilename, exportWithPassword } from './service'
 
 export const privacyAccessRoute = new Hono<AppEnv>()
+  .route('/google', googlePrivacyAccessRoute)
   .post('/export', loginRateLimiterFunc, zValidator('json', authSchema), async (c) => {
     const result = await exportWithPassword(c.get('anonDb'), c.req.valid('json'))
     if (!result.success)

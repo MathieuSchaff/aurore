@@ -183,7 +183,7 @@ export function PrivacyPage() {
                 },
                 {
                   label: 'Google OAuth :',
-                  body: "uniquement si vous choisissez la connexion via Google. Dans ce cas, Google reçoit votre demande d'authentification.",
+                  body: "uniquement si vous choisissez Google pour vous connecter ou confirmer votre identité avant un export ou une suppression de compte. Google reçoit alors votre demande d'authentification.",
                 },
                 {
                   label: 'Supervision technique :',

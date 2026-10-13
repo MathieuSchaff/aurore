@@ -35,6 +35,7 @@ import {
   resetPasswordRateLimiterFunc,
 } from '../../utils/rateLimiter'
 import { zValidator } from '../../utils/validator'
+import { handleGooglePrivacyCallback } from '../profile/access/google.routes'
 import { isUserBanned } from './ban.service'
 import { sendVerificationEmail } from './email.service'
 import {
@@ -484,6 +485,7 @@ export const jwtAuthRoutes = app
   })
 
   .get('/google/callback', async (c) => {
+    if (c.req.query('state')?.startsWith('privacy.')) return handleGooglePrivacyCallback(c)
     const env = c.get('env')
     const ctx = buildAnonAuthContext(c)
     const frontendCallbackUrl = `${c.get('frontendUrl')}/auth/google/callback`
