@@ -1,9 +1,13 @@
+import { INGREDIENT_CATEGORIES_BY_TYPE, type IngredientType } from '@aurore/shared'
+
 import { ClipboardCopy } from 'lucide-react'
 import { useCallback } from 'react'
 
 import { FormField } from '@/component/Input/FormField/FormField'
 import { Input } from '@/component/Input/Input'
+import { Select } from '@/component/Input/Select/Select'
 import { Textarea } from '@/component/Input/Textarea/Textarea'
+import { INGREDIENT_GROUP_LABELS } from '@/constants/ingredientGroups'
 import type {
   IngredientFormData,
   IngredientFormFieldKey,
@@ -26,6 +30,43 @@ function pickDraft(
 }
 
 type ChangeHandler = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
+
+export function IngredientCategoryField({
+  value,
+  ingredientType,
+  onValueChange,
+  conflict,
+  onRestoreField,
+}: {
+  value: string
+  ingredientType: IngredientType
+  onValueChange: (value: string) => void
+} & Omit<DraftProps, 'fieldKey'>) {
+  const options = INGREDIENT_CATEGORIES_BY_TYPE[ingredientType].map((category) => ({
+    value: category,
+    label: INGREDIENT_GROUP_LABELS[category],
+  }))
+  const invalid = !!value && !options.some((option) => option.value === value)
+  return (
+    <div>
+      <Select
+        label="Catégorie"
+        id="ingredient-category"
+        value={value}
+        onValueChange={onValueChange}
+        placeholder="Sans catégorie"
+        options={invalid ? [{ value, label: value, disabled: true }, ...options] : options}
+        error={invalid ? 'Choisis une catégorie compatible avec le type sélectionné.' : undefined}
+      />
+      <DraftHint
+        fieldKey="category"
+        label="Catégorie"
+        value={pickDraft(value, conflict, 'category')}
+        onRestoreField={onRestoreField}
+      />
+    </div>
+  )
+}
 
 export function IngredientInputField({
   label,

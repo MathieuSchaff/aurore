@@ -17,7 +17,7 @@ export type IngredientCategory =
   | SupplementCategory
 
 // Key order is the reading order: actives first, base ingredients last
-const INGREDIENT_GROUP_LABELS: Record<IngredientCategory, string> = {
+export const INGREDIENT_GROUP_LABELS: Record<IngredientCategory, string> = {
   actif: 'actifs',
   'acide-amine': 'acides aminés',
   vitamine: 'vitamines',

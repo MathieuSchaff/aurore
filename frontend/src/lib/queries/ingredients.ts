@@ -1,5 +1,6 @@
 import type {
   AllIngredientTagCategory,
+  CommonErrorCode,
   CreateIngredientInput,
   IngredientErrorCode,
   IngredientSort,
@@ -58,13 +59,14 @@ function invalidateIngredientDependentReads(queryClient: QueryClient) {
 }
 
 const CREATE_INGREDIENT_HANDLED_ERROR_CODES = [
+  'invalid_input',
   'ingredient_already_exists',
   'slug_already_exists',
-] as const satisfies readonly IngredientErrorCode[]
+] as const satisfies readonly (IngredientErrorCode | CommonErrorCode)[]
 const UPDATE_INGREDIENT_HANDLED_ERROR_CODES = [
   ...CREATE_INGREDIENT_HANDLED_ERROR_CODES,
   'ingredient_update_conflict',
-] as const satisfies readonly IngredientErrorCode[]
+] as const satisfies readonly (IngredientErrorCode | CommonErrorCode)[]
 
 // Extracted (was inlined in `list.queryFn`) so the filter-to-query mapping
 // can be unit-tested without spinning up react-query / msw.

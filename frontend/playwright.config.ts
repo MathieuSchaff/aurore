@@ -17,6 +17,7 @@ const CROSS_ENGINE_SPECS = [
   '**/filter-drawer-focus.spec.ts',
   '**/header-rails.spec.ts',
   '**/hydration-guard.spec.ts',
+  '**/ingredient-form-categories.spec.ts',
   '**/main-nav.spec.ts',
 ]
 

@@ -1,4 +1,4 @@
-import type { IngredientErrorCode } from '@aurore/shared'
+import type { CommonErrorCode, IngredientErrorCode } from '@aurore/shared'
 
 import type { FormErrorMap } from '@/lib/helpers/apiError'
 
@@ -8,6 +8,9 @@ import type { FormErrorMap } from '@/lib/helpers/apiError'
 export type IngredientFormField = 'name' | 'slug'
 
 export const INGREDIENT_FORM_ERRORS = {
+  invalid_input: {
+    message: "Vérifie les champs saisis, notamment le type et la catégorie de l'ingrédient.",
+  },
   slug_already_exists: {
     field: 'slug',
     message: 'Ce slug est déjà utilisé par un autre ingrédient.',
@@ -19,4 +22,4 @@ export const INGREDIENT_FORM_ERRORS = {
   unauthorized_access: {
     message: "Tu n'as pas le droit de modifier cet ingrédient.",
   },
-} satisfies FormErrorMap<IngredientFormField, IngredientErrorCode>
+} satisfies FormErrorMap<IngredientFormField, IngredientErrorCode | CommonErrorCode>

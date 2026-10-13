@@ -18,12 +18,12 @@ const slugSchema = z
 
 const ingredientTypeSchema = z.enum(INGREDIENT_TYPE_VALUES)
 
-const INGREDIENT_CATEGORIES_BY_TYPE: Record<IngredientType, readonly string[]> = {
+export const INGREDIENT_CATEGORIES_BY_TYPE = {
   skincare: SKINCARE_INGREDIENT_CATEGORY_VALUES,
   haircare: HAIRCARE_INGREDIENT_CATEGORY_VALUES,
   dental: DENTAL_INGREDIENT_CATEGORY_VALUES,
   supplement: SUPPLEMENT_CATEGORY_VALUES,
-}
+} as const satisfies Record<IngredientType, readonly string[]>
 
 // Cross-field check: category must belong to the type's allowed set. Skipped
 // when category is null/undefined (clear/unset). On update, only validated
@@ -35,7 +35,7 @@ const refineTypeCategory = (
   ctx: z.RefinementCtx
 ) => {
   if (!type || category == null) return
-  const allowed = INGREDIENT_CATEGORIES_BY_TYPE[type]
+  const allowed: readonly string[] = INGREDIENT_CATEGORIES_BY_TYPE[type]
   if (!allowed.includes(category)) {
     ctx.addIssue({
       code: 'custom',

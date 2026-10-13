@@ -1,5 +1,9 @@
 import type { IngredientType } from '@aurore/shared'
-import { INGREDIENT_TYPE_LABELS, INGREDIENT_TYPE_VALUES } from '@aurore/shared'
+import {
+  INGREDIENT_CATEGORIES_BY_TYPE,
+  INGREDIENT_TYPE_LABELS,
+  INGREDIENT_TYPE_VALUES,
+} from '@aurore/shared'
 
 import { useQuery } from '@tanstack/react-query'
 import { Save, X as XIcon } from 'lucide-react'
@@ -21,7 +25,7 @@ import { type TagState, useFormTags } from '@/hooks/useFormTags'
 import { useSession } from '@/lib/auth/session'
 import { ingredientTagQueries } from '@/lib/queries/ingredient-tags'
 import { ConflictBanner } from './ConflictBanner'
-import { IngredientInputField, IngredientTextareaField } from './fields'
+import { IngredientCategoryField, IngredientInputField, IngredientTextareaField } from './fields'
 import './IngredientForm.css'
 
 const EMPTY_TAGS: TagState[] = []
@@ -108,7 +112,13 @@ export function IngredientForm({
   )
 
   const handleTypeChange = useCallback((vals: IngredientType[]) => {
-    if (vals[0]) setIngredientType(vals[0])
+    const type = vals[0]
+    if (!type) return
+    setIngredientType(type)
+    setForm((previous) => ({
+      ...previous,
+      category: categoryForType(type, previous.category),
+    }))
   }, [])
 
   const isDirty = computeIsDirty({
@@ -117,7 +127,7 @@ export function IngredientForm({
     ingredientType,
     isTagsDirty: isAdmin && isTagsDirty,
   })
-  const isSubmitDisabled = computeSubmitDisabled({ mode, form, isDirty, isPending })
+  const isSubmitDisabled = computeSubmitDisabled({ mode, form, ingredientType, isDirty, isPending })
 
   return (
     <form className="ingredient-edit-form" onSubmit={handleSubmit}>
@@ -166,13 +176,13 @@ export function IngredientForm({
         />
       )}
 
-      <IngredientInputField
-        label="Catégorie"
-        id="ingredient-category"
+      <IngredientCategoryField
         value={form.category}
-        onChange={handleChange('category')}
-        placeholder="Ex : Actif, Émollient, Conservateur…"
-        fieldKey="category"
+        ingredientType={ingredientType}
+        onValueChange={(category) => {
+          setForm((previous) => ({ ...previous, category }))
+          clearError()
+        }}
         conflict={conflict}
         onRestoreField={restoreField}
       />
@@ -260,18 +270,24 @@ function IngredientFormActions({
   )
 }
 
+function categoryForType(type: IngredientType, category: string): string {
+  return INGREDIENT_CATEGORIES_BY_TYPE[type].some((value) => value === category) ? category : ''
+}
+
 function computeSubmitDisabled({
   mode,
   form,
+  ingredientType,
   isDirty,
   isPending,
 }: {
   mode: 'create' | 'edit'
   form: IngredientFormData
+  ingredientType: IngredientType
   isDirty: boolean
   isPending: boolean
 }): boolean {
-  if (isPending) return true
+  if (isPending || form.category !== categoryForType(ingredientType, form.category)) return true
   if (mode === 'create') return !form.name.trim()
   return !isDirty
 }

@@ -121,6 +121,69 @@ beforeEach(() => {
 })
 
 describe('IngredientForm - submission payload', () => {
+  it.each(['create', 'edit'] as const)(
+    'explains invalid input during %s without leaving the form',
+    async (mode) => {
+      setSessionRole('admin')
+      const mutation = mode === 'create' ? createIngredientMutate : updateIngredientMutate
+      mutation.mockRejectedValueOnce(new ApiError('invalid_input', 400))
+      const user = userEvent.setup()
+      const onSuccess = vi.fn()
+      renderForm(
+        mode === 'create' ? (
+          <IngredientForm mode="create" onSuccess={onSuccess} />
+        ) : (
+          <IngredientForm mode="edit" ingredient={mockIngredient} onSuccess={onSuccess} />
+        ),
+        createTestQueryClient()
+      )
+      await user.type(screen.getByLabelText(/^nom/i), ' updated')
+      await user.click(
+        screen.getByRole('button', {
+          name: mode === 'create' ? /créer l.ingrédient/i : /enregistrer/i,
+        })
+      )
+
+      // Validation failures must not disappear into the generic save error
+      expect(await screen.findByRole('alert')).toHaveTextContent(/vérifie.*type.*catégorie/i)
+      expect(onSuccess).not.toHaveBeenCalled()
+    }
+  )
+
+  it('restricts categories to the selected type and clears an incompatible selection', async () => {
+    setSessionRole('admin')
+    const user = userEvent.setup()
+    renderForm(<IngredientForm mode="create" onSuccess={vi.fn()} />, createTestQueryClient())
+
+    const category = screen.getByRole('combobox', { name: /catégorie/i })
+    await user.selectOptions(category, 'filtre-uv')
+    await user.click(screen.getByRole('radio', { name: INGREDIENT_TYPE_LABELS.haircare }))
+
+    expect(category).toHaveValue('')
+    expect(screen.queryByRole('option', { name: /filtres UV/i })).not.toBeInTheDocument()
+    await user.selectOptions(category, 'conditionneur')
+    expect(category).toHaveValue('conditionneur')
+  })
+
+  it('requires replacing an incompatible stored category before saving', async () => {
+    setSessionRole('admin')
+    const user = userEvent.setup()
+    renderForm(
+      <IngredientForm
+        mode="edit"
+        ingredient={{ ...mockIngredient, category: 'Conservateur' }}
+        onSuccess={vi.fn()}
+      />,
+      createTestQueryClient()
+    )
+
+    await user.type(screen.getByLabelText(/^nom/i), ' updated')
+    expect(screen.getByRole('combobox', { name: /catégorie/i })).toHaveValue('Conservateur')
+    expect(screen.getByRole('button', { name: /enregistrer/i })).toBeDisabled()
+    await user.selectOptions(screen.getByRole('combobox', { name: /catégorie/i }), '')
+    expect(screen.getByRole('button', { name: /enregistrer/i })).toBeEnabled()
+  })
+
   it('keeps empty optional fields omitted when creating an ingredient', async () => {
     setSessionRole('user')
     const user = userEvent.setup()
@@ -167,7 +230,7 @@ describe('IngredientForm - submission payload', () => {
       createTestQueryClient()
     )
 
-    await user.clear(screen.getByLabelText(/catégorie/i))
+    await user.selectOptions(screen.getByRole('combobox', { name: /catégorie/i }), '')
     await user.clear(screen.getByLabelText(/description/i))
     await user.clear(screen.getByLabelText(/^contenu$/i))
     await user.click(screen.getByRole('button', { name: /enregistrer/i }))
