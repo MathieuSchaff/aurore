@@ -37,6 +37,10 @@ export function readClientAuthSessionState(): ClientAuthSession {
   return useAuthStore.getState().session
 }
 
+export function readClientSessionEpochState(): number {
+  return useAuthStore.getState().sessionEpoch
+}
+
 export function publishClientAuthSession(session: ClientAuthSession): void {
   useAuthStore.getState().publishSession(session)
 }

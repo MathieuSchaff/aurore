@@ -20,6 +20,7 @@ import {
   markSessionExpiredEvent,
   publishClientAuthSession,
   readClientAuthSessionState,
+  readClientSessionEpochState,
   recordBanEvent,
   updateClientAuthUser,
   useBanEventState,
@@ -86,10 +87,18 @@ export function readClientSession(): SessionView {
 }
 
 export function captureClientSession(): ClientSessionSnapshot {
-  const source = readClientAuthSessionState()
+  const session = readClientSession()
+  const epoch = readClientSessionEpochState()
   return {
-    session: deriveClientSession(source),
-    isCurrent: () => readClientAuthSessionState() === source,
+    session,
+    isCurrent: () => {
+      const current = readClientSession()
+      return (
+        readClientSessionEpochState() === epoch &&
+        current.status === session.status &&
+        viewerId(current) === viewerId(session)
+      )
+    },
   }
 }
 

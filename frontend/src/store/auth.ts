@@ -13,6 +13,7 @@ export type ClientAuthSession =
 
 interface AuthStore {
   session: ClientAuthSession
+  sessionEpoch: number
   sessionExpired: boolean
   bannedDetails: BannedErrorDetails | null
 
@@ -39,26 +40,39 @@ function decodeTokenExp(token: string): number {
   }
 }
 
+function sessionUpdate(state: AuthStore, session: ClientAuthSession) {
+  const sameAccount =
+    state.session.status === 'authenticated' &&
+    session.status === 'authenticated' &&
+    state.session.user.id === session.user.id &&
+    state.session.user.role === session.user.role
+  return {
+    session,
+    // Logout, account switches and role changes invalidate requests from the previous authority
+    sessionEpoch: sameAccount ? state.sessionEpoch : state.sessionEpoch + 1,
+  }
+}
 export const useAuthStore = create<AuthStore>((set) => ({
   session: { status: 'pending' },
+  sessionEpoch: 0,
   sessionExpired: false,
   bannedDetails: null,
 
-  publishSession: (session) => set({ session }),
+  publishSession: (session) => set((state) => sessionUpdate(state, session)),
   setAuth: (bearer, user) =>
-    set({
-      session: {
+    set((state) => ({
+      ...sessionUpdate(state, {
         status: 'authenticated',
         user,
         credential: { status: 'present', bearer, expiresAt: decodeTokenExp(bearer) },
-      },
+      }),
       sessionExpired: false,
-    }),
-  clearAuth: () => set({ session: { status: 'anonymous' } }),
+    })),
+  clearAuth: () => set((state) => sessionUpdate(state, { status: 'anonymous' })),
   updateUser: (user) =>
     set((state) => {
       if (state.session.status !== 'authenticated') return state
-      return { session: { ...state.session, user } }
+      return sessionUpdate(state, { ...state.session, user })
     }),
   markSessionExpired: () => set({ sessionExpired: true }),
   clearSessionExpired: () => set({ sessionExpired: false }),

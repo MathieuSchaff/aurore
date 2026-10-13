@@ -1,6 +1,7 @@
 import type { UserPublic } from '@aurore/shared'
 
 import { renderHook } from '@testing-library/react'
+import { HttpResponse, http } from 'msw'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
 import { queryClient } from '@/lib/queryClient'
@@ -10,6 +11,7 @@ import {
   resetTestAuthStore,
   restoringTestSession,
 } from '@/test/authSession'
+import { server } from '@/test/msw/server'
 
 vi.mock('@/lib/auth/freshness', () => ({
   ensureFresh: vi.fn(),
@@ -17,7 +19,7 @@ vi.mock('@/lib/auth/freshness', () => ({
 
 import { ensureFresh } from '@/lib/auth/freshness'
 import { recoverUnauthorized } from '../recoverUnauthorized'
-import { installSession, readClientSession, useSessionExpiredEvent } from '../session'
+import { endSession, installSession, readClientSession, useSessionExpiredEvent } from '../session'
 
 const mockEnsureFresh = vi.mocked(ensureFresh)
 
@@ -40,6 +42,31 @@ describe('recoverUnauthorized', () => {
   afterEach(() => {
     queryClient.clear()
     resetTestAuthStore()
+  })
+
+  it('does not replay after logout and login to the same account while recovery completes', async () => {
+    resetTestAuthStore(presentTestSession(AUTHENTICATED_USER, 'stale-token'))
+    const refresh = Promise.withResolvers<'ok'>()
+    mockEnsureFresh.mockReturnValue(refresh.promise)
+    let replays = 0
+    server.use(
+      http.get('*/api/profile', () => {
+        replays++
+        return HttpResponse.json({ success: true, data: {} })
+      })
+    )
+    const unauthorized = new Response(null, { status: 401 })
+    const recovery = recoverUnauthorized(unauthorized, '/api/profile')
+
+    installSession(queryClient, { accessToken: 'fresh-token', user: AUTHENTICATED_USER })
+    refresh.resolve('ok')
+    endSession(queryClient, 'logout')
+    installSession(queryClient, { accessToken: 'login-token', user: AUTHENTICATED_USER })
+
+    // Matching user IDs alone must not revive a request from a closed session
+    expect(await recovery).toBe(unauthorized)
+    expect(replays).toBe(0)
+    expect(readClientSession()).toMatchObject({ user: AUTHENTICATED_USER })
   })
 
   it('returns an anonymous 401 without refreshing', async () => {
