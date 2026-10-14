@@ -153,10 +153,11 @@ prod-security:
 prod-pool:
     ssh aurore 'docker exec app_db psql -U app -d appdb -P pager=off -c "SELECT state, count(*), max(now() - xact_start) AS oldest_xact FROM pg_stat_activity WHERE datname = '"'"'appdb'"'"' GROUP BY state ORDER BY 2 DESC;"'
 
-[doc('[VPS] Reclaim disk from superseded deploy images and build cache (~1.1 GB added per deploy, never removed). Keeps 14 days so a rollback still has an image; running images untouched.')]
+# The VPS only pulls images from GHCR and never builds, so its build cache has nothing worth keeping
+[doc('[VPS] Reclaim disk from superseded deploy images and build cache (~1.1 GB added per deploy, never removed) Keeps 14 days of images so a rollback still has one; running images untouched')]
 [group('prod')]
 prod-docker-prune:
-    ssh aurore 'docker system df; echo; docker image prune -af --filter "until=336h"; docker builder prune -af --filter "unused-for=336h"; echo; docker system df'
+    ssh aurore 'docker system df; echo; docker image prune -af --filter "until=336h"; docker builder prune -af; echo; docker system df'
 
 [doc('Moderation acts that leave nothing on the domain row (lifted/updated bans, role changes); everything else records its actor on the row itself. Read-only via dev_readonly.')]
 [group('prod')]
