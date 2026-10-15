@@ -55,6 +55,12 @@ prod-health:
 [script]
 deploy: env-prod-check
     source {{justfile_directory()}}/scripts/just/_lib.sh
+    # The VPS has no dev env file; a local prod smoke test must not reset this checkout
+    if [ -e .env.dev ]; then
+        printf "{{RED}}deploy refuses a development checkout. Use just prod-deploy from the laptop.{{NC}}\n" >&2
+        exit 1
+    fi
+    assert_prod_stack
     # Single 'DEPLOY' gate skips prod-migrate's own prompt. Migrate execs inside the
     # api container so it runs after `up`; additive migrations boot fine on the old
     # schema. A breaking one needs `just prod-migrate` once the new image is up.

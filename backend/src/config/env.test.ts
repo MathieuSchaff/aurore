@@ -77,6 +77,32 @@ describe('envSchema weak password guard', () => {
   })
 })
 
+describe('envSchema E2E hooks guard', () => {
+  test('rejects E2E hooks in production', () => {
+    const result = envSchema.safeParse({
+      ...baseEnv,
+      NODE_ENV: 'production',
+      E2E_TEST_HOOKS: '1',
+    })
+    expect(result.success).toBe(false)
+    if (!result.success) {
+      expect(result.error.issues).toContainEqual(
+        expect.objectContaining({ path: ['E2E_TEST_HOOKS'] })
+      )
+    }
+  })
+
+  test.each(['development', 'test'])('allows E2E hooks in %s', (NODE_ENV) => {
+    expect(envSchema.safeParse({ ...baseEnv, NODE_ENV, E2E_TEST_HOOKS: '1' }).success).toBe(true)
+  })
+
+  test.each([undefined, '0'])('allows production with E2E hooks set to %s', (E2E_TEST_HOOKS) => {
+    expect(
+      envSchema.safeParse({ ...baseEnv, NODE_ENV: 'production', E2E_TEST_HOOKS }).success
+    ).toBe(true)
+  })
+})
+
 describe('envSchema placeholder secret guard', () => {
   test('rejects the .env.example JWT placeholder in production', () => {
     const result = envSchema.safeParse({

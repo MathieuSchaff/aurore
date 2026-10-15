@@ -18,6 +18,7 @@ const PLACEHOLDER_SECRETS = [
 export const envSchema = z
   .object({
     NODE_ENV: z.enum(['development', 'production', 'test']).default('development'),
+    E2E_TEST_HOOKS: z.string().optional(),
     LOG_LEVEL: z.enum(['debug', 'info', 'warn', 'error']).default('info'),
     JWT_SECRET: z.string().min(32),
     REFRESH_SECRET: z.string().min(32),
@@ -43,6 +44,13 @@ export const envSchema = z
   })
   .superRefine((val, ctx) => {
     if (val.NODE_ENV !== 'production') return
+    if (val.E2E_TEST_HOOKS === '1') {
+      ctx.addIssue({
+        code: 'custom',
+        path: ['E2E_TEST_HOOKS'],
+        message: 'E2E_TEST_HOOKS must not be enabled in production.',
+      })
+    }
     for (const field of ['JWT_SECRET', 'REFRESH_SECRET'] as const) {
       if ((PLACEHOLDER_SECRETS as readonly string[]).includes(val[field])) {
         ctx.addIssue({

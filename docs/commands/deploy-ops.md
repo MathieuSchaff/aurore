@@ -27,7 +27,7 @@ just prod-ssh 'TARGET=prod just <recipe> --write'
 
 | Command | What |
 | :--- | :--- |
-| `just deploy` | One shot, gated by typing `DEPLOY`: sync config, pull the prebuilt images, up, migrate, health. `manifest unknown` means the CI build has not pushed yet. Wait |
+| `just deploy` | Requires an existing prod stack and refuses a checkout containing `.env.dev` before Git or Compose writes. Gated by typing `DEPLOY`: sync config, pull the prebuilt images, up, migrate, health. `manifest unknown` means the CI build has not pushed yet. Wait |
 | `just prod-migrate` | Apply migrations in-container and realign the `app_runtime` role password. Idempotent, safe to run again |
 | `just prod-health` | Container health snapshot, then `/api/ready` through the public domain, which must answer 200 (the last step of a deploy) |
 | `just prod` | Start the prod stack here: on the VPS, or locally to smoke-test the prod build |

@@ -262,6 +262,8 @@ db-snapshot-reset: db-clean db-migrate
 [script]
 db-catalogue-snapshot:
     mkdir -p backend/src/db/snapshot
+    TMP="{{CATALOGUE_FILE}}.tmp"
+    trap 'rm -f "$TMP"' EXIT
     OWNER=$({{COMPOSE_DEV}} exec -T db psql -U app -d appdb -tAc \
         "SELECT created_by FROM products GROUP BY created_by ORDER BY count(*) DESC LIMIT 1")
     [ -n "$OWNER" ] || { printf "{{RED}}❌ no catalogue owner found{{NC}}\n"; exit 1; }
@@ -274,7 +276,15 @@ db-catalogue-snapshot:
         -t public.brand_certifications \
         | sed "s/$OWNER/__OWNER_ID__/g" \
         | sed -E 's/^(\\(un)?restrict) .*/\1 AuroreSnapshotToken/' \
-        > {{CATALOGUE_FILE}}
+        > "$TMP"
+    # This dump is public too, so validate it before replacing the last safe snapshot
+    STRAY=$(grep -oE "[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}" "$TMP" \
+        | sort -u | grep -vE '@(seed\.local|seed\.com|demo\.local)$' || true)
+    if [ -n "$STRAY" ]; then
+        printf "{{RED}}Non-seed address in the dump, catalogue snapshot NOT written.{{NC}}\n" >&2
+        exit 1
+    fi
+    mv "$TMP" "{{CATALOGUE_FILE}}"
     LEAK=$(grep -c "@seed.local\|@seed.com" {{CATALOGUE_FILE}} || true)
     printf "{{GREEN}}✓ Catalogue snapshot: {{CATALOGUE_FILE}} ($(wc -l < {{CATALOGUE_FILE}}) lines, $(du -h {{CATALOGUE_FILE}} | cut -f1)); seed-email lines: $LEAK{{NC}}\n"
 

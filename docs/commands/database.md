@@ -60,7 +60,7 @@ grep -c '^INSERT INTO public.product_ingredients ' backend/src/db/snapshot/data.
 
 | Command | What |
 | :--- | :--- |
-| `just db-catalogue-snapshot` | Catalogue-only dump (products, ingredients, tags, links, dermo profiles, articles, certifications; **no users**) → `catalogue.sql`, owner rewritten to `__OWNER_ID__`. Dev-only |
+| `just db-catalogue-snapshot` | Catalogue-only dump (products, ingredients, tags, links, dermo profiles, articles, certifications; **no users**) → `catalogue.sql`, owner rewritten to `__OWNER_ID__`. Dev-only. Rejects addresses outside `seed.local`, `seed.com` and `demo.local`; keeps the previous snapshot if validation or the dump fails |
 | `just db-prod-admin` | Create the prod catalogue owner from `ADMIN_EMAIL` / `ADMIN_PASSWORD` (idempotent) |
 | `just db-catalogue-load` | Load `catalogue.sql` with the owner resolved. Refuses if `products` is already populated. Run `db-prod-admin` first |
 
