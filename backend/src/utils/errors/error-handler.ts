@@ -55,8 +55,8 @@ const thrownDomainErrorMapping: Record<string, HttpStatus> = Object.assign(
   ...Object.values(thrownDomainErrorMappingRegistry)
 )
 
-function toTelemetryException(error: Error) {
-  const serialized = serializeError(error)
+export function toTelemetryException(error: unknown) {
+  const serialized = error instanceof Error ? serializeError(error) : null
   const diagnostic = typeof serialized === 'object' && serialized !== null ? serialized : {}
   return {
     name: 'type' in diagnostic && typeof diagnostic.type === 'string' ? diagnostic.type : 'Error',

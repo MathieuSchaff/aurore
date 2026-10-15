@@ -2,6 +2,7 @@ import { SpanStatusCode, trace } from '@opentelemetry/api'
 import type { MiddlewareHandler } from 'hono'
 
 import type { AppEnv } from '../../app-env'
+import { toTelemetryException } from '../../utils/errors/error-handler'
 
 const tracer = trace.getTracer('aurore-api')
 
@@ -32,10 +33,11 @@ export const otelTracingMiddleware: MiddlewareHandler<AppEnv> = async (c, next) 
       span.updateName(`${method} ${route}`)
       span.setAttribute('http.route', route)
       span.setAttribute('http.status_code', 500)
-      span.recordException(err instanceof Error ? err : new Error(String(err)))
+      const exception = toTelemetryException(err)
+      span.recordException(exception)
       span.setStatus({
         code: SpanStatusCode.ERROR,
-        message: err instanceof Error ? err.message : String(err),
+        message: exception.message,
       })
       throw err
     } finally {
