@@ -17,7 +17,7 @@ import type {
   UserPreferences,
 } from '@aurore/shared'
 
-import { and, count, eq, inArray } from 'drizzle-orm'
+import { and, count, eq, inArray, sql } from 'drizzle-orm'
 
 import type { DbOrTransaction } from '../../db'
 import { userPreferences } from '../../db/schema/auth/user-preferences'
@@ -187,28 +187,20 @@ export async function updateUserPreferences(
   userId: string,
   data: UpdateUserPreferencesInput
 ): Promise<UserPreferences> {
-  const [existing] = await db
-    .select()
-    .from(userPreferences)
-    .where(eq(userPreferences.userId, userId))
-    .limit(1)
-
-  // Merge to preserve criteria not included in the partial update.
-  const currentWeights = existing?.criteriaWeights ?? DEFAULT_CRITERIA_WEIGHTS
-  const mergedWeights = data.criteriaWeights
-    ? { ...currentWeights, ...data.criteriaWeights }
-    : currentWeights
+  const weightsPatch = data.criteriaWeights ?? {}
 
   const [row] = await db
     .insert(userPreferences)
     .values({
       userId,
-      criteriaWeights: mergedWeights,
+      criteriaWeights: sql`${JSON.stringify({ ...DEFAULT_CRITERIA_WEIGHTS, ...weightsPatch })}::text::jsonb`,
     })
     .onConflictDoUpdate({
       target: userPreferences.userId,
       set: {
-        criteriaWeights: mergedWeights,
+        // #>> also unwraps JSON strings stored by the Bun driver's parameter encoding
+        // Merge only the delta against the locked row to preserve concurrent edits
+        criteriaWeights: sql`(${userPreferences.criteriaWeights} #>> '{}')::jsonb || ${JSON.stringify(weightsPatch)}::text::jsonb`,
         updatedAt: nowISO(),
       },
     })
