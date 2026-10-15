@@ -97,32 +97,51 @@ export async function createUserProduct(
   if (input.status === 'avoided' && input.sentiment === HOLY_GRAIL_SENTIMENT) {
     throw new UserProductError('invalid_input')
   }
-  const existing = await db.query.userProducts.findFirst({
-    where: and(eq(userProducts.userId, userId), eq(userProducts.productId, input.productId)),
-    columns: { id: true, status: true, sentiment: true },
-  })
+  const readExisting = () =>
+    db
+      .select({
+        id: userProducts.id,
+        status: userProducts.status,
+        sentiment: userProducts.sentiment,
+      })
+      .from(userProducts)
+      .where(and(eq(userProducts.userId, userId), eq(userProducts.productId, input.productId)))
+      .for('no key update')
+  let [existing] = await readExisting()
+  let result: typeof userProducts.$inferSelect | undefined
 
-  const [result] = await db
-    .insert(userProducts)
-    .values({
-      userId,
-      productId: input.productId,
-      status: input.status,
-      sentiment: input.sentiment,
-      wouldRepurchase: input.wouldRepurchase,
-      comment: input.comment,
-    })
-    .onConflictDoUpdate({
-      target: [userProducts.userId, userProducts.productId],
-      set: {
+  if (!existing) {
+    ;[result] = await db
+      .insert(userProducts)
+      .values({
+        userId,
+        productId: input.productId,
         status: input.status,
         sentiment: input.sentiment,
         wouldRepurchase: input.wouldRepurchase,
         comment: input.comment,
+      })
+      .onConflictDoNothing({ target: [userProducts.userId, userProducts.productId] })
+      .returning()
+    // A concurrent first insert has no row to lock until its transaction commits
+    if (!result) [existing] = await readExisting()
+  }
+
+  if (existing) {
+    const sentiment = input.sentiment !== undefined ? input.sentiment : existing.sentiment
+    ;[result] = await db
+      .update(userProducts)
+      .set({
+        status: input.status,
+        sentiment:
+          input.status === 'avoided' && sentiment === HOLY_GRAIL_SENTIMENT ? null : input.sentiment,
+        wouldRepurchase: input.wouldRepurchase,
+        comment: input.comment,
         updatedAt: nowISO(),
-      },
-    })
-    .returning()
+      })
+      .where(and(eq(userProducts.id, existing.id), eq(userProducts.userId, userId)))
+      .returning()
+  }
 
   if (!result) {
     throw new UserProductError('user_product_creation_failed')
@@ -189,7 +208,7 @@ export async function updateUserProduct(
     reason: reason?.trim() || null,
   })
 
-  if (input.status !== undefined || input.sentiment !== undefined) {
+  if (input.status !== undefined || patch.sentiment !== undefined) {
     await recalculateAllSignalsForUser(userId, db)
   }
   return result

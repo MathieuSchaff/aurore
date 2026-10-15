@@ -6,6 +6,7 @@ import { eq } from 'drizzle-orm'
 
 import { ingredients } from '../../../db/schema/ingredients/ingredients'
 import { userIngredientAnalysisScore } from '../../../db/schema/ingredients/user-ingredient-analysis-score'
+import { userProducts } from '../../../db/schema/products/user-products'
 import { testDb } from '../../../tests/db.test.config'
 import { setupDbTests } from '../../../tests/db-setup'
 import {
@@ -99,6 +100,24 @@ describe('user-products mutations: dermo signal recompute', () => {
     expect(await countScores(userId)).toBe(1) // in_stock create carries no signal
     return created.id
   }
+
+  it('recomputes when an unrelated PATCH normalizes an inherited avoided Holy Grail', async () => {
+    const id = await createInStock()
+    await testDb
+      .update(userProducts)
+      .set({ status: 'avoided', sentiment: 6 })
+      .where(eq(userProducts.id, id))
+
+    const updated = await expectOk(
+      client['user-products'][':id'].$patch(
+        { param: { id }, json: { comment: 'A personal note' } },
+        withAuth(token)
+      )
+    )
+
+    expect(updated.sentiment).toBeNull()
+    expect(await countScores(userId)).toBe(0)
+  })
 
   it('recomputes on PATCH to avoided', async () => {
     const id = await createInStock()

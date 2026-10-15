@@ -59,6 +59,22 @@ describe('User Products Service', () => {
     createUP(user.id, { productId: product.id, status })
 
   describe('createUserProduct', () => {
+    it('clears an existing Holy Grail when a re-POST avoids the product', async () => {
+      await createUP(user.id, { productId: product.id, status: 'in_stock', sentiment: 6 })
+
+      const avoided = await createUP(user.id, { productId: product.id, status: 'avoided' })
+
+      expect(avoided).toMatchObject({ status: 'avoided', sentiment: null })
+    })
+
+    it('preserves the sentiment when a re-POST only changes a compatible status', async () => {
+      await createUP(user.id, { productId: product.id, status: 'in_stock', sentiment: 6 })
+
+      const archived = await createUP(user.id, { productId: product.id, status: 'archived' })
+
+      expect(archived).toMatchObject({ status: 'archived', sentiment: 6 })
+    })
+
     it('rejects a Holy Grail added as avoided', async () => {
       await expect(
         createUP(user.id, { productId: product.id, status: 'avoided', sentiment: 6 })
