@@ -50,6 +50,7 @@ export const articleQueries = {
   bySlug: (slug: string, userId: string | null) =>
     queryOptions({
       queryKey: articleKeys.bySlug(slug, userId),
+      meta: { sessionScope: { viewerId: userId } },
       queryFn: async ({ signal }) => {
         const res = await api.articles[':slug'].$get({ param: { slug } }, { init: { signal } })
         return unwrapData(res)

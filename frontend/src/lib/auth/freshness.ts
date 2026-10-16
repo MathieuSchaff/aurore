@@ -76,10 +76,20 @@ export function msUntilProactiveRefresh(expiresAt: number): number {
 }
 
 // Never rejects, so guards keep control of their redirect policy
-export async function ensureFresh(queryClient: QueryClient): Promise<RefreshResult> {
-  if (inflightRefresh) return inflightRefresh
+export async function ensureFresh(
+  queryClient: QueryClient,
+  { force = false }: { force?: boolean } = {}
+): Promise<RefreshResult> {
+  if (inflightRefresh) {
+    if (!force) return inflightRefresh
+    const owner = captureClientSession()
+    // A read started before a mutation can still report the previous server state
+    await inflightRefresh
+    if (!owner.isCurrent()) return 'superseded'
+    if (inflightRefresh) return inflightRefresh
+  }
   // Cooldown window after recent failure: callers decide whether to wait or log out.
-  if (clock.now() < retryAfter) return 'cooldown'
+  if (!force && clock.now() < retryAfter) return 'cooldown'
 
   const owner = captureClientSession()
   inflightRefresh = (async (): Promise<RefreshResult> => {

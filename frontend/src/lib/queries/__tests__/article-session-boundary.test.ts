@@ -8,7 +8,7 @@ import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 import { awaitBootRefresh } from '@/lib/auth/awaitBootRefresh'
 import { __resetFreshness } from '@/lib/auth/freshness'
 import { endSession, installSession, seedClientSession } from '@/lib/auth/session'
-import { presentTestSession, resetTestAuthStore } from '@/test/authSession'
+import { pendingTestSession, presentTestSession, resetTestAuthStore } from '@/test/authSession'
 import { server } from '@/test/msw/server'
 import { createTestQueryClient, renderHookWithProviders } from '@/test/utils'
 import { articleQueries, useCreateArticle, useUpdateArticle } from '../articles'
@@ -66,6 +66,34 @@ describe('article session boundary', () => {
   afterEach(() => {
     __resetFreshness()
     resetTestAuthStore()
+  })
+
+  it('keeps the anonymous article available when pending boot adopts a viewer', async () => {
+    resetTestAuthStore(pendingTestSession())
+    let detailReads = 0
+    server.use(
+      http.get('*/api/articles/:slug', () => {
+        detailReads++
+        return HttpResponse.json(ok(PUBLISHED))
+      })
+    )
+    const qc = createTestQueryClient()
+    qc.setQueryDefaults(['articles'], { gcTime: Number.POSITIVE_INFINITY })
+    const anonymousDetail = articleQueries.bySlug(PUBLISHED.slug, null)
+    try {
+      await qc.fetchQuery(anonymousDetail)
+
+      installSession(qc, { accessToken: 'viewer-token', user: ADMIN })
+
+      // Late Suspense hydration still reads the frozen anonymous key after boot
+      expect(qc.getQueryData(anonymousDetail.queryKey)).toEqual(PUBLISHED)
+      expect(await qc.ensureQueryData(anonymousDetail)).toEqual(PUBLISHED)
+      expect(detailReads).toBe(1)
+      await qc.ensureQueryData(articleQueries.bySlug(PUBLISHED.slug, ADMIN.id))
+      expect(detailReads).toBe(2)
+    } finally {
+      qc.clear()
+    }
   })
 
   it('fetches private article reads for each viewer and reuses the published list', async () => {

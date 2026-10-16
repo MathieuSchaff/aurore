@@ -145,7 +145,11 @@ export function useVerifyEmail() {
         session.user.id === owner.user.id
       ) {
         // Verification can belong to another account; refresh provides the current user's state
-        await ensureFresh(qc)
+        const refreshOwner = captureClientSession()
+        const result = await ensureFresh(qc, { force: true })
+        if (result === 'failed' && refreshOwner.isCurrent()) {
+          await ensureFresh(qc, { force: true })
+        }
       }
     },
   })
