@@ -1,3 +1,5 @@
+import { err, ok } from '@aurore/shared'
+
 import { isCancelledError } from '@tanstack/react-query'
 import { act, cleanup, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
@@ -161,6 +163,76 @@ describe('ReactionRow', () => {
 
     expect(container).toBeEmptyDOMElement()
   })
+
+  it.each([false, true])(
+    'reloads the cancelled list after a failed toggle with cached reactions: %s',
+    async (cached) => {
+      authenticate()
+      const signed: ReactionList = {
+        ...emptyList(),
+        reactions: {
+          merci: [{ username: 'lea', profilePublic: false }],
+          'moi-aussi': [],
+          soutien: [],
+        },
+        viewerKinds: ['merci'],
+      }
+      const readStarted = Promise.withResolvers<void>()
+      const releaseRead = Promise.withResolvers<void>()
+      let reads = 0
+      const writes: string[] = []
+      const rejectToggle = ({ request }: { request: Request }) => {
+        writes.push(request.method)
+        return HttpResponse.json(err('server_error'), { status: 500 })
+      }
+      server.use(
+        http.get('*/api/social/reactions', async () => {
+          reads++
+          if (reads === 1) {
+            readStarted.resolve()
+            await releaseRead.promise
+            return HttpResponse.json(ok(emptyList()))
+          }
+          return HttpResponse.json(ok(signed))
+        }),
+        http.post('*/api/social/reactions', rejectToggle),
+        http.delete('*/api/social/reactions', rejectToggle)
+      )
+      const qc = cached ? seed(signed, 'viewer-id') : createTestQueryClient()
+      const pendingRead = qc
+        .fetchQuery({ ...reactionQueries.list(TYPE, ID, 'viewer-id'), staleTime: 0 })
+        .catch((error: unknown) => {
+          if (!isCancelledError(error)) throw error
+        })
+      const view = renderWithProviders(<ReactionRow reactableType={TYPE} reactableId={ID} />, {
+        queryClient: qc,
+      })
+      try {
+        await readStarted.promise
+        const button = screen.getByRole('button', { name: 'Merci' })
+        await userEvent.click(button)
+
+        // Cancelling the GET must not leave the row empty or stale after a failed write
+        await waitFor(() => expect(reads).toBe(2))
+        expect(writes).toEqual([cached ? 'DELETE' : 'POST'])
+        expect(await screen.findByText('lea')).toBeInTheDocument()
+        expect(button).toHaveAttribute('aria-pressed', 'true')
+        await waitFor(() => expect(button).toBeEnabled())
+
+        await act(async () => {
+          releaseRead.resolve()
+          await pendingRead
+        })
+        expect(button).toHaveAttribute('aria-pressed', 'true')
+        expect(screen.getByText('lea')).toBeInTheDocument()
+      } finally {
+        releaseRead.resolve()
+        view.unmount()
+        qc.clear()
+        await pendingRead
+      }
+    }
+  )
 
   it.each([false, true])(
     'keeps the next toggle correct after a delayed GET with merci initially %s',

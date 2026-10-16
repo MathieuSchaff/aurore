@@ -104,6 +104,7 @@ export function useToggleReaction(
     onSuccess: (data) => {
       queryClient.setQueryData(queryKey, data)
     },
+    onError: () => queryClient.invalidateQueries({ queryKey, exact: true }),
     meta: { errorMessage: 'Réaction impossible.' },
   })
 }
