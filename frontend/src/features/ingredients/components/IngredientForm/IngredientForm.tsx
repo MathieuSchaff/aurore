@@ -72,10 +72,12 @@ export function IngredientForm({
     ingredient?.type ?? 'skincare'
   )
 
-  const { tags, addTag, removeTag, updateRelevance, availableTags, isTagsDirty } = useFormTags({
-    initialTags,
-    allTags,
-  })
+  const [savedTags, setSavedTags] = useState(initialTags)
+  const { tags, setTags, addTag, removeTag, updateRelevance, availableTags, isTagsDirty } =
+    useFormTags({
+      initialTags: savedTags,
+      allTags,
+    })
 
   const submitArgs =
     mode === 'edit'
@@ -98,6 +100,10 @@ export function IngredientForm({
     ingredientType,
     tags,
     isTagsDirty,
+    resetTags: (freshTags) => {
+      setTags(freshTags)
+      setSavedTags(freshTags)
+    },
     isAdmin,
     onSuccess,
   })

@@ -7,6 +7,7 @@ import {
   INGREDIENT_FORM_ERRORS,
   type IngredientFormField,
 } from '@/features/ingredients/components/IngredientForm/formErrors'
+import type { TagState } from '@/hooks/useFormTags'
 import type { ApiData, api } from '@/lib/api'
 import { extractFormError, isApiError } from '@/lib/helpers/apiError'
 import {
@@ -60,8 +61,14 @@ type Args = (CreateArgs | EditArgs) & {
   ingredientType: IngredientType
   tags: TagPayload[]
   isTagsDirty: boolean
+  resetTags: (tags: TagState[]) => void
   isAdmin: boolean
   onSuccess: (slug: string) => void
+}
+
+function getSubmitLabel(mode: Args['mode'], isCreating: boolean, isUpdating: boolean) {
+  if (mode === 'create') return isCreating ? 'Création…' : "Créer l'ingrédient"
+  return isUpdating ? 'Enregistrement…' : 'Enregistrer'
 }
 
 export function useIngredientFormSubmit(args: Args) {
@@ -76,6 +83,7 @@ export function useIngredientFormSubmit(args: Args) {
     message: string
   } | null>(null)
   const [conflict, setConflict] = useState<ConflictState | null>(null)
+  const [isReloading, setIsReloading] = useState(false)
   // Next save uses the fresh updatedAt so the optimistic lock doesn't trip again.
   const [updatedAtOverride, setUpdatedAtOverride] = useState<string | null>(null)
 
@@ -131,6 +139,19 @@ export function useIngredientFormSubmit(args: Args) {
       ...ingredientQueries.bySlug(ingredient.slug),
       staleTime: 0,
     })
+    // Tags must be at least as recent as the version used by the next PATCH
+    const freshTags = args.isAdmin
+      ? await qc.fetchQuery({ ...ingredientQueries.tags(ingredient.id), staleTime: 0 })
+      : null
+    if (freshTags) {
+      args.resetTags(
+        freshTags.map(({ ingredientTagId, tagName, relevance }) => ({
+          tagId: ingredientTagId,
+          tagName,
+          relevance,
+        }))
+      )
+    }
     args.setForm({
       name: fresh.name,
       slug: fresh.slug,
@@ -156,7 +177,14 @@ export function useIngredientFormSubmit(args: Args) {
       args.onSuccess(slug)
     } catch (err) {
       if (isApiError(err) && err.code === 'ingredient_update_conflict' && args.mode === 'edit') {
-        await handleConflict(args.ingredient)
+        setIsReloading(true)
+        try {
+          await handleConflict(args.ingredient)
+        } catch (reloadError) {
+          setError(extractFormError(reloadError, INGREDIENT_FORM_ERRORS).message)
+        } finally {
+          setIsReloading(false)
+        }
         return
       }
       const { field, message } = extractFormError(err, INGREDIENT_FORM_ERRORS)
@@ -171,16 +199,14 @@ export function useIngredientFormSubmit(args: Args) {
     args.setForm((f) => ({ ...f, [field]: current.draft[field] }))
   }
 
-  const isPending = createIngredient.isPending || updateIngredient.isPending || updateTags.isPending
+  const isPending =
+    isReloading || createIngredient.isPending || updateIngredient.isPending || updateTags.isPending
 
-  const submitLabel =
-    args.mode === 'create'
-      ? createIngredient.isPending
-        ? 'Création…'
-        : "Créer l'ingrédient"
-      : updateIngredient.isPending || updateTags.isPending
-        ? 'Enregistrement…'
-        : 'Enregistrer'
+  const submitLabel = getSubmitLabel(
+    args.mode,
+    createIngredient.isPending,
+    updateIngredient.isPending || updateTags.isPending
+  )
 
   return {
     handleSubmit,
