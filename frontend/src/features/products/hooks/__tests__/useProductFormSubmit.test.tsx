@@ -12,7 +12,9 @@ function Form({ args }: { args: Parameters<typeof useProductFormSubmit>[0] }) {
   const submit = useProductFormSubmit(args)
   return (
     <form aria-label="Save product" onSubmit={submit.handleSubmit}>
-      <button type="submit">Save</button>
+      <button type="submit" disabled={submit.isPending}>
+        Save
+      </button>
       {submit.error && <p role="alert">{submit.error}</p>}
     </form>
   )
@@ -54,12 +56,17 @@ describe('product save permissions and tag provenance', () => {
     }
   )
 
-  it('finishes the product patch before applying an explicit manual selection', async () => {
+  it('saves the product and explicit manual tags in one pending request', async () => {
     const release = Promise.withResolvers<void>()
     const started = Promise.withResolvers<void>()
+    const navigation = Promise.withResolvers<void>()
     let tagsWritten = 0
+    let payload: unknown
+    let saves = 0
     server.use(
-      http.patch('*/api/products/:id', async () => {
+      http.patch('*/api/products/:id', async ({ request }) => {
+        saves++
+        payload = await request.json()
         started.resolve()
         await release.promise
         return HttpResponse.json({ success: true, data: product })
@@ -69,7 +76,7 @@ describe('product save permissions and tag provenance', () => {
         return HttpResponse.json({ success: true, data: [] })
       })
     )
-    const onSuccess = vi.fn()
+    const onSuccess = vi.fn(() => navigation.promise)
     renderWithProviders(
       <Form
         args={{
@@ -85,10 +92,18 @@ describe('product save permissions and tag provenance', () => {
     )
     fireEvent.submit(screen.getByRole('form'))
     await started.promise
+    fireEvent.submit(screen.getByRole('form'))
+    expect(saves).toBe(1)
     expect(tagsWritten).toBe(0)
     release.resolve()
     await waitFor(() => expect(onSuccess).toHaveBeenCalledWith(product.slug))
-    expect(tagsWritten).toBe(1)
+    expect(screen.getByRole('button', { name: 'Save' })).toBeDisabled()
+    fireEvent.submit(screen.getByRole('form'))
+    expect(saves).toBe(1)
+    navigation.resolve()
+    await waitFor(() => expect(screen.getByRole('button', { name: 'Save' })).toBeEnabled())
+    expect(payload).toMatchObject({ inci: 'Aqua', tags: [tag] })
+    expect(tagsWritten).toBe(0)
   })
 
   it.each(['create', 'edit'] as const)(
@@ -118,9 +133,7 @@ describe('product save permissions and tag provenance', () => {
       renderWithProviders(
         <Form
           args={
-            mode === 'create'
-              ? { ...common, mode, pendingIngredients: [] }
-              : { ...common, mode, product }
+            mode === 'create' ? { ...common, mode, ingredients: [] } : { ...common, mode, product }
           }
         />
       )

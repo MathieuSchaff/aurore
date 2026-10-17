@@ -1,13 +1,13 @@
 import type {
   AllProductTagCategory,
-  CreateProductInput,
+  CreateProductDraftInput,
   ProductConcentrationUnit,
   ProductDetailPage,
   ProductDomainTab,
   ProductErrorCode,
   ProductFormulaPreviewInput,
   ProductSort,
-  UpdateProductInput,
+  UpdateProductDraftInput,
 } from '@aurore/shared'
 
 export type { ProductSort }
@@ -356,7 +356,7 @@ export function useCreateProduct() {
   return useMutation({
     mutationKey: ['products', 'create'],
     meta: { handledErrorCodes: PRODUCT_FORM_HANDLED_ERROR_CODES },
-    mutationFn: async (data: CreateProductInput) => {
+    mutationFn: async (data: CreateProductDraftInput) => {
       const res = await api.products.$post({ json: data })
       return unwrapData(res)
     },
@@ -371,7 +371,7 @@ export function useUpdateProduct() {
   const qc = useQueryClient()
   return useMutation({
     mutationKey: ['products', 'update'],
-    mutationFn: async ({ id, data }: { id: string; data: UpdateProductInput }) => {
+    mutationFn: async ({ id, data }: { id: string; data: UpdateProductDraftInput }) => {
       const res = await api.products[':id'].$patch({ param: { id }, json: data })
       return unwrapData(res)
     },
@@ -463,38 +463,6 @@ export function useAddProductIngredient() {
       invalidateFormulaSurfaces(qc, slug)
     },
     meta: { errorMessage: "Ajout de l'ingrédient impossible." },
-  })
-}
-
-export function useUpdateProductIngredient() {
-  const qc = useQueryClient()
-  return useMutation({
-    mutationKey: ['products', 'ingredients', 'update'],
-    mutationFn: async ({
-      productId,
-      ingredientId,
-      concentrationValue,
-      concentrationUnit,
-    }: {
-      productId: string
-      slug: string
-      ingredientId: string
-      concentrationValue?: number | null
-      concentrationUnit?: ProductConcentrationUnit | null
-    }) => {
-      const res = await api.products[':productId'].ingredients[':ingredientId'].$patch({
-        param: { productId, ingredientId },
-        json: {
-          concentrationValue,
-          concentrationUnit,
-        },
-      })
-      return unwrapData(res)
-    },
-    onSuccess: (_, { slug }) => {
-      invalidateFormulaSurfaces(qc, slug)
-    },
-    meta: { errorMessage: "Mise à jour de l'ingrédient impossible." },
   })
 }
 

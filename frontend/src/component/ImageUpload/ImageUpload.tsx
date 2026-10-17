@@ -17,6 +17,8 @@ type Props = {
   alt: string
   notFoundLabel: string
   onSuccess: (url: string) => void
+  onBusyChange?: (busy: boolean) => void
+  successMessage?: string
 }
 
 export const ImageUpload = ({
@@ -27,6 +29,8 @@ export const ImageUpload = ({
   alt,
   notFoundLabel,
   onSuccess,
+  onBusyChange = () => {},
+  successMessage = 'Image enregistrée',
 }: Props) => {
   const { state, pickFile, dropFile, confirmCrop, cancel } = useImageUpload({
     endpoint,
@@ -42,15 +46,18 @@ export const ImageUpload = ({
   const overlayLabel = shape === 'round' ? 'Changer la photo' : 'Changer'
 
   const handleConfirm = async (area: { x: number; y: number; size: number }) => {
+    onBusyChange(true)
     try {
       const result = await confirmCrop(area)
       onSuccess(result.url)
       // Success returns the phase to 'idle', so the phase-derived region below stays
       // silent; announce here covers every parent (avatar, product image).
-      announce('Image enregistrée')
+      announce(successMessage)
     } catch {
       // The hook already moved to its error phase, which renders the message
       // Swallow the rejection so the confirm handler does not surface an unhandled promise
+    } finally {
+      onBusyChange(false)
     }
   }
 

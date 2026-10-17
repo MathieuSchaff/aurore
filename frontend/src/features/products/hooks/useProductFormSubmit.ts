@@ -1,12 +1,17 @@
-import type { ProductConcentrationUnit, ReplaceProductTagsInput } from '@aurore/shared'
+import type { ReplaceProductTagsInput } from '@aurore/shared'
 
 import { useQueryClient } from '@tanstack/react-query'
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 
 import {
   PRODUCT_FORM_ERRORS,
   type ProductFormField,
 } from '@/features/products/components/ProductForm/formErrors'
+import type { IngredientItem } from '@/features/products/components/ProductForm/IngredientsFieldset'
+import {
+  ingredientDraftError,
+  ingredientDraftPayload,
+} from '@/features/products/components/ProductForm/ingredientDraft'
 import {
   firstBlockingIssue,
   type ProductEditFormInput,
@@ -18,96 +23,77 @@ import {
   type ProductDetail,
   productKeys,
   productQueries,
-  useAddProductIngredient,
   useCreateProduct,
   useUpdateProduct,
-  useUpdateProductTags,
 } from '@/lib/queries/products'
 
 type TagPayload = ReplaceProductTagsInput['tags'][number]
 
-type PendingIngredient = {
-  ingredientId: string
-  concentrationValue: string
-  concentrationUnit: ProductConcentrationUnit | ''
-}
-
 type CreateArgs = {
   mode: 'create'
   product?: never
-  pendingIngredients: PendingIngredient[]
 }
 
 type EditArgs = {
   mode: 'edit'
   product: ProductDetail
-  pendingIngredients?: never
 }
 
 type Args = (CreateArgs | EditArgs) & {
   form: ProductEditFormInput
+  ingredients?: IngredientItem[]
+  isIngredientsDirty?: boolean
   isTagsDirty: boolean
   canManageLinks: boolean
   tags: Array<{ tagId: string; relevance: TagPayload['relevance'] }>
-  onSuccess: (slug: string) => void
+  onSuccess: (slug: string) => void | Promise<void>
+}
+
+function firstBlockingDraftIssue(args: Args): string | null {
+  const issue = firstBlockingIssue(args.form, args.mode === 'edit' ? args.product : null)
+  if (issue) return issue
+  if (!args.canManageLinks || !args.isIngredientsDirty) return null
+  const invalid = args.ingredients?.find((item) => ingredientDraftError(item))
+  return invalid ? `${invalid.ingredientName} : ${ingredientDraftError(invalid)}` : null
 }
 
 export function useProductFormSubmit(args: Args) {
   const queryClient = useQueryClient()
   const createProduct = useCreateProduct()
   const updateProduct = useUpdateProduct()
-  const updateTags = useUpdateProductTags()
-  const addIngredient = useAddProductIngredient()
+  const submitting = useRef(false)
+  const [isPending, setIsPending] = useState(false)
 
   const [error, setError] = useState<string | null>(null)
   const [fieldError, setFieldError] = useState<{ field: ProductFormField; message: string } | null>(
     null
   )
 
-  const tagsPayload = (): TagPayload[] =>
-    args.tags.map((t) => ({ tagId: t.tagId, relevance: t.relevance }))
+  const linksPayload = () =>
+    args.canManageLinks
+      ? {
+          ...(args.isTagsDirty
+            ? { tags: args.tags.map((tag) => ({ tagId: tag.tagId, relevance: tag.relevance })) }
+            : {}),
+          ...(args.isIngredientsDirty
+            ? { ingredients: ingredientDraftPayload(args.ingredients ?? []) }
+            : {}),
+        }
+      : {}
 
   async function submitCreate(data: ProductEditFormInput): Promise<string> {
-    if (args.mode !== 'create') throw new Error('submitCreate called in edit mode')
-    const newProduct = await createProduct.mutateAsync(productEditFormToCreateInput(data))
-    if (args.canManageLinks && args.tags.length > 0) {
-      await updateTags.mutateAsync({
-        productId: newProduct.id,
-        slug: newProduct.slug,
-        tags: tagsPayload(),
-      })
-    }
-    if (args.canManageLinks && args.pendingIngredients.length > 0) {
-      await Promise.all(
-        args.pendingIngredients.map((i) => {
-          const value = i.concentrationValue.trim()
-          const parsedValue = value === '' ? undefined : parseFloat(value)
-          return addIngredient.mutateAsync({
-            productId: newProduct.id,
-            slug: newProduct.slug,
-            ingredientId: i.ingredientId,
-            concentrationValue:
-              parsedValue != null && !Number.isNaN(parsedValue) ? parsedValue : undefined,
-            concentrationUnit: i.concentrationUnit === '' ? undefined : i.concentrationUnit,
-          })
-        })
-      )
-    }
-    return newProduct.slug
+    const product = await createProduct.mutateAsync({
+      ...productEditFormToCreateInput(data),
+      ...linksPayload(),
+    })
+    return product.slug
   }
 
   async function submitEdit(data: ProductEditFormInput, current: ProductDetail): Promise<string> {
     const updated = await updateProduct.mutateAsync({
       id: current.id,
-      data: productEditFormToUpdateInput(data, current),
+      data: { ...productEditFormToUpdateInput(data, current), ...linksPayload() },
     })
-    if (args.canManageLinks && args.isTagsDirty) {
-      await updateTags.mutateAsync({
-        productId: current.id,
-        slug: updated.slug,
-        tags: tagsPayload(),
-      })
-    }
     // Force a cold read on return-to-detail so the updated detail page refetches.
     queryClient.removeQueries({
       queryKey: productQueries.bySlug(updated.slug).queryKey,
@@ -131,13 +117,19 @@ export function useProductFormSubmit(args: Args) {
 
   async function handleSubmit(e: React.SubmitEvent<HTMLFormElement>) {
     e.preventDefault()
+    if (submitting.current) return
 
-    const blocking = firstBlockingIssue(args.form, args.mode === 'edit' ? args.product : null)
+    const blocking = firstBlockingDraftIssue(args)
     if (blocking) {
       setError(blocking)
+      e.currentTarget.querySelector<HTMLElement>('[aria-invalid="true"]')?.focus()
       return
     }
 
+    submitting.current = true
+    setIsPending(true)
+    setError(null)
+    setFieldError(null)
     try {
       // Both wire converters trim every field themselves, so the raw form is equivalent to
       // the schema output, which is unavailable here, the parse having been allowed to fail
@@ -146,25 +138,24 @@ export function useProductFormSubmit(args: Args) {
         args.mode === 'create'
           ? await submitCreate(args.form)
           : await submitEdit(args.form, args.product)
-      args.onSuccess(nextSlug)
+      await args.onSuccess(nextSlug)
     } catch (err) {
       const { field, message } = extractFormError(err, PRODUCT_FORM_ERRORS)
       setError(message)
       setFieldError(field ? { field, message } : null)
+    } finally {
+      submitting.current = false
+      setIsPending(false)
     }
   }
 
-  const isUpdatePending = updateProduct.isPending || updateTags.isPending
-  const isPending = args.mode === 'create' ? createProduct.isPending : isUpdatePending
-
-  const submitLabel =
-    args.mode === 'create'
-      ? createProduct.isPending
-        ? 'Création…'
-        : 'Créer le produit'
-      : isUpdatePending
-        ? 'Enregistrement…'
-        : 'Enregistrer'
+  const submitLabel = isPending
+    ? args.mode === 'create'
+      ? 'Création…'
+      : 'Enregistrement…'
+    : args.mode === 'create'
+      ? 'Créer le produit'
+      : 'Enregistrer'
 
   return {
     handleSubmit,

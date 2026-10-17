@@ -1,5 +1,5 @@
 import {
-  createProductSchema,
+  createProductDraftSchema,
   distinctBrandsQuery,
   HTTP_STATUS,
   listProductsQuery,
@@ -8,7 +8,7 @@ import {
   productFormulaPreviewSchema,
   productsByIdsQuery,
   searchProductsQuery,
-  updateProductSchema,
+  updateProductDraftSchema,
   verifyQualityBodySchema,
 } from '@aurore/shared'
 
@@ -32,7 +32,7 @@ import { securityScan } from '../security/security.middleware'
 import { listPostsForProduct } from '../social/posts.service'
 import { listPublicReviewsForProduct } from '../user-products/service'
 import {
-  createProduct,
+  createProductDraft,
   deleteProduct,
   findSimilarProducts,
   getDistinctBrands,
@@ -43,7 +43,7 @@ import {
   previewProductFormula,
   previewSlug,
   searchProducts,
-  updateProduct,
+  updateProductDraft,
   verifyProduct,
 } from './service'
 
@@ -162,13 +162,13 @@ export const productRoutes = productsApp
     requireNotBanned,
     requireNotBannedScope('product_create'),
     securityScan(),
-    zValidator('json', createProductSchema),
+    zValidator('json', createProductDraftSchema),
     async (c) => {
       const db = getRlsDb(c)
       const userId = getAuthedUserId(c)
       const role = getAuthedUserRole(c)
       const input = c.req.valid('json')
-      const product = await createProduct(userId, role, input, db)
+      const product = await createProductDraft(userId, role, input, db)
       return c.json(ok(stripAdminFields(product)), HTTP_STATUS.CREATED)
     }
   )
@@ -231,13 +231,13 @@ export const productRoutes = productsApp
     requireNotBannedScope('product_edit'),
     zValidator('param', idParam),
     securityScan(),
-    zValidator('json', updateProductSchema),
+    zValidator('json', updateProductDraftSchema),
     async (c) => {
       const db = getRlsDb(c)
       const { id } = c.req.valid('param')
       const userId = getAuthedUserId(c)
       const input = c.req.valid('json')
-      const product = await updateProduct(userId, id, input, db)
+      const product = await updateProductDraft(userId, getAuthedUserRole(c), id, input, db)
       return c.json(ok(stripAdminFields(product)), HTTP_STATUS.OK)
     }
   )

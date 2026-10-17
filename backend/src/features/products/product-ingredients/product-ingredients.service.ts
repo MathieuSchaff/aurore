@@ -15,8 +15,8 @@ type CreateProductIngredientInput = {
   concentrationValue?: string | null
   concentrationUnit?: string | null
   concentrationPer?: string | null
-  // Omitted means `manual`: an unmarked writer is a human, and the INCI linker never deletes
-  // what it does not own. Only the linker passes this.
+  // Omitted means `manual`: the INCI linker never deletes what it does not own
+  // Draft saves preserve the stored source instead of claiming untouched links
   source?: ProductIngredient['source']
 }
 

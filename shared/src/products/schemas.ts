@@ -1,10 +1,16 @@
 import { z } from 'zod'
 
 import { fieldChangeSchema, httpsUrl, noHtml, safeUrl } from '../core'
+import { replaceProductTagsSchema } from '../tag-api'
 import { PRODUCT_DOMAIN_TABS } from './domain-tabs'
+import { createProductIngredientSchema } from './ingredients'
 import { PRODUCT_CATEGORY_VALUES, PRODUCT_KINDS } from './kinds'
 import { PRODUCT_TEXTURE_VALUES } from './textures'
-import { PRODUCT_AMOUNT_UNIT_VALUES, PRODUCT_UNIT_VALUES } from './units'
+import {
+  PRODUCT_AMOUNT_UNIT_VALUES,
+  PRODUCT_CONCENTRATION_UNIT_VALUES,
+  PRODUCT_UNIT_VALUES,
+} from './units'
 
 // Soft validation: rejects HTML and bare prose (no comma for strings > 100 chars).
 // It does not check the full INCI naming rules. algo-derm does that at processing time
@@ -85,6 +91,55 @@ export const updateProductSchema = z
       }
     }
   })
+
+export const productDraftIngredientSchema = createProductIngredientSchema
+  .extend({
+    concentrationValue: z.number().min(0).nullable().optional(),
+    concentrationUnit: z.enum(PRODUCT_CONCENTRATION_UNIT_VALUES).nullable().optional(),
+    concentrationPer: noHtml(z.string().min(1).max(50)).nullable().optional(),
+    notes: noHtml(z.string().max(500)).nullable().optional(),
+  })
+  .superRefine((ingredient, ctx) => {
+    if ((ingredient.concentrationValue != null) !== (ingredient.concentrationUnit != null)) {
+      ctx.addIssue({
+        code: 'custom',
+        path: ['concentrationValue'],
+        message: 'Dose and unit must be provided together',
+      })
+    }
+    if (ingredient.concentrationUnit === '%' && (ingredient.concentrationValue ?? 0) > 100) {
+      ctx.addIssue({
+        code: 'custom',
+        path: ['concentrationValue'],
+        message: 'A percentage cannot exceed 100',
+      })
+    }
+  })
+
+const productDraftLinks = {
+  tags: replaceProductTagsSchema.shape.tags.optional(),
+  ingredients: z
+    .array(productDraftIngredientSchema)
+    .superRefine((items, ctx) => {
+      const ids = new Set<string>()
+      for (const [index, item] of items.entries()) {
+        if (ids.has(item.ingredientId))
+          ctx.addIssue({
+            code: 'custom',
+            path: [index, 'ingredientId'],
+            message: 'Duplicate ingredient',
+          })
+        ids.add(item.ingredientId)
+      }
+    })
+    .optional(),
+}
+
+export const createProductDraftSchema = createProductSchema.safeExtend(productDraftLinks)
+export const updateProductDraftSchema = updateProductSchema.safeExtend(productDraftLinks)
+export type ProductDraftIngredientInput = z.infer<typeof productDraftIngredientSchema>
+export type CreateProductDraftInput = z.infer<typeof createProductDraftSchema>
+export type UpdateProductDraftInput = z.infer<typeof updateProductDraftSchema>
 
 const editableProductFields = {
   name: fieldChangeSchema(z.string()),

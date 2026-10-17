@@ -2,6 +2,10 @@ import { z } from 'zod'
 
 import { HTTP_STATUS, type HttpStatus, safeUrl } from '../core'
 
+export const productImageUploadQuerySchema = z.object({
+  draft: z.enum(['true']).optional(),
+})
+
 export const uploadResponseSchema = z.object({
   url: safeUrl,
 })

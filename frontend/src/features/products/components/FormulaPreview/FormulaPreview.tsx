@@ -1,6 +1,5 @@
 import type { ProductCategory, ProductFormulaPreviewInput, ProductTexture } from '@aurore/shared'
 
-import { useMutationState } from '@tanstack/react-query'
 import { useMemo, useState } from 'react'
 
 import { Button } from '@/component/Button/Button'
@@ -99,21 +98,7 @@ export function FormulaPreview({
   const knownNoRecord = result?.tokens.filter((t) => t.canonicalKey && !t.ingredient) ?? []
   const unknown = result?.tokens.filter((t) => !t.canonicalKey && !t.ingredient) ?? []
 
-  // Edit mode persists adds server-side; chips would only flip to "Ajouté" after the
-  // refetch. Observe in-flight/settled add mutations so feedback is immediate and a
-  // failed add falls back to the button on its own.
-  const addMutationStates = useMutationState({
-    filters: { mutationKey: ['add-product-ingredient'] },
-    select: (m) => ({
-      id: (m.state.variables as { ingredientId?: string } | undefined)?.ingredientId,
-      counted: m.state.status === 'pending' || m.state.status === 'success',
-    }),
-  })
-  const optimisticAddedIds = new Set(
-    addMutationStates.filter((s) => s.counted && s.id).map((s) => s.id as string)
-  )
-  const isAdded = (ingredientId: string) =>
-    linkedIngredientIds.includes(ingredientId) || optimisticAddedIds.has(ingredientId)
+  const isAdded = (ingredientId: string) => linkedIngredientIds.includes(ingredientId)
 
   // Addable = matched but not yet linked or being linked; deduped by ingredient id.
   const addableIngredients = matched

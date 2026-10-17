@@ -10,6 +10,11 @@ function renderForm(ui: ReactElement, queryClient: ReturnType<typeof createTestQ
   return renderWithProviders(ui, { queryClient })
 }
 
+vi.mock('@tanstack/react-router', async (importOriginal) => ({
+  ...(await importOriginal<typeof import('@tanstack/react-router')>()),
+  useBlocker: vi.fn(),
+}))
+
 const mockSubmit = vi.fn((e: React.FormEvent) => e.preventDefault())
 
 vi.mock('@/features/products/hooks/useProductFormSubmit', () => ({

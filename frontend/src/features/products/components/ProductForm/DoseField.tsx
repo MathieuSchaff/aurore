@@ -14,6 +14,7 @@ type DoseFieldProps = {
   onValueChange: (value: string) => void
   onUnitChange: (unit: ProductConcentrationUnit | '') => void
   onValueBlur?: () => void
+  errorId?: string
   valueAriaLabel: string
   unitAriaLabel: string
 }
@@ -30,6 +31,7 @@ export function DoseField({
   onValueChange,
   onUnitChange,
   onValueBlur,
+  errorId,
   valueAriaLabel,
   unitAriaLabel,
 }: DoseFieldProps) {
@@ -47,6 +49,8 @@ export function DoseField({
         onChange={(e) => onValueChange(e.target.value)}
         onBlur={onValueBlur}
         aria-label={valueAriaLabel}
+        aria-invalid={errorId ? true : undefined}
+        aria-describedby={errorId}
       />
       <select
         id={`${id}-unit`}
@@ -54,6 +58,8 @@ export function DoseField({
         value={unit}
         onChange={(e) => onUnitChange(e.target.value as ProductConcentrationUnit | '')}
         aria-label={unitAriaLabel}
+        aria-invalid={errorId ? true : undefined}
+        aria-describedby={errorId}
       >
         <option value="">—</option>
         {UNIT_OPTIONS.map((opt) => (

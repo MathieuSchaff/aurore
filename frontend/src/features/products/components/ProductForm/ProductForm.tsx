@@ -13,7 +13,8 @@ import {
 } from '@aurore/shared'
 
 import { useQuery } from '@tanstack/react-query'
-import { useCallback, useMemo, useState } from 'react'
+import { useBlocker } from '@tanstack/react-router'
+import { useCallback, useMemo, useRef, useState } from 'react'
 
 import { Button, ButtonLink } from '@/component/Button/Button'
 import { FormError } from '@/component/Feedback/ui/FormError/FormError'
@@ -25,17 +26,12 @@ import { Select } from '@/component/Input/Select/Select'
 import { BrandCombobox } from '@/features/products/components/BrandCombobox/BrandCombobox'
 import { ProductImageField } from '@/features/products/components/ProductForm/ProductImageField'
 import { useProductFormSubmit } from '@/features/products/hooks/useProductFormSubmit'
+import { TAB_INGREDIENT_TYPE } from '@/features/products/hooks/useProductsFilterGroups'
 import { useDebounce } from '@/hooks/useDebounce'
 import { type TagRelevance, type TagState, useFormTags } from '@/hooks/useFormTags'
 import { useSession } from '@/lib/auth/session'
 import { productTagQueries } from '@/lib/queries/product-tags'
-import {
-  type ProductDetail,
-  productQueries,
-  useAddProductIngredient,
-  useRemoveProductIngredient,
-  useUpdateProductIngredient,
-} from '@/lib/queries/products'
+import { type ProductDetail, productQueries } from '@/lib/queries/products'
 import './ProductForm.css'
 
 import { DuplicateWarning } from './DuplicateWarning'
@@ -58,14 +54,14 @@ type ProductFormProps =
       initialTags?: never
       // Resubmit-after-hide seeds the identifying pair so the author doesn't retype it.
       prefill?: { name?: string; brand?: string }
-      onSuccess: (slug: string) => void
+      onSuccess: (slug: string) => void | Promise<void>
     }
   | {
       mode: 'edit'
       product: ProductDetail
       initialTags?: TagState[]
       prefill?: never
-      onSuccess: (slug: string) => void
+      onSuccess: (slug: string) => void | Promise<void>
     }
 
 export function ProductForm({
@@ -80,16 +76,13 @@ export function ProductForm({
     session.status === 'authenticated' &&
     (session.user.role === 'admin' || session.user.role === 'contributor')
   const { data: allTags } = useQuery(productTagQueries.list())
-  const addIngredient = useAddProductIngredient()
-  const removeIngredient = useRemoveProductIngredient()
-  const updateIngredient = useUpdateProductIngredient()
+  const allowLeave = useRef(false)
+  const [isImageBusy, setIsImageBusy] = useState(false)
 
-  const initialForm = useMemo<ProductEditFormInput>(
-    () =>
-      mode === 'edit'
-        ? productToEditForm(product)
-        : { ...emptyProductEditForm(), name: prefill?.name ?? '', brand: prefill?.brand ?? '' },
-    [mode, product, prefill?.name, prefill?.brand]
+  const [initialForm] = useState<ProductEditFormInput>(() =>
+    mode === 'edit'
+      ? productToEditForm(product)
+      : { ...emptyProductEditForm(), name: prefill?.name ?? '', brand: prefill?.brand ?? '' }
   )
   const [form, setForm] = useState<ProductEditFormInput>(initialForm)
 
@@ -108,7 +101,20 @@ export function ProductForm({
 
   // A prefilled brand came from an existing fiche, so treat it as confirmed (no extra click).
   const [brandConfirmed, setBrandConfirmed] = useState(mode === 'edit' || !!prefill?.brand)
-  const [pendingIngredients, setPendingIngredients] = useState<IngredientItem[]>([])
+  const [initialIngredients] = useState<IngredientItem[]>(() =>
+    mode === 'edit'
+      ? product.ingredients.map((item) => ({
+          ingredientId: item.ingredientId,
+          ingredientName: item.ingredientName,
+          concentrationValue: item.concentrationValue ?? '',
+          concentrationUnit: (item.concentrationUnit ?? '') as ProductConcentrationUnit | '',
+          concentrationPer: item.concentrationPer,
+          notes: item.notes,
+        }))
+      : []
+  )
+  const [ingredientItems, setIngredientItems] = useState(initialIngredients)
+  const isIngredientsDirty = JSON.stringify(ingredientItems) !== JSON.stringify(initialIngredients)
   const [slugModalOpen, setSlugModalOpen] = useState(false)
 
   const debouncedName = useDebounce(form.name.trim())
@@ -140,13 +146,20 @@ export function ProductForm({
           mode: 'create' as const,
           form,
           tags,
-          pendingIngredients,
           isTagsDirty,
           canManageLinks,
           onSuccess,
         } as const)
   const { handleSubmit, error, fieldError, clearError, isPending, submitLabel } =
-    useProductFormSubmit(submitArgs)
+    useProductFormSubmit({
+      ...submitArgs,
+      ingredients: ingredientItems,
+      isIngredientsDirty,
+      onSuccess: (slug) => {
+        allowLeave.current = true
+        return onSuccess(slug)
+      },
+    })
 
   const handleChange = useCallback(
     (field: keyof typeof form) =>
@@ -195,28 +208,23 @@ export function ProductForm({
       ),
     [form, initialForm]
   )
-  const isDirty = isFormDirty || isTagsDirty
+  const isDirty = isFormDirty || isTagsDirty || isIngredientsDirty
+  useBlocker({
+    shouldBlockFn: () =>
+      !allowLeave.current &&
+      (isPending ||
+        ((isDirty || isImageBusy) &&
+          !window.confirm('Quitter sans enregistrer vos modifications ?'))),
+    enableBeforeUnload: () => !allowLeave.current && (isDirty || isPending || isImageBusy),
+  })
 
   const isSubmitDisabled = computeIsSubmitDisabled({
     mode,
     form,
     brandConfirmed,
     isDirty,
-    isPending,
+    isPending: isPending || isImageBusy,
   })
-
-  // Edit mode coerces DB nulls to '' so IngredientRow only sees strings; persistence coerces them back.
-  const ingredientItems = useMemo<IngredientItem[]>(() => {
-    if (mode === 'edit') {
-      return product.ingredients.map((i) => ({
-        ingredientId: i.ingredientId,
-        ingredientName: i.ingredientName,
-        concentrationValue: i.concentrationValue ?? '',
-        concentrationUnit: (i.concentrationUnit ?? '') as ProductConcentrationUnit | '',
-      }))
-    }
-    return pendingIngredients
-  }, [mode, product, pendingIngredients])
 
   const handleCategoryChange = useCallback(
     ([v]: string[]) => {
@@ -246,20 +254,8 @@ export function ProductForm({
       ingredientId: string,
       { value, unit }: { value: string; unit: ProductConcentrationUnit | '' }
     ) => {
-      if (mode === 'edit') {
-        const trimmed = value.trim()
-        const parsed = trimmed === '' ? null : parseFloat(trimmed)
-        if (parsed !== null && Number.isNaN(parsed)) return
-        updateIngredient.mutate({
-          productId: product.id,
-          slug: product.slug,
-          ingredientId,
-          concentrationValue: parsed,
-          concentrationUnit: unit === '' ? null : unit,
-        })
-        return
-      }
-      setPendingIngredients((prev) =>
+      clearError()
+      setIngredientItems((prev) =>
         prev.map((p) =>
           p.ingredientId === ingredientId
             ? { ...p, concentrationValue: value, concentrationUnit: unit }
@@ -267,32 +263,30 @@ export function ProductForm({
         )
       )
     },
-    [mode, product, updateIngredient]
+    [clearError]
   )
 
   const handleRemoveIngredient = useCallback(
     (ingredientId: string) => {
-      if (mode === 'edit') {
-        removeIngredient.mutate({ productId: product.id, slug: product.slug, ingredientId })
-        return
-      }
-      setPendingIngredients((prev) => prev.filter((i) => i.ingredientId !== ingredientId))
+      clearError()
+      setIngredientItems((prev) => prev.filter((i) => i.ingredientId !== ingredientId))
     },
-    [mode, product, removeIngredient]
+    [clearError]
   )
 
   const handleAddIngredient = useCallback(
     (ingredientId: string, ingredientName: string) => {
-      if (mode === 'edit') {
-        addIngredient.mutate({ productId: product.id, slug: product.slug, ingredientId })
-        return
-      }
-      setPendingIngredients((prev) => [
-        ...prev,
-        { ingredientId, ingredientName, concentrationValue: '', concentrationUnit: '' },
-      ])
+      clearError()
+      setIngredientItems((prev) =>
+        prev.some((item) => item.ingredientId === ingredientId)
+          ? prev
+          : [
+              ...prev,
+              { ingredientId, ingredientName, concentrationValue: '', concentrationUnit: '' },
+            ]
+      )
     },
-    [mode, product, addIngredient]
+    [clearError]
   )
 
   // addTag defaults to 'secondary'; bump only when the suggestion says otherwise.
@@ -304,168 +298,183 @@ export function ProductForm({
     [addTag, updateRelevance]
   )
 
-  const removingIngredientId =
-    mode === 'edit' && removeIngredient.isPending
-      ? removeIngredient.variables?.ingredientId
-      : undefined
-  const isUpdatingIngredient = mode === 'edit' && updateIngredient.isPending
   const formAriaLabel = computeFormAriaLabel(mode, product)
 
   return (
     <form
       className="product-edit-form"
-      onSubmit={handleSubmit}
+      onSubmit={(event) => {
+        if (isImageBusy) event.preventDefault()
+        else void handleSubmit(event)
+      }}
       aria-label={formAriaLabel}
       noValidate
     >
-      <FormError error={error} fieldError={fieldError} />
-      <DuplicateWarning mode={mode} products={similarProducts} />
+      <fieldset disabled={isPending} className="product-edit-form__fields">
+        <FormError error={error} fieldError={fieldError} />
+        <DuplicateWarning mode={mode} products={similarProducts} />
 
-      <FormField label="Domaine" required>
-        <ChipGroup
-          options={PRODUCT_CATEGORY_VALUES.map((v) => ({
-            value: v,
-            label: PRODUCT_CATEGORY_LABELS[v],
-          }))}
-          selected={[form.category]}
-          onChange={handleCategoryChange}
-          mode="exclusive"
-          aria-label="Domaine du produit"
-        />
-      </FormField>
-
-      <div className="product-edit-form__row">
-        <Input
-          label="Nom"
-          id="edit-name"
-          required
-          value={form.name}
-          onChange={handleChange('name')}
-          placeholder="Nom du produit"
-          autoFocus
-          error={fieldError?.field === 'name' ? fieldError.message : undefined}
-        />
-
-        <FormField label="Marque" htmlFor="product-form-brand" required>
-          <BrandCombobox id="product-form-brand" value={form.brand} onChange={handleBrandChange} />
+        <FormField label="Domaine" required>
+          <ChipGroup
+            options={PRODUCT_CATEGORY_VALUES.map((v) => ({
+              value: v,
+              label: PRODUCT_CATEGORY_LABELS[v],
+            }))}
+            selected={[form.category]}
+            onChange={handleCategoryChange}
+            mode="exclusive"
+            aria-label="Domaine du produit"
+          />
         </FormField>
-      </div>
 
-      <ProductSlugSection mode={mode} slug={form.slug} onEdit={openSlugModal} />
+        <div className="product-edit-form__row">
+          <Input
+            label="Nom"
+            id="edit-name"
+            required
+            value={form.name}
+            onChange={handleChange('name')}
+            placeholder="Nom du produit"
+            autoFocus
+            error={fieldError?.field === 'name' ? fieldError.message : undefined}
+          />
 
-      <FormField label="Type de produit" required>
-        <ChipGroup
-          options={Object.values(PRODUCT_KINDS[form.category] ?? {}).map((v) => ({
-            value: v as string,
-            label: PRODUCT_KIND_LABELS[v as keyof typeof PRODUCT_KIND_LABELS] ?? (v as string),
-          }))}
-          selected={form.kind ? [form.kind] : []}
-          onChange={setKind}
-          mode="exclusive"
-          aria-label="Type de produit"
-        />
-      </FormField>
-
-      <TextureField category={form.category} value={form.texture} onChange={setTexture} />
-
-      <FormField label="Conditionnement" required>
-        <ChipGroup
-          options={Object.values(PRODUCT_UNITS[form.category] ?? {}).map((v) => ({
-            value: v as string,
-            label: PRODUCT_UNIT_LABELS[v as keyof typeof PRODUCT_UNIT_LABELS] ?? (v as string),
-          }))}
-          selected={form.unit ? [form.unit] : []}
-          onChange={setUnit}
-          mode="exclusive"
-          aria-label="Conditionnement du produit"
-        />
-      </FormField>
-
-      <div className="product-edit-form__row">
-        <fieldset className="form-field">
-          <legend className="form-field__label">Contenance</legend>
-          <div className="product-edit-form__inline">
-            <Input
-              id="edit-total-amount"
-              type="number"
-              min={1}
-              value={form.totalAmount}
-              onChange={handleChange('totalAmount')}
-              placeholder="Ex : 30"
-              aria-label="Quantité"
+          <FormField label="Marque" htmlFor="product-form-brand" required>
+            <BrandCombobox
+              id="product-form-brand"
+              value={form.brand}
+              onChange={handleBrandChange}
             />
-            <Select
-              id="edit-amount-unit"
-              className="product-edit-form__amount-unit"
-              value={form.amountUnit}
-              onValueChange={setAmountUnit}
-              aria-label="Unité de contenance"
-              placeholder="—"
-              options={PRODUCT_AMOUNT_UNITS[form.category].map((v) => ({
-                value: v,
-                label: PRODUCT_AMOUNT_UNIT_LABELS[v],
-              }))}
-            />
-          </div>
-        </fieldset>
+          </FormField>
+        </div>
 
-        <Input
-          label="Prix (€)"
-          id="edit-price"
-          type="number"
-          min={0}
-          step={0.01}
-          value={form.priceEuros}
-          onChange={handleChange('priceEuros')}
-          placeholder="Ex : 12.90"
-        />
-      </div>
+        <ProductSlugSection mode={mode} slug={form.slug} onEdit={openSlugModal} />
 
-      <div className="product-edit-form__row">
-        <Input
-          label="Lien produit"
-          id="edit-url"
-          type="url"
-          value={form.url}
-          onChange={handleChange('url')}
-          placeholder="https://…"
-        />
-        <ProductImageSection
-          mode={mode}
-          product={product}
+        <FormField label="Type de produit" required>
+          <ChipGroup
+            options={Object.values(PRODUCT_KINDS[form.category] ?? {}).map((v) => ({
+              value: v as string,
+              label: PRODUCT_KIND_LABELS[v as keyof typeof PRODUCT_KIND_LABELS] ?? (v as string),
+            }))}
+            selected={form.kind ? [form.kind] : []}
+            onChange={setKind}
+            mode="exclusive"
+            aria-label="Type de produit"
+          />
+        </FormField>
+
+        <TextureField category={form.category} value={form.texture} onChange={setTexture} />
+
+        <FormField label="Conditionnement" required>
+          <ChipGroup
+            options={Object.values(PRODUCT_UNITS[form.category] ?? {}).map((v) => ({
+              value: v as string,
+              label: PRODUCT_UNIT_LABELS[v as keyof typeof PRODUCT_UNIT_LABELS] ?? (v as string),
+            }))}
+            selected={form.unit ? [form.unit] : []}
+            onChange={setUnit}
+            mode="exclusive"
+            aria-label="Conditionnement du produit"
+          />
+        </FormField>
+
+        <div className="product-edit-form__row">
+          <fieldset className="form-field">
+            <legend className="form-field__label">Contenance</legend>
+            <div className="product-edit-form__inline">
+              <Input
+                id="edit-total-amount"
+                type="number"
+                min={1}
+                value={form.totalAmount}
+                onChange={handleChange('totalAmount')}
+                placeholder="Ex : 30"
+                aria-label="Quantité"
+              />
+              <Select
+                id="edit-amount-unit"
+                className="product-edit-form__amount-unit"
+                value={form.amountUnit}
+                onValueChange={setAmountUnit}
+                aria-label="Unité de contenance"
+                placeholder="—"
+                options={PRODUCT_AMOUNT_UNITS[form.category].map((v) => ({
+                  value: v,
+                  label: PRODUCT_AMOUNT_UNIT_LABELS[v],
+                }))}
+              />
+            </div>
+          </fieldset>
+
+          <Input
+            label="Prix (€)"
+            id="edit-price"
+            type="number"
+            min={0}
+            step={0.01}
+            value={form.priceEuros}
+            onChange={handleChange('priceEuros')}
+            placeholder="Ex : 12.90"
+          />
+        </div>
+
+        <div className="product-edit-form__row">
+          <Input
+            label="Lien produit"
+            id="edit-url"
+            type="url"
+            value={form.url}
+            onChange={handleChange('url')}
+            placeholder="https://…"
+          />
+          <ProductImageSection
+            mode={mode}
+            product={product}
+            form={form}
+            previewSlug={previewSlug}
+            onUpload={handleImageUpload}
+            onBusyChange={setIsImageBusy}
+          />
+        </div>
+
+        <ProductAnnotationFields
+          canManageLinks={canManageLinks}
           form={form}
-          previewSlug={previewSlug}
-          onUpload={handleImageUpload}
+          onChange={handleChange}
+          allTags={domainTags}
+          onApplyTag={handleApplyTag}
+          tagManager={{
+            tags,
+            availableTags,
+            onAddTag: addTag,
+            onRemoveTag: removeTag,
+            onUpdateRelevance: updateRelevance,
+          }}
+          ingredients={{
+            mode,
+            items: ingredientItems,
+            onPersist: handleIngredientPersist,
+            onRemove: handleRemoveIngredient,
+            onAdd: handleAddIngredient,
+            ingredientType: TAB_INGREDIENT_TYPE[domain],
+          }}
         />
-      </div>
-
-      <ProductAnnotationFields
-        canManageLinks={canManageLinks}
-        form={form}
-        onChange={handleChange}
-        allTags={domainTags}
-        onApplyTag={handleApplyTag}
-        tagManager={{
-          tags,
-          availableTags,
-          onAddTag: addTag,
-          onRemoveTag: removeTag,
-          onUpdateRelevance: updateRelevance,
-        }}
-        ingredients={{
-          mode,
-          items: ingredientItems,
-          onPersist: handleIngredientPersist,
-          onRemove: handleRemoveIngredient,
-          onAdd: handleAddIngredient,
-          removingIngredientId,
-          isUpdating: isUpdatingIngredient,
-        }}
-      />
-
+      </fieldset>
+      <p role="status">
+        {isImageBusy
+          ? 'Préparation de l’image…'
+          : isPending
+            ? submitLabel
+            : isDirty
+              ? 'Modifications non enregistrées'
+              : 'Aucune modification en attente'}
+      </p>
       <ProductFormActions
         mode={mode}
         productSlug={product?.slug}
+        onCancel={() => {
+          if (!isPending) allowLeave.current = true
+        }}
         submitLabel={submitLabel}
         disabled={isSubmitDisabled}
         isPending={isPending}
@@ -531,7 +540,9 @@ function ProductImageSection({
   form,
   previewSlug,
   onUpload,
+  onBusyChange,
 }: {
+  onBusyChange: (busy: boolean) => void
   mode: 'create' | 'edit'
   product: ProductDetail | undefined
   form: ProductEditFormInput
@@ -542,9 +553,10 @@ function ProductImageSection({
     return (
       <ProductImageField
         mode="create"
-        endpoint={previewSlug ? `/api/uploads/product/${previewSlug}` : null}
+        endpoint={previewSlug ? `/api/uploads/product/${previewSlug}?draft=true` : null}
         imageUrl={form.imageUrl}
         onUpload={onUpload}
+        onBusyChange={onBusyChange}
       />
     )
   }
@@ -556,11 +568,13 @@ function ProductImageSection({
       imageUrl={form.imageUrl}
       altName={form.name || product.name || 'produit'}
       onUpload={onUpload}
+      onBusyChange={onBusyChange}
     />
   )
 }
 
 function ProductFormActions({
+  onCancel,
   mode,
   productSlug,
   submitLabel,
@@ -568,6 +582,7 @@ function ProductFormActions({
   isPending,
 }: {
   mode: 'create' | 'edit'
+  onCancel: () => void
   productSlug: string | undefined
   submitLabel: string
   disabled: boolean
@@ -576,15 +591,27 @@ function ProductFormActions({
   return (
     <FormActionsBar className="product-edit-form__actions">
       {mode === 'edit' && productSlug ? (
-        <ButtonLink to="/products/$slug" params={{ slug: productSlug }} variant="outline">
+        <ButtonLink
+          to="/products/$slug"
+          params={{ slug: productSlug }}
+          variant="outline"
+          onClick={onCancel}
+          aria-disabled={isPending}
+        >
           Annuler
         </ButtonLink>
       ) : (
-        <ButtonLink to="/products" variant="outline">
+        <ButtonLink to="/products" variant="outline" onClick={onCancel} aria-disabled={isPending}>
           Annuler
         </ButtonLink>
       )}
-      <Button type="submit" variant="primary" disabled={disabled} loading={isPending}>
+      <Button
+        type="submit"
+        variant="primary"
+        disabled={disabled}
+        loading={isPending}
+        aria-label={submitLabel}
+      >
         {submitLabel}
       </Button>
     </FormActionsBar>

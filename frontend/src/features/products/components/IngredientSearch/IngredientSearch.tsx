@@ -1,3 +1,5 @@
+import type { IngredientType } from '@aurore/shared'
+
 import { useQuery } from '@tanstack/react-query'
 import { useMemo, useState } from 'react'
 
@@ -10,11 +12,12 @@ import { ingredientQueries } from '@/lib/queries/ingredients'
 import './IngredientSearch.css'
 
 type IngredientSearchProps = {
+  type?: IngredientType
   existingIds: string[]
   onAdd: (ingredientId: string, ingredientName: string) => void
 }
 
-export function IngredientSearch({ existingIds, onAdd }: IngredientSearchProps) {
+export function IngredientSearch({ existingIds, onAdd, type }: IngredientSearchProps) {
   const [query, setQuery] = useState('')
   const debouncedQuery = useDebounce(query, 200)
   const {
@@ -23,7 +26,7 @@ export function IngredientSearch({ existingIds, onAdd }: IngredientSearchProps) 
     errorUpdatedAt,
     refetch,
     isError,
-  } = useQuery(ingredientQueries.search(debouncedQuery))
+  } = useQuery(ingredientQueries.search(debouncedQuery, type))
 
   const available = useMemo(() => {
     if (!results) return []

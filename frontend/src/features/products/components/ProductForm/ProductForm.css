@@ -141,3 +141,7 @@
     width: 100%;
   }
 }
+
+.product-edit-form__fields {
+  display: contents;
+}

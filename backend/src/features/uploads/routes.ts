@@ -1,4 +1,4 @@
-import { err, HTTP_STATUS, ok } from '@aurore/shared'
+import { err, HTTP_STATUS, ok, productImageUploadQuerySchema } from '@aurore/shared'
 
 import { Hono } from 'hono'
 import { bodyLimit } from 'hono/body-limit'
@@ -43,6 +43,7 @@ export const uploadsRoutes = app
       'param',
       z.object({ slug: z.string().regex(/^[a-z0-9][a-z0-9-]{0,198}[a-z0-9]$|^[a-z0-9]$/) })
     ),
+    zValidator('query', productImageUploadQuerySchema),
     async (c) => {
       const { slug } = c.req.valid('param')
       const body = await c.req.parseBody()
@@ -51,7 +52,9 @@ export const uploadsRoutes = app
         return c.json(err('upload_invalid_format'), HTTP_STATUS.BAD_REQUEST)
       }
       const buffer = Buffer.from(await file.arrayBuffer())
-      const result = await uploadProductImage(getRlsDb(c), slug, buffer)
+      const result = await uploadProductImage(getRlsDb(c), slug, buffer, {
+        draft: c.req.valid('query').draft === 'true',
+      })
       return c.json(ok(result), HTTP_STATUS.CREATED)
     }
   )

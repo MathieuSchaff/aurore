@@ -44,14 +44,18 @@ export async function uploadAvatar(
 export async function uploadProductImage(
   db: DatabaseTransaction,
   slug: string,
-  buffer: Buffer
+  buffer: Buffer,
+  options: { draft?: boolean } = {}
 ): Promise<{ url: string }> {
   // Validate before any CDN/DB work so bad images fail fast regardless of slug.
   validateWebpUpload(buffer, { maxBytes: PRODUCT_MAX_BYTES, expectedSize: 1200 })
 
-  const key = `products/${slug}.webp`
+  const key = `products/${slug}${options.draft ? `-${crypto.randomUUID()}` : ''}.webp`
   await putToBunny(key, buffer)
   const storedUrl = `${env.IMAGE_CDN_BASE}/${key}`
+
+  // A cancelled draft must not update the fiche or overwrite its current CDN asset
+  if (options.draft) return { url: storedUrl }
 
   // Update DB only if the product exists; uploads made before it exists skip this step.
   const [existing] = await db

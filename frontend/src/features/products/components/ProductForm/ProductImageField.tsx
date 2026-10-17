@@ -1,9 +1,6 @@
-import { useQueryClient } from '@tanstack/react-query'
-
 import { ImageUpload } from '@/component/ImageUpload/ImageUpload'
 import { FormField } from '@/component/Input/FormField/FormField'
 import { Input } from '@/component/Input/Input'
-import { productKeys } from '@/lib/queries/products'
 
 type CreateProps = {
   mode: 'create'
@@ -21,11 +18,9 @@ type EditProps = {
   onUpload: (url: string) => void
 }
 
-type Props = CreateProps | EditProps
+type Props = (CreateProps | EditProps) & { onBusyChange?: (busy: boolean) => void }
 
 export function ProductImageField(props: Props) {
-  const queryClient = useQueryClient()
-
   if (props.mode === 'create') {
     if (!props.endpoint) {
       return (
@@ -39,6 +34,8 @@ export function ProductImageField(props: Props) {
     return (
       <FormField label="Image du produit">
         <ImageUpload
+          onBusyChange={props.onBusyChange}
+          successMessage="Image préparée. Enregistrez la fiche pour la conserver."
           shape="square"
           outputSize={1200}
           endpoint={props.endpoint}
@@ -54,15 +51,16 @@ export function ProductImageField(props: Props) {
   return (
     <FormField label="Image du produit">
       <ImageUpload
+        onBusyChange={props.onBusyChange}
+        successMessage="Image préparée. Enregistrez la fiche pour la conserver."
         shape="square"
         outputSize={1200}
-        endpoint={`/api/uploads/product/${props.productSlug}`}
+        endpoint={`/api/uploads/product/${props.productSlug}?draft=true`}
         currentImageUrl={props.imageUrl}
         alt={`Image de ${props.altName}`}
         notFoundLabel="Produit"
         onSuccess={(url) => {
           props.onUpload(url)
-          queryClient.invalidateQueries({ queryKey: productKeys.all })
         }}
       />
       {props.imageUrl && (

@@ -1,5 +1,6 @@
 import { beforeAll, beforeEach, describe, expect, it } from 'bun:test'
 
+import type { ApiSuccess, ProductDetailPage } from '@aurore/shared'
 import { HTTP_STATUS } from '@aurore/shared'
 
 import { setupDbTests } from '../../../tests/db-setup'
@@ -106,6 +107,30 @@ describe('Upload Routes', () => {
       // No row to read updatedAt from, so the URL carries no cache-bust param.
       expect(url).toMatch(/^https:\/\/.+\/products\/new-product-slug\.webp$/)
       expect(bunny.putUrls()).toEqual([expect.stringContaining('/products/new-product-slug.webp')])
+    })
+
+    it('stages a draft image without changing the fiche or overwriting the live asset', async () => {
+      const product = await createTestProduct(
+        contributorId,
+        { name: 'Draft image', slug: 'draft-image', imageUrl: 'https://example.com/original.webp' },
+        'contributor'
+      )
+      const url = await expectUploadedUrl(
+        authPostMultipart(
+          app,
+          `/api/uploads/product/${product.slug}?draft=true`,
+          contributorToken,
+          { image: webpBlob(PRODUCT_SIZE) }
+        )
+      )
+      expect(url).toMatch(/\/products\/draft-image-[0-9a-f-]+\.webp$/)
+      const detail = await app.request(`/api/products/${product.slug}`)
+      expect(
+        ((await detail.json()) as ApiSuccess<ProductDetailPage['product']>).data.imageUrl
+      ).toBe('https://example.com/original.webp')
+      expect(bunny.putUrls()).not.toContainEqual(
+        expect.stringContaining('/products/draft-image.webp')
+      )
     })
 
     it('cache-busts the URL when the product already exists', async () => {
