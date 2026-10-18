@@ -19,6 +19,10 @@ installChunkReloadGuard({
 
 async function startClient() {
   const router = await hydrateStart()
+  // The stream finishes before React commits and the router restores scroll
+  router.subscribe('onRendered', () => {
+    document.documentElement.dataset.routerReady = window.location.href
+  })
 
   startTransition(() => {
     hydrateRoot(

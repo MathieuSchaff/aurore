@@ -37,6 +37,7 @@ export async function gotoFirstProductDetail(page: Page): Promise<string> {
   await page.goto(`/products/${slug}`)
   await expect(page).toHaveURL(new RegExp(`/products/${slug}$`), { timeout: 15_000 })
   await waitForHydration(page)
+  await page.evaluate(() => document.fonts.ready.then(() => undefined))
   return slug
 }
 

@@ -4,11 +4,16 @@
   gap: var(--space-4);
 }
 
-.public-reviews__intro {
+.public-reviews__intro,
+.public-reviews__message {
   margin: 0;
   font-size: var(--text-sm);
   color: var(--text-secondary);
   line-height: var(--leading-relaxed);
+}
+
+.public-reviews__message {
+  max-width: 75ch;
 }
 
 .public-reviews__axis-list {
@@ -25,7 +30,6 @@
   }
 }
 
-/* One quiet row per axis. The review text is the main content, ratings stay secondary. */
 .public-reviews__axis {
   display: flex;
   align-items: baseline;
@@ -71,7 +75,7 @@
   flex-wrap: wrap;
 }
 
-/* Hover keeps the same AA-safe tone; the dashed-to-solid border carries the state change. */
+/* Keep text contrast unchanged on hover */
 .public-reviews__author-link:hover,
 .public-reviews__author-link:focus-visible {
   border-bottom-style: solid;

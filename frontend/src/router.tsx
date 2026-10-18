@@ -54,6 +54,8 @@ export function getRouter() {
     defaultPreload: import.meta.env.PROD ? 'intent' : false,
     defaultPreloadStaleTime: 0,
     scrollRestoration: true,
+    // A smooth restoration can move a newly rendered control during a pointer press
+    scrollRestorationBehavior: 'instant',
     // Without a default, a route that omits errorComponent lets the throw climb to
     // AppErrorBoundary, which sits above the Outlet and takes the header and nav
     // down with it. Keeping the boundary per route confines the failure.

@@ -7,7 +7,7 @@ vi.mock('@tanstack/react-router', () => ({ RouterProvider: () => null }))
 vi.mock('@tanstack/react-start/client', () => ({
   hydrateStart: vi.fn(async () => {
     clientStart.events.push('hydrateStart')
-    return {}
+    return { subscribe: vi.fn() }
   }),
 }))
 vi.mock('react', async (importOriginal) => ({

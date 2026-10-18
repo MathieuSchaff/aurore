@@ -20,8 +20,7 @@ export const Header = () => {
   const drawerCloseRef = useRef<HTMLButtonElement>(null)
   const drawerTitleId = useId()
 
-  // Close the drawer when the viewport crosses the inline breakpoint so an open drawer
-  // never lingers as a stray modal once the desktop bar shows its links inline.
+  // Avoid keeping a mobile dialog open after widening the viewport
   const [prevBelowLg, setPrevBelowLg] = useState(isBelowLg)
   if (prevBelowLg !== isBelowLg) {
     setPrevBelowLg(isBelowLg)
@@ -75,7 +74,7 @@ export const Header = () => {
         </div>
       </nav>
 
-      {isBelowLg && isOpen && (
+      {isOpen && (
         <DialogPrimitive
           onClose={closeDrawer}
           labelledBy={drawerTitleId}

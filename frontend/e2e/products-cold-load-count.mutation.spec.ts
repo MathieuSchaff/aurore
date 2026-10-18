@@ -117,7 +117,7 @@ test('reuses every seeded first screen read on authenticated product cold load',
   const html = await document.text()
   expect(html).toContain(shelfProduct.name)
   expect(html).toContain('Dans votre collection')
-  expect(html).toContain('Lecture de la formule')
+  expect(html).toContain('Comprendre la formule')
 
   expect((await refreshResponse).ok()).toBe(true)
   await waitForHydration(page)
@@ -174,7 +174,7 @@ test('reuses the SSR page without secondary reads on anonymous product cold load
   if (!document) throw new Error(`no navigation response for /products/${slug}`)
   const html = await document.text()
   expect(html).toContain(product.name)
-  expect(html).toContain('Lecture de la formule')
+  expect(html).toContain('Comprendre la formule')
 
   await waitForHydration(page)
   await page.waitForLoadState('networkidle')

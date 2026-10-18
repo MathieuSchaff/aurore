@@ -106,7 +106,7 @@ test.describe('Add to collection: failure path', () => {
 test.describe('Discussion thread: failure paths', () => {
   test('submitting empty form is blocked by HTML5 validation, no POST', async ({ page }) => {
     await gotoFirstProductDetail(page)
-    await page.getByRole('tab', { name: /Discussions/ }).click()
+    await page.getByRole('link', { name: 'Voir les discussions', exact: true }).click()
     await openDiscussionForm(page)
 
     let posted = false
@@ -123,7 +123,7 @@ test.describe('Discussion thread: failure paths', () => {
 
   test('backend 500 keeps form open and preserves user input', async ({ page }) => {
     await gotoFirstProductDetail(page)
-    await page.getByRole('tab', { name: /Discussions/ }).click()
+    await page.getByRole('link', { name: 'Voir les discussions', exact: true }).click()
     await openDiscussionForm(page)
 
     await mockApiError(page, '**/api/products/*/discussions', 500, 'thread_creation_failed', 'POST')
@@ -143,7 +143,7 @@ test.describe('Discussion thread: failure paths', () => {
 
   test('successful post clears inputs and closes the form', async ({ page }) => {
     await gotoFirstProductDetail(page)
-    await page.getByRole('tab', { name: /Discussions/ }).click()
+    await page.getByRole('link', { name: 'Voir les discussions', exact: true }).click()
     await openDiscussionForm(page)
 
     const title = `e2e thread ${Date.now()}`

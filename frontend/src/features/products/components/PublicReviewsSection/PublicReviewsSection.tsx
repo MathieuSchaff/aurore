@@ -15,9 +15,9 @@ import './PublicReviewsSection.css'
 
 interface PublicReviewsSectionProps {
   slug: string
+  messageVariant?: 'panel' | 'plain'
 }
 
-// Neutral labels: no medical, no winners, no scores.
 const AXIS_LABELS: Record<ReviewAxisKey, string> = {
   tolerance: 'Tolérance',
   efficacy: 'Effet ressenti',
@@ -63,7 +63,11 @@ function ReviewerName({ reviewer }: { reviewer: PublicReviewView['reviewer'] }) 
   return <span className="public-reviews__author-name">{reviewer.username}</span>
 }
 
-export function PublicReviewsSection({ slug }: PublicReviewsSectionProps) {
+export function PublicReviewsSection({
+  slug,
+  messageVariant = 'panel',
+}: PublicReviewsSectionProps) {
+  const messageClassName = messageVariant === 'plain' ? 'public-reviews__message' : 'ui-empty-panel'
   const { data, isLoading, isError } = useQuery(productQueries.publicReviews(slug))
   const session = useSession()
   const isAuthenticated = session.status === 'authenticated' && session.credential === 'present'
@@ -72,7 +76,7 @@ export function PublicReviewsSection({ slug }: PublicReviewsSectionProps) {
     return (
       <section className="product-section public-reviews">
         <SectionHeader title="Retours utilisateurs" variant="primary" />
-        <p className="ui-empty-panel">Chargement des retours partagés…</p>
+        <p className={messageClassName}>Chargement des retours partagés…</p>
       </section>
     )
   }
@@ -81,7 +85,7 @@ export function PublicReviewsSection({ slug }: PublicReviewsSectionProps) {
     return (
       <section className="product-section public-reviews">
         <SectionHeader title="Retours utilisateurs" variant="primary" />
-        <p className="ui-empty-panel">
+        <p className={messageClassName}>
           Retours indisponibles pour le moment. Vous pouvez réessayer plus tard.
         </p>
       </section>
@@ -99,9 +103,9 @@ export function PublicReviewsSection({ slug }: PublicReviewsSectionProps) {
       />
 
       {reviews.length === 0 ? (
-        <p className="ui-empty-panel">
-          Aucun retour partagé publiquement pour ce produit pour le moment. Vous pouvez partager vos
-          retours via le toggle dans votre étagère.
+        <p className={messageClassName}>
+          Aucun retour public pour ce produit pour le moment. Les expériences partagées apparaîtront
+          ici.
         </p>
       ) : (
         <>
@@ -110,7 +114,7 @@ export function PublicReviewsSection({ slug }: PublicReviewsSectionProps) {
           </p>
           <ul role="list" className="public-reviews__verbatims">
             {reviews.map((review) => {
-              // Only show axis notes when the author opted ratings public (values that are not null).
+              // Only ratings shared by the author belong beside a public comment
               const ratedAxes = reviewAxisKeys.filter((k) => review[k] != null)
               return (
                 <li key={review.id} className="ui-content-card">

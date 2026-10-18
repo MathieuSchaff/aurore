@@ -56,7 +56,7 @@
 /* DropdownMenu handles positioning (portal + fixed). Only visual overrides here. */
 .user-menu__dropdown {
   background: var(--bg-elevated);
-  min-width: 12rem;
+  min-width: min(12rem, calc(100vw - 16px));
 }
 
 .user-menu__dropdown .dropdown-menu__item {

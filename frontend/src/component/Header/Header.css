@@ -1,4 +1,5 @@
 .main-nav {
+  container: main-nav / inline-size;
   position: fixed;
   top: 0;
   left: 0;
@@ -82,6 +83,17 @@
   flex: 0 0 auto;
 }
 
+/* Preserve account access when enlarged text fills the bar */
+@container main-nav (max-width: 14rem) {
+  .main-nav__wordmark {
+    display: none;
+  }
+
+  .main-nav__logo {
+    min-width: 44px;
+  }
+}
+
 @media (--below-lg) {
   .main-nav__toggle {
     display: inline-flex;
@@ -91,5 +103,16 @@
 @media (--lg) {
   .main-nav__inline {
     display: flex;
+  }
+}
+
+/* Enlarged text can need the drawer even on a wide viewport */
+@container main-nav (max-width: 48rem) {
+  .main-nav__toggle {
+    display: inline-flex;
+  }
+
+  .main-nav__inline {
+    display: none;
   }
 }

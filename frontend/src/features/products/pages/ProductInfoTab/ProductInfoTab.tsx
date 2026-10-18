@@ -1,49 +1,28 @@
-import type { ProductDetail } from '@aurore/shared'
-
 import { useSuspenseQuery } from '@tanstack/react-query'
 import { getRouteApi, Link } from '@tanstack/react-router'
-import { Check, ChevronDown, Copy, FlaskConical, StickyNote } from 'lucide-react'
-import { lazy, Suspense, useId, useMemo } from 'react'
+import { StickyNote } from 'lucide-react'
+import { useMemo } from 'react'
 
-// Defer ~50KB gzip; description is below the fold on first paint.
-const Markdown = lazy(() => import('react-markdown'))
-
-import { Button } from '@/component/Button/Button'
 import { Badge } from '@/component/DataDisplay/Badge/Badge'
-import { ShowMoreButton } from '@/component/DataDisplay/ShowMoreButton/ShowMoreButton'
 import { IconBox } from '@/component/Layout/IconBox/IconBox'
-import { RichText } from '@/component/Typography/RichText/RichText'
 import { SectionHeader } from '@/component/Typography/SectionHeader/SectionHeader'
-import { FormulaConcentrations } from '@/features/products/components/FormulaConcentrations/FormulaConcentrations'
-import { FormulaProfile } from '@/features/products/components/FormulaProfile/FormulaProfile'
 import { FormulaReading } from '@/features/products/components/FormulaReading/FormulaReading'
-import { ProductSummary } from '@/features/products/components/ProductSummary/ProductSummary'
+import { ProductComposition } from '@/features/products/components/ProductComposition/ProductComposition'
+import { ProductPostsSection } from '@/features/products/components/ProductPostsSection/ProductPostsSection'
+import { ProductSources } from '@/features/products/components/ProductSources/ProductSources'
 import {
   deriveProfileWarnings,
   ProfileWarnings,
   profileLabel,
 } from '@/features/products/components/ProfileWarnings/ProfileWarnings'
+import { PublicReviewsSection } from '@/features/products/components/PublicReviewsSection/PublicReviewsSection'
 import { deriveKpChips } from '@/features/products/kp-chips'
 import { portraitSlugs } from '@/features/profile/portrait-slugs'
-import { useCopyToClipboard } from '@/hooks/useCopyToClipboard'
-import { useExpandableList } from '@/hooks/useExpandableList'
 import { viewerId as getSessionViewerId, useSession } from '@/lib/auth/session'
 import { productQueries } from '@/lib/queries/products'
 import './ProductInfoTab.css'
 
 const route = getRouteApi('/products/$slug/')
-
-function formatConcentration(
-  value: string | null,
-  unit: string | null,
-  per: string | null
-): string | null {
-  if (!value) return null
-  let result = value
-  if (unit) result += ` ${unit}`
-  if (per) result += ` / ${per}`
-  return result
-}
 
 function KpProfileBridge({ chips }: { chips: ReturnType<typeof deriveKpChips> }) {
   if (!chips.bumps && !chips.red) return null
@@ -67,131 +46,11 @@ function ProductNotes({ notes }: { notes: string | null }) {
       </IconBox>
       <div>
         <h3 id="product-notes-title" className="product-notes-block__title">
-          Notes
+          Note de la fiche
         </h3>
         <p className="product-notes-block__body">{notes}</p>
       </div>
     </aside>
-  )
-}
-
-function IngredientsSection({
-  ingredients,
-  inci,
-  productKey,
-}: {
-  ingredients: ProductDetail['ingredients']
-  inci: string | null
-  productKey: string
-}) {
-  const { copied, copy } = useCopyToClipboard()
-  const ingredientsListId = useId()
-  const {
-    visible,
-    hiddenCount,
-    isExpanded,
-    toggle: toggleExpanded,
-  } = useExpandableList(ingredients ?? [], undefined, productKey)
-
-  if (!ingredients?.length) return null
-
-  const handleCopy = () => {
-    const ingredientsText = ingredients
-      .map((ingredient) => {
-        const concentration = formatConcentration(
-          ingredient.concentrationValue,
-          ingredient.concentrationUnit,
-          ingredient.concentrationPer
-        )
-        return concentration
-          ? `${ingredient.ingredientName} (${concentration})`
-          : ingredient.ingredientName
-      })
-      .join(', ')
-    void copy(
-      [ingredientsText, inci ? `Full ingredient list: ${inci}` : ''].filter(Boolean).join('\n\n')
-    )
-  }
-
-  return (
-    <div className="product-section">
-      {/* Counts catalogue records, not INCI tokens: the formula reading counts those */}
-      <SectionHeader title="Ingrédients" count={ingredients.length} countLabel="fiches">
-        <Button
-          variant="ghost"
-          size="sm"
-          onClick={handleCopy}
-          aria-label="Copier la liste des ingrédients"
-        >
-          {copied ? (
-            <>
-              <Check size={14} aria-hidden="true" />
-              <span>Copié</span>
-            </>
-          ) : (
-            <>
-              <Copy size={14} aria-hidden="true" />
-              <span>Copier</span>
-            </>
-          )}
-        </Button>
-      </SectionHeader>
-      <ul role="list" id={ingredientsListId} className="ingredient-list">
-        {visible.map((ingredient) => {
-          const concentration = formatConcentration(
-            ingredient.concentrationValue,
-            ingredient.concentrationUnit,
-            ingredient.concentrationPer
-          )
-          const category = ingredient.ingredientCategory?.toLowerCase() ?? null
-          return (
-            <li
-              key={ingredient.ingredientSlug}
-              className="ingredient-item"
-              data-cat={category ?? undefined}
-            >
-              <IconBox className="ingredient-item__icon">
-                <FlaskConical size={14} />
-              </IconBox>
-              <div className="ingredient-item__body">
-                <Link
-                  to="/ingredients/$slug"
-                  params={{ slug: ingredient.ingredientSlug }}
-                  className="ingredient-item__name"
-                >
-                  {ingredient.ingredientName}
-                </Link>
-                <div className="ingredient-item__meta">
-                  {ingredient.ingredientCategory && (
-                    <span className="ingredient-item__category">
-                      {ingredient.ingredientCategory}
-                    </span>
-                  )}
-                  {ingredient.notes && (
-                    <>
-                      <span className="ingredient-item__sep" aria-hidden="true">
-                        ·
-                      </span>
-                      <span className="ingredient-item__notes">{ingredient.notes}</span>
-                    </>
-                  )}
-                </div>
-              </div>
-              {concentration && (
-                <span className="ingredient-item__concentration">{concentration}</span>
-              )}
-            </li>
-          )
-        })}
-      </ul>
-      <ShowMoreButton
-        className="ingredient-list__more"
-        hiddenCount={hiddenCount}
-        isExpanded={isExpanded}
-        onToggle={toggleExpanded}
-        controlsId={ingredientsListId}
-      />
-    </div>
   )
 }
 
@@ -201,19 +60,19 @@ export function ProductInfoTab() {
   const viewerId = getSessionViewerId(session)
   const { data: detailPage } = useSuspenseQuery(productQueries.detailPage(slug, viewerId))
   const { product, dermoProfile, assessment, preferenceTargets } = detailPage
+  const hasDeclaredInci = Boolean(product.inci?.trim())
   const profileSlugs = useMemo(
     () => new Set<string>(viewerId ? portraitSlugs(dermoProfile) : []),
     [viewerId, dermoProfile]
   )
 
-  // `profileSlugs` stays raw: deriveKpChips and FormulaReading key on user vocab
+  // FormulaReading and deriveKpChips expect the profile's original slugs
   const warnings = useMemo(
     () => deriveProfileWarnings(product.tags, profileSlugs),
     [product.tags, profileSlugs]
   )
 
-  // KP bridge, the positive mirror of `warnings`: surfaced live for a declared-KP
-  // profile only, derived from neutral signals, never stored as a product tag.
+  // These hints depend on the viewer's declared KP, so they are not product tags
   const kpChips = useMemo(
     () => deriveKpChips({ profileSlugs, tags: product.tags, inci: product.inci }),
     [profileSlugs, product.tags, product.inci]
@@ -225,16 +84,11 @@ export function ProductInfoTab() {
 
       <KpProfileBridge chips={kpChips} />
 
-      <ProductSummary
-        kind={product.kind}
-        categories={product.ingredients?.map((i) => i.ingredientCategory) ?? []}
-      />
-
-      <FormulaProfile tags={product.tags} />
-
-      {product.inci && (
+      {hasDeclaredInci && (
         <FormulaReading
-          className="product-section"
+          className="product-section product-formula-reading"
+          title="Comprendre la formule"
+          foldRegulatory
           assessment={assessment}
           viewerId={viewerId}
           profileSlugs={profileSlugs}
@@ -243,41 +97,47 @@ export function ProductInfoTab() {
         />
       )}
 
+      {(!hasDeclaredInci || !assessment) && (
+        <section className="product-section">
+          <SectionHeader title="Comprendre la formule" />
+          <p className="product-section__intro">
+            {hasDeclaredInci
+              ? 'La lecture détaillée de cette formule n’est pas disponible pour le moment.'
+              : 'La liste INCI n’est pas encore renseignée sur cette fiche.'}
+          </p>
+        </section>
+      )}
+
       <ProductNotes notes={product.notes} />
 
-      <IngredientsSection ingredients={product.ingredients} inci={product.inci} productKey={slug} />
+      <ProductComposition
+        ingredients={product.ingredients}
+        inci={product.inci}
+        inciCount={product.inciCount}
+      />
 
-      {product.inci && <FormulaConcentrations assessment={assessment} />}
+      <ProductSources product={product} assessment={assessment} />
 
-      {/* Raw technical detail stays behind a closed disclosure: group-before-detail,
-          the INCI wall is available on demand, never part of the first read. */}
-      {product.inci && (
-        <details className="product-section product-inci">
-          <summary className="product-inci__summary">
-            <span>Composition INCI complète</span>
-            <ChevronDown size={14} className="product-inci__chevron" aria-hidden="true" />
-          </summary>
-          <p className="product-inci__body">{product.inci}</p>
-        </details>
-      )}
-
-      {product.description && (
-        <details className="product-section product-inci">
-          <summary className="product-inci__summary">
-            <span>Texte de la marque</span>
-            <ChevronDown size={14} className="product-inci__chevron" aria-hidden="true" />
-          </summary>
-          {/* Manufacturer copy: commercial voice, not vetted by Aurore. Keep it boxed off. */}
-          <div className="product-brand-copy__body">
-            <p className="product-brand-copy__note">Voix commerciale, non vérifiée par Aurore.</p>
-            <RichText className="product-description">
-              <Suspense fallback={<p>{product.description}</p>}>
-                <Markdown>{product.description}</Markdown>
-              </Suspense>
-            </RichText>
-          </div>
-        </details>
-      )}
+      <section
+        className="product-section product-community"
+        aria-labelledby="product-community-title"
+      >
+        <div className="product-community__heading">
+          <h2 id="product-community-title">Retours et discussions</h2>
+          <Link
+            to="/products/$slug/discussions"
+            params={{ slug }}
+            replace
+            className="product-community__link"
+          >
+            Voir les discussions
+          </Link>
+        </div>
+        <div className="product-community__sections">
+          <PublicReviewsSection slug={slug} messageVariant="plain" />
+          <ProductPostsSection slug={slug} />
+        </div>
+      </section>
     </>
   )
 }

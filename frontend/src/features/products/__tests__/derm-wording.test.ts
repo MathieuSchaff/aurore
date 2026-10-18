@@ -18,6 +18,8 @@ const GUARDED_PATHS = [
   'src/features/products/components/FormulaProfile',
   'src/features/products/components/FormulaConcentrations',
   'src/features/products/components/FormulaPreview',
+  'src/features/products/components/ProductSummary',
+  'src/features/products/components/ProductSources',
   'src/features/ingredients/components/IngredientInfoTab',
 ]
 

@@ -1,10 +1,12 @@
 import { expect, type Page, type Response } from '@playwright/test'
 
-// SSR markup can accept clicks before React owns it. During a reload, $_TSR is
-// also absent before the parser reaches its script, so wait for the full document
+// SSR controls can accept clicks before the router's first render restores scroll
+// The stream global disappears before React commits, so it cannot signal readiness
 export function waitForHydration(page: Page) {
   return page.waitForFunction(
-    () => document.readyState === 'complete' && !Reflect.has(window, '$_TSR')
+    () =>
+      document.readyState === 'complete' &&
+      document.documentElement.dataset.routerReady === window.location.href
   )
 }
 

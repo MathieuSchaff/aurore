@@ -155,10 +155,10 @@ test.describe('Product detail: Discussions tab', () => {
   test('switching to Discussions updates URL and shows form opener', async ({ page }) => {
     const slug = await gotoFirstProductDetail(page)
 
-    await page.getByRole('tab', { name: /Discussions/ }).click()
+    await page.getByRole('link', { name: 'Voir les discussions', exact: true }).click()
 
     await expect(page).toHaveURL(new RegExp(`/products/${slug}/discussions`))
-    await expect(page.getByRole('tab', { name: /Discussions/, selected: true })).toBeVisible()
+    await expect(page.getByRole('link', { name: 'Revenir à la fiche produit' })).toBeVisible()
 
     // Logged in, so ThreadForm is collapsed: "Ouvrir une discussion" CTA visible.
     // Waiting for it also acts as a proof the outlet's data has resolved before
@@ -170,7 +170,7 @@ test.describe('Product detail: Discussions tab', () => {
 
   test('opening discussion form reveals Sujet + Votre message inputs', async ({ page }) => {
     await gotoFirstProductDetail(page)
-    await page.getByRole('tab', { name: /Discussions/ }).click()
+    await page.getByRole('link', { name: 'Voir les discussions', exact: true }).click()
 
     await page.getByRole('button', { name: 'Ouvrir une discussion' }).click()
 
@@ -183,18 +183,16 @@ test.describe('Product detail: Discussions tab', () => {
   test('switching back to Infos returns to product info section', async ({ page }) => {
     const slug = await gotoFirstProductDetail(page)
 
-    await page.getByRole('tab', { name: /Discussions/ }).click()
+    await page.getByRole('link', { name: 'Voir les discussions', exact: true }).click()
     await expect(page).toHaveURL(new RegExp(`/products/${slug}/discussions`))
     // Wait for the discussions outlet to fully render before clicking back.
     await expect(page.getByRole('button', { name: 'Ouvrir une discussion' })).toBeVisible({
       timeout: 10_000,
     })
 
-    await page.getByRole('tab', { name: 'Infos', exact: true }).click()
+    await page.getByRole('link', { name: 'Revenir à la fiche produit', exact: true }).click()
     await expect(page).toHaveURL(new RegExp(`/products/${slug}$`))
-    await expect(
-      page.getByRole('tab', { name: 'Infos', exact: true, selected: true })
-    ).toBeVisible()
+    await expect(page.getByRole('heading', { name: 'Sources et méthode' })).toBeVisible()
   })
 
   // Regression: the back button must return to the filtered list, not strand on
@@ -214,13 +212,13 @@ test.describe('Product detail: Discussions tab', () => {
     await firstCard.click()
     await expect(page).toHaveURL(/\/products\/[^/]+$/)
 
-    await page.getByRole('tab', { name: /Discussions/ }).click()
+    await page.getByRole('link', { name: 'Voir les discussions', exact: true }).click()
     await expect(page).toHaveURL(/\/discussions/)
     await expect(page.getByRole('button', { name: 'Ouvrir une discussion' })).toBeVisible({
       timeout: 10_000,
     })
 
-    await page.getByRole('button', { name: 'Produits' }).click()
+    await page.getByRole('button', { name: 'Retour aux produits' }).click()
 
     // Back on the list with its search params intact, which proves history.back() ran
     // and that the Discussions tab did not stack an extra history entry.
@@ -463,6 +461,7 @@ test.describe('Product detail: Lecture de la formule', () => {
 
     await gotoWithAssessment(page, slug, assessment)
 
+    await page.getByText('Comment Aurore lit cette formule', { exact: true }).click()
     const section = page.locator('.formula-concentrations')
     await expect(section).toBeVisible({ timeout: 15_000 })
     await expect(section.getByText('15\u00a0% (déclaré)')).toBeVisible()
@@ -639,6 +638,7 @@ test.describe('Product detail: Profil de la formule', () => {
 
     await clientNavigateToDetail(page, slug)
 
+    await page.getByText('Comment Aurore lit cette formule', { exact: true }).click()
     const section = page.locator('.formula-profile')
     await expect(section).toBeVisible({ timeout: 15_000 })
     await expect(section.getByRole('heading', { name: 'Profil de la formule' })).toBeVisible()
@@ -671,8 +671,9 @@ test.describe('Product detail: Profil de la formule', () => {
 
     await clientNavigateToDetail(page, slug)
 
-    // "En bref" proves the Infos tab rendered (the first seed product has a kind).
-    await expect(page.getByRole('heading', { name: 'En bref' })).toBeVisible({ timeout: 15_000 })
+    await expect(page.getByRole('heading', { name: 'Comprendre la formule' })).toBeVisible({
+      timeout: 15_000,
+    })
     await expect(page.locator('.formula-profile')).toHaveCount(0)
   })
 })

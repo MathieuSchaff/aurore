@@ -68,25 +68,19 @@ test('finishes a non-SSR route loaded before React mounts', async ({ page }) => 
   await expect(page.getByRole('menu')).toBeVisible()
 })
 
-test('exposes the TanStack stream global before hydration removes it', async ({ page }) => {
-  // Hydration can finish before goto resolves, so record the global while HTML is parsed
+test('waits for the first rendered route to restore scroll', async ({ page }) => {
   await page.addInitScript(() => {
-    Reflect.set(window, '__e2eSawStream', false)
-    const observer = new MutationObserver(() => {
-      if (Reflect.has(window, '$_TSR')) {
-        Reflect.set(window, '__e2eSawStream', true)
-        observer.disconnect()
-      }
-    })
-    observer.observe(document, { childList: true, subtree: true })
+    Reflect.set(window, '__e2eScrollRestored', false)
+    const scrollTo = window.scrollTo
+    window.scrollTo = (...args: Parameters<typeof scrollTo>) => {
+      Reflect.set(window, '__e2eScrollRestored', true)
+      Reflect.apply(scrollTo, window, args)
+    }
   })
 
   await page.goto('/products')
   await waitForHydration(page)
-  expect(
-    await page.evaluate(() => Reflect.get(window, '__e2eSawStream')),
-    'TanStack Router no longer exposes $_TSR: update waitForHydration and this guard'
-  ).toBe(true)
+  expect(await page.evaluate(() => Reflect.get(window, '__e2eScrollRestored'))).toBe(true)
 })
 
 test('keeps hydration pending while a reloaded document waits for its stylesheet', async ({

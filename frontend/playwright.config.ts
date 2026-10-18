@@ -19,6 +19,7 @@ const CROSS_ENGINE_SPECS = [
   '**/hydration-guard.spec.ts',
   '**/ingredient-form-categories.spec.ts',
   '**/main-nav.spec.ts',
+  '**/product-detail-reading.spec.ts',
 ]
 
 // Ports (5174/3001/5434) differ from dev (5173/3000/5432) so both stacks can run at once.

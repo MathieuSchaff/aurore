@@ -30,8 +30,7 @@ import './FormulaReading.css'
 type RiskAxis = keyof typeof RISK_AXIS_PHRASE
 type BenefitAxis = keyof typeof BENEFIT_AXIS_PHRASE
 
-// Unresolved labels (~35%) are the norm, not an error: plain text on purpose,
-// never a link to an empty search page.
+// A missing slug has no ingredient page to link to
 function DriverLabel({ label, slug }: { label: string; slug: string | null }) {
   if (!slug) return <span className="formula-reading__label">{label}</span>
   return (
@@ -55,18 +54,16 @@ interface FormulaReadingProps {
   viewerId: string | null
   profileSlugs: ReadonlySet<string>
   preferenceTargets: PreferenceTargets
-  // Rows of product_ingredients, the only source the catalogue filter can honour.
-  // Driver labels below are parsed from products.inci and diverge from it, so a
-  // rule declared on a driver could hide this very product.
+  // Catalogue filters use linked ingredients, not names parsed from INCI
+  // A preference based on a parsed name could exclude this product
   linkedIngredients: readonly LinkedIngredient[]
   className?: string
-  // h2 under the catalogue page's h1
-  // h3 inside the collection sheet, whose dialog title is already the h2
+  // The collection dialog already supplies h2
   headingLevel?: 'h2' | 'h3'
+  title?: string
+  foldRegulatory?: boolean
 }
 
-// Surfaces the algo-derm assessment: signals and their reason, never a score or
-// verdict (excluded by the product vision).
 export function FormulaReading({
   assessment,
   viewerId,
@@ -75,6 +72,8 @@ export function FormulaReading({
   preferenceTargets,
   className,
   headingLevel = 'h2',
+  title = 'Lecture de la formule',
+  foldRegulatory = false,
 }: FormulaReadingProps) {
   const [declareOpen, setDeclareOpen] = useState(false)
   const declareListId = useId()
@@ -90,8 +89,8 @@ export function FormulaReading({
     return axes
   }, [profileSlugs])
 
-  // Unkeyed sheets carry no identity a preference can attach to, so they are
-  // absent. Two sheets can share a key; keep the first name.
+  // Preferences need a canonical key
+  // Duplicate links share one choice
   const declarable = useMemo(() => {
     const nameByKey = new Map<string, string>()
     for (const i of linkedIngredients) {
@@ -124,10 +123,8 @@ export function FormulaReading({
   } = assessment
   const ingredientSignalLines = formatIngredientSignals(ingredientSignals ?? [])
   const regulatoryLines = formatRegulatoryFindings(regulatoryFindings)
-  // roleAtDose exists only for ingredients with an authored role curve (today:
-  // exfoliants); absence means "no dose signal", not "not dosed to act".
-  // Bundle INCI can repeat one inci at different doses while rendered drivers
-  // are deduped upstream: every occurrence must pass the cut, silence otherwise.
+  // Missing dose evidence cannot support a dose claim
+  // Every occurrence must qualify when the INCI repeats an ingredient
   const dosedInci = new Map<string, boolean>()
   for (const m of matchedEvidence) {
     const pass =
@@ -136,19 +133,15 @@ export function FormulaReading({
       m.roleAtDose.confidence >= DOSE_SIGNAL_MIN_CONFIDENCE
     dosedInci.set(m.inci, (dosedInci.get(m.inci) ?? true) && pass)
   }
-  // Keep ingredient/heuristic signals only; interaction rules render in their own
-  // section with a human note (their topDrivers label is a raw rule id). Drop drivers
-  // with no axis: matched evidence that carries no concern is noise here.
+  // Interaction drivers contain rule IDs and render separately
   const drivers = filterRiskDriversAtDose(
     explanation.topDrivers.filter((d) => d.source !== 'interaction' && d.axes.length > 0),
     matchedEvidence
   )
-  // The lib's own `note` is English curator prose; only a rule with FR phrasing
-  // reaches the page, the rest go quiet rather than leak it.
+  // Engine notes are English, so only translated rules reach the page
   const interactionLines = interactions
     .map((i) => ({ id: i.id, phrase: INTERACTION_PHRASE[i.id] }))
     .filter((i): i is { id: string; phrase: string } => !!i.phrase)
-  // Benefit drivers carry no `source` and are never interaction-derived; keep all.
   const benefitDrivers = explanation.topBenefitDrivers.filter((d) => d.axes.length > 0)
   const hasSignal =
     avoidedNames.length > 0 ||
@@ -163,8 +156,8 @@ export function FormulaReading({
     .filter((phrase): phrase is string => !!phrase)
 
   return (
-    <section className={clsx('formula-reading', className)}>
-      <SectionHeader title="Lecture de la formule" as={headingLevel} />
+    <section className={clsx('formula-reading', className)} aria-label={title}>
+      <SectionHeader title={title} as={headingLevel} />
 
       {!hasSignal && <p className="formula-reading__empty">{NO_SIGNAL_PHRASE}</p>}
 
@@ -179,7 +172,7 @@ export function FormulaReading({
       )}
 
       {benefitDrivers.length > 0 && (
-        <div className="formula-reading__group">
+        <div className="formula-reading__group formula-reading__group--benefits">
           <Subhead className="formula-reading__subhead">
             <Sparkles size={13} aria-hidden="true" />
             Points forts
@@ -193,7 +186,12 @@ export function FormulaReading({
               return (
                 <li key={d.label} className="formula-reading__item">
                   <DriverLabel label={d.label} slug={d.ingredientSlug} />
-                  {phrase && <span className="formula-reading__phrase"> — {phrase}</span>}
+                  {phrase && (
+                    <span className="formula-reading__phrase">
+                      <span className="formula-reading__separator"> : </span>
+                      {phrase}
+                    </span>
+                  )}
                   {d.inci && dosedInci.get(d.inci) && (
                     <span className="formula-reading__dose-tag">{DOSE_SIGNAL_PHRASE}</span>
                   )}
@@ -205,7 +203,7 @@ export function FormulaReading({
       )}
 
       {drivers.length > 0 && (
-        <div className="formula-reading__group">
+        <div className="formula-reading__group formula-reading__group--notes">
           <Subhead className="formula-reading__subhead">À noter dans cette formule</Subhead>
           <ul role="list" className="formula-reading__list">
             {drivers.map((d) => {
@@ -222,7 +220,12 @@ export function FormulaReading({
                   data-relevant={relevant || undefined}
                 >
                   <DriverLabel label={d.label} slug={d.ingredientSlug} />
-                  {phrase && <span className="formula-reading__phrase"> — {phrase}</span>}
+                  {phrase && (
+                    <span className="formula-reading__phrase">
+                      <span className="formula-reading__separator"> : </span>
+                      {phrase}
+                    </span>
+                  )}
                   {d.inci && dosedInci.get(d.inci) && (
                     <span className="formula-reading__dose-tag">{DOSE_SIGNAL_PHRASE}</span>
                   )}
@@ -243,7 +246,10 @@ export function FormulaReading({
             {ingredientSignalLines.map((line) => (
               <li key={line.key} className="formula-reading__item">
                 <span className="formula-reading__label">{line.label}</span>
-                <span className="formula-reading__phrase"> — {line.text}</span>
+                <span className="formula-reading__phrase">
+                  <span className="formula-reading__separator"> : </span>
+                  {line.text}
+                </span>
               </li>
             ))}
           </ul>
@@ -251,13 +257,19 @@ export function FormulaReading({
       )}
 
       {regulatoryLines.length > 0 && (
-        <div className="formula-reading__group">
-          <Subhead className="formula-reading__subhead">
-            <Scale size={13} aria-hidden="true" />
-            Cadre réglementaire
-          </Subhead>
+        <details
+          className="formula-reading__group formula-reading__regulatory"
+          open={!foldRegulatory}
+        >
+          <summary>
+            <Subhead className="formula-reading__subhead">
+              <Scale size={13} aria-hidden="true" />
+              Cadre réglementaire
+            </Subhead>
+          </summary>
           <p className="formula-reading__explainer">
-            Restrictions et interdictions officielles applicables à certains ingrédients.
+            Ces repères concernent des ingrédients et les territoires cités. Leur présence ne permet
+            pas de conclure à la conformité de ce produit, notamment sans concentration déclarée.
           </p>
           <ul role="list" className="formula-reading__list">
             {regulatoryLines.map((line) => (
@@ -267,7 +279,7 @@ export function FormulaReading({
               </li>
             ))}
           </ul>
-        </div>
+        </details>
       )}
 
       {interactionLines.length > 0 && (
@@ -303,8 +315,7 @@ export function FormulaReading({
             size="sm"
             onClick={() => setDeclareOpen((open) => !open)}
             aria-expanded={declareOpen}
-            // The list is unmounted while collapsed, so pointing at its id would
-            // leave a dangling reference for assistive tech.
+            // The collapsed list is unmounted, so its ID must not be referenced
             aria-controls={declareOpen ? declareListId : undefined}
           >
             <ChevronDown

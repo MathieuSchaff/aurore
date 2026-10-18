@@ -10,16 +10,15 @@ import {
   useRouter,
   useRouterState,
 } from '@tanstack/react-router'
-import { ExternalLink, MessageSquare, Pencil } from 'lucide-react'
+import { ExternalLink, Pencil } from 'lucide-react'
 import { useCallback } from 'react'
 
-import { CatalogQualityBadge } from '@/component/DataDisplay/CatalogQualityBadge/CatalogQualityBadge'
 import { DetailPageLayout } from '@/component/Layout/PageLayout/DetailPageLayout'
 import { PageTopActions } from '@/component/Layout/PageLayout/PageTopActions'
-import { type TabOption, Tabs } from '@/component/Tabs/Tabs'
 import { ReportContentButton } from '@/features/discussions/components/ReportContentButton'
 import { SuggestEditButton } from '@/features/discussions/components/SuggestEditButton'
 import { ProductCollectionAction } from '@/features/products/components/ProductCollectionAction/ProductCollectionAction'
+import { ProductFormulaSummary } from '@/features/products/components/ProductSummary/ProductFormulaSummary'
 import { viewerId as getSessionViewerId, useSession } from '@/lib/auth/session'
 import { productQueries } from '@/lib/queries/products'
 import { sanitizeUrl } from '@/lib/url'
@@ -33,13 +32,6 @@ import { ProductImage } from '@/features/products/components/ProductImage/Produc
 
 const route = getRouteApi('/products/$slug')
 const eurFormatter = new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' })
-
-type ProductTab = 'infos' | 'discussions'
-
-const TAB_OPTIONS: TabOption<ProductTab>[] = [
-  { id: 'infos', label: 'Infos' },
-  { id: 'discussions', label: 'Discussions', icon: <MessageSquare size={14} /> },
-]
 
 function getDomain(url: string): string | null {
   try {
@@ -63,7 +55,6 @@ export function ProductLayout() {
   const isDiscussions = useRouterState({
     select: (s) => s.location.pathname.includes('/discussions'),
   })
-  const activeTab: ProductTab = isDiscussions ? 'discussions' : 'infos'
 
   const priceFormatted =
     product.priceCents != null && product.priceCents > 0
@@ -76,21 +67,7 @@ export function ProductLayout() {
   const safeUrl = sanitizeUrl(product.url)
   const externalDomain = safeUrl ? getDomain(safeUrl) : null
 
-  const handleTabChange = useCallback(
-    (id: ProductTab) => {
-      // replace: tabs are same-page sections, not history steps. Pushing them would strand
-      // the back button on the previous tab instead of returning to the list.
-      if (id === 'infos') {
-        navigate({ to: '/products/$slug', params: { slug }, replace: true })
-      } else {
-        navigate({ to: '/products/$slug/discussions', params: { slug }, replace: true })
-      }
-    },
-    [navigate, slug]
-  )
-
-  // Go back in history so the list's search params (filters) survive; fall back to a bare
-  // /products when the detail page was reached directly (deep link, no in-app history).
+  // History keeps the catalogue filters when returning from a product
   const handleBack = useCallback(() => {
     if (canGoBack) {
       router.history.back()
@@ -100,7 +77,7 @@ export function ProductLayout() {
   }, [canGoBack, router, navigate])
 
   return (
-    <DetailPageLayout banner={true} contentClassName="product-detail">
+    <DetailPageLayout banner={false} contentClassName="product-detail">
       <PageTopActions>
         <BackButton onClick={handleBack} prominence="strong">
           Retour aux produits
@@ -108,45 +85,45 @@ export function ProductLayout() {
       </PageTopActions>
 
       <div className="product-detail__grid">
-        <header className="product-hero">
-          <p className="product-hero__eyebrow">
-            <Link
-              to="/products"
-              search={{ brand: [product.brand] }}
-              aria-label={`Voir tous les produits ${product.brand}`}
-            >
-              {product.brand}
-            </Link>
-            <span className="product-hero__dot" aria-hidden="true" />
-            <span>{getProductKindLabel(product.kind)}</span>
-          </p>
-          <h1
-            className="product-hero__title"
-            style={{ viewTransitionName: `product-name-${slug}` }}
-          >
-            {product.name}
-          </h1>
-          <div className="product-hero__chips">
-            <CatalogQualityBadge quality={product.catalogQuality} />
+        <section className="product-overview" aria-labelledby="product-title">
+          <div className="product-rail__media">
+            <ProductImage
+              kind={product.kind}
+              unit={product.unit}
+              imageUrl={product.imageUrl}
+              fill
+            />
           </div>
-        </header>
-
-        <aside className="product-rail" aria-label="Fiche produit">
-          <div className="product-rail__card">
-            <div className="product-rail__media">
-              <ProductImage
-                kind={product.kind}
-                unit={product.unit}
-                imageUrl={product.imageUrl}
-                fill
-              />
-            </div>
-            {(priceFormatted || amountFormatted) && (
-              <p className="product-rail__facts">
-                {priceFormatted && <span className="product-rail__price">{priceFormatted}</span>}
-                {amountFormatted && <span className="product-rail__amount">{amountFormatted}</span>}
+          <div className="product-overview__content">
+            <header className="product-hero">
+              <p className="product-hero__eyebrow">
+                <Link
+                  to="/products"
+                  search={{ brand: [product.brand] }}
+                  aria-label={`Voir tous les produits ${product.brand}`}
+                >
+                  {product.brand}
+                </Link>
+                <span className="product-hero__dot" aria-hidden="true" />
+                <span>{getProductKindLabel(product.kind)}</span>
               </p>
-            )}
+              <h1
+                id="product-title"
+                className="product-hero__title"
+                style={{ viewTransitionName: `product-name-${slug}` }}
+              >
+                {product.name}
+              </h1>
+              {(priceFormatted || amountFormatted) && (
+                <p className="product-rail__facts">
+                  {priceFormatted && <span className="product-rail__price">{priceFormatted}</span>}
+                  {amountFormatted && (
+                    <span className="product-rail__amount">{amountFormatted}</span>
+                  )}
+                </p>
+              )}
+            </header>
+            <ProductFormulaSummary product={product} assessment={detailPage.assessment} />
             <div className="product-rail__actions">
               <ProductCollectionAction
                 product={{
@@ -173,8 +150,7 @@ export function ProductLayout() {
             {safeUrl !== null && (
               <a href={safeUrl} target="_blank" rel="noopener noreferrer" className="product-link">
                 <ExternalLink size={14} aria-hidden="true" />
-                <span>Voir le produit</span>
-                {externalDomain && <span className="product-link__domain">{externalDomain}</span>}
+                <span>Voir chez {externalDomain ?? product.brand}</span>
                 <span className="sr-only"> (nouvel onglet)</span>
               </a>
             )}
@@ -185,17 +161,14 @@ export function ProductLayout() {
               </div>
             )}
           </div>
-        </aside>
+        </section>
 
         <div className="product-detail__body">
-          <Tabs
-            options={TAB_OPTIONS}
-            activeTab={activeTab}
-            onTabChange={handleTabChange}
-            variant="underline"
-            ariaLabel="Sections du produit"
-            hasPanels={false}
-          />
+          {isDiscussions && (
+            <Link to="/products/$slug" params={{ slug }} replace className="product-detail__return">
+              Revenir à la fiche produit
+            </Link>
+          )}
 
           <div style={{ viewTransitionName: 'tab-content' }}>
             <Outlet />

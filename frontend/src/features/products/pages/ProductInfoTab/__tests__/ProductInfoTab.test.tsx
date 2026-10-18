@@ -1,4 +1,10 @@
-import type { ProductDetail, ProductDetailPage, UserDermoProfile, UserPublic } from '@aurore/shared'
+import {
+  ok,
+  type ProductDetail,
+  type ProductDetailPage,
+  type UserDermoProfile,
+  type UserPublic,
+} from '@aurore/shared'
 
 import { fireEvent, screen } from '@testing-library/react'
 import { HttpResponse, http } from 'msw'
@@ -21,19 +27,14 @@ vi.mock('@tanstack/react-router', async () => ({
 
 vi.mock('@/hooks/useCopyToClipboard', () => ({ useCopyToClipboard: vi.fn() }))
 
-// react-markdown is lazily imported by ProductInfoTab, so short-circuit it.
 vi.mock('react-markdown', () => ({
   default: ({ children }: { children: string }) => children,
 }))
 
-// ReportContentButton uses useCreateReport (useMutation), so it needs a QueryClient;
-// this suite renders bare. Not under test here.
 vi.mock('@/features/discussions/components/ReportContentButton', () => ({
   ReportContentButton: () => null,
 }))
 
-// SuggestEditButton uses useProposeSuggestedEdit (useMutation), so it needs a QueryClient;
-// this suite renders bare. Not under test here.
 vi.mock('@/features/discussions/components/SuggestEditButton', () => ({
   SuggestEditButton: () => null,
 }))
@@ -120,7 +121,6 @@ function setDermo(profile: Partial<Pick<UserDermoProfile, 'skinTypes' | 'skinCon
     : null
 }
 
-// The dermo query is gated on a signed-in user; the store drives that gate.
 function signIn() {
   const user = {
     id: 'u1',
@@ -141,6 +141,10 @@ describe('ProductInfoTab', () => {
     useAuthStore.setState({ session: anonymousTestSession() })
     setProduct()
     setDermo(null)
+    server.use(
+      http.get('*/api/products/:slug/reviews/public', () => HttpResponse.json(ok({ reviews: [] }))),
+      http.get('*/api/products/:slug/posts', () => HttpResponse.json(ok({ posts: [] })))
+    )
     vi.mocked(useCopyToClipboard).mockReturnValue({ copied: false, copy })
   })
 
@@ -164,7 +168,7 @@ describe('ProductInfoTab', () => {
     expect(screen.getByText('10 %')).toBeInTheDocument()
   })
 
-  it('renders a neutral At a Glance summary from kind and ingredient groups', async () => {
+  it('keeps associated ingredient sheets accessible when the INCI is absent', async () => {
     setProduct({
       kind: 'moisturizer',
       ingredients: [
@@ -182,39 +186,69 @@ describe('ProductInfoTab', () => {
     })
     renderWithProviders(<ProductInfoTab />)
 
-    expect(await screen.findByText('En bref')).toBeInTheDocument()
-    expect(screen.getByText(/Composition : actifs et agents hydratants\./)).toBeInTheDocument()
+    expect(await screen.findByText(/Liste INCI non renseignée/)).toBeInTheDocument()
+    expect(screen.getByText(/2 fiches associées/)).toBeInTheDocument()
+    fireEvent.click(screen.getByText('Consulter les fiches ingrédients'))
+    expect(screen.getByText('Niacinamide')).toBeInTheDocument()
+    expect(screen.getByText('Glycerin')).toBeInTheDocument()
   })
 
   it('boxes the manufacturer copy behind a disclosure with an unverified-voice note', async () => {
     setProduct({ description: 'Buy now at a discount price!' })
     renderWithProviders(<ProductInfoTab />)
 
-    expect(await screen.findByText('Texte de la marque')).toBeInTheDocument()
-    expect(screen.getByText('Voix commerciale, non vérifiée par Aurore.')).toBeInTheDocument()
+    expect(await screen.findByText('Ce que dit la marque')).toBeInTheDocument()
+    expect(screen.getByText(/Les bénéfices annoncés sont ceux de la marque/)).toBeInTheDocument()
     expect(screen.getByText('Buy now at a discount price!')).toBeInTheDocument()
   })
 
-  it('copies the ingredient list as comma-joined string with concentrations', async () => {
+  it.each([null, '', '   '])(
+    'does not offer a reconstructed INCI when the declaration is %j',
+    async (inci) => {
+      setProduct({
+        inci,
+        ingredients: [
+          makeIngredient({
+            ingredientSlug: 'niacinamide',
+            ingredientName: 'Niacinamide',
+            concentrationValue: '10',
+            concentrationUnit: '%',
+          }),
+        ],
+      })
+      renderWithProviders(<ProductInfoTab />)
+
+      await screen.findByText(/Liste INCI non renseignée/)
+      // Blank declarations must not look like a temporary reading failure
+      expect(screen.getByText(/la liste INCI.*pas encore renseignée/i)).toBeInTheDocument()
+      // Linked sheets may describe only part of the declared formula
+      expect(screen.queryByRole('button', { name: /Copier la liste/ })).not.toBeInTheDocument()
+      expect(copy).not.toHaveBeenCalled()
+    }
+  )
+
+  it('copies the complete declared INCI even without associated sheets', async () => {
+    setProduct({ inci: '  Aqua, 1,2-Hexanediol, Retinal  ', inciCount: 3, ingredients: [] })
+    renderWithProviders(<ProductInfoTab />)
+    fireEvent.click(await screen.findByRole('button', { name: /Copier la liste/ }))
+    expect(copy).toHaveBeenCalledWith('  Aqua, 1,2-Hexanediol, Retinal  ')
+    expect(screen.getByRole('heading', { name: 'Les 3 ingrédients' })).toBeInTheDocument()
+    expect(screen.queryByText('Consulter les fiches ingrédients')).not.toBeInTheDocument()
+  })
+
+  it('keeps every associated sheet reachable inside the disclosure', async () => {
     setProduct({
-      ingredients: [
+      ingredients: Array.from({ length: 12 }, (_, index) =>
         makeIngredient({
-          ingredientSlug: 'niacinamide',
-          ingredientName: 'Niacinamide',
-          concentrationValue: '10',
-          concentrationUnit: '%',
-        }),
-        makeIngredient({
-          ingredientSlug: 'glycerin',
-          ingredientName: 'Glycerin',
-        }),
-      ],
+          ingredientSlug: `ingredient-${index}`,
+          ingredientName: `Ingredient ${index}`,
+        })
+      ),
     })
     renderWithProviders(<ProductInfoTab />)
-
-    fireEvent.click(await screen.findByRole('button', { name: 'Copier la liste des ingrédients' }))
-
-    expect(copy).toHaveBeenCalledWith('Niacinamide (10 %), Glycerin')
+    fireEvent.click(await screen.findByText('Consulter les fiches ingrédients'))
+    expect(screen.getByText('Ingredient 11')).toBeInTheDocument()
+    expect(screen.getByText('12 fiches associées')).toBeInTheDocument()
   })
 
   it('warns when an avoid tag matches the user dermo profile', async () => {
@@ -306,9 +340,8 @@ describe('ProductInfoTab', () => {
     ).toBeInTheDocument()
   })
 
-  // The user concern vocab and the product tag vocab drifted apart: 'rosacee' is
-  // only ever tagged 'rougeurs-vasculaires' on a product, so a raw slug comparison
-  // never lights the notice for it.
+  // The profile's 'rosacee' maps to the product tag 'rougeurs-vasculaires'
+  // Comparing raw slugs would hide this warning
   it('warns when an avoid tag matches a bridged concern slug', async () => {
     signIn()
     setDermo({ skinTypes: [], skinConcerns: ['rosacee', 'eczema'] })
@@ -349,7 +382,9 @@ describe('ProductInfoTab', () => {
     })
     renderWithProviders(<ProductInfoTab />)
 
-    expect(await screen.findByText('En bref')).toBeInTheDocument()
+    expect(
+      await screen.findByRole('heading', { name: 'Comprendre la formule' })
+    ).toBeInTheDocument()
     expect(screen.queryByText(/Peut ne pas convenir/)).not.toBeInTheDocument()
   })
 })

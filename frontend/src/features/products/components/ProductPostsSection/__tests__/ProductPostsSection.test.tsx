@@ -1,10 +1,12 @@
-import type { PublicProductPostsResponse } from '@aurore/shared'
+import { err, type PublicProductPostsResponse } from '@aurore/shared'
 
 import { cleanup, screen } from '@testing-library/react'
+import { HttpResponse, http } from 'msw'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 
 import { productKeys } from '@/lib/queries/products'
 import { createLinkStub, LinkStub } from '@/test/mocks/router'
+import { server } from '@/test/msw/server'
 import { createTestQueryClient, renderWithProviders } from '@/test/utils'
 
 vi.mock('@tanstack/react-router', () => ({ createLink: createLinkStub, Link: LinkStub }))
@@ -48,6 +50,21 @@ function seedQuery(data: PublicProductPostsResponse) {
 describe('ProductPostsSection', () => {
   afterEach(() => {
     cleanup()
+  })
+
+  it('keeps the composer available while posts load and after a read failure', async () => {
+    server.use(
+      http.get('*/api/products/cica-cream/posts', () =>
+        HttpResponse.json(err('server_error'), { status: 500 })
+      )
+    )
+    renderWithProviders(<ProductPostsSection slug={SLUG} composer={<p>Publication en cours</p>} />)
+    expect(screen.getByText('Publication en cours')).toBeInTheDocument()
+    expect(screen.getByText('Chargement des publications…')).toBeInTheDocument()
+    expect(
+      await screen.findByText('Publications indisponibles pour le moment.')
+    ).toBeInTheDocument()
+    expect(screen.getByText('Publication en cours')).toBeInTheDocument()
   })
 
   it('renders nothing when no posts are anchored to the product (clean absence)', () => {

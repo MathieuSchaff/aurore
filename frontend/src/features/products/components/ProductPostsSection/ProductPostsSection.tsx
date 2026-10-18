@@ -13,7 +13,7 @@ import { productQueries } from '@/lib/queries/products'
 
 import './ProductPostsSection.css'
 
-// Author link only when the profile is public (ReviewerName pattern).
+// Private profiles must not expose a profile link
 function AuthorName({ author }: { author: SocialPostSurfaceView['author'] }) {
   if (author.profilePublic) {
     return (
@@ -29,11 +29,23 @@ function AuthorName({ author }: { author: SocialPostSurfaceView['author'] }) {
   return <span className="product-posts__author-name">{author.username}</span>
 }
 
-// The product is implicit here, so we show author + tone + content.
-// Self-hides when empty, unless a composer is passed. No counters, no reaction-based sorting.
 export function ProductPostsSection({ slug, composer }: { slug: string; composer?: ReactNode }) {
-  const { data } = useQuery(productQueries.posts(slug))
+  const { data, isPending, isError } = useQuery(productQueries.posts(slug))
   const posts = data?.posts ?? []
+
+  if (isPending || isError) {
+    return (
+      <section className="product-section product-posts">
+        <SectionHeader title="Publications" />
+        {composer}
+        <p className="product-section__intro">
+          {isPending
+            ? 'Chargement des publications…'
+            : 'Publications indisponibles pour le moment.'}
+        </p>
+      </section>
+    )
+  }
 
   if (posts.length === 0 && !composer) return null
 

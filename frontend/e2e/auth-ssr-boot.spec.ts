@@ -92,7 +92,7 @@ test('authenticated raw product detail contains its shelf status and formula rea
   expect(html).toContain(shelfProduct.name)
   expect(html).toContain('Dans votre collection')
   expect(html).toContain(STATUS_LABELS[shelfProduct.status])
-  expect(html).toContain('Lecture de la formule')
+  expect(html).toContain('Comprendre la formule')
   expect(html).toContain(`href="/products/${shelfProduct.slug}/edit"`)
 })
 

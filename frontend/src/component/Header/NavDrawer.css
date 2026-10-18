@@ -37,6 +37,10 @@
   padding: var(--space-5) var(--space-3);
 }
 
+.main-nav-drawer__header .main-nav__toggle {
+  display: inline-flex;
+}
+
 .main-nav-drawer__header .main-nav__wordmark {
   font-size: var(--text-xl);
 }

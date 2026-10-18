@@ -28,9 +28,7 @@ describe('PublicReviewsSection', () => {
     const queryClient = seedQuery({ reviews: [] })
     renderWithProviders(<PublicReviewsSection slug={SLUG} />, { queryClient })
     expect(screen.getByText('Retours utilisateurs')).toBeInTheDocument()
-    expect(
-      screen.getByText(/Aucun retour partagé publiquement pour ce produit/i)
-    ).toBeInTheDocument()
+    expect(screen.getByText(/Aucun retour public pour ce produit/i)).toBeInTheDocument()
   })
 
   it('renders a verbatim with raw notes when the author opted ratings public (linked author)', () => {

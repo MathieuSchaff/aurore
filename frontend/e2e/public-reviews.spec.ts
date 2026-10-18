@@ -17,7 +17,8 @@ async function gotoReviews(page: Page, slug: string) {
   await page.goto(`/products/${slug}`)
   await expect(page).toHaveURL(new RegExp(`/products/${slug}$`), { timeout: 15_000 })
   await waitForHydration(page)
-  await page.getByRole('tab', { name: /Discussions/ }).click()
+  await page.evaluate(() => document.fonts.ready.then(() => undefined))
+  await page.getByRole('link', { name: 'Voir les discussions', exact: true }).click()
   await expect(page).toHaveURL(new RegExp(`/products/${slug}/discussions`))
   return page.locator('section.public-reviews')
 }
