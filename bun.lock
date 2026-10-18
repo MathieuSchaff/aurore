@@ -118,6 +118,7 @@
   },
   "patchedDependencies": {
     "vite@8.2.0": "patches/vite@8.2.0.patch",
+    "@tanstack/router-core@1.171.15": "patches/@tanstack%2Frouter-core@1.171.15.patch",
   },
   "overrides": {
     "@babel/core": "^7.29.7",

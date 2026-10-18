@@ -1,0 +1,148 @@
+diff --git a/dist/cjs/ssr/ssr-client.cjs b/dist/cjs/ssr/ssr-client.cjs
+index 60fe68bc8adb71e4ebc6e149a402087d2d019802..4634ca803287be2e5b5c8b87bdc05dc230400d40 100644
+--- a/dist/cjs/ssr/ssr-client.cjs
++++ b/dist/cjs/ssr/ssr-client.cjs
+@@ -152,8 +152,8 @@ async function hydrate(router) {
+ 	const loadPromise = Promise.resolve().then(() => router.load()).catch((err) => {
+ 		console.error("Error during router hydration:", err);
+ 	});
++	const match = isSpaMode ? matches[1] : void 0;
+ 	if (isSpaMode) {
+-		const match = matches[1];
+ 		if (!match) {
+ 			if (process.env.NODE_ENV !== "production") throw new Error("Invariant failed: Expected to find a match below the root match in SPA mode.");
+ 			require_invariant.invariant();
+@@ -161,20 +161,21 @@ async function hydrate(router) {
+ 		setMatchForcePending(match);
+ 		match._displayPending = true;
+ 		match._nonReactive.displayPendingPromise = loadPromise;
+-		loadPromise.then(() => {
+-			router.batch(() => {
+-				if (router.stores.status.get() === "pending") {
+-					router.stores.status.set("idle");
+-					router.stores.resolvedLocation.set(router.stores.location.get());
+-				}
+-				router.updateMatch(match.id, (prev) => ({
+-					...prev,
+-					_displayPending: void 0,
+-					displayPendingPromise: void 0
+-				}));
+-			});
+-		});
+ 	}
++	loadPromise.then(() => {
++		router.batch(() => {
++			// Non-SSR routes can also finish loading before Transitioner mounts
++			if (router.stores.status.get() === "pending") {
++				router.stores.status.set("idle");
++				router.stores.resolvedLocation.set(router.stores.location.get());
++			}
++			if (match) router.updateMatch(match.id, (prev) => ({
++				...prev,
++				_displayPending: void 0,
++				displayPendingPromise: void 0
++			}));
++		});
++	});
+ 	return routeChunkPromise;
+ }
+ //#endregion
+diff --git a/dist/esm/ssr/ssr-client.js b/dist/esm/ssr/ssr-client.js
+index 67f109a1215504cb65fa8273053bf4a7178cc779..af011ef4a3059317196582d9a104467be3937f12 100644
+--- a/dist/esm/ssr/ssr-client.js
++++ b/dist/esm/ssr/ssr-client.js
+@@ -152,8 +152,8 @@ async function hydrate(router) {
+ 	const loadPromise = Promise.resolve().then(() => router.load()).catch((err) => {
+ 		console.error("Error during router hydration:", err);
+ 	});
++	const match = isSpaMode ? matches[1] : void 0;
+ 	if (isSpaMode) {
+-		const match = matches[1];
+ 		if (!match) {
+ 			if (process.env.NODE_ENV !== "production") throw new Error("Invariant failed: Expected to find a match below the root match in SPA mode.");
+ 			invariant();
+@@ -161,20 +161,21 @@ async function hydrate(router) {
+ 		setMatchForcePending(match);
+ 		match._displayPending = true;
+ 		match._nonReactive.displayPendingPromise = loadPromise;
+-		loadPromise.then(() => {
+-			router.batch(() => {
+-				if (router.stores.status.get() === "pending") {
+-					router.stores.status.set("idle");
+-					router.stores.resolvedLocation.set(router.stores.location.get());
+-				}
+-				router.updateMatch(match.id, (prev) => ({
+-					...prev,
+-					_displayPending: void 0,
+-					displayPendingPromise: void 0
+-				}));
+-			});
+-		});
+ 	}
++	loadPromise.then(() => {
++		router.batch(() => {
++			// Non-SSR routes can also finish loading before Transitioner mounts
++			if (router.stores.status.get() === "pending") {
++				router.stores.status.set("idle");
++				router.stores.resolvedLocation.set(router.stores.location.get());
++			}
++			if (match) router.updateMatch(match.id, (prev) => ({
++				...prev,
++				_displayPending: void 0,
++				displayPendingPromise: void 0
++			}));
++		});
++	});
+ 	return routeChunkPromise;
+ }
+ //#endregion
+diff --git a/src/ssr/ssr-client.ts b/src/ssr/ssr-client.ts
+index 2aa5358ac09ae4a818318b41080c4f2f446c1222..1c468af21617ad6e3da63b1d4cf380c5b4021c25 100644
+--- a/src/ssr/ssr-client.ts
++++ b/src/ssr/ssr-client.ts
+@@ -272,8 +272,8 @@ export async function hydrate(router: AnyRouter): Promise<any> {
+ 
+   // in SPA mode we need to keep the first match below the root route pending until router.load() is finished
+   // this will prevent that other pending components are rendered but hydration is not blocked
++  const match = isSpaMode ? matches[1] : undefined
+   if (isSpaMode) {
+-    const match = matches[1]
+     if (!match) {
+       if (process.env.NODE_ENV !== 'production') {
+         throw new Error(
+@@ -287,24 +287,23 @@ export async function hydrate(router: AnyRouter): Promise<any> {
+ 
+     match._displayPending = true
+     match._nonReactive.displayPendingPromise = loadPromise
++  }
+ 
+-    loadPromise.then(() => {
+-      router.batch(() => {
+-        // ensure router is not in status 'pending' anymore
+-        // this usually happens in Transitioner but if loading synchronously resolves,
+-        // Transitioner won't be rendered while loading so it cannot track the change from loading:true to loading:false
+-        if (router.stores.status.get() === 'pending') {
+-          router.stores.status.set('idle')
+-          router.stores.resolvedLocation.set(router.stores.location.get())
+-        }
+-        // hide the pending component once the load is finished
++  loadPromise.then(() => {
++    router.batch(() => {
++      // Non-SSR routes can also finish loading before Transitioner mounts
++      if (router.stores.status.get() === 'pending') {
++        router.stores.status.set('idle')
++        router.stores.resolvedLocation.set(router.stores.location.get())
++      }
++      if (match) {
+         router.updateMatch(match.id, (prev) => ({
+           ...prev,
+           _displayPending: undefined,
+           displayPendingPromise: undefined,
+         }))
+-      })
++      }
+     })
+-  }
++  })
+   return routeChunkPromise
+ }
