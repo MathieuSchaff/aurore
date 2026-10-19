@@ -30,7 +30,11 @@ test('confirms Google identity and requires a separate deletion confirmation', a
   })
   await page.goto('/auth/banned')
   await waitForHydration(page)
-  await page.getByRole('button', { name: 'Supprimer avec Google' }).click()
+  await Promise.all([
+    page.waitForEvent('domcontentloaded'),
+    page.getByRole('button', { name: 'Supprimer avec Google' }).click(),
+  ])
+  await waitForHydration(page)
   await expect(page.getByText('Compte confirmé : google@example.com')).toBeVisible()
   expect(deletions).toBe(0)
   await page.getByRole('button', { name: 'Confirmer la suppression du compte Google' }).click()

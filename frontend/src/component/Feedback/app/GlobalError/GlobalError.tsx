@@ -6,7 +6,7 @@ import { Button, ButtonLink } from '../../../Button/Button'
 import './GlobalError.css'
 
 interface GlobalErrorProps {
-  error: Error
+  error: unknown
   reset?: () => void
   is404?: boolean
 }

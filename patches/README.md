@@ -6,24 +6,44 @@ stage copies this directory before installing. The package versions remain uncha
 | Patch | Purpose |
 | :--- | :--- |
 | [vite@8.2.0.patch](vite@8.2.0.patch) | Release connections accepted by Vite's temporary TCP port checks so HTTP readiness probes cannot stall startup. |
-| [@tanstack/router-core@1.171.15.patch](@tanstack%252Frouter-core@1.171.15.patch) | Finalize initial non-SSR route loads that finish before React mounts its transition observer. |
 
 ## Initial non-SSR route hydration
 
-Router hydration starts loading client-only routes before React mounts `Transitioner`.
-If loading finishes first, that component never observes the pending state and leaves the
-router pending without a resolved location. The page renders, but navigation progress and
-listeners waiting for `onRendered` remain blocked.
+The former router-core 1.171.15 patch fixed a load that completed before React mounted
+`Transitioner`. The route stayed pending without a resolved location, so progress and
+listeners waiting for `onRendered` remained blocked even though the data was ready.
 
-The patch shares the existing SPA load finalizer with non-SSR routes. SPA pending UI stays
-scoped to SPA mode; full SSR hydration keeps its existing path. Both runtime module formats
-and the TypeScript source carry the same change. React still emits `onRendered` after commit,
-where the router restores scroll.
+With router-core 1.171.34, hydration lives in `load-client.ts`. The core finalizes loads
+without a mounted React observer; `Transitioner` acknowledges rendering after mounting.
+Normal client-only hydration starts its load at mount. The old patch targets files that
+no longer exist and is retired rather than renamed. No router patch is currently applied.
 
-`frontend/e2e/hydration-guard.spec.ts` holds React mounting until the actual initial load
-finishes, then checks route readiness, progress removal and a real click. Before removing
-this patch during a dependency update, run that guard across the three browser engines,
-the collection formula flow, navigation/scroll checks and the production auth SSR guard.
+`frontend/e2e/hydration-guard.spec.ts` explicitly completes a real `router.load()` before
+mounting React. It checks idle state and resolved location before mount, then rendered
+readiness, progress removal, scroll and a real click. Its other guards cover scroll before
+the first rendered route and a document still waiting for CSS. Keep these checks across
+Chromium, Firefox and WebKit when updating Router, alongside collection/formula flows and
+the production auth SSR guard. Do not write internal router stores from an E2E helper.
+
+## Router and Query upgrade compatibility
+
+The security-fixed group uses Start 1.168.60, React Router 1.170.41, router-core 1.171.34
+and start-server-core 1.169.39. Seroval and seroval-plugins are pinned to 1.6.7. Router CLI
+1.167.40 keeps its generator on the same core version.
+
+SSR Query integration must also follow the new lifecycle. Version 1.167.1 calls the removed
+`serverSsr.isDehydrated` method through its core adapter, despite broad peer ranges. Aurore
+uses React SSR Query 1.167.3 with its core 1.169.3 and the minimum required Query 5.102.0.
+The 1.167.3 patch also cancels failed hydration streams and releases their readers.
+
+Keeping core 1.171.15 through an override is incompatible with the corrected server core,
+which expects newer exports including `defaultSerovalDeserializerPlugins`. The historical
+hydration patch did not address the server-function security advisory.
+
+References: [Start dependencies](https://registry.npmjs.org/@tanstack/react-start/1.168.60),
+[SSR Query dependencies](https://registry.npmjs.org/@tanstack/react-router-ssr-query/1.167.3),
+[SSR Query core dependencies](https://registry.npmjs.org/@tanstack/router-ssr-query-core/1.169.3),
+[TanStack security advisory](https://github.com/TanStack/router/security/advisories/GHSA-qx66-fv34-fjm8).
 
 ## Vite port checks
 

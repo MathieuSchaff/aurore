@@ -86,7 +86,7 @@ export function getRouter() {
     const hydrateQueryCache = router.options.hydrate
     router.options.hydrate = async (dehydrated) => {
       await hydrateQueryCache?.(dehydrated)
-      // Client guards run inside hydrateStart, so the store must be ready before they load
+      // Seed auth before the first client load so protected routes see the server session
       seedClientSession(queryClient)
       markHydrationStarted()
     }

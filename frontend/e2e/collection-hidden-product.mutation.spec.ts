@@ -2,7 +2,7 @@ import { expect, test } from '@playwright/test'
 
 import { deleteTestUser, loginAsSeed, registerFreshUser } from './helpers/auth'
 import { createProduct, deleteProduct, hideProduct } from './helpers/catalog'
-import { gotoAuthenticatedHydrated } from './helpers/hydration'
+import { gotoAuthenticatedHydrated, waitForHydration } from './helpers/hydration'
 
 test('keeps personal notes editable after a catalogue product is hidden', async ({ page }) => {
   const adminToken = await loginAsSeed(page)
@@ -27,6 +27,7 @@ test('keeps personal notes editable after a catalogue product is hidden', async 
     await entry.getByLabel('Notes personnelles').blur()
     expect((await saved).status()).toBe(200)
     await page.reload()
+    await waitForHydration(page)
     await expect(entry.getByLabel('Notes personnelles')).toHaveValue('Updated personal memory')
     await entry.getByRole('button', { name: 'Retirer de ma collection' }).click()
     await page

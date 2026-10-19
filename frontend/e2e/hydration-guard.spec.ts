@@ -1,5 +1,4 @@
 import { expect, test } from '@playwright/test'
-import type { AnyRouter } from '@tanstack/react-router'
 
 import { loginAsSeed } from './helpers/auth'
 import { gotoAuthenticatedHydrated, waitForHydration } from './helpers/hydration'
@@ -13,30 +12,8 @@ test('finishes a non-SSR route loaded before React mounts', async ({ page }) => 
       }
       Reflect.apply(scrollTo, window, args)
     }
-    let router: AnyRouter | undefined
-    let finishLoad = () => {}
-    Reflect.set(
-      window,
-      '__e2eInitialLoad',
-      new Promise<void>((resolve) => {
-        finishLoad = resolve
-      })
-    )
-    Object.defineProperty(window, '__TSR_ROUTER__', {
-      configurable: true,
-      get: () => router,
-      set: (value: AnyRouter) => {
-        router = value
-        const load = value.load
-        value.load = async (...args: Parameters<typeof load>) => {
-          await load(...args)
-          Reflect.set(window, '__e2eLoadFinished', true)
-          finishLoad()
-        }
-      },
-    })
   })
-  // A cold client can mount Transitioner after loading has already finished
+  // Explicit loading preserves the early-load regression case now that hydration defers it to mount
   await page.route('**/src/client.tsx*', async (route) => {
     const response = await route.fetch()
     const source = await response.text()
@@ -47,9 +24,10 @@ test('finishes a non-SSR route loaded before React mounts', async ({ page }) => 
       body: source.replace(
         mount,
         `
-        await Reflect.get(window, '__e2eInitialLoad')
+        await router.load()
         Reflect.set(window, '__e2eLoadedBeforeMount',
-          Reflect.get(window, '__e2eLoadFinished') && !router.state.isLoading)
+          !router.state.isLoading && router.state.status === 'idle' &&
+          router.state.resolvedLocation?.href === router.state.location.href)
         router.subscribe('onRendered', () => Reflect.set(window, '__e2eRouteRendered', true))
         ${mount}
       `

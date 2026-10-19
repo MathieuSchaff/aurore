@@ -56,8 +56,8 @@ export function makePendingMutationResult<TData, TError, TVariables, TContext = 
 
 export function makeErrorMutationResult<TData, TError, TVariables, TContext = unknown>(
   mutate: UseMutateFunction<TData, TError, TVariables, TContext>,
-  error: TError,
-  variables: TVariables,
+  error: NoInfer<TError>,
+  variables: NoInfer<TVariables>,
   reset: () => void = vi.fn()
 ): UseMutationResult<TData, TError, TVariables, TContext> {
   return {
