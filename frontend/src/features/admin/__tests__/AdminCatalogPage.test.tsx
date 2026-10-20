@@ -3,7 +3,7 @@ import type { CatalogQueueItem, CatalogQueueResponse } from '@aurore/shared'
 import type { MutationFunctionContext } from '@tanstack/react-query'
 import { fireEvent, screen, waitFor, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { HttpResponse, http } from 'msw'
+import { HttpResponse, http } from 'msw/http'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
 import { useModerateContent, useVerifyCatalogItem } from '@/lib/queries/admin'

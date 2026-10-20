@@ -1,7 +1,7 @@
 import { err, type PublicProductPostsResponse } from '@aurore/shared'
 
 import { cleanup, screen } from '@testing-library/react'
-import { HttpResponse, http } from 'msw'
+import { HttpResponse, http } from 'msw/http'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 
 import { productKeys } from '@/lib/queries/products'

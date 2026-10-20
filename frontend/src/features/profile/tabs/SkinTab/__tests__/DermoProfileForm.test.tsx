@@ -1,7 +1,7 @@
 import type { UserDermoProfile } from '@aurore/shared'
 
 import { fireEvent, screen, within } from '@testing-library/react'
-import { HttpResponse, http } from 'msw'
+import { HttpResponse, http } from 'msw/http'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
 import { useUpdateDermoProfile } from '@/lib/queries/profile'

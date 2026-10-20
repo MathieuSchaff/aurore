@@ -2,7 +2,7 @@ import type { UpdateUserProductInput } from '@aurore/shared'
 
 import { screen, waitFor, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { HttpResponse, http } from 'msw'
+import { HttpResponse, http } from 'msw/http'
 import { describe, expect, it, vi } from 'vitest'
 
 import type { UserProductEntry } from '@/lib/queries/user-products'
@@ -44,6 +44,9 @@ describe('personal memory without a catalogue row', () => {
       let entries: UserProductEntry[] = includeVisible ? [hidden, visible] : [hidden]
       const writes: { id: string; input: UpdateUserProductInput }[] = []
       server.use(
+        http.post('*/api/collection/compatibility-scores', () =>
+          HttpResponse.json({ success: true, data: { scores: { [visible.productId]: null } } })
+        ),
         http.get('*/api/user-products', () => HttpResponse.json({ success: true, data: entries })),
         http.patch('*/api/user-products/:id', async ({ request, params }) => {
           const input = (await request.json()) as UpdateUserProductInput

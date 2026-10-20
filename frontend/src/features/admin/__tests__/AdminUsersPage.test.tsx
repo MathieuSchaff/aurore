@@ -1,7 +1,7 @@
 import type { AdminUserAccount } from '@aurore/shared'
 
 import { fireEvent, screen, within } from '@testing-library/react'
-import { HttpResponse, http } from 'msw'
+import { HttpResponse, http } from 'msw/http'
 import { describe, expect, it, vi } from 'vitest'
 
 import { server } from '@/test/msw/server'

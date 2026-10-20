@@ -15,7 +15,7 @@ import {
 } from '@tanstack/react-router'
 import { act, screen, waitFor, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { HttpResponse, http } from 'msw'
+import { HttpResponse, http } from 'msw/http'
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 
 import { productsSearchSchema } from '@/features/products/filters'

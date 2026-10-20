@@ -1,9 +1,10 @@
 {
   "name": "aurore",
   "devDependencies": {
-    "@biomejs/biome": "^2.5.2",
-    "fallow": "^3.10.0",
-    "knip": "^6.25.0",
+    "@biomejs/biome": "^2.5.15",
+    "esbuild": "0.28.2",
+    "fallow": "3.34.0",
+    "knip": "^6.41.0",
     "madge": "^8.0.0",
     "typescript": "^7.0.2",
     "typescript-5": "npm:typescript@^5.9.3"
@@ -15,19 +16,19 @@
     "shared"
   ],
   "overrides": {
-    "esbuild": "^0.25.4",
-    "vite": "^8.0.0",
-    "postcss": "^8.5.25",
-    "brace-expansion": "^5.0.9",
-    "undici": "^7.29.0",
-    "fast-uri": "^3.1.5",
-    "@babel/core": "^7.29.7",
-    "nanoid": "^3.3.18",
-    "js-yaml": "^4.3.1",
-    "seroval": "1.6.7",
-    "seroval-plugins": "1.6.7"
+    "ts-morph": "27.0.2",
+    "vite": "8.3.4",
+    "brace-expansion": "^5.0.12",
+    "fast-uri": "^3.1.8",
+    "js-yaml": "^4.3.2",
+    "seroval": "1.6.9",
+    "seroval-plugins": "1.6.9",
+    "tsx": "4.23.15",
+    "@esbuild-kit/core-utils": {
+      "esbuild": "0.25.12"
+    }
   },
   "patchedDependencies": {
-    "vite@8.2.0": "patches/vite@8.2.0.patch"
+    "vite@8.3.4": "patches/vite@8.3.4.patch"
   }
 }

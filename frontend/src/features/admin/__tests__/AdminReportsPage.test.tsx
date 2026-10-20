@@ -3,7 +3,7 @@ import type { ContentPreview, ListReportsResponse, ReportView } from '@aurore/sh
 import type { MutationFunctionContext } from '@tanstack/react-query'
 import { fireEvent, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { HttpResponse, http } from 'msw'
+import { HttpResponse, http } from 'msw/http'
 import { StrictMode } from 'react'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 

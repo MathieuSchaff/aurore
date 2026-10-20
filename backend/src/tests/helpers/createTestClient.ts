@@ -5,18 +5,18 @@ import { createTestApp } from './createTestApp'
 // Enter the /api segment once (like the frontend's `client.api` in lib/api.ts):
 // createTestApp now mirrors prod and mounts every router under /api, so the RPC
 // proxy paths (e.g. client.auth.login resolving to /api/auth/login) hit the real mount.
-export async function createTestClient() {
+export async function createTestClient(): Promise<TestClient> {
   const app = await createTestApp()
   return testClient(app).api
 }
 
-export async function createTestEnv() {
+export async function createTestEnv(): Promise<{ app: TestApp; client: TestClient }> {
   const app = await createTestApp()
   return { app, client: testClient(app).api }
 }
 
-export type TestClient = Awaited<ReturnType<typeof createTestClient>>
-export type TestApp = Awaited<ReturnType<typeof createTestEnv>>['app']
+export type TestClient = ReturnType<typeof testClient<TestApp>>['api']
+export type TestApp = Awaited<ReturnType<typeof createTestApp>>
 
 export function withAuth(token: string) {
   return { headers: { Authorization: `Bearer ${token}` } } as const

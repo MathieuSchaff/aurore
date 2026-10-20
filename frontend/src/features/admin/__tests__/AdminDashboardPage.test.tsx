@@ -1,7 +1,7 @@
 import type { AdminDashboard } from '@aurore/shared'
 
 import { screen } from '@testing-library/react'
-import { HttpResponse, http } from 'msw'
+import { HttpResponse, http } from 'msw/http'
 import { describe, expect, it, vi } from 'vitest'
 
 import { LinkStub } from '@/test/mocks/router'

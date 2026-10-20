@@ -2,7 +2,7 @@ import type { ListRoleRequestsResponse, RoleRequestStatus, RoleRequestView } fro
 
 import { screen, waitFor, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { HttpResponse, http } from 'msw'
+import { HttpResponse, http } from 'msw/http'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
 import { ApiError } from '@/lib/helpers/apiError'

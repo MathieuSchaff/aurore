@@ -1,4 +1,4 @@
-import { HttpResponse, http } from 'msw'
+import { HttpResponse, http } from 'msw/http'
 
 import { INGREDIENT_BY_SLUG, INGREDIENT_FILTER_OPTIONS, INGREDIENTS } from '../fixtures/ingredients'
 

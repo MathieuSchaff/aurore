@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import { waitFor } from '@testing-library/react'
-import { HttpResponse, http } from 'msw'
+import { HttpResponse, http } from 'msw/http'
 import { expect, it } from 'vitest'
 
 import { server } from '@/test/msw/server'

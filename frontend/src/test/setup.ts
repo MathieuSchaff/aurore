@@ -5,7 +5,7 @@ import { afterAll, afterEach, beforeAll, vi } from 'vitest'
 import { server } from './msw/server'
 
 beforeAll(() => {
-  server.listen({ onUnhandledRequest: 'error' })
+  server.listen({ onUnhandledFrame: 'error' })
 })
 afterEach(() => {
   server.resetHandlers()

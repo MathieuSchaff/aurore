@@ -2,7 +2,8 @@ import type { ApiFailure } from '@aurore/shared'
 
 import { screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { delay, HttpResponse, http } from 'msw'
+import { HttpResponse, http } from 'msw/http'
+import { delay } from 'msw/utils/delay'
 import { describe, expect, it } from 'vitest'
 
 import type { FormulaMotifs as FormulaMotifsData } from '@/lib/queries/collection'

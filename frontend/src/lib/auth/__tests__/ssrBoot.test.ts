@@ -69,7 +69,10 @@ describe('loadSsrBoot', () => {
 
     expect(fetch).toHaveBeenCalledOnce()
     const [input, init] = vi.mocked(fetch).mock.calls[0] ?? []
-    expect(String(input)).toBe('http://api.test/api/boot?')
+    const requestUrl = new URL(String(input))
+    expect(requestUrl.origin).toBe('http://api.test')
+    expect(requestUrl.pathname).toBe('/api/boot')
+    expect(requestUrl.search).toBe('')
     const headers = new Headers(init?.headers)
     expect(Object.fromEntries(headers.entries())).toEqual({ cookie: cookieHeader })
   })

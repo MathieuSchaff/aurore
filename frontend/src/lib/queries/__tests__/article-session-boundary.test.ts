@@ -2,7 +2,7 @@ import { type Article, type ArticleCategoryCounts, err, ok, type UserPublic } fr
 
 import { useQuery } from '@tanstack/react-query'
 import { act, waitFor } from '@testing-library/react'
-import { HttpResponse, http } from 'msw'
+import { HttpResponse, http } from 'msw/http'
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 
 import { awaitBootRefresh } from '@/lib/auth/awaitBootRefresh'

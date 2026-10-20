@@ -1,7 +1,7 @@
 import { ok, type UserPublic } from '@aurore/shared'
 
 import { act, cleanup, waitFor } from '@testing-library/react'
-import { HttpResponse, http } from 'msw'
+import { HttpResponse, http } from 'msw/http'
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 
 import { __resetFreshness, ensureFresh } from '@/lib/auth/freshness'

@@ -1,4 +1,4 @@
-import { HttpResponse, http } from 'msw'
+import { HttpResponse, http } from 'msw/http'
 
 import {
   PRODUCT_DETAILS,

@@ -2,7 +2,7 @@ import type { ListSuggestedEditsResponse, SuggestedEditView, UserPublic } from '
 
 import { screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { HttpResponse, http } from 'msw'
+import { HttpResponse, http } from 'msw/http'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
 import { ApiError } from '@/lib/helpers/apiError'

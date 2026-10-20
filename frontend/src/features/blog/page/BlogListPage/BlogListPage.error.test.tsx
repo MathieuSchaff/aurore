@@ -1,6 +1,8 @@
+import { BLOG_CATEGORY_VALUES } from '@aurore/shared'
+
 import { cleanup, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { HttpResponse, http } from 'msw'
+import { HttpResponse, http } from 'msw/http'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 
 import { server } from '@/test/msw/server'
@@ -12,6 +14,12 @@ let listHits = 0
 function serveFailingList() {
   listHits = 0
   server.use(
+    http.get('*/api/articles/categories', () =>
+      HttpResponse.json({
+        success: true,
+        data: Object.fromEntries(BLOG_CATEGORY_VALUES.map((category) => [category, 0])),
+      })
+    ),
     http.get('*/api/articles', () => {
       listHits += 1
       return new HttpResponse(null, { status: 500 })

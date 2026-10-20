@@ -15,7 +15,7 @@ import {
 } from '@tanstack/react-router'
 import { cleanup, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { HttpResponse, http } from 'msw'
+import { HttpResponse, http } from 'msw/http'
 import { afterEach, describe, expect, it } from 'vitest'
 
 import { ingredientQueries } from '@/lib/queries/ingredients'

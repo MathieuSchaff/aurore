@@ -1,4 +1,4 @@
-import { HttpResponse, http } from 'msw'
+import { HttpResponse, http } from 'msw/http'
 import { beforeEach, describe, expect, it } from 'vitest'
 
 import { consumeBanEvent } from '../../lib/auth/session'

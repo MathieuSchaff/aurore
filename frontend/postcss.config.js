@@ -1,9 +1,6 @@
 import globalData from '@csstools/postcss-global-data'
-import purgecss from '@fullhuman/postcss-purgecss'
 import customMedia from 'postcss-custom-media'
 import nesting from 'postcss-nesting'
-
-const isProd = process.env.NODE_ENV === 'production'
 
 // Gate :hover rules behind (hover: hover) so taps on touch devices don't leave
 // stuck hover states. Inline plugin: postcss-hover-media-feature@1.0.2 hangs on
@@ -34,45 +31,11 @@ const hoverGate = () => ({
   },
 })
 
-// PurgeCSS 8 silently drops any rule whose selector *starts* with `:is(...)` followed by a
-// pseudo-class (`:is(.a .b):hover`), which is exactly what postcss-nesting emits for a nested
-// `&:hover` or `&:focus-visible`. No safelist catches it: the rule is dropped before the
-// safelist is evaluated. Prefixing the universal selector moves `:is()` off the front, and
-// costs nothing: `*` adds no specificity and `*:is(X)` matches whatever `:is(X)` matches.
-const prefixLeadingIs = () => ({
-  postcssPlugin: 'prefix-leading-is',
-  OnceExit(root) {
-    root.walkRules((rule) => {
-      if (!rule.selectors.some((s) => s.startsWith(':is('))) return
-      rule.selectors = rule.selectors.map((s) => (s.startsWith(':is(') ? `*${s}` : s))
-    })
-  },
-})
-
 export default {
   plugins: [
     globalData({ files: ['src/styles/tokens/breakpoints.css'] }),
     customMedia(),
-    // Flatten nesting before PurgeCSS sees the CSS. Vite only flattens `&` via esbuild
-    // after PostCSS, so PurgeCSS would otherwise get raw `&` selectors and drop them.
     nesting(),
-    prefixLeadingIs(),
     hoverGate(),
-    isProd &&
-      purgecss({
-        content: ['./src/**/*.{ts,tsx,html}'],
-        defaultExtractor: (content) => content.match(/[A-Za-z0-9_-]+/g) || [],
-        safelist: {
-          standard: [/^is-/, /^has-/, /^data-/, /^aria-/],
-          deep: [/^katex/, /^ProseMirror/],
-          // BEM modifiers are built dynamically (`badge--${variant}`), so the extractor
-          // only sees the `badge--` prefix. Keep any selector ending in `--modifier`.
-          greedy: [/--[a-z][a-z0-9-]*$/],
-        },
-        keyframes: true,
-        fontFace: true,
-        variables: false,
-        rejected: true,
-      }),
-  ].filter(Boolean),
+  ],
 }

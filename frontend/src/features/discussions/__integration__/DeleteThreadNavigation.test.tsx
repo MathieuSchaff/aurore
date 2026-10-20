@@ -16,7 +16,7 @@ import {
 } from '@tanstack/react-router'
 import { screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { HttpResponse, http } from 'msw'
+import { HttpResponse, http } from 'msw/http'
 import { describe, expect, it } from 'vitest'
 
 import { Button } from '@/component/Button/Button'

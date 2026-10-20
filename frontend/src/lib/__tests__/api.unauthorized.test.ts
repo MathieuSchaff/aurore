@@ -1,4 +1,4 @@
-import { HttpResponse, http } from 'msw'
+import { HttpResponse, http } from 'msw/http'
 import { beforeEach, describe, expect, it } from 'vitest'
 
 import { __resetFreshness } from '@/lib/auth/freshness'

@@ -1,7 +1,7 @@
 import type { UserPublic } from '@aurore/shared'
 
 import { QueryClient, type QueryKey } from '@tanstack/react-query'
-import { screen } from '@testing-library/react'
+import { cleanup, screen } from '@testing-library/react'
 import type { ReactNode } from 'react'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
@@ -82,6 +82,7 @@ beforeEach(() => {
 })
 
 afterEach(() => {
+  cleanup()
   setProfileFilterOff(USER_ID, false)
   useAuthStore.setState({ session: anonymousTestSession() })
 })

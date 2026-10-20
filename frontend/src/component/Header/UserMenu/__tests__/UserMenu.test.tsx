@@ -1,7 +1,7 @@
 import type { UserPublic } from '@aurore/shared'
 
 import { fireEvent, screen } from '@testing-library/react'
-import { HttpResponse, http } from 'msw'
+import { HttpResponse, http } from 'msw/http'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
 import type { SessionView } from '@/lib/auth/session'
@@ -99,17 +99,18 @@ describe('UserMenu', () => {
     expect(screen.queryByText(/Déconnexion/)).not.toBeInTheDocument()
   })
 
-  it('shows profile + logout entries when the user is authenticated', () => {
+  it('shows profile + logout entries when the user is authenticated', async () => {
     setAuthState(true)
     renderWithProviders(<UserMenu />)
     openMenu()
+    await screen.findByRole('img', { name: 'Avatar de mathieu' })
 
     expect(screen.getByText(/Profil/)).toBeInTheDocument()
     expect(screen.getByText(/Déconnexion/)).toBeInTheDocument()
     expect(screen.queryByText(/Connexion/)).not.toBeInTheDocument()
   })
 
-  it('triggers the logout mutation when the logout entry is clicked', () => {
+  it('triggers the logout mutation when the logout entry is clicked', async () => {
     const mutate = vi.fn()
     vi.mocked(useLogout).mockReturnValue({
       mutate,
@@ -118,6 +119,7 @@ describe('UserMenu', () => {
     setAuthState(true)
     renderWithProviders(<UserMenu />)
     openMenu()
+    await screen.findByRole('img', { name: 'Avatar de mathieu' })
 
     fireEvent.click(screen.getByText(/Déconnexion/))
 
@@ -125,36 +127,40 @@ describe('UserMenu', () => {
   })
 
   // « Modération » reaches admins and contributors, and points at the reports queue.
-  it('shows the Modération link to /admin/reports for an admin', () => {
+  it('shows the Modération link to /admin/reports for an admin', async () => {
     setSession('admin')
     renderWithProviders(<UserMenu />)
     openMenu()
+    await screen.findByRole('img', { name: 'Avatar de mathieu' })
 
     const link = screen.getByRole('link', { name: /Modération/i })
     expect(link).toHaveAttribute('href', '/admin/reports')
   })
 
-  it('shows the Modération link for a contributor', () => {
+  it('shows the Modération link for a contributor', async () => {
     setSession('contributor')
     renderWithProviders(<UserMenu />)
     openMenu()
+    await screen.findByRole('img', { name: 'Avatar de mathieu' })
 
     expect(screen.getByRole('link', { name: /Modération/i })).toBeInTheDocument()
   })
 
-  it('uses the seeded session role while the credential is restoring', () => {
+  it('uses the seeded session role while the credential is restoring', async () => {
     setSession('contributor', 'restoring')
 
     renderWithProviders(<UserMenu />)
     openMenu()
+    await screen.findByRole('img', { name: 'Avatar de mathieu' })
 
     expect(screen.getByRole('link', { name: /Modération/i })).toBeInTheDocument()
   })
 
-  it('hides Modération from a plain user', () => {
+  it('hides Modération from a plain user', async () => {
     setSession('user')
     renderWithProviders(<UserMenu />)
     openMenu()
+    await screen.findByRole('img', { name: 'Avatar de mathieu' })
 
     expect(screen.queryByText(/Modération/i)).not.toBeInTheDocument()
   })

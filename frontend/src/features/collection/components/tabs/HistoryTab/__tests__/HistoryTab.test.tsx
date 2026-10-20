@@ -4,7 +4,7 @@ import type { Purchase, UpdatePurchaseInput } from '@aurore/shared'
 
 import { screen, waitFor, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { HttpResponse, http } from 'msw'
+import { HttpResponse, http } from 'msw/http'
 import { describe, expect, it } from 'vitest'
 
 import { CollectionAchatsPage } from '@/features/collection/page/CollectionAchatsPage'

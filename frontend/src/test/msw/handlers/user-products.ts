@@ -1,4 +1,4 @@
-import { HttpResponse, http } from 'msw'
+import { HttpResponse, http } from 'msw/http'
 
 const ok = <T>(data: T) => HttpResponse.json({ success: true, data })
 

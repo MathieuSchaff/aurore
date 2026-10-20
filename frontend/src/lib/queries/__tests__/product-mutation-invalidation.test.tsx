@@ -2,7 +2,7 @@ import type { EnrichedComparison, MySubmissionItem } from '@aurore/shared'
 
 import { useQuery } from '@tanstack/react-query'
 import { act, waitFor } from '@testing-library/react'
-import { HttpResponse, http } from 'msw'
+import { HttpResponse, http } from 'msw/http'
 import { describe, expect, it, vi } from 'vitest'
 
 import type { ApiData, api } from '@/lib/api'

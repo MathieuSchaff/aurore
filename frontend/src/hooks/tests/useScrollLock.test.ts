@@ -4,7 +4,6 @@ import { afterEach, describe, expect, it, vi } from 'vitest'
 import { useScrollLock } from '../useScrollLock'
 
 describe('useScrollLock', () => {
-  const originalScrollY = window.scrollY
   const originalScrollTo = window.scrollTo
 
   afterEach(() => {
@@ -14,12 +13,12 @@ describe('useScrollLock', () => {
     document.body.style.right = ''
     document.body.style.overflow = ''
     delete document.body.dataset.scrollY
-    window.scrollY = originalScrollY
+    vi.restoreAllMocks()
     window.scrollTo = originalScrollTo
   })
 
   it('should lock scroll when locked is true', () => {
-    window.scrollY = 100
+    vi.spyOn(window, 'scrollY', 'get').mockReturnValue(100)
 
     renderHook(() => useScrollLock(true))
 
@@ -37,7 +36,7 @@ describe('useScrollLock', () => {
   })
 
   it('should unlock scroll and restore position on unmount', () => {
-    window.scrollY = 250
+    vi.spyOn(window, 'scrollY', 'get').mockReturnValue(250)
     window.scrollTo = vi.fn()
 
     const { unmount } = renderHook(() => useScrollLock(true))
@@ -53,7 +52,7 @@ describe('useScrollLock', () => {
   })
 
   it('should unlock scroll when toggling locked from true to false', () => {
-    window.scrollY = 150
+    vi.spyOn(window, 'scrollY', 'get').mockReturnValue(150)
     window.scrollTo = vi.fn()
 
     const { rerender } = renderHook(({ locked }) => useScrollLock(locked), {

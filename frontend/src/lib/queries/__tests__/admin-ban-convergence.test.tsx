@@ -2,7 +2,7 @@ import type { AdminBanListItem } from '@aurore/shared'
 
 import { useQuery } from '@tanstack/react-query'
 import { act, waitFor } from '@testing-library/react'
-import { HttpResponse, http } from 'msw'
+import { HttpResponse, http } from 'msw/http'
 import { describe, expect, it } from 'vitest'
 
 import { server } from '@/test/msw/server'

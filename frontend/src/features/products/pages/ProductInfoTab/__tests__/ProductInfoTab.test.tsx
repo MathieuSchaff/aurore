@@ -7,7 +7,7 @@ import {
 } from '@aurore/shared'
 
 import { fireEvent, screen } from '@testing-library/react'
-import { HttpResponse, http } from 'msw'
+import { HttpResponse, http } from 'msw/http'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
 import { useCopyToClipboard } from '@/hooks/useCopyToClipboard'

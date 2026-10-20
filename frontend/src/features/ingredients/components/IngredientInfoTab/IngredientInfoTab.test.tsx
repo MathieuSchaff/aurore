@@ -1,6 +1,6 @@
 import { getRouteApi } from '@tanstack/react-router'
 import { screen } from '@testing-library/react'
-import { HttpResponse, http } from 'msw'
+import { HttpResponse, http } from 'msw/http'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
 import type { ApiData, api } from '@/lib/api'

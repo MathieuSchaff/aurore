@@ -2,7 +2,7 @@ import type { UserPublic } from '@aurore/shared'
 
 import { QueryClient } from '@tanstack/react-query'
 import { isRedirect } from '@tanstack/react-router'
-import { HttpResponse, http } from 'msw'
+import { HttpResponse, http } from 'msw/http'
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 
 import { installSession, readClientSession } from '@/lib/auth/session'

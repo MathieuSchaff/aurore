@@ -2,7 +2,7 @@ import { err, ok, type ReplaceIngredientTagsInput } from '@aurore/shared'
 
 import { screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { HttpResponse, http } from 'msw'
+import { HttpResponse, http } from 'msw/http'
 import { describe, expect, it, vi } from 'vitest'
 
 import type { BaseIngredient } from '@/features/ingredients/hooks/useIngredientFormSubmit'

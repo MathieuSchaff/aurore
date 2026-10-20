@@ -46,7 +46,7 @@ function isApiFailure(body: unknown): body is ApiFailure {
   )
 }
 
-export async function throwIfNotOk(res: Response): Promise<void> {
+export async function throwIfNotOk(res: Pick<Response, 'ok' | 'status' | 'json'>): Promise<void> {
   if (res.ok) return
   let code = 'http_error'
   let details: unknown
@@ -63,7 +63,7 @@ export async function throwIfNotOk(res: Response): Promise<void> {
 }
 
 export async function unwrapData<T>(
-  res: Response & { json(): Promise<ApiResponse<T>> }
+  res: Pick<Response, 'ok' | 'status'> & { json(): Promise<ApiResponse<T>> }
 ): Promise<T> {
   await throwIfNotOk(res)
   const json: unknown = await res.json().catch(() => {
