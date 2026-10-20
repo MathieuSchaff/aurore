@@ -1,11 +1,12 @@
 # Dependency patches
 
-Bun applies these patches during `bun install --frozen-lockfile`. Every Docker dependency
-stage copies this directory before installing. The package versions remain unchanged.
+No dependency patches are currently applied. This directory records compatibility
+decisions and remains available to Docker dependency stages. Frozen installs use the
+unmodified registry packages at the versions retained in `bun.lock`.
 
-| Patch | Purpose |
-| :--- | :--- |
-| [vite@8.3.4.patch](vite@8.3.4.patch) | Release connections accepted by Vite's temporary TCP port checks so HTTP readiness probes cannot stall startup. |
+When removing the former Vite patch from an existing checkout, run
+`bun install --frozen-lockfile --force`: a plain frozen install can leave the
+previously patched file in place. Verify it against a clean installation.
 
 ## Dependency resolution without global overrides
 
@@ -18,6 +19,13 @@ also resolve within their consumers' declared ranges without overrides. Their ex
 versions remain in `bun.lock`; use a frozen install to reproduce the qualified graph.
 The separate esbuild override for the legacy esbuild-kit loader remains an exception
 outside that loader's declared range.
+
+Vite, brace-expansion, fast-uri, js-yaml, seroval, seroval-plugins and tsx also
+resolve without overrides. Removing their seven overrides preserves every package
+entry, integrity and dependency relationship in the existing lockfile. The frontend
+still pins Vite 8.3.4 directly; its former TCP patch has been retired.
+Only the ts-morph and legacy esbuild-kit exceptions remain in the root manifest.
+Keep frozen installs: regenerating the full graph can update unrelated packages.
 
 ## Initial non-SSR route hydration
 
@@ -43,7 +51,7 @@ The current group pins Start 1.169.3, React Router 1.170.45 and router-core 1.17
 with start-server-core 1.169.44. Router CLI 1.167.45 keeps its generator on the same core
 version. React Query and its DevTools are both pinned to 5.104.3; Router DevTools uses
 1.167.2. Exact DevTools versions keep their peer requirements aligned with the app.
-Seroval and seroval-plugins remain pinned together to 1.6.9. Bun 1.4.3, Vite 8.3.4 and Nitro
+Seroval and seroval-plugins remain locked together at 1.6.9. Bun 1.4.3, Vite 8.3.4 and Nitro
 nightly 3.0.1-20261017-153525-59940084 support this group without an application API migration.
 
 SSR Query integration must also follow the new lifecycle. Version 1.167.1 calls the removed
@@ -63,20 +71,25 @@ References: [Start dependencies](https://registry.npmjs.org/@tanstack/react-star
 
 ## Vite port checks
 
-Vite checks wildcard addresses before binding its HTTP server. On Bun, a readiness probe can
-connect before the temporary server's `listening` callback calls `close`. That callback waits
-for existing connections to end, but the probe waits for an HTTP response the TCP check never
-sends. This affects both curl and Playwright's readiness request.
+Vite checks wildcard addresses before binding its HTTP server. Older Bun versions could
+accept an HTTP readiness probe before emitting `listening`. Closing the temporary TCP
+server then waited for that probe, which waited for an HTTP response the check never sent.
+The former patch destroyed connections accepted by this temporary server.
 
-The patch destroys connections only on the temporary check server. It preserves port-conflict
-detection and the real HTTP server. When updating Vite, verify startup while HTTP probes arrive
-during the port check before removing or updating this patch.
+Bun fixed the event ordering in PR #40041. The fix is present from Bun 1.4.1, including
+the pinned 1.4.3 runtime. A fixture that delays `listening` until after a connection is
+accepted still reproduces the old sequence, but overrides the repaired runtime ordering.
+It does not establish that the race persists during normal startup.
 
-The same race is reproducible on Vite 8.3.4 with Bun 1.4.3. The rebased patch releases
-the probe connection while preserving detection of an occupied port.
+The patch was retired after qualifying the real Aurore E2E stack with Bun 1.4.3 and
+Vite 8.3.4: five patched and twenty unpatched starts under eight concurrent HTTP probes,
+with no HTTP read timeout. Both variants reject an occupied port. The unpatched stack
+also passes all 209 Playwright cases with four workers, no retries and no skipped cases.
+Keep concurrent readiness probes and an occupied-port check when changing this runtime pair.
 
 References: [Vite port-check source](https://github.com/vitejs/vite/blob/v8.3.4/packages/vite/src/node/http.ts),
-[Bun dependency patches](https://bun.com/docs/pm/cli/patch).
+[Bun ordering fix](https://github.com/oven-sh/bun/pull/40041),
+[Bun 1.4.3 networking source](https://github.com/oven-sh/bun/blob/bun-v1.4.3/src/js/node/net.ts).
 
 ## Vite and Nitro upgrade compatibility
 
@@ -129,11 +142,12 @@ and common share a bundled TypeScript compiler and must stay aligned.
 When updating hono-docs or this override, regenerate with `--no-cache`, compare the
 OpenAPI document and check that fast-glob, micromatch and braces remain absent.
 Run both full and production dependency audits. A clean frozen install must resolve
-the same ts-morph/common pair and reproduce the remaining Vite patch.
+the same ts-morph/common pair and the unmodified Vite package.
 
 Rollback requires restoring the former ts-morph/common patch, its registration,
 the fast-glob alias and the matching lockfile together. Removing this override alone
-would bring back the vulnerable braces branch. Retain the independent Vite patch.
+would bring back the vulnerable braces branch. Vite's patch retirement is independent
+of this ts-morph rollback.
 
 References: [ts-morph 27 native tinyglobby migration](https://github.com/dsherret/ts-morph/releases/tag/27.0.0),
 [hono-docs dependencies](https://github.com/rcmade/hono-docs/blob/main/package.json),
