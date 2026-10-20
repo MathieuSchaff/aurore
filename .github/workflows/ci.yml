@@ -94,7 +94,7 @@ jobs:
         env:
           DATABASE_URL: postgres://app:testpassword@localhost:5433/appdb_test
         run: |
-          cd backend && bun x drizzle-kit migrate
+          cd backend && bun run src/db/migrate.ts
           # Migration 0013 creates app_runtime with a placeholder password; the
           # local dev DB overrides it via drizzle-init/, which CI's service
           # Postgres never mounts. Align it so RLS tests can log in as app_runtime.
@@ -169,7 +169,7 @@ jobs:
           BUNNY_STORAGE_PASSWORD: ci-password
           IMAGE_CDN_BASE: https://ci-cdn.example.com
         run: |
-          cd backend && bun x drizzle-kit migrate
+          cd backend && bun run src/db/migrate.ts
           cd ..
           psql -h localhost -p 5433 -U app -d appdb_test -v ON_ERROR_STOP=1 -c \
             "DO \$\$ DECLARE r record; BEGIN FOR r IN (SELECT tablename FROM pg_tables WHERE schemaname='public') LOOP EXECUTE 'TRUNCATE ' || quote_ident(r.tablename) || ' RESTART IDENTITY CASCADE'; END LOOP; END \$\$;"
