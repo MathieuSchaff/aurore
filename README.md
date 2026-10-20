@@ -107,7 +107,7 @@ application code. Details in [`docs/SECURITY.md`](./docs/SECURITY.md).
 
 ## Quick start
 
-Needs [Bun](https://bun.sh) 1.3.12, [Docker](https://docs.docker.com/get-docker/) with Compose v2,
+Needs [Bun](https://bun.sh) 1.4.3, [Docker](https://docs.docker.com/get-docker/) with Compose v2,
 [just](https://just.systems) 1.51. Optional: [mise](https://mise.jdx.dev) installs the pinned
 versions from `.mise.toml` and the git hooks.
 

@@ -1,4 +1,4 @@
-FROM oven/bun:1.3.12-alpine AS builder
+FROM oven/bun:1.4.3-alpine AS builder
 WORKDIR /app
 
 # bunfig.toml pins the repo's Bun linker policy; keep it in the image.
@@ -35,7 +35,7 @@ RUN bun run build
 
 # Runtime SSR server (nitro bun preset). .output is a self-contained bundle
 # (server entry + public assets, no node_modules), so the final image is just Bun.
-FROM oven/bun:1.3.12-alpine
+FROM oven/bun:1.4.3-alpine
 WORKDIR /app
 COPY --from=builder /app/frontend/.output ./.output
 ENV NODE_ENV=production

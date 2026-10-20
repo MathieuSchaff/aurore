@@ -1,4 +1,4 @@
-FROM oven/bun:1.3.12-debian@sha256:1b709c9dd883fc1af38c210f7ea5222c552a8d470ea73efbd4b8fcfee798a64b AS base
+FROM oven/bun:1.4.3-debian@sha256:923bedb355f7746666659f71e724998159a5c8c54bd1cb1030e1975a0698415b AS base
 WORKDIR /app
 
 FROM base AS deps
@@ -22,7 +22,7 @@ WORKDIR /app/backend
 EXPOSE 3000
 CMD ["bun", "--watch", "src/index.ts"]
 
-FROM oven/bun:1.3.12-debian@sha256:1b709c9dd883fc1af38c210f7ea5222c552a8d470ea73efbd4b8fcfee798a64b AS prod
+FROM oven/bun:1.4.3-debian@sha256:923bedb355f7746666659f71e724998159a5c8c54bd1cb1030e1975a0698415b AS prod
 WORKDIR /app
 ENV NODE_ENV=production
 
