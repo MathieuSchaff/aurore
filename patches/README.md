@@ -14,7 +14,7 @@ The frontend declares Babel core 7.29.7 directly to satisfy the Babel plugin's p
 dependency without allowing it to select Babel 8. Istanbul resolves its own Babel 8.0.7
 through its declared dependency. Neither branch needs a Babel override.
 
-PostCSS 8.5.30, Nano ID 3.3.20, Undici 8.12.2 and Drizzle Kit's esbuild 0.25.12
+PostCSS 8.5.30, Nano ID 3.3.20, Undici 8.12.3 and Drizzle Kit's esbuild 0.25.12
 also resolve within their consumers' declared ranges without overrides. Their existing
 versions remain in `bun.lock`; use a frozen install to reproduce the qualified graph.
 The separate esbuild override for the legacy esbuild-kit loader remains an exception
@@ -51,7 +51,7 @@ The current group pins Start 1.169.3, React Router 1.170.45 and router-core 1.17
 with start-server-core 1.169.44. Router CLI 1.167.45 keeps its generator on the same core
 version. React Query and its DevTools are both pinned to 5.104.3; Router DevTools uses
 1.167.2. Exact DevTools versions keep their peer requirements aligned with the app.
-Seroval and seroval-plugins remain locked together at 1.6.9. Bun 1.4.3, Vite 8.3.4 and Nitro
+Seroval and seroval-plugins remain locked together at 1.6.12. Bun 1.4.3, Vite 8.3.4 and Nitro
 nightly 3.0.1-20261017-153525-59940084 support this group without an application API migration.
 
 SSR Query integration must also follow the new lifecycle. Version 1.167.1 calls the removed
@@ -111,10 +111,11 @@ References: [Vite metadata](https://registry.npmjs.org/vite/8.3.4),
 
 ## Undici for jsdom
 
-The lockfile retains Undici 8.12.2, within jsdom 30.1.3's declared `^8.12.1`
+The lockfile retains Undici 8.12.3, within jsdom 30.1.3's declared `^8.12.1`
 range, without an override. The former 7.30.1 override forced an incompatible major into that consumer.
 Undici is used only by development tooling, with no application imports. Version
-8.12.2 satisfies the three-day release-age policy; 8.12.3 is still too recent.
+8.12.3 was qualified under the explicit October 21 release-age exception.
+The permanent `minimumReleaseAge = 259200` policy remains unchanged.
 
 Vitest runs through its Node launcher. Undici 8 requires Node >=22.19.0; jsdom's
 own Node requirement is stricter. Verify the two jsdom environment suites and
@@ -122,7 +123,7 @@ network resource loading when updating this resolution. Bun substitutes its nati
 `undici` module for a bare import; a Bun probe must load the npm entry by absolute
 path to test the installed package. No application fetch implementation changes.
 
-References: [Undici metadata](https://registry.npmjs.org/undici/8.12.2),
+References: [Undici metadata](https://registry.npmjs.org/undici/8.12.3),
 [jsdom metadata](https://registry.npmjs.org/jsdom/30.1.3),
 [Undici 8 changes](https://github.com/nodejs/undici/releases/tag/v8.0.0).
 
