@@ -80,6 +80,7 @@ export const productDetailPageSchema = z
     dermoProfile: userDermoProfileSchema.nullable(),
     assessment: serializedAssessmentSchema.nullable(),
     preferenceTargets: preferenceTargetsSchema,
+    unavailable: z.array(z.enum(['profile', 'preferences'])),
   })
   .strict()
 

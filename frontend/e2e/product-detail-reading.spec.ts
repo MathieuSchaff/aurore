@@ -17,6 +17,9 @@ test('keeps the declared composition, ingredient sheets and discussions reachabl
   const slug = await gotoFirstProductDetail(page)
 
   await expect(page.getByRole('heading', { name: 'Comprendre la formule' })).toBeVisible()
+  await expect(
+    page.getByRole('status').filter({ hasText: /profil.*indisponible|préférences.*indisponibles/i })
+  ).toHaveCount(0)
   const composition = page.getByRole('region', { name: /Les \d+ ingrédients|Composition/ })
   await expect(composition.getByRole('button', { name: /Copier la liste/ })).toBeVisible()
   // Keep the pointer down long enough to expose a scroll between press and release

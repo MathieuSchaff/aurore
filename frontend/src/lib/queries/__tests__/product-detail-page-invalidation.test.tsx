@@ -35,6 +35,7 @@ describe('product detail page invalidation', () => {
               updatedAt: '2026-08-16T08:00:00.000Z',
             },
             assessment: null,
+            unavailable: [],
             preferenceTargets: { ingredients: [], tags: [] },
           },
         })
@@ -91,6 +92,7 @@ describe('product detail page invalidation', () => {
             userStatus: null,
             dermoProfile: null,
             assessment: null,
+            unavailable: [],
             preferenceTargets: { ingredients: ingredientTargets, tags: [] },
           },
         })

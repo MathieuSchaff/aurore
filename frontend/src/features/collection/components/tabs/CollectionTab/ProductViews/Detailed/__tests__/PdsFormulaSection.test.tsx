@@ -84,6 +84,7 @@ function servePage(
     userStatus: 'in_stock',
     dermoProfile: null,
     assessment: null,
+    unavailable: [],
     preferenceTargets: { ingredients: [], tags: [] },
     ...page,
   } satisfies ProductDetailPage
@@ -95,6 +96,20 @@ function servePage(
 describe('PdsFormulaSection', () => {
   beforeEach(() => {
     useAuthStore.setState({ session: presentTestSession(USER) })
+  })
+
+  it('keeps the formula readable without offering unknown preference values', async () => {
+    servePage(
+      { unavailable: ['profile', 'preferences'], assessment: EMPTY_ASSESSMENT },
+      { inci: 'Aqua', ingredients: [makeIngredient({ ingredientCanonicalKey: 'Aqua' })] }
+    )
+    renderWithProviders(<PdsFormulaSection p={makeUserProduct()} />)
+
+    expect(await screen.findByRole('status')).toHaveTextContent(/préférences.*indisponibles/i)
+    expect(screen.getByText('Liste INCI')).toBeInTheDocument()
+    expect(
+      screen.queryByRole('button', { name: /utiliser un ingrédient/i })
+    ).not.toBeInTheDocument()
   })
 
   it('warns when an avoid tag matches the viewer portrait', async () => {

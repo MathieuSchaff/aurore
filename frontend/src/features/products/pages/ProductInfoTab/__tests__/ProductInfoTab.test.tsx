@@ -6,7 +6,7 @@ import {
   type UserPublic,
 } from '@aurore/shared'
 
-import { fireEvent, screen } from '@testing-library/react'
+import { fireEvent, screen, waitFor } from '@testing-library/react'
 import { HttpResponse, http } from 'msw/http'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
@@ -76,7 +76,10 @@ function makeTag(overrides: Partial<ProductDetail['tags'][number]>): ProductDeta
   }
 }
 
-function setProduct(overrides: Partial<ProductDetail> = {}) {
+function setProduct(
+  overrides: Partial<ProductDetail> = {},
+  pageOverrides: Partial<ProductDetailPage> = {}
+) {
   const product = {
     ...BASE_PRODUCT,
     slug: 'product-x',
@@ -96,6 +99,8 @@ function setProduct(overrides: Partial<ProductDetail> = {}) {
     dermoProfile,
     assessment: null,
     preferenceTargets: { ingredients: [], tags: [] },
+    unavailable: [],
+    ...pageOverrides,
   } satisfies ProductDetailPage
   server.use(
     http.get('*/api/products/:slug/page', () =>
@@ -146,6 +151,18 @@ describe('ProductInfoTab', () => {
       http.get('*/api/products/:slug/posts', () => HttpResponse.json(ok({ posts: [] })))
     )
     vi.mocked(useCopyToClipboard).mockReturnValue({ copied: false, copy })
+  })
+
+  it('shows unavailable personalization and clears it after a successful retry', async () => {
+    signIn()
+    setProduct({ inci: 'Aqua' }, { unavailable: ['profile', 'preferences'] })
+    renderWithProviders(<ProductInfoTab />)
+
+    expect(await screen.findByRole('status')).toHaveTextContent(/profil.*indisponible/i)
+    expect(screen.getByRole('status')).toHaveTextContent(/préférences.*indisponibles/i)
+    setProduct({ inci: 'Aqua' })
+    fireEvent.click(screen.getByRole('button', { name: /réessayer.*lecture personnalisée/i }))
+    await waitFor(() => expect(screen.queryByRole('status')).not.toBeInTheDocument())
   })
 
   it('renders description and ingredient list with concentration formatting', async () => {
@@ -330,6 +347,7 @@ describe('ProductInfoTab', () => {
       userStatus: null,
       dermoProfile,
       assessment: null,
+      unavailable: [],
       preferenceTargets: { ingredients: [], tags: [] },
     })
 

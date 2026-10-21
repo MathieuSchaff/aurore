@@ -246,6 +246,7 @@ describe('selectSsrBootView', () => {
           coverage: { matched: 1, total: 1 },
           matchedEvidence: [],
         },
+        unavailable: [],
         preferenceTargets: {
           ingredients: [],
           tags: [],

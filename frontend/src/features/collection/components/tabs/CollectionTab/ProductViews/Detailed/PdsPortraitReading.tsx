@@ -43,7 +43,7 @@ export function PdsPortraitReading({ page, viewerId }: PdsPortraitReadingProps) 
           assessment={page.assessment}
           viewerId={viewerId}
           profileSlugs={profileSlugs}
-          linkedIngredients={product.ingredients}
+          linkedIngredients={page.unavailable.includes('preferences') ? [] : product.ingredients}
           preferenceTargets={page.preferenceTargets}
         />
       )}

@@ -62,6 +62,7 @@ export const productsHandlers = [
       userStatus: null,
       dermoProfile: null,
       assessment: null,
+      unavailable: [],
       preferenceTargets: { ingredients: [], tags: [] },
     })
   }),

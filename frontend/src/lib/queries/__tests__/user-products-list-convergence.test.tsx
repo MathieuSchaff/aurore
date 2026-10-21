@@ -85,6 +85,7 @@ describe('user product list convergence', () => {
           userStatus,
           dermoProfile: null,
           assessment: null,
+          unavailable: [],
           preferenceTargets: { ingredients: [], tags: [] },
         } satisfies ProductDetailPage
         return HttpResponse.json({
@@ -145,6 +146,7 @@ describe('user product list convergence', () => {
           userStatus,
           dermoProfile: null,
           assessment: null,
+          unavailable: [],
           preferenceTargets: { ingredients: [], tags: [] },
         } satisfies ProductDetailPage
         return HttpResponse.json({
@@ -209,6 +211,7 @@ describe('user product list convergence', () => {
           userStatus,
           dermoProfile: null,
           assessment: null,
+          unavailable: [],
           preferenceTargets: { ingredients: [], tags: [] },
         } satisfies ProductDetailPage
         return HttpResponse.json({

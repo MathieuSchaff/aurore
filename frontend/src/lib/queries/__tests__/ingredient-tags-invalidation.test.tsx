@@ -167,6 +167,7 @@ describe('ingredient mutation convergence', () => {
               userStatus: null,
               dermoProfile: null,
               assessment: null,
+              unavailable: [],
               preferenceTargets: { ingredients: [], tags: [] },
             } satisfies ProductDetailPage)
           )

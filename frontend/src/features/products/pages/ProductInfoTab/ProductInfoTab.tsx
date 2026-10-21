@@ -8,6 +8,7 @@ import { IconBox } from '@/component/Layout/IconBox/IconBox'
 import { SectionHeader } from '@/component/Typography/SectionHeader/SectionHeader'
 import { FormulaReading } from '@/features/products/components/FormulaReading/FormulaReading'
 import { ProductComposition } from '@/features/products/components/ProductComposition/ProductComposition'
+import { ProductPersonalizationNotice } from '@/features/products/components/ProductPersonalizationNotice'
 import { ProductPostsSection } from '@/features/products/components/ProductPostsSection/ProductPostsSection'
 import { ProductSources } from '@/features/products/components/ProductSources/ProductSources'
 import {
@@ -58,7 +59,11 @@ export function ProductInfoTab() {
   const { slug } = route.useParams()
   const session = useSession()
   const viewerId = getSessionViewerId(session)
-  const { data: detailPage } = useSuspenseQuery(productQueries.detailPage(slug, viewerId))
+  const {
+    data: detailPage,
+    refetch,
+    isFetching,
+  } = useSuspenseQuery(productQueries.detailPage(slug, viewerId))
   const { product, dermoProfile, assessment, preferenceTargets } = detailPage
   const hasDeclaredInci = Boolean(product.inci?.trim())
   const profileSlugs = useMemo(
@@ -80,6 +85,11 @@ export function ProductInfoTab() {
 
   return (
     <>
+      <ProductPersonalizationNotice
+        unavailable={detailPage.unavailable}
+        pending={isFetching}
+        onRetry={() => void refetch()}
+      />
       <ProfileWarnings warnings={warnings} />
 
       <KpProfileBridge chips={kpChips} />
@@ -92,7 +102,9 @@ export function ProductInfoTab() {
           assessment={assessment}
           viewerId={viewerId}
           profileSlugs={profileSlugs}
-          linkedIngredients={product.ingredients ?? []}
+          linkedIngredients={
+            detailPage.unavailable.includes('preferences') ? [] : product.ingredients
+          }
           preferenceTargets={preferenceTargets}
         />
       )}

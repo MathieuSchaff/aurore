@@ -20,13 +20,13 @@ async function readOptional<T>(
   database: DbOrTransaction,
   enrichment: string,
   read: (tx: DatabaseTransaction) => Promise<T>
-): Promise<T | null> {
+): Promise<{ data: T | null; available: boolean }> {
   try {
     // SQL failures must roll back before other parts of the page use the transaction
-    return await database.transaction(read)
+    return { data: await database.transaction(read), available: true }
   } catch (err) {
     logger.warn({ err, enrichment }, 'Optional product detail unavailable')
-    return null
+    return { data: null, available: false }
   }
 }
 
@@ -40,17 +40,23 @@ export async function readProductDetailPage(
   let dermoProfile: ProductDetailPage['dermoProfile'] = null
   let preferenceTargets: PreferenceTargets = { ingredients: [], tags: [] }
 
+  const unavailable: ProductDetailPage['unavailable'] = []
+
   if (input.viewerId) {
     const viewerId = input.viewerId
     const shelfStatus = await readOptional(database, 'shelf', (tx) =>
       getShelfStatusByProductIds(tx, viewerId, [product.id])
     )
-    userStatus = shelfStatus?.[0]?.status ?? null
+    userStatus = shelfStatus.data?.[0]?.status ?? null
 
-    dermoProfile = await readOptional(database, 'profile', (tx) => getDermoProfile(tx, viewerId))
-    preferenceTargets =
-      (await readOptional(database, 'preferences', (tx) => listPreferenceTargets(tx, viewerId))) ??
-      preferenceTargets
+    const profile = await readOptional(database, 'profile', (tx) => getDermoProfile(tx, viewerId))
+    dermoProfile = profile.data
+    if (!profile.available) unavailable.push('profile')
+    const preferences = await readOptional(database, 'preferences', (tx) =>
+      listPreferenceTargets(tx, viewerId)
+    )
+    preferenceTargets = preferences.data ?? preferenceTargets
+    if (!preferences.available) unavailable.push('preferences')
   }
 
   const dermoScore = await readOptional(database, 'assessment', (tx) =>
@@ -61,7 +67,8 @@ export async function readProductDetailPage(
     product,
     userStatus,
     dermoProfile,
-    assessment: dermoScore?.ok ? dermoScore.assessment : null,
+    assessment: dermoScore.data?.ok ? dermoScore.data.assessment : null,
+    unavailable,
     preferenceTargets,
   })
 }

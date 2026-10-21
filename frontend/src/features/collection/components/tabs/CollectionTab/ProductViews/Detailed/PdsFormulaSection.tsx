@@ -6,6 +6,7 @@ import { useId } from 'react'
 import { Button } from '@/component/Button/Button'
 import { ShowMoreButton } from '@/component/DataDisplay/ShowMoreButton/ShowMoreButton'
 import { pdsLabels } from '@/features/collection/constants'
+import { ProductPersonalizationNotice } from '@/features/products/components/ProductPersonalizationNotice'
 import { useCopyToClipboard } from '@/hooks/useCopyToClipboard'
 import { useExpandableList } from '@/hooks/useExpandableList'
 import { viewerId as getSessionViewerId, useSession } from '@/lib/auth/session'
@@ -26,6 +27,8 @@ export function PdsFormulaSection({ p }: PdsFormulaSectionProps) {
   // rules: the same payload the catalogue page reads, so both surfaces agree
   const {
     data: detailPage,
+    refetch,
+    isFetching,
     isError: fullProductError,
     isPending: fullProductPending,
   } = useQuery(productQueries.detailPage(p.product.slug, viewerId))
@@ -46,7 +49,16 @@ export function PdsFormulaSection({ p }: PdsFormulaSectionProps) {
 
   return (
     <>
-      {detailPage && <PdsPortraitReading page={detailPage} viewerId={viewerId} />}
+      {detailPage && (
+        <>
+          <ProductPersonalizationNotice
+            unavailable={detailPage.unavailable}
+            pending={isFetching}
+            onRetry={() => void refetch()}
+          />
+          <PdsPortraitReading page={detailPage} viewerId={viewerId} />
+        </>
+      )}
 
       {/* Raw INCI before the tag list: ingredients-first, backlog section 18 P2.C (2026-05-15). */}
       {fullProductError ? (
