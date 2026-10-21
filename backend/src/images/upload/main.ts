@@ -3,7 +3,7 @@
  * CLI wrapper around ./lib (uploadProductImage), via `just image-upload`.
  * Single: bun run src/images/upload/main.ts <slug> --url <URL> | --file <PATH>
  * Batch: bun run src/images/upload/main.ts --batch <jobs.json>  (JSON array of { slug, url? | file? })
- * Flags: --dry (preview) --no-db --no-staged --concurrency N (batch only, default 4).
+ * Flags: --dry (preview) --no-db --no-staged --concurrency N (batch only, integer 1..32, default 4)
  * Required env (apply mode): see ./lib.ts.
  * After a batch, run `just db-snapshot` to persist DB changes to snapshot/data.sql.
  */
@@ -21,7 +21,7 @@ function parseArgs(argv: string[]) {
   const noDb = flags.has('--no-db')
   const noStaged = flags.has('--no-staged')
   const concurrencyIdx = argv.indexOf('--concurrency')
-  const concurrency = concurrencyIdx >= 0 ? Number(argv[concurrencyIdx + 1]) : 4
+  const concurrency = concurrencyIdx >= 0 ? parseConcurrency(argv[concurrencyIdx + 1]) : 4
   const batchIdx = argv.indexOf('--batch')
   const urlIdx = argv.indexOf('--url')
   const fileIdx = argv.indexOf('--file')
@@ -38,6 +38,15 @@ function parseArgs(argv: string[]) {
     file: fileIdx >= 0 ? argv[fileIdx + 1] : null,
     slug: positional[0] ?? null,
   }
+}
+
+function parseConcurrency(value: string | undefined): number {
+  const concurrency = Number(value)
+  if (!Number.isSafeInteger(concurrency) || concurrency < 1 || concurrency > 32) {
+    console.error('--concurrency must be an integer between 1 and 32')
+    process.exit(1)
+  }
+  return concurrency
 }
 
 const args = parseArgs(process.argv.slice(2))
