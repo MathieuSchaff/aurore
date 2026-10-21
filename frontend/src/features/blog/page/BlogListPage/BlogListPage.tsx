@@ -44,10 +44,15 @@ export function BlogListPage({
   const [inputValue, setInputValue] = useState(q ?? '')
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
-  // Sync local input when URL param changes (browser back/forward).
+  // Cancel stale navigation when the URL or category changes or the page unmounts
+  // biome-ignore lint/correctness/useExhaustiveDependencies: category is a reset key even when q stays unchanged
   useEffect(() => {
     setInputValue(q ?? '')
-  }, [q])
+    return () => {
+      if (debounceRef.current) clearTimeout(debounceRef.current)
+      debounceRef.current = null
+    }
+  }, [q, category])
 
   const handleInput = (value: string) => {
     setInputValue(value)
