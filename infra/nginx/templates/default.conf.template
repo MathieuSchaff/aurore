@@ -1,9 +1,10 @@
 # reload-certs.sh only replaces ${DOMAIN}; nginx $variables must stay literal.
 
-# Keep API and static budgets separate. A cold SPA load once throttled /api/auth/refresh.
+# Keep page, asset and API budgets separate: cold loads fetch hundreds of modules
 # Bursts must stay generous because mobile networks can share one public IP.
 limit_req_zone $binary_remote_addr zone=api_limit:10m rate=10r/s;
-limit_req_zone $binary_remote_addr zone=static_limit:10m rate=30r/s;
+limit_req_zone $binary_remote_addr zone=page_limit:10m rate=30r/s;
+limit_req_zone $binary_remote_addr zone=asset_limit:10m rate=300r/s;
 # Return 429 for throttling; 503 looks like nginx or the backend is down.
 limit_req_status 429;
 
@@ -173,8 +174,18 @@ server {
         proxy_read_timeout 60s;
     }
 
+    location ^~ /assets/ {
+        limit_req zone=asset_limit burst=1000 nodelay;
+
+        proxy_pass http://frontend;
+        proxy_http_version 1.1;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-CSP-Nonce $request_id;
+    }
+
     location / {
-        limit_req zone=static_limit burst=100 nodelay;
+        limit_req zone=page_limit burst=100 nodelay;
 
         proxy_pass http://frontend;
         proxy_http_version 1.1;
