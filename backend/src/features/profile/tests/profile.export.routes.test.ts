@@ -1,9 +1,10 @@
 import { afterEach, beforeAll, beforeEach, describe, expect, it } from 'bun:test'
 
-import { HTTP_STATUS } from '@aurore/shared'
+import { HTTP_STATUS, type UserExport } from '@aurore/shared'
 
 import { and, eq } from 'drizzle-orm'
 
+import { userBans } from '../../../db/schema/auth/user-bans'
 import { users } from '../../../db/schema/auth/users'
 import { userIngredientAnalysisScore } from '../../../db/schema/ingredients/user-ingredient-analysis-score'
 import { securityEvents } from '../../../db/schema/monitoring/security-events'
@@ -23,6 +24,7 @@ import {
 } from '../../../tests/helpers/route-test-helpers'
 import { TEST_CREDENTIALS } from '../../../tests/helpers/test-credentials'
 import {
+  createTestAdminUser,
   createTestIngredient,
   createTestProduct,
   createTestUser,
@@ -80,6 +82,29 @@ describe('GET /profile/export', () => {
     expect(disp).toContain('attachment')
     expect(disp).toMatch(/filename="aurore-export-[0-9a-f-]+-\d{8}\.json"/)
     expect(res.headers.get('Cache-Control')).toBe('no-store')
+  })
+
+  it('exports the suspended owner’s data with an existing authenticated session', async () => {
+    const user = await createTestUser(
+      TEST_CREDENTIALS.toto.rawEmail,
+      TEST_CREDENTIALS.toto.rawPassword
+    )
+    const admin = await createTestAdminUser('export-ban-admin@test.local', 'Azerty123!')
+    await testDb.insert(userBans).values({
+      userId: user.id,
+      bannedBy: admin.id,
+      scope: 'global',
+      reason: 'Account locked',
+    })
+
+    const res = await authGet(app, '/api/profile/export', token)
+
+    // Registering requireNotBanned before /export would turn this into a 403
+    expect(res.status).toBe(HTTP_STATUS.OK)
+    expect(res.headers.get('Content-Disposition')).toContain('attachment')
+    expect(res.headers.get('Cache-Control')).toBe('no-store')
+    const body = (await res.json()) as UserExport
+    expect(body.user.email).toBe(TEST_CREDENTIALS.toto.rawEmail)
   })
 
   it('returns JSON with every expected top-level section', async () => {

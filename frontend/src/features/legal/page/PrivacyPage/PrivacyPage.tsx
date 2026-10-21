@@ -15,7 +15,7 @@ export function PrivacyPage() {
       <header className="privacy-header">
         <PageTitle
           title="Politique de confidentialité"
-          subtitle="Aurore — Dernière mise à jour : 29 août 2026"
+          subtitle="Aurore : dernière mise à jour le 22 octobre 2026"
         />
       </header>
 
@@ -258,7 +258,14 @@ export function PrivacyPage() {
                       <Link to="/profile" className="privacy-link">
                         Profil → Compte → Supprimer mon compte
                       </Link>
-                      .
+                      . Si votre compte est suspendu, l&apos;
+                      <Link to="/auth/banned" className="privacy-link">
+                        écran de suspension
+                      </Link>{' '}
+                      permet aussi de supprimer votre compte, même après expiration de votre
+                      session. Confirmez votre identité avec votre email et votre mot de passe, ou
+                      avec Google pour un compte lié. La suppression nécessite une confirmation
+                      explicite.
                     </>
                   ),
                 },
@@ -270,7 +277,13 @@ export function PrivacyPage() {
                       <Link to="/profile" className="privacy-link">
                         Profil → Compte → Mes données
                       </Link>
-                      .
+                      . Si votre compte est suspendu, l&apos;
+                      <Link to="/auth/banned" className="privacy-link">
+                        écran de suspension
+                      </Link>{' '}
+                      permet aussi d&apos;exporter vos données, même après expiration de votre
+                      session. Confirmez votre identité avec votre email et votre mot de passe, ou
+                      avec Google pour un compte lié.
                     </>
                   ),
                 },
