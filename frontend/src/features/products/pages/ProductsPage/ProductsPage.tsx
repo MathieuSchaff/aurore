@@ -2,7 +2,7 @@ import { PRODUCT_DOMAIN_TAB_META, PRODUCT_DOMAIN_TABS, type ProductDomainTab } f
 
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { getRouteApi, useHydrated, useNavigate } from '@tanstack/react-router'
-import { Package } from 'lucide-react'
+import { AlertTriangle, Package } from 'lucide-react'
 import { startTransition, useCallback, useEffect, useMemo, useState } from 'react'
 
 import { Button } from '@/component/Button/Button'
@@ -119,7 +119,7 @@ export function ProductsPage() {
   )
 
   // Keep freshness policy with the query definition so loaders and components agree
-  const { data, isLoading, isPlaceholderData, error } = useQuery({
+  const { data, isLoading, isPlaceholderData, error, refetch, isFetching } = useQuery({
     ...productQueries.list(apiFilters, currentViewerId),
     placeholderData: (prev) => prev,
   })
@@ -188,8 +188,6 @@ export function ProductsPage() {
     void navigate({ search: (prev) => ({ ...prev, page: 1 }), replace: true })
   }, [isPageOutOfRange, isPlaceholderData, error, navigate])
 
-  // 429 on the list read: distinguish "throttled" from "empty catalogue" (placeholder kept on paginate).
-  const showRateLimit = isRateLimitError(error)
   // Random order has no stable page sequence, so page numbers are meaningless there.
   const showPager = totalPages > 1 && sort !== 'random'
 
@@ -306,8 +304,8 @@ export function ProductsPage() {
           {(isLoading && !isPlaceholderData) || (isPageOutOfRange && !error) ? (
             <ProductsGridSkeleton />
           ) : items.length === 0 ? (
-            showRateLimit ? (
-              <RateLimitEmptyState error={error} />
+            error ? (
+              <ProductsLoadError error={error} onRetry={() => refetch()} isRetrying={isFetching} />
             ) : effectiveFilterCount > 0 ? (
               <EmptyState
                 icon={<Package size={24} />}
@@ -361,5 +359,28 @@ export function ProductsPage() {
         />
       )}
     </>
+  )
+}
+
+function ProductsLoadError({
+  error,
+  onRetry,
+  isRetrying,
+}: {
+  error: unknown
+  onRetry: () => void
+  isRetrying: boolean
+}) {
+  if (isRateLimitError(error)) return <RateLimitEmptyState error={error} />
+  return (
+    <EmptyState
+      icon={<AlertTriangle size={24} />}
+      title="Chargement impossible"
+      subtitle="On n'a pas pu récupérer les produits. Réessaie dans un instant."
+    >
+      <Button onClick={onRetry} disabled={isRetrying}>
+        Réessayer
+      </Button>
+    </EmptyState>
   )
 }
