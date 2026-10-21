@@ -24,6 +24,7 @@ export function PrivacyAccessForm() {
     error,
     {
       invalid_credentials: 'Email ou mot de passe incorrect.',
+      too_many_requests: 'Trop de tentatives. Veuillez patienter avant de réessayer.',
       rate_limit_exceeded: 'Patientez cinq minutes avant un nouvel export.',
     },
     'Opération impossible. Réessayez.'
@@ -59,7 +60,10 @@ export function PrivacyAccessForm() {
         disabled={!credentials.success || pending}
         loading={download.isPending}
         onClick={() => {
-          if (credentials.success) download.mutate(credentials.data)
+          if (credentials.success) {
+            deletion.reset()
+            download.mutate(credentials.data)
+          }
         }}
       >
         Exporter mes données
@@ -75,10 +79,12 @@ export function PrivacyAccessForm() {
             disabled={!credentials.success || pending}
             loading={deletion.isPending}
             onClick={() => {
-              if (credentials.success)
+              if (credentials.success) {
+                download.reset()
                 deletion.mutate(credentials.data, {
                   onSuccess: () => navigate({ to: '/auth/login', search: { redirect: undefined } }),
                 })
+              }
             }}
           >
             Confirmer la suppression

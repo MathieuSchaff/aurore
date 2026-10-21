@@ -66,6 +66,53 @@ describe('privacy password access', () => {
     expect(readClientSession().status).toBe('anonymous')
   })
 
+  it('clears a rejected deletion when the following export succeeds', async () => {
+    server.use(
+      http.post('*/api/profile/access/delete-account', () =>
+        HttpResponse.json({ success: false, error: 'invalid_credentials' }, { status: 401 })
+      ),
+      http.post('*/api/profile/access/export', () =>
+        HttpResponse.json({ _meta: { userId: 'owner' } })
+      )
+    )
+    renderWithProviders(<PrivacyAccessForm />)
+    const user = userEvent.setup()
+    await user.type(screen.getByLabelText('Adresse email'), 'private@example.com')
+    await user.type(screen.getByLabelText('Mot de passe'), 'Passphrase123!')
+    await user.click(screen.getByRole('button', { name: 'Supprimer mon compte' }))
+    await user.click(screen.getByRole('button', { name: 'Confirmer la suppression' }))
+    expect(await screen.findByRole('alert')).toHaveTextContent(/incorrect/i)
+    await user.click(screen.getByRole('button', { name: 'Exporter mes données' }))
+    await waitFor(() => expect(downloadBlobAsFile).toHaveBeenCalled())
+    expect(screen.queryByRole('alert')).not.toBeInTheDocument()
+  })
+
+  it('replaces an old export error with the deletion rate limit message', async () => {
+    const deletionResponse = Promise.withResolvers<void>()
+    server.use(
+      http.post('*/api/profile/access/export', () =>
+        HttpResponse.json({ success: false, error: 'invalid_credentials' }, { status: 401 })
+      ),
+      http.post('*/api/profile/access/delete-account', async () => {
+        await deletionResponse.promise
+        return HttpResponse.json({ success: false, error: 'too_many_requests' }, { status: 429 })
+      })
+    )
+    renderWithProviders(<PrivacyAccessForm />)
+    const user = userEvent.setup()
+    await user.type(screen.getByLabelText('Adresse email'), 'private@example.com')
+    await user.type(screen.getByLabelText('Mot de passe'), 'Passphrase123!')
+    await user.click(screen.getByRole('button', { name: 'Exporter mes données' }))
+    expect(await screen.findByRole('alert')).toHaveTextContent(/incorrect/i)
+    await user.click(screen.getByRole('button', { name: 'Supprimer mon compte' }))
+    await user.click(screen.getByRole('button', { name: 'Confirmer la suppression' }))
+    expect(screen.queryByRole('alert')).not.toBeInTheDocument()
+    deletionResponse.resolve()
+    await waitFor(() =>
+      expect(screen.getByRole('alert')).toHaveTextContent(/trop de tentatives.*patienter/i)
+    )
+  })
+
   it('shows a local error when the password is rejected', async () => {
     server.use(
       http.post('*/api/profile/access/export', () =>
