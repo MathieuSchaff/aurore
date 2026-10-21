@@ -198,6 +198,25 @@ describe('Ingredient Tag Routes', () => {
         body: JSON.stringify({ expectedUpdatedAt, tags }),
       })
 
+    it('returns 404 when the ingredient was deleted after loading its version', async () => {
+      const ingredient = await createIngredient()
+      const tag = await createTag()
+      await expectOk(linkTag(ingredient.id, tag.id), HTTP_STATUS.CREATED)
+      const deletion = await client.ingredients[':id'].$delete(
+        { param: { id: ingredient.id } },
+        withAuth(adminToken)
+      )
+      expect(deletion.ok).toBe(true)
+
+      // A missing row must not be reported as another editor’s newer version
+      await expectError(
+        replaceTags(ingredient.id, ingredient.updatedAt, [{ tagId: tag.id }]),
+        HTTP_STATUS.NOT_FOUND,
+        'ingredient_not_found'
+      )
+      expect(await expectOk(listTags(ingredient.id))).toEqual([])
+    })
+
     it('rejects a tag replacement based on a stale ingredient version', async () => {
       const ingredient = await createIngredient()
       const firstTag = await createTag('Premier')

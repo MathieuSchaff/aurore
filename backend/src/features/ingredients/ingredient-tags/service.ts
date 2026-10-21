@@ -28,7 +28,15 @@ export async function replaceIngredientTagsWithVersion(
     )
     .returning({ id: ingredients.id })
 
-  if (!updated) throw new IngredientError('ingredient_update_conflict')
+  if (!updated) {
+    const [existing] = await database
+      .select({ id: ingredients.id })
+      .from(ingredients)
+      .where(eq(ingredients.id, ingredientId))
+      .limit(1)
+    if (!existing) throw new IngredientError('ingredient_not_found')
+    throw new IngredientError('ingredient_update_conflict')
+  }
 
   return replaceIngredientTags(database, ingredientId, input.tags)
 }
