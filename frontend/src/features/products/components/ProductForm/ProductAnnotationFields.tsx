@@ -42,22 +42,21 @@ export function ProductAnnotationFields({
         rows={4}
       />
 
-      {canManageLinks && (
-        <FormulaPreview
-          inci={form.inci}
-          category={form.category}
-          kind={form.kind}
-          name={form.name}
-          brand={form.brand}
-          texture={form.texture}
-          description={form.description}
-          allTags={allTags}
-          selectedTagIds={tagManager.tags.map((t) => t.tagId)}
-          linkedIngredientIds={ingredients.items.map((i) => i.ingredientId)}
-          onApplyTag={onApplyTag}
-          onAddIngredient={ingredients.onAdd}
-        />
-      )}
+      <FormulaPreview
+        canManageLinks={canManageLinks}
+        inci={form.inci}
+        category={form.category}
+        kind={form.kind}
+        name={form.name}
+        brand={form.brand}
+        texture={form.texture}
+        description={form.description}
+        allTags={allTags}
+        selectedTagIds={tagManager.tags.map((t) => t.tagId)}
+        linkedIngredientIds={ingredients.items.map((i) => i.ingredientId)}
+        onApplyTag={onApplyTag}
+        onAddIngredient={ingredients.onAdd}
+      />
 
       <Textarea
         label="Description"

@@ -10,7 +10,8 @@ import { ingredients } from '../../../db/schema/ingredients/ingredients'
 import { productTagTypes } from '../../../db/schema/tags/tags'
 import { productTagData } from '../../../db/seed/data/tags'
 import { testDb } from '../../../tests/db.test.config'
-import { createTestEnv, withAuth } from '../../../tests/helpers/createTestClient'
+import { expectRoleMatrix } from '../../../tests/helpers/authz-matrix'
+import { createTestEnv, type TestApp, withAuth } from '../../../tests/helpers/createTestClient'
 import { cleanDatabase } from '../../../tests/helpers/db-cleaner'
 import { expectOk } from '../../../tests/helpers/expectStatus'
 import { setupAndLoginContributor } from '../../../tests/helpers/route-test-helpers'
@@ -31,6 +32,7 @@ const VALID_PREVIEW_BODY = {
 
 describe('POST /products/formula-preview', () => {
   let token: string
+  let app: TestApp
 
   beforeEach(async () => {
     await cleanDatabase()
@@ -39,8 +41,15 @@ describe('POST /products/formula-preview', () => {
     // below would pass on an always-empty array.
     await testDb.insert(productTagTypes).values(productTagData)
     const env = await createTestEnv()
+    app = env.app
     token = await setupAndLoginContributor(env.app, TEST_CREDENTIALS.contributor)
   })
+
+  expectRoleMatrix(
+    () => app,
+    { method: 'POST', path: '/api/products/formula-preview', body: VALID_PREVIEW_BODY },
+    { user: HTTP_STATUS.OK, contributor: HTTP_STATUS.OK, admin: HTTP_STATUS.OK }
+  )
 
   it('returns 401 when unauthenticated', async () => {
     const env = await createTestEnv()

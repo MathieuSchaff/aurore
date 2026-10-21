@@ -12,6 +12,7 @@ import './FormulaPreview.css'
 const TEXTURE_CATEGORIES = new Set<ProductCategory>(['skincare', 'solaire', 'bodycare'])
 
 interface FormulaPreviewProps {
+  canManageLinks: boolean
   inci: string
   category: ProductCategory
   kind: string
@@ -45,6 +46,7 @@ function buildMutationInput(
 }
 
 export function FormulaPreview({
+  canManageLinks,
   inci,
   category,
   kind,
@@ -94,15 +96,16 @@ export function FormulaPreview({
   type Token = ProductFormulaPreview['tokens'][number]
   type MatchedToken = Token & { ingredient: NonNullable<Token['ingredient']> }
 
-  const matched = result?.tokens.filter((t): t is MatchedToken => t.ingredient !== null) ?? []
-  const knownNoRecord = result?.tokens.filter((t) => t.canonicalKey && !t.ingredient) ?? []
-  const unknown = result?.tokens.filter((t) => !t.canonicalKey && !t.ingredient) ?? []
+  const tokens = result?.tokens ?? []
+  const matched = tokens.filter((t): t is MatchedToken => t.ingredient !== null)
+  const knownNoRecord = tokens.filter((t) => t.canonicalKey && !t.ingredient)
+  const unknown = tokens.filter((t) => !t.canonicalKey && !t.ingredient)
 
   const isAdded = (ingredientId: string) => linkedIngredientIds.includes(ingredientId)
 
   // Addable = matched but not yet linked or being linked; deduped by ingredient id.
   const addableIngredients = matched
-    .filter((t) => !isAdded(t.ingredient.id))
+    .filter((t) => canManageLinks && !isAdded(t.ingredient.id))
     .filter((t, idx, arr) => arr.findIndex((x) => x.ingredient.id === t.ingredient.id) === idx)
 
   const inputsDrifted = analyzedKey !== null && currentKey !== analyzedKey
@@ -159,19 +162,12 @@ export function FormulaPreview({
                       className="formula-preview__chip formula-preview__chip--matched"
                     >
                       <span className="formula-preview__chip-name">{ing.name}</span>
-                      {isLinked ? (
-                        <span className="formula-preview__chip-added">Ajouté</span>
-                      ) : (
-                        <Button
-                          type="button"
-                          variant="ghost"
-                          size="sm"
-                          aria-label={`Ajouter ${ing.name} aux ingrédients`}
-                          onClick={() => onAddIngredient(ing.id, ing.name)}
-                        >
-                          + Ajouter
-                        </Button>
-                      )}
+                      <FormulaPreviewAction
+                        canManageLinks={canManageLinks}
+                        added={isLinked}
+                        label={`Ajouter ${ing.name} aux ingrédients`}
+                        onAdd={() => onAddIngredient(ing.id, ing.name)}
+                      />
                     </li>
                   )
                 })}
@@ -261,25 +257,18 @@ export function FormulaPreview({
                               signalé
                             </span>
                           )}
-                          {isAdded ? (
-                            <span className="formula-preview__chip-added">Ajouté</span>
-                          ) : (
-                            <Button
-                              type="button"
-                              variant="ghost"
-                              size="sm"
-                              aria-label={`Ajouter le tag ${tag.label}`}
-                              onClick={() => onApplyTag(tag.id, st.relevance)}
-                            >
-                              + Ajouter
-                            </Button>
-                          )}
+                          <FormulaPreviewAction
+                            canManageLinks={canManageLinks}
+                            added={isAdded}
+                            label={`Ajouter le tag ${tag.label}`}
+                            onAdd={() => onApplyTag(tag.id, st.relevance)}
+                          />
                         </li>
                       )
                     })}
                   </ul>
                   <p className="formula-preview__microcopy">
-                    Suggestions issues de la lecture de la liste — modifiables avant publication.
+                    Suggestions issues de la lecture de la liste.
                   </p>
                 </>
               )}
@@ -292,5 +281,25 @@ export function FormulaPreview({
         </>
       )}
     </section>
+  )
+}
+
+function FormulaPreviewAction({
+  canManageLinks,
+  added,
+  label,
+  onAdd,
+}: {
+  canManageLinks: boolean
+  added: boolean
+  label: string
+  onAdd: () => void
+}) {
+  if (!canManageLinks) return null
+  if (added) return <span className="formula-preview__chip-added">Ajouté</span>
+  return (
+    <Button type="button" variant="ghost" size="sm" aria-label={label} onClick={onAdd}>
+      + Ajouter
+    </Button>
   )
 }

@@ -23,6 +23,7 @@ const MUTATION_CONTEXT = {
 } satisfies MutationFunctionContext
 
 const PROPS = {
+  canManageLinks: true,
   inci: 'Aqua, Glycerin',
   category: 'skincare',
   kind: 'serum',
@@ -56,6 +57,45 @@ describe('FormulaPreview input drift', () => {
     )
     vi.mocked(usePreviewProductFormula).mockReturnValue(makeIdleMutationResult(mutate))
   })
+
+  it.each([false, true])(
+    'shows formula results with mutation controls=%s',
+    async (canManageLinks) => {
+      const result = {
+        tokens: ['Glycerin', 'Niacinamide'].map((name) => ({
+          raw: name,
+          normalized: name.toLowerCase(),
+          canonicalKey: name.toLowerCase(),
+          ingredient: { id: name, name, slug: name.toLowerCase() },
+        })),
+        suggestedTags: [{ tagSlug: 'hydrating', relevance: 'primary', source: 'auto' }],
+        autoTagEligible: true,
+      } satisfies ProductFormulaPreview
+      vi.mocked(usePreviewProductFormula).mockReturnValue(
+        makeIdleMutationResult(
+          vi.fn((variables, options) => {
+            options?.onSuccess?.(result, variables, undefined, MUTATION_CONTEXT)
+          })
+        )
+      )
+      renderWithProviders(
+        <FormulaPreview
+          {...PROPS}
+          canManageLinks={canManageLinks}
+          allTags={[{ id: 'tag', slug: 'hydrating', label: 'Hydratant' }]}
+        />
+      )
+
+      await userEvent.click(screen.getByRole('button', { name: /Analyser la formule/ }))
+
+      expect(screen.getByText('Glycerin', { exact: true })).toBeInTheDocument()
+      expect(screen.getByText('Hydratant', { exact: true })).toBeInTheDocument()
+      // Reading the preview must not grant ingredient or tag editing
+      expect(screen.queryAllByRole('button', { name: /Ajouter|Tout ajouter/ })).toHaveLength(
+        canManageLinks ? 4 : 0
+      )
+    }
+  )
 
   it.each(CHANGES)('marks results stale after input changes: %j', async (changes) => {
     const { rerender } = renderWithProviders(<FormulaPreview {...PROPS} />)
