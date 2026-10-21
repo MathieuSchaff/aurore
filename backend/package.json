@@ -27,7 +27,7 @@
     "@rcmade/hono-docs": "^1.4.0",
     "@types/bun": "^1.4.3",
     "@types/node": "^26.6.5",
-    "drizzle-kit": "^0.31.11",
+    "drizzle-kit": "file:../vendor/drizzle-kit-0.31.11-no-esm-loader.tgz",
     "typescript": "^7.0.2"
   },
   "dependencies": {

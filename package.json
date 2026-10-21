@@ -16,9 +16,6 @@
     "shared"
   ],
   "overrides": {
-    "ts-morph": "27.0.2",
-    "@esbuild-kit/core-utils": {
-      "esbuild": "0.25.12"
-    }
+    "ts-morph": "27.0.2"
   }
 }

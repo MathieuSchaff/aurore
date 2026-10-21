@@ -1,8 +1,9 @@
 # Dependency patches
 
-No dependency patches are currently applied. This directory records compatibility
+No Bun `patchedDependencies` patches are currently applied. This directory records compatibility
 decisions and remains available to Docker dependency stages. Frozen installs use the
-unmodified registry packages at the versions retained in `bun.lock`.
+versions retained in `bun.lock`, including the vendored Drizzle Kit manifest correction
+described below.
 
 When removing the former Vite patch from an existing checkout, run
 `bun install --frozen-lockfile --force`: a plain frozen install can leave the
@@ -17,15 +18,56 @@ through its declared dependency. Neither branch needs a Babel override.
 PostCSS 8.5.31, Nano ID 3.3.20, Undici 8.12.3 and Drizzle Kit's esbuild 0.25.12
 also resolve within their consumers' declared ranges without overrides. Their existing
 versions remain in `bun.lock`; use a frozen install to reproduce the qualified graph.
-The separate esbuild override for the legacy esbuild-kit loader remains an exception
-outside that loader's declared range.
+The unused legacy esbuild-kit loader is removed from the vendored Drizzle Kit manifest.
 
 Vite, brace-expansion, fast-uri, js-yaml, seroval, seroval-plugins and tsx also
 resolve without overrides. Removing their seven overrides preserves every package
 entry, integrity and dependency relationship in the existing lockfile. The frontend
 still pins Vite 8.3.5 directly; its former TCP patch has been retired.
-Only the ts-morph and legacy esbuild-kit exceptions remain in the root manifest.
+Only the ts-morph override remains in the root manifest.
 Keep frozen installs: regenerating the full graph can update unrelated packages.
+
+## Drizzle Kit without the unused legacy loader
+
+The backend uses [drizzle-kit-0.31.11-no-esm-loader.tgz](../vendor/drizzle-kit-0.31.11-no-esm-loader.tgz),
+repacked from the [official 0.31.11 tarball](https://registry.npmjs.org/drizzle-kit/-/drizzle-kit-0.31.11.tgz).
+Its only change removes `@esbuild-kit/esm-loader: ^2.5.5` from `dependencies` in
+`package/package.json`. The other 12 files, including all distributed JavaScript,
+remain byte-identical. Package version and license remain unchanged.
+
+The distributed CLI no longer references that loader: Node loads TypeScript through
+tsx, while Bun loads it natively. Keeping the unused dependency pulls in core-utils
+and its obsolete esbuild contract. Removing it at the package source also removes
+the need for the root `@esbuild-kit/core-utils` esbuild override. Drizzle Kit still
+resolves its own esbuild 0.25.12; the root and tsx retain 0.28.2. Drizzle ORM remains
+0.45.4 and the independent ts-morph override remains 27.0.2.
+
+Integrity of the official archive:
+`sha512-YCYqxTLIB2OCqf6w9/Vef13baBVbwQIPcbT4Y56AfO6B9ajZhDhD8Jkveg/hJvT/iuMloKD/IYYkyMMNhr7Kqg==`.
+SHA-256 of the vendored archive:
+`6d5e45804a3096a080a63a410e2130593f10ddf5ae03dbc0f727a1be06a2bbf4`.
+To reproduce the contents, verify the official archive against that integrity,
+extract it, delete that single dependency key, serialize the manifest with two-space
+indentation and a trailing newline, then repack `package/`. Archive timestamps may
+change the compressed hash; compare every extracted file as well.
+
+Keep the relative backend `file:../vendor/` reference and the matching lock together.
+CI caches include the lock hash; Docker copies `vendor/` before each dependency install.
+When replacing this archive, use a new filename and regenerate its lock entry so both
+caches invalidate. Do not use a post-install manifest patch as proof of graph removal.
+Verify removal in a clean `node_modules` tree: a frozen install over an existing
+checkout can leave the old loader directories present and still resolvable.
+
+Retire this archive when a stable upstream package removes the legacy chain or supplies
+a compatible dependency contract. Qualify config loading and SQL generation under
+both Node and Bun, native migrations on an empty database, clean frozen installs,
+full and production dependency audits, application tests and Docker builds. Kit's
+`migrate` and Studio still need a separate PostgreSQL Node driver; Aurore's CI uses
+`backend/src/db/migrate.ts` with Bun SQL. No driver is added by this change.
+
+Rollback restores the registry dependency, the nested esbuild override and the prior
+lock together. Restoring only the registry dependency would bring back the old
+esbuild range. This rollback does not affect the ts-morph exception.
 
 ## Initial non-SSR route hydration
 
