@@ -16,6 +16,7 @@ the guard refuses rather than write to the wrong database. Everything goes throu
 | `just prod-security` | Security events from the last 30 days (input-guard injection and XSS hits). Read-only |
 | `just prod-moderation` | Moderation acts that leave nothing on the domain row: lifted or updated bans, role changes. Read-only |
 | `just prod-pool` | Connection pool state |
+| `just smoke-public` | Read-only browser verification from the laptop: document status, assets, hydration, search and public routes. `SMOKE_URL` defaults to `https://aurore-app.fr` |
 
 Any recipe can be run remotely:
 
@@ -39,6 +40,10 @@ just prod-ssh 'TARGET=prod just <recipe> --write'
 | `just env-prod-check` | Internal guard of `prod`: requires `.env.prod` |
 
 Only configuration is synced by a deploy: the code ships as a prebuilt CI image.
+
+After deployment, run `just smoke-public` alongside health, pool and log checks. A readiness 200
+does not prove the browser can download and hydrate the frontend. Local cold-load bursts and
+probe regression checks are documented in [Tests](tests.md).
 
 ## Data fixes
 

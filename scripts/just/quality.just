@@ -79,6 +79,22 @@ test-csp:
 test-auth-ssr:
     cd frontend && VITE_API_URL=http://127.0.0.1:4190 bunx vite build && bun e2e/auth-ssr/check.ts
 
+[doc('Read-only public browser smoke: HTTP failures, assets, hydration and navigation. SMOKE_URL defaults to production.')]
+[group('quality')]
+smoke-public:
+    bun frontend/e2e/smoke/check.ts
+
+[doc('Verify smoke probes reject HTTP, asset and JavaScript failures before hydration times out. No running app needed.')]
+[group('quality')]
+test-smoke-guard:
+    bun frontend/e2e/smoke/guard.check.ts
+
+[doc('Check 12 cold browser contexts and isolated rate limits through the local HTTP/2 edge. Prereq: just profile-prod.')]
+[group('quality')]
+test-cold-load:
+    SMOKE_URL=https://localhost bun frontend/e2e/smoke/check.ts cold
+    bun frontend/e2e/smoke/limits.check.ts
+
 [doc('Regenerate the OpenAPI spec from the backend AppType (static ts-morph analysis, no runtime). Serve it via the dev API at /api/docs.')]
 [group('dev')]
 docs:

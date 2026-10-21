@@ -79,6 +79,22 @@ dependencies, Docker config, migrations, or the DB snapshot changed.
 | :--- | :--- | :--- |
 | `just test-csp` | Builds the prod bundle, serves it with the nginx CSP, drives headless chromium, fails on any violation | Editing the CSP, adding a frontend dependency, touching `frontend/src/client.tsx` |
 | `just test-auth-ssr` | Builds the prod bundle, starts the generated Bun server, hydrates it in headless chromium. Checks the hinted server shell on `/` and `/products` and the four client outcomes (failed refresh, hint gone before hydration, restored session, anonymous without hint). Fails on hydration-mismatch console errors | Editing auth boot, the root loader, or the server-hint context |
+| `just test-smoke-guard` | Browser fixtures verify immediate rejection of document/asset HTTP errors, failed requests, JS exceptions and console errors, plus a healthy document | Editing the public smoke probe; no running app needed |
+| `just test-cold-load` | Twelve fresh browser contexts in three rounds of four, over local HTTPS/HTTP2. Then checks separate asset/page/API budgets and active page/API/auth throttling | Editing nginx limits or frontend loading. Requires `just dev-d` and `just profile-prod` first |
+
+The cold-load guard uses the production build and real nginx template against the local backend.
+It deliberately exhausts local page/API budgets; do not run other browser probes simultaneously.
+Bursts refuse remote hosts. Stop the profile afterwards with `just profile-prod-down`.
+
+## Public smoke
+
+`just smoke-public` checks the deployed site from the laptop in a fresh anonymous browser context.
+It covers catalogue search, a direct product load, mobile composition when expandable, public pages
+and the protected collection redirect. It requires document HTTP 200 and hydration, and fails on
+any HTTP 4xx/5xx, failed resource request, JS exception or console error. It writes no application data.
+
+The default target is `https://aurore-app.fr`. Use `SMOKE_URL=https://localhost just smoke-public`
+for the local production profile. Only local hosts allow self-signed TLS certificates.
 
 ## Bench
 
