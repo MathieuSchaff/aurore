@@ -452,6 +452,11 @@ describe('AdminReportsPage', () => {
   it.each([
     ['not_found', 404, 'Signalement introuvable.'],
     ['forbidden', 403, 'Ce signalement est désormais réservé aux administrateurs.'],
+    [
+      'report_transition_conflict',
+      409,
+      'Ce signalement a déjà été traité par un autre modérateur.',
+    ],
   ] as const)('maps a %s resolve failure to its local message', async (code, status, message) => {
     serveQueries([baseReports[0]])
     const { resolve } = setupMutations()

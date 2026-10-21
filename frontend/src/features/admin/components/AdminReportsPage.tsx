@@ -1,4 +1,9 @@
-import type { CommonErrorCode, ReportStatus, ReportTargetType } from '@aurore/shared'
+import type {
+  CommonErrorCode,
+  ReportErrorCode,
+  ReportStatus,
+  ReportTargetType,
+} from '@aurore/shared'
 
 import { useQuery, useSuspenseQuery } from '@tanstack/react-query'
 import { Link } from '@tanstack/react-router'
@@ -42,7 +47,8 @@ const TARGET_TO_MODERATE: Record<
   ingredient: 'ingredients',
 }
 
-const ACTION_ERROR_MESSAGES: Partial<Record<CommonErrorCode, string>> = {
+const ACTION_ERROR_MESSAGES: Partial<Record<ReportErrorCode, string>> = {
+  report_transition_conflict: 'Ce signalement a déjà été traité par un autre modérateur.',
   not_found: 'Signalement introuvable.',
   forbidden: 'Ce signalement est désormais réservé aux administrateurs.',
 }

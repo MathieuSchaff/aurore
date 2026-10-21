@@ -9,6 +9,7 @@ import type {
   ModerateProfileInput,
   ModerationStatus,
   ModerationTarget,
+  ReportErrorCode,
   ReportStatus,
   ResolveReportInput,
   ReviewRoleRequestErrorCode,
@@ -23,12 +24,13 @@ import type {
 import { type QueryClient, queryOptions, useMutation, useQueryClient } from '@tanstack/react-query'
 
 import { api } from '../api'
-import { throwIfNotOk, unwrapData } from '../helpers/apiError'
+import { isApiErrorCode, throwIfNotOk, unwrapData } from '../helpers/apiError'
 import { catalogSubmissionKeys } from './catalog-submissions'
 import { invalidateDiscussionReads } from './discussions'
 import { invalidateIngredientReads } from './ingredients'
 import {
   invalidateProductAuthorReads,
+  invalidateProductProjections,
   invalidateProductReads,
   invalidateProductReviewReads,
 } from './products'
@@ -79,10 +81,12 @@ const REVIEW_SUGGESTED_EDIT_HANDLED_ERROR_CODES = [
 const RESOLVE_REPORT_HANDLED_ERROR_CODES = [
   'not_found',
   'forbidden',
-] as const satisfies readonly CommonErrorCode[]
+  'report_transition_conflict',
+] as const satisfies readonly ReportErrorCode[]
 const ESCALATE_REPORT_HANDLED_ERROR_CODES = [
   'not_found',
-] as const satisfies readonly CommonErrorCode[]
+  'report_transition_conflict',
+] as const satisfies readonly ReportErrorCode[]
 const MODERATE_CONTENT_HANDLED_ERROR_CODES = [
   'not_found',
   'invalid_input',
@@ -302,6 +306,11 @@ export function useResolveReport() {
       })
       return unwrapData(res)
     },
+    onError: (error) => {
+      if (isApiErrorCode(error, 'report_transition_conflict')) {
+        return qc.invalidateQueries({ queryKey: [...adminKeys.all, 'reports'] })
+      }
+    },
     // Broad prefix: resolving from the escalated tab must also refresh that view; a status-only key would miss it.
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: [...adminKeys.all, 'reports'] })
@@ -319,11 +328,26 @@ export function useEscalateReport() {
       const res = await api.admin.reports[':id'].escalate.$patch({ param: { id } })
       return unwrapData(res)
     },
+    onError: (error) => {
+      if (isApiErrorCode(error, 'report_transition_conflict')) {
+        return qc.invalidateQueries({ queryKey: [...adminKeys.all, 'reports'] })
+      }
+    },
     // Broad prefix: refreshes all status/escalated views (2-element key partial match).
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: [...adminKeys.all, 'reports'] })
     },
   })
+}
+
+function invalidateCatalogReads(qc: QueryClient, kind: CatalogKind) {
+  invalidateProductReads(qc)
+  if (kind === 'product') {
+    invalidateProductProjections(qc)
+  } else {
+    invalidateIngredientReads(qc)
+    qc.invalidateQueries({ queryKey: catalogSubmissionKeys.mine() })
+  }
 }
 
 export function useReviewSuggestedEdit() {
@@ -338,15 +362,10 @@ export function useReviewSuggestedEdit() {
     // A decision moves a row between status tabs, so every cached view must refresh
     onSuccess: (edit) => {
       qc.invalidateQueries({ queryKey: [...adminKeys.all, 'suggested-edits'] })
-      if (edit.status === 'accepted' && edit.targetType === 'product') {
-        invalidateProductReads(qc)
-      }
-      if (edit.status === 'accepted' && edit.targetType === 'ingredient') {
-        invalidateIngredientReads(qc)
-      }
+
       if (edit.status === 'accepted') {
         qc.invalidateQueries({ queryKey: [...adminKeys.all, 'catalog-queue'] })
-        qc.invalidateQueries({ queryKey: catalogSubmissionKeys.mine() })
+        invalidateCatalogReads(qc, edit.targetType)
       }
     },
   })
@@ -399,10 +418,8 @@ export function useModerateContent() {
       qc.invalidateQueries({ queryKey: adminKeys.preview(vars.target, vars.id) })
       // Hiding/restoring shifts a product or ingredient between catalog queue views; no-op when no queue is mounted.
       qc.invalidateQueries({ queryKey: [...adminKeys.all, 'catalog-queue'] })
-      // Owner's submissions dashboard renders the moderation badge + note; refresh it too (no-op when not mounted).
-      qc.invalidateQueries({ queryKey: catalogSubmissionKeys.mine() })
-      if (vars.target === 'products') invalidateProductReads(qc)
-      if (vars.target === 'ingredients') invalidateIngredientReads(qc)
+      if (vars.target === 'products') invalidateCatalogReads(qc, 'product')
+      if (vars.target === 'ingredients') invalidateCatalogReads(qc, 'ingredient')
       if (vars.target === 'reviews') {
         invalidateProductReviewReads(qc)
         invalidateProfileReviewReads(qc)
@@ -435,10 +452,7 @@ export function useVerifyCatalogItem() {
     },
     onSuccess: (_data, vars) => {
       qc.invalidateQueries({ queryKey: [...adminKeys.all, 'catalog-queue'] })
-      // Verifying flips the owner's submissions badge to « Vérifiée ».
-      qc.invalidateQueries({ queryKey: catalogSubmissionKeys.mine() })
-      if (vars.kind === 'product') invalidateProductReads(qc)
-      if (vars.kind === 'ingredient') invalidateIngredientReads(qc)
+      invalidateCatalogReads(qc, vars.kind)
     },
   })
 }

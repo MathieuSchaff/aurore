@@ -321,7 +321,7 @@ export const productQueries = {
 
 type ProductListData = ApiData<typeof api.products.$get>
 
-function invalidateProductProjections(qc: QueryClient) {
+export function invalidateProductProjections(qc: QueryClient) {
   qc.invalidateQueries({ queryKey: catalogSubmissionKeys.mine() })
   qc.invalidateQueries({ queryKey: userProductKeys.all })
   qc.invalidateQueries({ queryKey: comparisonKeys.all })

@@ -1,6 +1,7 @@
 import type {
   AdminUserAccount,
   CatalogQueueResponse,
+  ComparisonSummary,
   DiscussionThread,
   DiscussionThreadWithReplies,
   Ingredient,
@@ -8,6 +9,7 @@ import type {
   ListSuggestedEditsResponse,
   ModerateContentResult,
   MySubmissionsResponse,
+  ProductDetailPage,
   ProductsPage,
   PublicProductReviewsResponse,
   PublicProfileReviewsResponse,
@@ -25,7 +27,7 @@ import type { ApiData, api } from '@/lib/api'
 import { ApiError } from '@/lib/helpers/apiError'
 import { PRODUCT_DETAILS, PRODUCTS } from '@/test/msw/fixtures/products'
 import { server } from '@/test/msw/server'
-import { createTestQueryClient, renderHookWithProviders } from '@/test/utils'
+import { createTestQueryClient, makeUserProduct, renderHookWithProviders } from '@/test/utils'
 import {
   adminQueries,
   useEscalateReport,
@@ -36,10 +38,12 @@ import {
   useVerifyCatalogItem,
 } from '../admin'
 import { catalogSubmissionQueries } from '../catalog-submissions'
+import { comparisonQueries } from '../comparisons'
 import { discussionQueries } from '../discussions'
 import { ingredientQueries } from '../ingredients'
 import { productQueries } from '../products'
 import { profileQueries } from '../profile'
+import { userProductQueries } from '../user-products'
 
 const PRODUCT = PRODUCT_DETAILS[0]
 const PRODUCT_LIST = {
@@ -109,6 +113,101 @@ function ingredientListHandler(recordRead: () => void) {
 }
 
 describe('admin catalog convergence', () => {
+  it.each([
+    ['product', 'moderate'],
+    ['product', 'review'],
+    ['product', 'verify'],
+    ['ingredient', 'moderate'],
+    ['ingredient', 'review'],
+    ['ingredient', 'verify'],
+  ] as const)('refreshes dependent reads after %s %s', async (kind, action) => {
+    const reads = { collection: 0, comparisons: 0, composition: 0 }
+    const reviewedEdit = {
+      id: '44444444-4444-4444-8444-444444444444',
+      proposerId: '55555555-5555-4555-8555-555555555555',
+      targetType: kind,
+      targetId: kind === 'product' ? PRODUCT.id : INGREDIENT.id,
+      field: 'name',
+      proposedValue: 'Updated name',
+      status: 'accepted',
+      reviewedBy: '66666666-6666-4666-8666-666666666666',
+      reviewedAt: '2026-08-20T12:00:00.000Z',
+      createdAt: '2026-08-20T11:00:00.000Z',
+    } satisfies SuggestedEditView
+    const page: ProductDetailPage = {
+      product: PRODUCT,
+      userStatus: null,
+      dermoProfile: null,
+      assessment: null,
+      preferenceTargets: { ingredients: [], tags: [] },
+      unavailable: [],
+    }
+    const comparisons: ComparisonSummary[] = []
+    server.use(
+      http.get('*/api/user-products', () => {
+        reads.collection++
+        return HttpResponse.json({ success: true, data: [makeUserProduct()] })
+      }),
+      http.get('*/api/product-comparisons', () => {
+        reads.comparisons++
+        return HttpResponse.json({ success: true, data: comparisons })
+      }),
+      http.get('*/api/products/:slug/page', () => {
+        reads.composition++
+        return HttpResponse.json({ success: true, data: page })
+      }),
+      http.patch('*/api/admin/moderation/:target/:id', () =>
+        HttpResponse.json(hiddenContentResult(reviewedEdit.targetId))
+      ),
+      http.patch('*/api/admin/suggested-edits/:id', () =>
+        HttpResponse.json({ success: true, data: reviewedEdit })
+      ),
+      http.patch('*/api/products/:id/quality', () =>
+        HttpResponse.json({ success: true, data: PRODUCT })
+      ),
+      http.patch('*/api/ingredients/:id/quality', () =>
+        HttpResponse.json({ success: true, data: INGREDIENT })
+      )
+    )
+    const { result } = renderHookWithProviders(() => ({
+      collection: useQuery(userProductQueries.list()),
+      comparisons: useQuery(comparisonQueries.list()),
+      composition: useQuery(productQueries.detailPage(PRODUCT.slug, null)),
+      moderate: useModerateContent(),
+      review: useReviewSuggestedEdit(),
+      verify: useVerifyCatalogItem(),
+    }))
+    await waitFor(() => {
+      expect(result.current.collection.isSuccess).toBe(true)
+      expect(result.current.comparisons.isSuccess).toBe(true)
+      expect(result.current.composition.isSuccess).toBe(true)
+    })
+    expect(reads).toEqual({ collection: 1, comparisons: 1, composition: 1 })
+    await act(async () => {
+      if (action === 'moderate') {
+        await result.current.moderate.mutateAsync({
+          target: kind === 'product' ? 'products' : 'ingredients',
+          id: reviewedEdit.targetId,
+          body: { status: 'hidden' },
+        })
+      } else if (action === 'review') {
+        await result.current.review.mutateAsync({
+          id: reviewedEdit.id,
+          body: { status: 'accepted' },
+        })
+      } else {
+        await result.current.verify.mutateAsync({ kind, id: reviewedEdit.targetId })
+      }
+    })
+    await waitFor(() =>
+      expect(reads).toEqual({
+        collection: kind === 'product' ? 2 : 1,
+        comparisons: kind === 'product' ? 2 : 1,
+        composition: 2,
+      })
+    )
+  })
+
   it('refetches active product detail and list after accepting its suggested edit', async () => {
     let productDetailReads = 0
     let productListReads = 0
@@ -672,6 +771,63 @@ describe('admin catalog convergence', () => {
       })
 
       await waitFor(() => expect(reads).toEqual({ open: 2, escalated: 2 }))
+    }
+  )
+
+  it.each(['resolve', 'escalate'] as const)(
+    'refreshes report views after a conflicting %s decision',
+    async (action) => {
+      let changed = false
+      server.use(
+        http.get('*/api/admin/reports', () =>
+          HttpResponse.json({
+            success: true,
+            data: { items: changed ? [] : [REPORT] } satisfies ListReportsResponse,
+          })
+        ),
+        http.patch('*/api/admin/reports/:id', () => {
+          changed = true
+          return HttpResponse.json(
+            { success: false, error: 'report_transition_conflict' },
+            { status: 409 }
+          )
+        }),
+        http.patch('*/api/admin/reports/:id/escalate', () => {
+          changed = true
+          return HttpResponse.json(
+            { success: false, error: 'report_transition_conflict' },
+            { status: 409 }
+          )
+        })
+      )
+      const queryClient = createTestQueryClient()
+      const { result } = renderHookWithProviders(
+        () => ({
+          open: useQuery(adminQueries.reports('open')),
+          escalated: useQuery(adminQueries.reports(undefined, true)),
+          resolve: useResolveReport(),
+          escalate: useEscalateReport(),
+        }),
+        { queryClient }
+      )
+      await waitFor(() => expect(result.current.open.data?.items).toHaveLength(1))
+      await waitFor(() => expect(result.current.escalated.data?.items).toHaveLength(1))
+      await act(async () => {
+        const mutation =
+          action === 'resolve'
+            ? result.current.resolve.mutateAsync({ id: REPORT.id, body: { status: 'resolved' } })
+            : result.current.escalate.mutateAsync(REPORT.id)
+        await expect(mutation).rejects.toMatchObject({
+          code: 'report_transition_conflict',
+          status: 409,
+        })
+      })
+      await waitFor(() => {
+        expect(result.current.open.data?.items).toHaveLength(0)
+        expect(result.current.escalated.data?.items).toHaveLength(0)
+      })
+      const mutation = queryClient.getMutationCache().getAll()[0]
+      expect(mutation?.meta?.handledErrorCodes).toContain('report_transition_conflict')
     }
   )
 
