@@ -14,7 +14,7 @@ The frontend declares Babel core 7.29.7 directly to satisfy the Babel plugin's p
 dependency without allowing it to select Babel 8. Istanbul resolves its own Babel 8.0.7
 through its declared dependency. Neither branch needs a Babel override.
 
-PostCSS 8.5.30, Nano ID 3.3.20, Undici 8.12.3 and Drizzle Kit's esbuild 0.25.12
+PostCSS 8.5.31, Nano ID 3.3.20, Undici 8.12.3 and Drizzle Kit's esbuild 0.25.12
 also resolve within their consumers' declared ranges without overrides. Their existing
 versions remain in `bun.lock`; use a frozen install to reproduce the qualified graph.
 The separate esbuild override for the legacy esbuild-kit loader remains an exception
@@ -49,14 +49,14 @@ the production auth SSR guard. Do not write internal router stores from an E2E h
 
 The current group pins Start 1.169.3, React Router 1.170.45 and router-core 1.171.38,
 with start-server-core 1.169.44. Router CLI 1.167.45 keeps its generator on the same core
-version. React Query and its DevTools are both pinned to 5.104.3; Router DevTools uses
+version. React Query and its DevTools are both pinned to 5.104.5; Router DevTools uses
 1.167.2. Exact DevTools versions keep their peer requirements aligned with the app.
 Seroval and seroval-plugins remain locked together at 1.6.12. Bun 1.4.3, Vite 8.3.4 and Nitro
 nightly 3.0.1-20261017-153525-59940084 support this group without an application API migration.
 
 SSR Query integration must also follow the new lifecycle. Version 1.167.1 calls the removed
 `serverSsr.isDehydrated` method through its core adapter, despite broad peer ranges. Aurore
-uses React SSR Query 1.167.3 with its core 1.169.3 and Query 5.104.3 (minimum 5.102.0).
+uses React SSR Query 1.167.3 with its core 1.169.3 and Query 5.104.5 (minimum 5.102.0).
 The 1.167.3 patch also cancels failed hydration streams and releases their readers.
 
 Keeping core 1.171.15 through an override is incompatible with the corrected server core,
