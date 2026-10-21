@@ -23,7 +23,7 @@ outside that loader's declared range.
 Vite, brace-expansion, fast-uri, js-yaml, seroval, seroval-plugins and tsx also
 resolve without overrides. Removing their seven overrides preserves every package
 entry, integrity and dependency relationship in the existing lockfile. The frontend
-still pins Vite 8.3.4 directly; its former TCP patch has been retired.
+still pins Vite 8.3.5 directly; its former TCP patch has been retired.
 Only the ts-morph and legacy esbuild-kit exceptions remain in the root manifest.
 Keep frozen installs: regenerating the full graph can update unrelated packages.
 
@@ -51,8 +51,8 @@ The current group pins Start 1.169.3, React Router 1.170.45 and router-core 1.17
 with start-server-core 1.169.44. Router CLI 1.167.45 keeps its generator on the same core
 version. React Query and its DevTools are both pinned to 5.104.5; Router DevTools uses
 1.167.2. Exact DevTools versions keep their peer requirements aligned with the app.
-Seroval and seroval-plugins remain locked together at 1.6.12. Bun 1.4.3, Vite 8.3.4 and Nitro
-nightly 3.0.1-20261017-153525-59940084 support this group without an application API migration.
+Seroval and seroval-plugins remain locked together at 1.6.12. Bun 1.4.3, Vite 8.3.5 and Nitro
+nightly 3.0.1-20261021-144126-8cd5f87a support this group without an application API migration.
 
 SSR Query integration must also follow the new lifecycle. Version 1.167.1 calls the removed
 `serverSsr.isDehydrated` method through its core adapter, despite broad peer ranges. Aurore
@@ -86,6 +86,9 @@ Vite 8.3.4: five patched and twenty unpatched starts under eight concurrent HTTP
 with no HTTP read timeout. Both variants reject an occupied port. The unpatched stack
 also passes all 209 Playwright cases with four workers, no retries and no skipped cases.
 Keep concurrent readiness probes and an occupied-port check when changing this runtime pair.
+The October 21 follow-up qualifies Bun 1.4.3, Vite 8.3.5 and Nitro 8cd5f87a with
+five real-stack starts under eight concurrent HTTP probes, no read timeout or invalid
+HTTP response, and rejection of a second server on the occupied port.
 
 References: [Vite port-check source](https://github.com/vitejs/vite/blob/v8.3.4/packages/vite/src/node/http.ts),
 [Bun ordering fix](https://github.com/oven-sh/bun/pull/40041),
@@ -93,20 +96,25 @@ References: [Vite port-check source](https://github.com/vitejs/vite/blob/v8.3.4/
 
 ## Vite and Nitro upgrade compatibility
 
-Vite 8.3.4 requires the optional DevTools peer `^0.7.1`. Version 0.4.12 lacks
-`isDevToolsEnabled`, so it fails when Vite enables its integration. Aurore pins
-`@vitejs/devtools`, `@vitejs/devtools-vite` and `@vitejs/devtools-rolldown` to 0.7.6.
-DevTools 0.8.0 falls outside Vite's peer range. Keep the existing Bun gate on the
-separate dev panel until its WebSocket adapter is verified on that runtime.
+Vite 8.3.5 accepts the optional DevTools peer `^0.7.1 || ^0.8.0`. Aurore pins
+`@vitejs/devtools`, `@vitejs/devtools-vite` and `@vitejs/devtools-rolldown` to 0.8.0.
+Their kit follows 0.8.0; vite-plugin-inspect retains its separate 0.7.6 kit.
+Keep the existing Bun gate on the separate dev panel until its WebSocket adapter
+is verified on that runtime.
 
-Nitro remains an exact nightly alias. The later October 17 build satisfies the three-day
-release-age policy. The Bun preset, development `/api/**` proxy and production
-`.output/server/index.mjs` entry remain in use. Removed auto-imports and changes to
-cache/storage APIs do not require application changes because Aurore does not use them.
-The later build changes Vercel runtime inference; Aurore keeps its explicit Bun preset.
+Nitro remains an exact nightly alias, now 3.0.1-20261021-144126-8cd5f87a.
+The Bun preset, development `/api/**` proxy and production `.output/server/index.mjs`
+entry remain in use. This nightly changes the dev listener and moves storage/database
+packages to on-demand installation. Aurore does not use the removed options or those
+APIs, so no application migration is needed. Its H3 2.0.7 branch remains separate
+from the older branches required by development tools.
 
-References: [Vite metadata](https://registry.npmjs.org/vite/8.3.4),
-[DevTools metadata](https://registry.npmjs.org/@vitejs/devtools/0.7.6),
+The October 21 follow-up deliberately waived release age for its exact targets and
+required transitives. The repository still keeps `minimumReleaseAge = 259200`;
+frozen installs reproduce the qualified lockfile without a permanent policy change.
+
+References: [Vite metadata](https://registry.npmjs.org/vite/8.3.5),
+[DevTools metadata](https://registry.npmjs.org/@vitejs/devtools/0.8.0),
 [Nitro migration guide](https://nitro.build/docs/migration).
 
 ## Undici for jsdom
@@ -115,7 +123,6 @@ The lockfile retains Undici 8.12.3, within jsdom 30.1.3's declared `^8.12.1`
 range, without an override. The former 7.30.1 override forced an incompatible major into that consumer.
 Undici is used only by development tooling, with no application imports. Version
 8.12.3 was qualified under the explicit October 21 release-age exception.
-The permanent `minimumReleaseAge = 259200` policy remains unchanged.
 
 Vitest runs through its Node launcher. Undici 8 requires Node >=22.19.0; jsdom's
 own Node requirement is stricter. Verify the two jsdom environment suites and
