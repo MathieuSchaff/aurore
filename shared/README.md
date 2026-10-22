@@ -53,3 +53,13 @@ its `index.ts` (`products/`, `ingredients/`).
    runtime `count` / `disabled` state, but must not reconstruct category META, ordering policy,
    or subgroup labels. The per-domain `tag-filters.ts` modules and skincare subgroup maps are
    implementation details behind this interface and are not re-exported from `@aurore/shared`.
+
+## Discussion text
+
+Product and ingredient discussions use the same `createThreadSchema` and `createReplySchema`.
+Titles contain 1 to 120 characters. Message and reply bodies require at least one character;
+they do not inherit the 2,000-character limit of social posts.
+
+All three fields use `noHtml`. This rejects text containing `<...>`, including comparisons such
+as `pH <5 et >4`; it does not sanitize or rewrite text. The discussion forms explain this
+restriction after `invalid_input`, keep the draft, and suggest writing comparisons in words.

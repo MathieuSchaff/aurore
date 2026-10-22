@@ -1,14 +1,14 @@
 import { z } from 'zod'
 
-import { HTTP_STATUS, type HttpStatus } from '../core'
+import { HTTP_STATUS, type HttpStatus, noHtml } from '../core'
 
 export const createThreadSchema = z.object({
-  title: z.string().min(1).max(120),
-  content: z.string().min(1),
+  title: noHtml(z.string().min(1).max(120)),
+  content: noHtml(z.string().min(1)),
 })
 
 export const createReplySchema = z.object({
-  content: z.string().min(1),
+  content: noHtml(z.string().min(1)),
 })
 
 export type CreateThreadInput = z.infer<typeof createThreadSchema>

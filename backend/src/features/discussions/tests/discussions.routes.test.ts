@@ -66,6 +66,46 @@ describe('Product Discussion Routes', () => {
       expect(thread.productId).toBeDefined()
     })
 
+    it('preserves thread and reply bodies longer than a social post', async () => {
+      const token = await setupAndLogin(app, TEST_CREDENTIALS.toto)
+      const slug = await createProductAndGetSlug()
+      const content = 'Mon expérience détaillée. '.repeat(100)
+      const thread = await expectOk(
+        client.products[':slug'].discussions.$post(
+          { json: { ...VALID_THREAD, content }, param: { slug } },
+          withAuth(token)
+        ),
+        HTTP_STATUS.CREATED
+      )
+      expect(thread.content).toBe(content)
+
+      const reply = await expectOk(
+        client.products[':slug'].discussions[':threadId'].replies.$post(
+          { json: { content }, param: { slug, threadId: thread.id } },
+          withAuth(token)
+        ),
+        HTTP_STATUS.CREATED
+      )
+      expect(reply.content).toBe(content)
+    })
+
+    it('rejects markup in a thread title or body', async () => {
+      const token = await setupAndLogin(app, TEST_CREDENTIALS.toto)
+      const slug = await createProductAndGetSlug()
+
+      for (const json of [
+        { ...VALID_THREAD, title: '<b>Titre</b>' },
+        { ...VALID_THREAD, content: '<img src=x onerror=alert(1)>' },
+      ]) {
+        const res = await client.products[':slug'].discussions.$post(
+          { json, param: { slug } },
+          withAuth(token)
+        )
+        expectStatus(res, HTTP_STATUS.BAD_REQUEST)
+        expect(await res.json()).toMatchObject({ success: false, error: 'invalid_input' })
+      }
+    })
+
     it('should return 401 when unauthenticated', async () => {
       const slug = await createProductAndGetSlug()
 
@@ -116,6 +156,27 @@ describe('Product Discussion Routes', () => {
       )
       expect(reply.content).toBe(VALID_REPLY.content)
       expect(reply.threadId).toBe(threadId)
+    })
+
+    it('rejects markup in a reply', async () => {
+      const token = await setupAndLogin(app, TEST_CREDENTIALS.toto)
+      const slug = await createProductAndGetSlug()
+      const { id: threadId } = await expectOk(
+        client.products[':slug'].discussions.$post(
+          { json: VALID_THREAD, param: { slug } },
+          withAuth(token)
+        ),
+        HTTP_STATUS.CREATED
+      )
+
+      for (const content of ['<b>Texte</b>', '<script>alert(1)</script>']) {
+        const res = await client.products[':slug'].discussions[':threadId'].replies.$post(
+          { json: { content }, param: { slug, threadId } },
+          withAuth(token)
+        )
+        expectStatus(res, HTTP_STATUS.BAD_REQUEST)
+        expect(await res.json()).toMatchObject({ success: false, error: 'invalid_input' })
+      }
     })
 
     it('rejects replies on a thread hidden by admin moderation', async () => {

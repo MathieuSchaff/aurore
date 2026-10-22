@@ -1,11 +1,13 @@
 import { useState } from 'react'
 
 import { Button } from '@/component/Button/Button'
+import { FormMessage } from '@/component/Feedback/ui/FormMessage/FormMessage'
 import { FormActions } from '@/component/Input/FormActions/FormActions'
 import { Input } from '@/component/Input/Input'
 import { Textarea } from '@/component/Input/Textarea/Textarea'
 import { SectionHeader } from '@/component/Typography/SectionHeader/SectionHeader'
 import { useAnnounce } from '@/hooks/useAnnounce'
+import { isApiErrorCode } from '@/lib/helpers/apiError'
 import { type DiscussionEntityType, useCreateThread } from '@/lib/queries/discussions'
 
 interface ThreadFormProps {
@@ -17,7 +19,7 @@ export function ThreadForm({ entityType, slug }: ThreadFormProps) {
   const [title, setTitle] = useState('')
   const [content, setContent] = useState('')
   const [open, setOpen] = useState(false)
-  const { mutate, isPending } = useCreateThread(entityType, slug)
+  const { mutate, isPending, error } = useCreateThread(entityType, slug)
   const announce = useAnnounce()
 
   function handleSubmit(e: React.SubmitEvent) {
@@ -46,6 +48,12 @@ export function ThreadForm({ entityType, slug }: ThreadFormProps) {
 
   return (
     <form className="ui-form-panel" onSubmit={handleSubmit}>
+      {isApiErrorCode(error, 'invalid_input') && (
+        <FormMessage variant="error">
+          Écrivez en texte simple, sans balises HTML. Pour les comparaisons, utilisez « inférieur à
+          » ou « supérieur à ».
+        </FormMessage>
+      )}
       <SectionHeader title="Nouvelle discussion" as="h3" />
       <Input
         label="Sujet"
