@@ -7,7 +7,7 @@ Read-only. Nothing here writes unless a row lists `--write`. Reports land in
 
 | Command | What | Output |
 | :--- | :--- | :--- |
-| `just audit-db-full` | Runs the 13 read-only audits in sequence. Never aborts midrun; exits 1 if any failed | Table summary → `.audit-out/db/audit-db-full.<TARGET>.md` |
+| `just audit-db-full` | Runs the 14 read-only audits in sequence. Never aborts midrun; exits 1 if any failed | Table summary → `.audit-out/db/audit-db-full.<TARGET>.md` |
 
 This is also Gate B of `just catalogue-gate`, together with `audit-cdn` and `db-snapshot`.
 
