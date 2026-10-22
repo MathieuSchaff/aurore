@@ -1,6 +1,6 @@
 import type { EditTargetType, ReactableType, ReportTargetType } from '@aurore/shared'
 
-import { and, eq, inArray, lt, or, type SQL, sql } from 'drizzle-orm'
+import { and, eq, inArray, isNull, lt, or, type SQL, sql } from 'drizzle-orm'
 
 import type { DatabaseTransaction } from '../../db'
 import { withAdminRls } from '../../db/rls'
@@ -311,7 +311,10 @@ export async function deleteDemoUser(userId: string): Promise<boolean> {
 
 export async function sweepExpiredDemos(): Promise<number> {
   const count = await withAdminRls(async (tx) => {
-    const userIds = await lockDemoUsers(tx, lt(users.expiresAt, sql`now()`))
+    const userIds = await lockDemoUsers(
+      tx,
+      required(or(lt(users.expiresAt, sql`now()`), isNull(users.expiresAt)))
+    )
     return purgeDemoUsers(tx, userIds)
   })
   logger.info({ count }, 'expired demo users swept')
