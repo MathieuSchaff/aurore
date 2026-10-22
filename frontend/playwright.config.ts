@@ -13,6 +13,7 @@ const MUTATION_SPECS = '**/*.mutation.spec.ts'
 const CROSS_ENGINE_SPECS = [
   '**/auth-rtl.spec.ts',
   '**/detail-back-navigation.spec.ts',
+  '**/demo-collection-layout.spec.ts',
   '**/dropdown-menu-product-detail-sheet-status.spec.ts',
   '**/filter-drawer-focus.spec.ts',
   '**/header-rails.spec.ts',
