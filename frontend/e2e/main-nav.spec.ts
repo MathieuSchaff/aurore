@@ -76,6 +76,79 @@ test.describe('Top navbar', () => {
     await expect(burger).toBeFocused()
   })
 
+  for (const variant of ['terracota', 'foret', 'ardoise']) {
+    for (const theme of ['light', 'dark']) {
+      for (const layout of ['desktop', 'drawer']) {
+        test(`preserves user menu spacing in ${layout}, ${theme}, ${variant}`, async ({
+          page,
+        }, testInfo) => {
+          await page.setViewportSize({ width: layout === 'desktop' ? 1280 : 390, height: 900 })
+          await page.addInitScript(
+            ({ theme, variant }) => {
+              localStorage.setItem('theme-preference', theme)
+              localStorage.setItem('variant', variant)
+            },
+            { theme, variant }
+          )
+          await loginAsSeed(page)
+          await page.goto('/products')
+          await navReady(page)
+          await waitForHydration(page)
+          await expect(page.locator('html')).toHaveAttribute('data-theme', theme)
+          await expect(page.locator('html')).toHaveAttribute('data-variant', variant)
+
+          if (layout === 'drawer') {
+            await page.locator('.main-nav__lead .main-nav__toggle').click()
+          }
+          const trigger = page
+            .locator(layout === 'drawer' ? '.main-nav-drawer' : '.main-nav')
+            .getByRole('button', { name: 'Menu utilisateur', exact: true })
+          await trigger.click()
+          const menu = page.getByRole('menu', { name: 'Menu utilisateur', exact: true })
+          const logout = menu.getByRole('menuitem', { name: 'Déconnexion', exact: true })
+          const profile = menu.getByRole('menuitem', { name: 'Profil', exact: true })
+          await expect(logout).toBeVisible()
+
+          const readSpacing = (element: HTMLElement | SVGElement) => {
+            const style = getComputedStyle(element)
+            return {
+              top: parseFloat(style.paddingTop),
+              right: parseFloat(style.paddingRight),
+              bottom: parseFloat(style.paddingBottom),
+              left: parseFloat(style.paddingLeft),
+              height: element.getBoundingClientRect().height,
+            }
+          }
+          const spacing = {
+            trigger: await trigger.evaluate(readSpacing),
+            logout: await logout.evaluate(readSpacing),
+            profile: await profile.evaluate(readSpacing),
+          }
+          await testInfo.attach('menu-spacing', {
+            body: JSON.stringify(spacing, null, 2),
+            contentType: 'application/json',
+          })
+
+          // The bare Button reset must not erase the menu's own spacing
+          for (const side of ['top', 'right', 'bottom', 'left'] as const) {
+            expect(spacing.logout[side]).toBeCloseTo(spacing.profile[side], 1)
+          }
+          const rootSize = await page
+            .locator('html')
+            .evaluate((element) => parseFloat(getComputedStyle(element).fontSize))
+          expect(spacing.trigger.top).toBeCloseTo(rootSize * 0.25, 1)
+          expect(spacing.trigger.right).toBeCloseTo(rootSize * 0.25, 1)
+          expect(spacing.trigger.bottom).toBeCloseTo(rootSize * 0.25, 1)
+          expect(spacing.trigger.left).toBeCloseTo(
+            rootSize * (layout === 'drawer' ? 0.75 : 0.25),
+            1
+          )
+          expect(spacing.logout.height).toBeGreaterThanOrEqual(44)
+        })
+      }
+    }
+  }
+
   test('closes the drawer after a backdrop click', async ({ page }) => {
     await page.setViewportSize({ width: 900, height: 900 })
     await page.goto('/products')
