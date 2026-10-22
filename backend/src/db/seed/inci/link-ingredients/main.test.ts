@@ -35,6 +35,78 @@ function corpusSnapshot(): CorpusSnapshot {
 }
 
 describe('prepareCorpusReconcile', () => {
+  it('preserves a manual UV-filter link when only its pigment is declared', async () => {
+    const snapshot = corpusSnapshot()
+    snapshot.ingredientRows.push({
+      id: 'titanium-filter',
+      slug: 'titanium-dioxide',
+      key: 'Titanium Dioxide',
+      type: 'skincare',
+    })
+    snapshot.eligible = [
+      {
+        id: 'product-serum',
+        slug: 'serum',
+        inci: 'Niacinamide, Titanium Dioxide [CI 77891]',
+        category: 'skincare',
+      },
+    ]
+    snapshot.currentLinks.set('product-serum', [
+      { id: 'niacinamide-link', slug: 'niacinamide', canonicalKey: 'Niacinamide', curated: false },
+      {
+        id: 'manual-titanium',
+        slug: 'titanium-dioxide',
+        canonicalKey: 'Titanium Dioxide',
+        curated: true,
+      },
+    ])
+
+    const prepared = await prepareCorpusReconcile({ load: async () => snapshot })
+
+    expect(prepared.writes).toEqual([])
+    expect(prepared.stats.keptCurated).toBe(1)
+  })
+
+  it('plans the missing CI pigment without replacing manual ingredient links', async () => {
+    const snapshot = corpusSnapshot()
+    snapshot.ingredientRows = [
+      { id: 'red', slug: 'oxide-de-fer', key: 'CI 77491', type: 'skincare' },
+      { id: 'black', slug: 'ci-77499', key: 'CI 77499', type: 'skincare' },
+      {
+        id: 'vitamin-e',
+        slug: 'tocopheryl-acetate',
+        key: 'Tocopheryl Acetate',
+        type: 'skincare',
+      },
+    ]
+    snapshot.eligible = [
+      {
+        id: 'product-oil',
+        slug: 'body-oil',
+        inci: 'Iron Oxides (CI 77491), Iron Oxides (CI 77499)',
+        category: 'skincare',
+      },
+    ]
+    snapshot.currentLinks.set('product-oil', [
+      { id: 'red-link', slug: 'oxide-de-fer', canonicalKey: 'CI 77491', curated: false },
+      {
+        id: 'manual-vitamin-e',
+        slug: 'tocopheryl-acetate',
+        canonicalKey: 'Tocopheryl Acetate',
+        curated: true,
+      },
+    ])
+
+    const prepared = await prepareCorpusReconcile({ load: async () => snapshot })
+
+    expect(prepared.writes).toEqual([
+      {
+        inserts: [{ productId: 'product-oil', ingredientId: 'black', source: 'linker' }],
+        removeIds: [],
+      },
+    ])
+  })
+
   it('closes the read transaction before planning the corpus', async () => {
     let transactionOpen = false
     const snapshot = corpusSnapshot()
@@ -171,6 +243,71 @@ describe('scopeReconcilePlan', () => {
 })
 
 describe('computeLinks', () => {
+  it('leaves declared white pigment unbridged instead of borrowing the UV-filter sheet', () => {
+    const maps = buildCanonicalKeyMaps([
+      { slug: 'titanium-dioxide', key: 'Titanium Dioxide', type: 'skincare' },
+      { slug: 'titanium-dioxide-hair', key: 'Titanium Dioxide', type: 'haircare' },
+    ])
+
+    for (const token of [
+      'CI 77891',
+      'Titanium Dioxide (CI 77891)',
+      'Titanium Dioxide [CI77891]',
+      'Titanium Dioxide (CI 77891',
+    ]) {
+      expect(resolveToken(token, maps.canonicalKeyToSlug, maps.canonicalKeyBySlug)).toEqual({
+        kind: 'unbridged',
+        evidenceInci: 'CI 77891',
+      })
+      for (const category of ['skincare', 'haircare']) {
+        const result = computeLinks(
+          token,
+          category,
+          maps.canonicalKeyToSlug,
+          maps.canonicalKeyBySlug,
+          maps.slugsByCanonicalKey
+        )
+        expect(result.slugs).toEqual([])
+        expect(result.unbridged).toEqual([token])
+      }
+    }
+
+    expect(
+      computeLinks(
+        'Titanium Dioxide [nano]',
+        'skincare',
+        maps.canonicalKeyToSlug,
+        maps.canonicalKeyBySlug
+      ).slugs
+    ).toEqual(['titanium-dioxide'])
+  })
+
+  it('refuses an unknown CI qualifier without borrowing the generic UV-filter name', () => {
+    for (const token of ['Titanium Dioxide [CI 99999]', 'Titanium Dioxide (CI 99999']) {
+      expect(resolveToken(token, new Map(), new Map())).toBeNull()
+    }
+  })
+
+  it('keeps distinct iron oxide identities declared by parenthesized CI codes', () => {
+    const canonicalKeyToSlug = new Map([
+      ['CI 77491', 'oxide-de-fer'],
+      ['CI 77499', 'ci-77499'],
+    ])
+    const canonicalKeyBySlug = new Map([
+      ['oxide-de-fer', 'CI 77491'],
+      ['ci-77499', 'CI 77499'],
+    ])
+
+    const result = computeLinks(
+      'Iron Oxides (CI 77491), Iron Oxides (CI 77499)',
+      'skincare',
+      canonicalKeyToSlug,
+      canonicalKeyBySlug
+    )
+
+    expect(result.slugs).toEqual(['oxide-de-fer', 'ci-77499'])
+  })
+
   it('links only the four Eugenia extract forms', () => {
     const d1Tokens = [
       'eugenia caryophyllus clove flower extract*',

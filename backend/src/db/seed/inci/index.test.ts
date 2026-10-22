@@ -15,6 +15,17 @@ import {
 } from '.'
 
 describe('stripInciArtefacts', () => {
+  it('preserves CI identities inside brackets and unfinished parentheses', () => {
+    for (const token of [
+      'Titanium Dioxide [CI 77891]',
+      'Titanium Dioxide (CI 77891',
+      'Iron Oxides (CI 77491',
+      'Titanium Dioxide [CI 99999]',
+    ]) {
+      expect(stripInciArtefacts(token)).toBe(token)
+    }
+  })
+
   it('drops organic-certification markers', () => {
     expect(stripInciArtefacts('Centaurea Cyanus Flower Water*')).toBe(
       'Centaurea Cyanus Flower Water'
@@ -25,7 +36,6 @@ describe('stripInciArtefacts', () => {
   })
 
   it('drops a paren opened but never closed, keeping balanced glosses', () => {
-    expect(stripInciArtefacts('Iron Oxides (CI 77491')).toBe('Iron Oxides')
     expect(stripInciArtefacts('Phenoxyethanol (F.i.l')).toBe('Phenoxyethanol')
     expect(stripInciArtefacts('Citrus Limon (Lemon) Fruit Water')).toBe(
       'Citrus Limon (Lemon) Fruit Water'
@@ -76,7 +86,7 @@ describe('normalizeInciToken', () => {
     expect(normalizeInciToken('centaurea cyanus flower water*')).toBe(
       'CENTAUREA CYANUS FLOWER WATER'
     )
-    expect(normalizeInciToken('Iron Oxides (CI 77491')).toBe('IRON OXIDES')
+    expect(normalizeInciToken('Iron Oxides (CI 77491')).toBe('CI 77491')
     expect(normalizeInciToken('Zinc Oxide [nano]')).toBe('ZINC OXIDE')
     expect(normalizeInciToken('Salicylic Acid 2.0%')).toBe('SALICYLIC ACID')
   })
@@ -182,6 +192,15 @@ describe('parseInciFromContent', () => {
 })
 
 describe('parseInciFromSlugLine', () => {
+  it('keeps an explicit CI qualifier beside ordinary declared aliases', () => {
+    expect(
+      parseInciFromSlugLine("BLACK: 'ci-77499', // INCI: Iron Oxides (CI 77499) / Iron Oxide Black")
+    ).toEqual({
+      slug: 'ci-77499',
+      tokens: ['Iron Oxides (CI 77499)', 'Iron Oxide Black'],
+    })
+  })
+
   it('parses skincare-style "// INCI: Token | desc"', () => {
     const r = parseInciFromSlugLine(`  MANNITOL: 'mannitol', // INCI: Mannitol | humectant sucre`)
     expect(r).toEqual({ slug: 'mannitol', tokens: ['Mannitol'] })

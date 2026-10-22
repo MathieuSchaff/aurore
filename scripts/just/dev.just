@@ -158,11 +158,11 @@ install-deps-ci:
 # bump CALIBRATED_FOR_TAG_DEFS_VERSION, cut a fresh `vNN-aurore` pin branch in
 # algo-derm at the target commit, then point the default below at it (a named pin,
 # not `main`, since `main` is usually the active algo-derm checkout → worktree clash).
-[doc('Rebuild the algo-derm tarball in vendor/ from a pinned ref (+ bun install --force). Env: ALGO_DERM_REF (pin branch, default v39-aurore).')]
+[doc('Rebuild the algo-derm tarball in vendor/ from a pinned ref (+ bun install --force). Env: ALGO_DERM_REF (pin branch, default v40-aurore).')]
 [group('setup')]
 [script]
 vendor-algo-derm:
-    REF="${ALGO_DERM_REF:-v39-aurore}"
+    REF="${ALGO_DERM_REF:-v40-aurore}"
     printf "{{CYAN}}Build algo-derm @ %s...{{NC}}\n" "$REF"
     WT="$(mktemp -d)"
     trap 'git -C {{ALGO_DERM_DIR}} worktree remove --force "$WT" >/dev/null 2>&1 || true' EXIT

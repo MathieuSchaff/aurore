@@ -3,6 +3,8 @@
 import { readFileSync } from 'node:fs'
 import { join } from 'node:path'
 
+import { colorIndexLookupKey } from 'algo-derm'
+
 import { ingredientData } from '../data/ingredients'
 import { INGREDIENT_SLUGS } from '../data/ingredients/ingredient-slugs'
 
@@ -87,11 +89,7 @@ const NON_DISCRIMINANT_SOURCE: string[] = [
   'Tocopheryl Glucoside',
   // Carbohydrate carriers
   'Maltodextrin',
-  // Lake pigments. The CI family was settled by the 106-token pass; these three escaped it only
-  // because `Colour N Lake (CI …)` hides the code from normalizeInciToken, which erases the
-  // parenthetical outright: `Blue 1 Lake (CI 42090)` normalises to `BLUE 1 LAKE` and the resolver
-  // never sees 42090. Listing the wrapped spelling is what closes that hole. This is not the
-  // retired sweep listing colours again: the decision is the family's, and it was already taken.
+  // Keep lake pigments blocked under the CI identity printed beside the name
   'Blue 1 Lake (CI 42090)',
   'Red 7 Lake (CI 15850)',
   'Yellow 5 Lake (CI 19140)',
@@ -189,23 +187,25 @@ export function foldScraperDelimiters(
 // Slashes stay: compound names like `Phytosteryl/Isostearyl/Cetyl Dimer Dilinoleate` would
 // fabricate links if split. Strip zero-width chars first, `\s+` does not match them in JS.
 export function stripInciArtefacts(s: string): string {
-  return s
-    .replace(/[\u200B-\u200D\uFEFF]/g, ' ')
-    .replace(/[*†‡•°]+/g, ' ')
-    .replace(/\[[^\]]*\]/g, ' ')
-    .replace(/\([^)]*$/, ' ')
-    .replace(/\d[\d.,]*\s*(%|ppm\b)/gi, ' ')
-    .replace(/\s+/g, ' ')
-    .trim()
-    .replace(/[.,;:-]+$/, '')
-    .trim()
+  return (
+    s
+      .replace(/[\u200B-\u200D\uFEFF]/g, ' ')
+      .replace(/[*†‡•°]+/g, ' ')
+      // A CI qualifier identifies the pigment even when its closing delimiter is missing
+      .replace(/\[[^\]]*\]|\([^)]*$/g, (part) => (colorIndexLookupKey(part) ? part : ' '))
+      .replace(/\d[\d.,]*\s*(%|ppm\b)/gi, ' ')
+      .replace(/\s+/g, ' ')
+      .trim()
+      .replace(/[.,;:-]+$/, '')
+      .trim()
+  )
 }
 
 // stripInciArtefacts already runs before both lookup paths, so don't duplicate its stripping here.
 export function normalizeInciToken(s: string): string {
-  return stripInciArtefacts(s)
+  return (colorIndexLookupKey(s) ?? stripInciArtefacts(s))
     .normalize('NFD')
-    .replace(/[̀-ͯ]/g, '')
+    .replace(/[\u0300-\u036f]/g, '')
     .replace(/\([^)]*\)/g, '')
     .replace(/\s+/g, ' ')
     .trim()
@@ -315,10 +315,9 @@ export function parseInciFromSlugLine(line: string): { slug: string; tokens: str
   if (pipe >= 0) inciSegment = inciSegment.slice(0, pipe)
   // A parenthesised gloss (`(butcher's broom)`, `(Biosol)`) and a dashed trailing note are
   // English prose the descriptor guard below reads as a French description, which drops the
-  // whole declaration. `normalizeInciToken` erases parentheses at lookup time anyway, so
-  // cutting them here changes no key.
+  // whole declaration. Keep CI qualifiers because they identify the pigment, not a gloss
   inciSegment = inciSegment
-    .replace(/\([^)]*\)/g, ' ')
+    .replace(/\([^)]*\)/g, (part) => (colorIndexLookupKey(part) ? part : ' '))
     .replace(/\s[–—-]\s.*$/, ' ')
     .replace(/\s+/g, ' ')
     .trim()

@@ -123,6 +123,18 @@ describe('detectSemiOcclusif', () => {
 // in algo-derm-detection.test.ts and auto-tag-orchestrator-parity.test.ts.
 
 describe('detectSolaireTags: sanity', () => {
+  test('does not infer a mineral UV filter from an explicit pigment declaration', () => {
+    for (const token of ['CI 77891', 'Titanium Dioxide (CI 77891)', 'Titanium Dioxide [CI77891]']) {
+      expect(detectSolaireTags(`Aqua, Octocrylene, ${token}`, 'sunscreen', 'solaire')).toEqual([
+        S.FILTRES_CHIMIQUES,
+      ])
+      expect(detectSolaireTags(token, 'oil', 'skincare')).toEqual([])
+    }
+    expect(detectSolaireTags('Titanium Dioxide [nano]', 'sunscreen', 'solaire')).toEqual([
+      S.FILTRES_MINERAUX,
+    ])
+  })
+
   test('avobenzone in sunscreen → filtres-chimiques', () => {
     const tags = detectSolaireTags('Aqua, Avobenzone, Octocrylene', 'sunscreen', 'solaire')
     expect(tags).toContain(S.FILTRES_CHIMIQUES)
