@@ -92,6 +92,12 @@ describe('Product Service', () => {
       )
     })
 
+    it('reuses the stored spelling of a brand typed in another case', async () => {
+      await createTestProduct(user.id, { name: 'Snail Cream', brand: 'MISSHA' })
+      const product = await createTestProduct(user.id, { name: 'BB Cream', brand: ' missha ' })
+      expect(product.brand).toBe('MISSHA')
+    })
+
     // Auto-tag pipeline runs inline at create. `type-serum` is emitted
     // deterministically by pass 3 (kind-tag-detection) for any skincare serum,
     // so this proves the wiring without depending on INCI parsing.
@@ -144,6 +150,23 @@ describe('Product Service', () => {
       )
       expect(updated.brand).toBe('Solgar')
       expect(updated.priceCents).toBe(1800)
+    })
+
+    it('reuses the stored spelling when an edit changes the brand', async () => {
+      await createTestProduct(user.id, { name: 'Toner', brand: 'Round Lab' })
+      const created = await createTestProduct(user.id, { name: 'Sun Cream', brand: 'Generic' })
+      const updated = await testDb.transaction((tx) =>
+        updateProduct(user.id, created.id, { brand: 'ROUND LAB' }, tx)
+      )
+      expect(updated.brand).toBe('Round Lab')
+    })
+
+    it('lets the only product of a brand change its own spelling', async () => {
+      const created = await createTestProduct(user.id, { name: 'Lotion', brand: 'numbuzin' })
+      const updated = await testDb.transaction((tx) =>
+        updateProduct(user.id, created.id, { brand: 'Numbuzin' }, tx)
+      )
+      expect(updated.brand).toBe('Numbuzin')
     })
 
     it('should create an audit log when fields change', async () => {

@@ -7,7 +7,7 @@ import type {
 } from '@aurore/shared'
 
 import slugify from '@sindresorhus/slugify'
-import { and, eq, like, or, sql } from 'drizzle-orm'
+import { and, asc, desc, eq, like, ne, or, sql } from 'drizzle-orm'
 
 import type { DbOrTransaction } from '../../db/index'
 import { products } from '../../db/schema/products'
@@ -29,6 +29,29 @@ const normalizeString = (s: string) => s.trim().replace(/\s+/g, ' ')
 
 const NORMALIZED_STRING_FIELDS = ['name', 'brand', 'kind', 'unit', 'amountUnit'] as const
 
+// The brand filter lists exact strings, so "Missha" next to "MISSHA" shows as two brands
+// Reuse the spelling already stored, the most frequent one if the catalogue disagrees
+// excludeProductId keeps an edited product from voting for its own old spelling
+export async function resolveBrandSpelling(
+  database: DbOrTransaction,
+  brand: string,
+  excludeProductId?: string
+): Promise<string> {
+  const [stored] = await database
+    .select({ brand: products.brand })
+    .from(products)
+    .where(
+      and(
+        sql`norm(${products.brand}) = norm(${brand})`,
+        excludeProductId ? ne(products.id, excludeProductId) : undefined
+      )
+    )
+    .groupBy(products.brand)
+    .orderBy(desc(sql`count(*)`), asc(products.brand))
+    .limit(1)
+  return stored?.brand ?? brand
+}
+
 export async function createProduct(
   userId: string,
   role: CatalogRole,
@@ -46,7 +69,7 @@ export async function createProduct(
     )
 
     const name = normalizeString(input.name)
-    const brand = normalizeString(input.brand)
+    const brand = await resolveBrandSpelling(database, normalizeString(input.brand))
 
     // Reject if a visible product already has the same name and brand
     // We compare with norm(), the same function the DB unique index uses
@@ -256,6 +279,9 @@ export async function updateProduct(
   // A silent slug change breaks bookmarks, SEO, and the image filenames on the CDN
   // To change the slug, the caller has to pass it
   normalizeUpdateInput(input)
+  if (typeof input.brand === 'string') {
+    input.brand = await resolveBrandSpelling(database, input.brand, id)
+  }
 
   const setClauses = buildUpdateClauses(input)
 

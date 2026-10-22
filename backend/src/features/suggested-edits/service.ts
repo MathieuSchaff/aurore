@@ -9,6 +9,7 @@ import { translateUniqueViolation } from '../../lib/catalog'
 import { lockVisiblePolymorphicTarget } from '../../lib/polymorphic-target'
 import { nowISO } from '../../utils/dates'
 import { ProductError } from '../products/product-error'
+import { resolveBrandSpelling } from '../products/service'
 import { SuggestedEditError } from './suggested-edit-error'
 
 // Mirror createProduct/updateProduct normalization so dedup keys stay consistent.
@@ -54,7 +55,7 @@ export async function listSuggestedEdits(
 // name/brand can collide with products_name_brand_unique_visible, normalize +
 // throw the 23505 again so withRlsContext rolls back (catch-and-return on an aborted
 // tx would COMMIT it, giving a spurious 500).
-function applyToSheet(
+async function applyToSheet(
   db: DatabaseTransaction,
   edit: {
     targetType: 'product' | 'ingredient'
@@ -67,10 +68,14 @@ function applyToSheet(
   if (!allowed.includes(edit.field)) throw new SuggestedEditError('invalid_input')
 
   if (edit.targetType === 'product') {
-    const value =
+    const normalized =
       edit.field === 'name' || edit.field === 'brand'
         ? normalizeString(edit.proposedValue)
         : edit.proposedValue
+    const value =
+      edit.field === 'brand'
+        ? await resolveBrandSpelling(db, normalized, edit.targetId)
+        : normalized
     return db
       .update(products)
       .set({ [edit.field]: value } as Record<string, string>)

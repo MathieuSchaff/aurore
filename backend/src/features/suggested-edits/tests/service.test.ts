@@ -147,6 +147,33 @@ describe('suggested-edits service', () => {
     expect(p?.name).toBe('Accepted Name')
   })
 
+  it('ACCEPT on a brand keeps the spelling already in the catalogue', async () => {
+    await testDb.insert(products).values({
+      name: 'Other Serum',
+      brand: 'SOME BY MI',
+      category: 'skincare',
+      kind: 'serum',
+      unit: 'pump',
+      slug: 'other-serum-some-by-mi',
+      createdBy: proposerId,
+    })
+    const edit = await createEdit({
+      proposerId,
+      body: {
+        targetType: 'product',
+        targetId: productId,
+        field: 'brand',
+        proposedValue: 'Some By Mi',
+      },
+    })
+    await reviewEdit({ id: edit.id, reviewerId, status: 'accepted' })
+    const [p] = await testDb
+      .select({ brand: products.brand })
+      .from(products)
+      .where(eq(products.id, productId))
+    expect(p?.brand).toBe('SOME BY MI')
+  })
+
   it('REJECT leaves the sheet untouched', async () => {
     const edit = await createEdit({
       proposerId,
