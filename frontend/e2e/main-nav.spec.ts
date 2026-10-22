@@ -143,6 +143,7 @@ test.describe('Top navbar', () => {
             rootSize * (layout === 'drawer' ? 0.75 : 0.25),
             1
           )
+          expect(spacing.trigger.height).toBeGreaterThanOrEqual(44)
           expect(spacing.logout.height).toBeGreaterThanOrEqual(44)
         })
       }

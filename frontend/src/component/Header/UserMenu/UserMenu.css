@@ -7,9 +7,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  /* 44px touch target, height-matched to the sibling theme-toggle trigger. */
-  min-width: 2.75rem;
-  min-height: 2.75rem;
+  min-width: max(44px, 2.75rem);
+  min-height: max(44px, 2.75rem);
   padding: var(--space-1);
   background: transparent;
   border: none;
