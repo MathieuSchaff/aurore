@@ -1,7 +1,7 @@
 import type { ProfileLink } from '@aurore/shared'
 
 import { Plus, Trash2 } from 'lucide-react'
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 import { Button } from '@/component/Button/Button'
 import { Input } from '@/component/Input/Input'
@@ -24,6 +24,8 @@ export const ProfileLinksEditor = ({
 }: ProfileLinksEditorProps) => {
   const [announcement, setAnnouncement] = useState('')
   const announcementTimeout = useRef<ReturnType<typeof setTimeout>>(undefined)
+
+  useEffect(() => () => clearTimeout(announcementTimeout.current), [])
 
   // Stable per-row keys kept in lockstep with the handlers below. Index-as-key
   // misroutes DOM/focus state to the wrong row when a middle link is removed.
