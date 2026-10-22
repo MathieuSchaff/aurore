@@ -27,12 +27,3 @@ export type Ingredient = {
   createdAt: string | Date
   updatedAt: string | Date
 }
-
-export type IngredientEdit = {
-  id: string
-  ingredientId: string
-  editedBy: string
-  changes: Record<string, { old: string | null; new: string | null }>
-  summary: string | null
-  createdAt: string | Date
-}
