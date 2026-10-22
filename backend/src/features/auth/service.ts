@@ -137,9 +137,9 @@ export async function createTokenPair(
   return tokens
 }
 
-// Enumeration-safe (ADR 0009): new-email and existing-email branches return the
-// SAME neutral `ok({ pending: true })`, no session, equal timing; only an email to
-// the owner reveals existence. Any divergence (code, status, session, latency) leaks again.
+// Both signup branches return the same neutral response without a session (ADR 0009)
+// Both hash the password, but only a new address waits for database writes
+// Matching hash work reduces timing differences without guaranteeing equal response times
 export async function signup(
   ctx: AuthContext,
   email: Email,

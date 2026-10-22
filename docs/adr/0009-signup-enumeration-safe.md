@@ -3,9 +3,9 @@ date: 2026-06-17
 accepted: 2026-06-17
 ---
 
-# Signup is enumeration-safe: neutral response, truth only by email
+# Signup uses a neutral response with a residual timing difference
 
-Signup returns an **identical neutral response** whether the email is new or already registered, **never establishes a session**, and **equalizes timing** across both branches. The new-vs-existing truth is conveyed only by an email to the address owner. This closes account enumeration on the registration endpoint.
+Signup returns an **identical neutral response** whether the email is new or already registered and **never establishes a session**. Both branches pay the same password hashing cost. The explicit account status is conveyed only by an email to the address owner. This prevents direct enumeration through the HTTP body, status or session, but does not guarantee equal response times.
 
 ## Why
 
@@ -16,7 +16,7 @@ The leak is the **asymmetry, not the message**. Any observable difference betwee
 - session vs no session,
 - fast vs slow response.
 
-So turning `email_exists` into a generic message is *not* enough: an attacker still sees "account created + logged in" (new) vs "neutral / no session" (existing). Closing the leak requires **all** of: identical HTTP body+status, no session in either branch, equalized timing.
+So turning `email_exists` into a generic message is *not* enough: an attacker still sees "account created + logged in" (new) vs "neutral / no session" (existing). Removing those direct signals requires an identical HTTP body and status and no session in either branch. Matching the hashing work also reduces the timing signal; the residual database work is described below.
 
 Aurore holds skincare / routine / personal data. Not a bank, but enumerating its userbase is a real privacy harm, and the posture must match what login already enforces.
 
@@ -24,7 +24,7 @@ Aurore holds skincare / routine / personal data. Not a bank, but enumerating its
 
 - **A. Keep current flow (auto-login + 24h verify grace), only genericize the message**: minimal change. Rejected: leaves the success-vs-error and session-vs-no-session asymmetry, so it stays fully enumerable. Cosmetic.
 - **B. Accept residual signup enumeration, bound it with a hard rate-limit (+ captcha)**: pragmatic, keeps signup auto-login UX. Rejected for Aurore's data sensitivity: a rate-limit slows enumeration, it does not close it.
-- **C. Strict neutral signup**: **Chosen.** Identical response, no auto-login, timing equalized, truth delivered by email. Closes the leak; cost = signup UX shifts to email-link double opt-in.
+- **C. Strict neutral signup**: **Chosen.** Identical response, no auto-login, password hashing in both branches, explicit account status delivered by email. Removes the direct response and session signals; cost = signup UX shifts to email-link double opt-in. The implemented flow retains a residual timing signal.
 
 ## Consequences
 
@@ -36,7 +36,8 @@ Aurore holds skincare / routine / personal data. Not a bank, but enumerating its
 
 **Backend**
 - `signup()` returns a neutral `ok()` (no `user`, no tokens) in **both** branches; `email_exists` is never sent to the client.
-- **Timing equalization (not negotiable):** the existing-email branch must run a dummy `Bun.password.hash` (mirror login's `DUMMY_HASH`) so it costs ~the same as the create branch (which hashes). Without it, fast-vs-slow leaks existence again, the exact mistake login already avoids.
+- **Shared hashing cost:** the existing-email branch runs `Bun.password.hash` with the same options as the create branch and discards the result. This removes the large difference caused by skipping the hash; it does not equalize the full response path.
+- **Residual database work:** only the new-email branch waits for a transaction creating the account and profile, then a second transaction creating the verification token. An existing email needs no such writes. This leaves a measurable local timing difference on top of hashing. Remote exploitability has not been established; network and pool noise do not prove its absence. There is no constant-time guarantee.
 - Two best-effort emails, off the response path: verification (new) and a new `sendAlreadyRegisteredEmail` (existing).
 - An expired verification link can request a replacement without a session by presenting its
   still-unused random token. Unknown, consumed and already-verified tokens all receive the same
@@ -57,4 +58,5 @@ Aurore holds skincare / routine / personal data. Not a bank, but enumerating its
 - `/auth/mobile/signup` loses its immediate-token behavior, so the mobile client must handle the email-link flow too.
 
 **Out of scope**
+- Removing the residual signup timing difference by moving account and token writes off the response path requires a separate design decision. This ADR documents the current boundary and does not change signup behavior.
 - Forgot/reset-password: [ADR-0010](0010-forgot-password-enumeration-safe.md) applies the same always-neutral rule.
