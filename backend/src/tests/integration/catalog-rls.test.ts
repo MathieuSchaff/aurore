@@ -5,10 +5,13 @@ import { eq, sql } from 'drizzle-orm'
 import { withAdminRls } from '../../db/rls'
 import { products } from '../../db/schema/products/products'
 import { productTagTypes } from '../../db/schema/tags/tags'
+import { ProductError } from '../../features/products/product-error'
+import { deleteProduct } from '../../features/products/write.service'
 import { testDb } from '../db.test.config'
 import { setupDbTests } from '../db-setup'
 import { createAppRuntimeDb, withRlsAs } from '../helpers/app-runtime-db'
-import { createTestUser } from '../helpers/test-factories'
+import { captureError } from '../helpers/capture-error'
+import { createTestProduct, createTestUser } from '../helpers/test-factories'
 
 const appRuntimeDb = await createAppRuntimeDb()
 
@@ -102,6 +105,31 @@ describe('catalog RLS: fail closed', () => {
       .from(products)
       .where(eq(products.slug, 'rls-probe-admin'))
     expect(row?.slug).toBe('rls-probe-admin')
+  })
+
+  it('deletes a product under the admin RLS context', async () => {
+    const owner = await createTestUser()
+    const product = await createTestProduct(owner.id, { name: 'Delete Admin Probe' })
+
+    await withRlsAs(appRuntimeDb, 'admin', owner.id, (tx) => deleteProduct(tx, 'admin', product.id))
+
+    expect(await selectProductCountAs('admin', product.slug, owner.id)).toBe(0)
+  })
+
+  it('rejects a product deletion silently denied by RLS', async () => {
+    const owner = await createTestUser()
+    const product = await createTestProduct(owner.id, { name: 'Delete RLS Probe' })
+
+    // Keep the service guard open to exercise a DELETE denied by the real policy
+    const error = await captureError(() =>
+      withRlsAs(appRuntimeDb, 'contributor', owner.id, (tx) =>
+        deleteProduct(tx, 'admin', product.id)
+      )
+    )
+
+    expect(await selectProductCountAs('contributor', product.slug, owner.id)).toBe(1)
+    expect(error).toBeInstanceOf(ProductError)
+    expect((error as ProductError).code).toBe('product_delete_failed')
   })
 
   // product_tags is admin-only: contributor must be denied.

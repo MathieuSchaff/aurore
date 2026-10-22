@@ -331,7 +331,11 @@ export async function deleteProduct(
   const product = await database.query.products.findFirst({ where: eq(products.id, id) })
   if (!product) throw new ProductError('product_not_found')
 
-  await database.delete(products).where(eq(products.id, id))
+  const deleted = await database
+    .delete(products)
+    .where(eq(products.id, id))
+    .returning({ id: products.id })
+  if (deleted.length === 0) throw new ProductError('product_delete_failed')
 }
 
 export async function previewSlug(
