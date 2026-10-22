@@ -29,6 +29,7 @@ the root loader, or the server-hint context changed.
 | :--- | :--- | :--- |
 | `just test-db-up` | Recreate the test DB and apply migrations | `just test-db-up keep` reuses a running one |
 | `just test-db-down` | Stop the test DB | - |
+| `just test-db-startup` | Verify cold startup, live `keep` and missing-DB `keep` | Isolated PostgreSQL fixture on port 55433, delays initialization to expose premature readiness. Removes its containers afterwards; requires Docker, Bun, just and GNU timeout. |
 | `just test-db-seed` | Seed CORE into the test DB | Requires `test-db-up` |
 | `just test-backend [args]` | Full backend suite, brings the DB up | Recreating the DB costs ~2s, so there is no "DB assumed up" variant |
 | `just test-watch [args]` | Backend suite in watch mode | Reuses a running test DB, starts one otherwise |

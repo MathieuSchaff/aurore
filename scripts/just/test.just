@@ -14,13 +14,13 @@ APP_TEST_DB_URL := "postgres://app_runtime:testpassword@localhost:5433/appdb_tes
 [doc('Recreate the test DB and apply migrations. Pass `keep` to reuse a running one.')]
 [group('test')]
 test-db-up keep="":
-    @if [ "{{keep}}" = "keep" ] && {{COMPOSE_TEST}} exec db-test pg_isready -U app -d appdb_test >/dev/null 2>&1; then \
+    @if [ "{{keep}}" = "keep" ] && {{COMPOSE_TEST}} exec db-test pg_isready -h 127.0.0.1 -U app -d appdb_test >/dev/null 2>&1; then \
         printf "{{CYAN}}Reusing running test DB (omit 'keep' to recreate).{{NC}}\n"; \
     else \
         {{COMPOSE_TEST}} down --remove-orphans 2>/dev/null || true; \
         {{COMPOSE_TEST}} up -d; \
         printf "{{CYAN}}Waiting for DB...{{NC}}\n"; \
-        until {{COMPOSE_TEST}} exec db-test pg_isready -U app -d appdb_test 2>/dev/null; do sleep 1; done; \
+        until {{COMPOSE_TEST}} exec db-test pg_isready -h 127.0.0.1 -U app -d appdb_test 2>/dev/null; do sleep 1; done; \
     fi
     @printf "{{CYAN}}Applying migrations...{{NC}}\n"
     cd backend && DATABASE_URL={{TEST_DB_URL}} APP_DATABASE_URL={{APP_TEST_DB_URL}} bun run src/db/migrate.ts
@@ -30,6 +30,11 @@ test-db-up keep="":
 [group('test')]
 test-db-down:
     {{COMPOSE_TEST}} down
+
+[doc('Verify cold test DB startup and keep against an isolated PostgreSQL fixture')]
+[group('test')]
+test-db-startup:
+    bash scripts/test-db-startup.sh
 
 [doc('Seed CORE into test DB (requires test-db-up)')]
 [group('test')]
