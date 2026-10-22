@@ -28,6 +28,11 @@ fixture accounts it creates, and how to log in as one, are in
 in the committed snapshot.** So `db-seed-reset` and `db-reset` wipe the ingested skincare
 catalogue. Restore from the snapshot, never from the seed.
 
+`seedBlog` upserts versioned article fixtures after the core seed transaction commits.
+Article preparation and SQL errors both fail the seed command; a blog failure does not roll
+back the already committed core data. Earlier article writes may also remain; rerunning
+the upsert is safe.
+
 ## Destructive
 
 | Command | What |

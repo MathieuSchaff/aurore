@@ -40,14 +40,10 @@ export async function seedBlog(_idempotent = false) {
         })
     },
     (article) => article.slug ?? article.title,
-    false
+    true
   )
 
   console.log(`✅ ${result.success}/${result.total} articles insérés/mis à jour`)
-  if (result.failed.length > 0) {
-    console.warn(`⚠️  ${result.failed.length} article(s) en échec :`)
-    for (const f of result.failed) console.warn(`   - ${f.item}: ${f.reason}`)
-  }
 }
 
 if (import.meta.main || process.argv[1]?.endsWith('seed-blog.ts')) {
