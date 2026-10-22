@@ -44,14 +44,14 @@ image-build-mapping:
     printf "{{CYAN}}Build image mapping ($TARGET)...{{NC}}\n"
     $COMPOSE exec -e IMAGE_MAINTENANCE_TARGET="$TARGET" -w /app/backend api bun run src/images/maintenance/build-mapping.ts
 
-[doc('Reconcile DB image_url ⇄ Bunny from image-mapping.json (copy/nullify, retains CDN files). Writes DB+CDN. Dry-run unless --write. TARGET: dev|prod (prod + --write → confirm).')]
+[doc('Clear still-missing image references from image-mapping.json, preserving healthy references and all CDN files. Writes DB only. Dry-run unless --write. TARGET: dev|prod (prod + --write requires confirmation).')]
 [group('images')]
 [arg('WRITE', long='write', value='1', help='apply instead of the dry-run')]
 [script]
 image-fix-refs $WRITE="":
     source {{justfile_directory()}}/scripts/just/_lib.sh
     target_compose
-    if [ "$TARGET" = prod ] && [ -n "$WRITE" ]; then confirm_prod "WRITE DB+CDN (image-fix-refs)"; fi
+    if [ "$TARGET" = prod ] && [ -n "$WRITE" ]; then confirm_prod "WRITE DB (image-fix-refs)"; fi
     MODE=$([ -n "$WRITE" ] && echo "WRITE" || echo "dry-run")
     printf "{{CYAN}}Fix broken image refs ($MODE, $TARGET)...{{NC}}\n"
     $COMPOSE exec -e IMAGE_MAINTENANCE_TARGET="$TARGET" -w /app/backend api bun run src/images/maintenance/fix-broken-refs.ts \

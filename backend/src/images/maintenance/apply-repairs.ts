@@ -1,23 +1,19 @@
 import type { SQL } from 'bun'
 
-import { type BunnyConfig, getBunny, listBunny, putBunny } from '../lib/bunny'
+import { type BunnyConfig, existsBunny } from '../lib/bunny'
 import { type ImageRepairPlan, referencedImageFile } from './repair-plan'
 
 type Storage = {
-  list: typeof listBunny
-  get: typeof getBunny
-  put: typeof putBunny
+  exists: typeof existsBunny
 }
 type RepairResult = {
   slug: string
-  kind: 'rename' | 'nullify'
+  kind: 'nullify'
   status: 'done' | 'skipped' | 'failed'
   reason?: string
 }
 
-type Repair =
-  | (ImageRepairPlan['renames'][number] & { kind: 'rename' })
-  | (ImageRepairPlan['nullifies'][number] & { kind: 'nullify' })
+type Repair = ImageRepairPlan['nullifies'][number]
 
 async function applyRepair(
   sql: SQL,
@@ -30,22 +26,11 @@ async function applyRepair(
   }
   const current = await sql`SELECT image_url FROM products WHERE slug = ${repair.slug}`
   if (current[0]?.image_url !== repair.oldUrl) return { status: 'skipped', reason: 'URL changed' }
-  const inventory = new Set(
-    (await storage.list(cfg)).filter((item) => !item.IsDirectory).map((item) => item.ObjectName)
-  )
-  let newUrl: string | null = null
-  if (repair.kind === 'rename') {
-    if (!inventory.has(repair.oldFile) || inventory.has(repair.newFile)) {
-      return { status: 'skipped', reason: 'CDN inventory changed' }
-    }
-    const body = await storage.get(cfg, repair.oldFile)
-    await storage.put(cfg, repair.newFile, body)
-    newUrl = `${cfg.cdnBase}/${cfg.prefix}${repair.newFile}`
-  } else if (inventory.has(repair.oldFile)) {
+  if (await storage.exists(cfg, repair.oldFile)) {
     return { status: 'skipped', reason: 'Source restored' }
   }
-  // The URL can change while CDN calls are pending. Never erase that newer write.
-  const updated = await sql`UPDATE products SET image_url = ${newUrl}
+  // The URL can change while the CDN probe is pending. Never erase that newer write
+  const updated = await sql`UPDATE products SET image_url = NULL
     WHERE slug = ${repair.slug} AND image_url = ${repair.oldUrl} RETURNING slug`
   return updated.length ? { status: 'done' } : { status: 'skipped', reason: 'URL changed' }
 }
@@ -55,17 +40,13 @@ export async function applyImageRepairs(
   cfg: BunnyConfig,
   plan: ImageRepairPlan,
   target: string,
-  storage: Storage = { list: listBunny, get: getBunny, put: putBunny }
+  storage: Storage = { exists: existsBunny }
 ): Promise<RepairResult[]> {
   if (plan.target !== target) throw new Error('Image mapping target mismatch; rebuild the mapping')
   const results: RepairResult[] = []
-  const repairs: Repair[] = [
-    ...plan.renames.map((repair) => ({ ...repair, kind: 'rename' as const })),
-    ...plan.nullifies.map((repair) => ({ ...repair, kind: 'nullify' as const })),
-  ]
-  // A single DB inventory cannot authorize deletion in a potentially shared CDN zone.
-  for (const repair of repairs) {
-    const { slug, kind } = repair
+  for (const repair of plan.nullifies) {
+    const { slug } = repair
+    const kind = 'nullify'
     try {
       results.push({ slug, kind, ...(await applyRepair(sql, cfg, repair, storage)) })
     } catch (error) {

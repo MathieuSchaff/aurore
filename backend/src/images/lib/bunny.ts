@@ -39,10 +39,12 @@ export async function listBunny(cfg: BunnyConfig): Promise<BunnyItem[]> {
   return (await res.json()) as BunnyItem[]
 }
 
-export async function getBunny(cfg: BunnyConfig, file: string): Promise<Uint8Array> {
+export async function existsBunny(cfg: BunnyConfig, file: string): Promise<boolean> {
   const res = await fetch(fileUrl(cfg, file), { headers: authHeaders(cfg) })
+  await res.body?.cancel()
+  if (res.status === 404) return false
   if (!res.ok) throw new Error(`GET ${file}: HTTP ${res.status}`)
-  return new Uint8Array(await res.arrayBuffer())
+  return true
 }
 
 export async function putBunny(

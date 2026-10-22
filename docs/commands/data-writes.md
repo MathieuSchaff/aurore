@@ -94,19 +94,21 @@ The pipeline is Bunny CDN. Staging defaults to `backend/src/output` on the host;
 | :--- | :--- | :--- |
 | `just image-upload` | Upload one image, or a JSON batch, to Bunny and update the DB | `--write`, `SLUG` or `BATCH` (one required), `URL, FILE, NO_DB, NO_STAGED, CONCURRENCY` |
 | `just image-build-mapping` | Build `output/image-mapping.json` from Bunny files and actual DB image references | Prerequisite of `image-fix-refs`. Local artifact |
-| `just image-fix-refs` | Copy recoverable images and clear still-missing references. Writes DB and new CDN files; retains sources and orphan candidates | `--write` |
+| `just image-fix-refs` | Clear still-missing references. Writes DB only; preserves healthy references and all CDN files | `--write` |
 
-Mapping version 2 binds the plan to `TARGET` and the DB/CDN configuration. Regenerate older
+Mapping version 3 binds the plan to `TARGET` and the DB/CDN configuration. Regenerate older
 artifacts with `just image-build-mapping`; `image-fix-refs` refuses them. Both recipes supply
 `IMAGE_MAINTENANCE_TARGET` from `TARGET`; direct Bun invocations must set it explicitly.
 `IMAGE_CDN_BASE` is required for both scripts so references are matched against the configured
 origin and prefix, including URLs with query strings or fragments.
 
-Recovery copies use `<slug>-recovered-<uuid>.webp`, preserving the source and avoiding overwrites
-of concurrent uploads. Each repair rechecks CDN availability and updates the DB only if its
-stored URL still matches the plan. Skipped repairs require a fresh mapping. A failed or skipped
-DB write can leave an extra copy; the script retains it. Orphan candidates describe references
-in the selected DB only and never authorize automatic deletion in a shared storage zone.
+Healthy references stay unchanged even when their filename differs from the product slug or
+several products share the same image. Repairs never copy or delete CDN files. Each planned
+nullification checks the exact storage object without listing the zone again: only HTTP 404
+allows clearing the reference. Other HTTP or network errors preserve it and report a failure.
+The DB update also requires the stored URL to still match the plan. Skipped repairs require a
+fresh mapping. Orphan candidates describe references in the selected DB only and never
+authorize automatic deletion in a shared storage zone.
 
 | Trap | Detail |
 | :--- | :--- |

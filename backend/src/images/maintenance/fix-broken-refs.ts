@@ -12,7 +12,7 @@ import { imageMappingTarget, repairPlanSchema } from './repair-plan'
 const APPLY = process.argv.includes('--apply')
 const MAPPING_PATH = join(resolveImageOutputDir(), 'image-mapping.json')
 const cfg = resolveBunnyConfig()
-// app_runtime cannot see or repair every product, even when the CDN copy succeeds.
+// app_runtime cannot see hidden products, so it cannot audit every image reference
 const DB_URL = process.env.DATABASE_URL
 const environment = process.env.IMAGE_MAINTENANCE_TARGET
 const missing = [
@@ -40,7 +40,6 @@ if (plan.target !== target) {
 }
 
 console.log('→ plan (sources and orphan candidates are retained)')
-for (const r of plan.renames) console.log(`  COPY ${r.oldFile} → ${r.newFile} (slug ${r.slug})`)
 for (const n of plan.nullifies)
   console.log(`  NULLIFY ${n.slug} if the source is still missing and its URL is unchanged`)
 console.log(APPLY ? '\n→ APPLY mode\n' : '\n→ DRY RUN (use --apply to execute)\n')

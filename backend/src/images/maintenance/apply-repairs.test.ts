@@ -5,7 +5,7 @@ import { setupDbTests } from '../../tests/db-setup'
 import { createTestAdminUser, createTestProduct } from '../../tests/helpers/test-factories'
 import type { BunnyConfig } from '../lib/bunny'
 import { applyImageRepairs } from './apply-repairs'
-import { buildImageMapping, type ProductImageRow, referencedImageFile } from './repair-plan'
+import { buildImageMapping, type ProductImageRow } from './repair-plan'
 
 setupDbTests()
 
@@ -35,20 +35,15 @@ describe('applyImageRepairs', () => {
     const files = new Map<string, Uint8Array>(names.map((name) => [name, imageBytes]))
     return {
       files,
+      async exists(_cfg: BunnyConfig, name: string) {
+        return files.has(name)
+      },
       async list() {
         return [...files].map(([ObjectName, bytes]) => ({
           ObjectName,
           IsDirectory: false,
           Length: bytes.length,
         }))
-      },
-      async get(_cfg: BunnyConfig, name: string) {
-        const bytes = files.get(name)
-        if (!bytes) throw new Error('GET 404')
-        return bytes
-      },
-      async put(_cfg: BunnyConfig, name: string, bytes: Uint8Array) {
-        files.set(name, bytes)
       },
     }
   }
@@ -58,7 +53,7 @@ describe('applyImageRepairs', () => {
     return rows[0].image_url as string | null
   }
 
-  it('copies a shared source for every product and keeps sources and orphan candidates', async () => {
+  it('preserves healthy shared references without writing recovery copies', async () => {
     const rows = [
       { slug: 'a', image_url: `${cdn}old.webp` },
       { slug: 'b', image_url: `${cdn}old.webp` },
@@ -66,41 +61,54 @@ describe('applyImageRepairs', () => {
     await seedImages(rows)
     const storage = storageWith('old.webp', 'prod-only.webp')
     const plan = buildImageMapping(rows, [...storage.files.keys()], [], cfg, 'test-target')
+
     const results = await applyImageRepairs(sql, cfg, plan, 'test-target', storage)
-    expect(results.map((r) => r.status)).toEqual(['done', 'done'])
-    // Deleting after the first copy previously made the second GET fail and broke product b.
-    expect(storage.files.get('old.webp')).toEqual(imageBytes)
-    expect(storage.files.get('prod-only.webp')).toEqual(imageBytes)
-    for (const slug of ['a', 'b']) {
-      const file = referencedImageFile(await storedUrl(slug), cfg)
-      expect(file).toMatch(new RegExp(`^${slug}-recovered-`))
-      if (!file) throw new Error('Expected a stored CDN reference')
-      expect(storage.files.get(file)).toEqual(imageBytes)
-    }
-    expect(
-      (await applyImageRepairs(sql, cfg, plan, 'test-target', storage)).map((r) => r.status)
-    ).toEqual(['skipped', 'skipped'])
-    expect(storage.files.size).toBe(4)
+
+    expect(results).toEqual([])
+    expect(await storedUrl('a')).toBe(`${cdn}old.webp`)
+    expect(await storedUrl('b')).toBe(`${cdn}old.webp`)
+    expect([...storage.files.keys()].sort()).toEqual(['old.webp', 'prod-only.webp'])
   })
 
-  it('keeps the shared source when one copy fails and continues with the next product', async () => {
+  it('checks only missing references without listing the full CDN inventory', async () => {
     const rows = [
-      { slug: 'a', image_url: `${cdn}old.webp` },
-      { slug: 'b', image_url: `${cdn}old.webp` },
+      { slug: 'a', image_url: `${cdn}missing-a.webp` },
+      { slug: 'b', image_url: `${cdn}missing-b.webp` },
     ]
     await seedImages(rows)
-    const storage = storageWith('old.webp')
-    const put = storage.put
-    storage.put = async (config, name, bytes) => {
-      if (name.startsWith('a-recovered-')) throw new Error('PUT failed')
-      await put(config, name, bytes)
+    const storage = storageWith('unrelated.webp')
+    let listings = 0
+    storage.list = async () => {
+      listings++
+      return []
     }
-    const plan = buildImageMapping(rows, ['old.webp'], [], cfg, 'test-target')
+    const plan = buildImageMapping(rows, [], [], cfg, 'test-target')
+
+    await applyImageRepairs(sql, cfg, plan, 'test-target', storage)
+
+    expect(listings).toBe(0)
+    expect(await storedUrl('a')).toBeNull()
+    expect(await storedUrl('b')).toBeNull()
+  })
+
+  it('preserves a reference when its CDN probe fails and continues with the next product', async () => {
+    const rows = [
+      { slug: 'a', image_url: `${cdn}missing-a.webp` },
+      { slug: 'b', image_url: `${cdn}missing-b.webp` },
+    ]
+    await seedImages(rows)
+    const storage = storageWith()
+    storage.exists = async (_config, name) => {
+      if (name === 'missing-a.webp') throw new Error('CDN unavailable')
+      return false
+    }
+    const plan = buildImageMapping(rows, [], [], cfg, 'test-target')
+
     const results = await applyImageRepairs(sql, cfg, plan, 'test-target', storage)
-    expect(results.map((r) => r.status)).toEqual(['failed', 'done'])
-    expect(await storedUrl('a')).toBe(`${cdn}old.webp`)
-    expect(storage.files.get('old.webp')).toEqual(imageBytes)
-    expect(await storedUrl('b')).toMatch(/b-recovered-/)
+
+    expect(results.map((result) => result.status)).toEqual(['failed', 'done'])
+    expect(await storedUrl('a')).toBe(`${cdn}missing-a.webp`)
+    expect(await storedUrl('b')).toBeNull()
   })
 
   it('nullifies a reference only when its source is still missing', async () => {
@@ -122,14 +130,14 @@ describe('applyImageRepairs', () => {
     expect(await storedUrl('a')).toBe(`${cdn}a.webp?v=2`)
   })
 
-  it('rechecks the URL atomically after a concurrent write during the CDN inventory', async () => {
+  it('rechecks the URL atomically after a concurrent write during the CDN probe', async () => {
     const rows = [{ slug: 'a', image_url: `${cdn}missing.webp` }]
     await seedImages(rows)
     const plan = buildImageMapping(rows, [], [], cfg, 'test-target')
     const storage = storageWith()
-    storage.list = async () => {
+    storage.exists = async () => {
       await sql`UPDATE products SET image_url = ${`${cdn}fresh.webp`} WHERE slug = 'a'`
-      return []
+      return false
     }
     // Checking only before the network call would erase this intervening upload.
     const results = await applyImageRepairs(sql, cfg, plan, 'test-target', storage)
@@ -152,22 +160,24 @@ describe('applyImageRepairs', () => {
     expect(await storedUrl('a')).toBe(`${cdn}missing.webp`)
   })
 
-  it('preserves the URL and bytes of an upload completing during a recovery copy', async () => {
-    const rows = [{ slug: 'a', image_url: `${cdn}old.webp` }]
+  it('retains a source restored while an earlier repair is being applied', async () => {
+    const rows = [
+      { slug: 'a', image_url: `${cdn}missing-a.webp` },
+      { slug: 'b', image_url: `${cdn}missing-b.webp` },
+    ]
     await seedImages(rows)
-    const plan = buildImageMapping(rows, ['old.webp'], [], cfg, 'test-target')
-    const storage = storageWith('old.webp')
-    const freshBytes = new Uint8Array([4, 5, 6])
-    storage.put = async (_cfg, name, bytes) => {
-      storage.files.set('a.webp', freshBytes)
-      await sql`UPDATE products SET image_url = ${`${cdn}a.webp?v=2`} WHERE slug = 'a'`
-      storage.files.set(name, bytes)
+    const storage = storageWith()
+    storage.exists = async (_config, name) => {
+      if (name === 'missing-a.webp') storage.files.set('missing-b.webp', imageBytes)
+      return storage.files.has(name)
     }
+    const plan = buildImageMapping(rows, [], [], cfg, 'test-target')
+
     const results = await applyImageRepairs(sql, cfg, plan, 'test-target', storage)
-    expect(results.map((r) => r.status)).toEqual(['skipped'])
-    expect(await storedUrl('a')).toBe(`${cdn}a.webp?v=2`)
-    expect(storage.files.get('a.webp')).toEqual(freshBytes)
-    expect(storage.files.get('old.webp')).toEqual(imageBytes)
+
+    expect(results.map((result) => result.status)).toEqual(['done', 'skipped'])
+    expect(await storedUrl('b')).toBe(`${cdn}missing-b.webp`)
+    expect(storage.files.get('missing-b.webp')).toEqual(imageBytes)
   })
 
   it('refuses a different target before any storage or database write', async () => {
@@ -177,13 +187,16 @@ describe('applyImageRepairs', () => {
     )
   })
 
-  it('skips a destination that appeared since planning instead of overwriting it', async () => {
-    const rows = [{ slug: 'a', image_url: `${cdn}old.webp` }]
+  it('rejects a mapping whose source does not match the stored URL', async () => {
+    const rows = [{ slug: 'a', image_url: `${cdn}missing.webp` }]
     await seedImages(rows)
-    const plan = buildImageMapping(rows, ['old.webp'], [], cfg, 'test-target')
-    const storage = storageWith('old.webp', plan.renames[0].newFile)
-    const results = await applyImageRepairs(sql, cfg, plan, 'test-target', storage)
-    expect(results.map((r) => r.status)).toEqual(['skipped'])
-    expect(await storedUrl('a')).toBe(`${cdn}old.webp`)
+    const plan = buildImageMapping(rows, [], [], cfg, 'test-target')
+    plan.nullifies[0].oldFile = 'other.webp'
+
+    const results = await applyImageRepairs(sql, cfg, plan, 'test-target', storageWith())
+
+    expect(results[0].status).toBe('failed')
+    expect(results[0].reason).toContain('source mismatch')
+    expect(await storedUrl('a')).toBe(`${cdn}missing.webp`)
   })
 })

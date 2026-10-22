@@ -36,24 +36,6 @@ describe('buildImageMapping', () => {
     expect(plan.mapping.b.file).toBe(files[0])
   })
 
-  it('plans distinct recovery copies for products sharing a source', () => {
-    const plan = buildImageMapping(
-      [
-        { slug: 'a', image_url: `${cdn}old.webp` },
-        { slug: 'b', image_url: `${cdn}old.webp` },
-      ],
-      ['old.webp'],
-      [],
-      cfg,
-      'test-target'
-    )
-    expect(plan.renames).toHaveLength(2)
-    expect(plan.renames.map((r) => r.oldFile)).toEqual(['old.webp', 'old.webp'])
-    expect(plan.renames[0].newFile).toMatch(/^a-recovered-.+\.webp$/)
-    expect(plan.renames[1].newFile).toMatch(/^b-recovered-.+\.webp$/)
-    expect(repairPlanSchema.safeParse(plan).success).toBe(true)
-  })
-
   it('distinguishes a missing referenced file from an unused canonical file', () => {
     const plan = buildImageMapping(
       [{ slug: 'a', image_url: `${cdn}missing.webp?v=1` }],
@@ -76,7 +58,6 @@ describe('buildImageMapping', () => {
       cfg,
       'test-target'
     )
-    expect(plan.renames).toEqual([])
     expect(plan.nullifies).toEqual([])
     expect(plan.gaps.cdnOrphans).toEqual([])
   })
@@ -104,6 +85,24 @@ describe('image mapping compatibility', () => {
         .success
     ).toBe(false)
   })
+  it('rejects version 2 plans that can still request healthy image copies', () => {
+    expect(
+      repairPlanSchema.safeParse({
+        version: 2,
+        target: 'test-target',
+        renames: [
+          {
+            slug: 'a',
+            oldUrl: `${cdn}old.webp`,
+            oldFile: 'old.webp',
+            newFile: 'a-recovered-123.webp',
+          },
+        ],
+        nullifies: [],
+      }).success
+    ).toBe(false)
+  })
+
   it('binds a mapping to DB and CDN identity without depending on passwords', () => {
     const first = imageMappingTarget('postgres://app:dummy@localhost:5433/test', cfg, 'dev')
     expect(imageMappingTarget('postgres://app:rotated@localhost:5433/test', cfg, 'dev')).toBe(first)

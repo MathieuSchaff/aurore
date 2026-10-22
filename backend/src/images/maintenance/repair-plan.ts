@@ -1,4 +1,4 @@
-import { createHash, randomUUID } from 'node:crypto'
+import { createHash } from 'node:crypto'
 
 import { z } from 'zod'
 
@@ -12,9 +12,8 @@ const fileSchema = z
   .refine((file) => !file.includes('%'))
 const repairSchema = z.object({ slug: z.string().min(1), oldUrl: z.url(), oldFile: fileSchema })
 export const repairPlanSchema = z.object({
-  version: z.literal(2),
+  version: z.literal(3),
   target: z.string().min(1),
-  renames: z.array(repairSchema.extend({ newFile: fileSchema })),
   nullifies: z.array(repairSchema),
 })
 export type ImageRepairPlan = z.infer<typeof repairPlanSchema>
@@ -67,7 +66,6 @@ export function buildImageMapping(
   const local = new Set(localFiles)
   const referenced = new Set<string>()
   const mapping: Record<string, { source: 'cdn'; file: string; localStaged: boolean }> = {}
-  const renames: ImageRepairPlan['renames'] = []
   const nullifies: ImageRepairPlan['nullifies'] = []
   const missing: ProductImageRow[] = []
 
@@ -82,12 +80,6 @@ export function buildImageMapping(
       continue
     }
     mapping[row.slug] = { source: 'cdn', file, localStaged: local.has(file) }
-    const canonical = `${row.slug}.webp`
-    if (file !== canonical && !files.has(canonical) && !file.startsWith(`${row.slug}-recovered-`)) {
-      // A unique destination cannot overwrite an upload that starts after this inventory.
-      const newFile = fileSchema.parse(`${row.slug}-recovered-${randomUUID()}.webp`)
-      renames.push({ slug: row.slug, oldUrl: row.image_url, oldFile: file, newFile })
-    }
   }
 
   const slugs = (names: string[]) => names.map((file) => file.replace(/\.webp$/, '')).sort()
@@ -101,9 +93,8 @@ export function buildImageMapping(
       .map((row) => ({ slug: row.slug, url: row.image_url })),
   }
   return {
-    version: 2 as const,
+    version: 3 as const,
     target,
-    renames,
     nullifies,
     mapping,
     gaps,
