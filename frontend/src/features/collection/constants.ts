@@ -55,6 +55,9 @@ export const pdsLabels = {
   decision: 'Historique des décisions',
   lifecycle: 'Cycle de vie',
   loadingFormula: 'Chargement de la formule…',
+  linkedIngredients: 'Fiches ingrédients associées',
+  linkedIngredientsDescription:
+    'Ces fiches présentent les ingrédients reliés à ce produit dans Aurore. Elles peuvent ne couvrir qu’une partie de la liste INCI complète.',
   addPurchaseTitle: 'ENREGISTRER UN ACHAT',
   editPurchaseTitle: "MODIFIER L'ACHAT",
 } as const

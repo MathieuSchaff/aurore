@@ -92,8 +92,9 @@ export function PdsFormulaSection({ p }: PdsFormulaSectionProps) {
         <div className="pds-ingtags-wrap">
           <h3 className="pds-microhead">
             <Droplets size={12} aria-hidden="true" />
-            <span>Composants principaux</span>
+            <span>{pdsLabels.linkedIngredients}</span>
           </h3>
+          <p className="pds-ingtags-description">{pdsLabels.linkedIngredientsDescription}</p>
           <ul role="list" id={tagsListId} className="pds-ingtags">
             {visibleTags.map((pi) => (
               <li key={pi.ingredientId}>

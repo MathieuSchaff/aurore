@@ -5,6 +5,7 @@ import userEvent from '@testing-library/user-event'
 import { HttpResponse, http } from 'msw/http'
 import { beforeEach, describe, expect, it } from 'vitest'
 
+import { pdsLabels } from '@/features/collection/constants'
 import { useAuthStore } from '@/store/auth'
 import { presentTestSession } from '@/test/authSession'
 import { PRODUCT_DETAILS } from '@/test/msw/fixtures/products'
@@ -110,6 +111,32 @@ describe('PdsFormulaSection', () => {
     expect(
       screen.queryByRole('button', { name: /utiliser un ingrédient/i })
     ).not.toBeInTheDocument()
+  })
+
+  it('distinguishes linked ingredient sheets from the complete INCI list', async () => {
+    servePage(
+      {},
+      {
+        inci: 'Aqua, Niacinamide, Glycerin',
+        inciCount: 3,
+        ingredients: [
+          makeIngredient({
+            ingredientName: 'Niacinamide',
+            ingredientSlug: 'niacinamide',
+          }),
+        ],
+      }
+    )
+    renderWithProviders(<PdsFormulaSection p={makeUserProduct()} />)
+
+    expect(
+      await screen.findByRole('heading', { name: pdsLabels.linkedIngredients, level: 3 })
+    ).toBeInTheDocument()
+    expect(screen.getByText(pdsLabels.linkedIngredientsDescription)).toBeInTheDocument()
+    expect(screen.getByText(/3 ingrédients/i)).toBeInTheDocument()
+    expect(screen.getByText('Aqua, Niacinamide, Glycerin')).toBeInTheDocument()
+    expect(screen.getAllByRole('listitem')).toHaveLength(1)
+    expect(screen.getByRole('listitem')).toHaveTextContent('Niacinamide')
   })
 
   it('warns when an avoid tag matches the viewer portrait', async () => {
