@@ -110,21 +110,8 @@
   color: var(--text-secondary);
 }
 
-.terroir-pill__pos {
-  font-family: var(--font-mono);
-  font-size: 0.625rem;
-  font-weight: var(--font-semibold);
-  letter-spacing: var(--tracking-wide);
-  color: var(--text-muted);
-  font-variant-numeric: tabular-nums;
-}
-
 .terroir-pill--active {
   background: oklch(from var(--color-primary) l c h / 0.1);
   border-color: oklch(from var(--color-primary) l c h / 0.35);
-  color: var(--color-primary-dark);
-}
-
-.terroir-pill--active .terroir-pill__pos {
   color: var(--color-primary-dark);
 }

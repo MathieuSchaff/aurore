@@ -1,4 +1,4 @@
-import type { UserPublic } from '@aurore/shared'
+import type { EnrichedComparison, EnrichedComparisonProduct, UserPublic } from '@aurore/shared'
 
 import { QueryClient, useQuery } from '@tanstack/react-query'
 import { waitFor } from '@testing-library/react'
@@ -111,6 +111,78 @@ describe('useUpdateComparison', () => {
     expect(result.current.detail.data).toEqual(ENRICHED)
     expect(mockGet).toHaveBeenCalledTimes(1)
   })
+
+  it.each(['rename', 'replacement'] as const)(
+    'keeps the saved fields when an older %s response arrives and its refresh fails',
+    async (delayedChange) => {
+      const product = (id: string): EnrichedComparisonProduct => ({
+        id,
+        name: id,
+        brand: 'Brand',
+        kind: 'cleanser',
+        slug: id,
+        imageUrl: null,
+        totalAmount: null,
+        amountUnit: null,
+        priceCents: null,
+        pricePer: null,
+        ingredients: [],
+        tags: [],
+      })
+      const original = product('22222222-2222-4222-8222-222222222222')
+      const retained = product('33333333-3333-4333-8333-333333333333')
+      const candidate = product('44444444-4444-4444-8444-444444444444')
+      const previous: EnrichedComparison = {
+        ...ENRICHED,
+        name: 'Previous',
+        products: [original, retained],
+      }
+      const saved = { ...previous, name: 'Renamed', products: [candidate, retained] }
+      const delayed =
+        delayedChange === 'rename'
+          ? { ...previous, name: saved.name }
+          : { ...previous, products: saved.products }
+      const renameInput = { name: 'Renamed' }
+      const replacementInput = { productIds: [candidate.id, retained.id] }
+      const response = Promise.withResolvers<Response>()
+      mockPatch.mockReturnValueOnce(response.promise)
+      mockPatch.mockResolvedValueOnce(makeResponse({ body: { success: true, data: saved } }))
+      const mockGet = vi.mocked(api['product-comparisons'][':id'].$get) as unknown as ReturnType<
+        typeof vi.fn
+      >
+      mockGet.mockResolvedValue(makeResponse({ body: { success: true, data: saved } }))
+      queryClient.setQueryData(comparisonKeys.detail(ID), previous)
+      const { result } = renderHookWithProviders(
+        () => ({
+          detail: useQuery({ ...comparisonQueries.detail(ID), retry: false, staleTime: Infinity }),
+          first: useUpdateComparison(),
+          second: useUpdateComparison(),
+        }),
+        { queryClient }
+      )
+
+      result.current.first.mutate({
+        id: ID,
+        input: delayedChange === 'rename' ? renameInput : replacementInput,
+      })
+      await waitFor(() => expect(mockPatch).toHaveBeenCalledTimes(1))
+      result.current.second.mutate({
+        id: ID,
+        input: delayedChange === 'rename' ? replacementInput : renameInput,
+      })
+      await waitFor(() => expect(result.current.second.isSuccess).toBe(true))
+      expect(result.current.detail.data).toEqual(saved)
+
+      mockGet.mockResolvedValue(
+        makeResponse({ status: 500, body: { success: false, error: 'server_error' } })
+      )
+      // The first PATCH snapshot predates the second change, despite arriving last
+      response.resolve(makeResponse({ body: { success: true, data: delayed } }))
+      await waitFor(() => expect(result.current.first.isSuccess).toBe(true))
+      expect(result.current.detail.isRefetchError).toBe(true)
+      expect(result.current.detail.data).toEqual(saved)
+    }
+  )
 
   it.each(['logout', 'same account', 'other account', 'role change'] as const)(
     'does not restore a saved comparison across session changes (%s)',

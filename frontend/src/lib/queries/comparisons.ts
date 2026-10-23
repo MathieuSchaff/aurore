@@ -1,4 +1,8 @@
-import type { CreateComparisonInput, UpdateComparisonInput } from '@aurore/shared'
+import type {
+  CreateComparisonInput,
+  EnrichedComparison,
+  UpdateComparisonInput,
+} from '@aurore/shared'
 
 import { queryOptions, useMutation, useQueryClient } from '@tanstack/react-query'
 
@@ -70,8 +74,18 @@ export const useUpdateComparison = ({ inlineError = false } = {}) => {
       })
       return unwrapData(res)
     },
-    onSuccess: (comparison, { id }, owner) => {
-      if (owner.isCurrent()) qc.setQueryData(comparisonKeys.detail(id), comparison)
+    onSuccess: (comparison, { id, input }, owner) => {
+      if (owner.isCurrent()) {
+        qc.setQueryData<EnrichedComparison>(comparisonKeys.detail(id), (current) => {
+          if (!current) return comparison
+          // A delayed PATCH snapshot must not undo fields saved by another mutation
+          return {
+            ...comparison,
+            name: input.name === undefined ? current.name : comparison.name,
+            products: input.productIds === undefined ? current.products : comparison.products,
+          }
+        })
+      }
       return Promise.all([
         qc.invalidateQueries({ queryKey: comparisonKeys.detail(id) }),
         qc.invalidateQueries({ queryKey: comparisonKeys.list() }),
