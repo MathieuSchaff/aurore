@@ -22,6 +22,7 @@ import {
   readClientAuthSessionState,
   readClientSessionEpochState,
   recordBanEvent,
+  subscribeClientSessionBoundaryState,
   updateClientAuthUser,
   useBanEventState,
   useClientAuthSessionState,
@@ -84,6 +85,12 @@ export function useSession(): SessionView {
 
 export function readClientSession(): SessionView {
   return deriveClientSession(readClientAuthSessionState())
+}
+
+// UI stores can discard private drafts even while their screens are unmounted
+export function subscribeClientSessionBoundary(listener: () => void): () => void {
+  if (isServer) return () => {}
+  return subscribeClientSessionBoundaryState(listener)
 }
 
 export function captureClientSession(): ClientSessionSnapshot {

@@ -41,6 +41,12 @@ export function readClientSessionEpochState(): number {
   return useAuthStore.getState().sessionEpoch
 }
 
+export function subscribeClientSessionBoundaryState(listener: () => void): () => void {
+  return useAuthStore.subscribe((state, previous) => {
+    if (state.sessionEpoch !== previous.sessionEpoch) listener()
+  })
+}
+
 export function publishClientAuthSession(session: ClientAuthSession): void {
   useAuthStore.getState().publishSession(session)
 }

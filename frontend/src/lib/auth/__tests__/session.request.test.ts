@@ -6,7 +6,13 @@ import { describe, expect, it, vi } from 'vitest'
 vi.mock('@/lib/helpers/isServer', () => ({ isServer: true }))
 
 import { renderHookWithProviders } from '@/test/utils'
-import { readRequestSession, useSession, writeRequestBootSession } from '../session'
+import {
+  endSession,
+  readRequestSession,
+  subscribeClientSessionBoundary,
+  useSession,
+  writeRequestBootSession,
+} from '../session'
 
 const BOOT_USER = {
   id: 'boot-user',
@@ -91,6 +97,16 @@ describe('writeRequestBootSession', () => {
     writeRequestBootSession(queryClient, 'unknown', { authenticated: false })
 
     expect(queryClient.getQueryData(['boot', 'session'])).toEqual({ status: 'pending' })
+  })
+})
+
+describe('subscribeClientSessionBoundary', () => {
+  it('does not subscribe to client state on the server', () => {
+    const listener = vi.fn()
+    const unsubscribe = subscribeClientSessionBoundary(listener)
+    endSession(new QueryClient(), 'logout')
+    expect(listener).not.toHaveBeenCalled()
+    unsubscribe()
   })
 })
 
