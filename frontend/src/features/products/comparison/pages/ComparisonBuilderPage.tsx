@@ -1,10 +1,11 @@
 import { COMPARISON_MAX_PRODUCTS, COMPARISON_MIN_PRODUCTS } from '@aurore/shared'
 
 import { useSuspenseQuery } from '@tanstack/react-query'
-import { useNavigate } from '@tanstack/react-router'
-import { useEffect, useState } from 'react'
+import { useLocation, useNavigate } from '@tanstack/react-router'
+import { useEffect } from 'react'
 
 import { FormMessage } from '@/component/Feedback/ui/FormMessage/FormMessage'
+import { PageHeader } from '@/component/Layout/PageHeader/PageHeader'
 import { useAnnounce } from '@/hooks/useAnnounce'
 import {
   comparisonQueries,
@@ -13,8 +14,11 @@ import {
 } from '@/lib/queries/comparisons'
 import { ComparisonBody } from '../components/ComparisonBody'
 import { ComparisonHeader } from '../components/ComparisonHeader'
+import { ComparisonNameEditor } from '../components/ComparisonNameEditor'
+import { ComparisonPreview } from '../components/ComparisonPreview'
 import { EmptyComparisonState } from '../components/EmptyComparisonState'
 import { ProductPicker } from '../components/ProductPicker'
+import { useComparisonDraft } from '../hooks/useComparisonDraft'
 import './ComparisonBuilderPage.css'
 
 type Props =
@@ -29,8 +33,13 @@ export function ComparisonBuilderPage(props: Props) {
 function NewComparisonBuilder({ seedProductId }: { seedProductId?: string }) {
   const navigate = useNavigate()
   const create = useCreateComparison()
-  const [productIds, setProductIds] = useState<string[]>(seedProductId ? [seedProductId] : [])
-  const [name, setName] = useState<string>('')
+  const entryKey = useLocation({
+    select: (location) => location.state.__TSR_key ?? location.state.key ?? location.href,
+  })
+  const { productIds, setProductIds, name, setName, clearDraft } = useComparisonDraft(
+    `${entryKey}:${seedProductId ?? ''}`,
+    seedProductId
+  )
 
   const isDirty = productIds.length > 0 || name.trim().length > 0
 
@@ -43,36 +52,54 @@ function NewComparisonBuilder({ seedProductId }: { seedProductId?: string }) {
   }, [isDirty])
 
   const onSave = async () => {
-    if (productIds.length < COMPARISON_MIN_PRODUCTS) return
+    if (productIds.length < COMPARISON_MIN_PRODUCTS || create.isPending) return
     const created = await create.mutateAsync({
-      name: name || undefined,
+      name: name.trim() || undefined,
       productIds,
     })
+    clearDraft()
     void navigate({ to: '/products/compare/$id', params: { id: created.id } })
   }
 
   return (
     <section>
+      <PageHeader
+        title="Comparer des produits"
+        maxWidth="72rem"
+        meta="Comparez dès deux produits. Enregistrez pour retrouver cette sélection."
+      />
       <ComparisonHeader
         name={name}
         onNameChange={setName}
         count={productIds.length}
         onSave={onSave}
-        onCancel={isDirty ? () => void navigate({ to: '/products/compare' }) : undefined}
+        onCancel={
+          isDirty
+            ? () => {
+                clearDraft()
+                void navigate({ to: '/products/compare' })
+              }
+            : undefined
+        }
         canSave={productIds.length >= COMPARISON_MIN_PRODUCTS}
+        isPending={create.isPending}
       />
       {create.error && (
         <FormMessage variant="error">Impossible de créer la comparaison. Réessayez.</FormMessage>
       )}
       <div className="comparison-builder-page">
         <div className="comparison-builder-page__picker">
-          <ProductPicker selectedIds={productIds} onChange={setProductIds} />
+          <ProductPicker
+            selectedIds={productIds}
+            onChange={setProductIds}
+            isPending={create.isPending}
+          />
         </div>
-        <EmptyComparisonState
-          count={productIds.length}
-          onSave={onSave}
-          isPending={create.isPending}
-        />
+        {productIds.length >= COMPARISON_MIN_PRODUCTS ? (
+          <ComparisonPreview productIds={productIds} />
+        ) : (
+          <EmptyComparisonState count={productIds.length} />
+        )}
       </div>
     </section>
   )
@@ -80,12 +107,9 @@ function NewComparisonBuilder({ seedProductId }: { seedProductId?: string }) {
 
 function EditComparisonBuilder({ id }: { id: string }) {
   const { data: comparison } = useSuspenseQuery(comparisonQueries.detail(id))
-  const update = useUpdateComparison()
+  const update = useUpdateComparison({ inlineError: true })
+  const replacement = useUpdateComparison({ inlineError: true })
   const announce = useAnnounce()
-
-  // Name autosaves on every keystroke; announcing it would flood, so only the
-  // discrete product add/remove (content changes away from the picker) is announced.
-  const setName = (name: string) => update.mutate({ id, input: { name } })
 
   // Schema rejects out-of-bounds counts; useMutation swallows the 400 and desyncs the picker.
   const setProductIds = (productIds: string[]) => {
@@ -103,11 +127,11 @@ function EditComparisonBuilder({ id }: { id: string }) {
 
   return (
     <section>
-      <ComparisonHeader
-        name={comparison.name ?? ''}
-        onNameChange={setName}
+      <ComparisonNameEditor
+        key={id}
+        id={id}
+        savedName={comparison.name}
         count={comparison.products.length}
-        canSave={false}
       />
       {update.error && (
         <FormMessage variant="error">
@@ -118,17 +142,25 @@ function EditComparisonBuilder({ id }: { id: string }) {
         <div className="comparison-builder-page__picker">
           <ProductPicker
             selectedIds={comparison.products.map((p) => p.id)}
+            selectedProducts={comparison.products}
             onChange={setProductIds}
+            isPending={update.isPending || replacement.isPending}
+            onReplace={async (previousId, nextId) => {
+              update.reset()
+              await replacement.mutateAsync({
+                id,
+                input: {
+                  productIds: comparison.products.map((p) => (p.id === previousId ? nextId : p.id)),
+                },
+              })
+              announce('Produit remplacé dans la comparaison')
+            }}
           />
         </div>
         {comparison.products.length < COMPARISON_MIN_PRODUCTS ? (
           <EmptyComparisonState count={comparison.products.length} />
         ) : (
-          <ComparisonBody
-            products={comparison.products}
-            comparisonName={comparison.name}
-            reference={`N° ${comparison.id.slice(0, 4).toUpperCase()}`}
-          />
+          <ComparisonBody products={comparison.products} comparisonName={comparison.name} />
         )}
       </div>
     </section>

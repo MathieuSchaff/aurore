@@ -15,3 +15,15 @@
     --cmp-pad-x: var(--space-6);
   }
 }
+
+.cmp-ingredient-link {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.cmp-ingredient-link:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+  border-radius: var(--radius-xs);
+}

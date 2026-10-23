@@ -1,0 +1,65 @@
+.cmp-experience {
+  padding: var(--space-6) var(--cmp-pad-x);
+  border-top: var(--rule-section);
+}
+
+.cmp-experience__intro {
+  margin: var(--space-2) 0 var(--space-4);
+  color: var(--text-secondary);
+}
+
+.cmp-experience__grid {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.cmp-experience__product {
+  min-width: 0;
+  padding: var(--space-4);
+  background: var(--bg-elevated);
+  border: var(--border-width) solid var(--border-default);
+  border-radius: var(--radius-md);
+  overflow-wrap: anywhere;
+}
+
+.cmp-experience__product h3 {
+  margin: 0 0 var(--space-4);
+  font-size: var(--text-base);
+}
+
+.cmp-experience__facts {
+  display: grid;
+  gap: var(--space-3);
+  margin: 0 0 var(--space-4);
+}
+
+.cmp-experience__facts dt,
+.cmp-experience__label {
+  color: var(--text-secondary);
+  font-size: var(--text-sm);
+}
+
+.cmp-experience__facts dd {
+  margin: var(--space-1) 0 0;
+}
+
+.cmp-experience__label {
+  margin: 0;
+}
+
+.cmp-experience__note {
+  white-space: pre-wrap;
+  margin: var(--space-1) 0 var(--space-4);
+}
+
+.cmp-experience__hint {
+  color: var(--text-secondary);
+  font-size: var(--text-sm);
+  margin: 0 0 var(--space-4);
+}
+
+@media (--md) {
+  .cmp-experience__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

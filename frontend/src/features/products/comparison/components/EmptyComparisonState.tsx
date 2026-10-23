@@ -1,13 +1,8 @@
-import { Check } from 'lucide-react'
-
-import { Button } from '@/component/Button/Button'
 import './EmptyComparisonState.css'
 
-type Props = { count: number; onSave?: () => void; isPending?: boolean }
+type Props = { count: number }
 
-export function EmptyComparisonState({ count, onSave, isPending }: Props) {
-  const ready = count >= 2
-
+export function EmptyComparisonState({ count }: Props) {
   return (
     <div className="empty-comparison">
       <div className="empty-comparison__steps" aria-hidden>
@@ -29,30 +24,13 @@ export function EmptyComparisonState({ count, onSave, isPending }: Props) {
       </div>
 
       <p className="empty-comparison__title">
-        {ready
-          ? 'Prêt à comparer'
-          : count === 0
-            ? 'Sélectionnez au moins 2 produits'
-            : "Plus qu'un produit à ajouter"}
+        {count === 0 ? 'Sélectionnez au moins 2 produits' : "Plus qu'un produit à ajouter"}
       </p>
       <p className="ui-empty-description">
-        {ready
-          ? 'Enregistrez pour voir la comparaison côte à côte.'
-          : count === 0
-            ? 'Recherchez un produit ci-dessus pour commencer.'
-            : 'Ajoutez au moins un produit supplémentaire pour comparer.'}
+        {count === 0
+          ? 'Recherchez un produit ci-dessus pour commencer.'
+          : 'Ajoutez au moins un produit supplémentaire pour comparer.'}
       </p>
-      {ready && onSave && (
-        <Button
-          variant="primary"
-          className="empty-comparison__cta"
-          onClick={onSave}
-          loading={isPending}
-        >
-          <Check size={16} />
-          Enregistrer la comparaison
-        </Button>
-      )}
       <p className="empty-comparison__foot">de 2 à 8 produits · aucun classement, aucune note</p>
     </div>
   )

@@ -59,6 +59,51 @@ describe('Product Comparison Routes', () => {
     contributorToken = await setupAndLoginContributor(app, TEST_CREDENTIALS.contributor)
   })
 
+  it('previews selected products in order without creating a comparison', async () => {
+    const token = await setupAndLogin(app, TEST_CREDENTIALS.toto)
+    const a = await createProduct(client, contributorToken, PRODUCT_A)
+    const b = await createProduct(client, contributorToken, PRODUCT_B)
+    const preview = await expectOk(
+      client['product-comparisons'].preview.$get(
+        { query: { ids: `${b.id},${a.id}` } },
+        withAuth(token)
+      )
+    )
+    expect(preview.map((product) => product.id)).toEqual([b.id, a.id])
+    expect(preview[0]?.ingredients).toEqual([])
+    expect(await expectOk(client['product-comparisons'].$get({}, withAuth(token)))).toEqual([])
+  })
+
+  it('rejects anonymous preview requests', async () => {
+    const res = await app.request('/api/product-comparisons/preview?ids=invalid')
+    expect(res.status).toBe(HTTP_STATUS.UNAUTHORIZED)
+  })
+
+  it.each([
+    '',
+    'invalid',
+    '00000000-0000-7000-8000-000000000001',
+    '00000000-0000-7000-8000-000000000001,00000000-0000-7000-8000-000000000001',
+    Array.from({ length: 9 }, (_, index) => `00000000-0000-7000-8000-00000000000${index}`).join(
+      ','
+    ),
+  ])('rejects invalid preview selections (%#)', async (ids) => {
+    const res = await app.request(`/api/product-comparisons/preview?ids=${ids}`, {
+      headers: { Authorization: `Bearer ${contributorToken}` },
+    })
+    expect(res.status).toBe(HTTP_STATUS.BAD_REQUEST)
+  })
+
+  it('rejects a preview containing a missing product', async () => {
+    const a = await createProduct(client, contributorToken, PRODUCT_A)
+    const res = await client['product-comparisons'].preview.$get(
+      { query: { ids: `${a.id},00000000-0000-7000-8000-000000000000` } },
+      withAuth(contributorToken)
+    )
+    expect(res.status).toBe(HTTP_STATUS.BAD_REQUEST)
+    expect(await res.json()).toMatchObject({ success: false, error: 'comparison_invalid_products' })
+  })
+
   it('POST creates a comparison', async () => {
     const token = await setupAndLogin(app, TEST_CREDENTIALS.toto)
     const a = await createProduct(client, contributorToken, PRODUCT_A)

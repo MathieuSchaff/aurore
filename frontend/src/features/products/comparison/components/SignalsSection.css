@@ -28,6 +28,14 @@
   margin: 0 0 var(--space-4);
 }
 
+.signals-section__scope {
+  margin: 0 0 var(--space-3);
+  font-size: var(--text-sm);
+  line-height: var(--leading-normal);
+  color: var(--text-secondary);
+  overflow-wrap: anywhere;
+}
+
 .signals-section__none {
   font-family: var(--font-display);
   font-size: var(--text-sm);
@@ -38,7 +46,7 @@
 
 .signals-section__groups {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
   gap: var(--space-4);
   align-items: start;
 }
@@ -46,11 +54,13 @@
 /* A lone card would stretch full-width (auto-fit), floating the count far from
    its content; cap it so it reads as a card, not a banner. */
 .signals-section__groups:has(.signals-card:only-child) {
-  grid-template-columns: minmax(16rem, 32rem);
+  grid-template-columns: minmax(0, 32rem);
 }
 
 .signals-card {
   --tone: var(--color-primary);
+  min-width: 0;
+  overflow-wrap: anywhere;
   background: oklch(from var(--tone) l c h / 0.08);
   border: 1px solid oklch(from var(--tone) l c h / 0.25);
   border-radius: var(--radius-lg);
@@ -63,8 +73,8 @@
 .signals-card--alerts {
   --tone: var(--color-warning-text, var(--color-warning));
 }
-.signals-card--conflicts {
-  --tone: var(--status-color-avoided, var(--color-accent));
+.signals-card--pairs {
+  --tone: var(--color-primary);
 }
 
 .signals-card__head {
@@ -114,9 +124,8 @@
 }
 
 .signals-card__items {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-1);
+  display: grid;
+  gap: var(--space-2);
   list-style: none;
   padding: 0;
   margin: 0;
@@ -127,11 +136,12 @@
 }
 
 .signals-pill {
-  display: inline-flex;
-  align-items: baseline;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
   gap: var(--space-1);
   padding: var(--space-1) var(--space-3);
-  border-radius: var(--radius-full);
+  border-radius: var(--radius-md);
   background: var(--bg-card);
   border: 1px solid oklch(from var(--tone) l c h / 0.3);
   font-size: var(--text-xs);
@@ -140,25 +150,20 @@
 }
 
 .signals-pill__detail {
-  font-family: var(--font-mono);
-  font-size: 0.625rem;
-  color: var(--text-muted);
+  font-size: var(--text-xs);
+  line-height: var(--leading-normal);
+  color: var(--text-secondary);
   font-weight: var(--font-normal);
-  font-variant-numeric: tabular-nums;
 }
 
-.signals-conflict {
+.signals-pair {
   padding: var(--space-3);
   border-radius: var(--radius-md);
   background: var(--bg-card);
   border: 1px solid oklch(from var(--tone) l c h / 0.25);
 }
 
-.signals-conflict__pair span {
-  color: var(--tone);
-}
-
-.signals-conflict__note {
+.signals-pair__note {
   margin: var(--space-1) 0 0;
   font-size: var(--text-xs);
   line-height: var(--leading-snug);

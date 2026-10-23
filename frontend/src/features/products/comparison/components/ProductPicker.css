@@ -1,0 +1,39 @@
+.product-picker__controls {
+  min-width: 0;
+  padding: 0;
+  margin: 0;
+  border: 0;
+}
+
+.product-picker__selected,
+.product-picker__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.product-picker__selected {
+  margin-bottom: var(--space-3);
+}
+
+.product-picker__replace {
+  max-width: 100%;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  text-align: left;
+}
+
+.product-picker__replacement {
+  display: grid;
+  gap: var(--space-4);
+  padding: var(--space-6);
+}
+
+.product-picker__replacement p {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.product-picker__actions {
+  justify-content: flex-end;
+}

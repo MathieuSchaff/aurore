@@ -1,4 +1,4 @@
-import type { FormEvent } from 'react'
+import { type FormEvent, useId } from 'react'
 
 import { FormActions } from '@/component/Input/FormActions/FormActions'
 import { Input } from '@/component/Input/Input'
@@ -11,9 +11,25 @@ type Props = {
   onSave?: () => void
   onCancel?: () => void
   canSave: boolean
+  isPending?: boolean
+  isNameDisabled?: boolean
+  submitLabel?: string
+  nameStatus?: string
 }
 
-export function ComparisonHeader({ name, onNameChange, count, onSave, onCancel, canSave }: Props) {
+export function ComparisonHeader({
+  name,
+  onNameChange,
+  count,
+  onSave,
+  onCancel,
+  canSave,
+  isPending,
+  isNameDisabled = isPending,
+  submitLabel = 'Enregistrer',
+  nameStatus,
+}: Props) {
+  const statusId = useId()
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     onSave?.()
@@ -21,13 +37,31 @@ export function ComparisonHeader({ name, onNameChange, count, onSave, onCancel, 
 
   return (
     <header className="comparison-header">
-      <form className="comparison-header__form" onSubmit={handleSubmit}>
+      <form
+        aria-label="Nom de la comparaison"
+        className="comparison-header__form"
+        onSubmit={handleSubmit}
+      >
         <div className="comparison-header__name-wrap">
           <Input
+            label="Nom de la comparaison (facultatif)"
+            disabled={isNameDisabled}
+            aria-describedby={nameStatus ? statusId : undefined}
+            maxLength={120}
             value={name}
             onChange={(e) => onNameChange(e.target.value)}
             placeholder="Nom de la comparaison (facultatif)"
           />
+          {nameStatus && (
+            <p
+              id={statusId}
+              role="status"
+              aria-label="État du nom"
+              className="comparison-header__status"
+            >
+              {nameStatus}
+            </p>
+          )}
         </div>
         <span className="comparison-header__count">
           {count} produit{count > 1 ? 's' : ''}
@@ -35,8 +69,9 @@ export function ComparisonHeader({ name, onNameChange, count, onSave, onCancel, 
         {onSave && (
           <div className="comparison-header__actions">
             <FormActions
-              submitLabel="Enregistrer"
-              disabled={!canSave}
+              submitLabel={submitLabel}
+              disabled={!canSave || isPending}
+              isPending={isPending}
               onCancel={onCancel}
               separator={false}
             />

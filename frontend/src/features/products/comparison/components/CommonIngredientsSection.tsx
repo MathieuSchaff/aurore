@@ -1,40 +1,26 @@
 import type { EnrichedComparisonProduct } from '@aurore/shared'
 
+import { Link } from '@tanstack/react-router'
 import { useId } from 'react'
 
 import { ShowMoreButton } from '@/component/DataDisplay/ShowMoreButton/ShowMoreButton'
 import { useExpandableList } from '@/hooks/useExpandableList'
-import { computeCommon } from '../helpers/aggregations'
+import { computeCommon, computePartiallyShared } from '../helpers/aggregations'
 import './IngredientsSection.css'
 
 type Props = { products: EnrichedComparisonProduct[] }
 
-const NO_POSITION = 999
-
-// Average ingredient position across products; lowest = highest concentration.
-function buildAvgPositions(products: EnrichedComparisonProduct[]): Map<string, number> {
-  const sums = new Map<string, { sum: number; count: number }>()
-  for (const product of products) {
-    for (const ing of product.ingredients) {
-      const acc = sums.get(ing.slug) ?? { sum: 0, count: 0 }
-      acc.sum += ing.position
-      acc.count += 1
-      sums.set(ing.slug, acc)
-    }
-  }
-  return new Map(Array.from(sums, ([slug, { sum, count }]) => [slug, sum / count]))
-}
-
 export function CommonIngredientsSection({ products }: Props) {
   const common = computeCommon(products)
-  const avgPositions = buildAvgPositions(products)
-  const avgPosition = (slug: string) => avgPositions.get(slug) ?? NO_POSITION
+  const partial = computePartiallyShared(products).toSorted((a, b) =>
+    a.ingredient.inciName.localeCompare(b.ingredient.inciName, 'fr')
+  )
 
   const actives = common.filter((i) => i.signals.includes('active'))
   const others = common.filter((i) => !i.signals.includes('active'))
 
-  const sortedActives = actives.toSorted((a, b) => avgPosition(a.slug) - avgPosition(b.slug))
-  const sortedOthers = others.toSorted((a, b) => avgPosition(a.slug) - avgPosition(b.slug))
+  const sortedActives = actives.toSorted((a, b) => a.inciName.localeCompare(b.inciName, 'fr'))
+  const sortedOthers = others.toSorted((a, b) => a.inciName.localeCompare(b.inciName, 'fr'))
 
   const productsKey = products.map((p) => p.id).join(',')
   const listId = useId()
@@ -51,25 +37,29 @@ export function CommonIngredientsSection({ products }: Props) {
     toggle: toggleOthersExpanded,
   } = useExpandableList(sortedOthers, undefined, productsKey)
 
+  const {
+    visible: visiblePartial,
+    hiddenCount: hiddenPartialCount,
+    isExpanded: partialExpanded,
+    toggle: togglePartialExpanded,
+  } = useExpandableList(partial, undefined, productsKey)
+
   return (
-    <section className="terroir">
+    <section className="terroir" aria-labelledby={`${listId}-heading`}>
       <header className="terroir__head">
         <div>
-          <p className="terroir__eyebrow">Terrain commun</p>
-          <h2 className="terroir__title ui-display-heading">
-            Le <em>terroir</em> partagé
+          <h2 id={`${listId}-heading`} className="terroir__title ui-display-heading">
+            Points communs
           </h2>
         </div>
         <span className="terroir__count">
-          {common.length} ingrédient{common.length > 1 ? 's' : ''} en commun · trié par
-          concentration
+          {common.length} ingrédient{common.length > 1 ? 's' : ''} en commun · ordre alphabétique
         </span>
       </header>
 
       {common.length === 0 ? (
         <p className="terroir__empty">
-          Aucun ingrédient n’apparaît dans toutes les formules. Elles peuvent jouer des rôles
-          complémentaires dans une routine.
+          Aucun ingrédient renseigné n’apparaît dans toutes les formules.
         </p>
       ) : (
         <>
@@ -79,8 +69,13 @@ export function CommonIngredientsSection({ products }: Props) {
               <ul role="list" id={`${listId}-actives`} className="terroir__pills">
                 {visibleActives.map((i) => (
                   <li key={i.slug} className="terroir-pill terroir-pill--active">
-                    <span className="terroir-pill__pos">#{Math.round(avgPosition(i.slug))}</span>
-                    {i.inciName}
+                    <Link
+                      to="/ingredients/$slug"
+                      params={{ slug: i.slug }}
+                      className="cmp-ingredient-link"
+                    >
+                      {i.inciName}
+                    </Link>
                   </li>
                 ))}
               </ul>
@@ -99,8 +94,13 @@ export function CommonIngredientsSection({ products }: Props) {
               <ul role="list" id={`${listId}-others`} className="terroir__pills">
                 {visibleOthers.map((i) => (
                   <li key={i.slug} className="terroir-pill">
-                    <span className="terroir-pill__pos">#{Math.round(avgPosition(i.slug))}</span>
-                    {i.inciName}
+                    <Link
+                      to="/ingredients/$slug"
+                      params={{ slug: i.slug }}
+                      className="cmp-ingredient-link"
+                    >
+                      {i.inciName}
+                    </Link>
                   </li>
                 ))}
               </ul>
@@ -114,6 +114,32 @@ export function CommonIngredientsSection({ products }: Props) {
             </div>
           )}
         </>
+      )}
+      {partial.length > 0 && (
+        <section className="terroir__group" aria-label="Partagés par certains produits">
+          <h3 className="terroir__group-label">Partagés par certains produits</h3>
+          <ul role="list" id={`${listId}-partial`} className="terroir__pills">
+            {visiblePartial.map(({ ingredient, products: presentIn }) => (
+              <li key={ingredient.slug} className="terroir-pill">
+                <Link
+                  to="/ingredients/$slug"
+                  params={{ slug: ingredient.slug }}
+                  className="cmp-ingredient-link"
+                >
+                  {ingredient.inciName}
+                </Link>
+                <span> : {presentIn.map((p) => `${p.brand} ${p.name}`).join(', ')}</span>
+              </li>
+            ))}
+          </ul>
+          <ShowMoreButton
+            className="terroir__more"
+            hiddenCount={hiddenPartialCount}
+            isExpanded={partialExpanded}
+            onToggle={togglePartialExpanded}
+            controlsId={`${listId}-partial`}
+          />
+        </section>
       )}
     </section>
   )

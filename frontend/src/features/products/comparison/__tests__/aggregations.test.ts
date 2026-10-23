@@ -3,10 +3,10 @@ import type { EnrichedComparisonProduct } from '@aurore/shared'
 import { describe, expect, it } from 'vitest'
 
 import {
+  computeActives,
   computeAlerts,
   computeCommon,
-  computeConflicts,
-  computeSharedActives,
+  computeIngredientPairs,
   computeSpecifics,
 } from '../helpers/aggregations'
 
@@ -42,6 +42,16 @@ describe('computeCommon', () => {
 })
 
 describe('computeSpecifics', () => {
+  it('keeps ingredients shared by two of three products out of exclusive lists', () => {
+    const a = prod('a', [ing('1', 'water'), ing('2', 'glycerin'), ing('3', 'niacinamide')])
+    const b = prod('b', [ing('1', 'water'), ing('2', 'glycerin')])
+    const c = prod('c', [ing('1', 'water'), ing('4', 'squalane')])
+    const result = computeSpecifics([a, b, c])
+    expect(result.get('a')?.map((i) => i.slug)).toEqual(['niacinamide'])
+    expect(result.get('b')).toEqual([])
+    expect(result.get('c')?.map((i) => i.slug)).toEqual(['squalane'])
+  })
+
   it('returns ingredients only on one product', () => {
     const a = prod('a', [ing('1', 'water'), ing('2', 'glycerin')])
     const b = prod('b', [ing('1', 'water'), ing('3', 'niacinamide')])
@@ -51,11 +61,20 @@ describe('computeSpecifics', () => {
   })
 })
 
-describe('computeSharedActives', () => {
-  it('returns common ingredients flagged active', () => {
-    const a = prod('a', [ing('1', 'water'), ing('2', 'niacinamide', ['active'])])
-    const b = prod('b', [ing('1', 'water'), ing('2', 'niacinamide', ['active'])])
-    expect(computeSharedActives([a, b]).map((i) => i.slug)).toEqual(['niacinamide'])
+describe('computeActives', () => {
+  it('attributes common, partially shared and single-product actives', () => {
+    const a = prod('a', [
+      ing('1', 'water'),
+      ing('2', 'niacinamide', ['active']),
+      ing('3', 'retinol', ['active']),
+    ])
+    const b = prod('b', [ing('2', 'niacinamide', ['active'])])
+    const c = prod('c', [ing('4', 'panthenol', ['active'])])
+    expect(computeActives([a, b, c])).toEqual([
+      { slug: 'niacinamide', inciName: 'niacinamide', presentIn: ['a', 'b'] },
+      { slug: 'retinol', inciName: 'retinol', presentIn: ['a'] },
+      { slug: 'panthenol', inciName: 'panthenol', presentIn: ['c'] },
+    ])
   })
 })
 
@@ -70,12 +89,44 @@ describe('computeAlerts', () => {
   })
 })
 
-describe('computeConflicts', () => {
-  it('flags retinol + glycolic across the union', () => {
-    const a = prod('a', [ing('1', 'retinol')])
-    const b = prod('b', [ing('2', 'glycolic-acid')])
-    const conflicts = computeConflicts([a, b])
-    expect(conflicts.length).toBe(1)
-    expect(conflicts[0]?.severity).toBe('warn')
+describe('computeIngredientPairs', () => {
+  it.each([
+    { lists: [['retinol', 'glycolic-acid'], ['water']], sameFormula: ['a'], betweenProducts: [] },
+    { lists: [['retinol'], ['glycolic-acid']], sameFormula: [], betweenProducts: [['a', 'b']] },
+    {
+      lists: [['retinol', 'glycolic-acid'], ['retinol'], ['water']],
+      sameFormula: ['a'],
+      betweenProducts: [['a', 'b']],
+    },
+    {
+      lists: [
+        ['retinol', 'glycolic-acid'],
+        ['retinol', 'glycolic-acid'],
+      ],
+      sameFormula: ['a', 'b'],
+      betweenProducts: [['a', 'b']],
+    },
+    { lists: [['retinol', 'glycolic-acid'], []], sameFormula: ['a'], betweenProducts: [] },
+  ])(
+    'keeps formula and cross-product occurrences separate (%#)',
+    ({ lists, sameFormula, betweenProducts }) => {
+      const products = lists.map((slugs, index) =>
+        prod(
+          String.fromCharCode(97 + index),
+          slugs.map((slug) => ing(slug, slug))
+        )
+      )
+      const pairs = computeIngredientPairs(products)
+      expect(pairs).toHaveLength(1)
+      expect(pairs[0]).toMatchObject({ sameFormula, betweenProducts })
+      expect(pairs[0]?.a.inciName).toBe('retinol')
+      expect(pairs[0]?.b.inciName).toBe('glycolic-acid')
+      expect(pairs[0]).not.toHaveProperty('severity')
+      expect(pairs[0]).not.toHaveProperty('note')
+    }
+  )
+
+  it('does not invent a pair when its second ingredient is absent or unknown', () => {
+    expect(computeIngredientPairs([prod('a', [ing('1', 'retinol')]), prod('b', [])])).toEqual([])
   })
 })

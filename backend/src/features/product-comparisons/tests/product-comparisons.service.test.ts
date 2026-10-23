@@ -10,6 +10,7 @@ import {
   deleteComparison,
   getEnrichedComparison,
   listComparisons,
+  previewComparison,
   updateComparison,
 } from '../service'
 
@@ -187,6 +188,8 @@ describe('enrichment', () => {
     const enriched = await getCmp(user.id, cmp.id)
     const first = enriched.products.find((p) => p.id === p1.id)
     expect(first?.ingredients[0]?.signals).toContain('active')
+    const preview = await testDb.transaction((tx) => previewComparison([p1.id, p2.id], tx))
+    expect(preview).toEqual(enriched.products)
   })
 
   it('computes price per ml when total amount is set', async () => {

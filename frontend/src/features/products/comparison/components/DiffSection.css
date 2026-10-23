@@ -22,10 +22,14 @@
 .diff-section__grid {
   display: grid;
   gap: var(--space-3);
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  -webkit-overflow-scrolling: touch;
+  grid-template-columns: minmax(0, 1fr);
   padding-bottom: var(--space-1);
+}
+
+@media (--md) {
+  .diff-section__grid {
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 12.5rem), 1fr));
+  }
 }
 
 .diff-section__col {
@@ -38,17 +42,15 @@
   border: 1px solid var(--border-default);
   border-top: 3px solid var(--tone);
   border-radius: var(--radius-md);
-  scroll-snap-align: start;
+  overflow-wrap: anywhere;
   min-width: 0;
 }
 
 .diff-section__col-header {
-  display: flex;
+  display: grid;
+  grid-template-columns: auto 1fr;
   align-items: baseline;
-  justify-content: space-between;
   gap: var(--space-2);
-  margin: 0;
-  flex-wrap: wrap;
 }
 
 .diff-section__col-num {
@@ -62,8 +64,9 @@
   flex-shrink: 0;
 }
 
-.diff-section__col-brand {
-  flex: 1;
+.diff-section__col-title {
+  grid-column: 1 / -1;
+  margin: 0;
   font-family: var(--font-display);
   font-size: var(--text-sm);
   font-weight: var(--font-normal);
@@ -72,7 +75,17 @@
   line-height: var(--leading-snug);
 }
 
+.diff-section__col-brand {
+  display: block;
+  margin-bottom: var(--space-1);
+  font-family: var(--font-sans);
+  font-size: var(--text-xs);
+  font-weight: var(--font-semibold);
+  color: var(--text-secondary);
+}
+
 .diff-section__col-count {
+  justify-self: end;
   font-family: var(--font-mono);
   font-size: 0.625rem;
   color: var(--text-muted);
@@ -99,6 +112,7 @@
 }
 
 .diff-pill {
+  max-width: 100%;
   display: inline-flex;
   align-items: baseline;
   gap: var(--space-1);
@@ -110,15 +124,6 @@
   border: 1px solid oklch(from var(--tone) l c h / 0.22);
   background: oklch(from var(--tone) l c h / 0.08);
   color: var(--text-primary);
-}
-
-.diff-pill__pos {
-  font-family: var(--font-mono);
-  font-size: 0.625rem;
-  font-weight: var(--font-semibold);
-  color: var(--tone);
-  font-variant-numeric: tabular-nums;
-  letter-spacing: var(--tracking-wide);
 }
 
 .diff-pill__active {

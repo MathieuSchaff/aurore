@@ -27,6 +27,12 @@
   white-space: nowrap;
 }
 
+.comparison-header__status {
+  margin: var(--space-2) 0 0;
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+}
+
 .comparison-header__actions {
   margin-left: auto;
 }

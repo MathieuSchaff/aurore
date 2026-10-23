@@ -6,25 +6,16 @@ import './CompatibilityCallout.css'
 type Props = { products: EnrichedComparisonProduct[] }
 
 export function CompatibilityCallout({ products }: Props) {
-  const { band, commonCount, headline, verdict } = computeCompatibility(products)
-  const commonLabel = `${commonCount} ingrédient${commonCount > 1 ? 's' : ''} en commun`
+  const { headline, description } = computeCompatibility(products)
 
   return (
-    <aside
-      className={`cmp-callout cmp-callout--${band}`}
-      role="note"
-      aria-label="Lecture qualitative de la comparaison"
-    >
+    <aside className="cmp-callout" role="note" aria-label="Synthèse des ingrédients renseignés">
       <p className="cmp-callout__eyebrow">
         <span className="cmp-callout__eyebrow-dot" aria-hidden="true" />
-        Lecture d'ensemble
+        Ingrédients renseignés
       </p>
       <p className="ui-display-heading">{headline}</p>
-      <p className="cmp-callout__verdict">{verdict}</p>
-      <p className="cmp-callout__common">
-        <span className="cmp-callout__common-dot" aria-hidden="true" />
-        {commonLabel}
-      </p>
+      <p className="cmp-callout__description">{description}</p>
     </aside>
   )
 }

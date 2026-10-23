@@ -3,15 +3,28 @@ import type { CreateComparisonInput, UpdateComparisonInput } from '@aurore/share
 import { queryOptions, useMutation, useQueryClient } from '@tanstack/react-query'
 
 import { api } from '../api'
+import { captureClientSession } from '../auth/session'
 import { throwIfNotOk, unwrapData } from '../helpers/apiError'
 
 export const comparisonKeys = {
   all: ['product-comparisons'] as const,
   list: () => [...comparisonKeys.all, 'list'] as const,
+  preview: (ids: string[]) => [...comparisonKeys.all, 'preview', ...ids] as const,
   detail: (id: string) => [...comparisonKeys.all, 'detail', id] as const,
 }
 
 export const comparisonQueries = {
+  preview: (ids: string[]) =>
+    queryOptions({
+      queryKey: comparisonKeys.preview(ids),
+      queryFn: async ({ signal }) => {
+        const res = await api['product-comparisons'].preview.$get(
+          { query: { ids: ids.join(',') } },
+          { init: { signal } }
+        )
+        return unwrapData(res)
+      },
+    }),
   list: () =>
     queryOptions({
       queryKey: comparisonKeys.list(),
@@ -45,10 +58,11 @@ export const useCreateComparison = () => {
   })
 }
 
-export const useUpdateComparison = () => {
+export const useUpdateComparison = ({ inlineError = false } = {}) => {
   const qc = useQueryClient()
   return useMutation({
     mutationKey: ['product-comparisons', 'update'],
+    onMutate: captureClientSession,
     mutationFn: async ({ id, input }: { id: string; input: UpdateComparisonInput }) => {
       const res = await api['product-comparisons'][':id'].$patch({
         param: { id },
@@ -56,11 +70,14 @@ export const useUpdateComparison = () => {
       })
       return unwrapData(res)
     },
-    onSuccess: (_, { id }) => {
-      qc.invalidateQueries({ queryKey: comparisonKeys.detail(id) })
-      qc.invalidateQueries({ queryKey: comparisonKeys.list() })
+    onSuccess: (comparison, { id }, owner) => {
+      if (owner.isCurrent()) qc.setQueryData(comparisonKeys.detail(id), comparison)
+      return Promise.all([
+        qc.invalidateQueries({ queryKey: comparisonKeys.detail(id) }),
+        qc.invalidateQueries({ queryKey: comparisonKeys.list() }),
+      ])
     },
-    meta: { errorMessage: 'Mise à jour de la comparaison impossible.' },
+    meta: { errorMessage: inlineError ? undefined : 'Mise à jour de la comparaison impossible.' },
   })
 }
 

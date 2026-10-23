@@ -1,4 +1,10 @@
-import { createComparisonSchema, HTTP_STATUS, ok, updateComparisonSchema } from '@aurore/shared'
+import {
+  createComparisonSchema,
+  HTTP_STATUS,
+  ok,
+  previewComparisonSchema,
+  updateComparisonSchema,
+} from '@aurore/shared'
 
 import { Hono } from 'hono'
 import { z } from 'zod'
@@ -13,6 +19,7 @@ import {
   deleteComparison,
   getEnrichedComparison,
   listComparisons,
+  previewComparison,
   updateComparison,
 } from './service'
 
@@ -36,6 +43,11 @@ export const productComparisonRoutes = app
     const input = c.req.valid('json')
     const created = await createComparison(userId, input, db)
     return c.json(ok(created), HTTP_STATUS.CREATED)
+  })
+  .get('/preview', zValidator('query', previewComparisonSchema), async (c) => {
+    const db = getRlsDb(c)
+    const { ids } = c.req.valid('query')
+    return c.json(ok(await previewComparison(ids, db)), HTTP_STATUS.OK)
   })
   .get('/:id', zValidator('param', idParam), async (c) => {
     const userId = getAuthedUserId(c)

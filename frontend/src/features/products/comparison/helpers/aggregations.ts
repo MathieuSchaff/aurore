@@ -1,5 +1,5 @@
 import type { EnrichedComparisonProduct } from '@aurore/shared'
-import { DERMO_CONFLICTS, type DermoConflict } from '@aurore/shared'
+import { DERMO_CONFLICTS } from '@aurore/shared'
 
 type Ingredient = EnrichedComparisonProduct['ingredients'][number]
 
@@ -27,44 +27,81 @@ export function computeCommon(products: EnrichedComparisonProduct[]): Ingredient
 }
 
 export function computeSpecifics(products: EnrichedComparisonProduct[]): Map<string, Ingredient[]> {
-  const common = new Set(computeCommon(products).map((i) => i.slug))
+  const ingredients = ingredientsBySlug(products)
   const result = new Map<string, Ingredient[]>()
   for (const p of products) {
     result.set(
       p.id,
-      p.ingredients.filter((i) => !common.has(i.slug))
+      p.ingredients.filter((i) => ingredients.get(i.slug)?.productIds.size === 1)
     )
   }
   return result
 }
 
-export function computeSharedActives(products: EnrichedComparisonProduct[]): Ingredient[] {
-  return computeCommon(products).filter((i) => i.signals.includes('active'))
+export function computePartiallyShared(products: EnrichedComparisonProduct[]) {
+  return [...ingredientsBySlug(products).values()]
+    .filter(({ productIds }) => productIds.size > 1 && productIds.size < products.length)
+    .map(({ ingredient, productIds }) => ({
+      ingredient,
+      products: products.filter((p) => productIds.has(p.id)),
+    }))
 }
 
-export type AlertSummary = {
+type IngredientSignalSummary = {
   slug: string
   inciName: string
   presentIn: string[]
 }
 
-export function computeAlerts(products: EnrichedComparisonProduct[]): AlertSummary[] {
-  const map = ingredientsBySlug(products)
-  const alerts: AlertSummary[] = []
-  const productOrder = products.map((p) => p.id)
-  for (const entry of map.values()) {
-    if (!entry.ingredient.signals.includes('alert')) continue
-    alerts.push({
-      slug: entry.ingredient.slug,
-      inciName: entry.ingredient.inciName,
-      presentIn: productOrder.filter((id) => entry.productIds.has(id)),
-    })
-  }
-  return alerts
+function computeSignals(
+  products: EnrichedComparisonProduct[],
+  signal: Ingredient['signals'][number]
+): IngredientSignalSummary[] {
+  return [...ingredientsBySlug(products).values()]
+    .filter(({ ingredient }) => ingredient.signals.includes(signal))
+    .map(({ ingredient, productIds }) => ({
+      slug: ingredient.slug,
+      inciName: ingredient.inciName,
+      presentIn: products.filter((p) => productIds.has(p.id)).map((p) => p.id),
+    }))
 }
 
-export function computeConflicts(products: EnrichedComparisonProduct[]): DermoConflict[] {
-  const slugs = new Set<string>()
-  for (const p of products) for (const i of p.ingredients) slugs.add(i.slug)
-  return DERMO_CONFLICTS.filter((c) => slugs.has(c.a) && slugs.has(c.b))
+export function computeActives(products: EnrichedComparisonProduct[]) {
+  return computeSignals(products, 'active')
+}
+
+export function computeAlerts(products: EnrichedComparisonProduct[]) {
+  return computeSignals(products, 'alert')
+}
+
+export function computeIngredientPairs(products: EnrichedComparisonProduct[]) {
+  const ingredients = ingredientsBySlug(products)
+  return DERMO_CONFLICTS.flatMap(({ a, b }) => {
+    const first = ingredients.get(a)
+    const second = ingredients.get(b)
+    if (!first || !second) return []
+    const betweenProducts: [string, string][] = []
+    for (const [index, product] of products.entries()) {
+      for (const other of products.slice(index + 1)) {
+        if (
+          (first.productIds.has(product.id) && second.productIds.has(other.id)) ||
+          (second.productIds.has(product.id) && first.productIds.has(other.id))
+        ) {
+          betweenProducts.push([product.id, other.id])
+        }
+      }
+    }
+    return [
+      {
+        a: first.ingredient,
+        b: second.ingredient,
+        aPresentIn: products.filter((p) => first.productIds.has(p.id)).map((p) => p.id),
+        bPresentIn: products.filter((p) => second.productIds.has(p.id)).map((p) => p.id),
+        sameFormula: products
+          .filter((p) => first.productIds.has(p.id) && second.productIds.has(p.id))
+          .map((p) => p.id),
+        betweenProducts,
+      },
+    ]
+  })
 }

@@ -95,8 +95,43 @@ export async function getEnrichedComparison(
     }
   }
 
-  const productIds = items.map((i) => i.productId)
+  return {
+    id: comparison.id,
+    name: comparison.name,
+    createdAt: comparison.createdAt,
+    products: await getComparisonProducts(
+      items.map((item) => item.productId),
+      database
+    ),
+  }
+}
 
+export async function previewComparison(
+  productIds: string[],
+  database: DatabaseTransaction
+): Promise<EnrichedComparisonProduct[]> {
+  const products = await getComparisonProducts(productIds, database)
+  if (products.length !== productIds.length) {
+    throw new ProductComparisonError('comparison_invalid_products')
+  }
+  return products
+}
+
+function computeComparisonPricePer(
+  product: Pick<EnrichedComparisonProduct, 'priceCents' | 'totalAmount' | 'amountUnit'>
+): EnrichedComparisonProduct['pricePer'] {
+  return product.priceCents !== null &&
+    product.totalAmount !== null &&
+    product.totalAmount > 0 &&
+    (product.amountUnit === 'ml' || product.amountUnit === 'g' || product.amountUnit === 'unit')
+    ? { unit: product.amountUnit, cents: product.priceCents / product.totalAmount }
+    : null
+}
+
+async function getComparisonProducts(
+  productIds: string[],
+  database: DatabaseTransaction
+): Promise<EnrichedComparisonProduct[]> {
   const productRows = await database
     .select({
       id: products.id,
@@ -166,16 +201,10 @@ export async function getEnrichedComparison(
     tagsByProduct.set(row.productId, list)
   }
 
-  const enrichedProducts: EnrichedComparisonProduct[] = items.flatMap((item) => {
-    const p = productById.get(item.productId)
+  return productIds.flatMap((productId) => {
+    const p = productById.get(productId)
     if (!p) return []
-    const pricePer =
-      p.priceCents !== null &&
-      p.totalAmount !== null &&
-      p.totalAmount > 0 &&
-      (p.amountUnit === 'ml' || p.amountUnit === 'g' || p.amountUnit === 'unit')
-        ? { unit: p.amountUnit as 'ml' | 'g' | 'unit', cents: p.priceCents / p.totalAmount }
-        : null
+    const pricePer = computeComparisonPricePer(p)
     const enriched: EnrichedComparisonProduct = {
       id: p.id,
       name: p.name,
@@ -192,13 +221,6 @@ export async function getEnrichedComparison(
     }
     return [enriched]
   })
-
-  return {
-    id: comparison.id,
-    name: comparison.name,
-    createdAt: comparison.createdAt,
-    products: enrichedProducts,
-  }
 }
 
 export async function updateComparison(

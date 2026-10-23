@@ -1,6 +1,7 @@
 import type { EnrichedComparisonProduct, SkincareProductTagCategory } from '@aurore/shared'
 
 import { Link } from '@tanstack/react-router'
+import { useId } from 'react'
 
 import { ProductImage } from '@/features/products/components/ProductImage/ProductImage'
 import { tagLabel } from '@/features/products/filters'
@@ -15,7 +16,7 @@ type Props = { products: EnrichedComparisonProduct[] }
 const eur = new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' })
 
 function formatPricePer(p: EnrichedComparisonProduct): string {
-  if (!p.pricePer) return '—'
+  if (!p.pricePer) return 'Prix unitaire non renseigné'
   return `${eur.format(p.pricePer.cents / 100)} / ${p.pricePer.unit}`
 }
 
@@ -29,23 +30,25 @@ const TAG_TYPES: readonly SkincareProductTagCategory[] = [
 const TAG_TYPES_SET: ReadonlySet<string> = new Set(TAG_TYPES)
 
 export function MetaStrip({ products }: Props) {
+  const headingId = useId()
   const allUnits = new Set(
     products.map((p) => p.pricePer?.unit).filter((u): u is NonNullable<typeof u> => Boolean(u))
   )
   const mixed = allUnits.size > 1
 
   return (
-    <section className="cmp-shelf" aria-label="Produits comparés">
+    <section className="cmp-shelf" aria-labelledby={headingId}>
+      <h2 id={headingId} className="cmp-shelf__title ui-display-heading">
+        Produits comparés
+      </h2>
       <ol role="list" className="cmp-shelf__row">
         {products.map((p, i) => {
           const tags = p.tags.filter(
             (t) => TAG_TYPES_SET.has(t.tagType) && t.relevance === 'primary'
           )
-          const activeCount = p.ingredients.filter((x) => x.signals.includes('active')).length
 
           return (
             <li key={p.id} className="cmp-shelf__item" style={productTone(i)}>
-              <span className="cmp-shelf__num">N° {String(i + 1).padStart(2, '0')}</span>
               <Link
                 to="/products/$slug"
                 params={{ slug: p.slug }}
@@ -57,7 +60,7 @@ export function MetaStrip({ products }: Props) {
                   kind={p.kind}
                   unit={p.amountUnit}
                   imageUrl={p.imageUrl}
-                  size={96}
+                  size={48}
                   className="cmp-shelf__photo"
                 />
               </Link>
@@ -71,31 +74,19 @@ export function MetaStrip({ products }: Props) {
                   {p.name}
                 </Link>
               </h3>
-              <p className="cmp-shelf__meta">
-                {p.totalAmount && p.amountUnit ? (
-                  <span className="cmp-shelf__amount">
-                    {p.totalAmount} {p.amountUnit}
-                  </span>
-                ) : (
-                  <span className="cmp-shelf__amount">—</span>
-                )}
-                <span className="cmp-shelf__sep" aria-hidden="true">
-                  ·
-                </span>
-                <span className={`cmp-shelf__price${mixed ? ' cmp-shelf__price--mixed' : ''}`}>
-                  {mixed ? META_STRIP_LABELS.priceMixed : formatPricePer(p)}
-                </span>
+              <p className="cmp-shelf__amount">
+                {p.totalAmount != null && p.totalAmount > 0 && p.amountUnit
+                  ? `${p.totalAmount} ${p.amountUnit}`
+                  : 'Quantité non renseignée'}
               </p>
-              <div className="cmp-shelf__badges">
-                {activeCount > 0 && (
-                  <span className="cmp-shelf__badge cmp-shelf__badge--actives">
-                    {activeCount} actif{activeCount > 1 ? 's' : ''}
-                  </span>
-                )}
-                <span className="cmp-shelf__badge cmp-shelf__badge--count">
-                  {p.ingredients.length} ingr.
-                </span>
-              </div>
+              <p className="cmp-shelf__price">
+                {p.priceCents != null
+                  ? `Prix total : ${eur.format(p.priceCents / 100)}`
+                  : 'Prix total non renseigné'}
+              </p>
+              <p className="cmp-shelf__unit-price">
+                {mixed ? META_STRIP_LABELS.priceMixed : formatPricePer(p)}
+              </p>
               {tags.length > 0 && (
                 <ul role="list" className="cmp-shelf__tags">
                   {tags.slice(0, 3).map((t) => (
@@ -109,7 +100,6 @@ export function MetaStrip({ products }: Props) {
           )
         })}
       </ol>
-      <div className="cmp-shelf__plank" aria-hidden="true" />
     </section>
   )
 }
