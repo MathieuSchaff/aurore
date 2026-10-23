@@ -310,6 +310,25 @@ describe('computeLinks', () => {
     expect(result.slugs).toEqual(['oxide-de-fer', 'ci-77499'])
   })
 
+  it('links iron oxide colours and the bentonite color index to their own sheets', () => {
+    const maps = buildCanonicalKeyMaps([
+      { slug: 'oxide-de-fer', key: 'CI 77491', type: 'skincare' },
+      { slug: 'ci-77492', key: 'CI 77492', type: 'skincare' },
+      { slug: 'ci-77499', key: 'CI 77499', type: 'skincare' },
+      { slug: 'bentonite', key: 'Bentonite', type: 'skincare' },
+    ])
+
+    const result = computeLinks(
+      'Iron Oxides (Yellow), Iron Oxides (Red), Iron Oxides (Black), Bentonite (Ci 77004)',
+      'skincare',
+      maps.canonicalKeyToSlug,
+      maps.canonicalKeyBySlug,
+      maps.slugsByCanonicalKey
+    )
+
+    expect(result.slugs).toEqual(['ci-77492', 'oxide-de-fer', 'ci-77499', 'bentonite'])
+  })
+
   it('links only the four Eugenia extract forms', () => {
     const d1Tokens = [
       'eugenia caryophyllus clove flower extract*',
