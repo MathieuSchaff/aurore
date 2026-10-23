@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import { useMemo } from 'react'
+import { type ReactNode, useMemo } from 'react'
 
 import { useDebounce } from '@/hooks/useDebounce'
 import { useFlipPlacement } from '@/hooks/useFlipPlacement'
@@ -18,7 +18,9 @@ import '../SearchSelect/SearchSelect.css'
 
 type AsyncSearchSelectProps = {
   selected: string[]
+  selectedLabels?: Readonly<Record<string, string>>
   onToggle: (value: string) => void
+  renderSelected?: (options: FilterOption[]) => ReactNode
   // Loosely typed at the prop level: the type union of all possible factories
   // is impractical to thread; FilterAccordion validates presence at the call site.
   // biome-ignore lint/suspicious/noExplicitAny: see comment above
@@ -33,9 +35,73 @@ type AsyncSearchSelectProps = {
 }
 
 // Options come from a remote search; used when the list is too large to ship to the client.
+function useSearchOptions(
+  query: string,
+  {
+    selected,
+    selectedLabels,
+    loadOptionsQuery,
+    resolveValuesQuery,
+    minChars = 2,
+    debounce = 250,
+  }: Pick<
+    AsyncSearchSelectProps,
+    | 'selected'
+    | 'selectedLabels'
+    | 'loadOptionsQuery'
+    | 'resolveValuesQuery'
+    | 'minChars'
+    | 'debounce'
+  >
+) {
+  const debouncedQuery = useDebounce(query, debounce)
+  const hasQuery = debouncedQuery.length >= minChars
+  const optionsQuery = useQuery({
+    ...loadOptionsQuery(debouncedQuery),
+    enabled: hasQuery,
+  })
+
+  // Batch rapid chip toggles into a single fetch; useLabelCache slug fallback renders immediately.
+  const debouncedSelected = useDebounce(selected, 300)
+  const resolvedQuery = useQuery({
+    ...resolveValuesQuery(debouncedSelected),
+    enabled: debouncedSelected.length > 0,
+  })
+
+  const labelCache = useLabelCache(resolvedQuery.data, optionsQuery.data)
+
+  const filtered = useMemo<FilterOption[]>(() => {
+    const data: FilterOption[] = optionsQuery.data ?? []
+    return data.filter((o) => !selected.includes(o.value))
+  }, [optionsQuery.data, selected])
+
+  const selectedOptions = useMemo(
+    () =>
+      selected.map((value) => ({
+        value,
+        label: selectedLabels?.[value] ?? labelCache[value] ?? value,
+      })),
+    [selected, selectedLabels, labelCache]
+  )
+
+  return {
+    debouncedQuery,
+    hasQuery,
+    optionsQuery,
+    filtered,
+    selectedOptions,
+    isLoading: optionsQuery.isFetching && hasQuery,
+    isError: optionsQuery.isError && hasQuery,
+    errorMessage: rateLimitMessage(optionsQuery.error) ?? undefined,
+    retryAfter: rateLimitRetryAfter(optionsQuery.error) ?? undefined,
+  }
+}
+
 export function AsyncSearchSelect({
   selected,
+  selectedLabels,
   onToggle,
+  renderSelected,
   loadOptionsQuery,
   resolveValuesQuery,
   placeholder,
@@ -60,37 +126,25 @@ export function AsyncSearchSelect({
     commitOption,
   } = useSearchSelectController(onToggle)
 
-  const debouncedQuery = useDebounce(query, debounce)
-
-  const optionsQuery = useQuery({
-    ...loadOptionsQuery(debouncedQuery),
-    enabled: debouncedQuery.length >= minChars,
+  const {
+    debouncedQuery,
+    hasQuery,
+    optionsQuery,
+    filtered,
+    selectedOptions,
+    isLoading,
+    isError,
+    errorMessage,
+    retryAfter,
+  } = useSearchOptions(query, {
+    selected,
+    selectedLabels,
+    loadOptionsQuery,
+    resolveValuesQuery,
+    minChars,
+    debounce,
   })
-
-  // Batch rapid chip toggles into a single fetch; useLabelCache slug fallback renders immediately.
-  const debouncedSelected = useDebounce(selected, 300)
-  const resolvedQuery = useQuery({
-    ...resolveValuesQuery(debouncedSelected),
-    enabled: debouncedSelected.length > 0,
-  })
-
-  const labelCache = useLabelCache(resolvedQuery.data, optionsQuery.data)
-
-  const filtered = useMemo<FilterOption[]>(() => {
-    const data: FilterOption[] = optionsQuery.data ?? []
-    return data.filter((o) => !selected.includes(o.value))
-  }, [optionsQuery.data, selected])
-
-  const selectedOptions = useMemo(
-    () => selected.map((value) => ({ value, label: labelCache[value] ?? value })),
-    [selected, labelCache]
-  )
-
-  const showDropdown = isOpen && debouncedQuery.length >= minChars
-  const isLoading = optionsQuery.isFetching && debouncedQuery.length >= minChars
-  const isError = optionsQuery.isError && debouncedQuery.length >= minChars
-  const errorMessage = rateLimitMessage(optionsQuery.error) ?? undefined
-  const retryAfter = rateLimitRetryAfter(optionsQuery.error) ?? undefined
+  const showDropdown = isOpen && hasQuery
 
   const handleKeyDown = useComboboxKeyboard({
     isOpen,
@@ -114,7 +168,11 @@ export function AsyncSearchSelect({
 
   return (
     <div className="search-select">
-      <SelectedChips options={selectedOptions} onRemove={onToggle} />
+      {renderSelected ? (
+        renderSelected(selectedOptions)
+      ) : (
+        <SelectedChips options={selectedOptions} onRemove={onToggle} />
+      )}
       <div ref={clickOutsideContainer}>
         <div className="search-select__input-wrapper">
           <ComboboxTextInput

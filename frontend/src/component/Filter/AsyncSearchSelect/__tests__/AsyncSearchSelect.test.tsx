@@ -6,7 +6,7 @@ import { useState } from 'react'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
 import { throwIfNotOk } from '@/lib/helpers/apiError'
-import { renderWithProviders } from '@/test/utils'
+import { createTestQueryClient, renderWithProviders } from '@/test/utils'
 import { server } from '../../../../test/msw/server'
 import type { AsyncSearchQueryFactory, FilterOption } from '../../types'
 import { AsyncSearchSelect } from '../AsyncSearchSelect'
@@ -126,6 +126,36 @@ describe('AsyncSearchSelect: debounce + gating', () => {
 })
 
 describe('AsyncSearchSelect: resolve chips', () => {
+  it('keeps supplied labels visible before resolution and after a lookup failure', async () => {
+    server.use(
+      http.get('*/api/ingredients/by-slugs', () => new HttpResponse(null, { status: 503 }))
+    )
+    const queryClient = createTestQueryClient()
+    const { rerender } = renderWithProviders(
+      <AsyncSearchSelect
+        {...baseProps}
+        selected={['retinol']}
+        selectedLabels={{ retinol: 'Retinol connu' }}
+      />,
+      { queryClient }
+    )
+    // A known label must be available on the first render, before effects and lookups
+    expect(screen.getByRole('button', { name: /Retirer Retinol connu/i })).toBeInTheDocument()
+    await waitFor(() =>
+      expect(queryClient.getQueryState(['ing-resolve', ['retinol']])?.status).toBe('error')
+    )
+    expect(screen.getByRole('button', { name: /Retirer Retinol connu/i })).toBeInTheDocument()
+    rerender(
+      <AsyncSearchSelect
+        {...baseProps}
+        selected={['niacinamide']}
+        selectedLabels={{ niacinamide: 'Niacinamide connue' }}
+      />
+    )
+    expect(screen.getByRole('button', { name: /Retirer Niacinamide connue/i })).toBeInTheDocument()
+    expect(screen.queryByRole('button', { name: /Retirer Retinol connu/i })).toBeNull()
+  })
+
   it('does not call resolveValuesQuery when selected is empty', async () => {
     renderASS(<AsyncSearchSelect {...baseProps} selected={[]} onToggle={vi.fn()} />)
     // Nothing async to await. Give React Query a tick.

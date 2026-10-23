@@ -47,7 +47,14 @@ export function FormActions({
           {cancelLabel}
         </Button>
       )}
-      <Button type="submit" variant="primary" size={size} loading={isPending} disabled={disabled}>
+      <Button
+        type="submit"
+        aria-label={submitLabel}
+        variant="primary"
+        size={size}
+        loading={isPending}
+        disabled={disabled}
+      >
         <Check size={size === 'sm' ? 14 : 16} />
         {submitLabel}
       </Button>
