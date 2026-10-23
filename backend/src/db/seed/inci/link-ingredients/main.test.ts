@@ -105,6 +105,7 @@ describe('prepareCorpusReconcile', () => {
         removeIds: [],
       },
     ])
+    expect(prepared.stats.changes).toEqual(['body-oil · +ci-77499'])
   })
 
   it('closes the read transaction before planning the corpus', async () => {
@@ -199,6 +200,7 @@ describe('prepareCorpusReconcile', () => {
 
     expect(prepared.stats.collisionFreq).toEqual(new Map([[canonicalKey, 1]]))
     expect(prepared.writes).toEqual([{ inserts: [], removeIds: ['old-automatic-link'] }])
+    expect(prepared.stats.changes).toEqual(['serum · -candidate-a'])
   })
 })
 

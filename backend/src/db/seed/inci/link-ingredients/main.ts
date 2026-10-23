@@ -567,6 +567,7 @@ interface RunStats {
   removedFreq: Map<string, number>
   keptCuratedSamples: string[]
   aliasConflictSamples: string[]
+  changes: string[]
   zeroBuckets: Map<ZeroBucket, string[]>
 }
 
@@ -578,6 +579,12 @@ const ZERO_BUCKET_LABELS: Record<ZeroBucket, string> = {
   'ambiguous-canonical-key': 'ambiguous canonical_key fallback (review)',
   'nothing-recognized': 'nothing recognized (obscure botanicals or index gap, review)',
   'no-inci': 'no INCI on the requested product',
+}
+
+// Every planned write, one line per product, so a dry-run can be reviewed before --write
+function printChanges(changes: readonly string[]): void {
+  console.log(`planned changes per product (${changes.length})`)
+  for (const line of changes) console.log(`  ${line}`)
 }
 
 function printReport(s: RunStats): void {
@@ -628,6 +635,8 @@ function printReport(s: RunStats): void {
     for (const line of s.aliasConflictSamples) console.log(`  ${line}`)
   }
 
+  printChanges(s.changes)
+
   console.log('0-link products by cause')
   for (const [bucket, slugs] of s.zeroBuckets) {
     console.log(`  ${slugs.length}\t${ZERO_BUCKET_LABELS[bucket]}`)
@@ -646,6 +655,15 @@ interface LinkInsert {
 interface ProductWrite {
   inserts: LinkInsert[]
   removeIds: string[]
+}
+
+function formatChange(
+  productSlug: string,
+  added: readonly string[],
+  removed: readonly { slug: string }[]
+): string {
+  const parts = [...added.map((slug) => `+${slug}`), ...removed.map((link) => `-${link.slug}`)]
+  return `${productSlug} · ${parts.join(' ')}`
 }
 
 export function scopeReconcilePlan(
@@ -692,6 +710,7 @@ function planCorpusReconcile(input: {
   const removedFreq = new Map<string, number>()
   const keptCuratedSamples: string[] = []
   const aliasConflictSamples: string[] = []
+  const changes: string[] = []
   const slugFreq = new Map<string, number>()
   const unbridgedFreq = new Map<string, number>()
   const blockedFreq = new Map<string, number>()
@@ -768,6 +787,7 @@ function planCorpusReconcile(input: {
         }
         removedRows += collisionLinks.length
         changedProducts++
+        changes.push(formatChange(product.slug, [], collisionLinks))
         writes.push({ inserts: [], removeIds: collisionLinks.map((link) => link.id) })
       } else if (current.length > 0) {
         // A parser miss is not evidence that unrelated existing links are wrong.
@@ -807,6 +827,7 @@ function planCorpusReconcile(input: {
     removedRows += removeIds.length
     if (inserts.length > 0 || removeIds.length > 0) {
       changedProducts++
+      changes.push(formatChange(product.slug, plan.add, plan.remove))
       writes.push({ inserts, removeIds })
     }
   }
@@ -830,6 +851,7 @@ function planCorpusReconcile(input: {
       removedFreq,
       keptCuratedSamples,
       aliasConflictSamples,
+      changes,
       zeroBuckets,
     },
   }

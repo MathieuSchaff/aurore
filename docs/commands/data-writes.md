@@ -26,7 +26,8 @@ the ingest does not link, and the service path is manual admin work. Run it afte
 | Proprietary evidence | A curated Angiopausine/Comedoclastin link suppresses the generic `Silybum Marianum Fruit Extract` fallback for that product, so one token never appears twice. |
 | No count cap | INCI order is concentration order, so a cap loses the low-dose active |
 
-The dry-run report names the zero-link buckets:
+The dry-run report lists every planned write, one line per product (`slug · +added -removed`), so the
+plan can be reviewed before `--write`. It also names the zero-link buckets:
 
 | Bucket | Meaning | Action |
 | :--- | :--- | :--- |
