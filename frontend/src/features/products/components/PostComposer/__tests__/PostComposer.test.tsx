@@ -55,7 +55,7 @@ describe('PostComposer', () => {
       expect.objectContaining({ onSuccess: expect.any(Function) })
     )
     expect(announce).toHaveBeenCalledWith('Publication publiée')
-    // Form collapses back to the button after success.
+    // Form collapses back to the button after success
     expect(screen.queryByRole('textbox')).not.toBeInTheDocument()
   })
 

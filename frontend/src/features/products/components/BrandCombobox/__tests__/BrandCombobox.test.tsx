@@ -72,7 +72,7 @@ describe('BrandCombobox', () => {
     fireEvent.keyDown(input, { key: 'Tab' })
 
     expect(onChange).toHaveBeenCalledWith('The Ordinary', true)
-    // Tab preventDefault is not called; focus-move belongs in an integration test.
+    // Tab preventDefault is not called; focus-move belongs in an integration test
   })
 
   it('affiche le message de confirmation si la marque est inconnue au blur', async () => {

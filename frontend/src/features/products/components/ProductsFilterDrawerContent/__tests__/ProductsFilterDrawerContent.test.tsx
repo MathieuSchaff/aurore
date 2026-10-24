@@ -155,7 +155,7 @@ describe('ProductsFilterDrawerContent: skincare intent-first journey', () => {
   })
 })
 
-// Profile toggle bypasses the draft flow: it navigates immediately (parent owns URL).
+// Profile toggle bypasses the draft flow: it navigates immediately (parent owns URL)
 describe('ProductsFilterDrawerContent: profile toggle bypasses draft', () => {
   it('renders the toggle when showProfileToggle=true', () => {
     renderContent()

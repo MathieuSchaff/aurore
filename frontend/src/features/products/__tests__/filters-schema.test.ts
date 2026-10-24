@@ -13,16 +13,16 @@ describe('productsSearchSchema: defaults', () => {
   })
 
   it('default values object matches the schema output on empty input', () => {
-    // profile_filter is deliberately absent: listing it here would let
-    // stripSearchParams erase an explicit `false` from the URL.
+    // profile_filter is absent on purpose: listing it here would let
+    // stripSearchParams erase an explicit `false` from the URL
     expect('profile_filter' in productsSearchDefaults).toBe(false)
     expect(productsSearchDefaults.sort).toBe('newest')
     expect(productsSearchDefaults.page).toBe(1)
   })
 })
 
-// Every invalid-field case below exercises a field-local catch: malformed shared URLs stay out
-// of GlobalError while valid sibling parameters remain available to the route.
+// Each invalid field below has its own catch: a broken shared URL does not reach
+// GlobalError, and the valid params next to it still reach the route
 describe('productsSearchSchema: sort', () => {
   it.each(['name', 'random', 'price_asc', 'price_desc', 'newest'] as const)(
     'accepts sort=%s',
@@ -47,7 +47,7 @@ describe('productsSearchSchema: sort', () => {
     expect(productsSearchSchema.parse({ sort: 'relevance' }).sort).toBe('newest')
   })
 
-  // TanStack round-trips validateSearch output through the URL and validates it again.
+  // TanStack round-trips validateSearch output through the URL and validates it again
   it('is idempotent on its own output', () => {
     const first = productsSearchSchema.parse({ q: 'serum' })
     expect(productsSearchSchema.parse(first)).toEqual(first)
@@ -55,7 +55,7 @@ describe('productsSearchSchema: sort', () => {
 })
 
 // Invalid q from a shared/hand-crafted URL degrades to the plain list; a throw here
-// would bubble past the route and replace the whole app shell with GlobalError.
+// would bubble past the route and replace the whole app shell with GlobalError
 describe('productsSearchSchema: q resilience', () => {
   it('drops a whitespace-only q instead of throwing', () => {
     const parsed = productsSearchSchema.parse({ q: '   ' })
@@ -113,7 +113,7 @@ describe('productsSearchSchema: tag filters', () => {
 
 describe('productsSearchSchema: profile_filter', () => {
   // Tri-state on purpose: an unstated toggle is not a stated "off", so the
-  // standing choice can resolve it client-side.
+  // standing choice can resolve it client-side
   it('stays undefined when the URL says nothing', () => {
     expect(productsSearchSchema.parse({}).profile_filter).toBeUndefined()
   })

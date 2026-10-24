@@ -1,7 +1,7 @@
 // Only "off" is ever stored: the toggle defaults to on, so a new device needs no
 // stored value to behave right, and no DB column has to carry the setting.
 // Keyed per user, otherwise one account's "off" silences the next account's
-// declared rules on a shared browser.
+// declared rules on a shared browser
 const profileFilterOffKey = (viewerId: string) => `products-profile-filter-off:${viewerId}`
 
 export function isProfileFilterOff(viewerId: string | null): boolean {

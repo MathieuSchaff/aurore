@@ -7,11 +7,11 @@ type Props = {
 }
 
 // A single price range is one control: a collapsible shell around it only added friction. Render it
-// flat alongside the other inline single-control filters (brand, ingredient).
+// flat alongside the other inline single-control filters (brand, ingredient)
 export function PriceFilterAccordion({ min, max, onChange }: Props) {
   return (
     <div className="filter-inline-group">
-      {/* PriceRangeFilter self-labels via its <legend>Prix (€)</legend>, so no extra label is needed. */}
+      {/* PriceRangeFilter self-labels via its <legend>Prix (€)</legend>, so no extra label is needed */}
       <div className="filter-drawer__group--nested">
         <PriceRangeFilter min={min} max={max} onChange={onChange} />
       </div>

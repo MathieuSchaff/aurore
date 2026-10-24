@@ -134,7 +134,7 @@ describe('productEditFormToUpdateInput', () => {
   })
 
   // Seed rows hold '' in nullable columns. Emitting null there put an untouched field
-  // in the PATCH, and the backend 500s parsing '' as the `old` side of an enum diff.
+  // in the PATCH, and the backend 500s parsing '' as the `old` side of an enum diff
   it('omits a field whose original is already an empty string (nothing to clear)', () => {
     const emptyStrings = makeProductDetail({ amountUnit: '', inci: '', notes: '' })
     const result = productEditFormToUpdateInput(productToEditForm(emptyStrings), emptyStrings)
@@ -167,7 +167,7 @@ describe('productEditFormToUpdateInput', () => {
 
 describe('firstBlockingIssue', () => {
   // Both seed shapes that used to block a sane edit: an inci past the cap, and a
-  // totalAmount under the min.
+  // totalAmount under the min
   const legacy = makeProductDetail({
     inci: 'a'.repeat(8059),
     totalAmount: 0,
@@ -214,7 +214,7 @@ describe('firstBlockingIssue', () => {
   })
 
   // A blank-but-not-empty name only fails once trim() runs before min(1). The empty-string
-  // case above passes even without the trim, so it cannot catch losing it.
+  // case above passes even without the trim, so it cannot catch losing it
   it('blocks a name made only of whitespace', () => {
     expect(firstBlockingIssue(editForm({ name: '   ' }), legacy)).toBe(
       'Le nom du produit est obligatoire.'

@@ -21,7 +21,7 @@ type IngredientLookupRow = { slug: string; name: string; filterable?: boolean }
 
 // The catalogue filter reads product_ingredients, which drops excipients and
 // overly common tokens on purpose. Said here, once, when the user searches one of
-// them: staying silent would read as "Aurore does not know this ingredient".
+// them: staying silent would read as "Aurore does not know this ingredient"
 const UNFILTERABLE_REASON =
   'Non filtrable : les excipients et les ingrédients trop répandus sont écartés du filtre.'
 
@@ -32,7 +32,7 @@ const toIngredientOption = (i: IngredientLookupRow) => ({
 })
 
 // Tab and ingredient domains match 1:1 except tab "complement" maps to type "supplement".
-// Exported: ProductsHeader scopes its facet suggestions with the same mapping.
+// Exported: ProductsHeader scopes its facet suggestions with the same mapping
 export const TAB_INGREDIENT_TYPE: Record<ProductDomainTab, IngredientType> = {
   skincare: 'skincare',
   haircare: 'haircare',
@@ -61,7 +61,7 @@ export function useProductsFilterGroups(
 
     return [
       ...(tagGroups as FilterGroupConfig<FilterKey>[]),
-      // Essential tier for dermo-informed users. Closed by default: async search is heavier than chip groups.
+      // Essential tier for dermo-informed users. Closed by default: async search is heavier than chip groups
       {
         id: 'ingredient',
         label: NON_TAG_FILTER_LABELS.ingredient,

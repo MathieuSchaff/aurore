@@ -1,6 +1,6 @@
 // Which of a formula's ingredients the reader has declared they avoid.
 // Kept out of the component so the product rule (`exclude` only, matched on
-// canonical_key) is assertable without rendering.
+// canonical_key) can be tested without rendering
 
 interface PreferenceTarget {
   canonicalKey: string
@@ -12,10 +12,10 @@ interface DeclarableIngredient {
   name: string
 }
 
-// `require` is deliberately absent: it needs no mention, since finding the
+// `require` is absent on purpose: it needs no mention, since finding the
 // ingredient in the formula is what the reader asked for. `exclude` is the
-// stance whose silence misleads: the product is already missing from their
-// searches and nothing on its page says why.
+// stance where saying nothing misleads: the product is already missing from their
+// searches and nothing on its page says why
 export function avoidedIngredientNames(
   declarable: readonly DeclarableIngredient[],
   targets: readonly PreferenceTarget[] | undefined

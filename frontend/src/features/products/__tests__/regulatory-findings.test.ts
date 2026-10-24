@@ -2,8 +2,8 @@ import { describe, expect, it } from 'vitest'
 
 import { formatRegulatoryFindings } from '../components/FormulaReading/regulatoryFindings'
 
-// Minimal RegulatoryFinding shape the renderer reads; the lib emits richer
-// records that the RPC payload carries structurally.
+// Only the RegulatoryFinding fields the renderer reads. The lib sends more
+// fields. The RPC payload carries them all, we only type what we read
 const finding = (over: {
   status?: 'restricted' | 'prohibited' | 'concentration_limit'
   region?: string
@@ -47,7 +47,7 @@ describe('formatRegulatoryFindings', () => {
         subjectIngredients: ['Salicylic Acid'],
       }),
     ])
-    // The note splits the cap by use, so the structured `max 2%` it repeats is dropped.
+    // The note splits the cap by use, so the structured `max 2%` it repeats is dropped
     expect(lines[0]?.text).toBe(
       ' — usage encadré : UE (2 % sans rinçage / 3 % à rincer, annexe III/98)'
     )
@@ -103,9 +103,9 @@ describe('formatRegulatoryFindings', () => {
     ])
   })
 
-  // Witnesses read off /products/acm-rosakalm-creme-anti-rougeurs. The four
+  // Cases taken from /products/acm-rosakalm-creme-anti-rougeurs. The four
   // faulty lines came from curated English notes in the vendored dataset, not
-  // from the borrowed cap, so the Benzyl Alcohol case must not move.
+  // from the borrowed cap, so the Benzyl Alcohol case must not move
   it('keeps the borrowed cap untouched', () => {
     const lines = formatRegulatoryFindings([
       finding({ region: 'EU', detail: 'max 1%', subjectIngredients: ['Benzyl Alcohol'] }),
@@ -126,7 +126,7 @@ describe('formatRegulatoryFindings', () => {
         subjectIngredients: ['Potassium Sorbate'],
       }),
     ])
-    // The aside is flattened: the whole detail already sits inside parentheses.
+    // The aside is flattened: the whole detail already sits inside parentheses
     expect(lines[0]?.text).toBe(' — usage encadré : UE (max 0,6 %, annexe V/13, pas en aérosol)')
     expect(lines[1]?.text).toBe(
       ' — usage encadré : UE (max 0,6 %, annexe V/4 exprimé en acide sorbique)'
@@ -170,8 +170,8 @@ describe('formatRegulatoryFindings', () => {
     expect(lines[0]?.text).toBe(' — usage encadré : Canada')
   })
 
-  // A borrowed cap the annex confines to one product family. The witness is
-  // Homosalate on a sunscreen: 7,34 % governs face products, not the tube on screen.
+  // A cap the annex limits to one product family. Example:
+  // Homosalate on a sunscreen: 7,34 % governs face products, not the tube on screen
   it('says the scope of a scoped cap alongside the number', () => {
     const lines = formatRegulatoryFindings([
       finding({
@@ -188,8 +188,8 @@ describe('formatRegulatoryFindings', () => {
   })
 
   it('drops the cap of a scope it cannot phrase', () => {
-    // An upstream bump adding a scope goes quiet here rather than printing a bare
-    // number that reads as this product's own limit.
+    // When a vendor bump adds a scope, we print nothing here instead of a bare
+    // number that reads as this product's own limit
     const lines = formatRegulatoryFindings([
       finding({
         region: 'EU',

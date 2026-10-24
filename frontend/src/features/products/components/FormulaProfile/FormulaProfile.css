@@ -1,5 +1,5 @@
 /* Flat on purpose, like En bref and Ingredients: catalogue facts read in the
-   page flow. Boxed cards mark voices apart (FormulaReading, brand copy). */
+   page flow. Boxed cards are kept for other voices (FormulaReading, brand copy) */
 .formula-profile__groups {
   display: grid;
   grid-template-columns: auto 1fr;

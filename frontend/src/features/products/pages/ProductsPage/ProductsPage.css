@@ -108,7 +108,7 @@
   font-weight: 700;
   font-size: var(--text-sm);
   cursor: grab;
-  /* Prevent page scroll while dragging vertically on touch. */
+  /* Prevent page scroll while dragging vertically on touch */
   touch-action: none;
   transition:
     transform 0.32s var(--ease-soft-bounce),

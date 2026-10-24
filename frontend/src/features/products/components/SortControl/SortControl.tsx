@@ -20,7 +20,7 @@ const SORT_OPTIONS: SortOption[] = [
 type Props = {
   value: ProductSort
   onChange: (sort: ProductSort) => void
-  // Relevance only makes sense while a free-text q is active.
+  // Relevance only makes sense while a free-text q is active
   hasQuery?: boolean
   compact?: boolean
 }
@@ -59,7 +59,7 @@ export function SortControl({ value, onChange, hasQuery = false, compact = false
       <DropdownMenu.Content align="end" ariaLabel="Options de tri">
         {options.map((opt) => (
           <DropdownMenu.Item key={opt.value} onSelect={() => onChange(opt.value)}>
-            {/* Raw button: DropdownMenu.Item clones role/styles onto child; <Button> would shadow them. */}
+            {/* Raw button: DropdownMenu.Item clones role/styles onto child; <Button> would shadow them */}
             <button type="button" className="sort-control__item">
               <span>{opt.label}</span>
               {opt.value === value && (

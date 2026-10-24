@@ -293,7 +293,7 @@ describe('buildResetSearchParams', () => {
     const prev = { profile_filter: true, priceMin: 1500, priceMax: 5000, sort: 'name', page: 3 }
     expect(buildResetSearchParams(prev)).toEqual({
       // A standing setting, not a filter chip: clearing the criteria must not
-      // silently revoke it.
+      // silently revoke it
       profile_filter: true,
       show_hidden: false,
       priceMin: undefined,
@@ -353,7 +353,7 @@ describe('buildProductsApiFilters: domain isolation (dental + complement)', () =
 })
 
 describe('buildProductsApiFilters: edge cases / adversarial inputs', () => {
-  // Mixed empty + value: length > 0, so the array passes through.
+  // Mixed empty + value: length > 0, so the array passes through
   it('tag filter with empty strings mixed in is forwarded as-is', () => {
     const filters = emptyFilters()
     filters.concern = ['', 'acne']
@@ -367,7 +367,7 @@ describe('buildProductsApiFilters: edge cases / adversarial inputs', () => {
     expect(out.concern).toEqual(['', 'acne'])
   })
 
-  // No min ≤ max check here; backend validates.
+  // No min ≤ max check here; backend validates
   it('passes inverted price range through without throwing', () => {
     expect(() =>
       buildProductsApiFilters({
@@ -397,7 +397,7 @@ describe('buildProductsApiFilters: edge cases / adversarial inputs', () => {
     expect(out.priceMax).toBe(100)
   })
 
-  // Negative/zero page passes through; backend validates.
+  // Negative/zero page passes through; backend validates
   it('passes negative page through without throwing', () => {
     const out = buildProductsApiFilters({
       category: 'skincare',
@@ -422,7 +422,7 @@ describe('buildProductsApiFilters: edge cases / adversarial inputs', () => {
 })
 
 describe('buildDomainSwitchSearch', () => {
-  // All domain tag keys: domain switch resets every tag regardless of source domain.
+  // All domain tag keys: domain switch resets every tag regardless of source domain
   const EMPTY_TAGS: Record<string, string[]> = {
     skin_type: [],
     concern: [],
@@ -461,7 +461,7 @@ describe('buildDomainSwitchSearch', () => {
     expect(next.category).toBe('haircare')
     expect(next.skin_type).toEqual([])
     expect(next.concern).toEqual([])
-    // Survives the domain switch: the toggle follows the reader, not the tab.
+    // Survives the domain switch: the toggle follows the reader, not the tab
     expect(next.profile_filter).toBe(true)
     expect(next.page).toBe(1)
   })

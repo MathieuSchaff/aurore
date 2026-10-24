@@ -1,9 +1,9 @@
 import { SKINCARE_PRODUCT_TAG_SLUGS, type SkinConcern } from '@aurore/shared'
 
 // KP bridge: chips derived live on the product page, never stored as a product tag
-// (storing "KP" would be a medical verdict; cf. the killed P=0.154 INCI gate). Niacinamide
+// (storing "KP" would be a medical verdict). Niacinamide
 // is read live from INCI since it has no own tag. 'avoid' relevance tags are excluded so
-// a chip can't contradict the avoid notice.
+// a chip can't contradict the avoid notice
 
 const T = SKINCARE_PRODUCT_TAG_SLUGS
 const KP_CONCERN: SkinConcern = 'keratose-pilaire'

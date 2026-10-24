@@ -6,7 +6,7 @@
   gap: var(--space-3);
 }
 
-/* Float-left reset so native <legend> stops hoisting onto fieldset's top border. */
+/* Float-left reset so native <legend> stops hoisting onto fieldset's top border */
 .price-range__legend {
   float: left;
   width: 100%;

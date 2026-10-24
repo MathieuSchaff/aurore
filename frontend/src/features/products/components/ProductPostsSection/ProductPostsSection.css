@@ -20,7 +20,7 @@
   gap: var(--space-2);
 }
 
-/* Hover keeps the same AA-safe tone; the dashed-to-solid border carries the state change. */
+/* Hover keeps the same AA-safe tone; the dashed-to-solid border carries the state change */
 .product-posts__author-link:hover,
 .product-posts__author-link:focus-visible {
   border-bottom-style: solid;

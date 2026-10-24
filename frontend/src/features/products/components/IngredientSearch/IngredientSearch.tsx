@@ -37,9 +37,9 @@ export function IngredientSearch({ existingIds, onAdd, type }: IngredientSearchP
   const combobox = useCombobox({
     items: available,
     onSelect: handleSelect,
-    // Escape and outside click also clear the typed text.
+    // Escape and outside click also clear the typed text
     onClose: () => setQuery(''),
-    // Surface any failed search even with no results (429 gets a specific message, else the default).
+    // Show any failed search even with no results (429 gets a specific message, else the default)
     canOpen: available.length > 0 || isError,
     isError,
   })

@@ -12,7 +12,7 @@ function getMax() {
   return screen.getByLabelText('Prix maximum en euros') as HTMLInputElement
 }
 
-describe('PriceRangeFilter — rendering', () => {
+describe('PriceRangeFilter: rendering', () => {
   it('renders empty inputs when min/max are undefined', () => {
     render(<PriceRangeFilter onChange={vi.fn()} />)
     expect(getMin().value).toBe('')
@@ -33,8 +33,8 @@ describe('PriceRangeFilter — rendering', () => {
   })
 })
 
-describe('PriceRangeFilter — commit', () => {
-  it('commits on blur — converts euros to cents', () => {
+describe('PriceRangeFilter: commit', () => {
+  it('commits on blur and converts euros to cents', () => {
     const onChange = vi.fn()
     render(<PriceRangeFilter onChange={onChange} />)
     fireEvent.change(getMin(), { target: { value: '12' } })

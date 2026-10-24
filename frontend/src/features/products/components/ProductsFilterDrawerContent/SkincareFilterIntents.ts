@@ -95,7 +95,7 @@ export function inferActiveIntent(filters: FilterValues<FilterKey>) {
   return SEARCH_INTENTS.find((intent) => {
     const presetAxes = Object.keys(intent.filters)
     // Exact match: every preset axis matches AND no axis is filled beyond
-    // the preset, so overlapping presets can't both claim the same filters.
+    // the preset, so overlapping presets can't both claim the same filters
     return (
       filledAxes === presetAxes.length &&
       presetAxes.every((key) =>

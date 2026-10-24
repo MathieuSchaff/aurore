@@ -7,19 +7,19 @@ type Props = {
   kind: string
   unit: string | null
   imageUrl?: string | null
-  /** Fixed pixel size. Ignored when `fill` is true. */
+  /** Fixed pixel size. Ignored when `fill` is true */
   size?: number
-  /** Stretch to fill container width (square aspect ratio). Overrides `size`. */
+  /** Stretch to fill container width (square aspect ratio). Overrides `size` */
   fill?: boolean
   className?: string
 }
 
 export function ProductImage({ kind, unit, imageUrl, size = 48, fill, className }: Props) {
   const trimmedUrl = imageUrl?.trim() || null
-  // Reset error during render to avoid an effect tick that flickers from icon to image and back.
+  // Reset error during render to avoid an effect tick that flickers from icon to image and back
   const [errorUrl, setErrorUrl] = useState<string | null>(null)
   // Tracks the previous URL only to detect a prop change; state (not ref) so a
-  // discarded concurrent render can't skip the error reset.
+  // discarded concurrent render can't skip the error reset
   const [trackedUrl, setTrackedUrl] = useState<string | null>(trimmedUrl)
   if (trackedUrl !== trimmedUrl) {
     setTrackedUrl(trimmedUrl)

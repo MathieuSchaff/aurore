@@ -2,7 +2,7 @@ import type { ProductKind } from '@aurore/shared'
 
 /* Card accent per product kind: decorative variety, not a legend.
    Calm palette only (green/mango/aqua/lavender). No coral/red family:
-   too close to --status-color-avoided, would read as a warning. */
+   too close to --status-color-avoided, would read as a warning */
 export const KIND_ACCENTS: Record<ProductKind, string> = {
   // skincare
   serum: 'var(--color-aqua)',

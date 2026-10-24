@@ -13,7 +13,7 @@ interface BrandComboboxProps {
   id?: string
   value: string
   onChange: (value: string, confirmed: boolean) => void
-  /** Optional label rendered by the inner Input. Omit when an external <FormField> already provides one. */
+  /** Optional label rendered by the inner Input. Omit when an external <FormField> already provides one */
   label?: string
   required?: boolean
   placeholder?: string
@@ -29,7 +29,7 @@ export function BrandCombobox({
 }: BrandComboboxProps) {
   const [inputValue, setInputValue] = useState(value)
   const [showConfirm, setShowConfirm] = useState(false)
-  // Synchronous mirror so validateBrand reads the Tab-autocompleted value before React renders again.
+  // Synchronous mirror so validateBrand reads the Tab-autocompleted value before React renders again
   const latestValueRef = useRef(value)
 
   useEffect(() => {
@@ -73,7 +73,7 @@ export function BrandCombobox({
   }
 
   function handleKeyDown(e: React.KeyboardEvent) {
-    // Tab autocompletes highlighted item or first match, then lets focus advance.
+    // Tab autocompletes highlighted item or first match, then lets focus advance
     if (e.key === 'Tab' && combobox.isOpen) {
       const indexToSelect = combobox.highlightedIndex >= 0 ? combobox.highlightedIndex : 0
       handleSelect(filtered[indexToSelect])
@@ -81,7 +81,7 @@ export function BrandCombobox({
   }
 
   function validateBrand() {
-    // Read from ref: Tab-autocomplete updates inputValue, but blur fires before the next render.
+    // Read from ref: Tab-autocomplete updates inputValue, but blur fires before the next render
     combobox.close()
     const trimmed = latestValueRef.current.trim()
     if (trimmed && !isKnownBrand(trimmed)) {

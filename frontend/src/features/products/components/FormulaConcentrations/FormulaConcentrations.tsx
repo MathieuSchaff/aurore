@@ -18,7 +18,7 @@ interface FormulaConcentrationsProps {
 export function FormulaConcentrations({ assessment }: FormulaConcentrationsProps) {
   if (!assessment) return null
 
-  // Bundle formulas can repeat an INCI. Keep the strongest estimate.
+  // Bundle formulas can repeat an INCI. Keep the strongest estimate
   const byInci = new Map<string, { name: string; read: ConcentrationRead }>()
   for (const m of assessment.matchedEvidence) {
     const read = readConcentration(m.concentrationEstimate)
@@ -35,7 +35,7 @@ export function FormulaConcentrations({ assessment }: FormulaConcentrationsProps
   const estimable = rows.filter((r) => r.read.kind !== 'unestimable')
   const unestimable = rows.filter((r) => r.read.kind === 'unestimable')
 
-  // FormulaReading already covers the qualitative-only case.
+  // FormulaReading already covers the qualitative-only case
   if (estimable.length === 0) return null
 
   return (

@@ -59,8 +59,8 @@ vi.mock('@/lib/queries/product-tags', () => ({
   },
 }))
 
-// Child components that fetch on their own. Short-circuit them so the form
-// can be exercised without their network surface.
+// Child components that fetch on their own. Mock them so the form
+// can be tested without their network calls
 vi.mock('@/features/products/components/BrandCombobox/BrandCombobox', () => ({
   BrandCombobox: ({
     id,
@@ -88,7 +88,7 @@ vi.mock('@/features/products/components/ProductForm/ProductImageField', () => ({
   ProductImageField: () => null,
 }))
 
-// Expose ButtonLink's destination (the global setup stub renders children only); keep the real Button.
+// Expose ButtonLink's destination (the global setup stub renders children only); keep the real Button
 vi.mock('@/component/Button/Button', async (importActual) => {
   const actual = await importActual<typeof import('@/component/Button/Button')>()
   return {
@@ -159,7 +159,7 @@ describe('ProductForm', () => {
     expect(screen.getByLabelText(/^Nom/)).toHaveValue('Crème mystère')
     expect(screen.getByLabelText('Marque')).toHaveValue('BrandX')
 
-    // Brand arrived already confirmed, so picking kind + unit alone unlocks submit, no brand re-entry.
+    // Brand arrived already confirmed, so picking kind + unit alone unlocks submit, no brand re-entry
     fireEvent.click(screen.getByRole('radio', { name: 'Sérum' }))
     fireEvent.click(screen.getByRole('radio', { name: 'Pompe' }))
     expect(screen.getByRole('button', { name: 'Enregistrer' })).not.toBeDisabled()
@@ -172,7 +172,7 @@ describe('ProductForm', () => {
     renderForm(<ProductForm mode="edit" product={mockProduct} onSuccess={onSuccess} />, queryClient)
 
     const submit = screen.getByRole('button', { name: 'Enregistrer' })
-    // Pristine edit form: dirty=false, so submit is disabled.
+    // Pristine edit form: dirty=false, so submit is disabled
     expect(submit).toBeDisabled()
 
     fireEvent.change(screen.getByLabelText(/^Nom/), { target: { value: 'Renamed Product' } })
@@ -183,8 +183,8 @@ describe('ProductForm', () => {
     expect(mockSubmit).toHaveBeenCalledTimes(1)
   })
 
-  // Native constraint validation blocks the submit with an ephemeral browser bubble:
-  // nothing in the DOM, nothing for a screen reader. Every message goes through Zod.
+  // Native constraint validation blocks the submit with a browser bubble that goes away:
+  // nothing in the DOM, nothing for a screen reader. Every message goes through Zod
   it('opts out of native constraint validation', () => {
     const queryClient = createTestQueryClient()
 
@@ -201,7 +201,7 @@ describe('ProductForm', () => {
     expect(screen.getByRole('link', { name: /Annuler/ })).toHaveAttribute('href', '/products/$slug')
   })
 
-  // Strict ButtonLink params exposed a latent bug: edit with no slug used to build /products/undefined (hidden by the old cast).
+  // Strict ButtonLink params found a hidden bug: edit with no slug used to build /products/undefined (hidden by the old cast)
   it('falls the edit cancel link back to the list when the slug is missing', () => {
     const queryClient = createTestQueryClient()
     const noSlug = { ...mockProduct, slug: undefined } as unknown as typeof mockProduct

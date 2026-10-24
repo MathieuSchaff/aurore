@@ -1,7 +1,7 @@
 import { Skeleton } from '@/component/Feedback/ui/Skeleton/Skeleton'
 import './ProductsGridSkeleton.css'
 
-// Vary text line widths so cards don't look copy-pasted.
+// Vary text line widths so cards don't look copy-pasted
 const CARD_PLACEHOLDERS: { id: number; lines: [string, string] }[] = [
   { id: 1, lines: ['75%', '55%'] },
   { id: 2, lines: ['90%', '40%'] },

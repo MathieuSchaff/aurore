@@ -1,4 +1,4 @@
-/* Wrapper needed for the sr-only live region to be a sibling of the grid. */
+/* Wrapper needed for the sr-only live region to be a sibling of the grid */
 .products-grid-skeleton {
   display: contents;
 }
@@ -13,7 +13,7 @@
   list-style: none;
 }
 
-/* 1:1 image block matching ProductImage fill variant. */
+/* 1:1 image block matching ProductImage fill variant */
 .products-grid-skeleton__image {
   width: 100%;
   aspect-ratio: 1 / 1;

@@ -14,7 +14,7 @@ import {
 import { z } from 'zod'
 
 // Deep import: pulling the schema from the barrel drags FilterDrawer/ChipGroup CSS
-// into the eager route-config graph (render-blocking). helpers.ts is zod-only.
+// into the eager route-config graph (render-blocking). helpers.ts is zod-only
 import { filterSearchSchema } from '@/component/Filter/helpers'
 
 export type TagFilterKey = AllProductTagCategory
@@ -50,7 +50,7 @@ export const NON_TAG_FILTER_PLACEHOLDERS = {
 
 export const GROUP_LABELS: Record<FilterKey, string> = {
   ...(Object.fromEntries(
-    // Skincare wins for shared keys (concern, product_type, product_label, routine_step).
+    // Skincare wins for shared keys (concern, product_type, product_label, routine_step)
     (['complement', 'dental', 'haircare', 'skincare'] as const).flatMap((domain) =>
       _definitionsByDomain[domain].map(({ key, label }) => [key, label])
     )
@@ -58,7 +58,7 @@ export const GROUP_LABELS: Record<FilterKey, string> = {
   ...NON_TAG_FILTER_LABELS,
 }
 
-// Merged tag-slug to label map across the 4 domain taxonomies. Overlapping slugs share labels.
+// Merged tag-slug to label map across the 4 domain taxonomies. Overlapping slugs share labels
 const ALL_TAG_LABELS = {
   ...Object.fromEntries(
     Object.entries(SKINCARE_PRODUCT_TAG_TAXONOMY).map(([slug, m]) => [slug, m.label])
@@ -85,20 +85,20 @@ export const productsSearchSchema = baseSchema
     category: z.enum(PRODUCT_DOMAIN_TABS).default('skincare').catch('skincare'),
     // No default: an unstated toggle is not a stated "off". The standing choice
     // resolves it client-side, and it is kept out of productsSearchDefaults
-    // so `?profile_filter=false` survives stripSearchParams.
+    // so `?profile_filter=false` survives stripSearchParams
     profile_filter: z.boolean().optional().catch(undefined),
-    // "Afficher quand même": reverse the declared-avoid exclusion, keep annotations.
+    // "Afficher quand même": reverse the declared-avoid exclusion, keep annotations
     show_hidden: z.boolean().default(false).catch(false),
     sort: productSortEnum.optional().catch(undefined),
     priceMin: z.number().int().min(0).optional().catch(undefined),
     priceMax: z.number().int().min(0).optional().catch(undefined),
     // catch: a hand-crafted/shared URL with an invalid q (whitespace-only, >100 chars)
-    // must degrade to the plain list, not throw past the route into GlobalError.
+    // must degrade to the plain list, not throw past the route into GlobalError
     q: z.string().trim().min(1).max(100).optional().catch(undefined),
   })
   // Contextual sort default: a q without explicit sort means relevance; relevance
-  // without q is meaningless and heals back to newest. Both mappings are stable
-  // when validated again (TanStack round-trips validateSearch output through the URL).
+  // without q is meaningless and falls back to newest. Both mappings are stable
+  // when validated again (TanStack round-trips validateSearch output through the URL)
   .transform((s) => {
     const sort = s.sort ?? (s.q ? ('relevance' as const) : ('newest' as const))
     return { ...s, sort: sort === 'relevance' && !s.q ? ('newest' as const) : sort }

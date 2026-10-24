@@ -11,8 +11,8 @@ import { createTestQueryClient, renderWithProviders } from '@/test/utils'
 
 vi.mock('@tanstack/react-router', () => ({ createLink: createLinkStub, Link: LinkStub }))
 
-// The reaction row is a smart child with its own queries; isolate the surface test
-// from it (own suite) but spy on its props to pin the reactable wiring.
+// The reaction row runs its own queries and has its own suite
+// Mock it here, but spy on its props to check the reactable wiring
 const reactionRowSpy = vi.hoisted(() => vi.fn())
 vi.mock('@/features/social/components/ReactionRow/ReactionRow', () => ({
   ReactionRow: (props: { reactableType: string; reactableId: string }) => {

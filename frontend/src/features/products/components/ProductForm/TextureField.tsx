@@ -32,7 +32,7 @@ export function TextureField({
         }))}
         selected={value ? [value] : []}
         onChange={(values) => {
-          // Toggle mode so clicking the active chip again clears it (exclusive radios swallow the second click).
+          // Toggle mode so clicking the active chip again clears it (exclusive radios swallow the second click)
           onChange(values.at(-1) ?? '')
         }}
         mode="toggle"

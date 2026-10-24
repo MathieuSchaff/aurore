@@ -10,9 +10,9 @@ interface AvoidedBannerProps {
 }
 
 // Masking is always visible and reversible in one tap, never a
-// silent disappearance. It states the applied rule, cumulation included
+// silent disappearance. It states the applied rule, and how rules add up
 // (several "Sans" add up, several "Avec" mean at least one), so the user never
-// has to guess why the list shrank.
+// has to guess why the list shrank
 export function AvoidedBanner({
   hiddenCount,
   excludedLabels,

@@ -11,7 +11,7 @@
 }
 
 /* Badge text lightness goes through --on-tint-l (42% light / 82% dark): the raw
-   semantic colors read 3.6-4.4 on their own 0.18 tint. Tints and borders keep them. */
+   semantic colors read 3.6-4.4 on their own 0.18 tint. Tints and borders keep them */
 .kind--skincare {
   --_kind-bg: oklch(from var(--color-success) l c h / 0.18);
   --_kind-color: oklch(from var(--color-success) var(--on-tint-l) c h);
@@ -26,7 +26,7 @@
 
 .kind--huile {
   /* Lavender, not amber: amber reads as warning. Text keeps the info chroma on the
-     lavender hue. */
+     lavender hue */
   --_kind-bg: oklch(from var(--color-lavender) l c h / 0.18);
   --_kind-color: oklch(from var(--color-info) var(--on-tint-l) c var(--h-lavender, 305));
   --_kind-border: oklch(from var(--color-lavender) l c h / 0.4);

@@ -16,7 +16,7 @@ describe('avoidedIngredientNames', () => {
 
   it('says nothing about a sought ingredient', () => {
     // Product decision: `require` needs no mention. Finding the ingredient in
-    // the formula is what the reader asked for.
+    // the formula is what the reader asked for
     expect(
       avoidedIngredientNames(declarable, [{ canonicalKey: 'Niacinamide', stance: 'require' }])
     ).toEqual([])
@@ -30,7 +30,7 @@ describe('avoidedIngredientNames', () => {
 
   it('stays silent while the preference query has no answer', () => {
     // Undefined covers both loading and failure on this SSR'd page; claiming
-    // "you avoid nothing here" would deny a rule the reader already set.
+    // "you avoid nothing here" would deny a rule the reader already set
     expect(avoidedIngredientNames(declarable, undefined)).toEqual([])
   })
 

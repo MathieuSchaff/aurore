@@ -59,7 +59,7 @@ const productEditFormSchema = z.object({
     .refine((v) => v === '' || (PRODUCT_AMOUNT_UNIT_VALUES as readonly string[]).includes(v), {
       message: 'Unité de contenance invalide.',
     }),
-  // Empty = unset. Backend stores ProductTexture | null.
+  // Empty = unset. Backend stores ProductTexture | null
   texture: z
     .string()
     .trim()
@@ -69,7 +69,7 @@ const productEditFormSchema = z.object({
   inci: z.string().max(5000, 'La liste INCI ne peut pas dépasser 5000 caractères.'),
   description: z.string().max(5000, 'La description ne peut pas dépasser 5000 caractères.'),
   notes: z.string().max(5000, 'Les notes ne peuvent pas dépasser 5000 caractères.'),
-  // Empty = cleared, otherwise must be a valid URL.
+  // Empty = cleared, otherwise must be a valid URL
   url: z.union([
     z.literal(''),
     z.url('URL invalide.').max(2000, 'Le lien produit ne peut pas dépasser 2000 caractères.'),
@@ -124,11 +124,11 @@ export function productToEditForm(p: ProductDetail): ProductEditFormInput {
   }
 }
 
-// Submit-time validation is scoped to the fields the author actually touched, mirroring
-// `clearOrOmit` below: a value the PATCH will not carry must not block an unrelated edit.
-// Seed rows predate today's bounds (inci over 5000 chars, totalAmount at 0), and validating
-// them full-form made an untouched field reject a sane note change.
-// `original` null = create mode, where every field is submitted and so validated.
+// On submit, only the fields the author changed are validated, like `clearOrOmit`
+// below: a value the PATCH will not send must not block another edit
+// Seed rows are older than today's limits (inci over 5000 chars, totalAmount at 0),
+// and validating the whole form made an untouched field reject a simple note change
+// `original` null = create mode, where every field is sent and so validated
 export function firstBlockingIssue(
   form: ProductEditFormInput,
   original: ProductDetail | null
@@ -145,7 +145,7 @@ export function firstBlockingIssue(
   return null
 }
 
-// Wire format for POST /api/products: empty = omit (undefined).
+// Wire format for POST /api/products: empty = omit (undefined)
 export function productEditFormToCreateInput(form: ProductEditFormInput): CreateProductInput {
   const priceEuros = form.priceEuros.trim()
   const totalAmount = form.totalAmount.trim()
@@ -169,7 +169,7 @@ export function productEditFormToCreateInput(form: ProductEditFormInput): Create
   }
 }
 
-// PATCH /api/products/:id: empty + previously set becomes null (clear); empty + was empty becomes undefined.
+// PATCH /api/products/:id: empty + previously set becomes null (clear); empty + was empty becomes undefined
 export function productEditFormToUpdateInput(
   form: ProductEditFormInput,
   original: ProductDetail
@@ -177,17 +177,17 @@ export function productEditFormToUpdateInput(
   const clearOrOmit = <T>(trimmed: string, value: T | null, originalValue: unknown) => {
     // A column already holding '' has nothing to clear: sending null would drag an
     // untouched field into the PATCH, and the backend 500s parsing '' as the `old`
-    // side of an enum diff (seed rows carry '' in amountUnit).
+    // side of an enum diff (seed rows carry '' in amountUnit)
     if (trimmed === '') return originalValue != null && originalValue !== '' ? null : undefined
     // Unchanged values are omitted. Sending an untouched value again validates it, which
-    // rejects legacy data that predates a stricter rule (e.g. a long
-    // space-separated inci) and 400s an unrelated edit.
+    // rejects old data written before a stricter rule (e.g. a long
+    // space-separated inci) and 400s an unrelated edit
     if (value === originalValue) return undefined
     return value
   }
   const priceEuros = form.priceEuros.trim()
   const totalAmount = form.totalAmount.trim()
-  // Backend never auto-regenerates slug from name; omitting keeps URL stable.
+  // Backend never auto-regenerates slug from name; omitting keeps URL stable
   const slug = form.slug.trim()
   return {
     name: form.name.trim(),

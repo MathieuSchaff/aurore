@@ -34,7 +34,7 @@
   border-bottom: var(--rule-section);
 }
 
-/* Intent chips and path doors share the same "selectable card" base. */
+/* Intent chips and path doors share the same "selectable card" base */
 .button.skincare-filter-drawer__intent,
 .button.skincare-filter-drawer__path {
   display: flex;

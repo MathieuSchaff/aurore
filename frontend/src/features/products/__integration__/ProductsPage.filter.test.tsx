@@ -1,4 +1,4 @@
-// Unmock react-router before any import that pulls in router internals; setup.ts mocks it globally.
+// Unmock react-router before any import that pulls in router internals; setup.ts mocks it globally
 import { vi } from 'vitest'
 
 vi.unmock('@tanstack/react-router')
@@ -46,7 +46,7 @@ function makeClient() {
   })
 }
 
-// Router serializes each key as JSON.stringify, so array filters land URL-encoded.
+// Router serializes each key as JSON.stringify, so array filters land URL-encoded
 function buildUrl(path: string, search: Record<string, string[]> = {}): string {
   const params = new URLSearchParams()
   for (const [key, value] of Object.entries(search)) {
@@ -58,13 +58,13 @@ function buildUrl(path: string, search: Record<string, string[]> = {}): string {
 
 function renderProducts(initialEntries: string[] = ['/products/']) {
   const rootRoute = createRootRoute()
-  // `typeof rootRoute` keeps the root's inferred generics: a widened RootRoute is not assignable.
+  // `typeof rootRoute` keeps the root's inferred generics: a widened RootRoute is not assignable
   type RouteUpdateOptions = {
     id: string
     path: string
     getParentRoute: () => typeof rootRoute
   }
-  // Attach the file route to a fresh root so the test picks its initial URL via memory history.
+  // Attach the file route to a fresh root so the test picks its initial URL via memory history
   const productsRoute = (
     ProductsIndexRouteImport as unknown as {
       update: (opts: RouteUpdateOptions) => unknown
@@ -99,7 +99,7 @@ function renderProducts(initialEntries: string[] = ['/products/']) {
 
 // The header trigger and the scroll-reveal floating button share the accessible
 // name "Filtrer" (the FAB stays mounted off-screen in jsdom). Scope to the header
-// trigger by its class so the query stays unambiguous.
+// trigger by its class so the query stays unambiguous
 async function openFilterDrawer(user: ReturnType<typeof userEvent.setup>) {
   const triggers = await screen.findAllByRole('button', { name: /Filtrer/i })
   const trigger = triggers.find((b) => b.classList.contains('list-filter-btn'))
@@ -108,12 +108,12 @@ async function openFilterDrawer(user: ReturnType<typeof userEvent.setup>) {
 }
 
 beforeEach(() => {
-  // No logged-in user keeps dermo query disabled and profile toggle hidden.
+  // No logged-in user keeps dermo query disabled and profile toggle hidden
   useAuthStore.setState({ session: anonymousTestSession() })
 })
 
 afterEach(() => {
-  // Drawer leaks scroll-lock styles on body between tests.
+  // Drawer leaks scroll-lock styles on body between tests
   document.body.style.overflow = ''
   document.body.style.position = ''
   document.body.style.width = ''
@@ -244,7 +244,7 @@ describe('ProductsPage: integration (URL ↔ filtres ↔ liste)', () => {
     await openFilterDrawer(user)
     const dialog = await screen.findByRole('dialog')
 
-    // Accordion auto-opens groups with active selection. Resolve hits by-slugs and swaps to label.
+    // Groups with a selection open on their own. The bySlugs query turns the slug into its label
     await waitFor(() => {
       expect(within(dialog).getByRole('button', { name: /Retirer Retinol/i })).toBeInTheDocument()
       expect(
@@ -270,7 +270,7 @@ describe('ProductsPage: integration (URL ↔ filtres ↔ liste)', () => {
   })
 
   // profile_filter is a standing setting. "Tout effacer" never clears it, so it
-  // must appear neither in the active count nor as a removable chip beside that button.
+  // must appear neither in the active count nor as a removable chip beside that button
   it('does not count or chip profile_filter, which reset cannot clear', async () => {
     renderProducts(['/products/?profile_filter=true'])
     await screen.findByText(/Hydrating Cleanser/)
@@ -281,7 +281,7 @@ describe('ProductsPage: integration (URL ↔ filtres ↔ liste)', () => {
     expect(
       screen.queryByRole('button', { name: /Retirer le filtre Profil/i })
     ).not.toBeInTheDocument()
-    // The chip was the only reason the bar rendered, so its dead-end "Tout effacer" goes too.
+    // The chip was the only reason the bar rendered, so its dead-end "Tout effacer" goes too
     expect(
       screen.queryByRole('button', { name: /Retirer tous les filtres/i })
     ).not.toBeInTheDocument()
@@ -309,7 +309,7 @@ describe('ProductsPage: integration (URL ↔ filtres ↔ liste)', () => {
       })
     )
 
-    // Client hydration seeds identity before React mounts; the credential can land separately.
+    // On the client the user is known before React mounts, but the credential can arrive later
     useAuthStore.setState({
       session: presentTestSession(SEEDED_USER, 'test-access-token', Date.now() + 60_000),
     })
@@ -334,11 +334,11 @@ describe('ProductsPage: integration (URL ↔ filtres ↔ liste)', () => {
     const dialog = await screen.findByRole('dialog')
 
     // Ingredient is an inline single-control group (no accordion shell): the
-    // combobox renders flat, always visible, so there's nothing to expand.
+    // combobox renders flat, always visible, so there's nothing to expand
     const combo = within(dialog).getByRole('combobox', { name: /Ingrédient/i })
     await user.type(combo, 'nia')
 
-    // Fixture has niacinamide + niacin-pca; pick the canonical.
+    // Fixture has niacinamide + niacin-pca; pick the canonical
     const niacinamide = await within(dialog).findByRole('option', { name: 'Niacinamide' })
     await user.click(niacinamide)
 
@@ -354,7 +354,7 @@ describe('ProductsPage: integration (URL ↔ filtres ↔ liste)', () => {
   })
 
   it('scopes ingredient search to the active domain tab', async () => {
-    // Spy on the type param, then fall through to the default fixture handler.
+    // Spy on the type param, then fall through to the default fixture handler
     const searchTypes: (string | null)[] = []
     server.use(
       http.get('*/api/ingredients/search', ({ request }) => {
@@ -373,7 +373,7 @@ describe('ProductsPage: integration (URL ↔ filtres ↔ liste)', () => {
     const combo = within(dialog).getByRole('combobox', { name: /Ingrédient/i })
     await user.type(combo, 'ceramide')
 
-    // Skincare tab: the haircare homonym must not leak into the dropdown.
+    // Skincare tab: the haircare homonym must not leak into the dropdown
     await within(dialog).findByRole('option', { name: 'Céramide NP' })
     expect(within(dialog).queryByRole('option', { name: 'Céramide 2' })).not.toBeInTheDocument()
 
@@ -389,20 +389,20 @@ describe('ProductsPage: integration (URL ↔ filtres ↔ liste)', () => {
     await openFilterDrawer(user)
     const dialog = await screen.findByRole('dialog')
 
-    // No fixture product carries this slug, so the intent-first skincare drawer removes the noise.
+    // No fixture product carries this slug, so the intent-first skincare drawer removes the noise
     expect(within(dialog).queryByRole('button', { name: /^Rougeurs/i })).not.toBeInTheDocument()
   })
 
   it('renders chips with count=0 as disabled for a non-skincare domain', async () => {
     const user = userEvent.setup()
-    // Domains that are not skincare keep the generic drawer, which disables (not hides) zero-count chips.
+    // Domains that are not skincare keep the generic drawer, which disables (not hides) zero-count chips
     renderProducts([`/products/?category=${encodeURIComponent(JSON.stringify('haircare'))}`])
     await screen.findByText(/Hydrating Cleanser/)
 
     await openFilterDrawer(user)
     const dialog = await screen.findByRole('dialog')
 
-    // No fixture product carries a haircare tag, so tagCounts=0 disables the chip.
+    // No fixture product carries a haircare tag, so tagCounts=0 disables the chip
     const chip = await within(dialog).findByRole('button', {
       name: new RegExp(`^${HAIRCARE_ZERO_COUNT_LABEL}`, 'i'),
     })
@@ -410,8 +410,8 @@ describe('ProductsPage: integration (URL ↔ filtres ↔ liste)', () => {
   })
 
   it('defers filter options to drawer open, then requeries per category on tab switch', async () => {
-    // filter-options is off the cold-load waterfall (deferred to Filter intent), so it must
-    // NOT fire at mount; opening the drawer fetches skincare, switching tab requeries haircare.
+    // filter-options waits until the user wants to filter, so it must not fire at mount
+    // Opening the drawer fetches skincare, switching tab fetches haircare
     const calls: (string | null)[] = []
     server.use(
       http.get('*/api/products/filter-options', ({ request }) => {
@@ -430,7 +430,7 @@ describe('ProductsPage: integration (URL ↔ filtres ↔ liste)', () => {
       expect(calls).toContain('skincare')
     })
 
-    // Drawer stays open across tab switch; category change requeries with haircare.
+    // Drawer stays open across tab switch; category change fetches haircare
     await user.click(screen.getByRole('tab', { name: /Cheveux/i }))
 
     await waitFor(() => {
@@ -442,7 +442,7 @@ describe('ProductsPage: integration (URL ↔ filtres ↔ liste)', () => {
   })
 })
 
-// Apply button reflects in-flight count, draft clears on close, and preview/main share the query key.
+// Apply button reflects in-flight count, draft clears on close, and preview/main share the query key
 describe('ProductsPage: live preview count', () => {
   it('updates the apply button text live as the user toggles chips in the drawer', async () => {
     const user = userEvent.setup()
@@ -455,19 +455,19 @@ describe('ProductsPage: live preview count', () => {
       name: /Appliquer les filtres sélectionnés/i,
     })
 
-    // No draft yet, so preview equals main count (2 fixtures).
+    // No draft yet, so preview equals main count (2 fixtures)
     await waitFor(() => {
       expect(applyBtn).toHaveTextContent(/Voir 2 produits/)
     })
 
     await user.click(within(dialog).getByRole('button', { name: /Acné \/ Imperfections/i }))
 
-    // One fixture carries acne-imperfections, so live count = 1.
+    // One fixture carries acne-imperfections, so live count = 1
     await waitFor(() => {
       expect(applyBtn).toHaveTextContent(/Voir 1 produit\b/)
     })
 
-    // Toggling off restores the unfiltered count without applying again.
+    // Toggling off restores the unfiltered count without applying again
     await user.click(within(dialog).getByRole('button', { name: /Acné \/ Imperfections/i }))
     await waitFor(() => {
       expect(applyBtn).toHaveTextContent(/Voir 2 produits/)
@@ -479,7 +479,7 @@ describe('ProductsPage: live preview count', () => {
     renderProducts()
     await screen.findByText(/Hydrating Cleanser/)
 
-    // Narrow, then apply (URL set, draft cleared).
+    // Narrow, then apply (URL set, draft cleared)
     await openFilterDrawer(user)
     let dialog = await screen.findByRole('dialog')
     await user.click(within(dialog).getByRole('button', { name: /Acné \/ Imperfections/i }))
@@ -495,7 +495,7 @@ describe('ProductsPage: live preview count', () => {
       expect(screen.queryByText(/Hydrating Cleanser/)).not.toBeInTheDocument()
     })
 
-    // Reopen: preview must reflect URL (1), not a stale draft. Regression breaks cache hit below.
+    // Reopen: preview must reflect URL (1), not a stale draft. Regression breaks cache hit below
     await openFilterDrawer(user)
     dialog = await screen.findByRole('dialog')
     await waitFor(() => {
@@ -505,7 +505,7 @@ describe('ProductsPage: live preview count', () => {
     })
   })
 
-  // Drawer must wipe its draft on domain switch; otherwise skincare draft bleeds into haircare.
+  // Drawer must wipe its draft on domain switch; otherwise skincare draft bleeds into haircare
   it('resyncs the drawer draft when the user switches domain tab while the drawer is open', async () => {
     const user = userEvent.setup()
     const { router } = renderProducts()
@@ -522,7 +522,8 @@ describe('ProductsPage: live preview count', () => {
       expect(applyBtn).toHaveTextContent(/Voir 1 produit\b/)
     })
 
-    // jsdom doesn't enforce showModal inertness; pins wiring (URL + draft resync), not modal behavior.
+    // jsdom does not make the page behind showModal inert
+    // This test checks the URL and draft sync, not the modal itself
     await user.click(screen.getByRole('tab', { name: /Cheveux/i }))
 
     await waitFor(() => {
@@ -530,7 +531,7 @@ describe('ProductsPage: live preview count', () => {
     })
     expect(router.state.location.search).not.toHaveProperty('concern')
 
-    // Drawer stayed open; preview refetches with empty filters, so unfiltered count (2 fixtures).
+    // Drawer stayed open; preview refetches with empty filters, so unfiltered count (2 fixtures)
     await waitFor(() => {
       expect(applyBtn).toHaveTextContent(/Voir 2 produits/)
     })
@@ -541,7 +542,8 @@ describe('ProductsPage: live preview count', () => {
     renderProducts()
     await screen.findByText(/Hydrating Cleanser/)
 
-    // Tally only acne-imperfections requests; remove listener in finally to avoid leakage.
+    // Count only acne-imperfections requests
+    // Remove the listener in finally so it does not leak into the next test
     const filteredRequests: string[] = []
     const onRequest: Parameters<typeof server.events.on<'request:start'>>[1] = ({ request }) => {
       const u = request.url
@@ -560,7 +562,7 @@ describe('ProductsPage: live preview count', () => {
 
       await user.click(within(dialog).getByRole('button', { name: /Acné \/ Imperfections/i }))
 
-      // Preview must land before apply; otherwise a race fires a second fetch and hides the cache hit.
+      // Preview must land before apply; otherwise a race fires a second fetch and hides the cache hit
       await waitFor(() => {
         expect(applyBtn).toHaveTextContent(/Voir 1 produit\b/)
       })
@@ -568,7 +570,7 @@ describe('ProductsPage: live preview count', () => {
 
       await user.click(applyBtn)
 
-      // Main grid query now points at the same key preview populated, so it should hit cache.
+      // Main grid query now points at the same key preview populated, so it should hit cache
       await waitFor(() => {
         expect(screen.queryByText(/Hydrating Cleanser/)).not.toBeInTheDocument()
       })

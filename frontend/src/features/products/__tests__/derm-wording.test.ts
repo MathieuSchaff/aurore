@@ -3,11 +3,11 @@ import path from 'node:path'
 
 import { describe, expect, it } from 'vitest'
 
-// Editorial guard against regressions. This is the one place Aurore talks about a
+// Guard on wording. This is the one place Aurore talks about a
 // formula, and the vision forbids verdicts and medical claims there, but the
-// wording can drift across several files with nothing else checking it.
+// wording is spread over several files and nothing else checks it
 // Any match fails, in a string or a comment, unless listed in ALLOWED with a
-// reason. Comments count too, so the guard cannot be defeated by accident.
+// reason. Comments count too, so nobody gets around the guard by accident
 
 const ROOT = path.resolve(__dirname, '../../../..')
 
@@ -23,9 +23,9 @@ const GUARDED_PATHS = [
   'src/features/ingredients/components/IngredientInfoTab',
 ]
 
-// Each term is a claim the INCI list cannot support, or one the vision rules out
-// outright. `interdit` is absent on purpose: an Annex II ban is a legal fact the
-// regulatory block must be able to state.
+// Each term is a claim the INCI list cannot support, or one the vision forbids
+// `interdit` is absent on purpose: an Annex II ban is a legal fact the
+// regulatory block must be able to state
 const FORBIDDEN: ReadonlyArray<{ term: RegExp; why: string }> = [
   { term: /toxiques?\b/i, why: 'toxicity cannot be read off an INCI list' },
   { term: /canc[ée]r(?:ig|og)[èe]ne/i, why: 'no carcinogenicity claim' },
@@ -47,11 +47,11 @@ const FORBIDDEN: ReadonlyArray<{ term: RegExp; why: string }> = [
 ]
 
 // Occurrences that deny the claim instead of making it. Matched as exact
-// substrings and removed before scanning, so the sentence around them still is.
+// substrings and removed before scanning, so the sentence around them still is
 const ALLOWED: ReadonlyArray<{ phrase: string; why: string }> = [
   {
     phrase: 'pas à poser un diagnostic',
-    why: 'IngredientInfoTab disclaimer — states the limit rather than crossing it',
+    why: 'IngredientInfoTab disclaimer: states the limit rather than crossing it',
   },
 ]
 
@@ -70,7 +70,7 @@ const guardedFiles = GUARDED_PATHS.flatMap((p) => walk(path.join(ROOT, p)))
 describe('formula wording', () => {
   it('guards every file of the formula-reading surface', () => {
     // A guarded path that resolves to nothing would make the whole suite pass on
-    // an empty set after a rename.
+    // an empty set after a rename
     expect(guardedFiles.length).toBeGreaterThanOrEqual(GUARDED_PATHS.length)
   })
 
@@ -82,14 +82,14 @@ describe('formula wording', () => {
         fs.readFileSync(file, 'utf8')
       )
       const found = FORBIDDEN.filter(({ term }) => term.test(source)).map(
-        ({ term, why }) => `${term.source} — ${why}`
+        ({ term, why }) => `${term.source}: ${why}`
       )
       expect(found, `${relative} uses forbidden wording`).toEqual([])
     }
   )
 
   it('keeps every allowed negation live', () => {
-    // A stale entry silently widens the guard's blind spot.
+    // An entry whose phrase is gone keeps hiding that phrase if it comes back with a real claim
     const all = guardedFiles.map((f) => fs.readFileSync(f, 'utf8')).join('\n')
     for (const { phrase } of ALLOWED) {
       expect(all, `allowed negation is gone: "${phrase}"`).toContain(phrase)

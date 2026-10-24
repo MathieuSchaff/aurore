@@ -66,12 +66,12 @@ export function ProductInfoTab() {
   } = useSuspenseQuery(productQueries.detailPage(slug, viewerId))
   const { product, dermoProfile, assessment, preferenceTargets } = detailPage
   const hasDeclaredInci = Boolean(product.inci?.trim())
+  // FormulaReading and deriveKpChips expect the profile's original slugs
   const profileSlugs = useMemo(
     () => new Set<string>(viewerId ? portraitSlugs(dermoProfile) : []),
     [viewerId, dermoProfile]
   )
 
-  // FormulaReading and deriveKpChips expect the profile's original slugs
   const warnings = useMemo(
     () => deriveProfileWarnings(product.tags, profileSlugs),
     [product.tags, profileSlugs]

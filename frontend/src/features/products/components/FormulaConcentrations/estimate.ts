@@ -13,7 +13,7 @@ export type ConcentrationRead =
   | { kind: 'band'; lo: number; hi: number; mean: number }
   | { kind: 'unestimable' }
 
-// Wider bands look more certain than they are, so keep them qualitative.
+// Wider bands look more certain than they are, so keep them qualitative
 const CONC_BAND_MAX_REL_WIDTH = 0.5
 
 const wholePctFormatter = new Intl.NumberFormat('fr-FR', { maximumFractionDigits: 0 })
@@ -37,7 +37,7 @@ export function compareConcentrationReads(a: ConcentrationRead, b: Concentration
 export function readConcentration(e: ConcentrationInput): ConcentrationRead {
   if (e.claimPct != null && e.claimPct > 0) return { kind: 'declared', value: e.claimPct }
 
-  // The raw prior alone is not strong enough to show a number.
+  // The raw prior alone is not strong enough to show a number
   if (e.solverCiLowPct == null || e.solverCiHighPct == null || e.solverMeanPct == null) {
     return { kind: 'unestimable' }
   }

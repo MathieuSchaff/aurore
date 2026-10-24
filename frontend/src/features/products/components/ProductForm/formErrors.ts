@@ -2,7 +2,7 @@ import type { ProductErrorCode } from '@aurore/shared'
 
 import type { FormErrorMap } from '@/lib/helpers/apiError'
 
-// Codes already surfaced via toast (creation_failed, update_failed) stay unmapped here.
+// Codes already shown by a toast (creation_failed, update_failed) stay unmapped here
 export type ProductFormField = 'name' | 'brand' | 'kind' | 'tags'
 
 export const PRODUCT_FORM_ERRORS = {

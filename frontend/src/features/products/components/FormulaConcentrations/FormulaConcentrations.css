@@ -54,7 +54,7 @@
   color: var(--text-secondary);
 }
 
-/* Declared values carry a brand basis, so they read at full weight; estimates stay quieter. */
+/* Declared values come from the brand, so they read at full weight; estimates stay quieter */
 .formula-concentrations__value[data-declared] {
   color: var(--text-primary);
 }

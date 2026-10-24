@@ -35,7 +35,7 @@ function presentGroup(
     subFilters: group.subFilters.map((field) => {
       const selected = localFilters[field.key] ?? []
       // Options arrive already ordered from the hook (alpha, or defs order for
-      // semantic categories); only filter out unavailable-and-unselected here.
+      // semantic categories); only filter out unavailable-and-unselected here
       const availableOptions = field.options.filter(
         (option) => !option.disabled || selected.includes(option.value)
       )

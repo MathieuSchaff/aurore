@@ -9,7 +9,7 @@ import './FormulaProfile.css'
 
 // Descriptive categories only: what is in the formula, when and where it is
 // used, never suitability, concerns, or a verdict. Array order = display
-// order: most formula-specific first, not META.order (filter-menu order).
+// order: most formula-specific first, not META.order (filter-menu order)
 const PROFILE_CATEGORIES = ['actif_class', 'skin_effect', 'routine_step_v2', 'skin_zone'] as const
 const SKINCARE_FILTER_LABELS = new Map(
   getProductFilterDefinition('skincare').map(({ key, label }) => [key, label])

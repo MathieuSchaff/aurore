@@ -1,5 +1,5 @@
-// Drawer-only label overrides. Canonical labels stay in
-// features/products/filters.ts GROUP_LABELS.
+// Labels changed for the drawer only. The main labels stay in
+// features/products/filters.ts GROUP_LABELS
 export const DRAWER_GROUP_LABELS: Partial<Record<string, string>> = {
   texture: 'Texture ou forme',
   concern: 'Besoin de ma peau',

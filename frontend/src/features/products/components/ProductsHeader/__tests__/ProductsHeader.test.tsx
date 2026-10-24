@@ -7,13 +7,13 @@ import { renderWithProviders } from '@/test/utils'
 
 const navigate = vi.fn()
 
-// Hoisted spies: the focus-gate test asserts these are NOT called before focus.
+// Hoisted spies: the focus-gate test asserts these are NOT called before focus
 const { brandsQueryFn, ingredientOptionsQueryFn } = vi.hoisted(() => ({
-  // 3 'Bioderm*' brands enable the brand top-N cap test.
+  // 3 'Bioderm*' brands enable the brand top-N cap test
   brandsQueryFn: vi.fn(() =>
     Promise.resolve(['Avène', 'CeraVe', 'Bioderma', 'Biodermal', 'Bioderm Lab'])
   ),
-  // 4 vitamins enable the top-N cap test; 'vitamine c' still matches uniquely after folding.
+  // 4 vitamins enable the top-N cap test; 'vitamine c' still matches uniquely after folding
   ingredientOptionsQueryFn: vi.fn(() =>
     Promise.resolve([
       { id: 1, slug: 'vitamine-c', name: 'Vitamine C' },
@@ -105,7 +105,7 @@ describe('ProductsHeader: facet match footer', () => {
     renderWithProviders(<ProductsHeader {...baseProps} />)
     const input = screen.getByRole('combobox', { name: /rechercher un produit/i })
     await userEvent.type(input, 'matifiant')
-    // Fallback uses "résultats", facets use "produits"; negative assertion excludes facets.
+    // Fallback uses "résultats", facets use "produits"; negative assertion excludes facets
     await waitFor(() =>
       expect(screen.getByText(/voir tous les résultats pour "matifiant"/i)).toBeInTheDocument()
     )
@@ -117,7 +117,7 @@ describe('ProductsHeader: facet match footer', () => {
     const input = screen.getByRole('combobox', { name: /rechercher un produit/i })
     await userEvent.type(input, 'vitamine c')
     await waitFor(() => screen.getByText(/voir tous les produits avec vitamine c/i))
-    // Fallback and facets coexist so the user can still pick "see all by name+brand".
+    // Fallback and facets coexist so the user can still pick "see all by name+brand"
     expect(screen.getByText(/voir tous les résultats pour "vitamine c"/i)).toBeInTheDocument()
   })
 
@@ -127,14 +127,14 @@ describe('ProductsHeader: facet match footer', () => {
     await userEvent.type(input, 'vitamine c')
     await waitFor(() => screen.getByText('Ingrédients'))
     expect(screen.getByText('Recherche')).toBeInTheDocument()
-    // Empty brand section must be filtered out (no header rendered).
+    // Empty brand section must be filtered out (no header rendered)
     expect(screen.queryByText('Marques')).not.toBeInTheDocument()
   })
 
   it('caps ingredient section at FACET_SECTION_LIMIT', async () => {
     renderWithProviders(<ProductsHeader {...baseProps} />)
     const input = screen.getByRole('combobox', { name: /rechercher un produit/i })
-    // 'vita' matches all 4 vitamins; cap limits to top 2.
+    // 'vita' matches all 4 vitamins; cap limits to top 2
     await userEvent.type(input, 'vita')
     await waitFor(() => screen.getByText('Ingrédients'))
     const entries = screen.getAllByText(/voir tous les produits avec vitamine/i)
@@ -150,7 +150,7 @@ describe('ProductsHeader: facet match footer', () => {
     expect(navigate).toHaveBeenCalledOnce()
     const [call] = navigate.mock.calls
     expect(call[0].to).toBe('/products')
-    // A fresh q must drop the sort carried by prev so the schema defaults to relevance.
+    // A fresh q must drop the sort carried by prev so the schema defaults to relevance
     const resolved = call[0].search({ sort: 'newest' })
     expect(resolved).toMatchObject({ q: 'matifiant', page: 1 })
     expect(resolved.sort).toBeUndefined()
@@ -200,9 +200,9 @@ describe('ProductsHeader: facet match footer', () => {
     expect(navigate).toHaveBeenCalledOnce()
     const [call] = navigate.mock.calls
     expect(call[0].to).toBe('/products')
-    // search is a functional updater.
+    // search is a functional updater
     const resolved = call[0].search({ ingredient: ['retinol'] })
-    // A singleton replacement here silently dropped filters added by earlier selections.
+    // A singleton replacement here silently dropped filters added by earlier selections
     expect(resolved).toMatchObject({ ingredient: ['retinol', 'vitamine-c'], page: 1 })
   })
 
@@ -217,7 +217,7 @@ describe('ProductsHeader: facet match footer', () => {
     const [call] = navigate.mock.calls
     const resolved = call[0].search({ ingredient: ['retinol', 'vitamine-c'] })
     // Selecting an already active facet runs this updater again; appending blindly duplicates
-    // both the URL value and its chip.
+    // both the URL value and its chip
     expect(resolved.ingredient).toEqual(['retinol', 'vitamine-c'])
   })
 
@@ -240,7 +240,7 @@ describe('ProductsHeader: facet match footer', () => {
     const input = screen.getByRole('combobox', { name: /rechercher un produit/i })
     await userEvent.type(input, 'vitamine c')
     await screen.findByText(/voir tous les produits avec vitamine c/i)
-    // Sections render first; idx 0 = ingredient entry.
+    // Sections render first; idx 0 = ingredient entry
     await userEvent.keyboard('{ArrowDown}{Enter}')
     expect(navigate).toHaveBeenCalledOnce()
     const [call] = navigate.mock.calls
@@ -252,7 +252,7 @@ describe('ProductsHeader: facet match footer', () => {
   it('matches ingredient facet via slug when the display name does not match (INCI-style query)', async () => {
     renderWithProviders(<ProductsHeader {...baseProps} />)
     const input = screen.getByRole('combobox', { name: /rechercher un produit/i })
-    // 'vitamine-c' is not a substring of the folded name 'vitamine c', only the slug matches.
+    // 'vitamine-c' is not a substring of the folded name 'vitamine c', only the slug matches
     await userEvent.type(input, 'vitamine-c')
     await waitFor(() => {
       expect(screen.getByText(/voir tous les produits avec vitamine c/i)).toBeInTheDocument()
@@ -262,7 +262,7 @@ describe('ProductsHeader: facet match footer', () => {
   it('caps brand section at FACET_SECTION_LIMIT', async () => {
     renderWithProviders(<ProductsHeader {...baseProps} />)
     const input = screen.getByRole('combobox', { name: /rechercher un produit/i })
-    // 'bioderm' matches 3 mocked brands; cap limits to top 2.
+    // 'bioderm' matches 3 mocked brands; cap limits to top 2
     await userEvent.type(input, 'bioderm')
     await waitFor(() => screen.getByText('Marques'))
     expect(screen.getAllByText(/voir tous les produits bioderm/i)).toHaveLength(2)

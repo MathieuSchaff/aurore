@@ -12,7 +12,7 @@ export function hasActivePriceRange(priceMin?: number, priceMax?: number): boole
   return priceMin !== undefined || priceMax !== undefined
 }
 
-// Discovery mode = untouched listing. Any filter/price/query/sort exits it.
+// Discovery mode = untouched listing. Any filter/price/query/sort exits it
 export function isDiscoveryMode(args: {
   hasFilters: boolean
   hasPriceRange: boolean
@@ -93,8 +93,8 @@ export function applyDeclaredRules(
   return base
 }
 
-// Single source of truth for the list query input: both the /products loader (prefetch)
-// and ProductsPage call this so the queryKey matches and the prefetch lands.
+// The /products loader (prefetch) and ProductsPage both build the list query here,
+// so the queryKey matches and the page uses the prefetched data
 export function productsListApiFilters(
   search: ProductsSearch,
   isAuthed: boolean,
@@ -119,7 +119,7 @@ export function productsListApiFilters(
 
 // UI-level toggles outside FilterDrawer state. Tag filters reset via useListFilters.resetFilters().
 // profile_filter survives: it is a standing setting, not a filter chip. Clearing
-// the criteria must not silently revoke a choice the user made once and for all.
+// the criteria must not silently revoke a choice the user made once and for all
 export function buildResetSearchParams<T extends Record<string, unknown>>(prev: T) {
   return {
     ...prev,
@@ -130,7 +130,7 @@ export function buildResetSearchParams<T extends Record<string, unknown>>(prev: 
   }
 }
 
-// brand and ingredient carry over across domains; tag filters and pagination reset.
+// brand and ingredient carry over across domains; tag filters and pagination reset
 export function buildDomainSwitchSearch<T extends Record<string, unknown>>(
   prev: T,
   next: ProductDomainTab,
