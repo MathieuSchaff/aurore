@@ -5,9 +5,17 @@ import type { ExtraChip } from '@/component/Filter'
 
 const eurFormatter = new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' })
 
+function priceRangeLabel(priceMin?: number, priceMax?: number): string {
+  const minLabel = priceMin != null ? eurFormatter.format(priceMin / 100) : null
+  const maxLabel = priceMax != null ? eurFormatter.format(priceMax / 100) : null
+  if (minLabel && maxLabel) return `${minLabel} – ${maxLabel}`
+  if (minLabel) return `≥ ${minLabel}`
+  return `≤ ${maxLabel}`
+}
+
 // profile_filter has no chip here: it is a standing setting, not a filter, and
 // "Tout effacer" next to the chips does not clear it. Its controls are the drawer
-// toggle and AvoidedBanner.
+// toggle and AvoidedBanner
 type Args = {
   hasPriceRange: boolean
   priceMin?: number
@@ -35,18 +43,10 @@ export function useProductsExtraChips({ hasPriceRange, priceMin, priceMax, q }: 
     }
 
     if (hasPriceRange) {
-      const minLabel = priceMin != null ? eurFormatter.format(priceMin / 100) : null
-      const maxLabel = priceMax != null ? eurFormatter.format(priceMax / 100) : null
-      const label =
-        minLabel && maxLabel
-          ? `${minLabel} – ${maxLabel}`
-          : minLabel
-            ? `≥ ${minLabel}`
-            : `≤ ${maxLabel}`
       chips.push({
         id: 'price',
         prefix: 'Prix',
-        label,
+        label: priceRangeLabel(priceMin, priceMax),
         onRemove: () =>
           navigate({
             search: (prev) => ({ ...prev, priceMin: undefined, priceMax: undefined, page: 1 }),

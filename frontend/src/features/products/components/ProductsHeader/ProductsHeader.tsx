@@ -19,8 +19,13 @@ import { type ProductSort, productQueries } from '@/lib/queries/products'
 
 import '@/component/Layout/PageLayout/ListPage.css'
 
-// Cap matches per facet to keep the dropdown scannable.
+// Cap matches per facet to keep the dropdown scannable
 const FACET_SECTION_LIMIT = 2
+
+function filterButtonLabel(activeCount: number): string {
+  if (activeCount === 0) return 'Filtrer'
+  return `Filtrer (${activeCount} actif${activeCount > 1 ? 's' : ''})`
+}
 
 type Props = {
   total: number
@@ -52,11 +57,11 @@ function ProductsHeaderImpl({
   onFilterIntent,
 }: Props) {
   const navigate = useNavigate({ from: '/products/' })
-  // Search facet lists only matter once the combobox is engaged; gating on focus keeps
-  // them off the cold-load waterfall (they competed with the LCP grid).
+  // Facet lists only matter once the user is in the search box
+  // Loading them on focus keeps them out of the first page load, where they slowed the LCP grid
   const [searchActive, setSearchActive] = useState(false)
   // Facets scoped to the active tab: a cross-domain suggestion would navigate to a
-  // silent 0-result list (category is ANDed server-side and kept on navigate).
+  // silent 0-result list (category is ANDed server-side and kept on navigate)
   const { data: brands = [] } = useQuery({
     ...productQueries.brands(activeTab),
     enabled: searchActive,
@@ -77,7 +82,7 @@ function ProductsHeaderImpl({
     return () => obs.disconnect()
   }, [])
 
-  // sort reset: a fresh q defaults to relevance via productsSearchSchema.
+  // sort reset: a fresh q defaults to relevance via productsSearchSchema
   const navigateToQuery = useCallback(
     (trimmed: string) =>
       navigate({
@@ -117,7 +122,7 @@ function ProductsHeaderImpl({
             onSelect: () =>
               navigate({
                 to: '/products',
-                // Drop any stale q: the label promises "all products with X", not "X AND q".
+                // Drop any stale q: the label promises "all products with X", not "X AND q"
                 search: (prev) => ({
                   ...prev,
                   ingredient: prev.ingredient?.includes(i.slug)
@@ -198,11 +203,7 @@ function ProductsHeaderImpl({
             onPointerEnter={onFilterIntent}
             onFocus={onFilterIntent}
             className="list-filter-btn"
-            aria-label={
-              effectiveFilterCount > 0
-                ? `Filtrer (${effectiveFilterCount} actif${effectiveFilterCount > 1 ? 's' : ''})`
-                : 'Filtrer'
-            }
+            aria-label={filterButtonLabel(effectiveFilterCount)}
           >
             <SlidersHorizontal size={14} aria-hidden="true" />
             <span>Filtrer</span>
@@ -292,7 +293,7 @@ function FloatingFilterButton({ visible, count, onClick, onIntent }: FloatingFil
       type="button"
       className={`products-floating-filter${visible ? ' products-floating-filter--visible' : ''}${dragging ? ' products-floating-filter--dragging' : ''}`}
       style={{ '--drag-y': `${y}px` } as React.CSSProperties}
-      aria-label={`Filtrer${count > 0 ? ` (${count} actif${count > 1 ? 's' : ''})` : ''}`}
+      aria-label={filterButtonLabel(count)}
       tabIndex={visible ? 0 : -1}
       {...dragHandlers}
       onPointerEnter={onIntent}

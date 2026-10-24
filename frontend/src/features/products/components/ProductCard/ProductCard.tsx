@@ -53,7 +53,6 @@ type Props = {
 }
 
 function ProductCardImpl({ product, onAdd }: Props) {
-  const [flagTipOpen, setFlagTipOpen] = useState(false)
   const handleAdd = useCallback(() => {
     onAdd({
       id: product.id,
@@ -66,13 +65,6 @@ function ProductCardImpl({ product, onAdd }: Props) {
   const allPrimaryTags = product.tags.filter((t) => t.relevance === 'primary')
   const primaryTags = allPrimaryTags.slice(0, MAX_PRIMARY_CHIPS)
   const extraTagsCount = allPrimaryTags.length - primaryTags.length
-
-  const avoidLabels = product.profileMatches.map(
-    (s) =>
-      SKIN_TYPE_LABELS[s as keyof typeof SKIN_TYPE_LABELS] ??
-      SKIN_CONCERN_LABELS[s as keyof typeof SKIN_CONCERN_LABELS] ??
-      tagLabel(s)
-  )
 
   return (
     <Card
@@ -126,31 +118,7 @@ function ProductCardImpl({ product, onAdd }: Props) {
           )}
           <div className="list-card__footer-row">
             {product.profileMatches.length > 0 && (
-              <span className="list-card__preference-flag-wrap">
-                <button
-                  type="button"
-                  className="list-card__preference-flag"
-                  onMouseEnter={() => setFlagTipOpen(true)}
-                  onMouseLeave={() => setFlagTipOpen(false)}
-                  onFocus={() => setFlagTipOpen(true)}
-                  onBlur={() => setFlagTipOpen(false)}
-                  onClick={() => setFlagTipOpen((v) => !v)}
-                  aria-label={`Pour vous. Contient des ingrédients liés à : ${avoidLabels.join(', ')}. Note personnelle, pas un avertissement.`}
-                  aria-describedby={flagTipOpen ? `preference-flag-tip-${product.id}` : undefined}
-                >
-                  Pour vous
-                </button>
-                {flagTipOpen && (
-                  <span
-                    className="list-card__preference-tip"
-                    role="tooltip"
-                    id={`preference-flag-tip-${product.id}`}
-                  >
-                    Contient des ingrédients liés à : {avoidLabels.join(', ')}. Note personnelle,
-                    pas un avertissement.
-                  </span>
-                )}
-              </span>
+              <PreferenceFlag productId={product.id} profileMatches={product.profileMatches} />
             )}
             {product.requireMatches.length > 0 && (
               <span
@@ -168,25 +136,7 @@ function ProductCardImpl({ product, onAdd }: Props) {
                 Contient : {product.excludeMatches.join(', ')}
               </span>
             )}
-            <div className="list-card__price-wrap">
-              {product.priceCents != null && product.priceCents > 0 ? (
-                <span className="list-card__price">
-                  {eurFormatter.format(product.priceCents / 100)}
-                </span>
-              ) : (
-                <>
-                  <span className="list-card__price list-card__price--empty" aria-hidden="true">
-                    —
-                  </span>
-                  <span className="sr-only">Prix non renseigné</span>
-                </>
-              )}
-              {product.totalAmount != null && product.totalAmount > 0 && (
-                <span className="list-card__amount">
-                  · {product.totalAmount} {product.amountUnit ?? product.unit}
-                </span>
-              )}
-            </div>
+            <ProductCardPrice product={product} />
             {product.userStatus === null ? (
               <Button
                 variant="outline"
@@ -197,15 +147,8 @@ function ProductCardImpl({ product, onAdd }: Props) {
                 <Plus size={14} aria-hidden="true" />
                 <span>Ajouter</span>
               </Button>
-            ) : product.userStatus === 'avoided' ? (
-              <span className="list-card__shelf-flag list-card__shelf-flag--avoided">
-                Marqué à éviter pour vous
-              </span>
             ) : (
-              <span className="list-card__shelf-flag">
-                <Check size={14} aria-hidden="true" />
-                Sur votre étagère
-              </span>
+              <ShelfStatusFlag avoided={product.userStatus === 'avoided'} />
             )}
           </div>
         </Card.Footer>
@@ -215,3 +158,82 @@ function ProductCardImpl({ product, onAdd }: Props) {
 }
 
 export const ProductCard = memo(ProductCardImpl)
+
+function PreferenceFlag({
+  productId,
+  profileMatches,
+}: {
+  productId: string
+  profileMatches: readonly string[]
+}) {
+  const [tipOpen, setTipOpen] = useState(false)
+  const avoidLabels = profileMatches.map(
+    (s) =>
+      SKIN_TYPE_LABELS[s as keyof typeof SKIN_TYPE_LABELS] ??
+      SKIN_CONCERN_LABELS[s as keyof typeof SKIN_CONCERN_LABELS] ??
+      tagLabel(s)
+  )
+  const tipId = `preference-flag-tip-${productId}`
+
+  return (
+    <span className="list-card__preference-flag-wrap">
+      <button
+        type="button"
+        className="list-card__preference-flag"
+        onMouseEnter={() => setTipOpen(true)}
+        onMouseLeave={() => setTipOpen(false)}
+        onFocus={() => setTipOpen(true)}
+        onBlur={() => setTipOpen(false)}
+        onClick={() => setTipOpen((v) => !v)}
+        aria-label={`Pour vous. Contient des ingrédients liés à : ${avoidLabels.join(', ')}. Note personnelle, pas un avertissement.`}
+        aria-describedby={tipOpen ? tipId : undefined}
+      >
+        Pour vous
+      </button>
+      {tipOpen && (
+        <span className="list-card__preference-tip" role="tooltip" id={tipId}>
+          Contient des ingrédients liés à : {avoidLabels.join(', ')}. Note personnelle, pas un
+          avertissement.
+        </span>
+      )}
+    </span>
+  )
+}
+
+function ProductCardPrice({ product }: { product: ProductListItem }) {
+  return (
+    <div className="list-card__price-wrap">
+      {product.priceCents != null && product.priceCents > 0 ? (
+        <span className="list-card__price">{eurFormatter.format(product.priceCents / 100)}</span>
+      ) : (
+        <>
+          <span className="list-card__price list-card__price--empty" aria-hidden="true">
+            —
+          </span>
+          <span className="sr-only">Prix non renseigné</span>
+        </>
+      )}
+      {product.totalAmount != null && product.totalAmount > 0 && (
+        <span className="list-card__amount">
+          · {product.totalAmount} {product.amountUnit ?? product.unit}
+        </span>
+      )}
+    </div>
+  )
+}
+
+function ShelfStatusFlag({ avoided }: { avoided: boolean }) {
+  if (avoided) {
+    return (
+      <span className="list-card__shelf-flag list-card__shelf-flag--avoided">
+        Marqué à éviter pour vous
+      </span>
+    )
+  }
+  return (
+    <span className="list-card__shelf-flag">
+      <Check size={14} aria-hidden="true" />
+      Sur votre étagère
+    </span>
+  )
+}

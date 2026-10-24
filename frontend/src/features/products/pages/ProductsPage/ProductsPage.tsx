@@ -47,7 +47,7 @@ import '@/features/products/styles/kinds.css'
 
 const routeApi = getRouteApi('/products/')
 
-// Tag keys only: domain switch resets tags; brand/ingredient carry over via buildDomainSwitchSearch.
+// Tag keys only: domain switch resets tags; brand/ingredient carry over via buildDomainSwitchSearch
 const EMPTY_TAG_FILTERS = emptyFilters(TAG_FILTER_KEYS)
 
 const EMPTY_FILTERS = emptyFilters(FILTER_KEYS)
@@ -74,7 +74,7 @@ export function ProductsPage() {
     viewerId: currentViewerId,
   })
 
-  // Stable ref: a fresh object every render feeds back into setDraftFilters and loops.
+  // Stable ref: a fresh object every render feeds back into setDraftFilters and loops
   const filters = useMemo<FilterValues<FilterKey>>(
     () =>
       Object.fromEntries(FILTER_KEYS.map((k) => [k, search[k] ?? []])) as FilterValues<FilterKey>,
@@ -92,7 +92,7 @@ export function ProductsPage() {
   const hasPriceRange = hasActivePriceRange(priceMin, priceMax)
   const hasFilters = filterCount > 0
   // profile_filter is out: "Tout effacer" does not clear a standing setting, so
-  // counting it here promised a reset the button could not deliver.
+  // counting it here promised a reset the button could not deliver
   const effectiveFilterCount = filterCount + (hasPriceRange ? 1 : 0) + (q ? 1 : 0)
 
   const handleReset = useCallback(() => {
@@ -100,8 +100,9 @@ export function ProductsPage() {
     navigate({ search: buildResetSearchParams, replace: true })
   }, [resetFilters, navigate])
 
-  // filter-options (tag counts + brand list) only feeds the drawer; keep it off the
-  // cold-load waterfall where it competes with the LCP grid. Prefetched on Filter intent.
+  // filter-options (tag counts + brand list) only feeds the drawer
+  // Keep it out of the first page load, where it slows the LCP grid
+  // It is prefetched when the pointer or focus reaches a Filter button
   const { data: filterOptions } = useQuery({
     ...productQueries.filterOptions(category),
     enabled: isDrawerOpen,
@@ -110,7 +111,6 @@ export function ProductsPage() {
     void queryClient.prefetchQuery(productQueries.filterOptions(category))
   }, [queryClient, category])
 
-  // Declared rules require a known authenticated viewer
   const canApplyDeclaredRules = session.status === 'authenticated'
 
   const apiFilters = useMemo<ListProductsFilters>(
@@ -124,9 +124,9 @@ export function ProductsPage() {
     placeholderData: (prev) => prev,
   })
 
-  // Live count for the drawer's in-flight selection; only runs while drawer is open.
-  // Same rule gate as the list, otherwise the CTA announces the unruled catalogue
-  // size while the applied list is rule-filtered.
+  // Live count for the drawer's in-flight selection; only runs while drawer is open
+  // Same rules as the list, otherwise the button shows the catalogue size
+  // without rules while the list below is filtered by them
   const previewApiFilters = useMemo<ListProductsFilters>(
     () =>
       applyDeclaredRules(
@@ -176,8 +176,8 @@ export function ProductsPage() {
 
   const items = data?.items ?? []
   const total = data?.total ?? 0
-  // Prefer explicit URL intent while server truth restores the standing setting
   const rulesApplied = data?.rulesApplied ?? false
+  // The URL choice wins. Without one, show what the server applied from the standing setting
   const effectiveProfileFilter = search.profile_filter ?? rulesApplied
   const totalPages = Math.ceil(total / PRODUCTS_PAGE_SIZE)
   const isPageOutOfRange = rulesApplied && total > 0 && (data?.page ?? page) > totalPages
@@ -188,8 +188,16 @@ export function ProductsPage() {
     void navigate({ search: (prev) => ({ ...prev, page: 1 }), replace: true })
   }, [isPageOutOfRange, isPlaceholderData, error, navigate])
 
-  // Random order has no stable page sequence, so page numbers are meaningless there.
+  // Random order has no stable page sequence, so page numbers are meaningless there
   const showPager = totalPages > 1 && sort !== 'random'
+  const listView = pickProductsListView({
+    isLoading,
+    isPlaceholderData,
+    isPageOutOfRange,
+    hasError: !!error,
+    itemCount: items.length,
+    effectiveFilterCount,
+  })
 
   const handleSortChange = useCallback(
     (next: ProductSort) => {
@@ -210,7 +218,7 @@ export function ProductsPage() {
 
   const handleDomainChange = useCallback(
     (next: ProductDomainTab) => {
-      // URL tag filters reset via buildDomainSwitchSearch; draftFilters is local state and must too.
+      // URL tag filters reset via buildDomainSwitchSearch; draftFilters is local state and must too
       setDraftFilters(null)
       startTransition(() => {
         navigate({
@@ -301,29 +309,29 @@ export function ProductsPage() {
               }
             />
           )}
-          {(isLoading && !isPlaceholderData) || (isPageOutOfRange && !error) ? (
-            <ProductsGridSkeleton />
-          ) : items.length === 0 ? (
-            error ? (
-              <ProductsLoadError error={error} onRetry={() => refetch()} isRetrying={isFetching} />
-            ) : effectiveFilterCount > 0 ? (
-              <EmptyState
-                icon={<Package size={24} />}
-                title="Aucun produit ne correspond à vos filtres"
-                subtitle="Essayez d'élargir vos critères ou de tout réinitialiser."
-              >
-                <Button variant="outline" size="sm" onClick={handleReset}>
-                  Tout effacer
-                </Button>
-              </EmptyState>
-            ) : (
-              <EmptyState
-                icon={<Package size={24} />}
-                title={`Aucun produit ${PRODUCT_DOMAIN_TAB_META[category].label.toLowerCase()} pour l'instant`}
-                subtitle="Le catalogue s'enrichit régulièrement — revenez plus tard."
-              />
-            )
-          ) : (
+          {listView === 'loading' && <ProductsGridSkeleton />}
+          {listView === 'error' && (
+            <ProductsLoadError error={error} onRetry={() => refetch()} isRetrying={isFetching} />
+          )}
+          {listView === 'no-match' && (
+            <EmptyState
+              icon={<Package size={24} />}
+              title="Aucun produit ne correspond à vos filtres"
+              subtitle="Essayez d'élargir vos critères ou de tout réinitialiser."
+            >
+              <Button variant="outline" size="sm" onClick={handleReset}>
+                Tout effacer
+              </Button>
+            </EmptyState>
+          )}
+          {listView === 'empty-catalogue' && (
+            <EmptyState
+              icon={<Package size={24} />}
+              title={`Aucun produit ${PRODUCT_DOMAIN_TAB_META[category].label.toLowerCase()} pour l'instant`}
+              subtitle="Le catalogue s'enrichit régulièrement — revenez plus tard."
+            />
+          )}
+          {listView === 'grid' && (
             <>
               {showPager && (
                 <ListPagination
@@ -360,6 +368,30 @@ export function ProductsPage() {
       )}
     </>
   )
+}
+
+type ProductsListView = 'loading' | 'error' | 'no-match' | 'empty-catalogue' | 'grid'
+
+function pickProductsListView({
+  isLoading,
+  isPlaceholderData,
+  isPageOutOfRange,
+  hasError,
+  itemCount,
+  effectiveFilterCount,
+}: {
+  isLoading: boolean
+  isPlaceholderData: boolean
+  isPageOutOfRange: boolean
+  hasError: boolean
+  itemCount: number
+  effectiveFilterCount: number
+}): ProductsListView {
+  if ((isLoading && !isPlaceholderData) || (isPageOutOfRange && !hasError)) return 'loading'
+  if (itemCount > 0) return 'grid'
+  if (hasError) return 'error'
+  if (effectiveFilterCount > 0) return 'no-match'
+  return 'empty-catalogue'
 }
 
 function ProductsLoadError({
