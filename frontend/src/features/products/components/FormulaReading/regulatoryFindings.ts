@@ -1,13 +1,14 @@
 // FR wording for algo-derm's typed regulatoryFindings (region, status, limit).
-// The lib emits structured rules, not English prose, so phrasing stays a frontend
-// concern. `note` is the passthrough when no ingredient is attributable.
+// The lib sends structured rules, not English prose, so the French text is written here
+// `note` is shown as is when no ingredient can be tied to the finding
 
 import { REGULATORY_SCOPE_PHRASE } from '@/constants/derm'
 
 type RegStatus = 'restricted' | 'prohibited' | 'concentration_limit'
 
-// Structural subset of algo-derm's RegulatoryFinding: backend-only vendored dep,
-// so the type reaches the frontend via the RPC payload, not an import.
+// Only the fields we read from algo-derm's RegulatoryFinding
+// The lib is vendored for the backend only, so the type reaches the frontend
+// through the RPC payload, not an import
 interface RegulatoryFindingLike {
   status: RegStatus
   region: string
@@ -34,7 +35,7 @@ const REGION_FR: Record<string, string> = {
 
 const regionFr = (region: string): string => REGION_FR[region] ?? region
 
-// Ordered: a pattern that contains a shorter one must come first.
+// Ordered: a pattern that contains a shorter one must come first
 const DETAIL_FR: ReadonlyArray<readonly [RegExp, string]> = [
   [/leave-on only/g, 'sans rinçage uniquement'],
   [/rinse-off only/g, 'à rincer uniquement'],
@@ -59,13 +60,13 @@ const ANNEX_REF = /annexe [IVX]+\/[\dA-Za-z.]+/g
 const words = (text: string): string[] => text.match(/\p{L}[\p{L}'’-]*/gu) ?? []
 
 // Derived from the table so a new phrase widens the vocabulary in one place;
-// `max` is the only word this file emits without going through it.
+// `max` is the only word this file emits without going through it
 const FR_VOCABULARY = new Set(
   ['max', ...DETAIL_FR.flatMap(([, fr]) => words(fr))].map((word) => word.toLowerCase())
 )
 
 // Annex references are dropped first: their Roman numerals read as words and
-// would mark every annexed note as untranslated.
+// would mark every annexed note as untranslated
 const isFrench = (text: string): boolean =>
   words(text.replace(ANNEX_REF, ' ')).every((word) => FR_VOCABULARY.has(word.toLowerCase()))
 
@@ -77,7 +78,7 @@ const translate = (text: string): string =>
 
 // The lib glues its structured bits and the curated note into one string
 // (`formatRegulatoryDetail`), notes last, so the note is the tail after the
-// leading structured segments.
+// leading structured segments
 const splitDetail = (detail: string): { head: string[]; note: string } => {
   const segments = detail.split(', ')
   let cut = 0
@@ -87,11 +88,11 @@ const splitDetail = (detail: string): { head: string[]; note: string } => {
 
 // Curated notes are English prose the vendored dataset writes by hand. Silence
 // beats leaking them onto the page: a note we cannot render in French falls back
-// to its annex references, which carry the legal anchor without the prose.
+// to its annex references, which keep the legal reference without the English text
 const noteFr = (note: string): string | undefined => {
   const translated = translate(note)
   // The whole detail is already printed inside parentheses, so a parenthesised
-  // aside in the note closed the line on a double bracket.
+  // aside in the note closed the line on a double bracket
   if (isFrench(translated)) return translated.replace(/\s*\(([^)]*)\)/g, ', $1')
   return translated.match(ANNEX_REF)?.join(', ')
 }
@@ -99,7 +100,7 @@ const noteFr = (note: string): string | undefined => {
 // A scoped cap is the lib saying "this number governs that product family". It
 // is composed from the structured fields, not from `detail`, which repeats the
 // scope in English. An id with no phrase drops the number: a bare cap would read
-// as the displayed product's own limit.
+// as the displayed product's own limit
 const scopedDetailFr = (scopeId: string, max: number | undefined): string | undefined => {
   const phrase = REGULATORY_SCOPE_PHRASE[scopeId]
   if (!phrase || max == null) return undefined
@@ -109,11 +110,20 @@ const scopedDetailFr = (scopeId: string, max: number | undefined): string | unde
 const detailFr = (detail: string): string | undefined => {
   const { head, note } = splitDetail(detail)
   const noteText = note ? noteFr(note) : undefined
-  // A note carrying its own percentages is the finer statement (rinse-off vs
-  // leave-on); printing the structured cap alongside repeated the same number.
+  // A note with its own percentages is more precise (rinse-off vs
+  // leave-on); printing the structured cap alongside repeated the same number
   const bits = noteText?.includes('%') ? head.filter((bit) => !bit.startsWith('max ')) : head
   const parts = [...bits.map(translate), ...(noteText ? [noteText] : [])]
   return parts.length ? parts.join(', ') : undefined
+}
+
+// concentration_limit is a framed usage with a number, not a distinct verdict
+const framedDetailFr = (finding: RegulatoryFindingLike): string | undefined => {
+  if (finding.scopeId) return scopedDetailFr(finding.scopeId, finding.maxConcentrationPct)
+  const detail =
+    finding.detail ??
+    (finding.maxConcentrationPct != null ? `max ${finding.maxConcentrationPct}%` : undefined)
+  return detail ? detailFr(detail) : undefined
 }
 
 interface Buckets {
@@ -121,14 +131,14 @@ interface Buckets {
   framed: string[]
 }
 
-// One line per ingredient, e.g. "Salicylic Acid — usage encadré : UE (max 2 %), Canada".
+// One line per ingredient, e.g. "Salicylic Acid — usage encadré : UE (max 2 %), Canada"
 export function formatRegulatoryFindings(findings: RegulatoryFindingLike[]): RegulatoryLine[] {
   const grouped = new Map<string, Buckets>()
   const passthrough: string[] = []
 
   for (const finding of findings) {
     // Only subjects carry an ingredient-level treatment; other matched
-    // ingredients are rule conditions. Fall back to matched, then to the note.
+    // ingredients are rule conditions. Fall back to matched, then to the note
     const subjects =
       finding.subjectIngredients.length > 0
         ? finding.subjectIngredients
@@ -139,16 +149,8 @@ export function formatRegulatoryFindings(findings: RegulatoryFindingLike[]): Reg
     }
 
     const region = regionFr(finding.region)
-    const detail =
-      finding.detail ??
-      (finding.maxConcentrationPct != null ? `max ${finding.maxConcentrationPct}%` : undefined)
-    // concentration_limit is a framed usage with a number, not a distinct verdict.
-    const framed = finding.scopeId
-      ? scopedDetailFr(finding.scopeId, finding.maxConcentrationPct)
-      : detail
-        ? detailFr(detail)
-        : undefined
-    const framedText = framed ? `${region} (${framed})` : region
+    const framedDetail = framedDetailFr(finding)
+    const framedText = framedDetail ? `${region} (${framedDetail})` : region
 
     for (const subject of subjects) {
       const bucket = grouped.get(subject) ?? { prohibited: [], framed: [] }

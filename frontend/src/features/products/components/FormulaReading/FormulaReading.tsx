@@ -44,9 +44,64 @@ function DriverLabel({ label, slug }: { label: string; slug: string | null }) {
   )
 }
 
+function DriverItem({
+  label,
+  slug,
+  phrase,
+  hasDoseSignal,
+  relevant = false,
+}: {
+  label: string
+  slug: string | null
+  phrase: string
+  hasDoseSignal: boolean
+  relevant?: boolean
+}) {
+  return (
+    <li className="formula-reading__item" data-relevant={relevant || undefined}>
+      <DriverLabel label={label} slug={slug} />
+      {phrase && (
+        <span className="formula-reading__phrase">
+          <span className="formula-reading__separator"> : </span>
+          {phrase}
+        </span>
+      )}
+      {hasDoseSignal && <span className="formula-reading__dose-tag">{DOSE_SIGNAL_PHRASE}</span>}
+    </li>
+  )
+}
+
+// Missing dose evidence cannot support a dose claim
+// Every occurrence must qualify when the INCI repeats an ingredient
+function doseSignalByInci(
+  matchedEvidence: ProductDermoAssessment['matchedEvidence']
+): Map<string, boolean> {
+  const dosedInci = new Map<string, boolean>()
+  for (const m of matchedEvidence) {
+    const pass =
+      !!m.roleAtDose &&
+      m.roleAtDose.doseFactor >= DOSE_SIGNAL_MIN_DOSE_FACTOR &&
+      m.roleAtDose.confidence >= DOSE_SIGNAL_MIN_CONFIDENCE
+    dosedInci.set(m.inci, (dosedInci.get(m.inci) ?? true) && pass)
+  }
+  return dosedInci
+}
+
 type LinkedIngredient = {
   ingredientName: string
   ingredientCanonicalKey: string | null
+}
+
+// Preferences need a canonical key
+// Duplicate links share one choice
+function declarableIngredients(linkedIngredients: readonly LinkedIngredient[]) {
+  const nameByKey = new Map<string, string>()
+  for (const i of linkedIngredients) {
+    if (i.ingredientCanonicalKey && !nameByKey.has(i.ingredientCanonicalKey)) {
+      nameByKey.set(i.ingredientCanonicalKey, i.ingredientName)
+    }
+  }
+  return [...nameByKey].map(([canonicalKey, name]) => ({ canonicalKey, name }))
 }
 
 interface FormulaReadingProps {
@@ -89,17 +144,7 @@ export function FormulaReading({
     return axes
   }, [profileSlugs])
 
-  // Preferences need a canonical key
-  // Duplicate links share one choice
-  const declarable = useMemo(() => {
-    const nameByKey = new Map<string, string>()
-    for (const i of linkedIngredients) {
-      if (i.ingredientCanonicalKey && !nameByKey.has(i.ingredientCanonicalKey)) {
-        nameByKey.set(i.ingredientCanonicalKey, i.ingredientName)
-      }
-    }
-    return [...nameByKey].map(([canonicalKey, name]) => ({ canonicalKey, name }))
-  }, [linkedIngredients])
+  const declarable = useMemo(() => declarableIngredients(linkedIngredients), [linkedIngredients])
 
   const avoidedNames = useMemo(
     () => avoidedIngredientNames(declarable, preferenceTargets.ingredients),
@@ -123,16 +168,7 @@ export function FormulaReading({
   } = assessment
   const ingredientSignalLines = formatIngredientSignals(ingredientSignals ?? [])
   const regulatoryLines = formatRegulatoryFindings(regulatoryFindings)
-  // Missing dose evidence cannot support a dose claim
-  // Every occurrence must qualify when the INCI repeats an ingredient
-  const dosedInci = new Map<string, boolean>()
-  for (const m of matchedEvidence) {
-    const pass =
-      !!m.roleAtDose &&
-      m.roleAtDose.doseFactor >= DOSE_SIGNAL_MIN_DOSE_FACTOR &&
-      m.roleAtDose.confidence >= DOSE_SIGNAL_MIN_CONFIDENCE
-    dosedInci.set(m.inci, (dosedInci.get(m.inci) ?? true) && pass)
-  }
+  const dosedInci = doseSignalByInci(matchedEvidence)
   // Interaction drivers contain rule IDs and render separately
   const drivers = filterRiskDriversAtDose(
     explanation.topDrivers.filter((d) => d.source !== 'interaction' && d.axes.length > 0),
@@ -178,26 +214,18 @@ export function FormulaReading({
             Points forts
           </Subhead>
           <ul role="list" className="formula-reading__list">
-            {benefitDrivers.map((d) => {
-              const phrase = (d.axes as BenefitAxis[])
-                .map((a) => BENEFIT_AXIS_PHRASE[a])
-                .filter(Boolean)
-                .join(', ')
-              return (
-                <li key={d.label} className="formula-reading__item">
-                  <DriverLabel label={d.label} slug={d.ingredientSlug} />
-                  {phrase && (
-                    <span className="formula-reading__phrase">
-                      <span className="formula-reading__separator"> : </span>
-                      {phrase}
-                    </span>
-                  )}
-                  {d.inci && dosedInci.get(d.inci) && (
-                    <span className="formula-reading__dose-tag">{DOSE_SIGNAL_PHRASE}</span>
-                  )}
-                </li>
-              )
-            })}
+            {benefitDrivers.map((d) => (
+              <DriverItem
+                key={d.label}
+                label={d.label}
+                slug={d.ingredientSlug}
+                phrase={(d.axes as BenefitAxis[])
+                  .map((a) => BENEFIT_AXIS_PHRASE[a])
+                  .filter(Boolean)
+                  .join(', ')}
+                hasDoseSignal={!!d.inci && !!dosedInci.get(d.inci)}
+              />
+            ))}
           </ul>
         </div>
       )}
@@ -208,28 +236,18 @@ export function FormulaReading({
           <ul role="list" className="formula-reading__list">
             {drivers.map((d) => {
               const axes = d.axes as RiskAxis[]
-              const relevant = axes.some((a) => relevantAxes.has(a))
-              const phrase = axes
-                .map((a) => RISK_AXIS_PHRASE[a])
-                .filter(Boolean)
-                .join(', ')
               return (
-                <li
+                <DriverItem
                   key={`${d.label}-${d.source}`}
-                  className="formula-reading__item"
-                  data-relevant={relevant || undefined}
-                >
-                  <DriverLabel label={d.label} slug={d.ingredientSlug} />
-                  {phrase && (
-                    <span className="formula-reading__phrase">
-                      <span className="formula-reading__separator"> : </span>
-                      {phrase}
-                    </span>
-                  )}
-                  {d.inci && dosedInci.get(d.inci) && (
-                    <span className="formula-reading__dose-tag">{DOSE_SIGNAL_PHRASE}</span>
-                  )}
-                </li>
+                  label={d.label}
+                  slug={d.ingredientSlug}
+                  phrase={axes
+                    .map((a) => RISK_AXIS_PHRASE[a])
+                    .filter(Boolean)
+                    .join(', ')}
+                  hasDoseSignal={!!d.inci && !!dosedInci.get(d.inci)}
+                  relevant={axes.some((a) => relevantAxes.has(a))}
+                />
               )
             })}
           </ul>

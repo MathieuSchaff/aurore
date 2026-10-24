@@ -41,7 +41,7 @@ const STATUS_OPTIONS: { value: UserProductStatus; label: string }[] = [
   { value: 'avoided', label: 'Évité' },
 ]
 
-// Statuses where the user has owned the product: purchase log is meaningful.
+// Statuses where the user has owned the product: purchase log is meaningful
 const OWNED_STATUSES: UserProductStatus[] = ['in_stock', 'archived', 'avoided']
 
 export function AddToCollectionModal({
@@ -53,7 +53,7 @@ export function AddToCollectionModal({
   const defaultPrice = priceInputFromCatalogue(product.priceCents)
 
   const [step, setStep] = useState<'status' | 'purchase'>('status')
-  // Only read inside submit handlers, never in render: a ref avoids a render on select.
+  // Only read inside submit handlers, never in render: a ref avoids a render on select
   const selectedStatus = useRef<UserProductStatus | null>(null)
   const [price, setPrice] = useState(defaultPrice)
   const [purchasedAt, setPurchasedAt] = useState(() => todayDateInputValue())
@@ -65,33 +65,34 @@ export function AddToCollectionModal({
   const isPending = addUserProduct.isPending || addPurchase.isPending
   const isError = addUserProduct.isError || addPurchase.isError
 
+  const closeAfterAdd = () => {
+    announce('Produit ajouté à votre collection')
+    onSuccess?.()
+    onClose()
+  }
+
+  const addWithoutPurchase = async (status: UserProductStatus) => {
+    try {
+      await addUserProduct.mutateAsync({ productId: product.id, status })
+      closeAfterAdd()
+    } catch {
+      // the error shows through the mutation state
+    }
+  }
+
   const handleStatusSelect = async (status: UserProductStatus) => {
     if (OWNED_STATUSES.includes(status)) {
       selectedStatus.current = status
       setStep('purchase')
       return
     }
-    try {
-      await addUserProduct.mutateAsync({ productId: product.id, status })
-      announce('Produit ajouté à votre collection')
-      onSuccess?.()
-      onClose()
-    } catch {
-      // surfaced via mutation state
-    }
+    await addWithoutPurchase(status)
   }
 
   const handleSkipPurchase = async () => {
     const status = selectedStatus.current
     if (!status) return
-    try {
-      await addUserProduct.mutateAsync({ productId: product.id, status })
-      announce('Produit ajouté à votre collection')
-      onSuccess?.()
-      onClose()
-    } catch {
-      // surfaced via mutation state
-    }
+    await addWithoutPurchase(status)
   }
 
   const handlePurchaseSubmit = async (e: React.FormEvent) => {
@@ -112,11 +113,9 @@ export function AddToCollectionModal({
         userProductId,
         input: { purchasedAt: fromDateInputValue(purchasedAt), pricePaidCents },
       })
-      announce('Produit ajouté à votre collection')
-      onSuccess?.()
-      onClose()
+      closeAfterAdd()
     } catch {
-      // surfaced via mutation state
+      // the error shows through the mutation state
     }
   }
 

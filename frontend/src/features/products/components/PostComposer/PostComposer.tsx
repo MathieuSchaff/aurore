@@ -13,20 +13,21 @@ import { useCreatePost } from '@/lib/queries/social'
 
 const TONE_OPTIONS = POST_TONES.map((value) => ({ value, label: POST_TONE_LABELS[value] }))
 
-// Product is the implicit anchor here, so the composer can stay compact.
-// Tone is an exclusive facet, not a free-text category.
+// The product is already known here, so the composer stays small
+// Tone is a single choice, not free text
 export function PostComposer({ productId, slug }: { productId: string; slug: string }) {
   const [open, setOpen] = useState(false)
   const [content, setContent] = useState('')
   const [tone, setTone] = useState<PostTone>('principal')
   const { mutate, isPending } = useCreatePost(productId, slug)
   const announce = useAnnounce()
+  const trimmedContent = content.trim()
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
-    if (!content.trim()) return
+    if (!trimmedContent) return
     mutate(
-      { content: content.trim(), tone },
+      { content: trimmedContent, tone },
       {
         onSuccess: () => {
           setContent('')
@@ -68,7 +69,7 @@ export function PostComposer({ productId, slug }: { productId: string; slug: str
         onCancel={() => setOpen(false)}
         submitLabel="Publier"
         isPending={isPending}
-        disabled={!content.trim()}
+        disabled={!trimmedContent}
       />
     </form>
   )
