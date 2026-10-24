@@ -8,8 +8,19 @@ import { type ProductFormulaPreview, usePreviewProductFormula } from '@/lib/quer
 
 import './FormulaPreview.css'
 
-// Mirrors TextureField.tsx: texture only transmitted for these three categories.
+// Same list as TextureField.tsx: texture is only sent for these three categories
 const TEXTURE_CATEGORIES = new Set<ProductCategory>(['skincare', 'solaire', 'bodycare'])
+
+type Token = ProductFormulaPreview['tokens'][number]
+type MatchedToken = Token & { ingredient: NonNullable<Token['ingredient']> }
+
+function groupTokens(tokens: readonly Token[]) {
+  return {
+    matched: tokens.filter((t): t is MatchedToken => t.ingredient !== null),
+    knownNoRecord: tokens.filter((t) => t.canonicalKey && !t.ingredient),
+    unknown: tokens.filter((t) => !t.canonicalKey && !t.ingredient),
+  }
+}
 
 interface FormulaPreviewProps {
   canManageLinks: boolean
@@ -93,19 +104,13 @@ export function FormulaPreview({
     })
   }
 
-  type Token = ProductFormulaPreview['tokens'][number]
-  type MatchedToken = Token & { ingredient: NonNullable<Token['ingredient']> }
+  const { matched, knownNoRecord, unknown } = groupTokens(result?.tokens ?? [])
 
-  const tokens = result?.tokens ?? []
-  const matched = tokens.filter((t): t is MatchedToken => t.ingredient !== null)
-  const knownNoRecord = tokens.filter((t) => t.canonicalKey && !t.ingredient)
-  const unknown = tokens.filter((t) => !t.canonicalKey && !t.ingredient)
+  const isIngredientLinked = (ingredientId: string) => linkedIngredientIds.includes(ingredientId)
 
-  const isAdded = (ingredientId: string) => linkedIngredientIds.includes(ingredientId)
-
-  // Addable = matched but not yet linked or being linked; deduped by ingredient id.
+  // Addable = matched but not yet linked or being linked; deduped by ingredient id
   const addableIngredients = matched
-    .filter((t) => canManageLinks && !isAdded(t.ingredient.id))
+    .filter((t) => canManageLinks && !isIngredientLinked(t.ingredient.id))
     .filter((t, idx, arr) => arr.findIndex((x) => x.ingredient.id === t.ingredient.id) === idx)
 
   const inputsDrifted = analyzedKey !== null && currentKey !== analyzedKey
@@ -155,7 +160,6 @@ export function FormulaPreview({
               <ul role="list" className="ui-wrap-list" aria-label="Ingrédients reliés au catalogue">
                 {matched.map((t) => {
                   const ing = t.ingredient
-                  const isLinked = isAdded(ing.id)
                   return (
                     <li
                       key={`${t.raw}-${ing.id}`}
@@ -164,7 +168,7 @@ export function FormulaPreview({
                       <span className="formula-preview__chip-name">{ing.name}</span>
                       <FormulaPreviewAction
                         canManageLinks={canManageLinks}
-                        added={isLinked}
+                        added={isIngredientLinked(ing.id)}
                         label={`Ajouter ${ing.name} aux ingrédients`}
                         onAdd={() => onAddIngredient(ing.id, ing.name)}
                       />
@@ -190,44 +194,21 @@ export function FormulaPreview({
             </div>
           )}
 
-          {knownNoRecord.length > 0 && (
-            <div className="formula-preview__group">
-              <h3 className="formula-preview__group-title">
-                Reconnus, pas encore de fiche{' '}
-                <span className="formula-preview__count">{knownNoRecord.length}</span>
-              </h3>
-              <ul role="list" className="ui-wrap-list" aria-label="Ingrédients reconnus sans fiche">
-                {knownNoRecord.map((t) => (
-                  <li key={t.raw} className="formula-preview__chip formula-preview__chip--known">
-                    {t.raw}
-                  </li>
-                ))}
-              </ul>
-              <p className="formula-preview__microcopy">
-                Ces ingrédients sont identifiés mais n&apos;ont pas encore de fiche dans le
-                catalogue.
-              </p>
-            </div>
-          )}
+          <UnlinkedTokensGroup
+            title="Reconnus, pas encore de fiche"
+            listLabel="Ingrédients reconnus sans fiche"
+            chipModifier="known"
+            tokens={knownNoRecord}
+            microcopy="Ces ingrédients sont identifiés mais n'ont pas encore de fiche dans le catalogue."
+          />
 
-          {unknown.length > 0 && (
-            <div className="formula-preview__group">
-              <h3 className="formula-preview__group-title">
-                Non reconnus <span className="formula-preview__count">{unknown.length}</span>
-              </h3>
-              <ul role="list" className="ui-wrap-list" aria-label="Ingrédients non reconnus">
-                {unknown.map((t) => (
-                  <li key={t.raw} className="formula-preview__chip formula-preview__chip--unknown">
-                    {t.raw}
-                  </li>
-                ))}
-              </ul>
-              <p className="formula-preview__microcopy">
-                Peut-être une variante d&apos;orthographe ou un nom commercial. La liste reste
-                enregistrée telle quelle.
-              </p>
-            </div>
-          )}
+          <UnlinkedTokensGroup
+            title="Non reconnus"
+            listLabel="Ingrédients non reconnus"
+            chipModifier="unknown"
+            tokens={unknown}
+            microcopy="Peut-être une variante d'orthographe ou un nom commercial. La liste reste enregistrée telle quelle."
+          />
 
           {result.autoTagEligible ? (
             <div className="formula-preview__group">
@@ -242,7 +223,6 @@ export function FormulaPreview({
                     {result.suggestedTags.map((st) => {
                       const tag = tagsBySlug.get(st.tagSlug)
                       if (!tag) return null
-                      const isAdded = selectedTagIdSet.has(tag.id)
                       return (
                         <li
                           key={st.tagSlug}
@@ -259,7 +239,7 @@ export function FormulaPreview({
                           )}
                           <FormulaPreviewAction
                             canManageLinks={canManageLinks}
-                            added={isAdded}
+                            added={selectedTagIdSet.has(tag.id)}
                             label={`Ajouter le tag ${tag.label}`}
                             onAdd={() => onApplyTag(tag.id, st.relevance)}
                           />
@@ -281,6 +261,40 @@ export function FormulaPreview({
         </>
       )}
     </section>
+  )
+}
+
+function UnlinkedTokensGroup({
+  title,
+  listLabel,
+  chipModifier,
+  tokens,
+  microcopy,
+}: {
+  title: string
+  listLabel: string
+  chipModifier: 'known' | 'unknown'
+  tokens: readonly Token[]
+  microcopy: string
+}) {
+  if (tokens.length === 0) return null
+  return (
+    <div className="formula-preview__group">
+      <h3 className="formula-preview__group-title">
+        {title} <span className="formula-preview__count">{tokens.length}</span>
+      </h3>
+      <ul role="list" className="ui-wrap-list" aria-label={listLabel}>
+        {tokens.map((t) => (
+          <li
+            key={t.raw}
+            className={`formula-preview__chip formula-preview__chip--${chipModifier}`}
+          >
+            {t.raw}
+          </li>
+        ))}
+      </ul>
+      <p className="formula-preview__microcopy">{microcopy}</p>
+    </div>
   )
 }
 

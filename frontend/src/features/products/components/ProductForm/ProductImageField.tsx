@@ -20,6 +20,13 @@ type EditProps = {
 
 type Props = (CreateProps | EditProps) & { onBusyChange?: (busy: boolean) => void }
 
+const UPLOAD_SETTINGS = {
+  successMessage: 'Image préparée. Enregistrez la fiche pour la conserver.',
+  shape: 'square',
+  outputSize: 1200,
+  notFoundLabel: 'Produit',
+} as const
+
 export function ProductImageField(props: Props) {
   if (props.mode === 'create') {
     if (!props.endpoint) {
@@ -34,14 +41,11 @@ export function ProductImageField(props: Props) {
     return (
       <FormField label="Image du produit">
         <ImageUpload
+          {...UPLOAD_SETTINGS}
           onBusyChange={props.onBusyChange}
-          successMessage="Image préparée. Enregistrez la fiche pour la conserver."
-          shape="square"
-          outputSize={1200}
           endpoint={props.endpoint}
           currentImageUrl={props.imageUrl}
           alt="Image du produit"
-          notFoundLabel="Produit"
           onSuccess={props.onUpload}
         />
       </FormField>
@@ -51,17 +55,12 @@ export function ProductImageField(props: Props) {
   return (
     <FormField label="Image du produit">
       <ImageUpload
+        {...UPLOAD_SETTINGS}
         onBusyChange={props.onBusyChange}
-        successMessage="Image préparée. Enregistrez la fiche pour la conserver."
-        shape="square"
-        outputSize={1200}
         endpoint={`/api/uploads/product/${props.productSlug}?draft=true`}
         currentImageUrl={props.imageUrl}
         alt={`Image de ${props.altName}`}
-        notFoundLabel="Produit"
-        onSuccess={(url) => {
-          props.onUpload(url)
-        }}
+        onSuccess={props.onUpload}
       />
       {props.imageUrl && (
         <Input

@@ -16,7 +16,13 @@ const route = getRouteApi('/products/$slug_/edit')
 export function ProductEditPage() {
   const { slug } = route.useParams()
   const { data: product } = useSuspenseQuery(productQueries.bySlug(slug))
-  const currentTags = product.tags.filter((tag) => tag.source === 'manual')
+  const initialManualTags = product.tags
+    .filter((tag) => tag.source === 'manual')
+    .map((t) => ({
+      tagId: t.productTagId,
+      tagName: t.tagName,
+      relevance: (t.relevance || 'secondary') as 'primary' | 'secondary' | 'avoid',
+    }))
   const navigate = useNavigate()
   const router = useRouter()
   const canGoBack = useCanGoBack()
@@ -24,8 +30,9 @@ export function ProductEditPage() {
   const isAdmin = session.status === 'authenticated' && session.user.role === 'admin'
   const deleteProduct = useDeleteProduct()
 
-  // Pop the edit entry instead of pushing the detail route, so the history stack doesn't grow
-  // into a product↔edit ping-pong. Fall back to the detail route on deep-link (no in-app history).
+  // Pop the edit entry instead of pushing the detail route, so the history does not grow
+  // with back and forth between product and edit
+  // On a deep link there is no in-app history, so go to the detail route
   const handleBack = useCallback(() => {
     if (canGoBack) {
       router.history.back()
@@ -58,11 +65,7 @@ export function ProductEditPage() {
         key={product.id}
         mode="edit"
         product={product}
-        initialTags={currentTags.map((t) => ({
-          tagId: t.productTagId,
-          tagName: t.tagName,
-          relevance: (t.relevance || 'secondary') as 'primary' | 'secondary' | 'avoid',
-        }))}
+        initialTags={initialManualTags}
         onSuccess={(newSlug) => navigate({ to: '/products/$slug', params: { slug: newSlug } })}
       />
     </DetailPageLayout>

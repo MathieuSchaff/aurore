@@ -36,6 +36,7 @@ import './ProductForm.css'
 
 import { DuplicateWarning } from './DuplicateWarning'
 import type { IngredientItem } from './IngredientsFieldset'
+import { ingredientItemsFromProduct } from './ingredientDraft'
 import { ProductAnnotationFields } from './ProductAnnotationFields'
 import {
   emptyProductEditForm,
@@ -52,7 +53,8 @@ type ProductFormProps =
       mode: 'create'
       product?: never
       initialTags?: never
-      // Resubmit-after-hide seeds the identifying pair so the author doesn't retype it.
+      // When a hidden product is submitted again, name and brand come filled in
+      // so the author doesn't type them again
       prefill?: { name?: string; brand?: string }
       onSuccess: (slug: string) => void | Promise<void>
     }
@@ -99,19 +101,10 @@ export function ProductForm({
       allTags: domainTags,
     })
 
-  // A prefilled brand came from an existing fiche, so treat it as confirmed (no extra click).
+  // A prefilled brand came from an existing fiche, so treat it as confirmed (no extra click)
   const [brandConfirmed, setBrandConfirmed] = useState(mode === 'edit' || !!prefill?.brand)
   const [initialIngredients] = useState<IngredientItem[]>(() =>
-    mode === 'edit'
-      ? product.ingredients.map((item) => ({
-          ingredientId: item.ingredientId,
-          ingredientName: item.ingredientName,
-          concentrationValue: item.concentrationValue ?? '',
-          concentrationUnit: (item.concentrationUnit ?? '') as ProductConcentrationUnit | '',
-          concentrationPer: item.concentrationPer,
-          notes: item.notes,
-        }))
-      : []
+    mode === 'edit' ? ingredientItemsFromProduct(product) : []
   )
   const [ingredientItems, setIngredientItems] = useState(initialIngredients)
   const isIngredientsDirty = JSON.stringify(ingredientItems) !== JSON.stringify(initialIngredients)
@@ -120,14 +113,17 @@ export function ProductForm({
   const debouncedName = useDebounce(form.name.trim())
   const debouncedBrand = useDebounce(form.brand.trim())
 
+  const canLookUpNewIdentity =
+    mode === 'create' && debouncedName.length >= 2 && debouncedBrand.length >= 1
+
   const { data: similarProducts } = useQuery({
     ...productQueries.checkDuplicate(debouncedName, debouncedBrand),
-    enabled: mode === 'create' && debouncedName.length >= 2 && debouncedBrand.length >= 1,
+    enabled: canLookUpNewIdentity,
   })
 
   const { data: previewSlugData } = useQuery({
     ...productQueries.previewSlug(debouncedName, debouncedBrand),
-    enabled: mode === 'create' && debouncedName.length >= 2 && debouncedBrand.length >= 1,
+    enabled: canLookUpNewIdentity,
   })
   const previewSlug = mode === 'create' ? (previewSlugData ?? null) : null
 
@@ -289,7 +285,7 @@ export function ProductForm({
     [clearError]
   )
 
-  // addTag defaults to 'secondary'; bump only when the suggestion says otherwise.
+  // addTag defaults to 'secondary'; bump only when the suggestion says otherwise
   const handleApplyTag = useCallback(
     (tagId: string, relevance: TagRelevance) => {
       addTag(tagId)
@@ -460,15 +456,7 @@ export function ProductForm({
           }}
         />
       </fieldset>
-      <p role="status">
-        {isImageBusy
-          ? 'Préparation de l’image…'
-          : isPending
-            ? submitLabel
-            : isDirty
-              ? 'Modifications non enregistrées'
-              : 'Aucune modification en attente'}
-      </p>
+      <p role="status">{formStatusMessage({ isImageBusy, isPending, isDirty, submitLabel })}</p>
       <ProductFormActions
         mode={mode}
         productSlug={product?.slug}
@@ -616,6 +604,23 @@ function ProductFormActions({
       </Button>
     </FormActionsBar>
   )
+}
+
+function formStatusMessage({
+  isImageBusy,
+  isPending,
+  isDirty,
+  submitLabel,
+}: {
+  isImageBusy: boolean
+  isPending: boolean
+  isDirty: boolean
+  submitLabel: string
+}): string {
+  if (isImageBusy) return 'Préparation de l’image…'
+  if (isPending) return submitLabel
+  if (isDirty) return 'Modifications non enregistrées'
+  return 'Aucune modification en attente'
 }
 
 function computeFormAriaLabel(mode: 'create' | 'edit', product: ProductDetail | undefined): string {

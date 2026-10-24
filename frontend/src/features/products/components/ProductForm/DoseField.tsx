@@ -13,7 +13,6 @@ type DoseFieldProps = {
   unit: ProductConcentrationUnit | ''
   onValueChange: (value: string) => void
   onUnitChange: (unit: ProductConcentrationUnit | '') => void
-  onValueBlur?: () => void
   errorId?: string
   valueAriaLabel: string
   unitAriaLabel: string
@@ -24,13 +23,12 @@ const UNIT_OPTIONS = PRODUCT_CONCENTRATION_UNIT_VALUES.map((v) => ({
   label: PRODUCT_CONCENTRATION_UNIT_LABELS[v],
 }))
 
-// Bare input + select share one border/focus ring; <Input>/<Select> wrappers would split the pill.
+// Bare input + select share one border/focus ring; <Input>/<Select> wrappers would split the pill
 export function DoseField({
   value,
   unit,
   onValueChange,
   onUnitChange,
-  onValueBlur,
   errorId,
   valueAriaLabel,
   unitAriaLabel,
@@ -47,7 +45,6 @@ export function DoseField({
         placeholder="—"
         value={value}
         onChange={(e) => onValueChange(e.target.value)}
-        onBlur={onValueBlur}
         aria-label={valueAriaLabel}
         aria-invalid={errorId ? true : undefined}
         aria-describedby={errorId}

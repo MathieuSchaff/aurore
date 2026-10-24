@@ -89,29 +89,25 @@ export function useProductFormSubmit(args: Args) {
     return product.slug
   }
 
+  function removeDetailCache(slug: string) {
+    queryClient.removeQueries({
+      queryKey: productQueries.bySlug(slug).queryKey,
+      exact: true,
+    })
+    queryClient.removeQueries({
+      queryKey: productKeys.detailPagesBySlug(slug),
+    })
+  }
+
   async function submitEdit(data: ProductEditFormInput, current: ProductDetail): Promise<string> {
     const updated = await updateProduct.mutateAsync({
       id: current.id,
       data: { ...productEditFormToUpdateInput(data, current), ...linksPayload() },
     })
-    // Force a cold read on return-to-detail so the updated detail page refetches.
-    queryClient.removeQueries({
-      queryKey: productQueries.bySlug(updated.slug).queryKey,
-      exact: true,
-    })
-    queryClient.removeQueries({
-      queryKey: productKeys.detailPagesBySlug(updated.slug),
-    })
-    // Drop stale bySlug cache when slug changes, else orphaned under old key.
-    if (updated.slug !== current.slug) {
-      queryClient.removeQueries({
-        queryKey: productQueries.bySlug(current.slug).queryKey,
-        exact: true,
-      })
-      queryClient.removeQueries({
-        queryKey: productKeys.detailPagesBySlug(current.slug),
-      })
-    }
+    // Force a cold read on return-to-detail so the updated detail page refetches
+    removeDetailCache(updated.slug)
+    // Drop stale bySlug cache when slug changes, else orphaned under old key
+    if (updated.slug !== current.slug) removeDetailCache(current.slug)
     return updated.slug
   }
 
@@ -131,9 +127,9 @@ export function useProductFormSubmit(args: Args) {
     setError(null)
     setFieldError(null)
     try {
-      // Both wire converters trim every field themselves, so the raw form is equivalent to
-      // the schema output, which is unavailable here, the parse having been allowed to fail
-      // on untouched fields.
+      // Both wire converters trim every field, so sending the raw form is the same as
+      // sending the parsed one
+      // We have no parsed form here: the parse may fail on untouched fields
       const nextSlug =
         args.mode === 'create'
           ? await submitCreate(args.form)
@@ -149,14 +145,6 @@ export function useProductFormSubmit(args: Args) {
     }
   }
 
-  const submitLabel = isPending
-    ? args.mode === 'create'
-      ? 'Création…'
-      : 'Enregistrement…'
-    : args.mode === 'create'
-      ? 'Créer le produit'
-      : 'Enregistrer'
-
   return {
     handleSubmit,
     error,
@@ -166,6 +154,11 @@ export function useProductFormSubmit(args: Args) {
       setFieldError(null)
     },
     isPending,
-    submitLabel,
+    submitLabel: SUBMIT_LABELS[args.mode][isPending ? 'pending' : 'idle'],
   }
 }
+
+const SUBMIT_LABELS = {
+  create: { idle: 'Créer le produit', pending: 'Création…' },
+  edit: { idle: 'Enregistrer', pending: 'Enregistrement…' },
+} as const satisfies Record<Args['mode'], { idle: string; pending: string }>

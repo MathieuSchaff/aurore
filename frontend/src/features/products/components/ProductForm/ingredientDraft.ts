@@ -1,6 +1,18 @@
-import type { ProductDraftIngredientInput } from '@aurore/shared'
+import type { ProductConcentrationUnit, ProductDraftIngredientInput } from '@aurore/shared'
 
+import type { ProductDetail } from '@/lib/queries/products'
 import type { IngredientItem } from './IngredientsFieldset'
+
+export function ingredientItemsFromProduct(product: ProductDetail): IngredientItem[] {
+  return product.ingredients.map((item) => ({
+    ingredientId: item.ingredientId,
+    ingredientName: item.ingredientName,
+    concentrationValue: item.concentrationValue ?? '',
+    concentrationUnit: (item.concentrationUnit ?? '') as ProductConcentrationUnit | '',
+    concentrationPer: item.concentrationPer,
+    notes: item.notes,
+  }))
+}
 
 export function ingredientDraftError(ingredient: IngredientItem): string | null {
   const value = ingredient.concentrationValue.trim()

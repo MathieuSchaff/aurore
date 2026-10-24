@@ -16,7 +16,7 @@ interface SlugEditModalProps {
   onConfirm: (newSlug: string) => void
 }
 
-// Preview only: backend slugifies again on receipt, divergences (e.g. "&") normalize server-side.
+// Preview only: the backend slugifies again, so differences (e.g. "&") are fixed there
 function slugify(s: string): string {
   return s
     .normalize('NFD')
@@ -28,6 +28,12 @@ function slugify(s: string): string {
 
 const SLUG_RE = /^[a-z0-9-]+$/
 
+function slugFormatError(trimmed: string): string | null {
+  if (trimmed.length === 0) return SLUG_EDIT_LABELS.emptyError
+  if (!SLUG_RE.test(trimmed)) return SLUG_EDIT_LABELS.formatError
+  return null
+}
+
 export function SlugEditModal({
   currentSlug,
   productName,
@@ -37,13 +43,9 @@ export function SlugEditModal({
   const [value, setValue] = useState(currentSlug)
   const trimmed = value.trim()
   const changed = trimmed !== currentSlug
-  const validFormat = trimmed.length > 0 && SLUG_RE.test(trimmed)
-  const error =
-    trimmed.length === 0
-      ? SLUG_EDIT_LABELS.emptyError
-      : !validFormat
-        ? SLUG_EDIT_LABELS.formatError
-        : null
+  const error = slugFormatError(trimmed)
+  const validFormat = error === null
+  const regeneratedSlug = productName.trim() ? slugify(productName) : null
 
   return (
     <Modal onClose={onClose} size="md">
@@ -75,12 +77,12 @@ export function SlugEditModal({
           variant="outline"
           size="sm"
           onClick={() => setValue(slugify(productName))}
-          disabled={!productName.trim()}
+          disabled={regeneratedSlug === null}
         >
           Régénérer depuis le nom
         </Button>
         <span className="slug-edit-modal__regen-hint">
-          → <code>{productName.trim() ? slugify(productName) : '…'}</code>
+          → <code>{regeneratedSlug ?? '…'}</code>
         </span>
       </div>
 
