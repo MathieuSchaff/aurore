@@ -110,6 +110,7 @@ function EditComparisonBuilder({ id }: { id: string }) {
   const update = useUpdateComparison({ inlineError: true })
   const replacement = useUpdateComparison({ inlineError: true })
   const announce = useAnnounce()
+  const unavailableNotice = `${comparison.unavailableProductCount} produit${comparison.unavailableProductCount > 1 ? 's indisponibles' : ' indisponible'}. Seuls les produits disponibles sont affichés. Modifier la sélection retirera les références indisponibles de cette comparaison.`
 
   // Schema rejects out-of-bounds counts; useMutation swallows the 400 and desyncs the picker.
   const setProductIds = (productIds: string[]) => {
@@ -134,11 +135,8 @@ function EditComparisonBuilder({ id }: { id: string }) {
         count={comparison.products.length + comparison.unavailableProductCount}
       />
       {comparison.unavailableProductCount > 0 && (
-        <p role="status">
-          {comparison.unavailableProductCount} produit
-          {comparison.unavailableProductCount > 1 ? 's indisponibles' : ' indisponible'}. Seuls les
-          produits disponibles sont affichés. Modifier la sélection retirera les références
-          indisponibles de cette comparaison.
+        <p role="status" aria-label={unavailableNotice}>
+          {unavailableNotice}
         </p>
       )}
       {update.error && (

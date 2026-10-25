@@ -325,6 +325,7 @@ test('builds a comparison and displays its bands', async ({ page }, testInfo) =>
     const replacementError = replacement.getByRole('alert')
     await replacement.getByRole('button', { name: 'Remplacer', exact: true }).click()
     await expect(replacementError).toHaveText('Remplacement non enregistré. Réessayez.')
+    await expect(replacement.getByRole('button', { name: 'Remplacer', exact: true })).toBeFocused()
     expect(await pageError.count()).toBe(0)
     expect(await updateToast.count()).toBe(0)
     await expect(shelf.getByText('CeraVe', { exact: true })).toBeVisible()
@@ -339,6 +340,7 @@ test('builds a comparison and displays its bands', async ({ page }, testInfo) =>
     await replacement.getByRole('option', { name: /^Hydrance Light Crème Hydratante/ }).click()
     await replacement.getByRole('button', { name: 'Remplacer', exact: true }).click()
     await expect(replacementError).toHaveText('Remplacement non enregistré. Réessayez.')
+    await expect(replacement.getByRole('button', { name: 'Remplacer', exact: true })).toBeFocused()
     // The replacement label must not depend on the delayed by-ids lookup
     const lookupStarted = Promise.withResolvers<void>()
     const releaseLookup = Promise.withResolvers<void>()
@@ -353,8 +355,9 @@ test('builds a comparison and displays its bands', async ({ page }, testInfo) =>
     })
     failSelectionUpdate = false
     try {
-      await replacement.getByRole('button', { name: 'Remplacer', exact: true }).click()
+      await replacement.getByRole('button', { name: 'Remplacer', exact: true }).press('Enter')
       await expect(replacement).toHaveCount(0)
+      await expect(page.getByRole('button', { name: /^Remplacer Avène / })).toBeFocused()
       expect(await pageError.count()).toBe(0)
       expect(await updateToast.count()).toBe(0)
       expect(await page.getByRole('button', { name: /^Remplacer / }).allTextContents()).toEqual([
@@ -779,9 +782,11 @@ test('keeps a name draft stable through delayed saves and retries', async ({ pag
     await save.click()
     await expect(page.getByText(/Nom non enregistré. Votre saisie est conservée/)).toBeVisible()
     await expect(input).toHaveValue('Dernier')
+    await expect(input.or(save).and(page.locator(':focus'))).toHaveCount(1)
     await page.screenshot({ path: testInfo.outputPath('rename-error.png') })
-    await save.click()
+    await page.keyboard.press('Enter')
     await expect(page.getByRole('status', { name: 'État du nom' })).toContainText('Nom enregistré.')
+    await expect(input).toBeFocused()
     expect(names).toEqual(['Premier', 'Dernier', 'Dernier'])
     await page.screenshot({ path: testInfo.outputPath('rename-saved.png') })
     await page.reload()

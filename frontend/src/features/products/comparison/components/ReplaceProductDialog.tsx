@@ -1,7 +1,7 @@
 import type { ProductSearchPage } from '@aurore/shared'
 
 import type { InfiniteData } from '@tanstack/react-query'
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 import { Button } from '@/component/Button/Button'
 import { Modal } from '@/component/Dialog/Modal'
@@ -23,6 +23,13 @@ export function ReplaceProductDialog({ product, selectedIds, onReplace, onClose 
   const [candidate, setCandidate] = useState<FilterOption | null>(null)
   const [isPending, setIsPending] = useState(false)
   const [hasError, setHasError] = useState(false)
+  const saveButtonRef = useRef<HTMLButtonElement>(null)
+
+  useEffect(() => {
+    if (hasError && !isPending && document.hasFocus()) {
+      saveButtonRef.current?.focus({ preventScroll: true })
+    }
+  }, [hasError, isPending])
 
   const save = async () => {
     if (!candidate || isPending || selectedIds.includes(candidate.value)) return
@@ -91,7 +98,12 @@ export function ReplaceProductDialog({ product, selectedIds, onReplace, onClose 
           <Button variant="outline" onClick={onClose} disabled={isPending}>
             Annuler
           </Button>
-          <Button onClick={save} disabled={!candidate || isPending} loading={isPending}>
+          <Button
+            ref={saveButtonRef}
+            onClick={save}
+            disabled={!candidate || isPending}
+            loading={isPending}
+          >
             Remplacer
           </Button>
         </div>

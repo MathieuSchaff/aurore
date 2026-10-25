@@ -31,9 +31,7 @@ test('signals unavailable comparison products without revealing their names and 
 
     await page.goto(`/products/compare/${comparisonId}`)
     await waitForHydration(page)
-    await expect(
-      page.getByRole('status').filter({ hasText: '1 produit indisponible' })
-    ).toBeVisible()
+    await expect(page.getByRole('status', { name: /^1 produit indisponible\./ })).toBeVisible()
     await expect(page.getByText(/Modifier la sélection retirera/)).toBeVisible()
     await expect(
       page.getByRole('region', { name: 'Produits comparés' }).getByRole('heading', { level: 3 })
@@ -42,9 +40,7 @@ test('signals unavailable comparison products without revealing their names and 
 
     await page.getByRole('textbox', { name: /nom de la comparaison/i }).fill('Sélection renommée')
     await page.getByRole('button', { name: 'Enregistrer le nom' }).click()
-    await expect(
-      page.getByRole('status').filter({ hasText: '1 produit indisponible' })
-    ).toBeVisible()
+    await expect(page.getByRole('status', { name: /^1 produit indisponible\./ })).toBeVisible()
     await page.goto('/products/compare')
     await waitForHydration(page)
     await expect(page.getByRole('link', { name: /Sélection renommée/ })).toContainText(
@@ -56,9 +52,7 @@ test('signals unavailable comparison products without revealing their names and 
     }
     await page.goto(`/products/compare/${comparisonId}`)
     await waitForHydration(page)
-    await expect(
-      page.getByRole('status').filter({ hasText: '3 produits indisponibles' })
-    ).toBeVisible()
+    await expect(page.getByRole('status', { name: /^3 produits indisponibles\./ })).toBeVisible()
     await expect(page.getByRole('region', { name: 'Produits comparés' })).toHaveCount(0)
     for (const product of fixtures) {
       await expect(page.getByText(product.name, { exact: false })).toHaveCount(0)

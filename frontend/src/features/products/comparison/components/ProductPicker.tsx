@@ -4,7 +4,7 @@ import {
   type EnrichedComparisonProduct,
 } from '@aurore/shared'
 
-import { useState } from 'react'
+import { type MouseEvent, useEffect, useRef, useState } from 'react'
 
 import { Button } from '@/component/Button/Button'
 import type { FilterOption } from '@/component/Filter/types'
@@ -32,6 +32,15 @@ export function ProductPicker({
   isPending = false,
 }: Props) {
   const [replacement, setReplacement] = useState<FilterOption | null>(null)
+  const replacementTriggerRef = useRef<HTMLButtonElement | null>(null)
+
+  useEffect(() => {
+    if (replacement || isPending) return
+    const trigger = replacementTriggerRef.current
+    replacementTriggerRef.current = null
+    // Dialog cleanup can run before the pending fieldset is enabled again
+    if (trigger?.isConnected && document.hasFocus()) trigger.focus({ preventScroll: true })
+  }, [replacement, isPending])
   const canReplace = !!onReplace && selectedIds.length === COMPARISON_MIN_PRODUCTS
   const atCap = selectedIds.length >= COMPARISON_MAX_PRODUCTS
 
@@ -58,13 +67,17 @@ export function ProductPicker({
             canReplace
               ? (options) => (
                   <div className="product-picker__selected">
-                    {options.map((option) => (
+                    {options.map((option, index) => (
                       <Button
-                        key={option.value}
+                        // biome-ignore lint/suspicious/noArrayIndexKey: Keep the two replacement slots mounted so the dialog can restore focus
+                        key={index}
                         className="product-picker__replace"
                         variant="outline"
                         size="sm"
-                        onClick={() => setReplacement(option)}
+                        onClick={(event: MouseEvent<HTMLButtonElement>) => {
+                          replacementTriggerRef.current = event.currentTarget
+                          setReplacement(option)
+                        }}
                       >
                         Remplacer {option.label}
                       </Button>

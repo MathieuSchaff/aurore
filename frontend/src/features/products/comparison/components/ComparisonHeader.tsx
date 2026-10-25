@@ -1,4 +1,4 @@
-import { type FormEvent, useId } from 'react'
+import { type FormEvent, useEffect, useId, useRef } from 'react'
 
 import { FormActions } from '@/component/Input/FormActions/FormActions'
 import { Input } from '@/component/Input/Input'
@@ -30,6 +30,22 @@ export function ComparisonHeader({
   nameStatus,
 }: Props) {
   const statusId = useId()
+  const nameInputRef = useRef<HTMLInputElement>(null)
+  const wasPendingRef = useRef(!!isPending)
+
+  useEffect(() => {
+    const finished = wasPendingRef.current && !isPending
+    wasPendingRef.current = !!isPending
+    // Disabled submit buttons can leave focus on BODY or retain it while unusable
+    const active = document.activeElement
+    const disabledSubmit =
+      active instanceof HTMLButtonElement &&
+      active.disabled &&
+      active.form === nameInputRef.current?.form
+    if (finished && document.hasFocus() && (active === document.body || disabledSubmit)) {
+      nameInputRef.current?.focus({ preventScroll: true })
+    }
+  }, [isPending])
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     onSave?.()
@@ -44,6 +60,7 @@ export function ComparisonHeader({
       >
         <div className="comparison-header__name-wrap">
           <Input
+            ref={nameInputRef}
             label="Nom de la comparaison (facultatif)"
             disabled={isNameDisabled}
             aria-describedby={nameStatus ? statusId : undefined}
