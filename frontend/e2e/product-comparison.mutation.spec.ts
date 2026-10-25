@@ -263,9 +263,17 @@ test('builds a comparison and displays its bands', async ({ page }, testInfo) =>
         replacementRequests.push(request.postDataJSON())
       }
     })
-    await expect(page.getByRole('button', { name: /^Remplacer CeraVe / })).toBeVisible()
-    await page.getByRole('button', { name: /^Remplacer CeraVe / }).click()
+    const replacementTrigger = page.getByRole('button', { name: /^Remplacer CeraVe / })
+    await replacementTrigger.focus()
+    await replacementTrigger.press('Enter')
     const replacement = page.getByRole('dialog', { name: 'Remplacer un produit' })
+    await expect(
+      replacement.getByRole('combobox', { name: 'Produit de remplacement' })
+    ).toBeFocused()
+    await page.keyboard.press('Escape')
+    await expect(replacement).toHaveCount(0)
+    await expect(replacementTrigger).toBeFocused()
+    await replacementTrigger.press('Enter')
     await expect(replacement).toContainText(/au moins 2 produits/i)
     const replacementSearch = replacement.getByRole('combobox', { name: 'Produit de remplacement' })
     await replacementSearch.fill('CeraVe')
@@ -277,6 +285,7 @@ test('builds a comparison and displays its bands', async ({ page }, testInfo) =>
     await replacement.getByRole('option', { name: /^Hydrance Light Crème Hydratante/ }).click()
     await replacement.getByRole('button', { name: 'Annuler', exact: true }).click()
     await expect(replacement).toHaveCount(0)
+    await expect(replacementTrigger).toBeFocused()
     expect(replacementRequests).toHaveLength(0)
     await expect(shelf.getByText('CeraVe', { exact: true })).toBeVisible()
 

@@ -26,6 +26,11 @@
   text-align: center;
 }
 
+.email-verification-banner .button--outline {
+  --color-primary: var(--color-warning-text);
+  --color-primary-hover: var(--color-warning-text);
+}
+
 .content {
   flex: 1;
   display: flex;

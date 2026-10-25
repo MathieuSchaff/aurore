@@ -44,6 +44,7 @@ export function DialogPrimitive({
   useEffect(() => {
     const node = dialogRef.current
     if (!node) return
+    const returnFocusTo = document.activeElement
     // showModal() locks scroll natively (Baseline 2022). The open-attribute path is a
     // degraded fallback for environments without it.
     if (typeof node.showModal === 'function') {
@@ -71,6 +72,10 @@ export function DialogPrimitive({
         } catch {
           node.removeAttribute('open')
         }
+      }
+      // React can remove the dialog before close() restores focus
+      if (returnFocusTo instanceof HTMLElement && returnFocusTo.isConnected) {
+        returnFocusTo.focus({ preventScroll: true })
       }
     }
   }, [initialFocusRef])
