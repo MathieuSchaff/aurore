@@ -1,3 +1,5 @@
+import type { ComparisonSummary } from '@aurore/shared'
+
 import { useSuspenseQuery } from '@tanstack/react-query'
 import { Link } from '@tanstack/react-router'
 
@@ -43,9 +45,10 @@ export function ComparisonsListPage() {
                   {c.name ?? 'Sans nom'}
                 </p>
                 <div className="comparison-card__meta">
-                  <span className="comparison-card__count-badge">
-                    {c.productCount} produit{c.productCount > 1 ? 's' : ''}
-                  </span>
+                  <ComparisonProductCount
+                    productCount={c.productCount}
+                    unavailableProductCount={c.unavailableProductCount}
+                  />
                   <Time iso={c.createdAt} style="medium" className="comparison-card__date" />
                 </div>
               </Link>
@@ -74,5 +77,22 @@ export function ComparisonsListPage() {
       )}
       {dialog}
     </section>
+  )
+}
+
+function ComparisonProductCount({
+  productCount,
+  unavailableProductCount,
+}: Pick<ComparisonSummary, 'productCount' | 'unavailableProductCount'>) {
+  return (
+    <span className="comparison-card__count-badge">
+      {productCount} produit{productCount > 1 ? 's' : ''}
+      {unavailableProductCount > 0 && (
+        <>
+          {' '}
+          · {unavailableProductCount} indisponible{unavailableProductCount > 1 ? 's' : ''}
+        </>
+      )}
+    </span>
   )
 }

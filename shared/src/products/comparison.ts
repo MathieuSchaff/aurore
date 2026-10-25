@@ -30,12 +30,14 @@ export type EnrichedComparison = {
   name: string | null
   createdAt: string
   products: EnrichedComparisonProduct[]
+  unavailableProductCount: number
 }
 
 export type ComparisonSummary = {
   id: string
   name: string | null
   productCount: number
+  unavailableProductCount: number
   createdAt: string
 }
 

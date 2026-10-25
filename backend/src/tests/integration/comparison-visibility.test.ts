@@ -33,6 +33,14 @@ describe('comparison visibility', () => {
         expect(summaries).toHaveLength(1)
         expect(detail.products.map((product) => product.id)).toEqual(expectedIds)
         expect(summaries[0]?.productCount).toBe(expectedIds.length)
+        expect(summaries[0]?.unavailableProductCount).toBe(2 - expectedIds.length)
+        expect(detail.unavailableProductCount).toBe(2 - expectedIds.length)
+        for (const product of [first, second]) {
+          if (!expectedIds.includes(product.id)) {
+            expect(JSON.stringify(detail)).not.toContain(product.name)
+            expect(JSON.stringify(detail)).not.toContain(product.id)
+          }
+        }
       })
     }
 
@@ -52,5 +60,10 @@ describe('comparison visibility', () => {
       .set({ moderationStatus: 'visible' })
       .where(eq(products.id, first.id))
     await expectVisibleProducts([first.id])
+    await testDb
+      .update(products)
+      .set({ moderationStatus: 'visible' })
+      .where(eq(products.id, second.id))
+    await expectVisibleProducts([first.id, second.id])
   })
 })

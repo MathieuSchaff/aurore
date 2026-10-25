@@ -131,8 +131,16 @@ function EditComparisonBuilder({ id }: { id: string }) {
         key={id}
         id={id}
         savedName={comparison.name}
-        count={comparison.products.length}
+        count={comparison.products.length + comparison.unavailableProductCount}
       />
+      {comparison.unavailableProductCount > 0 && (
+        <p role="status">
+          {comparison.unavailableProductCount} produit
+          {comparison.unavailableProductCount > 1 ? 's indisponibles' : ' indisponible'}. Seuls les
+          produits disponibles sont affichés. Modifier la sélection retirera les références
+          indisponibles de cette comparaison.
+        </p>
+      )}
       {update.error && (
         <FormMessage variant="error">
           Impossible d&apos;enregistrer la modification. Réessayez.

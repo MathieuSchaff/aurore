@@ -58,6 +58,7 @@ export async function createComparison(
       id: comparison.id,
       name: comparison.name,
       productCount: ids.length,
+      unavailableProductCount: 0,
       createdAt: comparison.createdAt,
     }
   })
@@ -92,17 +93,20 @@ export async function getEnrichedComparison(
       name: comparison.name,
       createdAt: comparison.createdAt,
       products: [],
+      unavailableProductCount: 0,
     }
   }
 
+  const visibleProducts = await getComparisonProducts(
+    items.map((item) => item.productId),
+    database
+  )
   return {
     id: comparison.id,
     name: comparison.name,
     createdAt: comparison.createdAt,
-    products: await getComparisonProducts(
-      items.map((item) => item.productId),
-      database
-    ),
+    products: visibleProducts,
+    unavailableProductCount: items.length - visibleProducts.length,
   }
 }
 
@@ -272,6 +276,7 @@ export async function listComparisons(
       name: productComparisons.name,
       createdAt: productComparisons.createdAt,
       productCount: count(products.id),
+      storedProductCount: count(productComparisonItems.productId),
     })
     .from(productComparisons)
     .leftJoin(
@@ -288,6 +293,7 @@ export async function listComparisons(
     name: r.name,
     createdAt: r.createdAt,
     productCount: Number(r.productCount),
+    unavailableProductCount: Number(r.storedProductCount) - Number(r.productCount),
   }))
 }
 

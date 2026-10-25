@@ -33,7 +33,13 @@ function makeResponse(init: { status?: number; body: unknown }): Response {
 }
 
 const ID = '11111111-1111-1111-1111-111111111111'
-const ENRICHED = { id: ID, name: 'Renamed', createdAt: '2026-06-16T00:00:00.000Z', products: [] }
+const ENRICHED: EnrichedComparison = {
+  id: ID,
+  name: 'Renamed',
+  createdAt: '2026-06-16T00:00:00.000Z',
+  products: [],
+  unavailableProductCount: 0,
+}
 
 describe('useUpdateComparison', () => {
   let queryClient: QueryClient
@@ -136,12 +142,18 @@ describe('useUpdateComparison', () => {
         ...ENRICHED,
         name: 'Previous',
         products: [original, retained],
+        unavailableProductCount: 1,
       }
-      const saved = { ...previous, name: 'Renamed', products: [candidate, retained] }
+      const saved = {
+        ...previous,
+        name: 'Renamed',
+        products: [candidate, retained],
+        unavailableProductCount: 0,
+      }
       const delayed =
         delayedChange === 'rename'
           ? { ...previous, name: saved.name }
-          : { ...previous, products: saved.products }
+          : { ...previous, products: saved.products, unavailableProductCount: 0 }
       const renameInput = { name: 'Renamed' }
       const replacementInput = { productIds: [candidate.id, retained.id] }
       const response = Promise.withResolvers<Response>()

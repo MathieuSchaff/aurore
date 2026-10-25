@@ -203,6 +203,7 @@ describe('product mutation invalidation', () => {
     let comparison: EnrichedComparison = {
       id: 'comparison-1',
       name: 'My comparison',
+      unavailableProductCount: 0,
       createdAt: submission.createdAt,
       products: [
         {
@@ -246,6 +247,7 @@ describe('product mutation invalidation', () => {
               name: comparison.name,
               createdAt: comparison.createdAt,
               productCount: comparison.products.length,
+              unavailableProductCount: comparison.unavailableProductCount,
             },
           ],
         })

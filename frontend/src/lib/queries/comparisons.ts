@@ -83,6 +83,10 @@ export const useUpdateComparison = ({ inlineError = false } = {}) => {
             ...comparison,
             name: input.name === undefined ? current.name : comparison.name,
             products: input.productIds === undefined ? current.products : comparison.products,
+            unavailableProductCount:
+              input.productIds === undefined
+                ? current.unavailableProductCount
+                : comparison.unavailableProductCount,
           }
         })
       }

@@ -20,6 +20,7 @@ const response = (name: string | null): EnrichedComparison => ({
   name,
   createdAt: '2026-10-23T00:00:00.000Z',
   products: [],
+  unavailableProductCount: 0,
 })
 
 describe('ComparisonNameEditor', () => {
