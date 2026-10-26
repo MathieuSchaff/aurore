@@ -10,7 +10,6 @@ type Props = {
   children: ReactNode
 }
 
-// Mounts only when count > 0, so default-open keeps filters visible on first appearance.
 export function CollapsibleFiltersStrip({ count, onOpenDrawer, onFilterIntent, children }: Props) {
   const [open, setOpen] = useState(true)
   if (count === 0) return null
