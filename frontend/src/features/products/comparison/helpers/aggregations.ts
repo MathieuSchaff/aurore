@@ -15,38 +15,6 @@ function ingredientsBySlug(products: EnrichedComparisonProduct[]) {
   return map
 }
 
-export function computeCommon(products: EnrichedComparisonProduct[]): Ingredient[] {
-  if (products.length === 0) return []
-  const total = products.length
-  const map = ingredientsBySlug(products)
-  const common: Ingredient[] = []
-  for (const e of map.values()) {
-    if (e.productIds.size === total) common.push(e.ingredient)
-  }
-  return common
-}
-
-export function computeSpecifics(products: EnrichedComparisonProduct[]): Map<string, Ingredient[]> {
-  const ingredients = ingredientsBySlug(products)
-  const result = new Map<string, Ingredient[]>()
-  for (const p of products) {
-    result.set(
-      p.id,
-      p.ingredients.filter((i) => ingredients.get(i.slug)?.productIds.size === 1)
-    )
-  }
-  return result
-}
-
-export function computePartiallyShared(products: EnrichedComparisonProduct[]) {
-  return [...ingredientsBySlug(products).values()]
-    .filter(({ productIds }) => productIds.size > 1 && productIds.size < products.length)
-    .map(({ ingredient, productIds }) => ({
-      ingredient,
-      products: products.filter((p) => productIds.has(p.id)),
-    }))
-}
-
 type IngredientSignalSummary = {
   slug: string
   inciName: string

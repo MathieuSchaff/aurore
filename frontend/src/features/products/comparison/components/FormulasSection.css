@@ -1,0 +1,105 @@
+.cmp-formulas {
+  padding: var(--space-6) var(--cmp-pad-x);
+}
+
+.cmp-formulas__title {
+  margin: 0;
+}
+
+.cmp-formulas__lede {
+  margin: var(--space-1) 0 var(--space-4);
+  font-family: var(--font-display);
+  font-size: var(--text-sm);
+  font-style: italic;
+  color: var(--text-secondary);
+  max-width: 52ch;
+}
+
+.cmp-formulas__tools {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin-bottom: var(--space-3);
+}
+
+.cmp-formulas__legend {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin: 0;
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+}
+
+.cmp-formulas__swatch {
+  width: 0.75rem;
+  height: 0.75rem;
+  border-left: 3px solid var(--color-primary);
+  background: oklch(from var(--color-primary) l c h / 0.14);
+  border-radius: var(--radius-xs);
+}
+
+.cmp-formulas__note {
+  margin: 0 0 var(--space-3);
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+}
+
+.cmp-formulas__table {
+  --cmp-first-col: 2.25rem;
+}
+
+/* Product names stay in view through a long formula
+   The offset keeps them under the fixed nav, not behind it */
+.cmp-formulas__head th {
+  position: sticky;
+  top: var(--cmp-head-top, var(--nav-height));
+  z-index: 1;
+  background: var(--bg-card);
+}
+
+/* A frame that scrolls sideways stops the header from sticking to the page
+   So the frame gets a max height and the header sticks to its top instead */
+.cmp-formulas__frame.is-wide {
+  --cmp-head-top: 0px;
+  max-height: 75dvh;
+  overflow-y: auto;
+}
+
+/* Pinned on both axes, so it must stay above the pinned rank cells it covers */
+.cmp-formulas__head .cmp-formulas__rank-head {
+  z-index: 2;
+}
+
+/* Two lines are enough to tell the columns apart
+   The full name stays in the identity table */
+.cmp-formulas__table .cmp-table__name {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+
+.cmp-formulas__rank-head,
+.cmp-formulas__rank {
+  width: var(--cmp-first-col);
+}
+
+.cmp-formulas__rank {
+  font-variant-numeric: tabular-nums;
+  color: var(--text-muted);
+}
+
+.cmp-formulas__cell.is-shared {
+  box-shadow: inset 3px 0 0 var(--color-primary);
+  background: oklch(from var(--color-primary) l c h / 0.1);
+}
+
+.cmp-formulas__missing {
+  font-style: italic;
+  color: var(--text-muted);
+}
+
+.cmp-formulas__more {
+  margin-top: var(--space-3);
+}

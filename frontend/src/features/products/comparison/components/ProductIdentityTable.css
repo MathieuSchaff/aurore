@@ -1,0 +1,21 @@
+.cmp-identity {
+  padding: var(--space-4) var(--cmp-pad-x);
+}
+
+.cmp-identity__title {
+  margin: 0 0 var(--space-3);
+}
+
+.cmp-identity__table {
+  --cmp-first-col: 6.5rem;
+}
+
+.cmp-identity__corner {
+  width: var(--cmp-first-col);
+}
+
+@media (--sm) {
+  .cmp-identity__table {
+    --cmp-first-col: 9rem;
+  }
+}

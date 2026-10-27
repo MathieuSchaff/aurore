@@ -1,0 +1,78 @@
+/* Fixed layout: without it, a long product name takes width from the other columns */
+.cmp-table {
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
+  font-size: var(--text-sm);
+  overflow-wrap: anywhere;
+}
+
+.cmp-table th,
+.cmp-table td {
+  padding: var(--space-2);
+  text-align: left;
+  vertical-align: top;
+  border-bottom: 1px solid var(--border-default);
+}
+
+.cmp-table__label {
+  font-weight: var(--font-medium);
+  color: var(--text-secondary);
+}
+
+.cmp-table__product {
+  --tone: var(--border-strong);
+  border-top: 3px solid var(--tone);
+  font-weight: var(--font-normal);
+}
+
+/* Wide mode: the frame scrolls sideways, the page never does
+   Without relative, the sr-only "(commun)" labels of far cells widen the whole page */
+.cmp-table-frame.is-wide {
+  position: relative;
+  overflow-x: auto;
+}
+
+.cmp-table-frame.is-wide .cmp-table {
+  min-width: calc(var(--cmp-cols) * 7rem + var(--cmp-first-col));
+}
+
+/* Pinned so a row keeps its label while the products scroll past */
+.cmp-table-frame.is-wide .cmp-table__pinned {
+  position: sticky;
+  left: 0;
+  z-index: 1;
+  background: var(--bg-card);
+}
+
+.cmp-table__photo-link {
+  display: inline-flex;
+  margin-bottom: var(--space-2);
+  border-radius: var(--radius-sm);
+}
+
+.cmp-table__photo {
+  width: 3rem;
+  aspect-ratio: 1;
+  border-radius: var(--radius-sm);
+}
+
+.cmp-table__brand {
+  display: block;
+  font-size: var(--text-xs);
+  font-weight: var(--font-semibold);
+  color: var(--text-secondary);
+}
+
+.cmp-table__name {
+  font-family: var(--font-display);
+  color: var(--text-primary);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.cmp-table__name:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+  border-radius: var(--radius-xs);
+}

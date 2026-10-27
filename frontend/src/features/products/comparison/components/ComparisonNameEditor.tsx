@@ -5,7 +5,7 @@ import { FormMessage } from '@/component/Feedback/ui/FormMessage/FormMessage'
 import { useUpdateComparison } from '@/lib/queries/comparisons'
 import { ComparisonHeader } from './ComparisonHeader'
 
-type Props = { id: string; savedName: string | null; count: number }
+type Props = { id: string; savedName: string | null }
 
 function getNameStatus(
   {
@@ -22,7 +22,7 @@ function getNameStatus(
   return 'Modifiez le nom puis enregistrez.'
 }
 
-export function ComparisonNameEditor({ id, savedName, count }: Props) {
+export function ComparisonNameEditor({ id, savedName }: Props) {
   const rename = useUpdateComparison({ inlineError: true })
   const saving = useRef(false)
   const [editor, setEditor] = useState({
@@ -79,7 +79,6 @@ export function ComparisonNameEditor({ id, savedName, count }: Props) {
       <ComparisonHeader
         name={editor.draft}
         onNameChange={(draft) => setEditor((current) => ({ ...current, draft }))}
-        count={count}
         onSave={save}
         onCancel={
           isDirty || rename.isError

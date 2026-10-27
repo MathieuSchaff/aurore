@@ -2,13 +2,7 @@ import type { EnrichedComparisonProduct } from '@aurore/shared'
 
 import { describe, expect, it } from 'vitest'
 
-import {
-  computeActives,
-  computeAlerts,
-  computeCommon,
-  computeIngredientPairs,
-  computeSpecifics,
-} from '../helpers/aggregations'
+import { computeActives, computeAlerts, computeIngredientPairs } from '../helpers/aggregations'
 
 const ing = (id: string, slug: string, signals: ('active' | 'alert')[] = []) => ({
   id,
@@ -26,41 +20,13 @@ const prod = (id: string, ingredients: ReturnType<typeof ing>[]): EnrichedCompar
   imageUrl: null,
   unit: 'bottle',
   texture: null,
-  inciTokens: null,
   totalAmount: null,
   amountUnit: null,
   priceCents: null,
   pricePer: null,
+  inciTokens: null,
   ingredients,
   tags: [],
-})
-
-describe('computeCommon', () => {
-  it('returns ingredients present in all products', () => {
-    const a = prod('a', [ing('1', 'water'), ing('2', 'glycerin')])
-    const b = prod('b', [ing('1', 'water'), ing('3', 'niacinamide')])
-    expect(computeCommon([a, b]).map((i) => i.slug)).toEqual(['water'])
-  })
-})
-
-describe('computeSpecifics', () => {
-  it('keeps ingredients shared by two of three products out of exclusive lists', () => {
-    const a = prod('a', [ing('1', 'water'), ing('2', 'glycerin'), ing('3', 'niacinamide')])
-    const b = prod('b', [ing('1', 'water'), ing('2', 'glycerin')])
-    const c = prod('c', [ing('1', 'water'), ing('4', 'squalane')])
-    const result = computeSpecifics([a, b, c])
-    expect(result.get('a')?.map((i) => i.slug)).toEqual(['niacinamide'])
-    expect(result.get('b')).toEqual([])
-    expect(result.get('c')?.map((i) => i.slug)).toEqual(['squalane'])
-  })
-
-  it('returns ingredients only on one product', () => {
-    const a = prod('a', [ing('1', 'water'), ing('2', 'glycerin')])
-    const b = prod('b', [ing('1', 'water'), ing('3', 'niacinamide')])
-    const result = computeSpecifics([a, b])
-    expect(result.get('a')?.map((i) => i.slug)).toEqual(['glycerin'])
-    expect(result.get('b')?.map((i) => i.slug)).toEqual(['niacinamide'])
-  })
 })
 
 describe('computeActives', () => {

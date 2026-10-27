@@ -28,5 +28,5 @@ export function ComparisonPreview({ productIds }: { productIds: string[] }) {
     )
   }
 
-  return <ComparisonBody products={preview.data} showHero={false} />
+  return <ComparisonBody products={preview.data} />
 }

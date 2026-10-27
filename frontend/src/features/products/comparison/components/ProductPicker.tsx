@@ -22,7 +22,7 @@ type Props = {
   isPending?: boolean
 }
 
-const formatLabel = (p: { brand: string; name: string }) => `${p.brand} — ${p.name}`
+const formatLabel = (p: { brand: string; name: string }) => `${p.brand} : ${p.name}`
 
 export function ProductPicker({
   selectedIds,

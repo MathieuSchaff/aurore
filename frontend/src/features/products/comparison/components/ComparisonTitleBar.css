@@ -1,0 +1,41 @@
+.cmp-title-bar {
+  padding: var(--space-4) var(--space-4) 0;
+  max-width: 72rem;
+  margin: 0 auto var(--space-6);
+}
+
+.cmp-title-bar__heading {
+  min-width: 0;
+}
+
+.cmp-title-bar__title {
+  font-family: var(--font-display);
+  font-feature-settings: var(--font-features-display);
+  font-size: var(--text-2xl);
+  font-weight: var(--font-normal);
+  letter-spacing: var(--tracking-tight);
+  line-height: var(--leading-tight);
+  color: var(--text-primary);
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.cmp-title-bar__count {
+  margin: var(--space-1) 0 0;
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+}
+
+.cmp-title-bar__panel {
+  margin-top: var(--space-4);
+  padding: var(--space-4);
+  background: var(--bg-card);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-md);
+}
+
+@media (--sm) {
+  .cmp-title-bar {
+    padding-inline: var(--space-6);
+  }
+}

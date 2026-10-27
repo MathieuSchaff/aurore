@@ -5,9 +5,9 @@ import { expect, type Page, type TestInfo, test } from '@playwright/test'
 import { deleteTestUser, registerFreshUser } from './helpers/auth'
 import { waitForHydration } from './helpers/hydration'
 
-// Known populated pair from snapshot/data.sql: they share a common ingredient, so
-// the common ingredients section is non-empty (not the "0 commun" path). Anchored regexes are
-// dash-agnostic (option label is `${brand} — ${name}`) and pin the exact name.
+// Known populated pair from snapshot/data.sql: both labels open on Aqua, so the formulas
+// table has a shared row (not the "0 commun" path). Anchored regexes are
+// separator-agnostic (option label is `${brand} : ${name}`) and pin the exact name
 const PRODUCT_A = /^CeraVe .+ Crème Hydratante$/
 const PRODUCT_B = /^Krème .+ Crème Hydratation Intense Bio$/
 
@@ -33,7 +33,7 @@ test('builds a comparison and displays its bands', async ({ page }, testInfo) =>
     })
 
     await expect(page.getByText('Sélectionnez au moins 2 produits')).toHaveCount(0)
-    await expect(page.getByRole('region', { name: 'Différences', exact: true })).toBeVisible()
+    await expect(page.getByRole('region', { name: 'Formules', exact: true })).toBeVisible()
     await expect(page).toHaveURL(/\/products\/compare\/new$/)
     await expect(
       page.getByRole('heading', { level: 1, name: 'Comparer des produits' })
@@ -51,16 +51,9 @@ test('builds a comparison and displays its bands', async ({ page }, testInfo) =>
     await nameInput.fill('Brouillon de test')
     await expect(nameLabel).toBeVisible()
     await expect(nameLabel).toHaveAttribute('for', (await nameInput.getAttribute('id')) ?? '')
-    const draftDifferences = page.getByRole('region', { name: 'Différences', exact: true })
-    await draftDifferences.getByRole('link', { name: 'Céramide AP', exact: true }).click()
-    await expect(nameInput).toHaveCount(0)
-    await expect(page.getByRole('heading', { level: 1 })).toBeVisible()
-    await page.goBack()
-    await expect(nameInput).toHaveValue('Brouillon de test')
-    await expect(page.getByRole('button', { name: /^Retirer CeraVe / })).toBeVisible()
-    await expect(page.getByRole('button', { name: /^Retirer Krème / })).toBeVisible()
+    const draftFormulas = page.getByRole('region', { name: 'Formules', exact: true })
     await page
-      .getByRole('region', { name: 'Produits comparés' })
+      .getByRole('region', { name: 'Fiche d’identité' })
       .getByRole('link', { name: 'Crème Hydratante', exact: true })
       .click()
     await expect(nameInput).toHaveCount(0)
@@ -69,24 +62,26 @@ test('builds a comparison and displays its bands', async ({ page }, testInfo) =>
     ).toBeVisible()
     await page.goBack()
     await expect(nameInput).toHaveValue('Brouillon de test')
-    await expect(draftDifferences).toBeVisible()
+    await expect(page.getByRole('button', { name: /^Retirer CeraVe / })).toBeVisible()
+    await expect(page.getByRole('button', { name: /^Retirer Krème / })).toBeVisible()
+    await expect(draftFormulas).toBeVisible()
     await page.screenshot({ path: testInfo.outputPath('draft-return-preserved.png') })
     await nameInput.fill('')
-    const previewProducts = page.getByRole('region', { name: 'Produits comparés' })
+    const previewProducts = page.getByRole('region', { name: 'Fiche d’identité' })
     await expect(
-      previewProducts.getByRole('heading', { level: 2, name: 'Produits comparés' })
+      previewProducts.getByRole('heading', { level: 2, name: 'Fiche d’identité' })
     ).toBeVisible()
-    await expect(previewProducts.getByRole('heading', { level: 3 })).toHaveCount(2)
+    await expect(productColumns(page, 'Fiche d’identité')).toHaveCount(2)
     const comparisonsBeforeSave = await page.request.get('/api/product-comparisons', {
       headers: { Authorization: `Bearer ${freshUser.token}` },
     })
     expect((await comparisonsBeforeSave.json()).data).toEqual([])
     await page.getByRole('button', { name: /^Retirer Krème / }).click()
-    await expect(page.getByRole('region', { name: 'Différences', exact: true })).toHaveCount(0)
+    await expect(page.getByRole('region', { name: 'Formules', exact: true })).toHaveCount(0)
     await expect(page.getByText(/Plus qu'un produit à ajouter/)).toBeVisible()
     await picker.fill('Krème')
     await page.getByRole('option', { name: PRODUCT_B }).click()
-    await expect(page.getByRole('region', { name: 'Différences', exact: true })).toBeVisible()
+    await expect(page.getByRole('region', { name: 'Formules', exact: true })).toBeVisible()
     await page.setViewportSize({ width: 390, height: 844 })
     await picker.press('Escape')
     await page.getByRole('form', { name: 'Nom de la comparaison' }).screenshot({
@@ -94,8 +89,8 @@ test('builds a comparison and displays its bands', async ({ page }, testInfo) =>
     })
     await page.screenshot({ path: testInfo.outputPath('draft-preview-mobile.png'), fullPage: true })
     await page
-      .getByRole('region', { name: 'Différences', exact: true })
-      .screenshot({ path: testInfo.outputPath('draft-differences-mobile.png') })
+      .getByRole('region', { name: 'Formules', exact: true })
+      .screenshot({ path: testInfo.outputPath('draft-formulas-mobile.png') })
     await page.setViewportSize({ width: 1280, height: 900 })
     await page.getByRole('button', { name: 'Annuler', exact: true }).click()
     await expect(page).toHaveURL(/\/products\/compare$/)
@@ -116,7 +111,7 @@ test('builds a comparison and displays its bands', async ({ page }, testInfo) =>
     await page.getByRole('option', { name: PRODUCT_A }).click()
     await picker.fill('Krème')
     await page.getByRole('option', { name: PRODUCT_B }).click()
-    await expect(page.getByRole('region', { name: 'Différences', exact: true })).toBeVisible()
+    await expect(page.getByRole('region', { name: 'Formules', exact: true })).toBeVisible()
     await expect(page.getByRole('heading', { level: 1 })).toHaveCount(1)
 
     const saveBtn = page.getByRole('button', { name: 'Enregistrer', exact: true })
@@ -131,16 +126,21 @@ test('builds a comparison and displays its bands', async ({ page }, testInfo) =>
     await page.goForward()
     await expect(page.getByRole('heading', { level: 1, name: 'Comparer 2 produits' })).toBeVisible()
 
-    const shelf = page.getByRole('region', { name: 'Produits comparés' })
+    const shelf = page.getByRole('region', { name: 'Fiche d’identité' })
     await expect(shelf).toBeVisible()
     await expect(shelf.getByText('CeraVe', { exact: true })).toBeVisible()
     await expect(shelf.getByText('Krème', { exact: true })).toBeVisible()
 
-    const summary = page.getByRole('note', { name: 'Synthèse des ingrédients renseignés' })
-    await expect(summary).toBeVisible()
-    await expect(summary).toContainText(/ingrédients? renseignés? en commun/i)
-    await expect(summary).toContainText(/chacun des 2 produits/i)
-    await expect(summary).not.toContainText(
+    const formulas = page.getByRole('region', { name: 'Formules', exact: true })
+    await expect(
+      formulas
+        .getByRole('table', { name: 'Formules' })
+        .locator('tbody tr')
+        .first()
+        .getByRole('cell')
+    ).toHaveText(['Aqua (commun)', 'Aqua (commun)'])
+    await expect(formulas).toContainText('Commun : présent dans les 2 produits')
+    await expect(formulas).not.toContainText(
       /compositions (proches|nuancées|distinctes)|sensations|complémentaires/i
     )
 
@@ -160,14 +160,11 @@ test('builds a comparison and displays its bands', async ({ page }, testInfo) =>
     expect(await signals.evaluate((el) => el.scrollWidth <= el.clientWidth)).toBe(true)
     await page.setViewportSize({ width: 1280, height: 900 })
     await signals.screenshot({ path: testInfo.outputPath('signals-desktop.png') })
-    await expect(page.getByRole('heading', { name: 'Différences' })).toBeVisible()
+    await expect(page.getByRole('heading', { name: 'Formules' })).toBeVisible()
     await expect(page.getByText(/concentration/i)).toHaveCount(0)
     await expect(page.getByRole('img', { name: /position INCI/i })).toHaveCount(0)
-    await expect(page.getByRole('heading', { name: 'Points communs' })).toBeVisible()
-
-    await expect(
-      page.getByText(/Aucun ingrédient.*n.apparaît dans toutes les formules/)
-    ).toHaveCount(0)
+    await expect(page.getByRole('heading', { name: 'Différences' })).toHaveCount(0)
+    await expect(page.getByRole('heading', { name: 'Points communs' })).toHaveCount(0)
     const experience = page.getByRole('region', { name: 'Votre expérience' })
     await expect(experience).toBeVisible()
     const cerave = experience.getByRole('article', { name: 'CeraVe : Crème Hydratante' })
@@ -263,6 +260,7 @@ test('builds a comparison and displays its bands', async ({ page }, testInfo) =>
         replacementRequests.push(request.postDataJSON())
       }
     })
+    await page.getByRole('button', { name: 'Modifier la comparaison' }).click()
     const replacementTrigger = page.getByRole('button', { name: /^Remplacer CeraVe / })
     await replacementTrigger.focus()
     await replacementTrigger.press('Enter')
@@ -383,18 +381,19 @@ test('builds a comparison and displays its bands', async ({ page }, testInfo) =>
       productIds: [expect.any(String), expect.any(String)],
     })
     await expect(
-      shelf.getByRole('heading', { name: 'Hydrance Light Crème Hydratante' })
+      shelf.getByRole('columnheader', { name: /Hydrance Light Crème Hydratante$/ })
     ).toBeVisible()
     await expect(
-      shelf.getByRole('heading', { name: 'Crème Hydratation Intense Bio' })
+      shelf.getByRole('columnheader', { name: /Crème Hydratation Intense Bio$/ })
     ).toBeVisible()
     await expect(shelf.getByText('CeraVe', { exact: true })).toHaveCount(0)
     await page.reload()
     await waitForHydration(page)
     await expect(
-      shelf.getByRole('heading', { name: 'Hydrance Light Crème Hydratante' })
+      shelf.getByRole('columnheader', { name: /Hydrance Light Crème Hydratante$/ })
     ).toBeVisible()
 
+    await page.getByRole('button', { name: 'Modifier la comparaison' }).click()
     await expect(page.getByRole('button', { name: /^Remplacer Avène / })).toBeVisible()
     await page.unroute('**/api/products/by-ids?*')
     await page.setViewportSize({ width: 390, height: 844 })
@@ -422,37 +421,34 @@ test('builds a comparison and displays its bands', async ({ page }, testInfo) =>
   }
 })
 
-async function assertComparisonLayout(page: Page, width: number) {
-  const shelf = page.getByRole('region', { name: 'Produits comparés' })
-  const differences = page.getByRole('region', { name: 'Différences', exact: true })
-  const signals = page.getByRole('region', { name: 'Signaux', exact: true })
+function productColumns(page: Page, table: string) {
+  return page
+    .getByRole('table', { name: table })
+    .getByRole('columnheader')
+    .filter({ has: page.getByRole('link') })
+}
+
+async function assertComparisonLayout(page: Page, width: number, count: number) {
   await page.setViewportSize({ width, height: 844 })
-  for (const cards of [shelf.locator('.cmp-shelf__item'), differences.getByRole('article')]) {
-    const bounds = await cards.evaluateAll((elements) =>
-      elements.map((element) => {
-        const box = element.getBoundingClientRect()
-        return {
-          x: box.x,
-          y: box.y,
-          right: box.right,
-          bottom: box.bottom,
-          fits: element.scrollWidth <= element.clientWidth,
-        }
-      })
-    )
-    expect(bounds.every((box) => box.x >= 0 && box.right <= width && box.fits)).toBe(true)
-    if (width < 768) {
-      for (let index = 1; index < bounds.length; index++) {
-        expect(bounds[index].x).toBe(bounds[0].x)
-        expect(bounds[index].y).toBeGreaterThanOrEqual(bounds[index - 1].bottom)
-      }
-    } else {
-      expect(bounds[1].y).toBe(bounds[0].y)
-    }
+  for (const table of ['Fiche d’identité', 'Formules']) {
+    const columns = productColumns(page, table)
+    await expect(columns).toHaveCount(count)
+    const narrowest = await columns.evaluateAll((cells) => {
+      const rem = parseFloat(getComputedStyle(document.documentElement).fontSize)
+      return Math.min(...cells.map((cell) => cell.getBoundingClientRect().width)) / rem
+    })
+    const fits = await page
+      .getByRole('table', { name: table })
+      .evaluate((element) => element.scrollWidth <= (element.parentElement?.clientWidth ?? 0) + 1)
+    // Two columns always fit the width
+    // From three on, each column keeps a 7rem floor and the frame scrolls
+    if (count > 2) expect(narrowest).toBeGreaterThanOrEqual(6.99)
+    else expect(fits).toBe(true)
   }
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(
     true
   )
+  const signals = page.getByRole('region', { name: 'Signaux', exact: true })
   expect(await signals.evaluate((el) => el.scrollWidth <= el.clientWidth)).toBe(true)
 }
 
@@ -460,15 +456,12 @@ async function captureComparisonLayout(
   page: Page,
   testInfo: TestInfo,
   count: number,
-  width: number,
-  longName: ProductSearchPage['items'][number]
+  width: number
 ) {
-  const shelf = page.getByRole('region', { name: 'Produits comparés' })
-  const differences = page.getByRole('region', { name: 'Différences', exact: true })
+  const shelf = page.getByRole('region', { name: 'Fiche d’identité' })
+  const formulas = page.getByRole('region', { name: 'Formules', exact: true })
   if (count === 8 && width === 390) {
-    await differences.screenshot({
-      path: testInfo.outputPath('differences-eight-mobile.png'),
-    })
+    await formulas.screenshot({ path: testInfo.outputPath('formulas-eight-mobile.png') })
   }
   if (count === 2 && (width === 390 || width === 1280)) {
     await page.locator('.comparison-body').evaluate((el) => {
@@ -479,32 +472,30 @@ async function captureComparisonLayout(
     })
     await page.screenshot({ path: testInfo.outputPath(`hierarchy-${width}.png`) })
     await shelf.screenshot({ path: testInfo.outputPath(`products-${width}.png`) })
-    await differences.screenshot({ path: testInfo.outputPath(`differences-${width}.png`) })
+    await formulas.screenshot({ path: testInfo.outputPath(`formulas-${width}.png`) })
     if (width === 390) {
-      const firstProduct = differences.getByRole('article', {
-        name: `${longName.brand} ${longName.name}`,
-        exact: true,
-      })
-      const expand = firstProduct.getByRole('button')
-      await expect(expand).toContainText(/autres/)
+      const expand = formulas.getByRole('button', { name: 'Voir toute la formule' })
       await expand.focus()
       await page.keyboard.press('Enter')
-      await expect(expand).toHaveAttribute('aria-expanded', 'true')
+      const collapse = formulas.getByRole('button', { name: 'Réduire la formule' })
+      await expect(collapse).toHaveAttribute('aria-expanded', 'true')
       expect(
-        await firstProduct.evaluate((element) => element.scrollWidth <= element.clientWidth)
+        await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)
       ).toBe(true)
-      await differences.screenshot({
-        path: testInfo.outputPath('differences-expanded-mobile.png'),
-      })
+      await formulas.screenshot({ path: testInfo.outputPath('formulas-expanded-mobile.png') })
+      await collapse.focus()
       await page.keyboard.press('Enter')
-      await expect(expand).toHaveAttribute('aria-expanded', 'false')
+      await expect(formulas.getByRole('button', { name: 'Voir toute la formule' })).toHaveAttribute(
+        'aria-expanded',
+        'false'
+      )
     }
   }
 }
 
 async function captureComparisonThemes(page: Page, testInfo: TestInfo) {
-  const shelf = page.getByRole('region', { name: 'Produits comparés' })
-  const differences = page.getByRole('region', { name: 'Différences', exact: true })
+  const shelf = page.getByRole('region', { name: 'Fiche d’identité' })
+  const formulas = page.getByRole('region', { name: 'Formules', exact: true })
   const signals = page.getByRole('region', { name: 'Signaux', exact: true })
   await page.setViewportSize({ width: 390, height: 844 })
   for (const variant of ['terracota', 'foret', 'ardoise']) {
@@ -536,8 +527,8 @@ async function captureComparisonThemes(page: Page, testInfo: TestInfo) {
       await page.screenshot({
         path: testInfo.outputPath(`hierarchy-${variant}-${theme}.png`),
       })
-      await differences.screenshot({
-        path: testInfo.outputPath(`differences-${variant}-${theme}.png`),
+      await formulas.screenshot({
+        path: testInfo.outputPath(`formulas-${variant}-${theme}.png`),
       })
       await signals.screenshot({
         path: testInfo.outputPath(`signals-${variant}-${theme}.png`),
@@ -546,7 +537,7 @@ async function captureComparisonThemes(page: Page, testInfo: TestInfo) {
   }
 }
 
-test('keeps same-brand products identifiable without horizontal scrolling', async ({
+test('keeps same-brand products identifiable without widening the page', async ({
   page,
 }, testInfo) => {
   const freshUser = await registerFreshUser(page)
@@ -579,48 +570,39 @@ test('keeps same-brand products identifiable without horizontal scrolling', asyn
       const comparisonId: string = (await created.json()).data.id
       await page.goto(`/products/compare/${comparisonId}`)
       await waitForHydration(page)
-      const shelf = page.getByRole('region', { name: 'Produits comparés' })
-      const differences = page.getByRole('region', { name: 'Différences', exact: true })
-      await expect(differences.getByRole('article')).toHaveCount(count)
-      await expect(
-        shelf.getByRole('heading', { level: 2, name: 'Produits comparés' })
-      ).toBeVisible()
-      await expect(shelf.getByRole('heading', { level: 3 })).toHaveCount(count)
-      expect(
-        await shelf
-          .getByRole('heading')
-          .evaluateAll((headings) => headings.map((heading) => heading.tagName))
-      ).toEqual(['H2', ...Array(count).fill('H3')])
+      const shelf = page.getByRole('region', { name: 'Fiche d’identité' })
+      const formulas = page.getByRole('region', { name: 'Formules', exact: true })
+      await expect(productColumns(page, 'Formules')).toHaveCount(count)
+      await expect(shelf.getByRole('heading', { level: 2, name: 'Fiche d’identité' })).toBeVisible()
+      await expect(productColumns(page, 'Fiche d’identité')).toHaveCount(count)
       const experience = page.getByRole('region', { name: 'Votre expérience' })
-      expect(await differences.evaluate((el) => el.getBoundingClientRect().top)).toBeLessThan(
+      expect(await formulas.evaluate((el) => el.getBoundingClientRect().top)).toBeLessThan(
         await experience.evaluate((el) => el.getBoundingClientRect().top)
       )
-      await expect(shelf.getByText(/Prix total/)).toHaveCount(count)
+      await expect(shelf.getByRole('rowheader', { name: 'Prix', exact: true })).toBeVisible()
+      await expect(shelf.getByText(/Prix total/)).toHaveCount(0)
       await expect(page.getByText("Cabinet d'analyse")).toHaveCount(0)
-      const ingredientLink = differences.getByRole('link').first()
-      await expect(ingredientLink).toHaveAttribute('href', /^\/ingredients\//)
       for (const product of selected) {
-        const card = differences.getByRole('article', {
-          name: `${product.brand} ${product.name}`,
-          exact: true,
-        })
-        await expect(
-          card.getByRole('heading', { name: `${product.brand} ${product.name}`, exact: true })
-        ).toBeVisible()
+        for (const table of ['Fiche d’identité', 'Formules']) {
+          await expect(
+            productColumns(page, table).filter({
+              has: page.getByRole('link', { name: product.name, exact: true }),
+            })
+          ).toContainText(product.brand)
+        }
       }
 
       for (const width of [320, 390, 768, 1280]) {
-        await assertComparisonLayout(page, width)
-        await captureComparisonLayout(page, testInfo, count, width, longName)
+        await assertComparisonLayout(page, width, count)
+        await captureComparisonLayout(page, testInfo, count, width)
       }
       if (count === 2) {
         await captureComparisonThemes(page, testInfo)
-        const ingredientUrl = await ingredientLink.getAttribute('href')
-        if (!ingredientUrl) throw new Error('Missing ingredient destination')
-        await ingredientLink.scrollIntoViewIfNeeded()
-        await ingredientLink.focus()
+        const productLink = shelf.getByRole('link', { name: longName.name, exact: true })
+        await productLink.scrollIntoViewIfNeeded()
+        await productLink.focus()
         await page.keyboard.press('Enter')
-        await expect(page).toHaveURL(new RegExp(`${ingredientUrl}$`))
+        await expect(page).toHaveURL(new RegExp(`/products/${longName.slug}$`))
         await expect(page.getByRole('heading', { level: 1 })).toBeVisible()
       }
     }
@@ -709,6 +691,7 @@ for (const { label, input, saved } of [
       ).toBeVisible()
       await page.reload()
       await waitForHydration(page)
+      await page.getByRole('button', { name: 'Modifier la comparaison' }).click()
       await expect(name).toHaveValue(saved ?? '')
     } finally {
       await deleteTestUser(page, user.token)
@@ -733,6 +716,8 @@ test('keeps a name draft stable through delayed saves and retries', async ({ pag
     const id: string = (await created.json()).data.id
     await page.goto(`/products/compare/${id}`)
     await waitForHydration(page)
+    const edit = page.getByRole('button', { name: 'Modifier la comparaison' })
+    await edit.click()
     const started = Promise.withResolvers<void>()
     const names: (string | null)[] = []
     let failNext = false
@@ -791,6 +776,7 @@ test('keeps a name draft stable through delayed saves and retries', async ({ pag
     await page.screenshot({ path: testInfo.outputPath('rename-saved.png') })
     await page.reload()
     await waitForHydration(page)
+    await edit.click()
     await expect(input).toHaveValue('Dernier')
     await input.fill('Brouillon abandonné')
     await page.setViewportSize({ width: 1280, height: 900 })
@@ -807,6 +793,7 @@ test('keeps a name draft stable through delayed saves and retries', async ({ pag
     expect(names.at(-1)).toBeNull()
     await page.reload()
     await waitForHydration(page)
+    await edit.click()
     await expect(input).toHaveValue('')
     const list = await page.request.get('/api/product-comparisons', {
       headers: { Authorization: `Bearer ${user.token}` },

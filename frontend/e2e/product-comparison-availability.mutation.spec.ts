@@ -1,10 +1,16 @@
 import type { CreateComparisonInput, EnrichedComparison } from '@aurore/shared'
 
-import { expect, test } from '@playwright/test'
+import { expect, type Page, test } from '@playwright/test'
 
 import { deleteTestUser, registerFreshUser } from './helpers/auth'
 import { createProduct, deleteProduct, hideProduct, loginAndGetToken } from './helpers/catalog'
 import { waitForHydration } from './helpers/hydration'
+
+const productColumns = (page: Page) =>
+  page
+    .getByRole('table', { name: 'Fiche d’identité' })
+    .getByRole('columnheader')
+    .filter({ has: page.getByRole('link') })
 
 test('signals unavailable comparison products without revealing their names and clears after restoration', async ({
   page,
@@ -33,11 +39,10 @@ test('signals unavailable comparison products without revealing their names and 
     await waitForHydration(page)
     await expect(page.getByRole('status', { name: /^1 produit indisponible\./ })).toBeVisible()
     await expect(page.getByText(/Modifier la sélection retirera/)).toBeVisible()
-    await expect(
-      page.getByRole('region', { name: 'Produits comparés' }).getByRole('heading', { level: 3 })
-    ).toHaveCount(2)
+    await expect(productColumns(page)).toHaveCount(2)
     await expect(page.getByText(last.name, { exact: false })).toHaveCount(0)
 
+    await page.getByRole('button', { name: 'Modifier la comparaison' }).click()
     await page.getByRole('textbox', { name: /nom de la comparaison/i }).fill('Sélection renommée')
     await page.getByRole('button', { name: 'Enregistrer le nom' }).click()
     await expect(page.getByRole('status', { name: /^1 produit indisponible\./ })).toBeVisible()
@@ -53,7 +58,7 @@ test('signals unavailable comparison products without revealing their names and 
     await page.goto(`/products/compare/${comparisonId}`)
     await waitForHydration(page)
     await expect(page.getByRole('status', { name: /^3 produits indisponibles\./ })).toBeVisible()
-    await expect(page.getByRole('region', { name: 'Produits comparés' })).toHaveCount(0)
+    await expect(page.getByRole('region', { name: 'Fiche d’identité' })).toHaveCount(0)
     for (const product of fixtures) {
       await expect(page.getByText(product.name, { exact: false })).toHaveCount(0)
     }
@@ -70,9 +75,7 @@ test('signals unavailable comparison products without revealing their names and 
     await expect(
       page.getByRole('status').filter({ hasText: /produits? indisponibles?/ })
     ).toHaveCount(0)
-    await expect(
-      page.getByRole('region', { name: 'Produits comparés' }).getByRole('heading', { level: 3 })
-    ).toHaveCount(3)
+    await expect(productColumns(page)).toHaveCount(3)
     const response = await page.request.get(`/api/product-comparisons/${comparisonId}`, {
       headers: { Authorization: `Bearer ${freshUser.token}` },
     })

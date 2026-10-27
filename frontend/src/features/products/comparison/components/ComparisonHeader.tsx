@@ -7,7 +7,8 @@ import './ComparisonHeader.css'
 type Props = {
   name: string
   onNameChange: (s: string) => void
-  count: number
+  // Omitted where the page title already states it
+  count?: number
   onSave?: () => void
   onCancel?: () => void
   canSave: boolean
@@ -80,9 +81,7 @@ export function ComparisonHeader({
             </p>
           )}
         </div>
-        <span className="comparison-header__count">
-          {count} produit{count > 1 ? 's' : ''}
-        </span>
+        <ProductCount count={count} />
         {onSave && (
           <div className="comparison-header__actions">
             <FormActions
@@ -96,5 +95,14 @@ export function ComparisonHeader({
         )}
       </form>
     </header>
+  )
+}
+
+function ProductCount({ count }: { count?: number }) {
+  if (count === undefined) return null
+  return (
+    <span className="comparison-header__count">
+      {count} produit{count > 1 ? 's' : ''}
+    </span>
   )
 }

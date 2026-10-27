@@ -16,6 +16,7 @@ import { ComparisonBody } from '../components/ComparisonBody'
 import { ComparisonHeader } from '../components/ComparisonHeader'
 import { ComparisonNameEditor } from '../components/ComparisonNameEditor'
 import { ComparisonPreview } from '../components/ComparisonPreview'
+import { ComparisonTitleBar } from '../components/ComparisonTitleBar'
 import { EmptyComparisonState } from '../components/EmptyComparisonState'
 import { ProductPicker } from '../components/ProductPicker'
 import { useComparisonDraft } from '../hooks/useComparisonDraft'
@@ -128,45 +129,43 @@ function EditComparisonBuilder({ id }: { id: string }) {
 
   return (
     <section>
-      <ComparisonNameEditor
-        key={id}
-        id={id}
-        savedName={comparison.name}
+      <ComparisonTitleBar
+        name={comparison.name}
         count={comparison.products.length + comparison.unavailableProductCount}
-      />
-      {comparison.unavailableProductCount > 0 && (
-        <p role="status" aria-label={unavailableNotice}>
-          {unavailableNotice}
-        </p>
-      )}
-      {update.error && (
-        <FormMessage variant="error">
-          Impossible d&apos;enregistrer la modification. Réessayez.
-        </FormMessage>
-      )}
+      >
+        <ComparisonNameEditor key={id} id={id} savedName={comparison.name} />
+        <ProductPicker
+          selectedIds={comparison.products.map((p) => p.id)}
+          selectedProducts={comparison.products}
+          onChange={setProductIds}
+          isPending={update.isPending || replacement.isPending}
+          onReplace={async (previousId, nextId) => {
+            update.reset()
+            await replacement.mutateAsync({
+              id,
+              input: {
+                productIds: comparison.products.map((p) => (p.id === previousId ? nextId : p.id)),
+              },
+            })
+            announce('Produit remplacé dans la comparaison')
+          }}
+        />
+      </ComparisonTitleBar>
       <div className="comparison-builder-page">
-        <div className="comparison-builder-page__picker">
-          <ProductPicker
-            selectedIds={comparison.products.map((p) => p.id)}
-            selectedProducts={comparison.products}
-            onChange={setProductIds}
-            isPending={update.isPending || replacement.isPending}
-            onReplace={async (previousId, nextId) => {
-              update.reset()
-              await replacement.mutateAsync({
-                id,
-                input: {
-                  productIds: comparison.products.map((p) => (p.id === previousId ? nextId : p.id)),
-                },
-              })
-              announce('Produit remplacé dans la comparaison')
-            }}
-          />
-        </div>
+        {comparison.unavailableProductCount > 0 && (
+          <p role="status" aria-label={unavailableNotice}>
+            {unavailableNotice}
+          </p>
+        )}
+        {update.error && (
+          <FormMessage variant="error">
+            Impossible d&apos;enregistrer la modification. Réessayez.
+          </FormMessage>
+        )}
         {comparison.products.length < COMPARISON_MIN_PRODUCTS ? (
           <EmptyComparisonState count={comparison.products.length} />
         ) : (
-          <ComparisonBody products={comparison.products} comparisonName={comparison.name} />
+          <ComparisonBody products={comparison.products} />
         )}
       </div>
     </section>

@@ -39,9 +39,7 @@ describe('ComparisonNameEditor', () => {
           return HttpResponse.json(ok(response(input.name ?? null)))
         })
       )
-      const { rerender } = renderWithProviders(
-        <ComparisonNameEditor id={id} savedName="Avant" count={2} />
-      )
+      const { rerender } = renderWithProviders(<ComparisonNameEditor id={id} savedName="Avant" />)
       const input = screen.getByRole('textbox', { name: /nom de la comparaison/i })
       const save = screen.getByRole('button', { name: /enregistrer le nom/i })
       await userEvent.clear(input)
@@ -53,7 +51,7 @@ describe('ComparisonNameEditor', () => {
       await userEvent.type(input, nextDraft)
       fireEvent.submit(screen.getByRole('form', { name: /nom de la comparaison/i }))
       expect(names).toEqual(['Premier'])
-      rerender(<ComparisonNameEditor id={id} savedName="Premier" count={3} />)
+      rerender(<ComparisonNameEditor id={id} savedName="Premier" />)
       expect((input as HTMLInputElement).value).toBe(nextDraft)
       await act(async () => release.resolve())
       await screen.findByText(/nom modifié, non enregistré/i)
@@ -76,7 +74,7 @@ describe('ComparisonNameEditor', () => {
           : HttpResponse.json(ok(response(input.name ?? null)))
       })
     )
-    renderWithProviders(<ComparisonNameEditor id={id} savedName="Avant" count={2} />)
+    renderWithProviders(<ComparisonNameEditor id={id} savedName="Avant" />)
     const input = screen.getByRole('textbox', { name: /nom de la comparaison/i })
     const save = screen.getByRole('button', { name: /enregistrer le nom/i })
     await userEvent.clear(input)
@@ -96,15 +94,13 @@ describe('ComparisonNameEditor', () => {
   })
 
   it('follows server changes only when clean and cancels back to the current confirmed name', async () => {
-    const { rerender } = renderWithProviders(
-      <ComparisonNameEditor id={id} savedName="Avant" count={2} />
-    )
+    const { rerender } = renderWithProviders(<ComparisonNameEditor id={id} savedName="Avant" />)
     const input = screen.getByRole('textbox', { name: /nom de la comparaison/i })
-    rerender(<ComparisonNameEditor id={id} savedName="Serveur" count={2} />)
+    rerender(<ComparisonNameEditor id={id} savedName="Serveur" />)
     expect((input as HTMLInputElement).value).toBe('Serveur')
     await userEvent.clear(input)
     await userEvent.type(input, 'Brouillon')
-    rerender(<ComparisonNameEditor id={id} savedName="Autre onglet" count={2} />)
+    rerender(<ComparisonNameEditor id={id} savedName="Autre onglet" />)
     expect((input as HTMLInputElement).value).toBe('Brouillon')
     await userEvent.click(screen.getByRole('button', { name: /annuler/i }))
     expect((input as HTMLInputElement).value).toBe('Autre onglet')

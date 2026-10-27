@@ -1,4 +1,5 @@
-/* overflow clips child sections into flush bands at the rounded corners */
+/* overflow clips child sections into flush bands at the rounded corners
+   clip, not hidden: hidden stops the formula headers from sticking under the nav */
 .comparison-body {
   --cmp-pad-x: var(--space-4);
   display: flex;
@@ -6,7 +7,7 @@
   background: var(--bg-card);
   border: 1px solid var(--border-default);
   border-radius: var(--radius-xl);
-  overflow: hidden;
+  overflow: clip;
   box-shadow: var(--shadow-card);
 }
 
@@ -14,16 +15,4 @@
   .comparison-body {
     --cmp-pad-x: var(--space-6);
   }
-}
-
-.cmp-ingredient-link {
-  color: inherit;
-  text-decoration: underline;
-  text-underline-offset: 0.2em;
-}
-
-.cmp-ingredient-link:focus-visible {
-  outline: 2px solid var(--color-focus);
-  outline-offset: 2px;
-  border-radius: var(--radius-xs);
 }
