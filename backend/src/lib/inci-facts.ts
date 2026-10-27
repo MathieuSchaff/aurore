@@ -2,6 +2,8 @@
 // once here, with algo-derm directly, and shipped in the product payload, instead of the
 // browser deriving them itself from a hand-copied split rule it cannot import.
 
+import type { InciToken } from '@aurore/shared'
+
 import { splitINCI } from 'algo-derm'
 
 // `splitINCI` cuts on commas. Its period fallback needs a comma-sparse list (at most two),
@@ -82,19 +84,34 @@ export function findInciToken(
 ): string | null {
   if (!inci) return null
   for (const raw of splitInciLoose(inci)) {
-    // Same scraper artefacts the seed strips: supplier codes, organic markers, stray dots.
-    const token = raw
-      .normalize('NFD')
-      .replace(/[̀-ͯ]/g, '')
-      .toLowerCase()
-      .replace(options?.keepParentheticals ? /[()[\]]/g : /\([^)]*\)|\[[^\]]*\]/g, ' ')
-      .replace(/[*†‡•]/g, ' ')
-      .replace(/\s+/g, ' ')
-      .replace(/^[.\s]+|[.\s]+$/g, '')
+    const token = inciTokenKey(raw, options)
     if (!token) continue
     if (hit(token)) return token
   }
   return null
+}
+
+// Same scraper artefacts the seed strips: supplier codes, organic markers, stray dots
+function inciTokenKey(raw: string, options?: InciTokenOptions): string {
+  return raw
+    .normalize('NFD')
+    .replace(/[̀-ͯ]/g, '')
+    .toLowerCase()
+    .replace(options?.keepParentheticals ? /[()[\]]/g : /\([^)]*\)|\[[^\]]*\]/g, ' ')
+    .replace(/[*†‡•]/g, ' ')
+    .replace(/\s+/g, ' ')
+    .replace(/^[.\s]+|[.\s]+$/g, '')
+}
+
+// Strict split, like `inciCount`: each token gets its own row, so a name must stay whole
+// The key lets two labels match despite case, accents or a gloss
+export function listInciTokens(inci: string | null | undefined): InciToken[] | null {
+  if (!inci) return null
+  const tokens = splitINCI(inci).flatMap((label) => {
+    const key = inciTokenKey(label)
+    return key ? [{ label, key }] : []
+  })
+  return tokens.length > 0 ? tokens : null
 }
 
 function anyInciToken(

@@ -2,7 +2,7 @@ import { describe, expect, test } from 'bun:test'
 
 import { splitINCI } from 'algo-derm'
 
-import { computeInciFacts } from './inci-facts'
+import { computeInciFacts, listInciTokens } from './inci-facts'
 
 // Through the module's public surface: `computeInciFacts` is what the product payload calls.
 const hasFragranceComponent = (inci: string | null | undefined) =>
@@ -94,5 +94,27 @@ describe('computeInciFacts', () => {
   test('is empty on a missing INCI', () => {
     expect(computeInciFacts(null)).toEqual({ inciCount: 0, hasFragrance: false })
     expect(computeInciFacts('')).toEqual({ inciCount: 0, hasFragrance: false })
+  })
+})
+
+describe('listInciTokens', () => {
+  test('keeps label order and spelling, a comma inside a name included', () => {
+    expect(listInciTokens('Aqua, 1,2-Hexanediol, DIGLYCERIN')?.map((t) => t.label)).toEqual([
+      'Aqua',
+      '1,2-Hexanediol',
+      'DIGLYCERIN',
+    ])
+  })
+
+  test('gives one key to spellings of the same name', () => {
+    const keys = ['GLYCERIN', 'Glycérin*', 'Glycerin (Vegetable)'].map(
+      (inci) => listInciTokens(inci)?.[0]?.key
+    )
+    expect(new Set(keys)).toEqual(new Set(['glycerin']))
+  })
+
+  test('is null on a missing INCI', () => {
+    expect(listInciTokens(null)).toBeNull()
+    expect(listInciTokens('')).toBeNull()
   })
 })

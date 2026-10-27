@@ -19,6 +19,7 @@ import {
   productTagLinks,
   productTagTypes,
 } from '../../db/schema'
+import { listInciTokens } from '../../lib/inci-facts'
 import { ProductComparisonError } from './product-comparison-error'
 
 export async function createComparison(
@@ -144,6 +145,9 @@ async function getComparisonProducts(
       kind: products.kind,
       slug: products.slug,
       imageUrl: products.imageUrl,
+      unit: products.unit,
+      texture: products.texture,
+      inci: products.inci,
       totalAmount: products.totalAmount,
       amountUnit: products.amountUnit,
       priceCents: products.priceCents,
@@ -151,7 +155,8 @@ async function getComparisonProducts(
     .from(products)
     .where(inArray(products.id, productIds))
 
-  // No position column on product_ingredients: order by createdAt, synthesize index for stable UI order.
+  // No position column on product_ingredients: order by createdAt for a stable UI order
+  // Links inserted in one transaction share one createdAt, so the uuidv7 id breaks the tie
   const ingredientRows = await database
     .select({
       productId: productIngredients.productId,
@@ -163,7 +168,7 @@ async function getComparisonProducts(
     .from(productIngredients)
     .innerJoin(ingredients, eq(productIngredients.ingredientId, ingredients.id))
     .where(inArray(productIngredients.productId, productIds))
-    .orderBy(asc(productIngredients.createdAt))
+    .orderBy(asc(productIngredients.createdAt), asc(productIngredients.id))
 
   const tagRows = await database
     .select({
@@ -185,7 +190,6 @@ async function getComparisonProducts(
       id: row.ingredientId,
       inciName: row.name,
       slug: row.slug,
-      position: list.length,
       signals: classifyIngredientSignals(row.slug),
     })
     ingredientsByProduct.set(row.productId, list)
@@ -216,10 +220,13 @@ async function getComparisonProducts(
       kind: p.kind as string,
       slug: p.slug,
       imageUrl: p.imageUrl,
+      unit: p.unit,
+      texture: p.texture,
       totalAmount: p.totalAmount,
       amountUnit: p.amountUnit,
       priceCents: p.priceCents,
       pricePer,
+      inciTokens: listInciTokens(p.inci),
       ingredients: ingredientsByProduct.get(p.id) ?? [],
       tags: tagsByProduct.get(p.id) ?? [],
     }

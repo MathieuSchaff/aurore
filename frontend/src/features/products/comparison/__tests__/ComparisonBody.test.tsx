@@ -17,7 +17,6 @@ const ing = (slug: string, signals: Ingredient['signals'] = []): Ingredient => (
   id: slug,
   inciName: slug,
   slug,
-  position: 0,
   signals,
 })
 
@@ -28,6 +27,9 @@ const make = (id: string, ingredients: Ingredient[]): EnrichedComparisonProduct 
   kind: 'serum',
   slug: id,
   imageUrl: null,
+  unit: 'pump',
+  texture: null,
+  inciTokens: null,
   totalAmount: 50,
   amountUnit: 'ml',
   priceCents: 1000,

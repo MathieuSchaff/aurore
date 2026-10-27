@@ -16,7 +16,9 @@ type ProductBody = {
   brand: string
   category: 'skincare'
   kind: 'serum'
-  unit: 'bottle'
+  unit: 'bottle' | 'pump'
+  inci?: string
+  texture?: 'gel'
 }
 const PRODUCT_A: ProductBody = {
   name: 'Sérum A',
@@ -72,6 +74,26 @@ describe('Product Comparison Routes', () => {
     expect(preview.map((product) => product.id)).toEqual([b.id, a.id])
     expect(preview[0]?.ingredients).toEqual([])
     expect(await expectOk(client['product-comparisons'].$get({}, withAuth(token)))).toEqual([])
+  })
+
+  it('previews the container, texture and INCI in label order', async () => {
+    const token = await setupAndLogin(app, TEST_CREDENTIALS.toto)
+    const a = await createProduct(client, contributorToken, {
+      ...PRODUCT_A,
+      unit: 'pump',
+      texture: 'gel',
+      inci: 'Aqua, Niacinamide, Glycerin',
+    })
+    const b = await createProduct(client, contributorToken, PRODUCT_B)
+    const [first, second] = await expectOk(
+      client['product-comparisons'].preview.$get(
+        { query: { ids: `${a.id},${b.id}` } },
+        withAuth(token)
+      )
+    )
+    expect(first).toMatchObject({ unit: 'pump', texture: 'gel' })
+    expect(first?.inciTokens?.map((t) => t.label)).toEqual(['Aqua', 'Niacinamide', 'Glycerin'])
+    expect(second).toMatchObject({ unit: 'bottle', texture: null, inciTokens: null })
   })
 
   it('rejects anonymous preview requests', async () => {

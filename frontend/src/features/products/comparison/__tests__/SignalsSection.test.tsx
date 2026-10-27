@@ -11,7 +11,7 @@ const ingredient = (
   slug: string,
   inciName: string,
   signals: Ingredient['signals'] = []
-): Ingredient => ({ id: slug, slug, inciName, position: 0, signals })
+): Ingredient => ({ id: slug, slug, inciName, signals })
 const product = (id: string, ingredients: Ingredient[]): EnrichedComparisonProduct => ({
   id,
   name: `Formule ${id}`,
@@ -19,6 +19,9 @@ const product = (id: string, ingredients: Ingredient[]): EnrichedComparisonProdu
   slug: id,
   kind: 'serum',
   imageUrl: null,
+  unit: 'bottle',
+  texture: null,
+  inciTokens: null,
   totalAmount: null,
   amountUnit: null,
   priceCents: null,

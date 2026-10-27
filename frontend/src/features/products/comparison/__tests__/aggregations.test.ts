@@ -14,7 +14,6 @@ const ing = (id: string, slug: string, signals: ('active' | 'alert')[] = []) => 
   id,
   inciName: slug,
   slug,
-  position: 0,
   signals,
 })
 
@@ -25,6 +24,9 @@ const prod = (id: string, ingredients: ReturnType<typeof ing>[]): EnrichedCompar
   kind: 'serum',
   slug: id,
   imageUrl: null,
+  unit: 'bottle',
+  texture: null,
+  inciTokens: null,
   totalAmount: null,
   amountUnit: null,
   priceCents: null,
