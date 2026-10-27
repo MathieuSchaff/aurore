@@ -76,7 +76,7 @@ export function FormulasSection({ products }: Props) {
               className="cmp-table cmp-formulas__table"
               aria-labelledby={headingId}
             >
-              <thead className="cmp-formulas__head">
+              <thead className="cmp-table__head">
                 <tr>
                   <th scope="col" className="cmp-formulas__rank-head cmp-table__pinned">
                     <span className="sr-only">Ordre sur l’emballage</span>

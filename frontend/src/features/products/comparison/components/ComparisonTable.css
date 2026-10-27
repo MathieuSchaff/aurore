@@ -29,8 +29,11 @@
 /* Wide mode: the frame scrolls sideways, the page never does
    Without relative, the sr-only "(commun)" labels of far cells widen the whole page */
 .cmp-table-frame.is-wide {
+  --cmp-head-top: 0px;
   position: relative;
-  overflow-x: auto;
+  overflow: auto;
+  /* Horizontal scrolling anchors sticky headers to this frame, so it must scroll vertically too */
+  max-height: 75dvh;
 }
 
 .cmp-table-frame.is-wide .cmp-table {
@@ -43,6 +46,21 @@
   left: 0;
   z-index: 1;
   background: var(--bg-card);
+}
+
+/* Product names stay in view while reading the rows
+   The offset keeps them under the fixed nav, not behind it */
+.cmp-table__head th,
+.cmp-table__head td {
+  position: sticky;
+  top: var(--cmp-head-top, var(--nav-height));
+  z-index: 2;
+  background: var(--bg-card);
+}
+
+/* The corner covers both the row labels and the product headers when scrolling */
+.cmp-table-frame.is-wide .cmp-table__head .cmp-table__pinned {
+  z-index: 3;
 }
 
 .cmp-table__photo-link {

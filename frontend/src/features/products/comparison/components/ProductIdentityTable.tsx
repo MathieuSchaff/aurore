@@ -59,7 +59,7 @@ export function ProductIdentityTable({ products }: Props) {
       </h2>
       <ComparisonTableFrame columns={products.length}>
         <table className="cmp-table cmp-identity__table" aria-labelledby={headingId}>
-          <thead>
+          <thead className="cmp-table__head">
             <tr>
               <td className="cmp-identity__corner cmp-table__pinned" />
               {products.map((p, i) => (

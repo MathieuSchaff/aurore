@@ -82,6 +82,39 @@ test('reads a saved comparison block by block', async ({ page }) => {
     await expect(container).toContainText('Pompe')
     await expect(container).toContainText('Tube')
 
+    for (const width of [375, 1280]) {
+      await page.setViewportSize({ width, height: 812 })
+      const navBottom = await page
+        .getByRole('navigation', { name: 'Navigation principale', exact: true })
+        .evaluate((nav) => nav.getBoundingClientRect().bottom)
+      const productHeader = identity.getByRole('columnheader').first()
+      await identity.evaluate((table, top) => {
+        window.scrollTo({
+          top: window.scrollY + table.getBoundingClientRect().top - top + 40,
+          behavior: 'instant',
+        })
+      }, navBottom)
+      await expect
+        .poll(() =>
+          productHeader.evaluate(
+            (cell, top) => Math.abs(cell.getBoundingClientRect().top - top),
+            navBottom
+          )
+        )
+        .toBeLessThan(2)
+      await expect(productHeader.locator('.cmp-table__photo')).toBeInViewport()
+      await identity.evaluate((table, top) => {
+        window.scrollTo({
+          top: window.scrollY + table.getBoundingClientRect().bottom - top + 10,
+          behavior: 'instant',
+        })
+      }, navBottom)
+      await expect
+        .poll(() => productHeader.evaluate((cell) => cell.getBoundingClientRect().bottom))
+        .toBeLessThan(navBottom + 2)
+    }
+    await page.setViewportSize({ width: 375, height: 812 })
+
     const formulas = page.getByRole('table', { name: 'Formules' })
     const rows = formulas.locator('tbody tr')
     await expect(rows.first().getByRole('cell')).toHaveText(['Aqua (commun)', 'Aqua (commun)'])
@@ -114,7 +147,7 @@ test('keeps five products readable on a phone without widening the page', async 
   const user = await registerFreshUser(page)
   try {
     const id = await createComparison(page, user.token, FIVE)
-    await page.setViewportSize({ width: 320, height: 812 })
+    await page.setViewportSize({ width: 320, height: 480 })
     await page.goto(`/products/compare/${id}`)
     await waitForHydration(page)
 
@@ -130,6 +163,58 @@ test('keeps five products readable on a phone without widening the page', async 
         return Math.min(...cells.map((cell) => cell.getBoundingClientRect().width)) / rem
       })
       expect(narrowest).toBeGreaterThanOrEqual(6.99)
+
+      const table = page.getByRole('table', { name })
+      const frame = table.locator('..')
+      const corner = table.locator('thead tr').locator('th, td').first()
+      const firstRow = table.locator('tbody tr').first()
+      const navBottom = await page
+        .getByRole('navigation', { name: 'Navigation principale', exact: true })
+        .evaluate((nav) => nav.getBoundingClientRect().bottom)
+      await frame.evaluate((element, top) => {
+        window.scrollTo({
+          top: window.scrollY + element.getBoundingClientRect().top - top - 8,
+          behavior: 'instant',
+        })
+      }, navBottom)
+      const headerTop = await products.first().evaluate((cell) => cell.getBoundingClientRect().top)
+      const rowTop = await firstRow.evaluate((row) => row.getBoundingClientRect().top)
+      const cornerLeft = await corner.evaluate((cell) => cell.getBoundingClientRect().left)
+      await frame.evaluate((element) => {
+        element.scrollTop = 80
+        element.scrollLeft = element.scrollWidth
+      })
+      await expect.poll(() => frame.evaluate((element) => element.scrollTop)).toBeGreaterThan(0)
+      await expect.poll(() => frame.evaluate((element) => element.scrollLeft)).toBeGreaterThan(0)
+      await expect
+        .poll(() =>
+          products
+            .first()
+            .evaluate((cell, top) => Math.abs(cell.getBoundingClientRect().top - top), headerTop)
+        )
+        .toBeLessThan(2)
+      expect(await firstRow.evaluate((row) => row.getBoundingClientRect().top)).toBeLessThan(rowTop)
+      expect(await corner.evaluate((cell) => cell.getBoundingClientRect().left)).toBeCloseTo(
+        cornerLeft,
+        0
+      )
+      await expect(products.last()).toBeInViewport()
+      expect(
+        await corner.evaluate((cell) => {
+          const rect = cell.getBoundingClientRect()
+          return cell.contains(document.elementFromPoint(rect.left + rect.width / 2, rect.top + 10))
+        })
+      ).toBe(true)
+      await frame.evaluate((element) => {
+        element.scrollTop = element.scrollHeight
+      })
+      const lastRow = table.locator('tbody tr').last().getByRole('rowheader')
+      expect(
+        await lastRow.evaluate((row) => {
+          const rect = row.getBoundingClientRect()
+          return row.contains(document.elementFromPoint(rect.left + 10, rect.top + rect.height / 2))
+        })
+      ).toBe(true)
     }
     expect(
       await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)

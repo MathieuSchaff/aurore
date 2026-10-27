@@ -49,28 +49,6 @@
   --cmp-first-col: 2.25rem;
 }
 
-/* Product names stay in view through a long formula
-   The offset keeps them under the fixed nav, not behind it */
-.cmp-formulas__head th {
-  position: sticky;
-  top: var(--cmp-head-top, var(--nav-height));
-  z-index: 1;
-  background: var(--bg-card);
-}
-
-/* A frame that scrolls sideways stops the header from sticking to the page
-   So the frame gets a max height and the header sticks to its top instead */
-.cmp-formulas__frame.is-wide {
-  --cmp-head-top: 0px;
-  max-height: 75dvh;
-  overflow-y: auto;
-}
-
-/* Pinned on both axes, so it must stay above the pinned rank cells it covers */
-.cmp-formulas__head .cmp-formulas__rank-head {
-  z-index: 2;
-}
-
 /* Two lines are enough to tell the columns apart
    The full name stays in the identity table */
 .cmp-formulas__table .cmp-table__name {
