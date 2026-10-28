@@ -29,6 +29,9 @@ Canonical ADRs for Aurore. This directory is tracked in git.
 | [0022](./0022-refuse-internal-targets-before-fetching-stored-image-urls.md) | Refuse internal targets before fetching a stored image URL | accepted | 2026-08-30 |
 | [0023](./0023-dose-cuts-are-asymmetric-in-the-formula-reading.md) | Dose cuts are asymmetric: loose to add a positive line, strict to drop a risk line | proposed | 2026-09-01 |
 | [0024](./0024-keep-personal-data-access-during-suspension.md) | Keep personal data access during suspension | accepted | 2026-09-15 |
+| [0025](./0025-remove-ingredient-pairs-from-comparisons.md) | Remove ingredient pairs from comparisons | accepted | 2026-10-28 |
+| [0026](./0026-resolve-comparison-actives-from-inci-identities.md) | Resolve comparison actives from INCI identities | accepted | 2026-10-28 |
+| [0027](./0027-show-named-formula-facts-in-comparisons.md) | Show named formula facts in comparisons | accepted | 2026-10-28 |
 
 No **0002**: *AutoTag skip events ride trackError as transport* (accepted 2026-05-19) was deleted
 along with the errors feature it named when the observability stack (Grafana, OTel, Faro) replaced
@@ -38,7 +41,7 @@ it. The decision still holds, its transport no longer exists: skips leave as a s
 **0019** replaced an earlier draft at the same number before it was published; the ADR lists that
 draft as its option C and says which part of it survived.
 
-Next available: **0025**. Name: `NNNN-short-imperative-verb-phrase.md`.
+Next available: **0028**. Name: `NNNN-short-imperative-verb-phrase.md`.
 
 ## Template
 

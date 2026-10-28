@@ -45,6 +45,15 @@ const make = (
   priceCents: 1000,
   pricePer: { unit: 'ml', cents: 20 },
   inciTokens,
+  actives: ingredients
+    .filter((i) => i.signals.includes('active'))
+    .map((i) => ({
+      key: i.slug,
+      name: i.inciName,
+      ingredientSlug: i.slug,
+      functions: [],
+      cosingRef: null,
+    })),
   ingredients,
   tags: [],
 })
@@ -198,9 +207,20 @@ describe('ComparisonBody', () => {
   })
 
   it('preserves known alerts when another product has no ingredient list', () => {
-    render(<ComparisonBody products={[make('a', [ing('parfum', ['alert'])]), make('b', [])]} />)
-    expect(screen.getByRole('heading', { name: /vigilances/i })).toBeDefined()
-    expect(screen.getByText('parfum')).toBeDefined()
+    render(
+      <ComparisonBody
+        products={[
+          make('a', [], [{ label: 'parfum', key: 'parfum', comparisonMarker: 'fragrance' }]),
+          make('b', []),
+        ]}
+      />
+    )
+    expect(screen.getByRole('heading', { name: /parfum et alcool dénaturé/i })).toBeDefined()
+    expect(
+      within(screen.getByRole('article', { name: /parfum et alcool dénaturé/i })).getByText(
+        'parfum'
+      )
+    ).toBeVisible()
   })
 
   it('renders shared actives in signals section', () => {
@@ -212,10 +232,10 @@ describe('ComparisonBody', () => {
   })
 
   it('attributes alerts to their product', () => {
-    const a = make('a', [ing('parfum', ['alert'])])
+    const a = make('a', [], [{ label: 'parfum', key: 'parfum', comparisonMarker: 'fragrance' }])
     const b = make('b', [ing('water')])
     render(<ComparisonBody products={[a, b]} />)
-    const alerts = screen.getByRole('article', { name: /vigilances/i })
+    const alerts = screen.getByRole('article', { name: /parfum et alcool dénaturé/i })
     expect(alerts.textContent).toContain('X a')
     expect(alerts.textContent).not.toContain('X b')
   })

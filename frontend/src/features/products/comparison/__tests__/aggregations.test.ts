@@ -2,7 +2,7 @@ import type { EnrichedComparisonProduct } from '@aurore/shared'
 
 import { describe, expect, it } from 'vitest'
 
-import { computeActives, computeAlerts, computeIngredientPairs } from '../helpers/aggregations'
+import { computeActives, computeFormulaMarkers } from '../helpers/aggregations'
 
 const ing = (id: string, slug: string, signals: ('active' | 'alert')[] = []) => ({
   id,
@@ -25,11 +25,56 @@ const prod = (id: string, ingredients: ReturnType<typeof ing>[]): EnrichedCompar
   priceCents: null,
   pricePer: null,
   inciTokens: null,
+  actives: ingredients
+    .filter((i) => i.signals.includes('active'))
+    .map((i) => ({
+      key: i.slug,
+      name: i.inciName,
+      ingredientSlug: i.slug,
+      functions: [],
+      cosingRef: null,
+    })),
   ingredients,
   tags: [],
 })
 
 describe('computeActives', () => {
+  it('does not choose one sheet when product domains resolve the same substance differently', () => {
+    const a = prod('a', [])
+    const b = prod('b', [])
+    a.actives = [
+      {
+        key: 'Niacinamide',
+        name: 'Vitamine B3',
+        ingredientSlug: 'b3',
+        functions: ['SMOOTHING'],
+        cosingRef: '35499',
+      },
+    ]
+    b.actives = a.actives.map((active) => ({ ...active, ingredientSlug: 'b3-hair' }))
+    expect(computeActives([a, b])[0]).toMatchObject({
+      name: 'Niacinamide',
+      ingredientSlug: null,
+      presentIn: ['a', 'b'],
+    })
+  })
+
+  it('groups canonical identities independently of names and slugs', () => {
+    const a = prod('a', [])
+    const b = prod('b', [])
+    a.actives = [
+      {
+        key: 'Niacinamide',
+        name: 'Vitamine B3',
+        ingredientSlug: 'b3',
+        functions: ['SMOOTHING'],
+        cosingRef: '35499',
+      },
+    ]
+    b.actives = a.actives.map((active) => ({ ...active, name: 'Niacinamide' }))
+    expect(computeActives([a, b])).toEqual([{ ...a.actives[0], presentIn: ['a', 'b'] }])
+  })
+
   it('attributes common, partially shared and single-product actives', () => {
     const a = prod('a', [
       ing('1', 'water'),
@@ -38,7 +83,13 @@ describe('computeActives', () => {
     ])
     const b = prod('b', [ing('2', 'niacinamide', ['active'])])
     const c = prod('c', [ing('4', 'panthenol', ['active'])])
-    expect(computeActives([a, b, c])).toEqual([
+    expect(
+      computeActives([a, b, c]).map((i) => ({
+        slug: i.ingredientSlug,
+        inciName: i.name,
+        presentIn: i.presentIn,
+      }))
+    ).toEqual([
       { slug: 'niacinamide', inciName: 'niacinamide', presentIn: ['a', 'b'] },
       { slug: 'retinol', inciName: 'retinol', presentIn: ['a'] },
       { slug: 'panthenol', inciName: 'panthenol', presentIn: ['c'] },
@@ -46,55 +97,37 @@ describe('computeActives', () => {
   })
 })
 
-describe('computeAlerts', () => {
-  it('reports each alert ingredient with present-in count', () => {
-    const a = prod('a', [ing('1', 'parfum', ['alert']), ing('2', 'water')])
-    const b = prod('b', [ing('1', 'parfum', ['alert'])])
-    const c = prod('c', [ing('3', 'alcool-denat', ['alert'])])
-    const alerts = computeAlerts([a, b, c])
-    expect(alerts.find((x) => x.slug === 'parfum')?.presentIn).toEqual(['a', 'b'])
-    expect(alerts.find((x) => x.slug === 'alcool-denat')?.presentIn).toEqual(['c'])
+describe('computeFormulaMarkers', () => {
+  it('attributes raw formula markers without requiring linked ingredient sheets', () => {
+    const a = prod('a', [])
+    const b = prod('b', [])
+    const c = prod('c', [ing('1', 'parfum', ['alert'])])
+    const parfum = { key: 'parfum', label: 'Parfum', comparisonMarker: 'fragrance' as const }
+    a.inciTokens = [parfum, parfum, { key: 'aqua', label: 'Aqua' }]
+    b.inciTokens = [
+      parfum,
+      { key: 'alcohol denat', label: 'Alcohol Denat.', comparisonMarker: 'denatured-alcohol' },
+    ]
+    expect(computeFormulaMarkers([a, b, c])).toEqual([
+      { token: parfum, presentIn: ['a', 'b'] },
+      {
+        token: {
+          key: 'alcohol denat',
+          label: 'Alcohol Denat.',
+          comparisonMarker: 'denatured-alcohol',
+        },
+        presentIn: ['b'],
+      },
+    ])
   })
-})
 
-describe('computeIngredientPairs', () => {
-  it.each([
-    { lists: [['retinol', 'glycolic-acid'], ['water']], sameFormula: ['a'], betweenProducts: [] },
-    { lists: [['retinol'], ['glycolic-acid']], sameFormula: [], betweenProducts: [['a', 'b']] },
-    {
-      lists: [['retinol', 'glycolic-acid'], ['retinol'], ['water']],
-      sameFormula: ['a'],
-      betweenProducts: [['a', 'b']],
-    },
-    {
-      lists: [
-        ['retinol', 'glycolic-acid'],
-        ['retinol', 'glycolic-acid'],
-      ],
-      sameFormula: ['a', 'b'],
-      betweenProducts: [['a', 'b']],
-    },
-    { lists: [['retinol', 'glycolic-acid'], []], sameFormula: ['a'], betweenProducts: [] },
-  ])(
-    'keeps formula and cross-product occurrences separate (%#)',
-    ({ lists, sameFormula, betweenProducts }) => {
-      const products = lists.map((slugs, index) =>
-        prod(
-          String.fromCharCode(97 + index),
-          slugs.map((slug) => ing(slug, slug))
-        )
-      )
-      const pairs = computeIngredientPairs(products)
-      expect(pairs).toHaveLength(1)
-      expect(pairs[0]).toMatchObject({ sameFormula, betweenProducts })
-      expect(pairs[0]?.a.inciName).toBe('retinol')
-      expect(pairs[0]?.b.inciName).toBe('glycolic-acid')
-      expect(pairs[0]).not.toHaveProperty('severity')
-      expect(pairs[0]).not.toHaveProperty('note')
-    }
-  )
-
-  it('does not invent a pair when its second ingredient is absent or unknown', () => {
-    expect(computeIngredientPairs([prod('a', [ing('1', 'retinol')]), prod('b', [])])).toEqual([])
+  it('keeps a shared name unlinked when product sheets disagree', () => {
+    const a = prod('a', [])
+    const b = prod('b', [])
+    a.inciTokens = [
+      { key: 'parfum', label: 'Parfum', comparisonMarker: 'fragrance', ingredientSlug: 'parfum' },
+    ]
+    b.inciTokens = [{ key: 'parfum', label: 'Parfum', comparisonMarker: 'fragrance' }]
+    expect(computeFormulaMarkers([a, b])[0]?.token.ingredientSlug).toBeUndefined()
   })
 })

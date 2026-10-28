@@ -20,7 +20,9 @@ import {
   productTagTypes,
 } from '../../db/schema'
 import { listInciTokens } from '../../lib/inci-facts'
+import { getComparisonActives } from './actives'
 import { linkFormulaTokens } from './formula-links'
+import { markComparisonTokens } from './formula-markers'
 import { ProductComparisonError } from './product-comparison-error'
 
 export async function createComparison(
@@ -144,6 +146,7 @@ async function getComparisonProducts(
       name: products.name,
       brand: products.brand,
       kind: products.kind,
+      category: products.category,
       slug: products.slug,
       imageUrl: products.imageUrl,
       unit: products.unit,
@@ -184,6 +187,7 @@ async function getComparisonProducts(
     .innerJoin(productTagTypes, eq(productTagLinks.productTagId, productTagTypes.id))
     .where(inArray(productTagLinks.productId, productIds))
 
+  const activesByProduct = await getComparisonActives(productRows, database)
   const productById = new Map(productRows.map((p) => [p.id, p]))
 
   const ingredientsByProduct = new Map<string, EnrichedComparisonProduct['ingredients']>()
@@ -229,11 +233,16 @@ async function getComparisonProducts(
       amountUnit: p.amountUnit,
       priceCents: p.priceCents,
       pricePer,
-      inciTokens: linkFormulaTokens(
-        listInciTokens(p.inci),
-        ingredientRows.filter((row) => row.productId === p.id && row.moderationStatus === 'visible')
+      inciTokens: markComparisonTokens(
+        linkFormulaTokens(
+          listInciTokens(p.inci),
+          ingredientRows.filter(
+            (row) => row.productId === p.id && row.moderationStatus === 'visible'
+          )
+        )
       ),
       ingredients: ingredientsByProduct.get(p.id) ?? [],
+      actives: activesByProduct.get(p.id) ?? [],
       tags: tagsByProduct.get(p.id) ?? [],
     }
     return [enriched]

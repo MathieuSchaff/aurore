@@ -385,3 +385,65 @@ test('aligns experience fields despite different title and note lengths', async 
     await deleteTestUser(page, user.token)
   }
 })
+
+test('keeps formula ingredients and actives without pairs or combined-use copy', async ({
+  page,
+}, testInfo) => {
+  const user = await registerFreshUser(page)
+  try {
+    const id = await createComparison(page, user.token, [
+      ['retinol', 'cosrx-retinol-05-oil'],
+      ['glycolique', 'lierac-protocole-eclat-masque-acide-glycolique-pur'],
+    ])
+    await page.goto(`/products/compare/${id}`)
+    await waitForHydration(page)
+    const signals = page.getByRole('region', { name: 'Signaux', exact: true })
+    const facts = signals.getByRole('article', { name: 'Parfum et alcool dénaturé' })
+    await expect(facts.getByRole('link', { name: 'Parfum', exact: true })).toHaveAttribute(
+      'href',
+      '/ingredients/fragrance'
+    )
+    await expect(facts.getByText('Linalool', { exact: true })).toBeVisible()
+    await expect(facts.getByText(/^\d+$/)).toHaveCount(0)
+    await expect(signals.getByRole('article', { name: 'Vigilances' })).toHaveCount(0)
+    await expect(signals.getByText(/allergènes ou sensibilisants/i)).toHaveCount(0)
+    const actives = signals.getByRole('article', { name: 'Actifs renseignés' })
+    const retinolLink = actives.getByRole('link', { name: 'Rétinol', exact: true })
+    await expect(retinolLink).toHaveAttribute('href', '/ingredients/retinol')
+    await expect(retinolLink.locator('..')).toContainText('Soin de la peau')
+    await expect(actives.getByText(/^\d+$/)).toHaveCount(0)
+    await actives.getByRole('button', { name: /autres/ }).click()
+    await expect(
+      actives.getByRole('link', { name: 'Acide Glycolique', exact: true })
+    ).toHaveAttribute('href', '/ingredients/glycolic-acid')
+    await actives.getByRole('button', { name: 'Voir moins' }).click()
+    await expect(actives).toContainText('COSRX Retinol 0.5 Oil')
+    await expect(actives).toContainText('Lierac Protocole Eclat Masque Acide Glycolique Pur')
+    await expect(
+      signals.getByRole('article', { name: 'Paires d’ingrédients repérées' })
+    ).toHaveCount(0)
+    await expect(signals.getByText(/utilisation ensemble/i)).toHaveCount(0)
+    const formulas = page.getByRole('table', { name: 'Formules', exact: true })
+    await expect(formulas.getByRole('link', { name: 'Retinol', exact: true })).toBeVisible()
+    await expect(formulas.getByRole('link', { name: 'Glycolic Acid', exact: true })).toBeVisible()
+    for (const width of [320, 390, 1280]) {
+      await page.setViewportSize({ width, height: 844 })
+      expect(await signals.evaluate((el) => el.scrollWidth <= el.clientWidth)).toBe(true)
+      await signals.screenshot({ path: testInfo.outputPath(`signals-without-pairs-${width}.png`) })
+      await facts.evaluate((element) => {
+        const nav = document.querySelector('nav[aria-label="Navigation principale"]')
+        window.scrollTo({
+          top:
+            window.scrollY +
+            element.getBoundingClientRect().top -
+            (nav?.getBoundingClientRect().bottom ?? 0) -
+            16,
+          behavior: 'instant',
+        })
+      })
+      await facts.screenshot({ path: testInfo.outputPath(`formula-facts-${width}.png`) })
+    }
+  } finally {
+    await deleteTestUser(page, user.token)
+  }
+})

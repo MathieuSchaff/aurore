@@ -1,28 +1,28 @@
 import type { EnrichedComparisonProduct } from '@aurore/shared'
 
-import { AlertTriangle, Layers, Sparkle } from 'lucide-react'
+import { Link } from '@tanstack/react-router'
+import { List, Sparkle } from 'lucide-react'
 import { type ReactNode, useId } from 'react'
 
 import { ShowMoreButton } from '@/component/DataDisplay/ShowMoreButton/ShowMoreButton'
 import { IconBox } from '@/component/Layout/IconBox/IconBox'
 import { useExpandableList } from '@/hooks/useExpandableList'
-import { computeActives, computeAlerts, computeIngredientPairs } from '../helpers/aggregations'
+import { computeActives, computeFormulaMarkers } from '../helpers/aggregations'
 import './SignalsSection.css'
 
-import { SIGNALS_LABELS } from './SignalsSection.constants'
+import { activeRole, FORMULA_MARKER_LABELS, SIGNALS_LABELS } from './SignalsSection.constants'
 
 type Props = { products: EnrichedComparisonProduct[] }
 
 type CardProps = {
-  tone: 'actives' | 'alerts' | 'pairs'
+  tone: 'actives' | 'facts'
   title: string
   hint: string
-  count: number
   icon: ReactNode
   children: ReactNode
 }
 
-function SignalCard({ tone, title, hint, count, icon, children }: CardProps) {
+function SignalCard({ tone, title, hint, icon, children }: CardProps) {
   const titleId = useId()
   return (
     <article className={`signals-card signals-card--${tone}`} aria-labelledby={titleId}>
@@ -34,7 +34,6 @@ function SignalCard({ tone, title, hint, count, icon, children }: CardProps) {
           </h3>
           <p className="signals-card__hint">{hint}</p>
         </div>
-        <span className="signals-card__count">{count}</span>
       </header>
       {children}
     </article>
@@ -43,9 +42,8 @@ function SignalCard({ tone, title, hint, count, icon, children }: CardProps) {
 
 export function SignalsSection({ products }: Props) {
   const actives = computeActives(products)
-  const alerts = computeAlerts(products)
-  const pairs = computeIngredientPairs(products)
-  const missingLists = products.filter((p) => p.ingredients.length === 0)
+  const markers = computeFormulaMarkers(products)
+  const missingLists = products.filter((p) => p.inciTokens === null)
   const productNames = (ids: string[]) =>
     products
       .filter((p) => ids.includes(p.id))
@@ -68,14 +66,13 @@ export function SignalsSection({ products }: Props) {
         Signaux
       </h2>
       <p className="signals-section__scope">{SIGNALS_LABELS.scope}</p>
-      <p className="signals-section__scope">{SIGNALS_LABELS.usage}</p>
       {missingLists.length > 0 && (
         <p className="signals-section__scope">
           Liste d’ingrédients non renseignée : {productNames(missingLists.map((p) => p.id))}. Les
           repères de ces produits ne peuvent pas être évalués.
         </p>
       )}
-      {actives.length === 0 && alerts.length === 0 && pairs.length === 0 && (
+      {actives.length === 0 && markers.length === 0 && (
         <p className="signals-section__none">{SIGNALS_LABELS.empty}</p>
       )}
       <div className="signals-section__groups">
@@ -83,20 +80,37 @@ export function SignalsSection({ products }: Props) {
           <SignalCard
             tone="actives"
             title={SIGNALS_LABELS.actives}
-            hint="Ingrédients repérés comme actifs, communs ou non"
-            count={actives.length}
+            hint={SIGNALS_LABELS.activesHint}
             icon={<Sparkle size={16} aria-hidden="true" />}
           >
             <ul role="list" id={activesListId} className="signals-card__items">
               {visibleActives.map((i) => (
-                <li key={i.slug} className="signals-pill">
-                  <span>{i.inciName}</span>
+                <li key={i.key} className="signals-pill">
+                  {i.ingredientSlug ? (
+                    <Link
+                      className="signals-pill__link"
+                      to="/ingredients/$slug"
+                      params={{ slug: i.ingredientSlug }}
+                    >
+                      {i.name}
+                    </Link>
+                  ) : (
+                    <span>{i.name}</span>
+                  )}
+                  <span className="signals-pill__detail">{activeRole(i.functions)}</span>
                   <span className="signals-pill__detail">
                     Renseigné dans : {productNames(i.presentIn)}
                   </span>
                 </li>
               ))}
             </ul>
+            <p className="signals-card__hint">
+              {SIGNALS_LABELS.rolesSource}{' '}
+              <a href="https://single-market-economy.ec.europa.eu/sectors/cosmetics/cosmetic-ingredient-database_en">
+                CosIng
+              </a>
+              . {SIGNALS_LABELS.rolesScope}
+            </p>
             <ShowMoreButton
               className="signals-card__more"
               hiddenCount={hiddenActivesCount}
@@ -106,57 +120,33 @@ export function SignalsSection({ products }: Props) {
             />
           </SignalCard>
         )}
-        {alerts.length > 0 && (
+        {markers.length > 0 && (
           <SignalCard
-            tone="alerts"
-            title={SIGNALS_LABELS.alerts}
-            hint="Ingrédients repérés comme allergènes ou sensibilisants potentiels"
-            count={alerts.length}
-            icon={<AlertTriangle size={16} aria-hidden="true" />}
+            tone="facts"
+            title={SIGNALS_LABELS.facts}
+            hint={SIGNALS_LABELS.factsHint}
+            icon={<List size={16} aria-hidden="true" />}
           >
             <ul role="list" className="signals-card__items">
-              {alerts.map((a) => (
-                <li key={a.slug} className="signals-pill">
-                  <span>{a.inciName}</span>
+              {markers.map(({ token, presentIn }) => (
+                <li key={token.key} className="signals-pill">
+                  {token.ingredientSlug ? (
+                    <Link
+                      className="signals-pill__link"
+                      to="/ingredients/$slug"
+                      params={{ slug: token.ingredientSlug }}
+                    >
+                      {token.label}
+                    </Link>
+                  ) : (
+                    <span>{token.label}</span>
+                  )}
                   <span className="signals-pill__detail">
-                    Renseigné dans : {productNames(a.presentIn)}
+                    {token.comparisonMarker && FORMULA_MARKER_LABELS[token.comparisonMarker]}
                   </span>
-                </li>
-              ))}
-            </ul>
-          </SignalCard>
-        )}
-        {pairs.length > 0 && (
-          <SignalCard
-            tone="pairs"
-            title={SIGNALS_LABELS.pairs}
-            hint="Localisation des ingrédients, sans conclusion sur leur association"
-            count={pairs.length}
-            icon={<Layers size={16} aria-hidden="true" />}
-          >
-            <ul role="list" className="ui-stack-list">
-              {pairs.map((pair) => (
-                <li key={`${pair.a.slug}-${pair.b.slug}`} className="signals-pair">
-                  <p className="ui-title-sm">
-                    {pair.a.inciName} + {pair.b.inciName}
-                  </p>
-                  <p className="signals-pair__note">
-                    {pair.a.inciName} : {productNames(pair.aPresentIn)}
-                  </p>
-                  <p className="signals-pair__note">
-                    {pair.b.inciName} : {productNames(pair.bPresentIn)}
-                  </p>
-                  {pair.sameFormula.length > 0 && (
-                    <p className="signals-pair__note">
-                      Dans une même formule : {productNames(pair.sameFormula)}.
-                    </p>
-                  )}
-                  {pair.betweenProducts.length > 0 && (
-                    <p className="signals-pair__note">
-                      Répartis entre produits :{' '}
-                      {pair.betweenProducts.map((ids) => productNames(ids)).join(' / ')}.
-                    </p>
-                  )}
+                  <span className="signals-pill__detail">
+                    Renseigné dans : {productNames(presentIn)}
+                  </span>
                 </li>
               ))}
             </ul>

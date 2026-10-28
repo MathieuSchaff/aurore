@@ -8,7 +8,22 @@ export type ComparisonPriceUnit = 'ml' | 'g' | 'unit'
 
 // `label` is printed as on the pack
 // `key` only matches the same name across products, it is never shown
-export type InciToken = { label: string; key: string; ingredientSlug?: string }
+export type ComparisonFormulaMarker = 'fragrance' | 'fragrance-component' | 'denatured-alcohol'
+
+export type InciToken = {
+  label: string
+  key: string
+  ingredientSlug?: string
+  comparisonMarker?: ComparisonFormulaMarker
+}
+
+export type ComparisonActiveIngredient = {
+  key: string
+  name: string
+  ingredientSlug: string | null
+  functions: string[]
+  cosingRef: string | null
+}
 
 export type EnrichedComparisonProduct = {
   id: string
@@ -25,6 +40,7 @@ export type EnrichedComparisonProduct = {
   pricePer: { unit: ComparisonPriceUnit; cents: number } | null
   // Label order, `null` when no INCI is on file
   inciTokens: InciToken[] | null
+  actives: ComparisonActiveIngredient[]
   // Not the formula: only the names linked to an ingredient sheet, in link order
   ingredients: Array<{
     id: string

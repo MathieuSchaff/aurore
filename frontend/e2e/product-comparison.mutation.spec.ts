@@ -146,14 +146,14 @@ test('builds a comparison and displays its bands', async ({ page }, testInfo) =>
 
     const signals = page.getByRole('region', { name: 'Signaux', exact: true })
     await expect(signals).toBeVisible()
-    const alerts = signals.getByRole('article', { name: 'Vigilances' })
+    const alerts = signals.getByRole('article', { name: 'Parfum et alcool dénaturé' })
     await expect(alerts).toContainText('Parfum')
-    await expect(alerts).toContainText('Krème : Crème Hydratation Intense Bio')
+    await expect(alerts).toContainText('Krème Crème Hydratation Intense Bio')
     await expect(alerts).not.toContainText('CeraVe')
     await expect(alerts).not.toContainText('1/2')
     const actives = signals.getByRole('article', { name: 'Actifs renseignés' })
-    await expect(actives).toContainText('CeraVe : Crème Hydratante')
-    await expect(actives).toContainText('Krème : Crème Hydratation Intense Bio')
+    await expect(actives).toContainText('CeraVe Crème Hydratante')
+    await expect(actives).toContainText('Krème Crème Hydratation Intense Bio')
     await expect(signals).not.toContainText(/conflits d.usage|à espacer|aucun signal à signaler/i)
     await page.setViewportSize({ width: 390, height: 844 })
     await signals.screenshot({ path: testInfo.outputPath('signals-mobile.png') })
@@ -608,48 +608,6 @@ test('keeps same-brand products identifiable without widening the page', async (
     }
   } finally {
     await deleteTestUser(page, freshUser.token)
-  }
-})
-test('attributes an ingredient pair across real products without routine advice', async ({
-  page,
-}, testInfo) => {
-  const user = await registerFreshUser(page)
-  try {
-    const selected = []
-    for (const [query, slug] of [
-      ['retinol', 'cosrx-retinol-05-oil'],
-      ['glycolique', 'lierac-protocole-eclat-masque-acide-glycolique-pur'],
-    ]) {
-      const search = await page.request.get(`/api/products/search?q=${query}`)
-      expect(search.ok()).toBe(true)
-      const catalog: ProductSearchPage = (await search.json()).data
-      const product = catalog.items.find((p) => p.slug === slug)
-      if (!product) throw new Error(`Missing ingredient-pair fixture: ${slug}`)
-      selected.push(product)
-    }
-    const created = await page.request.post('/api/product-comparisons', {
-      headers: { Authorization: `Bearer ${user.token}` },
-      data: { productIds: selected.map((p) => p.id) } satisfies CreateComparisonInput,
-    })
-    expect(created.ok()).toBe(true)
-    const id: string = (await created.json()).data.id
-    await page.goto(`/products/compare/${id}`)
-    await waitForHydration(page)
-    const pairs = page.getByRole('article', { name: 'Paires d’ingrédients repérées' })
-    await expect(pairs).toBeVisible()
-    await expect(pairs).toContainText(/Rétinol \+ Acide Glycolique/i)
-    await expect(pairs).toContainText('COSRX : Retinol 0.5 Oil')
-    await expect(pairs).toContainText('Lierac : Protocole Eclat Masque Acide Glycolique Pur')
-    await expect(pairs.getByText(/répartis entre produits/i)).toContainText('COSRX')
-    await expect(pairs.getByText(/dans une même formule/i)).toHaveCount(0)
-    await expect(pairs).not.toContainText(/glycolic-acid|conflit|éviter|alterner|à espacer/i)
-    for (const width of [320, 390, 1280]) {
-      await page.setViewportSize({ width, height: 844 })
-      expect(await pairs.evaluate((el) => el.scrollWidth <= el.clientWidth)).toBe(true)
-      await pairs.screenshot({ path: testInfo.outputPath(`ingredient-pair-${width}.png`) })
-    }
-  } finally {
-    await deleteTestUser(page, user.token)
   }
 })
 for (const { label, input, saved } of [

@@ -64,10 +64,7 @@
 .signals-card--actives {
   --tone: var(--color-success, var(--color-primary));
 }
-.signals-card--alerts {
-  --tone: var(--color-warning-text, var(--color-warning));
-}
-.signals-card--pairs {
+.signals-card--facts {
   --tone: var(--color-primary);
 }
 
@@ -107,16 +104,6 @@
   line-height: var(--leading-snug);
 }
 
-.signals-card__count {
-  font-family: var(--font-display);
-  font-feature-settings: "tnum" 1;
-  font-size: var(--text-2xl);
-  font-weight: var(--font-normal);
-  line-height: 1;
-  letter-spacing: var(--tracking-tight);
-  color: var(--tone);
-}
-
 .signals-card__items {
   display: grid;
   gap: var(--space-2);
@@ -143,23 +130,15 @@
   color: var(--text-primary);
 }
 
+.signals-pill__link {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
 .signals-pill__detail {
   font-size: var(--text-xs);
   line-height: var(--leading-normal);
   color: var(--text-secondary);
   font-weight: var(--font-normal);
-}
-
-.signals-pair {
-  padding: var(--space-3);
-  border-radius: var(--radius-md);
-  background: var(--bg-card);
-  border: 1px solid oklch(from var(--tone) l c h / 0.25);
-}
-
-.signals-pair__note {
-  margin: var(--space-1) 0 0;
-  font-size: var(--text-xs);
-  line-height: var(--leading-snug);
-  color: var(--text-secondary);
 }

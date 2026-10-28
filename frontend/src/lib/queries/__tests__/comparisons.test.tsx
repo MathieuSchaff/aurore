@@ -131,6 +131,7 @@ describe('useUpdateComparison', () => {
         unit: 'bottle',
         texture: null,
         inciTokens: null,
+        actives: [],
         totalAmount: null,
         amountUnit: null,
         priceCents: null,

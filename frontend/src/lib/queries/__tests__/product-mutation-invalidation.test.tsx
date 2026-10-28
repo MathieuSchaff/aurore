@@ -216,6 +216,7 @@ describe('product mutation invalidation', () => {
           unit: 'bottle',
           texture: null,
           inciTokens: null,
+          actives: [],
           priceCents: null,
           totalAmount: null,
           amountUnit: null,

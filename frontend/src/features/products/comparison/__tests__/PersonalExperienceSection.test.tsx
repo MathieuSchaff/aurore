@@ -19,6 +19,7 @@ const product = (id: string): EnrichedComparisonProduct => ({
   unit: 'bottle',
   texture: null,
   inciTokens: null,
+  actives: [],
   totalAmount: null,
   amountUnit: null,
   priceCents: null,
