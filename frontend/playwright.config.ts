@@ -16,6 +16,7 @@ const CROSS_ENGINE_SPECS = [
   '**/demo-collection-layout.spec.ts',
   '**/dropdown-menu-product-detail-sheet-status.spec.ts',
   '**/filter-drawer-focus.spec.ts',
+  '**/filter-drawer-mobile.spec.ts',
   '**/header-rails.spec.ts',
   '**/hydration-guard.spec.ts',
   '**/ingredient-form-categories.spec.ts',

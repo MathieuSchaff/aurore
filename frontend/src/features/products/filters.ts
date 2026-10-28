@@ -44,8 +44,8 @@ export const NON_TAG_FILTER_LABELS = {
 } as const satisfies Record<'brand' | 'ingredient', string>
 
 export const NON_TAG_FILTER_PLACEHOLDERS = {
-  brand: 'Rechercher une marque...',
-  ingredient: 'Rechercher un ingrédient...',
+  brand: 'Rechercher une marque…',
+  ingredient: 'Rechercher un ingrédient…',
 } as const satisfies Record<'brand' | 'ingredient', string>
 
 export const GROUP_LABELS: Record<FilterKey, string> = {

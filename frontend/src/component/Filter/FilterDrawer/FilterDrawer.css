@@ -131,7 +131,7 @@
 .filter-drawer__body {
   flex: 1;
   overflow-y: auto;
-  scrollbar-width: none;
+  scrollbar-width: thin;
   background:
     radial-gradient(
       ellipse at top,
@@ -142,8 +142,9 @@
     var(--color-primary-light, oklch(from var(--color-primary) l c h / 0.06));
 }
 
+/* Keep the scroll indicator despite the global scrollbar reset */
 .filter-drawer__body::-webkit-scrollbar {
-  display: none;
+  display: block;
 }
 
 .filter-drawer__body > fieldset {
@@ -197,6 +198,7 @@
 .filter-drawer__footer {
   flex-shrink: 0;
   padding: var(--space-4) var(--space-5);
+  padding-bottom: calc(var(--space-4) + env(safe-area-inset-bottom, 0px));
   background: var(--bg-card);
   border-top: var(--rule-section);
   display: flex;
@@ -351,5 +353,11 @@
     to {
       translate: 0 0;
     }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .filter-drawer__panel {
+    animation: none;
   }
 }
