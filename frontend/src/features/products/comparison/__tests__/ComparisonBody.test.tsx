@@ -3,13 +3,18 @@ import type { EnrichedComparisonProduct } from '@aurore/shared'
 import { screen, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import type { ReactElement } from 'react'
-import { describe, expect, it } from 'vitest'
+import { describe, expect, it, vi } from 'vitest'
 
 import { userProductQueries } from '@/lib/queries/user-products'
 import { createTestQueryClient, renderWithProviders } from '@/test/utils'
 import { ComparisonBody } from '../components/ComparisonBody'
 import { IDENTITY_LABELS } from '../components/ProductIdentityTable.constants'
 import { SIGNALS_LABELS } from '../components/SignalsSection.constants'
+
+vi.mock('@tanstack/react-router', async () => {
+  const { LinkStub, createLinkStub } = await import('@/test/mocks/router')
+  return { Link: LinkStub, createLink: createLinkStub }
+})
 
 type Ingredient = EnrichedComparisonProduct['ingredients'][number]
 
@@ -137,6 +142,33 @@ describe('ComparisonBody', () => {
     expect(within(table).getAllByText('Glycerin')).toHaveLength(2)
   })
 
+  it('links resolved formula names and leaves unknown tokens as text', async () => {
+    const user = userEvent.setup()
+    const a = make(
+      'A',
+      [],
+      [
+        { label: 'Water', key: 'water', ingredientSlug: 'eau' },
+        { label: 'Unknown Ingredient', key: 'unknown ingredient' },
+      ]
+    )
+    const b = make('B', [], inci('Water'))
+    render(<ComparisonBody products={[a, b]} />)
+
+    const table = within(screen.getByRole('table', { name: 'Formules' }))
+    const link = table.getByRole('link', { name: 'Water' })
+    expect(link).toHaveAttribute('href', '/ingredients/eau')
+    expect(table.getByText('Unknown Ingredient')).toBeVisible()
+    expect(table.getAllByRole('link', { name: 'Water' })).toHaveLength(1)
+    expect(table.queryByRole('link', { name: 'Unknown Ingredient' })).not.toBeInTheDocument()
+    expect(formulaCells(1)).toEqual(['Water (commun)', 'Water (commun)'])
+
+    await user.click(screen.getByRole('radio', { name: 'Seulement les différences' }))
+    expect(table.queryByRole('link', { name: 'Water' })).not.toBeInTheDocument()
+    await user.click(screen.getByRole('radio', { name: 'Seulement les communs' }))
+    expect(table.getByRole('link', { name: 'Water' })).toHaveAttribute('href', '/ingredients/eau')
+  })
+
   it('folds a long formula behind one toggle', async () => {
     const user = userEvent.setup()
     const labels = Array.from({ length: 20 }, (_, i) => `Ingredient ${i + 1}`)
@@ -184,7 +216,7 @@ describe('ComparisonBody', () => {
     const b = make('b', [ing('water')])
     render(<ComparisonBody products={[a, b]} />)
     const alerts = screen.getByRole('article', { name: /vigilances/i })
-    expect(alerts.textContent).toContain('X : a')
-    expect(alerts.textContent).not.toContain('X : b')
+    expect(alerts.textContent).toContain('X a')
+    expect(alerts.textContent).not.toContain('X b')
   })
 })

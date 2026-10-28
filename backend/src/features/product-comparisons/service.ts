@@ -20,6 +20,7 @@ import {
   productTagTypes,
 } from '../../db/schema'
 import { listInciTokens } from '../../lib/inci-facts'
+import { linkFormulaTokens } from './formula-links'
 import { ProductComparisonError } from './product-comparison-error'
 
 export async function createComparison(
@@ -163,6 +164,8 @@ async function getComparisonProducts(
       ingredientId: ingredients.id,
       name: ingredients.name,
       slug: ingredients.slug,
+      canonicalKey: ingredients.canonicalKey,
+      moderationStatus: ingredients.moderationStatus,
       createdAt: productIngredients.createdAt,
     })
     .from(productIngredients)
@@ -226,7 +229,10 @@ async function getComparisonProducts(
       amountUnit: p.amountUnit,
       priceCents: p.priceCents,
       pricePer,
-      inciTokens: listInciTokens(p.inci),
+      inciTokens: linkFormulaTokens(
+        listInciTokens(p.inci),
+        ingredientRows.filter((row) => row.productId === p.id && row.moderationStatus === 'visible')
+      ),
       ingredients: ingredientsByProduct.get(p.id) ?? [],
       tags: tagsByProduct.get(p.id) ?? [],
     }

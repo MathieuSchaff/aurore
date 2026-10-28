@@ -46,10 +46,10 @@ describe('SignalsSection', () => {
     )
     const active = screen.getByRole('article', { name: /actifs renseignés/i })
     expect(active.textContent).toContain('Rétinol')
-    expect(active.textContent).toContain('Même marque : Formule A')
+    expect(active.textContent).toContain('Même marque Formule A')
     expect(active.textContent).not.toMatch(/Formule B|Formule C/)
     const alert = screen.getByRole('article', { name: /vigilances/i })
-    expect(alert.textContent).toMatch(/Parfum.*Même marque : Formule A.*Même marque : Formule B/s)
+    expect(alert.textContent).toMatch(/Parfum.*Même marque Formule A.*Même marque Formule B/s)
     expect(alert.textContent).not.toMatch(/Formule C|2\/3/)
     expect(screen.queryByText(/aucun signal à signaler/i)).toBeNull()
   })
@@ -70,13 +70,12 @@ describe('SignalsSection', () => {
       const sameFormula = within(pairs).queryByText(/dans une même formule/i)
       expect(Boolean(sameFormula)).toBe(same)
       if (sameFormula) {
-        expect(sameFormula.textContent).toContain('Même marque : Formule A')
+        expect(sameFormula.textContent).toContain('Même marque Formule A')
         expect(sameFormula.textContent).not.toContain('Formule B')
       }
       const cross = within(pairs).queryByText(/répartis entre produits/i)
       expect(Boolean(cross)).toBe(between)
-      if (cross)
-        expect(cross.textContent).toMatch(/Même marque : Formule A.*Même marque : Formule B/s)
+      if (cross) expect(cross.textContent).toMatch(/Même marque Formule A.*Même marque Formule B/s)
       expect(screen.getByText(/ne permet pas de conclure.*utilisation ensemble/i)).toBeDefined()
     }
   )
@@ -89,7 +88,7 @@ describe('SignalsSection', () => {
       'Rétinol'
     )
     expect(screen.getByText(/liste d.ingrédients non renseignée/i).textContent).toContain(
-      'Même marque : Formule B'
+      'Même marque Formule B'
     )
     rerender(<SignalsSection products={[product('A', [retinol]), product('B', [water])]} />)
     expect(screen.queryByText(/liste d.ingrédients non renseignée/i)).toBeNull()

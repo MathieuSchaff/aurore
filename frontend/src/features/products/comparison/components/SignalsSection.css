@@ -51,12 +51,6 @@
   align-items: start;
 }
 
-/* A lone card would stretch full-width (auto-fit), floating the count far from
-   its content; cap it so it reads as a card, not a banner. */
-.signals-section__groups:has(.signals-card:only-child) {
-  grid-template-columns: minmax(0, 32rem);
-}
-
 .signals-card {
   --tone: var(--color-primary);
   min-width: 0;

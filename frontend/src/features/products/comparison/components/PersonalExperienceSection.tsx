@@ -104,9 +104,10 @@ export function PersonalExperienceSection({ products }: Props) {
                   </p>
                 )}
                 {entry && !isAvailableUserProduct(entry) ? (
-                  <p>Fiche de collection indisponible.</p>
+                  <p className="cmp-experience__action">Fiche de collection indisponible.</p>
                 ) : (
                   <Button
+                    className="cmp-experience__action"
                     variant="outline"
                     size="sm"
                     onClick={() =>

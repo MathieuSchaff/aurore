@@ -1,5 +1,6 @@
 import type { EnrichedComparisonProduct, InciToken } from '@aurore/shared'
 
+import { Link } from '@tanstack/react-router'
 import clsx from 'clsx'
 import { useId, useState } from 'react'
 
@@ -145,7 +146,17 @@ function FormulaCell({ token, sharedKeys, showMissingNote }: CellProps) {
   const isShared = sharedKeys?.has(token.key) ?? false
   return (
     <td className={clsx('cmp-formulas__cell', isShared && 'is-shared')}>
-      <span>{token.label}</span>
+      {token.ingredientSlug ? (
+        <Link
+          to="/ingredients/$slug"
+          params={{ slug: token.ingredientSlug }}
+          className="cmp-formulas__link"
+        >
+          {token.label}
+        </Link>
+      ) : (
+        <span>{token.label}</span>
+      )}
       {isShared && <span className="sr-only"> (commun)</span>}
     </td>
   )

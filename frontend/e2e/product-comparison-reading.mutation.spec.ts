@@ -1,4 +1,9 @@
-import type { CreateComparisonInput, ProductSearchPage } from '@aurore/shared'
+import type {
+  CreateComparisonInput,
+  CreateUserProductInput,
+  EnrichedComparison,
+  ProductSearchPage,
+} from '@aurore/shared'
 
 import { expect, type Page, test } from '@playwright/test'
 
@@ -22,6 +27,11 @@ const FIVE = [
     'Isdinceutics Salicylic',
     'isdin-isdinceutics-salicylic-renewal-serum-a-l-acide-salicylique-reduit-imperfections-et-rides-30ml-302724',
   ],
+] as const
+
+const LAYOUT_PAIR = [
+  ['Cyla', 'cyla-creme-intense-initiale'],
+  ['Remedy Rich', 'remedy-rich-moisturizer'],
 ] as const
 
 async function createComparison(
@@ -135,6 +145,17 @@ test('reads a saved comparison block by block', async ({ page }) => {
     await expect(formulas.getByText('Petrolatum', { exact: true })).toBeVisible()
     await expect(formulas.getByText('Aqua', { exact: true })).toHaveCount(0)
 
+    const ingredientLink = formulas.getByRole('link', { name: 'Ceramide NP', exact: true })
+    await expect(ingredientLink).toHaveAttribute('href', '/ingredients/ceramide-np')
+    await ingredientLink.focus()
+    await page.keyboard.press('Enter')
+    await expect(page).toHaveURL(/\/ingredients\/ceramide-np$/)
+    await waitForHydration(page)
+    await expect(page.getByRole('heading', { level: 1, name: /Céramide NP/i })).toBeVisible()
+    await page.goBack()
+    await waitForHydration(page)
+    await expect(page.getByRole('heading', { level: 1, name: 'Comparer 2 produits' })).toBeVisible()
+
     expect(
       await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)
     ).toBe(true)
@@ -219,6 +240,147 @@ test('keeps five products readable on a phone without widening the page', async 
     expect(
       await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)
     ).toBe(true)
+  } finally {
+    await deleteTestUser(page, user.token)
+  }
+})
+
+test('keeps identity data reachable as the viewport height shrinks and grows', async ({ page }) => {
+  const user = await registerFreshUser(page)
+  try {
+    const id = await createComparison(page, user.token, FIVE)
+    await page.goto(`/products/compare/${id}`)
+    await waitForHydration(page)
+    const table = page.getByRole('table', { name: 'Fiche d’identité' })
+    const frame = table.locator('..')
+    const header = table.getByRole('columnheader').last()
+    const lastRow = table.locator('tbody tr').last()
+
+    // A tall sticky header covered every data row at the native 400% viewport height
+    for (const height of [480, 229, 480]) {
+      await page.setViewportSize({ width: 320, height })
+      await frame.evaluate((element) => {
+        element.scrollTop = 0
+        element.scrollLeft = element.scrollWidth
+        const nav = document.querySelector('nav[aria-label="Navigation principale"]')
+        window.scrollTo({
+          top:
+            window.scrollY +
+            element.getBoundingClientRect().top -
+            (nav?.getBoundingClientRect().bottom ?? 0) -
+            8,
+          behavior: 'instant',
+        })
+      })
+      const headerTop = await header.evaluate((cell) => cell.getBoundingClientRect().top)
+      await frame.evaluate((element) => {
+        element.scrollTop = 80
+      })
+      if (height === 480) {
+        await expect
+          .poll(() =>
+            header.evaluate(
+              (cell, top) => Math.abs(cell.getBoundingClientRect().top - top),
+              headerTop
+            )
+          )
+          .toBeLessThan(2)
+      }
+      await frame.evaluate((element) => {
+        element.scrollTop = element.scrollHeight
+      })
+      await expect
+        .poll(() =>
+          lastRow.evaluate((row) => {
+            return [row.firstElementChild, row.lastElementChild].every((cell) => {
+              if (!cell) return false
+              const rect = cell.getBoundingClientRect()
+              return cell.contains(
+                document.elementFromPoint(rect.left + rect.width / 2, rect.top + rect.height / 2)
+              )
+            })
+          })
+        )
+        .toBe(true)
+      expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(
+        true
+      )
+    }
+  } finally {
+    await deleteTestUser(page, user.token)
+  }
+})
+
+test('uses the available width for a single signal card', async ({ page }) => {
+  await page.setViewportSize({ width: 1280, height: 900 })
+  const user = await registerFreshUser(page)
+  try {
+    const id = await createComparison(page, user.token, LAYOUT_PAIR)
+    await page.goto(`/products/compare/${id}`)
+    await waitForHydration(page)
+    const signals = page.getByRole('region', { name: 'Signaux', exact: true })
+    const cards = signals.getByRole('article')
+    await expect(cards).toHaveCount(1)
+    // The single card cap left half the section empty on desktop
+    await expect
+      .poll(() =>
+        cards.evaluateAll(([card]) => {
+          const container = card.parentElement
+          return container
+            ? Math.abs(card.getBoundingClientRect().width - container.getBoundingClientRect().width)
+            : Number.POSITIVE_INFINITY
+        })
+      )
+      .toBeLessThan(1)
+  } finally {
+    await deleteTestUser(page, user.token)
+  }
+})
+
+test('aligns experience fields despite different title and note lengths', async ({ page }) => {
+  await page.setViewportSize({ width: 800, height: 1000 })
+  const user = await registerFreshUser(page)
+  try {
+    const id = await createComparison(page, user.token, LAYOUT_PAIR)
+    const detail = await page.request.get(`/api/product-comparisons/${id}`, {
+      headers: { Authorization: `Bearer ${user.token}` },
+    })
+    expect(detail.ok()).toBe(true)
+    const comparison: EnrichedComparison = (await detail.json()).data
+    const added = await page.request.post('/api/user-products', {
+      headers: { Authorization: `Bearer ${user.token}` },
+      data: {
+        productId: comparison.products[0].id,
+        status: 'in_stock',
+        comment:
+          'Une première ligne.\nUne deuxième ligne.\nUne troisième ligne de note personnelle.',
+      } satisfies CreateUserProductInput,
+    })
+    expect(added.ok()).toBe(true)
+    await page.goto(`/products/compare/${id}`)
+    await waitForHydration(page)
+    const experience = page.getByRole('region', { name: 'Votre expérience', exact: true })
+    const cards = experience.getByRole('article')
+    await expect(cards).toHaveCount(2)
+    await expect(experience.getByRole('button', { name: /Mes notes et décisions/ })).toBeVisible()
+    await expect(experience.getByRole('button', { name: /Ajouter à ma collection/ })).toBeVisible()
+    // Titles and optional hints must not shift corresponding facts or actions
+    await expect
+      .poll(() =>
+        cards.evaluateAll(([first, second]) => {
+          const offsets = (card: Element) =>
+            Array.from(
+              card.querySelectorAll('dt, .cmp-experience__label, button'),
+              (element) => element.getBoundingClientRect().top
+            )
+
+          const left = offsets(first)
+          const right = offsets(second)
+          if (left.length !== 4 || right.length !== 4) return Number.POSITIVE_INFINITY
+          return Math.max(...left.map((top, index) => Math.abs(top - right[index])))
+        })
+      )
+      .toBeLessThan(1)
   } finally {
     await deleteTestUser(page, user.token)
   }

@@ -62,4 +62,26 @@
   .cmp-experience__grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
+
+  @supports (grid-template-rows: subgrid) {
+    /* Share row heights so long titles and notes cannot shift the neighboring fields */
+    .cmp-experience__product {
+      display: grid;
+      grid-row: span 7;
+      grid-template-rows: subgrid;
+      row-gap: 0;
+    }
+
+    .cmp-experience__facts {
+      grid-row: span 2;
+      grid-template-rows: subgrid;
+    }
+
+    /* Reserve the optional hint row even when this product is already in the collection */
+    .cmp-experience__action {
+      grid-row: 7;
+      justify-self: start;
+      align-self: start;
+    }
+  }
 }

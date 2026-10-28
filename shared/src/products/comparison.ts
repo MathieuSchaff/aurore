@@ -8,7 +8,7 @@ export type ComparisonPriceUnit = 'ml' | 'g' | 'unit'
 
 // `label` is printed as on the pack
 // `key` only matches the same name across products, it is never shown
-export type InciToken = { label: string; key: string }
+export type InciToken = { label: string; key: string; ingredientSlug?: string }
 
 export type EnrichedComparisonProduct = {
   id: string

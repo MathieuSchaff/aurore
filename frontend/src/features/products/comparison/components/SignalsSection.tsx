@@ -49,7 +49,7 @@ export function SignalsSection({ products }: Props) {
   const productNames = (ids: string[]) =>
     products
       .filter((p) => ids.includes(p.id))
-      .map((p) => `${p.brand} : ${p.name}`)
+      .map((p) => `${p.brand} ${p.name}`)
       .join(' ; ')
   const titleId = useId()
   const productsKey = products.map((p) => p.id).join(',')

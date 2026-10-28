@@ -73,6 +73,12 @@
   background: oklch(from var(--color-primary) l c h / 0.1);
 }
 
+.cmp-formulas__link {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
 .cmp-formulas__missing {
   font-style: italic;
   color: var(--text-muted);

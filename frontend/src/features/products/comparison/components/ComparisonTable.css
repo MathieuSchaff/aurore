@@ -29,11 +29,15 @@
 /* Wide mode: the frame scrolls sideways, the page never does
    Without relative, the sr-only "(commun)" labels of far cells widen the whole page */
 .cmp-table-frame.is-wide {
-  --cmp-head-top: 0px;
+  --cmp-head-top: auto;
   position: relative;
   overflow: auto;
   /* Horizontal scrolling anchors sticky headers to this frame, so it must scroll vertically too */
   max-height: 75dvh;
+}
+
+.cmp-table-frame.is-wide.has-sticky-header {
+  --cmp-head-top: 0px;
 }
 
 .cmp-table-frame.is-wide .cmp-table {
