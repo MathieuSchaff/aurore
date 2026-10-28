@@ -18,6 +18,7 @@ import { SectionHeader } from '@/component/Typography/SectionHeader/SectionHeade
 import { ReportContentButton } from '@/features/discussions/components/ReportContentButton'
 import { SuggestEditButton } from '@/features/discussions/components/SuggestEditButton'
 import { IngredientMarkButtons } from '@/features/profile/components/IngredientMarkButtons/IngredientMarkButtons'
+import type { ApiData, api } from '@/lib/api'
 import { useSession } from '@/lib/auth/session'
 import { ingredientQueries } from '@/lib/queries/ingredients'
 import { ingredientLabels } from '../../constants'
@@ -64,6 +65,7 @@ export function IngredientInfoTab() {
 
   return (
     <>
+      <IngredientInciName name={ingredient.name} canonicalKey={ingredient.canonicalKey} />
       <div className="ingredient-section">
         <SectionHeader title="Famille" variant="primary" />
         <div className="ingredient-famille">
@@ -194,5 +196,20 @@ export function IngredientInfoTab() {
         </div>
       )}
     </>
+  )
+}
+
+function IngredientInciName({
+  name,
+  canonicalKey,
+}: Pick<ApiData<(typeof api.ingredients)[':slug']['$get']>, 'name' | 'canonicalKey'>) {
+  const inci = canonicalKey?.trim()
+  if (!inci || inci.toLowerCase() === name.trim().toLowerCase()) return null
+
+  return (
+    <div className="ingredient-section">
+      <SectionHeader title={ingredientLabels.inciName} variant="primary" />
+      <p>{inci}</p>
+    </div>
   )
 }

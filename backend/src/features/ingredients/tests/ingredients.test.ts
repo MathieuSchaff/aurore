@@ -289,6 +289,20 @@ describe('Ingredient Service', () => {
     })
   })
 
+  it('keeps French ingredient names searchable by their INCI identity', async () => {
+    const ingredient = await makeKeyedIngredient(
+      'Extrait de racine de réglisse',
+      'Glycyrrhiza Glabra Root Extract'
+    )
+    for (const search of [searchIngredients, searchIngredientIdentities]) {
+      for (const query of ['Glycyrrhiza', 'Glycyrrhiza Glabra Root Extract']) {
+        const results = await search(testDb, query)
+        expect(results[0]?.id).toBe(ingredient.id)
+        expect(results[0]?.name).toBe('Extrait de racine de réglisse')
+      }
+    }
+  })
+
   describe('searchIngredients', () => {
     it('should return ingredients matching by name', async () => {
       await createTestIngredient(user.id, { name: 'Niacinamide' })

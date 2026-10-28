@@ -3,6 +3,7 @@ import type { IngredientCategory } from '@/constants/ingredientGroups'
 /* Ingredients UI wording, centralized so tests assert the same string the user sees. */
 export const ingredientLabels = {
   conflictDetected: 'Conflit détecté',
+  inciName: 'Nom INCI',
   noResultsTitle: 'Aucun ingrédient trouvé',
   noProductsAssociated: 'Aucun produit associé à cet ingrédient.',
 } as const

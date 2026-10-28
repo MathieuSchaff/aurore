@@ -14411,7 +14411,7 @@ Le réseau cristallin se déforme progressivement sous cisaillement (chaleur du 
 - Pomades, graisses capillaires : 5–20%
 - Sticks coiffants : 10–30%
 ', 'excipient', '2026-04-30 23:13:40.719796+00', '2026-08-12 22:26:44.575+00', 'haircare', 'visible', NULL, NULL, NULL, 'verified', NULL, NULL, NULL);
-INSERT INTO public.ingredients VALUES ('019de0ab-6234-72a8-a302-2553cfb10313', '019de09c-3403-7f67-8b49-560aecb2d9c9', 'Acide Lactique', 'lactic-acid', 'AHA hydratant, doux exfoliant et humectant.', '
+INSERT INTO public.ingredients VALUES ('019de0ab-6234-72a8-a302-2553cfb10313', '019de09c-3403-7f67-8b49-560aecb2d9c9', 'Acide lactique', 'lactic-acid', 'AHA hydratant, doux exfoliant et humectant.', '
 # Acide Lactique
 
 AHA (alpha-hydroxy acid) issu de la fermentation du lait ou de sucres végétaux, le plus doux et hydratant de la famille. Exfolie doucement la surface cutanée tout en agissant comme humectant naturel → parfait pour peaux sèches, sensibles, matures ou déshydratées. Améliore texture, éclat, hydratation, atténue ridules fines et marques pigmentaires sans irritation majeure.
@@ -14480,8 +14480,46 @@ Résultats optimaux après 8-12 semaines ; hydratation visible dès les premièr
 | Photosensibilité     | Légère                             | Oui                                |
 
 **Conseil expert** : l’acide lactique est l’AHA idéal pour introduire l’exfoliation chimique sans stresser la peau – surtout si sèche, sensible ou en hiver. Il hydrate en même temps qu’il exfolie, ce qui le rend parfait pour routines minimalistes ou peaux réactives. Associez à une hydratation riche et SPF pour un teint glowy, lisse et rebondi durablement !
-', 'actif', '2026-04-30 23:13:40.719796+00', '2026-08-12 22:26:44.656+00', 'skincare', 'visible', NULL, NULL, NULL, 'verified', NULL, NULL, 'Lactic Acid');
+', 'actif', '2026-04-30 23:13:40.719796+00', '2026-10-28 15:57:26.197669+00', 'skincare', 'visible', NULL, NULL, NULL, 'verified', NULL, NULL, 'Lactic Acid');
 INSERT INTO public.ingredients VALUES ('019fa392-fb62-711c-841d-bee8568cfe55', '019de09c-3403-7f67-8b49-560aecb2d9c9', 'Extrait de feuille de théier', 'camellia-oleifera-leaf-extract', 'Extrait de feuille de théier — à distinguer de l''huile de graines. Activité antioxydante, apaisante et inhibitrice de la tyrosinase décrite ; une émulsion clinique rapporte une perte en eau réduite.', '', 'actif', '2026-07-27 12:35:46.650344+00', '2026-08-12 22:26:44.575+00', 'skincare', 'visible', NULL, NULL, NULL, 'verified', NULL, NULL, NULL);
+INSERT INTO public.ingredients VALUES ('019fe786-a425-7759-a4a6-c2939e683903', '019de09c-3403-7f67-8b49-560aecb2d9c9', 'Dextrane', 'dextran', 'Polysaccharide d''origine bactérienne, utilisé comme liant et épaississant. CosIng le classe comme agent liant et contrôlant la viscosité (BINDING, VISCOSITY CONTROLLING) en formulation. Distinct du sulfate de dextrane (Sodium Dextran Sulfate) déjà en base : aucun axe n''est hérité de ce dernier.', '', 'excipient', '2026-08-09 17:16:28.575135+00', '2026-10-28 15:57:26.197669+00', 'skincare', 'visible', NULL, NULL, NULL, 'verified', NULL, NULL, 'Dextran');
+INSERT INTO public.ingredients VALUES ('019de0ab-6230-75cc-b297-d32c17ded1c9', '019de09c-3403-7f67-8b49-560aecb2d9c9', 'Huile de pépins de raisin', 'huile-de-pepins-de-raisin', 'L''huile upcyclée antioxydante et régénérante issue des sous-produits viticoles, pour protéger, hydrater et lutter contre le vieillissement des peaux mixtes, grasses et sensibles.', '
+# Huile de Pépins de Raisin (Vitis vinifera) – Upcyclée 🍇
+Issue de l''upcycling des pépins issus de la production vinicole (sous-produits valorisés pour une économie circulaire), cette huile légère est extraite par pression à froid des graines de Vitis vinifera. Traditionnellement utilisée en cosmétique naturelle, elle est aujourd''hui un actif durable et éco-responsable, plébiscité dans les formulations clean pour ses puissants antioxydants (polyphénols et OPC). Elle s''intègre parfaitement dans les gammes apaisantes et anti-âge de marques comme Pierre Fabre, Avène ou A-Derma, en synergie avec des ingrédients naturels pour peaux fragiles.
+
+## INCI
+**VITIS VINIFERA SEED OIL**
+(huile obtenue par première pression à froid des pépins de raisin, qualité upcyclée et souvent bio)
+
+## Composition chimique 🧪
+- **Acide linoléique (Oméga-6)** : 55–70 % → renforce la barrière cutanée et régénère les lipides
+- **Acide oléique (Oméga-9)** : 13–24 % → hydratation et souplesse
+- **Vitamine E (tocophérols)** et **polyphénols (OPC, proanthocyanidines)** → antioxydants puissants (jusqu''à 50x plus que la vitamine E)
+- **Stérols et squalène** → anti-inflammatoires et protecteurs
+- Huile upcyclée 100 % naturelle, certifiée souvent bio/ECOCERT, non comédogène, texture légère sans résidu gras
+
+## Mécanisme d’action ⚙️
+1. **Protection antioxydante renforcée** : les OPC et vitamine E neutralisent les radicaux libres (ROS) issus des UV, pollution et stress oxydatif, prévenant le vieillissement prématuré.
+2. **Renforcement de la barrière lipidique** : l''acide linoléique s''intègre dans les céramides, réduit la perte insensible en eau et restaure l''hydratation.
+3. **Effet anti-inflammatoire** : inhibition des cytokines pro-inflammatoires (TNF-α, IL-6) et COX-2, apaisant rougeurs et irritations.
+4. **Stimulation de la régénération** : favorise la synthèse de collagène et élastine, améliore l''élasticité et la fermeté cutanée.
+5. **Régulation du sébum** : équilibre la production lipidique sans obstruer les pores, idéal pour peaux mixtes à grasses.
+
+## Bienfaits ✨
+- **Anti-âge puissant** : protège contre le stress oxydatif, atténue rides et perte d''élasticité (études 2023–2025 confirment supériorité des OPC).
+- **Hydratation légère et non grasse** : restaure le film hydrolipidique sans film occlusif, parfaite pour peaux déshydratées ou mixtes.
+- **Apaisement des peaux sensibles/irritées** : réduit inflammations, rougeurs et acné inflammatoire grâce à ses propriétés calmantes.
+- **Protection anti-pollution & UV** : bouclier naturel contre radicaux libres et dommages environnementaux.
+- **Soin capillaire équilibrant** : nourrit cuir chevelu, réduit pellicules sèches et apporte brillance sans alourdir.
+
+## Utilisation 🧴
+- **Cible** : Peaux mixtes, grasses, sensibles, réactives, matures ; peaux à imperfections ; convient aux peaux atopiques et fragiles.
+- **Moment** : Matin et/ou soir – quelques gouttes en massage sur visage, corps ou cheveux.
+- **Type de soin** : Huiles sèches, sérums anti-âge, crèmes légères, nettoyants doux, soins capillaires ; ingrédient upcyclé idéal dans les gammes clean et durables (compatible avec Avène, A-Derma, Pierre Fabre pour formules apaisantes et anti-oxydantes).
+
+## Note technique 📌
+Actif upcyclé éco-responsable issu de co-produits viticoles (valorisation zéro déchet), traçabilité exemplaire et souvent issu de cultures durables. Excellente tolérance cutanée, non comédogène, sans effet photosensibilisant. Études récentes (2023–2025, incl. revues PMC et phytochemistry) confirment son pouvoir antioxydant supérieur, son rôle anti-inflammatoire et régénérant, avec une efficacité prouvée en cosmétique anti-âge et apaisante. Innovation : extractions optimisées pour préserver les OPC, intégration dans formules lipid-replenishing et clean beauty.
+', 'emollient', '2026-04-30 23:13:40.719796+00', '2026-10-28 15:57:26.197669+00', 'skincare', 'visible', NULL, NULL, NULL, 'verified', NULL, NULL, 'Vitis Vinifera Seed Oil');
 INSERT INTO public.ingredients VALUES ('019de0ab-6258-7b20-acc0-b8abcfe18829', '019de09c-3403-7f67-8b49-560aecb2d9c9', 'Silicone Quaternium-22', 'silicone-quaternium-22', 'Silicone quaternaire de haute substantivité, particulièrement adapté aux shampoings 2-en-1 et formules rincées grâce à son excellent dépôt résistant à l''eau.', '
 # Silicone Quaternium-22
 
@@ -14507,6 +14545,96 @@ Shampoings 2-en-1, shampoings conditionneurs, formules "quick-wash" pour cheveux
 ## Concentration d''usage
 0,1–1,5% dans shampoings conditionneurs et produits rincés.
 ', 'conditionneur', '2026-04-30 23:13:40.719796+00', '2026-08-12 22:26:44.575+00', 'haircare', 'visible', NULL, NULL, NULL, 'verified', NULL, NULL, NULL);
+INSERT INTO public.ingredients VALUES ('019de0ab-6230-7937-9277-9ee3d0870e77', '019de09c-3403-7f67-8b49-560aecb2d9c9', 'Huile de jojoba', 'huile-jojoba', 'L''huile-cire mimétique du sébum humain, régulatrice, hydratante et apaisante, parfaite pour équilibrer, réparer et protéger tous les types de peaux, y compris sensibles et atopiques.', '
+# Huile de Jojoba (Simmondsia chinensis) 🌿
+Originaire des zones arides du sud-ouest des États-Unis et du nord-ouest du Mexique, l''huile de jojoba est en réalité une cire liquide extraite par pression à froid des graines de l''arbuste Simmondsia chinensis. Utilisée depuis des millénaires par les peuples autochtones pour ses vertus protectrices et régénérantes, elle est aujourd''hui un actif incontournable en dermo-cosmétique naturelle, plébiscité par des marques comme Avène (gammes XeraCalm A.D. et DermAbsolu) et A-Derma pour sa biocompatibilité exceptionnelle et sa tolérance sur peaux fragiles.
+
+## INCI
+**SIMMONDSIA CHINENSIS SEED OIL**
+(huile obtenue par première pression à froid des graines)
+
+## Composition chimique 🧪
+- **Esters de cire liquides (principalement acide 11-eicosénoïque ~70-80 %, acide érucique ~10-15 %, acide oléique ~5-15 %)** : structure très proche du sébum humain
+- **Alcool gras à longue chaîne et stérols (sitostérol)** : propriétés émollientes et protectrices
+- **Vitamine E (tocophérols) et antioxydants naturels** : protection contre l''oxydation
+- Huile vierge bio souvent certifiée, stable, non rancissante, sans allergènes majeurs, non comédogène
+
+## Mécanisme d’action ⚙️
+1. **Mimétisme du sébum** : sa composition proche du sébum cutané régule la production excessive ou insuffisante de sébum, rééquilibrant les peaux mixtes à grasses comme sèches.
+2. **Renforcement de la barrière lipidique** : intègre les lipides intercellulaires, limite la perte insensible en eau et protège contre les agressions externes.
+3. **Action anti-inflammatoire** : réduit la sécrétion de cytokines pro-inflammatoires (IL-6, IL-8, TNF-α) d''environ 30 % selon études ex-vivo 2024.
+4. **Stimulation de la synthèse dermique** : augmente la production de pro-collagène III et d''acide hyaluronique, favorisant élasticité et hydratation profonde.
+5. **Effet antioxydant et cicatrisant** : neutralise les radicaux libres et accélère la réparation cutanée.
+
+## Bienfaits ✨
+- **Hydratation et protection longue durée** : maintient l''hydratation sans film gras, idéale pour peaux déshydratées ou atopiques.
+- **Régulation du sébum et anti-imperfections** : équilibre les peaux grasses/acnéiques, dissout les excès de sébum sans obstruer les pores.
+- **Apaisement des irritations** : réduit rougeurs, démangeaisons et inflammation (eczéma, rosacée, psoriasis) grâce à ses propriétés calmantes prouvées.
+- **Anti-âge naturel** : stimule collagène et élastine, améliore fermeté et élasticité (études ex-vivo 2024 sur synthèse pro-collagène III).
+- **Soin capillaire équilibrant** : nourrit cuir chevelu, réduit pellicules sèches, apporte brillance sans alourdir.
+
+## Utilisation 🧴
+- **Cible** : Tous types de peaux, particulièrement mixtes, grasses, sensibles, réactives, atopiques ou irritées ; convient aux bébés et peaux fragiles.
+- **Moment** : Matin et/ou soir – pure ou en mélange, quelques gouttes en massage sur visage, corps ou cuir chevelu.
+- **Type de soin** : Huiles sèches, baumes réparateurs, crèmes apaisantes, nettoyants lipidiques (ex. XeraCalm A.D. d''Avène), sérums équilibrants ; ingrédient clé dans les gammes pour peaux atopiques et sensibles d''Avène, A-Derma et Pierre Fabre.
+
+## Note technique 📌
+Actif 100 % naturel, souvent issu de cultures durables et biologiques, avec une stabilité oxydative exceptionnelle (résiste au rancissement). Tolérance cutanée et oculaire excellente, non comédogène, sans effet photosensibilisant. Études récentes (Frontiers in Pharmacology 2024) confirment son rôle dans la réduction de l''inflammation, la stimulation de pro-collagène III et acide hyaluronique, ainsi que son efficacité sur cicatrisation et anti-âge. Innovation : intégration dans des formules lipid-replenishing pour peaux atopiques chez Pierre Fabre.
+', 'emollient', '2026-04-30 23:13:40.719796+00', '2026-10-28 15:57:26.197669+00', 'skincare', 'visible', NULL, NULL, NULL, 'verified', NULL, NULL, 'Simmondsia Chinensis Seed Oil');
+INSERT INTO public.ingredients VALUES ('019de0ab-622d-7d0b-b143-e17e127002e8', '019de09c-3403-7f67-8b49-560aecb2d9c9', 'Acide hyaluronique hydrolysé', 'hydrolyzed-hyaluronic-acid', 'Forme fragmentée d''acide hyaluronique à très bas poids moléculaire pour une pénétration plus profonde dans l''épiderme.', '# Acide Hyaluronique Hydrolysé (Hydrolyzed Hyaluronic Acid)
+L''acide hyaluronique hydrolysé est obtenu par hydrolyse (fragmentation) de molécules d''HA de haut poids moléculaire. Cette réduction de taille lui permet de franchir plus efficacement la barrière cutanée pour hydrater les couches plus profondes.
+
+## INCI
+**HYDROLYZED HYALURONIC ACID**
+
+## Points forts
+- **Pénétration accrue** : Atteint des couches que l''HA classique ne peut toucher.
+- **Réparation tissulaire** : Stimule les mécanismes de régénération endogènes.
+- **Effet repulpant durable** : Hydrate la structure interne de l''épiderme.', 'humectant', '2026-04-30 23:13:40.719796+00', '2026-10-28 15:57:26.197669+00', 'skincare', 'visible', NULL, NULL, NULL, 'verified', NULL, NULL, 'Hydrolyzed Hyaluronic Acid');
+INSERT INTO public.ingredients VALUES ('019de0ab-622e-7a16-8e66-77ac561959d6', '019de09c-3403-7f67-8b49-560aecb2d9c9', 'Acide oléique', 'oleic-acid', 'L’acide gras le plus abondant de notre film hydrolipidique, essentiel pour la souplesse de la peau et l’absorption des actifs.', '
+# Acide Oléique : Le Pilier de la Douceur
+
+L''**Acide Oléique** est un acide gras mono-insaturé présent dans de nombreuses huiles végétales (olive, avocat, karité). C''est un composant majeur du sébum humain, jouant un rôle crucial dans le maintien de la souplesse et de l''imperméabilité de la peau.
+
+---
+
+## ✨ Points Forts & Bénéfices
+* **Nutrition Intense** : Idéal pour les peaux sèches et délipidées qui ont perdu leur confort.
+* **Promoteur d''Absorption** : Modifie légèrement la structure de la couche cornée pour aider les autres actifs à pénétrer plus profondément.
+* **Protection Barrière** : Renforce le film protecteur naturel contre les agressions extérieures.
+
+---
+
+## ⚖️ Transparence Scientifique & Limites
+* **Attention aux peaux grasses** : Un excès d''acide oléique peut favoriser les imperfections (acné) chez les personnes ayant déjà un sébum riche. Pour ces peaux, l''Acide Linoléique est préférable.
+* **Action Passive** : C''est un ingrédient de confort et de structure, pas un actif de traitement spécifique.
+
+---
+
+## 🛡️ Précautions & Sécurité
+* **Comédogénicité** : Potentiellement comédogène à l''état pur. Très bien toléré en émulsion.
+', 'emollient', '2026-04-30 23:13:40.719796+00', '2026-10-28 15:57:26.197669+00', 'skincare', 'visible', NULL, NULL, NULL, 'verified', NULL, NULL, 'Oleic Acid');
+INSERT INTO public.ingredients VALUES ('019de0ab-6242-78ae-99ce-33deed9c274c', '019de09c-3403-7f67-8b49-560aecb2d9c9', 'Extrait de racine de réglisse', 'reglisse', 'Extrait botanique dont la composition varie avec la matière première et l’extraction. Il ne correspond pas à une quantité connue de glabridine purifiée.', '# Glycyrrhiza Glabra Root Extract
+
+## Identité botanique
+
+Cette fiche concerne un **extrait de racine de Glycyrrhiza glabra**. Un extrait botanique est un mélange : sa composition dépend notamment de l’espèce, de l’organe, du solvant et de la standardisation. Les extraits de G. uralensis ou G. inflata, l’acide glycyrrhétinique, les glycyrrhizates et la glabridine purifiée sont des entités différentes.
+
+## Pigmentation : ce que l’on sait
+
+La glabridine purifiée réduit la mélanogenèse et l’activité tyrosinase dans des modèles cellulaires. Ces résultats ne constituent pas un essai direct sur tyrosinase humaine purifiée et ne peuvent pas être attribués automatiquement à tout extrait de réglisse.
+
+Plusieurs constituants peuvent participer aux activités mesurées d’un extrait. Sans standardisation quantitative, le nom INCI ne révèle pas la dose de glabridine ni la contribution de chaque composé.
+
+## Lecture d’une formule
+
+La présence de Glycyrrhiza Glabra Root Extract indique un extrait de réglisse, pas une concentration connue d’un actif isolé. L’effet d’un produit doit être évalué à partir de sa matière première, de sa formule et de ses propres données.
+
+## Sources
+
+- [Yokota et al., 1998 — glabridine purifiée](https://doi.org/10.1111/j.1600-0749.1998.tb00494.x)
+- [Fu et al., 2005 — constituants de la réglisse](https://doi.org/10.1021/jf051258h)
+', 'actif', '2026-04-30 23:13:40.719796+00', '2026-10-28 15:57:26.197669+00', 'skincare', 'visible', NULL, NULL, NULL, 'verified', NULL, NULL, 'Glycyrrhiza Glabra Root Extract');
 INSERT INTO public.ingredients VALUES ('019de0ab-6258-7ded-8046-08c12ec3514e', '019de09c-3403-7f67-8b49-560aecb2d9c9', 'Polyquaternium-37', 'polyquaternium-37', 'Polymère acrylate cationique crosslinké, conditionneur et épaississant polyvalent, apporte texture gel et douceur dans les soins capillaires sans rinçage.', '
 # Polyquaternium-37 (PQ-37)
 
@@ -16064,8 +16192,7 @@ Le **Vetiveria Zizanoides** est une racine profonde dont l''huile essentielle es
 * **Allergies** : Risque faible, mais présent chez les personnes sensibles aux huiles essentielles.
 * **Grossesse** : Par mesure de prudence, à éviter durant le premier trimestre de grossesse.
 ', 'actif', '2026-04-30 23:13:40.719796+00', '2026-08-12 22:26:44.575+00', 'skincare', 'visible', NULL, NULL, NULL, 'verified', NULL, NULL, NULL);
-INSERT INTO public.ingredients VALUES ('019fe7a1-b1ed-740b-936b-b1c63dd1fb2c', '019de09c-3403-7f67-8b49-560aecb2d9c9', 'Polyisobutène (Polyisobutene)', 'polyisobutene', 'Polymère hydrocarboné synthétique, filmogène et épaississant, laisse un toucher gras caractéristique. Stabilise la texture des formules, pas d''action revendiquée sur la peau.', '', 'excipient', '2026-08-09 17:46:01.576226+00', '2026-08-12 22:26:44.628+00', 'skincare', 'visible', NULL, NULL, NULL, 'verified', NULL, NULL, 'Polyisobutene');
-INSERT INTO public.ingredients VALUES ('019de0ab-622e-7d43-a3d9-84d664f2b509', '019de09c-3403-7f67-8b49-560aecb2d9c9', 'Acide Linoléique (Oméga-6)', 'linoleic-acid', 'Un acide gras essentiel que le corps ne sait pas produire, crucial pour la fluidité du sébum et la santé de la barrière protectrice.', '
+INSERT INTO public.ingredients VALUES ('019de0ab-622e-7d43-a3d9-84d664f2b509', '019de09c-3403-7f67-8b49-560aecb2d9c9', 'Acide linoléique', 'linoleic-acid', 'Un acide gras essentiel que le corps ne sait pas produire, crucial pour la fluidité du sébum et la santé de la barrière protectrice.', '
 # Acide Linoléique : L''Équilibre Essentiel
 
 L’**acide linoléique** est un acide gras essentiel oméga‑6 présent dans les lipides épidermiques et dans de nombreuses huiles végétales, notamment de tournesol, d’onagre et de carthame. Des altérations de la composition lipidique du sébum et de la barrière sont observées dans plusieurs états cutanés, mais elles ne démontrent pas qu’une application isolée prévient les comédons ou traite une inflammation.
@@ -16375,7 +16502,8 @@ D’autres points de débat :
 
 [^10]: https://fr.wikipedia.org/wiki/Acide_gras_essentiel
 
-', 'emollient', '2026-04-30 23:13:40.719796+00', '2026-08-12 22:26:44.728+00', 'skincare', 'visible', NULL, NULL, NULL, 'verified', NULL, NULL, 'Linoleic Acid');
+', 'emollient', '2026-04-30 23:13:40.719796+00', '2026-10-28 15:57:26.197669+00', 'skincare', 'visible', NULL, NULL, NULL, 'verified', NULL, NULL, 'Linoleic Acid');
+INSERT INTO public.ingredients VALUES ('019fe7a1-b1ed-740b-936b-b1c63dd1fb2c', '019de09c-3403-7f67-8b49-560aecb2d9c9', 'Polyisobutène (Polyisobutene)', 'polyisobutene', 'Polymère hydrocarboné synthétique, filmogène et épaississant, laisse un toucher gras caractéristique. Stabilise la texture des formules, pas d''action revendiquée sur la peau.', '', 'excipient', '2026-08-09 17:46:01.576226+00', '2026-08-12 22:26:44.628+00', 'skincare', 'visible', NULL, NULL, NULL, 'verified', NULL, NULL, 'Polyisobutene');
 INSERT INTO public.ingredients VALUES ('019de0ab-6245-7300-8075-6eaeced68628', '019de09c-3403-7f67-8b49-560aecb2d9c9', 'Pea Extract (Pisum Sativum Extract)', 'pea-extract', 'Extrait de pois riche en antioxydants et protéines, utilisé pour renforcer l''élasticité, apaiser et protéger la peau sensible.', '
 # Pea Extract (Pisum Sativum Extract)
 L''extrait de pois (Pisum sativum) est une source végétale d''antioxydants et de peptides qui soutient la résilience cutanée et combat les signes de sensibilité.
@@ -19620,6 +19748,64 @@ Isoparaffine synthétique en C16. Très léger, non occlusif à faible concentra
 
 ## Tolérance
 Excellente. Inerte, non comédogène.', 'excipient', '2026-04-30 23:13:40.719796+00', '2026-08-12 22:26:44.921+00', 'skincare', 'visible', NULL, NULL, NULL, 'verified', NULL, NULL, 'Isohexadecane');
+INSERT INTO public.ingredients VALUES ('019de0ab-6233-7aa2-9658-59fc7df2ef31', '019de09c-3403-7f67-8b49-560aecb2d9c9', 'Gluconolactone', 'pha', 'PHA (polyhydroxy acid) dérivé de l''acide gluconique, naturellement présent dans les fruits, le miel et le vin. Exfoliant chimique de nouvelle génération — plus doux que les AHAs grâce à sa grande molécule, avec en bonus des propriétés humectantes, antioxydantes et chélatantes.', '## Mécanisme d''action
+  Le gluconolactone est un **lactone cyclique** qui, au contact de l''humidité cutanée, s''hydrolyse en **acide gluconique** — la forme active responsable de l''exfoliation.
+  Comme les AHAs, il rompt les liaisons entre les cornéocytes du stratum corneum, facilitant l''élimination des cellules mortes. Sa grande taille moléculaire ralentit la pénétration dans l''épiderme, ce qui explique son profil de tolérance nettement supérieur à la glycolique ou à la lactique.
+  Ses **groupes hydroxyles multiples (-OH)** lui confèrent également une action humectante : ils attirent et retiennent les molécules d''eau dans l''épiderme.
+  ## Sa place dans la famille des hydroxy acids
+  | Acide | Type | Taille molécule | Pénétration | Tolérance |
+  |---|---|---|---|---|
+  | Acide glycolique | AHA | Très petite | Profonde | Irritant |
+  | Acide lactique | AHA | Petite | Moyenne | Moyen |
+  | Acide salicylique | BHA | Moyenne | Liposoluble (pores) | Moyen |
+  | **Gluconolactone** | **PHA** | **Grande** | **Superficielle** | **Excellente** |
+  | Acide lactobionique | PHA | Grande | Superficielle | Excellente |
+  Les PHAs sont souvent présentés comme les AHAs de "nouvelle génération" — même bénéfice exfoliant, sans le pic d''irritation.
+  ## Bienfaits
+  - **Exfoliation douce** : élimination des cellules mortes, affinement de la texture, éclat du teint
+  - **Humectant** : rétention d''eau dans l''épiderme, hydratation simultanée à l''exfoliation
+  - **Renforcement de la barrière cutanée** : réduit la TEWL, améliore la cohésion du stratum corneum
+  - **Antioxydant** : neutralise les radicaux libres — effet comparable à la vitamine C (qui reste plus puissante globalement)
+  - **Chélateur** : lie les ions métalliques (fer, cuivre) qui pourraient dégrader d''autres actifs dans la formule
+  - **Photoprotection indirecte** : contrairement aux AHAs, **ne photosensibilise pas la peau** — voire atténue les dommages UV préexistants
+  - **Anti-acné** : une étude historique (1992) montre une efficacité comparable au peroxyde de benzoyle à 5%
+  ## Pour qui ?
+  Le gluconolactone est l''exfoliant le plus universel :
+  - **Peau sensible / réactive** : le choix de référence quand les AHAs sont trop agressifs
+  - **Rosacée, dermatite atopique** : toléré là où la glycolique est contre-indiquée
+  - **Peau sèche / déshydratée** : exfolie sans assécher (double effet exfoliant + humectant)
+  - **Débutants en actifs** : introduction idéale aux acides
+  - **Post-traitement** (peeling, laser, IPL) : recommandé pour prolonger les bénéfices sans irriter
+  - **Peau mature** : améliore texture, fermeté et éclat progressivement
+  ## Concentrations courantes
+  - **3 – 8 %** : toners, essences, usage quotidien
+  - **10 – 14 %** : sérums exfoliants
+  - **20 – 30 %** : traitements intensifs (Chemist Confessions Baby Steps)
+  Pas de maximum réglementaire strict en UE pour les PHAs (contrairement aux AHAs limités à 10% avec pH ≥ 3,5 en leave-on grand public).
+  ## Layering (routine soir — application type)
+  1. Nettoyage
+  2. **Gluconolactone** (toner ou sérum, sur peau propre)
+  3. Sérum ciblé (hyaluronique, niacinamide…)
+  4. Crème hydratante
+  5. SPF le matin (bien qu''il ne photosensibilise pas, reste une bonne pratique)
+  > Peut aussi s''utiliser le matin — avantage rare parmi les exfoliants.
+  ## Compatibilités
+  - ✅ Niacinamide : complémentaire, aucune interaction
+  - ✅ Acide hyaluronique : synergie hydratante
+  - ✅ Rétinol : compatible (PHAs + rétinoïdes = combo anti-âge validé en études)
+  - ✅ Vitamine C : un sérum combinant gluconolactone + vitamine C montre des résultats significatifs sur le photo-vieillissement
+  - ✅ Azelaic acid : renforce l''efficacité sur rosacée et hyperpigmentation
+  - ✅ Hydroquinone : potentialise l''action dépigmentante
+  - ⚠️ AHA + BHA en même application : surveiller la tolérance (sur-exfoliation possible si hautes concentrations)
+  ## Précautions
+  - Actif exfoliant malgré tout — patch test recommandé sur peau très réactive
+  - Éviter contour des yeux avec les formules concentrées
+  - Comme tous les exfoliants : ne pas cumuler mécaniquement (gommage) le même jour
+  ## Produits de référence
+  - **Neostrata Restore Bionic Lotion** : formule historique PHA, référence clinique
+  - **ANUA Clear Pad** : pads exfoliants gluconolactone + BHA
+  - **Be Minimalist PHA 3% + Biotic Toner** : toner quotidien accessible
+  - **Chemist Confessions Baby Steps** : traitement 30% gluconolactone', 'actif', '2026-04-30 23:13:40.719796+00', '2026-10-28 15:57:26.197669+00', 'skincare', 'visible', NULL, NULL, NULL, 'verified', NULL, NULL, 'Gluconolactone');
 INSERT INTO public.ingredients VALUES ('019de0ab-6232-7b1a-a9aa-d8a4cd2fd165', '019de09c-3403-7f67-8b49-560aecb2d9c9', 'Huile de Coton (Gossypium Herbaceum Seed Oil)', 'huile-coton', 'Une huile végétale douce et riche en acides gras essentiels, particulièrement appréciée pour son action relipidante et adoucissante sur les peaux fragiles.', '
 # Huile de Coton : La Douceur Relipidante
 L''**Huile de Coton** est extraite des graines de la plante de coton (*Gossypium herbaceum*). En dermo-cosmétique, elle est reconnue pour sa richesse en acide linoléique (Oméga-6) et en vitamine E, ce qui en fait un excellent agent restructurant pour la barrière cutanée.
@@ -19901,64 +20087,6 @@ Pour l''anti-âge, l''étude Bagatin (2018) a levé un doute important en démon
 
 Le profil de tolérance et la possibilité unique de co-formulation stable avec le peroxyde de benzoyle (Epiduo) rendent l''adapalène particulièrement adapté comme premier rétinoïde pour les patients débutants, les peaux sensibles et les phototypes foncés — des populations pour lesquelles l''irritation de la trétinoïne constitue un frein majeur à l''observance thérapeutique.
 ', 'actif', '2026-04-30 23:13:40.719796+00', '2026-08-12 22:26:44.575+00', 'skincare', 'visible', NULL, NULL, NULL, 'verified', NULL, NULL, NULL);
-INSERT INTO public.ingredients VALUES ('019de0ab-6233-7aa2-9658-59fc7df2ef31', '019de09c-3403-7f67-8b49-560aecb2d9c9', 'Gluconolactone (PHA)', 'pha', 'PHA (polyhydroxy acid) dérivé de l''acide gluconique, naturellement présent dans les fruits, le miel et le vin. Exfoliant chimique de nouvelle génération — plus doux que les AHAs grâce à sa grande molécule, avec en bonus des propriétés humectantes, antioxydantes et chélatantes.', '## Mécanisme d''action
-  Le gluconolactone est un **lactone cyclique** qui, au contact de l''humidité cutanée, s''hydrolyse en **acide gluconique** — la forme active responsable de l''exfoliation.
-  Comme les AHAs, il rompt les liaisons entre les cornéocytes du stratum corneum, facilitant l''élimination des cellules mortes. Sa grande taille moléculaire ralentit la pénétration dans l''épiderme, ce qui explique son profil de tolérance nettement supérieur à la glycolique ou à la lactique.
-  Ses **groupes hydroxyles multiples (-OH)** lui confèrent également une action humectante : ils attirent et retiennent les molécules d''eau dans l''épiderme.
-  ## Sa place dans la famille des hydroxy acids
-  | Acide | Type | Taille molécule | Pénétration | Tolérance |
-  |---|---|---|---|---|
-  | Acide glycolique | AHA | Très petite | Profonde | Irritant |
-  | Acide lactique | AHA | Petite | Moyenne | Moyen |
-  | Acide salicylique | BHA | Moyenne | Liposoluble (pores) | Moyen |
-  | **Gluconolactone** | **PHA** | **Grande** | **Superficielle** | **Excellente** |
-  | Acide lactobionique | PHA | Grande | Superficielle | Excellente |
-  Les PHAs sont souvent présentés comme les AHAs de "nouvelle génération" — même bénéfice exfoliant, sans le pic d''irritation.
-  ## Bienfaits
-  - **Exfoliation douce** : élimination des cellules mortes, affinement de la texture, éclat du teint
-  - **Humectant** : rétention d''eau dans l''épiderme, hydratation simultanée à l''exfoliation
-  - **Renforcement de la barrière cutanée** : réduit la TEWL, améliore la cohésion du stratum corneum
-  - **Antioxydant** : neutralise les radicaux libres — effet comparable à la vitamine C (qui reste plus puissante globalement)
-  - **Chélateur** : lie les ions métalliques (fer, cuivre) qui pourraient dégrader d''autres actifs dans la formule
-  - **Photoprotection indirecte** : contrairement aux AHAs, **ne photosensibilise pas la peau** — voire atténue les dommages UV préexistants
-  - **Anti-acné** : une étude historique (1992) montre une efficacité comparable au peroxyde de benzoyle à 5%
-  ## Pour qui ?
-  Le gluconolactone est l''exfoliant le plus universel :
-  - **Peau sensible / réactive** : le choix de référence quand les AHAs sont trop agressifs
-  - **Rosacée, dermatite atopique** : toléré là où la glycolique est contre-indiquée
-  - **Peau sèche / déshydratée** : exfolie sans assécher (double effet exfoliant + humectant)
-  - **Débutants en actifs** : introduction idéale aux acides
-  - **Post-traitement** (peeling, laser, IPL) : recommandé pour prolonger les bénéfices sans irriter
-  - **Peau mature** : améliore texture, fermeté et éclat progressivement
-  ## Concentrations courantes
-  - **3 – 8 %** : toners, essences, usage quotidien
-  - **10 – 14 %** : sérums exfoliants
-  - **20 – 30 %** : traitements intensifs (Chemist Confessions Baby Steps)
-  Pas de maximum réglementaire strict en UE pour les PHAs (contrairement aux AHAs limités à 10% avec pH ≥ 3,5 en leave-on grand public).
-  ## Layering (routine soir — application type)
-  1. Nettoyage
-  2. **Gluconolactone** (toner ou sérum, sur peau propre)
-  3. Sérum ciblé (hyaluronique, niacinamide…)
-  4. Crème hydratante
-  5. SPF le matin (bien qu''il ne photosensibilise pas, reste une bonne pratique)
-  > Peut aussi s''utiliser le matin — avantage rare parmi les exfoliants.
-  ## Compatibilités
-  - ✅ Niacinamide : complémentaire, aucune interaction
-  - ✅ Acide hyaluronique : synergie hydratante
-  - ✅ Rétinol : compatible (PHAs + rétinoïdes = combo anti-âge validé en études)
-  - ✅ Vitamine C : un sérum combinant gluconolactone + vitamine C montre des résultats significatifs sur le photo-vieillissement
-  - ✅ Azelaic acid : renforce l''efficacité sur rosacée et hyperpigmentation
-  - ✅ Hydroquinone : potentialise l''action dépigmentante
-  - ⚠️ AHA + BHA en même application : surveiller la tolérance (sur-exfoliation possible si hautes concentrations)
-  ## Précautions
-  - Actif exfoliant malgré tout — patch test recommandé sur peau très réactive
-  - Éviter contour des yeux avec les formules concentrées
-  - Comme tous les exfoliants : ne pas cumuler mécaniquement (gommage) le même jour
-  ## Produits de référence
-  - **Neostrata Restore Bionic Lotion** : formule historique PHA, référence clinique
-  - **ANUA Clear Pad** : pads exfoliants gluconolactone + BHA
-  - **Be Minimalist PHA 3% + Biotic Toner** : toner quotidien accessible
-  - **Chemist Confessions Baby Steps** : traitement 30% gluconolactone', 'actif', '2026-04-30 23:13:40.719796+00', '2026-08-12 22:26:44.643+00', 'skincare', 'visible', NULL, NULL, NULL, 'verified', NULL, NULL, 'Gluconolactone');
 INSERT INTO public.ingredients VALUES ('019de0ab-6257-7e4f-a441-393825251192', '019de09c-3403-7f67-8b49-560aecb2d9c9', 'Behentrimonium Methosulfate', 'behentrimonium-methosulfate', 'Tensioactif cationique C22 à contre-ion méthosulfate, conditionneur doux avec moindre risque d''accumulation que le chlorure, très utilisé dans les conditionneurs naturels et CG-friendly.', '
 # Behentrimonium Methosulfate (BTMS)
 
@@ -23669,16 +23797,6 @@ INSERT INTO public.ingredients VALUES ('019e077b-683b-7b14-8047-e0c4cacde486', '
 *Fiche à compléter.*', 'humectant', '2026-05-08 12:06:28.666073+00', '2026-08-12 22:26:44.656+00', 'skincare', 'visible', NULL, NULL, NULL, 'verified', NULL, NULL, 'Acetamidoethoxyethanol');
 INSERT INTO public.ingredients VALUES ('019fab9c-e113-79a7-88dd-5c424bf65226', '019de09c-3403-7f67-8b49-560aecb2d9c9', 'Alcool anisique (Anise Alcohol)', 'anise-alcohol', 'L''alcool anisique tire son nom de l''anis, dont il rappelle la facette douce et légèrement florale ; aujourd''hui surtout obtenu par synthèse, il n''a d''autre rôle dans une formule que de parfumer. Il appartient au groupe des vingt-six substances parfumantes que l''annexe III du règlement européen 1223/2009 avait rendues déclarables, groupe depuis élargi par le règlement 2023/1545 : son nom doit figurer dans la liste INCI dès 0,001 % en produit sans rinçage et 0,01 % en produit à rincer. Ce groupe rassemble les allergènes de parfum reconnus à l''échelle européenne ; pour l''alcool anisique, les observations cliniques publiées restent peu nombreuses.', '', 'excipient', '2026-07-29 02:03:33.005626+00', '2026-08-12 22:26:44.657+00', 'skincare', 'visible', NULL, NULL, NULL, 'verified', NULL, NULL, 'Anise Alcohol');
 INSERT INTO public.ingredients VALUES ('019fa3b2-dc17-7ae2-a9e8-cbeb53abf191', '019de09c-3403-7f67-8b49-560aecb2d9c9', 'Huile de marula', 'sclerocarya-birrea-seed-oil', 'Huile de noyau de marula, un arbre d''Afrique australe. Très riche en acide oléique (69 à 73 %), un profil proche du sébum humain. Une étude clinique sur 20 personnes la décrit non irritante, hydratante et occlusive.', '', 'emollient', '2026-07-27 13:10:35.797223+00', '2026-08-12 22:26:44.657+00', 'skincare', 'visible', NULL, NULL, NULL, 'verified', NULL, NULL, 'SCLEROCARYA BIRREA SEED OIL');
-INSERT INTO public.ingredients VALUES ('019de0ab-622d-7d0b-b143-e17e127002e8', '019de09c-3403-7f67-8b49-560aecb2d9c9', 'Acide Hyaluronique Hydrolysé', 'hydrolyzed-hyaluronic-acid', 'Forme fragmentée d''acide hyaluronique à très bas poids moléculaire pour une pénétration plus profonde dans l''épiderme.', '# Acide Hyaluronique Hydrolysé (Hydrolyzed Hyaluronic Acid)
-L''acide hyaluronique hydrolysé est obtenu par hydrolyse (fragmentation) de molécules d''HA de haut poids moléculaire. Cette réduction de taille lui permet de franchir plus efficacement la barrière cutanée pour hydrater les couches plus profondes.
-
-## INCI
-**HYDROLYZED HYALURONIC ACID**
-
-## Points forts
-- **Pénétration accrue** : Atteint des couches que l''HA classique ne peut toucher.
-- **Réparation tissulaire** : Stimule les mécanismes de régénération endogènes.
-- **Effet repulpant durable** : Hydrate la structure interne de l''épiderme.', 'humectant', '2026-04-30 23:13:40.719796+00', '2026-08-12 22:26:44.658+00', 'skincare', 'visible', NULL, NULL, NULL, 'verified', NULL, NULL, 'Hydrolyzed Hyaluronic Acid');
 INSERT INTO public.ingredients VALUES ('019faf97-7a48-7031-91a1-cd1ab4c0d556', '019de09c-3403-7f67-8b49-560aecb2d9c9', 'Extrait de malachite (Malachite Extract)', 'malachite-extract', 'Extrait minéral désigné par l''entrée CosIng Malachite Extract. CosIng lui attribue une fonction antioxydante en formulation ; faute de donnée dermale graduée dans le record source, aucun axe cutané n''est déduit.', '', 'excipient', '2026-07-29 20:36:07.871252+00', '2026-08-12 22:26:44.658+00', 'skincare', 'visible', NULL, NULL, NULL, 'verified', NULL, NULL, 'Malachite Extract');
 INSERT INTO public.ingredients VALUES ('019faf97-7a47-7c3d-8fce-82fa1b02b62e', '019de09c-3403-7f67-8b49-560aecb2d9c9', 'Gomme de caroube (Ceratonia Siliqua Gum)', 'ceratonia-siliqua-gum', 'Gomme polysaccharidique tirée des graines du caroubier. CosIng la répertorie notamment comme liant, stabilisant d''émulsion, filmogène et agent de contrôle de la viscosité ; la fiche décrit ces rôles de formulation sans axe dermal.', '', 'excipient', '2026-07-29 20:36:07.871252+00', '2026-08-12 22:26:44.659+00', 'skincare', 'visible', NULL, NULL, NULL, 'verified', NULL, NULL, 'Ceratonia Siliqua Gum');
 INSERT INTO public.ingredients VALUES ('019de0ab-622f-7d05-9e9d-e6c5d2aa3c71', '019de09c-3403-7f67-8b49-560aecb2d9c9', 'Huile de coco (Coconut Oil)', 'huile-coco', 'Huile végétale occlusive riche en acides gras saturés (laurique principalement), aux propriétés hydratantes et antimicrobiennes — mais controversée en raison de son potentiel comédogène élevé.', '
@@ -23832,7 +23950,25 @@ Pratiquement absence d''acides gras polyinsaturés → résistance au rancisseme
 - Masques et après-shampooings : 2–8%
 - Leave-ins et sérums : 1–5%
 ', 'conditionneur', '2026-04-30 23:13:40.719796+00', '2026-08-12 22:26:44.669+00', 'haircare', 'visible', NULL, NULL, NULL, 'verified', NULL, NULL, 'Simmondsia Chinensis Seed Oil');
-INSERT INTO public.ingredients VALUES ('019de0ab-623b-7579-87ac-f756ec710f85', '019de09c-3403-7f67-8b49-560aecb2d9c9', 'Curcuma Longa Root Extract (Curcuma)', 'curcuma-longa-root-extract', 'Antioxydant et anti-inflammatoire naturel, employé pour l''éclat du teint et la protection contre le stress oxydatif.', '
+INSERT INTO public.ingredients VALUES ('019fa421-f19d-70df-83e5-3087c07c5de7', '019de09c-3403-7f67-8b49-560aecb2d9c9', 'Polysilicone-15 (Parsol SLX)', 'polysilicone-15', 'Filtre UV polymère : une chaîne silicone greffée de groupements benzylidène malonate qui absorbent les UVB. Sa masse moléculaire le garde en surface plutôt qu''en pénétration. Le même polymère sert en soin capillaire, où il protège la fibre et la couleur.', '', 'filtre-uv', '2026-07-27 15:11:55.802405+00', '2026-08-12 22:26:44.671+00', 'skincare', 'visible', NULL, NULL, NULL, 'verified', NULL, NULL, 'Polysilicone-15');
+INSERT INTO public.ingredients VALUES ('019e077b-683b-77fc-812e-7074e4079859', '019de09c-3403-7f67-8b49-560aecb2d9c9', 'Swertia Chirata Extract (Swertiamarine)', 'swertia-chirata', 'Extrait de gentiane himalayenne riche en swertiamarine, apaisant amer aux propriétés anti-inflammatoires.', '# Swertia Chirata Extract (Swertiamarine)
+
+*Fiche à compléter.*', 'actif', '2026-05-08 12:06:28.666073+00', '2026-08-12 22:26:44.671+00', 'skincare', 'visible', NULL, NULL, NULL, 'verified', NULL, NULL, 'Swertia Chirata Extract');
+INSERT INTO public.ingredients VALUES ('019fcf9a-ab0b-7bd3-bbc3-0d66ee0a1b02', '019de09c-3403-7f67-8b49-560aecb2d9c9', 'Ascorbate de sodium (Sodium Ascorbate)', 'sodium-ascorbate', 'Sel sodique de vitamine C, distinct de l''acide ascorbique libre.', '# Ascorbate de sodium
+
+## INCI
+
+**SODIUM ASCORBATE**
+
+## Identité
+
+Sodium Ascorbate est le sel sodique de l''acide ascorbique. Il ne doit pas être assimilé à l''acide ascorbique libre : le sel et l''acide n''imposent pas le même environnement de pH dans une formule.
+
+## Dans une formule
+
+Cette forme peut être choisie pour apporter de la vitamine C sous forme de sel. Elle reste sensible au contexte de la formule, notamment au pH, à l''eau, à l''oxygène et au conditionnement ; l''INCI ne permet pas d''évaluer cette stabilité dans un produit donné.', 'actif', '2026-08-05 01:47:27.867544+00', '2026-08-12 22:26:44.671+00', 'skincare', 'visible', NULL, NULL, NULL, 'unverified', NULL, NULL, 'Sodium Ascorbate');
+INSERT INTO public.ingredients VALUES ('019fa39d-f222-70d8-9752-7b02e32b9d23', '019de09c-3403-7f67-8b49-560aecb2d9c9', 'Oléate de glycéryle', 'glyceryl-oleate', 'Monoester de glycérol et d''acide oléique, à la fois émulsifiant et émollient. La fraction oléate nourrit Malassezia, la levure impliquée dans la folliculite fongique, et le signal comédogène est modéré.', '', 'emollient', '2026-07-27 12:47:45.184283+00', '2026-08-12 22:26:44.672+00', 'skincare', 'visible', NULL, NULL, NULL, 'verified', NULL, NULL, 'Glyceryl Oleate');
+INSERT INTO public.ingredients VALUES ('019de0ab-623b-7579-87ac-f756ec710f85', '019de09c-3403-7f67-8b49-560aecb2d9c9', 'Extrait de racine de curcuma', 'curcuma-longa-root-extract', 'Antioxydant et anti-inflammatoire naturel, employé pour l''éclat du teint et la protection contre le stress oxydatif.', '
 # Curcuma (Curcuma Longa Root Extract)
 
 L''extrait de racine de Curcuma est un actif ancestral de la pharmacopée ayurvédique, aujourd''hui sublimé par la dermo-cosmétique moderne (notamment chez Clarins ou Pierre Fabre). Riche en curcuminoïdes, cet extrait est obtenu par extraction supercritique ou solvants verts pour garantir une concentration maximale en molécules actives. Il est reconnu pour sa double action : un bouclier protecteur contre les radicaux libres et un régulateur des mécanismes inflammatoires cutanés.
@@ -23865,25 +24001,7 @@ L''extrait de racine de Curcuma est un actif ancestral de la pharmacopée ayurv�
 
 ## Note technique
 L''extrait de Curcuma utilisé en dermo-cosmétique est souvent standardisé pour éviter toute coloration jaune résiduelle sur la peau. Les recherches récentes mettent en avant son rôle dans la protection du système de défense propre à la cellule (Nrf2), ce qui en fait un actif de choix pour les soins "longévité" et les peaux exposées au stress urbain.
-', 'actif', '2026-04-30 23:13:40.719796+00', '2026-08-12 22:26:44.67+00', 'skincare', 'visible', NULL, NULL, NULL, 'verified', NULL, NULL, 'Curcuma Longa Root Extract');
-INSERT INTO public.ingredients VALUES ('019fa421-f19d-70df-83e5-3087c07c5de7', '019de09c-3403-7f67-8b49-560aecb2d9c9', 'Polysilicone-15 (Parsol SLX)', 'polysilicone-15', 'Filtre UV polymère : une chaîne silicone greffée de groupements benzylidène malonate qui absorbent les UVB. Sa masse moléculaire le garde en surface plutôt qu''en pénétration. Le même polymère sert en soin capillaire, où il protège la fibre et la couleur.', '', 'filtre-uv', '2026-07-27 15:11:55.802405+00', '2026-08-12 22:26:44.671+00', 'skincare', 'visible', NULL, NULL, NULL, 'verified', NULL, NULL, 'Polysilicone-15');
-INSERT INTO public.ingredients VALUES ('019e077b-683b-77fc-812e-7074e4079859', '019de09c-3403-7f67-8b49-560aecb2d9c9', 'Swertia Chirata Extract (Swertiamarine)', 'swertia-chirata', 'Extrait de gentiane himalayenne riche en swertiamarine, apaisant amer aux propriétés anti-inflammatoires.', '# Swertia Chirata Extract (Swertiamarine)
-
-*Fiche à compléter.*', 'actif', '2026-05-08 12:06:28.666073+00', '2026-08-12 22:26:44.671+00', 'skincare', 'visible', NULL, NULL, NULL, 'verified', NULL, NULL, 'Swertia Chirata Extract');
-INSERT INTO public.ingredients VALUES ('019fcf9a-ab0b-7bd3-bbc3-0d66ee0a1b02', '019de09c-3403-7f67-8b49-560aecb2d9c9', 'Ascorbate de sodium (Sodium Ascorbate)', 'sodium-ascorbate', 'Sel sodique de vitamine C, distinct de l''acide ascorbique libre.', '# Ascorbate de sodium
-
-## INCI
-
-**SODIUM ASCORBATE**
-
-## Identité
-
-Sodium Ascorbate est le sel sodique de l''acide ascorbique. Il ne doit pas être assimilé à l''acide ascorbique libre : le sel et l''acide n''imposent pas le même environnement de pH dans une formule.
-
-## Dans une formule
-
-Cette forme peut être choisie pour apporter de la vitamine C sous forme de sel. Elle reste sensible au contexte de la formule, notamment au pH, à l''eau, à l''oxygène et au conditionnement ; l''INCI ne permet pas d''évaluer cette stabilité dans un produit donné.', 'actif', '2026-08-05 01:47:27.867544+00', '2026-08-12 22:26:44.671+00', 'skincare', 'visible', NULL, NULL, NULL, 'unverified', NULL, NULL, 'Sodium Ascorbate');
-INSERT INTO public.ingredients VALUES ('019fa39d-f222-70d8-9752-7b02e32b9d23', '019de09c-3403-7f67-8b49-560aecb2d9c9', 'Oléate de glycéryle', 'glyceryl-oleate', 'Monoester de glycérol et d''acide oléique, à la fois émulsifiant et émollient. La fraction oléate nourrit Malassezia, la levure impliquée dans la folliculite fongique, et le signal comédogène est modéré.', '', 'emollient', '2026-07-27 12:47:45.184283+00', '2026-08-12 22:26:44.672+00', 'skincare', 'visible', NULL, NULL, NULL, 'verified', NULL, NULL, 'Glyceryl Oleate');
+', 'actif', '2026-04-30 23:13:40.719796+00', '2026-10-28 15:57:26.197669+00', 'skincare', 'visible', NULL, NULL, NULL, 'verified', NULL, NULL, 'Curcuma Longa Root Extract');
 INSERT INTO public.ingredients VALUES ('019faede-db85-7313-a697-6d2c6fb2149a', '019de09c-3403-7f67-8b49-560aecb2d9c9', 'Oligopeptide-1', 'oligopeptide-1', 'Petit peptide de synthèse : de la glycine oligomérisée avec de l''histidine et de la lysine (CAS 72957-37-0, CosIng 57786), de formule C16H28N6O6, soit environ 400 Da. Il appartient à la famille du GHK, le tripeptide glycine-histidine-lysine. Ce n''est pas le facteur de croissance épidermique recombinant que les documentations fournisseur rangent souvent sous ce numéro : cette identité-là est celle du sh-Oligopeptide-1, une protéine de 53 acides aminés et d''environ 6,2 kDa. Les études que renvoie une recherche sur ce nom portent en réalité sur l''autre molécule.', '', 'actif', '2026-07-29 17:14:28.60777+00', '2026-08-12 22:26:44.672+00', 'skincare', 'visible', NULL, NULL, NULL, 'verified', NULL, NULL, 'Oligopeptide-1');
 INSERT INTO public.ingredients VALUES ('019de0ab-624e-77d3-8025-aff0785403e2', '019de09c-3403-7f67-8b49-560aecb2d9c9', 'Citric Acid', 'citric-acid', 'Acide organique naturel utilisé en traces pour ajuster le pH des formules.', '# Citric Acid
 
@@ -23967,42 +24085,6 @@ Booster d''acide hyaluronique endogène, hydratant et éclat. Module l''expressi
 
 ## Tolérance
 Très bonne tolérance, non irritant.', 'humectant', '2026-04-30 23:13:40.719796+00', '2026-08-12 22:26:44.675+00', 'skincare', 'visible', NULL, NULL, NULL, 'verified', NULL, NULL, 'Disodium Acetyl Glucosamine Phosphate');
-INSERT INTO public.ingredients VALUES ('019de0ab-6230-7937-9277-9ee3d0870e77', '019de09c-3403-7f67-8b49-560aecb2d9c9', 'Huile de Jojoba (Simmondsia chinensis)', 'huile-jojoba', 'L''huile-cire mimétique du sébum humain, régulatrice, hydratante et apaisante, parfaite pour équilibrer, réparer et protéger tous les types de peaux, y compris sensibles et atopiques.', '
-# Huile de Jojoba (Simmondsia chinensis) 🌿
-Originaire des zones arides du sud-ouest des États-Unis et du nord-ouest du Mexique, l''huile de jojoba est en réalité une cire liquide extraite par pression à froid des graines de l''arbuste Simmondsia chinensis. Utilisée depuis des millénaires par les peuples autochtones pour ses vertus protectrices et régénérantes, elle est aujourd''hui un actif incontournable en dermo-cosmétique naturelle, plébiscité par des marques comme Avène (gammes XeraCalm A.D. et DermAbsolu) et A-Derma pour sa biocompatibilité exceptionnelle et sa tolérance sur peaux fragiles.
-
-## INCI
-**SIMMONDSIA CHINENSIS SEED OIL**
-(huile obtenue par première pression à froid des graines)
-
-## Composition chimique 🧪
-- **Esters de cire liquides (principalement acide 11-eicosénoïque ~70-80 %, acide érucique ~10-15 %, acide oléique ~5-15 %)** : structure très proche du sébum humain
-- **Alcool gras à longue chaîne et stérols (sitostérol)** : propriétés émollientes et protectrices
-- **Vitamine E (tocophérols) et antioxydants naturels** : protection contre l''oxydation
-- Huile vierge bio souvent certifiée, stable, non rancissante, sans allergènes majeurs, non comédogène
-
-## Mécanisme d’action ⚙️
-1. **Mimétisme du sébum** : sa composition proche du sébum cutané régule la production excessive ou insuffisante de sébum, rééquilibrant les peaux mixtes à grasses comme sèches.
-2. **Renforcement de la barrière lipidique** : intègre les lipides intercellulaires, limite la perte insensible en eau et protège contre les agressions externes.
-3. **Action anti-inflammatoire** : réduit la sécrétion de cytokines pro-inflammatoires (IL-6, IL-8, TNF-α) d''environ 30 % selon études ex-vivo 2024.
-4. **Stimulation de la synthèse dermique** : augmente la production de pro-collagène III et d''acide hyaluronique, favorisant élasticité et hydratation profonde.
-5. **Effet antioxydant et cicatrisant** : neutralise les radicaux libres et accélère la réparation cutanée.
-
-## Bienfaits ✨
-- **Hydratation et protection longue durée** : maintient l''hydratation sans film gras, idéale pour peaux déshydratées ou atopiques.
-- **Régulation du sébum et anti-imperfections** : équilibre les peaux grasses/acnéiques, dissout les excès de sébum sans obstruer les pores.
-- **Apaisement des irritations** : réduit rougeurs, démangeaisons et inflammation (eczéma, rosacée, psoriasis) grâce à ses propriétés calmantes prouvées.
-- **Anti-âge naturel** : stimule collagène et élastine, améliore fermeté et élasticité (études ex-vivo 2024 sur synthèse pro-collagène III).
-- **Soin capillaire équilibrant** : nourrit cuir chevelu, réduit pellicules sèches, apporte brillance sans alourdir.
-
-## Utilisation 🧴
-- **Cible** : Tous types de peaux, particulièrement mixtes, grasses, sensibles, réactives, atopiques ou irritées ; convient aux bébés et peaux fragiles.
-- **Moment** : Matin et/ou soir – pure ou en mélange, quelques gouttes en massage sur visage, corps ou cuir chevelu.
-- **Type de soin** : Huiles sèches, baumes réparateurs, crèmes apaisantes, nettoyants lipidiques (ex. XeraCalm A.D. d''Avène), sérums équilibrants ; ingrédient clé dans les gammes pour peaux atopiques et sensibles d''Avène, A-Derma et Pierre Fabre.
-
-## Note technique 📌
-Actif 100 % naturel, souvent issu de cultures durables et biologiques, avec une stabilité oxydative exceptionnelle (résiste au rancissement). Tolérance cutanée et oculaire excellente, non comédogène, sans effet photosensibilisant. Études récentes (Frontiers in Pharmacology 2024) confirment son rôle dans la réduction de l''inflammation, la stimulation de pro-collagène III et acide hyaluronique, ainsi que son efficacité sur cicatrisation et anti-âge. Innovation : intégration dans des formules lipid-replenishing pour peaux atopiques chez Pierre Fabre.
-', 'emollient', '2026-04-30 23:13:40.719796+00', '2026-08-12 22:26:44.676+00', 'skincare', 'visible', NULL, NULL, NULL, 'verified', NULL, NULL, 'Simmondsia Chinensis Seed Oil');
 INSERT INTO public.ingredients VALUES ('019de0ab-625e-7a90-aabc-fb9486b6b954', '019de09c-3403-7f67-8b49-560aecb2d9c9', 'Huile d''Arbre à Thé (Tea Tree Oil)', 'tea-tree-oil-hair', 'Huile essentielle à large spectre antimicrobien extraite de Melaleuca alternifolia, reconnue pour ses propriétés antifongiques, antibactériennes et anti-inflammatoires sur le cuir chevelu.', '
 # Huile d''Arbre à Thé (Tea Tree Oil)
 
@@ -24245,27 +24327,6 @@ Des essais et revues rapportent des effets sur le mélasma ou d’autres hyperpi
 - [Zhu et al., 2020 — voie VEGF](https://doi.org/10.7150/ijms.44188)
 - [Xing et al., 2022 — signal TGF-β1](https://doi.org/10.1111/exd.14509)
 ', 'actif', '2026-04-30 23:13:40.719796+00', '2026-08-12 22:26:44.68+00', 'skincare', 'visible', NULL, NULL, NULL, 'verified', NULL, NULL, 'Tranexamic Acid');
-INSERT INTO public.ingredients VALUES ('019de0ab-6242-78ae-99ce-33deed9c274c', '019de09c-3403-7f67-8b49-560aecb2d9c9', 'Extrait de racine de réglisse (Glycyrrhiza Glabra)', 'reglisse', 'Extrait botanique dont la composition varie avec la matière première et l’extraction. Il ne correspond pas à une quantité connue de glabridine purifiée.', '# Glycyrrhiza Glabra Root Extract
-
-## Identité botanique
-
-Cette fiche concerne un **extrait de racine de Glycyrrhiza glabra**. Un extrait botanique est un mélange : sa composition dépend notamment de l’espèce, de l’organe, du solvant et de la standardisation. Les extraits de G. uralensis ou G. inflata, l’acide glycyrrhétinique, les glycyrrhizates et la glabridine purifiée sont des entités différentes.
-
-## Pigmentation : ce que l’on sait
-
-La glabridine purifiée réduit la mélanogenèse et l’activité tyrosinase dans des modèles cellulaires. Ces résultats ne constituent pas un essai direct sur tyrosinase humaine purifiée et ne peuvent pas être attribués automatiquement à tout extrait de réglisse.
-
-Plusieurs constituants peuvent participer aux activités mesurées d’un extrait. Sans standardisation quantitative, le nom INCI ne révèle pas la dose de glabridine ni la contribution de chaque composé.
-
-## Lecture d’une formule
-
-La présence de Glycyrrhiza Glabra Root Extract indique un extrait de réglisse, pas une concentration connue d’un actif isolé. L’effet d’un produit doit être évalué à partir de sa matière première, de sa formule et de ses propres données.
-
-## Sources
-
-- [Yokota et al., 1998 — glabridine purifiée](https://doi.org/10.1111/j.1600-0749.1998.tb00494.x)
-- [Fu et al., 2005 — constituants de la réglisse](https://doi.org/10.1021/jf051258h)
-', 'actif', '2026-04-30 23:13:40.719796+00', '2026-08-12 22:26:44.681+00', 'skincare', 'visible', NULL, NULL, NULL, 'verified', NULL, NULL, 'Glycyrrhiza Glabra Root Extract');
 INSERT INTO public.ingredients VALUES ('019de0ab-623d-7773-b055-07e33903830e', '019de09c-3403-7f67-8b49-560aecb2d9c9', 'Acide ascorbique (Vitamine C)', 'vitamin-c', 'Forme active de la vitamine C, antioxydante et réductrice. Son effet sur la mélanogenèse ne se résume pas à une inhibition catalytique directe de la tyrosinase.', '# Acide ascorbique (vitamine C)
 
 ## Identité
@@ -26408,7 +26469,6 @@ L''**Artemisia Annua Extract** est un extrait de plante issu de l''armoise annue
 INSERT INTO public.ingredients VALUES ('019fe786-a422-7008-84b1-e12ecfa206dc', '019de09c-3403-7f67-8b49-560aecb2d9c9', 'Phytostéryl/Isostéaryl/Cétyl/Stéaryl/Behenyl Dimer Dilinoléate (Phytosteryl/Isostearyl/Cetyl/Stearyl/Behenyl Dimer Dilinoleate)', 'phytosteryl-isostearyl-cetyl-stearyl-behenyl-dimer-dilinoleate', 'Nom INCI officiel unique regroupant plusieurs esters de dimer dilinoléate ; le slash fait partie de l''identité et ne se découpe pas. CosIng le classe comme conditionneur capillaire et cutané, et agent de contrôle de la viscosité (HAIR CONDITIONING, SKIN CONDITIONING, VISCOSITY CONTROLLING) en formulation, sans axe cutané gradé dans le record source.', '', 'excipient', '2026-08-09 17:16:28.575135+00', '2026-08-12 22:26:44.739+00', 'skincare', 'visible', NULL, NULL, NULL, 'verified', NULL, NULL, 'Phytosteryl/Isostearyl/Cetyl/Stearyl/Behenyl Dimer Dilinoleate');
 INSERT INTO public.ingredients VALUES ('019fe786-a425-705f-8d88-d669dcdb5652', '019de09c-3403-7f67-8b49-560aecb2d9c9', 'Oléique/Linoléique/Linolénique Polyglycérides (Oleic/Linoleic/Linolenic Polyglycerides)', 'oleic-linoleic-linolenic-polyglycerides', 'Nom INCI officiel unique désignant un mélange d''esters polyglycériques d''acides gras insaturés ; le slash fait partie de l''identité et ne se découpe pas. CosIng le classe comme liant, stabilisant d''émulsion, émollient, nettoyant et agent de contrôle de la viscosité (BINDING, EMULSION STABILISING, SKIN CONDITIONING - EMOLLIENT, SURFACTANT - CLEANSING, VISCOSITY CONTROLLING) en formulation, sans axe cutané gradé.', '', 'excipient', '2026-08-09 17:16:28.575135+00', '2026-08-12 22:26:44.739+00', 'skincare', 'visible', NULL, NULL, NULL, 'verified', NULL, NULL, 'Oleic/Linoleic/Linolenic Polyglycerides');
 INSERT INTO public.ingredients VALUES ('019fe786-a425-7634-914a-be3fc9f15785', '019de09c-3403-7f67-8b49-560aecb2d9c9', 'Triheptanoïne (Triheptanoin)', 'triheptanoin', 'Triglycéride à chaîne courte-moyenne ramifiée. CosIng le classe comme agent de conditionnement cutané, nettoyant et contrôlant la viscosité (SKIN CONDITIONING, SURFACTANT - CLEANSING, VISCOSITY CONTROLLING) en formulation, sans axe cutané gradé dans le record source.', '', 'excipient', '2026-08-09 17:16:28.575135+00', '2026-08-12 22:26:44.74+00', 'skincare', 'visible', NULL, NULL, NULL, 'verified', NULL, NULL, 'Triheptanoin');
-INSERT INTO public.ingredients VALUES ('019fe786-a425-7759-a4a6-c2939e683903', '019de09c-3403-7f67-8b49-560aecb2d9c9', 'Dextrane (Dextran)', 'dextran', 'Polysaccharide d''origine bactérienne, utilisé comme liant et épaississant. CosIng le classe comme agent liant et contrôlant la viscosité (BINDING, VISCOSITY CONTROLLING) en formulation. Distinct du sulfate de dextrane (Sodium Dextran Sulfate) déjà en base : aucun axe n''est hérité de ce dernier.', '', 'excipient', '2026-08-09 17:16:28.575135+00', '2026-08-12 22:26:44.74+00', 'skincare', 'visible', NULL, NULL, NULL, 'verified', NULL, NULL, 'Dextran');
 INSERT INTO public.ingredients VALUES ('019fe786-a425-7839-b635-5c3f2d0446cf', '019de09c-3403-7f67-8b49-560aecb2d9c9', 'Glycolipides (Glycolipids)', 'glycolipids', 'Nom de classe CosIng regroupant des lipides porteurs d''un groupement glucidique, pas une espèce chimique unique. CosIng le classe comme agent de conditionnement cutané (SKIN CONDITIONING) en formulation, sans axe cutané gradé.', '', 'excipient', '2026-08-09 17:16:28.575135+00', '2026-08-12 22:26:44.741+00', 'skincare', 'visible', NULL, NULL, NULL, 'verified', NULL, NULL, 'Glycolipids');
 INSERT INTO public.ingredients VALUES ('019fe786-a425-791c-9d1d-eee08472b77b', '019de09c-3403-7f67-8b49-560aecb2d9c9', 'Linoléate/Oléate de Tocophéryle (Tocopheryl Linoleate/Oleate)', 'tocopheryl-linoleate-oleate', 'Nom INCI officiel unique désignant un mélange d''esters de vitamine E ; le slash fait partie de l''identité et ne se découpe pas, distinct du Tocopheryl Linoleate seul (CAS 36148-84-2). CosIng le classe comme antioxydant et agent de conditionnement cutané (ANTIOXIDANT, SKIN CONDITIONING) en formulation ; la fonction ANTIOXIDANT ne permet pas à elle seule de graduer un axe cutané dans ce record.', '', 'excipient', '2026-08-09 17:16:28.575135+00', '2026-08-12 22:26:44.741+00', 'skincare', 'visible', NULL, NULL, NULL, 'verified', NULL, NULL, 'Tocopheryl Linoleate/Oleate');
 INSERT INTO public.ingredients VALUES ('019fe786-a425-7c3c-861a-e672226affcc', '019de09c-3403-7f67-8b49-560aecb2d9c9', 'Vésicules de Centella Asiatica (Centella Asiatica (Indian Pennywort) Vesicles)', 'centella-asiatica-vesicles', 'Forme galénique vésiculaire de Centella Asiatica, absente de l''export CosIng 2020 utilisé par algo-derm (identité de seconde classe, sans référence CosIng) : probablement une forme fournisseur ou un INCI plus récent. Distincte de l''extrait de Centella Asiatica déjà en base ; aucune fonction ni axe n''est gradé pour cette forme.', '', 'excipient', '2026-08-09 17:16:28.575135+00', '2026-08-12 22:26:44.742+00', 'skincare', 'visible', NULL, NULL, NULL, 'verified', NULL, NULL, 'Centella Asiatica Vesicles');
@@ -29199,7 +29259,6 @@ Sa forte proportion d''acide oléique la rend moins sensible à l''oxydation qu'
 ## Usages
 
 On la rencontre dans des crèmes, des baumes, des huiles pour le corps, des savons et des soins capillaires. La sensation laissée par la formule dépend de sa proportion et de son association avec d''autres corps gras ou agents de texture.', 'emollient', '2026-04-30 23:13:40.719796+00', '2026-08-12 22:26:44.787+00', 'skincare', 'visible', NULL, NULL, NULL, 'verified', NULL, NULL, 'Olea Europaea Fruit Oil');
-INSERT INTO public.ingredients VALUES ('019fe78e-41f1-7bef-b2e3-678ea84c0dfa', '019de09c-3403-7f67-8b49-560aecb2d9c9', 'Glucose (Glucose)', 'glucose', 'Sucre simple aux propriétés humectantes, utilisé comme agent de conditionnement cutané dans des formules hydratantes.', '', 'humectant', '2026-08-09 17:24:47.726579+00', '2026-08-12 22:26:44.65+00', 'skincare', 'visible', NULL, NULL, NULL, 'verified', NULL, NULL, 'Glucose');
 INSERT INTO public.ingredients VALUES ('019de0ab-6256-7627-8f55-ebf39434c51c', '019de09c-3403-7f67-8b49-560aecb2d9c9', 'Sodium Laureth Sulfate (SLES)', 'sles-hair', 'Version éthoxylée du SLS. Tensioactif anionique très répandu dans les bases lavantes, des shampooings aux nettoyants moussants.', '# Sodium Laureth Sulfate (SLES)
 
 Le Sodium Laureth Sulfate, ou SLES, est un tensioactif anionique obtenu à partir d''un alcool gras éthoxylé puis sulfaté. Les matières premières commerciales sont des mélanges dont la longueur des chaînes grasses et le degré d''éthoxylation peuvent varier.
@@ -29296,6 +29355,7 @@ Après séchage, l''alginate peut laisser un film hydrophile. Dans une formule l
 ## Usages
 
 On le rencontre dans des gels, des émulsions, des masques pour le visage ou les cheveux, des produits buccaux et des préparations moulées. Son rôle est principalement formulatoire : épaississant, gélifiant, filmogène ou agent de suspension.', 'excipient', '2026-04-30 23:13:40.719796+00', '2026-08-12 22:26:44.788+00', 'skincare', 'visible', NULL, NULL, NULL, 'verified', NULL, NULL, 'Algin');
+INSERT INTO public.ingredients VALUES ('019fe78e-41f1-7bef-b2e3-678ea84c0dfa', '019de09c-3403-7f67-8b49-560aecb2d9c9', 'Glucose', 'glucose', 'Sucre simple aux propriétés humectantes, utilisé comme agent de conditionnement cutané dans des formules hydratantes.', '', 'humectant', '2026-08-09 17:24:47.726579+00', '2026-10-28 15:57:26.197669+00', 'skincare', 'visible', NULL, NULL, NULL, 'verified', NULL, NULL, 'Glucose');
 INSERT INTO public.ingredients VALUES ('019de0ab-625c-71bd-8d79-babf8923fadc', '019de09c-3403-7f67-8b49-560aecb2d9c9', 'Collagène Hydrolysé (Hydrolyzed Collagen)', 'hydrolyzed-collagen-hair', 'Collagène hydrolysé en peptides courts et en acides aminés. Humectant filmogène, il retient l''eau en surface, sur la peau comme sur la fibre capillaire.', '# Collagène Hydrolysé (Hydrolyzed Collagen)
 
 Le collagène hydrolysé est un mélange de peptides obtenu par rupture partielle du collagène animal, le plus souvent bovin, porcin ou marin. L''hydrolyse réduit la taille de la protéine sans produire une molécule unique : la distribution des peptides dépend de la matière première et du procédé.
@@ -29741,43 +29801,6 @@ Cette dénomination associe un motif diméthicone PEG-7 à un phosphate de panth
 Les groupes silicones, polyéthylène-glycol et phosphate déterminent surtout la compatibilité de cette matière avec la formule. L''INCI seul ne précise pas sa concentration, sa taille de polymère ni sa fonction exacte dans le produit considéré.', 'actif', '2026-08-05 01:47:27.867544+00', '2026-08-12 22:26:44.802+00', 'skincare', 'visible', NULL, NULL, NULL, 'unverified', NULL, NULL, 'Potassium Dimethicone PEG-7 Panthenyl Phosphate');
 INSERT INTO public.ingredients VALUES ('019fa431-1a93-73ad-b0e3-cdf41d9a9dcb', '019de09c-3403-7f67-8b49-560aecb2d9c9', 'Butyloctyl Salicylate', 'butyloctyl-salicylate', 'Ester gras liquide employé comme solvant des filtres UV solides : il les tient dissous dans la formule au lieu de les laisser recristalliser, et apporte au passage un toucher émollient. Ce n''est pas un filtre, c''est ce dans quoi les filtres sont dissous.', '', 'emollient', '2026-07-27 15:28:29.329079+00', '2026-08-12 22:26:44.803+00', 'skincare', 'visible', NULL, NULL, NULL, 'verified', NULL, NULL, 'Butyloctyl Salicylate');
 INSERT INTO public.ingredients VALUES ('019fa39d-f223-7cfa-bda4-f79641bda46c', '019de09c-3403-7f67-8b49-560aecb2d9c9', 'Huile de meadowfoam', 'limnanthes-alba-seed-oil', 'Huile de graines de meadowfoam, stable et riche en acides gras à longue chaîne. Bon émollient au signal comédogène faible.', '', 'emollient', '2026-07-27 12:47:45.184283+00', '2026-08-12 22:26:44.803+00', 'skincare', 'visible', NULL, NULL, NULL, 'verified', NULL, NULL, 'Limnanthes Alba Seed Oil');
-INSERT INTO public.ingredients VALUES ('019de0ab-6230-75cc-b297-d32c17ded1c9', '019de09c-3403-7f67-8b49-560aecb2d9c9', 'Huile de Pépins de Raisin (Vitis vinifera) – Upcyclée', 'huile-de-pepins-de-raisin', 'L''huile upcyclée antioxydante et régénérante issue des sous-produits viticoles, pour protéger, hydrater et lutter contre le vieillissement des peaux mixtes, grasses et sensibles.', '
-# Huile de Pépins de Raisin (Vitis vinifera) – Upcyclée 🍇
-Issue de l''upcycling des pépins issus de la production vinicole (sous-produits valorisés pour une économie circulaire), cette huile légère est extraite par pression à froid des graines de Vitis vinifera. Traditionnellement utilisée en cosmétique naturelle, elle est aujourd''hui un actif durable et éco-responsable, plébiscité dans les formulations clean pour ses puissants antioxydants (polyphénols et OPC). Elle s''intègre parfaitement dans les gammes apaisantes et anti-âge de marques comme Pierre Fabre, Avène ou A-Derma, en synergie avec des ingrédients naturels pour peaux fragiles.
-
-## INCI
-**VITIS VINIFERA SEED OIL**
-(huile obtenue par première pression à froid des pépins de raisin, qualité upcyclée et souvent bio)
-
-## Composition chimique 🧪
-- **Acide linoléique (Oméga-6)** : 55–70 % → renforce la barrière cutanée et régénère les lipides
-- **Acide oléique (Oméga-9)** : 13–24 % → hydratation et souplesse
-- **Vitamine E (tocophérols)** et **polyphénols (OPC, proanthocyanidines)** → antioxydants puissants (jusqu''à 50x plus que la vitamine E)
-- **Stérols et squalène** → anti-inflammatoires et protecteurs
-- Huile upcyclée 100 % naturelle, certifiée souvent bio/ECOCERT, non comédogène, texture légère sans résidu gras
-
-## Mécanisme d’action ⚙️
-1. **Protection antioxydante renforcée** : les OPC et vitamine E neutralisent les radicaux libres (ROS) issus des UV, pollution et stress oxydatif, prévenant le vieillissement prématuré.
-2. **Renforcement de la barrière lipidique** : l''acide linoléique s''intègre dans les céramides, réduit la perte insensible en eau et restaure l''hydratation.
-3. **Effet anti-inflammatoire** : inhibition des cytokines pro-inflammatoires (TNF-α, IL-6) et COX-2, apaisant rougeurs et irritations.
-4. **Stimulation de la régénération** : favorise la synthèse de collagène et élastine, améliore l''élasticité et la fermeté cutanée.
-5. **Régulation du sébum** : équilibre la production lipidique sans obstruer les pores, idéal pour peaux mixtes à grasses.
-
-## Bienfaits ✨
-- **Anti-âge puissant** : protège contre le stress oxydatif, atténue rides et perte d''élasticité (études 2023–2025 confirment supériorité des OPC).
-- **Hydratation légère et non grasse** : restaure le film hydrolipidique sans film occlusif, parfaite pour peaux déshydratées ou mixtes.
-- **Apaisement des peaux sensibles/irritées** : réduit inflammations, rougeurs et acné inflammatoire grâce à ses propriétés calmantes.
-- **Protection anti-pollution & UV** : bouclier naturel contre radicaux libres et dommages environnementaux.
-- **Soin capillaire équilibrant** : nourrit cuir chevelu, réduit pellicules sèches et apporte brillance sans alourdir.
-
-## Utilisation 🧴
-- **Cible** : Peaux mixtes, grasses, sensibles, réactives, matures ; peaux à imperfections ; convient aux peaux atopiques et fragiles.
-- **Moment** : Matin et/ou soir – quelques gouttes en massage sur visage, corps ou cheveux.
-- **Type de soin** : Huiles sèches, sérums anti-âge, crèmes légères, nettoyants doux, soins capillaires ; ingrédient upcyclé idéal dans les gammes clean et durables (compatible avec Avène, A-Derma, Pierre Fabre pour formules apaisantes et anti-oxydantes).
-
-## Note technique 📌
-Actif upcyclé éco-responsable issu de co-produits viticoles (valorisation zéro déchet), traçabilité exemplaire et souvent issu de cultures durables. Excellente tolérance cutanée, non comédogène, sans effet photosensibilisant. Études récentes (2023–2025, incl. revues PMC et phytochemistry) confirment son pouvoir antioxydant supérieur, son rôle anti-inflammatoire et régénérant, avec une efficacité prouvée en cosmétique anti-âge et apaisante. Innovation : extractions optimisées pour préserver les OPC, intégration dans formules lipid-replenishing et clean beauty.
-', 'emollient', '2026-04-30 23:13:40.719796+00', '2026-08-12 22:26:44.803+00', 'skincare', 'visible', NULL, NULL, NULL, 'verified', NULL, NULL, 'Vitis Vinifera Seed Oil');
 INSERT INTO public.ingredients VALUES ('019fae37-bf96-7ac0-a11d-8e9827c9e6c9', '019de09c-3403-7f67-8b49-560aecb2d9c9', 'Acetyl Octapeptide-3', 'acetyl-octapeptide-3', 'Octapeptide de synthèse (Ac-Glu-Glu-Met-Gln-Arg-Arg-Ala-Asp-NH2, environ 1075 Da), diffusé sous le nom SNAP-8. Sa séquence reproduit un segment de la région N-terminale de la protéine SNAP-25, la même région que copie l''Acetyl Hexapeptide-8. Cette parenté décrit une intention de conception du fournisseur, pas un effet cutané établi. La documentation disponible est quasi exclusivement fournisseur, et la masse comme la forte polarité de la molécule sont peu compatibles avec une pénétration passive.', '', 'actif', '2026-07-29 14:11:56.944485+00', '2026-08-12 22:26:44.804+00', 'skincare', 'visible', NULL, NULL, NULL, 'verified', NULL, NULL, 'Acetyl Octapeptide-3');
 INSERT INTO public.ingredients VALUES ('019de0ab-623c-7ffe-9345-18eec32a8bb8', '019de09c-3403-7f67-8b49-560aecb2d9c9', 'Tocopherol (Vitamine E)', 'tocopherol', 'Vitamine E liposoluble naturelle, puissant antioxydant qui protège les lipides cutanés contre le stress oxydatif, renforce la barrière et apaise les peaux sensibles ou exposées aux agressions environnementales.', '
 # Tocopherol (Vitamine E)
@@ -34643,29 +34666,6 @@ Le **Butylene Glycol** (1,3-butanediol) est un alcool organique léger et non ir
 * **Très Bien Toléré** : Convient à tous les types de peau, y compris sensibles et acnéiques (non comédogène). Pas de risque connu de toxicité ou d''allergie majeure en usage topique.
 * **Éviter les Concentrations Extrêmes** : Dans les formules classiques (jusqu''à 10-20 %), aucun souci ; patch test si peau hyper-réactive.
 ', 'emollient', '2026-04-30 23:13:40.719796+00', '2026-08-12 22:26:44.929+00', 'skincare', 'visible', NULL, NULL, NULL, 'verified', NULL, NULL, 'Butylene Glycol');
-INSERT INTO public.ingredients VALUES ('019de0ab-622e-7a16-8e66-77ac561959d6', '019de09c-3403-7f67-8b49-560aecb2d9c9', 'Acide Oléique (Oméga-9)', 'oleic-acid', 'L’acide gras le plus abondant de notre film hydrolipidique, essentiel pour la souplesse de la peau et l’absorption des actifs.', '
-# Acide Oléique : Le Pilier de la Douceur
-
-L''**Acide Oléique** est un acide gras mono-insaturé présent dans de nombreuses huiles végétales (olive, avocat, karité). C''est un composant majeur du sébum humain, jouant un rôle crucial dans le maintien de la souplesse et de l''imperméabilité de la peau.
-
----
-
-## ✨ Points Forts & Bénéfices
-* **Nutrition Intense** : Idéal pour les peaux sèches et délipidées qui ont perdu leur confort.
-* **Promoteur d''Absorption** : Modifie légèrement la structure de la couche cornée pour aider les autres actifs à pénétrer plus profondément.
-* **Protection Barrière** : Renforce le film protecteur naturel contre les agressions extérieures.
-
----
-
-## ⚖️ Transparence Scientifique & Limites
-* **Attention aux peaux grasses** : Un excès d''acide oléique peut favoriser les imperfections (acné) chez les personnes ayant déjà un sébum riche. Pour ces peaux, l''Acide Linoléique est préférable.
-* **Action Passive** : C''est un ingrédient de confort et de structure, pas un actif de traitement spécifique.
-
----
-
-## 🛡️ Précautions & Sécurité
-* **Comédogénicité** : Potentiellement comédogène à l''état pur. Très bien toléré en émulsion.
-', 'emollient', '2026-04-30 23:13:40.719796+00', '2026-08-12 22:26:44.929+00', 'skincare', 'visible', NULL, NULL, NULL, 'verified', NULL, NULL, 'Oleic Acid');
 INSERT INTO public.ingredients VALUES ('019de0ab-6250-7ae1-a10c-9cba85a4139a', '019de09c-3403-7f67-8b49-560aecb2d9c9', 'Isosorbide Dicaprylate', 'isosorbide-dicaprylate', 'Un "boosteur" d’hydratation bio-sourcé qui régule l’expression des aquaporines pour optimiser la circulation de l’eau entre les couches de la peau.', '
 # Isosorbide Dicaprylate : L''Hydratation Intelligente
 
@@ -34859,38 +34859,6 @@ Comme la Camomille ou le Calendula, la Bardane appartient à la famille des **As
 ## Utilisation
 - **Cible** : Peaux mixtes, grasses, acnéiques ou sujettes à l''eczéma et au psoriasis.
 - **Type de soin** : Nettoyants purifiants, lotions toniques, sérums imperfections.', 'actif', '2026-04-30 23:13:40.719796+00', '2026-08-12 22:26:44.932+00', 'skincare', 'visible', NULL, NULL, NULL, 'verified', NULL, NULL, 'Arctium Lappa Root Extract');
-INSERT INTO public.ingredients VALUES ('019de0ab-6231-7a51-8bc8-329165064be6', '019de09c-3403-7f67-8b49-560aecb2d9c9', 'Squalane (Squalane)', 'squalane', 'Émollient biomimétique qui restaure le film hydrolipidique, adoucit la peau et limite la déshydratation, sans fini gras.', '
-# Squalane (Squalane)
-
-Le Squalane est la forme stable et hydrogénée du squalène, un composant majeur du sébum humain (environ 13%). Si le squalène est sensible à l''oxydation, le Squalane utilisé en dermo-cosmétique est parfaitement stable. Aujourd''hui, les leaders de la dermatologie comme Pierre Fabre privilégient exclusivement le Squalane d''origine végétale (issu de l''olive ou de la canne à sucre) pour sa pureté et son affinité parfaite avec l''épiderme.
-
-## INCI
-**SQUALANE** (Origine végétale garantie, souvent certifiée BIO ou durable)
-
-## Composition chimique
-- **Hydrocarbure saturé** : Molécule linéaire hautement stable, résistante au rancissement.
-- **Structure biomimétique** : Identique aux lipides naturellement produits par les glandes sébacées.
-
-## Mécanisme d’action
-1. **Renforcement de la barrière** : S''insère dans le film hydrolipidique pour combler les micro-fissures de la couche cornée.
-2. **Émollient non comédogène** : Assouplit la peau en profondeur sans obstruer les pores ni laisser de film luisant.
-3. **Prévention de la PIE** : Forme un bouclier protecteur qui limite la **Perte Insensible en Eau**.
-4. **Vecteur d''actifs** : Favorise la pénétration des autres composants de la formule grâce à sa fluidité.
-
-## Bienfaits
-- **Souplesse immédiate** : Redonne de l''élasticité aux peaux rêches et inconfortables dès la première application.
-- **Toucher sec** : Offre une sensorialité unique avec un fini velouté, idéal pour les soins quotidiens.
-- **Haute Tolérance** : Ingrédient inerte, non irritant et non sensibilisant, parfait pour les **peaux allergiques**.
-- **Protection antioxydante** : Aide à protéger la peau des agressions environnementales en limitant l''oxydation des lipides de surface.
-
-## Utilisation
-- **Cible** : Peaux déshydratées, peaux mixtes à sèches, peaux sensibles et réactives.
-- **Moment** : Matin et soir, sous une crème ou intégré dans un soin relipidant.
-- **Type de soin** : Huiles de soin visage, crèmes minimalistes (gamme Tolérance Control d''Avène), soins solaires.
-
-## Note technique
-Le Squalane est l''ingrédient de choix pour les formulations "Clean Beauty" et dermo-cosmétiques modernes. Sa stabilité thermique et chimique lui permet de conserver ses propriétés nutritives sans nécessiter de conservateurs complexes. Sa structure proche du sébum naturel en fait l''un des actifs les plus "universels" du répertoire dermatologique, garantissant une innocuité totale sur le long terme.
-', 'emollient', '2026-04-30 23:13:40.719796+00', '2026-08-12 22:26:44.906+00', 'skincare', 'visible', NULL, NULL, NULL, 'verified', NULL, NULL, 'Squalane');
 INSERT INTO public.ingredients VALUES ('019de0ab-6261-72f3-8542-356d99e9dc7e', '019de09c-3403-7f67-8b49-560aecb2d9c9', 'Bis-Aminopropyl Diglycol Dimaleate', 'bis-aminopropyl-diglycol-dimaleate', 'Actif exclusif d''Olaplex, reconstruit les ponts disulfure brisés de la kératine à l''intérieur de la fibre capillaire — le seul traitement capillaire à réparer structurellement la kératine.', '
 # Bis-Aminopropyl Diglycol Dimaleate (Olaplex Bond Multiplier)
 
@@ -35010,6 +34978,38 @@ L''EDTA est peu biodégradable (< 20% en 28 jours, test OCDE 301). Son accumulat
 
 - Shampoings, après-shampooings, masques : 0,05–0,1%
 ', 'excipient', '2026-04-30 23:13:40.719796+00', '2026-08-12 22:26:44.934+00', 'haircare', 'visible', NULL, NULL, NULL, 'verified', NULL, NULL, 'Disodium EDTA');
+INSERT INTO public.ingredients VALUES ('019de0ab-6231-7a51-8bc8-329165064be6', '019de09c-3403-7f67-8b49-560aecb2d9c9', 'Squalane', 'squalane', 'Émollient biomimétique qui restaure le film hydrolipidique, adoucit la peau et limite la déshydratation, sans fini gras.', '
+# Squalane (Squalane)
+
+Le Squalane est la forme stable et hydrogénée du squalène, un composant majeur du sébum humain (environ 13%). Si le squalène est sensible à l''oxydation, le Squalane utilisé en dermo-cosmétique est parfaitement stable. Aujourd''hui, les leaders de la dermatologie comme Pierre Fabre privilégient exclusivement le Squalane d''origine végétale (issu de l''olive ou de la canne à sucre) pour sa pureté et son affinité parfaite avec l''épiderme.
+
+## INCI
+**SQUALANE** (Origine végétale garantie, souvent certifiée BIO ou durable)
+
+## Composition chimique
+- **Hydrocarbure saturé** : Molécule linéaire hautement stable, résistante au rancissement.
+- **Structure biomimétique** : Identique aux lipides naturellement produits par les glandes sébacées.
+
+## Mécanisme d’action
+1. **Renforcement de la barrière** : S''insère dans le film hydrolipidique pour combler les micro-fissures de la couche cornée.
+2. **Émollient non comédogène** : Assouplit la peau en profondeur sans obstruer les pores ni laisser de film luisant.
+3. **Prévention de la PIE** : Forme un bouclier protecteur qui limite la **Perte Insensible en Eau**.
+4. **Vecteur d''actifs** : Favorise la pénétration des autres composants de la formule grâce à sa fluidité.
+
+## Bienfaits
+- **Souplesse immédiate** : Redonne de l''élasticité aux peaux rêches et inconfortables dès la première application.
+- **Toucher sec** : Offre une sensorialité unique avec un fini velouté, idéal pour les soins quotidiens.
+- **Haute Tolérance** : Ingrédient inerte, non irritant et non sensibilisant, parfait pour les **peaux allergiques**.
+- **Protection antioxydante** : Aide à protéger la peau des agressions environnementales en limitant l''oxydation des lipides de surface.
+
+## Utilisation
+- **Cible** : Peaux déshydratées, peaux mixtes à sèches, peaux sensibles et réactives.
+- **Moment** : Matin et soir, sous une crème ou intégré dans un soin relipidant.
+- **Type de soin** : Huiles de soin visage, crèmes minimalistes (gamme Tolérance Control d''Avène), soins solaires.
+
+## Note technique
+Le Squalane est l''ingrédient de choix pour les formulations "Clean Beauty" et dermo-cosmétiques modernes. Sa stabilité thermique et chimique lui permet de conserver ses propriétés nutritives sans nécessiter de conservateurs complexes. Sa structure proche du sébum naturel en fait l''un des actifs les plus "universels" du répertoire dermatologique, garantissant une innocuité totale sur le long terme.
+', 'emollient', '2026-04-30 23:13:40.719796+00', '2026-10-28 15:57:26.197669+00', 'skincare', 'visible', NULL, NULL, NULL, 'verified', NULL, NULL, 'Squalane');
 INSERT INTO public.ingredients VALUES ('019de0ab-6258-7bed-b191-b2d1b7f07947', '019de09c-3403-7f67-8b49-560aecb2d9c9', 'Polyquaternium-7', 'polyquaternium-7', 'Polymère cationique acrylique (DADMAC/acrylamide), conditionneur léger très utilisé dans les shampoings pour son dépôt filmogène résistant à l''eau sans alourdir.', '
 # Polyquaternium-7 (PQ-7)
 
@@ -37413,6 +37413,38 @@ INSERT INTO public.ingredients VALUES ('019e077b-683b-707c-b242-08c6f15b6a59', '
 
 *Fiche à compléter.*', 'actif', '2026-05-08 12:06:28.666073+00', '2026-08-12 22:26:44.958+00', 'skincare', 'visible', NULL, NULL, NULL, 'verified', NULL, NULL, 'Genistein');
 INSERT INTO public.ingredients VALUES ('019faedb-8aed-7995-8964-dc9842b345a4', '019de09c-3403-7f67-8b49-560aecb2d9c9', 'sh-Polypeptide-11', 'sh-polypeptide-11', 'Peptide humain recombinant obtenu par fermentation d''Escherichia coli à partir d''une copie synthétique du gène du facteur de croissance des fibroblastes acide, l''aFGF ou FGF-1 (CosIng 88872). La chaîne compte au plus 155 acides aminés. CosIng ne lui attribue aucune fonction de formulation, ce qui est rare et mérite d''être dit tel quel plutôt que comblé. Aucune étude n''est publiée sous cet INCI, et le nom du facteur de croissance décrit l''identité de la molécule, pas un effet observé sur la peau.', '', 'actif', '2026-07-29 17:10:51.369576+00', '2026-08-12 22:26:44.958+00', 'skincare', 'visible', NULL, NULL, NULL, 'verified', NULL, NULL, 'sh-Polypeptide-11');
+INSERT INTO public.ingredients VALUES ('019de0ab-6231-7d3b-b21f-8a9134b2b57b', '019de09c-3403-7f67-8b49-560aecb2d9c9', 'Cholestérol', 'cholesterol', 'Lipide biomimétique fondamental qui rétablit la cohésion de la barrière cutanée et optimise la souplesse des peaux matures et sèches.', '
+# Cholestérol (Cholesterol)
+
+Le cholestérol est l''un des trois lipides majeurs constituant le ciment intercellulaire de la couche cornée, aux côtés des céramides et des acides gras libres. En dermo-cosmétique, il est utilisé pour son rôle structural indispensable à l''intégrité de la barrière cutanée. Souvent d''origine végétale (phytostérols) ou synthétique pour une pureté maximale, il est la clé de la réparation des peaux lésées ou vieillissantes.
+
+## INCI
+**CHOLESTEROL** (Composant purifié, souvent intégré dans des mélanges lipidiques optimisés 3:1:1 pour une efficacité barrière maximale)
+
+## Composition chimique
+- **Stérol organique** : Molécule cyclique hydrophobe essentielle à la fluidité membranaire.
+- **Précurseur de vitamine D** : Joue un rôle indirect dans l''immunité innée de la peau.
+
+## Mécanisme d’action
+1. **Stabilisation lipidique** : S''insère entre les chaînes d''acides gras pour stabiliser les membranes lamellaires de l''épiderme.
+2. **Régulation de la fluidité** : Maintient la souplesse de la couche cornée, évitant la desquamation excessive et les fissures.
+3. **Soutien de la différenciation** : Indispensable à la maturation normale des kératinocytes en cornéocytes.
+4. **Étanchéité épidermique** : Participe activement à la formation du film hydrolipidique protecteur.
+
+## Bienfaits
+- **Récupération barrière** : Accélère la réparation cutanée après une agression chimique ou mécanique (peeling, laser).
+- **Anti-âge structurel** : Compense la perte naturelle de cholestérol liée à l''âge, responsable de la finesse et de la fragilité de la peau.
+- **Hydratation profonde** : Limite la **Perte Insensible en Eau (PIE)** en scellant les espaces intercellulaires.
+- **Confort immédiat** : Supprime les sensations de **tiraillements** et améliore l''élasticité des peaux xerotiques.
+
+## Utilisation
+- **Cible** : Peaux matures, peaux très sèches, peaux atopiques (Eczéma).
+- **Moment** : Fréquence quotidienne, idéal en soin de nuit riche ou baume relipidant.
+- **Type de soin** : Gammes nutritives haute tolérance (ex: TriXéra Nutrition), soins post-procédure esthétique.
+
+## Note technique
+Le cholestérol est particulièrement efficace lorsqu''il est formulé selon le **ratio physiologique optimal (céramides/cholestérol/acides gras)**. C''est un ingrédient "gold standard" pour les peaux sénescentes qui ne produisent plus assez de lipides endogènes, offrant une tolérance parfaite même sur les muqueuses ou les peaux de bébés.
+', 'emollient', '2026-04-30 23:13:40.719796+00', '2026-10-28 15:57:26.197669+00', 'skincare', 'visible', NULL, NULL, NULL, 'verified', NULL, NULL, 'Cholesterol');
 INSERT INTO public.ingredients VALUES ('019de0ab-6246-762d-af63-eed111173e61', '019de09c-3403-7f67-8b49-560aecb2d9c9', 'Gluconate de Zinc (Zinc Gluconate)', 'zinc-gluconate', 'Oligo-élément décrit pour son action sébo-régulatrice, purifiante et cicatrisante sur les peaux à imperfections.', '# Le Gluconate de Zinc : Le Gardien de la Pureté Cutanée
 
 Le **Gluconate de Zinc** est le sel de zinc de l''acide gluconique. En dermo-cosmétique de pointe (référencé dans les gammes Cleanance d''Avène ou Effaclar de La Roche-Posay), il est l''actif de choix pour traiter les désordres des peaux mixtes à grasses. Sa forme "gluconate" offre une biodisponibilité et une tolérance cutanée bien supérieures aux sels de zinc classiques.
@@ -37453,38 +37485,6 @@ Le Gluconate de Zinc présente un excellent profil d''innocuité :
 
 ---
 *Fiche technique destinée aux experts R&D et aux chefs de produits dermo-cosmétiques.*', 'actif', '2026-04-30 23:13:40.719796+00', '2026-08-12 22:26:44.959+00', 'skincare', 'visible', NULL, NULL, NULL, 'verified', NULL, NULL, 'Zinc Gluconate');
-INSERT INTO public.ingredients VALUES ('019de0ab-6231-7d3b-b21f-8a9134b2b57b', '019de09c-3403-7f67-8b49-560aecb2d9c9', 'Cholestérol (Cholesterol)', 'cholesterol', 'Lipide biomimétique fondamental qui rétablit la cohésion de la barrière cutanée et optimise la souplesse des peaux matures et sèches.', '
-# Cholestérol (Cholesterol)
-
-Le cholestérol est l''un des trois lipides majeurs constituant le ciment intercellulaire de la couche cornée, aux côtés des céramides et des acides gras libres. En dermo-cosmétique, il est utilisé pour son rôle structural indispensable à l''intégrité de la barrière cutanée. Souvent d''origine végétale (phytostérols) ou synthétique pour une pureté maximale, il est la clé de la réparation des peaux lésées ou vieillissantes.
-
-## INCI
-**CHOLESTEROL** (Composant purifié, souvent intégré dans des mélanges lipidiques optimisés 3:1:1 pour une efficacité barrière maximale)
-
-## Composition chimique
-- **Stérol organique** : Molécule cyclique hydrophobe essentielle à la fluidité membranaire.
-- **Précurseur de vitamine D** : Joue un rôle indirect dans l''immunité innée de la peau.
-
-## Mécanisme d’action
-1. **Stabilisation lipidique** : S''insère entre les chaînes d''acides gras pour stabiliser les membranes lamellaires de l''épiderme.
-2. **Régulation de la fluidité** : Maintient la souplesse de la couche cornée, évitant la desquamation excessive et les fissures.
-3. **Soutien de la différenciation** : Indispensable à la maturation normale des kératinocytes en cornéocytes.
-4. **Étanchéité épidermique** : Participe activement à la formation du film hydrolipidique protecteur.
-
-## Bienfaits
-- **Récupération barrière** : Accélère la réparation cutanée après une agression chimique ou mécanique (peeling, laser).
-- **Anti-âge structurel** : Compense la perte naturelle de cholestérol liée à l''âge, responsable de la finesse et de la fragilité de la peau.
-- **Hydratation profonde** : Limite la **Perte Insensible en Eau (PIE)** en scellant les espaces intercellulaires.
-- **Confort immédiat** : Supprime les sensations de **tiraillements** et améliore l''élasticité des peaux xerotiques.
-
-## Utilisation
-- **Cible** : Peaux matures, peaux très sèches, peaux atopiques (Eczéma).
-- **Moment** : Fréquence quotidienne, idéal en soin de nuit riche ou baume relipidant.
-- **Type de soin** : Gammes nutritives haute tolérance (ex: TriXéra Nutrition), soins post-procédure esthétique.
-
-## Note technique
-Le cholestérol est particulièrement efficace lorsqu''il est formulé selon le **ratio physiologique optimal (céramides/cholestérol/acides gras)**. C''est un ingrédient "gold standard" pour les peaux sénescentes qui ne produisent plus assez de lipides endogènes, offrant une tolérance parfaite même sur les muqueuses ou les peaux de bébés.
-', 'emollient', '2026-04-30 23:13:40.719796+00', '2026-08-12 22:26:44.959+00', 'skincare', 'visible', NULL, NULL, NULL, 'verified', NULL, NULL, 'Cholesterol');
 INSERT INTO public.ingredients VALUES ('019de0ab-6259-77eb-b4ed-9d1510c05218', '019de09c-3403-7f67-8b49-560aecb2d9c9', 'Aloe Vera (Aloe Barbadensis Leaf Juice)', 'aloe-vera-hair', 'Jus de feuille d''aloe vera riche en acemannane, vitamines et minéraux — hydratant, apaisant le cuir chevelu et anti-inflammatoire.', '
 # Aloe Vera (Aloe Barbadensis Leaf Juice)
 
@@ -37605,7 +37605,7 @@ Idéal pour les routines anti-âge quotidiennes qui cherchent l''efficacité du 
 - **Type de soin** : Sérums régénérants, crèmes de nuit haute tolérance.
 ', 'actif', '2026-04-30 23:13:40.719796+00', '2026-08-12 22:26:44.96+00', 'skincare', 'visible', NULL, NULL, NULL, 'verified', NULL, NULL, 'Myristoyl Nonapeptide-3');
 INSERT INTO public.ingredients VALUES ('019fa39d-f224-71f2-8e84-3e5ec1fd62ef', '019de09c-3403-7f67-8b49-560aecb2d9c9', 'Extrait de fleur de chèvrefeuille', 'lonicera-japonica-flower-extract', 'Extrait de fleur de chèvrefeuille du Japon, porteur d''acide chlorogénique. Léger signal antimicrobien et apaisant, allergie rare.', '', 'actif', '2026-07-27 12:47:45.184283+00', '2026-08-12 22:26:44.96+00', 'skincare', 'visible', NULL, NULL, NULL, 'verified', NULL, NULL, 'Lonicera Japonica Flower Extract');
-INSERT INTO public.ingredients VALUES ('019de0ab-625f-7b8a-9be8-30cbb34f4676', '019de09c-3403-7f67-8b49-560aecb2d9c9', 'Gluconate de Sodium (Sodium Gluconate)', 'sodium-gluconate-hair', 'Sel sodique de l''acide gluconique, chélateur biodégradable d''origine naturelle, alternatif vert à l''EDTA pour la stabilisation des formules et la séquestration des ions calcaire.', '# Gluconate de Sodium (Sodium Gluconate)
+INSERT INTO public.ingredients VALUES ('019de0ab-625f-7b8a-9be8-30cbb34f4676', '019de09c-3403-7f67-8b49-560aecb2d9c9', 'Gluconate de sodium', 'sodium-gluconate-hair', 'Sel sodique de l''acide gluconique, chélateur biodégradable d''origine naturelle, alternatif vert à l''EDTA pour la stabilisation des formules et la séquestration des ions calcaire.', '# Gluconate de Sodium (Sodium Gluconate)
 
 Le gluconate de sodium est le sel sodique de l''acide gluconique, lui-même issu de l''oxydation du glucose. Il se présente comme un composé hydrosoluble employé principalement pour complexer les ions métalliques présents dans l''eau ou dans les matières premières.
 
@@ -37632,7 +37632,7 @@ Son efficacité dépend du métal et du pH. Il peut être associé à l''acide c
 
 ## Usages
 
-On le rencontre dans des nettoyants pour la peau et les cheveux, des émulsions, des produits buccaux et d''autres formules aqueuses. Dans chacun de ces usages, son rôle concerne surtout la stabilité et la maîtrise des ions métalliques plutôt qu''une action directe sur la peau ou la fibre capillaire.', 'excipient', '2026-04-30 23:13:40.719796+00', '2026-08-12 22:26:44.961+00', 'skincare', 'visible', NULL, NULL, NULL, 'verified', NULL, NULL, 'Sodium Gluconate');
+On le rencontre dans des nettoyants pour la peau et les cheveux, des émulsions, des produits buccaux et d''autres formules aqueuses. Dans chacun de ces usages, son rôle concerne surtout la stabilité et la maîtrise des ions métalliques plutôt qu''une action directe sur la peau ou la fibre capillaire.', 'excipient', '2026-04-30 23:13:40.719796+00', '2026-10-28 15:57:26.197669+00', 'skincare', 'visible', NULL, NULL, NULL, 'verified', NULL, NULL, 'Sodium Gluconate');
 
 
 --
@@ -222735,6 +222735,7 @@ INSERT INTO public.refresh_tokens VALUES ('019f12c7-1b96-7068-a554-5a5ebd6e12eb'
 INSERT INTO public.refresh_tokens VALUES ('019fb691-f6ba-7fc2-a58b-c9de16846202', '019fb3e2-dbfb-7f65-81a6-8d6d7566ee0a', 'E4XAXJYYHYa7zzvnNvSXMf13InY5i3ppsf16UJKigOE', '2026-08-07 05:07:27+00', '2026-07-31 05:21:27.032363+00', NULL, 'unknown', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36', '2026-07-31 05:07:27.033667+00');
 INSERT INTO public.refresh_tokens VALUES ('019f12d6-1857-7f83-8fe1-3045c2dec0ee', '019f12d5-7a88-73c1-8bc1-75a2c1486a7b', 'K_q1EQMVUTGpcu_ka-ZWsqlOQWAMfSJxMw1vni7I4AM', '2026-07-06 10:04:08+00', NULL, NULL, 'unknown', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36', '2026-06-29 10:04:08.663331+00');
 INSERT INTO public.refresh_tokens VALUES ('019f12d5-8e50-78e0-9c59-15f22ce4e415', '019f12d5-7a88-73c1-8bc1-75a2c1486a7b', '83db0clVpkiuLVlnyWwbdESdcW2-FQ7YoubA8EE7XQw', '2026-07-06 10:03:33+00', '2026-06-29 10:04:08.666371+00', NULL, 'unknown', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36', '2026-06-29 10:03:33.328079+00');
+INSERT INTO public.refresh_tokens VALUES ('01a1832e-ab26-7ba8-b110-bc956bdb39ec', '019de09c-3403-7f67-8b49-560aecb2d9c9', '8u_nRmM_jPUpJthPd7NcJeg-yDsYXG0sAhvPql9p57k', '2026-11-04 15:43:56+00', NULL, NULL, 'unknown', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.8078.4 Safari/537.36', '2026-10-28 15:43:56.197415+00');
 INSERT INTO public.refresh_tokens VALUES ('019ef4f4-7d3d-751c-be64-af1478d62e7a', '019eefeb-3e72-7a36-a798-acf0f73f9c39', 'N8ctWylfq-xFI11SwuJ22ZHmp1Ljrmgkrxbt5VmBunM', '2026-06-30 14:48:44+00', NULL, NULL, 'unknown', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36', '2026-06-23 14:48:44.091848+00');
 INSERT INTO public.refresh_tokens VALUES ('019ef4f4-394a-72e4-91f8-db9b5c2fbe7a', '019eefeb-3e72-7a36-a798-acf0f73f9c39', '6VonAPeKA--k3RKfYA06GQ6P8vQGYrPuTlHEfzvH1cQ', '2026-06-30 14:48:26+00', '2026-06-23 14:48:44.09621+00', NULL, 'unknown', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36', '2026-06-23 14:48:26.69685+00');
 INSERT INTO public.refresh_tokens VALUES ('019f12d6-e527-72a5-a67e-dd2853d9a042', '019f12d6-54f8-7dfe-ad40-0069dc7c2be2', 'NmeHOChw9su9WjP1Pnjk_lKmXK9ZIagc8mcAyDmzHzU', '2026-07-06 10:05:01+00', NULL, NULL, 'unknown', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36', '2026-06-29 10:05:01.094528+00');
@@ -222745,6 +222746,7 @@ INSERT INTO public.refresh_tokens VALUES ('019f12d7-d4ff-7df0-ba4d-75c1021ee3e4'
 INSERT INTO public.refresh_tokens VALUES ('019f12cc-f256-73b6-928d-c7f97f4dbbd0', '019f12cc-f202-75f1-b0f1-50240f44df8b', 'IWaHn9v1JhitfnMB3NSHiKivGnz8LYyMdYlyTyHvFN8', '2026-07-06 09:54:09+00', '2026-06-29 10:08:09.594679+00', NULL, 'unknown', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36', '2026-06-29 09:54:09.109931+00');
 INSERT INTO public.refresh_tokens VALUES ('019ef7b0-7940-7150-b90c-fe5b5dc520f1', '019ef4f4-989a-73bf-8044-a07e67f4dbe9', '4bcGafCKSSHOU5u-lmuZstoX9oOiGkqzUKJVm3K56EY', '2026-07-01 03:33:18+00', NULL, NULL, 'unknown', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36', '2026-06-24 03:33:18.271397+00');
 INSERT INTO public.refresh_tokens VALUES ('019ef7b0-4737-7aeb-b7f9-7367fc71f6ad', '019ef4f4-989a-73bf-8044-a07e67f4dbe9', 'swKQvr0Klyq2gTeIy0KsNf_3monjUKZz8k6JBm0iKS0', '2026-07-01 03:33:05+00', '2026-06-24 03:33:18.274724+00', NULL, 'unknown', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36', '2026-06-24 03:33:05.462904+00');
+INSERT INTO public.refresh_tokens VALUES ('01a1831b-d65b-7a93-bd8e-beeb6ca525ec', '019de09c-3403-7f67-8b49-560aecb2d9c9', 'CVsZbdexf0r6YtBsZmuyfYHYAEZabUfqGMtih7mpCgA', '2026-11-04 15:23:22+00', NULL, NULL, 'unknown', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/156.0.0.0 Safari/537.36', '2026-10-28 15:23:22.069567+00');
 INSERT INTO public.refresh_tokens VALUES ('019f12d8-fe7d-77b8-a88a-661b3f4ca3fc', '019f12d7-c3aa-7cc8-8cac-c8096a1aa819', 'nGShdtcdOqu1yoceHanNypYZN8UEi9thJjL5AdaG9k4', '2026-07-06 10:07:18+00', NULL, NULL, 'unknown', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36', '2026-06-29 10:07:18.65279+00');
 INSERT INTO public.refresh_tokens VALUES ('019fb69e-c7f5-793f-af15-bbdcad5524e2', '019fb3e2-dbfb-7f65-81a6-8d6d7566ee0a', '94JmEYbIPIJxUeFW4o82aAW8MokASC9mWhcQQ0SHVYg', '2026-08-07 05:21:27+00', '2026-08-01 04:07:23.659965+00', NULL, 'unknown', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36', '2026-07-31 05:21:27.028011+00');
 INSERT INTO public.refresh_tokens VALUES ('019f237d-c788-76ec-8330-afd8cdcd03b6', '019f2356-830f-7fc4-a62c-7a8f0f89fb09', 't9hPe3Gwbl-_3dIY_9QG8MsEpUmMBNWns7NstfJI38g', '2026-07-09 15:41:13+00', '2026-07-02 15:55:13.021915+00', NULL, 'unknown', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36', '2026-07-02 15:41:13.477787+00');
@@ -222764,8 +222766,10 @@ INSERT INTO public.refresh_tokens VALUES ('019f94ab-fb41-7e29-9289-ea138e1812ee'
 INSERT INTO public.refresh_tokens VALUES ('01a16143-36e3-7c2a-b06c-cf816550dee1', '019e3de7-9986-7e44-8457-780a743994ba', 'EgjAIAZOA-DwF6KM5WdB9pFGeqrLPGU7XQVZHFIhoxI', '2026-10-29 01:39:17+00', NULL, NULL, 'unknown', 'Bun/1.4.3', '2026-10-22 01:39:17.346565+00');
 INSERT INTO public.refresh_tokens VALUES ('019f7245-19af-72ed-b0f0-d38892c18c4d', '019f71a9-7612-7399-834c-ce73f1a8b4de', 'NP5Eh7OeUCJVewEuwelSMR12N9hvd53tBOf4M0b4Yq4', '2026-07-24 22:49:19+00', '2026-07-17 23:01:57.030377+00', NULL, 'unknown', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36', '2026-07-17 22:49:19.022365+00');
 INSERT INTO public.refresh_tokens VALUES ('019f3957-379e-787e-9c4d-6c63c2e2aea1', '019f391d-7999-7d82-9bfb-e7b02b60d9c1', 'Pk26h8hEz-POqgUb7IO6GOzqrlJYyUwg1GYEgQEqNCA', '2026-07-13 21:30:45+00', '2026-07-06 21:44:45.028901+00', NULL, 'unknown', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36', '2026-07-06 21:30:45.019872+00');
+INSERT INTO public.refresh_tokens VALUES ('01a17411-3055-79ac-9adb-e129cda365b2', '019de09c-3403-7f67-8b49-560aecb2d9c9', 'IlYtWrlvbcy7jlwQ8s4yGw3Zw1PWDO9x6wf5eEt2xdI', '2026-11-01 17:17:25+00', NULL, NULL, 'unknown', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Claude/3.6556.2 Chrome/152.0.7977.167 Safari/537.36', '2026-10-25 17:17:25.968006+00');
 INSERT INTO public.refresh_tokens VALUES ('019f736c-e44a-7ec8-9f58-fea13fc0f8aa', '019f71ce-7f42-70db-b9b7-083eee6a4bf5', 'xKqyd7ABNMOhwk5Bd9YWI-PKFGJlEqRllqhgf1sA42s', '2026-07-25 04:12:24+00', '2026-07-18 04:14:59.168654+00', NULL, 'unknown', 'Mozilla/5.0 (X11; Linux x86_64; rv:152.0) Gecko/20100101 Firefox/152.0', '2026-07-18 04:12:24.010076+00');
 INSERT INTO public.refresh_tokens VALUES ('019f71cd-7635-7b8f-a54b-f13d1c9208c6', '019f71cd-75cc-74d3-a234-3c7c4037cc4c', 'cH3SN4v8jT4RA7wpuusnq7cdfwNkJcGIc9L-HdQbviI', '2026-07-24 20:38:38+00', '2026-07-17 20:39:00.391077+00', NULL, 'unknown', 'Mozilla/5.0 (X11; Linux x86_64; rv:152.0) Gecko/20100101 Firefox/152.0', '2026-07-17 20:38:38.38938+00');
+INSERT INTO public.refresh_tokens VALUES ('01a18330-0650-7fad-ac99-c33b77bda607', '019de09c-3403-7f67-8b49-560aecb2d9c9', 'QyQzu5iL8NUr8Hy9SPd7AXebk0cV0Y5qT4KLnjlyvYY', '2026-11-04 15:45:25+00', NULL, NULL, 'unknown', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.8078.4 Safari/537.36', '2026-10-28 15:45:25.072283+00');
 INSERT INTO public.refresh_tokens VALUES ('019f16bd-3b5c-7793-9105-46a14adef348', '019f12f8-6b0a-72c2-95d0-debd4227b22f', 'fFKCOz4iRc1611wGhMqFrbm7pDohHLrvCY19_i0j9Uw', '2026-07-07 04:15:28+00', NULL, NULL, 'unknown', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36', '2026-06-30 04:15:28.091738+00');
 INSERT INTO public.refresh_tokens VALUES ('019f16bd-1635-775c-8352-cb52dd9250a1', '019f12f8-6b0a-72c2-95d0-debd4227b22f', 'MqAGSwfaBcqYNYJ30laX2uKJ0JBE6qEuYuI82pdKcqs', '2026-07-07 04:15:18+00', '2026-06-30 04:15:28.096125+00', NULL, 'unknown', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36', '2026-06-30 04:15:18.579104+00');
 INSERT INTO public.refresh_tokens VALUES ('019f238a-96fa-70ac-bfa9-a501f59c8f2b', '019f22cd-963b-741a-8b8c-3d806fd0e16d', 'rGgcJghEG_y_zTGFAU2kA7kslIo5GKYiQPj8Qlvx9Mc', '2026-07-09 15:55:13+00', NULL, NULL, 'unknown', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36', '2026-07-02 15:55:13.017515+00');
@@ -222784,11 +222788,12 @@ INSERT INTO public.refresh_tokens VALUES ('019f38f7-dce2-785f-b429-330efc10f356'
 INSERT INTO public.refresh_tokens VALUES ('019f38fd-448e-77ac-9962-22cfb7673af7', '019f38fd-43ff-7ef1-9210-f62eb255d6f0', '2nqYdybSO2_zc6xMdwhOjnBkhbEN4nmfNhiu0T9njqA', '2026-07-13 19:52:30+00', NULL, NULL, 'unknown', 'curl/8.5.0', '2026-07-06 19:52:30.093338+00');
 INSERT INTO public.refresh_tokens VALUES ('01a0418b-3832-77fa-8264-cb912ab03283', '019e3de7-9d83-78da-8c9d-65820aeb6d01', 'jp2OBE-IsVl1Od3rOvPhdsbzzMCUikb0DeHhPoC7qvs', '2026-09-03 04:47:18+00', NULL, NULL, 'unknown', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36', '2026-08-27 04:47:18.057082+00');
 INSERT INTO public.refresh_tokens VALUES ('019f2353-a817-7df3-8860-872386795dd4', '019e3de7-9b5a-764c-aaf4-225863e061d9', 'MRUNkaA8oyvMhh-N37IYg5u5heUJHyvZX0Zk2IiGqE8', '2026-07-09 14:55:12+00', NULL, NULL, 'unknown', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36', '2026-07-02 14:55:12.918959+00');
-INSERT INTO public.refresh_tokens VALUES ('01a14f7e-212a-76bd-802b-8743ddfdf534', '019de09c-3403-7f67-8b49-560aecb2d9c9', 'W4bFIgOdQ-L06lxV3nvJ5YVv0kPoCmwiZiCl87gscGI', '2026-10-25 14:50:28+00', '2026-10-18 18:50:34.219626+00', NULL, 'unknown', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36', '2026-10-18 14:50:28.500629+00');
 INSERT INTO public.refresh_tokens VALUES ('019f391d-454d-7d89-b97d-5e659b8f8ff1', '019e3de7-9b5a-764c-aaf4-225863e061d9', '_TsPOP3tYm2qZKho95MuK8gJXpPqP3I0DWGPW8fEwy0', '2026-07-13 20:27:27+00', '2026-07-06 20:27:32.509489+00', NULL, 'unknown', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36', '2026-07-06 20:27:27.437149+00');
 INSERT INTO public.refresh_tokens VALUES ('019f2367-2a91-7d7d-a0a6-5f7087007d79', '019e3de7-9b5a-764c-aaf4-225863e061d9', 'ttRaQ-310PFACmzBzPw0vukUfkIUT1XDl6DI6HBD7ZA', '2026-07-09 15:16:31+00', NULL, NULL, 'unknown', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36', '2026-07-02 15:16:31.504837+00');
+INSERT INTO public.refresh_tokens VALUES ('01a1742a-65b4-70c6-8945-94abc9fa6cfb', '019de09c-3403-7f67-8b49-560aecb2d9c9', 'k1SjGM3gjK6B1g_j8kFOq8Mx7p8Go_2_z1RH0jwWgYY', '2026-11-01 17:44:58+00', NULL, NULL, 'unknown', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/156.0.0.0 Safari/537.36', '2026-10-25 17:44:58.031147+00');
 INSERT INTO public.refresh_tokens VALUES ('019f94b8-cc82-7e8e-bf4c-3e2bcc88dbe9', '019f8fbd-2bbc-7455-b122-6e6dbce1b650', 'PYW8hYkFaSLsMFlJfZJ5cvyp1a04SUrbMfYHpv3x_0g', '2026-07-31 15:22:46+00', '2026-07-24 16:44:41.639999+00', NULL, 'unknown', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36', '2026-07-24 15:22:46.785977+00');
 INSERT INTO public.refresh_tokens VALUES ('019fb740-58fa-7bd5-a9d5-c4d6b09cd6dd', '019e3de7-9ee4-722c-b47e-7096ca98140d', 'gGWpYqx3Zdq_rOMPnGfJ39mVhVTnKmrL3p4GYSNMIa0', '2026-08-07 08:17:55+00', '2026-07-31 08:22:05.909602+00', NULL, 'unknown', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36', '2026-07-31 08:17:55.449651+00');
+INSERT INTO public.refresh_tokens VALUES ('01a18330-04b9-70c4-b69e-3575ceda4259', '019de09c-3403-7f67-8b49-560aecb2d9c9', 'BLEmCcl3lrRImczISIXhXyXQ57rdDFKe7m0eqTRt_Gg', '2026-11-04 15:45:24+00', '2026-10-28 15:45:25.072283+00', NULL, 'unknown', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.8078.4 Safari/537.36', '2026-10-28 15:45:24.66378+00');
 INSERT INTO public.refresh_tokens VALUES ('019f238a-96fa-72a8-a0f1-a3f915fef14b', '019f2356-830f-7fc4-a62c-7a8f0f89fb09', '13r6aLdkxFdutLy2RCZGt4fBuAGRXIyuq_usKX3MNTQ', '2026-07-09 15:55:13+00', NULL, NULL, 'unknown', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36', '2026-07-02 15:55:13.017537+00');
 INSERT INTO public.refresh_tokens VALUES ('019f237d-c78e-7197-b638-99e6a5263663', '019f22cd-963b-741a-8b8c-3d806fd0e16d', 'f_Pshk1gP7Q4cfhjmyG8n6rC4XCA7HcSRRHFoi0DtQg', '2026-07-09 15:41:13+00', '2026-07-02 15:55:13.020806+00', NULL, 'unknown', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36', '2026-07-02 15:41:13.485389+00');
 INSERT INTO public.refresh_tokens VALUES ('019f238a-9ae6-73e7-8ef1-e9699f0a5ff0', '019f22c9-f556-74cd-baaf-8ca4e008c2b9', 'x2qF2WdAToUSesUarngDlO7v5pjUgIx4oOJ_ToIbDG4', '2026-07-09 15:55:14+00', NULL, NULL, 'unknown', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36', '2026-07-02 15:55:14.021845+00');
@@ -222800,7 +222805,6 @@ INSERT INTO public.refresh_tokens VALUES ('019f38f9-1ecc-70bf-9922-61ffac4671da'
 INSERT INTO public.refresh_tokens VALUES ('019f3922-031e-7739-ac1b-71cd2b41a24a', '019f38fe-37ef-79e3-b8d1-ba4e291c8d8c', '1TJCmspsLGJHAKaiA539Jhy65SZOtwHX_pu5ZpFNouc', '2026-07-13 20:32:38+00', '2026-07-10 11:47:12.998781+00', NULL, 'unknown', 'Mozilla/5.0 (iPhone; CPU iPhone OS 26_5_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/149.0.7827.137 Mobile/15E148 Safari/604.1', '2026-07-06 20:32:38.173809+00');
 INSERT INTO public.refresh_tokens VALUES ('019f3964-08e2-71ba-a48d-a927bc64601f', '019f391d-7999-7d82-9bfb-e7b02b60d9c1', 'NW64fGOBTBzWlGFYmvRhWx7duTn1toiD_VsCPNZwpY0', '2026-07-13 21:44:45+00', '2026-07-10 12:00:19.340304+00', NULL, 'unknown', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36', '2026-07-06 21:44:45.024711+00');
 INSERT INTO public.refresh_tokens VALUES ('019f38fd-44f6-7aa0-8e76-0c9417723a8d', '019f38fd-449b-7c2f-a7fa-e146f0587b13', 'sFEzna71bDDflyrmmLhkmFn-tC8U9nmNrCLhdOkD7Ho', '2026-07-13 19:52:30+00', NULL, NULL, 'unknown', 'curl/8.5.0', '2026-07-06 19:52:30.197784+00');
-INSERT INTO public.refresh_tokens VALUES ('01a15059-f16d-70a5-8144-205a73687d5c', '019de09c-3403-7f67-8b49-560aecb2d9c9', 'LswQHKuxmbNge1IT9Pq9bi6m9j6gZZ3NTXZ0Le8zlwQ', '2026-10-25 18:50:34+00', NULL, NULL, 'unknown', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36', '2026-10-18 18:50:34.219626+00');
 INSERT INTO public.refresh_tokens VALUES ('019f391d-5919-77ad-bb53-f19aaf3c39b3', '019e3de7-9b5a-764c-aaf4-225863e061d9', 'aATevqsE4EwDlewbkFW6TbEvGb1F-5rwGB5RoTUzkOI', '2026-07-13 20:27:32+00', NULL, NULL, 'unknown', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36', '2026-07-06 20:27:32.504907+00');
 INSERT INTO public.refresh_tokens VALUES ('019faba3-363c-757c-bf10-a0874361ddc0', '019faaad-61d2-7e02-863b-1647100f4a40', 'pKvZ2_RNFlJUMxb-hs8gMk1LqBI-fefUOAFxMWR3tpw', '2026-08-05 02:10:28+00', '2026-07-29 02:24:28.029215+00', NULL, 'unknown', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36', '2026-07-29 02:10:28.027396+00');
 INSERT INTO public.refresh_tokens VALUES ('019f390e-3060-78b8-b351-3894eeb3498a', '019f38fe-37ef-79e3-b8d1-ba4e291c8d8c', 'GFIY79SvWE5yIiUiaNpdpdaS4WWOp5xWB0semHsg5Yo', '2026-07-13 20:10:59+00', '2026-07-06 20:32:38.177218+00', NULL, 'unknown', 'Mozilla/5.0 (iPhone; CPU iPhone OS 26_5_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/149.0.7827.137 Mobile/15E148 Safari/604.1', '2026-07-06 20:10:59.039687+00');

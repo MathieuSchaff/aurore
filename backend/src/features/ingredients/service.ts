@@ -374,20 +374,25 @@ function buildIngredientSearch(query: string) {
   const escaped = escapeLike(q)
   const rank = sql<number>`CASE
         WHEN search_norm(${ingredients.name}) = search_norm(${q})
-          OR search_norm(${ingredients.slug}) = search_norm(${q}) THEN 0
+          OR search_norm(${ingredients.slug}) = search_norm(${q})
+          OR search_norm(${ingredients.canonicalKey}) = search_norm(${q}) THEN 0
         WHEN search_norm(${ingredients.name}) LIKE search_norm(${escaped}) || '%' ESCAPE '\\'
-          OR search_norm(${ingredients.slug}) LIKE search_norm(${escaped}) || '%' ESCAPE '\\' THEN 1
+          OR search_norm(${ingredients.slug}) LIKE search_norm(${escaped}) || '%' ESCAPE '\\'
+          OR search_norm(${ingredients.canonicalKey}) LIKE search_norm(${escaped}) || '%' ESCAPE '\\' THEN 1
         WHEN search_norm(${ingredients.name}) LIKE '%' || search_norm(${escaped}) || '%' ESCAPE '\\'
-          OR search_norm(${ingredients.slug}) LIKE '%' || search_norm(${escaped}) || '%' ESCAPE '\\' THEN 2
+          OR search_norm(${ingredients.slug}) LIKE '%' || search_norm(${escaped}) || '%' ESCAPE '\\'
+          OR search_norm(${ingredients.canonicalKey}) LIKE '%' || search_norm(${escaped}) || '%' ESCAPE '\\' THEN 2
         ELSE 3
       END`
   const similarity = sql<number>`GREATEST(
         similarity(search_norm(${ingredients.name}), search_norm(${q})),
-        similarity(search_norm(${ingredients.slug}), search_norm(${q}))
+        similarity(search_norm(${ingredients.slug}), search_norm(${q})),
+        similarity(search_norm(${ingredients.canonicalKey}), search_norm(${q}))
       )`
   const matches = or(
     sql`search_norm(${ingredients.name}) LIKE '%' || search_norm(${escaped}) || '%' ESCAPE '\\'`,
     sql`search_norm(${ingredients.slug}) LIKE '%' || search_norm(${escaped}) || '%' ESCAPE '\\'`,
+    sql`search_norm(${ingredients.canonicalKey}) LIKE '%' || search_norm(${escaped}) || '%' ESCAPE '\\'`,
     sql`search_norm(${ingredients.name}) % search_norm(${q})`,
     sql`search_norm(${ingredients.slug}) % search_norm(${q})`
   )

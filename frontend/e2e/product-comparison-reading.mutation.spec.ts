@@ -56,6 +56,36 @@ async function createComparison(
   return (await created.json()).data.id as string
 }
 
+test('separates readable ingredient names from formula labels and sheet INCI', async ({ page }) => {
+  const user = await registerFreshUser(page)
+  try {
+    const id = await createComparison(page, user.token, LAYOUT_PAIR)
+    await page.goto(`/products/compare/${id}`)
+    await waitForHydration(page)
+    const formulas = page.getByRole('region', { name: 'Formules', exact: true })
+    await expect(
+      formulas.getByRole('link', { name: 'Curcuma Longa Root Extract', exact: true })
+    ).toHaveAttribute('href', '/ingredients/curcuma-longa-root-extract')
+
+    const signals = page.getByRole('region', { name: 'Signaux', exact: true })
+    await signals.getByRole('button', { name: /autres/ }).click()
+    const curcuma = signals.getByRole('link', { name: 'Extrait de racine de curcuma', exact: true })
+    await expect(curcuma).toHaveAttribute('href', '/ingredients/curcuma-longa-root-extract')
+    await curcuma.click()
+    await waitForHydration(page)
+    await expect(page.getByRole('heading', { level: 1 })).toHaveText('Extrait de racine de curcuma')
+    await expect(page.getByRole('heading', { name: 'Nom INCI', exact: true })).toBeVisible()
+    await expect(page.getByText('Curcuma Longa Root Extract', { exact: true })).toBeVisible()
+
+    await page.goto('/ingredients/glucose')
+    await waitForHydration(page)
+    await expect(page.getByRole('heading', { level: 1 })).toHaveText('Glucose')
+    await expect(page.getByRole('heading', { name: 'Nom INCI', exact: true })).toHaveCount(0)
+  } finally {
+    await deleteTestUser(page, user.token)
+  }
+})
+
 test('reads a saved comparison block by block', async ({ page }) => {
   const user = await registerFreshUser(page)
   try {

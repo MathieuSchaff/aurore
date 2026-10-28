@@ -105,6 +105,34 @@ describe('IngredientInfoTab', () => {
     serveIngredient()
   })
 
+  it('shows the INCI identity separately from the French name', async () => {
+    serveIngredient({
+      overrides: {
+        name: 'Extrait de racine de curcuma',
+        canonicalKey: 'Curcuma Longa Root Extract',
+      },
+    })
+    renderWithProviders(<IngredientInfoTab />)
+
+    expect(
+      await screen.findByRole('heading', { name: ingredientLabels.inciName })
+    ).toBeInTheDocument()
+    expect(screen.getByText('Curcuma Longa Root Extract')).toBeInTheDocument()
+  })
+
+  it.each([
+    { name: 'Glucose', canonicalKey: 'GLUCOSE' },
+    { name: 'Ingrédient sans identité', canonicalKey: null },
+  ])('omits the INCI section for $name', async (overrides) => {
+    serveIngredient({ overrides })
+    renderWithProviders(<IngredientInfoTab />)
+
+    await screen.findByRole('heading', { name: /famille/i })
+    expect(
+      screen.queryByRole('heading', { name: ingredientLabels.inciName })
+    ).not.toBeInTheDocument()
+  })
+
   it('renders family (type + category) and the description section', async () => {
     renderWithProviders(<IngredientInfoTab />)
 
