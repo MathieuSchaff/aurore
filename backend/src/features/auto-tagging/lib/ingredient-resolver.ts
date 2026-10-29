@@ -42,7 +42,17 @@ function isNonDecreasing(tokens: readonly string[]): boolean {
   return true
 }
 
-export function isAlphabeticalINCI(ingredients: readonly string[]): boolean {
+export function isAlphabeticalINCI(
+  ingredients: readonly string[],
+  rawInci?: string | null
+): boolean {
+  // Alias renaming (Blue No. 1 to CI 42090) can hide the written alphabetical order
+  if (
+    rawInci &&
+    isAlphabeticalINCI(splitINCI(stripPreamble(rawInci)).map((token) => token.trim().toLowerCase()))
+  ) {
+    return true
+  }
   const tokens = pickLetterTokens(ingredients)
   if (tokens.length < ALPHA_DETECT_MIN_TOKENS) return false
   if (!isNonDecreasing(tokens)) return false

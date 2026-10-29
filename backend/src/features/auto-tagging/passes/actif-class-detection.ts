@@ -315,7 +315,7 @@ export function detectActifClassesWithEvidence(
   if (ingredients.length === 0) return evidence
 
   // Korean brands often list INCI alphabetically; position caps are meaningless then.
-  const isAlpha = isAlphabeticalINCI(ingredients)
+  const isAlpha = isAlphabeticalINCI(ingredients, inci)
   const isRinseOffLike = kind !== undefined && RINSE_OFF_LIKE_KINDS.has(kind)
   // Empty/absent name disables the cap-marginal gate (legacy keep, see rinseOffNameGate).
   const gateName = productName?.trim().toLowerCase()

@@ -100,7 +100,11 @@ export function isFragileINCI(inci: string | null | undefined): boolean {
   const cleaned = stripMarketingPreamble(inci)
   const normalized = splitINCI(cleaned).map(normalize).filter(Boolean)
   if (normalized.length === 0) return true
-  return hasResidualMarketingProse(inci) || looksTruncated(inci) || isAlphabeticalINCI(normalized)
+  return (
+    hasResidualMarketingProse(inci) ||
+    looksTruncated(inci) ||
+    isAlphabeticalINCI(normalized, cleaned)
+  )
 }
 
 function toCanonicalSlug(raw: string): string {
