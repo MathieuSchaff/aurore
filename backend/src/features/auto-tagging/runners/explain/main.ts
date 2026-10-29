@@ -66,12 +66,7 @@ function printTrace(trace: ExplainTrace, kind: string, category: string): void {
     }
   }
 
-  console.log(`\n🪦 Dropped algo-derm candidates (why)`)
-  if (trace.drops.length === 0) console.log(`   (none)`)
-  else {
-    const sorted = [...trace.drops].sort((a, b) => a.reason.localeCompare(b.reason))
-    for (const d of sorted) console.log(`   ${pad(d.reason, 20)} ${d.candidateId}`)
-  }
+  printDroppedCandidates(trace.drops)
 
   console.log(`\n⭐ Primary promotion`)
   if (trace.promotions.length === 0) console.log(`   (none)`)
@@ -81,6 +76,16 @@ function printTrace(trace: ExplainTrace, kind: string, category: string): void {
   for (const t of trace.final)
     console.log(`   ${rpad(t.relevance, 9)} ${pad(t.tagSlug, 26)} ${t.source}`)
   console.log()
+}
+
+function printDroppedCandidates(drops: ExplainTrace['drops']): void {
+  console.log(`\n🪦 Dropped algo-derm candidates (why)`)
+  if (drops.length === 0) console.log(`   (none)`)
+  const sorted = [...drops].sort((a, b) => a.reason.localeCompare(b.reason))
+  for (const drop of sorted) {
+    const finalEmitter = drop.finalEmitter ? ` (final tag emitted by ${drop.finalEmitter})` : ''
+    console.log(`   ${pad(drop.reason, 20)} ${drop.candidateId}${finalEmitter}`)
+  }
 }
 
 // GROUP BY on tag_products for the real stored counts, not the audit runner's

@@ -44,6 +44,7 @@ interface ExplainDrop {
   // algo-derm `tagProduct` id, not the Aurore slug: most drop reasons fire before slug mapping.
   candidateId: string
   count: number
+  finalEmitter?: string
 }
 
 interface ExplainPromotion {
@@ -135,18 +136,38 @@ export function explainInci(
   return {
     eligible: true,
     layers,
-    drops: parseDrops(dropCounts),
+    drops: parseDrops(dropCounts, layers),
     promotions,
     final,
   }
 }
 
 // Key format: `${reason}:${candidateId}` (set by algo-derm-detection.ts bumpDrop).
-function parseDrops(dropCounts: ReadonlyMap<string, number>): ExplainDrop[] {
+function parseDrops(
+  dropCounts: ReadonlyMap<string, number>,
+  layers: readonly ExplainLayer[]
+): ExplainDrop[] {
+  const finalEmitters = new Map<string, string>()
+  for (const layer of layers) {
+    for (const proposal of layer.proposals) {
+      if (proposal.outcome === 'won' && proposal.source !== 'algo-derm') {
+        finalEmitters.set(proposal.tagSlug, layer.name)
+      }
+    }
+  }
+
   const out: ExplainDrop[] = []
   for (const [k, count] of dropCounts) {
     const sep = k.indexOf(':')
-    out.push({ reason: k.slice(0, sep) as DropReason, candidateId: k.slice(sep + 1), count })
+    const candidateId = k.slice(sep + 1)
+    // Only identical IDs establish a link; different candidates can map to the same Aurore slug
+    const finalEmitter = finalEmitters.get(candidateId)
+    out.push({
+      reason: k.slice(0, sep) as DropReason,
+      candidateId,
+      count,
+      ...(finalEmitter ? { finalEmitter } : {}),
+    })
   }
   return out
 }

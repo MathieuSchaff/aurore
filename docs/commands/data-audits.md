@@ -71,4 +71,4 @@ typed after the recipe name, and `just --usage <recipe>` prints them.
 
 | Command | What | Env |
 | :--- | :--- | :--- |
-| `just autotag-explain` | `SLUG=<slug>` traces a real product with its full input (name, description, brand, texture). `INCI="…"` traces a raw INCI only, blind to the name and claim passes. `COUNTS=1` aggregates the whole catalogue | `SLUG, INCI, KIND` (default `serum`), `CATEGORY` (default `skincare`), `COUNTS` |
+| `just autotag-explain` | `SLUG=<slug>` traces a real product with its full input (name, description, brand, texture). Dropped candidates name the final emitting pass when the same slug wins in another Aurore pass. `INCI="…"` traces a raw INCI only, blind to the name and claim passes. `COUNTS=1` aggregates the whole catalogue | `SLUG, INCI, KIND` (default `serum`), `CATEGORY` (default `skincare`), `COUNTS` |

@@ -77,6 +77,40 @@ describe('explainInci', () => {
     }
   })
 
+  it.each([
+    ['Crème hydratante', 'deshydratation', 'formula:deshydratation-name'],
+    ['Soin pores', 'pores-sebum', 'formula:pores-sebum-name'],
+  ])('links a dropped %s candidate to its final Aurore emitter', (name, candidateId, emitter) => {
+    const trace = explainInci({ inci: SERUM_INCI, kind: 'serum', category: 'skincare', name })
+
+    expect(trace.drops.find((drop) => drop.candidateId === candidateId)).toEqual({
+      candidateId,
+      reason: 'disallowed',
+      count: 1,
+      finalEmitter: emitter,
+    })
+  })
+
+  it('keeps a rejected candidate unannotated when no other pass emits its slug', () => {
+    const trace = explainInci({
+      inci: SERUM_INCI,
+      kind: 'serum',
+      category: 'skincare',
+      name: 'Soin visage',
+    })
+
+    expect(trace.drops.find((drop) => drop.candidateId === 'deshydratation')).toEqual({
+      candidateId: 'deshydratation',
+      reason: 'disallowed',
+      count: 1,
+    })
+    expect(trace.drops.find((drop) => drop.candidateId === 'peau-sensible')).toEqual({
+      candidateId: 'peau-sensible',
+      reason: 'unmapped',
+      count: 1,
+    })
+  })
+
   it('does not crash on empty INCI and still emits kind tags', () => {
     const input = { inci: '', kind: 'serum' as ProductKind, category: 'skincare' }
     const trace = explainInci(input)
