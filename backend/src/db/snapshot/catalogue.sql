@@ -221756,6 +221756,7 @@ INSERT INTO public.product_tag_links VALUES ('019de747-c27c-74ad-9358-5b1af677bb
 INSERT INTO public.product_tag_links VALUES ('019de0ab-6196-783b-b5ee-733430309ba7', '019f43b0-0395-7e8b-b41f-50237d852fdd', 'secondary', 'kind');
 INSERT INTO public.product_tag_links VALUES ('019de74d-d258-7145-9913-98822f2c5e09', '019f43b0-0395-7e8b-b41f-50237d852fdd', 'secondary', 'formula');
 INSERT INTO public.product_tag_links VALUES ('019de0ab-6196-751f-94a9-e01e3c7a3473', '019f43b0-0395-7e8b-b41f-50237d852fdd', 'secondary', 'formula');
+INSERT INTO public.product_tag_links VALUES ('019e00a5-c1a0-7557-b75c-8f020cdf3dd8', '019de0ab-654a-71ea-ab83-fcba55232381', 'secondary', 'actif-class');
 
 
 --
