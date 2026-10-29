@@ -1,8 +1,4 @@
-// Audit manual AHA / BHA / PHA tags that the detector does NOT emit. Read-only. The three
-// acid clusters cap at position 10 by design (pH-dependent acid past pos 10 reads as pH
-// adjuster / preservative trace, not a functional exfoliant), so the drift against manual
-// tags is expected and kept. Manual annotations are concentration-agnostic and tag any
-// product containing the molecule, so 254 manual pairs survive past the cap.
+// A missing automatic tag is a review signal, not proof that a manual annotation is wrong
 
 import type { ProductKind } from '@aurore/shared'
 
@@ -12,7 +8,9 @@ import { inArray, sql } from 'drizzle-orm'
 import { withAdminRls } from '../../../../db/rls'
 import { products, productTagLinks, productTagTypes } from '../../../../db/schema'
 import { freqTable } from '../../../../lib/report'
-import { ACTIF_CLASS_DEFS, detectActifClasses } from '../../passes/actif-class-detection'
+import { loadAutoTagFetchBundle } from '../../lib/fetch-auto-tag-bundle'
+import { computeTagRowsForProduct } from '../../lib/orchestrator-input'
+import { ACTIF_CLASS_DEFS } from '../../passes/actif-class-detection'
 import { exitOnError } from '../cli-args'
 import { fetchEligibleProducts, fetchProductTagSlugsByProduct } from './db'
 import { LIMIT } from './env'
@@ -55,9 +53,6 @@ type Verdict = 'delete' | 'keep' | 'borderline'
 // Marketing intent overrides chemistry when the product is sold as an exfoliant
 // (Dermalogica Daily Microfoliant BHA at pos 23 is functionally a peel despite the cap).
 const MARKET_MARKERS = [
-  'aha',
-  'bha',
-  'pha',
   'salicylic',
   'salicyclique',
   'glycolic',
@@ -143,7 +138,9 @@ function classify(row: OverrideRow): Verdict {
   const slug = row.productSlug.toLowerCase()
   const haystack = `${name} ${slug}`
 
-  if (MARKET_MARKERS.some((m) => haystack.includes(m))) return 'keep'
+  // Substrings such as "triphase" do not declare an acid class
+  if (/\b(?:aha|bha|pha)\b/.test(haystack) || MARKET_MARKERS.some((m) => haystack.includes(m)))
+    return 'keep'
   if (HAIR_MARKERS.some((m) => haystack.includes(m))) return 'delete'
   const isAcne = ACNE_MARKERS.some((m) => haystack.includes(m))
   const isPigmentation = PIGMENTATION_MARKERS.some((m) => haystack.includes(m))
@@ -159,31 +156,42 @@ async function main() {
     return
   }
 
-  console.log(`🔍 Audit overrides AHA / BHA / PHA (manual past cap=10)`)
+  console.log(`🔍 Audit overrides AHA / BHA / PHA (manual non émis par le pipeline courant)`)
   console.log(`   targets=${TARGET_SLUGS.join(',')}${LIMIT ? ` · limit=${LIMIT}` : ''}\n`)
 
   const subset = await fetchEligibleProducts({ limit: LIMIT ?? undefined })
 
-  // SQL-filtered to TARGET_SLUGS, so the narrowing cast is sound.
-  const manualByProduct = (await fetchProductTagSlugsByProduct([...TARGET_SLUGS])) as Map<
+  // SQL filters to TARGET_SLUGS, so the narrowing cast is sound
+  const manualByProduct = (await fetchProductTagSlugsByProduct(TARGET_SLUGS, 'manual')) as Map<
     string,
     Set<TargetSlug>
   >
+
+  const manualProducts = subset.filter((p) => manualByProduct.has(p.id))
+  const bundle = await withAdminRls((tx) =>
+    loadAutoTagFetchBundle(
+      manualProducts.map((p) => p.id),
+      tx
+    )
+  )
 
   const overrides: OverrideRow[] = []
   let scanned = 0
   let withManual = 0
   let detectorAgrees = 0
 
-  for (const p of subset) {
+  for (const p of manualProducts) {
     const manual = manualByProduct.get(p.id)
     if (!manual || manual.size === 0) continue
     withManual++
-    if (!p.inci?.trim()) continue
     scanned++
 
-    const detected = new Set<string>(detectActifClasses(p.inci))
-    const tokens = splitINCI(p.inci).map(normalize).filter(Boolean)
+    const detected = new Set<string>(
+      computeTagRowsForProduct(p, bundle).pairs.map((pair) => pair.tagSlug)
+    )
+    const tokens = splitINCI(p.inci ?? '')
+      .map(normalize)
+      .filter(Boolean)
 
     for (const slug of manual) {
       if (detected.has(slug)) {
@@ -203,7 +211,7 @@ async function main() {
         }
       }
       if (bestIdx === -1) {
-        // No pattern hit: orphan annotation, no calibration fix can recover it.
+        // An absent INCI match needs review; a structured claim may still justify the manual tag
         overrides.push({
           productSlug: p.slug,
           tagSlug: slug,
@@ -235,9 +243,9 @@ async function main() {
   console.log(`📊 Stats`)
   console.log(`   ${subset.length} produits éligibles`)
   console.log(`   ${withManual} avec ≥ 1 tag manual aha/bha/pha`)
-  console.log(`   ${scanned} scannés (INCI non-vide)`)
-  console.log(`   ${detectorAgrees} où détecteur fire (cap respecté → no override)`)
-  console.log(`   ${overrides.length} overrides (manual past cap)\n`)
+  console.log(`   ${scanned} scannés (INCI vide inclus)`)
+  console.log(`   ${detectorAgrees} paires réémises par le pipeline courant`)
+  console.log(`   ${overrides.length} overrides manuels non réémis\n`)
 
   if (overrides.length === 0) {
     console.log(`   ✅ Aucun override à reviewer.\n`)
@@ -266,7 +274,7 @@ async function main() {
   console.table(
     TARGET_SLUGS.map((slug) => {
       const [near, mid, deep, orphan] = buckets[slug]
-      return { slug, '10–14': near, '15–19': mid, '20+': deep, orphan }
+      return { slug, '1-14': near, '15-19': mid, '20+': deep, orphan }
     })
   )
 
@@ -311,7 +319,7 @@ async function main() {
   const verdicts: Verdict[] = overrides.map(classify)
   const counts: Record<Verdict, number> = { delete: 0, keep: 0, borderline: 0 }
   for (const v of verdicts) counts[v]++
-  console.log(`🧮 Auto-classification`)
+  console.log(`🧮 Pré-tri heuristique, à revoir avant toute suppression`)
   console.table(counts)
 
   // CSV_OUT writes one file; CSV_DIR splits into delete/keep/borderline.csv. The keep/delete
@@ -364,7 +372,7 @@ async function applyDeletions(): Promise<void> {
     throw new Error('APPLY=1 requires APPLY_FROM_CSV (path to CSV inside container)')
   }
 
-  console.log(`🗑  APPLY mode — DELETE pairs from ${APPLY_FROM_CSV}`)
+  console.log(`🗑  APPLY mode : DELETE manual pairs from ${APPLY_FROM_CSV}`)
 
   const file = Bun.file(APPLY_FROM_CSV)
   const text = await file.text()
@@ -430,7 +438,7 @@ async function applyDeletions(): Promise<void> {
       const rows = await tx
         .delete(productTagLinks)
         .where(
-          sql`${productTagLinks.productId} = ${pid} AND ${productTagLinks.productTagId} = ${tid}`
+          sql`${productTagLinks.productId} = ${pid} AND ${productTagLinks.productTagId} = ${tid} AND ${productTagLinks.source} = 'manual'`
         )
         .returning({ productId: productTagLinks.productId })
       if (rows.length === 0) notFound++
@@ -440,7 +448,8 @@ async function applyDeletions(): Promise<void> {
 
   console.log(`\n📊 APPLY summary`)
   console.log(`   ${deleted} pairs supprimées`)
-  if (notFound > 0) console.log(`   ${notFound} pairs déjà absentes (no-op)`)
+  if (notFound > 0)
+    console.log(`   ${notFound} paires manuelles absentes ou source automatique (no-op)`)
   if (missing > 0) console.log(`   ${missing} pairs avec slug/tag introuvable (skipped)`)
   console.log()
 }

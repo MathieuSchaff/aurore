@@ -1,4 +1,4 @@
-import type { ProductCategory } from '@aurore/shared'
+import type { ProductCategory, TagSource } from '@aurore/shared'
 
 import { and, asc, eq, gt, inArray } from 'drizzle-orm'
 
@@ -53,13 +53,19 @@ export async function fetchEligibleProductPage(opts: {
 // "what does the DB already say" side of every agree/drift comparison. `slugs`
 // narrows at the SQL level when the audit only cares about a tag family.
 export async function fetchProductTagSlugsByProduct(
-  slugs?: readonly string[]
+  slugs?: readonly string[],
+  source?: TagSource
 ): Promise<Map<string, Set<string>>> {
   const query = db
     .select({ pId: productTagLinks.productId, slug: productTagTypes.slug })
     .from(productTagLinks)
     .innerJoin(productTagTypes, eq(productTagLinks.productTagId, productTagTypes.id))
-  const rows = slugs ? await query.where(inArray(productTagTypes.slug, [...slugs])) : await query
+  const rows = await query.where(
+    and(
+      slugs ? inArray(productTagTypes.slug, [...slugs]) : undefined,
+      source ? eq(productTagLinks.source, source) : undefined
+    )
+  )
   const byProduct = new Map<string, Set<string>>()
   for (const r of rows) {
     let set = byProduct.get(r.pId)
