@@ -71,6 +71,9 @@ grep -c '^INSERT INTO public.product_ingredients ' backend/src/db/snapshot/data.
 
 After a dev catalogue campaign the order is `just db-snapshot`, then `just db-catalogue-snapshot`.
 The first keeps the full dev state; the second produces the user-free artifact prod loads.
+Review and commit both catalogue projections together. An up-to-date `data.sql` does not
+prove that `catalogue.sql` contains the same corrections. Compare catalogue rows by primary
+key, accounting for the owner placeholder; row order and runtime session rotations are separate.
 
 ## Backup and restore
 
