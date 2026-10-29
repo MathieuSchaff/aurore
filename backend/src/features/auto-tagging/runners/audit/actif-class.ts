@@ -1,17 +1,15 @@
-// Preview audit for the pharmacological cluster pass, without writes, passe 2
-// (`detectActifClasses`)
-//
-// Clusters emit at relevance 'secondary' source 'actif-class', so this audit does NOT reflect
-// orchestrator avoid precedence
+// Audit the runtime actif class pass before orchestrator avoid precedence
 
 import type { ProductKind } from '@aurore/shared'
 
+import { withAdminRls } from '../../../../db/rls'
+import { fetchKnownConcentrationsByProduct } from '../../../../lib/fetch-known-concentrations'
 import { DEFAULT_GOLD_SET_PATH, loadGoldSet } from '../../gold-set/fixtures'
+import { buildPassContext } from '../../lib/build-pass-context'
+import { buildOrchestratorInput } from '../../lib/orchestrator-input'
 import type { TagEvidence } from '../../lib/pass-types'
-import {
-  ACTIF_CLASS_DEFS,
-  detectActifClassesWithEvidence,
-} from '../../passes/actif-class-detection'
+import { ACTIF_CLASS_DEFS } from '../../passes/actif-class-detection'
+import { actifClassPass } from '../../passes/actif-class-pass'
 import { exitOnError } from '../cli-args'
 import { pad } from '../fmt'
 import { fetchEligibleProducts, fetchProductTagSlugsByProduct } from './db'
@@ -95,6 +93,12 @@ async function main() {
   })
 
   const existingByProduct = await fetchProductTagSlugsByProduct([...uniqueClusterSlugs])
+  const knownConcentrations = await withAdminRls((tx) =>
+    fetchKnownConcentrationsByProduct(
+      subset.map((p) => p.id),
+      tx
+    )
+  )
 
   // Gold set is optional: justesse columns degrade to omitted if it can't load
   let goldBySlug: Map<string, { present: Set<string>; absent: Set<string> }> | null = null
@@ -133,11 +137,14 @@ async function main() {
     if (!p.inci?.trim()) continue
     withInci++
 
-    const detected = detectActifClassesWithEvidence(
-      p.inci,
-      undefined,
-      p.kind as ProductKind,
-      p.name
+    const input = buildOrchestratorInput(p, {
+      knownConcentrations: knownConcentrations.get(p.id),
+    })
+    // Calling the detector alone omits dose gates used by the runtime pass
+    const detected = new Map<string, TagEvidence>(
+      actifClassPass
+        .run(buildPassContext(input, {}), [])
+        .map(({ tagSlug, evidence }) => [tagSlug, evidence ?? {}])
     )
     const existing = existingByProduct.get(p.id) ?? new Set<string>()
     const gold = goldBySlug?.get(p.slug)

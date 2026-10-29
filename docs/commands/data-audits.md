@@ -57,7 +57,7 @@ typed after the recipe name, and `just --usage <recipe>` prints them.
 | `just audit-sans-sulfates` | Sulfate-free false negatives: leave-on products denied the claim by a cetearyl or coceth emulsifier | - |
 | `just audit-tag-contradictions` | Absence tags (`sans-parfum`, `sans-silicones`, …) whose own INCI declares the thing they deny | - |
 | `just audit-uv-filters` | Visible SPF products (name or `kind=sunscreen`) with no `filtre-uv` ingredient linked. Report-only: the cause is a weak source INCI, not a linking bug | - |
-| `just audit-actif-class` | Dry-run of the pharmacological clusters (pass 2) | `LIMIT, DUMP_DRIFT, DUMP_NEW` |
+| `just audit-actif-class` | Dry-run of pass 2 with the runtime assessment and stored ingredient doses, before orchestrator precedence | `LIMIT, DUMP_DRIFT, DUMP_NEW` |
 | `just audit-aha-bha-pha` | Manual AHA/BHA/PHA links not emitted by the current pipeline (kind, name, dose and claims included). **Trap:** `--write` deletes only manual pairs listed in a reviewed CSV | `--write`, `CSV_OUT, CSV_DIR, LIMIT, APPLY_FROM_CSV` |
 | `just audit-concentration-solver` | Solver percentages against brand claims: MAE, RMSE, CI coverage | `--slug`, `--json-out` |
 | `just audit-orchestrator-diff` | CSV snapshot and diff of the orchestrator output | `--csv-out` (required), `--baseline`, `LIMIT` |
