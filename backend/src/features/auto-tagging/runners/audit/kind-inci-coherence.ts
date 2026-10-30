@@ -1,7 +1,4 @@
-// Detect kind mistags the name-regex audit (product-kinds.ts) misses: products whose NAME
-// carries no kind keyword but whose INCI contradicts the kind (the klorane "cold cream tagged
-// shampoo" case). Signal is INCI composition, independent of the name. Report-only (no --write):
-// each flags the contradiction, not the correct kind, so an admin triages.
+// Marketing prose can fill the INCI field, so regex flags cannot establish a wrong kind
 
 import { withAdminRls } from '../../../../db/rls'
 import { products } from '../../../../db/schema'
@@ -25,12 +22,9 @@ const SAPONIFIED_LYE = /\b(?:sodium|potassium)\s+hydroxide\b/i
 const FATTY_MATTER = /\b(?:oil|butter|huile|beurre)\b/i
 
 const WASH_KINDS = new Set(['shampoo', 'body-wash'])
-const MIN_INCI_LEN = 60 // skip marketing one-liners / empty INCI: not enough signal
+const MIN_INCI_LEN = 60 // Short text gives too little evidence to review
 
-// Reverse signal: a leave-on kind whose INCI leads with a PRIMARY wash detergent
-// is a rinse-off (syndet bar / surgras gel) mistagged. Cetearyl/coceth sulfate are
-// excluded (emulsifiers, sit deep in creams) and the match is gated to the top
-// ingredients so a trace emulsifier never trips it.
+// Leading wash patterns warrant review; the head limit avoids flagging trace emulsifiers
 const LEAVE_ON_KINDS = new Set([
   'moisturizer',
   'serum',
@@ -64,8 +58,6 @@ type ProductRow = {
   inci: string | null
 }
 
-// A rinse-off wash kind whose substantial INCI has no surfactant at all is almost never
-// a real wash, usually an oil/mask/treatment/colour/styling product mistagged.
 function isWashWithoutSurfactant(p: ProductRow): boolean {
   if (!WASH_KINDS.has(p.kind)) return false
   if (!p.inci || p.inci.length < MIN_INCI_LEN) return false
@@ -77,7 +69,7 @@ function isWashWithoutSurfactant(p: ProductRow): boolean {
 
 async function main() {
   // Elevated read: products_select_visible would silently drop non-`visible`
-  // rows from a coherence audit meant to cover the whole catalogue.
+  // rows from a coherence audit meant to cover the whole catalogue
   const rows = (await withAdminRls((tx) =>
     tx
       .select({
@@ -93,38 +85,36 @@ async function main() {
   const flagged = rows.filter(isWashWithoutSurfactant)
   const washMistagged = rows.filter(leadsWithWashSurfactant)
 
-  console.log('🔎 Kind ⇄ INCI coherence (report-only)\n')
+  console.log('🔎 Kind / INCI heuristic review (read-only)\n')
   console.log(
-    `   ${rows.length} produits scannés · ${flagged.length} wash-sans-surfactant · ${washMistagged.length} leave-on-avec-lavant\n`
+    'This report does not validate the INCI text or prove a wrong kind. Missing patterns do not prove ingredient absence.\n'
+  )
+  console.log(
+    `   ${rows.length} produits scannés · ${flagged.length} wash kinds without a recognized surfactant pattern · ${washMistagged.length} leave-on kinds with a leading wash pattern\n`
   )
 
   if (flagged.length === 0 && washMistagged.length === 0) {
-    console.log('✓ no kind ⇄ INCI contradiction')
+    console.log('No kind/INCI heuristic flags')
     return
   }
 
   if (flagged.length > 0) {
-    console.log('── WASH KIND, NO SURFACTANT IN INCI (likely mistag) ──')
+    console.log('WASH KIND, NO RECOGNIZED SURFACTANT PATTERN')
     for (const p of flagged.sort((a, b) => a.brand.localeCompare(b.brand))) {
-      console.log(`  ${p.kind.padEnd(10)} ${p.brand} | ${p.name}`)
+      console.log(`  ${p.kind.padEnd(10)} ${p.brand} | ${p.name} [${p.slug}]`)
     }
   }
 
   if (washMistagged.length > 0) {
-    console.log('\n── LEAVE-ON KIND, PRIMARY WASH SURFACTANT IN INCI HEAD (likely a wash) ──')
+    console.log('\nLEAVE-ON KIND, LEADING WASH PATTERN')
     for (const p of washMistagged.sort((a, b) => a.brand.localeCompare(b.brand))) {
       const head = (p.inci ?? '').split(',').slice(0, WASH_TOP_N).join(',').trim()
-      console.log(`  ${p.kind.padEnd(11)} ${p.brand} | ${p.name}`)
+      console.log(`  ${p.kind.padEnd(11)} ${p.brand} | ${p.name} [${p.slug}]`)
       console.log(`     ↳ ${head}…`)
     }
   }
 
-  console.log(
-    '\n  These are not auto-fixed: the correct kind (oil/mask/styling/treatment/cleanser/…)'
-  )
-  console.log(
-    '  needs a human call. Fix with `SLUG=… WRITE=1 just audit-product-kinds` or by hand.'
-  )
+  console.log('\nVerify the source INCI and intended use before changing a kind')
 }
 
 main()

@@ -53,7 +53,7 @@ typed after the recipe name, and `just --usage <recipe>` prints them.
 | `just audit-auto-tags-check` | Calibration drift: hit rate per (slug, category) against the budget. Exits 1 on FAIL, out-of-budget warns | - |
 | `just audit-gold-set` | Benchmark the orchestrator against the gold set: precision, recall, Brier, ECE per tag | `--gold-set`, `--csv-out`, `--strict` |
 | `just audit-product-kinds` | Cosmetic/dental kind proposals via name patterns; supplements excluded. Read-only: even "certain" suggestions need review. Apply reviewed fixes with `just db-fix` | `--slug` |
-| `just audit-kind-inci` | Kind mistags the name regex misses, via INCI signal (a wash kind with no surfactant) | - |
+| `just audit-kind-inci` | Kind/INCI text patterns to review, with product slugs: wash kinds without a recognized surfactant pattern, or leave-on kinds with a leading wash pattern. Does not validate source INCI, ingredient absence, or classification; verify source and intended use before correcting | - |
 | `just audit-sans-sulfates` | Sulfate-free false negatives: leave-on products denied the claim by a cetearyl or coceth emulsifier | - |
 | `just audit-tag-contradictions` | Absence tags (`sans-parfum`, `sans-silicones`, …) whose own INCI declares the thing they deny | - |
 | `just audit-uv-filters` | Visible SPF products (name or `kind=sunscreen`) with no `filtre-uv` ingredient linked. Report-only: the cause is a weak source INCI, not a linking bug | - |

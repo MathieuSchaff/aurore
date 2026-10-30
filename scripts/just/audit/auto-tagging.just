@@ -30,7 +30,7 @@ audit-auto-tags-check:
     $COMPOSE exec -e CHECK=1 -w /app/backend api bun run src/features/auto-tagging/runners/audit/main.ts \
         | tee "$(audit_out audit-auto-tags-check)"
 
-[doc('Detect kind mistags the name-regex misses, via INCI signal (wash kind w/o surfactant). Read-only, report-only.')]
+[doc('Flag kind/INCI text patterns for review. Does not validate source INCI or classification. Read-only.')]
 [group('audit')]
 [script]
 audit-kind-inci:
