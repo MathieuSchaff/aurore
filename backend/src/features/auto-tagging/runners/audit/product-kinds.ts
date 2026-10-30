@@ -322,6 +322,8 @@ function findFiringRule(name: string): KindRule | undefined {
 }
 
 function auditOne(p: ProductRow): Mismatch | null {
+  // Supplement benefit names do not identify a cosmetic or dental dosage form
+  if (p.category === 'complement') return null
   const fired = findFiringRule(stripBrandPrefix(p.name, p.brand))
   if (!fired) return null
   if (ruleAcceptsCurrentKind(fired, p.kind)) return null
@@ -367,6 +369,7 @@ function pickSubset(all: ProductRow[], slug: string | null): ProductRow[] {
 
 function printSummary(certain: Mismatch[], likely: Mismatch[], scanned: number) {
   console.log('🔎 Audit product kinds (read-only)')
+  console.log('   Règles cosmétiques/dentaires ; compléments exclus')
   console.log(`   ${scanned} produits scannés\n`)
   console.log(`   certain : ${certain.length}`)
   console.log(`   likely  : ${likely.length}\n`)
