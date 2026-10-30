@@ -112,35 +112,45 @@ async function checkImageCoverage(db: Database): Promise<CheckResult> {
   return { name: 'image-coverage', severity: 'info', findings }
 }
 
-// Visible products with zero linked ingredients, bucketed so the actionable signal
-// (a real INCI list that still resolved to nothing) is not drowned by the legitimate
-// long tail: supplements/accessories carry no INCI, and a comma-less blob is a
-// nutrition table, a material blurb, or scraper-lost separators, never a linking gap.
+// Commas also occur in nutrition tables and reviews, so these buckets cannot prove a linking gap.
 async function checkProductsWithoutIngredients(db: Database): Promise<CheckResult> {
   const rows = await db
-    .select({ slug: products.slug, brand: products.brand, inci: products.inci })
+    .select({
+      slug: products.slug,
+      brand: products.brand,
+      inci: products.inci,
+      category: products.category,
+    })
     .from(products)
     .leftJoin(productIngredients, eq(productIngredients.productId, products.id))
     .where(and(eq(products.moderationStatus, 'visible'), isNull(productIngredients.productId)))
 
   let noInci = 0
   let commaless = 0
-  const parseableUnlinked: Finding[] = []
+  const commaSeparatedUnlinked: Finding[] = []
+  const byCategory = new Map<string, number>()
   for (const r of rows) {
     const inci = r.inci?.trim() ?? ''
     if (!inci) noInci++
     else if (!inci.includes(',')) commaless++
-    else parseableUnlinked.push({ description: `${r.slug} (${r.brand})` })
+    else {
+      commaSeparatedUnlinked.push({ description: `${r.slug} (${r.brand}; ${r.category})` })
+      byCategory.set(r.category, (byCategory.get(r.category) ?? 0) + 1)
+    }
   }
 
-  const findings: Finding[] = parseableUnlinked
+  const categories = [...byCategory]
+    .sort(([a], [b]) => a.localeCompare(b))
+    .map(([category, count]) => `${category}: ${count}`)
+    .join(', ')
+  const findings: Finding[] = commaSeparatedUnlinked
   findings.unshift(
-    { description: `${noInci} without INCI (supplements/accessories — expected)` },
+    { description: `${noInci} with empty INCI input and 0 links` },
     {
-      description: `${commaless} INCI without comma delimiter (nutrition/material/mangled — see P3)`,
+      description: `${commaless} with nonempty INCI input without a comma and 0 links`,
     },
     {
-      description: `${parseableUnlinked.length} with a real INCI list but 0 links (review: obscure botanicals or excipient-only formulas)`,
+      description: `${commaSeparatedUnlinked.length} with comma-containing input and 0 links (format heuristic, not INCI validation; ${categories || 'no products'})`,
     }
   )
   return { name: 'products-without-ingredients', severity: 'info', findings }

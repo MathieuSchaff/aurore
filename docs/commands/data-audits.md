@@ -15,7 +15,7 @@ This is also Gate B of `just catalogue-gate`, together with `audit-cdn` and `db-
 
 | Command | What | Env |
 | :--- | :--- | :--- |
-| `just audit-db` | Integrity: tag/domain coherence (error level), image coverage, products with no ingredients (bucketed: no INCI, no comma, real INCI with zero links), products with no tags, products with no dermo profile | - |
+| `just audit-db` | Integrity: tag/domain coherence (error level), image coverage, products with no ingredients (empty input, no comma, or comma-containing text with category counts; these buckets do not validate INCI), products with no tags, products with no dermo profile | - |
 | `just audit-taxonomy` | Taxonomy coherence: absence claims on implausible kinds, product-type axis leaking, concern/effect duplication. Info only | - |
 | `just audit-security` | Suspicious URLs and HTML injection in rows. Exits 1 on high severity | `--write` auto-fixes, `CSV_OUT` exports |
 | `just audit-cdn` | Authoritative CDN/DB reconciliation: Bunny orphans, broken DB references, reachability sample | - |
