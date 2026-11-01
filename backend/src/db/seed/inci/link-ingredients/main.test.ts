@@ -245,6 +245,46 @@ describe('scopeReconcilePlan', () => {
 })
 
 describe('computeLinks', () => {
+  describe('governed language aliases', () => {
+    const maps = buildCanonicalKeyMaps([
+      { slug: 'glycolipids', key: 'Glycolipids', type: 'skincare' },
+      { slug: 'oryza-sativa-bran-oil', key: 'Oryza Sativa Bran Oil', type: 'skincare' },
+    ])
+    const linksOf = (inci: string) =>
+      computeLinks(
+        inci,
+        'skincare',
+        maps.canonicalKeyToSlug,
+        maps.canonicalKeyBySlug,
+        maps.slugsByCanonicalKey
+      ).slugs
+
+    it('links translated names to existing identities', () => {
+      expect(linksOf('Glycolipides, Rice Bran Oil')).toEqual([
+        'glycolipids',
+        'oryza-sativa-bran-oil',
+      ])
+    })
+
+    it('links bilingual rice oil once when every segment names the same identity', () => {
+      expect(linksOf('Oryza Sativa Bran Oil / Rice Bran Oil')).toEqual(['oryza-sativa-bran-oil'])
+      expect(linksOf('Rice Bran Oil, Oryza Sativa Bran Oil')).toEqual(['oryza-sativa-bran-oil'])
+    })
+
+    it('keeps derivatives and incomplete slash declarations separate', () => {
+      for (const token of [
+        'Hydrogenated Rice Bran Oil',
+        'Oryza Sativa Bran Wax',
+        'Oryza Sativa Bran Oil Extract',
+        'Oryza Sativa Extract',
+        'Rice Bran Oil / Unknownium',
+        'Rice Bran Oil / Glycolipides',
+      ]) {
+        expect(linksOf(token)).not.toContain('oryza-sativa-bran-oil')
+      }
+    })
+  })
+
   it('leaves declared white pigment unbridged instead of borrowing the UV-filter sheet', () => {
     const maps = buildCanonicalKeyMaps([
       { slug: 'titanium-dioxide', key: 'Titanium Dioxide', type: 'skincare' },

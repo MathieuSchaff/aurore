@@ -953,7 +953,7 @@
 
     "ajv-formats": ["ajv-formats@3.0.1", "", { "dependencies": { "ajv": "^8.0.0" } }, "sha512-8iUql50EUR+uUcdRQ3HDqa6EVyo3docL8g5WJ3FNcWmu62IbkGUue/pEyLBW8VGKKucTPgqeks4fIU1DA4yowQ=="],
 
-    "algo-derm": ["algo-derm@../vendor/algo-derm.tgz", {}, "sha512-QtqKdxMgrw9e/sIQqfyuicDYn3etF/Wbo5GkzSqxNMJtW+hBOOGdFlByZHkfueWi/a7CJSkjqzpi7k8seqZhag=="],
+    "algo-derm": ["algo-derm@../vendor/algo-derm.tgz", {}, "sha512-cOHw97vfJyQujqFq5QVx3YRx1kbEWd7NUxtxpyiMBr+n0jt8yLC4R3so7cn+fN/vOm8o/mHn48+rFaeKEvk/Ew=="],
 
     "ansi-regex": ["ansi-regex@5.0.1", "", {}, "sha512-quJQXlTSUGL2LH9SUXo8VwsY4soanhgo6LNSm84E1LBcE8s3O0wpdiRzyR9z/ZZJMlMWv37qOOb9pdJlMUEKFQ=="],
 
