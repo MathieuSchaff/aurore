@@ -16,6 +16,7 @@ import {
 } from 'algo-derm'
 
 import { mapKindToContext, RINSE_OFF_KINDS } from '../../../lib/algo-derm-product-context'
+import { type InciInputQuality, qualifyInciInput } from '../../../lib/inci-input-quality'
 
 const S = SKINCARE_PRODUCT_TAG_SLUGS
 
@@ -277,8 +278,10 @@ export type DropReason =
   | 'leave_on_excluded'
   | 'skip_if'
   | 'requires_absence'
+  | 'input_quality'
 
 export interface DetectAutoTagsOptions {
+  inputQuality?: InciInputQuality
   // Raises per-tag confidenceFloor globally (debug). Never lowers. Only affects
   // computed_score; absence tags use coverageMinOverride instead.
   confOverride?: number
@@ -309,6 +312,21 @@ const bumpDrop = (
   map.set(k, (map.get(k) ?? 0) + 1)
 }
 
+function filterAbsenceCandidates(
+  candidates: ReturnType<typeof tagProduct>,
+  inci: string,
+  options: DetectAutoTagsOptions
+): ReturnType<typeof tagProduct> {
+  const quality = options.inputQuality ?? qualifyInciInput(inci)
+  if (quality.status === 'unknown') return candidates
+
+  return candidates.filter((candidate) => {
+    if (!candidate.present || candidate.source !== 'detected_absence') return true
+    bumpDrop(options.dropCounts, 'input_quality', candidate.id)
+    return false
+  })
+}
+
 export function detectAutoTags(
   inci: string | null | undefined,
   kind: ProductKind,
@@ -321,7 +339,11 @@ export function detectAutoTags(
 
   const assessment = options.assessment ?? analyzeINCI(inci, { context: mapKindToContext(kind) })
   // Cast: tagProduct's parameter type is mutable but it does not mutate.
-  const candidates = tagProduct(assessment, ingredients as string[])
+  const candidates = filterAbsenceCandidates(
+    tagProduct(assessment, ingredients as string[]),
+    inci,
+    options
+  )
   const isRinseOff = RINSE_OFF_KINDS.has(kind)
   const coverageRatio = assessment.coverage.ratio
   // Cross-candidate gate (requiresAbsence). An absence candidate that is not

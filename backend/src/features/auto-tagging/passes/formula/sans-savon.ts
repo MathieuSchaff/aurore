@@ -1,6 +1,7 @@
 import type { ProductKind } from '@aurore/shared'
 import { SKINCARE_PRODUCT_TAG_SLUGS, type SkincareProductTagSlug } from '@aurore/shared'
 
+import { type InciInputQuality, qualifyInciInput } from '../../../../lib/inci-input-quality'
 import { resolveIngredients } from '../../lib/ingredient-resolver'
 
 const S = SKINCARE_PRODUCT_TAG_SLUGS
@@ -29,8 +30,10 @@ function hasSoap(ingredients: readonly string[]): boolean {
 export function detectSansSavon(
   inci: string | null | undefined,
   kind: ProductKind,
-  hoistedIngredients?: readonly string[]
+  hoistedIngredients?: readonly string[],
+  inputQuality: InciInputQuality = qualifyInciInput(inci)
 ): SkincareProductTagSlug[] {
+  if (inputQuality.status !== 'unknown') return []
   if (!CLEANSING_KINDS.has(kind)) return []
   const ingredients = resolveIngredients(inci, hoistedIngredients)
   // No INCI = no evidence of absence; never claim soap-free blind.

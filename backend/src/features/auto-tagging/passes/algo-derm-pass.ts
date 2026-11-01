@@ -10,6 +10,7 @@ export const algoDermPass: Pass = {
     if (!ctx.hasInci) return []
     const tags = detectAutoTags(ctx.inci, ctx.kind, {
       ...ctx.detectAutoTagsOptions,
+      inputQuality: ctx.inputQuality,
       ...(ctx.assessment ? { assessment: ctx.assessment, ingredients: ctx.ingredients } : {}),
     })
     const out: AutoTagProposal[] = []

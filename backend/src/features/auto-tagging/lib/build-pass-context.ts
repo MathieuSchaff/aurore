@@ -4,6 +4,7 @@
 import { analyzeINCI, normalize, splitINCI } from 'algo-derm'
 
 import { mapKindToContext } from '../../../lib/algo-derm-product-context'
+import { qualifyInciInput } from '../../../lib/inci-input-quality'
 import type { DetectAutoTagsOptions } from '../passes/algo-derm-detection'
 import { stripMarketingPreamble } from './ingredient-resolver'
 import type { OrchestratorInput, OrchestratorOptions } from './orchestrator-types'
@@ -13,6 +14,7 @@ export function buildPassContext(
   product: OrchestratorInput,
   options: OrchestratorOptions
 ): PassContext {
+  const inputQuality = qualifyInciInput(product.inci)
   const hasInci = !!product.inci?.trim()
   // Strip marketing preamble before splitINCI: position-rules (top-8 butter/wax for
   // texture-riche, etc.) must not fire on prose chunks. ~589 seed products have
@@ -49,6 +51,7 @@ export function buildPassContext(
     percentClaims: product.percentClaims,
     brandCertifications: options.brandCertifications,
     hasInci,
+    inputQuality,
     ingredients,
     normalizedIngredients,
     assessment,

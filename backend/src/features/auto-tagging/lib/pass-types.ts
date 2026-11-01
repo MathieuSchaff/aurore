@@ -6,6 +6,7 @@ import type { ProductKind, ProductTexture, SkincareProductTagSlug, TagSource } f
 
 import type { ProductAssessment } from 'algo-derm'
 
+import type { InciInputQuality } from '../../../lib/inci-input-quality'
 import type { DetectAutoTagsOptions } from '../passes/algo-derm-detection'
 import type { BrandCertificationLookup } from '../passes/brand-cert-detection'
 import type { PercentClaimEvidence } from '../passes/percent-claim-detection'
@@ -68,6 +69,7 @@ export interface PassContext {
   readonly percentClaims: readonly PercentClaimEvidence[] | undefined
   readonly brandCertifications: BrandCertificationLookup | undefined
 
+  readonly inputQuality: InciInputQuality
   readonly hasInci: boolean
   readonly ingredients: readonly string[]
   readonly normalizedIngredients: readonly string[]

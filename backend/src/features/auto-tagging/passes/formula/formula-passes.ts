@@ -226,7 +226,7 @@ export const FORMULA_PASSES: readonly Pass[] = [
     KERATOSE_PILAIRE_POSITION_RE
   ),
   formulaPass('formula:sans-savon', (c) =>
-    detectSansSavon(c.inci, c.kind, c.normalizedIngredients)
+    detectSansSavon(c.inci, c.kind, c.normalizedIngredients, c.inputQuality)
   ),
   formulaPass('formula:step-nettoyage-1', (c) =>
     detectStepNettoyage1(c.inci, c.kind, c.normalizedIngredients)

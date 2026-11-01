@@ -1,5 +1,7 @@
 import { cleanInci, splitINCI, stripPreamble } from 'algo-derm'
 
+import { qualifyInciInput } from './inci-input-quality'
+
 export type InciNormalization = {
   // Normalized list, or the original string when the guardrail tripped.
   value: string
@@ -9,17 +11,19 @@ export type InciNormalization = {
   tokensAfter: number
 }
 
-// Rewrites a raw INCI declaration to canonical form: repairs the scraped string, splits, and
-// maps each token to its canonical INCI name, so unknown tokens (FR / exotic) pass through
-// unchanged, never dropped. Guardrail: keep the original when cleaning halves the token count
-// (clean+split misreading the list as prose), since canonicalizeINCI itself is 1:1. No floor:
-// mono/bi-ingredient oils are legitimate and must normalize too.
+// Keep damage evidence so later reads cannot mistake a cleaned fragment for a complete list
 export function normalizeInci(raw: string): InciNormalization {
+  const inputQuality = qualifyInciInput(raw)
   const { canonical } = cleanInci(raw)
   const value = canonical.join(', ')
+  const normalizedQuality = qualifyInciInput(value)
+  const losesDamageEvidence = inputQuality.reasons.some(
+    (reason) => !normalizedQuality.reasons.includes(reason)
+  )
   const tokensBefore = splitINCI(stripPreamble(raw)).length
   const tokensAfter = canonical.length
-  const guardrailTripped = tokensAfter === 0 || tokensAfter * 2 < tokensBefore
+  const guardrailTripped =
+    losesDamageEvidence || tokensAfter === 0 || tokensAfter * 2 < tokensBefore
   return {
     value: guardrailTripped ? raw : value,
     changed: !guardrailTripped && value !== raw,
