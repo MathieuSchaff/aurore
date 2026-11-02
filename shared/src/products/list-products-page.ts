@@ -34,6 +34,7 @@ export const productListItemSchema = z
         .object({
           slug: z.string(),
           tagType: z.string(),
+          source: z.string().optional(),
           relevance: z.enum(['primary', 'secondary']),
         })
         .strict()

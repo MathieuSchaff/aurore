@@ -510,7 +510,7 @@ export function useRemoveProductIngredient() {
 export type ProductListItem = ProductListData['items'][number]
 
 // Inferred from the route so backend field additions surface automatically
-export type ProductDetail = ApiData<(typeof api.products)[':slug']['$get']>
+export type ProductDetail = ProductDetailPage['product']
 
 export type ProductFormulaPreview = ApiData<(typeof api.products)['formula-preview']['$post']>
 

@@ -36,6 +36,7 @@ import { ingredients, productIngredients } from '../../db/schema'
 import { products } from '../../db/schema/products'
 import { userProducts } from '../../db/schema/products/user-products'
 import { productTagLinks, productTagTypes } from '../../db/schema/tags/tags'
+import { visibleInferredTagCondition } from '../../lib/product-tag-visibility'
 import { productSearchMatch } from './search.service'
 import {
   type DeclaredPreferences,
@@ -90,6 +91,8 @@ function buildIngredientCondition(
 }
 
 function buildTagFilterCondition(slugCsv: string, tagType: string, database: DbOrTransaction): SQL {
+  const slugs = slugCsv.split(',').filter((slug) => slug !== 'grossesse-compatible')
+  if (slugs.length === 0) return sql`true`
   return exists(
     database
       .select({ one: sql`1` })
@@ -98,8 +101,9 @@ function buildTagFilterCondition(slugCsv: string, tagType: string, database: DbO
       .where(
         and(
           eq(productTagLinks.productId, products.id),
-          inArray(productTagTypes.slug, slugCsv.split(',')),
-          eq(productTagTypes.tagType, tagType)
+          inArray(productTagTypes.slug, slugs),
+          eq(productTagTypes.tagType, tagType),
+          visibleInferredTagCondition
         )
       )
   )
@@ -179,6 +183,7 @@ function collectProductTagRows(
     productId: string
     slug: string
     tagType: string
+    source: string
     relevance: 'primary' | 'secondary' | 'avoid'
   }[],
   avoidSlugs: string[],
@@ -195,7 +200,12 @@ function collectProductTagRows(
     }
     if (!isDisplayedProductTag(row.slug)) continue
     const list = extras.tagsByProduct.get(row.productId) ?? []
-    list.push({ slug: row.slug, tagType: row.tagType, relevance: row.relevance })
+    list.push({
+      slug: row.slug,
+      tagType: row.tagType,
+      relevance: row.relevance,
+      source: row.source,
+    })
     extras.tagsByProduct.set(row.productId, list)
   }
 }
@@ -237,12 +247,15 @@ async function fetchProductRowExtras(
       slug: productTagTypes.slug,
       tagType: productTagTypes.tagType,
       relevance: productTagLinks.relevance,
+      source: productTagLinks.source,
     })
     .from(productTagLinks)
     .innerJoin(productTagTypes, eq(productTagLinks.productTagId, productTagTypes.id))
+    .innerJoin(products, eq(productTagLinks.productId, products.id))
     .where(
       and(
         inArray(productTagLinks.productId, itemIds),
+        visibleInferredTagCondition,
         inArray(
           productTagLinks.relevance,
           avoidSlugs.length > 0 ? ['primary', 'avoid'] : ['primary']
@@ -493,7 +506,7 @@ export async function getFilterOptions(
     .from(productTagTypes)
     .innerJoin(productTagLinks, eq(productTagTypes.id, productTagLinks.productTagId))
     .innerJoin(products, eq(productTagLinks.productId, products.id))
-    .where(productScope)
+    .where(and(productScope, visibleInferredTagCondition))
     .groupBy(productTagTypes.id, productTagTypes.slug)
 
   const tagCounts: Record<string, number> = {}

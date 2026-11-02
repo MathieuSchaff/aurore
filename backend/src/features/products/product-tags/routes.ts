@@ -1,4 +1,4 @@
-import { HTTP_STATUS, isDisplayedProductTag, ok, replaceProductTagsSchema } from '@aurore/shared'
+import { HTTP_STATUS, ok, replaceProductTagsSchema } from '@aurore/shared'
 
 import { Hono } from 'hono'
 import { z } from 'zod'
@@ -13,7 +13,8 @@ import {
   requireNotBannedScope,
 } from '../../auth/middleware'
 import { withRlsContext } from '../../auth/rls-context.middleware'
-import { listTagsByProduct, replaceProductTags } from '../../product-tags/service'
+import { replaceProductTags } from '../../product-tags/service'
+import { listVisibleProductTags } from '../service'
 import { assertTagsMatchProductDomain } from './domain-validation'
 
 const productParams = z.object({ productId: z.uuid() })
@@ -30,8 +31,8 @@ export const productTagRoutes = productTagsApp
   .get('/:productId/tags', zValidator('param', productParams), async (c) => {
     const db = c.get('anonDb')
     const { productId } = c.req.valid('param')
-    const items = await listTagsByProduct(db, productId)
-    return c.json(ok(items.filter((item) => isDisplayedProductTag(item.tagSlug))), HTTP_STATUS.OK)
+    const items = await listVisibleProductTags(db, productId)
+    return c.json(ok(items), HTTP_STATUS.OK)
   })
 
   .put(

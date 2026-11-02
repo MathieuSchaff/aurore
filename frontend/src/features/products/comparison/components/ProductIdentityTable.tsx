@@ -19,7 +19,7 @@ const eur = new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' 
 function textureLabel(p: EnrichedComparisonProduct): string {
   if (p.texture) return PRODUCT_TEXTURE_LABELS[p.texture]
   const tag = p.tags.find((t) => t.tagType === 'texture')
-  return tag ? tagLabel(tag.slug) : 'Non renseignée'
+  return tag ? tagLabel(tag.slug, tag.source) : 'Non renseignée'
 }
 
 export function ProductIdentityTable({ products }: Props) {

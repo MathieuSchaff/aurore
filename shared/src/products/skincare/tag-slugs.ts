@@ -121,7 +121,12 @@ export const SKINCARE_PRODUCT_TAG_DEFS = [
   { key: 'PEAU_SECHE', slug: 'peau-seche', label: 'Peau sèche', category: 'skin_type' },
   { key: 'PEAU_MIXTE', slug: 'peau-mixte', label: 'Peau mixte', category: 'skin_type' },
   { key: 'PEAU_GRASSE', slug: 'peau-grasse', label: 'Peau grasse', category: 'skin_type' },
-  { key: 'PEAU_SENSIBLE', slug: 'peau-sensible', label: 'Peau sensible', category: 'skin_type' },
+  {
+    key: 'PEAU_SENSIBLE',
+    slug: 'peau-sensible',
+    label: 'Peau sensible',
+    category: 'skin_type',
+  },
   { key: 'PEAU_NORMALE', slug: 'peau-normale', label: 'Peau normale', category: 'skin_type' },
 
   // Skin zones
@@ -362,6 +367,7 @@ export const SKINCARE_PRODUCT_TAG_DEFS = [
     label: 'Grossesse compatible',
     category: 'product_characteristic',
     subgroup: 'tolerance',
+    internalOnly: true,
   },
   // Product characteristics: ethique
   {

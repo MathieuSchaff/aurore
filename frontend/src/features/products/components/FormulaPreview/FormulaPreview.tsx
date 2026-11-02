@@ -1,4 +1,5 @@
 import type { ProductCategory, ProductFormulaPreviewInput, ProductTexture } from '@aurore/shared'
+import { getProductTagLabel } from '@aurore/shared'
 
 import { useMemo, useState } from 'react'
 
@@ -228,7 +229,11 @@ export function FormulaPreview({
                           key={st.tagSlug}
                           className="formula-preview__chip formula-preview__chip--tag"
                         >
-                          <span className="formula-preview__chip-name">{tag.label}</span>
+                          <span className="formula-preview__chip-name">
+                            {st.tagSlug === 'peau-sensible'
+                              ? getProductTagLabel(st.tagSlug, st.source)
+                              : tag.label}
+                          </span>
                           {st.relevance === 'primary' && (
                             <span className="formula-preview__badge">principal</span>
                           )}
@@ -240,7 +245,7 @@ export function FormulaPreview({
                           <FormulaPreviewAction
                             canManageLinks={canManageLinks}
                             added={selectedTagIdSet.has(tag.id)}
-                            label={`Ajouter le tag ${tag.label}`}
+                            label={`Ajouter le tag ${st.tagSlug === 'peau-sensible' ? getProductTagLabel(st.tagSlug, st.source) : tag.label}`}
                             onAdd={() => onApplyTag(tag.id, st.relevance)}
                           />
                         </li>

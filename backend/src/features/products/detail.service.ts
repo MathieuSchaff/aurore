@@ -1,3 +1,5 @@
+import { getProductTagLabel, type ProductDetail } from '@aurore/shared'
+
 import { eq } from 'drizzle-orm'
 
 import type { DbOrTransaction } from '../../db/index'
@@ -7,7 +9,10 @@ import { normalizeInstant } from '../../utils/dates'
 import { ProductError } from './product-error'
 
 // One call for Layout, Info, Edit and Sheet, so they all share the same cache entry
-export async function getProductFullBySlug(slug: string, database: DbOrTransaction) {
+export async function getProductFullBySlug(
+  slug: string,
+  database: DbOrTransaction
+): Promise<ProductDetail> {
   const row = await database.query.products.findFirst({
     where: eq(products.slug, slug),
     columns: {
@@ -105,7 +110,10 @@ export async function getProductFullBySlug(slug: string, database: DbOrTransacti
       productId: link.productId,
       relevance: link.relevance,
       source: link.source,
-      tagName: link.productTag.label,
+      tagName:
+        link.productTag.slug === 'peau-sensible'
+          ? (getProductTagLabel(link.productTag.slug, link.source) ?? link.productTag.label)
+          : link.productTag.label,
       tagSlug: link.productTag.slug,
       tagCategory: link.productTag.tagType,
     }))

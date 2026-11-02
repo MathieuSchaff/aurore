@@ -153,6 +153,16 @@ describe('POST /products/formula-preview', () => {
       // Guard against an empty list: a serum with this INCI always emits at least the
       // kind-derived tags; an empty array would make the loop below vacuous.
       expect(data.data.suggestedTags.length).toBeGreaterThan(0)
+      expect(
+        data.data.suggestedTags.some(
+          (tag) => tag.tagSlug === 'peau-sensible' && tag.relevance !== 'avoid'
+        )
+      ).toBe(true)
+      expect(
+        data.data.suggestedTags.some(
+          (tag) => tag.relevance !== 'avoid' && tag.tagSlug === 'grossesse-compatible'
+        )
+      ).toBe(false)
 
       // Each tag pair must carry the three required fields.
       for (const tag of data.data.suggestedTags) {

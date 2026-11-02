@@ -6,7 +6,7 @@ import type {
   UpdateUserProductInput,
   UpdateUserProductReviewInput,
 } from '@aurore/shared'
-import { HOLY_GRAIL_SENTIMENT, isDisplayedProductTag } from '@aurore/shared'
+import { getProductTagLabel, HOLY_GRAIL_SENTIMENT } from '@aurore/shared'
 
 import { and, desc, eq, isNotNull, sql } from 'drizzle-orm'
 
@@ -15,6 +15,7 @@ import { profiles, userDermoProfiles } from '../../db/schema/auth/users'
 import { products } from '../../db/schema/products/products'
 import { userProductStatusLog } from '../../db/schema/products/user-product-status-log'
 import { userProductReviews, userProducts } from '../../db/schema/products/user-products'
+import { isDisplayedProductTagLink } from '../../lib/product-tag-visibility'
 import { nowISO } from '../../utils/dates'
 import { recalculateAllSignalsForUser } from './dermo-signal.service'
 import { toApiPurchase } from './purchase.service'
@@ -68,9 +69,26 @@ export async function getUserProducts(userId: string, db: DbOrTransaction) {
     product: row.product
       ? {
           ...row.product,
-          productTagLinks: row.product.productTagLinks.filter((link) =>
-            isDisplayedProductTag(link.productTag.slug)
-          ),
+          productTagLinks: row.product.productTagLinks
+            .filter((link) =>
+              isDisplayedProductTagLink(
+                link.productTag.slug,
+                link.relevance,
+                link.source,
+                row.product?.inci
+              )
+            )
+            .map((link) => ({
+              ...link,
+              productTag: {
+                ...link.productTag,
+                label:
+                  link.productTag.slug === 'peau-sensible'
+                    ? (getProductTagLabel(link.productTag.slug, link.source) ??
+                      link.productTag.label)
+                    : link.productTag.label,
+              },
+            })),
           productIngredients: row.product.productIngredients.filter(
             (link) => link.ingredient !== null
           ),

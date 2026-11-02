@@ -7,6 +7,20 @@ import { detectAutoTags, TAG_CONFIG } from '../passes/algo-derm-detection'
 const S = SKINCARE_PRODUCT_TAG_SLUGS
 
 describe('algo-derm-detection', () => {
+  test.each([
+    'Parfum',
+    'Fragrance',
+    'Aroma',
+    'Flavor/Aroma',
+    'Disclosed Fragrance',
+    'SODIUM HYDROXIDE PARFUM',
+  ])('abstains from fragrance-allergen absence for %s', (marker) => {
+    const inci = `Aqua, Glycerin, Niacinamide, Tocopherol, Panthenol, ${marker}`
+    const tags = detectAutoTags(inci, 'serum')
+    expect(tags.some((tag) => tag.slug === S.SANS_ALLERGENES_PARFUMANTS)).toBe(false)
+    expect(tags.some((tag) => tag.slug === S.SANS_SILICONES)).toBe(true)
+  })
+
   test('empty/null/whitespace INCI returns []', () => {
     expect(detectAutoTags(null, 'moisturizer')).toEqual([])
     expect(detectAutoTags(undefined, 'moisturizer')).toEqual([])

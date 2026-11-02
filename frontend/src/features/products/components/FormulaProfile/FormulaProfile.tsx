@@ -1,4 +1,8 @@
-import { getProductFilterDefinition } from '@aurore/shared'
+import {
+  getProductFilterDefinition,
+  getProductTagLabel,
+  isDisplayedProductTag,
+} from '@aurore/shared'
 
 import { Fragment } from 'react'
 
@@ -23,10 +27,16 @@ export function FormulaProfile({ tags }: FormulaProfileProps) {
   const groups = PROFILE_CATEGORIES.map((category) => ({
     category,
     label: SKINCARE_FILTER_LABELS.get(category) ?? category,
-    tags: tags.filter((t) => t.tagCategory === category && t.relevance !== 'avoid'),
+    tags: tags.filter(
+      (t) =>
+        t.tagCategory === category && t.relevance !== 'avoid' && isDisplayedProductTag(t.tagSlug)
+    ),
   })).filter((g) => g.tags.length > 0)
 
-  if (groups.length === 0) return null
+  const sensitiveSignal = tags.find(
+    (tag) => tag.tagSlug === 'peau-sensible' && tag.relevance !== 'avoid'
+  )
+  if (groups.length === 0 && !sensitiveSignal) return null
 
   return (
     <section className="product-section formula-profile">
@@ -47,6 +57,16 @@ export function FormulaProfile({ tags }: FormulaProfileProps) {
           </Fragment>
         ))}
       </dl>
+      {sensitiveSignal && (
+        <div>
+          <Badge variant="chip">
+            {getProductTagLabel('peau-sensible', sensitiveSignal.source)}
+          </Badge>
+          {sensitiveSignal.source !== 'manual' && (
+            <p>Signal estimé depuis la formule. La tolérance varie selon les personnes.</p>
+          )}
+        </div>
+      )}
     </section>
   )
 }

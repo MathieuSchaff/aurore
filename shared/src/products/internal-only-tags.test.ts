@@ -1,12 +1,12 @@
 import { describe, expect, it } from 'bun:test'
 
-import { getProductTagsByCategory, isDisplayedProductTag } from './helpers'
+import { getProductTagLabel, getProductTagsByCategory, isDisplayedProductTag } from './helpers'
 import { SKINCARE_PRODUCT_CHARACTERISTIC_GROUPS } from './skincare/tag-taxonomy'
 
 // docs/adr/0017: three algo-derm claim labels stay detected, stored and audited, but never
 // reach a screen. This file is the guard: the flag is one boolean in the defs, and without
 // these assertions nothing in the tree fails if it is dropped.
-const INTERNAL_ONLY = ['hypoallergenique', 'non-irritant', 'non-comedogene']
+const INTERNAL_ONLY = ['hypoallergenique', 'non-irritant', 'non-comedogene', 'grossesse-compatible']
 
 describe('isDisplayedProductTag', () => {
   it('hides the three claim slugs', () => {
@@ -16,6 +16,18 @@ describe('isDisplayedProductTag', () => {
   // Detecting a comedogenic formula reads the INCI, so it borrows no manufacturer claim.
   it('keeps comedogene, which reads the formula instead of a claim', () => {
     expect(isDisplayedProductTag('comedogene')).toBe(true)
+  })
+
+  it('exposes the calculated sensitive skin signal and preserves warnings', () => {
+    expect(isDisplayedProductTag('peau-sensible')).toBe(true)
+    expect(isDisplayedProductTag('peau-sensible', 'avoid')).toBe(true)
+    expect(isDisplayedProductTag('grossesse-compatible', 'avoid')).toBe(true)
+    expect(
+      getProductTagsByCategory('skincare', 'skin_type').find((tag) => tag.slug === 'peau-sensible')
+        ?.label
+    ).toBe('Peau sensible')
+    expect(getProductTagLabel('peau-sensible', 'manual')).toBe('Peau sensible · ajout manuel')
+    expect(getProductTagLabel('peau-sensible', 'algo-derm')).toBe('Peau sensible · signal calculé')
   })
 
   it('keeps a slug no taxonomy declares', () => {

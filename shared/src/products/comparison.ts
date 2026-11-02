@@ -48,7 +48,12 @@ export type EnrichedComparisonProduct = {
     slug: string
     signals: DermoSignal[]
   }>
-  tags: Array<{ slug: string; tagType: string; relevance: 'primary' | 'secondary' }>
+  tags: Array<{
+    slug: string
+    tagType: string
+    relevance: 'primary' | 'secondary'
+    source?: string
+  }>
 }
 
 export type EnrichedComparison = {

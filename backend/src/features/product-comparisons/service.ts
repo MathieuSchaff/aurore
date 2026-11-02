@@ -5,7 +5,7 @@ import type {
   EnrichedComparisonProduct,
   UpdateComparisonInput,
 } from '@aurore/shared'
-import { classifyIngredientSignals, isDisplayedProductTag } from '@aurore/shared'
+import { classifyIngredientSignals } from '@aurore/shared'
 
 import { and, asc, count, eq, inArray } from 'drizzle-orm'
 
@@ -20,6 +20,7 @@ import {
   productTagTypes,
 } from '../../db/schema'
 import { listInciTokens } from '../../lib/inci-facts'
+import { isDisplayedProductTagLink } from '../../lib/product-tag-visibility'
 import { getComparisonActives } from './actives'
 import { linkFormulaTokens } from './formula-links'
 import { markComparisonTokens } from './formula-markers'
@@ -182,6 +183,7 @@ async function getComparisonProducts(
       slug: productTagTypes.slug,
       tagType: productTagTypes.tagType,
       relevance: productTagLinks.relevance,
+      source: productTagLinks.source,
     })
     .from(productTagLinks)
     .innerJoin(productTagTypes, eq(productTagLinks.productTagId, productTagTypes.id))
@@ -206,12 +208,21 @@ async function getComparisonProducts(
   for (const row of tagRows) {
     // Comparator UI renders positive tags only, not avoid.
     if (row.relevance !== 'primary' && row.relevance !== 'secondary') continue
-    if (!isDisplayedProductTag(row.slug)) continue
+    if (
+      !isDisplayedProductTagLink(
+        row.slug,
+        row.relevance,
+        row.source,
+        productById.get(row.productId)?.inci
+      )
+    )
+      continue
     const list = tagsByProduct.get(row.productId) ?? []
     list.push({
       slug: row.slug,
       tagType: row.tagType,
       relevance: row.relevance,
+      source: row.source,
     })
     tagsByProduct.set(row.productId, list)
   }

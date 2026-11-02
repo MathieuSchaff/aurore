@@ -2,6 +2,7 @@ import {
   type AllProductTagCategory,
   DENTAL_PRODUCT_TAG_TAXONOMY,
   getProductFilterDefinition,
+  getProductTagLabel,
   HAIRCARE_PRODUCT_TAG_TAXONOMY,
   PRODUCT_DOMAIN_TABS,
   type ProductDomainTab,
@@ -74,8 +75,10 @@ const ALL_TAG_LABELS = {
   ),
 }
 
-export function tagLabel(slug: string): string {
-  return ALL_TAG_LABELS[slug] ?? slug
+export function tagLabel(slug: string, source?: string): string {
+  return (
+    (slug === 'peau-sensible' ? getProductTagLabel(slug, source) : ALL_TAG_LABELS[slug]) ?? slug
+  )
 }
 
 const { schema: baseSchema, defaultValues } = filterSearchSchema(FILTER_KEYS)

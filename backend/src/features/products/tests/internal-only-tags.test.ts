@@ -21,88 +21,92 @@ setupDbTests()
 const CLAIM_SLUG = 'hypoallergenique'
 const SHOWN_SLUG = 'comedogene'
 
-describe('internal-only product tags', () => {
-  let user: TestUser
-  let productId: string
-  let productSlug: string
+describe.each([CLAIM_SLUG, 'grossesse-compatible'])(
+  'internal-only product tags: %s',
+  (internalSlug) => {
+    const CLAIM_SLUG = internalSlug
+    let user: TestUser
+    let productId: string
+    let productSlug: string
 
-  const createTag = (input: Parameters<typeof createProductTag>[1]) =>
-    testDb.transaction((tx) => createProductTag(tx, input))
+    const createTag = (input: Parameters<typeof createProductTag>[1]) =>
+      testDb.transaction((tx) => createProductTag(tx, input))
 
-  beforeEach(async () => {
-    user = await createTestUser()
-    const product = await createTestProduct(user.id, { name: 'Crème test', brand: 'Generic' })
-    productId = product.id
-    productSlug = product.slug
+    beforeEach(async () => {
+      user = await createTestUser()
+      const product = await createTestProduct(user.id, { name: 'Crème test', brand: 'Generic' })
+      productId = product.id
+      productSlug = product.slug
 
-    const claim = await createTag({
-      label: 'Hypoallergénique',
-      tagType: 'product_characteristic',
-      slug: CLAIM_SLUG,
+      const claim = await createTag({
+        label: 'Hypoallergénique',
+        tagType: 'product_characteristic',
+        slug: CLAIM_SLUG,
+      })
+      const shown = await createTag({
+        label: 'Comédogène',
+        tagType: 'product_characteristic',
+        slug: SHOWN_SLUG,
+      })
+      // `primary`: the list card renders that relevance only, so a secondary link would
+      // make the list assertion pass for the wrong reason.
+      await testDb.transaction((tx) =>
+        replaceProductTags(tx, productId, [
+          { tagId: claim.id, relevance: 'primary' },
+          { tagId: shown.id, relevance: 'primary' },
+        ])
+      )
     })
-    const shown = await createTag({
-      label: 'Comédogène',
-      tagType: 'product_characteristic',
-      slug: SHOWN_SLUG,
+
+    it('drops the claim from the product list', async () => {
+      const page = await listProducts({ category: 'skincare', page: 1, limit: 20 }, testDb)
+      const item = page.items.find((p) => p.id === productId)
+      const slugs = item?.tags?.map((t) => t.slug) ?? []
+
+      expect(slugs).toContain(SHOWN_SLUG)
+      expect(slugs).not.toContain(CLAIM_SLUG)
     })
-    // `primary`: the list card renders that relevance only, so a secondary link would
-    // make the list assertion pass for the wrong reason.
-    await testDb.transaction((tx) =>
-      replaceProductTags(tx, productId, [
-        { tagId: claim.id, relevance: 'primary' },
-        { tagId: shown.id, relevance: 'primary' },
-      ])
-    )
-  })
 
-  it('drops the claim from the product list', async () => {
-    const page = await listProducts({ category: 'skincare', page: 1, limit: 20 }, testDb)
-    const item = page.items.find((p) => p.id === productId)
-    const slugs = item?.tags?.map((t) => t.slug) ?? []
+    it('drops the claim from the catalogue filter counts', async () => {
+      const options = await getFilterOptions(testDb)
 
-    expect(slugs).toContain(SHOWN_SLUG)
-    expect(slugs).not.toContain(CLAIM_SLUG)
-  })
+      expect(options.tagCounts[SHOWN_SLUG]).toBe(1)
+      expect(options.tagCounts[CLAIM_SLUG]).toBeUndefined()
+    })
 
-  it('drops the claim from the catalogue filter counts', async () => {
-    const options = await getFilterOptions(testDb)
+    it('drops the claim from the comparator', async () => {
+      const other = await createTestProduct(user.id, { name: 'Crème témoin', brand: 'Generic' })
+      const cmp = await testDb.transaction((tx) =>
+        createComparison(user.id, { productIds: [productId, other.id] }, tx)
+      )
+      const enriched = await testDb.transaction((tx) => getEnrichedComparison(user.id, cmp.id, tx))
+      const slugs = enriched.products.flatMap((p) => p.tags.map((t) => t.slug))
 
-    expect(options.tagCounts[SHOWN_SLUG]).toBe(1)
-    expect(options.tagCounts[CLAIM_SLUG]).toBeUndefined()
-  })
+      expect(slugs).toContain(SHOWN_SLUG)
+      expect(slugs).not.toContain(CLAIM_SLUG)
+    })
 
-  it('drops the claim from the comparator', async () => {
-    const other = await createTestProduct(user.id, { name: 'Crème témoin', brand: 'Generic' })
-    const cmp = await testDb.transaction((tx) =>
-      createComparison(user.id, { productIds: [productId, other.id] }, tx)
-    )
-    const enriched = await testDb.transaction((tx) => getEnrichedComparison(user.id, cmp.id, tx))
-    const slugs = enriched.products.flatMap((p) => p.tags.map((t) => t.slug))
+    it('drops the claim from the collection payload', async () => {
+      await testDb.transaction((tx) =>
+        createUserProduct(user.id, { productId, status: 'in_stock' }, tx)
+      )
+      const rows = await testDb.transaction((tx) => getUserProducts(user.id, tx))
+      const slugs = rows.flatMap((r) =>
+        (r.product?.productTagLinks ?? []).map((l) => l.productTag.slug)
+      )
 
-    expect(slugs).toContain(SHOWN_SLUG)
-    expect(slugs).not.toContain(CLAIM_SLUG)
-  })
+      expect(slugs).toContain(SHOWN_SLUG)
+      expect(slugs).not.toContain(CLAIM_SLUG)
+    })
 
-  it('drops the claim from the collection payload', async () => {
-    await testDb.transaction((tx) =>
-      createUserProduct(user.id, { productId, status: 'in_stock' }, tx)
-    )
-    const rows = await testDb.transaction((tx) => getUserProducts(user.id, tx))
-    const slugs = rows.flatMap((r) =>
-      (r.product?.productTagLinks ?? []).map((l) => l.productTag.slug)
-    )
+    // The one read that keeps them: ProductEditPage seeds its tag form from this payload and
+    // posts it back, so filtering here would erase the links on every admin save.
+    it('keeps the claim in the edit payload', async () => {
+      const full = await getProductFullBySlug(productSlug, testDb)
+      const slugs = full.tags.map((t) => t.tagSlug)
 
-    expect(slugs).toContain(SHOWN_SLUG)
-    expect(slugs).not.toContain(CLAIM_SLUG)
-  })
-
-  // The one read that keeps them: ProductEditPage seeds its tag form from this payload and
-  // posts it back, so filtering here would erase the links on every admin save.
-  it('keeps the claim in the edit payload', async () => {
-    const full = await getProductFullBySlug(productSlug, testDb)
-    const slugs = full.tags.map((t) => t.tagSlug)
-
-    expect(slugs).toContain(CLAIM_SLUG)
-    expect(slugs).toContain(SHOWN_SLUG)
-  })
-})
+      expect(slugs).toContain(CLAIM_SLUG)
+      expect(slugs).toContain(SHOWN_SLUG)
+    })
+  }
+)

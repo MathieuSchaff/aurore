@@ -102,8 +102,8 @@ function ProductCardImpl({ product, onAdd }: Props) {
           {primaryTags.length > 0 && (
             <ul role="list" className="list-card__chips">
               {primaryTags.map((t) => (
-                <li key={t.slug} className="list-card__chip" title={tagLabel(t.slug)}>
-                  {tagLabel(t.slug)}
+                <li key={t.slug} className="list-card__chip" title={tagLabel(t.slug, t.source)}>
+                  {tagLabel(t.slug, t.source)}
                 </li>
               ))}
               {extraTagsCount > 0 && (

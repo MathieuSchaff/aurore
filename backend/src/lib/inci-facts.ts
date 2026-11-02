@@ -146,6 +146,13 @@ export function fragranceMarkerToken(inci: string | null | undefined): string | 
   return findInciToken(inci, (token) => GENERIC_FRAGRANCE_MARKER.test(token))
 }
 
+export const UNDISCLOSED_FRAGRANCE_PATTERN = '(^|[^a-z])(parfum|fragrance|aroma)([^a-z]|$)'
+const undisclosedFragrancePattern = new RegExp(UNDISCLOSED_FRAGRANCE_PATTERN, 'i')
+
+export function hasUndisclosedFragrance(inci: string | null | undefined): boolean {
+  return undisclosedFragrancePattern.test(inci ?? '')
+}
+
 /**
  * The other half of `hasFragranceComponent`: the Annex III allergens alone, never the bare
  * marker. A declared `Parfum` says nothing about which allergens are above the labelling

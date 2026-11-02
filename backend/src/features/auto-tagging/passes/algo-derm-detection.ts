@@ -16,6 +16,7 @@ import {
 } from 'algo-derm'
 
 import { mapKindToContext, RINSE_OFF_KINDS } from '../../../lib/algo-derm-product-context'
+import { hasUndisclosedFragrance } from '../../../lib/inci-facts'
 import { type InciInputQuality, qualifyInciInput } from '../../../lib/inci-input-quality'
 
 const S = SKINCARE_PRODUCT_TAG_SLUGS
@@ -279,6 +280,7 @@ export type DropReason =
   | 'skip_if'
   | 'requires_absence'
   | 'input_quality'
+  | 'undisclosed_fragrance'
 
 export interface DetectAutoTagsOptions {
   inputQuality?: InciInputQuality
@@ -318,9 +320,18 @@ function filterAbsenceCandidates(
   options: DetectAutoTagsOptions
 ): ReturnType<typeof tagProduct> {
   const quality = options.inputQuality ?? qualifyInciInput(inci)
-  if (quality.status === 'unknown') return candidates
+  const undisclosedFragrance = hasUndisclosedFragrance(inci)
 
   return candidates.filter((candidate) => {
+    if (
+      candidate.id === 'sans-allergenes-parfumants' &&
+      candidate.present &&
+      undisclosedFragrance
+    ) {
+      bumpDrop(options.dropCounts, 'undisclosed_fragrance', candidate.id)
+      return false
+    }
+    if (quality.status === 'unknown') return true
     if (!candidate.present || candidate.source !== 'detected_absence') return true
     bumpDrop(options.dropCounts, 'input_quality', candidate.id)
     return false

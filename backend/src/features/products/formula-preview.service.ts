@@ -1,4 +1,8 @@
-import type { ProductFormulaPreviewInput, ProductKind } from '@aurore/shared'
+import {
+  isDisplayedProductTag,
+  type ProductFormulaPreviewInput,
+  type ProductKind,
+} from '@aurore/shared'
 
 import { normalize, splitINCI, stripPreamble } from 'algo-derm'
 import { buildAliasIndex, lookupIngredient, MERGED_EVIDENCE_DB } from 'algo-derm/engine'
@@ -153,7 +157,9 @@ export async function previewProductFormula(
       { category: input.category, description: input.description ?? null },
       tagSlugToInfo
     )
-    for (const { tagSlug, relevance, source } of rows) {
+    for (const { tagSlug, relevance, source } of rows.filter((row) =>
+      isDisplayedProductTag(row.tagSlug, row.relevance)
+    )) {
       suggestedTags.push({ tagSlug, relevance, source })
     }
   }

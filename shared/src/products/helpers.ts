@@ -63,7 +63,12 @@ const PRODUCT_TAXONOMIES = {
 // Look up the FR label of a product tag slug across every domain taxonomy.
 // Cross-domain duplicates (vegan, sans-parfum, …) are aligned by construction
 // so first-match wins is safe.
-export function getProductTagLabel(slug: string): string | undefined {
+export function getProductTagLabel(slug: string, source?: string): string | undefined {
+  if (slug === 'peau-sensible') {
+    if (source === 'manual') return 'Peau sensible · ajout manuel'
+    if (source) return 'Peau sensible · signal calculé'
+    return 'Peau sensible'
+  }
   for (const tax of Object.values(PRODUCT_TAXONOMIES)) {
     const meta = (tax as Record<string, { label: string }>)[slug]
     if (meta) return meta.label
@@ -88,7 +93,9 @@ export function getProductTagCategory(
 // Guard every user-facing tag surface: product page chips, comparator, catalogue
 // filter options. An internal-only slug stays in the DB and in the audits, it
 // just never reaches a screen. Unknown slugs display, as they always have.
-export function isDisplayedProductTag(slug: string): boolean {
+export function isDisplayedProductTag(slug: string, relevance?: string): boolean {
+  if (relevance === 'avoid' && (slug === 'grossesse-compatible' || slug === 'peau-sensible'))
+    return true
   for (const tax of Object.values(PRODUCT_TAXONOMIES)) {
     const meta = (tax as Record<string, { internalOnly: boolean }>)[slug]
     if (meta) return !meta.internalOnly

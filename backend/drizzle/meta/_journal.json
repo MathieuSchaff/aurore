@@ -834,6 +834,27 @@
       "when": 1789498173075,
       "tag": "0118_restrict_private_review_moderation",
       "breakpoints": true
+    },
+    {
+      "idx": 119,
+      "version": "7",
+      "when": 1793244223568,
+      "tag": "0119_swift_captain_midlands",
+      "breakpoints": true
+    },
+    {
+      "idx": 120,
+      "version": "7",
+      "when": 1793292214984,
+      "tag": "0120_remove_sensitive_skin_claim",
+      "breakpoints": true
+    },
+    {
+      "idx": 121,
+      "version": "7",
+      "when": 1793295736601,
+      "tag": "0121_neutral_sensitive_skin_label",
+      "breakpoints": true
     }
   ]
 }

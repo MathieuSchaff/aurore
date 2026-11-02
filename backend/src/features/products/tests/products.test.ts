@@ -798,7 +798,7 @@ describe('Product Service', () => {
     })
 
     describe('tags aggregation', () => {
-      it('exposes primary tags only as { slug, tagType, relevance } entries', async () => {
+      it('exposes primary tags with their source', async () => {
         const acne = await createTag({ label: 'Anti-acné', tagType: 'concern' })
         const oily = await createTag({ label: 'Grasse', tagType: 'skin_type' })
         const vegan = await createTag({
@@ -818,11 +818,13 @@ describe('Product Service', () => {
           slug: acne.slug,
           tagType: 'concern',
           relevance: 'primary',
+          source: 'manual',
         })
         expect(tags).toContainEqual({
           slug: oily.slug,
           tagType: 'skin_type',
           relevance: 'primary',
+          source: 'manual',
         })
         // secondary tags ride along in the list payload; the card only renders primary chips
         expect(tags.map((t) => t.slug)).not.toContain(vegan.slug)

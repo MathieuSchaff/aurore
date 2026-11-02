@@ -127776,7 +127776,6 @@ INSERT INTO public.product_tag_types VALUES ('019de0ab-6196-75ff-a627-67f923b41e
 INSERT INTO public.product_tag_types VALUES ('019de0ab-6196-7630-90de-a427f5430c9c', 'peau-seche', 'Peau sèche', 'skin_type', '2026-04-30 23:13:40.719796+00');
 INSERT INTO public.product_tag_types VALUES ('019de0ab-6196-7642-9460-2c3a67197648', 'peau-mixte', 'Peau mixte', 'skin_type', '2026-04-30 23:13:40.719796+00');
 INSERT INTO public.product_tag_types VALUES ('019de0ab-6196-7653-ae2b-a9a5fea006ec', 'peau-grasse', 'Peau grasse', 'skin_type', '2026-04-30 23:13:40.719796+00');
-INSERT INTO public.product_tag_types VALUES ('019de0ab-6196-7673-8f60-98d607e326bc', 'peau-sensible', 'Peau sensible', 'skin_type', '2026-04-30 23:13:40.719796+00');
 INSERT INTO public.product_tag_types VALUES ('019de0ab-6196-7683-b7fd-a7c523c0dd89', 'peau-normale', 'Peau normale', 'skin_type', '2026-04-30 23:13:40.719796+00');
 INSERT INTO public.product_tag_types VALUES ('019de0ab-6196-7783-945f-005dabae971c', 'zone-visage', 'Visage', 'skin_zone', '2026-04-30 23:13:40.719796+00');
 INSERT INTO public.product_tag_types VALUES ('019de0ab-6196-7794-9d1d-c3acd02d239d', 'zone-corps', 'Corps', 'skin_zone', '2026-04-30 23:13:40.719796+00');
@@ -127999,6 +127998,7 @@ INSERT INTO public.product_tag_types VALUES ('019e0c9a-3ba7-73b7-a6f4-c2f6d642ff
 INSERT INTO public.product_tag_types VALUES ('019e5a79-e478-78b6-9551-19ca4fffb5b5', 'sans-alcool-denature', 'Sans alcool dénaturé', 'product_characteristic', '2026-05-24 14:53:17.991228+00');
 INSERT INTO public.product_tag_types VALUES ('019edbdf-523b-7a41-b561-eae29dece0d8', 'urea', 'Urée', 'actif_class', '2026-06-18 17:55:06.421564+00');
 INSERT INTO public.product_tag_types VALUES ('019de747-c27c-7483-8d2e-af8134e33037', 'type-exfoliation', 'Exfoliant', 'product_type_v2', '2026-05-02 06:02:12.987124+00');
+INSERT INTO public.product_tag_types VALUES ('019de0ab-6196-7673-8f60-98d607e326bc', 'peau-sensible', 'Peau sensible', 'skin_type', '2026-04-30 23:13:40.719796+00');
 
 
 --
