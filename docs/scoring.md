@@ -7,7 +7,7 @@ The goal is not to give medical advice or to tell users what to buy.
 The goal is simpler: help users understand a formula, compare products, and keep track of useful warnings or benefits while doing their own research.
 
 The assessment is computed on the backend.
-The frontend only receives the final summary.
+The frontend receives the assessment payload; the ingredient dataset stays on the backend.
 
 ---
 
@@ -69,7 +69,8 @@ The backend calls `analyzeINCI`.
 
 The main input is the ordered INCI list.
 
-The order matters because ingredient position can give a rough concentration signal.
+The written order is part of the declaration. Alphabetical ordering and other qualifications
+can limit what ingredient position says; recognition alone does not establish a concentration.
 
 The analysis can also use optional context, such as:
 
@@ -207,15 +208,20 @@ They can contain:
 - legal text;
 - formatting errors.
 
-Before analysis, the backend cleans the INCI string with:
+The assessment service prepares the stored INCI with `cleanInciString` before calling
+`analyzeINCI`. This read-side preparation does not update the catalogue.
 
-```text
-cleanInci / cleanInciString
-```
+Storage uses a separate governed normalizer during creation, editing and catalogue ingest,
+with conservation checks for declarations and damage evidence. Ingredient linking, preview
+tokens, preview suggestions and historical cleanups have their own contracts.
+A declared quantity is not automatically a structured known concentration, and a retained
+optional declaration does not by itself authorize a certain ingredient link.
 
-This cleaning is mostly for storage and display.
-
-The engine also resolves aliases internally.
+See [catalogue intake and normalization](commands/catalog.md),
+[linking and cleanup safeguards](commands/data-writes.md), and [data audits](commands/data-audits.md).
+The engine also resolves aliases internally; resolving a name does not validate its source.
+Catalogue statistics and taxonomy findings use their own SQL scopes and counting units.
+They do not measure assessment confidence or ingredient identity coverage.
 
 ---
 
@@ -263,3 +269,12 @@ They check things like:
 - coverage;
 - valid `rating` values;
 - behaviour on a real INCI string.
+
+## Data maintenance and transport provenance
+
+Applying a bounded ingredient-link change does not itself adopt a new engine, validate a
+manufacturer source or recalculate stored tags. Keep engine comparison, data reconciliation
+and delivery evidence separate. See [data operation controls](commands/data-writes.md#evidence-for-a-bounded-data-change).
+A correction to the Bun/Drizzle timestamp decoder affects transport of audit instants,
+not the formula model, evidence grades or calibration. Exact operation receipts retain
+PostgreSQL precision under the [date contract](conventions/dates.md).

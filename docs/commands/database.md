@@ -89,4 +89,17 @@ key, accounting for the owner placeholder; row order and runtime session rotatio
 
 | Command | What |
 | :--- | :--- |
-| `just db-stats` | Product, ingredient, tag and user counts |
+| `just db-stats` | Five sections of admin RLS counts: products (including hidden), ingredients, tags, users and content; stdout only. [Scope and limits](data-audits.md#live-db) |
+
+## Snapshot and receipt precision
+
+A snapshot preserves database values; an API timestamp may have passed through a JavaScript
+Date with millisecond precision. For an exact ownership receipt, read timestamp fields as
+PostgreSQL text or JSON before that conversion. The Bun/Drizzle patch corrects the UTC
+instant mapping, without recovering discarded microseconds or rewriting stored dates.
+See the [date contract](../conventions/dates.md).
+
+After a bounded catalogue application, compare both snapshots to the actual before/after
+members and receipt, including unchanged rows and sequences. Preserve the before snapshot
+as evidence. A later software patch alone does not require regenerating either snapshot
+and does not justify restoring the database.

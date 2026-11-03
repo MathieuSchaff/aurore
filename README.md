@@ -68,6 +68,13 @@ The logic lives in [`algo-derm`](./vendor), a separate MIT library vendored as a
 tarball. The browser only ever receives the final `ProductAssessment`, never the ingredient
 dataset. Contract, confidence model and limits: [`docs/scoring.md`](./docs/scoring.md).
 
+Catalogue intake, ingredient linking, preview and historical cleanup have separate
+conservation checks. Cleanup does not automatically refresh links or tags, and a dry-run
+does not reserve a future write. Operator contracts: [intake](./docs/commands/catalog.md),
+[linking and cleanups](./docs/commands/data-writes.md), [data audits](./docs/commands/data-audits.md).
+Diagnostic counts depend on scope and unit: admin statistics include hidden catalogue rows;
+the taxonomy format check counts distinct visible products, with per-format association details.
+
 ---
 
 ## Screenshots
@@ -156,3 +163,13 @@ Not dermatological advice, not a diagnosis. Formula reading depends on ingredien
 unknown ingredients lower confidence, and a low-confidence reading is not a signal. Reading is
 per product, routine-level interactions aren't modelled. Interface is French only. `algo-derm` is
 pre-1.0, its calibration still moves. Open beta, one developer, tested at personal scale.
+
+## Data operation provenance
+
+A measured plan, a committed data change and a software correction have separate evidence.
+A bounded link repair does not automatically rewrite INCI or tags. Preserve exact members,
+curation, convergence and both catalogue snapshots after an authorized dev change; see
+[data writes](docs/commands/data-writes.md) and [database snapshots](docs/commands/database.md).
+The Bun/Drizzle timestamp fallback is patched for UTC instants; exact ownership journals
+still need PostgreSQL text/JSON precision. See the [date contract](docs/conventions/dates.md)
+and [dependency patch](patches/README.md#utc-timestamp-mapping-in-drizzle-orm-0454).
