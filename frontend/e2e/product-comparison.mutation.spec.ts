@@ -12,6 +12,8 @@ const PRODUCT_A = /^CeraVe .+ Crème Hydratante$/
 const PRODUCT_B = /^Krème .+ Crème Hydratation Intense Bio$/
 
 test('builds a comparison and displays its bands', async ({ page }, testInfo) => {
+  // This journey takes about 22 s alone, so the 30 s default fails under a full parallel run
+  test.slow()
   const freshUser = await registerFreshUser(page)
   try {
     await page.goto('/products/compare/new')
