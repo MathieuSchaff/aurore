@@ -2,7 +2,7 @@
 // `features/products/write.service.ts create/updateProduct()`; same orchestrator as
 // the batch backfill, diverges only in I/O shape.
 
-import { and, eq, ne } from 'drizzle-orm'
+import { and, eq, ne, sql } from 'drizzle-orm'
 
 import type { DatabaseTransaction, DbOrTransaction } from '../../db/index'
 import { products, productTagLinks } from '../../db/schema'
@@ -46,23 +46,29 @@ export async function writeTagsForProduct(
   // Atomic replace so a shrunk INCI drops stale tags. Manual rows are preserved
   // (separate CRUD path, must not be wiped by retag).
   return database.transaction(async (tx) => {
+    const [context] = await tx.execute<{ role: string }>(
+      sql`SELECT coalesce(current_setting('app.role', true), '') AS role`
+    )
+    // Only server-derived tags get catalog write access, after the product write passed RLS
+    // A failed savepoint restores the role; success must restore it explicitly
+    await tx.execute(sql`SELECT set_config('app.role', 'contributor', true)`)
     await tx
       .delete(productTagLinks)
       .where(and(eq(productTagLinks.productId, product.id), ne(productTagLinks.source, 'manual')))
 
-    if (rows.length === 0) return { inserted: 0, detected: pairs.length }
+    // RETURNING counts actual inserts; this driver has no reliable count inside transactions
+    const inserted =
+      rows.length === 0
+        ? 0
+        : (
+            await tx
+              .insert(productTagLinks)
+              .values(rows)
+              .onConflictDoNothing()
+              .returning({ productId: productTagLinks.productId })
+          ).length
 
-    // Idempotent via onConflictDoNothing on (productId, productTagId).
-    // `.count` is absent on tx inserts with this driver; `.returning()` gives
-    // the true affected-row count instead of the `rows.length` upper bound.
-    const inserted = (
-      await tx
-        .insert(productTagLinks)
-        .values(rows)
-        .onConflictDoNothing()
-        .returning({ productId: productTagLinks.productId })
-    ).length
-
+    await tx.execute(sql`SELECT set_config('app.role', ${context?.role ?? ''}, true)`)
     return { inserted, detected: pairs.length }
   })
 }

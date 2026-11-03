@@ -35,6 +35,7 @@ Canonical ADRs for Aurore. This directory is tracked in git.
 | [0028](./0028-separate-ingredient-names-from-inci-labels.md) | Separate ingredient names from INCI labels | accepted | 2026-10-28 |
 | [0029](./0029-withhold-inferred-absences-on-damaged-inci.md) | Withhold inferred absences on damaged INCI | accepted | 2026-10-29 |
 | [0030](./0030-separate-manufacturer-positioning-from-inferred-suitability.md) | Present calculated sensitive-skin signals with explicit provenance | accepted | 2026-10-29 |
+| [0031](./0031-scope-intake-tag-write-privileges.md) | Scope intake tag write privileges to computed rows | accepted | 2026-11-03 |
 
 No **0002**: *AutoTag skip events ride trackError as transport* (accepted 2026-05-19) was deleted
 along with the errors feature it named when the observability stack (Grafana, OTel, Faro) replaced
@@ -44,7 +45,7 @@ it. The decision still holds, its transport no longer exists: skips leave as a s
 **0019** replaced an earlier draft at the same number before it was published; the ADR lists that
 draft as its option C and says which part of it survived.
 
-Next available: **0031**. Name: `NNNN-short-imperative-verb-phrase.md`.
+Next available: **0032**. Name: `NNNN-short-imperative-verb-phrase.md`.
 
 ## Template
 
