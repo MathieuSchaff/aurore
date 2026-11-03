@@ -2,7 +2,6 @@ import path from 'node:path'
 
 import babel from '@rolldown/plugin-babel'
 import { tanstackStart } from '@tanstack/react-start/plugin/vite'
-import { DevTools } from '@vitejs/devtools'
 import react, { reactCompilerPreset } from '@vitejs/plugin-react'
 import { nitro } from 'nitro/vite'
 import { defineConfig, loadEnv, type Plugin, type UserConfig } from 'vite'
@@ -40,12 +39,6 @@ export default defineConfig(async ({ command, mode, isPreview }): Promise<UserCo
   return {
     plugins: [
       devServer && Inspect(),
-      // The `devtools` option below only configures the build-time Rolldown
-      // devtools; the dev panel at /__devtools/ is mounted by this plugin.
-      // devframe's WS transport hardcodes crossws/adapters/node with no runtime
-      // detection (checked up to devframe 0.8.2), so it throws under Bun. Gate it
-      // off there until upstream adds a Bun adapter.
-      devServer && !process.versions.bun && (await DevTools()),
 
       // TanStack Start must run before React so route splitting sees source files.
       tanstackStart({
@@ -95,6 +88,7 @@ export default defineConfig(async ({ command, mode, isPreview }): Promise<UserCo
       devSourcemap: true,
     },
 
+    // Vite registers DevTools through this option; an explicit plugin would register it twice
     // DevTools keeps a server alive, so a plain `vite build` never exits (breaks
     // profile-prod and CI). Enable it only where it's wanted: the dev server and
     // ANALYZE builds (the latter records a Rolldown session, then holds for browsing).
