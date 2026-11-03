@@ -77,7 +77,7 @@ export function ProductForm({
   const canManageLinks =
     session.status === 'authenticated' &&
     (session.user.role === 'admin' || session.user.role === 'contributor')
-  const { data: allTags } = useQuery(productTagQueries.list())
+  const { data: allTags } = useQuery(productTagQueries.list(undefined, 500))
   const allowLeave = useRef(false)
   const [isImageBusy, setIsImageBusy] = useState(false)
 
