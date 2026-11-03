@@ -115,6 +115,22 @@ interface DropdownMenuTriggerProps {
   }>
 }
 
+function bindTriggerRef(
+  node: HTMLElement | null,
+  triggerRef: React.RefObject<HTMLElement | null>,
+  childRef: React.Ref<HTMLElement> | undefined
+) {
+  triggerRef.current = node
+  const cleanup = typeof childRef === 'function' ? childRef(node) : undefined
+  if (childRef && typeof childRef !== 'function') childRef.current = node
+  return () => {
+    triggerRef.current = null
+    if (cleanup) cleanup()
+    else if (typeof childRef === 'function') childRef(null)
+    else if (childRef) childRef.current = null
+  }
+}
+
 function DropdownMenuTrigger({ children }: DropdownMenuTriggerProps) {
   const { isOpen, open, toggle, triggerRef, menuId } = useDropdownMenu()
 
@@ -122,15 +138,14 @@ function DropdownMenuTrigger({ children }: DropdownMenuTriggerProps) {
     throw new Error('DropdownMenu.Trigger expects a single React element child')
   }
 
-  // biome-ignore lint/suspicious/noExplicitAny: cloneElement ref typing across element kinds
-  return cloneElement(children as ReactElement<any>, {
-    ref: (node: HTMLElement | null) => {
-      triggerRef.current = node
-      const childRef = (children as unknown as { ref?: React.Ref<HTMLElement> }).ref
-      if (typeof childRef === 'function') childRef(node)
-      else if (childRef && 'current' in childRef)
-        (childRef as React.MutableRefObject<HTMLElement | null>).current = node
-    },
+  const childRef = children.props.ref
+  const attachTrigger = useCallback(
+    (node: HTMLElement | null) => bindTriggerRef(node, triggerRef, childRef),
+    [triggerRef, childRef]
+  )
+
+  return cloneElement(children, {
+    ref: attachTrigger,
     onClick: (e: React.MouseEvent) => {
       e.stopPropagation()
       children.props.onClick?.(e)
@@ -356,13 +371,6 @@ function DropdownMenuItem({
 
   // biome-ignore lint/suspicious/noExplicitAny: cloneElement ref typing across element kinds
   return cloneElement(children as ReactElement<any>, {
-    ref: (node: HTMLElement | null) => {
-      // KB nav reads items live from the DOM; no central registration needed.
-      const childRef = (children as unknown as { ref?: React.Ref<HTMLElement> }).ref
-      if (typeof childRef === 'function') childRef(node)
-      else if (childRef && 'current' in childRef)
-        (childRef as React.MutableRefObject<HTMLElement | null>).current = node
-    },
     role: 'menuitem',
     // Roving tabIndex: focus moved imperatively via arrow keys (WAI-ARIA APG Menu).
     tabIndex: -1,

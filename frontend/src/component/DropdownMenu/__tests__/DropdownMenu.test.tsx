@@ -355,3 +355,36 @@ describe('DropdownMenu: contrats après le fix (D-findings shipped)', () => {
     expect(document.activeElement).toBe(screen.getByRole('menuitem', { name: 'Extra' }))
   })
 })
+
+describe('DropdownMenu: child ref lifecycle', () => {
+  it.each(['trigger', 'item'] as const)('preserves the %s ref cleanup', async (target) => {
+    const dispose = vi.fn()
+    const childRef = vi.fn((node: HTMLButtonElement | null) => (node ? dispose : undefined))
+    const { unmount } = render(
+      <DropdownMenu>
+        <DropdownMenu.Trigger>
+          <button type="button" ref={target === 'trigger' ? childRef : undefined}>
+            Actions
+          </button>
+        </DropdownMenu.Trigger>
+        <DropdownMenu.Content ariaLabel="Actions">
+          <DropdownMenu.Item>
+            <button type="button" ref={target === 'item' ? childRef : undefined}>
+              Modifier
+            </button>
+          </DropdownMenu.Item>
+        </DropdownMenu.Content>
+      </DropdownMenu>
+    )
+    await userEvent.click(screen.getByRole('button', { name: 'Actions' }))
+    expect(childRef).toHaveBeenCalledWith(
+      screen.getByRole(target === 'trigger' ? 'button' : 'menuitem', {
+        name: target === 'trigger' ? 'Actions' : 'Modifier',
+      })
+    )
+    dispose.mockClear()
+    // The menu must forward React 19 ref cleanup instead of discarding its return value
+    unmount()
+    expect(dispose).toHaveBeenCalledOnce()
+  })
+})
