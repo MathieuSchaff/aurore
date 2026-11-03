@@ -291,10 +291,10 @@ function UnlinkedTokensGroup({
       <ul role="list" className="ui-wrap-list" aria-label={listLabel}>
         {tokens.map((t) => (
           <li
-            key={t.raw}
+            key={`${t.raw}-${t.canonicalKey}`}
             className={`formula-preview__chip formula-preview__chip--${chipModifier}`}
           >
-            {t.raw}
+            {t.canonicalKey?.startsWith('CI ') ? t.canonicalKey : t.raw}
           </li>
         ))}
       </ul>

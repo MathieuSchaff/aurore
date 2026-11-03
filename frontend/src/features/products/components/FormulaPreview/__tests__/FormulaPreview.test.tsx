@@ -97,6 +97,76 @@ describe('FormulaPreview input drift', () => {
     }
   )
 
+  it('adds each linked pigment once from a closed declaration', async () => {
+    const raw = 'Iron Oxides (CI 77491, CI 77492, CI 77499)'
+    const result = {
+      ...RESULT,
+      tokens: ['CI 77491', 'CI 77492', 'CI 77499'].map((canonicalKey) => ({
+        raw,
+        normalized: canonicalKey.toLowerCase(),
+        canonicalKey,
+        ingredient: { id: canonicalKey, name: canonicalKey, slug: canonicalKey.replace(' ', '-') },
+      })),
+    } satisfies ProductFormulaPreview
+    vi.mocked(usePreviewProductFormula).mockReturnValue(
+      makeIdleMutationResult(
+        vi.fn((variables, options) => {
+          options?.onSuccess?.(result, variables, undefined, MUTATION_CONTEXT)
+        })
+      )
+    )
+    const onAddIngredient = vi.fn()
+    renderWithProviders(
+      <FormulaPreview
+        {...PROPS}
+        onAddIngredient={onAddIngredient}
+        linkedIngredientIds={['CI 77491']}
+      />
+    )
+
+    await userEvent.click(screen.getByRole('button', { name: /Analyser la formule/ }))
+    await userEvent.click(screen.getByRole('button', { name: 'Tout ajouter' }))
+
+    expect(onAddIngredient.mock.calls).toEqual([
+      ['CI 77492', 'CI 77492'],
+      ['CI 77499', 'CI 77499'],
+    ])
+  })
+
+  it('shows each known pigment without a catalogue record and leaves an open group unresolved', async () => {
+    const raw = 'Iron Oxides (CI 77491, CI 77492)'
+    const open = 'Iron Oxides (CI 77491, CI 77499'
+    const result = {
+      ...RESULT,
+      tokens: [
+        ...['CI 77491', 'CI 77492'].map((canonicalKey) => ({
+          raw,
+          normalized: canonicalKey.toLowerCase(),
+          canonicalKey,
+          ingredient: null,
+        })),
+        { raw: open, normalized: open.toLowerCase(), canonicalKey: null, ingredient: null },
+      ],
+    } satisfies ProductFormulaPreview
+    vi.mocked(usePreviewProductFormula).mockReturnValue(
+      makeIdleMutationResult(
+        vi.fn((variables, options) => {
+          options?.onSuccess?.(result, variables, undefined, MUTATION_CONTEXT)
+        })
+      )
+    )
+    renderWithProviders(<FormulaPreview {...PROPS} />)
+
+    await userEvent.click(screen.getByRole('button', { name: /Analyser la formule/ }))
+
+    const known = screen.getByRole('list', { name: 'Ingrédients reconnus sans fiche' })
+    expect(known).toHaveTextContent('CI 77491')
+    expect(known).toHaveTextContent('CI 77492')
+    expect(known).not.toHaveTextContent('Iron Oxides')
+    expect(screen.getByRole('list', { name: 'Ingrédients non reconnus' })).toHaveTextContent(open)
+    expect(screen.queryAllByRole('button', { name: /Ajouter|Tout ajouter/ })).toHaveLength(0)
+  })
+
   it.each(CHANGES)('marks results stale after input changes: %j', async (changes) => {
     const { rerender } = renderWithProviders(<FormulaPreview {...PROPS} />)
     await userEvent.click(screen.getByRole('button', { name: /Analyser la formule/ }))

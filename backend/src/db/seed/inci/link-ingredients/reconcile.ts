@@ -15,6 +15,8 @@ export interface ReconcilePlan {
   add: string[]
   /** stale rows safe to delete */
   remove: CurrentLink[]
+  /** automatic stale rows held while the declaration cannot prove absence */
+  heldDeletions: CurrentLink[]
   /** stale rows a human owns: kept, and reported for arbitration */
   keptCurated: CurrentLink[]
   /** derived slugs held back because a surviving row already carries the same canonical_key */
@@ -24,7 +26,8 @@ export interface ReconcilePlan {
 export function planReconcile(
   current: CurrentLink[],
   target: Iterable<string>,
-  canonicalKeyBySlug: ReadonlyMap<string, string> = new Map()
+  canonicalKeyBySlug: ReadonlyMap<string, string> = new Map(),
+  holdDeletions = false
 ): ReconcilePlan {
   const targetSlugs = new Set(target)
   const currentSlugs = new Set(current.map((c) => c.slug))
@@ -33,20 +36,22 @@ export function planReconcile(
   if (targetSlugs.size === 0) {
     // Deriving zero links means the INCI failed to parse (prose, glued tokens), not that the
     // existing links are wrong. Never delete on an empty target.
-    return { add: missing, remove: [], keptCurated: [], aliasConflicts: [] }
+    return { add: missing, remove: [], heldDeletions: [], keptCurated: [], aliasConflicts: [] }
   }
 
   // A link the recompute still derives never enters `stale`, so it is never touched here:
   // its concentration and notes survive untouched.
   const stale = new Set(current.filter((c) => !targetSlugs.has(c.slug)))
   // Deleted only when the linker owns it; a human-curated stale row is kept and reported.
-  const remove = [...stale].filter((c) => !c.curated)
+  const automaticStale = [...stale].filter((c) => !c.curated)
+  const remove = holdDeletions ? [] : automaticStale
+  const heldDeletions = holdDeletions ? automaticStale : []
   const keptCurated = [...stale].filter((c) => c.curated)
 
   // Only a row that survives this run can shadow an insert. A row about to be deleted cannot.
   const survivorByIdentity = new Map<string, CurrentLink>()
   for (const c of current) {
-    if (!c.canonicalKey || (stale.has(c) && !c.curated)) continue
+    if (!c.canonicalKey || (stale.has(c) && !c.curated && !holdDeletions)) continue
     if (!survivorByIdentity.has(c.canonicalKey)) survivorByIdentity.set(c.canonicalKey, c)
   }
 
@@ -56,11 +61,11 @@ export function planReconcile(
     const identity = canonicalKeyBySlug.get(slug)
     const heldBy = identity ? survivorByIdentity.get(identity) : undefined
     // Two `ingredients` rows can share one canonical_key (hyaluronic-acid / sodium-hyaluronate);
-    // inserting the derived slug next to a kept human row for that identity would duplicate the
+    // inserting the derived slug next to a surviving row for that identity would duplicate the
     // ingredient on the sheet, so it is held back and reported instead.
     if (heldBy) aliasConflicts.push({ slug, heldBy })
     else add.push(slug)
   }
 
-  return { add, remove, keptCurated, aliasConflicts }
+  return { add, remove, heldDeletions, keptCurated, aliasConflicts }
 }

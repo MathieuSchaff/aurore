@@ -34,7 +34,567 @@ function corpusSnapshot(): CorpusSnapshot {
   }
 }
 
+function supplementSnapshot(inci = 'Niacinamide, vitamine A (Retinyl Palmitate)'): CorpusSnapshot {
+  const snapshot = corpusSnapshot()
+  snapshot.eligible = [
+    { id: 'product-supplement', slug: 'supplement', inci, category: 'complement' },
+  ]
+  snapshot.ingredientRows.push({
+    id: 'ingredient-retinyl',
+    slug: 'retinyl-palmitate',
+    key: 'Retinyl Palmitate',
+    type: 'skincare',
+  })
+  snapshot.currentLinks.set('product-supplement', [
+    {
+      id: 'automatic-retinyl',
+      slug: 'retinyl-palmitate',
+      canonicalKey: 'Retinyl Palmitate',
+      curated: false,
+    },
+  ])
+  return snapshot
+}
+
+function pigmentSnapshot(inci: string): CorpusSnapshot {
+  const snapshot = corpusSnapshot()
+  snapshot.eligible = [{ id: 'product-serum', slug: 'serum', category: 'skincare', inci }]
+  snapshot.ingredientRows.push(
+    { id: 'red', slug: 'oxide-de-fer', key: 'CI 77491', type: 'skincare' },
+    { id: 'yellow', slug: 'ci-77492', key: 'CI 77492', type: 'skincare' },
+    { id: 'black', slug: 'ci-77499', key: 'CI 77499', type: 'skincare' }
+  )
+  snapshot.currentLinks.set('product-serum', [
+    { id: 'niacinamide-link', slug: 'niacinamide', canonicalKey: 'Niacinamide', curated: false },
+    { id: 'red-link', slug: 'oxide-de-fer', canonicalKey: 'CI 77491', curated: false },
+  ])
+  return snapshot
+}
+
 describe('prepareCorpusReconcile', () => {
+  it('reports ambiguous lines without creating a compound link or deleting uncertain history', async () => {
+    const snapshot = pigmentSnapshot('Arginine\nPCA, Niacinamide')
+    snapshot.ingredientRows.push({
+      id: 'arginine-pca',
+      slug: 'arginine-pca',
+      key: 'Arginine PCA',
+      type: 'skincare',
+    })
+    const prepared = await prepareCorpusReconcile({ load: async () => snapshot })
+    expect(prepared.writes).toEqual([])
+    expect(prepared.stats.heldDeletions).toContainEqual({
+      productId: 'product-serum',
+      productSlug: 'serum',
+      linkId: 'red-link',
+      ingredientSlug: 'oxide-de-fer',
+      rawTokens: ['Arginine\nPCA'],
+      reason: 'unresolved-line-boundary',
+    })
+    expect(prepared.stats.unresolvedLineBoundaries).toEqual([
+      {
+        productId: 'product-serum',
+        productSlug: 'serum',
+        rawTokens: ['Arginine\nPCA'],
+      },
+    ])
+    const red = snapshot.currentLinks.get('product-serum')?.find((link) => link.id === 'red-link')
+    if (!red) throw new Error('Red link fixture missing')
+    red.curated = true
+    const curated = await prepareCorpusReconcile({ load: async () => snapshot })
+    expect(curated.writes).toEqual([])
+    expect(curated.stats.keptCurated).toBe(1)
+    expect(curated.stats.heldDeletions).toEqual([])
+    const product = snapshot.eligible[0]
+    if (!product) throw new Error('Product fixture missing')
+    product.inci = 'Arginine PCA, Niacinamide'
+    const repaired = await prepareCorpusReconcile({ load: async () => snapshot })
+    expect(repaired.writes).toEqual([
+      {
+        inserts: [{ productId: 'product-serum', ingredientId: 'arginine-pca', source: 'linker' }],
+        removeIds: [],
+      },
+    ])
+    expect(repaired.stats.unresolvedLineBoundaries).toEqual([])
+    red.curated = false
+    const automatic = await prepareCorpusReconcile({ load: async () => snapshot })
+    expect(automatic.writes).toEqual([
+      {
+        inserts: [{ productId: 'product-serum', ingredientId: 'arginine-pca', source: 'linker' }],
+        removeIds: ['red-link'],
+      },
+    ])
+  })
+
+  it('reports non-pigment optional declarations while retaining curated and uncertain links', async () => {
+    const snapshot = pigmentSnapshot('Niacinamide, [+/- Retinol]')
+    const prepared = await prepareCorpusReconcile({ load: async () => snapshot })
+    expect(prepared.writes).toEqual([])
+    expect(prepared.stats.heldDeletions).toContainEqual({
+      productId: 'product-serum',
+      productSlug: 'serum',
+      linkId: 'red-link',
+      ingredientSlug: 'oxide-de-fer',
+      rawTokens: ['[+/- Retinol]'],
+      reason: 'optional-declaration',
+    })
+    expect(prepared.stats.unresolvedOptionalDeclarations).toEqual([
+      {
+        productId: 'product-serum',
+        productSlug: 'serum',
+        rawTokens: ['[+/- Retinol]'],
+      },
+    ])
+    const red = snapshot.currentLinks.get('product-serum')?.find((link) => link.id === 'red-link')
+    if (!red) throw new Error('Red link fixture missing')
+    red.curated = true
+    const curated = await prepareCorpusReconcile({ load: async () => snapshot })
+    expect(curated.writes).toEqual([])
+    expect(curated.stats.keptCurated).toBe(1)
+    expect(curated.stats.heldDeletions).toEqual([])
+  })
+
+  it('refuses optional single pigments instead of inserting a certain link', async () => {
+    const raw = '[+/- CI 77491]'
+    const snapshot = pigmentSnapshot(`Niacinamide, ${raw}`)
+    snapshot.currentLinks.set('product-serum', [
+      { id: 'niacinamide-link', slug: 'niacinamide', canonicalKey: 'Niacinamide', curated: false },
+    ])
+    const prepared = await prepareCorpusReconcile({ load: async () => snapshot })
+    expect(prepared.writes).toEqual([])
+  })
+
+  it('links both closed CI declarations joined by an underscore before an ILN footer', async () => {
+    const snapshot = pigmentSnapshot(
+      'Niacinamide, IRON OXIDES (CI 77491)_IRON OXIDES(CI 77492)[ILN49864]'
+    )
+    snapshot.currentLinks.set('product-serum', [
+      { id: 'niacinamide-link', slug: 'niacinamide', canonicalKey: 'Niacinamide', curated: false },
+    ])
+    const before = structuredClone(snapshot)
+    const prepared = await prepareCorpusReconcile({ load: async () => snapshot })
+
+    expect(prepared.writes).toEqual([
+      {
+        inserts: [
+          { productId: 'product-serum', ingredientId: 'red', source: 'linker' },
+          { productId: 'product-serum', ingredientId: 'yellow', source: 'linker' },
+        ],
+        removeIds: [],
+      },
+    ])
+    expect(prepared.stats.unresolvedCiGroups).toEqual([])
+    expect(snapshot).toEqual(before)
+  })
+
+  it.each(['*', '**', ' *'])(
+    'reconciles annotated CI groups without uncertainty holds: %s',
+    async (suffix) => {
+      const snapshot = pigmentSnapshot(
+        `Niacinamide, Iron Oxides (CI 77491, CI 77492, CI 77499)${suffix}`
+      )
+      const before = structuredClone(snapshot)
+      const prepared = await prepareCorpusReconcile({ load: async () => snapshot })
+      expect(prepared.writes).toEqual([
+        {
+          inserts: [
+            { productId: 'product-serum', ingredientId: 'yellow', source: 'linker' },
+            { productId: 'product-serum', ingredientId: 'black', source: 'linker' },
+          ],
+          removeIds: [],
+        },
+      ])
+      expect(prepared.stats.unresolvedCiGroups).toEqual([])
+      expect(prepared.stats.heldDeletions).toEqual([])
+      expect(snapshot).toEqual(before)
+    }
+  )
+
+  it('keeps a declared red pigment and adds the other identities from its CI group', async () => {
+    const snapshot = pigmentSnapshot('Niacinamide, Iron Oxides (CI 77491, 77492, 77499)')
+    const prepared = await prepareCorpusReconcile({ load: async () => snapshot })
+
+    expect(prepared.writes).toEqual([
+      {
+        inserts: [
+          { productId: 'product-serum', ingredientId: 'yellow', source: 'linker' },
+          { productId: 'product-serum', ingredientId: 'black', source: 'linker' },
+        ],
+        removeIds: [],
+      },
+    ])
+  })
+
+  it('resolves a CI group before the natural-origin footer without treating the footer as an ingredient', async () => {
+    const snapshot = pigmentSnapshot(
+      'Niacinamide, IRON OXIDES (CI 77499, CI 77491, CI 77492) 100% natural origin *organic **made using organic and non-organic ingredients'
+    )
+    const prepared = await prepareCorpusReconcile({ load: async () => snapshot })
+
+    expect(
+      prepared.writes.flatMap((write) => write.inserts.map((row) => row.ingredientId))
+    ).toEqual(['black', 'yellow'])
+    expect(prepared.writes.flatMap((write) => write.removeIds)).toEqual([])
+    expect(prepared.stats.unresolvedCiGroups).toEqual([])
+  })
+
+  it('holds deletions and refuses partial inserts when a CI group contains an unknown code', async () => {
+    const raw = 'Iron Oxides (CI 77492, CI 99999)'
+    const snapshot = pigmentSnapshot(`Niacinamide, ${raw}`)
+    const prepared = await prepareCorpusReconcile({ load: async () => snapshot })
+
+    expect(prepared.writes).toEqual([])
+    expect(prepared.stats.heldDeletions).toEqual([
+      {
+        productId: 'product-serum',
+        productSlug: 'serum',
+        linkId: 'red-link',
+        ingredientSlug: 'oxide-de-fer',
+        rawTokens: [raw],
+        reason: 'unresolved-ci-group',
+      },
+    ])
+  })
+
+  it.each([
+    [
+      'joined optional list',
+      'Niacinamide, +/- Mica, Iron Oxides (CI 77491)_Iron Oxides(CI 77492)[ILN49864]',
+    ],
+    [
+      'joined may-contain list',
+      'Niacinamide, May contain: Mica, Iron Oxides (CI 77491)_Iron Oxides(CI 77492)',
+    ],
+    ['joined unknown code', 'Niacinamide, Iron Oxides (CI 77492)_Iron Oxides(CI 99999)'],
+    ['joined missing closure', 'Niacinamide, Iron Oxides (CI 77491)_Iron Oxides(CI 77492'],
+    ['joined missing first closure', 'Niacinamide, Iron Oxides (CI 77491_Iron Oxides(CI 77492)'],
+    ['joined nano qualifier', 'Niacinamide, Iron Oxides (CI 77491)_Iron Oxides(CI 77492) [nano]'],
+    [
+      'joined internal qualifier',
+      'Niacinamide, Iron Oxides (CI 77491) [nano]_Iron Oxides(CI 77492)',
+    ],
+    ['joined non-CI suffix', 'Niacinamide, Iron Oxides (CI 77491)_Iron Oxides(CI 77492)_Parfum'],
+    [
+      'joined negated declaration',
+      'Niacinamide, sans Iron Oxides (CI 77491)_Iron Oxides(CI 77492)',
+    ],
+    ['joined unknown footer', 'Niacinamide, Iron Oxides (CI 77491)_Iron Oxides(CI 77492)[other]'],
+    ['optional bracket', 'Niacinamide, [+/- Iron Oxides (CI 77491, CI 77499)]'],
+    ['annotated optional group', 'Niacinamide, +/- Iron Oxides (CI 77491, CI 77499)*'],
+    ['annotated nano group', 'Niacinamide, Iron Oxides (CI 77491, CI 77499) (nano)*'],
+    ['annotated unknown code', 'Niacinamide, Iron Oxides (CI 77491, CI 99999)*'],
+    ['annotated arbitrary suffix', 'Niacinamide, Iron Oxides (CI 77491, CI 77499)* text'],
+    ['internal asterisk', 'Niacinamide, Iron Oxides (CI 77491, CI 77499*)'],
+    ['optional label', 'Niacinamide, May contain: Iron Oxides (CI 77491, CI 77499)'],
+    ['optional whitespace', 'Niacinamide, [May   contain: Iron Oxides (CI 77491, CI 77499)]'],
+    ['optional symbol', 'Niacinamide, [± Iron Oxides (CI 77491, CI 77499)]'],
+    ['nano qualifier', 'Niacinamide, Iron Oxides (CI 77491, CI 77499) [nano]'],
+    ['unclosed group', 'Niacinamide, Iron Oxides (CI 77491, CI 77499'],
+    ['unclosed group with an implicit prefix', 'Niacinamide, Iron Oxides (CI 77491, 77499'],
+    ['negated group', 'Niacinamide, sans Iron Oxides (CI 77491, CI 77499)'],
+    ['unbridged pigment', 'Niacinamide, Iron Oxides (CI 77491, CI 77891)'],
+  ])('preserves uncertainty without partial CI links for %s', async (_, inci) => {
+    const snapshot = pigmentSnapshot(inci)
+    const prepared = await prepareCorpusReconcile({ load: async () => snapshot })
+
+    expect(prepared.writes).toEqual([])
+    expect(prepared.stats.heldDeletions.map((hold) => hold.linkId)).toEqual(['red-link'])
+    expect(prepared.stats.heldDeletions[0]?.reason).toBe('unresolved-ci-group')
+    expect(prepared.stats.unresolvedCiGroups).toHaveLength(1)
+  })
+
+  it.each([
+    'Niacinamide, Iron Oxides (CI 77491/77499/CI 77491), CI 77499',
+    'Niacinamide, CI 77499, Iron Oxides (CI 77491, CI 77499)',
+    'Niacinamide, Iron Oxide (CI 77491)_Iron Oxides(CI 77499)_Iron Oxides(CI 77491), CI 77499',
+  ])('deduplicates CI group members and separately declared pigments: %s', async (inci) => {
+    const snapshot = pigmentSnapshot(inci)
+    const prepared = await prepareCorpusReconcile({ load: async () => snapshot })
+    expect(prepared.writes).toEqual([
+      {
+        inserts: [{ productId: 'product-serum', ingredientId: 'black', source: 'linker' }],
+        removeIds: [],
+      },
+    ])
+  })
+
+  it('keeps later non-CI ingredients when a pigment group has no closing parenthesis', async () => {
+    const snapshot = pigmentSnapshot('Niacinamide, Iron Oxides (CI 77491, CI 77499, Parfum')
+    snapshot.ingredientRows.push({
+      id: 'fragrance',
+      slug: 'fragrance',
+      key: 'Parfum',
+      type: 'skincare',
+    })
+    const prepared = await prepareCorpusReconcile({ load: async () => snapshot })
+    expect(prepared.writes).toEqual([
+      {
+        inserts: [{ productId: 'product-serum', ingredientId: 'fragrance', source: 'linker' }],
+        removeIds: [],
+      },
+    ])
+    expect(prepared.stats.heldDeletions[0]?.rawTokens).toEqual(['Iron Oxides (CI 77491, CI 77499'])
+  })
+
+  it.each([
+    'Niacinamide, Iron Oxides (CI 77491, CI 77492, CI 77499)',
+    'Niacinamide, Iron Oxides (CI 77491, CI 77492, CI 77499)*',
+    'Niacinamide, Iron Oxides (CI 77492)_Iron Oxides(CI 77499)[ILN49864]',
+  ])('holds the whole group when a member has no catalogue identity: %s', async (inci) => {
+    const snapshot = pigmentSnapshot(inci)
+    snapshot.ingredientRows = snapshot.ingredientRows.filter((row) => row.id !== 'black')
+    const prepared = await prepareCorpusReconcile({ load: async () => snapshot })
+    expect(prepared.writes).toEqual([])
+    expect(prepared.stats.heldDeletions[0]?.linkId).toBe('red-link')
+  })
+
+  it('reports an unresolved CI group even when the empty-target guard already prevents deletion', async () => {
+    const raw = 'Iron Oxides (CI 77491, CI 99999)'
+    const snapshot = pigmentSnapshot(raw)
+    const prepared = await prepareCorpusReconcile({ load: async () => snapshot })
+    expect(prepared.writes).toEqual([])
+    expect(prepared.stats.heldDeletions).toEqual([])
+    expect(prepared.stats.unresolvedCiGroups).toEqual([
+      {
+        productId: 'product-serum',
+        productSlug: 'serum',
+        rawTokens: [raw],
+      },
+    ])
+  })
+
+  it('resumes deletion after an uncertain CI group becomes an explicit yellow declaration', async () => {
+    const snapshot = pigmentSnapshot('Niacinamide, Iron Oxides (CI 77492)')
+    const prepared = await prepareCorpusReconcile({ load: async () => snapshot })
+    expect(prepared.writes).toEqual([
+      {
+        inserts: [{ productId: 'product-serum', ingredientId: 'yellow', source: 'linker' }],
+        removeIds: ['red-link'],
+      },
+    ])
+    expect(prepared.stats.heldDeletions).toEqual([])
+  })
+
+  it('keeps CI links with human data and scopes inserts without mutating the snapshot', async () => {
+    const snapshot = pigmentSnapshot('Niacinamide, Iron Oxides (CI 77491, CI 77492, CI 77499)')
+    const current = snapshot.currentLinks.get('product-serum')
+    if (!current?.[1]) throw new Error('missing red fixture')
+    current[1].curated = true
+    const before = structuredClone(snapshot)
+    const prepared = await prepareCorpusReconcile(
+      { load: async () => snapshot },
+      new Set(['ci-77499'])
+    )
+    expect(prepared.writes).toEqual([
+      {
+        inserts: [{ productId: 'product-serum', ingredientId: 'black', source: 'linker' }],
+        removeIds: [],
+      },
+    ])
+    expect(snapshot).toEqual(before)
+  })
+
+  it('holds automatic deletions when a supplement has an unresolved parenthetical group', async () => {
+    const snapshot = supplementSnapshot()
+    const prepared = await prepareCorpusReconcile({ load: async () => snapshot })
+
+    expect(prepared.writes).toEqual([
+      {
+        inserts: [
+          {
+            productId: 'product-supplement',
+            ingredientId: 'ingredient-niacinamide',
+            source: 'linker',
+          },
+        ],
+        removeIds: [],
+      },
+    ])
+  })
+
+  it.each([
+    ['one child', 'vitamine A (Retinyl Palmitate)'],
+    ['several children', 'vitamine A (Retinyl Palmitate, Maltodextrin)'],
+    ['unclosed group', 'vitamine A (Retinyl Palmitate'],
+    ['unrelated stale link', 'mélange inconnu (autre substance)'],
+    ['negated group', 'complexe sans (Retinol, Parfum)'],
+  ])('reports the exact held row and unresolved token: %s', async (_, raw) => {
+    const snapshot = supplementSnapshot(`Niacinamide, ${raw}`)
+    const prepared = await prepareCorpusReconcile({ load: async () => snapshot })
+
+    expect(prepared.stats.heldDeletions).toEqual([
+      {
+        productId: 'product-supplement',
+        productSlug: 'supplement',
+        linkId: 'automatic-retinyl',
+        ingredientSlug: 'retinyl-palmitate',
+        rawTokens: [raw],
+        reason: 'unresolved-parenthetical-group',
+      },
+    ])
+    expect(prepared.writes.flatMap((write) => write.removeIds)).toEqual([])
+    expect(
+      prepared.writes.flatMap((write) => write.inserts.map((row) => row.ingredientId))
+    ).toEqual(['ingredient-niacinamide'])
+    expect(prepared.stats.keptCurated).toBe(0)
+    expect(snapshot.currentLinks.get('product-supplement')?.[0]?.curated).toBe(false)
+  })
+
+  it.each([
+    ['flat absence', 'Niacinamide, Maltodextrin', 'complement'],
+    [
+      'resolved botanical annotation',
+      'Niacinamide, Helianthus Annuus (Sunflower) Seed Oil',
+      'complement',
+    ],
+    ['resolved chemical parenthesis', 'Niacinamide, Hydrogenated Poly(C6-14 Olefin)', 'complement'],
+    ['resolved but unbridged pigment', 'Niacinamide, Titanium Dioxide (CI 77891)', 'complement'],
+    ['chemical decimal', 'Niacinamide, 1,2-Hexanediol', 'complement'],
+    ['cosmetic group', 'Niacinamide, vitamine A (Retinyl Palmitate)', 'skincare'],
+  ])('still deletes an automatic stale row after %s', async (_, inci, category) => {
+    const snapshot = supplementSnapshot(inci)
+    snapshot.eligible = snapshot.eligible.map((product) => ({ ...product, category }))
+    const prepared = await prepareCorpusReconcile({ load: async () => snapshot })
+
+    expect(prepared.writes.flatMap((write) => write.removeIds)).toEqual(['automatic-retinyl'])
+    expect(prepared.stats.heldDeletions).toEqual([])
+  })
+
+  it('reports the existing splitter token for a nested group without expanding it', async () => {
+    const snapshot = supplementSnapshot(
+      'Niacinamide, complexe (vitamine A (Retinyl Palmitate), Maltodextrin)'
+    )
+    const prepared = await prepareCorpusReconcile({ load: async () => snapshot })
+
+    expect(prepared.stats.heldDeletions[0]?.rawTokens).toEqual([
+      'complexe (vitamine A (Retinyl Palmitate)',
+    ])
+    expect(prepared.writes.flatMap((write) => write.removeIds)).toEqual([])
+    expect(
+      prepared.writes.flatMap((write) => write.inserts.map((row) => row.ingredientId))
+    ).toEqual(['ingredient-niacinamide'])
+  })
+
+  it('keeps a flat declared ingredient without an uncertainty hold', async () => {
+    const snapshot = supplementSnapshot('Niacinamide, Retinyl Palmitate')
+    const prepared = await prepareCorpusReconcile({ load: async () => snapshot })
+
+    expect(prepared.writes.flatMap((write) => write.removeIds)).toEqual([])
+    expect(prepared.stats.heldDeletions).toEqual([])
+  })
+
+  it('keeps curated rows separate from uncertainty holds and leaves the snapshot intact', async () => {
+    const snapshot = supplementSnapshot()
+    const current = snapshot.currentLinks.get('product-supplement')
+    if (!current) throw new Error('missing supplement fixture')
+    current.push({
+      id: 'human-retinol',
+      slug: 'retinol',
+      canonicalKey: 'Retinol',
+      curated: true,
+    })
+    const before = structuredClone(snapshot)
+    const prepared = await prepareCorpusReconcile({ load: async () => snapshot })
+
+    expect(prepared.stats.keptCurated).toBe(1)
+    expect(prepared.stats.heldDeletions.map((hold) => hold.linkId)).toEqual(['automatic-retinyl'])
+    expect(snapshot).toEqual(before)
+  })
+
+  it('does not insert an alias of an automatic row held by the guard', async () => {
+    const snapshot = supplementSnapshot(
+      'Niacinamide, Hyaluronic Acid, mélange inconnu (autre substance)'
+    )
+    snapshot.ingredientRows.push(
+      { id: 'ha', slug: 'hyaluronic-acid', key: 'Hyaluronic Acid', type: 'skincare' },
+      { id: 'sodium', slug: 'sodium-hyaluronate', key: 'Hyaluronic Acid', type: 'skincare' }
+    )
+    snapshot.currentLinks.set('product-supplement', [
+      {
+        id: 'automatic-sodium',
+        slug: 'sodium-hyaluronate',
+        canonicalKey: 'Hyaluronic Acid',
+        curated: false,
+      },
+    ])
+    const prepared = await prepareCorpusReconcile({ load: async () => snapshot })
+
+    expect(
+      prepared.writes.flatMap((write) => write.inserts.map((row) => row.ingredientId))
+    ).toEqual(['ingredient-niacinamide'])
+    expect(prepared.stats.aliasConflicts).toBe(1)
+    expect(prepared.stats.heldDeletions.map((hold) => hold.linkId)).toEqual(['automatic-sodium'])
+  })
+
+  it('does not report held deletions in an insert-only scoped relink', async () => {
+    const snapshot = supplementSnapshot()
+    const prepared = await prepareCorpusReconcile(
+      { load: async () => snapshot },
+      new Set(['niacinamide'])
+    )
+
+    expect(prepared.writes.flatMap((write) => write.removeIds)).toEqual([])
+    expect(prepared.stats.heldDeletions).toEqual([])
+  })
+
+  it('leaves the empty-target protection distinct from the parenthetical guard', async () => {
+    const snapshot = supplementSnapshot('vitamine A (Retinyl Palmitate)')
+    const prepared = await prepareCorpusReconcile({ load: async () => snapshot })
+
+    expect(prepared.writes).toEqual([])
+    expect(prepared.stats.untouchedNoTarget).toBe(1)
+    expect(prepared.stats.heldDeletions).toEqual([])
+  })
+
+  it('holds collision-only deletions even when no target survives', async () => {
+    const key = 'Oenothera Biennis Flower Extract'
+    const snapshot = supplementSnapshot(
+      'Oenothera Biennis Flower Extract*°, mélange inconnu (autre substance)'
+    )
+    snapshot.ingredientRows = ['candidate-a', 'candidate-b'].map((slug) => ({
+      id: slug,
+      slug,
+      key,
+      type: 'skincare',
+    }))
+    snapshot.currentLinks.set('product-supplement', [
+      {
+        id: 'automatic-collision',
+        slug: 'candidate-a',
+        canonicalKey: key,
+        curated: false,
+      },
+    ])
+    const prepared = await prepareCorpusReconcile({ load: async () => snapshot })
+
+    expect(prepared.writes).toEqual([])
+    expect(prepared.stats.heldDeletions.map((hold) => hold.linkId)).toEqual(['automatic-collision'])
+    expect(prepared.stats.removedRows).toBe(0)
+  })
+
+  it('keeps uncertainty visible on a second plan with no effective writes', async () => {
+    const snapshot = supplementSnapshot()
+    const first = await prepareCorpusReconcile({ load: async () => snapshot })
+    const current = snapshot.currentLinks.get('product-supplement')
+    if (!current) throw new Error('missing supplement fixture')
+    for (const write of first.writes) {
+      for (const insert of write.inserts) {
+        const ingredient = snapshot.ingredientRows.find((row) => row.id === insert.ingredientId)
+        if (!ingredient) throw new Error('missing inserted ingredient')
+        current.push({
+          id: `simulated-${ingredient.id}`,
+          slug: ingredient.slug,
+          canonicalKey: ingredient.key,
+          curated: false,
+        })
+      }
+    }
+    const second = await prepareCorpusReconcile({ load: async () => snapshot })
+
+    expect(second.writes).toEqual([])
+    expect(second.stats.heldDeletions).toEqual(first.stats.heldDeletions)
+    expect(second.stats.changedProducts).toBe(0)
+  })
+
   it('preserves a manual UV-filter link when only its pigment is declared', async () => {
     const snapshot = corpusSnapshot()
     snapshot.ingredientRows.push({
@@ -238,6 +798,7 @@ describe('scopeReconcilePlan', () => {
     expect(scopeReconcilePlan(plan, new Set(['d4-record']))).toEqual({
       add: ['d4-record'],
       remove: [],
+      heldDeletions: [],
       keptCurated: [],
       aliasConflicts: [],
     })
@@ -245,6 +806,48 @@ describe('scopeReconcilePlan', () => {
 })
 
 describe('computeLinks', () => {
+  it.each([
+    ['Arginine\nPCA', [], ['Arginine\nPCA']],
+    ['Fictus Plantus Extract\nNiacinamide', [], ['Fictus Plantus Extract\nNiacinamide']],
+    ['Niacinamide\nPanthenol', ['niacinamide', 'panthenol'], []],
+    ['Sodium\rHyaluronate', ['sodium-hyaluronate'], []],
+    ['Arginine\r\nPCA, Niacinamide', ['niacinamide'], ['Arginine\r\nPCA']],
+    ['Niacinamide\nPanthenol, [+/- Retinol\nSalicylic Acid]', ['niacinamide', 'panthenol'], []],
+  ])('keeps uncertain lines out of catalogue targets: %s', (raw, expected, unresolved) => {
+    const result = computeLinks(raw, 'skincare', new Map(), new Map())
+    expect(result.slugs).toEqual(expected)
+    expect(result.unresolvedLineBoundaries).toEqual(unresolved)
+  })
+
+  it('keeps certain CI members before and after an optional single pigment', () => {
+    const keys = new Map([
+      ['oxide-de-fer', 'CI 77491'],
+      ['ci-77492', 'CI 77492'],
+      ['ci-77499', 'CI 77499'],
+    ])
+    const slugs = new Map([...keys].map(([slug, key]) => [key, slug]))
+    const result = computeLinks('CI 77491, [+/- CI 77492], CI 77499', 'skincare', slugs, keys)
+    expect(result.slugs).toEqual(['oxide-de-fer', 'ci-77499'])
+    expect(result.unresolvedCiGroups).toEqual(['[+/- CI 77492]'])
+  })
+
+  it.each([
+    'Niacinamide, [+/- Retinol, Salicylic Acid',
+    'Niacinamide, [+/- Retinol], [± Salicylic Acid]',
+  ])('keeps an open or repeated optional region from becoming certain: %s', (inci) => {
+    expect(computeLinks(inci, 'skincare', new Map(), new Map()).slugs).toEqual(['niacinamide'])
+  })
+
+  it.each([
+    ['Niacinamide, [+/- Retinol], Salicylic Acid', ['niacinamide', 'salicylic-acid']],
+    ['Retinol, [+/- Retinol]', ['retinol']],
+    ['Niacinamide, May contain: Retinol, Salicylic Acid', ['niacinamide']],
+    ['Niacinamide, (Peut contenir) Retinol, Salicylic Acid', ['niacinamide']],
+    ['Niacinamide, (+/-)-Alpha-Tocopherol, Retinol', ['niacinamide', 'retinol']],
+  ])('links only certain ingredients across an optional declaration: %s', (inci, expected) => {
+    expect(computeLinks(inci, 'skincare', new Map(), new Map()).slugs).toEqual(expected)
+  })
+
   describe('governed language aliases', () => {
     const maps = buildCanonicalKeyMaps([
       { slug: 'glycolipids', key: 'Glycolipids', type: 'skincare' },
@@ -285,18 +888,26 @@ describe('computeLinks', () => {
     })
   })
 
+  it('refuses an incomplete CI declaration even when its pigment has a catalogue sheet', () => {
+    const maps = buildCanonicalKeyMaps([
+      { slug: 'ci-77891', key: 'CI 77891', type: 'skincare' },
+      { slug: 'titanium-dioxide', key: 'Titanium Dioxide', type: 'skincare' },
+    ])
+    const token = 'Titanium Dioxide (CI 77891'
+
+    expect(resolveToken(token, maps.canonicalKeyToSlug, maps.canonicalKeyBySlug)).toBeNull()
+    const result = computeLinks(token, 'skincare', maps.canonicalKeyToSlug, maps.canonicalKeyBySlug)
+    expect(result.slugs).toEqual([])
+    expect(result.unbridged).toEqual([])
+  })
+
   it('leaves declared white pigment unbridged instead of borrowing the UV-filter sheet', () => {
     const maps = buildCanonicalKeyMaps([
       { slug: 'titanium-dioxide', key: 'Titanium Dioxide', type: 'skincare' },
       { slug: 'titanium-dioxide-hair', key: 'Titanium Dioxide', type: 'haircare' },
     ])
 
-    for (const token of [
-      'CI 77891',
-      'Titanium Dioxide (CI 77891)',
-      'Titanium Dioxide [CI77891]',
-      'Titanium Dioxide (CI 77891',
-    ]) {
+    for (const token of ['CI 77891', 'Titanium Dioxide (CI 77891)', 'Titanium Dioxide [CI77891]']) {
       expect(resolveToken(token, maps.canonicalKeyToSlug, maps.canonicalKeyBySlug)).toEqual({
         kind: 'unbridged',
         evidenceInci: 'CI 77891',

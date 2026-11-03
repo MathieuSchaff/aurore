@@ -4,13 +4,15 @@ import {
   type ProductKind,
 } from '@aurore/shared'
 
-import { normalize, splitINCI, stripPreamble } from 'algo-derm'
-import { buildAliasIndex, lookupIngredient, MERGED_EVIDENCE_DB } from 'algo-derm/engine'
+import { normalize } from 'algo-derm'
 import { eq, inArray } from 'drizzle-orm'
 
 import type { DatabaseTransaction } from '../../db/index'
 import { ingredients } from '../../db/schema/ingredients/ingredients'
 import { brandCertifications, normalizeBrand } from '../../db/schema/products/brand-certifications'
+import { foldScraperDelimiters } from '../../lib/inci-delimiters'
+import { qualifyInciInput } from '../../lib/inci-input-quality'
+import { foldKnownInciLines } from '../../lib/inci-line-breaks'
 import {
   buildOrchestratorInput,
   detectAllAutoTags,
@@ -18,13 +20,7 @@ import {
   loadTagSlugToInfo,
   resolveTagRows,
 } from '../auto-tagging'
-
-// Built once on first call: `MERGED_EVIDENCE_DB` is immutable at runtime.
-let aliasIndex: ReturnType<typeof buildAliasIndex> | null = null
-function getAliasIndex() {
-  if (!aliasIndex) aliasIndex = buildAliasIndex(MERGED_EVIDENCE_DB)
-  return aliasIndex
-}
+import { resolveFormulaPreviewTokens } from './formula-preview-tokens'
 
 type FormulaPreviewToken = {
   raw: string
@@ -55,16 +51,10 @@ export async function previewProductFormula(
   input: ProductFormulaPreviewInput,
   db: DatabaseTransaction
 ): Promise<FormulaPreviewResult> {
-  const idx = getAliasIndex()
-
-  const rawTokens = splitINCI(stripPreamble(input.inci))
-
-  // Mirror backfill-canonical-key.ts: pass raw token as first arg to lookupIngredient.
-  const tokenMeta = rawTokens.map((raw) => ({
-    raw,
-    normalized: normalize(raw),
-    canonicalKey: lookupIngredient(raw, idx)?.inci ?? null,
-  }))
+  const inci = foldScraperDelimiters(input.inci, {
+    foldListSeparators: input.category !== 'complement',
+  })
+  const tokenMeta = resolveFormulaPreviewTokens(inci)
 
   const ingredientColumns = {
     id: ingredients.id,
@@ -91,7 +81,9 @@ export async function previewProductFormula(
   // Fallback for tokens without a usable canonical key: accent-folded name match.
   // Postgres lower() keeps accents while normalize() strips them, so the fold must
   // happen in JS: the table is small enough (~700 rows) for a full lightweight scan.
-  const needFallback = tokenMeta.some((t) => t.canonicalKey === null || !byKey.has(t.canonicalKey))
+  const needFallback = tokenMeta.some(
+    (t) => t.allowNameFallback && (t.canonicalKey === null || !byKey.has(t.canonicalKey))
+  )
   const allRows = needFallback ? await db.select(ingredientColumns).from(ingredients) : []
 
   // FR display names embed INCI variants in parentheses ("Tocophérol (Tocopherol /
@@ -107,17 +99,19 @@ export async function previewProductFormula(
     }
   }
 
-  // INCI order preserved, duplicates kept: token count must match the pasted list.
-  const tokens: FormulaPreviewToken[] = tokenMeta.map(({ raw, normalized, canonicalKey }) => {
-    const keyRow = canonicalKey ? byKey.get(canonicalKey) : undefined
-    const match = keyRow ?? (normalized ? byNorm.get(normalized) : undefined)
-    return {
-      raw,
-      normalized,
-      canonicalKey,
-      ingredient: match ? { id: match.id, name: match.name, slug: match.slug } : null,
+  // Expanded pigments retain the source declaration and its position in the list
+  const tokens: FormulaPreviewToken[] = tokenMeta.map(
+    ({ raw, normalized, canonicalKey, allowNameFallback }) => {
+      const keyRow = canonicalKey ? byKey.get(canonicalKey) : undefined
+      const match = keyRow ?? (allowNameFallback && normalized ? byNorm.get(normalized) : undefined)
+      return {
+        raw,
+        normalized,
+        canonicalKey,
+        ingredient: match ? { id: match.id, name: match.name, slug: match.slug } : null,
+      }
     }
-  })
+  )
 
   const autoTagEligible = isAutoTagEligibleCategory(input.category)
   const brand = input.brand?.trim() ? input.brand : null
@@ -136,9 +130,12 @@ export async function previewProductFormula(
 
   const suggestedTags: FormulaPreviewResult['suggestedTags'] = []
   if (autoTagEligible) {
+    // Line folding drops trailing separators that must still veto absence inference
+    const tagInci =
+      qualifyInciInput(inci).status === 'suspect' ? inci : (foldKnownInciLines(inci) ?? inci)
     const pairs = detectAllAutoTags(
       buildOrchestratorInput({
-        inci: input.inci,
+        inci: tagInci,
         kind: input.kind as ProductKind,
         category: input.category,
         brand,

@@ -76,6 +76,248 @@ describe('POST /products/formula-preview', () => {
   })
 
   describe('200 happy path', () => {
+    it.each(['\n', '\r\n', '\r'])(
+      'suggests the same formula tags for a uniquely readable vertical list: %s',
+      async (separator) => {
+        const env = await createTestEnv()
+        const preview = (inci: string) =>
+          expectOk(
+            env.client.products['formula-preview'].$post(
+              {
+                json: { ...VALID_PREVIEW_BODY, inci },
+              },
+              withAuth(token)
+            )
+          )
+        const reference = await preview('Aqua, Niacinamide, Glycerin, Panthenol')
+        expect(reference.suggestedTags.map((tag) => tag.tagSlug)).toEqual(
+          expect.arrayContaining(['peau-sensible', 'texture-legere'])
+        )
+        const actual = await preview(
+          ['Aqua', 'Niacinamide', 'Glycerin', 'Panthenol'].join(separator)
+        )
+        expect(actual.tokens.map((entry) => entry.canonicalKey)).toEqual([
+          'Aqua',
+          'Niacinamide',
+          'Glycerin',
+          'Panthenol',
+        ])
+        expect(actual.suggestedTags).toEqual(reference.suggestedTags)
+      }
+    )
+
+    it.each([',', ';', '...'])(
+      'retains the absence veto for a damaged vertical list: %s',
+      async (tail) => {
+        const env = await createTestEnv()
+        const data = await expectOk(
+          env.client.products['formula-preview'].$post(
+            {
+              json: {
+                ...VALID_PREVIEW_BODY,
+                inci: `Aqua\nNiacinamide\nGlycerin\nPanthenol${tail}`,
+              },
+            },
+            withAuth(token)
+          )
+        )
+        expect(data.suggestedTags.map((tag) => tag.tagSlug)).toContain('type-serum')
+        expect(data.suggestedTags.map((tag) => tag.tagSlug)).not.toContain('sans-parfum')
+        expect(data.suggestedTags.map((tag) => tag.tagSlug)).not.toContain(
+          'sans-huiles-essentielles'
+        )
+      }
+    )
+
+    it.each(['; ', ' - ', '&nbsp;; ', ' • ', ' · '])(
+      'previews the same ingredients and tags for a qualified separator: %s',
+      async (separator) => {
+        const owner = await createTestUser('separators@preview.test')
+        await testDb.insert(ingredients).values([
+          {
+            createdBy: owner.id,
+            name: 'Niacinamide',
+            slug: 'separator-niacinamide',
+            type: 'skincare',
+            canonicalKey: 'Niacinamide',
+          },
+          {
+            createdBy: owner.id,
+            name: 'Panthenol',
+            slug: 'separator-panthenol',
+            type: 'skincare',
+            canonicalKey: 'Panthenol',
+          },
+        ])
+        const env = await createTestEnv()
+        const preview = (inci: string) =>
+          expectOk(
+            env.client.products['formula-preview'].$post(
+              {
+                json: { ...VALID_PREVIEW_BODY, inci },
+              },
+              withAuth(token)
+            )
+          )
+        const reference = await preview('Aqua, Niacinamide, Glycerin, Panthenol')
+        expect(reference.suggestedTags.map((tag) => tag.tagSlug)).toEqual(
+          expect.arrayContaining(['peau-sensible', 'texture-legere'])
+        )
+        const actual = await preview(
+          ['Aqua', 'Niacinamide', 'Glycerin', 'Panthenol'].join(separator)
+        )
+        expect(actual.suggestedTags).toEqual(reference.suggestedTags)
+        expect(actual.tokens.map((entry) => entry.canonicalKey)).toEqual([
+          'Aqua',
+          'Niacinamide',
+          'Glycerin',
+          'Panthenol',
+        ])
+        expect(actual.tokens.map((entry) => entry.ingredient?.slug ?? null)).toEqual([
+          null,
+          'separator-niacinamide',
+          null,
+          'separator-panthenol',
+        ])
+      }
+    )
+
+    it('keeps optional and ambiguous declarations unlinked after repairing separators', async () => {
+      const env = await createTestEnv()
+      const data = await expectOk(
+        env.client.products['formula-preview'].$post(
+          {
+            json: {
+              ...VALID_PREVIEW_BODY,
+              inci: 'Niacinamide; [+/- CI 77491]; Arginine\nPCA; Retinol',
+            },
+          },
+          withAuth(token)
+        )
+      )
+      expect(data.tokens.map((entry) => entry.canonicalKey)).toEqual([
+        'Niacinamide',
+        null,
+        null,
+        'Retinol',
+      ])
+      expect(data.tokens[1].raw).toBe('[+/- CI 77491]')
+      expect(data.tokens[2].raw).toBe('Arginine\nPCA')
+      expect(data.tokens.slice(1, 3).map((entry) => entry.ingredient)).toEqual([null, null])
+    })
+
+    it('withholds inferred absences when a repaired list retains a trailing separator', async () => {
+      const env = await createTestEnv()
+      const data = await expectOk(
+        env.client.products['formula-preview'].$post(
+          {
+            json: { ...VALID_PREVIEW_BODY, inci: 'Aqua; Niacinamide; Glycerin; Panthenol;' },
+          },
+          withAuth(token)
+        )
+      )
+      expect(data.tokens.map((entry) => entry.canonicalKey)).toEqual([
+        'Aqua',
+        'Niacinamide',
+        'Glycerin',
+        'Panthenol',
+      ])
+      expect(data.suggestedTags.map((tag) => tag.tagSlug)).toContain('type-serum')
+      expect(data.suggestedTags.map((tag) => tag.tagSlug)).not.toContain('sans-parfum')
+    })
+
+    it('preserves supplement dose separators while still decoding HTML whitespace', async () => {
+      const env = await createTestEnv()
+      const preview = (inci: string) =>
+        expectOk(
+          env.client.products['formula-preview'].$post(
+            {
+              json: { inci, category: 'complement', kind: 'gelule' },
+            },
+            withAuth(token)
+          )
+        )
+      const raw = 'Niacinamide; Panthenol - Glycerin'
+      const data = await preview(raw)
+      expect(data.tokens.map((entry) => entry.raw)).toEqual([raw])
+      expect(data.tokens[0].canonicalKey).toBeNull()
+      expect(data.autoTagEligible).toBe(false)
+      expect(data.suggestedTags).toEqual([])
+      const decoded = await preview('Niacinamide&nbsp;')
+      expect(decoded.tokens.map((entry) => entry.canonicalKey)).toEqual(['Niacinamide'])
+    })
+
+    it('refuses ambiguous lines despite exact compound and raw catalogue names', async () => {
+      const owner = await createTestUser('line-boundary@preview.test')
+      await testDb.insert(ingredients).values([
+        {
+          createdBy: owner.id,
+          name: 'Niacinamide',
+          slug: 'line-certain',
+          type: 'skincare',
+          canonicalKey: 'Niacinamide',
+        },
+        {
+          createdBy: owner.id,
+          name: 'Arginine PCA',
+          slug: 'line-compound',
+          type: 'skincare',
+          canonicalKey: 'Arginine PCA',
+        },
+        { createdBy: owner.id, name: 'Arginine\nPCA', slug: 'line-raw', type: 'skincare' },
+      ])
+      const env = await createTestEnv()
+      const data = await expectOk(
+        env.client.products['formula-preview'].$post(
+          {
+            json: { ...VALID_PREVIEW_BODY, inci: 'Niacinamide, Arginine\nPCA' },
+          },
+          withAuth(token)
+        )
+      )
+      expect(data.tokens.map((entry) => entry.ingredient?.slug ?? null)).toEqual([
+        'line-certain',
+        null,
+      ])
+      expect(data.tokens[1].raw).toBe('Arginine\nPCA')
+      expect(data.tokens[1].canonicalKey).toBeNull()
+    })
+
+    it('leaves an optional pigment unresolved despite an exact catalogue name and key', async () => {
+      const owner = await createTestUser('optional-ci@preview.test')
+      await testDb.insert(ingredients).values([
+        {
+          createdBy: owner.id,
+          name: 'Niacinamide',
+          slug: 'required-preview',
+          type: 'skincare',
+          canonicalKey: 'Niacinamide',
+        },
+        {
+          createdBy: owner.id,
+          name: 'CI 77491',
+          slug: 'optional-preview',
+          type: 'skincare',
+          canonicalKey: 'CI 77491',
+        },
+      ])
+      const env = await createTestEnv()
+      const data = await expectOk(
+        env.client.products['formula-preview'].$post(
+          {
+            json: { ...VALID_PREVIEW_BODY, inci: 'Niacinamide, [+/- CI 77491]' },
+          },
+          withAuth(token)
+        )
+      )
+      expect(data.tokens.map((entry) => entry.ingredient?.slug ?? null)).toEqual([
+        'required-preview',
+        null,
+      ])
+      expect(data.tokens[1].raw).toBe('[+/- CI 77491]')
+      expect(data.tokens[1].canonicalKey).toBeNull()
+    })
+
     it('preserves INCI order and matches niacinamide to the fixture row', async () => {
       // Insert an ingredient fixture whose canonical_key matches algo-derm's resolution
       // for 'niacinamide', so the assertion is self-contained (no seed dependency).

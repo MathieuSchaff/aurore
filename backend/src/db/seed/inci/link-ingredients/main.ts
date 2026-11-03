@@ -14,6 +14,8 @@ import { and, asc, eq, inArray, isNotNull, isNull, sql } from 'drizzle-orm'
 
 import { parseIntEnv, parseWriteSlugArgs } from '../../../../features/auto-tagging/runners/cli-args'
 import { addManyIngredientsToProduct } from '../../../../features/products/product-ingredients/product-ingredients.service'
+import { foldKnownInciLines } from '../../../../lib/inci-line-breaks'
+import { partitionInciPresence } from '../../../../lib/inci-presence'
 import { freqTable } from '../../../../lib/report'
 import type { DatabaseTransaction } from '../../../index'
 import { withAdminRls } from '../../../rls'
@@ -89,6 +91,10 @@ export interface ComputeResult {
   collisions: string[]
   uppercaseMegaTokens: string[]
   nonUppercaseMegaTokens: string[]
+  unresolvedParentheticalGroups: string[]
+  unresolvedCiGroups: string[]
+  unresolvedOptionalDeclarations: string[]
+  unresolvedLineBoundaries: string[]
 }
 
 // Lets the local audits ask "what if the excipient list were different?" without copying the
@@ -281,6 +287,30 @@ function isUppercaseDominant(s: string): boolean {
   return upper.length / letters.length >= 0.6
 }
 
+function compositeIronOxideCodes(raw: string): string[] | null {
+  // This footer describes sourcing, not another member of the pigment group
+  const declaration = raw.replace(
+    /\s+\d+(?:[.,]\d+)?%\s+natural origin(?:\s+\*organic)?(?:\s+\*\*made using organic and non-organic ingredients)?$/i,
+    ''
+  )
+  const isJoined =
+    /^Iron Oxides?\s*\(\s*CI\s*\d{5}\s*\)(?:\s*_\s*Iron Oxides?\s*\(\s*CI\s*\d{5}\s*\))+(?:\s*\[ILN\d+\])?$/i.test(
+      declaration
+    )
+  // Validate joined declarations before normalization can discard a broken parenthesis and its CI
+  if (!isJoined && /_\s*Iron Oxides?\s*\(/i.test(raw)) return []
+  const codes = normalizeInciToken(raw).match(/CI \d{5,6}(?: \d+)?/g)
+  if (!codes || codes.length < 2) return null
+  // A composite identity must never fall back to the generic red pigment
+  const isGroup =
+    /^Iron Oxides?\s*\(\s*CI\s*\d{5}(?:\s*[,/]\s*(?:CI\s*)?\d{5})+\s*\)(?:\s*\*+)?$/i.test(
+      declaration
+    )
+  if (!isGroup && !isJoined) return []
+  if (codes.some((code) => !['CI 77491', 'CI 77492', 'CI 77499'].includes(code))) return []
+  return codes
+}
+
 export function computeLinks(
   inci: string,
   category: string,
@@ -294,9 +324,27 @@ export function computeLinks(
   // splitINCI splits on commas (+ protects decimals); its period fallback needs a comma-sparse
   // list, so a real declaration never reaches it. Fold scraper artifacts first.
   // Supplement text keeps list separators because its dashes and semicolons separate doses.
-  const tokens = splitINCI(
-    foldScraperDelimiters(inci, { foldListSeparators: category !== 'complement' })
-  )
+  const folded = foldScraperDelimiters(inci, { foldListSeparators: category !== 'complement' })
+  const declarations = partitionInciPresence(folded)
+  const optionalDeclarations = declarations
+    .filter((entry) => entry.optional)
+    .map((entry) => entry.raw)
+  const tokens = declarations
+    .filter((entry) => !entry.optional)
+    .flatMap(({ raw: certain }) => {
+      const unclosed = certain.match(/\bIron Oxides?\s*[([][^()[\]]*$/i)
+      const unclosedCodes = unclosed?.[0].match(
+        /^Iron Oxides?\s*[([]\s*CI\s*\d{5,6}(?:\s*[,/]\s*(?:CI\s*)?\d{5,6})+(?=\s*(?:,|$))/i
+      )?.[0]
+      // Hold only the broken CI sequence; later ingredients keep their existing tokenization
+      return unclosed && unclosedCodes
+        ? [
+            ...splitINCI(certain.slice(0, unclosed.index)),
+            unclosedCodes,
+            ...splitINCI(unclosed[0].slice(unclosedCodes.length)),
+          ]
+        : splitINCI(certain)
+    })
 
   const seen = new Set<string>()
   // A declaration often names one substance twice (`Sodium Hyaluronate` beside `Hyaluronic
@@ -311,11 +359,55 @@ export function computeLinks(
   const collisions: string[] = []
   const uppercaseMegaTokens: string[] = []
   const nonUppercaseMegaTokens: string[] = []
+  const unresolvedParentheticalGroups: string[] = []
+  const unresolvedCiGroups = optionalDeclarations.filter((raw) => /\bCI\s*\d/i.test(raw))
+  const unresolvedOptionalDeclarations = optionalDeclarations.filter(
+    (raw) => !/\bCI\s*\d/i.test(raw)
+  )
 
-  for (const raw of tokens) {
+  const unresolvedLineBoundaries: string[] = []
+  const lineTokens = tokens.flatMap((raw) => {
+    const folded = foldKnownInciLines(raw)
+    if (folded === null) {
+      unresolvedLineBoundaries.push(raw)
+      return []
+    }
+    return folded === raw ? [raw] : splitINCI(folded)
+  })
+  const expandedTokens: string[] = []
+  for (const raw of lineTokens) {
+    const codes = compositeIronOxideCodes(raw)
+    if (codes === null) {
+      expandedTokens.push(raw)
+      continue
+    }
+    // Keep the whole group uncertain if any member cannot become its exact catalogue identity
+    const complete =
+      codes.length > 0 &&
+      codes.every((code) => {
+        const resolved = resolveToken(code, canonicalKeyToSlug, canonicalKeyBySlug, overrides)
+        if (resolved?.kind !== 'slug' || excipients.has(resolved.slug)) return false
+        const slug = preferDomainSibling(
+          resolved.slug,
+          category,
+          slugsByCanonicalKey,
+          canonicalKeyBySlug,
+          resolved.viaCanonicalKey === true
+        )
+        if (!slug || excipients.has(slug) || canonicalKeyBySlug.get(slug) !== code) return false
+        const domain = slugToDomain.get(slug)
+        return !allowed || (domain !== undefined && allowed.has(domain))
+      })
+    if (complete) expandedTokens.push(...codes)
+    else unresolvedCiGroups.push(raw)
+  }
+
+  for (const raw of expandedTokens) {
     const resolved = resolveToken(raw, canonicalKeyToSlug, canonicalKeyBySlug, overrides)
     if (!resolved) {
       const trimmed = raw.trim()
+      // A supplement group may hide ingredients, including after an unclosed parenthesis
+      if (category === 'complement' && raw.includes('(')) unresolvedParentheticalGroups.push(raw)
       if (trimmed.split(/\s+/).length >= SUSPECT_TOKEN_WORDS) {
         ;(isUppercaseDominant(trimmed) ? uppercaseMegaTokens : nonUppercaseMegaTokens).push(trimmed)
       }
@@ -374,6 +466,10 @@ export function computeLinks(
     collisions,
     uppercaseMegaTokens,
     nonUppercaseMegaTokens,
+    unresolvedParentheticalGroups,
+    unresolvedCiGroups,
+    unresolvedOptionalDeclarations,
+    unresolvedLineBoundaries,
   }
 }
 
@@ -555,6 +651,25 @@ interface RunStats {
   zeroLinks: number
   totalPairs: number
   removedRows: number
+  heldDeletions: Array<{
+    productId: string
+    productSlug: string
+    linkId: string
+    ingredientSlug: string
+    rawTokens: string[]
+    reason:
+      | 'unresolved-parenthetical-group'
+      | 'unresolved-ci-group'
+      | 'optional-declaration'
+      | 'unresolved-line-boundary'
+  }>
+  unresolvedCiGroups: Array<{ productId: string; productSlug: string; rawTokens: string[] }>
+  unresolvedOptionalDeclarations: Array<{
+    productId: string
+    productSlug: string
+    rawTokens: string[]
+  }>
+  unresolvedLineBoundaries: Array<{ productId: string; productSlug: string; rawTokens: string[] }>
   keptCurated: number
   untouchedNoTarget: number
   changedProducts: number
@@ -595,6 +710,11 @@ function printReport(s: RunStats): void {
     'products changed': s.changedProducts,
     'links to insert': s.totalPairs,
     'links to delete': s.removedRows,
+    'deletions held (unresolved groups)': s.heldDeletions.length,
+    'products with held deletions': new Set(s.heldDeletions.map((hold) => hold.productId)).size,
+    'products with unresolved CI groups': s.unresolvedCiGroups.length,
+    'products with optional declarations': s.unresolvedOptionalDeclarations.length,
+    'products with unresolved line boundaries': s.unresolvedLineBoundaries.length,
     'human links kept (stale but owned)': s.keptCurated,
     'inserts held back (same substance already linked)': s.aliasConflicts,
     'products left alone (nothing derived)': s.untouchedNoTarget,
@@ -633,6 +753,27 @@ function printReport(s: RunStats): void {
   if (s.aliasConflicts > 0) {
     console.log(`inserts held back on an already-linked substance (${s.aliasConflicts}), sample`)
     for (const line of s.aliasConflictSamples) console.log(`  ${line}`)
+  }
+
+  if (s.unresolvedCiGroups.length > 0) {
+    console.log('Unresolved CI groups; no partial insertion')
+    for (const group of s.unresolvedCiGroups) console.log(JSON.stringify(group))
+  }
+
+  if (s.unresolvedOptionalDeclarations.length > 0) {
+    console.log('Optional declarations cannot create certain catalogue links')
+    for (const declaration of s.unresolvedOptionalDeclarations)
+      console.log(JSON.stringify(declaration))
+  }
+
+  if (s.unresolvedLineBoundaries.length > 0) {
+    console.log('Unresolved line boundaries cannot create certain catalogue links')
+    for (const declaration of s.unresolvedLineBoundaries) console.log(JSON.stringify(declaration))
+  }
+
+  if (s.heldDeletions.length > 0) {
+    console.log('All held deletions require declaration review; zero writes does not mean resolved')
+    for (const hold of s.heldDeletions) console.log(JSON.stringify(hold))
   }
 
   printChanges(s.changes)
@@ -674,6 +815,7 @@ export function scopeReconcilePlan(
   return {
     add: plan.add.filter((slug) => onlySlugs.has(slug)),
     remove: [],
+    heldDeletions: [],
     keptCurated: [],
     aliasConflicts: plan.aliasConflicts.filter(({ slug }) => onlySlugs.has(slug)),
   }
@@ -703,6 +845,10 @@ function planCorpusReconcile(input: {
   let zeroLinks = 0
   let totalPairs = 0
   let removedRows = 0
+  const heldDeletions: RunStats['heldDeletions'] = []
+  const unresolvedCiGroups: RunStats['unresolvedCiGroups'] = []
+  const unresolvedOptionalDeclarations: RunStats['unresolvedOptionalDeclarations'] = []
+  const unresolvedLineBoundaries: RunStats['unresolvedLineBoundaries'] = []
   let keptCurated = 0
   let untouchedNoTarget = 0
   let changedProducts = 0
@@ -726,6 +872,24 @@ function planCorpusReconcile(input: {
   ])
   let missingId = 0
 
+  function recordHeldDeletions(
+    product: EligibleProduct,
+    links: CurrentLink[],
+    rawTokens: string[],
+    reason: RunStats['heldDeletions'][number]['reason']
+  ) {
+    for (const link of links) {
+      heldDeletions.push({
+        productId: product.id,
+        productSlug: product.slug,
+        linkId: link.id,
+        ingredientSlug: link.slug,
+        rawTokens,
+        reason,
+      })
+    }
+  }
+
   for (const product of eligible) {
     const current = currentLinks.get(product.id) ?? []
     if (!product.inci) {
@@ -740,7 +904,24 @@ function planCorpusReconcile(input: {
       canonicalKeyBySlug,
       slugsByCanonicalKey
     )
-    const { unbridged, blocked, collisions } = computed
+    const { unbridged, blocked, collisions, unresolvedParentheticalGroups } = computed
+    const holdTokens =
+      computed.unresolvedCiGroups.length > 0
+        ? computed.unresolvedCiGroups
+        : computed.unresolvedOptionalDeclarations.length > 0
+          ? computed.unresolvedOptionalDeclarations
+          : computed.unresolvedLineBoundaries.length > 0
+            ? computed.unresolvedLineBoundaries
+            : unresolvedParentheticalGroups
+    const holdReason =
+      computed.unresolvedCiGroups.length > 0
+        ? 'unresolved-ci-group'
+        : computed.unresolvedOptionalDeclarations.length > 0
+          ? 'optional-declaration'
+          : computed.unresolvedLineBoundaries.length > 0
+            ? 'unresolved-line-boundary'
+            : 'unresolved-parenthetical-group'
+    const holdDeletions = holdTokens.length > 0
     const heldGenericSlugs = new Set(
       current
         .filter((link) => link.curated)
@@ -749,6 +930,27 @@ function planCorpusReconcile(input: {
     )
     const slugs = computed.slugs.filter((slug) => !heldGenericSlugs.has(slug))
     if (onlySlugs && !slugs.some((slug) => onlySlugs.has(slug))) continue
+    if (computed.unresolvedCiGroups.length > 0) {
+      unresolvedCiGroups.push({
+        productId: product.id,
+        productSlug: product.slug,
+        rawTokens: computed.unresolvedCiGroups,
+      })
+    }
+    if (computed.unresolvedOptionalDeclarations.length > 0) {
+      unresolvedOptionalDeclarations.push({
+        productId: product.id,
+        productSlug: product.slug,
+        rawTokens: computed.unresolvedOptionalDeclarations,
+      })
+    }
+    if (computed.unresolvedLineBoundaries.length > 0) {
+      unresolvedLineBoundaries.push({
+        productId: product.id,
+        productSlug: product.slug,
+        rawTokens: computed.unresolvedLineBoundaries,
+      })
+    }
     for (const u of unbridged) {
       unbridgedFreq.set(u, (unbridgedFreq.get(u) ?? 0) + 1)
     }
@@ -781,7 +983,9 @@ function planCorpusReconcile(input: {
         (link) =>
           !link.curated && link.canonicalKey !== null && collisionKeys.has(link.canonicalKey)
       )
-      if (collisionLinks.length > 0) {
+      if (collisionLinks.length > 0 && holdDeletions) {
+        recordHeldDeletions(product, collisionLinks, holdTokens, holdReason)
+      } else if (collisionLinks.length > 0) {
         for (const link of collisionLinks) {
           removedFreq.set(link.slug, (removedFreq.get(link.slug) ?? 0) + 1)
         }
@@ -800,7 +1004,7 @@ function planCorpusReconcile(input: {
     // Write policy (what gets inserted, kept or deleted) lives in reconcile.ts,
     // unit-tested separately from this file.
     const plan = scopeReconcilePlan(
-      planReconcile(current, targetIds.keys(), canonicalKeyBySlug),
+      planReconcile(current, targetIds.keys(), canonicalKeyBySlug, holdDeletions),
       onlySlugs
     )
     const inserts = plan.add.map((slug) => ({
@@ -809,6 +1013,7 @@ function planCorpusReconcile(input: {
       ingredientId: targetIds.get(slug) as string,
       source: 'linker' as const,
     }))
+    recordHeldDeletions(product, plan.heldDeletions, holdTokens, holdReason)
     const removeIds = plan.remove.map((c) => c.id)
     for (const c of plan.remove) {
       removedFreq.set(c.slug, (removedFreq.get(c.slug) ?? 0) + 1)
@@ -839,6 +1044,10 @@ function planCorpusReconcile(input: {
       zeroLinks,
       totalPairs,
       removedRows,
+      heldDeletions,
+      unresolvedCiGroups,
+      unresolvedOptionalDeclarations,
+      unresolvedLineBoundaries,
       keptCurated,
       untouchedNoTarget,
       changedProducts,
