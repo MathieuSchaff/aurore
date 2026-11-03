@@ -1,14 +1,17 @@
-// One-shot: repair scraper-damaged products.inci with algo-derm cleanInciString. Supersedes
-// the former preamble/separators/prose/trailing-prose scripts: that logic now lives in
-// algo-derm, so every consumer (seed import, dermo-score, auto-tagging) shares one cleaner.
-// Not covered here: resplit-single-token.ts (resplit of separator-free blobs) and
-// worst-match-prose.ts (per-slug fixes).
 import { SQL } from 'bun'
 
 import { cleanInciString, splitINCI, stripPreamble } from 'algo-derm'
 
+import { qualifyInciInput } from '../../../../lib/inci-input-quality'
+import { foldKnownInciLines } from '../../../../lib/inci-line-breaks'
+
+const args = process.argv.slice(2)
+for (const arg of args) {
+  if (arg !== '--apply') throw new Error(`Unknown argument: ${arg}`)
+}
+
 // Dry-run by default. Pass --apply to UPDATE.
-const apply = process.argv.includes('--apply')
+const apply = args.includes('--apply')
 
 const tokensOf = (inci: string): number => splitINCI(stripPreamble(inci)).length
 
@@ -22,7 +25,10 @@ console.log(`Scanning ${rows.length} products with INCI.\n`)
 
 let touched = 0
 let skippedGuardrail = 0
+let skippedUnresolvedLines = 0
+let skippedDamageEvidence = 0
 let skippedNoop = 0
+let skippedStaleRows = 0
 const previews: Array<{ slug: string; before: string; after: string }> = []
 const guardrailDrops: Array<{
   slug: string
@@ -33,9 +39,22 @@ const guardrailDrops: Array<{
 }> = []
 
 for (const row of rows) {
-  const final = cleanInciString(row.inci)
+  // The cleaner erases line boundaries even when both readings have the same token count
+  const prepared = foldKnownInciLines(row.inci)
+  if (prepared === null) {
+    skippedUnresolvedLines++
+    continue
+  }
+  const final = cleanInciString(prepared)
   if (final === row.inci) {
     skippedNoop++
+    continue
+  }
+
+  // Losing a truncation marker would let later tagging infer absences from damaged input
+  const finalQuality = qualifyInciInput(final)
+  if (qualifyInciInput(row.inci).reasons.some((reason) => !finalQuality.reasons.includes(reason))) {
+    skippedDamageEvidence++
     continue
   }
 
@@ -56,6 +75,19 @@ for (const row of rows) {
     continue
   }
 
+  if (apply) {
+    // An edit after selection must not be replaced by a proposal from the old INCI
+    const updated = await sql<Array<{ id: string }>>`
+      UPDATE products SET inci = ${final}
+      WHERE id = ${row.id} AND inci = ${row.inci}
+      RETURNING id
+    `
+    if (updated.length === 0) {
+      skippedStaleRows++
+      continue
+    }
+  }
+
   touched++
   if (previews.length < 12)
     previews.push({
@@ -63,12 +95,13 @@ for (const row of rows) {
       before: row.inci.slice(0, 180),
       after: final.slice(0, 180),
     })
-
-  if (apply) await sql`UPDATE products SET inci = ${final} WHERE id = ${row.id}`
 }
 
 console.log(`Touched: ${touched}`)
 console.log(`Skipped noop: ${skippedNoop}`)
+console.log(`Skipped stale rows: ${skippedStaleRows}`)
+console.log(`Skipped unresolved line boundaries: ${skippedUnresolvedLines}`)
+console.log(`Skipped damage evidence loss: ${skippedDamageEvidence}`)
 console.log(`Skipped guardrail (token count halved): ${skippedGuardrail}`)
 
 console.log(`\n=== Previews ===`)

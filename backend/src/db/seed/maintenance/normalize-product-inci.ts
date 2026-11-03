@@ -14,11 +14,13 @@ import type { ProductCategory } from '@aurore/shared'
 import { and, eq, inArray, isNotNull } from 'drizzle-orm'
 
 import { normalizeInci } from '../../../lib/normalize-inci'
-import { db } from '../..'
-import { withAdminRls } from '../../rls'
 import { products } from '../../schema/products'
 
-const WRITE = process.argv.includes('--write')
+const args = process.argv.slice(2)
+for (const arg of args) {
+  if (arg !== '--write') throw new Error(`Unknown argument: ${arg}`)
+}
+const WRITE = args.includes('--write')
 
 // Scoped to skincare-eligible categories: rows outside skincare (supplements, dental,
 // fibres) carry usage prose in `inci`, not ingredients, so normalizing them would
@@ -28,10 +30,14 @@ const WRITE = process.argv.includes('--write')
 const NORMALIZE_CATEGORIES: ProductCategory[] = ['skincare', 'solaire', 'bodycare']
 
 async function main() {
-  const rows = await db
-    .select({ id: products.id, slug: products.slug, inci: products.inci })
-    .from(products)
-    .where(and(isNotNull(products.inci), inArray(products.category, NORMALIZE_CATEGORIES)))
+  const { withAdminRls } = await import('../../rls')
+  // Public RLS would silently omit hidden catalogue rows from this maintenance plan
+  const rows = await withAdminRls((tx) =>
+    tx
+      .select({ id: products.id, slug: products.slug, inci: products.inci })
+      .from(products)
+      .where(and(isNotNull(products.inci), inArray(products.category, NORMALIZE_CATEGORIES)))
+  )
 
   const updates: { id: string; before: string; after: string }[] = []
   let skippedGuardrail = 0
@@ -75,13 +81,32 @@ async function main() {
     return
   }
 
+  let applied = 0
+  let skippedStale = 0
   await withAdminRls(async (tx) => {
     for (const u of updates) {
-      await tx.update(products).set({ inci: u.after }).where(eq(products.id, u.id))
+      // A concurrent edit or recategorization can invalidate the selected proposal
+      const rewritten = await tx
+        .update(products)
+        .set({ inci: u.after })
+        .where(
+          and(
+            eq(products.id, u.id),
+            eq(products.inci, u.before),
+            inArray(products.category, NORMALIZE_CATEGORIES)
+          )
+        )
+        .returning({ id: products.id })
+      if (rewritten.length === 0) {
+        skippedStale++
+        continue
+      }
+      applied++
     }
   })
 
-  console.log(`\napplied: rewrote inci on ${updates.length} products.`)
+  console.log(`\nskipped stale:      ${skippedStale}`)
+  console.log(`applied: rewrote inci on ${applied} products.`)
 }
 
 await main()

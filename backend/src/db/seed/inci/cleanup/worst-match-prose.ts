@@ -7,8 +7,13 @@ import { SQL } from 'bun'
 
 import { planWorstMatchFix, type WorstMatchFix } from './worst-match-prose-plan'
 
+const args = process.argv.slice(2)
+for (const arg of args) {
+  if (arg !== '--apply') throw new Error(`Unknown argument: ${arg}`)
+}
+
 // Dry-run by default. Pass --apply to UPDATE transactionally.
-const apply = process.argv.includes('--apply')
+const apply = args.includes('--apply')
 
 const sql = new SQL(process.env.DATABASE_URL ?? 'postgres://app:devpassword@app_db:5432/appdb')
 

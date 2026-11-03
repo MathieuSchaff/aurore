@@ -1,3 +1,5 @@
+import { foldKnownInciLines } from '../../../../lib/inci-line-breaks'
+
 export type WorstMatchFix =
   | { slug: string; action: 'null'; expected: RegExp }
   | { slug: string; action: 'set'; expected: RegExp; value: string }
@@ -9,7 +11,11 @@ export type WorstMatchFixPlan =
   | { kind: 'noop'; reason: 'already-applied' | 'marker-absent' }
   | {
       kind: 'reject'
-      reason: 'empty-extraction' | 'markup-residue' | 'unexpected-source'
+      reason:
+        | 'empty-extraction'
+        | 'markup-residue'
+        | 'unexpected-source'
+        | 'unresolved-line-boundaries'
     }
 
 const MARKUP_RESIDUE_RX =
@@ -29,8 +35,17 @@ function stripMarkup(text: string): string {
     .replace(/&lt(?:;|,\s*)?/gi, '<')
     .replace(/&gt(?:;|,\s*)?/gi, '>')
     .replace(/&nbsp(?:;|,\s*)?/gi, ' ')
-    .replace(/<[^>]*>/g, ' ')
+    .replace(/<\/?(?:br|p|div)\b[^>]*>/gi, '\n')
+    .replace(/<\/?[a-z][^>]*>/gi, ' ')
     .replace(/[\u200B\u00A0]/g, ' ')
+}
+
+// List terminators carry truncation evidence used by later tagging
+function trimFormulaEnd(text: string): string {
+  return text
+    .trimEnd()
+    .replace(/(?<!\.)\.$/, '')
+    .trimEnd()
 }
 
 function matches(pattern: RegExp, text: string): boolean {
@@ -58,18 +73,27 @@ export function planWorstMatchFix(fix: WorstMatchFix, current: string | null): W
   const after = sliceAfterLastMarker(source, fix.marker)
   if (after === null) {
     if (fix.action === 'strip-html' && TRAILING_TAG_RESIDUE_RX.test(current)) {
-      const repaired = current.replace(TRAILING_TAG_RESIDUE_RX, '').replace(/[\s,.]+$/g, '')
-      if (repaired.length === 0) return { kind: 'reject', reason: 'empty-extraction' }
+      const repaired = trimFormulaEnd(current.replace(TRAILING_TAG_RESIDUE_RX, ''))
+      if (!/[^\s,.;…]/u.test(repaired)) return { kind: 'reject', reason: 'empty-extraction' }
       if (MARKUP_RESIDUE_RX.test(repaired)) return { kind: 'reject', reason: 'markup-residue' }
       return { kind: 'apply', next: repaired }
     }
     return { kind: 'noop', reason: 'marker-absent' }
   }
-  const next =
-    fix.action === 'strip-html'
-      ? after.replace(/\s+/g, ' ').replace(/^[\s,]+|[\s,.]+$/g, '')
-      : after.trimStart()
-  if (next.length === 0) return { kind: 'reject', reason: 'empty-extraction' }
+  let next: string
+  if (fix.action === 'strip-html') {
+    const payload = after.trim().replace(/^[\s,]+/g, '')
+    // Keep final punctuation outside the splitter so line folding cannot discard it
+    const ending = payload.match(/[.,;…]+$/)?.[0] ?? ''
+    const folded = foldKnownInciLines(payload.slice(0, payload.length - ending.length))
+    if (folded === null) return { kind: 'reject', reason: 'unresolved-line-boundaries' }
+    next = trimFormulaEnd(folded.replace(/\s+/g, ' ') + ending)
+  } else {
+    next = after.trimStart()
+  }
+  if (next.length === 0 || (fix.action === 'strip-html' && !/[^\s,.;…]/u.test(next))) {
+    return { kind: 'reject', reason: 'empty-extraction' }
+  }
   if (fix.action === 'strip-html' && MARKUP_RESIDUE_RX.test(next)) {
     return { kind: 'reject', reason: 'markup-residue' }
   }

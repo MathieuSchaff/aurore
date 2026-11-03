@@ -3,6 +3,34 @@ import { describe, expect, it } from 'bun:test'
 import { planWorstMatchFix, type WorstMatchFix } from './worst-match-prose-plan'
 
 describe('planWorstMatchFix', () => {
+  it('keeps marker-only extraction independent from HTML line segmentation', () => {
+    const fix = {
+      slug: 'marker-only-fixture',
+      action: 'strip-after',
+      marker: /Ingredients:\s*/i,
+    } satisfies WorstMatchFix
+    expect(planWorstMatchFix(fix, 'Ingredients: AQUA, Arginine\nPCA, PANTHENOL')).toEqual({
+      kind: 'apply',
+      next: 'AQUA, Arginine\nPCA, PANTHENOL',
+    })
+  })
+
+  it('rejects punctuation-only extractions and repaired residues', () => {
+    const fix = {
+      slug: 'empty-formula-fixture',
+      action: 'strip-html',
+      marker: /Full Ingredient List:\s*/i,
+    } satisfies WorstMatchFix
+    for (const punctuation of [',', '.', '..', '...', ';', '…']) {
+      for (const current of [`Full Ingredient List: ${punctuation}`, `${punctuation} /p`]) {
+        expect(planWorstMatchFix(fix, current)).toEqual({
+          kind: 'reject',
+          reason: 'empty-extraction',
+        })
+      }
+    }
+  })
+
   it('extracts an INCI from mangled HTML without leaving closing-tag residue', () => {
     const fix = {
       slug: 'eve-lom-eye-complex',

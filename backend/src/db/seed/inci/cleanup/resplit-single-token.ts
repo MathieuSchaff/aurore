@@ -7,10 +7,27 @@ import { SQL } from 'bun'
 import { normalize, splitINCI } from 'algo-derm'
 import { buildAliasIndex, MERGED_EVIDENCE_DB } from 'algo-derm/engine'
 
-const apply = process.argv.includes('--apply')
+import { qualifyInciInput } from '../../../../lib/inci-input-quality'
+import { foldKnownInciLines } from '../../../../lib/inci-line-breaks'
+import { partitionInciPresence } from '../../../../lib/inci-presence'
+
+const args = process.argv.slice(2)
+// Ignoring a misspelled limit could turn an apply run into an unbounded write
+if (args.some((arg) => arg !== '--apply' && !arg.startsWith('--limit='))) {
+  throw new Error('Unsupported resplit argument; expected --apply or --limit=N')
+}
+const apply = args.includes('--apply')
 const limit = (() => {
-  const arg = process.argv.find((a) => a.startsWith('--limit='))
-  return arg ? Number(arg.slice('--limit='.length)) : Number.POSITIVE_INFINITY
+  const limits = args.filter((arg) => arg.startsWith('--limit='))
+  if (limits.length > 1) throw new Error('--limit must be specified at most once')
+  const arg = limits[0]
+  if (!arg) return Number.POSITIVE_INFINITY
+  const value = arg.slice('--limit='.length)
+  const parsed = Number(value)
+  if (value.trim() === '' || !Number.isSafeInteger(parsed) || parsed < 0) {
+    throw new Error('--limit must be a non-negative safe integer')
+  }
+  return parsed
 })()
 
 const aliasIndex = buildAliasIndex(MERGED_EVIDENCE_DB)
@@ -35,21 +52,131 @@ const NON_INCI_RX =
 // Caps preserved because actual INCI tokens are also caps in these strings.
 const LEADING_PREFIX_RX = /^(FORMULE INCI\s*:\s*|BRUME HYDRATANTE INVISIBLE|FORMULE\s*:\s*)/i
 
-const SEPARATOR_RX = /\s[-•]\s|\s•\s|;\s+/
+// Numeric ranges and prefixes with one letter belong to the ingredient name
+// An entity's semicolon must remain intact for later decoding
+const SEPARATOR_RX =
+  /(?<=\S{2})\s+-\s+(?=[A-Za-zÀ-ÿ])|\s•\s|(?<!&(?:[A-Za-z][A-Za-z\d]*|#\d+|#[xX][\dA-Fa-f]+));\s+/
+
+function containsKnownSlashName(parts: readonly string[]): boolean {
+  const first = parts[0].split(/\s+/)
+  const last = parts[parts.length - 1].split(/\s+/)
+  for (let start = 0; start < first.length; start++) {
+    for (let end = last.length; end > 0; end--) {
+      const name = [
+        first.slice(start).join(' '),
+        ...parts.slice(1, -1),
+        last.slice(0, end).join(' '),
+      ].join(' / ')
+      if (aliasIndex.has(normalize(name))) return true
+    }
+  }
+  return false
+}
+
+function splitSlashNames(part: string): string[] {
+  const parts = part
+    // A mass ratio slash belongs to the quantity, not a list boundary
+    .split(/(?<!\d\s*mg\s*)\s\/\s|\s\/\s(?!\s*g\b)/i)
+    .map((value) => value.trim())
+    .filter(Boolean)
+  const names: string[] = []
+  for (let start = 0; start < parts.length; ) {
+    let end = parts.length
+    // Prefer a recognized name before treating its slash as a list boundary
+    while (end > start + 1 && !containsKnownSlashName(parts.slice(start, end))) end--
+    names.push(parts.slice(start, end).join(' / '))
+    start = end
+  }
+  return names
+}
 
 function trivialSplit(inci: string): string[] | null {
   const stripped = inci.replace(LEADING_PREFIX_RX, '').trim()
   if (!SEPARATOR_RX.test(stripped) && !stripped.includes(' / ')) return null
-  const parts = stripped.split(SEPARATOR_RX).flatMap((p) => p.split(/\s\/\s/))
+  const parts = stripped.split(SEPARATOR_RX).flatMap(splitSlashNames)
   const cleaned = parts.map((p) => p.trim()).filter((p) => p.length > 0)
   if (cleaned.length < 2) return null
   return cleaned
 }
 
 // Longest-match resplit: walk tokens, at each position try windows of
-// 5..1 against aliasIndex; emit matched span as 1 token, accumulate unmatched
+// 5..1 against aliasIndex, longer for known names; emit matched span as 1 token, accumulate unmatched
 // words into a single trailing token until next match.
 const MAX_WINDOW = 5
+const MAX_ALIAS_WINDOW = [...aliasIndex.keys()].reduce(
+  (max, name) => Math.max(max, name.split(/\s+/).length),
+  MAX_WINDOW
+)
+let heldNanoRegions = 0
+let heldPercentageRegions = 0
+let heldPpmRegions = 0
+let heldMassRatioRegions = 0
+
+function retainsDeclarationSpans(
+  source: string,
+  tokens: readonly string[],
+  pattern: RegExp
+): boolean {
+  // Consume each occurrence so an intact copy cannot hide another split declaration
+  let retained = tokens.join('\n')
+  for (const match of source.matchAll(pattern)) {
+    const declaration = match[0].replace(/\s+/g, ' ')
+    if (!retained.includes(declaration)) return false
+    retained = retained.replace(declaration, '\n')
+  }
+  return true
+}
+
+function retainsAnnotations(source: string, result: string): boolean {
+  const spans: Array<{ start: number; end: number }> = []
+  const closing: string[] = []
+  let start = 0
+  for (let index = 0; index < source.length; index++) {
+    const char = source[index]
+    if (char === '(' || char === '[') {
+      if (closing.length === 0) {
+        const previous = spans.at(-1)
+        if (previous && source.slice(previous.end, index).trim() === '') {
+          start = previous.start
+          spans.pop()
+        } else {
+          const word = source.slice(0, index).match(/[^,\s;•()[\]]+\s*$/u)
+          start = word && /[\p{L}\p{N}]/u.test(word[0]) ? (word.index ?? index) : index
+        }
+      }
+      closing.push(char === '(' ? ')' : ']')
+    } else if (char === ')' || char === ']') {
+      if (closing.pop() !== char) return false
+      if (closing.length === 0) spans.push({ start, end: index + 1 })
+    }
+  }
+  if (closing.length > 0) return false
+  let retained = result.replace(/\s+/g, ' ')
+  for (const span of spans) {
+    const declaration = source.slice(span.start, span.end).replace(/\s+/g, ' ')
+    if (!retained.includes(declaration)) return false
+    retained = retained.replace(declaration, '\n')
+  }
+  return true
+}
+
+function retainsOptionalDeclarations(source: string, result: string): boolean {
+  const optionalRegions = (inci: string) =>
+    partitionInciPresence(inci)
+      .filter(({ optional }) => optional)
+      // List separators can change without moving text out of an optional region
+      .map(({ raw }) => raw.replace(/[\s,;]+/g, ''))
+  const before = optionalRegions(source)
+  const after = optionalRegions(result)
+  return before.length === after.length && before.every((region, index) => region === after[index])
+}
+
+function retainsInputQuality(source: string, result: string): boolean {
+  const proposedQuality = qualifyInciInput(result)
+  return qualifyInciInput(source).reasons.every((reason) =>
+    proposedQuality.reasons.includes(reason)
+  )
+}
 
 function longestMatchSplit(inci: string): string[] | null {
   const stripped = inci.replace(LEADING_PREFIX_RX, '').trim()
@@ -63,9 +190,15 @@ function longestMatchSplit(inci: string): string[] | null {
   let unmatchedSpans = 0
   while (i < words.length) {
     let matched: number | null = null
-    for (let n = Math.min(MAX_WINDOW, words.length - i); n >= 1; n--) {
+    const maxWindow = words.includes('/', i)
+      ? words.length - i
+      : Math.min(MAX_ALIAS_WINDOW, words.length - i)
+    for (let n = maxWindow; n >= 1; n--) {
       const candidate = words.slice(i, i + n).join(' ')
       const norm = normalize(candidate)
+      // Short aliases keep their existing annotation window
+      if (n > MAX_WINDOW && !candidate.includes(' / ') && norm.split(/\s+/).length <= MAX_WINDOW)
+        continue
       if (aliasIndex.has(norm)) {
         matched = n
         break
@@ -96,6 +229,43 @@ function longestMatchSplit(inci: string): string[] | null {
   // otherwise the resplit is likely shredding a marketing blob into noise.
   const ratio = matchedSpans / (matchedSpans + unmatchedSpans)
   if (ratio < 0.7) return null
+  if (!retainsDeclarationSpans(stripped, out, /\S+?\s*(?:\[\s*nano\s*\]|\(\s*nano\s*\))/gi)) {
+    heldNanoRegions++
+    return null
+  }
+  // A comparison or range detached from its label would become a separate list entry
+  if (
+    !retainsDeclarationSpans(
+      stripped,
+      out,
+      /\S+\s+(?:\(\s*)?(?:(?:[<>]=?|[≤≥≈~])\s*)?(?:\d+(?:[.,]\d+)?|[.,]\d+)(?:[eE][+-]?\d+)?(?:\s*(?:[-\u2013\u2014\u2212]|to|à)\s*(?:\d+(?:[.,]\d+)?|[.,]\d+)(?:[eE][+-]?\d+)?)?\s*%(?:\s*\))?/gi
+    )
+  ) {
+    heldPercentageRegions++
+    return null
+  }
+  // A ppm quantity must keep qualifying its source word after repair
+  if (
+    !retainsDeclarationSpans(
+      stripped,
+      out,
+      /\S+\s+(?:\(\s*)?(?:(?:[<>]=?|[≤≥≈~])\s*)?(?:\d+(?:[.,]\d+)?|[.,]\d+)(?:[eE][+-]?\d+)?(?:\s*(?:[-\u2013\u2014\u2212]|to|à)\s*(?:\d+(?:[.,]\d+)?|[.,]\d+)(?:[eE][+-]?\d+)?)?\s*ppm\b(?:\s*\))?/gi
+    )
+  ) {
+    heldPpmRegions++
+    return null
+  }
+  // A mass ratio must keep qualifying its source word after repair
+  if (
+    !retainsDeclarationSpans(
+      stripped,
+      out,
+      /\S+\s+(?:\(\s*)?(?:(?:[<>]=?|[≤≥≈~])\s*)?(?:\d+(?:[.,]\d+)?|[.,]\d+)(?:[eE][+-]?\d+)?(?:\s*(?:[-\u2013\u2014\u2212]|to|à)\s*(?:\d+(?:[.,]\d+)?|[.,]\d+)(?:[eE][+-]?\d+)?)?\s*mg\s*\/\s*g\b(?:\s*\))?/gi
+    )
+  ) {
+    heldMassRatioRegions++
+    return null
+  }
   return out
 }
 
@@ -121,10 +291,22 @@ let updated = 0
 let trivialCount = 0
 let blobCount = 0
 let skipped = 0
+let heldAnnotationRows = 0
+let heldOptionalRows = 0
+let heldDamageEvidenceRows = 0
+let skippedLineBoundaries = 0
+let skippedStaleRows = 0
 const previews: Array<{ slug: string; strategy: string; before: string; after: string[] }> = []
 
 for (const row of candidates) {
   if (updated >= limit) break
+
+  // Whitespace recovery must not erase an ambiguous or unknown line boundary
+  if (foldKnownInciLines(row.inci) === null) {
+    skippedLineBoundaries++
+    skipped++
+    continue
+  }
 
   let tokens: string[] | null = trivialSplit(row.inci)
   let strategy = 'trivial'
@@ -142,10 +324,50 @@ for (const row of candidates) {
     skipped++
     continue
   }
-  const recombined = tokens.join(', ')
+  const recombined = tokens.reduce((joined, token) => {
+    if (!joined) return token
+    // Reuse a source comma instead of adding an empty list entry beside it
+    const separator = joined.endsWith(',') || token.startsWith(',') ? ' ' : ', '
+    return joined + separator + token
+  }, '')
   if (recombined === row.inci) {
     skipped++
     continue
+  }
+
+  // A new boundary must not change a note or detach it from its preceding word
+  if (!retainsAnnotations(row.inci, recombined)) {
+    heldAnnotationRows++
+    skipped++
+    continue
+  }
+
+  // Losing a marker would turn possible ingredients into certain links
+  if (!retainsOptionalDeclarations(row.inci, recombined)) {
+    heldOptionalRows++
+    skipped++
+    continue
+  }
+
+  // Later tagging must still see every suspicion reason from the source
+  if (!retainsInputQuality(row.inci, recombined)) {
+    heldDamageEvidenceRows++
+    skipped++
+    continue
+  }
+
+  if (apply) {
+    // A repair computed from an older declaration must not overwrite a concurrent edit
+    const written = await sql`
+      UPDATE products SET inci = ${recombined}
+      WHERE id = ${row.id} AND inci = ${row.inci}
+      RETURNING id
+    `
+    if (written.length === 0) {
+      skippedStaleRows++
+      skipped++
+      continue
+    }
   }
 
   if (previews.length < 12)
@@ -153,9 +375,6 @@ for (const row of candidates) {
   if (strategy === 'trivial') trivialCount++
   else blobCount++
 
-  if (apply) {
-    await sql`UPDATE products SET inci = ${recombined} WHERE id = ${row.id}`
-  }
   updated++
 }
 
@@ -172,6 +391,15 @@ console.log(`\n${apply ? 'Updated' : 'Would update'} ${updated} rows.`)
 console.log(`  trivial: ${trivialCount}`)
 console.log(`  blob:    ${blobCount}`)
 console.log(`  skipped: ${skipped}`)
+console.log(`Nano regions kept unsplit: ${heldNanoRegions}`)
+console.log(`Percentage regions kept unsplit: ${heldPercentageRegions}`)
+console.log(`PPM regions kept unsplit: ${heldPpmRegions}`)
+console.log(`Mass-ratio regions kept unsplit: ${heldMassRatioRegions}`)
+console.log(`Annotation rows kept unchanged: ${heldAnnotationRows}`)
+console.log(`Optional-declaration rows kept unchanged: ${heldOptionalRows}`)
+console.log(`Damage-evidence rows kept unchanged: ${heldDamageEvidenceRows}`)
+console.log(`Skipped unresolved line boundaries: ${skippedLineBoundaries}`)
+console.log(`Skipped stale rows: ${skippedStaleRows}`)
 if (!apply) console.log('\nRe-run with --apply to commit.')
 
 await sql.end()
