@@ -35,8 +35,16 @@ test('keeps the demo collection within 320px and opens its formula section', asy
     const sheet = page.getByRole('dialog')
     await expect(sheet).toBeVisible()
     const formula = sheet.getByRole('button', { name: 'Formule & ingrédients', exact: true })
+    const wasExpanded = await formula.getAttribute('aria-expanded')
     await formula.click()
-    await expect(formula).toHaveAttribute('aria-expanded', 'true')
+    await expect(formula).toHaveAttribute(
+      'aria-expanded',
+      wasExpanded === 'true' ? 'false' : 'true'
+    )
+    if (wasExpanded === 'true') {
+      await formula.click()
+      await expect(formula).toHaveAttribute('aria-expanded', 'true')
+    }
   } finally {
     if (demoToken) await deleteTestUser(page, demoToken, 'demo layout cleanup')
   }
