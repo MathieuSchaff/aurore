@@ -311,6 +311,163 @@ function compositeIronOxideCodes(raw: string): string[] | null {
   return codes
 }
 
+interface LinkResolutionContext {
+  category: string
+  canonicalKeyToSlug: Map<string, string>
+  canonicalKeyBySlug: Map<string, string>
+  slugsByCanonicalKey: Map<string, SiblingRow[]>
+  overrides?: ResolverOverrides
+  excipients: ReadonlySet<string>
+  allowed: ReturnType<typeof getDomainAllowlist>
+}
+
+function splitCertainDeclaration(certain: string): string[] {
+  const unclosed = certain.match(/\bIron Oxides?\s*[([][^()[\]]*$/i)
+  const unclosedCodes = unclosed?.[0].match(
+    /^Iron Oxides?\s*[([]\s*CI\s*\d{5,6}(?:\s*[,/]\s*(?:CI\s*)?\d{5,6})+(?=\s*(?:,|$))/i
+  )?.[0]
+  // Hold only the broken CI sequence; later ingredients keep their existing tokenization
+  return unclosed && unclosedCodes
+    ? [
+        ...splitINCI(certain.slice(0, unclosed.index)),
+        unclosedCodes,
+        ...splitINCI(unclosed[0].slice(unclosedCodes.length)),
+      ]
+    : splitINCI(certain)
+}
+
+function recordUnresolvedToken(raw: string, category: string, result: ComputeResult): void {
+  const trimmed = raw.trim()
+  // A supplement group may hide ingredients, including after an unclosed parenthesis
+  if (category === 'complement' && raw.includes('(')) result.unresolvedParentheticalGroups.push(raw)
+  if (trimmed.split(/\s+/).length >= SUSPECT_TOKEN_WORDS) {
+    ;(isUppercaseDominant(trimmed)
+      ? result.uppercaseMegaTokens
+      : result.nonUppercaseMegaTokens
+    ).push(trimmed)
+  }
+}
+
+function resolveLinkSlug(
+  raw: string,
+  context: LinkResolutionContext,
+  result: ComputeResult
+): string | null {
+  const {
+    category,
+    canonicalKeyToSlug,
+    canonicalKeyBySlug,
+    slugsByCanonicalKey,
+    overrides,
+    excipients,
+  } = context
+  const resolved = resolveToken(raw, canonicalKeyToSlug, canonicalKeyBySlug, overrides)
+  if (!resolved) {
+    recordUnresolvedToken(raw, category, result)
+    return null
+  }
+  if (resolved.kind === 'unbridged') {
+    result.unbridged.push(raw.trim())
+    return null
+  }
+  // Drop filler/excipient by resolved slug, whichever raw token produced it.
+  if (excipients.has(resolved.slug)) {
+    result.blocked.push(resolved.slug)
+    return null
+  }
+  const slug = preferDomainSibling(
+    resolved.slug,
+    category,
+    slugsByCanonicalKey,
+    canonicalKeyBySlug,
+    resolved.viaCanonicalKey === true
+  )
+  if (!slug) {
+    const key = canonicalKeyBySlug.get(resolved.slug)
+    if (key && !result.collisions.includes(key)) result.collisions.push(key)
+    return null
+  }
+  // Checked again: the excipient list holds only bare slugs, and the swap can land on one.
+  if (excipients.has(slug)) {
+    result.blocked.push(slug)
+    return null
+  }
+
+  return slug
+}
+
+function isExactCiLink(code: string, context: LinkResolutionContext): boolean {
+  const {
+    category,
+    canonicalKeyToSlug,
+    canonicalKeyBySlug,
+    slugsByCanonicalKey,
+    overrides,
+    excipients,
+    allowed,
+  } = context
+  const resolved = resolveToken(code, canonicalKeyToSlug, canonicalKeyBySlug, overrides)
+  if (resolved?.kind !== 'slug' || excipients.has(resolved.slug)) return false
+  const slug = preferDomainSibling(
+    resolved.slug,
+    category,
+    slugsByCanonicalKey,
+    canonicalKeyBySlug,
+    resolved.viaCanonicalKey === true
+  )
+  if (!slug || excipients.has(slug) || canonicalKeyBySlug.get(slug) !== code) return false
+  const domain = slugToDomain.get(slug)
+  return !allowed || (domain !== undefined && allowed.has(domain))
+}
+
+function expandCertainTokens(
+  tokens: string[],
+  context: LinkResolutionContext,
+  result: ComputeResult
+): string[] {
+  const lineTokens = tokens.flatMap((raw) => {
+    const folded = foldKnownInciLines(raw)
+    if (folded === null) {
+      result.unresolvedLineBoundaries.push(raw)
+      return []
+    }
+    return folded === raw ? [raw] : splitINCI(folded)
+  })
+  const expanded: string[] = []
+  for (const raw of lineTokens) {
+    const codes = compositeIronOxideCodes(raw)
+    if (codes === null) expanded.push(raw)
+    else if (codes.length > 0 && codes.every((code) => isExactCiLink(code, context)))
+      expanded.push(...codes)
+    else result.unresolvedCiGroups.push(raw)
+  }
+  return expanded
+}
+
+function collectResolvedLinks(
+  tokens: string[],
+  context: LinkResolutionContext,
+  result: ComputeResult
+): void {
+  const seen = new Set<string>()
+  // INCI order is concentration order: retain the first spelling of each identity
+  const seenIdentities = new Set<string>()
+  for (const raw of tokens) {
+    const slug = resolveLinkSlug(raw, context, result)
+    if (!slug || seen.has(slug)) continue
+    const domain = slugToDomain.get(slug)
+    if (context.allowed && (!domain || !context.allowed.has(domain))) {
+      result.domainDropped.push(slug)
+      continue
+    }
+    const identity = context.canonicalKeyBySlug.get(slug)
+    if (identity && seenIdentities.has(identity)) continue
+    if (identity) seenIdentities.add(identity)
+    seen.add(slug)
+    result.slugs.push(slug)
+  }
+}
+
 export function computeLinks(
   inci: string,
   category: string,
@@ -319,11 +476,16 @@ export function computeLinks(
   slugsByCanonicalKey: Map<string, SiblingRow[]> = new Map(),
   overrides?: ResolverOverrides
 ): ComputeResult {
-  const allowed = getDomainAllowlist(category)
-  const excipients = overrides?.blockedSlugs ?? blockedSlugs
-  // splitINCI splits on commas (+ protects decimals); its period fallback needs a comma-sparse
-  // list, so a real declaration never reaches it. Fold scraper artifacts first.
-  // Supplement text keeps list separators because its dashes and semicolons separate doses.
+  const context: LinkResolutionContext = {
+    category,
+    canonicalKeyToSlug,
+    canonicalKeyBySlug,
+    slugsByCanonicalKey,
+    overrides,
+    allowed: getDomainAllowlist(category),
+    excipients: overrides?.blockedSlugs ?? blockedSlugs,
+  }
+  // Supplement text keeps separators because its dashes and semicolons separate doses
   const folded = foldScraperDelimiters(inci, { foldListSeparators: category !== 'complement' })
   const declarations = partitionInciPresence(folded)
   const optionalDeclarations = declarations
@@ -331,146 +493,22 @@ export function computeLinks(
     .map((entry) => entry.raw)
   const tokens = declarations
     .filter((entry) => !entry.optional)
-    .flatMap(({ raw: certain }) => {
-      const unclosed = certain.match(/\bIron Oxides?\s*[([][^()[\]]*$/i)
-      const unclosedCodes = unclosed?.[0].match(
-        /^Iron Oxides?\s*[([]\s*CI\s*\d{5,6}(?:\s*[,/]\s*(?:CI\s*)?\d{5,6})+(?=\s*(?:,|$))/i
-      )?.[0]
-      // Hold only the broken CI sequence; later ingredients keep their existing tokenization
-      return unclosed && unclosedCodes
-        ? [
-            ...splitINCI(certain.slice(0, unclosed.index)),
-            unclosedCodes,
-            ...splitINCI(unclosed[0].slice(unclosedCodes.length)),
-          ]
-        : splitINCI(certain)
-    })
-
-  const seen = new Set<string>()
-  // A declaration often names one substance twice (`Sodium Hyaluronate` beside `Hyaluronic
-  // Acid`). They are separate `ingredients` rows sharing one canonical_key, which is the
-  // project's identity for an ingredient, so linking both shows the same thing twice on the
-  // sheet. INCI order is concentration order: the first spelling wins.
-  const seenIdentities = new Set<string>()
-  const slugs: string[] = []
-  const unbridged: string[] = []
-  const blocked: string[] = []
-  const domainDropped: string[] = []
-  const collisions: string[] = []
-  const uppercaseMegaTokens: string[] = []
-  const nonUppercaseMegaTokens: string[] = []
-  const unresolvedParentheticalGroups: string[] = []
-  const unresolvedCiGroups = optionalDeclarations.filter((raw) => /\bCI\s*\d/i.test(raw))
-  const unresolvedOptionalDeclarations = optionalDeclarations.filter(
-    (raw) => !/\bCI\s*\d/i.test(raw)
-  )
-
-  const unresolvedLineBoundaries: string[] = []
-  const lineTokens = tokens.flatMap((raw) => {
-    const folded = foldKnownInciLines(raw)
-    if (folded === null) {
-      unresolvedLineBoundaries.push(raw)
-      return []
-    }
-    return folded === raw ? [raw] : splitINCI(folded)
-  })
-  const expandedTokens: string[] = []
-  for (const raw of lineTokens) {
-    const codes = compositeIronOxideCodes(raw)
-    if (codes === null) {
-      expandedTokens.push(raw)
-      continue
-    }
-    // Keep the whole group uncertain if any member cannot become its exact catalogue identity
-    const complete =
-      codes.length > 0 &&
-      codes.every((code) => {
-        const resolved = resolveToken(code, canonicalKeyToSlug, canonicalKeyBySlug, overrides)
-        if (resolved?.kind !== 'slug' || excipients.has(resolved.slug)) return false
-        const slug = preferDomainSibling(
-          resolved.slug,
-          category,
-          slugsByCanonicalKey,
-          canonicalKeyBySlug,
-          resolved.viaCanonicalKey === true
-        )
-        if (!slug || excipients.has(slug) || canonicalKeyBySlug.get(slug) !== code) return false
-        const domain = slugToDomain.get(slug)
-        return !allowed || (domain !== undefined && allowed.has(domain))
-      })
-    if (complete) expandedTokens.push(...codes)
-    else unresolvedCiGroups.push(raw)
+    .flatMap(({ raw }) => splitCertainDeclaration(raw))
+  const result: ComputeResult = {
+    slugs: [],
+    unbridged: [],
+    blocked: [],
+    domainDropped: [],
+    collisions: [],
+    uppercaseMegaTokens: [],
+    nonUppercaseMegaTokens: [],
+    unresolvedParentheticalGroups: [],
+    unresolvedCiGroups: optionalDeclarations.filter((raw) => /\bCI\s*\d/i.test(raw)),
+    unresolvedOptionalDeclarations: optionalDeclarations.filter((raw) => !/\bCI\s*\d/i.test(raw)),
+    unresolvedLineBoundaries: [],
   }
-
-  for (const raw of expandedTokens) {
-    const resolved = resolveToken(raw, canonicalKeyToSlug, canonicalKeyBySlug, overrides)
-    if (!resolved) {
-      const trimmed = raw.trim()
-      // A supplement group may hide ingredients, including after an unclosed parenthesis
-      if (category === 'complement' && raw.includes('(')) unresolvedParentheticalGroups.push(raw)
-      if (trimmed.split(/\s+/).length >= SUSPECT_TOKEN_WORDS) {
-        ;(isUppercaseDominant(trimmed) ? uppercaseMegaTokens : nonUppercaseMegaTokens).push(trimmed)
-      }
-      continue
-    }
-    if (resolved.kind === 'unbridged') {
-      unbridged.push(raw.trim())
-      continue
-    }
-    // Drop filler/excipient by resolved slug, whichever raw token produced it.
-    if (excipients.has(resolved.slug)) {
-      blocked.push(resolved.slug)
-      continue
-    }
-    const slug = preferDomainSibling(
-      resolved.slug,
-      category,
-      slugsByCanonicalKey,
-      canonicalKeyBySlug,
-      resolved.viaCanonicalKey === true
-    )
-    if (!slug) {
-      const key = canonicalKeyBySlug.get(resolved.slug)
-      if (key && !collisions.includes(key)) collisions.push(key)
-      continue
-    }
-    // Checked again: the excipient list holds only bare slugs, and the swap can land on one.
-    if (excipients.has(slug)) {
-      blocked.push(slug)
-      continue
-    }
-    if (seen.has(slug)) continue
-    const domain = slugToDomain.get(slug)
-    // Fail closed: drop a slug whose domain is unknown or foreign to the product category.
-    if (allowed && (!domain || !allowed.has(domain))) {
-      domainDropped.push(slug)
-      continue
-    }
-    const identity = canonicalKeyBySlug.get(slug)
-    if (identity) {
-      if (seenIdentities.has(identity)) continue
-      seenIdentities.add(identity)
-    }
-    seen.add(slug)
-    slugs.push(slug)
-  }
-
-  // Order follows INCI order (concentration desc); no count cap. Capping would keep
-  // structuring agents at the top and drop the actives dosed below them
-  // (measured: 2079 evicted links, mostly hyaluronates, ceramides, centella).
-  return {
-    slugs,
-    unbridged,
-    blocked,
-    domainDropped,
-    collisions,
-    uppercaseMegaTokens,
-    nonUppercaseMegaTokens,
-    unresolvedParentheticalGroups,
-    unresolvedCiGroups,
-    unresolvedOptionalDeclarations,
-    unresolvedLineBoundaries,
-  }
+  collectResolvedLinks(expandCertainTokens(tokens, context, result), context, result)
+  return result
 }
 
 async function readEligible(tx: DatabaseTransaction): Promise<EligibleProduct[]> {
@@ -702,6 +740,29 @@ function printChanges(changes: readonly string[]): void {
   for (const line of changes) console.log(`  ${line}`)
 }
 
+function printFrequency(
+  title: string,
+  frequency: Map<string, number>,
+  limit: number,
+  key: string
+): void {
+  console.log(title)
+  const rows = freqTable(frequency, limit, key)
+  if (rows.length > 0) console.table(rows)
+}
+
+function printSamples(title: string, count: number, samples: string[]): void {
+  if (count === 0) return
+  console.log(title)
+  for (const line of samples) console.log(`  ${line}`)
+}
+
+function printRecords(title: string, rows: unknown[]): void {
+  if (rows.length === 0) return
+  console.log(title)
+  for (const row of rows) console.log(JSON.stringify(row))
+}
+
 function printReport(s: RunStats): void {
   console.log('Summary')
   console.table({
@@ -721,60 +782,56 @@ function printReport(s: RunStats): void {
     ...(s.missingId > 0 ? { 'slugs w/o id row (dropped)': s.missingId } : {}),
   })
 
-  console.log('top 10 linked slugs')
-  const topLinked = freqTable(s.slugFreq, 10, 'slug')
-  if (topLinked.length > 0) console.table(topLinked)
+  printFrequency('top 10 linked slugs', s.slugFreq, 10, 'slug')
 
   // Unbridged tokens should be excipients algo-derm knows without an aurore
   // row (1,2-hexanediol, fatty esters, CI colours). Actives here mean a bridge gap, investigate.
-  console.log('top 20 resolved-but-unbridged tokens (expect excipients, not actives)')
-  const topUnbridged = freqTable(s.unbridgedFreq, 20, 'token')
-  if (topUnbridged.length > 0) console.table(topUnbridged)
+  printFrequency(
+    'top 20 resolved-but-unbridged tokens (expect excipients, not actives)',
+    s.unbridgedFreq,
+    20,
+    'token'
+  )
 
-  console.log('top 15 slugs dropped as filler/excipient (slug-level block)')
-  const topBlocked = freqTable(s.blockedFreq, 15, 'slug')
-  if (topBlocked.length > 0) console.table(topBlocked)
+  printFrequency(
+    'top 15 slugs dropped as filler/excipient (slug-level block)',
+    s.blockedFreq,
+    15,
+    'slug'
+  )
 
-  console.log('canonical_key collisions left unlinked')
-  const topCollisions = freqTable(s.collisionFreq, 20, 'canonical_key')
-  if (topCollisions.length > 0) console.table(topCollisions)
+  printFrequency('canonical_key collisions left unlinked', s.collisionFreq, 20, 'canonical_key')
 
-  console.log('top 15 slugs the recompute drops (uncurated rows only)')
-  const topRemoved = freqTable(s.removedFreq, 15, 'slug')
-  if (topRemoved.length > 0) console.table(topRemoved)
+  printFrequency(
+    'top 15 slugs the recompute drops (uncurated rows only)',
+    s.removedFreq,
+    15,
+    'slug'
+  )
 
-  if (s.keptCurated > 0) {
-    console.log(`human links kept despite the recompute (${s.keptCurated}), sample`)
-    for (const line of s.keptCuratedSamples) console.log(`  ${line}`)
-  }
-
-  // The derived slug and the kept row are the same substance under one canonical_key. Inserting
-  // both puts the ingredient on the sheet twice, so the insert waits for a human call.
-  if (s.aliasConflicts > 0) {
-    console.log(`inserts held back on an already-linked substance (${s.aliasConflicts}), sample`)
-    for (const line of s.aliasConflictSamples) console.log(`  ${line}`)
-  }
-
-  if (s.unresolvedCiGroups.length > 0) {
-    console.log('Unresolved CI groups; no partial insertion')
-    for (const group of s.unresolvedCiGroups) console.log(JSON.stringify(group))
-  }
-
-  if (s.unresolvedOptionalDeclarations.length > 0) {
-    console.log('Optional declarations cannot create certain catalogue links')
-    for (const declaration of s.unresolvedOptionalDeclarations)
-      console.log(JSON.stringify(declaration))
-  }
-
-  if (s.unresolvedLineBoundaries.length > 0) {
-    console.log('Unresolved line boundaries cannot create certain catalogue links')
-    for (const declaration of s.unresolvedLineBoundaries) console.log(JSON.stringify(declaration))
-  }
-
-  if (s.heldDeletions.length > 0) {
-    console.log('All held deletions require declaration review; zero writes does not mean resolved')
-    for (const hold of s.heldDeletions) console.log(JSON.stringify(hold))
-  }
+  printSamples(
+    `human links kept despite the recompute (${s.keptCurated}), sample`,
+    s.keptCurated,
+    s.keptCuratedSamples
+  )
+  printSamples(
+    `inserts held back on an already-linked substance (${s.aliasConflicts}), sample`,
+    s.aliasConflicts,
+    s.aliasConflictSamples
+  )
+  printRecords('Unresolved CI groups; no partial insertion', s.unresolvedCiGroups)
+  printRecords(
+    'Optional declarations cannot create certain catalogue links',
+    s.unresolvedOptionalDeclarations
+  )
+  printRecords(
+    'Unresolved line boundaries cannot create certain catalogue links',
+    s.unresolvedLineBoundaries
+  )
+  printRecords(
+    'All held deletions require declaration review; zero writes does not mean resolved',
+    s.heldDeletions
+  )
 
   printChanges(s.changes)
 
@@ -821,7 +878,7 @@ export function scopeReconcilePlan(
   }
 }
 
-function planCorpusReconcile(input: {
+interface CorpusReconcileInput {
   eligible: EligibleProduct[]
   currentLinks: Map<string, CurrentLink[]>
   ingredientSlugToId: Map<string, string>
@@ -829,241 +886,279 @@ function planCorpusReconcile(input: {
   canonicalKeyBySlug: Map<string, string>
   slugsByCanonicalKey: Map<string, SiblingRow[]>
   onlySlugs: ReadonlySet<string> | null
-}): { writes: ProductWrite[]; stats: RunStats } {
-  const {
-    eligible,
-    currentLinks,
-    ingredientSlugToId,
+}
+interface CorpusReconcileResult {
+  writes: ProductWrite[]
+  stats: RunStats
+}
+
+function emptyRunStats(): RunStats {
+  return {
+    withLinks: 0,
+    zeroLinks: 0,
+    totalPairs: 0,
+    removedRows: 0,
+    heldDeletions: [],
+    unresolvedCiGroups: [],
+    unresolvedOptionalDeclarations: [],
+    unresolvedLineBoundaries: [],
+    keptCurated: 0,
+    untouchedNoTarget: 0,
+    changedProducts: 0,
+    aliasConflicts: 0,
+    removedFreq: new Map<string, number>(),
+    keptCuratedSamples: [],
+    aliasConflictSamples: [],
+    changes: [],
+    slugFreq: new Map<string, number>(),
+    unbridgedFreq: new Map<string, number>(),
+    blockedFreq: new Map<string, number>(),
+    collisionFreq: new Map<string, number>(),
+    zeroBuckets: new Map<ZeroBucket, string[]>([
+      ['uppercase-mega-token', []],
+      ['non-uppercase-mega-token', []],
+      ['resolved-but-unbridged', []],
+      ['blocked-only', []],
+      ['ambiguous-canonical-key', []],
+      ['nothing-recognized', []],
+      ['no-inci', []],
+    ]),
+    missingId: 0,
+  }
+}
+
+function recordHeldDeletions(
+  stats: RunStats,
+  product: EligibleProduct,
+  links: CurrentLink[],
+  rawTokens: string[],
+  reason: RunStats['heldDeletions'][number]['reason']
+) {
+  for (const link of links) {
+    stats.heldDeletions.push({
+      productId: product.id,
+      productSlug: product.slug,
+      linkId: link.id,
+      ingredientSlug: link.slug,
+      rawTokens,
+      reason,
+    })
+  }
+}
+
+function deletionHold(computed: ComputeResult) {
+  const { unresolvedParentheticalGroups } = computed
+  const holdTokens =
+    computed.unresolvedCiGroups.length > 0
+      ? computed.unresolvedCiGroups
+      : computed.unresolvedOptionalDeclarations.length > 0
+        ? computed.unresolvedOptionalDeclarations
+        : computed.unresolvedLineBoundaries.length > 0
+          ? computed.unresolvedLineBoundaries
+          : unresolvedParentheticalGroups
+  const holdReason: RunStats['heldDeletions'][number]['reason'] =
+    computed.unresolvedCiGroups.length > 0
+      ? 'unresolved-ci-group'
+      : computed.unresolvedOptionalDeclarations.length > 0
+        ? 'optional-declaration'
+        : computed.unresolvedLineBoundaries.length > 0
+          ? 'unresolved-line-boundary'
+          : 'unresolved-parenthetical-group'
+  const holdDeletions = holdTokens.length > 0
+
+  return { holdTokens, holdReason, holdDeletions }
+}
+
+function recordResolution(
+  product: EligibleProduct,
+  computed: ComputeResult,
+  stats: RunStats
+): void {
+  const { unbridged, blocked, collisions } = computed
+  if (computed.unresolvedCiGroups.length > 0) {
+    stats.unresolvedCiGroups.push({
+      productId: product.id,
+      productSlug: product.slug,
+      rawTokens: computed.unresolvedCiGroups,
+    })
+  }
+  if (computed.unresolvedOptionalDeclarations.length > 0) {
+    stats.unresolvedOptionalDeclarations.push({
+      productId: product.id,
+      productSlug: product.slug,
+      rawTokens: computed.unresolvedOptionalDeclarations,
+    })
+  }
+  if (computed.unresolvedLineBoundaries.length > 0) {
+    stats.unresolvedLineBoundaries.push({
+      productId: product.id,
+      productSlug: product.slug,
+      rawTokens: computed.unresolvedLineBoundaries,
+    })
+  }
+  for (const u of unbridged) {
+    stats.unbridgedFreq.set(u, (stats.unbridgedFreq.get(u) ?? 0) + 1)
+  }
+  for (const b of blocked) {
+    stats.blockedFreq.set(b, (stats.blockedFreq.get(b) ?? 0) + 1)
+  }
+  for (const key of collisions) {
+    stats.collisionFreq.set(key, (stats.collisionFreq.get(key) ?? 0) + 1)
+  }
+}
+
+function resolveTargetIds(
+  slugs: string[],
+  input: CorpusReconcileInput,
+  stats: RunStats
+): Map<string, string> {
+  const { onlySlugs, ingredientSlugToId } = input
+
+  const targetIds = new Map<string, string>()
+  for (const slug of slugs) {
+    if (onlySlugs && !onlySlugs.has(slug)) continue
+    const ingredientId = ingredientSlugToId.get(slug)
+    if (!ingredientId) {
+      stats.missingId++
+      continue
+    }
+    stats.slugFreq.set(slug, (stats.slugFreq.get(slug) ?? 0) + 1)
+    targetIds.set(slug, ingredientId)
+  }
+
+  return targetIds
+}
+
+function recordEmptyTarget(
+  product: EligibleProduct,
+  current: CurrentLink[],
+  slugs: string[],
+  computed: ComputeResult,
+  hold: ReturnType<typeof deletionHold>,
+  result: CorpusReconcileResult
+): void {
+  const { stats, writes } = result
+  const { collisions } = computed
+  const { holdTokens, holdReason, holdDeletions } = hold
+  stats.zeroLinks++
+  // Resolved slugs without an id row are seed↔DB drift: counted by stats.missingId,
+  // not a linking-cause bucket.
+  if (slugs.length === 0) stats.zeroBuckets.get(classifyZeroLink(computed))?.push(product.slug)
+  const collisionKeys = new Set(collisions)
+  const collisionLinks = current.filter(
+    (link) => !link.curated && link.canonicalKey !== null && collisionKeys.has(link.canonicalKey)
+  )
+  if (collisionLinks.length > 0 && holdDeletions) {
+    recordHeldDeletions(stats, product, collisionLinks, holdTokens, holdReason)
+  } else if (collisionLinks.length > 0) {
+    for (const link of collisionLinks) {
+      stats.removedFreq.set(link.slug, (stats.removedFreq.get(link.slug) ?? 0) + 1)
+    }
+    stats.removedRows += collisionLinks.length
+    stats.changedProducts++
+    stats.changes.push(formatChange(product.slug, [], collisionLinks))
+    writes.push({ inserts: [], removeIds: collisionLinks.map((link) => link.id) })
+  } else if (current.length > 0) {
+    // A parser miss is not evidence that unrelated existing links are wrong.
+    stats.untouchedNoTarget++
+  }
+}
+
+function reconcileProductTargets(
+  product: EligibleProduct,
+  current: CurrentLink[],
+  targetIds: Map<string, string>,
+  hold: ReturnType<typeof deletionHold>,
+  input: CorpusReconcileInput,
+  result: CorpusReconcileResult
+): void {
+  const { canonicalKeyBySlug, onlySlugs } = input
+  const { holdTokens, holdReason, holdDeletions } = hold
+  const { stats, writes } = result
+  stats.withLinks++
+
+  // Write policy (what gets inserted, kept or deleted) lives in reconcile.ts,
+  // unit-tested separately from this file.
+  const plan = scopeReconcilePlan(
+    planReconcile(current, targetIds.keys(), canonicalKeyBySlug, holdDeletions),
+    onlySlugs
+  )
+  const inserts = plan.add.map((slug) => ({
+    productId: product.id,
+    // planReconcile only ever returns slugs taken from targetIds.
+    ingredientId: targetIds.get(slug) as string,
+    source: 'linker' as const,
+  }))
+  recordHeldDeletions(stats, product, plan.heldDeletions, holdTokens, holdReason)
+  const removeIds = plan.remove.map((c) => c.id)
+  for (const c of plan.remove) {
+    stats.removedFreq.set(c.slug, (stats.removedFreq.get(c.slug) ?? 0) + 1)
+  }
+  for (const c of plan.keptCurated) {
+    stats.keptCurated++
+    if (stats.keptCuratedSamples.length < 20)
+      stats.keptCuratedSamples.push(`${product.slug} · ${c.slug}`)
+  }
+  for (const { slug, heldBy } of plan.aliasConflicts) {
+    stats.aliasConflicts++
+    if (stats.aliasConflictSamples.length < 20)
+      stats.aliasConflictSamples.push(`${product.slug} · ${slug} shadowed by ${heldBy.slug}`)
+  }
+
+  stats.totalPairs += inserts.length
+  stats.removedRows += removeIds.length
+  if (inserts.length > 0 || removeIds.length > 0) {
+    stats.changedProducts++
+    stats.changes.push(formatChange(product.slug, plan.add, plan.remove))
+    writes.push({ inserts, removeIds })
+  }
+}
+
+function planProductReconcile(
+  product: EligibleProduct,
+  input: CorpusReconcileInput,
+  result: CorpusReconcileResult
+): void {
+  const { currentLinks, canonicalKeyToSlug, canonicalKeyBySlug, slugsByCanonicalKey, onlySlugs } =
+    input
+  const { stats } = result
+  const current = currentLinks.get(product.id) ?? []
+  if (!product.inci) {
+    stats.zeroLinks++
+    stats.zeroBuckets.get('no-inci')?.push(product.slug)
+    return
+  }
+  const computed = computeLinks(
+    product.inci,
+    product.category,
     canonicalKeyToSlug,
     canonicalKeyBySlug,
-    slugsByCanonicalKey,
-    onlySlugs,
-  } = input
+    slugsByCanonicalKey
+  )
 
-  const writes: ProductWrite[] = []
-  let withLinks = 0
-  let zeroLinks = 0
-  let totalPairs = 0
-  let removedRows = 0
-  const heldDeletions: RunStats['heldDeletions'] = []
-  const unresolvedCiGroups: RunStats['unresolvedCiGroups'] = []
-  const unresolvedOptionalDeclarations: RunStats['unresolvedOptionalDeclarations'] = []
-  const unresolvedLineBoundaries: RunStats['unresolvedLineBoundaries'] = []
-  let keptCurated = 0
-  let untouchedNoTarget = 0
-  let changedProducts = 0
-  let aliasConflicts = 0
-  const removedFreq = new Map<string, number>()
-  const keptCuratedSamples: string[] = []
-  const aliasConflictSamples: string[] = []
-  const changes: string[] = []
-  const slugFreq = new Map<string, number>()
-  const unbridgedFreq = new Map<string, number>()
-  const blockedFreq = new Map<string, number>()
-  const collisionFreq = new Map<string, number>()
-  const zeroBuckets = new Map<ZeroBucket, string[]>([
-    ['uppercase-mega-token', []],
-    ['non-uppercase-mega-token', []],
-    ['resolved-but-unbridged', []],
-    ['blocked-only', []],
-    ['ambiguous-canonical-key', []],
-    ['nothing-recognized', []],
-    ['no-inci', []],
-  ])
-  let missingId = 0
+  const hold = deletionHold(computed)
+  const heldGenericSlugs = new Set(
+    current
+      .filter((link) => link.curated)
+      .map((link) => GENERIC_FALLBACK_BY_PROPRIETARY_SLUG.get(link.slug))
+      .filter((slug): slug is string => slug !== undefined)
+  )
+  const slugs = computed.slugs.filter((slug) => !heldGenericSlugs.has(slug))
+  if (onlySlugs && !slugs.some((slug) => onlySlugs.has(slug))) return
 
-  function recordHeldDeletions(
-    product: EligibleProduct,
-    links: CurrentLink[],
-    rawTokens: string[],
-    reason: RunStats['heldDeletions'][number]['reason']
-  ) {
-    for (const link of links) {
-      heldDeletions.push({
-        productId: product.id,
-        productSlug: product.slug,
-        linkId: link.id,
-        ingredientSlug: link.slug,
-        rawTokens,
-        reason,
-      })
-    }
+  recordResolution(product, computed, stats)
+  const targetIds = resolveTargetIds(slugs, input, stats)
+  if (targetIds.size === 0) {
+    recordEmptyTarget(product, current, slugs, computed, hold, result)
+    return
   }
+  reconcileProductTargets(product, current, targetIds, hold, input, result)
+}
 
-  for (const product of eligible) {
-    const current = currentLinks.get(product.id) ?? []
-    if (!product.inci) {
-      zeroLinks++
-      zeroBuckets.get('no-inci')?.push(product.slug)
-      continue
-    }
-    const computed = computeLinks(
-      product.inci,
-      product.category,
-      canonicalKeyToSlug,
-      canonicalKeyBySlug,
-      slugsByCanonicalKey
-    )
-    const { unbridged, blocked, collisions, unresolvedParentheticalGroups } = computed
-    const holdTokens =
-      computed.unresolvedCiGroups.length > 0
-        ? computed.unresolvedCiGroups
-        : computed.unresolvedOptionalDeclarations.length > 0
-          ? computed.unresolvedOptionalDeclarations
-          : computed.unresolvedLineBoundaries.length > 0
-            ? computed.unresolvedLineBoundaries
-            : unresolvedParentheticalGroups
-    const holdReason =
-      computed.unresolvedCiGroups.length > 0
-        ? 'unresolved-ci-group'
-        : computed.unresolvedOptionalDeclarations.length > 0
-          ? 'optional-declaration'
-          : computed.unresolvedLineBoundaries.length > 0
-            ? 'unresolved-line-boundary'
-            : 'unresolved-parenthetical-group'
-    const holdDeletions = holdTokens.length > 0
-    const heldGenericSlugs = new Set(
-      current
-        .filter((link) => link.curated)
-        .map((link) => GENERIC_FALLBACK_BY_PROPRIETARY_SLUG.get(link.slug))
-        .filter((slug): slug is string => slug !== undefined)
-    )
-    const slugs = computed.slugs.filter((slug) => !heldGenericSlugs.has(slug))
-    if (onlySlugs && !slugs.some((slug) => onlySlugs.has(slug))) continue
-    if (computed.unresolvedCiGroups.length > 0) {
-      unresolvedCiGroups.push({
-        productId: product.id,
-        productSlug: product.slug,
-        rawTokens: computed.unresolvedCiGroups,
-      })
-    }
-    if (computed.unresolvedOptionalDeclarations.length > 0) {
-      unresolvedOptionalDeclarations.push({
-        productId: product.id,
-        productSlug: product.slug,
-        rawTokens: computed.unresolvedOptionalDeclarations,
-      })
-    }
-    if (computed.unresolvedLineBoundaries.length > 0) {
-      unresolvedLineBoundaries.push({
-        productId: product.id,
-        productSlug: product.slug,
-        rawTokens: computed.unresolvedLineBoundaries,
-      })
-    }
-    for (const u of unbridged) {
-      unbridgedFreq.set(u, (unbridgedFreq.get(u) ?? 0) + 1)
-    }
-    for (const b of blocked) {
-      blockedFreq.set(b, (blockedFreq.get(b) ?? 0) + 1)
-    }
-    for (const key of collisions) {
-      collisionFreq.set(key, (collisionFreq.get(key) ?? 0) + 1)
-    }
-
-    const targetIds = new Map<string, string>()
-    for (const slug of slugs) {
-      if (onlySlugs && !onlySlugs.has(slug)) continue
-      const ingredientId = ingredientSlugToId.get(slug)
-      if (!ingredientId) {
-        missingId++
-        continue
-      }
-      slugFreq.set(slug, (slugFreq.get(slug) ?? 0) + 1)
-      targetIds.set(slug, ingredientId)
-    }
-
-    if (targetIds.size === 0) {
-      zeroLinks++
-      // Resolved slugs without an id row are seed↔DB drift: counted by missingId,
-      // not a linking-cause bucket.
-      if (slugs.length === 0) zeroBuckets.get(classifyZeroLink(computed))?.push(product.slug)
-      const collisionKeys = new Set(collisions)
-      const collisionLinks = current.filter(
-        (link) =>
-          !link.curated && link.canonicalKey !== null && collisionKeys.has(link.canonicalKey)
-      )
-      if (collisionLinks.length > 0 && holdDeletions) {
-        recordHeldDeletions(product, collisionLinks, holdTokens, holdReason)
-      } else if (collisionLinks.length > 0) {
-        for (const link of collisionLinks) {
-          removedFreq.set(link.slug, (removedFreq.get(link.slug) ?? 0) + 1)
-        }
-        removedRows += collisionLinks.length
-        changedProducts++
-        changes.push(formatChange(product.slug, [], collisionLinks))
-        writes.push({ inserts: [], removeIds: collisionLinks.map((link) => link.id) })
-      } else if (current.length > 0) {
-        // A parser miss is not evidence that unrelated existing links are wrong.
-        untouchedNoTarget++
-      }
-      continue
-    }
-    withLinks++
-
-    // Write policy (what gets inserted, kept or deleted) lives in reconcile.ts,
-    // unit-tested separately from this file.
-    const plan = scopeReconcilePlan(
-      planReconcile(current, targetIds.keys(), canonicalKeyBySlug, holdDeletions),
-      onlySlugs
-    )
-    const inserts = plan.add.map((slug) => ({
-      productId: product.id,
-      // planReconcile only ever returns slugs taken from targetIds.
-      ingredientId: targetIds.get(slug) as string,
-      source: 'linker' as const,
-    }))
-    recordHeldDeletions(product, plan.heldDeletions, holdTokens, holdReason)
-    const removeIds = plan.remove.map((c) => c.id)
-    for (const c of plan.remove) {
-      removedFreq.set(c.slug, (removedFreq.get(c.slug) ?? 0) + 1)
-    }
-    for (const c of plan.keptCurated) {
-      keptCurated++
-      if (keptCuratedSamples.length < 20) keptCuratedSamples.push(`${product.slug} · ${c.slug}`)
-    }
-    for (const { slug, heldBy } of plan.aliasConflicts) {
-      aliasConflicts++
-      if (aliasConflictSamples.length < 20)
-        aliasConflictSamples.push(`${product.slug} · ${slug} shadowed by ${heldBy.slug}`)
-    }
-
-    totalPairs += inserts.length
-    removedRows += removeIds.length
-    if (inserts.length > 0 || removeIds.length > 0) {
-      changedProducts++
-      changes.push(formatChange(product.slug, plan.add, plan.remove))
-      writes.push({ inserts, removeIds })
-    }
-  }
-
-  return {
-    writes,
-    stats: {
-      withLinks,
-      zeroLinks,
-      totalPairs,
-      removedRows,
-      heldDeletions,
-      unresolvedCiGroups,
-      unresolvedOptionalDeclarations,
-      unresolvedLineBoundaries,
-      keptCurated,
-      untouchedNoTarget,
-      changedProducts,
-      aliasConflicts,
-      missingId,
-      slugFreq,
-      unbridgedFreq,
-      blockedFreq,
-      collisionFreq,
-      removedFreq,
-      keptCuratedSamples,
-      aliasConflictSamples,
-      changes,
-      zeroBuckets,
-    },
-  }
+function planCorpusReconcile(input: CorpusReconcileInput): CorpusReconcileResult {
+  const result: CorpusReconcileResult = { writes: [], stats: emptyRunStats() }
+  for (const product of input.eligible) planProductReconcile(product, input, result)
+  return result
 }
 
 function comparableCorpusSnapshot(snapshot: CorpusSnapshot) {

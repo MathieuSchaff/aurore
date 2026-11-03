@@ -10,6 +10,27 @@ const knownLabels = new Set(
 )
 const maxLabelLength = Math.max(...Array.from(knownLabels, (label) => label.length))
 
+function knownLineEndings(lines: string[], start: number): number[] {
+  const endings: number[] = []
+  for (let end = start + 1; end <= lines.length; end++) {
+    const label = labelKey(lines.slice(start, end).join(' '))
+    if (label.length > maxLabelLength) break
+    if (knownLabels.has(label)) endings.push(end)
+  }
+  return endings
+}
+
+function reconstructLines(lines: string[], next: Uint32Array): string[] | null {
+  const labels: string[] = []
+  for (let start = 0; start < lines.length; ) {
+    const end = next[start]
+    if (end === undefined || end <= start) return null
+    labels.push(lines.slice(start, end).join(' '))
+    start = end
+  }
+  return labels
+}
+
 function segmentKnownLines(token: string): string[] | null {
   const lines = token
     .split(/\r\n?|\n/)
@@ -21,11 +42,9 @@ function segmentKnownLines(token: string): string[] | null {
   const next = new Uint32Array(lines.length)
   counts[lines.length] = 1
   for (let start = lines.length - 1; start >= 0; start--) {
-    for (let end = start + 1; end <= lines.length; end++) {
-      const label = labelKey(lines.slice(start, end).join(' '))
-      if (label.length > maxLabelLength) break
+    for (const end of knownLineEndings(lines, start)) {
       const suffixCount = counts[end] ?? 0
-      if (!knownLabels.has(label) || suffixCount === 0) continue
+      if (suffixCount === 0) continue
       counts[start] = Math.min(2, (counts[start] ?? 0) + suffixCount)
       next[start] = end
       // A known compound and two known ingredients are equally plausible here
@@ -34,14 +53,7 @@ function segmentKnownLines(token: string): string[] | null {
   }
   if (counts[0] !== 1) return null
 
-  const labels: string[] = []
-  for (let start = 0; start < lines.length; ) {
-    const end = next[start]
-    if (end === undefined || end <= start) return null
-    labels.push(lines.slice(start, end).join(' '))
-    start = end
-  }
-  return labels
+  return reconstructLines(lines, next)
 }
 
 export function foldKnownInciLines(inci: string): string | null {

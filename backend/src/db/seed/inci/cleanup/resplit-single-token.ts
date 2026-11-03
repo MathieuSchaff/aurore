@@ -127,30 +127,46 @@ function retainsDeclarationSpans(
   return true
 }
 
-function retainsAnnotations(source: string, result: string): boolean {
+type AnnotationSpan = { start: number; end: number }
+
+function annotationStart(source: string, index: number, spans: AnnotationSpan[]): number {
+  const previous = spans.at(-1)
+  if (previous && source.slice(previous.end, index).trim() === '') {
+    spans.pop()
+    return previous.start
+  }
+  const word = source.slice(0, index).match(/[^,\s;•()[\]]+\s*$/u)
+  return word && /[\p{L}\p{N}]/u.test(word[0]) ? (word.index ?? index) : index
+}
+
+function closingBracket(char: string | undefined): string | null {
+  if (char === '(') return ')'
+  if (char === '[') return ']'
+  return null
+}
+
+function annotationSpans(source: string): AnnotationSpan[] | null {
   const spans: Array<{ start: number; end: number }> = []
   const closing: string[] = []
   let start = 0
   for (let index = 0; index < source.length; index++) {
     const char = source[index]
-    if (char === '(' || char === '[') {
-      if (closing.length === 0) {
-        const previous = spans.at(-1)
-        if (previous && source.slice(previous.end, index).trim() === '') {
-          start = previous.start
-          spans.pop()
-        } else {
-          const word = source.slice(0, index).match(/[^,\s;•()[\]]+\s*$/u)
-          start = word && /[\p{L}\p{N}]/u.test(word[0]) ? (word.index ?? index) : index
-        }
-      }
-      closing.push(char === '(' ? ')' : ']')
-    } else if (char === ')' || char === ']') {
-      if (closing.pop() !== char) return false
-      if (closing.length === 0) spans.push({ start, end: index + 1 })
+    const expectedClosing = closingBracket(char)
+    if (expectedClosing) {
+      if (closing.length === 0) start = annotationStart(source, index, spans)
+      closing.push(expectedClosing)
+      continue
     }
+    if (char !== ')' && char !== ']') continue
+    if (closing.pop() !== char) return null
+    if (closing.length === 0) spans.push({ start, end: index + 1 })
   }
-  if (closing.length > 0) return false
+  return closing.length > 0 ? null : spans
+}
+
+function retainsAnnotations(source: string, result: string): boolean {
+  const spans = annotationSpans(source)
+  if (spans === null) return false
   let retained = result.replace(/\s+/g, ' ')
   for (const span of spans) {
     const declaration = source.slice(span.start, span.end).replace(/\s+/g, ' ')
@@ -178,6 +194,66 @@ function retainsInputQuality(source: string, result: string): boolean {
   )
 }
 
+function findLongestAlias(words: string[], start: number): number | null {
+  let matched: number | null = null
+  const maxWindow = words.includes('/', start)
+    ? words.length - start
+    : Math.min(MAX_ALIAS_WINDOW, words.length - start)
+  for (let n = maxWindow; n >= 1; n--) {
+    const candidate = words.slice(start, start + n).join(' ')
+    const norm = normalize(candidate)
+    // Short aliases keep their existing annotation window
+    if (n > MAX_WINDOW && !candidate.includes(' / ') && norm.split(/\s+/).length <= MAX_WINDOW)
+      continue
+    if (aliasIndex.has(norm)) {
+      matched = n
+      break
+    }
+  }
+  return matched
+}
+
+function retainsSplitQuantities(stripped: string, out: string[]): boolean {
+  if (!retainsDeclarationSpans(stripped, out, /\S+?\s*(?:\[\s*nano\s*\]|\(\s*nano\s*\))/gi)) {
+    heldNanoRegions++
+    return false
+  }
+  // A comparison or range detached from its label would become a separate list entry
+  if (
+    !retainsDeclarationSpans(
+      stripped,
+      out,
+      /\S+\s+(?:\(\s*)?(?:(?:[<>]=?|[≤≥≈~])\s*)?(?:\d+(?:[.,]\d+)?|[.,]\d+)(?:[eE][+-]?\d+)?(?:\s*(?:[-\u2013\u2014\u2212]|to|à)\s*(?:\d+(?:[.,]\d+)?|[.,]\d+)(?:[eE][+-]?\d+)?)?\s*%(?:\s*\))?/gi
+    )
+  ) {
+    heldPercentageRegions++
+    return false
+  }
+  // A ppm quantity must keep qualifying its source word after repair
+  if (
+    !retainsDeclarationSpans(
+      stripped,
+      out,
+      /\S+\s+(?:\(\s*)?(?:(?:[<>]=?|[≤≥≈~])\s*)?(?:\d+(?:[.,]\d+)?|[.,]\d+)(?:[eE][+-]?\d+)?(?:\s*(?:[-\u2013\u2014\u2212]|to|à)\s*(?:\d+(?:[.,]\d+)?|[.,]\d+)(?:[eE][+-]?\d+)?)?\s*ppm\b(?:\s*\))?/gi
+    )
+  ) {
+    heldPpmRegions++
+    return false
+  }
+  // A mass ratio must keep qualifying its source word after repair
+  if (
+    !retainsDeclarationSpans(
+      stripped,
+      out,
+      /\S+\s+(?:\(\s*)?(?:(?:[<>]=?|[≤≥≈~])\s*)?(?:\d+(?:[.,]\d+)?|[.,]\d+)(?:[eE][+-]?\d+)?(?:\s*(?:[-\u2013\u2014\u2212]|to|à)\s*(?:\d+(?:[.,]\d+)?|[.,]\d+)(?:[eE][+-]?\d+)?)?\s*mg\s*\/\s*g\b(?:\s*\))?/gi
+    )
+  ) {
+    heldMassRatioRegions++
+    return false
+  }
+  return true
+}
+
 function longestMatchSplit(inci: string): string[] | null {
   const stripped = inci.replace(LEADING_PREFIX_RX, '').trim()
   const words = stripped.split(/\s+/).filter((w) => w.length > 0)
@@ -189,21 +265,7 @@ function longestMatchSplit(inci: string): string[] | null {
   let matchedSpans = 0
   let unmatchedSpans = 0
   while (i < words.length) {
-    let matched: number | null = null
-    const maxWindow = words.includes('/', i)
-      ? words.length - i
-      : Math.min(MAX_ALIAS_WINDOW, words.length - i)
-    for (let n = maxWindow; n >= 1; n--) {
-      const candidate = words.slice(i, i + n).join(' ')
-      const norm = normalize(candidate)
-      // Short aliases keep their existing annotation window
-      if (n > MAX_WINDOW && !candidate.includes(' / ') && norm.split(/\s+/).length <= MAX_WINDOW)
-        continue
-      if (aliasIndex.has(norm)) {
-        matched = n
-        break
-      }
-    }
+    const matched = findLongestAlias(words, i)
     if (matched !== null) {
       if (buf.length > 0) {
         out.push(buf.join(' '))
@@ -229,43 +291,7 @@ function longestMatchSplit(inci: string): string[] | null {
   // otherwise the resplit is likely shredding a marketing blob into noise.
   const ratio = matchedSpans / (matchedSpans + unmatchedSpans)
   if (ratio < 0.7) return null
-  if (!retainsDeclarationSpans(stripped, out, /\S+?\s*(?:\[\s*nano\s*\]|\(\s*nano\s*\))/gi)) {
-    heldNanoRegions++
-    return null
-  }
-  // A comparison or range detached from its label would become a separate list entry
-  if (
-    !retainsDeclarationSpans(
-      stripped,
-      out,
-      /\S+\s+(?:\(\s*)?(?:(?:[<>]=?|[≤≥≈~])\s*)?(?:\d+(?:[.,]\d+)?|[.,]\d+)(?:[eE][+-]?\d+)?(?:\s*(?:[-\u2013\u2014\u2212]|to|à)\s*(?:\d+(?:[.,]\d+)?|[.,]\d+)(?:[eE][+-]?\d+)?)?\s*%(?:\s*\))?/gi
-    )
-  ) {
-    heldPercentageRegions++
-    return null
-  }
-  // A ppm quantity must keep qualifying its source word after repair
-  if (
-    !retainsDeclarationSpans(
-      stripped,
-      out,
-      /\S+\s+(?:\(\s*)?(?:(?:[<>]=?|[≤≥≈~])\s*)?(?:\d+(?:[.,]\d+)?|[.,]\d+)(?:[eE][+-]?\d+)?(?:\s*(?:[-\u2013\u2014\u2212]|to|à)\s*(?:\d+(?:[.,]\d+)?|[.,]\d+)(?:[eE][+-]?\d+)?)?\s*ppm\b(?:\s*\))?/gi
-    )
-  ) {
-    heldPpmRegions++
-    return null
-  }
-  // A mass ratio must keep qualifying its source word after repair
-  if (
-    !retainsDeclarationSpans(
-      stripped,
-      out,
-      /\S+\s+(?:\(\s*)?(?:(?:[<>]=?|[≤≥≈~])\s*)?(?:\d+(?:[.,]\d+)?|[.,]\d+)(?:[eE][+-]?\d+)?(?:\s*(?:[-\u2013\u2014\u2212]|to|à)\s*(?:\d+(?:[.,]\d+)?|[.,]\d+)(?:[eE][+-]?\d+)?)?\s*mg\s*\/\s*g\b(?:\s*\))?/gi
-    )
-  ) {
-    heldMassRatioRegions++
-    return null
-  }
+  if (!retainsSplitQuantities(stripped, out)) return null
   return out
 }
 

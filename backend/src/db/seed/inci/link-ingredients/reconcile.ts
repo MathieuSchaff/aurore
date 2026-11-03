@@ -23,6 +23,19 @@ export interface ReconcilePlan {
   aliasConflicts: Array<{ slug: string; heldBy: CurrentLink }>
 }
 
+function indexSurvivingIdentities(
+  current: CurrentLink[],
+  stale: ReadonlySet<CurrentLink>,
+  holdDeletions: boolean
+): Map<string, CurrentLink> {
+  const survivors = new Map<string, CurrentLink>()
+  for (const link of current) {
+    if (!link.canonicalKey || (stale.has(link) && !link.curated && !holdDeletions)) continue
+    if (!survivors.has(link.canonicalKey)) survivors.set(link.canonicalKey, link)
+  }
+  return survivors
+}
+
 export function planReconcile(
   current: CurrentLink[],
   target: Iterable<string>,
@@ -48,12 +61,7 @@ export function planReconcile(
   const heldDeletions = holdDeletions ? automaticStale : []
   const keptCurated = [...stale].filter((c) => c.curated)
 
-  // Only a row that survives this run can shadow an insert. A row about to be deleted cannot.
-  const survivorByIdentity = new Map<string, CurrentLink>()
-  for (const c of current) {
-    if (!c.canonicalKey || (stale.has(c) && !c.curated && !holdDeletions)) continue
-    if (!survivorByIdentity.has(c.canonicalKey)) survivorByIdentity.set(c.canonicalKey, c)
-  }
+  const survivorByIdentity = indexSurvivingIdentities(current, stale, holdDeletions)
 
   const add: string[] = []
   const aliasConflicts: ReconcilePlan['aliasConflicts'] = []

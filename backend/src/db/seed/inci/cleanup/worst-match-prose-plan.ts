@@ -52,6 +52,18 @@ function matches(pattern: RegExp, text: string): boolean {
   return new RegExp(pattern.source, pattern.flags).test(text)
 }
 
+function planHtmlExtraction(after: string): WorstMatchFixPlan {
+  const payload = after.trim().replace(/^[\s,]+/g, '')
+  // Folding must not discard final punctuation that marks damaged input
+  const ending = payload.match(/[.,;…]+$/)?.[0] ?? ''
+  const folded = foldKnownInciLines(payload.slice(0, payload.length - ending.length))
+  if (folded === null) return { kind: 'reject', reason: 'unresolved-line-boundaries' }
+  const next = trimFormulaEnd(folded.replace(/\s+/g, ' ') + ending)
+  if (!/[^\s,.;…]/u.test(next)) return { kind: 'reject', reason: 'empty-extraction' }
+  if (MARKUP_RESIDUE_RX.test(next)) return { kind: 'reject', reason: 'markup-residue' }
+  return { kind: 'apply', next }
+}
+
 export function planWorstMatchFix(fix: WorstMatchFix, current: string | null): WorstMatchFixPlan {
   if (fix.action === 'null') {
     if (current === null) return { kind: 'noop', reason: 'already-applied' }
@@ -80,22 +92,9 @@ export function planWorstMatchFix(fix: WorstMatchFix, current: string | null): W
     }
     return { kind: 'noop', reason: 'marker-absent' }
   }
-  let next: string
-  if (fix.action === 'strip-html') {
-    const payload = after.trim().replace(/^[\s,]+/g, '')
-    // Keep final punctuation outside the splitter so line folding cannot discard it
-    const ending = payload.match(/[.,;…]+$/)?.[0] ?? ''
-    const folded = foldKnownInciLines(payload.slice(0, payload.length - ending.length))
-    if (folded === null) return { kind: 'reject', reason: 'unresolved-line-boundaries' }
-    next = trimFormulaEnd(folded.replace(/\s+/g, ' ') + ending)
-  } else {
-    next = after.trimStart()
-  }
-  if (next.length === 0 || (fix.action === 'strip-html' && !/[^\s,.;…]/u.test(next))) {
-    return { kind: 'reject', reason: 'empty-extraction' }
-  }
-  if (fix.action === 'strip-html' && MARKUP_RESIDUE_RX.test(next)) {
-    return { kind: 'reject', reason: 'markup-residue' }
-  }
-  return { kind: 'apply', next }
+  if (fix.action === 'strip-html') return planHtmlExtraction(after)
+  const next = after.trimStart()
+  return next.length === 0
+    ? { kind: 'reject', reason: 'empty-extraction' }
+    : { kind: 'apply', next }
 }
