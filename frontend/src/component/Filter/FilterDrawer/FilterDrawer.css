@@ -147,13 +147,6 @@
   display: block;
 }
 
-.filter-drawer__body > fieldset {
-  border: none;
-  padding: 0;
-  margin: 0;
-  min-inline-size: 0;
-}
-
 /* The profile toggle sits above accordions as a global super-filter;
    flattened to match accordion rows. The base .toggle card border/radius reads as an odd inset box here. */
 .filter-drawer__body > .toggle {
@@ -229,42 +222,28 @@
   font-size: var(--text-sm);
 }
 
-/* Drawer-scoped: idle chips render as white pills against the tinted body. */
-.filter-drawer__body .chip:not(.chip--active) {
-  background: var(--bg-card);
-  border-color: oklch(from var(--color-primary) l c h / 0.5);
-  color: var(--color-primary-deeper, var(--color-primary));
-  font-weight: var(--font-semibold);
-  box-shadow: 0 1px 2px oklch(from var(--color-primary) l c h / 0.08);
+/* Chips inherit drawer tones without coupling their state selectors to the drawer */
+.filter-drawer__body {
+  --chip-idle-background: var(--bg-card);
+  --chip-idle-border: oklch(from var(--color-primary) l c h / 0.5);
+  --chip-idle-color: var(--color-primary-deeper, var(--color-primary));
+  --chip-idle-weight: var(--font-semibold);
+  --chip-idle-shadow: 0 1px 2px oklch(from var(--color-primary) l c h / 0.08);
+  --chip-hover-background: oklch(from var(--color-primary) l c h / 0.1);
+  --chip-hover-border: var(--color-primary);
+  --chip-hover-color: var(--color-primary);
+  --chip-hover-shadow: 0 4px 12px oklch(from var(--color-primary) l c h / 0.25);
+  --chip-more-hover-transform: translateY(-1px);
+  --chip-sm-active-background: var(--color-primary);
+  --chip-sm-active-color: var(--color-primary-text);
+  --chip-sm-active-shadow: 0 4px 12px oklch(from var(--color-primary) l c h / 0.4);
+  --chip-sm-active-hover-background: var(--color-primary-hover, var(--color-primary));
+  --chip-sm-active-hover-shadow: 0 6px 16px oklch(from var(--color-primary) l c h / 0.5);
 }
 
-/* --color-primary-deeper is tuned for light pills; in dark themes it reads dark-on-dark.
-   Neutral label restores contrast; border + active fill still carry the brand. */
-[data-theme="dark"] .filter-drawer__body .chip:not(.chip--active) {
-  color: var(--text-primary);
-}
-
-.filter-drawer__body .chip:not(.chip--active):hover:not(:disabled) {
-  background: oklch(from var(--color-primary) l c h / 0.1);
-  border-color: var(--color-primary);
-  color: var(--color-primary);
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px oklch(from var(--color-primary) l c h / 0.25);
-}
-
-/* Bolder than the default ring so selection reads instantly against idle white pills. */
-.filter-drawer__body .chip--sm.chip--active {
-  background: var(--color-primary);
-  border-color: var(--color-primary);
-  color: var(--color-primary-text);
-  box-shadow: 0 4px 12px oklch(from var(--color-primary) l c h / 0.4);
-}
-
-.filter-drawer__body .chip--sm.chip--active:hover:not(:disabled) {
-  background: var(--color-primary-hover, var(--color-primary));
-  border-color: var(--color-primary-hover, var(--color-primary));
-  color: var(--color-primary-text);
-  box-shadow: 0 6px 16px oklch(from var(--color-primary) l c h / 0.5);
+/* Primary-deeper is tuned for light pills; dark themes need neutral ink */
+[data-theme="dark"] .filter-drawer__body {
+  --chip-idle-color: var(--text-primary);
 }
 
 /* Outline so inputs don't disappear on the tinted body. */
@@ -286,7 +265,7 @@
   padding: var(--space-2) var(--space-5) var(--space-4);
 }
 
-.filter-drawer__body .filter-drawer__group--nested + .filter-drawer__group--nested {
+.filter-drawer__group--nested + .filter-drawer__group--nested {
   border-top: var(--rule-section);
   border-top-style: dashed;
   padding-top: var(--space-4);

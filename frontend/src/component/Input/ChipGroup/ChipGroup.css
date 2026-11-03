@@ -7,10 +7,11 @@
 /* Idle chips carry the brand tint without competing with the active state. */
 .chip {
   border-radius: var(--radius-full);
-  border: 1px solid var(--border-default);
-  background: var(--color-primary-subtle);
-  color: var(--text-secondary);
+  border: 1px solid var(--chip-idle-border, var(--border-default));
+  background: var(--chip-idle-background, var(--color-primary-subtle));
+  color: var(--chip-idle-color, var(--text-secondary));
   font-weight: var(--font-medium);
+  box-shadow: var(--chip-idle-shadow, none);
   cursor: pointer;
   transition:
     border-color var(--transition-fast),
@@ -20,10 +21,15 @@
     box-shadow var(--transition-fast);
 }
 
+.chip:not(.chip--active) {
+  font-weight: var(--chip-idle-weight, var(--font-medium));
+}
+
 .chip:hover:not(:disabled) {
-  background: oklch(from var(--color-primary) l c h / 0.12);
-  border-color: oklch(from var(--color-primary) l c h / 0.5);
-  color: var(--text-primary);
+  background: var(--chip-hover-background, oklch(from var(--color-primary) l c h / 0.12));
+  border-color: var(--chip-hover-border, oklch(from var(--color-primary) l c h / 0.5));
+  color: var(--chip-hover-color, var(--text-primary));
+  box-shadow: var(--chip-hover-shadow, none);
   transform: translateY(-1px);
 }
 
@@ -65,33 +71,33 @@
 /* Ring style at sm so dense chip lists stay scannable. */
 /* Text on a primary tint takes the --on-tint-l ink; the border keeps the vivid brand hue. */
 .chip--sm.chip--active {
-  background: oklch(from var(--color-primary) l c h / 0.14);
+  background: var(--chip-sm-active-background, oklch(from var(--color-primary) l c h / 0.14));
   border-color: var(--color-primary);
-  color: oklch(from var(--color-primary) var(--on-tint-l) c h);
+  color: var(--chip-sm-active-color, oklch(from var(--color-primary) var(--on-tint-l) c h));
   font-weight: var(--font-semibold);
-  box-shadow: none;
+  box-shadow: var(--chip-sm-active-shadow, none);
 }
 
 .chip--sm.chip--active:hover:not(:disabled) {
-  background: oklch(from var(--color-primary) l c h / 0.2);
-  box-shadow: none;
+  background: var(--chip-sm-active-hover-background, oklch(from var(--color-primary) l c h / 0.2));
+  box-shadow: var(--chip-sm-active-hover-shadow, none);
 }
 
 /* Accent so "Voir tout" reads as an action, not another idle chip. */
 .chip--more {
   border-style: dashed;
-  border-color: oklch(from var(--color-accent) l c h / 0.5);
-  background: transparent;
-  color: var(--color-accent-on);
+  border-color: var(--chip-idle-border, oklch(from var(--color-accent) l c h / 0.5));
+  background: var(--chip-idle-background, transparent);
+  color: var(--chip-idle-color, var(--color-accent-on));
   font-style: italic;
 }
 
 /* Hover reads through border + tint; text stays on the AA-safe tone. */
 .chip--more:hover:not(:disabled) {
   border-style: solid;
-  border-color: var(--color-accent);
-  background: oklch(from var(--color-accent) l c h / 0.1);
-  transform: none;
+  border-color: var(--chip-hover-border, var(--color-accent));
+  background: var(--chip-hover-background, oklch(from var(--color-accent) l c h / 0.1));
+  transform: var(--chip-more-hover-transform, none);
 }
 
 .chip__count {

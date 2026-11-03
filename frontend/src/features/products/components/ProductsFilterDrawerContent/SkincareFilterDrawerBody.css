@@ -69,7 +69,7 @@
   font-size: var(--text-xs);
 }
 
-.button.skincare-filter-drawer__intent:hover:not(:disabled) {
+.button.skincare-filter-drawer__intent:hover:enabled {
   border-color: var(--color-primary);
   background: oklch(from var(--color-primary) l c h / 0.08);
 }
@@ -87,7 +87,7 @@
   box-shadow: 0 4px 14px oklch(from var(--color-primary) l c h / 0.3);
 }
 
-.button.skincare-filter-drawer__intent.is-active small {
+.skincare-filter-drawer__intent.is-active small {
   color: inherit;
   opacity: 0.82;
 }
