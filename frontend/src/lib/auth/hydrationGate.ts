@@ -1,12 +1,9 @@
 import { useEffect } from 'react'
 
-// True from the router's hydrate hook to the root component's mount effect
-// A guard that throws a router redirect inside that window makes the router swap the
-// matches while React still hydrates the server document, so the guarded route's
-// pending skeleton is reconciled against the login shell and React reports #418/#422
-// Suspense boundaries hydrate after the root commit, so nothing in the app can say
-// "fully hydrated": guards leave the document instead of routing
-// Stays false everywhere else, SPA navigations, the server and unit tests never set it
+// Router redirects during hydration replace server matches and cause React #418/#422
+// This window lasts from the hydrate hook to root mount; Suspense can hydrate later,
+// so guards leave the document instead of assuming the root means fully hydrated
+// SPA navigation, SSR and unit tests never open this window
 let hydrating = false
 
 export function markHydrationStarted(): void {

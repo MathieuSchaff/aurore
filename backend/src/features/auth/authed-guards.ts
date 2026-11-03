@@ -5,13 +5,9 @@ import { rateLimiterFunc } from '../../utils/rateLimiter'
 import { requireJwtAuth, requireNotBanned } from './middleware'
 import { withRlsContext } from './rls-context.middleware'
 
-// Guards for authed routers, in this order: rate limit, JWT, RLS tx, ban check
-// This rate limit is a second budget on top of globalRateLimiterFunc (index.ts, own store)
-// Routers that mostly read (user-products, collection, profile) skip it on purpose
-// and rely on the root one plus nginx
-// The ban check reads ban rows under RLS, so it must run inside the request transaction
-// requireAdmin and requireContentModerator stay per route
-// A guard here would leak onto sibling routers and block contributors
+// Use only on an exclusive router prefix: blanket guards also affect sibling routes
+// This adds a separate rate budget; read-heavy routers rely on the root budget and nginx
+// Ban reads need the RLS transaction; role guards stay on individual routes
 export const applyAuthedGuards = (app: Hono<AppEnv>): Hono<AppEnv> => {
   app.use('*', rateLimiterFunc)
   app.use('*', requireJwtAuth)
