@@ -48,7 +48,7 @@
 .cmp-table-frame.is-wide .cmp-table__pinned {
   position: sticky;
   left: 0;
-  z-index: 1;
+  z-index: var(--cmp-pinned-z, 1);
   background: var(--bg-card);
 }
 
@@ -63,8 +63,8 @@
 }
 
 /* The corner covers both the row labels and the product headers when scrolling */
-.cmp-table-frame.is-wide .cmp-table__head .cmp-table__pinned {
-  z-index: 3;
+.cmp-table__head {
+  --cmp-pinned-z: 3;
 }
 
 .cmp-table__photo-link {
