@@ -1,12 +1,7 @@
-// Checks vegan tags without changing the catalogue
-// The tag fires on most of the corpus, so the risk is false positives, not missed products
-// The tag must be precise before we show it in the UI
-// The pattern list lives here (TIER_A_PATTERNS below) and nowhere else:
-// no pass reads the INCI to look for animal ingredients
-// `vegan` comes from the algo-derm signal (passes/algo-derm-detection.ts)
-// and from brand certifications (passes/brand-cert-detection.ts)
-// Tier C is already covered and only kept as a sanity check:
-// collagen, keratin, milk, snail, beeswax, lanolin
+// Audit false positives first: vegan matches most of the corpus
+// These animal-pattern tiers are audit evidence, not detection rules
+// Production tags come from algo-derm and brand certifications
+// Dry-run by default; PRUNE=1 removes vegan rows matching Tier A patterns
 
 import { normalize, splitINCI } from 'algo-derm'
 import { and, eq, ilike, inArray, or } from 'drizzle-orm'

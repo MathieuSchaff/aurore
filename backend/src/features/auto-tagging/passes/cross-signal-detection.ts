@@ -186,52 +186,55 @@ const PINNED_DOSE_RULES: Record<string, number> = {
 
 // Match the maximum relative interval width accepted by the concentration reading
 const DOSE_MAX_RELATIVE_INTERVAL_WIDTH = 0.5
+function validConcentrationInterval(mean: number, lo: number, hi: number): boolean {
+  return (
+    [mean, lo, hi].every(Number.isFinite) &&
+    lo > 0 &&
+    hi > lo &&
+    hi <= 100 &&
+    mean >= lo &&
+    mean <= hi
+  )
+}
+
+function inferredDoseReachesThreshold(
+  estimate: ProductAssessment['matchedEvidence'][number]['concentrationEstimate'],
+  threshold: number
+): boolean {
+  const { solverMeanPct: mean, solverCiLowPct: lo, solverCiHighPct: hi } = estimate
+  if (
+    mean === undefined ||
+    lo === undefined ||
+    hi === undefined ||
+    !validConcentrationInterval(mean, lo, hi)
+  )
+    return false
+  return (hi - lo) / mean <= DOSE_MAX_RELATIVE_INTERVAL_WIDTH && lo >= threshold
+}
+
+function concentrationSupportsAvoid(
+  evidence: ProductAssessment['matchedEvidence'][number]
+): boolean {
+  const lowerInci = evidence.evidence.inci.toLowerCase()
+  const cappedThreshold = CAPPED_DOSE_RULES[lowerInci]
+  const threshold = cappedThreshold ?? PINNED_DOSE_RULES[lowerInci]
+  if (threshold === undefined) return false
+
+  // A declared dose takes precedence even when it is below the threshold
+  const { claimPct } = evidence.concentrationEstimate
+  if (claimPct !== undefined) {
+    return Number.isFinite(claimPct) && claimPct >= threshold && claimPct <= 100
+  }
+  return (
+    cappedThreshold !== undefined &&
+    inferredDoseReachesThreshold(evidence.concentrationEstimate, threshold)
+  )
+}
+
 export function detectConcentrationAvoidTags(
   assessment: ProductAssessment,
   kind: ProductKind
 ): SkincareProductTagSlug[] {
   if (!LEAVE_ON_KINDS.has(kind)) return []
-
-  const tags = new Set<SkincareProductTagSlug>()
-  for (const evidence of assessment.matchedEvidence) {
-    const {
-      solverMeanPct: mean,
-      solverCiLowPct: lo,
-      solverCiHighPct: hi,
-      claimPct,
-    } = evidence.concentrationEstimate
-    const lowerInci = evidence.evidence.inci.toLowerCase()
-    const cappedThreshold = CAPPED_DOSE_RULES[lowerInci]
-    const threshold = cappedThreshold ?? PINNED_DOSE_RULES[lowerInci]
-    if (threshold === undefined) continue
-
-    // Declared doses take precedence over inferred values, including below threshold.
-    if (claimPct !== undefined) {
-      if (Number.isFinite(claimPct) && claimPct >= threshold && claimPct <= 100) {
-        tags.add(S.PEAU_SENSIBLE)
-      }
-      continue
-    }
-    if (
-      cappedThreshold === undefined ||
-      mean === undefined ||
-      lo === undefined ||
-      hi === undefined ||
-      !Number.isFinite(mean) ||
-      !Number.isFinite(lo) ||
-      !Number.isFinite(hi) ||
-      lo <= 0 ||
-      hi <= lo ||
-      hi > 100 ||
-      mean < lo ||
-      mean > hi
-    ) {
-      continue
-    }
-    // A mean above the threshold is insufficient when plausible doses fall below it.
-    if ((hi - lo) / mean <= DOSE_MAX_RELATIVE_INTERVAL_WIDTH && lo >= threshold) {
-      tags.add(S.PEAU_SENSIBLE)
-    }
-  }
-  return [...tags]
+  return assessment.matchedEvidence.some(concentrationSupportsAvoid) ? [S.PEAU_SENSIBLE] : []
 }
