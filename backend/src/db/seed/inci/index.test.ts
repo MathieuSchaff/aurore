@@ -100,6 +100,20 @@ describe('normalizeInciToken', () => {
 })
 
 describe('foldScraperDelimiters', () => {
+  it.each([' • ', ' · '])(
+    'folds spaced list bullets without changing chemical middle dots: %s',
+    (separator) => {
+      expect(foldScraperDelimiters(['Aqua', 'Niacinamide', 'Panthenol'].join(separator))).toBe(
+        'Aqua, Niacinamide, Panthenol'
+      )
+      expect(foldScraperDelimiters('Aqua, Niacinamide • ')).toBe('Aqua, Niacinamide • ')
+      expect(foldScraperDelimiters('Aqua, CuSO4·5H2O, Glycerin')).toBe('Aqua, CuSO4·5H2O, Glycerin')
+      expect(foldScraperDelimiters('Niacinamide • Panthenol', { foldListSeparators: false })).toBe(
+        'Niacinamide • Panthenol'
+      )
+    }
+  )
+
   it('folds spaced-dash bullet separators to commas', () => {
     expect(foldScraperDelimiters('AQUA/WATER -SODIUM METHYL COCOYL TAURATE -GLYCERIN')).toBe(
       'AQUA/WATER, SODIUM METHYL COCOYL TAURATE, GLYCERIN'
@@ -300,6 +314,11 @@ describe('parseInciFromSlugLine', () => {
 })
 
 describe('buildInciIndex (integration)', () => {
+  it('blocks the jojoba ester alias under the same policy as its canonical name', () => {
+    expect(buildNonDiscriminantSlugs().has('hydrolyzed-jojoba-protein')).toBe(true)
+    expect(NON_DISCRIMINANT_TOKENS.has(normalizeInciToken('Hydrolyzed Jojoba Esters'))).toBe(true)
+  })
+
   it('builds a non-empty index from real ingredient data', () => {
     const idx = buildInciIndex()
     expect(idx.size).toBeGreaterThan(50)

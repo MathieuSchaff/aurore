@@ -1,5 +1,7 @@
 import { cleanInciString } from 'algo-derm'
 
+import { foldScraperDelimiters } from './inci-delimiters'
+
 export type InciInputQuality = {
   status: 'missing' | 'suspect' | 'unknown'
   reasons: readonly ('truncated-list' | 'non-formula-text')[]
@@ -20,11 +22,12 @@ const NON_FORMULA_TEXT = [
 
 export function qualifyInciInput(inci: string | null | undefined): InciInputQuality {
   const raw = inci?.trim() ?? ''
-  if (!raw) return { status: 'missing', reasons: [] }
+  // An HTML entity's terminator is not a trailing list separator
+  const decoded = foldScraperDelimiters(raw, { foldListSeparators: false }).trim()
+  if (!decoded) return { status: 'missing', reasons: [] }
 
   const reasons: InciInputQuality['reasons'][number][] = []
-  // Splitting and canonicalization erase these signs of a missing tail
-  if (/(?:\.{3}|…|[,;])$/.test(raw)) reasons.push('truncated-list')
+  if (/(?:\.{3}|…|[,;])$/.test(decoded)) reasons.push('truncated-list')
 
   // Known removable headings and marketing tails should not disqualify the remaining list
   const cleaned = cleanInciString(raw).normalize('NFD').replace(/\p{M}/gu, '').toLowerCase()

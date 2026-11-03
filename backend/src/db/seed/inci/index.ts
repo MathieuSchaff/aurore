@@ -71,6 +71,8 @@ const NON_DISCRIMINANT_SOURCE: string[] = [
   // right and only the fiche was misnamed. What still justifies the entry is the first reason:
   // 183 occurrences, a bland ester that tells a reader nothing about a formula.
   'Jojoba Esters',
+  // The declared alias must not bypass the same non-discriminant identity
+  'Hydrolyzed Jojoba Esters',
   // Wash surfactants present in nearly every cleanser and shampoo
   'Cocamidopropyl Betaine',
   'Sodium Cocoamphoacetate',
@@ -139,48 +141,10 @@ export const CATEGORY_DOMAIN_ALLOWLIST: Record<string, IngredientDomain[]> = {
   complement: ['supplements', 'skincare'],
 }
 
-// Repair scraper-mangled delimiters before splitINCI (which splits on commas; its period
-// fallback needs a comma-sparse list, so a real declaration never reaches it).
-// Entities decode first: the `;` inside `&lt;` must not become a comma.
-// `&amp;` decodes last so `&amp;lt;` cannot cascade into a real `<`.
-const HTML_ENTITY_DECODES: Array<[RegExp, string]> = [
-  [/&lt;/gi, '<'],
-  [/&gt;/gi, '>'],
-  [/&nbsp;/gi, ' '],
-  [/&trade;/gi, '™'],
-  [/&reg;/gi, '®'],
-  [/&Eacute;/g, 'É'],
-  [/&eacute;/g, 'é'],
-  [/&Egrave;/g, 'È'],
-  [/&egrave;/g, 'è'],
-  [/&Agrave;/g, 'À'],
-  [/&agrave;/g, 'à'],
-  [/&rsquo;/gi, '’'],
-  [/&amp;/gi, '&'],
-]
-
-const HTML_ENTITY_OR_SEMICOLON = /&(?:#[0-9]+|#x[0-9a-f]+|[a-z][a-z0-9]+);|\s*;\s*/gi
-
-// Dash fold requires two letters on each side (trademark/asterisk markers may trail the left
-// side): a digit neighbour is a mangled hyphen (`2-BROMO-2 -NITRO`, `C12 - 16`), a single letter
-// a chemical prefix (`P - fenilendiammina`), `[+/-` a may-contain marker. Real INCI names never
-// carry a space before a hyphen (`PEG-60`, `C10-30`). `repair-and-fold-inci-delimiters-v2.sql`
-// mirrors this for the stored column. Keep both in sync.
-export interface FoldScraperDelimiterOptions {
-  foldListSeparators?: boolean
-}
-
-export function foldScraperDelimiters(
-  inci: string,
-  { foldListSeparators = true }: FoldScraperDelimiterOptions = {}
-): string {
-  const decoded = HTML_ENTITY_DECODES.reduce((acc, [rx, sub]) => acc.replace(rx, sub), inci)
-  if (!foldListSeparators) return decoded
-
-  return decoded
-    .replace(HTML_ENTITY_OR_SEMICOLON, (match) => (match.startsWith('&') ? match : ', '))
-    .replace(/([A-Za-zÀ-ÿ]{2}[™®*]{0,2})\s+-\s*(?=[A-Za-zÀ-ÿ]{2})/g, '$1, ')
-}
+export {
+  type FoldScraperDelimiterOptions,
+  foldScraperDelimiters,
+} from '../../../lib/inci-delimiters'
 
 // Strips scraper artefacts (markers, brackets, parens, doses) that hide an already-resolved
 // substance. `[nano]` folds onto the plain name on purpose: same row, distinct regulatory form.

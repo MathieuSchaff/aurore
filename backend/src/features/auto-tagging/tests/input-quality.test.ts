@@ -1,5 +1,6 @@
 import { describe, expect, test } from 'bun:test'
 
+import { qualifyInciInput } from '../../../lib/inci-input-quality'
 import { normalizeInci } from '../../../lib/normalize-inci'
 import { explainInci } from '../explain'
 import { detectAllAutoTags } from '../orchestrator'
@@ -7,6 +8,41 @@ import { detectAutoTags } from '../passes/algo-derm-detection'
 import { detectSansSavon } from '../passes/formula/sans-savon'
 
 describe('INCI quality before absence inference', () => {
+  test('treats HTML whitespace-only input as missing before absence inference', () => {
+    for (const inci of ['&nbsp;', ' &NBSP;&nbsp; ']) {
+      expect(qualifyInciInput(inci)).toEqual({ status: 'missing', reasons: [] })
+      expect(detectSansSavon(inci, 'cleanser')).toEqual([])
+    }
+  })
+
+  test.each([
+    ['Aqua, Glycerin, Panthenol&nbsp;', false],
+    ['Aqua, Glycerin, Panthenol&NBSP;', false],
+    ['Aqua, Glycerin, Panthenol&reg;', false],
+    ['Aqua, Glycerin, Panthenol,&nbsp;', true],
+    ['Aqua, Glycerin, Panthenol;&nbsp;', true],
+    ['Aqua, Glycerin, Panthenol&nbsp;;', true],
+    ['Aqua, Glycerin, Panthenol...&nbsp;', true],
+    ['Aqua, Glycerin, Panthenol…&nbsp;', true],
+    ['Aqua, Glycerin, Panthenol&unknown;', true],
+  ] as const)('distinguishes HTML entity tails from truncation: %s', (inci, damaged) => {
+    expect(qualifyInciInput(inci)).toEqual(
+      damaged
+        ? { status: 'suspect', reasons: ['truncated-list'] }
+        : { status: 'unknown', reasons: [] }
+    )
+  })
+
+  test('allows direct soap absence inference through HTML whitespace without hiding damage', () => {
+    expect(detectSansSavon('Aqua, Glycerin, Panthenol&nbsp;', 'cleanser')).toEqual(['sans-savon'])
+    expect(detectSansSavon('Aqua, Glycerin, Panthenol,&nbsp;', 'cleanser')).toEqual([])
+    const guarded = 'Aqua, Glycerin, Niacinamide, Zinc Oxide [nano]&nbsp;'
+    const normalized = normalizeInci(guarded)
+    expect(normalized.guardrailTripped).toBe(true)
+    expect(normalized.value).toContain('Zinc Oxide [nano]')
+    expect(detectSansSavon(guarded, 'cleanser')).toEqual(['sans-savon'])
+  })
+
   test.each([
     'Aqua, Glycerin, Niacinamide, ...',
     'Aqua, Glycerin, Niacinamide,',
