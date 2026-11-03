@@ -66,14 +66,6 @@ export function FilterDrawer<T extends string>({
   const [localFilters, setLocalFilters] = useState<FilterValues<T>>(currentFilters)
   const previousFocusRef = useRef<HTMLElement | null>(null)
 
-  // Stable ref so commitLocal stays stable across renders; written in an effect
-  // because render must stay pure. commitLocal only fires from event handlers,
-  // which always run after effects flush.
-  const onLocalFiltersChangeRef = useRef(onLocalFiltersChange)
-  useEffect(() => {
-    onLocalFiltersChangeRef.current = onLocalFiltersChange
-  })
-
   useScrollLock(open)
 
   useEffect(() => {
@@ -109,7 +101,7 @@ export function FilterDrawer<T extends string>({
   // Emit on user action, not via effect: an effect-driven emit ping-pongs renders with an unmemoised parent and trips Maximum update depth.
   const commitLocal = (next: FilterValues<T>) => {
     setLocalFilters(next)
-    onLocalFiltersChangeRef.current?.(next)
+    onLocalFiltersChange?.(next)
   }
 
   const handleToggle = (key: T, value: string) => {
