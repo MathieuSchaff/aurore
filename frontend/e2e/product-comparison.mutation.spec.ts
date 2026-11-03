@@ -542,6 +542,8 @@ async function captureComparisonThemes(page: Page, testInfo: TestInfo) {
 test('keeps same-brand products identifiable without widening the page', async ({
   page,
 }, testInfo) => {
+  // Six theme reloads plus the layout matrix take 39 s with ten concurrent workers
+  test.slow()
   const freshUser = await registerFreshUser(page)
   try {
     const search = await page.request.get('/api/products/search?q=CeraVe')
