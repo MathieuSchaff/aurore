@@ -1,13 +1,51 @@
 # Dependency patches
 
-No Bun `patchedDependencies` patches are currently applied. This directory records compatibility
-decisions and remains available to Docker dependency stages. Frozen installs use the
-versions retained in `bun.lock`, including the vendored Drizzle Kit manifest correction
-described below.
+One Bun `patchedDependencies` patch is applied: Drizzle ORM 0.45.4 timestamp mapping.
+The root manifest, lockfile and patch file travel together. Docker dependency stages already
+copy this directory before frozen installs. Other resolutions retain the versions in
+`bun.lock`, including the vendored Drizzle Kit manifest correction described below.
 
 When removing the former Vite patch from an existing checkout, run
 `bun install --frozen-lockfile --force`: a plain frozen install can leave the
 previously patched file in place. Verify it against a clean installation.
+
+## UTC timestamp mapping in Drizzle ORM 0.45.4
+
+[drizzle-orm@0.45.4.patch](drizzle-orm@0.45.4.patch) changes only the ESM and CommonJS
+`PgTimestampString.mapFromDriverValue` Date fallback. Bun SQL supplies a `Date`; its
+`toISOString()` hour is already UTC. Upstream appended the host offset to that UTC hour,
+shifting the instant outside UTC, with an extra error for fractional offsets. The patch
+returns the UTC ISO value directly when the column has a timezone. String inputs retain
+their exact text and microseconds. Timestamp without timezone and calendar dates keep
+their previous behavior. No dependency versions or package graph entries change.
+
+No Bun SQL 1.4.3 client option returns text for these types: prepared and unprepared
+queries, `.simple()` and `.values()` all yield a `Date`. Containers set no time zone and
+run in UTC, so the deployed API kept the right instant, but upstream emitted
+`2026-07-03 00:08:07.032+00` instead of ISO `Z`. Services that return the Drizzle value
+without `normalizeInstant` rely on the patch for that form. Forcing `TZ=UTC` in every
+process would hide the shift but keep that format, and one process left out would shift again.
+
+A JavaScript `Date` remains millisecond precision. Exact rollback journals must keep a
+PostgreSQL text/JSON read, without converting it through `Date`. This patch fixes the
+instant mapping; it does not claim to recover precision Bun has already discarded.
+See the [date contract](../docs/conventions/dates.md).
+
+`just test-backend src/tests/integration/timestamp-transport.test.ts` automatically runs
+child processes under UTC, Europe/Paris and Asia/Kolkata, with PostgreSQL sessions in UTC
+and Paris, winter/summer values, SELECT and INSERT/UPDATE/DELETE RETURNING, native text
+precision and the real purchase API mapper. It uses temporary tables in `appdb_test` only.
+A fresh frozen install was checked against the working ESM/CommonJS files; the CJS entry
+also preserves instants and the other date modes under all three process timezones.
+
+Remove the patch only after an upstream candidate passes this regression with its own
+installed files. Drizzle 1.0.0-rc.5 takes another route on Bun SQL: it casts these columns
+to text in SQL, so values follow PostgreSQL text output and the session time zone, not
+ISO `Z`. Before such an upgrade, services that skip `normalizeInstant` must normalize.
+Rollback restores the previous root manifest, lockfile and absence of
+this patch together, then reinstalls with `bun install --frozen-lockfile --force` to avoid
+leaving patched bytes behind. Neither installing nor reverting this patch needs a schema
+migration or data rewrite. Images must be rebuilt to consume it; no deployment is implied.
 
 ## Dependency resolution without global overrides
 

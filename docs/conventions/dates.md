@@ -10,8 +10,9 @@ voyage hors d'un site d'usage local.
 
 ## 1. Pourquoi cette règle
 
-- Un `Date` JS perd toute info de timezone une fois sérialisé en JSON, puis
-  est reconstruit en timezone locale au parsing. Source d'1 bug par an.
+- Un `Date` JS conserve un instant à la milliseconde, pas la précision microseconde
+  de PostgreSQL. Sa sérialisation ISO est UTC ; lui ajouter un offset local sans
+  convertir l’heure change l’instant.
 - Drizzle en mode par défaut renvoie tantôt `Date`, tantôt string selon le
   driver et la colonne : code défensif `instanceof Date` partout sinon.
 - ISO 8601 UTC est lexicographiquement triable, donc `compareInstant` = string
@@ -41,7 +42,8 @@ updatedAt: timestamp('updated_at', { withTimezone: true, mode: 'string' })
 purchasedAt: date('purchased_at', { mode: 'string' }).notNull()
 ```
 
-- `timestamptz` revient en ISO 8601 UTC (`"2026-05-07T14:23:10.000Z"`).
+- ISO 8601 UTC (`"2026-05-07T14:23:10.000Z"`) est le contrat de sortie Aurore,
+  pas une garantie du driver ou de `mode: 'string'` : voir le piège Bun/Drizzle ci-dessous.
 - `date` revient en `"YYYY-MM-DD"` (pas de timezone : c'est une date
   calendaire, pas un instant).
 - `.$onUpdate(() => new Date().toISOString())` plutôt que `new Date()` :
@@ -123,16 +125,46 @@ début de transaction (PG `now()` = horloge de début de tx). Ce n'est **pas** l
 `new Date().toISOString()` de la section « Antipatterns à éviter » : celui-ci bannit la forme JS côté app, alors que `now()` DB est la
 même source que le `.defaultNow()` béni en « DB (Drizzle) ».
 
-> **Piège Bun.sql** : pour les colonnes `timestamptz`, Bun.sql renvoie le
-> format PG (`"2026-05-07 06:42:48.729+00"`, espace + `+00` au lieu de `T...Z`).
-> Drizzle en `mode: 'string'` passe la valeur telle quelle. `new Date(...)` JS
-> parse les deux formats donc le frontend ne voit rien, mais la chaîne sur le
-> wire n'est pas du strict ISO 8601. Tous les mappers `toApi*` appellent
-> `normalizeInstant` sur les `timestamptz` lus. Les mappers avec `devAssertSchema`
-> (purchases, tasks, blog) valident aussi en dev/test.
+> **Bun SQL 1.4.3 et Drizzle 0.45.4 patché, correction du 2026-11-03** : Bun décode
+> un `timestamptz` natif en objet `Date`, donc à la milliseconde. Le décodeur Drizzle
+> d’origine associait l’heure UTC de `toISOString()` à l’offset local de
+> `getTimezoneOffset()`, sans convertir l’heure. À Paris, une date de novembre reculait
+> ainsi d’une heure, une date de juillet de deux heures. La normalisation ISO en aval
+> produisait un instant toujours faux ; un schéma ISO ne détectait pas ce décalage.
+>
+> Aucune option du client Bun ne livre du texte : requête préparée, `prepare: false`,
+> `.simple()` et `.values()` rendent tous un `Date`. Les conteneurs n’imposent pas de
+> fuseau et tournent donc en UTC : l’instant y restait juste, mais la valeur sortait en
+> `2026-07-03 00:08:07.032+00`, pas en ISO `Z`. Le décalage touchait les processus lancés
+> sur l’hôte, tests et scripts compris. Forcer `TZ=UTC` partout masquerait le décalage
+> sans corriger ce format.
+>
+> Le [patch de dépendance](../../patches/README.md#utc-timestamp-mapping-in-drizzle-orm-0454)
+> retourne maintenant directement l’ISO UTC pour une entrée `Date` avec timezone. Les
+> entrées string, les timestamps sans timezone et les dates calendaires sont conservés.
+> ESM et CommonJS sont corrigés, sans migration, changement de règle métier ou réécriture
+> des données. Conserver `patchedDependencies`, le patch et le lock dans toute installation.
+>
+> `normalizeInstant` reste la frontière API de mise en forme ISO ; il ne reconstitue ni
+> les microsecondes perdues par `Date`, ni un ancien instant déjà décalé. Les transports
+> `Date` ont une précision milliseconde. Un journal d’appartenance exact doit relire les
+> horodatages en texte/JSON côté PostgreSQL, par exemple
+> `to_char(created_at AT TIME ZONE 'UTC', 'YYYY-MM-DD"T"HH24:MI:SS.US"Z"')`,
+> puis comparer ces strings sans conversion en `Date`. `::text` préserve aussi la précision,
+> mais suit le fuseau de session. Le journal natif existant conserve cette garantie.
+>
+> La régression `backend/src/tests/integration/timestamp-transport.test.ts` lance de vrais
+> processus UTC et Paris, plus un fuseau fractionnaire. Elle exerce le pool applicatif sur
+> PostgreSQL de test, les valeurs été/hiver, SELECT, les trois RETURNING mutants et le vrai
+> mapper achats. Les schémas ISO vérifient la forme ; l’égalité à l’instant attendu est
+> assertée séparément. Référence native : [Bun SQL](https://bun.sh/docs/runtime/sql).
+>
+> Les mappers avec `devAssertSchema` (purchases, tasks, blog) valident aussi en dev/test.
 > Les endpoints sans mapper de forme (users, ingredients) normalisent sans
 > `devAssertSchema` : pas de schéma Zod `UserPublic`, et `ingredientResponseSchema`
 > a des nullabilités qui ne correspondent pas exactement au schéma DB.
+> D’autres services renvoient la valeur Drizzle sans `normalizeInstant`, par exemple les
+> posts sociaux et les comparaisons : leur forme ISO tient au patch seul.
 
 ### 2.4 Frontend
 
@@ -218,7 +250,7 @@ function toApiPurchase(row: PurchaseRow): Purchase {
 | `<time dateTime={iso}>{formatInstant(iso, style)}</time>` à la main | `<Time iso={iso} style="<style>" />` |
 | `value.split('T')[0]` | `toDateInputValue(value)` |
 | `new Date(a).getTime() - new Date(b).getTime()` (tri) | `compareInstant(a, b)` |
-| `instanceof Date` (Drizzle row) | rien : c'est toujours une string |
+| `instanceof Date` sur une row typée Drizzle | rien : c'est une string. Seul `db.execute` rend la row Bun brute, avec des `Date` |
 | `value < new Date(...).toISOString()` (compare driver vs JS) | `Date.parse(value) < cutoffMs` |
 | `.set({ updatedAt: new Date() })` Drizzle | `.set({ updatedAt: nowISO() })` |
 | `new Date().toISOString()` dans un service backend | `nowISO()`, ou un `now()` SQL pour estampiller une colonne (cf. « Backend services ») ; (exempt : `$onUpdate` en schema, seed, scripts `audit/`) |

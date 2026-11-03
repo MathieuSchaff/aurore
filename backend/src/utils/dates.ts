@@ -6,9 +6,9 @@ export function nowISO(): string {
   return new Date().toISOString()
 }
 
-// Bun.sql returns timestamptz columns as PG-formatted strings
-// ("2026-05-07 06:42:48.729+00"), normalize to ISO 8601 UTC at the API
-// boundary so the wire matches the documented convention.
+// Bun returns a Date and the patched Drizzle decoder already turns it into ISO (patches/README.md)
+// A text value like "2026-05-07 06:42:48.729+00" still needs this before it goes on the wire
+// This only fixes the format: an instant shifted before this call stays wrong
 export function normalizeInstant(value: string): string {
   return new Date(value).toISOString()
 }

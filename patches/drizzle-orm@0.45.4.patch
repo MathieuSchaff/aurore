@@ -1,0 +1,42 @@
+diff --git a/pg-core/columns/timestamp.cjs b/pg-core/columns/timestamp.cjs
+index 207a6df7f084b079574c580293ca2da0975fbe18..496a022bc4e41e95d803aaebbdd65a1aaeb8ecb7 100644
+--- a/pg-core/columns/timestamp.cjs
++++ b/pg-core/columns/timestamp.cjs
+@@ -92,13 +92,9 @@ class PgTimestampString extends import_common.PgColumn {
+   }
+   mapFromDriverValue(value) {
+     if (typeof value === "string") return value;
+-    const shortened = value.toISOString().slice(0, -1).replace("T", " ");
+-    if (this.withTimezone) {
+-      const offset = value.getTimezoneOffset();
+-      const sign = offset <= 0 ? "+" : "-";
+-      return `${shortened}${sign}${Math.floor(Math.abs(offset) / 60).toString().padStart(2, "0")}`;
+-    }
+-    return shortened;
++    // Bun supplies Date objects; their ISO hour is already UTC.
++    if (this.withTimezone) return value.toISOString();
++    return value.toISOString().slice(0, -1).replace("T", " ");
+   }
+ }
+ function timestamp(a, b = {}) {
+diff --git a/pg-core/columns/timestamp.js b/pg-core/columns/timestamp.js
+index 6ce67ac7e4bbd52e9d3da2cf7266798dd61e591a..bcc4edd8538677fb202383145ea3bda73ceb4f3f 100644
+--- a/pg-core/columns/timestamp.js
++++ b/pg-core/columns/timestamp.js
+@@ -65,13 +65,9 @@ class PgTimestampString extends PgColumn {
+   }
+   mapFromDriverValue(value) {
+     if (typeof value === "string") return value;
+-    const shortened = value.toISOString().slice(0, -1).replace("T", " ");
+-    if (this.withTimezone) {
+-      const offset = value.getTimezoneOffset();
+-      const sign = offset <= 0 ? "+" : "-";
+-      return `${shortened}${sign}${Math.floor(Math.abs(offset) / 60).toString().padStart(2, "0")}`;
+-    }
+-    return shortened;
++    // Bun supplies Date objects; their ISO hour is already UTC.
++    if (this.withTimezone) return value.toISOString();
++    return value.toISOString().slice(0, -1).replace("T", " ");
+   }
+ }
+ function timestamp(a, b = {}) {

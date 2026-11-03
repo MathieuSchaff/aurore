@@ -111,3 +111,16 @@ for the local production profile. Only local hosts allow self-signed TLS certifi
 | Two test runs at once | They share the test DB and destroy each other's state: the failures look real but are not |
 | Playwright `reuseExistingServer: true` | A stale E2E container survives between runs |
 | New frontend package without `just e2e-up` | The Docker image keeps the old `node_modules` |
+
+## Timestamp transport regression
+
+```sh
+just test-backend src/tests/integration/timestamp-transport.test.ts
+```
+
+The test automatically uses UTC, Europe/Paris and a fractional-offset process timezone,
+PostgreSQL sessions in UTC and Paris, and fixed winter/summer instants. It exercises typed
+SELECT, INSERT/UPDATE/DELETE RETURNING and the real purchase API mapper. Temporary tables
+exist only in the isolated test database. Native text reads retain microseconds; Date-based
+API transport is checked against the correct UTC instant at millisecond precision.
+A valid ISO shape alone would not catch the former timezone shift.

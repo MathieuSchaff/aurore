@@ -17,5 +17,8 @@
   ],
   "overrides": {
     "ts-morph": "27.0.2"
+  },
+  "patchedDependencies": {
+    "drizzle-orm@0.45.4": "patches/drizzle-orm@0.45.4.patch"
   }
 }
