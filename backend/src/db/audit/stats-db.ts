@@ -1,6 +1,7 @@
 import { count, countDistinct, eq, sql } from 'drizzle-orm'
 
-import { db } from '..'
+import type { DatabaseTransaction } from '..'
+import { withAdminRls } from '../rls'
 import {
   articles,
   ingredients,
@@ -24,7 +25,7 @@ function row(label: string, value: number | string, indent = 0) {
   console.log(`${pad}${dotted} ${value}`)
 }
 
-async function productStats() {
+async function productStats(db: DatabaseTransaction) {
   section('Products')
 
   const [{ total }] = await db.select({ total: count() }).from(products)
@@ -71,7 +72,7 @@ async function productStats() {
   row('avg INCI length (chars)', avgInci ?? 'n/a')
 }
 
-async function ingredientStats() {
+async function ingredientStats(db: DatabaseTransaction) {
   section('Ingredients')
 
   const [{ total }] = await db.select({ total: count() }).from(ingredients)
@@ -99,7 +100,7 @@ async function ingredientStats() {
   row('avg per product', avgPerProduct ?? 'n/a')
 }
 
-async function tagStats() {
+async function tagStats(db: DatabaseTransaction) {
   section('Tags (definitions)')
 
   const [{ totalProd }] = await db.select({ totalProd: count() }).from(productTagTypes)
@@ -128,7 +129,7 @@ async function tagStats() {
   row('ingredient tag assignments', tagIngLinks)
 }
 
-async function userStats() {
+async function userStats(db: DatabaseTransaction) {
   section('Users')
 
   const [{ total }] = await db.select({ total: count() }).from(usersSafe)
@@ -149,7 +150,7 @@ async function userStats() {
   row('with at least 1 product (non-demo)', withProducts)
 }
 
-async function contentStats() {
+async function contentStats(db: DatabaseTransaction) {
   section('Content')
 
   const [{ totalArticles }] = await db.select({ totalArticles: count() }).from(articles)
@@ -165,11 +166,14 @@ async function contentStats() {
 async function main() {
   console.log(`DB Stats — ${new Date().toISOString()}`)
 
-  await productStats()
-  await ingredientStats()
-  await tagStats()
-  await userStats()
-  await contentStats()
+  // Every section must count the same admin-visible catalogue and tenant rows
+  await withAdminRls(async (tx) => {
+    await productStats(tx)
+    await ingredientStats(tx)
+    await tagStats(tx)
+    await userStats(tx)
+    await contentStats(tx)
+  })
 
   console.log('')
 }

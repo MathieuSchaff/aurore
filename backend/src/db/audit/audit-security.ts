@@ -563,6 +563,7 @@ async function main() {
     }
     const manualHigh = allFindings.filter((f) => f.severity === 'high' && !f.fixable)
     if (manualHigh.length > 0) {
+      process.exitCode = 1
       console.warn(
         `⚠️  ${manualHigh.length} high-severity finding(s) require manual review (not auto-fixable)`
       )

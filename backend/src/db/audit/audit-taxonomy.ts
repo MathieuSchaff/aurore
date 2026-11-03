@@ -74,21 +74,25 @@ async function checkProductTypeAxisLeak(): Promise<CheckResult> {
       JOIN product_tag_types t ON t.id = ptl.product_tag_id AND t.slug = 'type-exfoliation'
       JOIN products p ON p.id = ptl.product_id
         AND p.moderation_status = 'visible'
+    ), formats AS (
+      SELECT exf.product_id, t2.slug AS other
+      FROM exf
+      JOIN product_tag_links ptl2 ON ptl2.product_id = exf.product_id
+      JOIN product_tag_types t2 ON t2.id = ptl2.product_tag_id
+        AND t2.type = 'product_type_v2' AND t2.slug <> 'type-exfoliation'
     )
-    SELECT t2.slug AS other, count(*) AS n
-    FROM exf
-    JOIN product_tag_links ptl2 ON ptl2.product_id = exf.product_id
-    JOIN product_tag_types t2 ON t2.id = ptl2.product_tag_id
-      AND t2.type = 'product_type_v2' AND t2.slug <> 'type-exfoliation'
-    GROUP BY t2.slug ORDER BY n DESC
+    SELECT other, count(*) AS n,
+      (SELECT count(DISTINCT product_id) FROM formats) AS n_products
+    FROM formats
+    GROUP BY other ORDER BY n DESC
   `)
-  const total = rows.reduce((acc, r) => acc + Number(r.n), 0)
+  const total = Number(rows[0]?.n_products ?? 0)
   const findings: Finding[] =
     total === 0
       ? []
       : [
           {
-            description: `type-exfoliation co-occurre avec un vrai format sur ${total} produits (axe format non exclusif → exfoliation = action) — ${rows
+            description: `type-exfoliation co-occurre avec un vrai format sur ${total} produit${total === 1 ? '' : 's'} (axe format non exclusif → exfoliation = action) : ${rows
               .map((r) => `${r.other}=${r.n}`)
               .join(', ')}`,
           },

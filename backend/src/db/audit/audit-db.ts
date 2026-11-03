@@ -7,8 +7,8 @@ import {
 import { and, count, eq, isNull, ne, notInArray, or, sql } from 'drizzle-orm'
 
 import { AUTO_TAG_ELIGIBLE_CATEGORIES } from '../../features/auto-tagging/lib/eligibility'
-import type { Database } from '..'
-import { db } from '..'
+import type { DatabaseTransaction } from '..'
+import { withAdminRls } from '../rls'
 import {
   ingredientDermoProfiles,
   ingredients,
@@ -23,9 +23,9 @@ import {
 type Severity = 'error' | 'info'
 type Finding = { description: string }
 type CheckResult = { name: string; severity: Severity; findings: Finding[] }
-type Checker = (db: Database) => Promise<CheckResult>
+type Checker = (db: DatabaseTransaction) => Promise<CheckResult>
 
-async function checkTagProductDomainConsistency(db: Database): Promise<CheckResult> {
+async function checkTagProductDomainConsistency(db: DatabaseTransaction): Promise<CheckResult> {
   const rows = await db
     .select({
       productSlug: products.slug,
@@ -64,7 +64,7 @@ async function checkTagProductDomainConsistency(db: Database): Promise<CheckResu
 // by reconcile/purge-stale and stay stale forever. Raw-SQL recategorisation (`.db-fixes`)
 // bypasses the API purge, so this check is the only thing that catches the next one.
 // Fix: `WRITE=1 just autotag-purge-off-corpus`.
-async function checkAutoTagsOutsideCorpus(db: Database): Promise<CheckResult> {
+async function checkAutoTagsOutsideCorpus(db: DatabaseTransaction): Promise<CheckResult> {
   const rows = await db
     .select({
       productSlug: products.slug,
@@ -89,7 +89,7 @@ async function checkAutoTagsOutsideCorpus(db: Database): Promise<CheckResult> {
 
 // Visible products with no image. Accepted gap (image acquisition is a separate
 // domain), so info-only. Surfaced by brand to spot which brands need a fetch pass.
-async function checkImageCoverage(db: Database): Promise<CheckResult> {
+async function checkImageCoverage(db: DatabaseTransaction): Promise<CheckResult> {
   const rows = await db
     .select({ brand: products.brand, n: count() })
     .from(products)
@@ -112,8 +112,8 @@ async function checkImageCoverage(db: Database): Promise<CheckResult> {
   return { name: 'image-coverage', severity: 'info', findings }
 }
 
-// Commas also occur in nutrition tables and reviews, so these buckets cannot prove a linking gap.
-async function checkProductsWithoutIngredients(db: Database): Promise<CheckResult> {
+// Commas also occur in nutrition tables and reviews, so these buckets cannot prove a linking gap
+async function checkProductsWithoutIngredients(db: DatabaseTransaction): Promise<CheckResult> {
   const rows = await db
     .select({
       slug: products.slug,
@@ -157,7 +157,7 @@ async function checkProductsWithoutIngredients(db: Database): Promise<CheckResul
 }
 
 // Visible products with zero tag links (invisible to the catalogue filters).
-async function checkProductsWithoutTags(db: Database): Promise<CheckResult> {
+async function checkProductsWithoutTags(db: DatabaseTransaction): Promise<CheckResult> {
   const rows = await db
     .select({ slug: products.slug, brand: products.brand })
     .from(products)
@@ -172,7 +172,7 @@ async function checkProductsWithoutTags(db: Database): Promise<CheckResult> {
 // comes from algo-derm at runtime, not this table. The only consumer reads `is_filler`
 // (user-products/dermo-signal), and a missing row defaults to not being a filler. So this is a
 // filler-classification coverage gap, not a scoring blind spot.
-async function checkIngredientsWithoutDermoProfile(db: Database): Promise<CheckResult> {
+async function checkIngredientsWithoutDermoProfile(db: DatabaseTransaction): Promise<CheckResult> {
   const rows = await db
     .select({ slug: ingredients.slug })
     .from(ingredients)
@@ -198,7 +198,7 @@ const checkers: Checker[] = [
 const MAX_LINES_PER_CHECKER = process.env.AUDIT_DB_FULL ? Number.POSITIVE_INFINITY : 30
 
 async function main() {
-  const results = await Promise.all(checkers.map((c) => c(db)))
+  const results = await withAdminRls((tx) => Promise.all(checkers.map((c) => c(tx))))
   let errorViolations = 0
   let failedCheckers = 0
 
