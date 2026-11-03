@@ -16,6 +16,7 @@ import type {
   UserDermoProfileUpdateInput,
   UserPreferences,
 } from '@aurore/shared'
+import { getProductTagLabel } from '@aurore/shared'
 
 import { and, count, eq, inArray, sql } from 'drizzle-orm'
 
@@ -447,7 +448,11 @@ export async function listPreferenceTargets(
       name: nameByKey.get(r.canonicalKey) ?? null,
       createdAt: normalizeInstant(r.createdAt),
     })),
-    tags: tagRows.map((r) => ({ ...r, createdAt: normalizeInstant(r.createdAt) })),
+    tags: tagRows.map((r) => ({
+      ...r,
+      label: r.slug === 'comedogene' ? (getProductTagLabel(r.slug) ?? r.label) : r.label,
+      createdAt: normalizeInstant(r.createdAt),
+    })),
   }
 }
 
@@ -521,7 +526,7 @@ export async function upsertTagPreference(
   return {
     tagId: row.tagId,
     slug: tag.slug,
-    label: tag.label,
+    label: tag.slug === 'comedogene' ? (getProductTagLabel(tag.slug) ?? tag.label) : tag.label,
     stance: row.stance,
     createdAt: normalizeInstant(row.createdAt),
   }

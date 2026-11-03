@@ -146,7 +146,8 @@ export function fragranceMarkerToken(inci: string | null | undefined): string | 
   return findInciToken(inci, (token) => GENERIC_FRAGRANCE_MARKER.test(token))
 }
 
-export const UNDISCLOSED_FRAGRANCE_PATTERN = '(^|[^a-z])(parfum|fragrance|aroma)([^a-z]|$)'
+export const UNDISCLOSED_AROMA_PATTERN = '(^|[^a-z])(aroma|flavou?r)([^a-z]|$)'
+export const UNDISCLOSED_FRAGRANCE_PATTERN = '(^|[^a-z])(parfum|fragrance|aroma|flavou?r)([^a-z]|$)'
 const undisclosedFragrancePattern = new RegExp(UNDISCLOSED_FRAGRANCE_PATTERN, 'i')
 
 export function hasUndisclosedFragrance(inci: string | null | undefined): boolean {

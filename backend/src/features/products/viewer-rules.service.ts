@@ -1,4 +1,4 @@
-import { resolveAvoidSlugs } from '@aurore/shared'
+import { getProductTagLabel, resolveAvoidSlugs } from '@aurore/shared'
 
 import { and, eq, exists, inArray, type SQL, sql } from 'drizzle-orm'
 
@@ -48,6 +48,7 @@ export async function loadViewerRules(database: DbOrTransaction, userId: string)
   const tagPrefs = await database
     .select({
       tagId: userTagPreferences.tagId,
+      slug: productTagTypes.slug,
       label: productTagTypes.label,
       stance: userTagPreferences.stance,
     })
@@ -85,7 +86,12 @@ export async function loadViewerRules(database: DbOrTransaction, userId: string)
       requireTagIds: requireTags.map((t) => t.tagId),
       excludeLabels: [...excludeKeys, ...excludeTags.map((t) => t.label)],
       requireLabels: [...requireKeys, ...requireTags.map((t) => t.label)],
-      tagLabelById: new Map(tagPrefs.map((t) => [t.tagId, t.label])),
+      tagLabelById: new Map(
+        tagPrefs.map((t) => [
+          t.tagId,
+          t.slug === 'comedogene' ? (getProductTagLabel(t.slug) ?? t.label) : t.label,
+        ])
+      ),
     } satisfies DeclaredPreferences,
     hasRules: true,
   }

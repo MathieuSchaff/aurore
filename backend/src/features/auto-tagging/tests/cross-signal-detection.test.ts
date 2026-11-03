@@ -200,16 +200,14 @@ describe('detectConcentrationAvoidTags: capped and pinned dose-gating', () => {
       context: { ...mapKindToContext(kind), ...(known ? { knownConcentrations: known } : {}) },
     })
 
-  // Capped actives (EU regulatoryCapPct) gate on solverMeanPct directly.
-  // The solver clamps to the cap, so a pin is NOT required to trust the dose.
-  test('salicylic unpinned (solver clamps to cap 2) → peau-sensible', () => {
+  test('withholds salicylic alerts when a regulatory cap leaves the dose uncertain', () => {
     const a = assess('Aqua, Salicylic Acid, Glycerin, Phenoxyethanol', 'serum')
-    expect(detectConcentrationAvoidTags(a, 'serum')).toContain(S.PEAU_SENSIBLE)
+    expect(detectConcentrationAvoidTags(a, 'serum')).toEqual([])
   })
 
-  test('retinol unpinned (solver clamps to cap 0.3) → peau-sensible', () => {
+  test('withholds retinol alerts when a regulatory cap leaves the dose uncertain', () => {
     const a = assess('Aqua, Retinol, Glycerin, Phenoxyethanol', 'serum')
-    expect(detectConcentrationAvoidTags(a, 'serum')).toContain(S.PEAU_SENSIBLE)
+    expect(detectConcentrationAvoidTags(a, 'serum')).toEqual([])
   })
 
   test('retinol pinned 0.1% (below 0.25 threshold) → no avoid', () => {

@@ -27,7 +27,7 @@ export async function listVisibleProductTags(database: DbOrTransaction, productI
     .map((row) => ({
       ...row,
       tagName:
-        row.tagSlug === 'peau-sensible'
+        row.tagSlug === 'peau-sensible' || row.tagSlug === 'comedogene'
           ? (getProductTagLabel(row.tagSlug, row.source) ?? row.tagName)
           : row.tagName,
     }))

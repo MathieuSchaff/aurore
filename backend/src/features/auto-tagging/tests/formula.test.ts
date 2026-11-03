@@ -50,6 +50,18 @@ import { fillerIngredients } from './helpers'
 const S = SKINCARE_PRODUCT_TAG_SLUGS
 
 describe('detectOcclusifTags', () => {
+  test.each(['Butyrospermum Parkii Butter', 'Mangifera Indica Seed Butter'])(
+    'recognizes the canonical name of an already supported butter: %s',
+    (butter) => {
+      expect(detectOcclusifTags(`Aqua, Glycerin, ${butter}, Panthenol`)).toEqual([
+        S.OCCLUSIF,
+        S.STEP_OCCLUSIF,
+      ])
+      expect(detectSemiOcclusif(`Aqua, Glycerin, ${butter}, Dimethicone`, 'serum')).toEqual([])
+      expect(detectOcclusifTags(`${fillerIngredients(8)}, ${butter}`)).toEqual([])
+    }
+  )
+
   test('petrolatum in top 8 → occlusif tags', () => {
     const tags = detectOcclusifTags('Aqua, Petrolatum, Glycerin')
     expect(tags.length).toBeGreaterThan(0)

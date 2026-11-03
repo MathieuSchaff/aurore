@@ -25,7 +25,9 @@ const OCCLUSIVE_PATTERNS = [
   'carnauba wax',
   'candelilla wax',
   'shea butter', // butyrospermum parkii, semi-occlusive at high concentration
+  'butyrospermum parkii butter',
   'mango butter', // mangifera indica seed butter
+  'mangifera indica seed butter',
 ]
 
 const OCCLUSIVE_POSITION_CAP = 8

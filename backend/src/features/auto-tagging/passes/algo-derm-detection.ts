@@ -24,7 +24,7 @@ const S = SKINCARE_PRODUCT_TAG_SLUGS
 // Calibration version guard. Fails fast at module load to prevent silent drift
 // when a new algo-derm tarball changes tag semantics. Bump after running
 // `just audit-auto-tags` and confirming per-tag floors still hold.
-const CALIBRATED_FOR_TAG_DEFS_VERSION = 24
+const CALIBRATED_FOR_TAG_DEFS_VERSION = 35
 
 if (TAG_DEFS_VERSION !== CALIBRATED_FOR_TAG_DEFS_VERSION) {
   throw new Error(

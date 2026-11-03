@@ -16,6 +16,13 @@ describe('isDisplayedProductTag', () => {
   // Detecting a comedogenic formula reads the INCI, so it borrows no manufacturer claim.
   it('keeps comedogene, which reads the formula instead of a claim', () => {
     expect(isDisplayedProductTag('comedogene')).toBe(true)
+    expect(getProductTagLabel('comedogene')).toBe('Signal comédogène potentiel')
+    expect(getProductTagLabel('comedogene', 'manual')).toBe('Signal comédogène potentiel')
+    expect(
+      getProductTagsByCategory('skincare', 'product_characteristic').find(
+        (tag) => tag.slug === 'comedogene'
+      )?.label
+    ).toBe('Signal comédogène potentiel')
   })
 
   it('exposes the calculated sensitive skin signal and preserves warnings', () => {

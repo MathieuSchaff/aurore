@@ -54,6 +54,16 @@ describe('peauNormalePass', () => {
     expect(out).toEqual([{ tagSlug: S.PEAU_NORMALE, relevance: 'secondary', source: 'formula' }])
   })
 
+  test('abstains when skin tolerance evidence is insufficient', () => {
+    const ctx = makeCtx({ inci: NEUTRAL_INCI, kind: 'moisturizer', category: 'skincare' })
+    if (!ctx.assessment) throw new Error('Expected an assessment')
+    const uncertainCtx: PassContext = {
+      ...ctx,
+      assessment: { ...ctx.assessment, coverage: { ...ctx.assessment.coverage, ratio: 0.4 } },
+    }
+    expect(peauNormalePass.run(uncertainCtx, [])).toEqual([])
+  })
+
   test('abstains when prior already carries a non-neutral skin_type', () => {
     const ctx = makeCtx({ inci: NEUTRAL_INCI, kind: 'moisturizer', category: 'skincare' })
     const prior: AutoTagProposal[] = [

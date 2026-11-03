@@ -230,7 +230,7 @@ export function FormulaPreview({
                           className="formula-preview__chip formula-preview__chip--tag"
                         >
                           <span className="formula-preview__chip-name">
-                            {st.tagSlug === 'peau-sensible'
+                            {st.tagSlug === 'peau-sensible' || st.tagSlug === 'comedogene'
                               ? getProductTagLabel(st.tagSlug, st.source)
                               : tag.label}
                           </span>
@@ -245,7 +245,7 @@ export function FormulaPreview({
                           <FormulaPreviewAction
                             canManageLinks={canManageLinks}
                             added={selectedTagIdSet.has(tag.id)}
-                            label={`Ajouter le tag ${st.tagSlug === 'peau-sensible' ? getProductTagLabel(st.tagSlug, st.source) : tag.label}`}
+                            label={`Ajouter le tag ${st.tagSlug === 'peau-sensible' || st.tagSlug === 'comedogene' ? getProductTagLabel(st.tagSlug, st.source) : tag.label}`}
                             onAdd={() => onApplyTag(tag.id, st.relevance)}
                           />
                         </li>

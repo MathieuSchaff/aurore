@@ -427,7 +427,7 @@ export const SKINCARE_PRODUCT_TAG_DEFS = [
   {
     key: 'COMEDOGENE',
     slug: 'comedogene',
-    label: 'Comédogène',
+    label: 'Signal comédogène potentiel',
     category: 'product_characteristic',
     subgroup: 'comedogenicite',
   },

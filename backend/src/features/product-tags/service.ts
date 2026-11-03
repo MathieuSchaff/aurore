@@ -1,4 +1,4 @@
-import type { ReplaceProductTagsInput } from '@aurore/shared'
+import { getProductTagLabel, type ReplaceProductTagsInput } from '@aurore/shared'
 
 import { and, eq, sql } from 'drizzle-orm'
 
@@ -58,14 +58,35 @@ const service = createTagService<ProductTagType, Product, ProductTagProjection, 
 })
 
 export const createProductTag = service.create
-export const getProductTagById = service.getById
-export const getProductTagBySlug = service.getBySlug
-export const listProductTags = service.list
+export async function getProductTagById(...args: Parameters<typeof service.getById>) {
+  const tag = await service.getById(...args)
+  if (tag?.slug !== 'comedogene') return tag
+  return { ...tag, label: getProductTagLabel(tag.slug) ?? tag.label }
+}
+export async function getProductTagBySlug(...args: Parameters<typeof service.getBySlug>) {
+  const tag = await service.getBySlug(...args)
+  if (tag?.slug !== 'comedogene') return tag
+  return { ...tag, label: getProductTagLabel(tag.slug) ?? tag.label }
+}
+export async function listProductTags(...args: Parameters<typeof service.list>) {
+  const tags = await service.list(...args)
+  return tags.map((tag) => ({
+    ...tag,
+    label: tag.slug === 'comedogene' ? (getProductTagLabel(tag.slug) ?? tag.label) : tag.label,
+  }))
+}
 export const updateProductTag = service.update
 export const deleteProductTag = service.remove
 export const addTagToProduct = service.addToOwner
 export const addManyTagsToProduct = service.addManyToOwner
-export const listTagsByProduct = service.listTagsByOwner
+export async function listTagsByProduct(...args: Parameters<typeof service.listTagsByOwner>) {
+  const tags = await service.listTagsByOwner(...args)
+  return tags.map((tag) => ({
+    ...tag,
+    tagName:
+      tag.tagSlug === 'comedogene' ? (getProductTagLabel(tag.tagSlug) ?? tag.tagName) : tag.tagName,
+  }))
+}
 export const listProductsByTag = service.listOwnersByTag
 export const removeTagFromProduct = service.removeFromOwner
 export async function replaceProductTags(

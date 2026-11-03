@@ -6,7 +6,7 @@ import { describe, expect, test } from 'bun:test'
 
 import { SKINCARE_PRODUCT_TAG_SLUGS } from '@aurore/shared'
 
-import { analyzeINCI } from 'algo-derm'
+import { analyzeINCI, type ProductAssessment } from 'algo-derm'
 
 import { mapKindToContext } from '../../../lib/algo-derm-product-context'
 import { computeAvoidCandidates } from '../passes/auto-tag-avoid'
@@ -170,8 +170,6 @@ describe('computeAvoidCandidates: interaction stack avoid', () => {
 })
 
 describe('computeAvoidCandidates: concentration-gated avoid', () => {
-  // EU-capped actives only: retinol (cap 0.3 %) ≥ 0.25, salicylic (cap 2 %) ≥ 1.5.
-  // Both thresholds catch the at-cap signal while skipping trace positions.
   test('retinol pos 4 leave-on cream → peau-sensible concentration', () => {
     const inci =
       'Aqua, Glycerin, Niacinamide, Retinol, Cetearyl Alcohol, Phenoxyethanol, Tocopherol, Sodium Hyaluronate'
@@ -195,13 +193,10 @@ describe('computeAvoidCandidates: concentration-gated avoid', () => {
     expect(got.find((c) => c.source === 'concentration')).toBeUndefined()
   })
 
-  test('salicylic pos 2 leave-on toner → peau-sensible concentration', () => {
+  test('withholds a dose alert when high INCI position leaves the threshold uncertain', () => {
     const inci = 'Aqua, Salicylic Acid, Glycerin'
     const got = computeAvoidCandidates(inci, 'serum', undefined, assess(inci, 'serum'))
-    expect(got).toContainEqual({
-      tagSlug: S.PEAU_SENSIBLE,
-      source: 'concentration',
-    })
+    expect(got.find((candidate) => candidate.source === 'concentration')).toBeUndefined()
   })
 
   test('salicylic trace pos 11/14 (Cicaplast-ish) → no concentration avoid', () => {
@@ -225,6 +220,89 @@ describe('computeAvoidCandidates: concentration-gated avoid', () => {
     const peauSensible = got.filter((c) => c.tagSlug === S.PEAU_SENSIBLE)
     expect(peauSensible).toHaveLength(1)
     expect(peauSensible[0].source).toBe('cross-signal')
+  })
+})
+
+describe('computeAvoidCandidates: dose reliability', () => {
+  type Estimate = ProductAssessment['matchedEvidence'][number]['concentrationEstimate']
+  const inci = 'Aqua, Salicylic Acid, Glycerin'
+  const base = assess(inci, 'serum')
+  const candidates = (estimate: Partial<Estimate>) =>
+    computeAvoidCandidates(inci, 'serum', [], {
+      ...base,
+      matchedEvidence: base.matchedEvidence
+        .filter((member) => member.evidence.inci === 'Salicylic Acid')
+        .map((member) => ({
+          ...member,
+          concentrationEstimate: {
+            ...member.concentrationEstimate,
+            claimPct: undefined,
+            solverMeanPct: 1.7,
+            solverCiLowPct: 1.5,
+            solverCiHighPct: 1.9,
+            ...estimate,
+          },
+        })),
+    })
+
+  test.each([
+    [
+      'wide interval crossing the threshold',
+      { solverMeanPct: 1.59, solverCiLowPct: 0.04, solverCiHighPct: 1.97 },
+    ],
+    [
+      'narrow interval crossing the threshold',
+      { solverMeanPct: 1.6, solverCiLowPct: 1.4, solverCiHighPct: 1.8 },
+    ],
+    [
+      'wide interval above the threshold',
+      { solverMeanPct: 2, solverCiLowPct: 1.5, solverCiHighPct: 2.6 },
+    ],
+    ['missing interval', { solverCiLowPct: undefined }],
+    ['non-finite estimate', { solverMeanPct: Number.NaN }],
+    ['non-finite upper bound', { solverCiHighPct: Number.POSITIVE_INFINITY }],
+    ['reversed interval', { solverCiLowPct: 1.9, solverCiHighPct: 1.5 }],
+    ['mean outside the interval', { solverMeanPct: 2 }],
+    ['degenerate interval', { solverCiLowPct: 1.7, solverCiHighPct: 1.7 }],
+    ['invalid declared dose', { claimPct: Number.NaN }],
+    ['declared dose below threshold', { claimPct: 0.5 }],
+  ] satisfies [string, Partial<Estimate>][])('withholds an alert for %s', (_, estimate) => {
+    expect(candidates(estimate)).toEqual([])
+  })
+
+  test('keeps an alert when the whole narrow interval reaches the threshold', () => {
+    expect(candidates({})).toEqual([{ tagSlug: S.PEAU_SENSIBLE, source: 'concentration' }])
+  })
+
+  test('uses a declared dose without requiring an inferred interval', () => {
+    expect(
+      candidates({
+        claimPct: 1.5,
+        solverMeanPct: undefined,
+        solverCiLowPct: undefined,
+        solverCiHighPct: undefined,
+      })
+    ).toEqual([{ tagSlug: S.PEAU_SENSIBLE, source: 'concentration' }])
+  })
+
+  test.each([
+    ['Retinol', 0.25],
+    ['Salicylic Acid', 1.5],
+    ['Glycolic Acid', 8],
+    ['Lactic Acid', 5],
+    ['Mandelic Acid', 5],
+    ['Azelaic Acid', 10],
+    ['Retinal', 0.05],
+  ] as const)('keeps the declared threshold for %s', (ingredient, dose) => {
+    const formula = `Aqua, ${ingredient}, Glycerin`
+    const assessment = analyzeINCI(formula, {
+      context: { ...mapKindToContext('serum'), knownConcentrations: { [ingredient]: dose } },
+    })
+    expect(computeAvoidCandidates(formula, 'serum', [], assessment)).toContainEqual({
+      tagSlug: S.PEAU_SENSIBLE,
+      source: 'concentration',
+    })
+    expect(computeAvoidCandidates(formula, 'cleanser', [], assessment)).toEqual([])
   })
 })
 

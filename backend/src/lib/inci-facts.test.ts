@@ -2,7 +2,12 @@ import { describe, expect, test } from 'bun:test'
 
 import { splitINCI } from 'algo-derm'
 
-import { computeInciFacts, listInciTokens } from './inci-facts'
+import {
+  computeInciFacts,
+  fragranceAllergenToken,
+  hasUndisclosedFragrance,
+  listInciTokens,
+} from './inci-facts'
 
 // Through the module's public surface: `computeInciFacts` is what the product payload calls.
 const hasFragranceComponent = (inci: string | null | undefined) =>
@@ -74,6 +79,18 @@ describe('separators algo-derm keeps welded', () => {
   test('a `;` the scraper used as a list comma', () => {
     expect(splitINCI('Aqua; Citral')).toHaveLength(1)
     expect(hasFragranceComponent('Aqua; Citral')).toBe(true)
+  })
+})
+
+describe('undisclosed aromatic mixtures', () => {
+  test('recognizes Flavor and Aroma without inventing a declared allergen', () => {
+    for (const marker of ['Flavor', 'FLAVOUR', 'Aroma', 'Flavor (Aroma)']) {
+      const inci = `Aqua, Glycerin, ${marker}`
+      expect(hasUndisclosedFragrance(inci)).toBe(true)
+      expect(fragranceAllergenToken(inci)).toBeNull()
+    }
+    expect(hasUndisclosedFragrance('Aqua, Syzygium Aromaticum Extract')).toBe(false)
+    expect(hasUndisclosedFragrance('Aqua, Flavonoids')).toBe(false)
   })
 })
 

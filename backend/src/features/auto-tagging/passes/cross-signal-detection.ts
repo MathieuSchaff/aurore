@@ -166,11 +166,7 @@ export function detectInteractionSecondaryTags(
   return [...tags]
 }
 
-// CAPPED (EU regulatoryCapPct): solver clamps to cap, so solverMeanPct stays accurate with
-// or without a curated pin. Threshold is cap x 0.83 to catch at-cap doses while sparing
-// dermo-friendly traces (LRP Retinol B3 0.3 %, Cicaplast trace SA):
-//   - retinol cap 0.3 % needs >= 0.25 %
-//   - salicylic cap 2.0 % needs >= 1.5 %
+// A regulatory cap bounds possible doses; it does not prove the actual dose
 const CAPPED_DOSE_RULES: Record<string, number> = {
   retinol: 0.25,
   'salicylic acid': 1.5,
@@ -188,31 +184,52 @@ const PINNED_DOSE_RULES: Record<string, number> = {
   retinal: 0.05,
 }
 
-// Dose-gated peau-sensible avoid, combining CAPPED_DOSE_RULES and PINNED_DOSE_RULES above.
+// Match the maximum relative interval width accepted by the concentration reading
+const DOSE_MAX_RELATIVE_INTERVAL_WIDTH = 0.5
 export function detectConcentrationAvoidTags(
   assessment: ProductAssessment,
   kind: ProductKind
 ): SkincareProductTagSlug[] {
-  // Rinse-off contact time is too short for dose to matter.
   if (!LEAVE_ON_KINDS.has(kind)) return []
 
   const tags = new Set<SkincareProductTagSlug>()
   for (const evidence of assessment.matchedEvidence) {
-    const { solverMeanPct, claimPct } = evidence.concentrationEstimate
-    if (solverMeanPct === undefined) continue
+    const {
+      solverMeanPct: mean,
+      solverCiLowPct: lo,
+      solverCiHighPct: hi,
+      claimPct,
+    } = evidence.concentrationEstimate
     const lowerInci = evidence.evidence.inci.toLowerCase()
-
     const cappedThreshold = CAPPED_DOSE_RULES[lowerInci]
-    if (cappedThreshold !== undefined) {
-      if (solverMeanPct >= cappedThreshold) tags.add(S.PEAU_SENSIBLE)
+    const threshold = cappedThreshold ?? PINNED_DOSE_RULES[lowerInci]
+    if (threshold === undefined) continue
+
+    // Declared doses take precedence over inferred values, including below threshold.
+    if (claimPct !== undefined) {
+      if (Number.isFinite(claimPct) && claimPct >= threshold && claimPct <= 100) {
+        tags.add(S.PEAU_SENSIBLE)
+      }
       continue
     }
-    const pinnedThreshold = PINNED_DOSE_RULES[lowerInci]
     if (
-      pinnedThreshold !== undefined &&
-      claimPct !== undefined &&
-      solverMeanPct >= pinnedThreshold
+      cappedThreshold === undefined ||
+      mean === undefined ||
+      lo === undefined ||
+      hi === undefined ||
+      !Number.isFinite(mean) ||
+      !Number.isFinite(lo) ||
+      !Number.isFinite(hi) ||
+      lo <= 0 ||
+      hi <= lo ||
+      hi > 100 ||
+      mean < lo ||
+      mean > hi
     ) {
+      continue
+    }
+    // A mean above the threshold is insufficient when plausible doses fall below it.
+    if ((hi - lo) / mean <= DOSE_MAX_RELATIVE_INTERVAL_WIDTH && lo >= threshold) {
       tags.add(S.PEAU_SENSIBLE)
     }
   }
