@@ -69,15 +69,10 @@ export function buildProductsApiFilters(args: {
   }
 }
 
-// Declared rules and the inferred badges share one toggle
-// Authed only: an anonymous user has no rules to apply
-// The list and the drawer preview both call this, so every count on the page
-// uses the same set of rules
-// A mute URL resolves the standing setting on the server: 'auto', unless this device
-// stored "off"
-// The server cannot know that during SSR, so it always sends 'auto'
-// and a device that is off fixes it with one read
-// The response says what was applied in rulesApplied
+// List and drawer preview must apply the same authenticated user's declared rules
+// With no URL override, SSR asks the server for 'auto'; a device with the toggle off
+// corrects that with one client read because SSR cannot see its local setting
+// rulesApplied reports what the server used
 export function applyDeclaredRules(
   base: ListProductsFilters,
   search: Pick<ProductsSearch, 'profile_filter' | 'show_hidden'>,

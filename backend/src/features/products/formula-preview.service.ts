@@ -47,15 +47,26 @@ function sortPreferred(rows: IngredientRow[], category: string): IngredientRow[]
   )
 }
 
-export async function previewProductFormula(
-  input: ProductFormulaPreviewInput,
-  db: DatabaseTransaction
-): Promise<FormulaPreviewResult> {
-  const inci = foldScraperDelimiters(input.inci, {
-    foldListSeparators: input.category !== 'complement',
-  })
-  const tokenMeta = resolveFormulaPreviewTokens(inci)
+function indexPreviewNames(rows: IngredientRow[], category: string): Map<string, IngredientRow> {
+  const byNorm = new Map<string, IngredientRow>()
+  for (const row of sortPreferred(rows, category)) {
+    const variants = [normalize(row.name)]
+    for (const m of row.name.matchAll(/\(([^)]*)\)/g)) {
+      for (const part of m[1].split('/')) variants.push(normalize(part))
+    }
+    for (const v of variants) {
+      if (v && !byNorm.has(v)) byNorm.set(v, row)
+    }
+  }
 
+  return byNorm
+}
+
+async function loadPreviewIngredientIndexes(
+  tokenMeta: ReturnType<typeof resolveFormulaPreviewTokens>,
+  category: string,
+  db: DatabaseTransaction
+) {
   const ingredientColumns = {
     id: ingredients.id,
     name: ingredients.name,
@@ -73,7 +84,7 @@ export async function previewProductFormula(
       : []
 
   const byKey = new Map<string, IngredientRow>()
-  for (const row of sortPreferred(keyRows, input.category)) {
+  for (const row of sortPreferred(keyRows, category)) {
     const key = (row as (typeof keyRows)[number]).canonicalKey
     if (key && !byKey.has(key)) byKey.set(key, row)
   }
@@ -88,31 +99,31 @@ export async function previewProductFormula(
 
   // FR display names embed INCI variants in parentheses ("Tocophérol (Tocopherol /
   // Vitamine E)"); index the folded base name plus each parenthesised variant.
-  const byNorm = new Map<string, IngredientRow>()
-  for (const row of sortPreferred(allRows, input.category)) {
-    const variants = [normalize(row.name)]
-    for (const m of row.name.matchAll(/\(([^)]*)\)/g)) {
-      for (const part of m[1].split('/')) variants.push(normalize(part))
-    }
-    for (const v of variants) {
-      if (v && !byNorm.has(v)) byNorm.set(v, row)
-    }
-  }
+  const byNorm = indexPreviewNames(allRows, category)
+  return { byKey, byNorm }
+}
 
-  // Expanded pigments retain the source declaration and its position in the list
-  const tokens: FormulaPreviewToken[] = tokenMeta.map(
-    ({ raw, normalized, canonicalKey, allowNameFallback }) => {
-      const keyRow = canonicalKey ? byKey.get(canonicalKey) : undefined
-      const match = keyRow ?? (allowNameFallback && normalized ? byNorm.get(normalized) : undefined)
-      return {
-        raw,
-        normalized,
-        canonicalKey,
-        ingredient: match ? { id: match.id, name: match.name, slug: match.slug } : null,
-      }
-    }
-  )
+function previewOrchestratorInput(
+  input: ProductFormulaPreviewInput,
+  tagInci: string,
+  brand: string | null
+) {
+  return buildOrchestratorInput({
+    inci: tagInci,
+    kind: input.kind as ProductKind,
+    category: input.category,
+    brand,
+    texture: input.texture ?? null,
+    name: input.name ?? null,
+    description: input.description ?? null,
+  })
+}
 
+async function previewSuggestedTags(
+  input: ProductFormulaPreviewInput,
+  inci: string,
+  db: DatabaseTransaction
+): Promise<FormulaPreviewResult['suggestedTags']> {
   const autoTagEligible = isAutoTagEligibleCategory(input.category)
   const brand = input.brand?.trim() ? input.brand : null
 
@@ -133,18 +144,9 @@ export async function previewProductFormula(
     // Line folding drops trailing separators that must still veto absence inference
     const tagInci =
       qualifyInciInput(inci).status === 'suspect' ? inci : (foldKnownInciLines(inci) ?? inci)
-    const pairs = detectAllAutoTags(
-      buildOrchestratorInput({
-        inci: tagInci,
-        kind: input.kind as ProductKind,
-        category: input.category,
-        brand,
-        texture: input.texture ?? null,
-        name: input.name ?? null,
-        description: input.description ?? null,
-      }),
-      { brandCertifications: new Map(certRows.map((r) => [r.brandNormalized, r])) }
-    )
+    const pairs = detectAllAutoTags(previewOrchestratorInput(input, tagInci, brand), {
+      brandCertifications: new Map(certRows.map((r) => [r.brandNormalized, r])),
+    })
     // Same persist-filter as the writers (resolveTagRows): the preview must not
     // suggest a tag the save would withhold (eczema contraindication) or drop
     // (domain filter). Parity pinned by formula-preview.test.ts.
@@ -160,6 +162,37 @@ export async function previewProductFormula(
       suggestedTags.push({ tagSlug, relevance, source })
     }
   }
+
+  return suggestedTags
+}
+
+export async function previewProductFormula(
+  input: ProductFormulaPreviewInput,
+  db: DatabaseTransaction
+): Promise<FormulaPreviewResult> {
+  const inci = foldScraperDelimiters(input.inci, {
+    foldListSeparators: input.category !== 'complement',
+  })
+  const tokenMeta = resolveFormulaPreviewTokens(inci)
+
+  const { byKey, byNorm } = await loadPreviewIngredientIndexes(tokenMeta, input.category, db)
+
+  // Expanded pigments retain the source declaration and its position in the list
+  const tokens: FormulaPreviewToken[] = tokenMeta.map(
+    ({ raw, normalized, canonicalKey, allowNameFallback }) => {
+      const keyRow = canonicalKey ? byKey.get(canonicalKey) : undefined
+      const match = keyRow ?? (allowNameFallback && normalized ? byNorm.get(normalized) : undefined)
+      return {
+        raw,
+        normalized,
+        canonicalKey,
+        ingredient: match ? { id: match.id, name: match.name, slug: match.slug } : null,
+      }
+    }
+  )
+
+  const autoTagEligible = isAutoTagEligibleCategory(input.category)
+  const suggestedTags = await previewSuggestedTags(input, inci, db)
 
   return { tokens, suggestedTags, autoTagEligible }
 }
