@@ -108,7 +108,7 @@ function inciTokenKey(raw: string, options?: InciTokenOptions): string {
 export function listInciTokens(inci: string | null | undefined): InciToken[] | null {
   if (!inci) return null
   const tokens = splitINCI(inci).flatMap((label) => {
-    const key = inciTokenKey(label)
+    const key = inciTokenKey(label, { keepParentheticals: /\b(?:CI\s*\d|nano\b)/i.test(label) })
     return key ? [{ label, key }] : []
   })
   return tokens.length > 0 ? tokens : null

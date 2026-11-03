@@ -115,6 +115,17 @@ describe('computeInciFacts', () => {
 })
 
 describe('listInciTokens', () => {
+  test.each([
+    ['Iron Oxides (CI 77491)', 'Iron Oxides (CI 77499)'],
+    ['Zinc Oxide (nano)', 'Zinc Oxide'],
+  ])('keeps identity qualifiers distinct between %s and %s', (first, second) => {
+    const firstToken = listInciTokens(first)?.[0]
+    const secondToken = listInciTokens(second)?.[0]
+    expect(firstToken?.label).toBe(first)
+    expect(secondToken?.label).toBe(second)
+    expect(firstToken?.key).not.toBe(secondToken?.key)
+  })
+
   test('keeps label order and spelling, a comma inside a name included', () => {
     expect(listInciTokens('Aqua, 1,2-Hexanediol, DIGLYCERIN')?.map((t) => t.label)).toEqual([
       'Aqua',

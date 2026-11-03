@@ -18,6 +18,7 @@ import {
 import { testDb } from '../db.test.config'
 import { setupDbTests } from '../db-setup'
 import { createAppRuntimeDb, withRlsAs } from '../helpers/app-runtime-db'
+import { BODYCARE, SKINCARE, SOLAIRE } from '../helpers/product-shapes'
 import { createTestIngredient, createTestProduct, createTestUser } from '../helpers/test-factories'
 
 const runtimeDb = await createAppRuntimeDb()
@@ -25,6 +26,63 @@ const runtimeDb = await createAppRuntimeDb()
 setupDbTests()
 
 describe('comparison visibility', () => {
+  it('uses skincare active sheets for skin, sun and body products in both comparison paths', async () => {
+    const user = await createTestUser('comparison-active-domains@test.local')
+    const sheet = await createTestIngredient(
+      user.id,
+      { name: 'Niacinamide', slug: 'niacinamide', category: 'actif' },
+      'admin'
+    )
+    await testDb
+      .update(ingredients)
+      .set({ canonicalKey: 'Niacinamide' })
+      .where(eq(ingredients.id, sheet.id))
+    const ids: string[] = []
+    for (const shape of [SKINCARE, SOLAIRE, BODYCARE]) {
+      const product = await createTestProduct(user.id, {
+        ...shape,
+        name: `Active ${shape.category}`,
+        inci: 'Aqua, Niacinamide',
+      })
+      ids.push(product.id)
+    }
+    await withRlsAs(runtimeDb, 'user', user.id, async (tx) => {
+      const comparison = await createComparison(user.id, { productIds: ids }, tx)
+      const detail = await getEnrichedComparison(user.id, comparison.id, tx)
+      expect(
+        detail.products.map((product) => product.actives.map((active) => active.ingredientSlug))
+      ).toEqual([['niacinamide'], ['niacinamide'], ['niacinamide']])
+      expect(await previewComparison(ids, tx)).toEqual(detail.products)
+    })
+  })
+
+  it.each([
+    ['Aqua, may contain: Niacinamide, Retinol', []],
+    ['Niacinamide, [may contain: Retinol], Aqua', ['Niacinamide']],
+    ['Aqua, Arginine\nPCA, Niacinamide', ['Niacinamide']],
+    ['Aqua\nNiacinamide, Retinol', ['Niacinamide', 'Retinol']],
+  ] as const)('keeps only certain active identities from %s', async (inci, expected) => {
+    const user = await createTestUser('comparison-certain-actives@test.local')
+    for (const key of ['Niacinamide', 'Retinol', 'Arginine PCA']) {
+      const sheet = await createTestIngredient(user.id, { name: key, category: 'actif' })
+      await testDb
+        .update(ingredients)
+        .set({ canonicalKey: key })
+        .where(eq(ingredients.id, sheet.id))
+    }
+    const first = await createTestProduct(user.id, { name: 'Historical formula' })
+    const second = await createTestProduct(user.id, { name: 'Missing formula' })
+    await testDb.update(products).set({ inci }).where(eq(products.id, first.id))
+    await withRlsAs(runtimeDb, 'user', user.id, async (tx) => {
+      const ids = [first.id, second.id]
+      const comparison = await createComparison(user.id, { productIds: ids }, tx)
+      const detail = await getEnrichedComparison(user.id, comparison.id, tx)
+      expect(detail.products[0]?.actives.map((active) => active.key)).toEqual([...expected])
+      expect(detail.products[1]?.actives).toEqual([])
+      expect(await previewComparison(ids, tx)).toEqual(detail.products)
+    })
+  })
+
   it('returns named INCI facts without ingredient links in both comparison paths', async () => {
     const user = await createTestUser('comparison-formula-facts@test.local')
     const first = await createTestProduct(user.id, {

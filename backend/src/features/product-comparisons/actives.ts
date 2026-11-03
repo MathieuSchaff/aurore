@@ -1,4 +1,8 @@
-import type { ComparisonActiveIngredient, ProductCategory } from '@aurore/shared'
+import {
+  type ComparisonActiveIngredient,
+  PRODUCT_CATEGORY_TO_DOMAIN_TAB,
+  type ProductCategory,
+} from '@aurore/shared'
 
 import { buildAliasIndex, lookupIngredient, MERGED_EVIDENCE_DB } from 'algo-derm/engine'
 import { and, eq, exists, inArray, or } from 'drizzle-orm'
@@ -6,8 +10,17 @@ import { and, eq, exists, inArray, or } from 'drizzle-orm'
 import type { DatabaseTransaction } from '../../db'
 import { ingredients, ingredientTagLinks, ingredientTagTypes } from '../../db/schema'
 import { listInciTokens } from '../../lib/inci-facts'
+import { foldKnownInciLines } from '../../lib/inci-line-breaks'
+import { partitionInciPresence } from '../../lib/inci-presence'
 
 let aliasIndex: ReturnType<typeof buildAliasIndex> | undefined
+
+function certainFormulaTokens(inci: string | null) {
+  return partitionInciPresence(inci ?? '')
+    .filter((region) => !region.optional)
+    .flatMap((region) => listInciTokens(region.raw) ?? [])
+    .flatMap((token) => listInciTokens(foldKnownInciLines(token.label)) ?? [])
+}
 
 function resolveFormula(inci: string | null) {
   aliasIndex ??= buildAliasIndex(MERGED_EVIDENCE_DB)
@@ -15,7 +28,7 @@ function resolveFormula(inci: string | null) {
     string,
     { label: string; functions: string[]; cosingRef: string | null }
   >()
-  for (const token of listInciTokens(inci) ?? []) {
+  for (const token of certainFormulaTokens(inci)) {
     const evidence = lookupIngredient(token.label, aliasIndex)
     if (!evidence || resolved.has(evidence.inci)) continue
     const { functions = [], cosingRef = null } = evidence.identity ?? {}
@@ -78,9 +91,11 @@ export async function getComparisonActives(
     resolved.map((product) => {
       const actives: ComparisonActiveIngredient[] = []
       for (const [key, evidence] of product.ingredients) {
-        const matches = byKey.get(key)?.filter((sheet) => sheet.type === product.category)
+        const matches = byKey
+          .get(key)
+          ?.filter((sheet) => sheet.type === PRODUCT_CATEGORY_TO_DOMAIN_TAB[product.category])
         if (!matches?.length) continue
-        // A substance match cannot choose between distinct visible catalogue sheets.
+        // A substance match cannot choose between distinct visible catalogue sheets
         const sheet = matches.length === 1 ? matches[0] : undefined
         actives.push({
           key,
