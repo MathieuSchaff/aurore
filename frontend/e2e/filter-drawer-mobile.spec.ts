@@ -35,7 +35,8 @@ for (const route of ['/products', '/ingredients']) {
       )
       const drawer = page.getByRole('dialog', { name: 'Filtres' })
       const body = drawer.locator('.filter-drawer__body')
-      expect(await body.evaluate((el) => el.scrollHeight > el.clientHeight)).toBe(true)
+      // The filter groups render after the dialog opens, so a single read can miss them
+      await expect.poll(() => body.evaluate((el) => el.scrollHeight > el.clientHeight)).toBe(true)
       await expect(body).not.toHaveCSS('scrollbar-width', 'none')
       expect(
         await body.evaluate((el) => getComputedStyle(el, '::-webkit-scrollbar').display)
