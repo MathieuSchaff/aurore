@@ -198,7 +198,11 @@ const checkers: Checker[] = [
 const MAX_LINES_PER_CHECKER = process.env.AUDIT_DB_FULL ? Number.POSITIVE_INFINITY : 30
 
 async function main() {
-  const results = await withAdminRls((tx) => Promise.all(checkers.map((c) => c(tx))))
+  const results = await withAdminRls(async (tx) => {
+    const checkResults: CheckResult[] = []
+    for (const check of checkers) checkResults.push(await check(tx))
+    return checkResults
+  })
   let errorViolations = 0
   let failedCheckers = 0
 
