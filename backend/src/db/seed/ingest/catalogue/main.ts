@@ -8,7 +8,7 @@
 //   bun run src/db/seed/ingest/catalogue/main.ts lot.jsonl --write                    # apply
 
 import { createHash } from 'node:crypto'
-import { appendFileSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs'
+import { appendFileSync, mkdirSync, mkdtempSync, readFileSync, writeFileSync } from 'node:fs'
 import { basename, join, resolve } from 'node:path'
 
 import { type CreateProductInput, createProductSchema } from '@aurore/shared'
@@ -197,8 +197,10 @@ async function main() {
   // Machine-readable run record: plan.json always, apply.jsonl on write.
   // tmp/ is the only host-backed writable mount of the api container.
   const runId = `${basename(jsonlPath, '.jsonl')}-${new Date().toISOString().replace(/[:.]/g, '').slice(0, 17)}`
-  const runDir = join('tmp/data-runs', runId)
-  mkdirSync(runDir, { recursive: true })
+  const runsDir = join('tmp', 'data-runs')
+  mkdirSync(runsDir, { recursive: true })
+  // A timestamp alone lets a fast replay overwrite the previous receipt
+  const runDir = mkdtempSync(join(runsDir, `${runId}-`))
   writeFileSync(
     join(runDir, 'plan.json'),
     `${JSON.stringify(

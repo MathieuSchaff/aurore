@@ -50,7 +50,7 @@ ingest-incidecoder phase:
 # Arg = path relative to backend/. Env: CLASSIFICATIONS (verdicts json),
 # SEED_OWNER_EMAIL (owner, default seed@seed.com, must already exist, never created here),
 # ALLOW_PARTIAL (accept a lot with blockers, else GATE A: exit 1, nothing written).
-# Run record → backend/tmp/data-runs/<lot>-<ts>/ (plan.json, apply.jsonl).
+# Run record → backend/tmp/data-runs/<lot>-<ts>-<unique>/ (plan.json, apply.jsonl).
 # TARGET=prod from the laptop aborts (assert_prod_stack in _lib.sh). For real prod
 # run via `just prod-ssh 'TARGET=prod just ingest-catalogue --write …'`.
 # Runbook: docs/commands/catalog.md.

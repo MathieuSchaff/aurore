@@ -50,8 +50,13 @@ These checks do not give every other maintenance runner the same contract.
 
 | Output | Path |
 | :--- | :--- |
-| Dry-run plan | `backend/tmp/data-runs/<lot>-<timestamp>/plan.json` |
-| Apply log | `backend/tmp/data-runs/<lot>-<timestamp>/apply.jsonl` |
+| Dry-run plan | `backend/tmp/data-runs/<lot>-<timestamp>-<unique>/plan.json` |
+| Apply log | `backend/tmp/data-runs/<lot>-<timestamp>-<unique>/apply.jsonl` |
+
+Each invocation allocates its own directory atomically under `tmp/data-runs`, including
+dry-runs and idempotent replays. The timestamp remains readable, but a unique suffix prevents
+a second run or a same-named lot from overwriting an earlier plan or apply journal.
+Use the paths printed by the command to locate its receipt.
 
 Settings: env vars go before the command; `--write` goes after the recipe arguments.
 
