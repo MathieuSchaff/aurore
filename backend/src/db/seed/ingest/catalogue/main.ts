@@ -43,17 +43,25 @@ const normKey = (s: string) => s.trim().replace(/\s+/g, ' ').toLowerCase()
 const nameBrandKey = (name: string, brand: string) => `${normKey(name)}\u0000${normKey(brand)}`
 
 function parseArgs(): { jsonlPath: string; classificationsPath: string | null } {
-  const args = process.argv.slice(2).filter((a) => a !== '--write' && a !== '--allow-partial')
+  const args = process.argv.slice(2)
   const cIdx = args.indexOf('--classifications')
   let classificationsPath: string | null = null
   if (cIdx !== -1) {
-    classificationsPath = args[cIdx + 1] ?? null
+    const path = args[cIdx + 1]
+    if (!path?.trim() || path.startsWith('-')) {
+      throw new Error('Invalid arguments: --classifications requires a file path')
+    }
+    classificationsPath = path
     args.splice(cIdx, 2)
   }
-  const jsonlPath = args[0]
-  if (!jsonlPath) {
-    console.error('Usage: main.ts <lot.jsonl> [--classifications <verdicts.json>] [--write]')
-    process.exit(1)
+  const remaining = args.filter((arg) => arg !== '--write' && arg !== '--allow-partial')
+  const unknown = remaining.find((arg) => arg.startsWith('-'))
+  if (unknown) throw new Error(`Invalid arguments: unknown option ${unknown}`)
+  const jsonlPath = remaining[0]
+  if (remaining.length !== 1 || !jsonlPath?.trim()) {
+    throw new Error(
+      'Invalid arguments: expected one JSONL path. Usage: main.ts <lot.jsonl> [--classifications <verdicts.json>] [--write] [--allow-partial]'
+    )
   }
   return { jsonlPath: resolve(jsonlPath), classificationsPath }
 }

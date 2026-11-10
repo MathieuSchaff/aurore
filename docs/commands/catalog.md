@@ -62,6 +62,13 @@ Settings: env vars go before the command; `--write` goes after the recipe argume
 | `CLASSIFICATIONS=path/to/file.json` | Apply classification overrides |
 | `ALLOW_PARTIAL=1` | Accept a lot with blockers and skip the blocked rows. Deliberate use only |
 
+The underlying CLI accepts exactly one JSONL path, `--write`, `--allow-partial`, and
+at most one `--classifications <file>` pair, in any order. Repeating the boolean flags is
+idempotent. Unknown options, extra paths, missing classification values and repeated
+classification options fail before the lot is read or any database query runs. No `--limit`
+option exists. To pass a filename beginning with `-`, use a path such as `./-lot.jsonl`.
+An invalid invocation writes neither a plan nor an apply journal.
+
 ## Gates
 
 | Command | What | Notes |
