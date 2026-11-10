@@ -3,6 +3,41 @@ import { describe, expect, test } from 'bun:test'
 import { normalizeInci } from './normalize-inci'
 
 describe('normalizeInci', () => {
+  test.each([
+    '100 ppm',
+    '10 mg/g',
+    '< .5 PPM',
+    '0,5 mg / g',
+    '1e-3 ppm',
+    '0.1-0.5 mg/g',
+    '10 to 20 ppm',
+    '≈ 1 mg/g',
+  ])('retains a declared mass concentration when an alias would erase it: %s', (quantity) => {
+    const raw = `Water, Niacinamide (${quantity}), Glycerin`
+    const result = normalizeInci(raw)
+    expect(result.value).toBe(raw)
+    expect(result.guardrailTripped).toBe(true)
+    expect(result.changed).toBe(false)
+    expect(normalizeInci(result.value).value).toBe(raw)
+  })
+
+  test.each([
+    ['Water, Niacinamide 100 ppm, Glycerin', 'Aqua, Niacinamide 100 ppm, Glycerin'],
+    ['Water, Niacinamide 10 mg/g, Glycerin', 'Aqua, Niacinamide 10 mg/g, Glycerin'],
+    ['Water, Fictus Extract (100 ppm), Glycerin', 'Aqua, Fictus Extract (100 ppm), Glycerin'],
+    ['Water, Niacinamide (vitamin B3), Glycerin', 'Aqua, Niacinamide, Glycerin'],
+  ])('keeps canonicalization when no mass concentration is lost: %s', (raw, expected) => {
+    const result = normalizeInci(raw)
+    expect(result.value).toBe(expected)
+    expect(result.guardrailTripped).toBe(false)
+  })
+
+  test('keeps delimiter repairs while retaining mass concentrations on their ingredients', () => {
+    const result = normalizeInci('Water; Niacinamide (100 ppm); Retinol (10 mg/g); Glycerin')
+    expect(result.value).toBe('Water, Niacinamide (100 ppm), Retinol (10 mg/g), Glycerin')
+    expect(result.guardrailTripped).toBe(true)
+  })
+
   test('retains written alphabetical order when aliases would hide it', () => {
     const raw =
       'Alanine, Arginine, Betaine, BLUE NO. 1 (CI 42090), Butylene Glycol, Caffeine, Carbomer, Ceramide NP, Lactic Acid'

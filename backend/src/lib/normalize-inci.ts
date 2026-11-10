@@ -17,6 +17,13 @@ const percentageValues = (label: string) =>
     Number(match[0].replace('%', '').replace(',', '.').trim())
   )
 
+const massConcentrations = (label: string) =>
+  [
+    ...label.matchAll(
+      /(?:(?:[<>]=?|[≤≥≈~])\s*)?(?:\d+(?:[.,]\d+)?|[.,]\d+)(?:[eE][+-]?\d+)?(?:\s*(?:[-\u2013\u2014\u2212]|to|à)\s*(?:\d+(?:[.,]\d+)?|[.,]\d+)(?:[eE][+-]?\d+)?)?\s*(?:ppm\b|mg\s*\/\s*g\b)/gi
+    ),
+  ].map((match) => match[0].replace(/\s+/g, '').toLowerCase())
+
 export type InciNormalization = {
   // Canonical list, or the source with safe delimiter repairs when canonicalization is blocked
   value: string
@@ -56,6 +63,12 @@ export function normalizeInci(raw: string): InciNormalization {
     const after = percentageValues(canonical[index] ?? '')
     return before.some((value, position) => value !== after[position])
   })
+  // Canonical aliases can discard quantities inside ingredient annotations
+  const losesMassConcentration = ingredients.some((ingredient, index) => {
+    const before = massConcentrations(ingredient)
+    const after = massConcentrations(canonical[index] ?? '')
+    return before.some((quantity, position) => quantity !== after[position])
+  })
   // Optional pigments and written order cannot be recovered from flattened canonical names
   const losesOptionalDeclaration =
     optionalDeclaration.test(prepared) && !optionalDeclaration.test(value)
@@ -76,6 +89,7 @@ export function normalizeInci(raw: string): InciNormalization {
     losesColorIdentity ||
     losesNanoDeclaration ||
     losesDeclaredPercentage ||
+    losesMassConcentration ||
     losesOptionalDeclaration ||
     losesWrittenOrder ||
     losesWaterPreparation ||

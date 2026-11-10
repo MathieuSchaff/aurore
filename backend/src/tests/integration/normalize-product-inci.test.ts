@@ -15,6 +15,45 @@ const runner = new URL('../../db/seed/maintenance/normalize-product-inci.ts', im
 const raw = 'Water, Glycerin, Panthenol'
 
 describe('governed INCI maintenance', () => {
+  it('retains mass concentrations in dry-run and write while normalizing an unguarded row', async () => {
+    const owner = await createTestAdminUser()
+    const cases = [
+      { name: 'Mass Ppm', inci: 'Water, Niacinamide (100 ppm), Glycerin' },
+      { name: 'Mass Ratio', inci: 'Water, Retinol (10 mg/g), Glycerin' },
+      { name: 'Plain', inci: raw },
+    ]
+    for (const entry of cases) {
+      const product = await createTestProduct(owner.id, { ...SKINCARE, name: entry.name })
+      await testDb.update(products).set({ inci: entry.inci }).where(eq(products.id, product.id))
+    }
+    const read = () =>
+      testDb
+        .select({ name: products.name, inci: products.inci })
+        .from(products)
+        .orderBy(products.name)
+    for (const [args, planned] of [
+      [[], 1],
+      [['--write'], 1],
+      [['--write'], 0],
+    ] as const) {
+      const result = Bun.spawnSync([process.execPath, runner, ...args], {
+        env: process.env,
+        timeout: 10_000,
+      })
+      expect({ exitCode: result.exitCode, stderr: result.stderr.toString() }).toEqual({
+        exitCode: 0,
+        stderr: '',
+      })
+      expect(result.stdout.toString()).toContain('skipped guardrail:  2')
+      expect(result.stdout.toString()).toContain(`to rewrite:         ${planned}`)
+      expect(await read()).toEqual([
+        cases[0],
+        cases[1],
+        { name: 'Plain', inci: args.length ? 'Aqua, Glycerin, Panthenol' : raw },
+      ])
+    }
+  })
+
   it('includes hidden eligible products without changing visibility, guards or excluded categories', async () => {
     const owner = await createTestAdminUser()
     const guarded = 'Aqua, Arginine\nPCA, Panthenol'

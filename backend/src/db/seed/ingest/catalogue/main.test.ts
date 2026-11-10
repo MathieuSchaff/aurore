@@ -32,6 +32,52 @@ setupDbTests()
 const runner = new URL('./main.ts', import.meta.url).pathname
 
 describe('catalogue ingest INCI preservation', () => {
+  it('stores declared mass concentrations from a JSONL lot and preserves them on update', async () => {
+    const owner = await createTestAdminUser()
+    const lot = ['100 ppm', '10 mg/g', '< .5 PPM', '0,5 mg / g'].map(
+      (quantity, index) =>
+        ({
+          ...SKINCARE,
+          brand: 'Lab',
+          name: `Mass Concentration ${index}`,
+          inci: `Water, Niacinamide (${quantity}), Glycerin`,
+        }) satisfies CreateProductInput
+    )
+    const directory = mkdtempSync(join(tmpdir(), 'aurore-ingest-mass-concentration-'))
+    try {
+      const lotPath = join(directory, 'lot.jsonl')
+      writeFileSync(lotPath, lot.map((entry) => JSON.stringify(entry)).join('\n'))
+      const result = Bun.spawnSync([process.execPath, runner, lotPath, '--write'], {
+        cwd: directory,
+        env: { ...process.env, SEED_OWNER_EMAIL: owner.email },
+        timeout: 10_000,
+      })
+      expect({ exitCode: result.exitCode, stderr: result.stderr.toString() }).toEqual({
+        exitCode: 0,
+        stderr: '',
+      })
+      const stored = await testDb.select().from(products).orderBy(products.name)
+      expect(stored.map(({ name, inci }) => ({ name, inci }))).toEqual(
+        lot.map(({ name, inci }) => ({ name, inci }))
+      )
+      for (const product of stored) {
+        if (!product.inci) throw new Error('Mass concentration product not ingested')
+        const inci = product.inci.replace('Niacinamide', 'Retinol')
+        const updated = await testDb.transaction((tx) =>
+          updateProduct(owner.id, product.id, { inci }, tx)
+        )
+        expect(updated.inci).toBe(inci)
+        const [persisted] = await testDb
+          .select({ inci: products.inci })
+          .from(products)
+          .where(eq(products.id, product.id))
+        expect(persisted?.inci).toBe(inci)
+      }
+    } finally {
+      rmSync(directory, { recursive: true, force: true })
+    }
+  })
+
   it('retains truncation evidence through historical cleanup and later tag recalculation', async () => {
     await testDb.insert(productTagTypes).values(productTagData)
     const owner = await createTestAdminUser()
