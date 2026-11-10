@@ -154,6 +154,19 @@ Notes that save a triage round:
   file + count, and a count that no longer matches means the list has rotted. `--update`
   writes the baseline again and parks unknown files on group `?`, which keeps failing until they are classified.
 
+## Tool dependency constraints
+
+The root `overrides` pins minimatch to 11.0.5 because ESLint, ts-morph and the TypeScript
+parser still request vulnerable 10.x releases ([GHSA-g3hv-75wg-m249](https://github.com/advisories/GHSA-g3hv-75wg-m249)).
+Version 11 changes the matcher implementation and removes regex-building APIs. When changing
+this pin, verify React Doctor, TypeScript project discovery and OpenAPI generation alongside
+application tests. Remove it once those consumers resolve a patched release themselves.
+
+Zod is pinned to 4.6.7 to replace the older copy used by eslint-plugin-react-hooks
+([GHSA-mrhx-c7xc-m3w5](https://github.com/advisories/GHSA-mrhx-c7xc-m3w5)). This matches the
+application's existing version and the consumers' declared ranges. Remove the pin once the
+dependency tree no longer resolves a vulnerable copy without it.
+
 ## Bundle analysis
 
 The tracked `frontend/vite.config.ts` already carries all three tools. No separate config, no

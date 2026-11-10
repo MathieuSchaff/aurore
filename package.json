@@ -15,7 +15,9 @@
     "shared"
   ],
   "overrides": {
-    "ts-morph": "27.0.2"
+    "minimatch": "11.0.5",
+    "ts-morph": "27.0.2",
+    "zod": "4.6.7"
   },
   "patchedDependencies": {
     "drizzle-orm@0.45.4": "patches/drizzle-orm@0.45.4.patch"
